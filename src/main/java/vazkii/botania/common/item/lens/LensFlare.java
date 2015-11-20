@@ -13,6 +13,7 @@ package vazkii.botania.common.item.lens;
 import java.awt.Color;
 
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -52,18 +53,18 @@ public class LensFlare extends Lens {
 		
 		TileEntity tile = (TileEntity) spreader;
 		if(storedColor == 16) {
-			Color c = Color.getHSBColor(tile.getWorldObj().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
+			Color c = Color.getHSBColor(tile.getWorld().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
 			r = (float) c.getRed() / 255F;
 			g = (float) c.getGreen() / 255F; 
 			b = (float) c.getBlue() / 255F; 
 		} else if(storedColor >= 0) {
-			float[] colortable = EntitySheep.fleeceColorTable[storedColor];
-			r = colortable[0];
-			g = colortable[1];
-			b = colortable[2];
+			int hex = EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
+			r = (hex & 0xFF0000) >> 16;
+			g = (hex & 0xFF00) >> 8;
+			b = (hex & 0xFF);
 		}
 		
-		Botania.proxy.wispFX(tile.getWorldObj(), tile.xCoord + 0.5, tile.yCoord + 0.5, tile.zCoord + 0.5, r, g, b, 0.4F, mx, my, mz);
+		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r, g, b, 0.4F, mx, my, mz);
 	}
 	
 }

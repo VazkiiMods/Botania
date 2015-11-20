@@ -45,7 +45,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
 		boolean hasWorld = tileentity.getWorld() != null;
 		if(hasWorld)
-			time += new Random(tileentity.getPos().toLong()).nextInt(1000);
+			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {

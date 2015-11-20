@@ -131,7 +131,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					EntityLivingBase targetEntity = (EntityLivingBase)item;
 					targetEntity.fallDistance = 0.0F;
 					if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
-						targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true));
+						targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true, true));
 				}
 
 				Vector3 target3 = Vector3.fromEntityCenter(player);

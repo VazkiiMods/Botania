@@ -14,11 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
@@ -33,21 +36,21 @@ public class LensPaint extends Lens {
 		if(!burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if(pos.entityHit != null && pos.entityHit instanceof EntitySheep) {
 				int r = 20;
-				int sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
+				EnumDyeColor sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
 				List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
 				for(EntitySheep sheep : sheepList) {
 					if(sheep.getFleeceColor() == sheepColor)
-						sheep.setFleeceColor(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor);
+						sheep.setFleeceColor(EnumDyeColor.byMetadata(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
 			} else {
-				Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 				if(BotaniaAPI.paintableBlocks.contains(block)) {
-					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+					IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
 					List<BlockPos> coordsToPaint = new ArrayList();
 					List<BlockPos> coordsFound = new ArrayList();
 
-					BlockPos theseCoords = new BlockPos(pos.blockX, pos.blockY, pos.blockZ);
+					BlockPos theseCoords = pos.getBlockPos();
 					coordsFound.add(theseCoords);
 
 					do {
@@ -56,29 +59,28 @@ public class LensPaint extends Lens {
 							coordsFound.remove(coords);
 							coordsToPaint.add(coords);
 
-							for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-								Block block_ = entity.worldObj.getBlock(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								int meta_ = entity.worldObj.getBlockMetadata(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								BlockPos coords_ = new BlockPos(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								if(block_ == block && meta_ == meta && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
+							for(EnumFacing dir : EnumFacing.VALUES) {
+								IBlockState state_ = entity.worldObj.getBlockState(coords.offset(dir));
+								BlockPos coords_ = new BlockPos(coords.offset(dir));
+								if(state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
 									coordsFound.add(coords_);
 							}
 						}
 					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
 					for(BlockPos coords : coordsToPaint) {
-						int placeColor = storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor;
-						int metaThere = entity.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+						EnumDyeColor placeColor = EnumDyeColor.byMetadata(storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor);
+						IBlockState stateThere = entity.worldObj.getBlockState(coords);
 
 						if(metaThere != placeColor) {
 							if(!entity.worldObj.isRemote)
-								entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, placeColor, 2);
-							float[] color = EntitySheep.fleeceColorTable[placeColor];
-							float r = color[0];
-							float g = color[1];
-							float b = color[2];
+								entity.worldObj.setBlockState(coords, placeColor, 2);
+							int hex = placeColor.getMapColor().colorValue;
+							int r = (hex & 0xFF0000) >> 16;
+							int g = (hex & 0xFF00) >> 8;
+							int b = (hex & 0xFF);
 							for(int i = 0; i < 4; i++)
-								Botania.proxy.sparkleFX(entity.worldObj, coords.posX + (float) Math.random(), coords.posY + (float) Math.random(), coords.posZ + (float) Math.random(), r, g, b, 0.6F + (float) Math.random() * 0.3F, 5);
+								Botania.proxy.sparkleFX(entity.worldObj, coords.getX() + (float) Math.random(), coords.getY() + (float) Math.random(), coords.getZ() + (float) Math.random(), r, g, b, 0.6F + (float) Math.random() * 0.3F, 5);
 
 						}
 					}

@@ -44,7 +44,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 			int meta = p.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
 
 			ItemStack blockStack = new ItemStack(block, 1, meta);
-			ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(blockStack);
+			ItemStack result = FurnaceRecipes.instance().getSmeltingResult(blockStack);
 
 			if(result != null && result.getItem() instanceof ItemBlock) {
 				boolean decremented = false;
@@ -139,7 +139,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		}
 
 		public boolean equalPos(MovingObjectPosition pos) {
-			return pos.blockX == this.pos.blockX && pos.blockY == this.pos.blockY && pos.blockZ == this.pos.blockZ;
+			return pos.getBlockPos().equals(this.pos.getBlockPos());
 		}
 	}
 }

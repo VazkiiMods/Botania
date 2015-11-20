@@ -115,7 +115,7 @@ public class ItemGrassHorn extends ItemMod {
 
 	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
 		EnumHornType type = EnumHornType.getTypeForMeta(stackDmg);
-		Random rand = new Random(srcPos.toLong());
+		Random rand = new Random(srcPos.hashCode());
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
 		List<BlockPos> coords = new ArrayList();

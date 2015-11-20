@@ -14,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
@@ -40,10 +42,10 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int x, int y, int z, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		if(!par3World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
-			entity.setPosition(x + 0.5, y + 1, z + 0.5);
+			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			player.worldObj.spawnEntityInWorld(entity);
 
 			par1ItemStack.setItemDamage(COOLDOWN);
@@ -77,7 +79,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 			EntityFlameRing entity = new EntityFlameRing(world);
-			entity.setPosition(te.xCoord + 0.5, te.yCoord, te.zCoord + 0.5);
+			entity.setPosition(te.getPos().getX() + 0.5, te.getPos().getY(), te.getPos().getZ() + 0.5);
 			world.spawnEntityInWorld(entity);
 			tile.recieveMana(-COST);
 		}

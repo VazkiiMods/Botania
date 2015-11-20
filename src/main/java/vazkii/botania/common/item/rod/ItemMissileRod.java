@@ -43,7 +43,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -100,10 +100,10 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorld();
 		if(tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled())
-			if(spawnMissile(world, null, te.xCoord + 0.5 + (Math.random() - 0.5 * 0.1), te.yCoord + 2.5 + (Math.random() - 0.5 * 0.1), te.zCoord + (Math.random() - 0.5 * 0.1))) {
+			if(spawnMissile(world, null, te.getPos().getX() + 0.5 + (Math.random() - 0.5 * 0.1), te.getPos().getY() + 2.5 + (Math.random() - 0.5 * 0.1), te.getPos().getZ() + (Math.random() - 0.5 * 0.1))) {
 				if(!world.isRemote)
 					tile.recieveMana(-COST_AVATAR);
-				Botania.proxy.sparkleFX(world, te.xCoord + 0.5, te.yCoord + 2.5, te.zCoord + 0.5, 1F, 0.4F, 1F, 6F, 6);
+				Botania.proxy.sparkleFX(world, te.getPos().getX() + 0.5, te.getPos().getY() + 2.5, te.getPos().getZ() + 0.5, 1F, 0.4F, 1F, 6F, 6);
 			}
 	}
 

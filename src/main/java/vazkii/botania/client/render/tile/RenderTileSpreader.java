@@ -70,7 +70,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
-			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().toLong()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();

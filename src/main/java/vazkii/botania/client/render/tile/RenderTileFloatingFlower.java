@@ -39,7 +39,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
-			worldTime += new Random(tile.getPos().toLong()).nextInt(1000);
+			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, 0F, 0.5F);
 		GL11.glRotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);

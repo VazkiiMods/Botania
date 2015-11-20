@@ -15,6 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -43,7 +45,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.dirt);
-				stackToPlace.tryPlaceItemIntoWorld(player, world, x, y, z, 0, 0F, 0F, 0F);
+				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), EnumFacing.DOWN, 0F, 0F, 0F);
 
 				if(stackToPlace.stackSize == 0) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);

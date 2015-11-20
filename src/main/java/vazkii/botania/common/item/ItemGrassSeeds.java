@@ -214,7 +214,7 @@ public class ItemGrassSeeds extends ItemMod {
 		BlockSwapper(World world, BlockPos coords, IBlockState state) {
 			this.world = world;
 			stateToSet = state;
-			rand = new Random(coords.toLong());
+			rand = new Random(coords.hashCode());
 			startCoords = coords;
 		}
 

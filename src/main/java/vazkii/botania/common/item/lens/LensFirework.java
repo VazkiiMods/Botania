@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -27,8 +27,8 @@ public class LensFirework extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!burst.isFake()) {
-			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ)) {
+			BlockPos coords = burst.getBurstSourceBlockPos();
+			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && !pos.getBlockPos().equals(coords)) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 				
 	            EntityFireworkRocket rocket = new EntityFireworkRocket(entity.worldObj, entity.posX, entity.posY, entity.posZ, fireworkStack);

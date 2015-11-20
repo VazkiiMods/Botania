@@ -68,7 +68,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			double worldTime = tileentity.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
 			if(tileentity != null)
-				worldTime += new Random(tileentity.getPos().toLong()).nextInt(360);
+				worldTime += new Random(tileentity.getPos().hashCode()).nextInt(360);
 
 			if(ConfigHandler.oldPylonModel) {
 				GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);
