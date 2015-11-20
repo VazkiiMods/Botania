@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -83,7 +84,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 				ItemStack stack = item.getEntityItem();
 				Item stackItem = stack.getItem();
-				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed || stackItem instanceof ItemRedstone) {
+				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
 							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
@@ -101,8 +102,12 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					}
 
 
-					if(!validPositions.isEmpty() && !supertile.getWorld().isRemote) {
+					if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
+						ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
+
 						Block blockToPlace = null;
+						if(stackItem instanceof IFlowerPlaceable)
+							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
 						if(stackItem instanceof ItemBlock)
 							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
 						else if(stackItem instanceof ItemReed)
@@ -111,9 +116,14 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = Blocks.redstone_wire;
 
 						if(blockToPlace != null) {
+<<<<<<< HEAD
 							BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords.posX, coords.posY, coords.posZ)) {
 								supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
+=======
+							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
+								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
+>>>>>>> 82051d95d9817a177f0ec62817f4f2430358b46e
 								if(ConfigHandler.blockBreakParticles)
 									supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
 								validPositions.remove(coords);
@@ -126,6 +136,9 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									SubTileEntity subtile = container.getSubTile();
 									subtile.onBlockPlacedBy(supertile.getWorld(), coords.posX, coords.posY, coords.posZ, null, stack);
 								}
+								
+								if(stackItem instanceof IFlowerPlaceable)
+									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
 
 								if(!supertile.getWorld().isRemote) {
 									stack.stackSize--;

@@ -134,9 +134,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, BlockPos pos, boolean hard) {
 		Block block = par3World.getBlock(par4, par5, par6);
-		if(block == Blocks.beacon && isTruePlayer(player) && !par3World.isRemote) {
+		if(block == Blocks.beacon && isTruePlayer(player)) {
 			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {
-				player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+				if(!par3World.isRemote)
+					player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
 			}
 
@@ -148,13 +149,30 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				Block blockat = par3World.getBlock(x, y, z);
 				int meta = par3World.getBlockMetadata(x, y, z);
 				if(blockat != ModBlocks.pylon || meta != 2) {
-					player.addChatMessage(new ChatComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+					if(!par3World.isRemote)
+						player.addChatMessage(new ChatComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 					return false;
 				}
 			}
 
 			if(!hasProperArena(par3World, par4, par5, par6)) {
-				player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+				for(int i = 0; i < 360; i += 8) {
+					float r = 1F;
+					float g = 0F;
+					float b = 1F;
+					float m = 0.15F;
+					float mv = 0.35F;
+
+					float rad = i * (float) Math.PI / 180F;
+					double x = par4 + 0.5 - Math.cos(rad) * RANGE;
+					double y = par5 + 0.5;
+					double z = par6 + 0.5 - Math.sin(rad) * RANGE;
+
+					Botania.proxy.sparkleFX(par3World, x, y, z, r, g, b, 5F, 120);
+				}
+				
+				if(!par3World.isRemote)
+					player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
 			}
 

@@ -305,6 +305,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeTeruTeruBozu;
 	public static IRecipe recipeAvatar;
 	public static IRecipe recipeSextant;
+	public static List<IRecipe> recipesAltGrassSeeds;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2052,6 +2053,15 @@ public final class ModCraftingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'I', LibOreDict.MANA_STEEL);
 		recipeSextant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Alternate Pasture Seed Recipes
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 3), new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.deadbush));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 4), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.wheat));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 5), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.dye, 1, 2));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 6), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.blaze_powder));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 7), new ItemStack(ModItems.grassSeeds), new ItemStack(ModItems.manaResource, 1, 10));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 8), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.spider_eye));
+		recipesAltGrassSeeds = BotaniaAPI.getLatestAddedRecipes(6);
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

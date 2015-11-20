@@ -65,7 +65,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.dye);
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
-		addItem(ModItems.grassSeeds);
 		addItem(ModItems.blackLotus);
 		addItem(ModItems.twigWand);
 		addItem(ModItems.obedienceStick);
@@ -103,6 +102,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
 		addBlock(ModBlocks.enchantedSoil);
+		addItem(ModItems.grassSeeds);
+		addBlock(ModBlocks.altGrass);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
 		addBlock(ModBlocks.forestDrum);

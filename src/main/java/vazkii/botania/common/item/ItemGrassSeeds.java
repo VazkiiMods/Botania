@@ -31,6 +31,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -45,10 +46,11 @@ public class ItemGrassSeeds extends ItemMod {
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
 
 	private static final IslandType[] ISLAND_TYPES = {
-		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL
+		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
+		null, null, null, null, null, null
 	};
 
-	private static final int types = 3;
+	private static final int SUBTYPES = 9;
 	IIcon[] icons;
 
 	public ItemGrassSeeds() {
@@ -60,15 +62,15 @@ public class ItemGrassSeeds extends ItemMod {
 
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < types; i++)
+		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[types];
-		for(int i = 0; i < types; i++)
+		icons = new IIcon[SUBTYPES];
+		for(int i = 0; i < SUBTYPES; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
@@ -87,7 +89,7 @@ public class ItemGrassSeeds extends ItemMod {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
 
-		if(state == Blocks.dirt.getDefaultState()) {
+		if((state.getBlock() == Blocks.dirt || (state.getBlock() == Blocks.grass && par1ItemStack.getItemDamage() != 0)) && bmeta == 0) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(par3World, pos, meta);
@@ -100,14 +102,55 @@ public class ItemGrassSeeds extends ItemMod {
 				float r = 0F;
 				float g = 0.4F;
 				float b = 0F;
-				if(meta == 1) {
+				switch(meta) {
+				case 1: {
 					r = 0.5F;
 					g = 0.37F;
 					b = 0F;
-				} else if(meta == 2) {
+					break;
+				}
+				case 2: {
 					r = 0.27F;
 					g = 0F;
 					b = 0.33F;
+					break;
+				}
+				case 3: {
+					r = 0.4F;
+					g = 0.5F;
+					b = 0.05F;
+					break;
+				}
+				case 4: {
+					r = 0.75F;
+					g = 0.7F;
+					b = 0F;
+					break;
+				}
+				case 5: {
+					r = 0F;
+					g = 0.5F;
+					b = 0.1F;
+					break;
+				}
+				case 6: {
+					r = 0.75F;
+					g = 0F;
+					b = 0F;
+					break;
+				}
+				case 7: {
+					r = 0F;
+					g = 0.55F;
+					b = 0.55F;
+					break;
+				}
+				case 8: {
+					r = 0.4F;
+					g = 0.1F;
+					b = 0.4F;
+					break;
+				}
 				}
 
 				float velMul = 0.025F;
@@ -150,6 +193,12 @@ public class ItemGrassSeeds extends ItemMod {
 		switch(meta) {
 		case 1 : return new BlockSwapper(world, pos,  Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
 		case 2 : return new BlockSwapper(world, pos,  Blocks.mycelium.getDefaultState());
+		case 3 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 0);
+		case 4 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 1);
+		case 5 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 2);
+		case 6 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 3);
+		case 7 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 4);
+		case 8 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 5);
 		default : return new BlockSwapper(world, pos,  Blocks.grass.getDefaultState());
 		}
 	}
@@ -186,8 +235,9 @@ public class ItemGrassSeeds extends ItemMod {
 								for(int l = -1; l < 2; l++) {
 									BlockPos pos1 = pos.add(k, 0, l);
 									IBlockState state1 = world.getBlockState(pos1);
-									if(state1.getBlock() == Blocks.dirt
+									if((state1.getBlock() == Blocks.dirt
 											&& state1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
+											|| state1.getBlock() == Blocks.grass)
 										validCoords.add(pos1);
 								}
 
