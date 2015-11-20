@@ -92,23 +92,21 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.getY() == -1 && lookPos != null) {
-				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
+				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
 				if(player instanceof EntityPlayerMP)
 					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 			} else if(lookPos != null) {
-				if(originCoords.posX == lookPos.blockX && originCoords.posY == lookPos.blockY && originCoords.posZ == lookPos.blockZ) {
-					setOriginPos(lokiRing, 0, -1, 0);
+				if(originCoords.equals(lookPos.getBlockPos())) {
+					setOriginPos(lokiRing, new BlockPos(0, -1, 0));
 					if(player instanceof EntityPlayerMP)
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				} else {
 					addCursor : {
-					int relX = lookPos.blockX - originCoords.posX;
-					int relY = lookPos.blockY - originCoords.posY;
-					int relZ = lookPos.blockZ - originCoords.posZ;
+					BlockPos relPos = lookPos.getBlockPos().add(originCoords.multiply(-1));
 
 					for(BlockPos cursor : cursors)
-						if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
+						if(cursor.equals(relPos)) {
 							cursors.remove(cursor);
 							setCursorList(lokiRing, cursors);
 							if(player instanceof EntityPlayerMP)
@@ -116,7 +114,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 							break addCursor;
 						}
 
-					addCursor(lokiRing, relX, relY, relZ);
+					addCursor(lokiRing, relPos);
 					if(player instanceof EntityPlayerMP)
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				}
@@ -124,12 +122,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			}
 		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
 			for(BlockPos cursor : cursors) {
-				int x = lookPos.blockX + cursor.posX;
-				int y = lookPos.blockY + cursor.posY;
-				int z = lookPos.blockZ + cursor.posZ;
+				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(x, y, z) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
+				if(!player.worldObj.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
+					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, pos, lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
 						return;
@@ -181,16 +177,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
-			if(origin.getY() != -1) {
-				for(BlockPos coords : list) {
-					coords.posX += origin.posX;
-					coords.posY += origin.posY;
-					coords.posZ += origin.posZ;
+			for (int i = 0; i < list.size(); i++) {
+				if (origin.getY() != -1) {
+					list.set(i, list.get(i).add(origin));
+				} else {
+					list.set(i, list.get(i).add(lookPos.getBlockPos()));
 				}
-			} else for(BlockPos coords : list) {
-				coords.posX += lookPos.blockX;
-				coords.posY += lookPos.blockY;
-				coords.posZ += lookPos.blockZ;
 			}
 
 			return list;
