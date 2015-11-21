@@ -37,9 +37,9 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
 		if(!world.isRemote) {
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(x, y, z);
+			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.doRequest(player.isSneaking());
 		}
 	}

@@ -1,0 +1,20 @@
+-- API --
+* Updated to BlockPos and EnumFacing everywhere where it made sense
+* Registering repainting blocks will need to also receive a PropertyEnum with EnumDyeColor as the component type
+so Botania knows what property to set the color on (todo actually do this)
+* ICorporeaSpark.getInventory had to be changed to ICorporeaSpark.getSparkInventory because the signature clashed (IInventory vs ItemStack[], respectively)
+This can be changed to match vanilla signature, but either would break backward compat.
+
+-- Other --
+* Most things left untouched to make patches from upstream easier
+* Most uses of chunkcoordinates directly convert blockpos (THANK YOU VAZKII FOR USING THEM). Remove creation of extra instances
+since BlockPos'es are immutable and thus can be reused everywhere.
+* Some really needed fields in EntityItem are private now. Reflection time :(
+
+
+-- Todo --
+* Fix all the block signatures (easy)
+* Fix all other low hanging errors (easy-med)
+* Find all the block metadatas and give them all meaningful block states and properties (tedious/med-hard)
+* JSON models for everything (tedious/med-hard)
+* Migrate the PlayerRender events (baubles, etc.) to LayerRenderers (med)

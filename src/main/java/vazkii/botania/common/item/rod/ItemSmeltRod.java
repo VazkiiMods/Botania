@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
@@ -66,10 +67,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
 
 		if(pos != null) {
-			Block block = p.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-			int meta = p.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+			IBlockState state = p.worldObj.getBlockState(pos.getBlockPos());
 
-			ItemStack blockStack = new ItemStack(block, 1, meta);
+			ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 			ItemStack result = FurnaceRecipes.instance().getSmeltingResult(blockStack);
 
 			if(result != null && result.getItem() instanceof ItemBlock) {
@@ -83,7 +83,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						decremented = true;
 						if(data.progress <= 0) {
 							if(!p.worldObj.isRemote) {
-								p.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Block.getBlockFromItem(result.getItem()), result.getItemDamage(), 1 | 2);
+								p.worldObj.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
 								p.worldObj.playSoundAtEntity(p, "fire.ignite", 0.6F, 1F);
 								p.worldObj.playSoundAtEntity(p, "fire.fire", 1F, 1F);
 
@@ -93,9 +93,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 							}
 
 							for(int i = 0; i < 25; i++) {
-								double x = pos.blockX + Math.random();
-								double y = pos.blockY + Math.random();
-								double z = pos.blockZ + Math.random();
+								double x = pos.getBlockPos().getX() + Math.random();
+								double y = pos.getBlockPos().getY() + Math.random();
+								double z = pos.getBlockPos().getZ() + Math.random();
 
 								Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 							}
@@ -107,9 +107,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p) ? (int) (TIME * 0.6) : TIME));
 				else {
 					for(int i = 0; i < 2; i++) {
-						double x = pos.blockX + Math.random();
-						double y = pos.blockY + Math.random();
-						double z = pos.blockZ + Math.random();
+						double x = pos.getBlockPos().getX() + Math.random();
+						double y = pos.getBlockPos().getY() + Math.random();
+						double z = pos.getBlockPos().getZ() + Math.random();
 						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)

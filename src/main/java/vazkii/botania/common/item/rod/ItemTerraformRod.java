@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -23,8 +24,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -63,7 +64,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -87,7 +88,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
 
 		int xCenter = (int) par3EntityPlayer.posX;
-		int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);
+		int yCenter = (int) par3EntityPlayer.posY;
 		int zCenter = (int) par3EntityPlayer.posZ;
 
 		if(yCenter < 62) // Not below sea level
@@ -104,37 +105,30 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					if(yStart + k < 0)
 						break;
 
-					int x = xCenter + i;
-					int y = yStart + k;
-					int z = zCenter + j;
+					BlockPos pos = new BlockPos(xCenter + i, yStart + k, zCenter + j);
+					IBlockState state = par2World.getBlockState(pos);
 
-					Block block = par2World.getBlock(x, y, z);
-					int meta = par2World.getBlockMetadata(x, y, z);
-
-					int[] ids = OreDictionary.getOreIDs(new ItemStack(block, 1, meta));
+					int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 					for(int id : ids)
 						if(validBlocks.contains(OreDictionary.getOreName(id))) {
 							boolean hasAir = false;
 							List<BlockPos> airBlocks = new ArrayList();
 
-							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-								int x_ = x + dir.offsetX;
-								int y_ = y + dir.offsetY;
-								int z_ = z + dir.offsetZ;
-
-								Block block_ = par2World.getBlock(x_, y_, z_);
-								if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
-									airBlocks.add(new BlockPos(x_, y_, z_));
+							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+								BlockPos pos_ = pos.offset(dir);
+								Block block_ = par2World.getBlockState(pos_).getBlock();
+								if(block_.isAir(par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
+									airBlocks.add(pos_);
 									hasAir = true;
 								}
 							}
 
 							if(hasAir) {
-								if(y > yCenter)
-									blocks.add(new CoordsWithBlock(x, y, z, Blocks.air));
+								if(pos.getY() > yCenter)
+									blocks.add(new CoordsWithBlock(pos, Blocks.air));
 								else for(BlockPos coords : airBlocks) {
-									if(par2World.getBlock(coords.posX, coords.posY - 1, coords.posZ) != Blocks.air)
-										blocks.add(new CoordsWithBlock(coords.posX, coords.posY, coords.posZ, Blocks.dirt));
+									if(par2World.getBlockState(coords.down()).getBlock() != Blocks.air)
+										blocks.add(new CoordsWithBlock(coords, Blocks.dirt));
 								}
 							}
 							break;
@@ -148,7 +142,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		if(par2World.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, cost, true)) {
 			if(!par2World.isRemote)
 				for(CoordsWithBlock block : blocks)
-					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
+					par2World.setBlockState(block, block.block.getDefaultState());
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
@@ -168,8 +162,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		final Block block;
 
-		public CoordsWithBlock(int x, int y, int z, Block block) {
-			super(x, y, z);
+		public CoordsWithBlock(BlockPos pos, Block block) {
+			super(pos.getX(), pos.getY(), pos.getZ());
 			this.block = block;
 		}
 
