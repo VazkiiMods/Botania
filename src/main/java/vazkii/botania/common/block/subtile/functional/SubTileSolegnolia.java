@@ -23,7 +23,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileSolegnolia extends SubTileFunctional {
 
-	private static final int RANGE = 5;
+	private static final double RANGE = 5;
+	private static final double RANGE_MINI = 1; 
 
 	public static Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
@@ -52,7 +53,8 @@ public class SubTileSolegnolia extends SubTileFunctional {
 			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 				continue;
 
-			if(MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, flower.supertile.xCoord + 0.5, flower.supertile.yCoord + 0.5, flower.supertile.zCoord + 0.5) <= RANGE)
+			double range = flower.getRange();
+			if(MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, flower.supertile.xCoord + 0.5, flower.supertile.yCoord + 0.5, flower.supertile.zCoord + 0.5) <= range)
 				return true;
 		}
 
@@ -69,14 +71,22 @@ public class SubTileSolegnolia extends SubTileFunctional {
 		return 0xC99C4D;
 	}
 
+	public double getRange() {
+		return RANGE;
+	}
+	
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Circle(toChunkCoordinates(), getRange());
 	}
 
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.solegnolia;
+	}
+	
+	public static class Mini extends SubTileSolegnolia {
+		@Override public double getRange() { return RANGE_MINI; }
 	}
 
 }

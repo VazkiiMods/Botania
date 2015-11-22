@@ -11,14 +11,18 @@
 package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -80,12 +84,50 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
 				vecTip.add(vecMag);
 			}
+			
+			ChunkCoordinates endpoint = getEndpoint();
+			if(endpoint != null && !worldObj.isRemote) {
+				float range = 0.5F;
+				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + 1 + range, yCoord + 1 + range, zCoord + 1 + range));
+				for(EntityEnderPearl pearl : enderPearls) {
+					pearl.posX = endpoint.posX + pearl.posX - xCoord;
+					pearl.posY = endpoint.posY + pearl.posY - yCoord;
+					pearl.posZ = endpoint.posZ + pearl.posZ - zCoord;
+				}
+			}
 		}
 	}
 
 	public boolean isValidBinding() {
 		Block block = worldObj.getBlock(bindX, bindY, bindZ);
 		return block == ModBlocks.lightRelay;
+	}
+	
+	public ChunkCoordinates getEndpoint() {
+		List<TileLightRelay> pointsPassed = new ArrayList();
+		TileLightRelay relay = this;
+		ChunkCoordinates lastCoords = null;
+		
+		// Doing while(true) gives an unreachable code error
+		boolean run = true;
+		while(run) {
+			if(pointsPassed.contains(relay))
+				return null; // Circular path
+			pointsPassed.add(relay);
+			
+			ChunkCoordinates coords = relay.getBinding();
+			if(coords == null)
+				return lastCoords;
+			
+			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+			if(tile != null && tile instanceof TileLightRelay)
+				relay = (TileLightRelay) tile;
+			else return lastCoords;
+			
+			lastCoords = coords;
+		}
+		
+		return null;
 	}
 
 	public Vector3 getMovementVector() {
@@ -167,7 +209,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 			boolean isItem = riddenByEntity instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
 			int exitX = getExitX();
 			int exitY = getExitY();
@@ -179,9 +221,6 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(x == exitX && y == exitY && z == exitZ) {
 				TileEntity tile = worldObj.getTileEntity(x, y, z);
 				if(tile != null && tile instanceof TileLightRelay) {
-					if(!isItem)
-						worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
-
 					int meta = worldObj.getBlockMetadata(x, y, z);
 					if(meta > 0) {
 						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);

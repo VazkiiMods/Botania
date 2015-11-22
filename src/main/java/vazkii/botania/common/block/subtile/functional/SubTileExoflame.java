@@ -68,9 +68,11 @@ public class SubTileExoflame extends SubTileFunctional {
 								IExoflameHeatable heatable = (IExoflameHeatable) tile;
 
 								if(heatable.canSmelt() && mana > 2) {
-									if(heatable.getBurnTime() == 0)
+									if(heatable.getBurnTime() == 0) {
 										heatable.boostBurnTime();
-									mana = Math.max(0, mana - cost);
+										mana = Math.max(0, mana - cost);
+									}
+										
 									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
 

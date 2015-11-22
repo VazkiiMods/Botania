@@ -504,7 +504,7 @@ achievement.botania:l20ShardUse=Out of Step
 achievement.botania:l20ShardUse.desc=Raise the ground up to the sky with a Power XX Shard of Laputa
 achievement.botania:gaiaGuardianNoArmor=Mythologia's End
 achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
-achievement.botania:rankSSPick=Talent Shredder
+achievement.botania:rankSSPick=A Tale of Six Trillion Years and a Night
 achievement.botania:rankSSPick.desc=Dig through the world using a rank SS Terra Shatterer
 achievement.botania:superCorporeaRequest=Invader Girl
 achievement.botania:superCorporeaRequest.desc=Successfully request 50,000 or more of a single item in a Corporea Index
@@ -1166,6 +1166,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0SlabFull.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0Stairs.name=Shimmerwood Plank Stairs
 tile.botania:avatar.name=Livingwood Avatar
+tile.botania:altGrass0.name=Dry Grass
+tile.botania:altGrass1.name=Golden Grass
+tile.botania:altGrass2.name=Vivid Grass
+tile.botania:altGrass3.name=Scorched Grass
+tile.botania:altGrass4.name=Infused Grass
+tile.botania:altGrass5.name=Mutated Grass
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1281,6 +1287,8 @@ tile.botania:flower.bubbellChibi.name=Bubbell Petite
 tile.botania:flower.bubbellChibi.reference=And whistle
 tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
+tile.botania:flower.solegnoliaChibi.name=Solegnolia Petite
+tile.botania:flower.solegnoliaChibi.reference=All your magnets are belong to us
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1360,6 +1368,12 @@ item.botania:lensLight.name=Mana Lens: Flash
 item.botania:lensLight.short=Flash
 item.botania:lensWarp.name=Mana Lens: Warp
 item.botania:lensWarp.short=Warp
+item.botania:lensRedirect.name=Mana Lens: Redirective
+item.botania:lensRedirect.short=Redirective
+item.botania:lensFirework.name=Mana Lens: Celebratory
+item.botania:lensFirework.short=Celebratory
+item.botania:lensFlare.name=Mana Lens: Flare
+item.botania:lensFlare.short=Flare
 item.botania:manaPetal0.name=White Mana Petal
 item.botania:manaPetal1.name=Orange Mana Petal
 item.botania:manaPetal2.name=Magenta Mana Petal
@@ -1401,6 +1415,12 @@ item.botania:fertilizer.name=Floral Fertilizer
 item.botania:grassSeeds0.name=Pasture Seeds
 item.botania:grassSeeds1.name=Boreal Seeds
 item.botania:grassSeeds2.name=Infestation Spores
+item.botania:grassSeeds3.name=Dry Pasture Seeds
+item.botania:grassSeeds4.name=Golden Pasture Seeds
+item.botania:grassSeeds5.name=Vivid Pasture Seeds
+item.botania:grassSeeds6.name=Scorched Pasture Seeds
+item.botania:grassSeeds7.name=Infused Pasture Seeds
+item.botania:grassSeeds8.name=Mutated Pasture Seeds
 item.botania:livingwoodTwig.name=Livingwood Twig
 item.botania:dirtRod.name=Rod of the Lands
 item.botania:terraformRod.name=Rod of the Terra Firma
@@ -2218,17 +2238,20 @@ botania.page.dreamwoodSpreader1=Better spreaders, that's it
 botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.<br>It's to note that these spreaders fire a larger payload at once and thus, might fire less often.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
-# -- PAINTSLINGER LENS
-botania.entry.paintLens=Paintslinger Lens
-botania.tagline.paintLens=A Mana Lens that can paint wool and others
-botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
-botania.page.paintLens1=A M'AIDER Stranded Girl
-
-# -- WARP LENS
-botania.entry.warpLens=Warp Lens
-botania.tagline.warpLens=A Mana Lens to combine with the Force Relay for burst teleporting
-botania.page.warpLens0=The &1Mana Lens: Warp&0 is an interesting one. A &4Mana Burst&0 with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
-botania.page.warpLens1=Hakase Quarries
+# -- ELVEN MANA LENSES
+botania.entry.elvenLenses=Elven Mana Lenses
+botania.tagline.elvenLenses=Advanced Mana Lenses with new abilities
+botania.page.elvenLenses0=The knowledge of mana handling methods of alfheim comes, of course, with an array of new &1Mana Lenses&0 that can be experimented with.<br>Unlike common overworld-y lenses, these are a bit more ubiquitous in their uses...
+botania.page.elvenLenses1=First off, the &1Paintslinger Lens&0. This lens needs to be dyed one of the 16 colors of the spectrum to function. When a burst with its effect hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
+botania.page.elvenLenses2=Paintslinger Lens
+botania.page.elvenLenses3=The &1Warp Lens&0 is an interesting one. A burst with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
+botania.page.elvenLenses4=Warp Lens
+botania.page.elvenLenses5=The &1Redirective Lens&0 will only work when fired from a &1Mana Spreader&0. Any burst with its effect that would collide against a &1Mana Spreader&0, aside from the normal &4Mana&0 transfer interaction, also makes the spreader point towards the one that fired the burst.
+botania.page.elvenLenses6=Redirective Lens
+botania.page.elvenLenses7=The &1Celebratory Lens&0 functions much akin to the common &1Entropic Lens&0, however, instead of exploding, it creates a festive firework dyed the color of the burst.
+botania.page.elvenLenses8=Celebratory Lens
+botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. Instead, the spreader becomes a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing.<br>There's surely plenty of decorative uses for this.
+botania.page.elvenLenses10=Flare Lens
 
 # -- MANA PRISM
 botania.entry.prism=Mana Prism
@@ -2301,7 +2324,6 @@ botania.entry.heiseiDream=Heisei Dream
 botania.tagline.heiseiDream=Turns mobs against each other
 botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
-botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
 
 # -- TIGERSEYE
 botania.entry.tigerseye=Tigerseye
@@ -2327,7 +2349,6 @@ botania.tagline.fallenKanade=Powerful, short range regeneration
 botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
 botania.page.fallenKanade0a=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.<br>Interestingly enough, &4Blood Mages&0 have been known to place odd hexes on their altars which cause this flower to malfunction, that might be something to keep in mind.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
-botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
 
 # -- EXOFLAME
 botania.entry.exoflame=Exoflame
@@ -2434,7 +2455,7 @@ botania.page.bubbell1=&oLike some casual game&r.
 # -- SOLEGNOLIA
 botania.entry.solegnolia=Solegnolia
 botania.tagline.solegnolia=Creates spaces where the Ring of Magnetization doesn't work
-botania.page.solegnolia0=The &1Ring of Magnetization&0 is a rather handy tool for anyone digging or collecting. It does, however, fall into the problem that it picks up unwanted items near complex systems.<br>The &1Solegnolia&0 disrupts the ring and prevents any items around it from being pulled towards a wearer of one. It uses up a small bit of &4Mana&0 for this, but nothing considerate.
+botania.page.solegnolia0=The &1Ring of Magnetization&0 is a rather handy tool for anyone digging or collecting. It does, however, fall into the problem that it picks up unwanted items near complex systems. The &1Solegnolia&0 disrupts the ring and prevents any items around it from being pulled towards a wearer of one, and any rings whose wearers stand inside the radius from picking items up. It uses up a small bit of &4Mana&0 for this, but nothing considerate.
 botania.page.solegnolia1=On/Off
 
 # - GENERATING FLOWERS
@@ -2465,8 +2486,6 @@ botania.page.daybloom1=These flowers tend to compete among themselves for what s
 botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This only applies to &1Dayblooms&0 and &1Nightshades&0.<br>&1Dayblooms&0 are classified as &4passive flowers&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
-botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
-botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
@@ -2529,9 +2548,6 @@ botania.page.gourmaryllis0=The &1Gourmaryllis&0 is one hungry flower. It'll eat 
 botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on its nutritional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, a &1Carrot&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
 botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more nutritious the food is, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 than two &1Carrots&0, both absolutely and per second.
 botania.page.gourmaryllis3=&oA hot pot for our new residents&r.
-botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
-botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
-botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
 # -- NARSLIMMUS
 botania.entry.narslimmus=Narslimmus
@@ -2563,7 +2579,7 @@ botania.page.dandelifeon0=The &1Dandelifeon&0 is a flower not recommended for th
 botania.page.dandelifeon1=This flower makes use of a cellular automata known as &4Conway's Game of Life&0. The area for this procedure is a 25x25 square centered around the &1Dandelifeon&0 itself.<br>While the flower has a redstone signal, twice every second it'll step the game once.
 botania.page.dandelifeon2=The game is executed with the concept of &4Cells&0. The 25x25 area can be seen as a grid of 25 by 25 cells<br>Cells may be live or dead, live if the block in that position is a &1Cellular Block&0 (read on) or dead if it's anything else. &4Neighbours&0 are the eight blocks in the same plane around any one cell.
 botania.page.dandelifeon3=Every step of the game, the following transitions might happen: &41)&0 Any live cell with fewer than two or more than three live neighbours dies. &42)&0 Any live cell with exactly two or three live neigbours lives on. &43)&0 Any dead cell with exactly three live neigbours becomes a live cell.
-botania.page.dandelifeon4=All of the transitions happen at the same time.<br>Aside from those, a few aditional rules not present in a typical simulation of &4Conway's Game of Life&0 are also present in the &1Dadelifeon&0 procedures, listed in the following pages.
+botania.page.dandelifeon4=All of the transitions happen at the same time.<br>Aside from those, a few additional rules not present in a typical simulation of &4Conway's Game of Life&0 are also present in the &1Dandelifeon&0 procedures, listed in the following pages.
 botania.page.dandelifeon5=All cells have an age, starting at zero. Whenever a cell lives on, by having two or three neighbours, its age inreases by one. Whenever a dead cell becomes a live cell, the age of the new live cell is equal to the age of the oldest neighbour, plus one. Any cells older than sixty generations will die during the next step.
 botania.page.dandelifeon6=Second off, the 3x3 zone centered around the &1Dandelifeon&0 itself is not habitable by cells. Any live cells that would exist in that area are turned into &4Mana&0 instead. The older the cell that would be created, the more &4Mana&0 it makes. Age zero cells produce no &4Mana&0.
 botania.page.dandelifeon10=Whenever any live cells are absorbed by the 3x3 zone in the center, all other cells in the board die.<br>A few other restrictions apply to cells, such as having two different &1Dandelifeon&0 flowers affect the same cell will kill it. Lastly, any cell will die if moved by any other means than the &1Dandelifeon&0 itself.
@@ -2831,6 +2847,8 @@ botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infu
 botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
 botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
 botania.page.grassSeeds3=&1Infestation Spores&0 for mycelium
+botania.page.grassSeeds4=An additional six types of &1Pasture Seeds&0 can be created, for alternative grass types with various textures.<br>These spread to dirt like normal and can sustain any plant a block of grass can. Similarly, they may only be picked up with &4Silk Touch&0. However, they do not decay back into dirt if there's a block above them.
+botania.page.grassSeeds5=The alternate &1Pasture Seeds&0
 
 # -- ROD OF THE LANDS
 botania.entry.dirtRod=Rod of the Lands
@@ -3594,7 +3612,7 @@ botania.entry.lokiRing=Ring of Loki
 botania.tagline.lokiRing=The power to be here, and there, and over there too
 botania.page.lokiRing0=One of the three mythic rings of the &4Aesir&0, the &1Ring of Loki&0 allows for the wearer to tap upon the Trickster God &4Loki&0 to effectively be in multiple places at once.<br>The setup for this ability requires, first and foremost, an empty hand. Shift-right clicking on a block with said empty hand while having the &1Ring of Loki&0 equipped begins the procedure.
 botania.page.lokiRing1=Once the source block is selected, shift-right clicking on other blocks in the world will add them to the relative positions affected by this power. In order to finish the procedure, one would shift-right click the original block.<br>Shift-right clicking on one of the blocks that has been selected will remove it. To reset a completed selection, shift-right click the ground twice.
-botania.page.lokiRing2=After the selection is complete, when looking around, one will notice multiple boxes in relative positions to the selected block. When a block is placed, the placing action is mimicked on all of those positions, allowing for one to place a large amount of blocks at once.<br>This ability also extends to destruction using the &1Terra Shatterer&0 or &1Terra Truncator&0.  
+botania.page.lokiRing2=After the selection is complete, when looking around, one will notice multiple boxes in relative positions to the selected block. When a block is placed while sneaking, the placing action is mimicked on all of those positions, allowing for one to place a large amount of blocks at once. This ability also extends to destruction using the &1Terra Shatterer&0 or &1Terra Truncator&0.  
 botania.page.lokiRing3=Such a power does not come for free of course. Utilizing this ability costs &4Mana&0 from the user's inventory per each block placed. It's to note that the more blocks that are selected, the more expensive &4each placed block&0 becomes.<br>Lastly, this ring can be combined with the other two rings of the &4Aesir&0 in a crafting table to create the ultimate ring.
 
 # -- RING OF ODIN

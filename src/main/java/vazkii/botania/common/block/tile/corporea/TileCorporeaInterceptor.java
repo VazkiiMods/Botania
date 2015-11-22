@@ -79,7 +79,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 		if(request instanceof ItemStack) {
 			ItemStack stack = (ItemStack) request;
-			return stack != null && stack.isItemEqual(filter) && ItemStack.areItemStacksEqual(filter, stack);
+			return stack != null && stack.isItemEqual(filter) && ItemStack.areItemStackTagsEqual(filter, stack);
 		}
 
 		String name = (String) request;

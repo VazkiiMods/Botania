@@ -51,11 +51,8 @@ public class PhantomInkRecipe implements IRecipe {
 		}
 
 		IPhantomInkable inkable = (IPhantomInkable) item.getItem();
-		if(inkable.hasPhantomInk(item))
-			return null;
-
 		ItemStack copy = item.copy();
-		inkable.setPhantomInk(copy, true);
+		inkable.setPhantomInk(copy, !inkable.hasPhantomInk(item));
 		return copy;
 	}
 

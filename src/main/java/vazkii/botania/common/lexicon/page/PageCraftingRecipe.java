@@ -108,6 +108,9 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+		
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 

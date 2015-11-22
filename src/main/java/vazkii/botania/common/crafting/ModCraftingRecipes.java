@@ -168,6 +168,9 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
 	public static IRecipe recipeLensWarp;
+	public static IRecipe recipeLensRedirect;
+	public static IRecipe recipeLensFirework;
+	public static IRecipe recipeLensFlare;
 	public static List<IRecipe> recipesMiniIsland;
 	public static IRecipe recipeGaiaPylon;
 	public static IRecipe recipeGatherDrum;
@@ -302,6 +305,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeTeruTeruBozu;
 	public static IRecipe recipeAvatar;
 	public static IRecipe recipeSextant;
+	public static List<IRecipe> recipesAltGrassSeeds;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1104,7 +1108,7 @@ public final class ModCraftingRecipes {
 				'L', new ItemStack(ModItems.lens));
 		recipeLensWeight = BotaniaAPI.getLatestAddedRecipe();
 
-		// Paint Lens Recipe
+		// Paintslinger Lens Recipe
 		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 14),
 				" E ", "WLW", " E ",
 				'E', LibOreDict.ELEMENTIUM,
@@ -1116,6 +1120,18 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 18), new ItemStack(ModItems.lens), LibOreDict.PIXIE_DUST);
 		recipeLensWarp = BotaniaAPI.getLatestAddedRecipe();
 
+		// Redirective Lens Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 19), new ItemStack(ModItems.lens), LibOreDict.LIVING_WOOD, LibOreDict.ELEMENTIUM);
+		recipeLensRedirect = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Celebratory Lens Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 20), new ItemStack(ModItems.lens), new ItemStack(Items.fireworks), LibOreDict.ELEMENTIUM);
+		recipeLensFirework = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Flare Lens Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 21), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.elfGlass), LibOreDict.ELEMENTIUM);
+		recipeLensFlare = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mini Island Recipes
 		for(int i = 0; i < 16; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),
@@ -2037,6 +2053,15 @@ public final class ModCraftingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'I', LibOreDict.MANA_STEEL);
 		recipeSextant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Alternate Pasture Seed Recipes
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 3), new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.deadbush));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 4), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.wheat));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 5), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.dye, 1, 2));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 6), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.blaze_powder));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 7), new ItemStack(ModItems.grassSeeds), new ItemStack(ModItems.manaResource, 1, 10));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 8), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.spider_eye));
+		recipesAltGrassSeeds = BotaniaAPI.getLatestAddedRecipes(6);
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -18,7 +19,6 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -26,6 +26,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class GuiButtonCategory extends GuiButtonLexicon {
 
@@ -42,17 +43,17 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
 
 			float heightMatch = ticksHovered / time;
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE15_ARB);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			int texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
-			ARBShaderObjects.glUniform1iARB(maskUniform, 15);
+			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
 
 			ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
 	};
 	static boolean boundStencil = false;
@@ -99,9 +100,24 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 		mc.renderEngine.bindTexture(resource);
 
+		int texture = 0;
+		boolean shaders = ShaderHelper.useShaders();
+		
+		if(shaders) {
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+		}
+
 		ShaderHelper.useShader(ShaderHelper.categoryButton, shaderCallback);
 		RenderHelper.drawTexturedModalRect(xPosition * 2, yPosition * 2, zLevel * 2, 0, 0, 32, 32, s, s);
 		ShaderHelper.releaseShader();
+		
+		if(shaders) {
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+		}
+		
 		GL11.glPopMatrix();
 
 		if(inside)

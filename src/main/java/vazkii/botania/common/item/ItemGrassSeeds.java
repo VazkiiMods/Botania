@@ -28,6 +28,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -42,10 +43,11 @@ public class ItemGrassSeeds extends ItemMod {
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
 
 	private static final IslandType[] ISLAND_TYPES = {
-		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL
+		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
+		null, null, null, null, null, null
 	};
 
-	private static final int types = 3;
+	private static final int SUBTYPES = 9;
 	IIcon[] icons;
 
 	public ItemGrassSeeds() {
@@ -57,15 +59,15 @@ public class ItemGrassSeeds extends ItemMod {
 
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < types; i++)
+		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[types];
-		for(int i = 0; i < types; i++)
+		icons = new IIcon[SUBTYPES];
+		for(int i = 0; i < SUBTYPES; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
@@ -85,7 +87,7 @@ public class ItemGrassSeeds extends ItemMod {
 		Block block = par3World.getBlock(par4, par5, par6);
 		int bmeta = par3World.getBlockMetadata(par4, par5, par6);
 
-		if(block == Blocks.dirt && bmeta == 0) {
+		if((block == Blocks.dirt || (block == Blocks.grass && par1ItemStack.getItemDamage() != 0)) && bmeta == 0) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(par3World, par4, par5, par6, meta);
@@ -98,14 +100,55 @@ public class ItemGrassSeeds extends ItemMod {
 				float r = 0F;
 				float g = 0.4F;
 				float b = 0F;
-				if(meta == 1) {
+				switch(meta) {
+				case 1: {
 					r = 0.5F;
 					g = 0.37F;
 					b = 0F;
-				} else if(meta == 2) {
+					break;
+				}
+				case 2: {
 					r = 0.27F;
 					g = 0F;
 					b = 0.33F;
+					break;
+				}
+				case 3: {
+					r = 0.4F;
+					g = 0.5F;
+					b = 0.05F;
+					break;
+				}
+				case 4: {
+					r = 0.75F;
+					g = 0.7F;
+					b = 0F;
+					break;
+				}
+				case 5: {
+					r = 0F;
+					g = 0.5F;
+					b = 0.1F;
+					break;
+				}
+				case 6: {
+					r = 0.75F;
+					g = 0F;
+					b = 0F;
+					break;
+				}
+				case 7: {
+					r = 0F;
+					g = 0.55F;
+					b = 0.55F;
+					break;
+				}
+				case 8: {
+					r = 0.4F;
+					g = 0.1F;
+					b = 0.4F;
+					break;
+				}
 				}
 
 				float velMul = 0.025F;
@@ -148,6 +191,12 @@ public class ItemGrassSeeds extends ItemMod {
 		switch(meta) {
 		case 1 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.dirt, 2);
 		case 2 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.mycelium, 0);
+		case 3 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 0);
+		case 4 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 1);
+		case 5 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 2);
+		case 6 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 3);
+		case 7 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 4);
+		case 8 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  ModBlocks.altGrass, 5);
 		default : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.grass, 0);
 		}
 	}
@@ -191,7 +240,7 @@ public class ItemGrassSeeds extends ItemMod {
 									int z1 = z + l;
 									Block block1 = world.getBlock(x1, y, z1);
 									int meta1 = world.getBlockMetadata(x1, y, z1);
-									if(block1 == Blocks.dirt && meta1 == 0)
+									if((block1 == Blocks.dirt || block1 == Blocks.grass) && meta1 == 0)
 										validCoords.add(new ChunkCoordinates(x1, y, z1));
 								}
 

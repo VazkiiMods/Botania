@@ -92,6 +92,12 @@ public class ItemMagnetRing extends ItemBauble {
 
 		int cooldown = getCooldown(stack);
 
+		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
+			if(cooldown < 0)
+				setCooldown(stack, 2);
+			return;
+		}
+		
 		if(cooldown <= 0) {
 			if(!player.isSneaking()) {
 				double x = player.posX;

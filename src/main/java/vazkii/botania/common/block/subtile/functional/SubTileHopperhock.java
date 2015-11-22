@@ -103,6 +103,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 			if(invToPutItemIn != null) {
 				InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
+				invToPutItemIn.markDirty();
 				item.setDead();
 				pulledAny = true;
 			}
