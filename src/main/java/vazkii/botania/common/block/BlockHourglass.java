@@ -48,7 +48,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	protected BlockHourglass() {
 		super(Material.iron);
-		setBlockName(LibBlockNames.HOURGLASS);
+		setUnlocalizedName(LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setStepSound(soundTypeMetal);
 

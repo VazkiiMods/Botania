@@ -11,11 +11,11 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -45,11 +45,11 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
 
 		if(stack != null) {
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(x, y, z);
+			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.setRequestTarget(stack);
 			return true;
 		}
@@ -62,7 +62,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -97,8 +97,8 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
-		return ((TileCorporeaCrystalCube) world.getTileEntity(x, y, z)).compValue;
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).compValue;
 	}
 
 }

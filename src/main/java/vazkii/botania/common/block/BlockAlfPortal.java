@@ -38,7 +38,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 		super(Material.wood);
 		setHardness(10F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.ALF_PORTAL);
+		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		boolean did = ((TileAlfPortal) world.getTileEntity(x, y, z)).onWanded();
+		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
 		if(did && player != null)
 			player.addStat(ModAchievements.elfPortalOpen, 1);
 		return did;

@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,12 +36,12 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(IBlockState p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return ModItems.manaResource;
 	}
 
 	@Override
-	public int damageDropped(int p_149692_1_) {
+	public int damageDropped(IBlockState p_149692_1_) {
 		return 20;
 	}
 

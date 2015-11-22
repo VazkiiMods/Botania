@@ -31,7 +31,7 @@ public class BlockCacophonium extends BlockModContainer {
 
 	protected BlockCacophonium() {
 		super(Material.wood);
-		setBlockName(LibBlockNames.CACOPHONIUM);
+		setUnlocalizedName(LibBlockNames.CACOPHONIUM);
 		setHardness(0.8F);
 	}
 

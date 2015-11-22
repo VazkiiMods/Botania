@@ -12,8 +12,8 @@ package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -52,7 +52,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		setResistance(5.0F);
 		setLightLevel(1.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.ENCHANTER);
+		setUnlocalizedName(LibBlockNames.ENCHANTER);
 
 		random = new Random();
 	}
@@ -74,7 +74,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
 		return Item.getItemFromBlock(Blocks.lapis_block);
 	}
 
@@ -84,8 +84,8 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
@@ -109,8 +109,8 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
 
 		ItemStack itemstack = enchanter.itemToEnchant;
 
@@ -126,7 +126,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 					k1 = itemstack.stackSize;
 
 				itemstack.stackSize -= k1;
-				entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+				entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 				float f3 = 0.05F;
 				entityitem.motionX = (float)random.nextGaussian() * f3 * 0.5;
 				entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -139,12 +139,12 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 
 		par1World.func_147453_f(par2, par3, par4, par5);
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		((TileEnchanter) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		((TileEnchanter) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
@@ -155,7 +155,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileEnchanter) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileEnchanter) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 }

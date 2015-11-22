@@ -36,7 +36,7 @@ public class BlockDistributor extends BlockModContainer implements ILexiconable 
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.DISTRIBUTOR);
+		setUnlocalizedName(LibBlockNames.DISTRIBUTOR);
 	}
 
 	@Override

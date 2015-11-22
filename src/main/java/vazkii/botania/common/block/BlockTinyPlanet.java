@@ -31,11 +31,11 @@ public class BlockTinyPlanet extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeStone);
 		float size = 3F / 16F;
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setBlockName(LibBlockNames.TINY_PLANET);
+		setUnlocalizedName(LibBlockNames.TINY_PLANET);
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 

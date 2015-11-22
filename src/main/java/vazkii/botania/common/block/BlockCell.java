@@ -28,7 +28,7 @@ public class BlockCell extends BlockModContainer implements ILexiconable {
 
 	public BlockCell() {
 		super(Material.gourd);
-		setBlockName(LibBlockNames.CELL_BLOCK);
+		setUnlocalizedName(LibBlockNames.CELL_BLOCK);
 		setStepSound(soundTypeCloth);
 	}
 

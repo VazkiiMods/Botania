@@ -12,8 +12,8 @@ package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,7 +48,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.RUNE_ALTAR);
+		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
 
 		random = new Random();
 	}
@@ -59,7 +59,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -71,8 +71,8 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 
 		if(par5EntityPlayer.isSneaking()) {
@@ -84,7 +84,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
 						altar.setInventorySlotContents(i, null);
-						par1World.func_147453_f(par2, par3, par4, this);
+						par1World.updateComparatorOutputLevel(pos, this);
 						break;
 					}
 				}
@@ -96,8 +96,8 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -115,7 +115,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -127,10 +127,10 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -149,14 +149,14 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
 		return altar.signal;
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		((TileRuneAltar) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		((TileRuneAltar) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
@@ -167,7 +167,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileRuneAltar) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileRuneAltar) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 

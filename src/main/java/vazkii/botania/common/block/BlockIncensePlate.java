@@ -39,7 +39,7 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 
 	protected BlockIncensePlate() {
 		super(Material.wood);
-		setBlockName(LibBlockNames.INCENSE_PLATE);
+		setUnlocalizedName(LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockBounds(true);

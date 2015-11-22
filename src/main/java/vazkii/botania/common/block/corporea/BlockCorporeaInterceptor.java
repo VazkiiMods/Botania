@@ -13,10 +13,12 @@ package vazkii.botania.common.block.corporea;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -51,7 +53,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
 	}
 
@@ -61,7 +63,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return world.getBlockMetadata(x, y, z) != 0 ? 15 : 0;
 	}
 

@@ -11,12 +11,14 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -38,7 +40,7 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.BELLOWS);
+		setUnlocalizedName(LibBlockNames.BELLOWS);
 
 		float f = (1F - 10 / 16F) / 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 10F / 16F, 1F - f);
@@ -56,9 +58,9 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		if(EntityDoppleganger.isTruePlayer(player))
-			((TileBellows) world.getTileEntity(x, y, z)).interact();
+			((TileBellows) world.getTileEntity(pos)).interact();
 		return true;
 	}
 
@@ -68,7 +70,7 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 

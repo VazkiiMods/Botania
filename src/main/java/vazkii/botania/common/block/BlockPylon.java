@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,7 +43,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 		super(Material.iron);
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.PYLON);
+		setUnlocalizedName(LibBlockNames.PYLON);
 		setLightLevel(0.5F);
 
 		float f = 1F / 16F * 2F;
@@ -54,9 +55,9 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -65,8 +66,8 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -96,7 +97,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 	}
 
 	@Override
-	public float getEnchantPowerBonus(World world, int x, int y, int z) {
+	public float getEnchantPowerBonus(World world, BlockPos pos) {
 		return world.getBlockMetadata(x, y, z) == 0 ? 8 : 15;
 	}
 
@@ -111,7 +112,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 		return meta == 0 ? LexiconData.pylon : meta == 1 ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
 	}
 	@Override
-	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+	public boolean canStabaliseInfusion(World world, BlockPos pos) {
 		return true;
 	}
 }

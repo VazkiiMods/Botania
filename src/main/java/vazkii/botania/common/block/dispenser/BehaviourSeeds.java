@@ -15,6 +15,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -28,14 +29,12 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
 	@Override
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		EnumFacing facing = BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata());
-		int x = par1IBlockSource.getXInt() + facing.getFrontOffsetX();
-		int y = par1IBlockSource.getYInt() + facing.getFrontOffsetY();
-		int z = par1IBlockSource.getZInt() + facing.getFrontOffsetZ();
+		EnumFacing facing = BlockDispenser.getFacing(par1IBlockSource.getBlockMetadata());
+		BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
 		World world = par1IBlockSource.getWorld();
 
-		if(world.getBlock(x, y, z).isAir(world, x, y, z) && block.canBlockStay(world, x, y, z)) {
-			world.setBlock(x, y, z, block);
+		if(world.getBlockState(pos).getBlock().isAir(world, pos) && block.canPlaceBlockAt(world, pos)) {
+			world.setBlockState(pos, block.getDefaultState());
 			par2ItemStack.stackSize--;
 			return par2ItemStack;
 		}

@@ -35,7 +35,7 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.ENDER_EYE_BLOCK);
+		setUnlocalizedName(LibBlockNames.ENDER_EYE_BLOCK);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 		setHardness(2.0F);
 		setResistance(2000F);
 		setStepSound(Block.soundTypeStone);
-		setBlockName(LibBlockNames.MANA_VOID);
+		setUnlocalizedName(LibBlockNames.MANA_VOID);
 	}
 
 	@Override

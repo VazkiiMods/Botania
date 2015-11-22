@@ -11,7 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,13 +33,13 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 
 	public BlockTeruTeruBozu() {
 		super(Material.cloth);
-		setBlockName(LibBlockNames.TERU_TERU_BOZU);
+		setUnlocalizedName(LibBlockNames.TERU_TERU_BOZU);
 		float f = 0.25F;
 		setBlockBounds(f, 0.01F, f, 1F - f, 0.99F, 1F - f);
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity e) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getEntityItem();
@@ -52,7 +52,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && ((isSunflower(stack) && removeRain(world)) || (isBlueOrchid(stack) && startRain(world)))) {
 			if(!player.capabilities.isCreativeMode)
@@ -93,18 +93,8 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
+	public int getComparatorInputOverride(World world, BlockPos pos) {
 		return world.isRaining() ? 15 : 0;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return Blocks.wool.getIcon(0, 0);
 	}
 
 	@Override
@@ -113,7 +103,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 

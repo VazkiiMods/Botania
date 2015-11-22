@@ -32,15 +32,15 @@ public class BlockRFGenerator extends BlockModContainer implements ILexiconable 
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.RF_GENERATOR);
+		setUnlocalizedName(LibBlockNames.RF_GENERATOR);
 	}
 
 	@Override
 	@Optional.Method(modid = "CoFHAPI|energy")
-	public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos tilePos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileRFGenerator)
-			((TileRFGenerator) tile).onNeighborTileChange(tileX, tileY, tileZ);
+			((TileRFGenerator) tile).onNeighborTileChange(tilePos);
 	}
 
 	@Override

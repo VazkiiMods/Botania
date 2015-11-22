@@ -39,7 +39,7 @@ public class BlockTurntable extends BlockModContainer implements IWandable, IWan
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.TURNTABLE);
+		setUnlocalizedName(LibBlockNames.TURNTABLE);
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class BlockTurntable extends BlockModContainer implements IWandable, IWan
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileTurntable) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileTurntable) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		((TileTurntable) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		((TileTurntable) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 

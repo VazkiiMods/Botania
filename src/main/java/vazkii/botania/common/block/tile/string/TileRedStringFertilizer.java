@@ -19,24 +19,24 @@ import net.minecraft.world.World;
 
 public class TileRedStringFertilizer extends TileRedString {
 
-	public boolean func_149851_a(World p_149851_1_, boolean p_149851_5_) {
+	public boolean canGrow(World p_149851_1_, boolean p_149851_5_) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 
-		return block instanceof IGrowable ? ((IGrowable) block).func_149851_a(p_149851_1_, binding.posX, binding.posY, binding.posZ, p_149851_5_) : false;
+		return block instanceof IGrowable ? ((IGrowable) block).canGrow(p_149851_1_, binding, p_149851_1_.getBlockState(binding), p_149851_5_) : false;
 	}
 
-	public boolean func_149852_a(World p_149852_1_, Random p_149852_2_) {
+	public boolean canUseBonemeal(World p_149852_1_, Random p_149852_2_) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		return block instanceof IGrowable ? ((IGrowable) block).func_149852_a(p_149852_1_, p_149852_2_, binding.posX, binding.posY, binding.posZ) : false;
+		return block instanceof IGrowable ? ((IGrowable) block).canUseBonemeal(p_149852_1_, p_149852_2_, binding, p_149852_1_.getBlockState(binding)) : false;
 	}
 
-	public void func_149853_b(World p_149853_1_, Random p_149853_2_) {
+	public void grow(World p_149853_1_, Random p_149853_2_) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 		if(block instanceof IGrowable)
-			((IGrowable) block).func_149853_b(p_149853_1_, p_149853_2_, binding.posX, binding.posY, binding.posZ);
+			((IGrowable) block).grow(p_149853_1_, p_149853_2_, binding, p_149853_1_.getBlockState(binding));
 	}
 
 	@Override

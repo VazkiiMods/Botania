@@ -11,39 +11,54 @@
 package vazkii.botania.common.block;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockAltGrass extends BlockMod {
-
-	private static final int SUBTYPES = 6;
-	IIcon[] icons;
 
 	public BlockAltGrass() {
 		super(Material.grass);
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setBlockName(LibBlockNames.ALT_GRASS);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassType.DRY));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.ALTGRASS_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassType.values()[meta]);
 	}
 
 	@Override
@@ -64,75 +79,75 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES * 2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return side == 0 || meta >= SUBTYPES ? Blocks.dirt.getIcon(side, meta) : side == 1 ? icons[meta * 2] : icons[meta * 2 + 1];
-	}
-
-	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
-		if(!world.isRemote && world.getBlockLightValue(x, y + 1, z) >= 9) {
-			int meta = world.getBlockMetadata(x, y, z);
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+		if(!world.isRemote && world.getLight(pos.up()) >= 9) {
+			AltGrassType variant = ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
 			for(int l = 0; l < 4; ++l) {
-				int i1 = x + rand.nextInt(3) - 1;
-				int j1 = y + rand.nextInt(5) - 3;
-				int k1 = z + rand.nextInt(3) - 1;
+				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				
-				Block block = world.getBlock(i1, j1 + 1, k1);
+				Block block = world.getBlockState(pos1.up()).getBlock();
 
-				if(world.getBlock(i1, j1, k1) == Blocks.dirt && world.getBlockMetadata(i1, j1, k1) == 0 && world.getBlockLightValue(i1, j1 + 1, k1) >= 4 && world.getBlockLightOpacity(i1, j1 + 1, k1) <= 2)
-					world.setBlock(i1, j1, k1, this, meta, 1 | 2);
+				if(world.getBlockState(pos1).getBlock() == Blocks.dirt && world.getBlockState(pos).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos.up()) <= 2)
+					world.setBlockState(pos, this.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
 			}
 		}
 	}
 	
 	@Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-        return Blocks.dirt.getItemDropped(0, p_149650_2_, p_149650_3_);
+    public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
+        return Blocks.dirt.getItemDropped(state, p_149650_2_, p_149650_3_);
     }
 	
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		return new ItemStack(this, 1, world.getBlockMetadata(x, y, z));
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 	
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
+	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 	
 	@Override
-	public void randomDisplayTick(World world, int x, int y, int z, Random r) {
-		int meta = world.getBlockMetadata(x, y, z);
-		switch(meta) {
-		case 0: // Dry
+	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random r) {
+		AltGrassType variant = ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
+		switch(variant) {
+		case DRY: // Dry
 			break;
-		case 1: // Golden
+		case GOLDEN: // Golden
 			break;
-		case 2: // Vivid
+		case VIVID: // Vivid
 			break; 
-		case 3: // Scorched
+		case SCORCHED: // Scorched
 			if(r.nextInt(80) == 0)
-	        	world.spawnParticle("flame", x + r.nextFloat(), y + 1.1, z + r.nextFloat(), 0, 0, 0);
+	        	world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
-		case 4: // Infused
+		case INFUSED: // Infused
 			if(r.nextInt(100) == 0)
-				Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
+				Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
 			break; 
-		case 5: // Mutated
+		case MUTATED: // Mutated
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)
-					Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-				else Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5); 
+					Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
+				else Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5); 
 			}
 			break;
 		}
     }
+
+	public enum AltGrassType implements IStringSerializable {
+		DRY,
+		GOLDEN,
+		VIVID,
+		SCORCHED,
+		INFUSED,
+		MUTATED;
+
+		@Override
+		public String getName() {
+			return this.name().toLowerCase(Locale.ROOT);
+		}
+	}
 
 }

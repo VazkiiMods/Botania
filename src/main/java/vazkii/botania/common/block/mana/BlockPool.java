@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -61,7 +62,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.POOL);
+		setUnlocalizedName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 	}
 
@@ -71,9 +72,9 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockPool.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -82,23 +83,23 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return state.getBlock().getMetaFromState(state);
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TilePool pool = (TilePool) par1World.getTileEntity(pos);
 		lastFragile = pool.fragile;
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		ArrayList<ItemStack> drops = new ArrayList();
 
 		if(!lastFragile)
-			drops.add(new ItemStack(this, 1, metadata));
+			drops.add(new ItemStack(this, 1, state.getBlock().getMetaFromState(state)));
 
 		return drops;
 	}
@@ -116,33 +117,33 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
-			TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
+			TilePool tile = (TilePool) par1World.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, , par2);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, pos);
 		}
 	}
 	
 	@Override
-    public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+    public void addCollisionBoxesToList(World p_149743_1_, BlockPos pos, IBlockState state, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
     	float f = 1F / 16F;
     	setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+        super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
         setBlockBounds(0.0F, 0.0F, 0.0F, f, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+        super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, f);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+        super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
         setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+        super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
         setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+        super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
     }
 	
 	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-		return side == ForgeDirection.DOWN;
+	public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN;
 	}
 
 	@Override
@@ -151,7 +152,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -171,8 +172,8 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TilePool pool = (TilePool) par1World.getTileEntity(pos);
 		int val = (int) ((double) pool.getCurrentMana() / (double) pool.manaCap * 15.0);
 		if(pool.getCurrentMana() > 0)
 			val = Math.max(val, 1);
@@ -182,12 +183,12 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TilePool) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TilePool) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		((TilePool) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		((TilePool) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 

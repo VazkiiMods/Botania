@@ -12,6 +12,9 @@ package vazkii.botania.common.block.string;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,12 +30,13 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	public BlockRedStringInterceptor() {
 		super(LibBlockNames.RED_STRING_INTERCEPTOR);
 		MinecraftForge.EVENT_BUS.register(this);
+		// todo 1.8 completely override states from super
 	}
 
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
 		if(event.action == Action.RIGHT_CLICK_BLOCK)
-			TileRedStringInterceptor.onInteract(event.entityPlayer, event.world, event.x, event.y, event.z);
+			TileRedStringInterceptor.onInteract(event.entityPlayer, event.world, event.pos);
 	}
 
 	@Override
@@ -41,12 +45,12 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return (world.getBlockMetadata(x, y, z) & 8) == 0 ? 0 : 15;
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random update) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random update) {
 		world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) & -9, 1 | 2);
 	}
 

@@ -65,7 +65,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.OPEN_CRATE);
+		setUnlocalizedName(LibBlockNames.OPEN_CRATE);
 
 		random = new Random();
 	}
@@ -76,9 +76,9 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

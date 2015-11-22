@@ -35,7 +35,7 @@ public class BlockStarfield extends BlockModContainer implements ILexiconable {
 		setHardness(5F);
 		setResistance(2000F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.STARFIELD);
+		setUnlocalizedName(LibBlockNames.STARFIELD);
 
 		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
 	}

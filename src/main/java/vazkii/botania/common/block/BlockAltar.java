@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -27,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -56,7 +58,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		super(Material.rock);
 		setHardness(3.5F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.ALTAR);
+		setUnlocalizedName(LibBlockNames.ALTAR);
 
 		float f = 1F / 16F * 2F;
 		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
@@ -75,9 +77,9 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -87,23 +89,23 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
-			TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
+			TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
 			tile.collideEntityItem((EntityItem) par5Entity);
 		}
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		TileAltar tile = (TileAltar) world.getTileEntity(x, y, z);
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		return tile.hasLava ? 15 : 0;
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
-		TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
+		TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
 
 		if(par5EntityPlayer.isSneaking()) {
 			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
@@ -113,7 +115,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 						par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
 					tile.setInventorySlotContents(i, null);
-					par1World.func_147453_f(par2, par3, par4, this);
+					par1World.updateComparatorOutputLevel(pos, this);
 					break;
 				}
 			}
@@ -128,7 +130,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
 
 					tile.setWater(true);
-					par1World.func_147453_f(par2, par3, par4, this);
+					par1World.updateComparatorOutputLevel(pos, this);
 				}
 
 				return true;
@@ -138,7 +140,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 				tile.setLava(true);
 				tile.setWater(false);
-				par1World.func_147453_f(par2, par3, par4, this);
+				par1World.updateComparatorOutputLevel(pos, this);
 
 				return true;
 			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
@@ -154,7 +156,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				if(tile.hasLava)
 					tile.setLava(false);
 				else tile.setWater(false);
-				par1World.func_147453_f(par2, par3, par4, this);
+				par1World.updateComparatorOutputLevel(pos, this);
 
 				return true;
 			}
@@ -164,8 +166,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
@@ -206,7 +208,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -221,8 +223,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -240,7 +242,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -252,10 +254,10 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -264,8 +266,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileAltar altar = (TileAltar) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileAltar altar = (TileAltar) par1World.getTileEntity(pos);
 		return altar.hasWater ? 15 : 0;
 	}
 

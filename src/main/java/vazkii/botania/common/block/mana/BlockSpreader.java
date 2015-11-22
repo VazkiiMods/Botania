@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -57,7 +58,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.SPREADER);
+		setUnlocalizedName(LibBlockNames.SPREADER);
 
 		random = new Random();
 	}
@@ -68,14 +69,9 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -85,25 +81,25 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
-		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
+	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
+		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(pos);
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage(), 1 | 2);
 
 		switch(orientation) {
-		case 0:
+		case DOWN:
 			spreader.rotationY = -90F;
 			break;
-		case 1:
+		case UP:
 			spreader.rotationY = 90F;
 			break;
-		case 2:
+		case NORTH:
 			spreader.rotationX = 270F;
 			break;
-		case 3:
+		case SOUTH:
 			spreader.rotationX = 90F;
 			break;
-		case 4:
+		case WEST:
 			break;
 		default:
 			spreader.rotationX = 180F;
@@ -112,8 +108,8 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState par1) {
+		return getMetaFromState(par1);
 	}
 
 	@Override
@@ -122,7 +118,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -137,8 +133,8 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing par6, float par7, float par8, float par9) {
+		TileEntity tile = par1World.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
 
@@ -183,8 +179,8 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileEntity tile = par1World.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return;
 
@@ -206,7 +202,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -218,15 +214,15 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		((TileSpreader) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		((TileSpreader) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
@@ -237,19 +233,20 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileSpreader) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
+		int meta = world.getBlockMetadata(pos);
 		return meta == 0 ? LexiconData.spreader : meta == 1 ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 
 	@Override
 	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
 		float f = 1F / 16F;
-		return new AxisAlignedBB(x + f, y + f, z + f, x + 1 - f, y + 1 - f, z + 1 - f);
+		return new AxisAlignedBB(pos.getX() + f, pos.getY() + f, pos.getZ() + f,
+				pos.getX() + 1 - f, pos.getY() + 1 - f, pos.getZ() + 1 - f);
 	}
 
 }

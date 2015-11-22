@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
@@ -27,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -70,7 +72,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -80,8 +82,8 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return state.getBlock().getMetaFromState(state);
 	}
 
 	@Override
@@ -165,7 +167,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		if(!world.isRemote)
 			for(int i = 0; i < 10; i++)
 				world.playSoundEffect(x, y, z, "note.bd", 1F, 1F);
-		else world.spawnParticle("note", x + 0.5, y + 1.2, z + 0.5D, 1.0 / 24.0, 0, 0);
+		else world.spawnParticle(EnumParticleTypes.NOTE, x + 0.5, y + 1.2, z + 0.5D, 1.0 / 24.0, 0, 0);
 
 	}
 

@@ -40,15 +40,15 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 	public BlockTinyPotato() {
 		super(Material.cloth);
 		setHardness(0.25F);
-		setBlockName(LibBlockNames.TINY_POTATO);
+		setUnlocalizedName(LibBlockNames.TINY_POTATO);
 		float f = 1F / 16F * 6F;
 		setBlockBounds(f, 0, f, 1F - f, f, 1F - f);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockTinyPotato.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

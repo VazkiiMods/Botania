@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,7 +47,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
-		setBlockName(LibBlockNames.PLATFORM);
+		setUnlocalizedName(LibBlockNames.PLATFORM);
 	}
 
 	@Override
@@ -55,14 +56,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		TilePlatform tile = (TilePlatform) world.getTileEntity(x, y, z);
+		TilePlatform tile = (TilePlatform) world.getTileEntity(pos);
 		return tile.onWanded(player);
 	}
 

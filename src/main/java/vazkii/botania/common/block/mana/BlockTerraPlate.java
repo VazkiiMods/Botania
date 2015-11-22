@@ -38,11 +38,11 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.TERRA_PLATE);
+		setUnlocalizedName(LibBlockNames.TERRA_PLATE);
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -52,7 +52,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
+	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
 		return false;
 	}
 
@@ -85,8 +85,8 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileTerraPlate plate = (TileTerraPlate) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileTerraPlate plate = (TileTerraPlate) par1World.getTileEntity(pos);
 		int val = (int) ((double) plate.getCurrentMana() / (double) TileTerraPlate.MAX_MANA * 15.0);
 		if(plate.getCurrentMana() > 0)
 			val = Math.max(val, 1);

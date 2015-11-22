@@ -35,7 +35,7 @@ public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable 
 	public BlockSpawnerClaw() {
 		super(Material.iron);
 		setHardness(3.0F);
-		setBlockName(LibBlockNames.SPAWNER_CLAW);
+		setUnlocalizedName(LibBlockNames.SPAWNER_CLAW);
 
 		float f = 1F / 8F;
 		float f1 = 1F / 16F;
@@ -59,7 +59,7 @@ public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable 
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 

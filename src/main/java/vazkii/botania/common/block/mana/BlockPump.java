@@ -11,15 +11,15 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -28,6 +28,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -35,37 +36,33 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockPump extends BlockModContainer implements ILexiconable {
 
-	private static final int[] META_ROTATIONS = new int[] { 2, 5, 3, 4 };
-
 	public BlockPump() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.PUMP);
+		setUnlocalizedName(LibBlockNames.PUMP);
 		setBlockBounds(true);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2);
+	public void onBlockPlacedBy(World p_149689_1_, BlockPos pos, IBlockState state, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		p_149689_1_.setBlockState(pos, state.withProperty(p_149689_5_.getHorizontalFacing().getOpposite()), 2);
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess w, 	int x, int y, int z) {
-		setBlockBounds(w.getBlockMetadata(x, y, z) < 4);
+	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
+		EnumFacing facing = ((EnumFacing) w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS));
+		setBlockBounds(facing.getAxis());
 	}
 
-	public void setBlockBounds(boolean horiz) {
-		if(horiz)
+	public void setBlockBounds(EnumFacing.Axis axis) {
+		if (axis == EnumFacing.Axis.X) {
+			setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F)
+		} else if (axis == EnumFacing.Axis.Z) {
 			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
-		else setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F);
-	}
-
-	@Override
-	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
-		return RotationHelper.rotateVanillaBlock(Blocks.furnace, worldObj, x, y, z, axis);
+		}
 	}
 
 	@Override
@@ -89,7 +86,7 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -99,8 +96,8 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TilePump) world.getTileEntity(x, y, z)).comparator;
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		return ((TilePump) world.getTileEntity(pos)).comparator;
 	}
 
 	@Override

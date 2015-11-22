@@ -47,7 +47,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeMetal);
 		float size = 3F / 16F;
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setBlockName(LibBlockNames.MANA_BEACON);
+		setUnlocalizedName(LibBlockNames.MANA_BEACON);
 	}
 
 	@Override
@@ -69,9 +69,9 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

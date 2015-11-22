@@ -12,6 +12,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -34,11 +35,11 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 		super(Material.iron);
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.CORPOREA_RETAINER);
+		setUnlocalizedName(LibBlockNames.CORPOREA_RETAINER);
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		boolean powered = (meta & 8) != 0;
@@ -56,8 +57,8 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
-		return ((TileCorporeaRetainer) world.getTileEntity(x, y, z)).hasPendingRequest() ? 15 : 0;
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		return ((TileCorporeaRetainer) world.getTileEntity(pos)).hasPendingRequest() ? 15 : 0;
 	}
 
 	@Override

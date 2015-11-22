@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -32,37 +33,36 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockSolidVines extends BlockVine implements ILexiconable {
 
 	public BlockSolidVines() {
-		setBlockName(LibBlockNames.SOLID_VINE);
+		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
 		setStepSound(soundTypeGrass);
-		setBlockTextureName("vine");
 		setCreativeTab(null);
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
-		setBlockBoundsBasedOnState(w, x, y, z);
-		return new AxisAlignedBB(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+	public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
+		setBlockBoundsBasedOnState(w, pos);
+		return new AxisAlignedBB(pos.add(minX, minY, minZ), pos.add(maxX, maxY, maxZ));
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
+	public void updateTick(World p_149674_1_, BlockPos pos, IBlockState state, Random p_149674_5_) {
 		// NO-OP
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(Blocks.vine);
 	}
 

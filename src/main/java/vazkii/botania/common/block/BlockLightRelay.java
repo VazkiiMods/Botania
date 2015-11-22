@@ -46,13 +46,13 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 		super(Material.glass);
 		float f = 5F / 16F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
-		setBlockName(LibBlockNames.LIGHT_RELAY);
+		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		register(par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	void register(String name) {

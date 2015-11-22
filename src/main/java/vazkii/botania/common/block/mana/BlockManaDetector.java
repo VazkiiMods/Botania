@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -42,7 +44,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundTypeStone);
-		setBlockName(LibBlockNames.MANA_DETECTOR);
+		setUnlocalizedName(LibBlockNames.MANA_DETECTOR);
 	}
 
 	@Override
@@ -63,14 +65,14 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
+	public int isProvidingWeakPower(IBlockAccess par1iBlockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
 		return par1iBlockAccess.getBlockMetadata(par2, par3, par4) != 0 ? 15 : 0;
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
+	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		if(par7Entity != null && !(par7Entity instanceof IManaBurst))
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringComparator;
@@ -27,8 +28,8 @@ public class BlockRedStringComparator extends BlockRedString {
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TileRedStringComparator) world.getTileEntity(x, y, z)).getComparatorValue();
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		return ((TileRedStringComparator) world.getTileEntity(pos)).getComparatorValue();
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,13 +46,13 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.SPARK_CHANGER);
+		setUnlocalizedName(LibBlockNames.SPARK_CHANGER);
 
 		random = new Random();
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -60,7 +62,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
+	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
 		return false;
 	}
 
@@ -90,20 +92,20 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
-		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack cstack = changer.getStackInSlot(0);
 		ItemStack pstack = player.getCurrentEquippedItem();
 		if(cstack != null) {
 			changer.setInventorySlotContents(0, null);
-			world.func_147453_f(x, y, z, this);
+			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			if(!player.inventory.addItemStackToInventory(cstack))
 				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
 		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
 			changer.setInventorySlotContents(0, pstack.copy().splitStack(1));
-			world.func_147453_f(x, y, z, this);
+			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
 			pstack.stackSize--;
@@ -117,8 +119,8 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -136,7 +138,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -148,10 +150,10 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -160,8 +162,8 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
-		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getStackInSlot(0);
 		if(stack == null)
 			return 0;

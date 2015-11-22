@@ -13,6 +13,8 @@ package vazkii.botania.common.block.string;
 import java.util.Random;
 
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
@@ -25,23 +27,22 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean something) {
-		return ((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149851_a(world, something);
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
+		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
-		return ((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149852_a(world, rand);
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
+		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void func_149853_b(World world, Random rand, int x, int y, int z) {
-		((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149853_b(world, rand);
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
+		((TileRedStringFertilizer) world.getTileEntity(pos)).grow(world, rand);
 	}
 
 	@Override
 	public TileRedString createNewTileEntity(World world, int meta) {
 		return new TileRedStringFertilizer();
 	}
-
 }

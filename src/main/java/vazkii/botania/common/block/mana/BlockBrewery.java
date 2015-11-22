@@ -12,8 +12,8 @@ package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -44,7 +45,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 		super(Material.rock);
 		float f = 6F / 16F;
 		setBlockBounds(f, 0.05F, f, 1F - f, 0.95F, 1F - f);
-		setBlockName(LibBlockNames.BREWERY);
+		setUnlocalizedName(LibBlockNames.BREWERY);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
@@ -58,8 +59,8 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileBrewery brew = (TileBrewery) par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
 
 		if(par5EntityPlayer.isSneaking()) {
 			if(brew.recipe == null && par1World.getBlockMetadata(par2, par3, par4) == 0)
@@ -70,7 +71,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
 						brew.setInventorySlotContents(i, null);
-						par1World.func_147453_f(par2, par3, par4, this);
+						par1World.func_147453_f(pos, this);
 						break;
 					}
 				}
@@ -83,8 +84,8 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -102,7 +103,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -117,7 +118,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 			par1World.func_147453_f(par2, par3, par4, par5);
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -126,8 +127,8 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileBrewery brew = (TileBrewery) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
 		return brew.signal;
 	}
 
@@ -147,7 +148,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -163,7 +164,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileBrewery) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileBrewery) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 }

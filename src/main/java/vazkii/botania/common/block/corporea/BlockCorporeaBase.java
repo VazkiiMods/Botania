@@ -12,7 +12,6 @@ package vazkii.botania.common.block.corporea;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -35,7 +34,7 @@ public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBa
 
 	public BlockCorporeaBase(Material material, String name) {
 		super(material);
-		setBlockName(name);
+		setUnlocalizedName(name);
 
 		random = new Random();
 	}
