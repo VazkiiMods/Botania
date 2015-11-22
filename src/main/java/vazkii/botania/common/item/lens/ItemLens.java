@@ -135,10 +135,6 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
-	public static IIcon iconGlass;
-
-	IIcon[] ringIcons;
-
 	public ItemLens() {
 		super();
 		setUnlocalizedName(LibItemNames.LENS);
@@ -169,11 +165,6 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 	@Override
 	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
 		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return getIconFromDamageForRenderPass(par1, 0);
 	}
 
 	@Override

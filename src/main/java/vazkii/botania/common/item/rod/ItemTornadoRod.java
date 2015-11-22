@@ -12,7 +12,6 @@ package vazkii.botania.common.item.rod;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -20,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
@@ -46,8 +44,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final int COST = 350;
 
 	private static final String TAG_FLYING = "flying";
-
-	IIcon iconIdle, iconFlying;
 
 	public ItemTornadoRod() {
 		setMaxDamage(MAX_DAMAGE);
@@ -114,13 +110,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
-	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override

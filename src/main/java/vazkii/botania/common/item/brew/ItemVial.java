@@ -24,8 +24,6 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemVial extends ItemMod implements IBrewContainer {
 
-	public static IIcon flaskIcon, vialIcon;
-
 	public ItemVial() {
 		this(LibItemNames.VIAL);
 	}
@@ -33,17 +31,6 @@ public class ItemVial extends ItemMod implements IBrewContainer {
 	public ItemVial(String name) {
 		setHasSubtypes(true);
 		setUnlocalizedName(name);
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		vialIcon = IconHelper.forName(par1IconRegister, LibItemNames.VIAL + "0");
-		flaskIcon = IconHelper.forName(par1IconRegister, LibItemNames.FLASK + "0");
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int i) {
-		return i == 0 ? vialIcon : flaskIcon;
 	}
 
 	@Override

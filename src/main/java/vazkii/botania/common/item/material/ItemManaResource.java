@@ -46,7 +46,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
 	final int types = 23;
-	IIcon[] icons;
 
 	// begin dank_memes
 	public IIcon tailIcon = null;
@@ -153,12 +152,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
 	}
 
 	@Override

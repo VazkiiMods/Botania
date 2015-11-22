@@ -44,7 +44,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
-	static IIcon willIcon;
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);

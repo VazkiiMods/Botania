@@ -51,7 +51,6 @@ public class ItemGrassSeeds extends ItemMod {
 	};
 
 	private static final int SUBTYPES = 9;
-	IIcon[] icons;
 
 	public ItemGrassSeeds() {
 		super();
@@ -64,20 +63,6 @@ public class ItemGrassSeeds extends ItemMod {
 	public void getSubItems(Item par1, CreativeTabs par2, List par3) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(par1, 1, i));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < SUBTYPES; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
 	}
 
 	@Override

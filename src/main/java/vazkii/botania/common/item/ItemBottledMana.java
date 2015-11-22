@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +26,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -37,7 +35,6 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemBottledMana extends ItemMod {
 
-	IIcon[] icons;
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana() {
@@ -203,18 +200,6 @@ public class ItemBottledMana extends ItemMod {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		par3List.add(StatCollector.translateToLocal("botaniamisc.bottleTooltip"));
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[6];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
 	}
 
 	@Override

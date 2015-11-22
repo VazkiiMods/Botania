@@ -46,8 +46,6 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	int drinkSpeed;
 	ItemStack baseItem;
 
-	IIcon[] icons;
-
 	public ItemBrewBase(String name, String texName, int swigs, int drinkSpeed, ItemStack baseItem) {
 		this.name = name;
 		this.texName = texName;
@@ -114,20 +112,6 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 			setBrew(stack, s);
 			list.add(stack);
 		}
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forName(par1IconRegister, texName + "0");
-
-		icons = new IIcon[swigs];
-		for(int i = 0; i < swigs; i++)
-			icons[i] = IconHelper.forName(par1IconRegister, texName + "1_" + i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 0 ? itemIcon : icons[Math.max(0, Math.min(icons.length - 1, swigs - getSwigsLeft(stack)))];
 	}
 
 	@Override

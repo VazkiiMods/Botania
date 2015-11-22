@@ -12,7 +12,6 @@ package vazkii.botania.common.item.material;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +19,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.IPickupAchievement;
@@ -30,24 +28,10 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchievement {
 
-	IIcon[] icons;
-
 	public ItemRune() {
 		super();
 		setHasSubtypes(true);
 		setUnlocalizedName(LibItemNames.RUNE);
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[16];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -54,8 +52,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
-
-	IIcon[] icons;
 
 	public ItemManaGun() {
 		super();
@@ -108,32 +104,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		}
 
 		return par1ItemStack;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		int states = 3;
-		icons = new IIcon[states * 2];
-
-		for(int i = 0; i < states; i++) {
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-			icons[states + i] = IconHelper.forName(par1IconRegister, "desuGun" + i);
-		}
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		boolean desu = isSugoiKawaiiDesuNe(stack);
-		int index = pass;
-		if(index == 0 && hasClip(stack))
-			index = 2;
-
-		return icons[Math.min(2, index) + (desu ? 3 : 0)];
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN

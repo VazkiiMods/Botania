@@ -12,12 +12,10 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -29,8 +27,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemAncientWill extends ItemMod {
 
 	private static final int SUBTYPES = 6;
-
-	IIcon[] icons;
 
 	public ItemAncientWill() {
 		setUnlocalizedName(LibItemNames.ANCIENT_WILL);
@@ -45,18 +41,6 @@ public class ItemAncientWill extends ItemMod {
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int dmg) {
-		return icons[Math.min(icons.length - 1, dmg)];
 	}
 
 	@Override

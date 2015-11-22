@@ -36,27 +36,9 @@ public class ItemSpawnerMover extends ItemMod {
 	public static final String TAG_SPAWNER = "spawner";
 	private static final String TAG_PLACE_DELAY = "placeDelay";
 
-	IIcon iconNormal, iconSpawner;
-
 	public ItemSpawnerMover() {
 		setUnlocalizedName(LibItemNames.SPAWNER_MOVER);
 		setMaxStackSize(1);
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconNormal = IconHelper.forItem(par1IconRegister, this, 0);
-		iconSpawner = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return hasData(par1ItemStack) ? iconSpawner : iconNormal;
 	}
 
 	public static NBTTagCompound getSpawnerTag(ItemStack stack) {

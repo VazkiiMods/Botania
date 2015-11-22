@@ -10,11 +10,9 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -26,8 +24,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
-
-	public static IIcon dasBootIcon;
 
 	public ItemInfiniteFruit() {
 		super(LibItemNames.INFINITE_FRUIT);
@@ -62,14 +58,6 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 				if(player.canEat(false))
 					ReflectionHelper.setPrivateValue(EntityPlayer.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
 		}
-	}
-
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
-		dasBootIcon = IconHelper.forName(par1IconRegister, "dasBoot");
 	}
 
 	@Override

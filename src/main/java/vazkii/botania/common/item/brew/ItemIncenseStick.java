@@ -36,8 +36,6 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
-	IIcon[] icons;
-
 	public ItemIncenseStick() {
 		setUnlocalizedName(LibItemNames.INCENSE_STICK);
 		setMaxStackSize(1);
@@ -51,18 +49,6 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 			if(brewStack != null)
 				list.add(brewStack);
 		}
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[pass];
 	}
 
 	@Override

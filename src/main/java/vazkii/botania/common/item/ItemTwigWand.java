@@ -49,8 +49,6 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
-	IIcon[] icons;
-
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
 	private static final String TAG_BOUND_TILE_X = "boundTileX";
@@ -196,21 +194,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public boolean isFull3D() {
 		return true;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		if(pass == 3 && !getBindMode(stack))
-			pass = 0;
-
-		return icons[Math.min(icons.length - 1, pass)];
 	}
 
 	@Override

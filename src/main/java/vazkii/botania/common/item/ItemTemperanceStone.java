@@ -12,11 +12,9 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -25,8 +23,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTemperanceStone extends ItemMod {
-
-	IIcon enabledIcon;
 
 	public ItemTemperanceStone() {
 		setUnlocalizedName(LibItemNames.TEMPERANCE_STONE);
@@ -41,19 +37,6 @@ public class ItemTemperanceStone extends ItemMod {
 		par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.3F, 0.1F);
 
 		return par1ItemStack;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		enabledIcon = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return par1 == 1 ? enabledIcon : itemIcon;
 	}
 
 	@Override
