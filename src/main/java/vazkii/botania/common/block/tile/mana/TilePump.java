@@ -11,11 +11,12 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod {
+public class TilePump extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_ACTIVE = "active";
 
@@ -30,10 +31,10 @@ public class TilePump extends TileMod {
 	int lastComparator = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		hasRedstone = false;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				hasRedstone = true;
 				break;
@@ -72,10 +73,8 @@ public class TilePump extends TileMod {
 		hasCartOnTop = false;
 
 		if(comparator != lastComparator)
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		lastComparator = comparator;
-
-		super.updateEntity();
 	}
 
 	@Override
@@ -93,7 +92,7 @@ public class TilePump extends TileMod {
 			boolean diff = this.active != active;
 			this.active = active;
 			if(diff)
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 		}
 	}
 

@@ -12,43 +12,39 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.BlockPos;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
-public abstract class TileRedString extends TileMod implements ITileBound {
+public abstract class TileRedString extends TileMod implements ITileBound, IUpdatePlayerListBox {
 
 	private BlockPos binding;
 
 	@Override
-	public void updateEntity() {
-		ForgeDirection dir = getOrientation();
-		int x = xCoord;
-		int y = yCoord;
-		int z = zCoord;
+	public void update() {
+		EnumFacing dir = getOrientation();
+		BlockPos pos_ = getPos();
 		int range = getRange();
 		BlockPos currBinding = getBinding();
 		setBinding(null);
 
 		for(int i = 0; i < range; i++) {
-			x += dir.offsetX;
-			y += dir.offsetY;
-			z += dir.offsetZ;
-			if(worldObj.isAirBlock(x, y, z))
+			pos_ = pos_.offset(dir);
+			if(worldObj.isAirBlock(pos_))
 				continue;
 
-			TileEntity tile = worldObj.getTileEntity(x, y, z);
+			TileEntity tile = worldObj.getTileEntity(pos_);
 			if(tile instanceof TileRedString)
 				continue;
 
-			if(acceptBlock(x, y, z)) {
-				setBinding(new BlockPos(x, y, z));
-				if(currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z)
-					onBound(x, y, z);
+			if(acceptBlock(pos_)) {
+				setBinding(new BlockPos(pos_));
+				if(currBinding == null || !currBinding.equals(pos_))
+					onBound(pos_);
 				break;
 			}
 		}
@@ -58,9 +54,9 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		return 8;
 	}
 
-	public abstract boolean acceptBlock(int x, int y, int z);
+	public abstract boolean acceptBlock(BlockPos pos);
 
-	public void onBound(int x, int y, int z) {
+	public void onBound(BlockPos pos) {
 		// NO-OP
 	}
 
@@ -78,18 +74,18 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		this.binding = binding;
 	}
 
-	public ForgeDirection getOrientation() {
-		return ForgeDirection.getOrientation(getBlockMetadata());
+	public EnumFacing getOrientation() {
+		return EnumFacing.getFront(getBlockMetadata()); // todo 1.8 states?
 	}
 
 	public TileEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
+		return binding == null ? null : worldObj.getTileEntity(binding);
 	}
 
 	public Block getBlockAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? Blocks.air : worldObj.getBlock(binding.posX, binding.posY, binding.posZ);
+		return binding == null ? Blocks.air : worldObj.getBlockState(binding).getBlock();
 	}
 
 }

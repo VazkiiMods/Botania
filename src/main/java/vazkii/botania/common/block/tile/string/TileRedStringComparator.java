@@ -12,28 +12,26 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.BlockPos;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class TileRedStringComparator extends TileRedString {
 
 	int comparatorValue = 0;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
+	public void update() {
 		BlockPos binding = getBinding();
-		ForgeDirection dir = getOrientation();
+		EnumFacing dir = getOrientation();
 		Block block = getBlockAtBinding();
 		int origVal = comparatorValue;
 
 		if(block.hasComparatorInputOverride()) {
-			int val = block.getComparatorInputOverride(worldObj, binding.posX, binding.posY, binding.posZ, dir.getOpposite().ordinal());
+			int val = block.getComparatorInputOverride(worldObj, binding);
 			comparatorValue = val;
 		} else comparatorValue = 0;
 
 		if(origVal != comparatorValue)
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 	}
 
 	public int getComparatorValue() {
@@ -41,8 +39,8 @@ public class TileRedStringComparator extends TileRedString {
 	}
 
 	@Override
-	public boolean acceptBlock(int x, int y, int z) {
-		Block block = worldObj.getBlock(x, y, z);
+	public boolean acceptBlock(BlockPos pos) {
+		Block block = worldObj.getBlockState(pos).getBlock();
 		return block.hasComparatorInputOverride();
 	}
 

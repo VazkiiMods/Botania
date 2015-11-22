@@ -18,7 +18,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -38,7 +38,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.CORPOREA_INTERCEPTOR;
 	}
 
@@ -58,13 +58,13 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 				if(missing > 0 && getBlockMetadata() == 0) {
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
-					worldObj.scheduleBlockUpdate(xCoord, yCoord, zCoord, getBlockType(), 2);
+					worldObj.scheduleUpdate(getPos(), getBlockType(), 2);
 
 					TileEntity requestor = (TileEntity) source.getSparkInventory();
-					for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-						TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+					for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+						TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 						if(tile != null && tile instanceof TileCorporeaRetainer)
-							((TileCorporeaRetainer) tile).setPendingRequest(requestor.xCoord, requestor.yCoord, requestor.zCoord, request, count);
+							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
 					}
 
 					return;
@@ -93,11 +93,11 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				3, 4, 2, 5
 		};
 
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, xCoord + dir.offsetX + 1, yCoord + dir.offsetY + 1, zCoord + dir.offsetZ + 1));
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
-				int orientation = frame.hangingDirection;
-				if(orientationToDir[orientation] == dir.ordinal())
+				EnumFacing orientation = frame.facingDirection;
+				if(orientation == dir)
 					filter.add(frame.getDisplayedItem());
 			}
 		}

@@ -10,16 +10,19 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.block.BlockFurnace;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileBellows extends TileMod {
+public class TileBellows extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_ACTIVE = "active";
 
@@ -33,7 +36,7 @@ public class TileBellows extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean disable = true;
 		TileEntity tile = getLinkedTile();
 		if(!active && tile instanceof TilePool) {
@@ -53,39 +56,41 @@ public class TileBellows extends TileMod {
 
 		if(movePos < max && active && moving >= 0F) {
 			if(moving == 0F)
-				worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, "botania:bellows", 0.1F, 3F);
+				worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "botania:bellows", 0.1F, 3F);
 
 			if(tile instanceof TileEntityFurnace) {
 				TileEntityFurnace furnace = (TileEntityFurnace) tile;
 				if(SubTileExoflame.canFurnaceSmelt(furnace)) {
-					furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 20);
-					furnace.furnaceBurnTime = Math.max(0, furnace.furnaceBurnTime - 10);
+					furnace.setField(2, Math.min(199, furnace.getField(2) + 20)); // cookTime
+					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
 				}
 
 				if(furnace.getBlockType() == Blocks.lit_furnace) {
 					// Copypasta from BlockFurnace
-					int x = furnace.xCoord;
-					int y = furnace.yCoord;
-					int z = furnace.zCoord;
-					int l = worldObj.getBlockMetadata(x, y, z);
-					float f = x + 0.5F;
-					float f1 = y + 0.0F + worldObj.rand.nextFloat() * 6.0F / 16.0F;
-					float f2 = z + 0.5F;
-					float f3 = 0.52F;
-					float f4 = worldObj.rand.nextFloat() * 0.6F - 0.3F;
+					EnumFacing enumfacing = (EnumFacing)worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
+					double d0 = (double)pos.getX() + 0.5D;
+					double d1 = (double)pos.getY() + worldObj.rand.nextDouble() * 6.0D / 16.0D;
+					double d2 = (double)pos.getZ() + 0.5D;
+					double d3 = 0.52D;
+					double d4 = worldObj.rand.nextDouble() * 0.6D - 0.3D;
 
-					if(l == 4) {
-						worldObj.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-					} else if(l == 5) {
-						worldObj.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-					} else if(l == 2) {
-						worldObj.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-					} else if(l == 3) {
-						worldObj.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+					switch (enumfacing)
+					{
+						case WEST:
+							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+							break;
+						case EAST:
+							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+							break;
+						case NORTH:
+							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
+							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
+							break;
+						case SOUTH:
+							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
+							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
 					}
 				}
 			}
@@ -107,13 +112,12 @@ public class TileBellows extends TileMod {
 			}
 		}
 
-		super.updateEntity();
 	}
 
 	public TileEntity getLinkedTile() {
 		int meta = getBlockMetadata();
-		ForgeDirection dir = ForgeDirection.getOrientation(meta);
-		return worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+		EnumFacing dir = EnumFacing.getFront(meta); // todo 1.8 states
+		return worldObj.getTileEntity(getPos().offset(dir));
 	}
 
 	@Override
@@ -131,7 +135,7 @@ public class TileBellows extends TileMod {
 			boolean diff = this.active != active;
 			this.active = active;
 			if(diff)
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 		}
 	}
 

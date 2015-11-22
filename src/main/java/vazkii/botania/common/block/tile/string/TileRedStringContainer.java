@@ -15,14 +15,18 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileRedStringContainer extends TileRedString implements ISidedInventory {
 
 	@Override
-	public boolean acceptBlock(int x, int y, int z) {
-		TileEntity inv = worldObj.getTileEntity(x, y, z);
+	public boolean acceptBlock(BlockPos pos) {
+		TileEntity inv = worldObj.getTileEntity(pos);
 		return inv != null && inv instanceof IInventory;
 	}
 
@@ -58,15 +62,21 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		IInventory inv = getInventory();
-		return inv != null ? inv.getInventoryName() : LibBlockNames.RED_STRING_CONTAINER;
+		return inv != null ? inv.getCommandSenderName() : LibBlockNames.RED_STRING_CONTAINER;
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
+	public boolean hasCustomName() {
 		IInventory inv = getInventory();
-		return inv != null ? inv.hasCustomInventoryName() : false;
+		return inv != null ? inv.hasCustomName() : false;
+	}
+
+	@Override
+	public IChatComponent getDisplayName() {
+		IInventory inv = getInventory();
+		return inv != null ? inv.getDisplayName() : new ChatComponentText(getCommandSenderName());
 	}
 
 	@Override
@@ -82,17 +92,17 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	}
 
 	@Override
-	public void openInventory() {
+	public void openInventory(EntityPlayer player) {
 		IInventory inv = getInventory();
 		if(inv != null)
-			inv.openInventory();
+			inv.openInventory(player);
 	}
 
 	@Override
-	public void closeInventory() {
+	public void closeInventory(EntityPlayer player) {
 		IInventory inv = getInventory();
 		if(inv != null)
-			inv.closeInventory();
+			inv.closeInventory(player);
 	}
 
 	@Override
@@ -102,19 +112,39 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		IInventory inv = getInventory();
-		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).getAccessibleSlotsFromSide(side) : inv instanceof IInventory ? InventoryHelper.buildSlotsForLinearInventory(inv) : new int[0];
+	public int getField(int id) {
+		return 0;
 	}
 
 	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+	public void setField(int id, int value) {
+
+	}
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		IInventory inv = getInventory();
+		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).getSlotsForFace(side) : inv instanceof IInventory ? InventoryHelper.buildSlotsForLinearInventory(inv) : new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
 		IInventory inv = getInventory();
 		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canInsertItem(slot, stack, side) : true;
 	}
 
 	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
 		IInventory inv = getInventory();
 		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canExtractItem(slot, stack, side) : true;
 	}

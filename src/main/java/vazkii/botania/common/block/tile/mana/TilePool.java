@@ -25,10 +25,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -58,7 +59,7 @@ import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
+public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket, IUpdatePlayerListBox {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -99,7 +100,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public boolean isFull() {
-		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+		Block blockBelow = worldObj.getBlockState(pos.down()).getBlock();
 		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= manaCap;
 	}
 
@@ -109,7 +110,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if(full == mana < 0) {
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 			markDispatchable();
 		}
 	}
@@ -141,7 +142,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				item.setDead();
 		}
 
-		if(item.age > 100 && item.age < 130 || !catalystsRegistered)
+		if(item.getAge() > 100 && item.getAge() < 130 || !catalystsRegistered)
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
@@ -156,7 +157,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 							item.setDead();
 
 						ItemStack output = recipe.getOutput().copy();
-						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 						outputItem.age = 105;
 						worldObj.spawnEntityInWorld(outputItem);
 					}
@@ -174,7 +175,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	public void craftingFanciness() {
 		if(soundTicks == 0) {
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:manaPoolCraft", 0.4F, 4F);
+			worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:manaPoolCraft", 0.4F, 4F);
 			soundTicks = 6;
 		}
 
@@ -182,12 +183,12 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			float red = (float) Math.random();
 			float green = (float) Math.random();
 			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+			Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean wasDoingTransfer = isDoingTransfer;
 		isDoingTransfer = false;
 		if(manaCap == -1)
@@ -203,7 +204,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+				Botania.proxy.wispFX(worldObj, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
 
 		if(sendPacket && ticks % 10 == 0) {
@@ -211,11 +212,11 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			sendPacket = false;
 		}
 
-		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
-		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
+		alchemy = worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.alchemyCatalyst;
+		conjuration = worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.conjurationCatalyst;
 		catalystsRegistered = true;
 
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 		for(EntityItem item : items) {
 			if(item.isDead)
 				continue;
@@ -228,8 +229,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 					int bellowCount = 0;
 					if(outputting)
-						for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-							TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+						for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+							TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 							if(tile != null && tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
 								bellowCount++;
 						}
@@ -324,7 +325,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		if(player.isSneaking()) {
 			outputting = !outputting;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 		}
 
 		if(!worldObj.isRemote) {
@@ -332,7 +333,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			writeCustomNBT(nbttagcompound);
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			if(player instanceof EntityPlayerMP)
-				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound));
+				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(pos, -999, nbttagcompound));
 		}
 
 		worldObj.playSoundAtEntity(player, "botania:ding", 0.11F, 1F);
@@ -361,8 +362,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 		ItemManaTablet.setStackCreative(tablet);
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, tablet, x - 20, y);
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, pool, x + 26, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(tablet, x - 20, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(pool, x + 26, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		GL11.glDisable(GL11.GL_LIGHTING);
@@ -406,7 +407,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
+		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)));
 		if(sparks.size() == 1) {
 			Entity e = (Entity) sparks.get(0);
 			return (ISparkEntity) e;

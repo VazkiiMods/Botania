@@ -15,31 +15,30 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class TileRedStringInterceptor extends TileRedString {
+public class TileRedStringInterceptor extends TileRedString implements IUpdatePlayerListBox {
 
 	public static List<TileRedStringInterceptor> interceptors = new ArrayList();
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
+	public void update() {
 		if(!interceptors.contains(this))
 			interceptors.add(this);
 	}
 
 	@Override
-	public boolean acceptBlock(int x, int y, int z) {
-		return worldObj.getTileEntity(x, y, z) != null;
+	public boolean acceptBlock(BlockPos pos) {
+		return worldObj.getTileEntity(pos) != null;
 	}
 
 	public boolean removeFromList() {
-		return !tileEntityInvalid && worldObj.getTileEntity(xCoord, yCoord, zCoord) == this;
+		return !tileEntityInvalid && worldObj.getTileEntity(pos) == this;
 	}
 
-	public static void onInteract(EntityPlayer player, World world, int x, int y, int z) {
+	public static void onInteract(EntityPlayer player, World world, BlockPos pos) {
 		List<TileRedStringInterceptor> remove = new ArrayList();
 		boolean did = false;
 
@@ -51,12 +50,12 @@ public class TileRedStringInterceptor extends TileRedString {
 
 			if(inter.worldObj == world) {
 				BlockPos coords = inter.getBinding();
-				if(coords != null && coords.posX == x && coords.posY == y && coords.posZ == z) {
+				if(coords != null && coords.equals(pos)) {
 					if(!world.isRemote) {
 						Block block = inter.getBlockType();
 						int meta = inter.getBlockMetadata();
 						world.setBlockMetadataWithNotify(inter.xCoord, inter.yCoord, inter.zCoord, meta | 8, 1 | 2);
-						world.scheduleBlockUpdate(inter.xCoord, inter.yCoord, inter.zCoord, block, block.tickRate(world));
+						world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
 					}
 
 					did = true;
@@ -68,7 +67,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		if(did) {
 			if(world.isRemote)
 				player.swingItem();
-			else world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "random.click", 0.3F, 0.6F);
+			else world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "random.click", 0.3F, 0.6F);
 		}
 	}
 

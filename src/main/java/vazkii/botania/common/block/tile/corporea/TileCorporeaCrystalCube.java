@@ -15,13 +15,14 @@ import java.util.List;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, IUpdatePlayerListBox {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
@@ -34,7 +35,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public int compValue = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		++ticks;
 		if(ticks % 20 == 0)
 			updateCount();
@@ -92,7 +93,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private void onUpdateCount() {
 		compValue = getComparatorValue();
-		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.CORPOREA_CRYSTAL_CUBE;
 	}
 
@@ -144,7 +145,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		boolean did = false;
 		for(ItemStack reqStack : stacks)
 			if(requestTarget != null) {
-				EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
+				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				worldObj.spawnEntityInWorld(item);
 				itemCount -= reqStack.stackSize;
 				did = true;

@@ -24,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -44,7 +45,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, IUpdatePlayerListBox {
 
 	public static final double RADIUS = 2.5;
 
@@ -151,12 +152,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public boolean hasCloseby;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
-		double x = xCoord + 0.5;
-		double y = yCoord + 0.5;
-		double z = zCoord + 0.5;
+	public void update() {
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
 
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
@@ -197,7 +196,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.CORPOREA_INDEX;
 	}
 
@@ -210,13 +209,13 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
 			if(stack != null) {
-				EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 				worldObj.spawnEntityInWorld(item);
 			}
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return player.worldObj.provider.dimensionId == index.worldObj.provider.dimensionId && MathHelper.pointDistancePlane(index.xCoord + 0.5, index.zCoord + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.yCoord + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
+		return player.worldObj.provider.getDimensionId() == index.worldObj.provider.getDimensionId() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {

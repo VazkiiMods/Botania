@@ -18,7 +18,7 @@ import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -51,11 +51,11 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				1, 16, 32, 64
 		};
 
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, xCoord + dir.offsetX + 1, yCoord + dir.offsetY + 1, zCoord + dir.offsetZ + 1));
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
-				int orientation = frame.hangingDirection;
-				if(orientationToDir[orientation] == dir.ordinal()) {
+				EnumFacing orientation = frame.facingDirection;
+				if(orientation == dir) {
 					ItemStack stack = frame.getDisplayedItem();
 					if(stack != null) {
 						ItemStack copy = stack.copy();
@@ -80,7 +80,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.CORPOREA_FUNNEL;
 	}
 
@@ -89,18 +89,18 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		if(!(request instanceof ItemStack))
 			return;
 
-		IInventory inv = InventoryHelper.getInventory(worldObj, , xCoord);
+		IInventory inv = InventoryHelper.getInventory(worldObj, getPos());
 		if(inv == null)
-			inv = InventoryHelper.getInventory(worldObj, , xCoord);
+			inv = InventoryHelper.getInventory(worldObj, getPos());
 
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack reqStack : stacks)
 			if(request != null) {
-				if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, ForgeDirection.UP))
+				if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, EnumFacing.UP))
 					InventoryHelper.insertItemIntoInventory(inv, reqStack);
 				else {
-					EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
+					EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 					worldObj.spawnEntityInWorld(item);
 				}
 			}

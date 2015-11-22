@@ -15,16 +15,17 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod {
+public class TileTurntable extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
@@ -33,17 +34,17 @@ public class TileTurntable extends TileMod {
 	boolean backwards = false;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
 
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
 		}
 
 		if(!redstone) {
-			TileEntity tile = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+			TileEntity tile = worldObj.getTileEntity(pos.up());
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
@@ -73,7 +74,7 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
