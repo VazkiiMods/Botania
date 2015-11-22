@@ -31,7 +31,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 
 		final int cost = 120;
 
-		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().provider.dimensionId != 1) {
+		if(redstoneSignal == 0 && !supertile.getWorldObj().isRemote && supertile.getWorldObj().provider.dimensionId != 1) {
 			List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityPlayer player : players) {
 				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost ) {
@@ -40,6 +40,11 @@ public class SubTileFallenKanade extends SubTileFunctional {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
 	}
 
 	@Override
