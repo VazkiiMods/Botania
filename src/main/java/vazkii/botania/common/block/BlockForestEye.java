@@ -11,12 +11,10 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -26,8 +24,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockForestEye extends BlockModContainer implements ILexiconable {
-
-	IIcon[] icons;
 
 	public BlockForestEye() {
 		super(Material.iron);
@@ -39,19 +35,7 @@ public class BlockForestEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[6];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(icons.length - 1, par1)];
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -66,8 +50,8 @@ public class BlockForestEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileForestEye eye = (TileForestEye) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileForestEye eye = (TileForestEye) par1World.getTileEntity(pos);
 		return Math.min(15, Math.max(0, eye.entities - 1));
 	}
 

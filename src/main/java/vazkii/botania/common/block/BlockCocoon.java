@@ -11,16 +11,18 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -43,17 +45,7 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return Blocks.web.getBlockTextureFromSide(0);
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -68,25 +60,25 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
-		TileCocoon cocoon = (TileCocoon) world.getTileEntity(x, y, z);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		ItemStack item = player.getCurrentEquippedItem();
 		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.emerald) {
 			if(!player.capabilities.isCreativeMode)
 				item.stackSize--;
 			cocoon.emeraldsGiven++;
-			world.playAuxSFX(2005, x, y, z, 6 + world.rand.nextInt(4));
+			world.playAuxSFX(2005, pos, 6 + world.rand.nextInt(4));
 		}
 		return false;
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		return new ArrayList();
 	}
 
 	@Override
-	protected boolean canSilkHarvest() {
+	public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		return false;
 	}
 

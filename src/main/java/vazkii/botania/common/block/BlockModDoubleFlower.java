@@ -16,6 +16,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -63,19 +64,19 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		if(!par1Str.equals("doublePlant"))
 			GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
 		return null;
 	}
 
 	@Override
-	public int damageDropped(int p_149692_1_) {
+	public int damageDropped(IBlockState p_149692_1_) {
 		return p_149692_1_ & 7;
 	}
 

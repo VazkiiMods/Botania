@@ -11,23 +11,23 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCacophonium extends BlockModContainer {
-
-	IIcon top;
 
 	protected BlockCacophonium() {
 		super(Material.wood);
@@ -36,18 +36,7 @@ public class BlockCacophonium extends BlockModContainer {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = IconHelper.forBlock(reg, this, 0);
-		top = IconHelper.forBlock(reg, this, 1);
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return side == 1 ? blockIcon : top;
-	}
-
-	@Override
-	protected boolean canSilkHarvest() {
+	public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		return false;
 	}
 
@@ -57,7 +46,7 @@ public class BlockCacophonium extends BlockModContainer {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		boolean powered = (meta & 8) != 0;
@@ -72,16 +61,16 @@ public class BlockCacophonium extends BlockModContainer {
 	}
 
 	@Override
-	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
+	public void onBlockHarvested(World par1World, BlockPos pos, IBlockState state, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode)
-			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
+			dropBlockAsItem(par1World, pos, state, 0);
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		ArrayList<ItemStack> stacks = new ArrayList();
 
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCacophonium) {
 			stacks.add(new ItemStack(Blocks.noteblock));
 			ItemStack thingy = ((TileCacophonium) tile).stack;

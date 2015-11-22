@@ -23,7 +23,6 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
@@ -34,7 +33,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -184,23 +182,6 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(String s : BotaniaAPI.getAllSubTiles())
-			if(!s.isEmpty())
-				BotaniaAPI.getSignatureForName(s).registerIcons(par1IconRegister);
-	}
-
-	@Override
-	public IIcon getIcon(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
-		return ((TileSpecialFlower) par1iBlockAccess.getTileEntity(par2, par3, par4)).getIcon();
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return BlockModFlower.icons[16];
-	}
-
-	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
@@ -257,12 +238,12 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, x, y, z, entity, stack);
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, x, y, z);
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@Override
@@ -281,7 +262,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				world.setBlockState(pos, state.withProperty(BotaniaStateProps.COLOR, newColor), 1 | 2);
 		}
 
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
 	}
 
 	@Override

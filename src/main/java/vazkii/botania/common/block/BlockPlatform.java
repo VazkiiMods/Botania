@@ -15,7 +15,6 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -39,7 +37,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
 
-	IIcon[] icons;
 	private static final int SUBTYPES = 3;
 
 	public BlockPlatform() {
@@ -73,26 +70,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < SUBTYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(SUBTYPES - 1, par2)];
-	}
-
-	@Override
-	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
+	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		if(meta == 2 || meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override
-	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
+	public float getBlockHardness(World par1World, BlockPos pos) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		return meta == 2 ? -1F : super.getBlockHardness(par1World, par2, par3, par4);
 	}

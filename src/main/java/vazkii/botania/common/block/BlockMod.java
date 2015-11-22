@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -33,10 +32,10 @@ public class BlockMod extends Block {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		if(shouldRegisterInNameSet())
 			GameRegistry.registerBlock(this, this instanceof IElvenItem ? ItemBlockElven.class : ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	protected boolean shouldRegisterInNameSet() {
@@ -47,12 +46,6 @@ public class BlockMod extends Block {
 	public Block setLightLevel(float p_149715_1_) {
 		originalLight = (int) (p_149715_1_ * 15);
 		return super.setLightLevel(p_149715_1_);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
 	}
 
 	boolean registerInCreative() {

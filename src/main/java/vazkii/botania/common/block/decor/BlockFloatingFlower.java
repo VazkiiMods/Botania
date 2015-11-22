@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
@@ -25,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -65,11 +67,11 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 	}
 
-	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-	}
+//	@Override todo 1.8 coloredlights dep
+//	@Optional.Method(modid = "easycoloredlights")
+//	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+//		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
+//	}
 
 	@Override
 	protected boolean shouldRegisterInNameSet() {
@@ -87,17 +89,12 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		float[] color = EntitySheep.fleeceColorTable[meta];
 
 		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
 			Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
 	}
 
 	@Override
@@ -107,8 +104,8 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
@@ -117,20 +114,15 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return Blocks.dirt.getIcon(par1, par2);
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null) {
-			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(x, y, z);
+			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
 			IslandType type = null;
 			if(stack.getItem() == Items.snowball)
 				type = IslandType.SNOW;
@@ -143,7 +135,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			if(type != null && type != flower.getIslandType()) {
 				if(!world.isRemote) {
 					flower.setIslandType(type);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, , x);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 
 				if(!player.capabilities.isCreativeMode)
@@ -170,7 +162,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+	public boolean canStabaliseInfusion(World world, BlockPos pos) {
 		return true;
 	}
 }

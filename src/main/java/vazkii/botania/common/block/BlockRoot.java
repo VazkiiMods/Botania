@@ -31,7 +31,7 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 		super(Material.plants);
 		setHardness(1.2F);
 		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.ROOT);
+		setUnlocalizedName(LibBlockNames.ROOT);
 	}
 
 

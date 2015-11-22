@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -39,10 +40,10 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!burst.isFake() && !world.isRemote) {
-			world.playAuxSFX(2001, x, y, z, getIdFromBlock(this));
-			world.setBlockToAir(x, y, z);
+			world.playAuxSFX(2001, pos, Block.getStateId(this.getDefaultState()));
+			world.setBlockToAir(pos);
 			EntityManaStorm storm = new EntityManaStorm(world);
-			storm.setPosition(x + 0.5, y + 0.5, z + 0.5);
+			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.spawnEntityInWorld(storm);
 		}
 	}

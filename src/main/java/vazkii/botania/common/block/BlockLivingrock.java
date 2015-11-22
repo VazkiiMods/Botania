@@ -14,13 +14,11 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -34,7 +32,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockLivingrock extends BlockMod implements ILexiconable {
 
 	private static final int TYPES = 5;
-	IIcon[] icons;
 
 	public BlockLivingrock() {
 		super(Material.rock);
@@ -67,19 +64,7 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
-
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return new ItemStack(this, 1, meta);
 	}

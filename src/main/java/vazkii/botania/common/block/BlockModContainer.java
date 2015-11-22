@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -48,12 +47,6 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 	public Block setLightLevel(float p_149715_1_) {
 		originalLight = (int) (p_149715_1_ * 15);
 		return super.setLightLevel(p_149715_1_);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
 	}
 
 	public boolean registerInCreative() {

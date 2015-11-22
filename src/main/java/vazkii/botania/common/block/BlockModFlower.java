@@ -16,16 +16,17 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.IGrowable;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -45,9 +46,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable {
 
-	public static IIcon[] icons;
-	public static IIcon[] iconsAlt;
-
 	public int originalLight;
 
 	public static final String ALT_DIR = "alt";
@@ -57,13 +55,34 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	protected BlockModFlower(String name) {
-		super(0);
-		setBlockName(name);
+		super();
+		setUnlocalizedName(name);
 		setHardness(0F);
 		setStepSound(soundTypeGrass);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.RED));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Override
+	public EnumFlowerColor getBlockType() {
+		return EnumFlowerColor.RED;
 	}
 
 	public boolean registerInCreative() {
@@ -77,21 +96,9 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[17];
-		iconsAlt = new IIcon[17];
-
-		for(int i = 0; i < icons.length; i++) {
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-			iconsAlt[i] = IconHelper.forBlock(par1IconRegister, this, i, ALT_DIR);
-		}
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -101,27 +108,24 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return (ConfigHandler.altFlowerTextures ? iconsAlt : icons)[Math.min(icons.length - 1, par2)];
-	}
-
-	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpecialFlower;
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		float[] color = EntitySheep.fleeceColorTable[meta];
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+		int hex = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = (hex & 0xFF);
 
 		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
-			Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
+			Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.5 + par5Random.nextFloat() * 0.5, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r, g, b, par5Random.nextFloat(), 5);
 	}
 
 	@Override
@@ -135,17 +139,17 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
-		return world.isAirBlock(x, y + 1, z);
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean fuckifiknow) {
+		return world.isAirBlock(pos.up());
 	}
 
 	@Override
-	public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
-		return func_149851_a(world, x, y, z, false);
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
+		return canGrow(world, pos, state, false);
 	}
 
 	@Override
-	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
 		int meta = world.getBlockMetadata(x, y, z);
 		placeDoubleFlower(world, x, y, z, meta, 1 | 2);
 	}

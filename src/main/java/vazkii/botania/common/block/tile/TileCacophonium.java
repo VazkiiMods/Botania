@@ -21,7 +21,7 @@ public class TileCacophonium extends TileMod {
 	public ItemStack stack;
 
 	public void annoyDirewolf() {
-		ItemCacophonium.playSound(worldObj, stack, xCoord, yCoord, zCoord, 1F);
+		ItemCacophonium.playSound(worldObj, stack, pos.getX(), pos.getY(), pos.getZ(), 1F);
 	}
 
 	@Override

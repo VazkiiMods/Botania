@@ -11,7 +11,9 @@
 package vazkii.botania.common.block.tile;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -152,26 +154,26 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return subTile == null ? false : subTile.onWanded(player, wand);
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		if (subTile != null)
-			subTile.onBlockPlacedBy(world, x, y, z, entity, stack);
+			subTile.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		return subTile == null ? false : subTile.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
 	}
 
-	public void onBlockAdded(World world, int x, int y, int z) {
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
 		if (subTile != null)
-			subTile.onBlockAdded(world, x, y, z);
+			subTile.onBlockAdded(world, pos, state);
 	}
 
-	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (subTile != null)
-			subTile.onBlockHarvested(world, x, y, z, side, player);
+			subTile.onBlockHarvested(world, pos, state, player);
 	}
 
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list) {
 		if (subTile != null)
 			subTile.getDrops(list);
 
@@ -194,14 +196,14 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.canSelect(player, wand, , x, , y);
+		return subTile.canSelect(player, wand, pos, side);
 	}
 
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.bindTo(player, wand, , x, , y);
+		return subTile.bindTo(player, wand, pos, side);
 	}
 
 	public int getLightValue() {
@@ -210,10 +212,10 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return subTile.getLightValue();
 	}
 
-	public int getComparatorInputOverride(int side) {
+	public int getComparatorInputOverride() {
 		if(subTile == null)
 			return 0;
-		return subTile.getComparatorInputOverride(side);
+		return subTile.getComparatorInputOverride();
 	}
 
 	public int getPowerLevel(int side) {

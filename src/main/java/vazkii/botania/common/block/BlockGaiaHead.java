@@ -12,9 +12,10 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
@@ -27,33 +28,28 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockGaiaHead extends BlockSkull {
 
 	public BlockGaiaHead() {
-		setBlockName(LibBlockNames.GAIA_HEAD);
+		setUnlocalizedName(LibBlockNames.GAIA_HEAD);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+	public Item getItem(World p_149694_1_, BlockPos pos) {
 		return ModItems.gaiaHead;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		// NO-OP
-	}
-
-	@Override
-	public int getDamageValue(World p_149643_1_, int p_149643_2_, int p_149643_3_, int p_149643_4_)  {
+	public int getDamageValue(World p_149643_1_, BlockPos pos)  {
 		return 0;
 	}
 
 	@Override
-	public int damageDropped(int p_149692_1_) {
+	public int damageDropped(IBlockState state) {
 		return 0;
 	}
 

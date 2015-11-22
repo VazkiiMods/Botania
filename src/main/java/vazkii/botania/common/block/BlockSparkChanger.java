@@ -15,7 +15,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -37,7 +35,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockSparkChanger extends BlockModContainer implements ILexiconable {
 
-	IIcon[] icons;
 	Random random;
 
 	public BlockSparkChanger() {
@@ -67,25 +64,13 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
-	}
-
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		int meta = world.getBlockMetadata(x, y, z);
 		boolean powered = (meta & 8) != 0;
 
 		if(power && !powered) {
-			((TileSparkChanger) world.getTileEntity(x, y, z)).doSwap();
+			((TileSparkChanger) world.getTileEntity(pos)).doSwap();
 			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
 		} else if(!power && powered)
 			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);

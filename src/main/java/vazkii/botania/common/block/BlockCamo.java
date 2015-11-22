@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -122,26 +123,22 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess par1World, int par2, int par3, int par4) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public int colorMultiplier(IBlockAccess par1World, BlockPos pos, int pass) {
+		TileEntity tile = par1World.getTileEntity(pos);
 		if(tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
 			Block block = camo.camo;
 			if(block != null)
-				return block instanceof BlockCamo ? 0xFFFFFF : block.colorMultiplier(par1World, par2, par3, par4);
+				return block instanceof BlockCamo ? 0xFFFFFF : block.colorMultiplier(par1World, pos, pass);
 
 		}
 		return 0xFFFFFF;
-	}
-
-	public IIcon getIconFromSideAfterCheck(TileEntity tile, int meta, int side) {
-		return getIcon(side, meta);
 	}
 
 }

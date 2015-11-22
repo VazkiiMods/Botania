@@ -12,7 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -40,19 +40,13 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		super(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(this);
-		setBlockName(LibBlockNames.GHOST_RAIL);
+		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@SubscribeEvent
@@ -60,8 +54,9 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		int x = MathHelper.floor_double(event.entity.posX);
 		int y = MathHelper.floor_double(event.entity.posY);
 		int z = MathHelper.floor_double(event.entity.posZ);
-		Block block = event.entity.worldObj.getBlock(x, y, z);
-		boolean air = block.isAir(event.entity.worldObj, x, y, z);
+		BlockPos entPos = new BlockPos(event.entity);
+		Block block = event.entity.worldObj.getBlockState(entPos).getBlock();
+		boolean air = block.isAir(event.entity.worldObj, entPos);
 		int floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(block == this)
@@ -69,20 +64,20 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
 			event.entity.getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
 			if(floatTicks > 0)
-				event.entity.worldObj.playAuxSFX(2003, x, y, z, 0);
+				event.entity.worldObj.playAuxSFX(2003, entPos, 0);
 		}
 		floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(floatTicks > 0) {
-			Block blockBelow = event.entity.worldObj.getBlock(x, y - 1, z);
-			boolean airBelow = blockBelow.isAir(event.entity.worldObj, x, y - 1, z);
+			Block blockBelow = event.entity.worldObj.getBlockState(entPos.down()).getBlock();
+			boolean airBelow = blockBelow.isAir(event.entity.worldObj, entPos.down());
 			if(air && airBelow || !air && !airBelow)
 				event.entity.noClip = true;
 			event.entity.motionY = 0.2;
 			event.entity.motionX *= 1.4;
 			event.entity.motionZ *= 1.4;
 			event.entity.getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
-			event.entity.worldObj.playAuxSFX(2000, x, y, z, 0);
+			event.entity.worldObj.playAuxSFX(2000, entPos, 0);
 		} else event.entity.noClip = false;
 	}
 
@@ -91,4 +86,8 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		return LexiconData.ghostRail;
 	}
 
+	@Override
+	public IProperty getShapeProperty() {
+		return null; // todo 1.8 ??
+	}
 }

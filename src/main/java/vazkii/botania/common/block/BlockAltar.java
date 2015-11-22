@@ -16,7 +16,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -29,7 +28,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -64,11 +62,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
 
 		random = new Random();
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
 	}
 
 	@Override

@@ -11,7 +11,9 @@
 package vazkii.botania.api.subtile;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -113,33 +115,33 @@ public class SubTileEntity {
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		// NO-OP
 	}
 
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) { return false; }
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) { return false; }
 
 	/**
 	 * Called when this sub tile is added to the world.
 	 */
-	public void onBlockAdded(World world, int x, int y, int z) {
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
 		//NO-OP
 	}
 
 	/**
 	 * Called when this sub tile is harvested
 	 */
-	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		//NO-OP
 	}
 
 	/**
 	 * Allows additional processing of sub tile drops
 	 */
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list) {
 		return list;
 	}
 
@@ -208,14 +210,14 @@ public class SubTileEntity {
 	/**
 	 * Gets the comparator input value for this SubTileEntity
 	 */
-	public int getComparatorInputOverride(int side) {
+	public int getComparatorInputOverride() {
 		return 0;
 	}
 
 	/**
 	 * Gets the redstone power level for this SubTileEntity
 	 */
-	public int getPowerLevel(int side) {
+	public int getPowerLevel(EnumFacing side) {
 		return 0;
 	}
 

@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
@@ -24,7 +25,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +32,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -49,13 +48,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockOpenCrate extends BlockModContainer implements ILexiconable, IWandable, IWandHUD {
-
-	IIcon iconSide;
-	IIcon iconBottom;
-	IIcon iconSideCraft;
-	IIcon iconBottomCraft;
-
-	IIcon[] sidePatternIcons;
 
 	Random random;
 
@@ -88,8 +80,8 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 
@@ -99,14 +91,14 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(par2, par3, par4);
+	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(pos);
 		return crate.getSignal();
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -124,7 +116,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -136,10 +128,10 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -154,19 +146,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 			sidePatternIcons[i] = IconHelper.forName(par1IconRegister, "ocPattern" + i);
 	}
 
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta == 0 ? side == 0 ? iconBottom : iconSide : side == 0 ? iconBottomCraft : iconSideCraft;
-	}
 
-	@Override
-	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null && tile instanceof TileCraftCrate && ((TileCraftCrate) tile).pattern != -1 && side != 0)
-			return sidePatternIcons[((TileCraftCrate) tile).pattern];
-
-		return super.getIcon(world, x, y, z, side);
-	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
@@ -180,13 +160,13 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(x, y, z);
+		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(pos);
 		return crate.onWanded(player, stack);
 	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileCraftCrate) {
 			TileCraftCrate craft = (TileCraftCrate) tile;
 			
@@ -213,7 +193,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 					ItemStack item = craft.getStackInSlot(index);
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, item, xp, yp);
+					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 				}
 		}

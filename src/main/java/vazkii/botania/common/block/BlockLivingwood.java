@@ -14,13 +14,12 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,7 +34,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockLivingwood extends BlockMod implements ILexiconable {
 
 	private static final int TYPES = 6;
-	IIcon[] icons;
 
 	public BlockLivingwood() {
 		this(LibBlockNames.LIVING_WOOD);
@@ -54,8 +52,8 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
@@ -75,25 +73,13 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
-
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return new ItemStack(this, 1, meta);
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
 		return world.getBlockMetadata(x, y, z) == 5 ? 12 : 0;
 	}
 
@@ -104,7 +90,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean canSustainLeaves(IBlockAccess world, int x, int y, int z) {
+	public boolean canSustainLeaves(IBlockAccess world, BlockPos pos) {
 		return world.getBlockMetadata(x, y, z) == 0;
 	}
 

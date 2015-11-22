@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
@@ -54,13 +55,13 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
-	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		int currentLight = ((TileSpecialFlower) world.getTileEntity(x, y, z)).getLightValue();
-		if(currentLight == -1)
-			currentLight = originalLight;
-		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
-	}
+//	@Override todo 1.8 coloredlights dep
+//	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+//		int currentLight = ((TileSpecialFlower) world.getTileEntity(x, y, z)).getLightValue();
+//		if(currentLight == -1)
+//			currentLight = originalLight;
+//		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
+//	}
 
 	@Override
 	public boolean hasComparatorInputOverride() {
@@ -68,18 +69,18 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getComparatorInputOverride(side);
+	public int getComparatorInputOverride(World world, BlockPos pos) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
 	}
 
 	@Override
-	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
-		return isProvidingWeakPower(world, x, y, z, side);
+	public int isProvidingStrongPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+		return isProvidingWeakPower(world, pos, state, side);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
 		// NO-OP
 	}
 
@@ -102,9 +103,10 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		String name = ((TileSpecialFlower) world.getTileEntity(x, y, z)).subTileName;
-		return ItemBlockSpecialFlower.ofType(new ItemStack(world.getBlock(x, y, z)), name);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
+		IBlockState state = world.getBlockState(pos);
+		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock(), state.getBlock().getMetaFromState(state), name);
 	}
 
 	@Override
@@ -152,13 +154,13 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockAdded(world, x, y, z);
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos);
 	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
@@ -173,6 +175,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
 }

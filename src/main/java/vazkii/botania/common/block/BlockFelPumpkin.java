@@ -11,7 +11,8 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -20,7 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,52 +39,51 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
-	IIcon top, face;
-
 	public BlockFelPumpkin() {
 		super(Material.gourd);
 		setBlockName(LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setStepSound(soundTypeWood);
 		MinecraftForge.EVENT_BUS.register(this);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? top : p_149691_1_ == 0 ? top : p_149691_2_ == 2 && p_149691_1_ == 2 ? face : p_149691_2_ == 3 && p_149691_1_ == 5 ? face : p_149691_2_ == 0 && p_149691_1_ == 3 ? face : p_149691_2_ == 1 && p_149691_1_ == 4 ? face : blockIcon;
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.CARDINALS);
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getHorizontalIndex();
+	}
 
-		if(!p_149726_1_.isRemote && p_149726_1_.getBlock(p_149726_2_, p_149726_3_ - 1, p_149726_4_) == Blocks.iron_bars && p_149726_1_.getBlock(p_149726_2_, p_149726_3_ - 2, p_149726_4_) == Blocks.iron_bars) {
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_, p_149726_4_, getBlockById(0), 0, 2);
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 1, p_149726_4_, getBlockById(0), 0, 2);
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 2, p_149726_4_, getBlockById(0), 0, 2);
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));
+	}
+
+	@Override
+	public void onBlockAdded(World p_149726_1_, BlockPos pos, IBlockState state) {
+		super.onBlockAdded(p_149726_1_, pos, state);
+
+		if(!p_149726_1_.isRemote && p_149726_1_.getBlockState(pos.down()).getBlock() == Blocks.iron_bars && p_149726_1_.getBlockState(pos.down(2)).getBlock() == Blocks.iron_bars) {
+			p_149726_1_.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+			p_149726_1_.setBlockState(pos.down(), Blocks.air.getDefaultState(), 2);
+			p_149726_1_.setBlockState(pos.down(2), Blocks.air.getDefaultState(), 2);
 			EntityBlaze blaze = new EntityBlaze(p_149726_1_);
-			blaze.setLocationAndAngles(p_149726_2_ + 0.5D, p_149726_3_ - 1.95D, p_149726_4_ + 0.5D, 0.0F, 0.0F);
+			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
 			p_149726_1_.spawnEntityInWorld(blaze);
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_, p_149726_4_, getBlockById(0));
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_ - 1, p_149726_4_, getBlockById(0));
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_ - 2, p_149726_4_, getBlockById(0));
+			p_149726_1_.notifyNeighborsOfStateChange(pos, Blocks.air);
+			p_149726_1_.notifyNeighborsOfStateChange(pos.down(), Blocks.air);
+			p_149726_1_.notifyNeighborsOfStateChange(pos.down(2), Blocks.air);
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 2.5D) & 3;
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, l, 2);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)  {
-		face = IconHelper.forBlock(p_149651_1_, this);
-		top = Blocks.pumpkin.getIcon(0, 0);
-		blockIcon = Blocks.pumpkin.getIcon(2, 0);
+	public void onBlockPlacedBy(World p_149689_1_, BlockPos pos, IBlockState state, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		p_149689_1_.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, p_149689_5_.getHorizontalFacing().getOpposite()));
 	}
 
 	@SubscribeEvent

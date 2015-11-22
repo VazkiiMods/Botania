@@ -18,7 +18,10 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPistonExtension;
+import net.minecraft.block.BlockPistonMoving;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -33,7 +36,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.WorldEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -57,7 +59,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	public BlockPistonRelay() {
 		super(Material.gourd);
-		setBlockName(LibBlockNames.PISTON_RELAY);
+		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
 		setHardness(2F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
@@ -67,7 +69,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public int quantityDropped(int meta, int fortune, Random random) {
+	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		return 0;
 	}
 
@@ -77,16 +79,16 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		mapCoords(par1World.provider.dimensionId, par2, par3, par4, 2);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		mapCoords(par1World.provider.getDimensionId(), pos, 2);
 	}
 
 	public static String getCoordsAsString(int world, BlockPos pos) {
 		return world + ":" + pos.getX() + ":" + pos.getY() + ":" + pos.getZ();
 	}
 
-	static void mapCoords(int world, int x, int y, int z, int time) {
-		String coords = getCoordsAsString(world, x, y, z);
+	static void mapCoords(int world, BlockPos pos, int time) {
+		String coords = getCoordsAsString(world, pos);
 		coordsToCheck.put(coords, time);
 	}
 
@@ -110,18 +112,18 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		String[] tokens = key.split(":");
 		int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 		World world = server.worldServerForDimension(worldId);
-		return world.getBlock(x, y, z);
+		return world.getBlockState(new BlockPos(x, y, z)).getBlock();
 	}
 
-	static int getBlockMetaAt(String key) {
+	static IBlockState getStateAt(String key) {
 		MinecraftServer server = MinecraftServer.getServer();
 		if(server == null)
-			return 0;
+			return null;
 
 		String[] tokens = key.split(":");
 		int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 		World world = server.worldServerForDimension(worldId);
-		return world.getBlockMetadata(x, y, z);
+		return world.getBlockState(new BlockPos(x, y, z));
 	}
 
 	@Override
@@ -130,13 +132,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return false;
 
 		if(!player.isSneaking()) {
-			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.dimensionId, x, y, z));
-			world.playSoundEffect(x, y, z, "botania:ding", 0.5F, 1F);
+			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.getDimensionId(), pos));
+			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
 		} else {
 			dropBlockAsItem(world, x, y, z, new ItemStack(this));
-			world.setBlockToAir(x, y, z);
+			world.setBlockToAir(pos);
 			if(!world.isRemote)
-				world.playAuxSFX(2001, x, y , z, Block.getIdFromBlock(this));
+				world.playAuxSFX(2001, pos, Block.getIdFromBlock(this));
 		}
 
 		return true;
@@ -164,11 +166,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		public void readFromNBT(NBTTagCompound nbttagcompound) {
 			mappedPositions.clear();
 
-			Collection<String> tags = nbttagcompound.func_150296_c();
+			Collection<String> tags = nbttagcompound.getKeySet();
 			for(String key : tags) {
 				NBTBase tag = nbttagcompound.getTag(key);
 				if(tag instanceof NBTTagString) {
-					String value = ((NBTTagString) tag).func_150285_a_();
+					String value = ((NBTTagString) tag).getString();
 
 					mappedPositions.put(key, value);
 				}
@@ -182,15 +184,15 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		public static WorldData get(World world) {
-			if(world.mapStorage == null)
+			if(world.getMapStorage() == null)
 				return null;
 
-			WorldData data = (WorldData) world.mapStorage.loadData(WorldData.class, ID);
+			WorldData data = (WorldData) world.getMapStorage().loadData(WorldData.class, ID);
 
 			if (data == null) {
 				data = new WorldData(ID);
 				data.markDirty();
-				world.mapStorage.setData(ID, data);
+				world.getMapStorage().setData(ID, data);
 			}
 			return data;
 		}
@@ -207,9 +209,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 				Block block = getBlockAt(s);
 				if(block == Blocks.piston_extension) {
-					int meta = getBlockMetaAt(s);
-					boolean sticky = (meta & 8) == 8;
-					ForgeDirection dir = ForgeDirection.getOrientation(meta & ~8);
+					IBlockState state = getStateAt(s);
+					boolean sticky = BlockPistonExtension.EnumPistonType.STICKY == state.getValue(BlockPistonMoving.TYPE);
+					EnumFacing dir = ((EnumFacing) state.getValue(BlockPistonMoving.FACING)).getOpposite();
 
 					MinecraftServer server = MinecraftServer.getServer();
 
@@ -219,34 +221,35 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 						{
 							String[] tokens = s.split(":");
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
+							BlockPos pos = new BlockPos(x, y, z);
 							World world = server.worldServerForDimension(worldId);
-							if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
-								world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
+							if(world.isAirBlock(pos.offset(dir)))
+								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntityInWorld(new EntityItem(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, stack));
+								world.spawnEntityInWorld(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
 							}
 							checkedCoords.add(s);
-							newPos = getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+							newPos = getCoordsAsString(world.provider.getDimensionId(), pos.offset(dir));
 						}
 
 						if(mappedPositions.containsKey(s)) {
 							String pos = mappedPositions.get(s);
 							String[] tokens = pos.split(":");
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
+							BlockPos pos2 = new BlockPos(x, y, z);
 							World world = server.worldServerForDimension(worldId);
 
-							Block srcBlock = world.getBlock(x, y, z);
-							int srcMeta = world.getBlockMetadata(x, y, z);
-							TileEntity tile = world.getTileEntity(x, y, z);
-							Material mat = srcBlock.getMaterial();
+							IBlockState srcState = world.getBlockState(pos2);
+							TileEntity tile = world.getTileEntity(pos2);
+							Material mat = srcState.getBlock().getMaterial();
 
-							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && srcBlock.getBlockHardness(world, x, y, z) != -1 && !srcBlock.isAir(world, x, y, z)) {
-								Material destMat = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial();
-								if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) || destMat.isReplaceable()) {
-									world.setBlock(x, y, z, Blocks.air);
-									world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, srcBlock, srcMeta, 1 | 2);
-									mappedPositions.put(s, getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ));
+							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && srcState.getBlock().getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(world, pos2)) {
+								Material destMat = world.getBlockState(pos2.offset(dir)).getBlock().getMaterial();
+								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
+									world.setBlockState(pos2, Blocks.air.getDefaultState());
+									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);
+									mappedPositions.put(s, getCoordsAsString(world.provider.getDimensionId(), pos2.offset(dir)));
 								}
 							}
 

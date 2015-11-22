@@ -11,12 +11,13 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -28,25 +29,28 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 
-	IIcon iconOff, iconOn;
-
 	protected BlockEnderEye() {
 		super(Material.iron);
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setUnlocalizedName(LibBlockNames.ENDER_EYE_BLOCK);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWER, 0));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWER);
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta == 0 ? iconOff : iconOn;
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWER, meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((Integer) state.getValue(BotaniaStateProps.POWER));
 	}
 
 	@Override
@@ -55,8 +59,8 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
-		return world.getBlockMetadata(x, y, z);
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+		return ((Integer) state.getValue(BotaniaStateProps.POWER));
 	}
 
 	@Override

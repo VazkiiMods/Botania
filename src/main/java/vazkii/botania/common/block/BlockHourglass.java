@@ -14,9 +14,9 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
@@ -61,8 +60,8 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xs, float ys, float zs) {
-		TileHourglass hourglass = (TileHourglass) world.getTileEntity(x, y, z);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float xs, float ys, float zs) {
+		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getStackInSlot(0);
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
@@ -97,7 +96,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
 	}
 
@@ -107,13 +106,13 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -131,7 +130,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -143,20 +142,10 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return ModBlocks.manaGlass.getIcon(0, 0);
+		super.breakBlock(par1World, pos, state);
 	}
 
 	@Override
@@ -165,7 +154,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -182,7 +171,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!world.isRemote && !burst.isFake()) {
-			TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+			TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 			tile.move = !tile.move;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
@@ -190,14 +179,14 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 		tile.lock = !tile.lock;
 		return false;
 	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
 		tile.renderHUD(res);
 	}
 

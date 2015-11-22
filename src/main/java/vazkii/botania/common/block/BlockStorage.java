@@ -15,13 +15,11 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -38,14 +36,12 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	private static final int SUBTYPES = 5;
 
-	IIcon[] icons;
-
 	public BlockStorage() {
 		super(Material.iron);
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.STORAGE);
+		setUnlocalizedName(LibBlockNames.STORAGE);
 	}
 
 	@Override
@@ -55,9 +51,9 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockStorage.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -68,19 +64,6 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(icons.length - 1, par2)];
 	}
 
 	@Override

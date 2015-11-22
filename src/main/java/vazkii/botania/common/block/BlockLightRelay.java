@@ -15,7 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,7 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -66,7 +65,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public int damageDropped(int meta) {
+	public int damageDropped(IBlockState state) {
 		return meta == 0 ? 0 : 1;
 	}
 
@@ -76,18 +75,18 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
+	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
-		((TileLightRelay) world.getTileEntity(x, y, z)).mountEntity(player);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+	public AxisAlignedBB getCollisionBoundingBox(World p_149668_1_, BlockPos pos, IBlockState state) {
 		return null;
 	}
 
@@ -97,7 +96,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) & -9, 1 | 2);
 	}
 
@@ -107,26 +106,13 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int s) {
+	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return (meta & 8) != 0 ? 15 : 0;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		invIcon = IconHelper.forBlock(par1IconRegister, this, 0);
-		worldIcon = IconHelper.forBlock(par1IconRegister, this, 1);
-		invIconRed = IconHelper.forBlock(par1IconRegister, this, 2);
-		worldIconRed = IconHelper.forBlock(par1IconRegister, this, 3);
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta > 0 ? invIconRed : invIcon;
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
