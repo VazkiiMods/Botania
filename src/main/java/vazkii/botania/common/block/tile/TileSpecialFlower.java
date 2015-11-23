@@ -21,11 +21,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -35,7 +35,7 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
-public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
+public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer, IUpdatePlayerListBox {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -72,22 +72,16 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(subTile != null) {
-			TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+			TileEntity tileBelow = worldObj.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 				if(coords != null) {
-					int currX = xCoord;
-					int currY = yCoord;
-					int currZ = zCoord;
-					xCoord = coords.posX;
-					yCoord = coords.posY;
-					zCoord = coords.posZ;
+					BlockPos currPos = pos;
+					setPos(coords);
 					subTile.onUpdate();
-					xCoord = currX;
-					yCoord = currY;
-					zCoord = currZ;
+					setPos(currPos);
 
 					return;
 				}
@@ -108,12 +102,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	public boolean isOnSpecialSoil() {
-		return worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.enchantedSoil;
-	}
-
-	@Override
-	public boolean canUpdate() {
-		return subTile == null || subTile.canUpdate();
+		return worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
 	}
 
 	@Override
@@ -140,10 +129,6 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 		if(subTile != null)
 			subTile.readFromPacketNBTInternal(subCmp);
-	}
-
-	public IIcon getIcon() {
-		return subTile == null ? Blocks.red_flower.getIcon(0, 0) : subTile.getIcon();
 	}
 
 	public LexiconEntry getEntry() {
@@ -218,7 +203,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return subTile.getComparatorInputOverride();
 	}
 
-	public int getPowerLevel(int side) {
+	public int getPowerLevel(EnumFacing side) {
 		if(subTile == null)
 			return 0;
 		return subTile.getPowerLevel(side);

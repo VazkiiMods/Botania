@@ -11,9 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 
-public class TileTinyPotato extends TileMod {
+public class TileTinyPotato extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_NAME = "name";
 
@@ -25,7 +26,7 @@ public class TileTinyPotato extends TileMod {
 		jump();
 		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
 			nextDoIt = 40;
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
+			worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:doit", 1F, 1F);
 		}
 	}
 
@@ -35,7 +36,7 @@ public class TileTinyPotato extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(worldObj.rand.nextInt(100) == 0)
 			jump();
 

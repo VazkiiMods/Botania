@@ -25,14 +25,9 @@ public class TileCamo extends TileMod {
 	public int camoMeta;
 
 	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
-	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		if(camo != null) {
-			cmp.setString(TAG_CAMO, Block.blockRegistry.getNameForObject(camo));
+			cmp.setString(TAG_CAMO, Block.blockRegistry.getNameForObject(camo).toString());
 			cmp.setInteger(TAG_CAMO_META, camoMeta);
 		}
 	}
@@ -46,6 +41,6 @@ public class TileCamo extends TileMod {
 	@Override
 	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
 		super.onDataPacket(manager, packet);
-		worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+		worldObj.markBlockRangeForRenderUpdate(pos, pos);
 	}
 }

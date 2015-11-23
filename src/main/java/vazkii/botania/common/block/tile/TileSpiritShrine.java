@@ -10,14 +10,15 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import vazkii.botania.common.Botania;
 
-public class TileSpiritShrine extends TileMod {
+public class TileSpiritShrine extends TileMod implements IUpdatePlayerListBox {
 
 	int ticks;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(worldObj.isRemote) {
 			if(ticks >= 40) {
 				float[][] colors = new float[][] {
@@ -43,9 +44,9 @@ public class TileSpiritShrine extends TileMod {
 					double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 					for(int i = 0; i < totalSpiritCount; i++) {
-						double x = xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-						double y = yCoord + (ticks > existTicks ? 40 - (double) (ticks - existTicks) : Math.min(80 + 40 * i, ticks) - 40 * (i + 1)) * 0.1;
-						double z = zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;
+						double x = pos.getX() + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+						double y = pos.getY() + (ticks > existTicks ? 40 - (double) (ticks - existTicks) : Math.min(80 + 40 * i, ticks) - 40 * (i + 1)) * 0.1;
+						double z = pos.getZ() + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
 						wticks += tickIncrement;
 						float[] colorsfx = colors[i >= colors.length ? 0 : i];

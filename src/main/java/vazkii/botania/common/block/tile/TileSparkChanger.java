@@ -16,7 +16,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -32,8 +32,8 @@ public class TileSparkChanger extends TileSimpleInventory {
 
 		ItemStack changeStack = getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList();
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 			if(tile != null && tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;
 				ISparkEntity spark = attach.getAttachedSpark();
@@ -57,7 +57,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			if(transfers != null)
 				transfers.clear();
 			setInventorySlotContents(0, sparkStack);
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 			markDirty();
 		}
 	}
@@ -84,7 +84,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.SPARK_CHANGER;
 	}
 

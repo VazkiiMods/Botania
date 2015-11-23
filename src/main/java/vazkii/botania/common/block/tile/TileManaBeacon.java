@@ -11,16 +11,18 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.Botania;
 
-public class TileManaBeacon extends TileMod {
+public class TileManaBeacon extends TileMod implements IUpdatePlayerListBox {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
 		}

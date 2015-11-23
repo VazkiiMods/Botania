@@ -16,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
@@ -26,18 +27,18 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver {
+public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePlayerListBox {
 
 	private static final String TAG_MANA = "mana";
 
 	int mana = 0;
 
 	@Override
-	public void updateEntity() {
-		TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+	public void update() {
+		TileEntity tileBelow = worldObj.getTileEntity(pos.down());
 		if(mana >= 5 && tileBelow instanceof TileEntityMobSpawner) {
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
-			MobSpawnerBaseLogic logic = spawner.func_145881_a();
+			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
 
 			if(!logic.isActivated()) {
 				if(!worldObj.isRemote)

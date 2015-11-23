@@ -14,10 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileOpenCrate extends TileSimpleInventory {
+public class TileOpenCrate extends TileSimpleInventory implements IUpdatePlayerListBox {
 
 	@Override
 	public int getSizeInventory() {
@@ -25,15 +26,15 @@ public class TileOpenCrate extends TileSimpleInventory {
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.OPEN_CRATE;
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;
 				break;
@@ -48,12 +49,12 @@ public class TileOpenCrate extends TileSimpleInventory {
 	}
 
 	public boolean canEject() {
-		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord) || blockBelow.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord - 1, zCoord) == null;
+		Block blockBelow = worldObj.getBlockState(pos.down()).getBlock();
+		return blockBelow.isAir(worldObj, pos.down()) || blockBelow.getCollisionBoundingBox(worldObj, pos.down(), worldObj.getBlockState(pos.down())) == null;
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord - 0.5, zCoord + 0.5, stack);
+		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;

@@ -33,11 +33,6 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 	}
 
 	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
-	@Override
 	public IslandType getIslandType() {
 		return type;
 	}

@@ -91,7 +91,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(!worldObj.isRemote && (craft(true) && canEject() || isFull()))
 			ejectAll();
 
@@ -102,7 +102,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		}
 	}
 
@@ -197,7 +197,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		int lastPattern = pattern;
 		super.onDataPacket(manager, packet);
 		if(pattern != lastPattern)
-			worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+			worldObj.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 }

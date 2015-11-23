@@ -27,26 +27,17 @@ public class TileCell extends TileMod {
 
 	private int generation;
 	private boolean ticked;
-	private BlockPos flowerCoords = new BlockPos();
-	private BlockPos validCoords = new BlockPos();
-
-	@Override
-	public boolean canUpdate() {
-		return false;
-	}
+	private BlockPos flowerCoords = new BlockPos(0, -1, 0);
+	private BlockPos validCoords = new BlockPos(0, -1, 0);
 
 	public void setGeneration(TileEntity flower, int gen) {
 		generation = gen;
 		if(!ticked) {
-			flowerCoords.posX = flower.xCoord;
-			flowerCoords.posY = flower.yCoord;
-			flowerCoords.posZ = flower.zCoord;
-			validCoords.posX = xCoord;
-			validCoords.posY = yCoord;
-			validCoords.posZ = zCoord;
+			flowerCoords = flower.getPos();
+			validCoords = this.getPos();
 			ticked = true;
 		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+			worldObj.setBlockToAir(pos);
 	}
 
 	public boolean isSameFlower(TileEntity flower) {
@@ -54,7 +45,7 @@ public class TileCell extends TileMod {
 	}
 	
 	private boolean matchCoords(BlockPos coords, TileEntity tile) {
-		return coords.posX == tile.xCoord && coords.posY == tile.yCoord && coords.posZ == tile.zCoord;
+		return coords.equals(tile.getPos());
 	}
 
 	public int getGeneration() {
@@ -66,12 +57,12 @@ public class TileCell extends TileMod {
 		cmp.setInteger(TAG_GENERATION, generation);
 		cmp.setBoolean(TAG_TICKED, ticked);
 		if(ticked) {
-			cmp.setInteger(TAG_FLOWER_X, flowerCoords.posX);
-			cmp.setInteger(TAG_FLOWER_Y, flowerCoords.posY);
-			cmp.setInteger(TAG_FLOWER_Z, flowerCoords.posZ);
-			cmp.setInteger(TAG_VALID_X, validCoords.posX);
-			cmp.setInteger(TAG_VALID_Y, validCoords.posY);
-			cmp.setInteger(TAG_VALID_Z, validCoords.posZ);
+			cmp.setInteger(TAG_FLOWER_X, flowerCoords.getX());
+			cmp.setInteger(TAG_FLOWER_Y, flowerCoords.getY());
+			cmp.setInteger(TAG_FLOWER_Z, flowerCoords.getZ());
+			cmp.setInteger(TAG_VALID_X, validCoords.getX());
+			cmp.setInteger(TAG_VALID_Y, validCoords.getY());
+			cmp.setInteger(TAG_VALID_Z, validCoords.getZ());
 		}
 	}
 
@@ -80,12 +71,16 @@ public class TileCell extends TileMod {
 		generation = cmp.getInteger(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if(ticked) {
-			flowerCoords.posX = cmp.getInteger(TAG_FLOWER_X);
-			flowerCoords.posY = cmp.getInteger(TAG_FLOWER_Y);
-			flowerCoords.posZ = cmp.getInteger(TAG_FLOWER_Z);
-			validCoords.posX = cmp.getInteger(TAG_VALID_X);
-			validCoords.posY = cmp.getInteger(TAG_VALID_Y);
-			validCoords.posZ = cmp.getInteger(TAG_VALID_Z);
+			flowerCoords = new BlockPos(
+				cmp.getInteger(TAG_FLOWER_X),
+				cmp.getInteger(TAG_FLOWER_Y),
+				cmp.getInteger(TAG_FLOWER_Z)
+			);
+			validCoords = new BlockPos(
+					cmp.getInteger(TAG_VALID_X),
+					cmp.getInteger(TAG_VALID_Y),
+					cmp.getInteger(TAG_VALID_Z)
+			);
 		}
 	}
 

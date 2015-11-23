@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import vazkii.botania.common.Botania;
 
-public class TileStarfield extends TileMod {
+public class TileStarfield extends TileMod implements IUpdatePlayerListBox {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		int meta = getBlockMetadata();
 		if(!worldObj.isRemote) {
 			int newMeta = worldObj.isDaytime() ? 0 : 1;
@@ -29,9 +30,9 @@ public class TileStarfield extends TileMod {
 			double radius = 512;
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {
-				double x = xCoord + 0.5 + (Math.random() - 0.5) * radius;
-				double y = yCoord + 256;
-				double z = zCoord + 0.5 + (Math.random() - 0.5) * radius;
+				double x = pos.getX() + 0.5 + (Math.random() - 0.5) * radius;
+				double y = pos.getY() + 256;
+				double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 				float w = 0.6F;
 				float c = 1F - w;

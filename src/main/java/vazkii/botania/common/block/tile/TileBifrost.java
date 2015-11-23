@@ -11,22 +11,23 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import vazkii.botania.common.Botania;
 
-public class TileBifrost extends TileMod {
+public class TileBifrost extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(!worldObj.isRemote) {
 			if(ticks <= 0) {
-				worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+				worldObj.setBlockToAir(pos);
 			} else ticks--;
 		} else if(Math.random() < 0.1)
-			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+			Botania.proxy.sparkleFX(worldObj, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}
 
 	@Override

@@ -11,19 +11,20 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileForestEye extends TileMod {
+public class TileForestEye extends TileMod implements IUpdatePlayerListBox {
 
 	public int entities = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		int range = 6;
-		int entityCount = worldObj.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(xCoord - range, yCoord - range, zCoord - range, xCoord + range + 1, yCoord + range + 1, zCoord + range + 1)).size();
+		int entityCount = worldObj.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if(entityCount != entities) {
 			entities = entityCount;
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		}
 	}
 

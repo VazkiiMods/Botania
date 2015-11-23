@@ -22,9 +22,10 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
-public class TileCocoon extends TileMod {
+public class TileCocoon extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
@@ -36,7 +37,7 @@ public class TileCocoon extends TileMod {
 	public int emeraldsGiven;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		timePassed++;
 		if(timePassed >= TOTAL_TIME)
 			hatch();
@@ -44,8 +45,8 @@ public class TileCocoon extends TileMod {
 
 	public void hatch() {
 		if(!worldObj.isRemote) {
-			worldObj.playAuxSFX(2001, xCoord, yCoord, zCoord, Block.getIdFromBlock(getBlockType()));
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+			worldObj.playAuxSFX(2001, pos, Block.getIdFromBlock(getBlockType()));
+			worldObj.setBlockToAir(pos);
 
 			EntityAgeable entity = null;
 
@@ -53,7 +54,7 @@ public class TileCocoon extends TileMod {
 
 			if(Math.random() < villagerChance) {
 				EntityVillager villager = new EntityVillager(worldObj);
-				VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
+				// todo 1.8 village registry incomplete. VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
 				entity = villager;
 			} else {
 				float specialChance = 0.05F;
@@ -92,7 +93,7 @@ public class TileCocoon extends TileMod {
 			}
 
 			if(entity != null) {
-				entity.setPosition(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				entity.setGrowingAge(-24000);
 				worldObj.spawnEntityInWorld(entity);
 				entity.spawnExplosionParticle();

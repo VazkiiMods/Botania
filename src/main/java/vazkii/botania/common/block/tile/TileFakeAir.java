@@ -22,11 +22,6 @@ public class TileFakeAir extends TileMod {
 
 	int flowerX, flowerY, flowerZ;
 
-	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
 	public void setFlower(TileEntity tile) {
 		flowerX = tile.xCoord;
 		flowerY = tile.yCoord;

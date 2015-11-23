@@ -11,10 +11,11 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 
-public class TileManaFlame extends TileMod {
+public class TileManaFlame extends TileMod implements IUpdatePlayerListBox {
 
 	private static final String TAG_COLOR = "color";
 
@@ -31,7 +32,7 @@ public class TileManaFlame extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		float c = 0.3F;
 
 		if(Math.random() < c) {
@@ -43,9 +44,9 @@ public class TileManaFlame extends TileMod {
 
 			float w = 0.15F;
 			float h = 0.05F;
-			double x = xCoord + 0.5 + (Math.random() - 0.5) * w;
-			double y = yCoord + 0.25 + (Math.random() - 0.5) * h;
-			double z = zCoord + 0.5 + (Math.random() - 0.5) * w;
+			double x = pos.getX() + 0.5 + (Math.random() - 0.5) * w;
+			double y = pos.getY() + 0.25 + (Math.random() - 0.5) * h;
+			double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * w;
 
 			float s = 0.2F + (float) Math.random() * 0.1F;
 			float m = 0.03F + (float) Math.random() * 0.015F;

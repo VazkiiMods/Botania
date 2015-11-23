@@ -18,7 +18,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -31,15 +33,19 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, IUpdatePlayerListBox {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
-	private static final int[][] LAPIS_BLOCKS = {
-		{ 1, 0, }, { -1, 0 }, { 0, 1 }, { 0, -1 }
+
+	private static final BlockPos[] LAPIS_BLOCKS = {
+		new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0),
+		new BlockPos(0, 0, 1), new BlockPos(0, 0, -1)
 	};
 
-	private static final int[][] LIVINGROCK_BLOCKS = {
-		{ 0, 0 }, { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 }
+	private static final BlockPos[] LIVINGROCK_BLOCKS = {
+		new BlockPos(0, 0, 0), new BlockPos(1, 0, 1),
+		new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1),
+		new BlockPos(-1, 0, -1)
 	};
 
 	private static final String TAG_MANA = "mana";
@@ -49,19 +55,19 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
 
-		for(int[] l : LAPIS_BLOCKS)
-			mb.addComponent(, l[0], Blocks.lapis_block, 0);
-		for(int[] l : LIVINGROCK_BLOCKS)
-			mb.addComponent(, l[0], ModBlocks.livingrock, 0);
+		for(BlockPos relativePos : LAPIS_BLOCKS)
+			mb.addComponent(relativePos, Blocks.lapis_block, 0);
+		for(BlockPos relativePos : LIVINGROCK_BLOCKS)
+			mb.addComponent(relativePos, ModBlocks.livingrock, 0);
 
-		mb.addComponent(, 0, ModBlocks.terraPlate, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.terraPlate, 0);
 		mb.setRenderOffset(0, 1, 0);
 
 		return mb.makeSet();
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {
@@ -70,7 +76,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
 				if(spark != null) {
-					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 					for(ISparkEntity otherSpark : sparkEntities) {
 						if(spark == otherSpark)
 							continue;
@@ -90,8 +96,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 					mana = 0;
-					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 				}
 			}
 		}
@@ -114,9 +120,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-				double y = yCoord + 0.25 + Math.abs(r) * 0.7;
-				double z = zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;
+				double x = pos.getX() + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+				double y = pos.getY() + 0.25 + Math.abs(r) * 0.7;
+				double z = pos.getZ() + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
 				wticks += tickIncrement;
 				float[] colorsfx = new float[] {
@@ -127,13 +133,13 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 				if(ticks == 100)
 					for(int j = 0; j < 15; j++)
-						Botania.proxy.wispFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+						Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
 			}
 		}
 	}
 
 	List<EntityItem> getItems() {
-		return worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+		return worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 
 	boolean areItemsValid(List<EntityItem> items) {
@@ -165,10 +171,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		return checkAll(LAPIS_BLOCKS, Blocks.lapis_block) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
 	}
 
-	boolean checkAll(int[][] positions, Block block) {
-		for (int[] position : positions) {
-			int[] positions_ = position;
-			if(!checkPlatform(positions_[0], positions_[1], block))
+	boolean checkAll(BlockPos[] relPositions, Block block) {
+		for (BlockPos position : relPositions) {
+			if(!checkPlatform(position.getX(), position.getZ(), block))
 				return false;
 		}
 
@@ -176,7 +181,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	boolean checkPlatform(int xOff, int zOff, Block block) {
-		return worldObj.getBlock(xCoord + xOff, yCoord - 1, zOff + zCoord) == block;
+		return worldObj.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
 	}
 
 	@Override
@@ -202,7 +207,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
-		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -222,7 +227,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
+		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)));
 		if(sparks.size() == 1) {
 			Entity e = (Entity) sparks.get(0);
 			return (ISparkEntity) e;

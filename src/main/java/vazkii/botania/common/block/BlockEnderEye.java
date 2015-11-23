@@ -35,7 +35,7 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setUnlocalizedName(LibBlockNames.ENDER_EYE_BLOCK);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWER, 0));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWER, 0)); // todo 1.8 this is probably powered (bool). see the TE
 	}
 
 	@Override
