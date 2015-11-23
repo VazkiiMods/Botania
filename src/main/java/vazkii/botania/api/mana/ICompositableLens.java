@@ -13,7 +13,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.item.ItemStack;
 
 /**
- * Have an Item implement this to be counted as a lens for the mana spreader.
+ * Have an Item implement this to be counted as a lens that can be combined with an ItemLens.
  */
 public interface ICompositableLens extends ILens {
 
