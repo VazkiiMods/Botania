@@ -28,6 +28,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.api.mana.IManaSpreader;
@@ -41,7 +42,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcempt {
+public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
 	public static final int SUBTYPES = 22;
 
@@ -288,8 +289,8 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 	}
 
 	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
-		ILens item1 = (ILens) lens1.getItem();
-		ILens item2 = (ILens) lens2.getItem();
+		ICompositableLens item1 = (ICompositableLens) lens1.getItem();
+		ICompositableLens item2 = (ICompositableLens) lens2.getItem();
 		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
 	}
 
@@ -303,8 +304,8 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-		ILens sourceItem = (ILens) sourceLens.getItem();
-		ILens compositeItem = (ILens) compositeLens.getItem();
+		ICompositableLens sourceItem = (ICompositableLens) sourceLens.getItem();
+		ICompositableLens compositeItem = (ICompositableLens) compositeLens.getItem();
 		if(sourceItem == compositeItem && sourceLens.getItemDamage() == compositeLens.getItemDamage())
 			return false;
 

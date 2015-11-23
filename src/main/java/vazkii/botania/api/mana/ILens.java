@@ -39,14 +39,4 @@ public interface ILens extends ILensEffect {
 	 */
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens);
 
-	/**
-	* Returns the properties of the itemstack, used to check if two lenses can combine.
-	*/
-	public int getProps(ItemStack stack);
-
-	/**
-	* Checks if the lens is combinable.
-	*/
-	public boolean isCombinable(ItemStack stack);
-
 }
