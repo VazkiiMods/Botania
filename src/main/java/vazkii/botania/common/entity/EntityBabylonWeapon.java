@@ -65,7 +65,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	public void onUpdate() {
 		EntityLivingBase thrower = getThrower();
-		if(!worldObj.isRemote && (thrower == null || !(thrower instanceof EntityPlayer))) {
+		if(!worldObj.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.isDead)) {
 			setDead();
 			return;
 		}
@@ -129,8 +129,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 					if(living.hurtTime == 0) {
 						if(player != null)
-							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 14);
-						else living.attackEntityFrom(DamageSource.generic, 14);
+							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 20);
+						else living.attackEntityFrom(DamageSource.generic, 20);
 						onImpact(new MovingObjectPosition(living));
 						return;
 					}
