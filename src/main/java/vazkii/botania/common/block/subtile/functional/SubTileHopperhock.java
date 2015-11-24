@@ -25,8 +25,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -59,29 +60,25 @@ public class SubTileHopperhock extends SubTileFunctional {
 		boolean pulledAny = false;
 		int range = getRange();
 
-		int x = supertile.xCoord;
-		int y = supertile.yCoord;
-		int z = supertile.zCoord;
+		BlockPos pos = supertile.getPos();
 
-		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		for(EntityItem item : items) {
-			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
+			if(item.getAge() < 60 || item.getAge() >= 105 && item.getAge() < 110 || item.isDead)
 				continue;
 
 			ItemStack stack = item.getEntityItem();
 
 			IInventory invToPutItemIn = null;
-			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
+			EnumFacing sideToPutItemIn = null;
 			boolean priorityInv = false;
 
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int x_ = x + dir.offsetX;
-				int y_ = y + dir.offsetY;
-				int z_ = z + dir.offsetZ;
+			for(EnumFacing dir : EnumFacing.VALUES) {
+				BlockPos pos_ = pos.offset(dir);
 
-				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), , x_);
+				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), pos_, dir);
 				if(inv != null) {
-					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
+					List<ItemStack> filter = getFilterForInventory(inv, pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 					int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
 					canAccept &= stackSize == stack.stackSize;
@@ -149,31 +146,26 @@ public class SubTileHopperhock extends SubTileFunctional {
 		}
 	}
 
-	public List<ItemStack> getFilterForInventory(IInventory inv, int x, int y, int z, boolean recursiveForDoubleChests) {
+	public List<ItemStack> getFilterForInventory(IInventory inv, BlockPos pos, boolean recursiveForDoubleChests) {
 		List<ItemStack> filter = new ArrayList();
 
 		if(recursiveForDoubleChests) {
-			TileEntity tileEntity = supertile.getWorld().getTileEntity(x, y, z);
-			Block chest = supertile.getWorld().getBlock(x, y, z);
+			TileEntity tileEntity = supertile.getWorld().getTileEntity(pos);
+			Block chest = supertile.getWorld().getBlockState(pos).getBlock();
 
 			if(tileEntity instanceof TileEntityChest)
-				for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
-					if(supertile.getWorld().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
-						filter.addAll(getFilterForInventory((IInventory) supertile.getWorld().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
+				for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
+					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
+						filter.addAll(getFilterForInventory((IInventory) supertile.getWorld().getTileEntity(pos.offset(dir)), pos.offset(dir), false));
 						break;
 					}
 		}
 
-		final int[] orientationToDir = new int[] {
-				3, 4, 2, 5
-		};
-
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			AxisAlignedBB aabb = new AxisAlignedBB(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1);
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1));
 			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
-				int orientation = frame.hangingDirection;
-				if(orientationToDir[orientation] == dir.ordinal())
+				if(frame.facingDirection == dir)
 					filter.add(frame.getDisplayedItem());
 			}
 		}

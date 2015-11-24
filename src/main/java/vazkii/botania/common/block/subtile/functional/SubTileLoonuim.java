@@ -38,7 +38,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
-			EntityItem entity = new EntityItem(supertile.getWorld(), supertile.xCoord - RANGE + rand.nextInt(bound) , supertile.yCoord + 1, supertile.zCoord - RANGE + rand.nextInt(bound), stack);
+			EntityItem entity = new EntityItem(supertile.getWorld(), supertile.getPos().getX() - RANGE + rand.nextInt(bound) , supertile.getPos().getY() + 1, supertile.getPos().getZ() - RANGE + rand.nextInt(bound), stack);
 			entity.motionX = 0;
 			entity.motionY = 0;
 			entity.motionZ = 0;

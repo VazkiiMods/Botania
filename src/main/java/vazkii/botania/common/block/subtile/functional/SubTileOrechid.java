@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,10 +55,10 @@ public class SubTileOrechid extends SubTileFunctional {
 				if(stack != null) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
-					supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
+						supertile.getWorld().playAuxSFX(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:orechid", 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -103,12 +104,10 @@ public class SubTileOrechid extends SubTileFunctional {
 		for(int i = -RANGE; i < RANGE + 1; i++)
 			for(int j = -RANGE_Y; j < RANGE_Y; j++)
 				for(int k = -RANGE; k < RANGE + 1; k++) {
-					int x = supertile.xCoord + i;
-					int y = supertile.yCoord + j;
-					int z = supertile.zCoord + k;
-					Block block = supertile.getWorld().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, source))
-						possibleCoords.add(new BlockPos(x, y, z));
+					BlockPos pos = supertile.getPos().add(i, j, k);
+					Block block = supertile.getWorld().getBlockState(pos).getBlock();
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockHelper.forBlock(source)))
+						possibleCoords.add(pos);
 				}
 
 		if(possibleCoords.isEmpty())

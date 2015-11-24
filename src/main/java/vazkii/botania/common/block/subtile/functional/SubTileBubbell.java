@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -47,18 +48,18 @@ public class SubTileBubbell extends SubTileFunctional {
 				for(int j = -range; j < range + 1; j++)
 					for(int k = -range; k < range + 1; k++)
 						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							Block block = supertile.getWorld().getBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
+							Block block = supertile.getWorld().getBlockState(supertile.getPos().add(i, j, k)).getBlock();
 							if(block.getMaterial() == Material.water) {
-								supertile.getWorld().setBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k, ModBlocks.fakeAir, 0, 2);
-								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
+								supertile.getWorld().setBlockState(supertile.getPos().add(i, j, k), ModBlocks.fakeAir.getDefaultState(), 2);
+								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(supertile.getPos().add(i, j, k));
 								air.setFlower(supertile);
 							}
 						}
 		}
 	}
 
-	public static boolean isValidBubbell(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public static boolean isValidBubbell(World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof ISubTileContainer) {
 			ISubTileContainer container = (ISubTileContainer) tile;
 			if(container.getSubTile() != null && container.getSubTile() instanceof SubTileBubbell) {

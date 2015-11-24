@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -73,13 +73,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			int rangePlace = getRange();
 			int rangePlaceY = getRangeY();
 
-			int x = supertile.xCoord;
-			int y = supertile.yCoord;
-			int z = supertile.zCoord;
+			BlockPos pos = supertile.getPos();
 
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			for(EntityItem item : items) {
-				if(item.age < 60 || item.isDead)
+				if(item.getAge() < 60 || item.isDead)
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -89,56 +87,48 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
 							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
 								for(int l = -rangePlace; l < rangePlace + 1; l++) {
-									int xp = x + i;
-									int yp = y + j;
-									int zp = z + l;
-									Block blockAbove = supertile.getWorld().getBlock(xp, yp + 1, zp);
+									BlockPos pos_ = pos.add(i, j, l);
+									Block blockAbove = supertile.getWorld().getBlockState(pos_.up()).getBlock();
 
-									if(filter.equals(supertile.getWorld(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorld(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorld(), xp, yp + 1, zp)))
-										validPositions.add(new BlockPos(xp, yp + 1, zp));
+									if(filter.equals(supertile.getWorld(), pos_) && (blockAbove.isAir(supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
+										validPositions.add(pos_.up());
 								}
 
 						scanned = true;
 					}
 
 
-					if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
-						ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
+					if(!validPositions.isEmpty() && !supertile.getWorld().isRemote) {
+						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
 
 						Block blockToPlace = null;
 						if(stackItem instanceof IFlowerPlaceable)
-							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
+							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
 						if(stackItem instanceof ItemBlock)
-							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
+							blockToPlace = ((ItemBlock) stackItem).block;
 						else if(stackItem instanceof ItemReed)
 							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
 						else if(stackItem instanceof ItemRedstone)
 							blockToPlace = Blocks.redstone_wire;
 
 						if(blockToPlace != null) {
-<<<<<<< HEAD
-							BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
-							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords.posX, coords.posY, coords.posZ)) {
-								supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
-=======
-							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
-								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
->>>>>>> 82051d95d9817a177f0ec62817f4f2430358b46e
+							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords)) {
+								supertile.getWorld().setBlockState(coords, blockToPlace.getStateFromMeta(stack.getItemDamage()), 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
-									supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
+									supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(blockToPlace.getStateFromMeta(stack.getItemDamage())));
 								validPositions.remove(coords);
 
-								TileEntity tile = supertile.getWorld().getTileEntity(coords.posX, coords.posY, coords.posZ);
+								TileEntity tile = supertile.getWorld().getTileEntity(coords);
 								if(tile != null && tile instanceof ISubTileContainer) {
 									ISubTileContainer container = (ISubTileContainer) tile;
 									String subtileName = ItemBlockSpecialFlower.getType(stack);
 									container.setSubTile(subtileName);
 									SubTileEntity subtile = container.getSubTile();
-									subtile.onBlockPlacedBy(supertile.getWorld(), coords.posX, coords.posY, coords.posZ, null, stack);
+									subtile.onBlockPlacedBy(supertile.getWorld(), coords, supertile.getWorld().getBlockState(coords), null, stack);
 								}
 								
 								if(stackItem instanceof IFlowerPlaceable)
-									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
+									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
 								if(!supertile.getWorld().isRemote) {
 									stack.stackSize--;
@@ -158,7 +148,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public BlockData getUnderlyingBlock() {
-		return new BlockData(supertile.getWorld(), supertile.xCoord, supertile.yCoord - (supertile instanceof IFloatingFlower ? 1 : 2), supertile.zCoord);
+		return new BlockData(supertile.getWorld(), supertile.getPos().down(supertile instanceof IFloatingFlower ? 1 : 2));
 	}
 
 	@Override
@@ -171,7 +161,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		super.renderHUD(mc, res);
 
 		BlockData filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.block), 1, filter.meta);
+		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.state.getBlock()), 1, filter.state.getBlock().getMetaFromState(filter.state));
 		int color = getColor();
 
 		GL11.glEnable(GL11.GL_BLEND);
@@ -184,7 +174,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 
@@ -227,20 +217,18 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 	static class BlockData {
 
-		Block block;
-		int meta;
+		final IBlockState state;
 
-		public BlockData(World world, int x, int y, int z) {
-			block = world.getBlock(x, y, z);
-			meta = world.getBlockMetadata(x, y, z);
+		public BlockData(World world, BlockPos pos) {
+			state = world.getBlockState(pos);
 		}
 
 		public boolean equals(BlockData data) {
-			return block == data.block && meta == data.meta;
+			return this.state == data.state;
 		}
 
-		public boolean equals(World world, int x, int y, int z) {
-			return equals(new BlockData(world, x, y, z));
+		public boolean equals(World world, BlockPos pos) {
+			return equals(new BlockData(world, pos));
 		}
 
 	}

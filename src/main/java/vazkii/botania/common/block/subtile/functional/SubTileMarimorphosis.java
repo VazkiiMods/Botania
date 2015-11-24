@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -60,9 +61,9 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				if(stack != null) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
-					supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playAuxSFX(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
 
 					mana -= COST;
 					sync();
@@ -72,7 +73,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public ItemStack getStoneToPut(BlockPos coords) {
-		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords.posX, coords.posZ)));
+		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords)));
 
 		List<Integer> values = new ArrayList();
 		for(int i = 0; i < 8; i++) {
@@ -96,12 +97,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < rangeY; j++)
 				for(int k = -range; k < range + 1; k++) {
-					int x = supertile.xCoord + i;
-					int y = supertile.yCoord + j;
-					int z = supertile.zCoord + k;
-					Block block = supertile.getWorld().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, Blocks.stone))
-						possibleCoords.add(new BlockPos(x, y, z));
+					BlockPos pos = supertile.getPos().add(i, j, k);
+					Block block = supertile.getWorld().getBlockState(pos).getBlock();
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockHelper.forBlock(Blocks.stone)))
+						possibleCoords.add(pos);
 				}
 
 		if(possibleCoords.isEmpty())

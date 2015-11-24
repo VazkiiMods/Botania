@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -38,10 +39,10 @@ public class SubTileClayconia extends SubTileFunctional {
 			if(mana >= manaCost) {
 				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
-					supertile.getWorld().setBlockToAir(coords.posX, coords.posY, coords.posZ);
+					supertile.getWorld().setBlockToAir(coords);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Block.getBlockFromName("sand")));
-					EntityItem item = new EntityItem(supertile.getWorld(), coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, new ItemStack(Items.clay_ball));
+						supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(Blocks.sand.getDefaultState()));
+					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.clay_ball));
 					supertile.getWorld().spawnEntityInWorld(item);
 					mana -= manaCost;
 				}
@@ -55,12 +56,10 @@ public class SubTileClayconia extends SubTileFunctional {
 		for(int i = -RANGE; i < RANGE + 1; i++)
 			for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
 				for(int k = -RANGE; k < RANGE + 1; k++) {
-					int x = supertile.xCoord + i;
-					int y = supertile.yCoord + j;
-					int z = supertile.zCoord + k;
-					Block block = supertile.getWorld().getBlock(x, y, z);
+					BlockPos pos = supertile.getPos().add(i, j, k);
+					Block block = supertile.getWorld().getBlockState(pos).getBlock();
 					if(block == Block.getBlockFromName("sand"))
-						possibleCoords.add(new BlockPos(x, y, z));
+						possibleCoords.add(pos);
 				}
 
 		if(possibleCoords.isEmpty())

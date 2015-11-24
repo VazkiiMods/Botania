@@ -41,7 +41,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE_Y, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE_Y + 1, supertile.zCoord + RANGE + 1));
+		List<EntityLiving> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for(EntityLiving entity : entities) {
 			List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);

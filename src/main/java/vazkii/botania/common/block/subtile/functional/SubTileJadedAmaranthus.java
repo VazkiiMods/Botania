@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -32,18 +33,20 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			return;
 
 		if(mana >= COST && !supertile.getWorld().isRemote && ticksExisted % 30 == 0) {
-			int x = supertile.xCoord - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1);
-			int y = supertile.yCoord + RANGE;
-			int z = supertile.zCoord - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1);
+			BlockPos pos = new BlockPos(
+				supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
+				supertile.getPos().getY() + RANGE,
+				supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
+			);
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				Block blockAbove = supertile.getWorld().getBlock(x, y + 1, z);
-				if((supertile.getWorld().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorld(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), x, y + 1, z)) {
+				Block blockAbove = supertile.getWorld().getBlockState(pos.up()).getBlock();
+				if((supertile.getWorld().isAirBlock(pos.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos.up())) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), pos.up())) {
 					int color = supertile.getWorld().rand.nextInt(16);
-					if(ModBlocks.flower.canBlockStay(supertile.getWorld(), x, y + 1, z)) {
+					if(ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), pos.up())) {
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorld().playAuxSFX(2001, x, y + 1, z, Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
-						supertile.getWorld().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
+							supertile.getWorld().playAuxSFX(2001, pos.up(), Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
+						supertile.getWorld().setBlockState(pos.up(), ModBlocks.flower, color, 1 | 2);
 					}
 
 					mana -= COST;
@@ -52,7 +55,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 					break;
 				}
 
-				y--;
+				pos = pos.down();
 			}
 		}
 	}

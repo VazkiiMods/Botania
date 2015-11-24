@@ -31,9 +31,9 @@ public class SubTileTangleberrie extends SubTileFunctional {
 		super.onUpdate();
 
 		if(mana > 0) {
-			double x1 = supertile.xCoord + 0.5;
-			double y1 = supertile.yCoord + 0.5;
-			double z1 = supertile.zCoord + 0.5;
+			double x1 = supertile.getPos().getX() + 0.5;
+			double y1 = supertile.getPos().getY() + 0.5;
+			double z1 = supertile.getPos().getZ() + 0.5;
 
 			double maxDist = getMaxDistance();
 			double range = getRange();

@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -30,15 +30,14 @@ public class SubTileDaffomill extends SubTileFunctional {
 	private static final String TAG_WIND_TICKS = "windTicks";
 
 	int windTicks = 0;
-	int orientation = 0;
+	EnumFacing orientation = EnumFacing.NORTH;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		ForgeDirection dir = ForgeDirection.getOrientation(orientation + 2);
 		if(supertile.getWorld().rand.nextInt(4) == 0)
-			Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + Math.random(), supertile.yCoord + Math.random(), supertile.zCoord + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, dir.offsetX * 0.1F, dir.offsetY * 0.1F, dir.offsetZ * 0.1F);
+			Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getFrontOffsetX() * 0.1F, orientation.getFrontOffsetY() * 0.1F, orientation.getFrontOffsetZ() * 0.1F);
 
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;
@@ -51,9 +50,9 @@ public class SubTileDaffomill extends SubTileFunctional {
 			if(axis != null) {
 				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
 				for(EntityItem item : items) {
-					item.motionX += dir.offsetX * 0.05;
-					item.motionY += dir.offsetY * 0.05;
-					item.motionZ += dir.offsetZ * 0.05;
+					item.motionX += orientation.getFrontOffsetX() * 0.05;
+					item.motionY += orientation.getFrontOffsetY() * 0.05;
+					item.motionZ += orientation.getFrontOffsetZ() * 0.05;
 				}
 			}
 
@@ -62,25 +61,25 @@ public class SubTileDaffomill extends SubTileFunctional {
 	}
 
 	AxisAlignedBB aabbForOrientation() {
-		int x = supertile.xCoord;
-		int y = supertile.yCoord;
-		int z = supertile.zCoord;
+		int x = supertile.getPos().getX();
+		int y = supertile.getPos().getY();
+		int z = supertile.getPos().getZ();
 		int w = 2;
 		int h = 3;
 		int l = 16;
 
 		AxisAlignedBB axis = null;
 		switch(orientation) {
-		case 0 :
+		case NORTH :
 			axis = new AxisAlignedBB(x - w, y - h, z - l, x + w + 1, y + h, z);
 			break;
-		case 1 :
+		case SOUTH :
 			axis = new AxisAlignedBB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			break;
-		case 2 :
+		case WEST :
 			axis = new AxisAlignedBB(x - l, y - h, z - w, x, y + h, z + w + 1);
 			break;
-		case 3 :
+		case EAST :
 			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 		}
 		return axis;
@@ -98,7 +97,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 		if(player.isSneaking()) {
 			if(!player.worldObj.isRemote) {
-				orientation = orientation == 3 ? 0 : orientation + 1;
+				orientation = orientation.rotateY();
 				sync();
 			}
 
@@ -109,7 +108,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	@Override
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
-		aabb.minY = supertile.yCoord;
+		aabb = new AxisAlignedBB(aabb.minX, supertile.getPos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
 		return new RadiusDescriptor.Rectangle(toBlockPos(), aabb);
 	}
 
@@ -132,7 +131,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_ORIENTATION, orientation);
+		cmp.setInteger(TAG_ORIENTATION, orientation.getIndex() - 2); // retain compat with 1.7 saves
 		cmp.setInteger(TAG_WIND_TICKS, windTicks);
 	}
 
@@ -140,7 +139,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		orientation = cmp.getInteger(TAG_ORIENTATION);
+		orientation = EnumFacing.getFront(cmp.getInteger(TAG_ORIENTATION) + 2); // retain compat with 1.7 saves
 		windTicks = cmp.getInteger(TAG_WIND_TICKS);
 	}
 

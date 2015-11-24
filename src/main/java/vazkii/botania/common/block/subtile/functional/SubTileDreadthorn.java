@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.base.Predicate;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -24,11 +25,11 @@ public class SubTileDreadthorn extends SubTileBellethorn {
 	}
 
 	@Override
-	public IEntitySelector getSelector() {
-		return new IEntitySelector() {
+	public Predicate<Entity> getSelector() {
+		return new Predicate<Entity>() {
 
 			@Override
-			public boolean isEntityApplicable(Entity var1) {
+			public boolean apply(Entity var1) {
 				return var1 instanceof EntityAnimal && ((EntityAnimal) var1).getGrowingAge() == 0;
 			}
 

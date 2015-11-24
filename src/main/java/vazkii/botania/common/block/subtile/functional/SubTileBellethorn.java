@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.List;
 
+import com.google.common.base.Predicate;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -50,11 +51,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + 1, supertile.zCoord + range + 1));
-			IEntitySelector selector = getSelector();
+			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-range, -range, -range), supertile.getPos().add(range + 1, range + 1, range + 1)));
+			Predicate<Entity> selector = getSelector();
 
 			for(EntityLivingBase entity : entities) {
-				if(!selector.isEntityApplicable(entity))
+				if(!selector.apply(entity))
 					continue;
 
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
@@ -83,11 +84,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 		return RANGE;
 	}
 
-	public IEntitySelector getSelector() {
-		return new IEntitySelector() {
+	public Predicate<Entity> getSelector() {
+		return new Predicate<Entity>() {
 
 			@Override
-			public boolean isEntityApplicable(Entity entity) {
+			public boolean apply(Entity entity) {
 				return !(entity instanceof EntityPlayer);
 			}
 
