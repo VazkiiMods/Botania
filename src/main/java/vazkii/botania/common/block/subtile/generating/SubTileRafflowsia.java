@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -46,11 +47,9 @@ public class SubTileRafflowsia extends SubTileGenerating {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						int x = supertile.xCoord + i - RANGE;
-						int y = supertile.yCoord + j - RANGE;
-						int z = supertile.zCoord + k - RANGE;
-						Block block = supertile.getWorld().getBlock(x, y, z);
-						TileEntity tile = supertile.getWorld().getTileEntity(x, y, z);
+						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						Block block = supertile.getWorld().getBlockState(pos).getBlock();
+						TileEntity tile = supertile.getWorld().getTileEntity(pos);
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
 							String name = stile.getUnlocalizedName();
@@ -67,9 +66,9 @@ public class SubTileRafflowsia extends SubTileGenerating {
 								float mod = 1F / lastFlowerTimes;
 
 								int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
-								supertile.getWorld().setBlockToAir(x, y, z);
+								supertile.getWorld().setBlockToAir(pos);
 
-								supertile.getWorld().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+								supertile.getWorld().playAuxSFX(2001, pos, Block.getIdFromBlock(block) + (meta << 12));
 								this.mana += mana * mod;
 								sync();
 								return;

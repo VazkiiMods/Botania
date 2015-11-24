@@ -14,6 +14,8 @@ import java.util.List;
 
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -36,7 +38,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		super.onUpdate();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntitySlime> slimes = supertile.getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE, supertile.zCoord + RANGE + 1));
+			List<EntitySlime> slimes = supertile.getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntitySlime slime : slimes) {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && !slime.isDead) {
 					int size = slime.getSlimeSize();
@@ -55,7 +57,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
 						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
 						float f4 = slime.worldObj.rand.nextFloat() * size * 0.5F * f1;
-						slime.worldObj.spawnParticle("slime", slime.posX + f2, slime.boundingBox.minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
+						slime.worldObj.spawnParticle(EnumParticleTypes.SLIME, slime.posX + f2, slime.getEntityBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -92,7 +94,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		}
 
 		public static boolean isSlimeChunk(World world, int x, int z) {
-			Chunk chunk = world.getChunkFromBlockCoords(x, z);
+			Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(x, 0, z));
 			return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
 		}
 

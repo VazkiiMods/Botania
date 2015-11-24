@@ -55,10 +55,6 @@ public class SubTileEntity {
 		supertile = tile;
 	}
 
-	public boolean canUpdate() {
-		return true;
-	}
-
 	public void onUpdate() {
 		ticksExisted++;
 	}

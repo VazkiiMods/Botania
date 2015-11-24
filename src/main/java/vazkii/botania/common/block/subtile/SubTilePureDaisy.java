@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -28,15 +29,15 @@ public class SubTilePureDaisy extends SubTileEntity {
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 
-	private static final int[][] POSITIONS = new int[][] {
-		{ -1, 0, -1 },
-		{ -1, 0, 0 },
-		{ -1, 0, 1 },
-		{ 0, 0, 1 },
-		{ 1, 0, 1 },
-		{ 1, 0, 0 },
-		{ 1, 0, -1 },
-		{ 0, 0, -1 },
+	private static final BlockPos[] POSITIONS = {
+		new BlockPos(-1, 0, -1 ),
+		new BlockPos(-1, 0, 0 ),
+		new BlockPos(-1, 0, 1 ),
+		new BlockPos(0, 0, 1 ),
+		new BlockPos(1, 0, 1 ),
+		new BlockPos(1, 0, 0 ),
+		new BlockPos(1, 0, -1 ),
+		new BlockPos(0, 0, -1 ),
 	};
 
 	int positionAt = 0;
@@ -50,11 +51,11 @@ public class SubTilePureDaisy extends SubTileEntity {
 		if(positionAt == POSITIONS.length)
 			positionAt = 0;
 
-		int[] acoords = POSITIONS[positionAt];
-		BlockPos coords = new BlockPos(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
+		BlockPos acoords = POSITIONS[positionAt];
+		BlockPos coords = supertile.getPos().add(acoords);
 		World world = supertile.getWorld();
-		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
-			Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
+		if(!world.isAirBlock(coords)) {
+			Block block = world.getBlockState(coords).getBlock();
 			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 			RecipePureDaisy recipe = null;
 			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)

@@ -16,12 +16,13 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -55,27 +56,23 @@ public class SubTileMunchdew extends SubTileGenerating {
 		eatLeaves : {
 			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList();
-				int x = supertile.xCoord;
-				int y = supertile.yCoord;
-				int z = supertile.zCoord;
+				BlockPos pos = supertile.getPos();
 
 				for(int i = -RANGE; i < RANGE + 1; i++)
 					for(int j = 0; j < RANGE_Y; j++)
 						for(int k = -RANGE; k < RANGE + 1; k++) {
-							int xp = x + i;
-							int yp = y + j;
-							int zp = z + k;
-							Block block = supertile.getWorld().getBlock(xp, yp, zp);
+							BlockPos pos_ = pos.add(i, j, k);
+							Block block = supertile.getWorld().getBlockState(pos_).getBlock();
 							if(block.getMaterial() == Material.leaves) {
 								boolean exposed = false;
-								for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-									if(supertile.getWorld().getBlock(xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ).isAir(supertile.getWorld(), xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ)) {
+								for(EnumFacing dir : EnumFacing.VALUES)
+									if(supertile.getWorld().getBlockState(pos_.offset(dir)).getBlock().isAir(supertile.getWorld(), pos_.offset(dir))) {
 										exposed = true;
 										break;
 									}
 
 								if(exposed)
-									coords.add(new BlockPos(xp, yp, zp));
+									coords.add(pos_);
 							}
 						}
 
@@ -84,13 +81,12 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
-				Block block = supertile.getWorld().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				int meta = supertile.getWorld().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				supertile.getWorld().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
+				IBlockState state = supertile.getWorld().getBlockState(breakCoords);
+				supertile.getWorld().setBlockToAir(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.blockBreakParticles)
-					supertile.getWorld().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playAuxSFX(2001, breakCoords, Block.getStateId(state));
 				mana += manaPerLeaf;
 			}
 		}

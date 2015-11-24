@@ -14,6 +14,8 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -30,9 +32,9 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		super.onUpdate();
 
 		if(mana == 0) {
-			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityTNTPrimed tnt : tnts) {
-				if(tnt.fuse == 1 && !tnt.isDead && !supertile.getWorld().getBlock(MathHelper.floor_double(tnt.posX), MathHelper.floor_double(tnt.posY), MathHelper.floor_double(tnt.posZ)).getMaterial().isLiquid()) {
+				if(tnt.fuse == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getBlock().getMaterial().isLiquid()) {
 					if(!supertile.getWorld().isRemote) {
 						tnt.setDead();
 						mana += getMaxMana();
@@ -43,7 +45,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 					for(int i = 0; i < 50; i++)
 						Botania.proxy.sparkleFX(tnt.worldObj, tnt.posX + Math.random() * 4 - 2, tnt.posY + Math.random() * 4 - 2, tnt.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
 
-					supertile.getWorld().spawnParticle("hugeexplosion", tnt.posX, tnt.posY, tnt.posZ, 1D, 0D, 0D);
+					supertile.getWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, tnt.posX, tnt.posY, tnt.posZ, 1D, 0D, 0D);
 					return;
 				}
 			}

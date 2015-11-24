@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -31,6 +32,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 	private static final String TAG_SAVED_POSITION = "savedPosition";
 
 	int primePositionX, primePositionY, primePositionZ;
+	BlockPos primePosition;
 	boolean savedPosition;
 
 	@Override

@@ -42,7 +42,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 				if(mana < getMaxMana() && !supertile.getWorld().isRemote) {
 					boolean didSomething = false;
 
-					List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+					List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 					for(EntityItem item : items) {
 						if(item.age >= 59 && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
@@ -54,7 +54,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								stack.stackSize--;
-								supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:endoflame", 0.2F, 1F);
+								supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:endoflame", 0.2F, 1F);
 
 								if(stack.stackSize == 0)
 									item.setDead();
@@ -71,7 +71,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 				}
 			} else {
 				if(supertile.getWorld().rand.nextInt(8) == 0)
-					Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+					Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 
 				burnTime--;
 			}

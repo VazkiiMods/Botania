@@ -45,7 +45,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 		if(!supertile.getWorld().isRemote) {
 			Item wool = Item.getItemFromBlock(Blocks.wool);
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
 				if(stack != null && stack.getItem() == wool) {
@@ -99,7 +99,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 

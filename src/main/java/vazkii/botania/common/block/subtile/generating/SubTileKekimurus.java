@@ -12,6 +12,8 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -31,18 +33,17 @@ public class SubTileKekimurus extends SubTileGenerating {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						int x = supertile.xCoord + i - RANGE;
-						int y = supertile.yCoord + j - RANGE;
-						int z = supertile.zCoord + k - RANGE;
-						Block block = supertile.getWorld().getBlock(x, y, z);
+						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						IBlockState state = supertile.getWorld().getBlockState(pos);
+						Block block = state.getBlock();
 						if(block instanceof BlockCake) {
-							int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
-							if(meta == 6)
-								supertile.getWorld().setBlockToAir(x, y, z);
-							else supertile.getWorld().setBlockMetadataWithNotify(x, y, z, meta, 1 | 2);
+							int nextSlicesEaten = ((Integer) state.getValue(BlockCake.BITES)) + 1;
+							if(nextSlicesEaten == 6)
+								supertile.getWorld().setBlockToAir(pos);
+							else supertile.getWorld().setBlockState(pos, state.withProperty(BlockCake.BITES, nextSlicesEaten), 1 | 2);
 
-							supertile.getWorld().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-							supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
+							supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state.withProperty(BlockCake.BITES, nextSlicesEaten)));
+							supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;
