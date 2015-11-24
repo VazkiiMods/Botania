@@ -49,6 +49,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
@@ -393,6 +395,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			}
 		}
 	}
+
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
+        setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
+        setRotation(p_70056_7_, p_70056_8_);
+    }
 
 	@Override
 	public boolean handleWaterMovement() {
