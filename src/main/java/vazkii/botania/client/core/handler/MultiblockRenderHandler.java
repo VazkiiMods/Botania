@@ -47,11 +47,16 @@ public final class MultiblockRenderHandler {
 	public static MultiblockSet currentMultiblock;
 	public static ChunkCoordinates anchor;
 	public static int angle;
+	public static int dimension;
 
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;
 		angle = 0;
+		
+		Minecraft mc = Minecraft.getMinecraft();
+		if(mc.theWorld != null)
+			dimension = mc.theWorld.provider.dimensionId;
 	}
 
 	@SubscribeEvent
@@ -73,7 +78,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
-		if(currentMultiblock != null) {
+		if(currentMultiblock != null && dimension == player.worldObj.provider.dimensionId) {
 			int anchorX = anchor != null ? anchor.posX : src.blockX;
 			int anchorY = anchor != null ? anchor.posY : src.blockY;
 			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
