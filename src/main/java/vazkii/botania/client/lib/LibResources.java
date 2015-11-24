@@ -114,6 +114,12 @@ public final class LibResources {
 	public static final String MODEL_MINI_ISLAND_PODZOL = PREFIX_MODEL + "miniIslandPodzol.png";
 	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
 	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
+	public static final String MODEL_MINI_ISLAND_DRY = PREFIX_MODEL + "miniIslandDry.png";
+	public static final String MODEL_MINI_ISLAND_GOLDEN = PREFIX_MODEL + "miniIslandGolden.png";
+	public static final String MODEL_MINI_ISLAND_VIVID = PREFIX_MODEL + "miniIslandVivid.png";
+	public static final String MODEL_MINI_ISLAND_SCORCHED = PREFIX_MODEL + "miniIslandScorched.png";
+	public static final String MODEL_MINI_ISLAND_INFUSED = PREFIX_MODEL + "miniIslandInfused.png";
+	public static final String MODEL_MINI_ISLAND_MUTATED = PREFIX_MODEL + "miniIslandMutated.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";
 	public static final String MODEL_CRYSTAL_CUBE = PREFIX_MODEL + "crystalCube.png";
 	public static final String MODEL_INCENSE_PLATE = PREFIX_MODEL + "incensePlate.png";
