@@ -65,7 +65,7 @@ public class TilePylon extends TileEntity implements IUpdatePlayerListBox {
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
 
-				Block block = worldObj.getBlockState(pos.down());
+				Block block = worldObj.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
 					int fmeta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
 					float[] color = EntitySheep.fleeceColorTable[fmeta];

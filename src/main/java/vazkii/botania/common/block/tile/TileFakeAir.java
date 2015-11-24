@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 
 public class TileFakeAir extends TileMod {
@@ -20,32 +21,32 @@ public class TileFakeAir extends TileMod {
 	private static final String TAG_FLOWER_Y = "flowerY";
 	private static final String TAG_FLOWER_Z = "flowerZ";
 
-	int flowerX, flowerY, flowerZ;
+	BlockPos flowerPos;
 
 	public void setFlower(TileEntity tile) {
-		flowerX = tile.xCoord;
-		flowerY = tile.yCoord;
-		flowerZ = tile.zCoord;
+		flowerPos = tile.getPos();
 	}
 
 	public boolean canStay() {
-		return SubTileBubbell.isValidBubbell(worldObj, flowerX, flowerY, flowerZ);
+		return SubTileBubbell.isValidBubbell(worldObj, flowerPos);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_FLOWER_X, flowerX);
-		par1nbtTagCompound.setInteger(TAG_FLOWER_Y, flowerY);
-		par1nbtTagCompound.setInteger(TAG_FLOWER_Z, flowerZ);
+		par1nbtTagCompound.setInteger(TAG_FLOWER_X, flowerPos.getX());
+		par1nbtTagCompound.setInteger(TAG_FLOWER_Y, flowerPos.getY());
+		par1nbtTagCompound.setInteger(TAG_FLOWER_Z, flowerPos.getZ());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-		flowerX = par1nbtTagCompound.getInteger(TAG_FLOWER_X);
-		flowerY = par1nbtTagCompound.getInteger(TAG_FLOWER_Y);
-		flowerZ = par1nbtTagCompound.getInteger(TAG_FLOWER_Z);
+		flowerPos = new BlockPos(
+			par1nbtTagCompound.getInteger(TAG_FLOWER_X),
+			par1nbtTagCompound.getInteger(TAG_FLOWER_Y),
+			par1nbtTagCompound.getInteger(TAG_FLOWER_Z)
+		);
 	}
 
 }

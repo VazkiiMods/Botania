@@ -19,7 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -28,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory {
+public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory, IUpdatePlayerListBox {
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
@@ -40,7 +42,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	public int comparatorOutput = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		ItemStack stack = getStackInSlot(0);
 		if(stack != null && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
@@ -48,22 +50,22 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 			if(timeLeft > 0) {
 				timeLeft--;
 				if(!worldObj.isRemote) {
-					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(xCoord + 0.5 - RANGE, yCoord + 0.5 - RANGE, zCoord + 0.5 - RANGE, xCoord + 0.5 + RANGE, yCoord + 0.5 + RANGE, zCoord + 0.5 + RANGE));
+					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for(EntityPlayer player : players) {
 						PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
 						boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
 						if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-							PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true);
+							PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 							player.addPotionEffect(applyEffect);
 						}
 					}
 
 					if(worldObj.rand.nextInt(20) == 0)
-						worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.1, zCoord + 0.5, "fire.fire", 0.1F, 1F);
+						worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5, "fire.fire", 0.1F, 1F);
 				} else {
-					double x = xCoord + 0.5;
-					double y = yCoord + 0.5;
-					double z = zCoord + 0.5;
+					double x = pos.getX() + 0.5;
+					double y = pos.getY() + 0.5;
+					double z = pos.getZ() + 0.5;
 					Color color = new Color(brew.getColor(stack));
 					float r = color.getRed() / 255F;
 					float g = color.getGreen() / 255F;
@@ -85,7 +87,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 			newComparator = 2;
 		if(comparatorOutput != newComparator) {
 			comparatorOutput = newComparator;
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		}
 	}
 
@@ -105,7 +107,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.INCENSE_PLATE;
 	}
 
@@ -129,17 +131,17 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
+	public int[] getSlotsForFace(EnumFacing side) {
 		return new int[] { 0 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
 		return isItemValidForSlot(slot, stack);
 	}
 
 	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, EnumFacing p_102008_3_) {
 		return false;
 	}
 

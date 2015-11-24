@@ -13,12 +13,13 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISidedInventory {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISidedInventory, IUpdatePlayerListBox {
 
 	private static final int MAX_MANA = 6400;
 
@@ -31,12 +32,11 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	int mana;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
 
 		enabled = true;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
 				break;
@@ -85,22 +85,22 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+	public int[] getSlotsForFace(EnumFacing p_94128_1_) {
 		return new int[0];
 	}
 
 	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
+	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, EnumFacing p_102007_3_) {
 		return false;
 	}
 
 	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, EnumFacing p_102008_3_) {
 		return false;
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.AVATAR;
 	}
 

@@ -18,6 +18,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,7 +38,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 import com.google.common.base.Function;
 
-public class TileAlfPortal extends TileMod {
+public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 
 	private static final int[][] LIVINGWOOD_POSITIONS = {
 		{ -1, 0, 0}, { 1, 0, 0}, { -2, 1, 0}, { 2, 1, 0}, { -2, 3, 0}, { 2, 3, 0}, { -1, 4, 0}, { 1, 4, 0}
@@ -112,7 +113,7 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		int meta = getBlockMetadata();
 		if(meta == 0) {
 			ticksOpen = 0;
@@ -178,7 +179,7 @@ public class TileAlfPortal extends TileMod {
 			pos = CONVERTER_X_Z_FP.apply(pos);
 
 		float motionMul = 0.2F;
-		Botania.proxy.wispFX(getWorld(), xCoord + pos[0], yCoord + pos[1], zCoord + pos[2], (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
+		Botania.proxy.wispFX(getWorld(), getPos().getX() + pos[0], getPos().getY() + pos[1], getPos().getZ() + pos[2], (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
 	}
 
 	public boolean onWanded() {
@@ -195,9 +196,9 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	AxisAlignedBB getPortalAABB() {
-		AxisAlignedBB aabb = new AxisAlignedBB(xCoord - 1, yCoord + 1, zCoord, xCoord + 2, yCoord + 4, zCoord + 1);
+		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
 		if(getBlockMetadata() == 2)
-			aabb = new AxisAlignedBB(xCoord, yCoord + 1, zCoord - 1, xCoord + 1, yCoord + 4, zCoord + 2);
+			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
 
 		return aabb;
 	}
@@ -232,7 +233,7 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	void spawnItem(ItemStack stack) {
-		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 		item.getEntityData().setBoolean(TAG_PORTAL_FLAG, true);
 		worldObj.spawnEntityInWorld(item);
 		ticksSinceLastItem = 0;
@@ -322,9 +323,7 @@ public class TileAlfPortal extends TileMod {
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
-				pylon.centerX = xCoord;
-				pylon.centerY = yCoord;
-				pylon.centerZ = zCoord;
+				pylon.centerPos = getPos();
 			}
 
 			tile = worldObj.getTileEntity(xCoord + pos[0], yCoord + pos[1] - 1, zCoord + pos[2]);

@@ -25,7 +25,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -34,7 +37,7 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
+public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary, IUpdatePlayerListBox {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 
@@ -58,23 +61,23 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		if(!isMossy && getBlockMetadata() == 0) {
 			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine) && !worldObj.isRemote) {
 				isMossy = true;
-				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					item.setDead();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 			}
 		}
 
 		if(!hasWater() && !hasLava()) {
 			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
 				setWater(true);
-				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-				stack.func_150996_a(Items.bucket); // Set item
+				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+				stack.setItem(Items.bucket);
 			} else if(stack.getItem() == Items.lava_bucket && !worldObj.isRemote) {
 				setLava(true);
-				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-				stack.func_150996_a(Items.bucket); // Set item
+				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+				stack.setItem(Items.bucket);
 			} else return false;
 		}
 
@@ -118,11 +121,11 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 							item.setDead();
 
 						ItemStack output = recipe.getOutput().copy();
-						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
 
 						setWater(false);
-						worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+						worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 					}
 
 					craftingFanciness();
@@ -150,7 +153,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public void trySetLastRecipe(EntityPlayer player) {
 		tryToSetLastRecipe(player, this, lastRecipe);
 		if(!isEmpty())
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	public static void tryToSetLastRecipe(EntityPlayer player, IInventory inv, List<ItemStack> lastRecipe) {
@@ -191,12 +194,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:altarCraft", 1F, 1F);
+		worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:altarCraft", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
 			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+			Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
 
@@ -209,8 +212,8 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	@Override
-	public void updateEntity() {
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(xCoord, yCoord + 1D / 16D * 20D, zCoord, xCoord + 1, yCoord + 1D / 16D * 21D, zCoord + 1));
+	public void update() {
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 21D,1)));
 
 		boolean didChange = false;
 
@@ -218,7 +221,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			didChange = collideEntityItem(item) || didChange;
 
 		if(didChange)
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = getStackInSlot(i);
@@ -231,16 +234,16 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				float green = color.getGreen() / 255F;
 				float blue = color.getBlue() / 255F;
 				if(Math.random() >= 0.75F)
-					worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, "game.neutral.swim.splash", 0.1F, 10F);
-				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+					worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "game.neutral.swim.splash", 0.1F, 10F);
+				Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
 
 		if(hasLava()) {
 			isMossy = false;
-			worldObj.spawnParticle("smoke", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+			worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 			if(Math.random() > 0.9)
-				worldObj.spawnParticle("lava", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+				worldObj.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 		}
 
 		if(recipeKeepTicks > 0)
@@ -267,7 +270,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.ALTAR;
 	}
 
@@ -287,29 +290,29 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int var1) {
+	public int[] getSlotsForFace(EnumFacing var1) {
 		return new int[0];
 	}
 
 	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+	public boolean canInsertItem(int i, ItemStack itemstack, EnumFacing j) {
 		return false;
 	}
 
 	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+	public boolean canExtractItem(int i, ItemStack itemstack, EnumFacing j) {
 		return false;
 	}
 
 	@Override
 	public void setWater(boolean water) {
 		hasWater = water;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	public void setLava(boolean lava) {
 		hasLava = lava;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	@Override

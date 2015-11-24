@@ -18,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
 
@@ -27,7 +28,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileHourglass extends TileSimpleInventory {
+public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerListBox {
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
@@ -44,8 +45,7 @@ public class TileHourglass extends TileSimpleInventory {
 	public boolean move = true;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
 
 		int totalTime = getTotalTime();
 		if(totalTime > 0) {
@@ -56,7 +56,7 @@ public class TileHourglass extends TileSimpleInventory {
 				flip = !flip;
 				flipTicks = 4;
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
-				worldObj.scheduleBlockUpdate(xCoord, yCoord, zCoord, getBlockType(), getBlockType().tickRate(worldObj));
+				worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
 			}
 			timeFraction = (float) time / (float) totalTime;
 		} else {
@@ -149,8 +149,8 @@ public class TileHourglass extends TileSimpleInventory {
 		if(stack != null) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, stack, x, y, "");
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			RenderHelper.disableStandardItemLighting();
 
@@ -170,7 +170,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibBlockNames.HOURGLASS;
 	}
 
