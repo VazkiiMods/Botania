@@ -221,6 +221,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_JUDGEMENT_CLOAKS = "judgementCloaks";
 	public static final String BAUBLE_MONOCLE = "monocle";
 	public static final String BAUBLE_SWAP_RING = "swapRing";
+	public static final String BAUBLE_SPEED_UP_BELT = "speedUpBelt";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";

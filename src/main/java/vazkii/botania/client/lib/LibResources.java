@@ -104,6 +104,7 @@ public final class LibResources {
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
+	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "speedUpBelt.png";
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";

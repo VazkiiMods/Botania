@@ -1632,6 +1632,7 @@ item.botania:manaweaveLegs.name=Manaweave Robe Bottom
 item.botania:manaweaveBoots.name=Manaweave Boots
 item.botania:gaiaHead.name=Gaia Guardian's Head
 item.botania:sextant.name=Worldshaper's Sextant
+item.botania:speedUpBelt.name=Planestrider's Sash
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -3517,6 +3518,12 @@ botania.entry.swapRing=Ring of Correction
 botania.tagline.swapRing=Makes one always use the right tool for the job
 botania.page.swapRing0=Switching tools is a pain. People often find themselves shoveling away at dirt with... a pick? Using the &1Ring of Correction&0 is a great way to, well, correct that.<br>While this ring is worn, the tool in hand will always be the right one for the block being broken, be it a pick, axe or shovel. This only works with tools that can use &4Mana&0.
 botania.page.swapRing1=Use the right tools
+
+# -- PLANESTRIDER'S SASH
+botania.entry.speedUpBelt=Planestrider's Sash
+botania.tagline.speedUpBelt=Speeds you up the more you walk
+botania.page.speedUpBelt0=The &1Planestrider's Sash&0 works as an alternative to the &1Soujourner's Sash&0.<br>Unlike the aforementioned item, the &1Planestider's Sash&0 will not give the wearer a speed boost by default. However, when they walk, the sash will get more and more charged, enabling the wearer to go much faster than any other sash. Case one would stop, this bonus is reset.
+botania.page.speedUpBelt1=If you go slow you're a Planeswalker
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
