@@ -146,6 +146,7 @@ public final class TooltipAdditionDisplayHandler {
 									mc.thePlayer.inventory.currentItem = lexSlot;
 									Botania.proxy.setEntryToOpen(data.entry);
 									Botania.proxy.setLexiconStack(lexiconStack);
+									mc.thePlayer.closeScreen();
 									ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
 
 								}
