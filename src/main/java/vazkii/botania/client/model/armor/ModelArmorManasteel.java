@@ -175,12 +175,13 @@ public class ModelArmorManasteel extends ModelBiped {
             ItemStack itemstack = player.inventory.getCurrentItem();
             heldItemRight = itemstack != null ? 1 : 0;
 
+            aimedBow = false;
             if (itemstack != null && player.getItemInUseCount() > 0) {
                 EnumAction enumaction = itemstack.getItemUseAction();
 
                 if (enumaction == EnumAction.block)
                     heldItemRight = 3;
-                else if (enumaction == EnumAction.bow)
+                else if(enumaction == EnumAction.bow)
                    aimedBow = true;
             }
         }
