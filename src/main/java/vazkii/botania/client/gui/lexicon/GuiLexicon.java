@@ -78,6 +78,7 @@ public class GuiLexicon extends GuiScreen {
 	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
 	public static List<GuiLexicon> bookmarks = new ArrayList();
+	public static List<String> bookmarkKeys = new ArrayList();
 	boolean bookmarksNeedPopulation = false;
 
 	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
@@ -392,19 +393,24 @@ public class GuiLexicon extends GuiScreen {
 	public void handleBookmark(GuiButton par1GuiButton) {
 		boolean modified = false;
 		int i = par1GuiButton.id - BOOKMARK_START;
+		String key = getNotesKey();
 		if(i == bookmarks.size()) {
-			if(!bookmarks.contains(this)) {
-				bookmarks.add(this);
+			if(!bookmarkKeys.contains(key)) {
+				bookmarks.add(this.copy());
+				bookmarkKeys.add(key);
 				modified = true;
 			}
 		} else {
 			if(isShiftKeyDown()) {
-				bookmarks.remove(i);
+				int index = bookmarkKeys.indexOf(key);
+				bookmarks.remove(index);
+				bookmarkKeys.remove(index);
+				
 				modified = true;
 			} else {
 				GuiLexicon bookmark = bookmarks.get(i).copy();
-				Minecraft.getMinecraft().displayGuiScreen(bookmark);
 				if(!bookmark.getTitle().equals(getTitle())) {
+					Minecraft.getMinecraft().displayGuiScreen(bookmark);
 					if(bookmark instanceof IParented)
 						((IParented) bookmark).setParent(this);
 					ClientTickHandler.notifyPageChange();
