@@ -44,6 +44,7 @@ public class BlockAltGrass extends BlockMod {
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setBlockName(LibBlockNames.ALT_GRASS);
+		setTickRandomly(true);
 	}
 
 	@Override
