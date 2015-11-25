@@ -251,6 +251,7 @@ public final class LexiconData {
 	public static LexiconEntry monocle;
 	public static LexiconEntry swapRing;
 	public static LexiconEntry speedUpBelt;
+	public static LexiconEntry baubleBox;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -954,6 +955,9 @@ public final class LexiconData {
 
 		speedUpBelt = new BLexiconEntry(LibLexicon.BAUBLE_SPEED_UP_BELT, categoryBaubles);
 		speedUpBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpeedUpBelt));
+
+		baubleBox = new BLexiconEntry(LibLexicon.BAUBLE_BOX, categoryBaubles);
+		baubleBox.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBaubleCase)).setPriority();
 		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);

@@ -307,6 +307,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSextant;
 	public static List<IRecipe> recipesAltGrassSeeds;
 	public static IRecipe recipeSpeedUpBelt;
+	public static IRecipe recipeBaubleCase;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2072,6 +2073,14 @@ public final class ModCraftingRecipes {
 				'B', new ItemStack(ModItems.travelBelt),
 				'S', new ItemStack(Items.sugar));
 		recipeSpeedUpBelt = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Bauble Case Recipe
+		addOreDictRecipe(new ItemStack(ModItems.baubleBox), 
+				" M ", "MCG", " M ",
+				'M', LibOreDict.MANA_STEEL,
+				'C', new ItemStack(Blocks.chest),
+				'G', "ingotGold");
+		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
