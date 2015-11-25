@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -32,7 +33,7 @@ public class EntityPinkWither extends EntityWither {
 				double d10 = func_82214_u(j);
 				double d2 = func_82208_v(j);
 				double d4 = func_82213_w(j);
-				worldObj.spawnParticle("heart", d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle(EnumParticleTypes.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 			}
 	}
 

@@ -21,9 +21,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.common.block.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -90,7 +90,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 				if(tile != null && tile instanceof IManaPool && !pump.hasRedstone) {
 					IManaPool pool = (IManaPool) tile;
-					EnumFacing pumpDir = ForgeDirection.getOrientation(meta);
+					EnumFacing pumpDir = ((EnumFacing) worldObj.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS));
 					boolean did = false;
 					boolean can = false;
 

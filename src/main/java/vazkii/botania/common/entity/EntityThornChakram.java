@@ -21,9 +21,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -62,7 +63,7 @@ public class EntityThornChakram extends EntityThrowable {
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
-				worldObj.spawnParticle("flame", posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				worldObj.spawnParticle(EnumParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
 		int bounces = getTimesBounced();
@@ -110,8 +111,8 @@ public class EntityThornChakram extends EntityThrowable {
 		if(noClip)
 			return;
 
-		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-		worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+		worldObj.getTileEntity(pos.getBlockPos());
 		if(block instanceof BlockBush || block instanceof BlockLeaves)
 			return;
 
@@ -127,8 +128,8 @@ public class EntityThornChakram extends EntityThrowable {
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
-				ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
-				Vector3 normalVector = new Vector3(dir.offsetX, dir.offsetY, dir.offsetZ).normalize();
+				EnumFacing dir = pos.sideHit;
+				Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
 				motionX = movementVec.x;

@@ -39,7 +39,7 @@ public class MultiblockComponent {
 	}
 
 	public MultiblockComponent(BlockPos relPos, Block block, int meta, TileEntity tileEntity) {
-		this(relPos, block, meta, block.hasTileEntity() == (tileEntity != null), tileEntity);
+		this(relPos, block, meta, block.hasTileEntity(block.getStateFromMeta(meta)) == (tileEntity != null), tileEntity);
 	}
 
 	public MultiblockComponent(BlockPos relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
@@ -62,8 +62,8 @@ public class MultiblockComponent {
 		return meta;
 	}
 
-	public boolean matches(World world, int x, int y, int z) {
-		return world.getBlock(x, y, z) == getBlock() && (meta == -1 || world.getBlockMetadata(x, y, z) == meta);
+	public boolean matches(World world, BlockPos pos) {
+		return world.getBlockState(pos).getBlock() == getBlock() && (meta == -1 || world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)) == meta);
 	}
 
 	public ItemStack[] getMaterials() {
@@ -71,14 +71,14 @@ public class MultiblockComponent {
 	}
 
 	public void rotate(double angle) {
-		double x = relPos.posX;
-		double z = relPos.posZ;
+		double x = relPos.getX();
+		double z = relPos.getZ();
 		double sin = Math.sin(angle);
 		double cos = Math.cos(angle);
 
 		double xn = x * cos - z * sin;
 		double zn = x * sin + z * cos;
-		relPos = new BlockPos((int) Math.round(xn), relPos.posY, (int) Math.round(zn));
+		relPos = new BlockPos((int) Math.round(xn), relPos.getY(), (int) Math.round(zn));
 	}
 
 	public MultiblockComponent copy() {

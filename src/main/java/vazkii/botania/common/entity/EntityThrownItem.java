@@ -40,7 +40,7 @@ public class EntityThrownItem extends EntityItem {
 	}
 
 	@Override
-	public boolean isEntityInvulnerable() {
+	public boolean isEntityInvulnerable(DamageSource source) {
 		return true;
 	}
 
@@ -56,7 +56,7 @@ public class EntityThrownItem extends EntityItem {
 		if (!worldObj.isRemote)
 		{
 			Entity entity = null;
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
+			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
 			double d0 = 0.0D;
 
 			for (int j = 0; j < list.size(); ++j)
@@ -66,7 +66,7 @@ public class EntityThrownItem extends EntityItem {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || delayBeforeCanPickup == 0))
 				{
 					float f = 1.0F;
-					AxisAlignedBB axisalignedbb = entity1.boundingBox.expand(f, f, f);
+					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
 					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
 					if (movingobjectposition1 != null)
@@ -90,7 +90,7 @@ public class EntityThrownItem extends EntityItem {
 
 		if (movingobjectposition != null)
 		{
-			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ) == Blocks.portal)
+			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlockState(movingobjectposition.getBlockPos()).getBlock() == Blocks.portal)
 			{
 				setInPortal();
 			}
