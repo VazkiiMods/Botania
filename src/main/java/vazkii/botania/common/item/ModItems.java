@@ -268,6 +268,7 @@ public final class ModItems {
 	public static Item gaiaHead;
 	public static Item sextant;
 	public static Item speedUpBelt;
+	public static Item baubleBox;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -417,6 +418,7 @@ public final class ModItems {
 		gaiaHead = new ItemGaiaHead();
 		sextant = new ItemSextant();
 		speedUpBelt = new ItemSpeedUpBelt();
+		baubleBox = new ItemBaubleBox();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

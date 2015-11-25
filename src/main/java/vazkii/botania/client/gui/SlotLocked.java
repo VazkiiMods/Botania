@@ -8,7 +8,7 @@
  * 
  * File Created @ [Sep 6, 2015, 1:11:25 AM (GMT)]
  */
-package vazkii.botania.client.gui.bag;
+package vazkii.botania.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

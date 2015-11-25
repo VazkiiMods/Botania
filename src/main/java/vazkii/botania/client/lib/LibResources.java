@@ -44,6 +44,7 @@ public final class LibResources {
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flowerBag.png";
+	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "baubleBox.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
 	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
 

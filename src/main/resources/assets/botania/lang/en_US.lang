@@ -1633,6 +1633,7 @@ item.botania:manaweaveBoots.name=Manaweave Boots
 item.botania:gaiaHead.name=Gaia Guardian's Head
 item.botania:sextant.name=Worldshaper's Sextant
 item.botania:speedUpBelt.name=Planestrider's Sash
+item.botania:baubleBox.name=Bauble Case
 
 # BREW NAMES
 botania.brew.fallback=Fallback
