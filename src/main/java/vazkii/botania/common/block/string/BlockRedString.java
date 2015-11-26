@@ -28,7 +28,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.relauncher.Side;

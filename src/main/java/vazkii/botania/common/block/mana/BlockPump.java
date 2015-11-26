@@ -28,7 +28,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lexicon.LexiconData;

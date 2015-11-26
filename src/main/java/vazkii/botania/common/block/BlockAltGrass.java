@@ -11,7 +11,6 @@
 package vazkii.botania.common.block;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,7 +28,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AltGrassType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -135,19 +134,5 @@ public class BlockAltGrass extends BlockMod {
 			break;
 		}
     }
-
-	public enum AltGrassType implements IStringSerializable {
-		DRY,
-		GOLDEN,
-		VIVID,
-		SCORCHED,
-		INFUSED,
-		MUTATED;
-
-		@Override
-		public String getName() {
-			return this.name().toLowerCase(Locale.ROOT);
-		}
-	}
 
 }
