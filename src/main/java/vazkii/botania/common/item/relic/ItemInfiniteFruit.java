@@ -54,7 +54,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		super.onUsingTick(stack, player, count);
 
-		if(ManaItemHandler.requestManaExact(stack, player, 1000, true)) {
+		if(ManaItemHandler.requestManaExact(stack, player, 500, true)) {
 			if(count % 5 == 0)
 				player.getFoodStats().addStats(1, 1F);
 
