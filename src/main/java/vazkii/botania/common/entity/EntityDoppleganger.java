@@ -184,6 +184,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 
 			par1ItemStack.stackSize--;
+			
+			if(par3World.isRemote)
+				return true;
+			
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
