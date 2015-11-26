@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 
@@ -31,7 +31,7 @@ public class CompositeLensRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof ILens && !foundSecondLens) {
+				if(stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
 					if(foundLens)
 						foundSecondLens = true;
 					else foundLens = true;
@@ -52,15 +52,15 @@ public class CompositeLensRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof ILens)
+				if(stack.getItem() instanceof ICompositableLens)
 					if(lens == null)
 						lens = stack;
 					else secondLens = stack;
 			}
 		}
 
-		if(lens.getItem() instanceof ILens) {
-			ILens lensItem = (ILens) lens.getItem();
+		if(lens.getItem() instanceof ICompositableLens) {
+			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
 			if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
 				return null;
 

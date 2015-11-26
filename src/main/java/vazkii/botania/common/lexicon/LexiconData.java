@@ -250,6 +250,8 @@ public final class LexiconData {
 	public static LexiconEntry judgementCloaks;
 	public static LexiconEntry monocle;
 	public static LexiconEntry swapRing;
+	public static LexiconEntry speedUpBelt;
+	public static LexiconEntry baubleBox;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -951,6 +953,12 @@ public final class LexiconData {
 		swapRing = new BLexiconEntry(LibLexicon.BAUBLE_SWAP_RING, categoryBaubles);
 		swapRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSwapRing));
 
+		speedUpBelt = new BLexiconEntry(LibLexicon.BAUBLE_SPEED_UP_BELT, categoryBaubles);
+		speedUpBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpeedUpBelt));
+
+		baubleBox = new BLexiconEntry(LibLexicon.BAUBLE_BOX, categoryBaubles);
+		baubleBox.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBaubleCase)).setPriority();
+		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCraftingRecipes.recipeNaturaPylon), new PageMultiblock("4", ModMultiblocks.alfPortal),

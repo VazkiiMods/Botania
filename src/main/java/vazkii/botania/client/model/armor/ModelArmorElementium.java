@@ -246,6 +246,7 @@ public class ModelArmorElementium extends ModelBiped {
             ItemStack itemstack = player.inventory.getCurrentItem();
             heldItemRight = itemstack != null ? 1 : 0;
 
+            aimedBow = false;
             if (itemstack != null && player.getItemInUseCount() > 0) {
                 EnumAction enumaction = itemstack.getItemUseAction();
 

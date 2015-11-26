@@ -14,6 +14,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
+import vazkii.botania.client.gui.box.ContainerBaubleBox;
+import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -29,6 +31,8 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerCraftingHalo(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
 			return new ContainerFlowerBag(player);
+		case LibGuiIDs.BAUBLE_BOX :
+			return new ContainerBaubleBox(player);
 		}
 
 		return null;
@@ -44,6 +48,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiCraftingHalo(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
 			return new GuiFlowerBag(player);
+		case LibGuiIDs.BAUBLE_BOX :
+			return new GuiBaubleBox(player);
 		}
 
 		return null;

@@ -306,6 +306,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeAvatar;
 	public static IRecipe recipeSextant;
 	public static List<IRecipe> recipesAltGrassSeeds;
+	public static IRecipe recipeSpeedUpBelt;
+	public static IRecipe recipeBaubleCase;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2062,6 +2064,23 @@ public final class ModCraftingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 7), new ItemStack(ModItems.grassSeeds), new ItemStack(ModItems.manaResource, 1, 10));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 8), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.spider_eye));
 		recipesAltGrassSeeds = BotaniaAPI.getLatestAddedRecipes(6);
+		
+		// Planestrider's Sash Recipe
+		GameRegistry.addRecipe(new ItemStack(ModItems.speedUpBelt),
+				" M ", "PBP", " S ",
+				'M', new ItemStack(Items.filled_map, 1, Short.MAX_VALUE),
+				'P', new ItemStack(ModItems.grassSeeds),
+				'B', new ItemStack(ModItems.travelBelt),
+				'S', new ItemStack(Items.sugar));
+		recipeSpeedUpBelt = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Bauble Case Recipe
+		addOreDictRecipe(new ItemStack(ModItems.baubleBox), 
+				" M ", "MCG", " M ",
+				'M', LibOreDict.MANA_STEEL,
+				'C', new ItemStack(Blocks.chest),
+				'G', "ingotGold");
+		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

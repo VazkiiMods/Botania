@@ -85,8 +85,10 @@ public final class PersistentVariableHelper {
 			for(int i = 0; i < count; i++) {
 				NBTTagCompound bookmarkCmp = bookmarksCmp.getCompoundTag(TAG_BOOKMARK_PREFIX + i);
 				GuiLexicon gui = GuiLexicon.create(bookmarkCmp);
-				if(gui != null)
+				if(gui != null) {
 					GuiLexicon.bookmarks.add(gui);
+					GuiLexicon.bookmarkKeys.add(gui.getNotesKey());
+				}
 			}
 		}
 

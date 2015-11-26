@@ -21,12 +21,18 @@ public interface IFloatingFlower {
 	public IslandType getIslandType();
 
 	public void setIslandType(IslandType type);
-
+	
 	public static enum IslandType {
 		GRASS(LibResources.MODEL_MINI_ISLAND),
 		PODZOL(LibResources.MODEL_MINI_ISLAND_PODZOL),
 		MYCEL(LibResources.MODEL_MINI_ISLAND_MYCEL),
-		SNOW(LibResources.MODEL_MINI_ISLAND_SNOW);
+		SNOW(LibResources.MODEL_MINI_ISLAND_SNOW),
+		DRY(LibResources.MODEL_MINI_ISLAND_DRY),
+		GOLDEN(LibResources.MODEL_MINI_ISLAND_GOLDEN),
+		VIVID(LibResources.MODEL_MINI_ISLAND_VIVID),
+		SCORCHED(LibResources.MODEL_MINI_ISLAND_SCORCHED),
+		INFUSED(LibResources.MODEL_MINI_ISLAND_INFUSED),
+		MUTATED(LibResources.MODEL_MINI_ISLAND_MUTATED);
 
 		private IslandType(String s) {
 			res = new ResourceLocation(s);

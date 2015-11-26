@@ -43,6 +43,7 @@ public class BlockAltGrass extends BlockMod {
 		setStepSound(soundTypeGrass);
 		setUnlocalizedName(LibBlockNames.ALT_GRASS);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
+		setTickRandomly(true)
 	}
 
 	@Override

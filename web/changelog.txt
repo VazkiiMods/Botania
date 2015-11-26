@@ -1,3 +1,26 @@
+r1.7 236
+*Added Chisel stone support to the Rod of the Terra Firma.
+*Added floating flower variants to all the new pasture seed types.
+*Added the Bauble Case, a way of storing baubles on your person.
+*Added the Planestrider's Sash, a new belt item that gives you more speed the more you walk.
+*Buffed the amount of damage the Key of the King's Law does.
+*Fixed Botania armor models not resetting the "using a bow" state.
+*Fixed Botania grass types not spreading.
+*Fixed Featherfall disabling the Flugel Tiara's glide. (TheWhiteWolves)
+*Fixed items getting destroyed if they're left in a crafting table when the lexicon's Ctrl lookup feature is used. 
+*Fixed lexicon bookmarks being weird if you do multiple in the same entry.
+*Fixed Mana Bursts' position in the client sometimes going above the block they're inside.
+*Fixed multiblock previews rendering in dimensions other than the one they were created in.
+*Fixed raytracing ignoring the player's height.
+*Fixed the Gaia Guardian head not breaking properly or having the right drops.
+*Fixed the Halos not rendering multipassed items properly.
+*Fixed the travel sashes using mana even if the player isn't moving.
+*Fixed the weapons spawned by the Key of the King's Law not despawning if the player that created them dies.
+*Fixed Witchery wiki lookup not working because google sites requires lowercase URLs. (TheWhiteWolves)
+*Glimmering flowers now have slightly altered textures from the normal ones.
+*[API] Added ICompositableLens for API level lens composition handling. (WireSegal)
+*[API] Added lowercase conversion support to SimpleWikiProvider. (TheWhiteWolves)
+*[API] Increased version number to 69.
 r1.7 235
 *Fixed the Crafty Crate not syncing properly, and by extension, the Wand HUD for it not being accurate.
 *Fixed the Hopperhock not updating inventories properly.

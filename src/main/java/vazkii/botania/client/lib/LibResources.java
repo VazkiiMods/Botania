@@ -44,6 +44,7 @@ public final class LibResources {
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flowerBag.png";
+	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "baubleBox.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
 	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
 
@@ -104,6 +105,7 @@ public final class LibResources {
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
+	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "speedUpBelt.png";
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
@@ -114,6 +116,12 @@ public final class LibResources {
 	public static final String MODEL_MINI_ISLAND_PODZOL = PREFIX_MODEL + "miniIslandPodzol.png";
 	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
 	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
+	public static final String MODEL_MINI_ISLAND_DRY = PREFIX_MODEL + "miniIslandDry.png";
+	public static final String MODEL_MINI_ISLAND_GOLDEN = PREFIX_MODEL + "miniIslandGolden.png";
+	public static final String MODEL_MINI_ISLAND_VIVID = PREFIX_MODEL + "miniIslandVivid.png";
+	public static final String MODEL_MINI_ISLAND_SCORCHED = PREFIX_MODEL + "miniIslandScorched.png";
+	public static final String MODEL_MINI_ISLAND_INFUSED = PREFIX_MODEL + "miniIslandInfused.png";
+	public static final String MODEL_MINI_ISLAND_MUTATED = PREFIX_MODEL + "miniIslandMutated.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";
 	public static final String MODEL_CRYSTAL_CUBE = PREFIX_MODEL + "crystalCube.png";
 	public static final String MODEL_INCENSE_PLATE = PREFIX_MODEL + "incensePlate.png";

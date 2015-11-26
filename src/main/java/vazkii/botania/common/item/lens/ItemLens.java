@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.api.mana.IManaSpreader;
@@ -42,7 +43,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcempt {
+public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
 	public static final int SUBTYPES = 22;
 
@@ -273,8 +274,10 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 		lenses[index] = lens;
 	}
 
-	public static boolean isBlacklisted(int lens1, int lens2) {
-		return (props[lens1] & props[lens2]) != 0;
+	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
+		ICompositableLens item1 = (ICompositableLens) lens1.getItem();
+		ICompositableLens item2 = (ICompositableLens) lens2.getItem();
+		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
 	}
 
 	public static Lens getLens(int index) {
@@ -287,13 +290,15 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-		if(sourceLens.getItemDamage() == compositeLens.getItemDamage())
+		ICompositableLens sourceItem = (ICompositableLens) sourceLens.getItem();
+		ICompositableLens compositeItem = (ICompositableLens) compositeLens.getItem();
+		if(sourceItem == compositeItem && sourceLens.getItemDamage() == compositeLens.getItemDamage())
 			return false;
 
-		if(sourceLens.getItemDamage() == NORMAL || compositeLens.getItemDamage() == NORMAL)
+		if(!sourceItem.isCombinable(sourceLens) || !compositeItem.isCombinable(compositeLens))
 			return false;
 
-		if(isBlacklisted(sourceLens.getItemDamage(), compositeLens.getItemDamage()))
+		if(isBlacklisted(sourceLens, compositeLens))
 			return false;
 
 		return true;
@@ -322,7 +327,7 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 
 	@Override
 	public boolean isControlLens(ItemStack stack) {
-		return (props[stack.getItemDamage()] & PROP_CONTROL) != 0;
+		return (getProps(stack) & PROP_CONTROL) != 0;
 	}
 
 	@Override
@@ -338,5 +343,15 @@ public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcemp
 	@Override
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		lenses[stack.getItemDamage()].onControlledSpreaderPulse(stack, spreader, redstone);
+	}
+
+	@Override
+	public int getProps(ItemStack stack) {
+		return props[stack.getItemDamage()];
+	}
+
+	@Override
+	public boolean isCombinable(ItemStack stack) {
+		return stack.getItemDamage() != NORMAL;
 	}
 }

@@ -29,7 +29,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 			return retStack;
 		}
 
-		return new ItemStack(ModBlocks.flower, 1, getBlockMetadata());
+		return new ItemStack(ModBlocks.shinyFlower, 1, getBlockMetadata());
 	}
 
 	@Override

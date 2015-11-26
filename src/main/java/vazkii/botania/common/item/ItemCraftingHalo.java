@@ -16,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -455,11 +456,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				} else {
 					GlStateManager.scale(0.75F, 0.75F, 0.75F);
 					GlStateManager.translate(0F, 0F, 0.5F);
+					GlStateManager.rotate(90F, 0F, 1F, 0F);
 					int renderPass = 0;
 					do {
 						IIcon icon = slotStack.getItem().getIcon(slotStack, renderPass);
 						if(icon != null) {
-							GlStateManager.rotate(90F, 0F, 1F, 0F);
 							Color color = new Color(slotStack.getItem().getColorFromItemStack(slotStack, renderPass));
 							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 							float f = icon.getMinU();

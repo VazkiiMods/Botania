@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.bag;
 
+import vazkii.botania.client.gui.SlotLocked;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
