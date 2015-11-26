@@ -12,12 +12,10 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -38,12 +36,6 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 		setResistance(2000F);
 		setStepSound(Block.soundTypeStone);
 		setUnlocalizedName(LibBlockNames.MANA_VOID);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this, 0);
-		overlay = IconHelper.forBlock(par1IconRegister, this, 1);
 	}
 
 	@Override

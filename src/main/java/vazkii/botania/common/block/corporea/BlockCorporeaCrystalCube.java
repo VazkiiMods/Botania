@@ -72,16 +72,6 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return ModBlocks.storage.getIcon(0, 2);
-	}
-
-	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaCrystalCube();
 	}

@@ -12,18 +12,14 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -42,7 +38,7 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setUnlocalizedName(LibBlockNames.PUMP);
-		setBlockBounds(true);
+		setBlockBounds(EnumFacing.Axis.X);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
@@ -59,20 +55,10 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 
 	public void setBlockBounds(EnumFacing.Axis axis) {
 		if (axis == EnumFacing.Axis.X) {
-			setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F)
+			setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F);
 		} else if (axis == EnumFacing.Axis.Z) {
 			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
 		}
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingrock.getIcon(0, 0);
 	}
 
 	@Override

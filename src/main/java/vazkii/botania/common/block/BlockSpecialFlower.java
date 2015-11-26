@@ -53,9 +53,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
-	public static Map<String, IIcon> icons = new HashMap();
-	public static Map<String, IIcon> iconsAlt = new HashMap();
-
 	static {
 		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(new String[] {
 				// Misc
@@ -121,6 +118,19 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > 15) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 //	@Override todo 1.8 coloredlightscore dep

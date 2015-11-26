@@ -49,14 +49,11 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 
 	private static final int COUNT = 8;
 
-	IIcon[] doublePlantTopIcons, doublePlantBottomIcons;
-	IIcon[] doublePlantTopIconsAlt, doublePlantBottomIconsAlt;
-
 	final int offset;
 
 	public BlockModDoubleFlower(boolean second) {
 		offset = second ? 8 : 0;
-		setBlockName(LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1));
+		setUnlocalizedName(LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1));
 		setHardness(0F);
 		setStepSound(soundTypeGrass);
 		setTickRandomly(false);
@@ -152,55 +149,24 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
 		return true;
 	}
 
 	@Override
-	public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z) & 7));
 		return ret;
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		return new ArrayList();
 	}
 
 	@Override
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		boolean top = func_149887_c(p_149691_2_);
-		return (ConfigHandler.altFlowerTextures ? top ? doublePlantTopIconsAlt : doublePlantBottomIconsAlt : top ? doublePlantTopIcons : doublePlantBottomIcons)[p_149691_2_ & 7];
-	}
-
-	@Override
-	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean top = func_149887_c(meta);
-		if(top)
-			meta = world.getBlockMetadata(x, y - 1, z);
-
-		return (ConfigHandler.altFlowerTextures ? top ? doublePlantBottomIconsAlt : doublePlantTopIconsAlt : top ? doublePlantBottomIcons : doublePlantTopIcons)[meta & 7];
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister register) {
-		doublePlantTopIcons = new IIcon[COUNT];
-		doublePlantBottomIcons = new IIcon[COUNT];
-		doublePlantTopIconsAlt = new IIcon[COUNT];
-		doublePlantBottomIconsAlt = new IIcon[COUNT];
-		for(int i = 0; i < COUNT; i++) {
-			int off = offset(i);
-			doublePlantTopIcons[i] = IconHelper.forName(register, "flower" + off + "Tall0");
-			doublePlantBottomIcons[i] = IconHelper.forName(register, "flower" + off + "Tall1");
-			doublePlantTopIconsAlt[i] = IconHelper.forName(register, "flower" + off + "Tall0", BlockModFlower.ALT_DIR);
-			doublePlantBottomIconsAlt[i] = IconHelper.forName(register, "flower" + off + "Tall1", BlockModFlower.ALT_DIR);
-		}
-	}
-
-	@Override
-	public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
+	public int colorMultiplier(IBlockAccess blockAccess, BlockPos pos, int pass) {
 		return 16777215;
 	}
 
@@ -216,7 +182,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		float[] color = EntitySheep.fleeceColorTable[offset(meta & 7)];
 

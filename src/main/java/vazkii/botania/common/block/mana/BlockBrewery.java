@@ -13,10 +13,10 @@ package vazkii.botania.common.block.mana;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -25,10 +25,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
@@ -36,6 +36,8 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.swing.text.html.ObjectView;
 
 public class BlockBrewery extends BlockModContainer implements ILexiconable, IWandHUD {
 
@@ -51,11 +53,22 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 		setStepSound(soundTypeStone);
 
 		random = new Random();
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return Blocks.cobblestone.getIcon(side, meta);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
 	@Override
@@ -63,7 +76,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
 
 		if(par5EntityPlayer.isSneaking()) {
-			if(brew.recipe == null && par1World.getBlockMetadata(par2, par3, par4) == 0)
+			if(brew.recipe == null && !((Boolean) state.getValue(BotaniaStateProps.POWERED)))
 				for(int i = brew.getSizeInventory() - 1; i >= 0; i--) {
 					ItemStack stackAt = brew.getStackInSlot(i);
 					if(stackAt != null) {
@@ -71,7 +84,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
 						brew.setInventorySlotContents(i, null);
-						par1World.func_147453_f(pos, this);
+						par1World.updateComparatorOutputLevel(pos, this);
 						break;
 					}
 				}
@@ -115,7 +128,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
 		super.breakBlock(par1World, pos, state);
@@ -130,11 +143,6 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	public int getComparatorInputOverride(World par1World, BlockPos pos) {
 		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
 		return brew.signal;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
 	}
 
 	@Override

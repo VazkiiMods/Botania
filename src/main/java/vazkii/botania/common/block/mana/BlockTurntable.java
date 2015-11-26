@@ -13,13 +13,11 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,25 +31,11 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTurntable extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockTurntable() {
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.TURNTABLE);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par1 == 1 ? icons[0] : icons[1];
 	}
 
 	@Override

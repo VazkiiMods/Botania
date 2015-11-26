@@ -24,6 +24,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.block.ItemBlockStorage;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -34,19 +36,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockStorage extends BlockMod implements ILexiconable {
 
-	private static final int SUBTYPES = 5;
-
 	public BlockStorage() {
 		super(Material.iron);
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setUnlocalizedName(LibBlockNames.STORAGE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL));
 	}
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < SUBTYPES; i++)
+		for(int i = 0; i < StorageVariant.values().length; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 
@@ -73,8 +74,8 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(pos);
-		return meta == 0 ? LexiconData.pool : LexiconData.terrasteel;
+		StorageVariant variant = ((StorageVariant) world.getBlockState(pos).getValue(BotaniaStateProps.STORAGE_VARIANT));
+		return variant == StorageVariant.MANASTEEL ? LexiconData.pool : LexiconData.terrasteel;
 	}
 
 }

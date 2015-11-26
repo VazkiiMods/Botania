@@ -16,7 +16,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -40,7 +38,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockRuneAltar extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
 
 	Random random;
-	IIcon[] icons;
 
 	public BlockRuneAltar() {
 		super(Material.rock);
@@ -61,13 +58,6 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	@Override
 	public boolean isFullCube() {
 		return false;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@Override

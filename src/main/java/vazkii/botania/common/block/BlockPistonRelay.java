@@ -135,7 +135,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.getDimensionId(), pos));
 			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
 		} else {
-			dropBlockAsItem(world, x, y, z, new ItemStack(this));
+			spawnAsEntity(world, pos, new ItemStack(this));
 			world.setBlockToAir(pos);
 			if(!world.isRemote)
 				world.playAuxSFX(2001, pos, Block.getIdFromBlock(this));

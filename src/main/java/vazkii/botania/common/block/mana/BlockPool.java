@@ -18,7 +18,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -30,10 +29,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -55,8 +52,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	boolean lastFragile = false;
 
-	public static IIcon manaIcon;
-
 	public BlockPool() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -75,11 +70,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockPool.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		manaIcon = IconHelper.forName(par1IconRegister, "manaWater");
 	}
 
 	@Override
@@ -154,11 +144,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	@Override
 	public boolean isFullCube() {
 		return false;
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingrock.getIcon(par1, 0);
 	}
 
 	@Override

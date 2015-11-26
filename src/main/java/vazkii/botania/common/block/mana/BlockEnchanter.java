@@ -16,7 +16,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,7 +27,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -44,7 +42,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable, IWandHUD {
 
 	Random random;
-	public static IIcon overlay;
 
 	public BlockEnchanter() {
 		super(Material.rock);
@@ -60,12 +57,6 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	@Override
 	public boolean registerInCreative() {
 		return false;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		super.registerBlockIcons(par1IconRegister);
-		overlay = IconHelper.forBlock(par1IconRegister, this, "Overlay");
 	}
 
 	@Override
@@ -137,7 +128,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 			}
 		}
 
-		par1World.func_147453_f(par2, par3, par4, par5);
+		par1World.updateComparatorOutputLevel(pos, state.getBlock());
 
 		super.breakBlock(par1World, pos, state);
 	}

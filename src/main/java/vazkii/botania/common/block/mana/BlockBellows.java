@@ -11,19 +11,19 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.ModBlocks;
@@ -34,8 +34,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockBellows extends BlockModContainer implements ILexiconable {
 
-	private static final int[] META_ROTATIONS = new int[] { 3, 4, 2, 5 };
-
 	public BlockBellows() {
 		super(Material.wood);
 		setHardness(2.0F);
@@ -44,17 +42,27 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 
 		float f = (1F - 10 / 16F) / 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 10F / 16F, 1F - f);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.CARDINALS);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getHorizontalIndex();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));
+	}
+
+	@Override
+	public void onBlockPlacedBy(World p_149689_1_, BlockPos pos, IBlockState state, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		p_149689_1_.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, p_149689_5_.getHorizontalFacing()), 2);
 	}
 
 	@Override
@@ -72,11 +80,6 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 	@Override
 	public boolean isFullCube() {
 		return false;
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingwood.getIcon(par1, 0);
 	}
 
 	@Override

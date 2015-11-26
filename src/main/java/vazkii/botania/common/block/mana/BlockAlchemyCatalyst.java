@@ -28,8 +28,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	IIcon[] icons;
-
 	public BlockAlchemyCatalyst() {
 		this(LibBlockNames.ALCHEMY_CATALYST);
 	}
@@ -39,19 +37,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundTypeStone);
-		setBlockName(name);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
+		setUnlocalizedName(name);
 	}
 
 	@Override

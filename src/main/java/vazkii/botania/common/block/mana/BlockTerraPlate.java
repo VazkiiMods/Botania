@@ -11,12 +11,10 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -28,9 +26,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
-
-	public static IIcon overlay;
-	IIcon[] icons;
 
 	public BlockTerraPlate() {
 		super(Material.iron);
@@ -54,19 +49,6 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	@Override
 	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
 		return false;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-		overlay = IconHelper.forBlock(par1IconRegister, this, "Overlay");
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
 	}
 
 	@Override

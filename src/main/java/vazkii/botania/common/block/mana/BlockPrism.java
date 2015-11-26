@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
@@ -31,6 +32,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -41,7 +43,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexiconable {
 
 	Random random;
-	IIcon[] icons;
 
 	public BlockPrism() {
 		super(Material.glass);
@@ -51,20 +52,28 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 		setUnlocalizedName(LibBlockNames.PRISM);
 		float f = 0.25F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
-
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false)
+		);
 		random = new Random();
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return side > 1 ? icons[1] : icons[0];
+	public int getMetaFromState(IBlockState state) {
+		return (((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 8 : 0)
+				+ (((Boolean) state.getValue(BotaniaStateProps.HAS_LENS)) ? 1 : 0);
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, (meta & 8) > 0)
+				.withProperty(BotaniaStateProps.HAS_LENS, (meta & 1) > 0);
 	}
 
 	@Override
@@ -97,7 +106,6 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 		ItemStack lens = prism.getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
 
 		if(lens == null && isHeldItemLens) {
 			if(!par5EntityPlayer.capabilities.isCreativeMode)
@@ -105,30 +113,30 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 			prism.setInventorySlotContents(0, heldItem.copy());
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta | 1, 1 | 2);
+			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
 		} else if(lens != null) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
 				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
 			prism.setInventorySlotContents(0, null);
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta & 14, 1 | 2);
+			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
+//			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta & 14, 1 | 2);
 		}
 
 		return true;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
 
 		if(!world.isRemote) {
 			if(power && !powered)
-				world.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
+				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 			else if(!power && powered)
-				world.setBlockMetadataWithNotify(x, y, z, meta & -9, 1 | 2);
+				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 		}
 	}
 
@@ -168,7 +176,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 				}
 			}
 
-			par1World.func_147453_f(par2, par3, par4, par5);
+			par1World.updateComparatorOutputLevel(pos, state.getBlock());
 		}
 
 		super.breakBlock(par1World, pos, state);

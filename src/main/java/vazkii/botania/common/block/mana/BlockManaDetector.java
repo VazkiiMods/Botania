@@ -14,8 +14,8 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,12 +23,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
@@ -37,26 +37,28 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaDetector extends BlockModContainer implements ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockManaDetector() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundTypeStone);
 		setUnlocalizedName(LibBlockNames.MANA_DETECTOR);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(icons.length - 1, par2)];
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1iBlockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
-		return par1iBlockAccess.getBlockMetadata(par2, par3, par4) != 0 ? 15 : 0;
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
 	}
 
 	@Override

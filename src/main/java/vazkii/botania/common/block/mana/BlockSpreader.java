@@ -16,10 +16,10 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -32,11 +32,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
@@ -59,8 +60,26 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.SPREADER);
-
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
 		random = new Random();
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.SPREADER_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((SpreaderVariant) state.getValue(BotaniaStateProps.SPREADER_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > SpreaderVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.values()[meta]);
 	}
 
 	@Override
@@ -84,7 +103,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(pos);
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage(), 1 | 2);
+		par1World.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
 		switch(orientation) {
 		case DOWN:
@@ -120,11 +139,6 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	@Override
 	public boolean isFullCube() {
 		return false;
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par2 >= 2 ? ModBlocks.dreamwood.getIcon(par1, 0) : ModBlocks.livingwood.getIcon(par1, 0);
 	}
 
 	@Override
@@ -238,8 +252,8 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(pos);
-		return meta == 0 ? LexiconData.spreader : meta == 1 ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
+		SpreaderVariant variant = ((SpreaderVariant) world.getBlockState(pos).getValue(BotaniaStateProps.SPREADER_VARIANT));
+		return variant == SpreaderVariant.MANA ? LexiconData.spreader : variant == SpreaderVariant.REDSTONE ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 
 	@Override

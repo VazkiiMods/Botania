@@ -38,6 +38,9 @@ public class BotaniaStateProps {
     // BlockDreamWood, BlockLivingWood
     public static final PropertyEnum LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);
 
+    // BlockForestDrum
+    public static final PropertyEnum DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
+
     // BlockLivingRock
     public static final PropertyEnum LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
 
@@ -47,8 +50,17 @@ public class BotaniaStateProps {
     // BlockPlatform
     public static final PropertyEnum PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);
 
+    // BlockPrism
+    public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
+
     // BlockPylon
     public static final PropertyEnum PYLON_VARIANT = PropertyEnum.create("variant", PylonVariant.class);
+
+    // BlockSpreader
+    public static final PropertyEnum SPREADER_VARIANT = PropertyEnum.create("variant", SpreaderVariant.class);
+
+    // BlockStorage
+    public static final PropertyEnum STORAGE_VARIANT = PropertyEnum.create("variant", StorageVariant.class);
 
     private BotaniaStateProps() {}
 }
