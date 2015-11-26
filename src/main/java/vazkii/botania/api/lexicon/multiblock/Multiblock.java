@@ -10,14 +10,12 @@
  */
 package vazkii.botania.api.lexicon.multiblock;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
@@ -125,17 +123,21 @@ public class Multiblock {
 	 * to render this multiblock in the world relevant to the 4 cardinal
 	 * orientations.
 	 */
-	public Multiblock[] createRotations() {
-		Multiblock[] blocks = new Multiblock[4];
-		blocks[0] = this;
-		blocks[1] = blocks[0].copy();
-		blocks[1].rotate(Math.PI / 2);
-		blocks[2] = blocks[1].copy();
-		blocks[2].rotate(Math.PI / 2);
-		blocks[3] = blocks[2].copy();
-		blocks[3].rotate(Math.PI / 2);
+	public Map<EnumFacing, Multiblock> createRotations() {
+		Map<EnumFacing, Multiblock> ret = new EnumMap<EnumFacing, Multiblock>(EnumFacing.class);
 
-		return blocks;
+		ret.put(EnumFacing.SOUTH, this);
+
+		ret.put(EnumFacing.WEST, ret.get(EnumFacing.SOUTH).copy());
+		ret.get(EnumFacing.WEST).rotate(Math.PI / 2);
+
+		ret.put(EnumFacing.NORTH, ret.get(EnumFacing.WEST).copy());
+		ret.get(EnumFacing.NORTH).rotate(Math.PI / 2);
+
+		ret.put(EnumFacing.EAST, ret.get(EnumFacing.NORTH).copy());
+		ret.get(EnumFacing.EAST).rotate(Math.PI / 2);
+
+		return ret;
 	}
 
 	/**

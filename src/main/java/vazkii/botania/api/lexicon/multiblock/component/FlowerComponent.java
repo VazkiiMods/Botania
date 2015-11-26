@@ -25,8 +25,8 @@ public class FlowerComponent extends ColorSwitchingComponent {
 	}
 
 	@Override
-	public boolean matches(World world, int x, int y, int z) {
-		return BotaniaAPI.internalHandler.isBotaniaFlower(, world, , x);
+	public boolean matches(World world, BlockPos pos) {
+		return BotaniaAPI.internalHandler.isBotaniaFlower(world, pos);
 	}
 
 	@Override

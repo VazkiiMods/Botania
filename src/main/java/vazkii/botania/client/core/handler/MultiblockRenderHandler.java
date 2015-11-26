@@ -17,12 +17,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -79,7 +74,7 @@ public final class MultiblockRenderHandler {
 			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
 
 			rendering = true;
-			Multiblock mb = anchor != null ? currentMultiblock.getForIndex(angle) : currentMultiblock.getForEntity(player);
+			Multiblock mb = anchor != null ? currentMultiblock.getForFacing(EnumFacing.getHorizontal(angle)) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
 
 			blockAccess.update(player.worldObj, mb, anchorX, anchorY, anchorZ);

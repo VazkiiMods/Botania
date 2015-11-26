@@ -28,6 +28,7 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
@@ -427,7 +428,7 @@ public class ClientProxy extends CommonProxy {
 	public void removeSextantMultiblock() {
 		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
 		if(set != null) {
-			Multiblock mb = set.getForIndex(0);
+			Multiblock mb = set.getForFacing(EnumFacing.SOUTH);
 			if(mb instanceof MultiblockSextant)
 				MultiblockRenderHandler.setMultiblock(null);
 		}

@@ -18,11 +18,11 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -49,7 +49,7 @@ public class PageMultiblock extends LexiconPage {
 
 	public PageMultiblock(String unlocalizedName, MultiblockSet set) {
 		super(unlocalizedName);
-		mb = set.getForIndex(0);
+		mb = set.getForFacing(EnumFacing.SOUTH);
 		this.set = set;
 	}
 
