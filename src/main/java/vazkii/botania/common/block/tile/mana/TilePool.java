@@ -351,12 +351,12 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 		int u = outputting ? 22 : 0;
 		int v = 38;
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		mc.renderEngine.bindTexture(HUDHandler.manaBar);
 		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
@@ -366,8 +366,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 		mc.getRenderItem().renderItemAndEffectIntoGUI(pool, x + 26, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableLighting();
+		GlStateManager.disableBlend();
 	}
 
 	@Override

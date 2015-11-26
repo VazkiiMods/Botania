@@ -15,6 +15,7 @@ import java.util.Queue;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,14 +36,14 @@ public final class RedStringRenderer {
 
 	public static void renderAll() {
 		if(!redStringTiles.isEmpty()) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glEnable(GL11.GL_BLEND);
+			GlStateManager.disableTexture2D();
+			GlStateManager.enableBlend();
 			if(lighting)
-				GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColor4f(1F, 0F, 0F, sizeAlpha);
+				GlStateManager.disableLighting();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
 
 			Tessellator.renderingWorldRenderer = false;
 			TileRedString tile;
@@ -50,10 +51,10 @@ public final class RedStringRenderer {
 				renderTile(tile);
 
 			if(lighting)
-				GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glPopMatrix();
+				GlStateManager.enableLighting();
+			GlStateManager.enableTexture2D();
+			GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 
 		}
 	}
@@ -72,8 +73,8 @@ public final class RedStringRenderer {
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
-			GL11.glPushMatrix();
-			GL11.glTranslated(tile.getPos().getX() + 0.5 - RenderManager.renderPosX, tile.getPos().getY() + 0.5 - RenderManager.renderPosY, tile.getPos().getZ() + 0.5 - RenderManager.renderPosZ);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(tile.getPos().getX() + 0.5 - RenderManager.renderPosX, tile.getPos().getY() + 0.5 - RenderManager.renderPosY, tile.getPos().getZ() + 0.5 - RenderManager.renderPosZ);
 			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
 			Vector3 vecNorm = vecOrig.copy().normalize();
 			Vector3 vecMag = vecNorm.copy().multiply(0.025);
@@ -98,7 +99,7 @@ public final class RedStringRenderer {
 
 			tessellator.draw();
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 	}
 

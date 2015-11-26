@@ -34,11 +34,11 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileHourglass hourglass = (TileHourglass) tileentity;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		int wtime = tileentity.getWorld() == null ? 0 : ClientTickHandler.ticksInGame;
@@ -53,17 +53,17 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer {
 
 		float fract1 = stack == null ? 0 : hourglass.timeFraction;
 		float fract2 = stack == null ? 0 : 1F - hourglass.timeFraction;
-		GL11.glTranslatef(x, y, z);
+		GlStateManager.translate(x, y, z);
 
 		float rot = hourglass.flip ? 180F : 1F;
 		if(hourglass.flipTicks > 0)
 			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
-		GL11.glRotatef(rot, 0F, 0F, 1F);
+		GlStateManager.rotate(rot, 0F, 0F, 1F);
 
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.scale(1F, -1F, -1F);
 		model.render(fract1, fract2, hourglass.flip, hourglass.getColor());
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glPopMatrix();
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.popMatrix();
 	}
 
 }

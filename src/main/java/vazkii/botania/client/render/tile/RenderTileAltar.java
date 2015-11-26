@@ -55,21 +55,21 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		TileAltar altar = (TileAltar) tileentity;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
 
-		GL11.glTranslated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
+		GlStateManager.scale(1F, -1F, -1F);
 		model.render();
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.enableRescaleNormal();
 
 		boolean water = altar.hasWater();
 		boolean lava = altar.hasLava();
 		if(water || lava) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			float s = 1F / 256F * 10F;
 			float v = 1F / 8F;
 			float w = -v * 2.5F;
@@ -90,9 +90,9 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
 					float offsetPerPetal = 360 / petals;
 
-					GL11.glPushMatrix();
-					GL11.glTranslatef(-0.05F, -0.5F, 0F);
-					GL11.glScalef(v, v, v);
+					GlStateManager.pushMatrix();
+					GlStateManager.translate(-0.05F, -0.5F, 0F);
+					GlStateManager.scale(v, v, v);
 					for(int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
 						float deg = (int) (ticks / rotationModifier % 360F + offset);
@@ -103,38 +103,38 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 						float z = (float) (radiusZ * Math.sin(rad));
 						float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
-						GL11.glPushMatrix();
-						GL11.glTranslatef(x, y, z);
+						GlStateManager.pushMatrix();
+						GlStateManager.translate(x, y, z);
 						float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 						float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 						float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
 						v /= 2F;
-						GL11.glTranslatef(v, v, v);
-						GL11.glRotatef(deg, xRotate, yRotate, zRotate);
-						GL11.glTranslatef(-v, -v, -v);
+						GlStateManager.translate(v, v, v);
+						GlStateManager.rotate(deg, xRotate, yRotate, zRotate);
+						GlStateManager.translate(-v, -v, -v);
 						v *= 2F;
 
-						GL11.glColor4f(1F, 1F, 1F, 1F);
+						GlStateManager.color(1F, 1F, 1F, 1F);
 
 						ItemStack stack = altar.getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 						IIcon icon = stack.getItem().getIcon(stack, 0);
 						if(icon != null) {
 							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 							float f = icon.getMinU();
 							float f1 = icon.getMaxU();
 							float f2 = icon.getMinV();
 							float f3 = icon.getMaxV();
 							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GL11.glColor3f(1F, 1F, 1F);
+							GlStateManager.color(1F, 1F, 1F);
 						}
 
-						GL11.glPopMatrix();
+						GlStateManager.popMatrix();
 					}
 
-					GL11.glPopMatrix();
+					GlStateManager.popMatrix();
 				}
 			}
 
@@ -143,24 +143,24 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
 
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableAlpha();
 			if(lava)
-				GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glColor4f(1F, 1F, 1F, alpha);
-			GL11.glTranslatef(w, -0.3F, w);
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glScalef(s, s, s);
+				GlStateManager.disableLighting();
+			GlStateManager.color(1F, 1F, 1F, alpha);
+			GlStateManager.translate(w, -0.3F, w);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.scale(s, s, s);
 
 			renderIcon(0, 0, block.getIcon(0, 0), 16, 16, brightness);
 			if(lava)
-				GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glPopMatrix();
+				GlStateManager.enableLighting();
+			GlStateManager.enableAlpha();
+			GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		forceMeta = -1;
 	}

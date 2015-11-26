@@ -51,33 +51,33 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			item.age = ClientTickHandler.ticksInGame;
 			item.setEntityItemStack(enchanter.itemToEnchant);
 
-			GL11.glColor4f(1F, 1F, 1F, 1F);
-			GL11.glTranslatef(0.5F, 1.25F, 0.5F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.translate(0.5F, 1.25F, 0.5F);
 			((Render) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(item, d0, d1, d2, 1F, f);
-			GL11.glTranslatef(-0.5F, -1.25F, -0.5F);
+			GlStateManager.translate(-0.5F, -1.25F, -0.5F);
 		}
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(d0, d1, d2);
 
-		GL11.glRotated(90F, 1F, 0F, 0F);
-		GL11.glTranslatef(-2F, -2F, -0.001F);
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.translate(-2F, -2F, -0.001F);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableAlpha();
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
 
 		if(alpha > 0) {
 			if(ShaderHelper.useShaders())
-				GL11.glColor4f(1F, 1F, 1F, alpha);
+				GlStateManager.color(1F, 1F, 1F, alpha);
 			else {
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				GL11.glColor4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+				GlStateManager.color(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 			}
 
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -88,10 +88,10 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 				float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
 				float scale = ticks < 10 ? 1F : 1F - Math.min(20, ticks - 10) / 20F * 0.75F;
 
-				GL11.glTranslatef(2.5F, 2.5F, -yTranslation);
-				GL11.glScalef(scale, scale, 1F);
-				GL11.glRotatef(angle, 0F, 0F, 1F);
-				GL11.glTranslatef(-2.5F, -2.5F, 0F);
+				GlStateManager.translate(2.5F, 2.5F, -yTranslation);
+				GlStateManager.scale(scale, scale, 1F);
+				GlStateManager.rotate(angle, 0F, 0F, 1F);
+				GlStateManager.translate(-2.5F, -2.5F, 0F);
 			}
 
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
@@ -99,10 +99,10 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			ShaderHelper.releaseShader();
 		}
 
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.enableAlpha();
+		GlStateManager.disableBlend();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {

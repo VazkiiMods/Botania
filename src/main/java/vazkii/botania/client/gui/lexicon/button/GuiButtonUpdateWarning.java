@@ -41,7 +41,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, red ? 153 : 142, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();

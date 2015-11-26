@@ -39,19 +39,19 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer {
 			rot = (float) Math.sin(v) * (float) Math.log(cocoon.timePassed + f);
 		}
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		GL11.glRotatef(90F, 1F, 0F, 0F);
-		GL11.glTranslatef(0.5F, -0.5F - 3F / 16F, -0.5F + 1F / 16F);
-		GL11.glRotatef(rot, 0F, 1F, 0F);
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.translate(0.5F, -0.5F - 3F / 16F, -0.5F + 1F / 16F);
+		GlStateManager.rotate(rot, 0F, 1F, 0F);
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 }

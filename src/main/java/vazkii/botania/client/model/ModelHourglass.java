@@ -15,6 +15,7 @@ import java.awt.Color;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
 public class ModelHourglass extends ModelBase {
@@ -65,41 +66,41 @@ public class ModelHourglass extends ModelBase {
 		base1.render(f);
 		base2.render(f);
 		Color c = new Color(color);
-		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
+		GlStateManager.color((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
 		boolean normalize = GL11.glGetBoolean(GL11.GL_NORMALIZE);
-		GL11.glEnable(GL11.GL_NORMALIZE);
+		GlStateManager.enableNormalize();
 
 		if(fract1 > 0) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			if(flip)
-				GL11.glTranslatef(-2.5F * f, 1.0F * f, -2.5F * f);
+				GlStateManager.translate(-2.5F * f, 1.0F * f, -2.5F * f);
 			else {
-				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-2.5F * f, -6.0F * f, -2.5F * f);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(-2.5F * f, -6.0F * f, -2.5F * f);
 			}
 
-			GL11.glScalef(1F, fract1, 1F);
+			GlStateManager.scale(1F, fract1, 1F);
 			sand1.render(f);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		if(fract2 > 0) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			if(flip)
-				GL11.glTranslatef(-2.5F * f, -6.0F * f, -2.5F * f);
+				GlStateManager.translate(-2.5F * f, -6.0F * f, -2.5F * f);
 			else {
-				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-2.5F * f, 1.0F * f, -2.5F * f);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(-2.5F * f, 1.0F * f, -2.5F * f);
 			}
 
-			GL11.glScalef(1F, fract2, 1F);
+			GlStateManager.scale(1F, fract2, 1F);
 			sand2.render(f);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		if(!normalize)
-			GL11.glDisable(GL11.GL_NORMALIZE);
-		GL11.glColor3f(1F, 1F, 1F);
+			GlStateManager.disableNormalize();
+		GlStateManager.color(1F, 1F, 1F);
 		glass1.render(f);
 		glass2.render(f);
 	}

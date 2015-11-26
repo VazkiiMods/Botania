@@ -33,16 +33,16 @@ public class RenderThornChakram extends Render {
 		IIcon iicon = ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
 
 		if(iicon != null)  {
-			GL11.glPushMatrix();
-			GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			bindEntityTexture(p_76986_1_);
 			Tessellator tessellator = Tessellator.getInstance();
 
 			func_77026_a(tessellator, iicon, fire ? 240 : -1);
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-			GL11.glPopMatrix();
+			GlStateManager.disableRescaleNormal();
+			GlStateManager.popMatrix();
 		}
 	}
 
@@ -59,8 +59,8 @@ public class RenderThornChakram extends Render {
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
-		GL11.glRotatef(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 		p_77026_1_.startDrawingQuads();
 		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
 		if(light != -1)

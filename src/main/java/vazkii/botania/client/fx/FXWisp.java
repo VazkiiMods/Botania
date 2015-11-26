@@ -79,7 +79,7 @@ public class FXWisp extends EntityFX {
 		ParticleRenderDispatcher.wispFxCount = 0;
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		if(!queuedRenders.isEmpty()) {
@@ -90,12 +90,12 @@ public class FXWisp extends EntityFX {
 		}
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			GlStateManager.disableDepth();
 			tessellator.getWorldRenderer().startDrawingQuads();
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GlStateManager.enableDepth();
 		}
 
 		queuedRenders.clear();

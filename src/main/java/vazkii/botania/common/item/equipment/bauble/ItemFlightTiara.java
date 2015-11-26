@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -356,10 +357,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				float i = 0.15F;
 				float s = 1F;
 
-				GL11.glPushMatrix();
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glColor4f(1F, 1F, 1F, 1F);
+				GlStateManager.pushMatrix();
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.color(1F, 1F, 1F, 1F);
 
 				int light = 15728880;
 				int lightmapX = light % 65536;
@@ -405,7 +406,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rz = 0F;
 					ry = -rx;
 					rx = 0F;
-					GL11.glColor4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
+					GlStateManager.color(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
 					break;
 				}
 				case 8 : { // Mega Ultra Chicken
@@ -418,7 +419,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rx = 0F;
 					s = 1.5F;
 					h = 1.2F;
-					GL11.glColor4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F + 0.25F : 0F));
+					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
 
@@ -430,33 +431,33 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				Helper.rotateIfSneaking(event.entityPlayer);
 
-				GL11.glTranslatef(0F, h, i);
+				GlStateManager.translate(0F, h, i);
 
-				GL11.glRotatef(rz, 0F, 0F, 1F);
-				GL11.glRotatef(rx, 1F, 0F, 0F);
-				GL11.glRotatef(ry, 0F, 1F, 0F);
-				GL11.glScalef(s, s, s);
+				GlStateManager.rotate(rz, 0F, 0F, 1F);
+				GlStateManager.rotate(rx, 1F, 0F, 0F);
+				GlStateManager.rotate(ry, 0F, 1F, 0F);
+				GlStateManager.scale(s, s, s);
 				ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-				GL11.glScalef(sr, sr, sr);
-				GL11.glRotatef(-ry, 0F, 1F, 0F);
-				GL11.glRotatef(-rx, 1F, 0F, 0F);
-				GL11.glRotatef(-rz, 0F, 0F, 1F);
+				GlStateManager.scale(sr, sr, sr);
+				GlStateManager.rotate(-ry, 0F, 1F, 0F);
+				GlStateManager.rotate(-rx, 1F, 0F, 0F);
+				GlStateManager.rotate(-rz, 0F, 0F, 1F);
 
 				if(meta != 2) { // Sephiroth
-					GL11.glScalef(-1F, 1F, 1F);
-					GL11.glRotatef(rz, 0F, 0F, 1F);
-					GL11.glRotatef(rx, 1F, 0F, 0F);
-					GL11.glRotatef(ry, 0F, 1F, 0F);
-					GL11.glScalef(s, s, s);
+					GlStateManager.scale(-1F, 1F, 1F);
+					GlStateManager.rotate(rz, 0F, 0F, 1F);
+					GlStateManager.rotate(rx, 1F, 0F, 0F);
+					GlStateManager.rotate(ry, 0F, 1F, 0F);
+					GlStateManager.scale(s, s, s);
 					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-					GL11.glScalef(sr, sr, sr);
-					GL11.glRotatef(-ry, 1F, 0F, 0F);
-					GL11.glRotatef(-rx, 1F, 0F, 0F);
-					GL11.glRotatef(-rz, 0F, 0F, 1F);
+					GlStateManager.scale(sr, sr, sr);
+					GlStateManager.rotate(-ry, 1F, 0F, 0F);
+					GlStateManager.rotate(-rx, 1F, 0F, 0F);
+					GlStateManager.rotate(-rz, 0F, 0F, 1F);
 				}
 
-				GL11.glColor3f(1F, 1F, 1F);
-				GL11.glPopMatrix();
+				GlStateManager.color(1F, 1F, 1F);
+				GlStateManager.popMatrix();
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(event.entityPlayer, event.partialRenderTick);
@@ -464,23 +465,23 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@SideOnly(Side.CLIENT)
 	public static void renderHalo(EntityPlayer player, float partialTicks) {
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.disableLighting();
+		GlStateManager.disableCull();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
 
 		if(player != null)
 			Helper.translateToHeadLevel(player);
-		GL11.glRotated(30, 1, 0, -1);
-		GL11.glTranslatef(-0.1F, -0.5F, -0.1F);
+		GlStateManager.rotate(30, 1, 0, -1);
+		GlStateManager.translate(-0.1F, -0.5F, -0.1F);
 		if(player != null)
-			GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
-		else GL11.glRotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
+			GlStateManager.rotate(player.ticksExisted + partialTicks, 0, 1, 0);
+		else GlStateManager.rotate(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
@@ -492,9 +493,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		tes.draw();
 		ShaderHelper.releaseShader();
 
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GlStateManager.enableLighting();
+		GlStateManager.shadeModel(GL11.GL_FLAT);
+		GlStateManager.enableCull();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -520,26 +521,26 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			float trans = 1F;
 			if(i == segs - 1) {
 				trans = (float) last / (float) segTime;
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glDisable(GL11.GL_ALPHA_TEST);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.disableAlpha();
 			}
 
-			GL11.glColor4f(1F, 1F, 1F, trans);
+			GlStateManager.color(1F, 1F, 1F, trans);
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
 			x += 8;
 		}
 
 		if(player.capabilities.isFlying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			if(width > 0)
 				Gui.drawRect(xo, y - 2, xo + 80, y - 1, 0x88000000);
 			Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableAlpha();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(Gui.icons);
 	}
 

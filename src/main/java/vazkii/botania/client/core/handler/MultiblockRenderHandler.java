@@ -99,16 +99,16 @@ public final class MultiblockRenderHandler {
 		if(anchor != null && comp.matches(world, x, y, z))
 			return false;
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(-RenderManager.renderPosX, -RenderManager.renderPosY, -RenderManager.renderPosZ);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-RenderManager.renderPosX, -RenderManager.renderPosY, -RenderManager.renderPosZ);
+		GlStateManager.disableDepth();
 		doRenderComponent(mb, comp, x, y, z, 0.4F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 		return true;
 	}
 
 	public static void renderMultiblockOnPage(Multiblock mb) {
-		GL11.glTranslated(-0.5, -0.5, -0.5);
+		GlStateManager.translate(-0.5, -0.5, -0.5);
 		blockAccess.update(null, mb, mb.offX, mb.offY, mb.offZ);
 		for(MultiblockComponent comp : mb.getComponents()) {
 			BlockPos pos = comp.getRelativePosition();
@@ -117,9 +117,9 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static void doRenderComponent(Multiblock mb, MultiblockComponent comp, int x, int y, int z, float alpha) {
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Block block = comp.getBlock();
 		int meta = comp.getMeta();
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -127,10 +127,10 @@ public final class MultiblockRenderHandler {
 		if(block == null)
 			return;
 		if(IMultiblockRenderHook.renderHooks.containsKey(block)) {
-			GL11.glColor4f(1F, 1F, 1F, alpha);
+			GlStateManager.color(1F, 1F, 1F, alpha);
 			IMultiblockRenderHook renderHook = IMultiblockRenderHook.renderHooks.get(block);
 			if(renderHook.needsTranslate(block)) {
-				GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+				GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
 			}
 			renderHook.renderBlockForMultiblock(blockAccess, mb, block, comp.getMeta(), blockRender, comp, alpha);
 		}
@@ -140,7 +140,7 @@ public final class MultiblockRenderHandler {
 				float red = (color >> 16 & 255) / 255.0F;
 				float green = (color >> 8 & 255) / 255.0F;
 				float blue = (color & 255) / 255.0F;
-				GL11.glColor4f(red, green, blue, alpha);
+				GlStateManager.color(red, green, blue, alpha);
 				IBlockAccess oldBlockAccess = blockRender.blockAccess;
 				blockRender.blockAccess = blockAccess;
 				Tessellator tessellator = Tessellator.getInstance();
@@ -162,13 +162,13 @@ public final class MultiblockRenderHandler {
 				float red = (color >> 16 & 255) / 255.0F;
 				float green = (color >> 8 & 255) / 255.0F;
 				float blue = (color & 255) / 255.0F;
-				GL11.glColor4f(red, green, blue, alpha);
-				GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+				GlStateManager.color(red, green, blue, alpha);
+				GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
 				blockRender.renderBlockAsItem(block, meta, 1F);
 			}
 		}
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.enableDepth();
+		GlStateManager.popMatrix();
 	}
 }

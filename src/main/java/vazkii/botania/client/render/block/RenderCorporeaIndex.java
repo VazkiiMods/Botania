@@ -26,13 +26,13 @@ public class RenderCorporeaIndex implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.3F, -0.5F);
-		GL11.glScalef(1.4F, 1.4F, 1.4F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.3F, -0.5F);
+		GlStateManager.scale(1.4F, 1.4F, 1.4F);
 		RenderTileCorporeaIndex.move = false;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileCorporeaIndex(), 0.0D, 0.0D, 0.0D, 0.0F);
 		RenderTileCorporeaIndex.move = true;
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

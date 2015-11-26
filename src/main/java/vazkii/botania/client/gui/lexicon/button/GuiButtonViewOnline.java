@@ -34,7 +34,7 @@ public class GuiButtonViewOnline extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 41 : 30, 200, 11, 11);
 
 		List<String> tooltip = Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.viewOnline"));

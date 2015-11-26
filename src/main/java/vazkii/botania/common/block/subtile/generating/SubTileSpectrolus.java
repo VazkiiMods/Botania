@@ -89,8 +89,8 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		ItemStack stack = new ItemStack(Blocks.wool, 1, nextColor);
 		int color = getColor();
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(stack != null && stack.getItem() != null) {
 			String stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
@@ -103,8 +103,8 @@ public class SubTileSpectrolus extends SubTileGenerating {
 			RenderHelper.disableStandardItemLighting();
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableLighting();
+		GlStateManager.disableBlend();
 	}
 
 	@Override

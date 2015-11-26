@@ -46,8 +46,8 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 115, 0x66000000);
 
@@ -65,7 +65,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
-		font.setUnicodeFlag(unicode);		GL11.glDisable(GL11.GL_BLEND);
+		font.setUnicodeFlag(unicode);		GlStateManager.disableBlend();
 	}
 
 }

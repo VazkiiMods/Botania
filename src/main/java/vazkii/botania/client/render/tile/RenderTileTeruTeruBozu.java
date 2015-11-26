@@ -33,33 +33,33 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.disableCull();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
-		GL11.glRotatef(180F, 1F, 0F, 0F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
 		boolean hasWorld = tileentity.getWorld() != null;
 		if(hasWorld)
 			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);
 
-		GL11.glTranslatef(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
+		GlStateManager.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {
-			GL11.glRotated(time * 0.3, 0F, 1F, 0F);
-			GL11.glRotatef(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
+			GlStateManager.rotate(time * 0.3, 0F, 1F, 0F);
+			GlStateManager.rotate(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
 			float s = 0.75F;
-			GL11.glScalef(s, s, s);
+			GlStateManager.scale(s, s, s);
 		}
 
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableCull();
+		GlStateManager.popMatrix();
 	}
 
 }

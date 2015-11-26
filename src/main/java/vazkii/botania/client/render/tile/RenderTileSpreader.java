@@ -49,50 +49,50 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileSpreader spreader = (TileSpreader) tileentity;
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glRotatef(spreader.rotationX + 90F, 0F, 1F, 0F);
-		GL11.glTranslatef(0F, -1F, 0F);
-		GL11.glRotatef(spreader.rotationY, 1F, 0F, 0F);
-		GL11.glTranslatef(0F, 1F, 0F);
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.rotate(spreader.rotationX + 90F, 0F, 1F, 0F);
+		GlStateManager.translate(0F, -1F, 0F);
+		GlStateManager.rotate(spreader.rotationY, 1F, 0F, 0F);
+		GlStateManager.translate(0F, 1F, 0F);
 
 		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture;
 		if(ClientProxy.dootDoot)
 			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : textureHalloween;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(r);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.scale(1F, -1F, -1F);
 
 		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
 			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
+			GlStateManager.color(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F);
 
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		double worldTicks = tileentity.getWorld() == null ? 0 : time;
-		GL11.glRotatef((float) worldTicks % 360, 0F, 1F, 0F);
-		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
+		GlStateManager.rotate((float) worldTicks % 360, 0F, 1F, 0F);
+		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();
-		GL11.glPopMatrix();
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.popMatrix();
+		GlStateManager.scale(1F, -1F, -1F);
 		ItemStack stack = spreader.getStackInSlot(0);
 
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			ILens lens = (ILens) stack.getItem();
-			GL11.glPushMatrix();
-			GL11.glTranslatef(-0.4F, -1.4F, -0.4375F);
-			GL11.glScalef(0.8F, 0.8F, 0.8F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-0.4F, -1.4F, -0.4375F);
+			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 			RenderLens.render(stack, lens.getLensColor(stack));
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		if(spreader.paddingColor != -1) {
@@ -102,28 +102,28 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			int color = spreader.paddingColor;
 			RenderBlocks render = RenderBlocks.getInstance();
 			float f = 1F / 16F;
-			GL11.glTranslatef(0F, -f, 0F);
+			GlStateManager.translate(0F, -f, 0F);
 			render.renderBlockAsItem(block, color, 1F);
-			GL11.glTranslatef(0F, -f * 15, 0F);
+			GlStateManager.translate(0F, -f * 15, 0F);
 			render.renderBlockAsItem(block, color, 1F);
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
 
-			GL11.glPushMatrix();
-			GL11.glScalef(f * 14F, 1F, 1F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(f * 14F, 1F, 1F);
 			render.renderBlockAsItem(block, color, 1F);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glTranslatef(0F, 0F, -f / 2);
-			GL11.glScalef(f * 14F, 1F, f * 15F);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.translate(0F, 0F, -f / 2);
+			GlStateManager.scale(f * 14F, 1F, f * 15F);
 			render.renderBlockAsItem(block, color, 1F);
-			GL11.glTranslatef(0F, f * 15F, 0F);
+			GlStateManager.translate(0F, f * 15F, 0F);
 			render.renderBlockAsItem(block, color, 1F);
 		}
 
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 }

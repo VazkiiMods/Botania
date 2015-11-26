@@ -28,38 +28,38 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(d0, d1, d2);
-		GL11.glRotated(90F, 1F, 0F, 0F);
-		GL11.glTranslatef(0.8F, 0.2F, -0.22F);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.translate(0.8F, 0.2F, -0.22F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		ItemStack stack = ((TileSparkChanger) tileentity).getStackInSlot(0);
 		if(stack != null) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.6F;
-			GL11.glScalef(s, s, s);
-			GL11.glRotatef(180F, 0F, 1F, 0F);
+			GlStateManager.scale(s, s, s);
+			GlStateManager.rotate(180F, 0F, 1F, 0F);
 
 			int renderPass = 0;
 			do {
 				IIcon icon = stack.getItem().getIcon(stack, renderPass);
 				if(icon != null) {
 					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 					float f = icon.getMinU();
 					float f1 = icon.getMaxU();
 					float f2 = icon.getMinV();
 					float f3 = icon.getMaxV();
 					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-					GL11.glColor3f(1F, 1F, 1F);
+					GlStateManager.color(1F, 1F, 1F);
 				}
 				renderPass++;
 			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
 	}
 
 }

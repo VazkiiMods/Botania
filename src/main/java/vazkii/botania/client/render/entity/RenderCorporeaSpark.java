@@ -12,6 +12,7 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -37,7 +38,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity) {
 		int network = Math.min(15, entity.getNetwork());
-		GL11.glColor3f(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2]);
+		GlStateManager.color(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2]);
 	}
 
 	@Override
@@ -53,14 +54,14 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
-		GL11.glPushMatrix();
-		GL11.glRotated(90F, 1F, 0F, 0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
 		float scalef = 1F / 6F;
-		GL11.glScalef(scalef, scalef, scalef);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, absTime / 10);
-		GL11.glTranslatef(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
+		GlStateManager.scale(scalef, scalef, scalef);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, absTime / 10);
+		GlStateManager.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
 		ItemStack stack = entity.getDisplayedItem();
 		if(stack == null)
@@ -84,20 +85,20 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 			int shift = pieces / 2;
 
 			float scale = 1F / pieces * 3F;
-			GL11.glScalef(scale, scale, 1F);
+			GlStateManager.scale(scale, scale, 1F);
 			for(int i = -shift; i < shift; i++) {
-				GL11.glTranslated(gap * i, 0F, 0F);
+				GlStateManager.translate(gap * i, 0F, 0F);
 				for(int j = -shift; j < shift; j++) {
-					GL11.glTranslated(0F, gap * j, 0F);
+					GlStateManager.translate(0F, gap * j, 0F);
 					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
-					GL11.glTranslated(0F, -gap * j, 0F);
+					GlStateManager.translate(0F, -gap * j, 0F);
 				}
-				GL11.glTranslated(-gap * i, 0F, 0F);
+				GlStateManager.translate(-gap * i, 0F, 0F);
 			}
 		}
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 }

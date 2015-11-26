@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -95,155 +96,155 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 2:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.5F, 0F);
+				GlStateManager.translate(0.04F, -0.5F, 0F);
 				renderIcon(2);
 				break;
 			case 4:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.5F, 0F);
+				GlStateManager.translate(0.04F, -0.5F, 0F);
 				renderIcon(4);
 				break;
 			case 5:
 				faceTranslate();
 				scale(0.35F);
-				GL11.glTranslatef(0.3F, -0.5F, 0F);
+				GlStateManager.translate(0.3F, -0.5F, 0F);
 				renderIcon(5);
 				break;
 			case 6:
 				faceTranslate();
 				scale(0.35F);
-				GL11.glTranslatef(0.9F, -0.5F, 0F);
+				GlStateManager.translate(0.9F, -0.5F, 0F);
 				renderIcon(6);
 				break;
 			case 7:
 				faceTranslate();
 				scale(0.6F);
-				GL11.glTranslatef(0.2F, 0.3F, 0.6F);
+				GlStateManager.translate(0.2F, 0.3F, 0.6F);
 				renderIcon(7);
 				break;
 			case 8:
 				faceTranslate();
-				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				scale(0.6F);
-				GL11.glTranslatef(-0.9F, 0F, 0.2F);
+				GlStateManager.translate(-0.9F, 0F, 0.2F);
 				renderIcon(8);
 				break;
 			case 9:
 				faceTranslate();
-				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				scale(0.6F);
-				GL11.glTranslatef(-0.9F, -0.2F, 0.2F);
+				GlStateManager.translate(-0.9F, -0.2F, 0.2F);
 				renderIcon(9);
-				GL11.glTranslatef(0F, 0F, 1F);
+				GlStateManager.translate(0F, 0F, 1F);
 				renderIcon(9);
 				break;
 			case 10:
 				faceTranslate();
-				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				scale(0.4F);
-				GL11.glTranslatef(-0.5F, -0.1F, 0.3F);
-				GL11.glRotatef(120F, 0F, 1F, 0F);
+				GlStateManager.translate(-0.5F, -0.1F, 0.3F);
+				GlStateManager.rotate(120F, 0F, 1F, 0F);
 				renderIcon(10);
-				GL11.glRotatef(-100F, 0F, 1F, 0F);
+				GlStateManager.rotate(-100F, 0F, 1F, 0F);
 				renderIcon(10);
 				break;
 			case 11:
 				faceTranslate();
 				scale(0.6F);
-				GL11.glTranslatef(0.2F, -0.1F, 0.6F);
+				GlStateManager.translate(0.2F, -0.1F, 0.6F);
 				renderIcon(11);
 				break;
 			case 15:
 				faceTranslate();
-				GL11.glTranslatef(-0.1F, -0.55F, 0F);
+				GlStateManager.translate(-0.1F, -0.55F, 0F);
 				renderIcon(15);
 				break;
 			case 17:
 				faceTranslate();
 				scale(0.35F);
-				GL11.glTranslatef(0.3F, -0.6F, 0F);
+				GlStateManager.translate(0.3F, -0.6F, 0F);
 				renderIcon(17);
 				break;
 			case 18:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glRotatef(90F, 0F, 1F, 0F);
-				GL11.glTranslatef(-0.3F, 0.1F, 0.55F);
+				GlStateManager.rotate(90F, 0F, 1F, 0F);
+				GlStateManager.translate(-0.3F, 0.1F, 0.55F);
 				renderIcon(18);
 				break;
 			case 19:
 				faceTranslate();
 				scale(0.6F);
-				GL11.glTranslatef(0.2F, -0.2F, 0.1F);
+				GlStateManager.translate(0.2F, -0.2F, 0.1F);
 				renderIcon(19);
 				break;
 			case 20:
 				faceTranslate();
 				scale(0.25F);
-				GL11.glTranslatef(0.4F, 0.5F, -0.1F);
+				GlStateManager.translate(0.4F, 0.5F, -0.1F);
 				renderIcon(20);
-				GL11.glTranslatef(1.4F, 0F, 0F);
+				GlStateManager.translate(1.4F, 0F, 0F);
 				renderIcon(20);
 				break;
 			case 22:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.4F, 0F);
+				GlStateManager.translate(0.04F, -0.4F, 0F);
 				renderIcon(22);
 				break;
 			case 23:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.4F, 0F);
+				GlStateManager.translate(0.04F, -0.4F, 0F);
 				renderIcon(23);
 				break;
 			case 24:
 				faceTranslate();
 				scale(0.6F);
-				GL11.glTranslatef(0.5F, 0F, 0.1F);
-				GL11.glRotatef(60F, 0F, 0F, 1F);
+				GlStateManager.translate(0.5F, 0F, 0.1F);
+				GlStateManager.rotate(60F, 0F, 0F, 1F);
 				renderIcon(24);
 				break;
 			case 25:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.5F, 0F);
+				GlStateManager.translate(0.04F, -0.5F, 0F);
 				renderIcon(25);
 				break;
 			case 26:
 				faceTranslate();
-				GL11.glTranslatef(-0.1F, -0.5F, 0F);
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glColor4f(1F, 1F, 1F, 0.7F);
+				GlStateManager.translate(-0.1F, -0.5F, 0F);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.color(1F, 1F, 1F, 0.7F);
 				renderIcon(26);
 				break;
 			case 27:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.5F, 0F);
+				GlStateManager.translate(0.04F, -0.5F, 0F);
 				renderIcon(27);
 				break;
 			case 28:
 				faceTranslate();
 				scale(0.25F);
-				GL11.glTranslatef(1.55F, -0.2F, -0.1F);
+				GlStateManager.translate(1.55F, -0.2F, -0.1F);
 				renderIcon(28);
-				GL11.glRotatef(180F, 0F, 1F, 0F);
-				GL11.glTranslatef(-0.1F, 0F, 0.1F);
+				GlStateManager.rotate(180F, 0F, 1F, 0F);
+				GlStateManager.translate(-0.1F, 0F, 0.1F);
 				renderIcon(28);
 				break;
 			case 30:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.4F, 0F);
+				GlStateManager.translate(0.04F, -0.4F, 0F);
 				renderIcon(30);
 				break;
 			case 31:
 				faceTranslate();
 				scale(0.5F);
-				GL11.glTranslatef(0.3F, 0.7F, 0.5F);
+				GlStateManager.translate(0.3F, 0.7F, 0.5F);
 				renderIcon(31);
 				break;
 			}
@@ -253,62 +254,62 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 0:
 				chestTranslate();
 				scale(0.5F);
-				GL11.glTranslatef(0.5F, 0.7F, 0F);
+				GlStateManager.translate(0.5F, 0.7F, 0F);
 				renderIcon(0);
 				break;
 			case 1:
 				chestTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.15F, -0.1F, 0F);
+				GlStateManager.translate(0.15F, -0.1F, 0F);
 				renderIcon(1);
 				break;
 			case 3:
 				chestTranslate();
 				scale(0.6F);
-				GL11.glTranslatef(0.35F, 0.3F, 0F);
+				GlStateManager.translate(0.35F, 0.3F, 0F);
 				renderIcon(3);
 				break;
 			case 12:
 				chestTranslate();
 				scale(0.225F);
-				GL11.glTranslatef(1.2F, 1.9F, 0F);
+				GlStateManager.translate(1.2F, 1.9F, 0F);
 				renderIcon(12);
 				break;
 			case 13:
 				chestTranslate();
-				GL11.glRotatef(-90F, 0F, 1F, 0F);
+				GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				scale(0.5F);
-				GL11.glTranslatef(-1.3F, -0.4F, -1F);
+				GlStateManager.translate(-1.3F, -0.4F, -1F);
 				renderIcon(13);
 				break;
 			case 14:
 				chestTranslate();
 				scale(0.5F);
-				GL11.glTranslatef(2.3F, 1F, -0.05F);
-				GL11.glRotatef(180F, 0F, 1F, 0F);
+				GlStateManager.translate(2.3F, 1F, -0.05F);
+				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				renderIcon(14);
-				GL11.glRotatef(180F, 0F, 1F, 0F);
-				GL11.glColor4f(0F, 0F, 0.3F, 1F);
-				GL11.glTranslatef(-2.6F, 0F, 0.05F);
+				GlStateManager.rotate(180F, 0F, 1F, 0F);
+				GlStateManager.color(0F, 0F, 0.3F, 1F);
+				GlStateManager.translate(-2.6F, 0F, 0.05F);
 				renderIcon(14);
 				break;
 			case 16:
 				chestTranslate();
 				scale(0.225F);
-				GL11.glTranslatef(2.3F, 1.9F, 0F);
+				GlStateManager.translate(2.3F, 1.9F, 0F);
 				renderIcon(16);
 				break;
 			case 21:
 				chestTranslate();
 				scale(0.3F);
-				GL11.glTranslatef(1.2F, 0.5F, 0F);
+				GlStateManager.translate(1.2F, 0.5F, 0F);
 				renderIcon(21);
 				break;
 			case 29:
 				chestTranslate();
 				scale(0.8F);
-				GL11.glTranslatef(0.2F, -0.2F, -0.35F);
-				GL11.glRotatef(10F, 0F, 0F, 1F);
+				GlStateManager.translate(0.2F, -0.2F, -0.35F);
+				GlStateManager.rotate(10F, 0F, 0F, 1F);
 				renderIcon(29);
 				break;
 			}
@@ -316,18 +317,18 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	public void faceTranslate() {
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glRotatef(180F, 1F, 0F, 0F);
-		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
 	}
 
 	public void chestTranslate() {
-		GL11.glRotatef(180F, 1F, 0F, 0F);
-		GL11.glTranslatef(-0.5F, -0.7F, 0.15F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.translate(-0.5F, -0.7F, 0.15F);
 	}
 
 	public void scale(float f) {
-		GL11.glScalef(f, f, f);
+		GlStateManager.scale(f, f, f);
 	}
 
 	public void renderIcon(int i) {

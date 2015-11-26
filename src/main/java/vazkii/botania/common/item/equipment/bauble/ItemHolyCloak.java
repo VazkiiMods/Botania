@@ -132,10 +132,10 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
-			GL11.glTranslatef(0F, armor ? -0.07F : -0.01F, 0F);
+			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 0.1F;
-			GL11.glScalef(s, s, s);
+			GlStateManager.scale(s, s, s);
 			if(model == null)
 				model = new ModelBiped();
 

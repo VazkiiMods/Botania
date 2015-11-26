@@ -222,10 +222,10 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(event.entityPlayer);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.4F, 0.1F, armor ? -0.3F : -0.25F);
-			GL11.glScalef(0.75F, 0.75F, 0.75F);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.3F : -0.25F);
+			GlStateManager.scale(0.75F, 0.75F, 0.75F);
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);
 		}
 	}

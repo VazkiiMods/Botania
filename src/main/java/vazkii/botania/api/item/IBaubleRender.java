@@ -11,6 +11,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -49,11 +50,11 @@ public interface IBaubleRender {
 		}
 
 		public static void applySneakingRotation() {
-			GL11.glRotatef(28.64789F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(28.64789F, 1.0F, 0.0F, 0.0F);
 		}
 
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
+			GlStateManager.translate(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		}
 
 	}

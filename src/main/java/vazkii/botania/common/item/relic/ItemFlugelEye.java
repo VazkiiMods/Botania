@@ -305,16 +305,16 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		Tessellator tess = Tessellator.getInstance();
 		Tessellator.renderingWorldRenderer = false;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 		double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
 		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
 		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
 
-		GL11.glTranslated(posX - RenderManager.renderPosX, posY - RenderManager.renderPosY, posZ - RenderManager.renderPosZ);
+		GlStateManager.translate(posX - RenderManager.renderPosX, posY - RenderManager.renderPosY, posZ - RenderManager.renderPosZ);
 
 		float base = getRotationBase(stack);
 		int angles = 360;
@@ -337,27 +337,27 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			if(segmentLookedAt == seg)
 				inside = true;
 
-			GL11.glPushMatrix();
-			GL11.glRotatef(rotationAngle, 0F, 1F, 0F);
-			GL11.glTranslatef(s * m, -0.75F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(rotationAngle, 0F, 1F, 0F);
+			GlStateManager.translate(s * m, -0.75F, 0F);
 
 			mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			GL11.glScalef(0.75F, 0.75F, 0.75F);
-			GL11.glTranslatef(0F, 0F, 0.5F);
+			GlStateManager.scale(0.75F, 0.75F, 0.75F);
+			GlStateManager.translate(0F, 0F, 0.5F);
 			IIcon icon = signs[seg];
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glColor4f(1F, 1F, 1F, getWarpPoint(stack, seg).isValid() ? 1F : 0.2F);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			GlStateManager.color(1F, 1F, 1F, getWarpPoint(stack, seg).isValid() ? 1F : 0.2F);
 			float f = icon.getMinU();
 			float f1 = icon.getMaxU();
 			float f2 = icon.getMinV();
 			float f3 = icon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 
-			GL11.glColor3f(1F, 1F, 1F);
-			GL11.glPopMatrix();
+			GlStateManager.color(1F, 1F, 1F);
+			GlStateManager.popMatrix();
 
-			GL11.glPushMatrix();
-			GL11.glRotatef(180F, 1F, 0F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			float a = alpha;
 			if(inside) {
 				a += 0.3F;
@@ -365,8 +365,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			}
 
 			if(seg % 2 == 0)
-				GL11.glColor4f(0.6F, 0.6F, 0.6F, a);
-			else GL11.glColor4f(1F, 1F, 1F, a);
+				GlStateManager.color(0.6F, 0.6F, 0.6F, a);
+			else GlStateManager.color(1F, 1F, 1F, a);
 
 			mc.renderEngine.bindTexture(glowTexture);
 			tess.startDrawingQuads();
@@ -387,9 +387,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			y0 = 0;
 			tess.draw();
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@SideOnly(Side.CLIENT)

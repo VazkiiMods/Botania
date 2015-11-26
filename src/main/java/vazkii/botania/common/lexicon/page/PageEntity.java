@@ -13,6 +13,7 @@ package vazkii.botania.common.lexicon.page;
 import java.lang.reflect.Constructor;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -84,21 +85,21 @@ public class PageEntity extends LexiconPage{
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
 		dummyEntity.worldObj = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().theWorld : null;
 
-		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x, y, 50.0F);
-		GL11.glScalef(-scale, scale, scale);
-		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-		GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+		GlStateManager.enableColorMaterial();
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, 50.0F);
+		GlStateManager.scale(-scale, scale, scale);
+		GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
-		GL11.glTranslatef(0.0F, 0.0F, 0.0F); // todo 1.8 yOffset gone
+		GlStateManager.translate(0.0F, 0.0F, 0.0F); // todo 1.8 yOffset gone
 		Minecraft.getMinecraft().getRenderManager().playerViewY = 180.0F;
 		Minecraft.getMinecraft().getRenderManager().renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.disableRescaleNormal();
 		OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.disableTexture2D();
 		OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)

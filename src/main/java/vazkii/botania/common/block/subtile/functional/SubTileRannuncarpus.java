@@ -164,8 +164,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.state.getBlock()), 1, filter.state.getBlock().getMetaFromState(filter.state));
 		int color = getColor();
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(recieverStack != null && recieverStack.getItem() != null) {
 			String stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
@@ -178,8 +178,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			RenderHelper.disableStandardItemLighting();
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableLighting();
+		GlStateManager.disableBlend();
 	}
 
 	@Override

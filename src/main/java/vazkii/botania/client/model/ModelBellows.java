@@ -74,18 +74,18 @@ public class ModelBellows extends ModelBase {
 		//float fract = Math.max(0.1F, (float) (Math.sin(((double) ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.5F);
 		float mov = (1F - fract) * 0.5F;
 
-		GL11.glTranslatef(0F, mov, 0F);
+		GlStateManager.translate(0F, mov, 0F);
 		Top.render(f5);
 		Handle1.render(f5);
 		Handle2.render(f5);
 		Handle3.render(f5);
-		GL11.glTranslatef(0F, -mov, 0F);
+		GlStateManager.translate(0F, -mov, 0F);
 
-		GL11.glRotatef(180F, 1F, 0F, 0F);
-		GL11.glTranslatef(-0.19F, -1.375F, -0.19F);
-		GL11.glScalef(1F, fract, 1F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.translate(-0.19F, -1.375F, -0.19F);
+		GlStateManager.scale(1F, fract, 1F);
 		Funnel.render(f5);
-		GL11.glScalef(1F, 1F / fract, 1F);
+		GlStateManager.scale(1F, 1F / fract, 1F);
 	}
 
 

@@ -66,10 +66,10 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		super.drawScreen(par1, par2, par3);
 
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.enableRescaleNormal();
 		mc.getRenderItem().renderItemIntoGUI(challenge.icon, left + 18, top + 15);
 		RenderHelper.disableStandardItemLighting();
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);

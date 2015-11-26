@@ -20,6 +20,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -105,7 +106,7 @@ public final class TooltipAdditionDisplayHandler {
 						if(lexSlot > -1) {
 							int x = mouseX + offx - 34;
 							int y = mouseY - offy;
-							GL11.glDisable(GL11.GL_DEPTH_TEST);
+							GlStateManager.disableDepth();
 
 							Gui.drawRect(x - 4, y - 4, x + 20, y + 26, 0x44000000);
 							Gui.drawRect(x - 6, y - 6, x + 22, y + 28, 0x44000000);
@@ -119,17 +120,17 @@ public final class TooltipAdditionDisplayHandler {
 								float time = 20F;
 								float angles = lexiconLookupTime / time * 360F;
 
-								GL11.glDisable(GL11.GL_LIGHTING);
-								GL11.glDisable(GL11.GL_TEXTURE_2D);
-								GL11.glShadeModel(GL11.GL_SMOOTH);
-								GL11.glEnable(GL11.GL_BLEND);
-								GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+								GlStateManager.disableLighting();
+								GlStateManager.disableTexture2D();
+								GlStateManager.shadeModel(GL11.GL_SMOOTH);
+								GlStateManager.enableBlend();
+								GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 								GL11.glBegin(GL11.GL_TRIANGLE_FAN);
 
 								float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
-								GL11.glColor4f(0F, 0.5F, 0F, a);
+								GlStateManager.color(0F, 0.5F, 0F, a);
 								GL11.glVertex2i(cx, cy);
-								GL11.glColor4f(0F, 1F, 0F, 1F);
+								GlStateManager.color(0F, 1F, 0F, 1F);
 
 								for(float i = angles; i > 0; i--) {
 									double rad = (i - 90) / 180F * Math.PI;
@@ -138,9 +139,9 @@ public final class TooltipAdditionDisplayHandler {
 								GL11.glVertex2i(cx, cy);
 								GL11.glEnd();
 
-								GL11.glDisable(GL11.GL_BLEND);
-								GL11.glEnable(GL11.GL_TEXTURE_2D);
-								GL11.glShadeModel(GL11.GL_FLAT);
+								GlStateManager.disableBlend();
+								GlStateManager.enableTexture2D();
+								GlStateManager.shadeModel(GL11.GL_FLAT);
 
 								if(lexiconLookupTime >= time) {
 									mc.thePlayer.inventory.currentItem = lexSlot;
@@ -152,15 +153,15 @@ public final class TooltipAdditionDisplayHandler {
 							} else lexiconLookupTime = 0F;
 
 							mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, y);
-							GL11.glDisable(GL11.GL_LIGHTING);
+							GlStateManager.disableLighting();
 
 							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
-							GL11.glScalef(0.5F, 0.5F, 1F);
+							GlStateManager.scale(0.5F, 0.5F, 1F);
 							boolean mac = Minecraft.isRunningOnMac;
 							mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : (mac ? "Cmd" : "Ctrl")), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
-							GL11.glScalef(2F, 2F, 1F);
+							GlStateManager.scale(2F, 2F, 1F);
 
-							GL11.glEnable(GL11.GL_DEPTH_TEST);
+							GlStateManager.enableDepth();
 						} else lexiconLookupTime = 0F;
 					} else lexiconLookupTime = 0F;
 				} else lexiconLookupTime = 0F;
@@ -178,7 +179,7 @@ public final class TooltipAdditionDisplayHandler {
 		float huePer = width == 0 ? 0F : 1F / width;
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GlStateManager.disableDepth();
 		Gui.drawRect(mouseX + offx - 1, mouseY - offy - height - 1, mouseX + offx + width + 1, mouseY - offy, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
 			Gui.drawRect(mouseX + offx + i, mouseY - offy - height, mouseX + offx + i + 1, mouseY - offy, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
@@ -186,22 +187,22 @@ public final class TooltipAdditionDisplayHandler {
 
 		String rank = StatCollector.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
 		boolean light = GL11.glGetBoolean(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = StatCollector.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
 		}
 		if(light)
-			GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GlStateManager.enableLighting();
+		GlStateManager.enableDepth();
 	}
 
 	private static void drawManaBar(ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int offx, int offy, int width, int height) {
 		float fraction = display.getManaFractionForDisplay(stack);
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GlStateManager.disableDepth();
 		Gui.drawRect(mouseX + offx - 1, mouseY - offy - height - 1, mouseX + offx + width + 1, mouseY - offy, 0xFF000000);
 		Gui.drawRect(mouseX + offx, mouseY - offy - height, mouseX + offx + manaBarWidth, mouseY - offy, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
 		Gui.drawRect(mouseX + offx + manaBarWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);

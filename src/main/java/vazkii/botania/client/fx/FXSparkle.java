@@ -67,7 +67,7 @@ public class FXSparkle extends EntityFX {
 		ParticleRenderDispatcher.sparkleFxCount = 0;
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		tessellator.getWorldRenderer().startDrawingQuads();

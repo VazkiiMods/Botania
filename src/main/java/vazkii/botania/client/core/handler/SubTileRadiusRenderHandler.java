@@ -62,10 +62,10 @@ public final class SubTileRadiusRenderHandler {
 		if(descriptor == null)
 			return;
 
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.disableTexture2D();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		Tessellator.renderingWorldRenderer = false;
 
@@ -73,18 +73,18 @@ public final class SubTileRadiusRenderHandler {
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
 		else renderRectangle(descriptor.getAABB());
 
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 	public void renderRectangle(AxisAlignedBB aabb) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(aabb.minX - RenderManager.renderPosX, aabb.minY - RenderManager.renderPosY, aabb.minZ - RenderManager.renderPosZ);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(aabb.minX - RenderManager.renderPosX, aabb.minY - RenderManager.renderPosY, aabb.minZ - RenderManager.renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
+		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
 
 		double f = 1F / 16F;
 		double x = aabb.maxX - aabb.minX - f;
@@ -101,7 +101,7 @@ public final class SubTileRadiusRenderHandler {
 		x += f;
 		z += f;
 		double f1 = f + f / 4F;
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 		tessellator.getWorldRenderer().startDrawingQuads();
 		tessellator.getWorldRenderer().addVertex(x, f1, 0);
 		tessellator.getWorldRenderer().addVertex(0, f1, 0);
@@ -109,19 +109,19 @@ public final class SubTileRadiusRenderHandler {
 		tessellator.getWorldRenderer().addVertex(x, f1, z);
 		tessellator.draw();
 
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	public void renderCircle(BlockPos center, double radius) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
-		GL11.glTranslated(x - RenderManager.renderPosX, y - RenderManager.renderPosY, z - RenderManager.renderPosZ);
+		GlStateManager.translate(x - RenderManager.renderPosX, y - RenderManager.renderPosY, z - RenderManager.renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
+		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
 
 		double f = 1F / 16F;
 
@@ -144,7 +144,7 @@ public final class SubTileRadiusRenderHandler {
 
 		radius += f;
 		double f1 = f + f / 4F;
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 		tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
 		tessellator.getWorldRenderer().addVertex(0, f1, 0);
 		for(int i = 0; i < totalAngles + 1; i += step) {
@@ -155,7 +155,7 @@ public final class SubTileRadiusRenderHandler {
 		}
 		tessellator.getWorldRenderer().addVertex(0, f1, 0);
 		tessellator.draw();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 }

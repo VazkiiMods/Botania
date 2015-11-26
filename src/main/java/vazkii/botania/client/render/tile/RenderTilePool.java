@@ -49,27 +49,27 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TilePool pool = (TilePool) tileentity;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableRescaleNormal();
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
-		GL11.glColor4f(1F, 1F, 1F, a);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.color(1F, 1F, 1F, a);
+		GlStateManager.translate(d0, d1, d2);
 		boolean inf = tileentity.getWorld() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
 		boolean dil = tileentity.getWorld() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
 		int color = pool.color;
 		float[] acolor = EntitySheep.fleeceColorTable[color];
-		GL11.glColor4f(acolor[0], acolor[1], acolor[2], a);
+		GlStateManager.color(acolor[0], acolor[1], acolor[2], a);
 		model.render();
-		GL11.glColor4f(1F, 1F, 1F, a);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.color(1F, 1F, 1F, a);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.enableRescaleNormal();
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
@@ -93,44 +93,44 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			if(below instanceof IPoolOverlayProvider) {
 				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
 				if(overlay != null) {
-					GL11.glPushMatrix();
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-					GL11.glDisable(GL11.GL_ALPHA_TEST);
-					GL11.glColor4f(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
-					GL11.glTranslatef(-0.5F, -1F - 0.43F, -0.5F);
-					GL11.glRotatef(90F, 1F, 0F, 0F);
-					GL11.glScalef(s, s, s);
+					GlStateManager.pushMatrix();
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.disableAlpha();
+					GlStateManager.color(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
+					GlStateManager.translate(-0.5F, -1F - 0.43F, -0.5F);
+					GlStateManager.rotate(90F, 1F, 0F, 0F);
+					GlStateManager.scale(s, s, s);
 
 					renderIcon(0, 0, overlay, 16, 16, 240);
 
-					GL11.glEnable(GL11.GL_ALPHA_TEST);
-					GL11.glDisable(GL11.GL_BLEND);
-					GL11.glPopMatrix();
+					GlStateManager.enableAlpha();
+					GlStateManager.disableBlend();
+					GlStateManager.popMatrix();
 				}
 			}
 		}
 
 		if(waterLevel > 0) {
 			s = 1F / 256F * 14F;
-			GL11.glPushMatrix();
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glColor4f(1F, 1F, 1F, a);
-			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glScalef(s, s, s);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableAlpha();
+			GlStateManager.color(1F, 1F, 1F, a);
+			GlStateManager.translate(w, -1F - (0.43F - waterLevel), w);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.scale(s, s, s);
 
 			ShaderHelper.useShader(ShaderHelper.manaPool);
 			renderIcon(0, 0, BlockPool.manaIcon, 16, 16, 240);
 			ShaderHelper.releaseShader();
 
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glPopMatrix();
+			GlStateManager.enableAlpha();
+			GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		forceMeta = 0;
 		forceMana = false;

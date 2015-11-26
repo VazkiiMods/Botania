@@ -143,10 +143,10 @@ public class ItemSextant extends ItemMod {
 			
 			if(radius > 0) {
 				radius += 4;
-				GL11.glDisable(GL11.GL_TEXTURE_2D);
+				GlStateManager.disableTexture2D();
 				GL11.glLineWidth(3F);
 				GL11.glBegin(GL11.GL_LINE_STRIP);
-				GL11.glColor4f(0F, 1F, 1F, 1F);
+				GlStateManager.color(0F, 1F, 1F, 1F);
 				for(int i = 0; i < 361; i++) {
 					float radian = (float) ((double) i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
@@ -154,7 +154,7 @@ public class ItemSextant extends ItemMod {
 					GL11.glVertex2d(xp, yp);
 				}
 				GL11.glEnd();
-				GL11.glEnable(GL11.GL_TEXTURE_2D);
+				GlStateManager.enableTexture2D();
 			}
 		}
 	}

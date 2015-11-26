@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,22 +46,22 @@ public final class ItemsRemainingRenderHandler {
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableAlpha();
+			GlStateManager.enableBlend();
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			GL11.glColor4f(1F, 1F, 1F, alpha);
+			GlStateManager.color(1F, 1F, 1F, alpha);
 			RenderHelper.enableGUIStandardItemLighting();
 			int xp = x + (int) (16F * (1F - alpha));
-			GL11.glTranslatef(xp, y, 0F);
-			GL11.glScalef(alpha, 1F, 1F);
+			GlStateManager.translate(xp, y, 0F);
+			GlStateManager.scale(alpha, 1F, 1F);
 			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 0, 0);
-			GL11.glScalef(1F / alpha,1F, 1F);
-			GL11.glTranslatef(-xp, -y, 0F);
+			GlStateManager.scale(1F / alpha,1F, 1F);
+			GlStateManager.translate(-xp, -y, 0F);
 			RenderHelper.disableStandardItemLighting();
-			GL11.glColor4f(1F, 1F, 1F, 1F);
-			GL11.glEnable(GL11.GL_BLEND);
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.enableBlend();
 
 			String text = EnumChatFormatting.GREEN + stack.getDisplayName();
 			if(count >= 0) {
@@ -77,8 +78,8 @@ public final class ItemsRemainingRenderHandler {
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
 			mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 6, color);
 
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GlStateManager.disableBlend();
+			GlStateManager.enableAlpha();
 		}
 	}
 

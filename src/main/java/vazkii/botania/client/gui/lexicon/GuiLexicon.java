@@ -197,11 +197,11 @@ public class GuiLexicon extends GuiScreen {
 		lastTime = time;
 		partialTicks = par3;
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawNotes(par3);
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 
@@ -211,9 +211,9 @@ public class GuiLexicon extends GuiScreen {
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
 		if(subtitle != null) {
-			GL11.glScalef(0.5F, 0.5F, 1F);
+			GlStateManager.scale(0.5F, 0.5F, 1F);
 			drawCenteredString(fontRendererObj, subtitle, left * 2 + guiWidth, (top - getTitleHeight() + 11) * 2, 0x00FF00);
-			GL11.glScalef(2F, 2F, 1F);
+			GlStateManager.scale(2F, 2F, 1F);
 		}
 
 		if(isMainPage())
@@ -225,16 +225,16 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
 			if(par1 >= left - 19 && par1 < left && par2 >= top + 62 && par2 < top + 88) {
 				mc.renderEngine.bindTexture(textureToff);
-				GL11.glPushMatrix();
-				GL11.glScalef(0.5F, 0.5F, 0.5F);
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glTranslatef(0F, 0F, 2F);
+				GlStateManager.pushMatrix();
+				GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.translate(0F, 0F, 2F);
 
 				int w = 256;
 				int h = 152;
@@ -242,8 +242,8 @@ public class GuiLexicon extends GuiScreen {
 				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
 
 				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
-				GL11.glDisable(GL11.GL_BLEND);
-				GL11.glPopMatrix();
+				GlStateManager.disableBlend();
+				GlStateManager.popMatrix();
 
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "IT SAYS MANUAL"));
 			}
@@ -253,11 +253,11 @@ public class GuiLexicon extends GuiScreen {
 
 		if(hasTutorialArrow) {
 			mc.renderEngine.bindTexture(texture);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColor4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.disableBlend();
 		}
 	}
 
@@ -308,7 +308,7 @@ public class GuiLexicon extends GuiScreen {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, 180, 6, 11);
 		if(drawLeft)
 			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, 180, 6, 11);
@@ -320,8 +320,8 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	void drawHeader() {
-		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
 
@@ -335,7 +335,7 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
 
 		fontRendererObj.setUnicodeFlag(unicode);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		categoryHighlight = "";
 	}

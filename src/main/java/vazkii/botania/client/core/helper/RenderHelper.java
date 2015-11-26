@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.KeyBinding;
@@ -82,7 +83,7 @@ public final class RenderHelper {
 			drawGradientRect(var6 - 3, var7 - 3, z, var6 + var5 + 3, var7 - 3 + 1, color, color);
 			drawGradientRect(var6 - 3, var7 + var9 + 2, z, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
 
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			GlStateManager.disableDepth();
 			for (int var13 = 0; var13 < tooltipData.size(); ++var13) {
 				String var14 = tooltipData.get(var13);
 				fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
@@ -90,11 +91,11 @@ public final class RenderHelper {
 					var7 += 2;
 				var7 += 10;
 			}
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GlStateManager.enableDepth();
 		}
 		if(!lighting)
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 
 	public static void drawGradientRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
@@ -106,11 +107,11 @@ public final class RenderHelper {
 		float var12 = (par6 >> 16 & 255) / 255F;
 		float var13 = (par6 >> 8 & 255) / 255F;
 		float var14 = (par6 & 255) / 255F;
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
+		GlStateManager.disableTexture2D();
+		GlStateManager.enableBlend();
+		GlStateManager.disableAlpha();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		Tessellator var15 = Tessellator.getInstance();
 		var15.getWorldRenderer().startDrawingQuads();
 		var15.getWorldRenderer().setColorRGBA_F(var8, var9, var10, var7);
@@ -120,10 +121,10 @@ public final class RenderHelper {
 		var15.getWorldRenderer().addVertex(par1, par4, z);
 		var15.getWorldRenderer().addVertex(par3, par4, z);
 		var15.draw();
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GlStateManager.shadeModel(GL11.GL_FLAT);
+		GlStateManager.disableBlend();
+		GlStateManager.enableAlpha();
+		GlStateManager.enableTexture2D();
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
@@ -153,23 +154,23 @@ public final class RenderHelper {
 			f2 = (f1 - 0.7F) / 0.2F;
 		Random random = new Random(seed);
 
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(770, 1);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glDepthMask(false);
-		GL11.glScalef(xScale, yScale, zScale);
+		GlStateManager.pushMatrix();
+		GlStateManager.disableTexture2D();
+		GlStateManager.shadeModel(GL11.GL_SMOOTH);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(770, 1);
+		GlStateManager.disableAlpha();
+		GlStateManager.enableCull();
+		GlStateManager.depthMask(false);
+		GlStateManager.scale(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
-			GL11.glRotatef(random.nextFloat() * 360F, 1F, 0F, 0F);
-			GL11.glRotatef(random.nextFloat() * 360F, 0F, 1F, 0F);
-			GL11.glRotatef(random.nextFloat() * 360F, 0F, 0F, 1F);
-			GL11.glRotatef(random.nextFloat() * 360F, 1F, 0F, 0F);
-			GL11.glRotatef(random.nextFloat() * 360F, 0F, 1F, 0F);
-			GL11.glRotatef(random.nextFloat() * 360F + f1 * 90F, 0F, 0F, 1F);
+			GlStateManager.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
+			GlStateManager.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
+			GlStateManager.rotate(random.nextFloat() * 360F, 0F, 0F, 1F);
+			GlStateManager.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
+			GlStateManager.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
+			GlStateManager.rotate(random.nextFloat() * 360F + f1 * 90F, 0F, 0F, 1F);
 			tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
@@ -183,24 +184,24 @@ public final class RenderHelper {
 			tessellator.draw();
 		}
 
-		GL11.glDepthMask(true);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glPopMatrix();
+		GlStateManager.depthMask(true);
+		GlStateManager.disableCull();
+		GlStateManager.disableBlend();
+		GlStateManager.shadeModel(GL11.GL_FLAT);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.enableTexture2D();
+		GlStateManager.enableAlpha();
+		GlStateManager.popMatrix();
 	}
 
 	public static void renderProgressPie(int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 
-		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+		GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
-		GL11.glColorMask(false, false, false, false);
-		GL11.glDepthMask(false);
+		GlStateManager.colorMask(false, false, false, false);
+		GlStateManager.depthMask(false);
 		GL11.glStencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		GL11.glStencilMask(0xFF);
@@ -213,28 +214,28 @@ public final class RenderHelper {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColorMask(true, true, true, true);
-		GL11.glDepthMask(true);
+		GlStateManager.disableLighting();
+		GlStateManager.disableTexture2D();
+		GlStateManager.shadeModel(GL11.GL_SMOOTH);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.colorMask(true, true, true, true);
+		GlStateManager.depthMask(true);
 		GL11.glStencilMask(0x00);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 		GL11.glBegin(GL11.GL_TRIANGLE_FAN);
-		GL11.glColor4f(0F, 0.5F, 0.5F, a);
+		GlStateManager.color(0F, 0.5F, 0.5F, a);
 		GL11.glVertex2i(centerX, centerY);
-		GL11.glColor4f(0F, 1F, 0.5F, a);
+		GlStateManager.color(0F, 1F, 0.5F, a);
 		for(int i = degs; i > 0; i--) {
 			double rad = (i - 90) / 180F * Math.PI;
 			GL11.glVertex2d(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r);
 		}
 		GL11.glVertex2i(centerX, centerY);
 		GL11.glEnd();
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glShadeModel(GL11.GL_FLAT);
+		GlStateManager.disableBlend();
+		GlStateManager.enableTexture2D();
+		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 

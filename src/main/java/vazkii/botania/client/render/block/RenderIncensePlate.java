@@ -25,11 +25,11 @@ public class RenderIncensePlate implements ISimpleBlockRenderingHandler{
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.1F, -0.5F);
-		GL11.glScalef(1.4F, 1.4F, 1.4F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.1F, -0.5F);
+		GlStateManager.scale(1.4F, 1.4F, 1.4F);
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileIncensePlate(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

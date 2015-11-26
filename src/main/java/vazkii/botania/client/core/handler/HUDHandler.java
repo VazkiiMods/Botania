@@ -20,6 +20,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -206,7 +207,7 @@ public final class HUDHandler {
 			profiler.endSection();
 			profiler.endSection();
 
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 		}
 	}
 
@@ -225,10 +226,10 @@ public final class HUDHandler {
 			int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(disp) / 2;
 			int y = res.getScaledHeight() - 70;
 
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			mc.fontRendererObj.drawStringWithShadow(disp, x, y, color);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.disableBlend();
 		}
 		profiler.endSection();
 	}
@@ -252,13 +253,13 @@ public final class HUDHandler {
 		}
 
 		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
-		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
+		GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
 		mc.renderEngine.bindTexture(manaBar);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
@@ -280,12 +281,12 @@ public final class HUDHandler {
 					}
 					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 					mc.renderEngine.bindTexture(manaBar);
 					RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-					GL11.glColor4f(1F, 1F, 1F, 1F);
+					GlStateManager.color(1F, 1F, 1F, 1F);
 
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x - 20, y);
@@ -298,8 +299,8 @@ public final class HUDHandler {
 						mc.fontRendererObj.drawStringWithShadow(s, res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, y + 20, 0xFF8888);
 					}
 
-					GL11.glDisable(GL11.GL_LIGHTING);
-					GL11.glDisable(GL11.GL_BLEND);
+					GlStateManager.disableLighting();
+					GlStateManager.disableBlend();
 
 					break;
 				}
@@ -326,7 +327,7 @@ public final class HUDHandler {
 			mc.fontRendererObj.drawStringWithShadow(target.getDisplayName(), w / 2 + 30, h / 2 - 10, 0x6666FF);
 			mc.fontRendererObj.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
@@ -344,8 +345,8 @@ public final class HUDHandler {
 		String drawStr = "";
 		String secondLine = "";
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		int sx = res.getScaledWidth() / 2 - 17;
 		int sy = res.getScaledHeight() / 2 + 2;
 
@@ -384,19 +385,19 @@ public final class HUDHandler {
 			}
 
 			mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), sx, sy);
-			GL11.glDisable(GL11.GL_LIGHTING);
+			GlStateManager.disableLighting();
 			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
 			font.drawStringWithShadow(secondLine, sx + 10, sy + 18, 0xFFAAAAAA);
 
 			if(!mc.thePlayer.isSneaking()) {
-				GL11.glScalef(0.5F, 0.5F, 1F);
+				GlStateManager.scale(0.5F, 0.5F, 1F);
 				mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
-				GL11.glScalef(2F, 2F, 1F);
+				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.disableBlend();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		profiler.endSection();
 	}
 
@@ -413,7 +414,7 @@ public final class HUDHandler {
 		Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.enableRescaleNormal();
 		mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
@@ -423,8 +424,8 @@ public final class HUDHandler {
 	}
 
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getMinecraft();
 		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(name) / 2;
 		int y = res.getScaledHeight() / 2 + 10;
@@ -443,7 +444,7 @@ public final class HUDHandler {
 			mc.fontRendererObj.drawString(text, x, y, color);
 		}
 
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 	public static void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
@@ -455,11 +456,11 @@ public final class HUDHandler {
 		int y = res.getScaledHeight() / 2 + 12;
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.enableRescaleNormal();
 		mc.getRenderItem().renderItemAndEffectIntoGUI(bindDisplay, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GlStateManager.disableDepth();
 		if(properlyBound) {
 			mc.fontRendererObj.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
 			mc.fontRendererObj.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
@@ -467,13 +468,13 @@ public final class HUDHandler {
 			mc.fontRendererObj.drawStringWithShadow("\u2718", x + 10, y + 9, 0x4C0000);
 			mc.fontRendererObj.drawStringWithShadow("\u2718", x + 10, y + 8, 0xD2080D);
 		}
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GlStateManager.enableDepth();
 	}
 
 	public static void renderManaBar(int x, int y, int color, float alpha, int mana, int maxMana) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		GL11.glColor4f(1F, 1F, 1F, alpha);
+		GlStateManager.color(1F, 1F, 1F, alpha);
 		mc.renderEngine.bindTexture(manaBar);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
 
@@ -485,7 +486,7 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, 100, 3);
 
 		Color color_ = new Color(color);
-		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
+		GlStateManager.color((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
 	}
 }

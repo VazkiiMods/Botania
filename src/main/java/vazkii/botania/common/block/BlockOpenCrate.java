@@ -192,7 +192,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 					ItemStack item = craft.getStackInSlot(index);
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+					GlStateManager.enableRescaleNormal();
 					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 				}

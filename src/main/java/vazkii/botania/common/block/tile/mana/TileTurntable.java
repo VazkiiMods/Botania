@@ -87,10 +87,10 @@ public class TileTurntable extends TileMod implements IUpdatePlayerListBox {
 
 		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(speed) / 2;
 		int y = res.getScaledHeight() / 2 - 15;
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		mc.fontRendererObj.drawStringWithShadow(speed, x, y, color);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 }

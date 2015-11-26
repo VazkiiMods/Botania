@@ -148,10 +148,10 @@ public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerL
 		ItemStack stack = getStackInSlot(0);
 		if(stack != null) {
 			RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
 			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, stack, x, y, "");
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
 
 			int time = getTotalTime();

@@ -28,8 +28,8 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partTicks, int digProgress) {
 		TilePrism prism = (TilePrism) tile;
-		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
 
 		ItemStack stack = prism.getStackInSlot(0);
@@ -38,14 +38,14 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			if(stack.getItem() instanceof ILens) {
 				ILens lens = (ILens) stack.getItem();
-				GL11.glPushMatrix();
-				GL11.glRotatef(90F, 1F, 0F, 0F);
-				GL11.glTranslatef(0F, 0F, pos);
+				GlStateManager.pushMatrix();
+				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GlStateManager.translate(0F, 0F, pos);
 				RenderLens.render(stack, lens.getLensColor(stack));
-				GL11.glPopMatrix();
+				GlStateManager.popMatrix();
 			}
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 }

@@ -74,13 +74,13 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(event.entityPlayer);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(-100F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.5F, -0.55F, 0.3F);
+			GlStateManager.rotate(180F, 0F, 0F, 1F);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			GlStateManager.rotate(-100F, 1F, 0F, 0F);
+			GlStateManager.translate(-0.5F, -0.55F, 0.3F);
 			if(armor) {
-				GL11.glScalef(1.1F, 1.1F, 1F);
-				GL11.glTranslatef(-0.05F, -0.1F, 0F);
+				GlStateManager.scale(1.1F, 1.1F, 1F);
+				GlStateManager.translate(-0.05F, -0.1F, 0F);
 			}
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 32F);
 		}

@@ -25,10 +25,10 @@ public class RenderCocoon implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileCocoon(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

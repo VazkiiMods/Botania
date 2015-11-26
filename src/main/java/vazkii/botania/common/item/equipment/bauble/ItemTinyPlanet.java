@@ -106,8 +106,8 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
 		if(type == RenderType.HEAD) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			GL11.glTranslatef(0.25F, -0.5F, 0F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.25F, -0.5F, 0F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			RenderBlocks.getInstance().renderBlockAsItem(ModBlocks.tinyPlanet, 0, 1F);
 		}
 	}

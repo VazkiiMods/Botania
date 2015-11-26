@@ -39,16 +39,16 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.enableRescaleNormal();
 		par1Minecraft.getRenderItem().renderItemIntoGUI(challenge.icon, xPosition, yPosition);
 		RenderHelper.disableStandardItemLighting();
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
 
 		if(challenge.complete) {
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			GlStateManager.disableDepth();
 			par1Minecraft.fontRendererObj.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);
 			par1Minecraft.fontRendererObj.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 8, 0x0BD20D);
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GlStateManager.enableDepth();
 		}
 
 

@@ -73,16 +73,16 @@ public class PageCraftingRecipe extends PageRecipe {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		int iconX = gui.getLeft() + 115;
 		int iconY = gui.getTop() + 12;
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(shapelessRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
@@ -94,7 +94,7 @@ public class PageCraftingRecipe extends PageRecipe {
 		}
 
 		render.bindTexture(craftingOverlay);
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
 
 		if(oreDictRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
@@ -102,7 +102,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
 				RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.oredict")));
 		}
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 	@Override

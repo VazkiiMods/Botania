@@ -46,11 +46,11 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			gui.setHoveredButton(this);
 		} else timeHover = Math.max(0, timeHover - gui.timeDelta);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GlStateManager.disableAlpha();
 		int color = 0;
 		String format = FontHelper.getFormatFromString(displayString);
 		if(format.length() > 1) {
@@ -70,7 +70,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		int maxalpha = 0x22;
 		int alpha = Math.min(maxalpha, (int) (timeHover / 4 * maxalpha));
 		drawRect(xPosition - 5, yPosition, (int) (xPosition - 5 + timeHover * 24), yPosition + height, alpha << 24 | color);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GlStateManager.enableAlpha();
 
 		boolean unicode = par1Minecraft.fontRendererObj.getUnicodeFlag();
 		par1Minecraft.fontRendererObj.setUnicodeFlag(true);
@@ -78,14 +78,14 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		par1Minecraft.fontRendererObj.setUnicodeFlag(unicode);
 
 		if(showStack) {
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			par1Minecraft.getRenderItem().renderItemIntoGUI(displayStack, xPosition * 2 - 6, yPosition * 2 + 4);
 			RenderHelper.disableStandardItemLighting();
-			GL11.glEnable(GL11.GL_BLEND);
+			GlStateManager.enableBlend();
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 }

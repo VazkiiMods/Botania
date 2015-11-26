@@ -35,22 +35,22 @@ public class RenderTileBellows extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TileBellows bellows = (TileBellows) tileentity;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		int meta = bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
 
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glRotatef(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
 		model.render(Math.max(0.1F, 1F - (bellows.movePos + bellows.moving * f + 0.1F)));
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 }

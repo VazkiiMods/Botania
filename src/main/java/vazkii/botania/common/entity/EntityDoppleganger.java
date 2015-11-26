@@ -817,7 +817,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void bossBarRenderCallback(ScaledResolution res, int x, int y) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;
 
@@ -825,7 +825,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		ItemStack stack = new ItemStack(Items.skull, 1, 3);
 		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.enableRescaleNormal();
 		mc.getRenderItem().renderItemIntoGUI(stack, px, py);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
@@ -833,7 +833,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		mc.fontRendererObj.setUnicodeFlag(true);
 		mc.fontRendererObj.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
 		mc.fontRendererObj.setUnicodeFlag(unicode);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

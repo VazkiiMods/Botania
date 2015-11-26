@@ -50,31 +50,31 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 		double worldTicks = tileentity.getWorld() == null ? 0 : time;
 
 		Minecraft mc = Minecraft.getMinecraft();
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 		mc.renderEngine.bindTexture(texture);
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
 		model.renderBase();
-		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
+		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		if(stack != null) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			float s = stack.getItem() instanceof ItemBlock ? 0.7F : 0.5F;
-			GL11.glTranslatef(0F, 0.8F, 0F);
-			GL11.glScalef(s, s, s);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GlStateManager.translate(0F, 0.8F, 0F);
+			GlStateManager.scale(s, s, s);
+			GlStateManager.rotate(180F, 0F, 0F, 1F);
 			((Render) mc.getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 			mc.renderEngine.bindTexture(texture);
 		}
 
-		GL11.glColor4f(1F, 1F, 1F, 0.4F);
+		GlStateManager.color(1F, 1F, 1F, 0.4F);
 		model.renderCube();
-		GL11.glColor3f(1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F);
 
 		if(stack != null) {
 			int count = cube.getItemCount();
@@ -92,26 +92,26 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			int colorShade = (color & 16579836) >> 2 | color & -16777216;
 
 			float s = 1F / 64F;
-			GL11.glScalef(s, s, s);
-			GL11.glDisable(GL11.GL_LIGHTING);
+			GlStateManager.scale(s, s, s);
+			GlStateManager.disableLighting();
 			int l = mc.fontRendererObj.getStringWidth(countStr);
 
-			GL11.glTranslatef(0F, 55F, 0F);
+			GlStateManager.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for(int i = 0; i < 4; i++) {
-				GL11.glRotatef(90F, 0F, 1F, 0F);
-				GL11.glTranslatef(0F, 0F, tr);
+				GlStateManager.rotate(90F, 0F, 1F, 0F);
+				GlStateManager.translate(0F, 0F, tr);
 				mc.fontRendererObj.drawString(countStr, -l / 2, 0, color);
-				GL11.glTranslatef(0F, 0F, 0.1F);
+				GlStateManager.translate(0F, 0F, 0.1F);
 				mc.fontRendererObj.drawString(countStr, -l / 2 + 1, 1, colorShade);
-				GL11.glTranslatef(0F, 0F, -tr - 0.1F);
+				GlStateManager.translate(0F, 0F, -tr - 0.1F);
 			}
-			GL11.glEnable(GL11.GL_LIGHTING);
+			GlStateManager.enableLighting();
 		}
 
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 }

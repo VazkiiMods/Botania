@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -89,7 +90,7 @@ public class PageRecipe extends LexiconPage {
 
 		tooltipStack = tooltipContainerStack = null;
 		tooltipEntry = false;
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);
 	}
 
@@ -139,19 +140,19 @@ public class PageRecipe extends LexiconPage {
 		RenderItem render = Minecraft.getMinecraft().getRenderManager();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glPushMatrix();
-		GL11.glTranslated(xPos, yPos, 0);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableDepth();
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(xPos, yPos, 0);
 		render.renderItemAndEffectIntoGUI(stack, 0, 0);
 		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		int xpi = (int) xPos;
 		int ypi = (int) yPos;
@@ -178,7 +179,7 @@ public class PageRecipe extends LexiconPage {
 			}
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 	}
 
 }

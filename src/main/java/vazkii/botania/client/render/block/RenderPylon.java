@@ -26,12 +26,12 @@ public class RenderPylon implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.7F, -0.5F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.7F, -0.5F);
 		RenderTilePylon.green = metadata == 1;
 		RenderTilePylon.pink = metadata == 2;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

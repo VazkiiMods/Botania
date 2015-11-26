@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -56,15 +57,15 @@ public final class BossBarHandler {
 		int fw = (int) ((double) fgRect.width * (currentBoss.getHealth() / currentBoss.getMaxHealth()));
 		int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		currentBoss.bossBarRenderCallback(res, x, y);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
 		drawBar(x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 		drawBar(xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 		mc.fontRendererObj.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
 
 		Entity e = (Entity) currentBoss;
 		EntityPlayer p = mc.thePlayer;

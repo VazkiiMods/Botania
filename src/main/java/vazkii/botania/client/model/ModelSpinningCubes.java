@@ -29,7 +29,7 @@ public class ModelSpinningCubes extends ModelBase {
 	}
 
 	public void renderSpinningCubes(int cubes, int repeat, int origRepeat) {
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.disableTexture2D();
 
 		final float modifier = 6F;
 		final float rotationModifier = 0.2F;
@@ -39,8 +39,8 @@ public class ModelSpinningCubes extends ModelBase {
 		double ticks = Minecraft.getMinecraft().thePlayer.ticksExisted - 1.3 * (origRepeat - repeat);
 		float offsetPerCube = 360 / cubes;
 
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.025F, 0.85F, -0.025F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.025F, 0.85F, -0.025F);
 		for(int i = 0; i < cubes; i++) {
 			float offset = offsetPerCube * i;
 			float deg = (int) (ticks / rotationModifier % 360F + offset);
@@ -51,19 +51,19 @@ public class ModelSpinningCubes extends ModelBase {
 			float z = (float) (radiusZ * Math.sin(rad));
 			float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
-			GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, z);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(x, y, z);
 			float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 			float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 			float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-			GL11.glRotatef(deg, xRotate, yRotate, zRotate);
+			GlStateManager.rotate(deg, xRotate, yRotate, zRotate);
 			if(repeat < origRepeat) {
-				GL11.glColor4f(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glDisable(GL11.GL_ALPHA_TEST);
-			} else GL11.glColor4f(1F, 1F, 1F, 1F);
+				GlStateManager.color(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.disableAlpha();
+			} else GlStateManager.color(1F, 1F, 1F, 1F);
 
 			int light = 15728880;
 			int lightmapX = light % 65536;
@@ -73,14 +73,14 @@ public class ModelSpinningCubes extends ModelBase {
 			spinningCube.render(1F / 16F);
 
 			if(repeat < origRepeat) {
-				GL11.glDisable(GL11.GL_BLEND);
-				GL11.glEnable(GL11.GL_ALPHA_TEST);
+				GlStateManager.disableBlend();
+				GlStateManager.enableAlpha();
 			}
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GlStateManager.popMatrix();
+		GlStateManager.enableTexture2D();
 
 		if(repeat != 0)
 			renderSpinningCubes(cubes, repeat - 1, origRepeat);

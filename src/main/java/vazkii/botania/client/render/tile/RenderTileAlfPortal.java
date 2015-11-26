@@ -31,39 +31,39 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		if(meta == 0)
 			return;
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(d0, d1, d2);
-		GL11.glTranslatef(-1F, 1F, 0.25F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.translate(-1F, 1F, 0.25F);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableAlpha();
+		GlStateManager.enableCull();
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
-		GL11.glColor4f(1F, 1F, 1F, alpha);
+		GlStateManager.color(1F, 1F, 1F, alpha);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 		if(meta == 2) {
-			GL11.glTranslatef(1.25F, 0F, 1.75F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GlStateManager.translate(1.25F, 0F, 1.75F);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
 		}
 
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableCull();
+		GlStateManager.disableLighting();
 		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
 
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glTranslated(0F, 0F, 0.5F);
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.translate(0F, 0F, 0.5F);
 		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
 
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.enableCull();
+		GlStateManager.enableAlpha();
+		GlStateManager.disableBlend();
+		GlStateManager.enableLighting();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {

@@ -28,20 +28,20 @@ public class RenderTileSpawnerClaw extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8, int digProgress) {
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
 
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.popMatrix();
 	}
 
 }

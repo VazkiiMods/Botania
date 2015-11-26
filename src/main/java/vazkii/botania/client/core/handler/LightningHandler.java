@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
@@ -74,14 +75,14 @@ public class LightningHandler {
 		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
 		interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.getInstance();
 
-		GL11.glDepthMask(false);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.depthMask(false);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		ParticleRenderDispatcher.lightningCount = 0;
 
@@ -99,11 +100,11 @@ public class LightningHandler {
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 1, true);
 		tessellator.draw();
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDepthMask(true);
+		GlStateManager.disableBlend();
+		GlStateManager.depthMask(true);
 
-		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
-		GL11.glPopMatrix();
+		GlStateManager.translate(interpPosX, interpPosY, interpPosZ);
+		GlStateManager.popMatrix();
 
 		profiler.endSection();
 		profiler.endSection();

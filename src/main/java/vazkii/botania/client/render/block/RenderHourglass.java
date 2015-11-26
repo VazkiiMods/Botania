@@ -25,12 +25,12 @@ public class RenderHourglass implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+		GlStateManager.disableAlpha();
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileHourglass(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glPopMatrix();
+		GlStateManager.enableAlpha();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

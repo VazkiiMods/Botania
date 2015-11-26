@@ -163,7 +163,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
 			mc.renderEngine.bindTexture(texture);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 		} else {
 			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
@@ -188,9 +188,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				y = currentButton.yPosition;
 
 				mc.fontRendererObj.drawStringWithShadow("?", x, y, 0xFFFFFF);
-				GL11.glScalef(0.5F, 0.5F, 1F);
+				GlStateManager.scale(0.5F, 0.5F, 1F);
 				mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
-				GL11.glScalef(2F, 2F, 1F);
+				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
 
@@ -204,16 +204,16 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.fontRendererObj.setUnicodeFlag(true);
 			int width = mc.fontRendererObj.getStringWidth(s);
 
-			GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, 0);
-			GL11.glScalef(fract, 1F, 1F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(x, y, 0);
+			GlStateManager.scale(fract, 1F, 1F);
 			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF);
 			mc.fontRendererObj.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
@@ -230,7 +230,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		setHoveredButton(null);

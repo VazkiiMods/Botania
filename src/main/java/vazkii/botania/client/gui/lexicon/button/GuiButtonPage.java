@@ -36,7 +36,7 @@ public class GuiButtonPage extends GuiButtonLexicon {
 			int k = getHoverState(hovered);
 
 			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(xPosition, yPosition, k == 2 ? 18 : 0, right ? 180 : 190, 18, 10);
 
 			if(k == 2)

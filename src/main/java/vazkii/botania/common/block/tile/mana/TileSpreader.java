@@ -541,8 +541,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		ItemStack lens = getStackInSlot(0);
 		if(lens != null) {
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(lensName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
@@ -552,15 +552,15 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderHelper.disableStandardItemLighting();
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.disableLighting();
+			GlStateManager.disableBlend();
 		}
 
 		if(receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
 			ItemStack recieverStack = new ItemStack(worldObj.getBlockState(receiverTile.getPos()).getBlock(), 1, receiverTile.getBlockMetadata());
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(recieverStack != null && recieverStack.getItem() != null) {
 				String stackName = recieverStack.getDisplayName();
 				int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
@@ -573,11 +573,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				RenderHelper.disableStandardItemLighting();
 			}
 
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.disableLighting();
+			GlStateManager.disableBlend();
 		}
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 
 	@Override

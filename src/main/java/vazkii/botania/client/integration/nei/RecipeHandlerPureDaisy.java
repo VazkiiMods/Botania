@@ -93,8 +93,8 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 	@Override
 	public void drawBackground(int recipe) {
 		super.drawBackground(recipe);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+		GlStateManager.enableBlend();
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
 		GuiDraw.changeTexture(LibResources.GUI_PURE_DAISY_OVERLAY);
 		GuiDraw.drawTexturedModalRect(45, 10, 0, 0, 65, 44);
 	}

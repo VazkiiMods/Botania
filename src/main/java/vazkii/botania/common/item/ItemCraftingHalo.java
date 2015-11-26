@@ -404,16 +404,16 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		Tessellator tess = Tessellator.getInstance();
 		Tessellator.renderingWorldRenderer = false;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 		double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
 		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
 		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
 
-		GL11.glTranslated(posX - RenderManager.renderPosX, posY - RenderManager.renderPosY, posZ - RenderManager.renderPosZ);
+		GlStateManager.translate(posX - RenderManager.renderPosX, posY - RenderManager.renderPosY, posZ - RenderManager.renderPosZ);
 
 
 		float base = getRotationBase(stack);
@@ -434,9 +434,9 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
 			float rotationAngle = (seg + 0.5F) * segAngles + shift;
-			GL11.glPushMatrix();
-			GL11.glRotatef(rotationAngle, 0F, 1F, 0F);
-			GL11.glTranslatef(s * m, -0.75F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(rotationAngle, 0F, 1F, 0F);
+			GlStateManager.translate(s * m, -0.75F, 0F);
 
 			if(segmentLookedAt == seg)
 				inside = true;
@@ -447,36 +447,36 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 				if(slotStack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(slotStack.getItem()).getRenderType())) {
 					float scale = seg == 0 ? 0.75F : 0.6F;
-					GL11.glScalef(scale, scale, scale);
-					GL11.glRotatef(180F, 0F, 1F, 0F);
-					GL11.glTranslatef(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
+					GlStateManager.scale(scale, scale, scale);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GlStateManager.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
 					RenderBlocks.getInstance().renderBlockAsItem(Block.getBlockFromItem(slotStack.getItem()), slotStack.getItemDamage(), 1F);
 				} else {
-					GL11.glScalef(0.75F, 0.75F, 0.75F);
-					GL11.glTranslatef(0F, 0F, 0.5F);
+					GlStateManager.scale(0.75F, 0.75F, 0.75F);
+					GlStateManager.translate(0F, 0F, 0.5F);
 					int renderPass = 0;
 					do {
 						IIcon icon = slotStack.getItem().getIcon(slotStack, renderPass);
 						if(icon != null) {
-							GL11.glRotatef(90F, 0F, 1F, 0F);
+							GlStateManager.rotate(90F, 0F, 1F, 0F);
 							Color color = new Color(slotStack.getItem().getColorFromItemStack(slotStack, renderPass));
-							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 							float f = icon.getMinU();
 							float f1 = icon.getMaxU();
 							float f2 = icon.getMinV();
 							float f3 = icon.getMaxV();
 							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GL11.glColor3f(1F, 1F, 1F);
+							GlStateManager.color(1F, 1F, 1F);
 						}
 						renderPass++;
 					} while(renderPass < slotStack.getItem().getRenderPasses(slotStack.getItemDamage()));
 				}
 			}
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 
-			GL11.glPushMatrix();
-			GL11.glRotatef(180F, 1F, 0F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			float a = alpha;
 			if(inside) {
 				a += 0.3F;
@@ -484,10 +484,10 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			}
 
 			if(seg % 2 == 0)
-				GL11.glColor4f(0.6F, 0.6F, 0.6F, a);
-			else GL11.glColor4f(1F, 1F, 1F, a);
+				GlStateManager.color(0.6F, 0.6F, 0.6F, a);
+			else GlStateManager.color(1F, 1F, 1F, a);
 
-			GL11.glDisable(GL11.GL_CULL_FACE);
+			GlStateManager.disableCull();
 			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 			mc.renderEngine.bindTexture(item.getGlowResource());
 			tess.getWorldRenderer().startDrawingQuads();
@@ -507,10 +507,10 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			}
 			y0 = 0;
 			tess.draw();
-			GL11.glEnable(GL11.GL_CULL_FACE);
-			GL11.glPopMatrix();
+			GlStateManager.enableCull();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -522,8 +522,8 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int slot = getSegmentLookedAt(stack, player);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName();
@@ -534,7 +534,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
@@ -570,7 +570,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			Gui.drawRect(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GlStateManager.enableRescaleNormal();
 			for(int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
 				if(stack != null) {

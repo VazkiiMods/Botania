@@ -44,7 +44,7 @@ public class RenderLexicon implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(texture);
 		float opening = 0F;
@@ -57,10 +57,10 @@ public class RenderLexicon implements IItemRenderer {
 			else ticks -= ClientTickHandler.partialTicks;
 		}
 
-		GL11.glTranslatef(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
-		GL11.glRotatef(87.5F + ticks * 5, 0F, 1F, 0F);
-		GL11.glRotatef(ticks * 2.5F, 0F, 0F, 1F);
-		GL11.glScalef(0.9F, 0.9F, 0.9F);
+		GlStateManager.translate(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
+		GlStateManager.rotate(87.5F + ticks * 5, 0F, 1F, 0F);
+		GlStateManager.rotate(ticks * 2.5F, 0F, 0F, 1F);
+		GlStateManager.scale(0.9F, 0.9F, 0.9F);
 		opening = ticks / 12F;
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -72,9 +72,9 @@ public class RenderLexicon implements IItemRenderer {
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.3F, -0.21F, -0.07F);
-			GL11.glScalef(0.0035F, 0.0035F, -0.0035F);
+			GlStateManager.rotate(180F, 0F, 0F, 1F);
+			GlStateManager.translate(-0.3F, -0.21F, -0.07F);
+			GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
 			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("BevoLJ");
 			boolean saice = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("saice");
 
@@ -89,27 +89,27 @@ public class RenderLexicon implements IItemRenderer {
 				title = StatCollector.translateToLocal("item.botania:lexicon.saice");
 
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
-			GL11.glTranslatef(0F, 10F, 0F);
-			GL11.glScalef(0.6F, 0.6F, 0.6F);
+			GlStateManager.translate(0F, 10F, 0F);
+			GlStateManager.scale(0.6F, 0.6F, 0.6F);
 			font.drawString(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
 
-			GL11.glTranslatef(0F, 15F, 0F);
+			GlStateManager.translate(0F, 15F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
-			GL11.glTranslatef(0F, 10F, 0F);
+			GlStateManager.translate(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
-			GL11.glTranslatef(0F, 50F, 0F);
+			GlStateManager.translate(0F, 50F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
-			GL11.glTranslatef(0F, 10F, 0F);
+			GlStateManager.translate(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
 			if(bevo || saice) {
-				GL11.glTranslatef(0F, 10F, 0F);
+				GlStateManager.translate(0F, 10F, 0F);
 				font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
 			}
 		}
 
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 }

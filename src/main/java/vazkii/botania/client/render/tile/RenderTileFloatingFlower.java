@@ -33,29 +33,29 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
 		IFloatingFlower flower = (IFloatingFlower) tile;
-		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 
 		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
-		GL11.glTranslatef(0.5F, 0F, 0.5F);
-		GL11.glRotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);
-		GL11.glTranslatef(-0.5F, 0F, -0.5F);
+		GlStateManager.translate(0.5F, 0F, 0.5F);
+		GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
+		GlStateManager.translate(-0.5F, 0F, -0.5F);
 
 		if(tile.getWorld() != null) {
-			GL11.glTranslatef(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
-			GL11.glRotatef(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
+			GlStateManager.translate(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
+			GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 		}
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(flower.getIslandType().getResource());
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.5F, 1.4F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(0.5F, 1.4F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
 		model.render();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		ItemStack stack = flower.getDisplayStack();
 		IIcon icon = stack.getIconIndex();
@@ -65,11 +65,11 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		GL11.glTranslatef(0.25F, 0.4F, 0.5F);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
+		GlStateManager.translate(0.25F, 0.4F, 0.5F);
+		GlStateManager.scale(0.5F, 0.5F, 0.5F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.popMatrix();
 	}
 
 }

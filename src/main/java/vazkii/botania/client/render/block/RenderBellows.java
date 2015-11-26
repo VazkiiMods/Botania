@@ -25,11 +25,11 @@ public class RenderBellows implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.3F, -0.5F);
-		GL11.glScalef(1.2F, 1.2F, 1.2F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.3F, -0.5F);
+		GlStateManager.scale(1.2F, 1.2F, 1.2F);
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileBellows(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	@Override

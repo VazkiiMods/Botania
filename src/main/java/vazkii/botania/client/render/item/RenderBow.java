@@ -38,12 +38,12 @@ public class RenderBow implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
 		case ENTITY : {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(-0.5F, 0F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-0.5F, 0F, 0F);
 			if(item.isOnItemFrame())
-				GL11.glTranslatef(0F, -0.3F, 0.01F);
+				GlStateManager.translate(0F, -0.3F, 0.01F);
 			render(item, null, false);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 			break;
 		}
 		case EQUIPPED : {
@@ -66,9 +66,9 @@ public class RenderBow implements IItemRenderer {
 			int time = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, LibObfuscation.ITEM_IN_USE_COUNT);
 			icon = item.getItem().getIcon(item, 0, player, using, time);
 			if(transform) {
-				GL11.glTranslatef(0.2F, -0.3F, 0.1F);
-				//GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
-				//GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
+				GlStateManager.translate(0.2F, -0.3F, 0.1F);
+				//GlStateManager.rotate(20.0F, 0.0F, 1.0F, 0.0F);
+				//GlStateManager.rotate(-100.0F, 1.0F, 0.0F, 0.0F);
 			}
 		}
 
@@ -78,16 +78,16 @@ public class RenderBow implements IItemRenderer {
 		float f3 = icon.getMaxV();
 		float scale = 1F / 16F;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 
 

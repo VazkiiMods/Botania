@@ -34,12 +34,12 @@ public class RenderTransparentItem implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
 		case ENTITY : {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(-0.5F, 0F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-0.5F, 0F, 0F);
 			if(item.isOnItemFrame())
-				GL11.glTranslatef(0F, -0.3F, 0.01F);
+				GlStateManager.translate(0F, -0.3F, 0.01F);
 			render(item);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 			break;
 		}
 		case EQUIPPED : {
@@ -63,16 +63,16 @@ public class RenderTransparentItem implements IItemRenderer {
 		float f3 = icon.getMaxV();
 		float scale = 1F / 16F;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 
 

@@ -69,21 +69,21 @@ public class RenderPixie extends RenderLiving {
 		else {
 			bindTexture(getEntityTexture(par1EntityPixie));
 			float f1 = 1.0F;
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+			GlStateManager.enableBlend();
+			GlStateManager.disableAlpha();
+			GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
 
 			if (par1EntityPixie.isInvisible())
-				GL11.glDepthMask(false);
+				GlStateManager.depthMask(false);
 			else
-				GL11.glDepthMask(true);
+				GlStateManager.depthMask(true);
 
 			char c0 = 61680;
 			int j = c0 % 65536;
 			int k = c0 / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, f1);
 			return 1;
 		}
 	}

@@ -33,25 +33,25 @@ public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
 
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
-		GL11.glPushMatrix();
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(d0, d1, d2);
 
-		GL11.glRotated(90F, 1F, 0F, 0F);
-		GL11.glTranslatef(0F, 0F, -3F / 16F - 0.001F);
+		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.translate(0F, 0F, -3F / 16F - 0.001F);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableAlpha();
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 		if(ShaderHelper.useShaders())
-			GL11.glColor4f(1F, 1F, 1F, alpha);
+			GlStateManager.color(1F, 1F, 1F, alpha);
 		else {
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			GL11.glColor4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+			GlStateManager.color(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 		}
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -60,10 +60,10 @@ public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
 		renderIcon(0, 0, BlockTerraPlate.overlay, 1, 1, 240);
 		ShaderHelper.releaseShader();
 
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.enableAlpha();
+		GlStateManager.disableBlend();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {

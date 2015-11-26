@@ -86,7 +86,7 @@ public final class ContributorFancinessHandler {
 	}
 
 	private static void renderTwintails(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
@@ -94,82 +94,82 @@ public final class ContributorFancinessHandler {
 		float f3 = icon.getMaxV();
 		Helper.translateToHeadLevel(event.entityPlayer);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		float t = 0.13F;
-		GL11.glTranslatef(t, -0.5F, -0.1F);
+		GlStateManager.translate(t, -0.5F, -0.1F);
 		if(event.entityPlayer.motionY < 0)
-			GL11.glRotatef((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
+			GlStateManager.rotate((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
 
 		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
-		GL11.glRotatef(r, 0F, 0F, 1F);
+		GlStateManager.rotate(r, 0F, 0F, 1F);
 		float s = 0.9F;
-		GL11.glScalef(s, s, s);
+		GlStateManager.scale(s, s, s);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glRotatef(-r, 0F, 0F, 1F);
-		GL11.glTranslatef(-t, -0F, 0F);
-		GL11.glScalef(-1F, 1F, 1F);
-		GL11.glTranslatef(t, -0F, 0F);
-		GL11.glRotatef(r, 0F, 0F, 1F);
+		GlStateManager.rotate(-r, 0F, 0F, 1F);
+		GlStateManager.translate(-t, -0F, 0F);
+		GlStateManager.scale(-1F, 1F, 1F);
+		GlStateManager.translate(t, -0F, 0F);
+		GlStateManager.rotate(r, 0F, 0F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	private static void renderPhiFlower(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		Helper.translateToHeadLevel(event.entityPlayer);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glRotatef(180F, 1F, 0F, 0F);
-		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glScalef(0.4F, 0.4F, 0.4F);
-		GL11.glTranslatef(-1.2F, 0.2F, 0.125F);
-		GL11.glRotatef(20F, 1F, 0F, 0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.scale(0.4F, 0.4F, 0.4F);
+		GlStateManager.translate(-1.2F, 0.2F, 0.125F);
+		GlStateManager.rotate(20F, 1F, 0F, 0F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	private static void renderGoldfish(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		Helper.rotateIfSneaking(event.entityPlayer);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glRotatef(180F, 0F, 0F, 1F);
-		GL11.glTranslatef(-0.75F, 0.5F, 0F);
-		GL11.glScalef(0.4F, 0.4F, 0.4F);
-		GL11.glTranslatef(1.2F, 0.5F, 0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.rotate(180F, 0F, 0F, 1F);
+		GlStateManager.translate(-0.75F, 0.5F, 0F);
+		GlStateManager.scale(0.4F, 0.4F, 0.4F);
+		GlStateManager.translate(1.2F, 0.5F, 0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	private static void renderFlower(RenderPlayerEvent event, IIcon icon) {
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(event.entityPlayer);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		GL11.glRotatef(180F, 0F, 0F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glTranslatef(-0.5F, 0.7F, 0F);
+		GlStateManager.rotate(180F, 0F, 0F, 1F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.scale(0.5F, 0.5F, 0.5F);
+		GlStateManager.translate(-0.5F, 0.7F, 0F);
 
 		ShaderHelper.useShader(ShaderHelper.gold);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		ShaderHelper.releaseShader();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	public static class ThreadContributorListLoader extends Thread {

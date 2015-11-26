@@ -50,12 +50,12 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
 
-			GL11.glPushMatrix();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
-			GL11.glColor4f(1F, 1F, 1F, a);
+			GlStateManager.color(1F, 1F, 1F, a);
 			if(tileentity.getWorld() != null) {
 				green = tileentity.getBlockMetadata() == 1;
 				pink = tileentity.getBlockMetadata() == 2;
@@ -71,69 +71,69 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				worldTime += new Random(tileentity.getPos().hashCode()).nextInt(360);
 
 			if(ConfigHandler.oldPylonModel) {
-				GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);
-				GL11.glScalef(1F, -1.5F, -1F);
+				GlStateManager.translate(d0 + 0.5, d1 + 2.2, d2 + 0.5);
+				GlStateManager.scale(1F, -1.5F, -1F);
 			} else {
-				GL11.glTranslated(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
+				GlStateManager.translate(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
 				float scale = green ? 0.8F : 0.6F;
-				GL11.glScalef(scale, 0.6F, scale);
+				GlStateManager.scale(scale, 0.6F, scale);
 			}
 
 			if(!green) {
-				GL11.glPushMatrix();
+				GlStateManager.pushMatrix();
 				if(!ConfigHandler.oldPylonModel)
-					GL11.glTranslatef(0.5F, 0F, -0.5F);
-				GL11.glRotatef((float) worldTime * 1.5F, 0F, 1F, 0F);
+					GlStateManager.translate(0.5F, 0F, -0.5F);
+				GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
 				if(!ConfigHandler.oldPylonModel)
-					GL11.glTranslatef(-0.5F, 0F, 0.5F);
+					GlStateManager.translate(-0.5F, 0F, 0.5F);
 
 				model.renderRing();
-				GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+				GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 				model.renderGems();
-				GL11.glPopMatrix();
+				GlStateManager.popMatrix();
 			}
 
-			GL11.glPushMatrix();
-			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
 			if(!ConfigHandler.oldPylonModel)
-				GL11.glTranslatef(0.5F, 0F, -0.5F);
+				GlStateManager.translate(0.5F, 0F, -0.5F);
 
-			GL11.glRotatef((float) -worldTime, 0F, 1F, 0F);
+			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
 			if(!ConfigHandler.oldPylonModel)
-				GL11.glTranslatef(-0.5F, 0F, 0.5F);
+				GlStateManager.translate(-0.5F, 0F, 0.5F);
 
 
-			GL11.glDisable(GL11.GL_CULL_FACE);
+			GlStateManager.disableCull();
 			model.renderCrystal();
 
-			GL11.glColor4f(1F, 1F, 1F, a);
+			GlStateManager.color(1F, 1F, 1F, a);
 			if(!ShaderHelper.useShaders()) {
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D));
-				GL11.glColor4f(1F, 1F, 1F, a * (alpha + 0.183F));
+				GlStateManager.color(1F, 1F, 1F, a * (alpha + 0.183F));
 			}
 
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glScalef(1.1F, 1.1F, 1.1F);
+			GlStateManager.disableAlpha();
+			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 			if(!ConfigHandler.oldPylonModel)
-				GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
-			else GL11.glTranslatef(0F, -0.09F, 0F);
+				GlStateManager.translate(-0.05F, -0.1F, 0.05F);
+			else GlStateManager.translate(0F, -0.09F, 0F);
 
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
 			model.renderCrystal();
 			ShaderHelper.releaseShader();
 
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_CULL_FACE);
-			GL11.glPopMatrix();
+			GlStateManager.enableAlpha();
+			GlStateManager.enableCull();
+			GlStateManager.popMatrix();
 
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glPopMatrix();
+			GlStateManager.disableBlend();
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.popMatrix();
 	}
 
 

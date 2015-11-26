@@ -44,12 +44,12 @@ public class RenderLens implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
 		case ENTITY : {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(-0.5F, 0F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-0.5F, 0F, 0F);
 			if(item.isOnItemFrame())
-				GL11.glTranslatef(0F, -0.3F, 0.01F);
+				GlStateManager.translate(0F, -0.3F, 0.01F);
 			render(item);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 			break;
 		}
 		case EQUIPPED : {
@@ -78,29 +78,29 @@ public class RenderLens implements IItemRenderer {
 		float f3 = icon.getMaxV();
 		float scale = 1F / 16F;
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.enableCull();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Color color = new Color(color_);
-		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
+		GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
 
 		boolean shiny = ItemLens.getStoredColor(item) != -1;
 		icon = ItemLens.iconGlass;
-		GL11.glScalef(scale, scale, scale);
-		GL11.glTranslatef(0F, 0F, -0.5F);
+		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.translate(0F, 0F, -0.5F);
 		renderShinyLensIcon(icon, shiny);
-		GL11.glRotatef(180F, 0F, 1F, 0F);
-		GL11.glTranslatef(-16F, 0F, 0F);
+		GlStateManager.rotate(180F, 0F, 1F, 0F);
+		GlStateManager.translate(-16F, 0F, 0F);
 		renderShinyLensIcon(icon, shiny);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.disableCull();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 
 	public static void renderShinyLensIcon(IIcon icon, boolean shiny) {

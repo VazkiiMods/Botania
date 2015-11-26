@@ -36,19 +36,19 @@ public class RenderFloatingFlowerItem implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float s = 1.4F;
-		GL11.glScalef(s, s, s);
-		GL11.glRotatef(-5F, 1F, 0F, 0F);
+		GlStateManager.scale(s, s, s);
+		GlStateManager.rotate(-5F, 1F, 0F, 0F);
 		Item item = stack.getItem();
 		TileFloatingFlower.forcedStack = item instanceof ItemBlockFloatingSpecialFlower ? ItemBlockSpecialFlower.ofType(ItemBlockSpecialFlower.getType(stack)) : new ItemStack(ModBlocks.flower, 1, stack.getItemDamage());
 
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileFloatingFlower(), 0.0D, 0.0D, 0.0D, 0.0F);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 }

@@ -35,7 +35,7 @@ public class GuiCraftingHalo extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(craftingTableGuiTextures);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;

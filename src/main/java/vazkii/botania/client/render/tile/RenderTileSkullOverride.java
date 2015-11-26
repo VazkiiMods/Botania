@@ -53,31 +53,31 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 				}
 			}
 			bindTexture(resourcelocation);
-			GL11.glPushMatrix();
-			GL11.glDisable(GL11.GL_CULL_FACE);
+			GlStateManager.pushMatrix();
+			GlStateManager.disableCull();
 			if (par4 != 1) {
 				switch (par4) {
 				case 2:
-					GL11.glTranslatef(par1 + 0.5F, par2 + 0.25F, par3 + 0.74F);
+					GlStateManager.translate(par1 + 0.5F, par2 + 0.25F, par3 + 0.74F);
 					break;
 				case 3:
-					GL11.glTranslatef(par1 + 0.5F, par2 + 0.25F, par3 + 0.26F);
+					GlStateManager.translate(par1 + 0.5F, par2 + 0.25F, par3 + 0.26F);
 					par5 = 180.0F;
 					break;
 				case 4:
-					GL11.glTranslatef(par1 + 0.74F, par2 + 0.25F, par3 + 0.5F);
+					GlStateManager.translate(par1 + 0.74F, par2 + 0.25F, par3 + 0.5F);
 					par5 = 270.0F;
 					break;
 				case 5:
 				default:
-					GL11.glTranslatef(par1 + 0.26F, par2 + 0.25F, par3 + 0.5F);
+					GlStateManager.translate(par1 + 0.26F, par2 + 0.25F, par3 + 0.5F);
 					par5 = 90.0F;
 				}
-			} else GL11.glTranslatef(par1 + 0.5F, par2, par3 + 0.5F);
+			} else GlStateManager.translate(par1 + 0.5F, par2, par3 + 0.5F);
 
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glScalef(-1.0F, -1.0F, 1.0F);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+			GlStateManager.enableAlpha();
 			if(gaia)
 				ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
@@ -85,7 +85,7 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 
 			if(gaia)
 				ShaderHelper.releaseShader();
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else super.func_152674_a(par1, par2, par3, par4, par5, par6, gameProfile);
 	}
 }

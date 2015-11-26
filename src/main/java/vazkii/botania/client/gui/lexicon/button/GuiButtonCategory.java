@@ -48,7 +48,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			GlStateManager.enableTexture2D();
 			int texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
@@ -88,11 +88,11 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 		float s = 1F / 32F;
 		float defAlpha = 0F;
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.scale(0.5F, 0.5F, 0.5F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if(!boundStencil) { // Allow for the texture manager to take care of the ResourceLocation before we use it directly with gl
 			mc.renderEngine.bindTexture(stencilResource);
@@ -118,7 +118,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
 		
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		if(inside)
 			gui.categoryHighlight = StatCollector.translateToLocal(getTooltipText());

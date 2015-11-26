@@ -32,42 +32,42 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		T tEntity = (T) par1Entity;
 		IIcon iicon = getBaseIcon(tEntity);
 
-		GL11.glPushMatrix();
-		GL11.glTranslatef((float)par2, (float)par4, (float)par6);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float)par2, (float)par4, (float)par6);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
 
 		double time = ClientTickHandler.ticksInGame + par9;
 		time += new Random(par1Entity.getEntityId()).nextInt();
-		GL11.glColor4f(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
+		GlStateManager.color(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
-		GL11.glScalef(scale, scale, scale);
+		GlStateManager.scale(scale, scale, scale);
 		bindEntityTexture(par1Entity);
 		Tessellator tessellator = Tessellator.getInstance();
 
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		float r = 180.0F - renderManager.playerViewY;
-		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(-renderManager.playerViewX, 1F, 0F, 0F);
+		GlStateManager.rotate(r, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(-renderManager.playerViewX, 1F, 0F, 0F);
 		func_77026_a(tessellator, iicon);
 
 		IIcon spinningIcon = getSpinningIcon(tEntity);
 		if(spinningIcon != null) {
-			GL11.glTranslatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
-			GL11.glScalef(0.2F, 0.2F, 0.2F);
+			GlStateManager.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
+			GlStateManager.scale(0.2F, 0.2F, 0.2F);
 			colorSpinningIcon(tEntity);
 			func_77026_a(tessellator, spinningIcon);
 		}
-		GL11.glPopMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		renderCallback(tEntity, par9);
 
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.disableBlend();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 	public IIcon getBaseIcon(T entity) {

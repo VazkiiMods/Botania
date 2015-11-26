@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -31,37 +32,37 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		Minecraft mc = Minecraft.getMinecraft();
 		IIcon iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(x + 0.5, y + 0.3, z + 0.5);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
 
 		double time = ClientTickHandler.ticksInGame + pticks;
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		float scale = 0.75F;
-		GL11.glScalef(scale, scale, scale);
+		GlStateManager.scale(scale, scale, scale);
 		Tessellator tessellator = Tessellator.getInstance();
 
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		float r = 180.0F - mc.getRenderManager().playerViewY;
-		GL11.glRotatef(r, 0F, 1F, 0F);
-		GL11.glRotatef(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
+		GlStateManager.rotate(r, 0F, 1F, 0F);
+		GlStateManager.rotate(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
 
 		float off = 0.25F;
-		GL11.glTranslatef(0F, off, 0F);
-		GL11.glRotated(time, 0F, 0F, 1F);
-		GL11.glTranslatef(0F, -off, 0F);
+		GlStateManager.translate(0F, off, 0F);
+		GlStateManager.rotate(time, 0F, 0F, 1F);
+		GlStateManager.translate(0F, -off, 0F);
 
 		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		func_77026_a(tessellator, iicon);
-		GL11.glPopMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableBlend();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 	// todo 1.8 looks like vanilla copypasta, update it

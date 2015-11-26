@@ -183,9 +183,9 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
-			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
 			for(int i = 2; i < 4; i++) {
 				IIcon icon = icons[i];
@@ -196,7 +196,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 
 				Color color = new Color(getColorFromItemStack(stack, 1));
-				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+				GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;

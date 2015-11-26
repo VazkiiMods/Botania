@@ -12,6 +12,7 @@
 package vazkii.botania.client.fx;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.profiler.Profiler;
 
@@ -33,12 +34,12 @@ public final class ParticleRenderDispatcher {
 		boolean isLightingEnabled = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
 
-		GL11.glDepthMask(false);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.003921569F);
+		GlStateManager.depthMask(false);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		if(isLightingEnabled)
-			GL11.glDisable(GL11.GL_LIGHTING);
+			GlStateManager.disableLighting();
 
 		profiler.startSection("sparkle");
 		FXSparkle.dispatchQueuedRenders(tessellator);
@@ -47,10 +48,10 @@ public final class ParticleRenderDispatcher {
 		profiler.endSection();
 
 		if(isLightingEnabled)
-			GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDepthMask(true);
+			GlStateManager.enableLighting();
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+		GlStateManager.disableBlend();
+		GlStateManager.depthMask(true);
 	}
 
 }

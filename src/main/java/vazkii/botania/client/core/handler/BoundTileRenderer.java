@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,10 +39,10 @@ public final class BoundTileRenderer {
 
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.pushMatrix();
+		GlStateManager.disableDepth();
+		GlStateManager.disableTexture2D();
+		GlStateManager.enableBlend();
 
 		Tessellator.renderingWorldRenderer = false;
 
@@ -82,10 +83,10 @@ public final class BoundTileRenderer {
 			}
 		}
 
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		GlStateManager.enableDepth();
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 	private void renderBlockOutlineAt(BlockPos pos, int color) {
@@ -93,10 +94,10 @@ public final class BoundTileRenderer {
 	}
 
 	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(pos.getX() - RenderManager.renderPosX, pos.getY() - RenderManager.renderPosY, pos.getZ() - RenderManager.renderPosZ + 1);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(pos.getX() - RenderManager.renderPosX, pos.getY() - RenderManager.renderPosY, pos.getZ() - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
+		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
 		Block block = world.getBlockState(pos).getBlock();
@@ -113,18 +114,18 @@ public final class BoundTileRenderer {
 
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 
-				GL11.glScalef(1F, 1F, 1F);
+				GlStateManager.scale(1F, 1F, 1F);
 
 				GL11.glLineWidth(thickness);
 				renderBlockOutline(axis);
 
 				GL11.glLineWidth(thickness + 3F);
-				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+				GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 				renderBlockOutline(axis);
 			}
 		}
 
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	private void renderBlockOutline(AxisAlignedBB aabb) {

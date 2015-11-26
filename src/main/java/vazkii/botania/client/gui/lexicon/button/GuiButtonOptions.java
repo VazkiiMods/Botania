@@ -34,7 +34,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();

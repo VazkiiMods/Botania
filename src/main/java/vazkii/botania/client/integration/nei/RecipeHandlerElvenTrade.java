@@ -85,11 +85,11 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	@Override
 	public void drawBackground(int recipe) {
 		super.drawBackground(recipe);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
+		GlStateManager.enableBlend();
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.7F);
 		GuiDraw.changeTexture(LibResources.GUI_ELVEN_TRADE_OVERLAY);
 		GuiDraw.drawTexturedModalRect(30, 10, 17, 17, 100, 80);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 		GuiDraw.changeTexture(TextureMap.locationBlocksTexture);
 		Minecraft.getMinecraft().getRenderItem().renderIcon(35, 29, BlockAlfPortal.portalTex, 48, 48);
 	}

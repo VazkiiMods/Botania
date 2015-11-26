@@ -58,10 +58,10 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
-			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.36F, -0.24F, armor ? 0.2F : 0.15F);
-			GL11.glRotatef(-45F, 0F, 0F, 1F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(-0.36F, -0.24F, armor ? 0.2F : 0.15F);
+			GlStateManager.rotate(-45F, 0F, 0F, 1F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();

@@ -86,8 +86,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		else if(recipe.isConjuration())
 			renderItemAtGridPos(gui, 1, 2, new ItemStack(ModBlocks.conjurationCatalyst), false);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 105, 0x66000000);
 
@@ -118,15 +118,15 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 
 		render.bindTexture(manaInfusionOverlay);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 
 		if(hoveringOverDrop) {
 			String key = RenderHelper.getKeyDisplayString("key.drop");

@@ -39,11 +39,11 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), xPosition, yPosition);
 		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.fireworks), xPosition + 8, yPosition + 2);
 
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 
 
 		List<String> tooltip = new ArrayList();
@@ -52,7 +52,7 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 
 		if(k == 2)
 			RenderHelper.renderTooltip(xPosition - 100, yPosition + 36, tooltip);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GlStateManager.enableAlpha();
 	}
 
 }
