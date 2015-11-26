@@ -13,21 +13,20 @@ package vazkii.botania.common.block;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.render.block.InterpolatedIcon;
@@ -39,13 +38,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
-	IIcon iconSide;
-
 	public BlockEnchantedSoil() {
 		super(Material.grass);
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
-		setBlockName(LibBlockNames.ENCHANTED_SOIL);
+		setUnlocalizedName(LibBlockNames.ENCHANTED_SOIL);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -75,23 +72,17 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return side == 0 ? Blocks.dirt.getIcon(0, 0) : side == 1 ? blockIcon : iconSide;
+	public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
+		return Blocks.dirt.getItemDropped(state, p_149650_2_, p_149650_3_);
 	}
 
 	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return Blocks.dirt.getItemDropped(0, p_149650_2_, p_149650_3_);
+	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
-	}
-
-	@Override
-	protected boolean canSilkHarvest() {
+	public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		return false;
 	}
 

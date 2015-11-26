@@ -5,7 +5,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
-import vazkii.botania.api.state.enums.AltGrassType;
+import vazkii.botania.api.state.enums.*;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -24,6 +24,7 @@ public class BotaniaStateProps {
     public static final PropertyEnum FACING = PropertyEnum.create("facing", EnumFacing.class);
 
     // Redstone power - boolean
+    // Also for any other simple boolean "on/off" state
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     // Redstone power - int
@@ -32,7 +33,22 @@ public class BotaniaStateProps {
     /** Properties for individual blocks **/
 
     // BlockAltGrass
-    public static final PropertyEnum ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassType.class);
+    public static final PropertyEnum ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);
+
+    // BlockDreamWood, BlockLivingWood
+    public static final PropertyEnum LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);
+
+    // BlockLivingRock
+    public static final PropertyEnum LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
+
+    // BlockOpenCrate
+    public static final PropertyEnum CRATE_VARIANT = PropertyEnum.create("variant", CrateVariant.class);
+
+    // BlockPlatform
+    public static final PropertyEnum PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);
+
+    // BlockPylon
+    public static final PropertyEnum PYLON_VARIANT = PropertyEnum.create("variant", PylonVariant.class);
 
     private BotaniaStateProps() {}
 }

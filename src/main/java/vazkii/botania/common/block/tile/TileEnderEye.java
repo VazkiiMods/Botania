@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class TileEnderEye extends TileMod implements IUpdatePlayerListBox {
@@ -28,7 +29,7 @@ public class TileEnderEye extends TileMod implements IUpdatePlayerListBox {
 		if(worldObj.isRemote)
 			return;
 
-		int meta = getBlockMetadata();
+		boolean wasLooking = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
@@ -45,9 +46,8 @@ public class TileEnderEye extends TileMod implements IUpdatePlayerListBox {
 			}
 		}
 
-		int newMeta = looking ? 15 : 0;
-		if(newMeta != meta)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
+		if(looking != wasLooking)
+			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
 	}
 
 }

@@ -13,7 +13,9 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
@@ -36,6 +38,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -51,15 +55,31 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	Random random;
 
-	private static final int SUBTYPES = 2;
-
 	public BlockOpenCrate() {
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.OPEN_CRATE);
-
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN));
 		random = new Random();
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.CRATE_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((CrateVariant) state.getValue(BotaniaStateProps.CRATE_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > CrateVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.values()[meta]);
 	}
 
 	@Override
@@ -75,7 +95,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < SUBTYPES; i++)
+		for(int i = 0; i < CrateVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
@@ -135,27 +155,13 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		iconSide = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconBottom = IconHelper.forBlock(par1IconRegister, this, 1);
-		iconSideCraft = IconHelper.forBlock(par1IconRegister, this, 2);
-		iconBottomCraft = IconHelper.forBlock(par1IconRegister, this, 3);
-
-		sidePatternIcons = new IIcon[TileCraftCrate.PATTERNS.length];
-		for(int i = 0; i < sidePatternIcons.length; i++)
-			sidePatternIcons[i] = IconHelper.forName(par1IconRegister, "ocPattern" + i);
-	}
-
-
-
-	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return meta == 0 ? new TileOpenCrate() : new TileCraftCrate();
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.openCrate : LexiconData.craftCrate;
+		return world.getBlockState(pos).getValue(BotaniaStateProps.CRATE_VARIANT) == CrateVariant.OPEN ? LexiconData.openCrate : LexiconData.craftCrate;
 	}
 
 	@Override

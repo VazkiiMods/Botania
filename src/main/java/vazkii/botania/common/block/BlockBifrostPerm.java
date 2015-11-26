@@ -33,7 +33,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	public BlockBifrostPerm() {
 		super(Material.glass);
-		setBlockName(LibBlockNames.BIFROST_PERM);
+		setUnlocalizedName(LibBlockNames.BIFROST_PERM);
 		setLightOpacity(0);
 		setHardness(0.3F);
 		setLightLevel(1F);

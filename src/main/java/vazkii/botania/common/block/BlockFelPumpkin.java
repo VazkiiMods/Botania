@@ -38,7 +38,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	public BlockFelPumpkin() {
 		super(Material.gourd);
-		setBlockName(LibBlockNames.FEL_PUMPKIN);
+		setUnlocalizedName(LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setStepSound(soundTypeWood);
 		MinecraftForge.EVENT_BUS.register(this);

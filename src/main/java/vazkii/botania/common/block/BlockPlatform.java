@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -26,6 +27,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CrateVariant;
+import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCamo;
@@ -37,14 +41,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
 
-	private static final int SUBTYPES = 3;
-
 	public BlockPlatform() {
 		super(Material.wood);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
 		setUnlocalizedName(LibBlockNames.PLATFORM);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.PLATFORM_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((PlatformVariant) state.getValue(BotaniaStateProps.PLATFORM_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > PlatformVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.values()[meta]);
 	}
 
 	@Override
@@ -65,21 +86,21 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < SUBTYPES; i++)
+		for(int i = 0; i < PlatformVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
 	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		if(meta == 2 || meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+		PlatformVariant variant = ((PlatformVariant) state.getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override
 	public float getBlockHardness(World par1World, BlockPos pos) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		return meta == 2 ? -1F : super.getBlockHardness(par1World, par2, par3, par4);
+		PlatformVariant variant = ((PlatformVariant) par1World.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(par1World, pos);
 	}
 
 	@Override
@@ -89,8 +110,8 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.platform : meta == 2 ? null : LexiconData.spectralPlatform;
+		PlatformVariant variant = ((PlatformVariant) world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		return variant == PlatformVariant.ABSTRUSE ? LexiconData.platform : variant == PlatformVariant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 
 	@Override

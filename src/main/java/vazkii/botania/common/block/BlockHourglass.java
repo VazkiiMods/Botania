@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -32,6 +33,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -57,6 +59,22 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 		setBlockBounds(d, 0F, d, 1F - d, 1.15F, 1F - d);
 
 		random = new Random();
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
 	@Override
@@ -97,7 +115,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 0 : 15;
 	}
 
 	@Override
@@ -107,7 +125,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override

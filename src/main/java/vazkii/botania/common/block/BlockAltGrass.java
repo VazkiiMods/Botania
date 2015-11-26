@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltGrassType;
+import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -41,8 +41,8 @@ public class BlockAltGrass extends BlockMod {
 		super(Material.grass);
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
-		setBlockName(LibBlockNames.ALT_GRASS);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassType.DRY));
+		setUnlocalizedName(LibBlockNames.ALT_GRASS);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
 	}
 
 	@Override
@@ -52,18 +52,18 @@ public class BlockAltGrass extends BlockMod {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT)).ordinal();
+		return ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT)).ordinal();
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassType.values()[meta]);
+		return getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.values()[meta]);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class BlockAltGrass extends BlockMod {
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if(!world.isRemote && world.getLight(pos.up()) >= 9) {
-			AltGrassType variant = ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
+			AltGrassVariant variant = ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				
@@ -109,7 +109,7 @@ public class BlockAltGrass extends BlockMod {
 	
 	@Override
 	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random r) {
-		AltGrassType variant = ((AltGrassType) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
+		AltGrassVariant variant = ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
 		switch(variant) {
 		case DRY: // Dry
 			break;

@@ -11,17 +11,18 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -31,26 +32,27 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
 
-	IIcon iconOff, iconOn;
-	public static IIcon portalTex;
-
 	public BlockAlfPortal() {
 		super(Material.wood);
 		setHardness(10F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
-		portalTex = IconHelper.forBlock(par1IconRegister, this, "Inside");
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta == 0 ? iconOff : iconOn;
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
 	}
 
 	@Override
@@ -72,8 +74,8 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		return ((Boolean) world.getBlockState(pos).getValue(BotaniaStateProps.POWERED)) ? 0 : 15;
 	}
 
 }

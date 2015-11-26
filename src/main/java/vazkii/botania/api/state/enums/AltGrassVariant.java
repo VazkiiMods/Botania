@@ -4,7 +4,7 @@ import net.minecraft.util.IStringSerializable;
 
 import java.util.Locale;
 
-public enum AltGrassType implements IStringSerializable {
+public enum AltGrassVariant implements IStringSerializable {
     DRY,
     GOLDEN,
     VIVID,

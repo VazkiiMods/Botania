@@ -16,11 +16,13 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -60,8 +62,8 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing par6, float par7, float par8, float par9) {
+		TileEntity tile = par1World.getTileEntity(pos);
 
 		if(tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
@@ -89,26 +91,26 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 				int metadata = currentStack.getItemDamage();
 				if(block instanceof BlockDirectional) {
 					switch (par6) {
-					case 0:
-					case 1:
+					case DOWN:
+					case UP:
 						break;
-					case 2:
+					case NORTH:
 						metadata = metadata & 12 | 2;
 						break;
-					case 3:
+					case SOUTH:
 						metadata = metadata & 12;
 						break;
-					case 4:
+					case WEST:
 						metadata = metadata & 12 | 1;
 						break;
-					case 5:
+					case EAST:
 						metadata = metadata & 12 | 3;
 						break;
 					}
 				}
 				camo.camo = Block.getBlockFromItem(currentStack.getItem());
 				camo.camoMeta = metadata;
-				par1World.markBlockForUpdate(par2,par3,par4);
+				par1World.markBlockForUpdate(pos);
 
 				return true;
 			}
