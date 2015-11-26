@@ -29,11 +29,11 @@ public final class SpawnerChangingHandler {
 		if(event.entityPlayer.capabilities.isCreativeMode && !event.world.isRemote && event.action == Action.RIGHT_CLICK_BLOCK && !event.entityPlayer.isSneaking()) {
 			ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 			if(stack != null && stack.getItem() == Items.spawn_egg) {
-				TileEntity tile = event.world.getTileEntity(event.x, event.y, event.z);
+				TileEntity tile = event.world.getTileEntity(event.pos);
 				if(tile instanceof TileEntityMobSpawner) {
 					TileEntityMobSpawner spawner = (TileEntityMobSpawner) tile;
-					spawner.func_145881_a().setEntityName(EntityList.getStringFromID(stack.getItemDamage()));
-					event.world.markBlockForUpdate(event.x, event.y, event.z);
+					spawner.getSpawnerBaseLogic().setEntityName(EntityList.getStringFromID(stack.getItemDamage()));
+					event.world.markBlockForUpdate(event.pos);
 					event.setCanceled(true);
 				}
 			}

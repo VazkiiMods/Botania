@@ -18,12 +18,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibObfuscation;
 
 // This is legacy code and is no longer used. Check out TileTerraPlate instead.
 public final class TerrasteelCraftingHandler {
@@ -43,23 +46,21 @@ public final class TerrasteelCraftingHandler {
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 
 				getManaFromPools : {
-					int x = MathHelper.floor_double(item.posX);
-					int y = MathHelper.floor_double(item.posY);
-					int z = MathHelper.floor_double(item.posZ);
-
+					BlockPos pos = new BlockPos(item);
 					int range = 12;
 
 					for(int i = -range; i < range + 1; i++)
 						for(int j = -range; j < range + 1; j++)
 							for(int k = - range; k < range + 1; k++) {
-								TileEntity tile = item.worldObj.getTileEntity(x + i, y + j, z + k);
+								BlockPos pos_ = pos.add(i, j, k);
+								TileEntity tile = item.worldObj.getTileEntity(pos_);
 
 								if(tile instanceof IManaPool) {
 									IManaPool pool = (IManaPool) tile;
 
 									if(!item.worldObj.isRemote && pool.getCurrentMana() >= MANA_PER_TICK) {
 										pool.recieveMana(-MANA_PER_TICK);
-										item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+										item.worldObj.markBlockForUpdate(tile.getPos());
 										incrementCraftingTime(item, time);
 										break getManaFromPools;
 									}
@@ -75,18 +76,16 @@ public final class TerrasteelCraftingHandler {
 		if(estack.stackSize != 1)
 			return -1;
 
-		int x = MathHelper.floor_double(item.posX);
-		int y = MathHelper.floor_double(item.posY);
-		int z = MathHelper.floor_double(item.posZ);
+		BlockPos pos = new BlockPos(item);
 
-		if(item.worldObj.getBlock(x, y - 1, z) != Blocks.beacon)
+		if(item.worldObj.getBlockState(pos.down()).getBlock() != Blocks.beacon)
 			return -1;
 
-		TileEntityBeacon beacon = (TileEntityBeacon) item.worldObj.getTileEntity(x, y - 1, z);
-		if(beacon.getLevels() <= 0)
+		TileEntityBeacon beacon = (TileEntityBeacon) item.worldObj.getTileEntity(pos.down());
+		if(beacon.getField(0) <= 0) // Field 0 -> levels
 			return -1;
 
-		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1));
+		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 
 		EntityItem diamond = null;
 		EntityItem pearl = null;
@@ -115,12 +114,12 @@ public final class TerrasteelCraftingHandler {
 		if(diamond != null && pearl != null) {
 			int time = getTimeInCrafting(item);
 			if(time > 0) {
-				diamond.delayBeforeCanPickup = 1;
-				diamond.age = 0;
-				pearl.delayBeforeCanPickup = 1;
-				pearl.age = 0;
-				item.delayBeforeCanPickup = 1;
-				item.age = 0;
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, diamond, 1, LibObfuscation.PICKUP_DELAY);
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, diamond, 0, LibObfuscation.AGE);
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, pearl, 1, LibObfuscation.PICKUP_DELAY);
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, pearl, 0, LibObfuscation.AGE);
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, 1, LibObfuscation.PICKUP_DELAY);
+				ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, 0, LibObfuscation.AGE);
 			}
 
 			return time;

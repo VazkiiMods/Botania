@@ -30,6 +30,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
@@ -62,7 +63,7 @@ import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
 //import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin; todo 1.8
-//import vazkii.botania.common.integration.etfuturum.ModBanners;
+//import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
@@ -101,9 +102,7 @@ public class CommonProxy {
 		ModBrewRecipes.init();
 		ModAchievements.init();
 		ModMultiblocks.init();
-
-		if(Botania.etFuturumLoaded)
-			// todo 1.8 ModBanners.init();
+		ModBanners.init();
 
 		ChestGenHandler.init();
 

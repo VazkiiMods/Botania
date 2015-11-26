@@ -92,7 +92,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 			TileEntity tile = sig.tile;
 			if(tile.isInvalid())
 				continue;
-			float distance = MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, pos.posX, pos.posY, pos.posZ);
+			float distance = MathHelper.pointDistanceSpace(tile.getPos(), pos);
 			if(distance > limit)
 				continue;
 

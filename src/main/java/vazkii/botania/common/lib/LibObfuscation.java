@@ -12,6 +12,10 @@ package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
+	// EntityItem
+	public static final String[] AGE = { "age", "field_70292_b", "c" };
+	public static final String[] PICKUP_DELAY = { "delayBeforeCanPickup", "field_145804_b", "d" };
+
 	// EffectRenderer
 	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "field_110737_b", "b" };
 

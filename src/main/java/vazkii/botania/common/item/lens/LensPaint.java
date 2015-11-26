@@ -23,7 +23,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.Botania;
@@ -45,7 +44,7 @@ public class LensPaint extends Lens {
 				dead = true;
 			} else {
 				Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
-				if(BotaniaAPI.paintableBlocks.contains(block)) {
+				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
 					IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
 					List<BlockPos> coordsToPaint = new ArrayList();
 					List<BlockPos> coordsFound = new ArrayList();
@@ -72,9 +71,9 @@ public class LensPaint extends Lens {
 						EnumDyeColor placeColor = EnumDyeColor.byMetadata(storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor);
 						IBlockState stateThere = entity.worldObj.getBlockState(coords);
 
-						if(metaThere != placeColor) {
+						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor) {
 							if(!entity.worldObj.isRemote)
-								entity.worldObj.setBlockState(coords, placeColor, 2);
+								entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
 							int hex = placeColor.getMapColor().colorValue;
 							int r = (hex & 0xFF0000) >> 16;
 							int g = (hex & 0xFF00) >> 8;

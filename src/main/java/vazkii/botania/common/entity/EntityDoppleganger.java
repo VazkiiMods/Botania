@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
@@ -55,6 +57,8 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
@@ -119,14 +123,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
 
-		for(int[] p : PYLON_LOCATIONS)
-			mb.addComponent(, p[0], ModBlocks.pylon, 2);
+		for(BlockPos p : PYLON_LOCATIONS)
+			mb.addComponent(p, ModBlocks.pylon, 2);
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
 
-		mb.addComponent(, 0, Blocks.beacon, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), Blocks.beacon, 0);
 		mb.setRenderOffset(0, -1, 0);
 
 		return mb.makeSet();
@@ -144,9 +148,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			for(BlockPos coords : PYLON_LOCATIONS) {
 				BlockPos pos_ = pos.add(coords);
 
-				Block blockat = par3World.getBlock(x, y, z);
-				int meta = par3World.getBlockMetadata(x, y, z);
-				if(blockat != ModBlocks.pylon || meta != 2) {
+				IBlockState state = par3World.getBlockState(pos_);
+				Block blockat = state.getBlock();
+				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
 					if(!par3World.isRemote)
 						player.addChatMessage(new ChatComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 					return false;

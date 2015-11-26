@@ -44,7 +44,7 @@ public class CommandSkyblockSpread extends CommandBase {
 
 		int maxrange = 200000;
 		if(args.length == 2)
-			maxrange = parseInt(sender, args[1]); // <- todo 1.8 wat
+			maxrange = parseInt(args[1]);
 
 		if(maxrange > maxAllowed)
 			throw new CommandException("botaniamisc.skyblockRangeTooHigh");

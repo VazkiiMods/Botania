@@ -18,9 +18,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -84,7 +86,7 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
 	public static Set<Item> looniumBlacklist = new LinkedHashSet();
-	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static Map<Block, PropertyEnum> paintableBlocks = new LinkedHashMap<Block, PropertyEnum>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -230,11 +232,11 @@ public final class BotaniaAPI {
 		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
 		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
 
-		registerPaintableBlock(Blocks.stained_glass);
-		registerPaintableBlock(Blocks.stained_glass_pane);
-		registerPaintableBlock(Blocks.stained_hardened_clay);
-		registerPaintableBlock(Blocks.wool);
-		registerPaintableBlock(Blocks.carpet);
+		registerPaintableBlock(Blocks.stained_glass, BlockStainedGlass.COLOR);
+		registerPaintableBlock(Blocks.stained_glass_pane, BlockStainedGlassPane.COLOR);
+		registerPaintableBlock(Blocks.stained_hardened_clay, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.wool, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.carpet, BlockCarpet.COLOR);
 	}
 
 	/**
@@ -276,10 +278,18 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a paintableBlock and returns it.
+	 * You must also provide the PropertyEnum that this block uses to express its color
+	 * The component type of the property must be EnumDyeColor
 	 */
-	public static Block registerPaintableBlock(Block paintable){
-		paintableBlocks.add(paintable);
+	public static Block registerPaintableBlock(Block paintable, PropertyEnum colorProp){
+		if (colorProp.getValueClass() != EnumDyeColor.class) {
+			throw new IllegalArgumentException("Must be EnumDyeColor");
+		}
+
+		paintableBlocks.put(paintable, colorProp);
 		return paintable;
+
+		//todo 1.8 improve this
 	}
 
 	/**

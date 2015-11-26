@@ -44,12 +44,6 @@ public class ItemModRecord extends ItemRecord {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
-	}
-
-	@Override
 	public ResourceLocation getRecordResource(String name) {
 		return new ResourceLocation(file);
 	}

@@ -6,11 +6,11 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -75,7 +75,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 		IIcon portalIcon = BlockAlfPortal.portalTex;
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		RenderItem.getInstance().renderIcon(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
+		Minecraft.getMinecraft().getRenderItem().renderIcon(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 
 	@SideOnly(Side.CLIENT)

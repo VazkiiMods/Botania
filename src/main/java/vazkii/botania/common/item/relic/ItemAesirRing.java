@@ -24,6 +24,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
@@ -40,6 +41,7 @@ import com.google.common.collect.Multimap;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
 
@@ -67,8 +69,18 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 					entity.motionX = event.entityItem.motionX;
 					entity.motionY = event.entityItem.motionY;
 					entity.motionZ = event.entityItem.motionZ;
-					entity.age = event.entityItem.age;
-					entity.delayBeforeCanPickup = event.entityItem.delayBeforeCanPickup;
+					ObfuscationReflectionHelper.setPrivateValue(
+						EntityItem.class,
+						entity,
+						ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, event.entityItem, LibObfuscation.AGE),
+						LibObfuscation.AGE
+					);
+					ObfuscationReflectionHelper.setPrivateValue(
+							EntityItem.class,
+							entity,
+							ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, event.entityItem, LibObfuscation.PICKUP_DELAY),
+							LibObfuscation.PICKUP_DELAY
+					);
 					entity.worldObj.spawnEntityInWorld(entity);
 				}
 			}

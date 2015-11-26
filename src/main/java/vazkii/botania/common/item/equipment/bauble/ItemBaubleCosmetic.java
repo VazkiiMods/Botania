@@ -67,11 +67,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	@Override
-	public IIcon getIconFromDamage(int dmg) {
-		return icons[Math.min(SUBTYPES - 1, dmg)];
-	}
-
-	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}

@@ -13,13 +13,15 @@ package vazkii.botania.common.item.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -41,28 +43,18 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	}
 
 	@Override
-	public IIcon getIconIndex(ItemStack stack) {
-		return BotaniaAPI.getSignatureForName(getType(stack)).getIconForStack(stack);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
-	@Override
-	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-		boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
+	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+		boolean placed = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
 		if(placed) {
 			String type = getType(stack);
-			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
 			if(te instanceof TileSpecialFlower) {
 				TileSpecialFlower tile = (TileSpecialFlower) te;
 				tile.setSubTile(type);
-				tile.onBlockAdded(world, x, y, z);
-				tile.onBlockPlacedBy(world, x, y, z, player, stack);
+				tile.onBlockAdded(world, pos, newState);
+				tile.onBlockPlacedBy(world, pos, newState, player, stack);
 				if(!world.isRemote)
-					world.markBlockForUpdate(x, y, z);
+					world.markBlockForUpdate(pos);
 			}
 		}
 

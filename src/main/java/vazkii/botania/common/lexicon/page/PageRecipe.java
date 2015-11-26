@@ -137,7 +137,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
-		RenderItem render = Minecraft.getMinecraft().getRenderManager();
+		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
 		GlStateManager.pushMatrix();
@@ -149,7 +149,7 @@ public class PageRecipe extends LexiconPage {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(xPos, yPos, 0);
 		render.renderItemAndEffectIntoGUI(stack, 0, 0);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0);
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0, "");
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();

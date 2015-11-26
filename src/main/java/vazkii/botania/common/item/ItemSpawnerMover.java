@@ -114,49 +114,30 @@ public class ItemSpawnerMover extends ItemMod {
 		}
 	}
 
-	private boolean placeBlock(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
-		Block block = world.getBlock(x, y, z);
+	private boolean placeBlock(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+		Block block = world.getBlockState(pos).getBlock();
 
 		if(block == Blocks.snow_layer)
-			side = 1;
-		else if(block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && !block.isReplaceable(world, x, y, z)) {
-			switch (side) {
-			case 0:
-				--y;
-				break;
-			case 1:
-				++y;
-				break;
-			case 2:
-				--z;
-				break;
-			case 3:
-				++z;
-				break;
-			case 4:
-				--x;
-				break;
-			case 5:
-				++x;
-				break;
-			}
+			side = EnumFacing.UP;
+		else if(block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && !block.isReplaceable(world, pos)) {
+			pos = pos.offset(side);
 		}
 
 		if(itemstack.stackSize == 0)
 			return false;
-		else if(!player.canPlayerEdit(x, y, z, side, itemstack))
+		else if(!player.canPlayerEdit(pos, side, itemstack))
 			return false;
-		else if(y == 255 && block.getMaterial().isSolid())
+		else if(pos.getY() == 255 && block.getMaterial().isSolid())
 			return false;
-		else if(world.canPlaceEntityOnSide(Blocks.mob_spawner, x, y, z, false, side, player, itemstack)) {
-			int meta = block.onBlockPlaced(world, x, y, z, side, xOffset, yOffset, zOffset, 0);
+		else if(world.canBlockBePlaced(Blocks.mob_spawner, pos, false, side, player, itemstack)) {
+			int meta = block.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, 0);
 
-			if(placeBlockAt(itemstack, player, world, x, y, z, side, xOffset, yOffset, zOffset, meta)) {
-				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+			if(placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, meta)) {
+				world.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, block.stepSound.getStepSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F);
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
 				for(int i = 0; i < 100; i++)
-					Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+					Botania.proxy.sparkleFX(world, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 
 				--itemstack.stackSize;
 			}

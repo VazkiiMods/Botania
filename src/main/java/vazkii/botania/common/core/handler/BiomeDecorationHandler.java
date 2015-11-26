@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
@@ -45,7 +47,7 @@ public class BiomeDecorationHandler {
 					int z = event.pos.getZ() + event.rand.nextInt(16) + 8;
 					int y = event.world.getTopSolidOrLiquidBlock(event.pos).getY();
 
-					int color = event.rand.nextInt(16);
+					EnumDyeColor color = EnumDyeColor.byMetadata(event.rand.nextInt(16));
 					boolean primus = event.rand.nextInt(380) == 0;
 
 					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
@@ -53,7 +55,7 @@ public class BiomeDecorationHandler {
 						int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 						int z1 = z + event.rand.nextInt(dist * 2) - dist;
 						BlockPos pos2 = new BlockPos(x1, y1, z1);
-						if(event.world.isAirBlock(pos2) && (!event.world.provider.getHasNoSky() || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1)) {
+						if(event.world.isAirBlock(pos2) && (!event.world.provider.getHasNoSky() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.world, pos2)) {
 							if(primus) {
 								event.world.setBlockState(pos2, ModBlocks.specialFlower.getDefaultState(), 2);
 								TileSpecialFlower flower = (TileSpecialFlower) event.world.getTileEntity(pos2);
@@ -61,9 +63,9 @@ public class BiomeDecorationHandler {
 								SubTileDaybloom subtile = (SubTileDaybloom) flower.getSubTile();
 								subtile.setPrimusPosition();
 							} else {
-								event.world.setBlockState(pos2, ModBlocks.flower, color, 2);
-								if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
-									BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);
+								event.world.setBlockState(pos2, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color), 2);
+								if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.world, pos2, event.world.getBlockState(pos2), false))
+									BlockModFlower.placeDoubleFlower(event.world, pos2, color, 0);
 							}
 						}
 					}
@@ -75,9 +77,9 @@ public class BiomeDecorationHandler {
 				int z = event.pos.getZ() + event.rand.nextInt(16) + 8;
 				int y = event.rand.nextInt(26) + 4;
 				BlockPos pos3 = new BlockPos(x, y, z);
-				int color = event.rand.nextInt(16);
-				if(event.world.isAirBlock(pos3) && ModBlocks.mushroom.canBlockStay(event.world, x, y, z))
-					event.world.setBlockState(pos3, ModBlocks.mushroom, color, 2);
+				EnumDyeColor color = EnumDyeColor.byMetadata(event.rand.nextInt(16));
+				if(event.world.isAirBlock(pos3) && ModBlocks.mushroom.canPlaceBlockAt(event.world, pos3))
+					event.world.setBlockState(pos3, ModBlocks.mushroom.getDefaultState().withProperty(BotaniaStateProps.COLOR, color), 2);
 			}
 		}
 	}
