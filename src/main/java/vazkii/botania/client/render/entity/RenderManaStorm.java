@@ -12,6 +12,7 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -22,6 +23,10 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
 public class RenderManaStorm extends Render {
+
+	public RenderManaStorm(RenderManager renderManager) {
+		super(renderManager);
+	}
 
 	@Override
 	public void doRender(Entity e, double x, double y, double z, float something, float pticks) {

@@ -31,7 +31,7 @@ public class FlowerComponent extends ColorSwitchingComponent {
 
 	@Override
 	public MultiblockComponent copy() {
-		return new FlowerComponent(relPos, block);
+		return new FlowerComponent(relPos, state.getBlock());
 	}
 
 }

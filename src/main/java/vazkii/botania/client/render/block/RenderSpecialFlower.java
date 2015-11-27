@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -128,7 +129,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 	}
 
 	@Override
-	public boolean needsTranslate(Block block) {
+	public boolean needsTranslate(IBlockState state) {
 		return true;
 	}
 

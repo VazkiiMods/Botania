@@ -26,6 +26,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -34,6 +35,7 @@ import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public final class BoundTileRenderer {
 
@@ -44,7 +46,7 @@ public final class BoundTileRenderer {
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		Tessellator.renderingWorldRenderer = false;
+		// todo 1.8 Tessellator.renderingWorldRenderer = false;
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -93,9 +95,21 @@ public final class BoundTileRenderer {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
 
+	private double getRenderPosX() { // todo 1.8
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
+	}
+
+	private double getRenderPosY() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
+	}
+
+	private double getRenderPosZ() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
+	}
+
 	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(pos.getX() - RenderManager.renderPosX, pos.getY() - RenderManager.renderPosY, pos.getZ() - RenderManager.renderPosZ + 1);
+		GlStateManager.translate(pos.getX() - getRenderPosX(), pos.getY() - getRenderPosY(), pos.getZ() - getRenderPosZ() + 1);
 		Color colorRGB = new Color(color);
 		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 

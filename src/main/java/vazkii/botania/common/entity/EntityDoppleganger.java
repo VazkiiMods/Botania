@@ -875,7 +875,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public static class BeaconComponent extends MultiblockComponent {
 
 		public BeaconComponent(BlockPos relPos) {
-			super(relPos, Blocks.iron_block, 0);
+			super(relPos, Blocks.iron_block.getDefaultState());
 		}
 
 		@Override

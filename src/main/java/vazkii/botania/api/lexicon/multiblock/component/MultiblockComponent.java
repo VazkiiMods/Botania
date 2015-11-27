@@ -11,6 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -24,28 +25,26 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MultiblockComponent {
 
-	public BlockPos relPos;
-	public final Block block;
-	public final int meta;
-	public final TileEntity tileEntity;
-	public boolean doFancyRender;
+	protected BlockPos relPos;
+	protected final IBlockState state;
+	protected final TileEntity tileEntity;
+	private boolean doFancyRender;
 
-	public MultiblockComponent(BlockPos relPos, Block block, int meta) {
-		this(relPos, block, meta, null);
+	public MultiblockComponent(BlockPos relPos, IBlockState state) {
+		this(relPos, state, null);
 	}
 
-	public MultiblockComponent(BlockPos relPos, Block block, int meta, boolean doFancyRender) {
-		this(relPos, block, meta, doFancyRender, null);
+	public MultiblockComponent(BlockPos relPos, IBlockState state, boolean doFancyRender) {
+		this(relPos, state, doFancyRender, null);
 	}
 
-	public MultiblockComponent(BlockPos relPos, Block block, int meta, TileEntity tileEntity) {
-		this(relPos, block, meta, block.hasTileEntity(block.getStateFromMeta(meta)) == (tileEntity != null), tileEntity);
+	public MultiblockComponent(BlockPos relPos, IBlockState state, TileEntity tileEntity) {
+		this(relPos, state, state.getBlock().hasTileEntity(state) == (tileEntity != null), tileEntity);
 	}
 
-	public MultiblockComponent(BlockPos relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
+	public MultiblockComponent(BlockPos relPos, IBlockState state, boolean doFancyRender, TileEntity tileEntity) {
 		this.relPos = relPos;
-		this.block = block;
-		this.meta = meta;
+		this.state = state;
 		this.tileEntity = tileEntity;
 		this.doFancyRender = doFancyRender;
 	}
@@ -54,20 +53,16 @@ public class MultiblockComponent {
 		return relPos;
 	}
 
-	public Block getBlock() {
-		return block;
-	}
-
-	public int getMeta() {
-		return meta;
+	public IBlockState getBlockState() {
+		return state;
 	}
 
 	public boolean matches(World world, BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == getBlock() && (meta == -1 || world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)) == meta);
+		return world.getBlockState(pos) == state; // todo 1.8?
 	}
 
 	public ItemStack[] getMaterials() {
-		return new ItemStack[] { new ItemStack(block, 1, meta) };
+		return new ItemStack[] { new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)) };
 	}
 
 	public void rotate(double angle) {
@@ -82,7 +77,7 @@ public class MultiblockComponent {
 	}
 
 	public MultiblockComponent copy() {
-		return new MultiblockComponent(relPos, block, meta, tileEntity);
+		return new MultiblockComponent(relPos, state, tileEntity);
 	}
 
 	public TileEntity getTileEntity() {

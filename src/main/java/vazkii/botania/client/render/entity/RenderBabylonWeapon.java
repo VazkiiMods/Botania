@@ -13,13 +13,14 @@ package vazkii.botania.client.render.entity;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -32,6 +33,10 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 public class RenderBabylonWeapon extends Render {
 
 	private static final ResourceLocation babylon = new ResourceLocation(LibResources.MISC_BABYLON);
+
+	public RenderBabylonWeapon(RenderManager renderManager) {
+		super(renderManager);
+	}
 
 	@Override
 	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
@@ -48,7 +53,7 @@ public class RenderBabylonWeapon extends Render {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.pushMatrix();
 		float s = 1.5F;
 		GlStateManager.scale(s, s, s);
@@ -86,11 +91,11 @@ public class RenderBabylonWeapon extends Render {
 
 		GlStateManager.rotate(charge * 9F + (weapon.ticksExisted + par9) * 0.5F + rand.nextFloat() * 360F, 0F, 1F, 0F);
 
-		tes.startDrawingQuads();
-		tes.addVertexWithUV(-1, 0, -1, 0, 0);
-		tes.addVertexWithUV(-1, 0, 1, 0, 1);
-		tes.addVertexWithUV(1, 0, 1, 1, 1);
-		tes.addVertexWithUV(1, 0, -1, 1, 0);
+		tes.getWorldRenderer().startDrawingQuads();
+		tes.getWorldRenderer().addVertexWithUV(-1, 0, -1, 0, 0);
+		tes.getWorldRenderer().addVertexWithUV(-1, 0, 1, 0, 1);
+		tes.getWorldRenderer().addVertexWithUV(1, 0, 1, 1, 1);
+		tes.getWorldRenderer().addVertexWithUV(1, 0, -1, 1, 0);
 		tes.draw();
 
 		ShaderHelper.releaseShader();

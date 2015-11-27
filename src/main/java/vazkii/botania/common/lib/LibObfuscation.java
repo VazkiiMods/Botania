@@ -12,6 +12,11 @@ package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
+	// RenderManager
+	public static final String[] RENDERPOSX = { "renderPosX", "field_78725_b", "o" };
+	public static final String[] RENDERPOSY = { "renderPosY", "field_78726_c", "p" };
+	public static final String[] RENDERPOSZ = { "renderPosZ", "field_78723_d", "q" };
+
 	// EntityItem
 	public static final String[] AGE = { "age", "field_70292_b", "c" };
 	public static final String[] PICKUP_DELAY = { "delayBeforeCanPickup", "field_145804_b", "d" };

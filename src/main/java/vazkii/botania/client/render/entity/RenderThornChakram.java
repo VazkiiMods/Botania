@@ -10,8 +10,11 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
@@ -25,6 +28,10 @@ import vazkii.botania.common.item.ModItems;
 
 // Basically a bit of an extension of RenderSnowball
 public class RenderThornChakram extends Render {
+
+	protected RenderThornChakram(RenderManager renderManager) {
+		super(renderManager);
+	}
 
 	@Override
 	public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
@@ -48,10 +55,10 @@ public class RenderThornChakram extends Render {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return TextureMap.locationItemsTexture;
+		return TextureMap.locationBlocksTexture;
 	}
 
-	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_, int light) {
+	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_, int light) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();
 		float f2 = p_77026_2_.getMinV();
@@ -61,14 +68,14 @@ public class RenderThornChakram extends Render {
 		float f6 = 0.25F;
 		GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 		GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-		p_77026_1_.startDrawingQuads();
-		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
+		p_77026_1_.getWorldRenderer().startDrawingQuads();
+		p_77026_1_.getWorldRenderer().setNormal(0.0F, 1.0F, 0.0F);
 		if(light != -1)
-			p_77026_1_.setBrightness(light);
-		p_77026_1_.addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
-		p_77026_1_.addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
+			p_77026_1_.getWorldRenderer().setBrightness(light);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
 		p_77026_1_.draw();
 	}
 

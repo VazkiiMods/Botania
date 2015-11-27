@@ -17,8 +17,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -40,7 +42,7 @@ import net.minecraftforge.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 
-	public volatile static Map<String, IIcon> flowerMap = null;
+	public volatile static Map<String, TextureAtlasSprite> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
 	private static boolean phi = true;
@@ -76,7 +78,7 @@ public final class ContributorFancinessHandler {
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, ModBlocks.flower.func_149735_b(0, i));
+				flowerMap.put(key, ModBlocks.flower.(0, i));
 			} catch(NumberFormatException e) {
 				SubTileSignature sig = BotaniaAPI.getSignatureForName(value);
 				if(sig != null)
@@ -87,13 +89,13 @@ public final class ContributorFancinessHandler {
 
 	private static void renderTwintails(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
+		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		Helper.translateToHeadLevel(event.entityPlayer);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		float t = 0.13F;
@@ -117,7 +119,7 @@ public final class ContributorFancinessHandler {
 
 	private static void renderPhiFlower(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
+		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -126,7 +128,7 @@ public final class ContributorFancinessHandler {
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
 		GlStateManager.translate(-1.2F, 0.2F, 0.125F);
@@ -137,7 +139,7 @@ public final class ContributorFancinessHandler {
 
 	private static void renderGoldfish(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
+		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -148,12 +150,12 @@ public final class ContributorFancinessHandler {
 		GlStateManager.translate(-0.75F, 0.5F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
 		GlStateManager.translate(1.2F, 0.5F, 0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
-	private static void renderFlower(RenderPlayerEvent event, IIcon icon) {
+	private static void renderFlower(RenderPlayerEvent event, TextureAtlasSprite icon) {
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(event.entityPlayer);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

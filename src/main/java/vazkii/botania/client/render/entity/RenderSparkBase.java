@@ -12,8 +12,11 @@ package vazkii.botania.client.render.entity;
 
 import java.util.Random;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderEntity;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
@@ -26,6 +29,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.item.ItemSpark;
 
 public class RenderSparkBase<T extends Entity> extends RenderEntity {
+
+	public RenderSparkBase(RenderManager p_i46185_1_) {
+		super(p_i46185_1_);
+	}
 
 	@Override
 	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
@@ -88,10 +95,10 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return TextureMap.locationItemsTexture;
+		return TextureMap.locationBlocksTexture;
 	}
 
-	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_) {
+	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();
 		float f2 = p_77026_2_.getMinV();
@@ -100,13 +107,13 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.startDrawingQuads();
-		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
-		p_77026_1_.setBrightness(240);
-		p_77026_1_.addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
-		p_77026_1_.addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
+		p_77026_1_.getWorldRenderer().startDrawingQuads();
+		p_77026_1_.getWorldRenderer().setNormal(0.0F, 1.0F, 0.0F);
+		p_77026_1_.getWorldRenderer().setBrightness(240);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
 		p_77026_1_.draw();
 
 	}

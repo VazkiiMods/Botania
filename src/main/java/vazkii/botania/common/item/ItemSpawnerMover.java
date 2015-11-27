@@ -13,7 +13,7 @@ package vazkii.botania.common.item;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -22,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -108,7 +107,7 @@ public class ItemSpawnerMover extends ItemMod {
 				return true;
 			} else return false;
 		} else {
-			if(getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, x, y, z, side, xOffset, yOffset, zOffset))
+			if(getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, pos, side, xOffset, yOffset, zOffset))
 				return true;
 			return false;
 		}
@@ -130,9 +129,9 @@ public class ItemSpawnerMover extends ItemMod {
 		else if(pos.getY() == 255 && block.getMaterial().isSolid())
 			return false;
 		else if(world.canBlockBePlaced(Blocks.mob_spawner, pos, false, side, player, itemstack)) {
-			int meta = block.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, 0);
+			IBlockState state = block.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, 0, player);
 
-			if(placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, meta)) {
+			if(placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, state)) {
 				world.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, block.stepSound.getStepSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F);
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
@@ -147,21 +146,21 @@ public class ItemSpawnerMover extends ItemMod {
 		else return false;
 	}
 
-	private boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-		if (!world.setBlock(x, y, z, Blocks.mob_spawner, metadata, 3))
+	private boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState state) {
+		if (!world.setBlockState(pos, state, 3))
 			return false;
 
-		Block block = world.getBlock(x, y, z);
+		Block block = world.getBlockState(pos).getBlock();
 		if(block.equals(Blocks.mob_spawner)) {
-			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
 			NBTTagCompound tag = stack.getTagCompound();
 			if (tag.hasKey(TAG_SPAWNER))
 				tag = tag.getCompoundTag(TAG_SPAWNER);
-			tag.setInteger("x", x);
-			tag.setInteger("y", y);
-			tag.setInteger("z", z);
+			tag.setInteger("x", pos.getX());
+			tag.setInteger("y", pos.getY());
+			tag.setInteger("z", pos.getZ());
 			te.readFromNBT(tag);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, , x);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 
 		return true;

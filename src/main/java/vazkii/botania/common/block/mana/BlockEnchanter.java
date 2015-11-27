@@ -13,6 +13,8 @@ package vazkii.botania.common.block.mana;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -30,6 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -50,8 +53,27 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		setLightLevel(1.0F);
 		setStepSound(soundTypeStone);
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
-
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 		random = new Random();
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.ENCHANTER_DIRECTION);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		switch (((EnumFacing.Axis) state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION))) {
+			case Z: return 1;
+			case X:
+			default: return 0;
+		}
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, meta == 1 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
 	}
 
 	@Override

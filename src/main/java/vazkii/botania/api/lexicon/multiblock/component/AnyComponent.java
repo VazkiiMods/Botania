@@ -11,6 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,14 +20,14 @@ import net.minecraft.world.World;
  */
 public class AnyComponent extends MultiblockComponent {
 
-	public AnyComponent(BlockPos relPos, Block block, int meta) {
-		super(relPos, block, meta);
+	public AnyComponent(BlockPos relPos, IBlockState state) {
+		super(relPos, state);
 	}
 
 	@Override
-	public boolean matches(World world, int x, int y, int z) {
-		Block block = world.getBlock(x, y, z);
-		return !block.isAir(world, x, y, z) && block.getCollisionBoundingBoxFromPool(world, x, y, z) != null;
+	public boolean matches(World world, BlockPos pos) {
+		Block block = world.getBlockState(pos).getBlock();
+		return !block.isAir(world, pos) && block.getCollisionBoundingBox(world, pos, world.getBlockState(pos)) != null;
 	}
 	
 }

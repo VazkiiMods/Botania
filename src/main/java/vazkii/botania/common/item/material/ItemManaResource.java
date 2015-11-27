@@ -13,6 +13,7 @@ package vazkii.botania.common.item.material;
 import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,10 +49,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	final int types = 23;
 
 	// begin dank_memes
-	public IIcon tailIcon = null;
-	public IIcon phiFlowerIcon = null;
-	public IIcon goldfishIcon = null;
-	public IIcon nerfBatIcon = null;
+	public TextureAtlasSprite tailIcon = null;
+	public TextureAtlasSprite phiFlowerIcon = null;
+	public TextureAtlasSprite goldfishIcon = null;
+	public TextureAtlasSprite nerfBatIcon = null;
 	// end dank_memes
 
 	public ItemManaResource() {

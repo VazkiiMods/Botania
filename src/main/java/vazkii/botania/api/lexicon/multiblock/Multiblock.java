@@ -28,7 +28,9 @@ public class Multiblock {
 	public List<MultiblockComponent> components = new ArrayList();
 	public List<ItemStack> materials = new ArrayList();
 
-	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
+	public BlockPos minPos;
+	public BlockPos maxPos;
+	public BlockPos offPos;
 
 	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<BlockPos, MultiblockComponent>();
 
@@ -40,7 +42,7 @@ public class Multiblock {
 		if(getComponentForLocation(component.relPos) != null)
 			throw new IllegalArgumentException("Location in multiblock already occupied");
 		components.add(component);
-		changeAxisForNewComponent(component.relPos.getX(), component.relPos.getY(), component.relPos.getZ());
+		changeAxisForNewComponent(component.relPos);
 		calculateCostForNewComponent(component);
 		addComponentToLocationCache(component);
 	}
@@ -53,21 +55,21 @@ public class Multiblock {
 		addComponent(new MultiblockComponent(pos, block, meta));
 	}
 
-	private void changeAxisForNewComponent(int x, int y, int z) {
-		if(x < minX)
-			minX = x;
-		else if(x > maxX)
-			maxX = x;
+	private void changeAxisForNewComponent(BlockPos pos) {
+		if(pos.getX() < minPos.getX())
+			minPos = new BlockPos(pos.getX(), minPos.getY(), minPos.getZ());
+		else if(pos.getX() > maxPos.getX())
+			maxPos = new BlockPos(pos.getX(), maxPos.getY(), maxPos.getZ());
 
-		if(y < minY)
-			minY = y;
-		else if(y > maxY)
-			maxY = y;
+		if(pos.getY() < minPos.getY())
+			minPos = new BlockPos(minPos.getX(), pos.getY(), minPos.getZ());
+		else if(pos.getY() > maxPos.getY())
+			maxPos = new BlockPos(maxPos.getX(), pos.getY(), maxPos.getZ());
 
-		if(z < minZ)
-			minZ = z;
-		else if(z > maxZ)
-			maxZ = z;
+		if(pos.getZ() < minPos.getZ())
+			minPos = new BlockPos(minPos.getX(), minPos.getY(), pos.getZ());
+		else if(pos.getZ() > maxPos.getZ())
+			maxPos = new BlockPos(maxPos.getX(), maxPos.getY(), pos.getZ());
 	}
 
 	private void calculateCostForNewComponent(MultiblockComponent comp) {
@@ -90,10 +92,8 @@ public class Multiblock {
 		materials.add(stack);
 	}
 
-	public void setRenderOffset(int x, int y, int z) {
-		offX = x;
-		offY = y;
-		offZ = z;
+	public void setRenderOffset(BlockPos pos) {
+		offPos = pos;
 	}
 
 	public List<MultiblockComponent> getComponents() {
@@ -149,15 +149,15 @@ public class Multiblock {
 	}
 
 	public int getXSize() {
-		return Math.abs(minX) + Math.abs(maxX) + 1;
+		return Math.abs(minPos.getX()) + Math.abs(maxPos.getX()) + 1;
 	}
 
 	public int getYSize() {
-		return Math.abs(minY) + Math.abs(maxY) + 1;
+		return Math.abs(minPos.getY()) + Math.abs(maxPos.getY()) + 1;
 	}
 
 	public int getZSize() {
-		return Math.abs(minZ) + Math.abs(maxZ) + 1;
+		return Math.abs(minPos.getZ()) + Math.abs(maxPos.getZ()) + 1;
 	}
 
 	/**

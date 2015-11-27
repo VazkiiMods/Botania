@@ -21,13 +21,14 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.util.ForgeDirection;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public final class RedStringRenderer {
 
@@ -45,7 +46,7 @@ public final class RedStringRenderer {
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
 
-			Tessellator.renderingWorldRenderer = false;
+			// todo 1.8 Tessellator.renderingWorldRenderer = false;
 			TileRedString tile;
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);
@@ -68,13 +69,25 @@ public final class RedStringRenderer {
 			sizeAlpha += 0.1F;
 	}
 
+	private static double getRenderPosX() { // todo 1.8
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
+	}
+
+	private static double getRenderPosY() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
+	}
+
+	private static double getRenderPosZ() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
+	}
+
 	private static void renderTile(TileRedString tile) {
 		EnumFacing dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(tile.getPos().getX() + 0.5 - RenderManager.renderPosX, tile.getPos().getY() + 0.5 - RenderManager.renderPosY, tile.getPos().getZ() + 0.5 - RenderManager.renderPosZ);
+			GlStateManager.translate(tile.getPos().getX() + 0.5 - getRenderPosX(), tile.getPos().getY() + 0.5 - getRenderPosY(), tile.getPos().getZ() + 0.5 - getRenderPosZ());
 			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
 			Vector3 vecNorm = vecOrig.copy().normalize();
 			Vector3 vecMag = vecNorm.copy().multiply(0.025);

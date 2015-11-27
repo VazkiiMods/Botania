@@ -11,11 +11,14 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
@@ -28,72 +31,60 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	protected IBlockAccess originalBlockAccess;
 	protected boolean hasBlockAccess = false;
 	protected Multiblock multiblock;
-	protected int anchorX, anchorY, anchorZ;
+	protected BlockPos anchorPos;
 
 	@Override
-	public Block getBlock(int x, int y, int z) {
-		MultiblockComponent comp=getComponent(x, y, z);
+	public IBlockState getBlockState(BlockPos pos) {
+		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
-			return comp.getBlock();
+			return comp.getBlock().getStateFromMeta(comp.getMeta());
 		if(hasBlockAccess)
-			return originalBlockAccess.getBlock(x, y, z);
-		return Blocks.air;
+			return originalBlockAccess.getBlockState(pos);
+		return Blocks.air.getDefaultState();
 	}
 
 	@Override
-	public TileEntity getTileEntity(int x, int y, int z) {
-		MultiblockComponent comp=getComponent(x, y, z);
+	public TileEntity getTileEntity(BlockPos pos) {
+		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getTileEntity();
 		if(hasBlockAccess)
-			return originalBlockAccess.getTileEntity(x, y, z);
+			return originalBlockAccess.getTileEntity(pos);
 		return null;
 	}
 
 	@Override
-	public int getLightBrightnessForSkyBlocks(int x, int y, int z, int p_72802_4_) {
+	public int getCombinedLight(BlockPos pos, int p_72802_4_) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getLightBrightnessForSkyBlocks(x,y,z,p_72802_4_);
+			return originalBlockAccess.getCombinedLight(pos, p_72802_4_);
 		return 15728640;
 	}
 
 	@Override
-	public int getBlockMetadata(int x, int y, int z) {
-		MultiblockComponent comp=getComponent(x, y, z);
-		if(comp != null)
-			return comp.getMeta();
-		if(hasBlockAccess)
-			return originalBlockAccess.getBlockMetadata(x, y, z);
+	public int getStrongPower(BlockPos pos, EnumFacing direction) {
 		return 0;
 	}
 
 	@Override
-	public int isBlockProvidingPowerTo(int x, int y, int z, int direction) {
-		return 0;
+	public WorldType getWorldType() {
+		return null; // todo 1.8
 	}
 
 	@Override
-	public boolean isAirBlock(int x, int y, int z) {
-		MultiblockComponent comp=getComponent(x, y, z);
+	public boolean isAirBlock(BlockPos pos) {
+		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return false;
 		if(hasBlockAccess)
-			return originalBlockAccess.isAirBlock(x, y, z);
+			return originalBlockAccess.isAirBlock(pos);
 		return true;
 	}
 
 	@Override
-	public BiomeGenBase getBiomeGenForCoords(int x, int z) {
+	public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getBiomeGenForCoords(x, z);
+			return originalBlockAccess.getBiomeGenForCoords(pos);
 		return null;
-	}
-
-	@Override
-	public int getHeight() {
-		if(hasBlockAccess)
-			return originalBlockAccess.getHeight();
-		return 256;
 	}
 
 	@Override
@@ -104,29 +95,27 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public boolean isSideSolid(int x, int y, int z, ForgeDirection side, boolean _default) {
+	public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default) {
 		if(hasBlockAccess)
-			return originalBlockAccess.isSideSolid(x, y, z, side, _default);
+			return originalBlockAccess.isSideSolid(pos, side, _default);
 		return _default;
 	}
 
 	/**
 	 * Updates the block access to the new parameters
 	 */
-	public void update(IBlockAccess access, Multiblock mb, int anchorX, int anchorY, int anchorZ) {
+	public void update(IBlockAccess access, Multiblock mb, BlockPos anchorPos) {
 		originalBlockAccess = access;
 		multiblock = mb;
-		this.anchorX = anchorX;
-		this.anchorY = anchorY;
-		this.anchorZ = anchorZ;
+		this.anchorPos = anchorPos;
 		hasBlockAccess = access != null;
 	}
 
 	/**
 	 * Returns the multiblock component for the coordinates, adjusted based on the anchor
 	 */
-	protected MultiblockComponent getComponent(int x, int y, int z) {
-		MultiblockComponent comp = multiblock.getComponentForLocation(x - anchorX);
+	protected MultiblockComponent getComponent(BlockPos pos) {
+		MultiblockComponent comp = multiblock.getComponentForLocation(pos.add(anchorPos.multiply(-1)));
 		return comp;
 	}
 }

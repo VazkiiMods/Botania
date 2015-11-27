@@ -13,6 +13,7 @@ package vazkii.botania.client.render.entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -59,8 +60,8 @@ public class RenderDoppleganger extends RenderBiped {
 		}
 	};
 
-	public RenderDoppleganger() {
-		super(new ModelBiped(0.5F), 0F);
+	public RenderDoppleganger(RenderManager renderManager) {
+		super(renderManager, new ModelBiped(0.5F), 0F);
 	}
 
 	@Override

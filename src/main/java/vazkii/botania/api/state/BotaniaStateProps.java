@@ -1,11 +1,15 @@
 package vazkii.botania.api.state;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.enums.*;
+
+import javax.annotation.Nullable;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -37,6 +41,9 @@ public class BotaniaStateProps {
 
     // BlockDreamWood, BlockLivingWood
     public static final PropertyEnum LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);
+
+    // BlockEnchanter
+    public static final PropertyEnum ENCHANTER_DIRECTION = PropertyEnum.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
 
     // BlockForestDrum
     public static final PropertyEnum DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);

@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -112,7 +113,7 @@ public final class BaubleRenderHandler {
 			if(stack != null && stack.getItem() == ModItems.manaTablet) {
 				Item item = stack.getItem();
 				GlStateManager.pushMatrix();
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				Helper.rotateIfSneaking(event.entityPlayer);
 				boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
 				GlStateManager.rotate(180F, 1F, 0F, 0F);

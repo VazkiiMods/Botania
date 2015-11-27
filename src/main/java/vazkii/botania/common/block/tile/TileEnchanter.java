@@ -11,8 +11,12 @@
 package vazkii.botania.common.block.tile;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
+import com.google.common.collect.Maps;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
@@ -29,6 +33,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -39,6 +44,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -73,10 +79,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 		new BlockPos(-2, -1, 0), new BlockPos(-2, -1, 1), new BlockPos(-2, -1, -1)
 	};
 
-	private static final BlockPos[][] PYLON_LOCATIONS = {
-		{ new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) },
-		{ new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) }
-	};
+	private static final Map<EnumFacing.Axis, BlockPos[]> PYLON_LOCATIONS = new EnumMap<EnumFacing.Axis, BlockPos[]>(EnumFacing.Axis.class);
+
+	static {
+		PYLON_LOCATIONS.put(EnumFacing.Axis.X, new BlockPos[] { new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) });
+		PYLON_LOCATIONS.put(EnumFacing.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) });
+	}
 
 	private static final BlockPos[] FLOWER_LOCATIONS = {
 		new BlockPos(-1, 0, -1), new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1), new BlockPos(1, 0, 1)
@@ -87,14 +95,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 
 		for(BlockPos o : OBSIDIAN_LOCATIONS)
 			mb.addComponent(o, Blocks.obsidian, 0);
-		for(BlockPos p : PYLON_LOCATIONS[0]) {
+		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
 			mb.addComponent(p, ModBlocks.pylon, 0);
 			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
 		}
 		for(BlockPos f : FLOWER_LOCATIONS)
 			mb.addComponent(new FlowerComponent(f, ModBlocks.flower));
 
-		mb.addComponent(BlockPos.ORIGIN, Blocks.lapis_block, 0); // todo 1.8 recheck
+		mb.addComponent(BlockPos.ORIGIN, Blocks.lapis_block, 0);
 
 		return mb.makeSet();
 	}
@@ -126,14 +134,17 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 
 	@Override
 	public void update() {
-		if(getBlockMetadata() < PYLON_LOCATIONS.length)
-			for(BlockPos pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
+		IBlockState state = worldObj.getBlockState(getPos());
+		EnumFacing.Axis axis = ((EnumFacing.Axis) state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION));
+
+		if(getBlockMetadata() < PYLON_LOCATIONS.size())
+			for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
 				TileEntity tile = worldObj.getTileEntity(pos.add(pylon));
 				if(tile != null && tile instanceof TilePylon)
 					((TilePylon) tile).activated = false;
 			}
 
-		if(!canEnchanterExist(worldObj, pos, getBlockMetadata())) {
+		if(!canEnchanterExist(worldObj, pos, axis)) {
 
 			worldObj.setBlockState(pos, Blocks.lapis_block.getDefaultState(), 1 | 2);
 			for(int i = 0; i < 50; i++) {
@@ -181,7 +192,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 			break;
 		}
 		case 2 : { // Get Mana
-			for(BlockPos pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
+			for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
 				TilePylon pylonTile = (TilePylon) worldObj.getTileEntity(pos.add(pylon));
 				if(pylonTile != null) {
 					pylonTile.activated = true;
@@ -197,7 +208,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
-				for(BlockPos pylon : PYLON_LOCATIONS[getBlockMetadata()])
+				for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
 					((TilePylon) worldObj.getTileEntity(pos.add(pylon))).activated = false;
 
 				advanceStage();
@@ -362,12 +373,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 		return true;
 	}
 
-	public static boolean canEnchanterExist(World world, BlockPos pos, int meta) {
+	public static boolean canEnchanterExist(World world, BlockPos pos, EnumFacing.Axis axis) {
 		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
 			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.obsidian)
 				return false;
 
-		for(BlockPos pylon : PYLON_LOCATIONS[meta])
+		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
 			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon)))
 				return false;
 

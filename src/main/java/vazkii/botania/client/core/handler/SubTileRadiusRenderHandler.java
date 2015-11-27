@@ -13,6 +13,7 @@ package vazkii.botania.client.core.handler;
 import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -31,6 +33,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public final class SubTileRadiusRenderHandler {
 
@@ -67,7 +70,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Tessellator.renderingWorldRenderer = false;
+		// todo 1.8 Tessellator.renderingWorldRenderer = false;
 
 		if(descriptor.isCircle())
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
@@ -78,9 +81,21 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
+	private double getRenderPosX() { // todo 1.8
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
+	}
+
+	private double getRenderPosY() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
+	}
+
+	private double getRenderPosZ() {
+		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
+	}
+
 	public void renderRectangle(AxisAlignedBB aabb) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(aabb.minX - RenderManager.renderPosX, aabb.minY - RenderManager.renderPosY, aabb.minZ - RenderManager.renderPosZ);
+		GlStateManager.translate(aabb.minX - getRenderPosX(), aabb.minY - getRenderPosY(), aabb.minZ - getRenderPosZ());
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
@@ -117,7 +132,7 @@ public final class SubTileRadiusRenderHandler {
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
-		GlStateManager.translate(x - RenderManager.renderPosX, y - RenderManager.renderPosY, z - RenderManager.renderPosZ);
+		GlStateManager.translate(x - getRenderPosX(), y - getRenderPosY(), z - getRenderPosZ());
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
