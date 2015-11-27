@@ -11,6 +11,11 @@
 package vazkii.botania.common.integration.coloredlights;
 
 
+import net.minecraft.item.EnumDyeColor;
+
+import java.util.EnumMap;
+import java.util.Map;
+
 /*
  * This class is presentto help with the Colored Lights mod without needing to package
  * the API or hold a dependency, please understand.
@@ -48,21 +53,22 @@ public class ColoredLightHelper {
 	}
 
 	// End API Copypasta
+	private static Map<EnumDyeColor, int[]> packedColors = null;
 
-	private static int packedColors[][] = null;
-
-	public static int getPackedColor(int meta, int light) {
+	public static int getPackedColor(EnumDyeColor color, int light) {
 		if(packedColors == null)
 			initPackedColors();
 
-		return packedColors[meta][light];
+		return packedColors.get(color)[light];
 	}
 
 	private static void initPackedColors() {
-		packedColors = new int[16][16];
-		for(int i = 0; i < 16; i++)
+		packedColors = new EnumMap<EnumDyeColor, int[]>(EnumDyeColor.class);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			packedColors.put(color, new int[16]);
 			for(int j = 0; j < 16; j++)
-				packedColors[i][j] = makeRGBLightValue(r[15 - i], g[15 - i], b[15 - i], j / 16F);
+				packedColors.get(color)[j] = makeRGBLightValue(r[15 - color.getMetadata()], g[15 - color.getMetadata()], b[15 - color.getMetadata()], j / 16F);
+		}
 	}
 
 }

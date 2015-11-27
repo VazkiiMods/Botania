@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.integration.coloredlights;
 
+import net.minecraft.item.EnumDyeColor;
+
 /*
  * This is an implementation of ILightHelper for when the colored lights mod isn't installed
  */
@@ -21,7 +23,7 @@ public class LightHelperVanilla implements ILightHelper {
 	}
 
 	@Override
-	public int getPackedColor(int meta, int light) {
+	public int getPackedColor(EnumDyeColor meta, int light) {
 		return light;
 	}
 

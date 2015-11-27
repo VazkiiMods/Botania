@@ -2,6 +2,7 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
@@ -17,6 +18,12 @@ import javax.annotation.Nullable;
 public class BotaniaStateProps {
 
     /** Common properties to all blocks to use **/
+
+    // Cardinal connection booleans (think fence or wall)
+    public static final PropertyBool CONNECT_NORTH = PropertyBool.create("north");
+    public static final PropertyBool CONNECT_SOUTH = PropertyBool.create("south");
+    public static final PropertyBool CONNECT_WEST = PropertyBool.create("west");
+    public static final PropertyBool CONNECT_EAST = PropertyBool.create("east");
 
     // The 16 Minecraft colors
     public static final PropertyEnum COLOR = PropertyEnum.create("color", EnumDyeColor.class);
@@ -34,16 +41,33 @@ public class BotaniaStateProps {
     // Redstone power - int
     public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 
+    /** Properties for certain kinds of blocks **/
+
+    // The axis directions (think quartz pillars and wood logs)
+    public static final PropertyEnum AXIS_FACING = BlockRotatedPillar.AXIS;
+
+    // Extra Quartz Blocks
+    public static final PropertyEnum QUARTZ_VARIANT = PropertyEnum.create("variant", QuartzVariant.class);
+
     /** Properties for individual blocks **/
+
+    // Block18Stone
+    public static final PropertyEnum FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
 
     // BlockAltGrass
     public static final PropertyEnum ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);
+
+    // BlockCustomBrick
+    public static final PropertyEnum CUSTOMBRICK_VARIANT = PropertyEnum.create("variant", CustomBrickVariant.class);
 
     // BlockDreamWood, BlockLivingWood
     public static final PropertyEnum LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);
 
     // BlockEnchanter
     public static final PropertyEnum ENCHANTER_DIRECTION = PropertyEnum.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
+
+    // BlockEndStoneBrick
+    public static final PropertyEnum ENDBRICK_VARIANT = PropertyEnum.create("variant", EndBrickVariant.class);
 
     // BlockForestDrum
     public static final PropertyEnum DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
@@ -54,11 +78,24 @@ public class BotaniaStateProps {
     // BlockOpenCrate
     public static final PropertyEnum CRATE_VARIANT = PropertyEnum.create("variant", CrateVariant.class);
 
+    // BlockPavement
+    public static final PropertyEnum PAVEMENT_COLOR = PropertyEnum.create("color", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+        @Override
+        public boolean apply(EnumDyeColor color) {
+            return color == EnumDyeColor.WHITE || color == EnumDyeColor.BLACK
+                    || color == EnumDyeColor.BLUE || color == EnumDyeColor.RED
+                    || color == EnumDyeColor.YELLOW || color == EnumDyeColor.GREEN;
+        }
+    });
+
     // BlockPlatform
     public static final PropertyEnum PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);
 
     // BlockPrism
     public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
+
+    // BlockPrismarine
+    public static final PropertyEnum PRISMARINE_VARIANT = PropertyEnum.create("variant", PrismarineVariant.class);
 
     // BlockPylon
     public static final PropertyEnum PYLON_VARIANT = PropertyEnum.create("variant", PylonVariant.class);

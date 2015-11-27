@@ -14,17 +14,19 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -34,15 +36,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
-	private static final int TYPES = 16;
-	IIcon[] icons;
-
 	public BlockCustomBrick() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.CUSTOM_BRICK);
+		setUnlocalizedName(LibBlockNames.CUSTOM_BRICK);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.CUSTOMBRICK_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((CustomBrickVariant) state.getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= CustomBrickVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.values()[meta]);
 	}
 
 	@Override
@@ -51,44 +69,31 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < TYPES; i++)
+		for(int i = 0; i < CustomBrickVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
-
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta >= 4 ? LexiconData.azulejo : LexiconData.decorativeBlocks;
+		CustomBrickVariant variant = ((CustomBrickVariant) world.getBlockState(pos).getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT));
+		return variant.getName().contains("azulejo") ? LexiconData.azulejo : LexiconData.decorativeBlocks;
 	}
 
 }

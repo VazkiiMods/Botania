@@ -14,17 +14,19 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -34,32 +36,37 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
-	private static IIcon[] icons = new IIcon[5];
-
 	public BlockEndStoneBrick() {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.END_STONE_BRICK);
+		setUnlocalizedName(LibBlockNames.END_STONE_BRICK);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.END_STONE_BRICKS));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister register) {
-		for(int i = 0; i < icons.length; i++) {
-			icons[i] = IconHelper.forBlock(register, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.ENDBRICK_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EndBrickVariant) state.getValue(BotaniaStateProps.ENDBRICK_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EndBrickVariant.values().length) {
+			meta = 0;
 		}
+		return getDefaultState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.values()[meta]);
 	}
 
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < EndBrickVariant.values().length; i++)
 			list.add(new ItemStack(item, 1, i));
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta == 3 ? icons[side == 0 || side == 1 ? 4 : 3] : icons[Math.min(icons.length - 1, meta)];
 	}
 
 	@Override
@@ -68,20 +75,19 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override

@@ -13,10 +13,9 @@ package vazkii.botania.common.block.decor.panes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -28,12 +27,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockModPane extends BlockPane {
 
 	Block source;
-	public IIcon iconTop;
 
 	public BlockModPane(Block source) {
-		super("", "", Material.glass, false);
+		super(Material.glass, false);
 		this.source = source;
-		setBlockName(source.getUnlocalizedName().replaceAll("tile.", "") + "Pane");
+		setUnlocalizedName(source.getUnlocalizedName().replaceAll("tile.", "") + "Pane");
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
@@ -41,19 +39,13 @@ public class BlockModPane extends BlockPane {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		iconTop = IconHelper.forBlock(reg, this);
-	}
-
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
@@ -68,21 +60,9 @@ public class BlockModPane extends BlockPane {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon func_150097_e() {
-		return source.getIcon(0, 0);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return side >= 2 ? iconTop : source.getIcon(side, meta);
-	}
-
-	@Override
-	public boolean canPaneConnectTo(IBlockAccess world, int x, int y, int z, ForgeDirection dir) {
-		Block block = world.getBlock(x, y, z);
-		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, x, y, z, dir);
+	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
 	}
 
 }

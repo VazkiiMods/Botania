@@ -7,13 +7,15 @@ This can be changed to match vanilla signature, but either would break backward 
 * SubTileEntity.getComparatorInputOverride parameter removed (it was actually incorrect also. Not side, but the meta of the block).
 Anyways, vanilla removed it from their method so we follow suit.
 * SubTileEntity's methods that are copied from block (onBlockadded, etc.) updated to match vanilla counterparts
+* Multiblock system reworked to use states
 
 -- Other --
 * Most things left untouched to make patches from upstream easier
 * Most uses of chunkcoordinates directly convert blockpos (THANK YOU VAZKII FOR USING THEM). Remove creation of extra instances
 since BlockPos'es are immutable and thus can be reused everywhere.
 * Some really needed fields in EntityItem are private now. Reflection time :(
-
+* Alfglass just uses the vanilla random model selection system to choose a pattern. Some of your builds may look different.
+Unless someone figures out a way to use the old one
 
 -- Todo --
 * Fix all the block signatures (easy)

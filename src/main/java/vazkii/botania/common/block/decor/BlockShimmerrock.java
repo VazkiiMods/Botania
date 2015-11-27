@@ -36,7 +36,7 @@ public class BlockShimmerrock extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.SHIMMERROCK);
+		setUnlocalizedName(LibBlockNames.SHIMMERROCK);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -48,12 +48,6 @@ public class BlockShimmerrock extends BlockMod implements ILexiconable {
 			if(event.map.setTextureEntry("botania:shimmerrock", icon))
 				blockIcon = icon;
 		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
 	}
 
 	@Override

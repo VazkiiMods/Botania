@@ -15,6 +15,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -34,7 +35,7 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
 		setLightLevel(1.0F);
-		setBlockName(name);
+		setUnlocalizedName(name);
 	}
 
 	@Override
@@ -49,8 +50,8 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_);
+	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
+		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_); // todo 1.8 wtf
 	}
 
 	@Override

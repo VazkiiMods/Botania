@@ -12,12 +12,15 @@ package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
@@ -36,17 +39,21 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		return ColoredLightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), originalLight);
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		float[] color = EntitySheep.fleeceColorTable[meta];
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+		EnumDyeColor color = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR));
+		int hex = color.getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = (hex & 0xFF);
 
 		Botania.proxy.setSparkleFXNoClip(true);
-		Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.1 + par5Random.nextFloat() * 0.1, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
+		Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.1 + par5Random.nextFloat() * 0.1, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r, g, b, par5Random.nextFloat(), 5);
+
 		Botania.proxy.setSparkleFXNoClip(false);
 	}
 
@@ -56,17 +63,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return blockIcon;
-	}
-
-	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
 		return ModItems.petal;
 	}
 

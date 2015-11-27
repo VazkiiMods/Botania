@@ -15,9 +15,12 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -25,6 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -37,7 +41,26 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		super(Material.plants);
 		setHardness(0.4F);
 		setStepSound(soundTypeGrass);
-		setBlockName(LibBlockNames.PETAL_BLOCK);
+		setUnlocalizedName(LibBlockNames.PETAL_BLOCK);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
@@ -52,24 +75,24 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public int getRenderColor(int meta) {
-		return new Color(EntitySheep.fleeceColorTable[meta][0], EntitySheep.fleeceColorTable[meta][1], EntitySheep.fleeceColorTable[meta][2]).getRGB();
+	public int getRenderColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
-		return getRenderColor(world.getBlockMetadata(x, y, z));
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
+		return getRenderColor(world.getBlockState(pos));
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override

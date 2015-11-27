@@ -14,17 +14,19 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -34,20 +36,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Block18Stone extends BlockMod implements ILexiconable {
 
-	private static IIcon[] icons = new IIcon[16];
-
 	public Block18Stone() {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.STONE);
+		setUnlocalizedName(LibBlockNames.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FUTURESTONE_VARIANT, FutureStoneVariant.ANDESITE));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister register) {
-		for(int i = 0; i < 16; i++)
-			icons[i] = IconHelper.forBlock(register, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.FUTURESTONE_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((FutureStoneVariant) state.getValue(BotaniaStateProps.FUTURESTONE_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= FutureStoneVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONE_VARIANT, FutureStoneVariant.values()[meta]);
 	}
 
 	@Override
@@ -57,30 +70,24 @@ public class Block18Stone extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return icons[meta];
-	}
-
-	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override

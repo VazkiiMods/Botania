@@ -10,16 +10,19 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -38,27 +41,31 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister register) {
-		icons = new IIcon[16];
-		iconsAlt = new IIcon[16];
-		for(int i = 0; i < 16; i++) {
-			icons[i] = IconHelper.forName(register, "flowerGlimmering" + i);
-			iconsAlt[i] = IconHelper.forName(register, "flowerGlimmering" + i, BlockModFlower.ALT_DIR);
-		}
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return (ConfigHandler.altFlowerTextures ? iconsAlt : icons)[Math.min(icons.length - 1, par2)];
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		return ColoredLightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), originalLight);
 	}
 
 	@Override
@@ -67,12 +74,12 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
 	@Override
-	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+	public boolean canStabaliseInfusion(World world, BlockPos pos) {
 		return true;
 	}
 

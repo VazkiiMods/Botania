@@ -12,11 +12,9 @@ package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -28,26 +26,15 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexiconable {
 
-	private static final int ICON_COUNT = 4;
-	IIcon[] icons;
-
 	public BlockElfGlass() {
 		super(LibBlockNames.ELF_GLASS);
 	}
 
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[ICON_COUNT];
-		for(int i = 0; i < ICON_COUNT; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
-	}
-
-	@Override
-	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int s) {
-		int v = (int) Math.floor(new Random(x * 10 ^ y * 20 ^ z * 30).nextInt(ICON_COUNT * 100) / 100.0);
-		return icons[v];
-	}
+//	@Override
+//	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int s) {
+//		int v = (int) Math.floor(new Random(x * 10 ^ y * 20 ^ z * 30).nextInt(ICON_COUNT * 100) / 100.0);
+//		return icons[v];
+//	} // todo 1.8 use randomized states for this
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {

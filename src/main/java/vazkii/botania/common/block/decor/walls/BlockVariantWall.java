@@ -16,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

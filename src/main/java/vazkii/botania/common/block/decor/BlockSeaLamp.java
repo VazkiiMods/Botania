@@ -31,14 +31,14 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
 		setLightLevel(1.0F);
-		setBlockName(LibBlockNames.SEA_LAMP);
+		setUnlocalizedName(LibBlockNames.SEA_LAMP);
 	}
 
 	int coloredLight = -1;
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
 		return coloredLight == -1 ? (coloredLight = ColoredLightHelper.makeRGBLightValue(85, 136, 125, originalLight)) : coloredLight;
 	}
 

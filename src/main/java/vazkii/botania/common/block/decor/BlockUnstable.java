@@ -16,9 +16,12 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -26,6 +29,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.core.helper.Vector3;
@@ -42,7 +46,26 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 		setResistance(10.0F);
 		setStepSound(soundTypeMetal);
 		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
-		setBlockName(LibBlockNames.UNSTABLE_BLOCK);
+		setUnlocalizedName(LibBlockNames.UNSTABLE_BLOCK);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
@@ -52,9 +75,9 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -63,7 +86,7 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -73,30 +96,29 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		int color = getRenderColor(par1World.getBlockMetadata(par2, par3, par4));
+	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+		int color = getRenderColor(state);
 		int colorBright = new Color(color).brighter().getRGB();
 		int colorDark = new Color(color).darker().getRGB();
 
-		Vector3 origVector = new Vector3(par2 + 0.5, par3 + 0.5, par4 + 0.5);
+		Vector3 origVector = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		Vector3 endVector = origVector.copy().add(par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1);
 		Botania.proxy.lightningFX(par1World, origVector, endVector, 5F, colorDark, colorBright);
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public int getRenderColor(int par1) {
-		float[] color = EntitySheep.fleeceColorTable[par1];
-		return new Color(color[0], color[1], color[2]).getRGB();
+	public int getRenderColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
-		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
+	public int colorMultiplier(IBlockAccess par1iBlockAccess, BlockPos pos, int pass) {
+		return getRenderColor(par1iBlockAccess.getBlockState(pos));
 	}
 
 	@Override

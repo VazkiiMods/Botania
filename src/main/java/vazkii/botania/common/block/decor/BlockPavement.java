@@ -14,13 +14,17 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -32,14 +36,51 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockPavement extends BlockMod {
 
 	public static final int TYPES = 6;
-	IIcon[] icons;
 
 	public BlockPavement() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.PAVEMENT);
+		setUnlocalizedName(LibBlockNames.PAVEMENT);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.PAVEMENT_COLOR);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		switch ((EnumDyeColor) state.getValue(BotaniaStateProps.PAVEMENT_COLOR)) {
+			case GREEN: return 5;
+			case YELLOW: return 4;
+			case RED: return 3;
+			case BLUE: return 2;
+			case BLACK: return 1;
+			case WHITE:
+			default: return 0;
+		}
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= TYPES) {
+			meta = 0;
+		}
+
+		EnumDyeColor color;
+		switch (meta) {
+			case 5: color = EnumDyeColor.GREEN; break;
+			case 4: color = EnumDyeColor.YELLOW; break;
+			case 3: color = EnumDyeColor.RED; break;
+			case 2: color = EnumDyeColor.BLUE; break;
+			case 1: color = EnumDyeColor.BLACK; break;
+			case 0:
+			default: color = EnumDyeColor.WHITE; break;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color);
 	}
 
 	@Override
@@ -48,14 +89,14 @@ public class BlockPavement extends BlockMod {
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
@@ -65,22 +106,8 @@ public class BlockPavement extends BlockMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
-
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 }

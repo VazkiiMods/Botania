@@ -15,19 +15,21 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileManaBeacon;
@@ -38,8 +40,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockManaBeacon() {
 		super(Material.iron);
 		setHardness(5.0F);
@@ -48,18 +48,25 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 		float size = 3F / 16F;
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
 		setUnlocalizedName(LibBlockNames.MANA_BEACON);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < 2; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.COLOR);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 == 1 ? 1 : 0];
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
@@ -80,7 +87,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 
@@ -90,19 +97,18 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public int getRenderColor(int par1) {
-		float[] color = EntitySheep.fleeceColorTable[par1];
-		return new Color(color[0], color[1], color[2]).getRGB();
+	public int getRenderColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
-		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
+	public int colorMultiplier(IBlockAccess par1iBlockAccess, BlockPos pos, int pass) {
+		return getRenderColor(par1iBlockAccess.getBlockState(pos));
 	}
 
 	@Override

@@ -28,8 +28,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockStarfield extends BlockModContainer implements ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockStarfield() {
 		super(Material.iron);
 		setHardness(5F);
@@ -41,19 +39,7 @@ public class BlockStarfield extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube() {
 		return false;
 	}
 

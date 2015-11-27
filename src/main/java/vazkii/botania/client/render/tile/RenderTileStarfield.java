@@ -28,6 +28,7 @@ import org.lwjgl.opengl.GL11;
 // I HAVE NO IDEA WHAT I'M DOING
 // SO MUCH STUFF I DON'T UNDERSTAND D:
 // HELP
+// todo 1.8 copied directly from new class, so need to update to be what botania was. possibly json model for frame, tesr for starfield
 public class RenderTileStarfield extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation field_147529_c = new ResourceLocation("textures/environment/end_sky.png");
