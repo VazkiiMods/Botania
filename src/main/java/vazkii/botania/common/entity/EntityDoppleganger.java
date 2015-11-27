@@ -184,6 +184,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 
 			par1ItemStack.stackSize--;
+			
+			if(par3World.isRemote)
+				return true;
+			
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
@@ -373,7 +377,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(Potion.blindness) && p.ridingEntity == null;
 			}
 
-			int cap = crit ? 50 : 35;
+			int cap = crit ? 60 : 40;
 			return super.attackEntityFrom(par1DamageSource, Math.min(cap, dmg) * (isHardMode() ? 0.6F : 1F));
 		}
 		return false;

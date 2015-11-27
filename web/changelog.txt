@@ -1,3 +1,11 @@
+r1.7 237
+*Fixed the Gaia Guardian spawning on the client side when it shouldn't.
+*The Brew of Overload has a larger Weakness period now.
+*The Damage Lens now deals more damage.
+*The Fruit of Grisaia uses less mana now.
+*The Gaia Guardian's damage cap now is higher to accommodate for Overload Brews. HP remains the same.
+*The Rosa Arcana now produces and holds more mana.
+*The Spectrolus now produces and holds more mana.
 r1.7 236
 *Added Chisel stone support to the Rod of the Terra Firma.
 *Added floating flower variants to all the new pasture seed types.
