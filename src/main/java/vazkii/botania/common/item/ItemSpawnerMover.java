@@ -15,8 +15,6 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -107,17 +105,7 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
-		EntitySkeleton skeleton = new EntitySkeleton(world);
-		EntitySpider spider = new EntitySpider(world);
-		skeleton.setPosition(x, y + 2, z);
-		spider.setPosition(x, y + 2, z);
-		if(!world.isRemote) {
-			world.spawnEntityInWorld(skeleton);
-			world.spawnEntityInWorld(spider);
-			skeleton.mountEntity(spider);
-		}
-		return true;
-		/*if(getEntityId(itemstack) == null) {
+		if(getEntityId(itemstack) == null) {
 			if(world.getBlock(x, y, z).equals(Blocks.mob_spawner)) {
 				TileEntity te = world.getTileEntity(x, y, z);
 				NBTTagCompound tag = new NBTTagCompound();
@@ -139,7 +127,7 @@ public class ItemSpawnerMover extends ItemMod {
 			if(getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, x, y, z, side, xOffset, yOffset, zOffset))
 				return true;
 			return false;
-		}*/
+		}
 	}
 
 	private boolean placeBlock(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
