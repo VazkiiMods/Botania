@@ -72,6 +72,7 @@ public class ClientTickHandler {
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
 				ticksInGame++;
+				partialTicks = 0;
 
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				if(player != null) {
