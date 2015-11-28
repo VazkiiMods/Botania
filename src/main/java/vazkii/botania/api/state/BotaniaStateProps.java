@@ -51,11 +51,26 @@ public class BotaniaStateProps {
 
     /** Properties for individual blocks **/
 
-    // Block18Stone
+    // Block18Stone,
     public static final PropertyEnum FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
+
+    // Block18StoneWall
+    public static final PropertyEnum FUTURESTONEWALL_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class, new Predicate<FutureStoneVariant>() {
+        @Override
+        public boolean apply(FutureStoneVariant variant) {
+            // Just the four kinds (no polished, chiseled, etc.)
+            return variant.ordinal() >= 0 && variant.ordinal() <= 3;
+        }
+    });
 
     // BlockAltGrass
     public static final PropertyEnum ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);
+
+    // BlockBiomeStoneA
+    public static final PropertyEnum BIOMESTONE_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class);
+
+    // BlockBiomeStoneB
+    public static final PropertyEnum BIOMEBRICK_VARIANT = PropertyEnum.create("variant", BiomeBrickVariant.class);
 
     // BlockCustomBrick
     public static final PropertyEnum CUSTOMBRICK_VARIANT = PropertyEnum.create("variant", CustomBrickVariant.class);

@@ -14,13 +14,14 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -28,27 +29,38 @@ import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockModWall extends BlockWall implements ILexiconable {
+public abstract class BlockModWall extends BlockWall implements ILexiconable {
 
 	Block block;
-	int meta;
 
 	public BlockModWall(Block block, int meta) {
 		super(block);
 		this.block = block;
-		this.meta = meta;
-		setBlockName(block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall");
+		setUnlocalizedName(block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall");
+		specifyDefaultState();
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
+	public BlockState createBlockState() {
+		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST);
+	}
+
+	protected void specifyDefaultState() {
+		setDefaultState(blockState.getBaseState()
+				.withProperty(UP, false).withProperty(NORTH, false).withProperty(SOUTH, false)
+				.withProperty(WEST, false).withProperty(EAST, false)
+		);
+	}
+
+	@Override
+	public boolean canPlaceTorchOnTop(IBlockAccess world, BlockPos pos) {
 		return true;
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		register(par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	public void register(String name) {
@@ -61,18 +73,8 @@ public class BlockModWall extends BlockWall implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return block.getIcon(side, this.meta);
-	}
-
-	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister p_149651_1_) {
-		// NO-OP
 	}
 
 }

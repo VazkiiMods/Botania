@@ -14,13 +14,12 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -33,24 +32,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
-	private static IIcon[] icons = new IIcon[32];
-	int iconOffset;
-
-	public BlockBiomeStone(int iconOffset, String name) {
+	public BlockBiomeStone(String name) {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);
-		setBlockName(name);
-		this.iconOffset = iconOffset;
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister register) {
-		for(int i = 0; i < 16; i++) {
-			int index = i + iconOffset;
-			icons[index] = IconHelper.forName(register, "biomeStone" + index);
-		}
+		setUnlocalizedName(name);
 	}
 
 	@Override
@@ -60,30 +47,24 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return icons[meta + iconOffset];
-	}
-
-	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override

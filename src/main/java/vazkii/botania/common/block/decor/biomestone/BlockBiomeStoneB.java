@@ -10,12 +10,35 @@
  */
 package vazkii.botania.common.block.decor.biomestone;
 
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeBrickVariant;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	public BlockBiomeStoneB() {
-		super(16, LibBlockNames.BIOME_STONE_B);
+		super(LibBlockNames.BIOME_STONE_B);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST));
 	}
 
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.BIOMEBRICK_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((BiomeStoneVariant) state.getValue(BotaniaStateProps.BIOMEBRICK_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= BiomeBrickVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.values()[meta]);
+	}
 }
