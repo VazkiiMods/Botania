@@ -18,6 +18,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -30,6 +31,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -45,6 +51,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable, IWandHUD {
 
 	Random random;
+	public static TextureAtlasSprite overlay;
 
 	public BlockEnchanter() {
 		super(Material.rock);
@@ -55,6 +62,13 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 		random = new Random();
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		overlay = IconHelper.forBlock(evt.map, this, "Overlay");
 	}
 
 	@Override

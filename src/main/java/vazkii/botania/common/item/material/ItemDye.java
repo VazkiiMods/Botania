@@ -38,7 +38,7 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		if (par3World.getBlockState(pos).getBlock().recolorBlock(par3World, pos, side, EnumDyeColor.byMetadata(par1ItemStack.getItemDamage()))) {
-			par1ItemStack.stackSize--; // todo 1.8 recheck ^^
+			par1ItemStack.stackSize--;
 			return true;
 		}
 		return false;
@@ -49,9 +49,9 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 		if(!item.worldObj.isRemote && pool instanceof IDyablePool) {
 			IDyablePool dyable = (IDyablePool) pool;
 			TileEntity tile = (TileEntity) pool;
-			int meta = stack.getItemDamage();
-			if(meta != dyable.getColor()) {
-				dyable.setColor(meta);
+			EnumDyeColor color = EnumDyeColor.byMetadata(stack.getItemDamage());
+			if(color != dyable.getColor()) {
+				dyable.setColor(color);
 				stack.stackSize--;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
 			}

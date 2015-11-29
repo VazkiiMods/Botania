@@ -12,6 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelEnderCrystal;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

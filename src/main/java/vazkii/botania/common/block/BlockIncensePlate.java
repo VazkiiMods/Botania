@@ -49,12 +49,12 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getHorizontalIndex();
+		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getIndex();
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 
 	@Override

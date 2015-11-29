@@ -16,11 +16,13 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,6 +33,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -58,6 +61,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket, IUpdatePlayerListBox {
 
@@ -80,7 +84,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public boolean conjuration = false;
 	boolean catalystsRegistered = false;
 
-	public int color = 0;
+	public EnumDyeColor color = EnumDyeColor.WHITE;
 	int mana;
 	int knownMana = -1;
 
@@ -158,7 +162,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						outputItem.age = 105;
+						ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, outputItem, 105, LibObfuscation.AGE);
 						worldObj.spawnEntityInWorld(outputItem);
 					}
 
@@ -285,7 +289,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
-		cmp.setInteger(TAG_COLOR, color);
+		cmp.setInteger(TAG_COLOR, color.getMetadata());
 
 		cmp.setInteger(TAG_MANA_CAP, manaCap);
 		cmp.setBoolean(TAG_CAN_ACCEPT, canAccept);
@@ -300,7 +304,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public void readCustomNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
-		color = cmp.getInteger(TAG_COLOR);
+		color = EnumDyeColor.byMetadata(cmp.getInteger(TAG_COLOR));
 
 		if(cmp.hasKey(TAG_MANA_CAP))
 			manaCap = cmp.getInteger(TAG_MANA_CAP);
@@ -427,12 +431,12 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	@Override
-	public int getColor() {
+	public EnumDyeColor getColor() {
 		return color;
 	}
 
 	@Override
-	public void setColor(int color) {
+	public void setColor(EnumDyeColor color) {
 		this.color = color;
 	}
 

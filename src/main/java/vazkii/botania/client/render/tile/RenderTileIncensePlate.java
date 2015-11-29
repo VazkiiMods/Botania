@@ -13,17 +13,20 @@ package vazkii.botania.client.render.tile;
 import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelIncensePlate;
 import vazkii.botania.common.block.tile.TileIncensePlate;
@@ -41,7 +44,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileIncensePlate plate = (TileIncensePlate) tileentity;
 
-		int meta = plate.getWorld() != null ? plate.getBlockMetadata() : 0;
+		EnumFacing facing = plate.getWorld() != null ? ((EnumFacing) plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS)) : EnumFacing.SOUTH;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
@@ -52,7 +55,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
-		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
+		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, facing.getIndex() - 2), 0)], 0F, 1F, 0F);
 		model.render();
 		GlStateManager.scale(1F, -1F, -1F);
 
@@ -64,22 +67,22 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 			GlStateManager.translate(0.1F, -1.46F, 0F);
 			GlStateManager.scale(s, s, s);
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
-
-			int renderPass = 0;
-			do {
-				IIcon icon = stack.getItem().getIcon(stack, renderPass);
-				if(icon != null) {
-					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-					float f = icon.getMinU();
-					float f1 = icon.getMaxU();
-					float f2 = icon.getMinV();
-					float f3 = icon.getMaxV();
-					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-					GlStateManager.color(1F, 1F, 1F);
-				}
-				renderPass++;
-			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
+			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//			int renderPass = 0;
+//			do {
+//				IIcon icon = stack.getItem().getIcon(stack, renderPass);
+//				if(icon != null) {
+//					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
+//					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+//					float f = icon.getMinU();
+//					float f1 = icon.getMaxU();
+//					float f2 = icon.getMinV();
+//					float f3 = icon.getMaxV();
+//					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+//					GlStateManager.color(1F, 1F, 1F);
+//				}
+//				renderPass++;
+//			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.color(1F, 1F, 1F);

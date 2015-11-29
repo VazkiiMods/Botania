@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.integration.coloredlights;
 
+import net.minecraft.item.EnumDyeColor;
 import vazkii.botania.common.Botania;
 
 /*
@@ -21,7 +22,7 @@ public class LightHelper {
 		return Botania.lightHelper.makeRGBLightValue(r, g, b, (int) currentLightValue);
 	}
 
-	public static int getPackedColor(int meta, int light) {
+	public static int getPackedColor(EnumDyeColor meta, int light) {
 		return Botania.lightHelper.getPackedColor(meta, light);
 	}
 }

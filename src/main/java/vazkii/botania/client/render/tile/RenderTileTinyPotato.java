@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
@@ -391,7 +392,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(IIcon icon) {
+	public void renderIcon(TextureAtlasSprite icon) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

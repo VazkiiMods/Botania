@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -28,6 +30,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 
@@ -42,7 +45,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 		if(entity == null)
 			entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
-		entity.age = ClientTickHandler.ticksInGame;
+		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entity, ClientTickHandler.ticksInGame, LibObfuscation.AGE);
 		ItemStack stack = cube.getRequestTarget();
 		entity.setEntityItemStack(stack);
 

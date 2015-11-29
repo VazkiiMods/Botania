@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
@@ -42,7 +43,7 @@ import net.minecraftforge.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 
-	public volatile static Map<String, TextureAtlasSprite> flowerMap = null;
+	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
 	private static boolean phi = true;
@@ -82,7 +83,7 @@ public final class ContributorFancinessHandler {
 			} catch(NumberFormatException e) {
 				SubTileSignature sig = BotaniaAPI.getSignatureForName(value);
 				if(sig != null)
-					flowerMap.put(key, ItemBlockSpecialFlower.ofType(value).getIconIndex());
+					flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
 			}
 		}
 	}
@@ -155,7 +156,7 @@ public final class ContributorFancinessHandler {
 		GlStateManager.popMatrix();
 	}
 
-	private static void renderFlower(RenderPlayerEvent event, TextureAtlasSprite icon) {
+	private static void renderFlower(RenderPlayerEvent event, ItemStack flower) {
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(event.entityPlayer);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

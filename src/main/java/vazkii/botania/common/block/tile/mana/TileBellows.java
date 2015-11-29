@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -115,9 +116,8 @@ public class TileBellows extends TileMod implements IUpdatePlayerListBox {
 	}
 
 	public TileEntity getLinkedTile() {
-		int meta = getBlockMetadata();
-		EnumFacing dir = EnumFacing.getFront(meta); // todo 1.8 states
-		return worldObj.getTileEntity(getPos().offset(dir));
+		EnumFacing side = ((EnumFacing) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS));
+		return worldObj.getTileEntity(getPos().offset(side));
 	}
 
 	@Override

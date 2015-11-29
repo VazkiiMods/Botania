@@ -14,10 +14,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -30,7 +30,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks, int digProgress) {
 		Minecraft mc = Minecraft.getMinecraft();
-		IIcon iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
+		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);
@@ -53,7 +53,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 
 		float off = 0.25F;
 		GlStateManager.translate(0F, off, 0F);
-		GlStateManager.rotate(time, 0F, 0F, 1F);
+		GlStateManager.rotate(((float) time), 0F, 0F, 1F);
 		GlStateManager.translate(0F, -off, 0F);
 
 		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -65,8 +65,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 	}
 
-	// todo 1.8 looks like vanilla copypasta, update it
-	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_) {
+	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();
 		float f2 = p_77026_2_.getMinV();

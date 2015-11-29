@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -26,6 +27,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
@@ -39,13 +45,21 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLightRelay extends BlockModContainer implements IWandable, ILexiconable {
 
-	public static IIcon invIcon, worldIcon, invIconRed, worldIconRed;
+	public static TextureAtlasSprite worldIcon, worldIconRed;
 
 	protected BlockLightRelay() {
 		super(Material.glass);
 		float f = 5F / 16F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		worldIcon = IconHelper.forBlock(evt.map, this, 1);
+		worldIconRed = IconHelper.forBlock(evt.map, this, 3);
 	}
 
 	@Override

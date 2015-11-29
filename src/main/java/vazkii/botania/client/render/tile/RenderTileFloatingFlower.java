@@ -13,6 +13,7 @@ package vazkii.botania.client.render.tile;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -58,16 +59,17 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 
 		ItemStack stack = flower.getDisplayStack();
-		IIcon icon = stack.getIconIndex();
-
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		GlStateManager.translate(0.25F, 0.4F, 0.5F);
-		GlStateManager.scale(0.5F, 0.5F, 0.5F);
-		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+		Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//		IIcon icon = stack.getIconIndex();
+//
+//		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+//		float f = icon.getMinU();
+//		float f1 = icon.getMaxU();
+//		float f2 = icon.getMinV();
+//		float f3 = icon.getMaxV();
+//		GlStateManager.translate(0.25F, 0.4F, 0.5F);
+//		GlStateManager.scale(0.5F, 0.5F, 0.5F);
+//		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.popMatrix();
 	}

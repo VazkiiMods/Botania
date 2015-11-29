@@ -128,7 +128,7 @@ public final class SkyblockWorldEvents {
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnChunk(pos, true, 0); // todo 1.8 verify last parm
+				pmp.setSpawnChunk(pos, true, player.worldObj.provider.getDimensionId());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 

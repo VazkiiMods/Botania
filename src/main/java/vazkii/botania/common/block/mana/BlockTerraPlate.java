@@ -11,12 +11,18 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -27,6 +33,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 
+	public static TextureAtlasSprite overlay;
+
 	public BlockTerraPlate() {
 		super(Material.iron);
 		setBlockBounds(0F, 0F, 0F, 1F, 3F / 16F, 1F);
@@ -34,6 +42,13 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setUnlocalizedName(LibBlockNames.TERRA_PLATE);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		overlay = IconHelper.forBlock(evt.map, this, "Overlay");
 	}
 
 	@Override

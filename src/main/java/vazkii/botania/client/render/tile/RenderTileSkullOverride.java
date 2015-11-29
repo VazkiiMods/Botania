@@ -14,8 +14,12 @@ import java.util.Map;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
+import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -34,41 +38,44 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 	public static final ModelSkullOverride modelSkull = new ModelSkullOverride();
 
 	@Override
-	public void renderTileEntityAt(TileEntitySkull p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
-		render(p_147500_1_, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, p_147500_1_.getBlockMetadata() & 7, p_147500_1_.func_145906_b() * 360 / 16.0F, p_147500_1_.func_145904_a(), p_147500_1_.func_152108_a());
+	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
+		if (p_147500_1_ instanceof TileEntitySkull) {
+			TileEntitySkull skull = ((TileEntitySkull) p_147500_1_);
+			render(skull, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, EnumFacing.getFront(p_147500_1_.getBlockMetadata() & 7) /*todo 1.8*/, skull.getSkullRotation() * 360 / 16.0F, skull.getSkullType(), skull.getPlayerProfile(), digProgress);
+		}
 	}
 
-	public void render(TileEntitySkull skull, float par1, float par2, float par3, int par4, float par5, int par6, GameProfile gameProfile) {
+	public void render(TileEntitySkull skull, float par1, float par2, float par3, EnumFacing par4, float par5, int par6, GameProfile gameProfile, int digProgress) {
 		boolean gaia = skull instanceof TileGaiaHead;
 		if(par6 == 3 || gaia) {
-			ResourceLocation resourcelocation = AbstractClientPlayer.locationStevePng;
+			ResourceLocation resourcelocation = DefaultPlayerSkin.getDefaultSkinLegacy();
 			Minecraft minecraft = Minecraft.getMinecraft();
 			if(gaia)
 				resourcelocation = minecraft.thePlayer.getLocationSkin();
 			else if(gameProfile != null) {
-				Map map = minecraft.func_152342_ad().func_152788_a(gameProfile);
+				Map map = minecraft.getSkinManager().loadSkinFromCache(gameProfile);
 
 				if (map.containsKey(MinecraftProfileTexture.Type.SKIN)) {
-					resourcelocation = minecraft.func_152342_ad().func_152792_a((MinecraftProfileTexture)map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN);
+					resourcelocation = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN);
 				}
 			}
 			bindTexture(resourcelocation);
 			GlStateManager.pushMatrix();
 			GlStateManager.disableCull();
-			if (par4 != 1) {
+			if (par4 != EnumFacing.UP) {
 				switch (par4) {
-				case 2:
+				case NORTH:
 					GlStateManager.translate(par1 + 0.5F, par2 + 0.25F, par3 + 0.74F);
 					break;
-				case 3:
+				case SOUTH:
 					GlStateManager.translate(par1 + 0.5F, par2 + 0.25F, par3 + 0.26F);
 					par5 = 180.0F;
 					break;
-				case 4:
+				case WEST:
 					GlStateManager.translate(par1 + 0.74F, par2 + 0.25F, par3 + 0.5F);
 					par5 = 270.0F;
 					break;
-				case 5:
+				case EAST:
 				default:
 					GlStateManager.translate(par1 + 0.26F, par2 + 0.25F, par3 + 0.5F);
 					par5 = 90.0F;
@@ -86,6 +93,6 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 			if(gaia)
 				ShaderHelper.releaseShader();
 			GlStateManager.popMatrix();
-		} else super.func_152674_a(par1, par2, par3, par4, par5, par6, gameProfile);
+		} else super.renderSkull(par1, par2, par3, par4, par5, par6, gameProfile, digProgress);
 	}
 }

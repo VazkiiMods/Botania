@@ -13,6 +13,7 @@ package vazkii.botania.client.render.tile;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -49,7 +50,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 
 		GlStateManager.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {
-			GlStateManager.rotate(time * 0.3, 0F, 1F, 0F);
+			GlStateManager.rotate(((float) (time * 0.3)), 0F, 1F, 0F);
 			GlStateManager.rotate(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
 			float s = 0.75F;
 			GlStateManager.scale(s, s, s);

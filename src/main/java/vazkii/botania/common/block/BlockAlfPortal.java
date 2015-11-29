@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,6 +21,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -32,12 +36,20 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
 
+	public static TextureAtlasSprite portalTex;
+
 	public BlockAlfPortal() {
 		super(Material.wood);
 		setHardness(10F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		portalTex = IconHelper.forBlock(evt.map, this, "Inside");
 	}
 
 	@Override

@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class ContainerCraftingHalo extends ContainerWorkbench {
 
 	public ContainerCraftingHalo(InventoryPlayer p_i1808_1_, World p_i1808_2_) {
-		super(p_i1808_1_, p_i1808_2_, BlockPos.ORIGIN); // todo 1.8 verify
+		super(p_i1808_1_, p_i1808_2_, BlockPos.ORIGIN);
 
 		craftMatrix = new InventoryCraftingHalo(this, 3, 3);
 

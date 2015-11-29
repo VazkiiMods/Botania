@@ -18,6 +18,7 @@ import java.util.List;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -217,7 +218,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, paper, 14, -28, ""); // todo 1.8 text
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, paper, 14, -28, "");
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {
@@ -370,7 +371,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(char par1, int par2) throws IOException {
 		if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down

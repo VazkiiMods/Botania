@@ -11,14 +11,16 @@
 package vazkii.botania.api.item;
 
 
+import net.minecraft.item.EnumDyeColor;
+
 /**
  * Used to define a Mana Pool that can be dyed through floral powder.
  */
 public interface IDyablePool {
 
-	public int getColor();
+	public EnumDyeColor getColor();
 
-	public void setColor(int color);
+	public void setColor(EnumDyeColor color);
 
 
 }

@@ -121,17 +121,18 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 						ItemStack stack = altar.getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-						IIcon icon = stack.getItem().getIcon(stack, 0);
-						if(icon != null) {
-							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-							float f = icon.getMinU();
-							float f1 = icon.getMaxU();
-							float f2 = icon.getMinV();
-							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GlStateManager.color(1F, 1F, 1F);
-						}
+						Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//						IIcon icon = stack.getItem().getIcon(stack, 0);
+//						if(icon != null) {
+//							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
+//							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+//							float f = icon.getMinU();
+//							float f1 = icon.getMaxU();
+//							float f2 = icon.getMinV();
+//							float f3 = icon.getMaxV();
+//							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+//							GlStateManager.color(1F, 1F, 1F);
+//						}
 
 						GlStateManager.popMatrix();
 					}
@@ -140,27 +141,28 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 				}
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			Block block = lava ? Blocks.lava : Blocks.water;
-			int brightness = lava ? 240 : -1;
-			float alpha = lava ? 1F : 0.7F;
-
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.disableAlpha();
-			if(lava)
-				GlStateManager.disableLighting();
-			GlStateManager.color(1F, 1F, 1F, alpha);
-			GlStateManager.translate(w, -0.3F, w);
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.scale(s, s, s);
-
-			renderIcon(0, 0, block.getIcon(0, 0), 16, 16, brightness);
-			if(lava)
-				GlStateManager.enableLighting();
-			GlStateManager.enableAlpha();
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
+			// todo 1.8 this theoretically would be completely done in models and getActualState
+//			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+//			Block block = lava ? Blocks.lava : Blocks.water;
+//			int brightness = lava ? 240 : -1;
+//			float alpha = lava ? 1F : 0.7F;
+//
+//			GlStateManager.enableBlend();
+//			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//			GlStateManager.disableAlpha();
+//			if(lava)
+//				GlStateManager.disableLighting();
+//			GlStateManager.color(1F, 1F, 1F, alpha);
+//			GlStateManager.translate(w, -0.3F, w);
+//			GlStateManager.rotate(90F, 1F, 0F, 0F);
+//			GlStateManager.scale(s, s, s);
+//
+//			renderIcon(0, 0, block.getIcon(0, 0), 16, 16, brightness);
+//			if(lava)
+//				GlStateManager.enableLighting();
+//			GlStateManager.enableAlpha();
+//			GlStateManager.disableBlend();
+//			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
 

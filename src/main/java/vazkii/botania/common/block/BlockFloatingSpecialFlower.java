@@ -20,6 +20,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -33,6 +34,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -55,13 +57,13 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
-//	@Override todo 1.8 coloredlights dep
-//	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-//		int currentLight = ((TileSpecialFlower) world.getTileEntity(x, y, z)).getLightValue();
-//		if(currentLight == -1)
-//			currentLight = originalLight;
-//		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
-//	}
+	@Override
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
+		if(currentLight == -1)
+			currentLight = originalLight;
+		return LightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), currentLight);
+	}
 
 	@Override
 	public boolean hasComparatorInputOverride() {

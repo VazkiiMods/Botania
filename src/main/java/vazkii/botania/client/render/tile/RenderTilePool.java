@@ -12,17 +12,15 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -63,9 +61,11 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
-		int color = pool.color;
-		float[] acolor = EntitySheep.fleeceColorTable[color];
-		GlStateManager.color(acolor[0], acolor[1], acolor[2], a);
+		int hex = pool.color.getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = (hex & 0xFF);
+		GlStateManager.color(r, g, b, a);
 		model.render();
 		GlStateManager.color(1F, 1F, 1F, a);
 		GlStateManager.scale(1F, -1F, -1F);
@@ -91,7 +91,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		if(pool.getWorld() != null) {
 			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
 			if(below instanceof IPoolOverlayProvider) {
-				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
+				TextureAtlasSprite overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
 				if(overlay != null) {
 					GlStateManager.pushMatrix();
 					GlStateManager.enableBlend();
@@ -137,7 +137,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		forceManaNumber = -1;
 	}
 
-	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
+	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().startDrawingQuads();
 		tessellator.getWorldRenderer().setBrightness(brightness);

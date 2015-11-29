@@ -87,11 +87,11 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
-//	@Override todo 1.8 coloredlights dep
-//	@Optional.Method(modid = "easycoloredlights")
-//	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-//		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-//	}
+	@Override
+	@Optional.Method(modid = "easycoloredlights")
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		return ColoredLightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), originalLight);
+	}
 
 	@Override
 	protected boolean shouldRegisterInNameSet() {

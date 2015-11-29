@@ -11,22 +11,26 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
@@ -48,7 +52,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			if(item == null)
 				item = new EntityItem(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
 
-			item.age = ClientTickHandler.ticksInGame;
+			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, ClientTickHandler.ticksInGame, LibObfuscation.AGE);
 			item.setEntityItemStack(enchanter.itemToEnchant);
 
 			GlStateManager.color(1F, 1F, 1F, 1F);
@@ -105,10 +109,10 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
+	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.setBrightness(brightness);
+		tessellator.getWorldRenderer().setBrightness(brightness);
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());

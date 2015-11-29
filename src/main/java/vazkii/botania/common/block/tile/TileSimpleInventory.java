@@ -18,6 +18,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
+import java.util.Arrays;
+
 public abstract class TileSimpleInventory extends TileMod implements IInventory {
 
 	ItemStack[] inventorySlots = new ItemStack[getSizeInventory()];
@@ -130,11 +132,11 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 
 	@Override
 	public void clear() {
-		// todo 1.8
+		Arrays.fill(inventorySlots, null);
 	}
 
 	@Override
 	public IChatComponent getDisplayName() {
-		return new ChatComponentText(getCommandSenderName()); // todo 1.8
+		return new ChatComponentText(getCommandSenderName());
 	}
 }

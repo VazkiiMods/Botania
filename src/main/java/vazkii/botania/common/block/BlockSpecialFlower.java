@@ -133,13 +133,13 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
-//	@Override todo 1.8 coloredlightscore dep
-//	public int getLightValue(IBlockAccess world, BlockPos pos) {
-//		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
-//		if(currentLight == -1)
-//			currentLight = 0;
-//		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
-//	}
+	@Override
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
+		if(currentLight == -1)
+			currentLight = 0;
+		return LightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), currentLight);
+	}
 
 	@Override
 	public boolean hasComparatorInputOverride() {
