@@ -120,8 +120,8 @@ public class SubTileMunchdew extends SubTileGenerating {
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
-		ArrayList<ItemStack> drops = super.getDrops(list);
+	public List<ItemStack> getDrops(List<ItemStack> list) {
+		List<ItemStack> drops = super.getDrops(list);
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, cooldown);
 		return drops;

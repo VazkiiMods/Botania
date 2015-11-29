@@ -12,10 +12,10 @@ package vazkii.botania.api.subtile.signature;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.
@@ -27,12 +27,12 @@ public abstract class SubTileSignature {
 	/**
 	 * Equivalent to Block.registerBlockIcons.
 	 */
-	public abstract void registerIcons(IIconRegister register);
-
+	public abstract void registerIcons(TextureMap map);
+	// todo 1.8 evaluate need for these two
 	/**
 	 * Gets the icon to display for the flower item.
 	 */
-	public abstract IIcon getIconForStack(ItemStack stack);
+	public abstract TextureAtlasSprite getIconForStack(ItemStack stack);
 
 	/**
 	 * Gets the display name for the flower item.

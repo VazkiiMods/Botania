@@ -13,6 +13,8 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -131,12 +133,12 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public IIcon getSubTileIconForName(String name) {
-		return Blocks.red_flower.getIcon(0, 0);
+	public TextureAtlasSprite getSubTileIconForName(String name) {
+		return null; //todo 1.8 return Blocks.red_flower.getIcon(0, 0);
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, IIconRegister register) {
+	public void registerBasicSignatureIcons(String name, TextureMap map) {
 		// NO-OP
 	}
 

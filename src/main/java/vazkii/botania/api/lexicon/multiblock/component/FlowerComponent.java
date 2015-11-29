@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.state.BotaniaStateProps;
 
 /**
  * A multiblock component that matches any botania flower.
@@ -21,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 public class FlowerComponent extends ColorSwitchingComponent {
 
 	public FlowerComponent(BlockPos relPos, Block block) {
-		super(relPos, block);
+		super(relPos, block, BotaniaStateProps.COLOR);
 	}
 
 	@Override

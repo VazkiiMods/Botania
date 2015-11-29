@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -57,7 +58,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list) {
 		if(isPrime())
 			list.clear();
 

@@ -13,6 +13,7 @@ package vazkii.botania.api.lexicon.multiblock;
 import java.util.*;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -39,10 +40,10 @@ public class Multiblock {
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(MultiblockComponent component) {
-		if(getComponentForLocation(component.relPos) != null)
+		if(getComponentForLocation(component.getRelativePosition()) != null)
 			throw new IllegalArgumentException("Location in multiblock already occupied");
 		components.add(component);
-		changeAxisForNewComponent(component.relPos);
+		changeAxisForNewComponent(component.getRelativePosition());
 		calculateCostForNewComponent(component);
 		addComponentToLocationCache(component);
 	}
@@ -51,8 +52,8 @@ public class Multiblock {
 	 * Constructs and adds a multiblock component to this multiblock. The x y z
 	 * coords should be pivoted to the center of the structure.
 	 */
-	public void addComponent(BlockPos pos, Block block, int meta) {
-		addComponent(new MultiblockComponent(pos, block, meta));
+	public void addComponent(BlockPos pos, IBlockState state) {
+		addComponent(new MultiblockComponent(pos, state));
 	}
 
 	private void changeAxisForNewComponent(BlockPos pos) {

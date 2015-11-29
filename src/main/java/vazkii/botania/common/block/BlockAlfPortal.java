@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -43,7 +44,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 		setHardness(10F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -54,17 +55,20 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.POWERED);
+		return new BlockState(this, BotaniaStateProps.ALFPORTAL_STATE);
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
+		if (meta > AlfPortalState.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.values()[meta]);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return ((AlfPortalState) state.getValue(BotaniaStateProps.ALFPORTAL_STATE)).ordinal();
 	}
 
 	@Override
@@ -87,7 +91,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return ((Boolean) world.getBlockState(pos).getValue(BotaniaStateProps.POWERED)) ? 0 : 15;
+		return ((AlfPortalState) world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE)) == AlfPortalState.OFF ? 0 : 15;
 	}
 
 }

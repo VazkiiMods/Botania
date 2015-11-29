@@ -63,6 +63,9 @@ public class BotaniaStateProps {
         }
     });
 
+    // BlockAlfPortal
+    public static final PropertyEnum ALFPORTAL_STATE = PropertyEnum.create("state", AlfPortalState.class);
+
     // BlockAltGrass
     public static final PropertyEnum ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);
 

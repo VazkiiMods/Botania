@@ -79,7 +79,7 @@ public final class ContributorFancinessHandler {
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, ModBlocks.flower.(0, i));
+				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
 			} catch(NumberFormatException e) {
 				SubTileSignature sig = BotaniaAPI.getSignatureForName(value);
 				if(sig != null)

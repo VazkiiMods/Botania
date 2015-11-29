@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 
 /**
@@ -27,12 +27,12 @@ public class BasicSignature extends SubTileSignature {
 	}
 
 	@Override
-	public void registerIcons(IIconRegister register) {
+	public void registerIcons(TextureMap register) {
 		BotaniaAPI.internalHandler.registerBasicSignatureIcons(name, register);
 	}
 
 	@Override
-	public IIcon getIconForStack(ItemStack stack) {
+	public TextureAtlasSprite getIconForStack(ItemStack stack) {
 		return BotaniaAPI.internalHandler.getSubTileIconForName(name);
 	}
 

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -29,6 +31,10 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.enums.LivingWoodVariant;
+import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -40,24 +46,28 @@ import com.google.common.base.Function;
 
 public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 
-	private static final int[][] LIVINGWOOD_POSITIONS = {
-		{ -1, 0, 0}, { 1, 0, 0}, { -2, 1, 0}, { 2, 1, 0}, { -2, 3, 0}, { 2, 3, 0}, { -1, 4, 0}, { 1, 4, 0}
+	private static final BlockPos[] LIVINGWOOD_POSITIONS = {
+		new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),
+		new BlockPos(2, 1, 0), new BlockPos(-2, 3, 0), new BlockPos(2, 3, 0),
+		new BlockPos(-1, 4, 0), new BlockPos(1, 4, 0)
 	};
 
-	private static final int[][] GLIMMERING_LIVINGWOOD_POSITIONS = {
-		{ -2, 2, 0 }, { 2, 2, 0 }, { 0, 4, 0 }
+	private static final BlockPos[] GLIMMERING_LIVINGWOOD_POSITIONS = {
+		new BlockPos(-2, 2, 0), new BlockPos(2, 2, 0), new BlockPos(0, 4, 0)
 	};
 
-	private static final int[][] PYLON_POSITIONS = {
-		{ -3, 1, 3 }, { 3, 1, 3 }
+	private static final BlockPos[] PYLON_POSITIONS = {
+		new BlockPos(-3, 1, 3), new BlockPos(3, 1, 3)
 	};
 
-	private static final int[][] POOL_POSITIONS = {
-		{ -3, 0, 3 }, { 3, 0, 3 }
+	private static final BlockPos[] POOL_POSITIONS = {
+		new BlockPos(-3, 0, 3), new BlockPos(3, 0, 3)
 	};
 
-	private static final int[][] AIR_POSITIONS = {
-		{ -1, 1, 0 }, { 0, 1, 0 }, { 1, 1, 0 },	{ -1, 2, 0 }, { 0, 2, 0 }, { 1, 2, 0 },	{ -1, 3, 0 }, { 0, 3, 0 }, { 1, 3, 0 }
+	private static final BlockPos[] AIR_POSITIONS = {
+		new BlockPos(-1, 1, 0), new BlockPos(0, 1, 0), new BlockPos(1, 1, 0),
+		new BlockPos(-1, 2, 0), new BlockPos(0, 2, 0), new BlockPos(1, 2, 0),
+		new BlockPos(-1, 3, 0), new BlockPos(0, 3, 0), new BlockPos(1, 3, 0)
 	};
 
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
@@ -73,10 +83,10 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 	private boolean closeNow = false;
 	private boolean hasUnloadedParts = false;
 
-	private static final Function<int[], int[]> CONVERTER_X_Z = new Function<int[], int[]>() {
+	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = new Function<BlockPos, BlockPos>() {
 		@Override
-		public int[] apply(int[] input) {
-			return new int[] { input[2], input[1], input[0] };
+		public BlockPos apply(BlockPos input) {
+			return new BlockPos(input.getZ(), input.getY(), input.getX());
 		}
 	};
 
@@ -87,39 +97,39 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 		}
 	};
 
-	private static final Function<int[], int[]> CONVERTER_Z_SWAP = new Function<int[], int[]>() {
+	private static final Function<BlockPos, BlockPos> CONVERTER_Z_SWAP = new Function<BlockPos, BlockPos>() {
 		@Override
-		public int[] apply(int[] input) {
-			return new int[] { input[0], input[1], -input[2] };
+		public BlockPos apply(BlockPos input) {
+			return new BlockPos(input.getX(), input.getY(), -input.getZ());
 		}
 	};
 
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
 
-		for(int[] l : LIVINGWOOD_POSITIONS)
-			mb.addComponent(, l[0], ModBlocks.livingwood, 0);
-		for(int[] g : GLIMMERING_LIVINGWOOD_POSITIONS)
-			mb.addComponent(, g[0], ModBlocks.livingwood, 5);
-		for(int[] p : PYLON_POSITIONS)
-			mb.addComponent(, -p[0], ModBlocks.pylon, 1);
-		for(int[] p : POOL_POSITIONS)
-			mb.addComponent(, -p[0], ModBlocks.pool, 0);
+		for(BlockPos l : LIVINGWOOD_POSITIONS)
+			mb.addComponent(l.up(), ModBlocks.livingwood, 0);
+		for(BlockPos g : GLIMMERING_LIVINGWOOD_POSITIONS)
+			mb.addComponent(g.up(), ModBlocks.livingwood, 5);
+		for(BlockPos p : PYLON_POSITIONS)
+			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon, 1);
+		for(BlockPos p : POOL_POSITIONS)
+			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool, 0);
 
-		mb.addComponent(, 0, ModBlocks.alfPortal, 0);
-		mb.setRenderOffset(0, -1, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal, 0);
+		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();
 	}
 
 	@Override
 	public void update() {
-		int meta = getBlockMetadata();
-		if(meta == 0) {
+		AlfPortalState state = ((AlfPortalState) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE));
+		if(state == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
-		int newMeta = getValidMetadata();
+		AlfPortalState newState = getValidState();
 
 		if(!hasUnloadedParts) {
 			ticksOpen++;
@@ -132,7 +142,7 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 			if(ticksOpen > 60) {
 				ticksSinceLastItem++;
 				if(ConfigHandler.elfPortalParticlesEnabled)
-					blockParticle(meta);
+					blockParticle(state);
 
 				List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
 				if(!worldObj.isRemote)
@@ -156,26 +166,26 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 		} else closeNow = false;
 
 		if(closeNow) {
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 1 | 2);
+			worldObj.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
 			for(int i = 0; i < 36; i++)
-				blockParticle(meta);
+				blockParticle(state);
 			closeNow = false;
-		} else if(newMeta != meta) {
-			if(newMeta == 0)
+		} else if(newState != state) {
+			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
-					blockParticle(meta);
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
+					blockParticle(state);
+			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		}
 
 		hasUnloadedParts = false;
 	}
 
-	private void blockParticle(int meta) {
+	private void blockParticle(AlfPortalState state) {
 		int i = worldObj.rand.nextInt(AIR_POSITIONS.length);
 		double[] pos = new double[] {
-				AIR_POSITIONS[i][0] + 0.5F, AIR_POSITIONS[i][1] + 0.5F, AIR_POSITIONS[i][2] + 0.5F
+				AIR_POSITIONS[i].getX() + 0.5F, AIR_POSITIONS[i].getY() + 0.5F, AIR_POSITIONS[i].getZ() + 0.5F
 		};
-		if(meta == 2)
+		if(state == AlfPortalState.ON_X)
 			pos = CONVERTER_X_Z_FP.apply(pos);
 
 		float motionMul = 0.2F;
@@ -183,11 +193,11 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 	}
 
 	public boolean onWanded() {
-		int meta = getBlockMetadata();
-		if(meta == 0) {
-			int newMeta = getValidMetadata();
-			if(newMeta != 0) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
+		AlfPortalState state = ((AlfPortalState) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE));
+		if(state == AlfPortalState.OFF) {
+			AlfPortalState newState = getValidState();
+			if(newState != AlfPortalState.OFF) {
+				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 				return true;
 			}
 		}
@@ -278,55 +288,55 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 		ticksSinceLastItem = cmp.getInteger(TAG_TICKS_SINCE_LAST_ITEM);
 	}
 
-	private int getValidMetadata() {
+	private AlfPortalState getValidState() {
 		if(checkConverter(null))
-			return 1;
+			return AlfPortalState.ON_Z;
 
 		if(checkConverter(CONVERTER_X_Z))
-			return 2;
+			return AlfPortalState.ON_X;
 
-		return 0;
+		return AlfPortalState.OFF;
 	}
 
-	private boolean checkConverter(Function<int[], int[]> baseConverter) {
+	private boolean checkConverter(Function<BlockPos, BlockPos> baseConverter) {
 		return checkMultipleConverters(baseConverter) || checkMultipleConverters(CONVERTER_Z_SWAP, baseConverter);
 	}
 
-	private boolean checkMultipleConverters(Function<int[], int[]>... converters) {
-		if(!check2DArray(AIR_POSITIONS, Blocks.air, -1, converters))
+	private boolean checkMultipleConverters(Function<BlockPos, BlockPos>... converters) {
+		if(!check2DArray(AIR_POSITIONS, Blocks.air.getDefaultState(), true, converters))
 			return false;
-		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood, 0, converters))
+		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT), false, converters))
 			return false;
-		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood, 5, converters))
+		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING), false, converters))
 			return false;
-		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon, 1, converters))
+		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA), false, converters))
 			return false;
-		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool, -1, converters))
+		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool.getDefaultState(), true, converters))
 			return false;
 
 		lightPylons(converters);
 		return true;
 	}
 
-	private void lightPylons(Function<int[], int[]>... converters) {
+	private void lightPylons(Function<BlockPos, BlockPos>... converters) {
 		if(ticksOpen < 50)
 			return;
 
 		int cost = ticksOpen == 50 ? 75000 : 2;
 
-		for(int[] pos : PYLON_POSITIONS) {
-			for(Function<int[], int[]> f : converters)
+		for(BlockPos pos : PYLON_POSITIONS) {
+			for(Function<BlockPos, BlockPos> f : converters)
 				if(f != null)
 					pos = f.apply(pos);
 
-			TileEntity tile = worldObj.getTileEntity(xCoord + pos[0], yCoord + pos[1], zCoord + pos[2]);
+			TileEntity tile = worldObj.getTileEntity(getPos().add(pos));
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
 				pylon.centerPos = getPos();
 			}
 
-			tile = worldObj.getTileEntity(xCoord + pos[0], yCoord + pos[1] - 1, zCoord + pos[2]);
+			tile = worldObj.getTileEntity(getPos().add(pos).down());
 			if(tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
 				if(pool.getCurrentMana() < cost)
@@ -337,35 +347,31 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 		}
 	}
 
-	private boolean check2DArray(int[][] positions, Block block, int meta, Function<int[], int[]>... converters) {
-		for(int[] pos : positions) {
-			for(Function<int[], int[]> f : converters)
+	private boolean check2DArray(BlockPos[] positions, IBlockState state, boolean onlyCheckBlock, Function<BlockPos, BlockPos>... converters) {
+		for(BlockPos pos : positions) {
+			for(Function<BlockPos, BlockPos> f : converters)
 				if(f != null)
 					pos = f.apply(pos);
 
-			if(!checkPosition(pos, block, meta))
+			if(!checkPosition(pos, state, onlyCheckBlock))
 				return false;
 		}
 
 		return true;
 	}
 
-	private boolean checkPosition(int[] pos, Block block, int meta) {
-		int x = xCoord + pos[0];
-		int y = yCoord + pos[1];
-		int z = zCoord + pos[2];
-		if(!worldObj.blockExists(x, y, z)) {
+	private boolean checkPosition(BlockPos pos, IBlockState state, boolean onlyCheckBlock) {
+		BlockPos pos_ = getPos().add(pos);
+		if(!worldObj.isBlockLoaded(pos_)) {
 			hasUnloadedParts = true;
 			return true; // Don't fuck everything up if there's a chunk unload
 		}
 
-		Block blockat = worldObj.getBlock(x, y, z);
-		if(block == Blocks.air ? blockat.isAir(worldObj, x, y, z) : blockat == block) {
-			if(meta == -1)
-				return true;
+		IBlockState stateat = worldObj.getBlockState(pos_);
+		Block blockat = stateat.getBlock();
 
-			int metaat = worldObj.getBlockMetadata(x, y, z);
-			return meta == metaat;
+		if(state.getBlock() == Blocks.air ? blockat.isAir(worldObj, pos_) : blockat == state.getBlock()) {
+			return onlyCheckBlock || stateat == state;
 		}
 
 		return false;

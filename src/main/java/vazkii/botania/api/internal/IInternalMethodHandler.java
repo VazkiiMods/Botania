@@ -13,6 +13,8 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -82,9 +84,10 @@ public interface IInternalMethodHandler {
 
 	public String getStackSubTileKey(ItemStack stack);
 
-	public IIcon getSubTileIconForName(String name);
+	// todo 1.8 evaluate need for these two
+	public TextureAtlasSprite getSubTileIconForName(String name);
 
-	public void registerBasicSignatureIcons(String name, IIconRegister register);
+	public void registerBasicSignatureIcons(String name, TextureMap map);
 
 	public boolean shouldForceCheck();
 

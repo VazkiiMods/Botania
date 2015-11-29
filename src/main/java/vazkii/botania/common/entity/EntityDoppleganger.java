@@ -124,14 +124,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos p : PYLON_LOCATIONS)
-			mb.addComponent(p, ModBlocks.pylon, 2);
+			mb.addComponent(p.up(), ModBlocks.pylon, 2);
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
 
 		mb.addComponent(new BlockPos(0, 1, 0), Blocks.beacon, 0);
-		mb.setRenderOffset(0, -1, 0);
+		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();
 	}

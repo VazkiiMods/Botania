@@ -15,6 +15,8 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -95,13 +97,13 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public IIcon getSubTileIconForName(String name) {
+	public TextureAtlasSprite getSubTileIconForName(String name) {
 		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
 		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, IIconRegister register) {
+	public void registerBasicSignatureIcons(String name, TextureMap map) {
 		IIcon normal = IconHelper.forName(register, name);
 		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
 		BlockSpecialFlower.icons.put(name, normal);

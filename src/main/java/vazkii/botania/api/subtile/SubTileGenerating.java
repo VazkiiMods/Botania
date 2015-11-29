@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -183,8 +184,8 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
-		ArrayList<ItemStack> drops = super.getDrops(list);
+	public List<ItemStack> getDrops(List<ItemStack> list) {
+		List<ItemStack> drops = super.getDrops(list);
 		if(isPassiveFlower())
 			populateDropStackNBTs(drops);
 		return drops;
@@ -203,8 +204,8 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		if(isPassiveFlower()) {
 			NBTTagCompound cmp = stack.getTagCompound();
 			passiveDecayTicks = cmp.getInteger(TAG_PASSIVE_DECAY_TICKS);

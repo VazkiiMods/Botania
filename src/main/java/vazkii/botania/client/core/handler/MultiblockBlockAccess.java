@@ -37,7 +37,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	public IBlockState getBlockState(BlockPos pos) {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
-			return comp.getBlock().getStateFromMeta(comp.getMeta());
+			return comp.getBlockState();
 		if(hasBlockAccess)
 			return originalBlockAccess.getBlockState(pos);
 		return Blocks.air.getDefaultState();
