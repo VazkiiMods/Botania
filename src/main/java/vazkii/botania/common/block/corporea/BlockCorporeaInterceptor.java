@@ -13,17 +13,17 @@ package vazkii.botania.common.block.corporea;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
@@ -32,29 +32,31 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockCorporeaInterceptor() {
 		super(Material.iron, LibBlockNames.CORPOREA_INTERCEPTOR);
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 > 1 ? 1 : 0];
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return world.getBlockMetadata(x, y, z) != 0 ? 15 : 0;
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
 	}
 
 	@Override

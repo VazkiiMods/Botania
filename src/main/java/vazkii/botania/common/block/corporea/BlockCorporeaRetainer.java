@@ -12,6 +12,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,6 +23,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
@@ -36,19 +38,34 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
 		setUnlocalizedName(LibBlockNames.CORPOREA_RETAINER);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 8 : 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
 	}
 
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
 
 		if(power && !powered) {
-			((TileCorporeaRetainer) world.getTileEntity(x, y, z)).fulfilRequest();
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override

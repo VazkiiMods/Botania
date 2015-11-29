@@ -22,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -56,8 +57,8 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.stackSize;
 
-				if(missing > 0 && getBlockMetadata() == 0) {
-					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
+				if(missing > 0 && !((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED))) {
+					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					worldObj.scheduleUpdate(getPos(), getBlockType(), 2);
 
 					TileEntity requestor = (TileEntity) source.getSparkInventory();
