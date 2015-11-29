@@ -66,6 +66,7 @@ public final class LibObfuscation {
 	public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "i" };
 
 	// MobSpawnerBaseLogic
+	public static final String[] IS_ACTIVATED = new String[] { "isActivated" ,"func_98279_f", "g" };
 	public static final String[] SPAWN_RANGE = new String[] { "spawnRange", "field_98290_m", "m" };
 	public static final String[] SPAWN_COUNT = new String[] { "spawnCount", "field_98294_i", "i" };
 	public static final String[] MAX_NEARBY_ENTITIES = new String[] { "maxNearbyEntities", "field_98292_k", "k" };

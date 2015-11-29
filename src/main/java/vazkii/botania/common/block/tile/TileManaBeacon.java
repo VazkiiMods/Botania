@@ -11,9 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 
 public class TileManaBeacon extends TileMod implements IUpdatePlayerListBox {
@@ -28,13 +29,16 @@ public class TileManaBeacon extends TileMod implements IUpdatePlayerListBox {
 		}
 
 		if(!redstone) {
-			float[] color = EntitySheep.fleeceColorTable[worldObj.getBlockMetadata(xCoord, yCoord, zCoord)];
+			int hex = ((EnumDyeColor) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+			int r = (hex & 0xFF0000) >> 16;
+			int g = (hex & 0xFF00) >> 8;
+			int b = (hex & 0xFF);
 
 			Botania.proxy.setWispFXDistanceLimit(false);
-			Botania.proxy.wispFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, color[0], color[1], color[2], (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - yCoord)), (float) (Math.random() - 0.5F));
+			Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, r, g, b, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - pos.getY())), (float) (Math.random() - 0.5F));
 
 			for(int i = 0; i < 2; i++)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.5, 256, zCoord + 0.5, color[0], color[1], color[2], (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+				Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, 256, pos.getZ() + 0.5, r, g, b, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 			Botania.proxy.setWispFXDistanceLimit(true);
 		}
 	}

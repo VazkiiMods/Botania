@@ -28,6 +28,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -219,9 +221,8 @@ public class TileLightRelay extends TileMod implements IWandBindable, IUpdatePla
 			if(pos.equals(exitPos)) {
 				TileEntity tile = worldObj.getTileEntity(pos);
 				if(tile != null && tile instanceof TileLightRelay) {
-					int meta = worldObj.getBlockMetadata(x, y, z);
-					if(meta > 0) {
-						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
+					if(worldObj.getBlockState(pos).getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR) {
+						worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 						worldObj.scheduleUpdate(pos, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
 

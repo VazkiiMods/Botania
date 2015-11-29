@@ -14,6 +14,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -22,12 +23,12 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost, IU
 	@Override
 	public void update() {
 		if(!worldObj.isRemote) {
-			int meta = getBlockMetadata();
-			int expectedMeta = worldObj.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).size() != 0 ? 1 : 0;
-			if(meta != expectedMeta)
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, expectedMeta, 1 | 2);
+			boolean state = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
+			boolean expectedState = worldObj.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).size() != 0;
+			if(state != expectedState)
+				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
 
-			if(expectedMeta == 1)
+			if(expectedState)
 				for(int i = 0; i < 4; i++)
 					Botania.proxy.sparkleFX(getWorld(), pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 		}

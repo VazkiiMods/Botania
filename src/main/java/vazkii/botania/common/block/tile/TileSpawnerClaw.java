@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -33,6 +34,8 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePl
 
 	int mana = 0;
 
+	private static final Method isActivated = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
+
 	@Override
 	public void update() {
 		TileEntity tileBelow = worldObj.getTileEntity(pos.down());
@@ -40,7 +43,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePl
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
 			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
 
-			if(!logic.isActivated()) {
+			if(!((Boolean) isActivated.invoke(logic))) {
 				if(!worldObj.isRemote)
 					mana -= 6;
 
@@ -49,10 +52,10 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePl
 						--logic.spawnDelay;
 
 					if(Math.random() > 0.5)
-						Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord - 0.3 + Math.random() * 0.25, zCoord + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
+						Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
-					logic.field_98284_d = logic.field_98287_c;
-					logic.field_98287_c = (logic.field_98287_c + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
+					logic.prevMobRotation = logic.getMobRotation();
+					logic.mobRotation = (logic.getMobRotation() + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
 				} else if(logic.spawnDelay == -1)
 					resetTimer(logic);
 
@@ -73,23 +76,23 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePl
 					if (entity == null)
 						return;
 
-					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), logic.getSpawnerX() + 1, logic.getSpawnerY() + 1, logic.getSpawnerZ() + 1).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
+					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.func_177221_b(), logic.func_177221_b().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
 
 					if (j >= maxNearbyEntities) {
 						resetTimer(logic);
 						return;
 					}
 
-					double d2 = logic.getSpawnerX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-					double d3 = logic.getSpawnerY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
-					double d4 = logic.getSpawnerZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+					double d2 = logic.func_177221_b().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+					double d3 = logic.func_177221_b().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
+					double d4 = logic.func_177221_b().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
 					EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
 					entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
 					if(entityliving == null || entityliving.getCanSpawnHere()) {
 						if(!worldObj.isRemote)
 							logic.func_98265_a(entity);
-						logic.getSpawnerWorld().playAuxSFX(2004, logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), 0);
+						logic.getSpawnerWorld().playAuxSFX(2004, logic.func_177221_b(), 0);
 
 						if (entityliving != null)
 							entityliving.spawnExplosionParticle();

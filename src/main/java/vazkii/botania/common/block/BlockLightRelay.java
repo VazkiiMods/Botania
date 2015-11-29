@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
@@ -34,6 +35,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -53,6 +56,30 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
 		MinecraftForge.EVENT_BUS.register(this);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.LUMINIZER_VARIANT, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR ? 1 : 0;
+		if (((Boolean) state.getValue(BotaniaStateProps.POWERED))) {
+			meta |= 8;
+		} else {
+			meta &= -9;
+		}
+		return meta;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		boolean powered = (meta & 8) != 0;
+		meta &= -9;
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, meta == 1 ? LuminizerVariant.DETECTOR : LuminizerVariant.DEFAULT);
 	}
 
 	@SubscribeEvent
@@ -80,7 +107,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return meta == 0 ? 0 : 1;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT ? 0 : 1;
 	}
 
 	@Override
@@ -111,7 +138,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) & -9, 1 | 2);
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
@@ -121,8 +148,8 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return (meta & 8) != 0 ? 15 : 0;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT
+				&& ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
 	}
 
 	@Override

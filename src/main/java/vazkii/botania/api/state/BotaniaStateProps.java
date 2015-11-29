@@ -90,6 +90,9 @@ public class BotaniaStateProps {
     // BlockForestDrum
     public static final PropertyEnum DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
 
+    // BlockLightRelay
+    public static final PropertyEnum LUMINIZER_VARIANT = PropertyEnum.create("variant", LuminizerVariant.class);
+
     // BlockLivingRock
     public static final PropertyEnum LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
 
