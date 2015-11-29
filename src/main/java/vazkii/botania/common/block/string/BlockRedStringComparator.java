@@ -11,7 +11,9 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringComparator;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -20,6 +22,7 @@ public class BlockRedStringComparator extends BlockRedString {
 
 	public BlockRedStringComparator() {
 		super(LibBlockNames.RED_STRING_COMPARATOR);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
 	@Override

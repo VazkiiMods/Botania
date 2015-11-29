@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -75,7 +76,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, IUpda
 	}
 
 	public EnumFacing getOrientation() {
-		return EnumFacing.getFront(getBlockMetadata()); // todo 1.8 states?
+		return ((EnumFacing) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.FACING));
 	}
 
 	public TileEntity getTileAtBinding() {

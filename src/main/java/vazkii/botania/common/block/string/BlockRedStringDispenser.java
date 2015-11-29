@@ -11,7 +11,12 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -20,19 +25,43 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 	public BlockRedStringDispenser() {
 		super(LibBlockNames.RED_STRING_DISPENSER);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		int meta = ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
+		if (((Boolean) state.getValue(BotaniaStateProps.POWERED))) {
+			meta |= 8;
+		} else {
+			meta &= -9;
+		}
+		return meta;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
+		meta &= -9;
+		EnumFacing facing = EnumFacing.getFront(meta);
+		return getDefaultState().withProperty(BotaniaStateProps.FACING, facing).withProperty(BotaniaStateProps.POWERED, powered);
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
 
 		if(power && !powered) {
-			((TileRedStringDispenser) world.getTileEntity(x, y, z)).tickDispenser();
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			((TileRedStringDispenser) world.getTileEntity(pos)).tickDispenser();
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override

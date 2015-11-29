@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -19,6 +21,7 @@ public class BlockRedStringRelay extends BlockRedString {
 
 	public BlockRedStringRelay() {
 		super(LibBlockNames.RED_STRING_RELAY);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
 	@Override

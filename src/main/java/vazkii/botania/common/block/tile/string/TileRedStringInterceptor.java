@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileRedStringInterceptor extends TileRedString implements IUpdatePlayerListBox {
 
@@ -53,8 +54,7 @@ public class TileRedStringInterceptor extends TileRedString implements IUpdatePl
 				if(coords != null && coords.equals(pos)) {
 					if(!world.isRemote) {
 						Block block = inter.getBlockType();
-						int meta = inter.getBlockMetadata();
-						world.setBlockMetadataWithNotify(inter.xCoord, inter.yCoord, inter.zCoord, meta | 8, 1 | 2);
+						world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 						world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
 					}
 

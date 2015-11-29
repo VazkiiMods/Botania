@@ -20,6 +20,7 @@ import java.util.Set;
 
 import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -308,12 +309,11 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Pure Daisy Recipe.
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
-	 * @param output The block to be placed upon recipe completion.
-	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
-		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState);
 		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}

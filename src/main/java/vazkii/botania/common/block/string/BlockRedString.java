@@ -14,16 +14,12 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -36,16 +32,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockRedString extends BlockModContainer<TileRedString> implements ILexiconable {
 
-	IIcon senderIcon;
-	IIcon sideIcon;
-
 	public BlockRedString(String name) {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setUnlocalizedName(name);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.SOUTH));
 	}
 
 	@Override
@@ -54,26 +46,19 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	}
 
 	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.getFront(meta));
+	}
+
+	@Override
 	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
 		par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		senderIcon = IconHelper.forName(par1IconRegister, "redStringSender");
-		sideIcon = registerSideIcon(par1IconRegister);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public IIcon registerSideIcon(IIconRegister register) {
-		return IconHelper.forBlock(register, this);
-	}
-
-	@Override
-	public IIcon getIcon(int side, int meta) {
-		return side == meta ? senderIcon : sideIcon;
 	}
 
 	@Override
