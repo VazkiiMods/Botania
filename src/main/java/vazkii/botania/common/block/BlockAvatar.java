@@ -136,11 +136,6 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return ModBlocks.livingwood.getIcon(0, 0);
-	}
-
-	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}

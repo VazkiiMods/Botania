@@ -191,11 +191,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par2 == 0 ? Blocks.cobblestone.getIcon(par1, par2) : ModFluffBlocks.biomeStoneA.getIcon(par1, par2 + 7);
-	}
-
-	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}

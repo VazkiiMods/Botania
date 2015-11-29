@@ -14,10 +14,10 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,7 +27,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
@@ -50,8 +49,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
-	IIcon[] icons;
-
 	public ItemBloodPendant() {
 		super(LibItemNames.BLOOD_PENDANT);
 		setMaxStackSize(1);
@@ -65,18 +62,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			if(brewStack != null)
 				list.add(brewStack);
 		}
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
-		for(int i = 0; i < 4; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[pass];
 	}
 
 	@Override

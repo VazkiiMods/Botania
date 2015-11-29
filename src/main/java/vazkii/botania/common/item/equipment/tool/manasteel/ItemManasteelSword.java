@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -37,8 +35,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
-
-	public static IIcon elucidatorIcon;
 
 	public ItemManasteelSword() {
 		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SWORD);
@@ -62,29 +58,17 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
-		elucidatorIcon = IconHelper.forName(par1IconRegister, "elucidator");
-	}
-
-	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
 		if(usesMana(par1ItemStack))
 			ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
-		return name.equals("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
+//	@Override todo 1.8
+//	public IIcon getIconIndex(ItemStack par1ItemStack) {
+//		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
+//		return name.equals("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
+//	}
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entity) {

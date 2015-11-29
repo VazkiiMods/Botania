@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -14,7 +13,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -25,8 +23,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemElementiumShears extends ItemManasteelShears {
-
-	IIcon dammitReddit;
 
 	public ItemElementiumShears() {
 		super(LibItemNames.ELEMENTIUM_SHEARS);
@@ -48,17 +44,10 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		return par1ItemStack;
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
-		dammitReddit = IconHelper.forName(par1IconRegister, "dammitReddit");
-	}
-
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return par1ItemStack.getDisplayName().equalsIgnoreCase("dammit reddit") ? dammitReddit : super.getIconIndex(par1ItemStack);
-	}
+//	@Override todo 1.8
+//	public IIcon getIconIndex(ItemStack par1ItemStack) {
+//		return par1ItemStack.getDisplayName().equalsIgnoreCase("dammit reddit") ? dammitReddit : super.getIconIndex(par1ItemStack);
+//	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {

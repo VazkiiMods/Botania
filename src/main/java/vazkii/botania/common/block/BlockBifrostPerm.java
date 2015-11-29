@@ -15,12 +15,11 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -54,7 +53,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, 1 - p_149646_5_); //todo 1.8 wtf
+		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite()); //todo 1.8 verify
 	}
 
 	@Override
@@ -64,8 +63,8 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderBlockPass() {
-		return 1;
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT_MIPPED; // todo 1.8 verify
 	}
 
 	@Override

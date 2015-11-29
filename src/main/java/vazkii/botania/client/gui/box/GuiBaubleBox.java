@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.box;
 
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -35,7 +36,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
@@ -47,7 +48,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
             	drawTexturedModalRect(k+slot.xDisplayPosition, l+slot.yDisplayPosition, 200, 0, 16, 16);
         }
         
-        GuiInventory.func_147046_a(this.guiLeft + 43, this.guiTop + 61, 20, (float)(this.guiLeft + 43 - p_146976_2_), (float)(this.guiTop + 45 - 30 - p_146976_3_), this.mc.thePlayer);
+        GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 61, 20, (float)(this.guiLeft + 43 - p_146976_2_), (float)(this.guiTop + 45 - 30 - p_146976_3_), this.mc.thePlayer);
 	}
 
 }

@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -21,6 +22,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
@@ -58,7 +60,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
 		EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, drop);
-		entityitem.delayBeforeCanPickup = 10;
+		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entityitem, 10, LibObfuscation.PICKUP_DELAY);
 		event.drops.add(entityitem);
 	}
 

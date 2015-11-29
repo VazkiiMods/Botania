@@ -41,7 +41,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	private static final int SUBTYPES = 32;
-	IIcon[] icons;
 
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
@@ -51,13 +50,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GameRegistry.addRecipe(new CosmeticRemoveRecipe());
 		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, Category.SHAPELESS, "");
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < SUBTYPES; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
 	@Override

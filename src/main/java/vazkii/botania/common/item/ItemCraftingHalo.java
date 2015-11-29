@@ -18,7 +18,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -35,16 +34,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -141,7 +134,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	}
 
 	private static ItemStack[] validateRecipe(EntityPlayer player, ItemStack stack, ItemStack[] recipe, int slot) {
-		InventoryCrafting fakeInv = new InventoryCrafting(new ContainerWorkbench(player.inventory, player.worldObj, 0, 0, 0), 3, 3);
+		InventoryCrafting fakeInv = new InventoryCrafting(new ContainerWorkbench(player.inventory, player.worldObj, BlockPos.ORIGIN), 3, 3);
 		for(int i = 0; i < 9; i++)
 			fakeInv.setInventorySlotContents(i, recipe[i]);
 
@@ -163,7 +156,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(recipe == null)
 			return false;
 
-		if(recipe[9].stackSize != InventoryHelper.testInventoryInsertion(inv, recipe[9], ForgeDirection.UNKNOWN))
+		if(recipe[9].stackSize != InventoryHelper.testInventoryInsertion(inv, recipe[9], null))
 			return false;
 
 		return consumeRecipeIngredients(recipe, inv, null);

@@ -29,8 +29,10 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 
 // This is mostly copypasta from TileRuneAltar
@@ -70,7 +72,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(this) && recipe.getOutput(getStackInSlot(0)) != null) {
 					this.recipe = recipe;
-					worldObj.setBlockMetadataWithNotify(pos.getX(), pos.getY(), pos.getZ(), 1, 1 | 2);
+					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 		}
 
@@ -84,7 +86,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(this)) {
 					this.recipe = recipe;
-					worldObj.setBlockMetadataWithNotify(pos.getX(), pos.getY(), pos.getZ(), 1, 1 | 2);
+					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 
 			if(recipe == null)
@@ -107,7 +109,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		if(recipe != null) {
 			if(!recipe.matches(this)) {
 				recipe = null;
-				worldObj.setBlockMetadataWithNotify(pos.getX(), pos.getY(), pos.getZ(), 0, 1 | 2);
+				worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
 			}
 
 			if(recipe != null) {

@@ -19,7 +19,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -27,8 +26,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -75,7 +75,7 @@ public class ItemGrassSeeds extends ItemMod {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
 
-		if((state.getBlock() == Blocks.dirt || (state.getBlock() == Blocks.grass && par1ItemStack.getItemDamage() != 0)) && bmeta == 0) {
+		if((state.getBlock() == Blocks.dirt && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.grass && par1ItemStack.getItemDamage() != 0)) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(par3World, pos, meta);
@@ -179,12 +179,12 @@ public class ItemGrassSeeds extends ItemMod {
 		switch(meta) {
 		case 1 : return new BlockSwapper(world, pos,  Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
 		case 2 : return new BlockSwapper(world, pos,  Blocks.mycelium.getDefaultState());
-		case 3 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 0);
-		case 4 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 1);
-		case 5 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 2);
-		case 6 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 3);
-		case 7 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 4);
-		case 8 : return new BlockSwapper(world, pos,  ModBlocks.altGrass, 5);
+		case 3 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
+		case 4 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.GOLDEN));
+		case 5 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.VIVID));
+		case 6 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.SCORCHED));
+		case 7 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.INFUSED));
+		case 8 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.MUTATED));
 		default : return new BlockSwapper(world, pos,  Blocks.grass.getDefaultState());
 		}
 	}

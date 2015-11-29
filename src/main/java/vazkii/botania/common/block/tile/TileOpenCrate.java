@@ -16,7 +16,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class TileOpenCrate extends TileSimpleInventory implements IUpdatePlayerListBox {
 
@@ -60,7 +62,7 @@ public class TileOpenCrate extends TileSimpleInventory implements IUpdatePlayerL
 		item.motionZ = 0;
 
 		if(redstone)
-			item.age = -200;
+			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, -200, LibObfuscation.AGE);
 
 		setInventorySlotContents(0, null);
 		if(!worldObj.isRemote)

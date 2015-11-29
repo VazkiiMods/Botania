@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -30,6 +32,9 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ItemSextant extends ItemMod {
 	
@@ -162,8 +167,13 @@ public class ItemSextant extends ItemMod {
 	public static class MultiblockSextant extends Multiblock {
 		
 		@Override
-		public Multiblock[] createRotations() {
-			return new Multiblock[] { this };
+		public Map<EnumFacing, Multiblock> createRotations() {
+			Map<EnumFacing, Multiblock> ret = new EnumMap<EnumFacing, Multiblock>(EnumFacing.class);
+			for (EnumFacing e : EnumFacing.HORIZONTALS) {
+				ret.put(e, this);
+			}
+			return ret;
+			// return new Multiblock[] { this }; todo 1.8 verify, this was only the first direction
 		}
 		
 	}

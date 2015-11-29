@@ -22,6 +22,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -32,6 +33,7 @@ import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
@@ -125,7 +127,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 			if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true) && item != null) {
 				if(item instanceof EntityItem)
-					((EntityItem)item).delayBeforeCanPickup = 5;
+					ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, ((EntityItem) item), 5, LibObfuscation.PICKUP_DELAY);
 
 				if(item instanceof EntityLivingBase) {
 					EntityLivingBase targetEntity = (EntityLivingBase)item;
@@ -209,7 +211,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
 					if(item instanceof EntityItem) {
-						((EntityItem)item).delayBeforeCanPickup = 20;
+						ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, ((EntityItem) item), 20, LibObfuscation.PICKUP_DELAY);
 						float mot = IManaProficiencyArmor.Helper.hasProficiency(player) ? 2.25F : 1.5F;
 						item.motionX = moveVector.x * mot;
 						item.motionY = moveVector.y;

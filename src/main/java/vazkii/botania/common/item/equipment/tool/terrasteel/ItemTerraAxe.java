@@ -16,14 +16,12 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -46,28 +44,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	private static final int MANA_PER_DAMAGE = 100;
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
 
-	IIcon iconOn, iconOff;
-
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
 		FMLCommonHandler.instance().bus().register(this);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconOn = IconHelper.forItem(par1IconRegister, this, 0);
-		iconOff = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int p_77617_1_) {
-		return iconOn;
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-		return shouldBreak(player) ? iconOn : iconOff;
 	}
 
 	public boolean shouldBreak(EntityPlayer player) {

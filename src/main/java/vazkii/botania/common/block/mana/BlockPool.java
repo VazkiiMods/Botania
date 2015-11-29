@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -40,6 +41,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -68,6 +71,25 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setUnlocalizedName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 		MinecraftForge.EVENT_BUS.register(this);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.POOL_VARIANT);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((PoolVariant) state.getValue(BotaniaStateProps.POOL_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > PoolVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.values()[meta]);
 	}
 
 	@SubscribeEvent

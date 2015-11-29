@@ -263,8 +263,8 @@ public class ClientProxy extends CommonProxy {
 //		RenderingRegistry.registerBlockHandler(new RenderTeruTeruBozu());
 //		RenderingRegistry.registerBlockHandler(new RenderAvatar());
 
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
+//		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
+//		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
@@ -314,15 +314,15 @@ public class ClientProxy extends CommonProxy {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger());
+		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram());
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.manaResource, Minecraft.getMinecraft().getRenderItem()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart());
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither());
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm());
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, new RenderBabylonWeapon());
+		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, new RenderBabylonWeapon(Minecraft.getMinecraft().getRenderManager()));
 
 		ShaderHelper.initShaders();
 	}
@@ -417,7 +417,7 @@ public class ClientProxy extends CommonProxy {
 				int xp = x + i - iradius;
 				int zp = z + j - iradius;
 				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
-					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block, 0));
+					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
 			}
 		
 		MultiblockRenderHandler.setMultiblock(mb.makeSet());

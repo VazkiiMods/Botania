@@ -42,10 +42,10 @@ public class EntityPinkWither extends EntityWither {
 		// NO-OP
 	}
 
-	@Override
-	protected void attackEntity(Entity p_70785_1_, float p_70785_2_) {
-		// NO-OP
-	}
+//	@Override todo 1.8 mtd no longer exists?
+//	protected void attackEntity(Entity p_70785_1_, float p_70785_2_) {
+//		// NO-OP
+//	}
 
 	@Override
 	public boolean attackEntityAsMob(Entity p_70652_1_) {
@@ -61,10 +61,10 @@ public class EntityPinkWither extends EntityWither {
 		return false;
 	}
 
-	@Override
-	protected boolean isAIEnabled() {
-		return false;
-	}
+//	@Override todo 1.8 new AI
+//	protected boolean isAIEnabled() {
+//		return false;
+//	}
 
 	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {

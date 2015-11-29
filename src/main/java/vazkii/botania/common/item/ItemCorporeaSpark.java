@@ -12,7 +12,6 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -59,23 +57,18 @@ public class ItemCorporeaSpark extends ItemMod {
 		return false;
 	}
 
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		invIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
-		invIconMaster = IconHelper.forItem(par1IconRegister, this, 2);
-		worldIconMaster = IconHelper.forItem(par1IconRegister, this, 3);
-		iconColorStar = IconHelper.forItem(par1IconRegister, this, "Star");
-	}
+//	@Override todo 1.8
+//	public void registerIcons(IIconRegister par1IconRegister) {
+//		invIcon = IconHelper.forItem(par1IconRegister, this, 0);
+//		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
+//		invIconMaster = IconHelper.forItem(par1IconRegister, this, 2);
+//		worldIconMaster = IconHelper.forItem(par1IconRegister, this, 3);
+//		iconColorStar = IconHelper.forItem(par1IconRegister, this, "Star");
+//	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int meta) {
-		return meta == 0 ? invIcon : invIconMaster;
 	}
 
 }

@@ -60,39 +60,39 @@ public class EntityPixie extends EntityFlyingCreature {
 		this.effect = effect;
 	}
 
-	@Override
-	protected void updateEntityActionState() {
-		EntityLivingBase target = getAttackTarget();
-		if(target != null) {
-			double d0 = target.posX + target.width / 2 - posX;
-			double d1 = target.posY + target.height / 2 - posY;
-			double d2 = target.posZ + target.width / 2 - posZ;
-			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-
-			float mod = 0.45F;
-			if(getType() == 1)
-				mod = 0.1F;
-
-			motionX += d0 / d3 * mod;
-			motionY += d1 / d3 * mod;
-			motionZ += d2 / d3 * mod;
-
-			if(Math.sqrt(d3) < 1F) {
-				if(summoner != null) {
-					if(summoner instanceof EntityPlayer)
-						target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) summoner), damage);
-					else {
-						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
-					}
-				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
-				if(effect != null && !(target instanceof EntityPlayer))
-					target.addPotionEffect(effect);
-				die();
-			}
-		}
-
-		renderYawOffset = rotationYaw = -((float)Math.atan2(motionX, motionZ)) * 180.0F / (float)Math.PI;
-	}
+//	@Override todo 1.8 uh oh ... we can't override this anymore
+//	protected void updateEntityActionState() {
+//		EntityLivingBase target = getAttackTarget();
+//		if(target != null) {
+//			double d0 = target.posX + target.width / 2 - posX;
+//			double d1 = target.posY + target.height / 2 - posY;
+//			double d2 = target.posZ + target.width / 2 - posZ;
+//			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+//
+//			float mod = 0.45F;
+//			if(getType() == 1)
+//				mod = 0.1F;
+//
+//			motionX += d0 / d3 * mod;
+//			motionY += d1 / d3 * mod;
+//			motionZ += d2 / d3 * mod;
+//
+//			if(Math.sqrt(d3) < 1F) {
+//				if(summoner != null) {
+//					if(summoner instanceof EntityPlayer)
+//						target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) summoner), damage);
+//					else {
+//						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
+//					}
+//				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
+//				if(effect != null && !(target instanceof EntityPlayer))
+//					target.addPotionEffect(effect);
+//				die();
+//			}
+//		}
+//
+//		renderYawOffset = rotationYaw = -((float)Math.atan2(motionX, motionZ)) * 180.0F / (float)Math.PI;
+//	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {

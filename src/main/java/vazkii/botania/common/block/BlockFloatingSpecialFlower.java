@@ -112,21 +112,21 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
+	public void onBlockHarvested(World par1World, BlockPos pos, IBlockState state, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode) {
-			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
-			((TileSpecialFlower) par1World.getTileEntity(par2, par3, par4)).onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
+			dropBlockAsItem(par1World, pos, state, 0);
+			((TileSpecialFlower) par1World.getTileEntity(pos)).onBlockHarvested(par1World, pos, state, par6EntityPlayer);
 		}
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList();
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
 			String name = ((TileSpecialFlower) tile).subTileName;
-			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(world.getBlock(x, y, z)), name));
+			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
 
@@ -134,30 +134,30 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
-		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
-		TileEntity tileentity = par1World.getTileEntity(par2, par3, par4);
-		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
+	public boolean onBlockEventReceived(World par1World, BlockPos pos, IBlockState state, int eventID, int value) {
+		super.onBlockEventReceived(par1World, pos, state, eventID, value);
+		TileEntity tileentity = par1World.getTileEntity(pos);
+		return tileentity != null ? tileentity.receiveClientEvent(eventID, value) : false;
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onWanded(stack, player);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ) || super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ) || super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
 	}
 
 	@Override
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos);
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@Override

@@ -17,7 +17,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,16 +24,18 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
@@ -84,48 +85,55 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		p_149689_1_.setBlock(p_149689_2_, p_149689_3_ + 1, p_149689_4_, this, p_149689_6_.getItemDamage() | 8, 2);
+	public void onBlockPlacedBy(World p_149689_1_, BlockPos pos, IBlockState state, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		p_149689_1_.setBlockState(pos.up(), this, p_149689_6_.getItemDamage() | 8, 2);
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
 	@Override
-	public void harvestBlock(World p_149636_1_, EntityPlayer p_149636_2_, int p_149636_3_, int p_149636_4_, int p_149636_5_, int p_149636_6_) {
+	public void harvestBlock(World p_149636_1_, EntityPlayer p_149636_2_, BlockPos pos, IBlockState state, TileEntity te) {
 		if(p_149636_1_.isRemote || p_149636_2_.getCurrentEquippedItem() == null || p_149636_2_.getCurrentEquippedItem().getItem() != Items.shears || func_149887_c(p_149636_6_))
-			harvestBlockCopy(p_149636_1_, p_149636_2_, p_149636_3_, p_149636_4_, p_149636_5_, p_149636_6_);
+			harvestBlockCopy(p_149636_1_, p_149636_2_, pos, state);
 	}
 
 	// This is how I get around encapsulation
-	public void harvestBlockCopy(World p_149636_1_, EntityPlayer p_149636_2_, int p_149636_3_, int p_149636_4_, int p_149636_5_, int p_149636_6_) {
-		p_149636_2_.addStat(StatList.mineBlockStatArray[getIdFromBlock(this)], 1);
-		p_149636_2_.addExhaustion(0.025F);
+	public void harvestBlockCopy(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state) {
+		player.triggerAchievement(StatList.mineBlockStatArray[getIdFromBlock(this)]);
+		player.addExhaustion(0.025F);
 
-		if(this.canSilkHarvest(p_149636_1_, p_149636_2_, p_149636_3_, p_149636_4_, p_149636_5_, p_149636_6_) && EnchantmentHelper.getSilkTouchModifier(p_149636_2_)) {
-			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-			ItemStack itemstack = createStackedBlock(p_149636_6_);
+		if (this.canSilkHarvest(worldIn, pos, worldIn.getBlockState(pos), player) && EnchantmentHelper.getSilkTouchModifier(player))
+		{
+			java.util.ArrayList<ItemStack> items = new java.util.ArrayList<ItemStack>();
+			ItemStack itemstack = this.createStackedBlock(state);
 
-			if(itemstack != null)
+			if (itemstack != null)
+			{
 				items.add(itemstack);
+			}
 
-			ForgeEventFactory.fireBlockHarvesting(items, p_149636_1_, this, p_149636_3_, p_149636_4_, p_149636_5_, p_149636_6_, 0, 1.0f, true, p_149636_2_);
-			for(ItemStack is : items)
-				this.dropBlockAsItem(p_149636_1_, p_149636_3_, p_149636_4_, p_149636_5_, is);
-		} else {
-			harvesters.set(p_149636_2_);
-			int i1 = EnchantmentHelper.getFortuneModifier(p_149636_2_);
-			this.dropBlockAsItem(p_149636_1_, p_149636_3_, p_149636_4_, p_149636_5_, p_149636_6_, i1);
+			net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, worldIn.getBlockState(pos), 0, 1.0f, true, player);
+			for (ItemStack stack : items)
+			{
+				spawnAsEntity(worldIn, pos, stack);
+			}
+		}
+		else
+		{
+			harvesters.set(player);
+			int i = EnchantmentHelper.getFortuneModifier(player);
+			this.dropBlockAsItem(worldIn, pos, state, i);
 			harvesters.set(null);
 		}
 	}
 
 	@Override
-	public void onBlockHarvested(World p_149681_1_, int p_149681_2_, int p_149681_3_, int p_149681_4_, int p_149681_5_, EntityPlayer p_149681_6_) {
+	public void onBlockHarvested(World p_149681_1_, BlockPos pos, IBlockState state, EntityPlayer p_149681_6_) {
 		if(func_149887_c(p_149681_5_)) {
-			if(p_149681_1_.getBlock(p_149681_2_, p_149681_3_ - 1, p_149681_4_) == this) {
+			if(p_149681_1_.getBlockState(pos.down()).getBlock() == this) {
 				if(!p_149681_6_.capabilities.isCreativeMode) {
 					int i1 = p_149681_1_.getBlockMetadata(p_149681_2_, p_149681_3_ - 1, p_149681_4_);
 					int j1 = func_149890_d(i1);
@@ -138,12 +146,12 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
                             this.func_149886_b(p_149681_1_, p_149681_2_, p_149681_3_, p_149681_4_, i1, p_149681_6_);
                         }*/
 
-						p_149681_1_.setBlockToAir(p_149681_2_, p_149681_3_ - 1, p_149681_4_);
+						p_149681_1_.setBlockToAir(pos.down());
 					}
-				} else p_149681_1_.setBlockToAir(p_149681_2_, p_149681_3_ - 1, p_149681_4_);
+				} else p_149681_1_.setBlockToAir(pos.down());
 			}
-		} else if(p_149681_6_.capabilities.isCreativeMode && p_149681_1_.getBlock(p_149681_2_, p_149681_3_ + 1, p_149681_4_) == this)
-			p_149681_1_.setBlock(p_149681_2_, p_149681_3_ + 1, p_149681_4_, Blocks.air, 0, 2);
+		} else if(p_149681_6_.capabilities.isCreativeMode && p_149681_1_.getBlockState(pos.up()).getBlock() == this)
+			p_149681_1_.setBlockState(pos.up(), Blocks.air.getDefaultState(), 2);
 
 		//super.onBlockHarvested(p_149681_1_, p_149681_2_, p_149681_3_, p_149681_4_, p_149681_5_, p_149681_6_);
 	}
@@ -183,11 +191,14 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 
 	@Override
 	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		float[] color = EntitySheep.fleeceColorTable[offset(meta & 7)];
+		int hex = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = (hex & 0xFF);
 
 		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
-			Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
+			Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.5 + par5Random.nextFloat() * 0.5, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r, g, b, par5Random.nextFloat(), 5);
+
 	}
 
 	@Override

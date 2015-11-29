@@ -10,10 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -22,23 +20,12 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSlimeBottle extends ItemMod {
 
-	IIcon activeIcon;
+	// todo 1.8 smart model?
 
 	public ItemSlimeBottle() {
 		setUnlocalizedName(LibItemNames.SLIME_BOTTLE);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		activeIcon = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int dmg) {
-		return dmg == 0 ? itemIcon : activeIcon;
 	}
 
 	@Override

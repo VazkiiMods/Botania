@@ -29,7 +29,7 @@ import vazkii.botania.common.item.ModItems;
 // Basically a bit of an extension of RenderSnowball
 public class RenderThornChakram extends Render {
 
-	protected RenderThornChakram(RenderManager renderManager) {
+	public RenderThornChakram(RenderManager renderManager) {
 		super(renderManager);
 	}
 

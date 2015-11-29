@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,9 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
@@ -67,8 +64,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int[] CREATIVE_MANA = new int[] {
 		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
-
-	IIcon iconTool, iconOverlay, iconTipped;
 
 	public ItemTerraPick() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
@@ -182,18 +177,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconTool = IconHelper.forItem(par1IconRegister, this, 0);
-		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
-		iconTipped = IconHelper.forItem(par1IconRegister, this, 2);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 1 && isEnabled(stack) ? iconOverlay : isTipped(stack) ? iconTipped : iconTool;
 	}
 
 	public static boolean isTipped(ItemStack stack) {

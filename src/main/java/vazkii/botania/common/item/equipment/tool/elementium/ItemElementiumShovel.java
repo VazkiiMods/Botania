@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
@@ -39,7 +38,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 
 		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof BlockFalling)
-			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune, false);
+			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new BlockPos(0, -12, 0), new BlockPos(1, 12, 1), blk, materialsShovel, silk, fortune, false);
 
 		return false;
 	}

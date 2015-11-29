@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.nbt.NBTTagCompound;
@@ -85,7 +86,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(char par1, int par2) throws IOException {
 		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home

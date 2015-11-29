@@ -12,7 +12,6 @@ package vazkii.botania.common.item.equipment.tool;
 
 import java.awt.Color;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -20,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -29,23 +27,10 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemEnderDagger extends ItemManasteelSword {
 
-	IIcon iconFront, iconOverlay;
-
 	public ItemEnderDagger() {
 		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);
 		setMaxDamage(69); // What you looking at?
 		setNoRepair();
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconFront = IconHelper.forItem(par1IconRegister, this, 0);
-		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 0 ? iconFront : iconOverlay;
 	}
 
 	@Override

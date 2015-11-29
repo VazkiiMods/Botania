@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;

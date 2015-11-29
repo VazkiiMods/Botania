@@ -159,12 +159,12 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		}
 	}
 
-	private boolean inRange(int x, int y, int z, int srcx, int srcy, int srcz, int range, double heightscale, boolean pointy) {
-		if(y >= srcy)
-			return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range;
+	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
+		if(pos.getY() >= srcPos.getY())
+			return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range;
 		else if(!pointy)
-			return MathHelper.pointDistanceSpace(x, y / heightscale, z, srcx, srcy / heightscale, srcz) < range;
-		else return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range - (srcy - y) / heightscale;
+			return MathHelper.pointDistanceSpace(pos.getX(), pos.getY() / heightscale, pos.getZ(), srcPos.getX(), srcPos.getY() / heightscale, srcPos.getZ()) < range;
+		else return MathHelper.pointDistanceSpace(pos.getX(), 0, pos.getZ(), srcPos.getX(), 0, srcPos.getZ()) < range - (srcPos.getY() - pos.getY()) / heightscale;
 	}
 
 	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {

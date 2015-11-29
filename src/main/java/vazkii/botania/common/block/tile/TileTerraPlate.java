@@ -56,11 +56,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IUpdate
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos relativePos : LAPIS_BLOCKS)
-			mb.addComponent(relativePos, Blocks.lapis_block, 0);
+			mb.addComponent(relativePos, Blocks.lapis_block.getDefaultState());
 		for(BlockPos relativePos : LIVINGROCK_BLOCKS)
-			mb.addComponent(relativePos, ModBlocks.livingrock, 0);
+			mb.addComponent(relativePos, ModBlocks.livingrock.getDefaultState());
 
-		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.terraPlate, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.terraPlate.getDefaultState());
 		mb.setRenderOffset(new BlockPos(0, 1, 0));
 
 		return mb.makeSet();

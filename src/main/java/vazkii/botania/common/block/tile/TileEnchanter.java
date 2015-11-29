@@ -94,15 +94,15 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IUpdateP
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos o : OBSIDIAN_LOCATIONS)
-			mb.addComponent(o.up(), Blocks.obsidian, 0);
+			mb.addComponent(o.up(), Blocks.obsidian.getDefaultState());
 		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
-			mb.addComponent(p.up(), ModBlocks.pylon, 0);
+			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState());
 			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
 		}
 		for(BlockPos f : FLOWER_LOCATIONS)
 			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.flower));
 
-		mb.addComponent(BlockPos.ORIGIN, Blocks.lapis_block, 0);
+		mb.addComponent(BlockPos.ORIGIN, Blocks.lapis_block.getDefaultState());
 
 		return mb.makeSet();
 	}

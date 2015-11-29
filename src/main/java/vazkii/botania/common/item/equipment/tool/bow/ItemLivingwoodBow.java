@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -20,7 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
@@ -40,7 +38,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 40;
-	IIcon[] pullIcons = new IIcon[3];
 
 	public ItemLivingwoodBow() {
 		this(LibItemNames.LIVINGWOOD_BOW);
@@ -152,14 +149,6 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		for(int i = 0; i < 3; i++)
-			pullIcons[i] = IconHelper.forItem(par1IconRegister, this, i + 1);
-	}
-
-	@Override
 	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
 		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
 			stack.setItemDamage(stack.getItemDamage() - 1);
@@ -175,21 +164,21 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		return true;
 	}
 
-	@Override
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-		if(stack != usingItem)
-			return itemIcon;
-
-		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
-
-		if(j >= 18)
-			return pullIcons[2];
-		if(j > 13)
-			return pullIcons[1];
-		if(j > 0)
-			return pullIcons[0];
-
-		return itemIcon;
-	}
+//	@Override todo 1.8
+//	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+//		if(stack != usingItem)
+//			return itemIcon;
+//
+//		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
+//
+//		if(j >= 18)
+//			return pullIcons[2];
+//		if(j > 13)
+//			return pullIcons[1];
+//		if(j > 0)
+//			return pullIcons[0];
+//
+//		return itemIcon;
+//	}
 
 }

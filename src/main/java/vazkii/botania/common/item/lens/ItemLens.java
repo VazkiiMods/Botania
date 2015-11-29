@@ -13,7 +13,6 @@ package vazkii.botania.common.item.lens;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +21,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -148,14 +146,14 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}
 
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
-
-		ringIcons = new IIcon[SUBTYPES];
-		for(int i = 0; i < ringIcons.length; i++)
-			ringIcons[i] = IconHelper.forName(par1IconRegister, LibItemNames.LENS_NAMES[i]);
-	}
+//	@Override todo 1.8
+//	public void registerIcons(IIconRegister par1IconRegister) {
+//		iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
+//
+//		ringIcons = new IIcon[SUBTYPES];
+//		for(int i = 0; i < ringIcons.length; i++)
+//			ringIcons[i] = IconHelper.forName(par1IconRegister, LibItemNames.LENS_NAMES[i]);
+//	}
 
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
@@ -163,10 +161,10 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
-	@Override
-	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
-	}
+//	@Override todo 1.8
+//	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
+//		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
+//	}
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {

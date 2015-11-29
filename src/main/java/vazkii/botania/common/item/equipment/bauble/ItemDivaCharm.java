@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -104,7 +105,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			float f3 = itemIcon.getMaxV();
 			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.35F : -0.3F);

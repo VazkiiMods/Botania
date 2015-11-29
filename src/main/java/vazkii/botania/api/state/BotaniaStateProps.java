@@ -109,6 +109,9 @@ public class BotaniaStateProps {
     // BlockPlatform
     public static final PropertyEnum PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);
 
+    // BlockPool
+    public static final PropertyEnum POOL_VARIANT = PropertyEnum.create("variant", PoolVariant.class);
+
     // BlockPrism
     public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
 

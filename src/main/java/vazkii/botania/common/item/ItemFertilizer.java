@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
@@ -39,7 +41,7 @@ public class ItemFertilizer extends ItemMod {
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if(par3World.isAirBlock(pos_) && (!par3World.provider.getHasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canBlockStay(par3World, pos_))
+						if(par3World.isAirBlock(pos_) && (!par3World.provider.getHasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(par3World, pos_))
 							validCoords.add(pos_);
 					}
 				}
@@ -48,7 +50,7 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				par3World.setBlockState(coords, ModBlocks.flower, par3World.rand.nextInt(16), 1 | 2);
+				par3World.setBlockState(coords, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(par3World.rand.nextInt(16))), 1 | 2);
 			}
 			par1ItemStack.stackSize--;
 		} else {

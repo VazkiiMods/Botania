@@ -52,10 +52,7 @@ public class ItemGrassHorn extends ItemMod {
 			list.add(new ItemStack(item, 1, i));
 	}
 
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
-	}
+	// todo 1.8 return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
@@ -85,7 +82,7 @@ public class ItemGrassHorn extends ItemMod {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
 		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-			breakGrass(player.worldObj, stack, stack.getItemDamage(), (int) player.posX, (int) player.posY, (int) player.posZ);
+			breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
 
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
@@ -103,7 +100,7 @@ public class ItemGrassHorn extends ItemMod {
 				for(int k = -rangeY; k < rangeY + 1; k++) {
 					BlockPos pos = srcPos.add(i, k, j);
 					Block block = world.getBlockState(pos).getBlock();
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
+					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, pos)) || stackDmg == 1 && block.isLeaves(world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
 						coords.add(pos);
 				}
 

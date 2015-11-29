@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -71,27 +72,17 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, 1 - p_149646_5_); //todo 1.8 wtf
+		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite()); //todo 1.8 verify
 	}
 
 	@Override
-	public int getRenderBlockPass() {
-		return 1;
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT_MIPPED; // todo 1.8
 	}
 
 	@Override
 	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		return 0;
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void loadTextures(TextureStitchEvent.Pre event) {
-		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new TextureAtlasSprite("botania:bifrost");
-			if(event.map.setTextureEntry("botania:bifrost", icon))
-				blockIcon = icon;
-		}
 	}
 
 	@Override

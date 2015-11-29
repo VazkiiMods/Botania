@@ -14,9 +14,12 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -33,17 +36,17 @@ public class TilePylon extends TileEntity implements IUpdatePlayerListBox {
 	@Override
 	public void update() {
 		++ticks;
-		int meta = getBlockMetadata();
+		PylonVariant variant = ((PylonVariant) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT));
 
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || meta != 0 && worldObj.getBlockMetadata(centerX, centerY, centerZ) == 0) {
+			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && worldObj.getBlockState(centerPos).getBlock().getMetaFromState(worldObj.getBlockState(centerPos)) == 0) { // todo 1.8 clarify
 				activated = false;
 				return;
 			}
 
 			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
-			if(meta == 1) {
+			if(variant == PylonVariant.NATURA) {
 				if(ConfigHandler.elfPortalParticlesEnabled) {
 					double worldTime = ticks;
 					worldTime += new Random(pos.hashCode()).nextInt(1000);
@@ -67,25 +70,27 @@ public class TilePylon extends TileEntity implements IUpdatePlayerListBox {
 
 				Block block = worldObj.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int fmeta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
-					float[] color = EntitySheep.fleeceColorTable[fmeta];
+					int hex = ((EnumDyeColor) worldObj.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+					int r = (hex & 0xFF0000) >> 16;
+					int g = (hex & 0xFF00) >> 8;
+					int b = (hex & 0xFF);
 
 					if(worldObj.rand.nextInt(4) == 0)
-						Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, color[0], color[1], color[2], (float) Math.random(), 8);
+						Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r, g, b, (float) Math.random(), 8);
 
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 3F, -0.04F);
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, color[0], color[1], color[2], (float) Math.random() / 5F, -0.001F);
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r, g, b, (float) Math.random() / 3F, -0.04F);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, r, g, b, (float) Math.random() / 5F, -0.001F);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r, g, b, (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 				}
 			}
 		}
 
 		if(worldObj.rand.nextBoolean() && worldObj.isRemote)
-			Botania.proxy.sparkleFX(worldObj, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), meta == 2 ? 1F : 0.5F, meta == 1 ? 1F : 0.5F, meta == 1 ? 0.5F : 1F, (float) Math.random(), 2);
+			Botania.proxy.sparkleFX(worldObj, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), variant == PylonVariant.GAIA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 0.5F : 1F, (float) Math.random(), 2);
 	}
 
 	private Block getBlockForMeta() {
-		return getBlockMetadata() == 0 ? ModBlocks.enchanter : ModBlocks.alfPortal;
+		return worldObj.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 }

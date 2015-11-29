@@ -108,15 +108,15 @@ public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos l : LIVINGWOOD_POSITIONS)
-			mb.addComponent(l.up(), ModBlocks.livingwood, 0);
+			mb.addComponent(l.up(), ModBlocks.livingwood.getDefaultState());
 		for(BlockPos g : GLIMMERING_LIVINGWOOD_POSITIONS)
-			mb.addComponent(g.up(), ModBlocks.livingwood, 5);
+			mb.addComponent(g.up(), ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING));
 		for(BlockPos p : PYLON_POSITIONS)
-			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon, 1);
+			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
 		for(BlockPos p : POOL_POSITIONS)
-			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool, 0);
+			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool.getDefaultState());
 
-		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal.getDefaultState());
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();

@@ -113,7 +113,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
 		setSize(0.6F, 1.8F);
-		getNavigator().setCanSwim(true);
+		//todo 1.8 new AI getNavigator().setCanSwim(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, Float.MAX_VALUE));
 		isImmuneToFire = true;
@@ -124,13 +124,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos p : PYLON_LOCATIONS)
-			mb.addComponent(p.up(), ModBlocks.pylon, 2);
+			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.GAIA));
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
 
-		mb.addComponent(new BlockPos(0, 1, 0), Blocks.beacon, 0);
+		mb.addComponent(new BlockPos(0, 1, 0), Blocks.beacon.getDefaultState());
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();
@@ -237,10 +237,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return true;
 	}
 
-	@Override
-	protected boolean isAIEnabled() {
-		return true;
-	}
+//	@Override todo 1.8 new AI
+//	protected boolean isAIEnabled() {
+//		return true;
+//	}
 
 	@Override
 	protected void entityInit() {

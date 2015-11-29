@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.BlockState;
@@ -147,15 +148,14 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
-		int meta = world.getBlockMetadata(x, y, z);
-		placeDoubleFlower(world, x, y, z, meta, 1 | 2);
+		placeDoubleFlower(world, pos, ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)), 1 | 2);
 	}
 
 	public static void placeDoubleFlower(World world, BlockPos pos, EnumDyeColor color, int flags) {
-		Block flower = meta >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
+		Block flower = color.getMetadata() >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
 		int placeMeta = meta & 7;
-		world.setBlock(x, y, z, flower, placeMeta, flags);
-		world.setBlock(x, y + 1, z, flower, placeMeta | 8, flags);
+		world.setBlockState(pos, flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
+		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
 	}
 
 }

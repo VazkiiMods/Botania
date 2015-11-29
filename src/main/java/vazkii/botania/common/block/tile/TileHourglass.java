@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.init.Blocks;
@@ -26,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerListBox {
@@ -55,7 +57,7 @@ public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerL
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
+				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
 			}
 			timeFraction = (float) time / (float) totalTime;

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -29,17 +28,20 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.helper.ObfuscationHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
@@ -63,12 +65,6 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	@Override
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
 	}
 
 	@Override
@@ -117,7 +113,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
 
 					EntityItem entityitem = new EntityItem(player.worldObj, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
-					entityitem.delayBeforeCanPickup = 10;
+					ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entityitem, 10, LibObfuscation.PICKUP_DELAY);
 					player.worldObj.spawnEntityInWorld(entityitem);
 				}
 

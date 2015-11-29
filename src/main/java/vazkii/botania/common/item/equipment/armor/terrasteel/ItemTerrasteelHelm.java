@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +28,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -45,6 +47,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
+	static TextureAtlasSprite willIcon;
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
@@ -55,11 +58,10 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super(0, name);
 	}
 
-	@Override
+	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
-		willIcon = IconHelper.forName(par1IconRegister, "willFlame");
+	public void onTextureStitch(TextureStitchEvent evt) {
+		willIcon = IconHelper.forName(evt.map, "willFlame");
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			float f2 = willIcon.getMinV();
 			float f3 = willIcon.getMaxV();
 			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.26F, 0.15F, -0.39F);

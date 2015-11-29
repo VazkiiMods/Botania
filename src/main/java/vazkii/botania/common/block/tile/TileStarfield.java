@@ -11,22 +11,23 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 
 public class TileStarfield extends TileMod implements IUpdatePlayerListBox {
 
 	@Override
 	public void update() {
-		int meta = getBlockMetadata();
+		boolean state = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
 		if(!worldObj.isRemote) {
-			int newMeta = worldObj.isDaytime() ? 0 : 1;
-			if(newMeta != meta) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
-				meta = newMeta;
+			boolean newState = !worldObj.isDaytime();
+			if(newState != state) {
+				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, newState), 1 | 2);
+				state = newState;
 			}
 		}
 
-		if(meta == 1) {
+		if(state) {
 			double radius = 512;
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {

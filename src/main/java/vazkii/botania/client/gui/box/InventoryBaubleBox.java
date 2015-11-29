@@ -13,9 +13,13 @@ package vazkii.botania.client.gui.box;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.Arrays;
 
 public class InventoryBaubleBox implements IInventory {
 
@@ -133,22 +137,46 @@ public class InventoryBaubleBox implements IInventory {
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
+	public int getField(int id) {
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {}
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+		if (stacks != null)
+			Arrays.fill(stacks, null);
+	}
+
+	@Override
+	public boolean hasCustomName() {
 		return false;
 	}
 
 	@Override
-	public void openInventory() {
+	public IChatComponent getDisplayName() {
+		return new ChatComponentText(getCommandSenderName());
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
 		// NO-OP
 	}
 
 	@Override
-	public void closeInventory() {
+	public void closeInventory(EntityPlayer player) {
 		// NO-OP
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getCommandSenderName() {
 		return LibItemNames.BAUBLE_BOX;
 	}
 

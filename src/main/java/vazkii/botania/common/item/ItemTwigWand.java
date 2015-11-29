@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
@@ -28,10 +27,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
@@ -88,14 +86,14 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		}
 
 		if(block == Blocks.lapis_block && ConfigHandler.enchanterEnabled) {
-			int meta = -1;
-			if(TileEnchanter.canEnchanterExist(par3World, pos, 0))
-				meta = 0;
-			else if(TileEnchanter.canEnchanterExist(par3World, pos, 1))
-				meta = 1;
+			EnumFacing.Axis axis = null;
+			if(TileEnchanter.canEnchanterExist(par3World, pos, EnumFacing.Axis.X))
+				axis = EnumFacing.Axis.X;
+			else if(TileEnchanter.canEnchanterExist(par3World, pos, EnumFacing.Axis.Z))
+				axis = EnumFacing.Axis.Z;
 
-			if(meta != -1 && !par3World.isRemote) {
-				par3World.setBlockState(pos, ModBlocks.enchanter, meta, 1 | 2);
+			if(axis != null && !par3World.isRemote) {
+				par3World.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
 				par2EntityPlayer.addStat(ModAchievements.enchanterMake, 1);
 				par3World.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:enchanterBlock", 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
