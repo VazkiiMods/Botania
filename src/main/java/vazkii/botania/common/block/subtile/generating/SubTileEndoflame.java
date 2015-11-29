@@ -44,7 +44,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 					List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 					for(EntityItem item : items) {
-						if(item.age >= 59 && !item.isDead) {
+						if(item.getAge() >= 59 && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
 							if(stack.getItem().hasContainerItem(stack))
 								continue;

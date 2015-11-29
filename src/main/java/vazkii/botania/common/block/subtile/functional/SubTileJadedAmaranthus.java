@@ -12,8 +12,11 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
@@ -42,11 +45,12 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			for(int i = 0; i < RANGE * 2; i++) {
 				Block blockAbove = supertile.getWorld().getBlockState(pos.up()).getBlock();
 				if((supertile.getWorld().isAirBlock(pos.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos.up())) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), pos.up())) {
-					int color = supertile.getWorld().rand.nextInt(16);
+					EnumDyeColor color = EnumDyeColor.byMetadata(supertile.getWorld().rand.nextInt(16));
 					if(ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), pos.up())) {
+						IBlockState state = ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color);
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorld().playAuxSFX(2001, pos.up(), Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
-						supertile.getWorld().setBlockState(pos.up(), ModBlocks.flower, color, 1 | 2);
+							supertile.getWorld().playAuxSFX(2001, pos.up(), Block.getStateId(state));
+						supertile.getWorld().setBlockState(pos.up(), state, 1 | 2);
 					}
 
 					mana -= COST;

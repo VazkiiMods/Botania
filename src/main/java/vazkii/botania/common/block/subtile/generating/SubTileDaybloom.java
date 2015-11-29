@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.common.Botania;
@@ -32,7 +32,6 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 	private static final String TAG_PRIME_POSITION_Z = "primePositionZ";
 	private static final String TAG_SAVED_POSITION = "savedPosition";
 
-	int primePositionX, primePositionY, primePositionZ;
 	BlockPos primePosition;
 	boolean savedPosition;
 
@@ -45,14 +44,12 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(isPrime() && (!savedPosition || primePositionX != supertile.xCoord || primePositionY != supertile.yCoord || primePositionZ != supertile.zCoord))
-			supertile.getWorld().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+		if(isPrime() && (!savedPosition || !supertile.getPos().equals(primePosition)))
+			supertile.getWorld().setBlockToAir(supertile.getPos());
 	}
 
 	public void setPrimusPosition() {
-		primePositionX = supertile.xCoord;
-		primePositionY = supertile.yCoord;
-		primePositionZ = supertile.zCoord;
+		primePosition = supertile.getPos();
 
 		savedPosition = true;
 	}
@@ -67,8 +64,8 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		boolean rain = supertile.getWorld().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
-		return supertile.getWorld().isDaytime() && !rain && supertile.getWorld().canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
+		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getIntRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		return supertile.getWorld().isDaytime() && !rain && supertile.getWorld().canBlockSeeSky(supertile.getPos().up());
 	}
 
 	@Override
@@ -78,8 +75,8 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	public int getSurroundingFlowers() {
 		int flowers = 0;
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = supertile.getWorld().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().offset(dir));
 			if(tile != null && tile instanceof ISubTileContainer) {
 				ISubTileContainer flower = (ISubTileContainer) tile;
 				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
@@ -92,7 +89,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 					float m = 0.045F;
 					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, dir.offsetX * m, dir.offsetY * m, dir.offsetZ * m);
+						Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.5, supertile.getPos().getY() + 0.05, supertile.getPos().getZ() + 0.5, r, g, b, 0.1F, dir.getFrontOffsetX() * m, dir.getFrontOffsetY() * m, dir.getFrontOffsetZ() * m);
 				}
 			}
 		}
@@ -105,9 +102,9 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 		super.writeToPacketNBT(cmp);
 
 		if(isPrime()) {
-			cmp.setInteger(TAG_PRIME_POSITION_X, primePositionX);
-			cmp.setInteger(TAG_PRIME_POSITION_Y, primePositionY);
-			cmp.setInteger(TAG_PRIME_POSITION_Z, primePositionZ);
+			cmp.setInteger(TAG_PRIME_POSITION_X, primePosition.getX());
+			cmp.setInteger(TAG_PRIME_POSITION_Y, primePosition.getY());
+			cmp.setInteger(TAG_PRIME_POSITION_Z, primePosition.getZ());
 			cmp.setBoolean(TAG_SAVED_POSITION, savedPosition);
 		}
 	}
@@ -117,9 +114,11 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 		super.readFromPacketNBT(cmp);
 
 		if(isPrime()) {
-			primePositionX = cmp.getInteger(TAG_PRIME_POSITION_X);
-			primePositionY = cmp.getInteger(TAG_PRIME_POSITION_Y);
-			primePositionZ = cmp.getInteger(TAG_PRIME_POSITION_Z);
+			primePosition = new BlockPos(
+				cmp.getInteger(TAG_PRIME_POSITION_X),
+				cmp.getInteger(TAG_PRIME_POSITION_Y),
+				cmp.getInteger(TAG_PRIME_POSITION_Z)
+			);
 			savedPosition = cmp.getBoolean(TAG_SAVED_POSITION);
 		}
 	}

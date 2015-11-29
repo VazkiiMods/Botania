@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -398,8 +399,8 @@ public final class ModBlocks {
 		OreDictionary.registerOre("chestWood", Blocks.chest);
 		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
 
-		BotaniaAPI.registerPaintableBlock(unstableBlock);
-		BotaniaAPI.registerPaintableBlock(manaBeacon);
+		BotaniaAPI.registerPaintableBlock(unstableBlock, BotaniaStateProps.COLOR);
+		BotaniaAPI.registerPaintableBlock(manaBeacon, BotaniaStateProps.COLOR);
 
 		initTileEntities();
 	}

@@ -16,13 +16,16 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -36,7 +39,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final String TAG_COOLDOWN = "cooldown";
 
-	private static final int[][] OFFSETS = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 } };
+	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
 
 	int burnTime, cooldown;
 
@@ -47,33 +50,30 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 		if(cooldown > 0) {
 			cooldown--;
 			for(int i = 0; i < 3; i++)
-				Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
+				Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.5 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.5 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
 			return;
 		}
 
 		if(burnTime == 0) {
 			if(mana < getMaxMana() && !supertile.getWorld().isRemote) {
-				List<int[]> offsets = Arrays.asList(OFFSETS);
+				List<BlockPos> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
 
-				for(int[] offsetArray : offsets) {
-					int[] positions = {
-							supertile.xCoord + offsetArray[0],
-							supertile.zCoord + offsetArray[1]
-					};
+				for(BlockPos offset : offsets) {
+					BlockPos pos = supertile.getPos().add(offset);
 
 					Material search = getMaterialToSearchFor();
-					if(supertile.getWorld().getBlock(positions[0], supertile.yCoord, positions[1]).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorld().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
+					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && ((Integer) supertile.getWorld().getBlockState(pos).getValue(BlockLiquid.LEVEL))/* todo 1.8 may crash */ == 0) {
 						if(search != Material.water)
-							supertile.getWorld().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+							supertile.getWorld().setBlockToAir(pos);
 						else {
 							int waterAround = 0;
-							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
-								if(supertile.getWorld().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ).getMaterial() == search)
+							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
+								if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock().getMaterial() == search)
 									waterAround++;
 
 							if(waterAround < 2)
-								supertile.getWorld().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+								supertile.getWorld().setBlockToAir(pos);
 						}
 
 						burnTime += getBurnTime();
@@ -96,8 +96,8 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	public int getSurroundingFlowers() {
 		int flowers = 0;
-		for(int[] offsetArray : OFFSETS) {
-			TileEntity tile = supertile.getWorld().getTileEntity(supertile.xCoord + offsetArray[0], supertile.yCoord, supertile.zCoord + offsetArray[1]);
+		for(BlockPos offset : OFFSETS) {
+			TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().add(offset));
 			if(tile != null && tile instanceof ISubTileContainer) {
 				ISubTileContainer flower = (ISubTileContainer) tile;
 				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
@@ -110,7 +110,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 					float m = 0.045F;
 					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, offsetArray[0] * m, 0, offsetArray[1] * m);
+						Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.5, supertile.getPos().getY() + 0.05, supertile.getPos().getZ() + 0.5, r, g, b, 0.1F, offset.getX() * m, 0, offset.getZ() * m);
 				}
 			}
 		}
@@ -119,7 +119,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
 	public Material getMaterialToSearchFor() {
@@ -131,7 +131,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void playSound() {
-		supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.drink", 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {
@@ -186,8 +186,8 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 

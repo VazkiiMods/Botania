@@ -55,11 +55,6 @@ public class BlockModPane extends BlockPane {
 	}
 
 	@Override
-	public int getRenderBlockPass() {
-		return 1;
-	}
-
-	@Override
 	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
 		Block block = world.getBlockState(pos).getBlock();
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);

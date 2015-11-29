@@ -108,7 +108,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		IBlockState state = world.getBlockState(pos);
-		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock(), state.getBlock().getMetaFromState(state), name);
+		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,10 +66,11 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 								float mod = 1F / lastFlowerTimes;
 
-								int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
+								// todo 1.8 why is meta +1 'ed ?? int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
+								IBlockState state = supertile.getWorld().getBlockState(pos);
 								supertile.getWorld().setBlockToAir(pos);
 
-								supertile.getWorld().playAuxSFX(2001, pos, Block.getIdFromBlock(block) + (meta << 12));
+								supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state));
 								this.mana += mana * mod;
 								sync();
 								return;
@@ -104,8 +106,8 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 
 		lastFlower = ItemNBTHelper.getString(stack, TAG_LAST_FLOWER, "");
 		lastFlowerTimes = ItemNBTHelper.getInt(stack, TAG_LAST_FLOWER_TIMES, 0);

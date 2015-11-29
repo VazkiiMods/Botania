@@ -128,8 +128,8 @@ public class SubTileMunchdew extends SubTileGenerating {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 

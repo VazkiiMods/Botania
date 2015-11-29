@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -55,11 +56,10 @@ public class SubTilePureDaisy extends SubTileEntity {
 		BlockPos coords = supertile.getPos().add(acoords);
 		World world = supertile.getWorld();
 		if(!world.isAirBlock(coords)) {
-			Block block = world.getBlockState(coords).getBlock();
-			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+			IBlockState state = world.getBlockState(coords);
 			RecipePureDaisy recipe = null;
 			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)
-				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this, block, meta)) {
+				if(recipe_.matches(world, coords, this, state)) {
 					recipe = recipe_;
 					break;
 				}
@@ -68,21 +68,21 @@ public class SubTilePureDaisy extends SubTileEntity {
 			if(recipe != null) {
 				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
 
-				Botania.proxy.sparkleFX(supertile.getWorld(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(supertile.getWorld(), coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 				if(ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = 200;
 
-					if(recipe.set(world,coords.posX, coords.posY, coords.posZ, this)) {
+					if(recipe.set(world,coords, this)) {
 						for(int i = 0; i < 25; i++) {
-							double x = coords.posX + Math.random();
-							double y = coords.posY + Math.random() + 0.5;
-							double z = coords.posZ + Math.random();
+							double x = coords.getX() + Math.random();
+							double y = coords.getY() + Math.random() + 0.5;
+							double z = coords.getZ() + Math.random();
 
 							Botania.proxy.wispFX(supertile.getWorld(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 						}
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(recipe.getOutput()) + (recipe.getOutputMeta() << 12));
+							supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
 			} else ticksRemaining[positionAt] = 200;

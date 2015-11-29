@@ -124,11 +124,6 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
-	}
-
-	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileRuneAltar();
 	}
