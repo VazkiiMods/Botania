@@ -28,7 +28,6 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;

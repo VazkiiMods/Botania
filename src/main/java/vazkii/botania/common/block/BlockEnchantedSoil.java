@@ -14,7 +14,6 @@ import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -23,18 +22,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
@@ -43,32 +36,11 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setUnlocalizedName(LibBlockNames.ENCHANTED_SOIL);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
 	boolean registerInCreative() {
 		return false;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void loadTextures(TextureStitchEvent.Pre event) {
-		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new InterpolatedIcon("botania:enchantedSoil0");
-			if(event.map.setTextureEntry("botania:enchantedSoil0", icon))
-				blockIcon = icon;
-
-			icon = new InterpolatedIcon("botania:enchantedSoil1");
-			if(event.map.setTextureEntry("botania:enchantedSoil1", icon))
-				iconSide = icon;
-		}
 	}
 
 	@Override

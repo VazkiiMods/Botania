@@ -12,22 +12,15 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockShimmerrock extends BlockMod implements ILexiconable {
 
@@ -37,17 +30,6 @@ public class BlockShimmerrock extends BlockMod implements ILexiconable {
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setUnlocalizedName(LibBlockNames.SHIMMERROCK);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void loadTextures(TextureStitchEvent.Pre event) {
-		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new InterpolatedIcon("botania:shimmerrock");
-			if(event.map.setTextureEntry("botania:shimmerrock", icon))
-				blockIcon = icon;
-		}
 	}
 
 	@Override

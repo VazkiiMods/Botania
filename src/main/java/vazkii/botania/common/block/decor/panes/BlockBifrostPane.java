@@ -10,31 +10,12 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
-import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.block.ModBlocks;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBifrostPane extends BlockModPane {
 
 	public BlockBifrostPane() {
 		super(ModBlocks.bifrostPerm);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void loadTextures(TextureStitchEvent.Pre event) {
-		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new InterpolatedIcon("botania:bifrostPermPane");
-			if(event.map.setTextureEntry("botania:bifrostPermPane", icon))
-				iconTop = icon;
-		}
 	}
 
 }
