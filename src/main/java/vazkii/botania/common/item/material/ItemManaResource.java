@@ -26,6 +26,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -60,6 +61,15 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		tailIcon = IconHelper.forName(evt.map, "tail");
+		phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower");
+		goldfishIcon = IconHelper.forName(evt.map, "goldfish");
+		nerfBatIcon = IconHelper.forName(evt.map, "nerfBat");
 	}
 
 	@SubscribeEvent
@@ -126,19 +136,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
 				par3List.add(new ItemStack(par1, 1, i));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[types];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
-
-		tailIcon = IconHelper.forName(par1IconRegister, "tail");
-		phiFlowerIcon = IconHelper.forName(par1IconRegister, "phiFlower");
-		goldfishIcon = IconHelper.forName(par1IconRegister, "goldfish");
-		nerfBatIcon = IconHelper.forName(par1IconRegister, "nerfBat");
 	}
 
 	@Override

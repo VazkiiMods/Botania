@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -221,7 +222,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			float f3 = gemIcon.getMaxV();
 			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.3F : -0.25F);

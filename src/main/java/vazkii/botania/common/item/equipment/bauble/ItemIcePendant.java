@@ -18,6 +18,7 @@ import java.util.Map;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -113,7 +114,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);

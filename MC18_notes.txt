@@ -1,25 +1,26 @@
 -- API --
 * Updated to BlockPos and EnumFacing everywhere where it made sense
 * Registering repainting blocks will need to also receive a PropertyEnum with EnumDyeColor as the component type
-so Botania knows what property to set the color on (todo actually do this)
+so Botania knows what property to set the color on
 * ICorporeaSpark.getInventory had to be changed to ICorporeaSpark.getSparkInventory because the signature clashed (IInventory vs ItemStack[], respectively)
 This can be changed to match vanilla signature, but either would break backward compat.
 * SubTileEntity.getComparatorInputOverride parameter removed (it was actually incorrect also. Not side, but the meta of the block).
 Anyways, vanilla removed it from their method so we follow suit.
 * SubTileEntity's methods that are copied from block (onBlockadded, etc.) updated to match vanilla counterparts
-* Multiblock system reworked to use states
+* Multiblock system reworked to use states and blockposes
 
 -- Other --
 * Most things left untouched to make patches from upstream easier
 * Most uses of chunkcoordinates directly convert blockpos (THANK YOU VAZKII FOR USING THEM). Remove creation of extra instances
 since BlockPos'es are immutable and thus can be reused everywhere.
-* Some really needed fields in EntityItem are private now. Reflection time :(
-* Alfglass just uses the vanilla random model selection system to choose a pattern. Some of your builds may look different.
+* Some really needed fields in EntityItem are private now. Reflection time :(. If this is a
+* Alfglass now just uses the vanilla random model selection system to choose a pattern. Some of your builds may look different.
 Unless someone figures out a way to use the old one
 
 -- Todo --
-* Fix all the block signatures (easy)
-* Fix all other low hanging errors (easy-med)
-* Find all the block metadatas and give them all meaningful block states and properties (tedious/med-hard)
 * JSON models for everything (tedious/med-hard)
 * Migrate the PlayerRender events (baubles, etc.) to LayerRenderers (med)
+* For rendering arbitrary icons (that DO NOT HAVE AN ITEM) in a 3D style (manaResource icons, etc.)
+    - Sub to texture stitch and bake our own model there to use?
+    - This remains the largest portion of what is left
+    - Where is the method to render an arbitrary baked model?

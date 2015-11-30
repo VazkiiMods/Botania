@@ -18,14 +18,14 @@ import vazkii.botania.common.lib.LibOreDict;
 public final class ModPureDaisyRecipes {
 
 	public static void init() {
-		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock, 0);
-		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood, 0);
+		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood.getDefaultState());
 
-		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.cobblestone, 0);
-		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.sand, 0);
-		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.packed_ice, 0);
-		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.obsidian, 0);
-		BotaniaAPI.registerPureDaisyRecipe(Blocks.water, Blocks.snow, 0);
+		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.cobblestone.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.sand.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.packed_ice.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.obsidian.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.water, Blocks.snow.getDefaultState());
 	}
 
 }

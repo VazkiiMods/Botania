@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -43,66 +44,72 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePl
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
 			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
 
-			if(!((Boolean) isActivated.invoke(logic))) {
-				if(!worldObj.isRemote)
-					mana -= 6;
+			try {
+				if(!((Boolean) isActivated.invoke(logic))) {
+                    if(!worldObj.isRemote)
+                        mana -= 6;
 
-				if(logic.getSpawnerWorld().isRemote) {
-					if(logic.spawnDelay > 0)
-						--logic.spawnDelay;
+                    if(logic.getSpawnerWorld().isRemote) {
+                        if(logic.spawnDelay > 0)
+                            --logic.spawnDelay;
 
-					if(Math.random() > 0.5)
-						Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
+                        if(Math.random() > 0.5)
+                            Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
-					logic.prevMobRotation = logic.getMobRotation();
-					logic.mobRotation = (logic.getMobRotation() + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
-				} else if(logic.spawnDelay == -1)
-					resetTimer(logic);
+                        logic.prevMobRotation = logic.getMobRotation();
+                        logic.mobRotation = (logic.getMobRotation() + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
+                    } else if(logic.spawnDelay == -1)
+                        resetTimer(logic);
 
-				if(logic.spawnDelay > 0) {
-					--logic.spawnDelay;
-					return;
-				}
+                    if(logic.spawnDelay > 0) {
+                        --logic.spawnDelay;
+                        return;
+                    }
 
-				boolean flag = false;
+                    boolean flag = false;
 
-				int spawnCount = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_COUNT);
-				int spawnRange = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_RANGE);
-				int maxNearbyEntities = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_NEARBY_ENTITIES);
+                    int spawnCount = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_COUNT);
+                    int spawnRange = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_RANGE);
+                    int maxNearbyEntities = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_NEARBY_ENTITIES);
 
-				for(int i = 0; i < spawnCount; ++i) {
-					Entity entity = EntityList.createEntityByName(logic.getEntityNameToSpawn(), logic.getSpawnerWorld());
+                    for(int i = 0; i < spawnCount; ++i) {
+                        Entity entity = EntityList.createEntityByName(logic.getEntityNameToSpawn(), logic.getSpawnerWorld());
 
-					if (entity == null)
-						return;
+                        if (entity == null)
+                            return;
 
-					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.func_177221_b(), logic.func_177221_b().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
+                        int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.func_177221_b(), logic.func_177221_b().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
 
-					if (j >= maxNearbyEntities) {
-						resetTimer(logic);
-						return;
-					}
+                        if (j >= maxNearbyEntities) {
+                            resetTimer(logic);
+                            return;
+                        }
 
-					double d2 = logic.func_177221_b().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-					double d3 = logic.func_177221_b().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
-					double d4 = logic.func_177221_b().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-					EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
-					entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
+                        double d2 = logic.func_177221_b().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+                        double d3 = logic.func_177221_b().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
+                        double d4 = logic.func_177221_b().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+                        EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
+                        entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
-					if(entityliving == null || entityliving.getCanSpawnHere()) {
-						if(!worldObj.isRemote)
-							logic.func_98265_a(entity);
-						logic.getSpawnerWorld().playAuxSFX(2004, logic.func_177221_b(), 0);
+                        if(entityliving == null || entityliving.getCanSpawnHere()) {
+                            if(!worldObj.isRemote)
+                                logic.func_98265_a(entity);
+                            logic.getSpawnerWorld().playAuxSFX(2004, logic.func_177221_b(), 0);
 
-						if (entityliving != null)
-							entityliving.spawnExplosionParticle();
+                            if (entityliving != null)
+                                entityliving.spawnExplosionParticle();
 
-						flag = true;
-					}
-				}
+                            flag = true;
+                        }
+                    }
 
-				if (flag)
-					resetTimer(logic);
+                    if (flag)
+                        resetTimer(logic);
+                }
+			} catch (IllegalAccessException e) {
+				Botania.instance.handleIMC();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
 			}
 		}
 	}

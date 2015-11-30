@@ -104,10 +104,10 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	}
 
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return isFlying(par1ItemStack) ? iconFlying : iconIdle;
-	}
+//	@Override todo 1.8
+//	public IIcon getIconIndex(ItemStack par1ItemStack) {
+//		return isFlying(par1ItemStack) ? iconFlying : iconIdle;
+//	}
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
@@ -117,12 +117,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 720000;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconIdle = IconHelper.forItem(par1IconRegister, this, 0);
-		iconFlying = IconHelper.forItem(par1IconRegister, this, 1);
 	}
 
 	public boolean isFlying(ItemStack stack) {
@@ -150,7 +144,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(te.xCoord + 0.5 - range, te.yCoord + 0.5 - rangeY, te.zCoord + 0.5 - range, te.xCoord + 0.5 + range, te.yCoord + 0.5 + rangeY, te.zCoord + 0.5 + range));
+			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(te.getPos().add(-0.5 + range, -0.5 + rangeY, -0.5 + range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for(EntityPlayer p : players) {
 				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
 					p.motionY = 2.8;

@@ -17,6 +17,7 @@ import java.math.RoundingMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
@@ -61,20 +62,24 @@ public class Vector3
 		return new Vector3(this);
 	}
 
+	public static Vector3 fromBlockPos(BlockPos pos) {
+		return new Vector3(pos.getX(), pos.getY(), pos.getZ());
+	}
+
 	public static Vector3 fromEntity(Entity e) {
 		return new Vector3(e.posX, e.posY, e.posZ);
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.posX, e.posY - e.yOffset + e.height / 2, e.posZ);
+		return new Vector3(e.posX, e.posY - /*e.yOffset todo 1.8 */ 0 + e.height / 2, e.posZ);
 	}
 
 	public static Vector3 fromTileEntity(TileEntity e) {
-		return new Vector3(e.xCoord, e.yCoord, e.zCoord);
+		return fromBlockPos(e.getPos());
 	}
 
 	public static Vector3 fromTileEntityCenter(TileEntity e) {
-		return new Vector3(e.xCoord + 0.5, e.yCoord + 0.5, e.zCoord + 0.5);
+		return fromTileEntity(e).add(0.5);
 	}
 
 	public Vector3 set(double d, double d1, double d2) {
