@@ -2129,6 +2129,7 @@ botania.entry.sparks=Sparks
 botania.tagline.sparks=Simple and fast short-range Mana transporters
 botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem limited to a few blocks right now.
 botania.page.sparks1=Placing a &1Spark&0 on top of a &1Mana Pool&0 and another on top of a block that can accept it will allow for the latter to remotely access the reservoirs of the &1Mana Pool&0 when needed, given it's not too far away.<br>To remove a &1Spark&0 simply shift-right click it with a &1Wand of the Forest&0. Regular right clicking shows which other &1Sparks&0 it can transfer to.
+botania.page.sparks3=In the case that one might think that &1Sparks&0 are too obstrusive in their looks, one can use &1Phantom Ink&0 to turn the target &1Spark&0 highly translucent. This does not consume the ink.
 botania.page.sparks2=&oholds up spork&r
 
 # -- SPARK AUGMENTATION

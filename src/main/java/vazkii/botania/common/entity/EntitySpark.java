@@ -42,6 +42,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
+	public static final int INVISIBILITY_DATA_WATCHER_KEY = 27;
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap());
 
@@ -56,7 +57,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
+		dataWatcher.addObject(INVISIBILITY_DATA_WATCHER_KEY, 0);
 		dataWatcher.addObject(28, 0);
+		dataWatcher.setObjectWatched(INVISIBILITY_DATA_WATCHER_KEY);
 		dataWatcher.setObjectWatched(28);
 	}
 
@@ -277,6 +280,16 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			}
 		}
 
+		return doPhantomInk(stack);
+	}
+	
+	public boolean doPhantomInk(ItemStack stack) {
+		if(stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+			int invis = dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY);
+			dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			return true;
+		}
+		
 		return false;
 	}
 

@@ -48,11 +48,13 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
+		dataWatcher.addObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, 0);
 		dataWatcher.addObject(28, 0);
 		dataWatcher.addObject(29, 0);
 		dataWatcher.addObject(30, 0);
 		dataWatcher.addObject(31, new ItemStack(Blocks.stone, 0, 0));
 
+		dataWatcher.setObjectWatched(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
 		dataWatcher.setObjectWatched(28);
 		dataWatcher.setObjectWatched(29);
 		dataWatcher.setObjectWatched(30);
@@ -279,6 +281,16 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			}
 		}
 
+		return doPhantomInk(stack);
+	}
+	
+	public boolean doPhantomInk(ItemStack stack) {
+		if(stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+			int invis = dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
+			dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			return true;
+		}
+		
 		return false;
 	}
 

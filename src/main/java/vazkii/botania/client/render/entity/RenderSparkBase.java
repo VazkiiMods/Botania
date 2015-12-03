@@ -23,6 +23,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.item.ItemSpark;
 
 public class RenderSparkBase<T extends Entity> extends RenderEntity {
@@ -41,7 +42,9 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 
 		double time = ClientTickHandler.ticksInGame + par9;
 		time += new Random(par1Entity.getEntityId()).nextInt();
-		GL11.glColor4f(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
+		float a = 0.1F + (1 - par1Entity.getDataWatcher().getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY)) * 0.8F;
+		
+		GL11.glColor4f(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		GL11.glScalef(scale, scale, scale);
@@ -58,7 +61,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		if(spinningIcon != null) {
 			GL11.glTranslatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 			GL11.glScalef(0.2F, 0.2F, 0.2F);
-			colorSpinningIcon(tEntity);
+			colorSpinningIcon(tEntity, a);
 			func_77026_a(tessellator, spinningIcon);
 		}
 		GL11.glPopMatrix();
@@ -74,7 +77,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		return ItemSpark.worldIcon;
 	}
 
-	public void colorSpinningIcon(T entity) {
+	public void colorSpinningIcon(T entity, float a) {
 		// NO-OP
 	}
 

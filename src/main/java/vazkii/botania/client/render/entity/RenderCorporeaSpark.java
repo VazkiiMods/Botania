@@ -35,9 +35,9 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	}
 
 	@Override
-	public void colorSpinningIcon(EntityCorporeaSpark entity) {
+	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
 		int network = Math.min(15, entity.getNetwork());
-		GL11.glColor3f(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2]);
+		GL11.glColor4f(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2], a);
 	}
 
 	@Override
