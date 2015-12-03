@@ -537,16 +537,16 @@ public final class LexiconData {
 		primusLoci.setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
 
 		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
-		daybloom.setPriority().setLexiconPages(new PageText("0"), new PageText(ConfigHandler.hardcorePassiveGeneration > 0 ? "1a" : "1"), new PageImage("3", LibResources.ENTRY_DIMINISHING_RETURNS), new PagePetalRecipe("2", ModPetalRecipes.daybloomRecipe));
+		daybloom.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.daybloomRecipe));
 
 		nightshade = new BLexiconEntry(LibLexicon.GFLOWER_NIGHTSHADE, categoryGenerationFlowers);
-		nightshade.setLexiconPages(new PageText(ConfigHandler.hardcorePassiveGeneration > 0 ? "0a" :"0"), new PagePetalRecipe("1", ModPetalRecipes.nightshadeRecipe));
+		nightshade.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.nightshadeRecipe));
 
 		endoflame = new BLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
 		endoflame.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.endoflameRecipe));
 
 		hydroangeas = new BLexiconEntry(LibLexicon.GFLOWER_HYDROANGEAS, categoryGenerationFlowers);
-		hydroangeas.setLexiconPages(new PageText(ConfigHandler.hardcorePassiveGeneration > 0 ? "0a" : "0"), new PageImage("2", LibResources.ENTRY_HYDROANGEAS), new PageText("3"), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));
+		hydroangeas.setLexiconPages(new PageText("0"), new PageImage("2", LibResources.ENTRY_HYDROANGEAS), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));
 
 		thermalily = new BLexiconEntry(LibLexicon.GFLOWER_THERMALILY, categoryGenerationFlowers);
 		thermalily.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.thermalilyRecipe));

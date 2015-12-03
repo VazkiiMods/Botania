@@ -33,11 +33,6 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public int getSurroundingFlowers() {
-		return 0;
-	}
-
-	@Override
 	public boolean isPassiveFlower() {
 		return false;
 	}

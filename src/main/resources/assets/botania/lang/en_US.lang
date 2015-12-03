@@ -2484,17 +2484,14 @@ botania.page.primusLoci1=These flowers act as normal &1Dayblooms&0 or &1Nightsha
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
 botania.tagline.daybloom=Mana from the sky
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
-botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This fact only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
-botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This only applies to &1Dayblooms&0 and &1Nightshades&0.<br>&1Dayblooms&0 are classified as &4passive flowers&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
-botania.page.daybloom3=Diminishing Returns
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, but about half a dozen of these should get the job done, for now.
+botania.page.daybloom1=&1Dayblooms&0 are classified as &4passive flowers&0, which means they will decay after some use.<br>They also produce feeble amounts of &4Mana&0 to begin with, so perhaps hastily upgrading to &1Endoflames&0 or other &1active flowers&0, once available, might be a good idea.
 botania.page.daybloom2=&oStarting up a brand new day&r.
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
 botania.tagline.nightshade=Mana from the moon
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime.<br>Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are classified as &4passive flowers&0.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime.<br>Alike its shining counterpart, they are classified as &4passive flowers&0, and as such will decay.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
@@ -2507,10 +2504,8 @@ botania.page.endoflame2=&oNot nitor&r.
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.tagline.hydroangeas=Mana from water
-botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
-botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>&1Hydroangeas&0 are classified as &4passive flowers&0.
+botania.page.hydroangeas0=&1Hydroangeas&0 act as a liquid based passive generator. They will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. The amount they produce is comparable to that of an &1Endoflame&0. They also seem to function faster during &4Rain&0.<br>&1Hydroangeas&0 are classified as &4passive flowers&0 and as such will decay.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
-botania.page.hydroangeas3=These flowers, similarly to &1Dayblooms&0 or &1Nightshades&0 will receive a portion of diminishing returns if put in too compact of a pattern. Having any two &1Hydroangeas&0 one block away from eachother, including diagonals, will drastically reduce the production rate of both, as the roots get tangled. Having even more in the short space will further weaken their potency. The blue particles between them indicate this. 
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
