@@ -52,6 +52,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesSpreader;
 	public static List<IRecipe> recipesManaLens;
 	public static IRecipe recipePool;
+	public static IRecipe recipePoolDiluted;
 	public static List<IRecipe> recipesRuneAltar;
 	public static IRecipe recipeLensVelocity;
 	public static IRecipe recipeLensPotency;
@@ -389,11 +390,17 @@ public final class ModCraftingRecipes {
 		recipesManaLens = BotaniaAPI.getLatestAddedRecipes(2);
 
 		// Mana Pool Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
+		addOreDictRecipe(new ItemStack(ModBlocks.pool),
 				"R R", "RRR",
 				'R', LibOreDict.LIVING_ROCK);
 		recipePool = BotaniaAPI.getLatestAddedRecipe();
 
+		// Diluted Mana Pool Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
+				"R R", "RRR",
+				'R', new ItemStack(ModFluffBlocks.livingrockSlab));
+		recipePoolDiluted = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Runic Altar Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.runeAltar),
 				"SSS", "SPS",
