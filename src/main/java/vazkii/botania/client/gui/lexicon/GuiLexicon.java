@@ -402,9 +402,8 @@ public class GuiLexicon extends GuiScreen {
 			}
 		} else {
 			if(isShiftKeyDown()) {
-				int index = bookmarkKeys.indexOf(key);
-				bookmarks.remove(index);
-				bookmarkKeys.remove(index);
+				bookmarks.remove(i);
+				bookmarkKeys.remove(i);
 				
 				modified = true;
 			} else {
