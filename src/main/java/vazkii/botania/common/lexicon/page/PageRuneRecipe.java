@@ -49,11 +49,11 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
-		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 115, 0x66000000);
+		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 110, 0x66000000);
 
 		int ratio = 10;
 		int x = gui.getLeft() + gui.getWidth() / 2 - 50;
-		int y = gui.getTop() + 125;
+		int y = gui.getTop() + 120;
 
 		if(mx > x + 1 && mx <= x + 101 && my > y - 14 && my <= y + 11)
 			ratio = 1;
@@ -61,11 +61,14 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / ratio);
 
 		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
-
+		String stopStr = StatCollector.translateToLocal("botaniamisc.shiftToStopSpin");
+		
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
-		font.setUnicodeFlag(unicode);		GL11.glDisable(GL11.GL_BLEND);
+		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
+		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
+		font.setUnicodeFlag(unicode);		
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 }

@@ -47,7 +47,7 @@ botaniamisc.bookmark=Bookmark #%s
 botaniamisc.clickToSee=Click to read
 botaniamisc.shiftToRemove=Shift-click to remove
 botaniamisc.clickToAdd=Add Bookmark
-botaniamisc.ratio=Zoom: %sx
+botaniamisc.ratio=%sx Zoom (hover to zoom out)
 botaniamisc.bottleTooltip=It has an acquired taste
 botaniamisc.coarseDirt0=Coarse Dirt, grass
 botaniamisc.coarseDirt1=won't grow on it
@@ -145,6 +145,8 @@ botaniamisc.changes5=&fLeft Click&7 to dismiss this
 botaniamisc.badArena=As hard as you try, the Beacon will not accept your sacrifice. You believe the ritual grounds might be improper. It might be a good idea to check for obstructions on the nearby area or large gaps on the floor.
 botaniamisc.tutorialText=Ingame
 botaniamisc.tutorialVideo=Video
+botaniamisc.shiftToStopSpin=(SHIFT to stop animation)
+botaniamisc.noVideo=Video will be back soon. Sorry :(
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

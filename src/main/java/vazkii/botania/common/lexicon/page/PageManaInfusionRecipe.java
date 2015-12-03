@@ -115,7 +115,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 			hoveringOverDrop = true;
 
 		font.drawString(dropString, dx, dy, 0x77000000);
-		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
+		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 15, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
 		GL11.glDisable(GL11.GL_BLEND);
