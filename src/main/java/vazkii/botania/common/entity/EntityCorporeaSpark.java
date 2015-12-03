@@ -32,6 +32,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private static final String TAG_MASTER = "master";
 	private static final String TAG_NETWORK = "network";
+	private static final String TAG_INVIS = "invis";
 
 	ICorporeaSpark master;
 	List<ICorporeaSpark> connections = new ArrayList();
@@ -298,12 +299,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setNetwork(cmp.getInteger(TAG_NETWORK));
+		dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
 		cmp.setInteger(TAG_NETWORK, getNetwork());
+		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY));
 	}
 
 }

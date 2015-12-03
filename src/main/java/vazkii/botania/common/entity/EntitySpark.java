@@ -42,6 +42,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
+	private static final String TAG_INVIS = "invis";
 	public static final int INVISIBILITY_DATA_WATCHER_KEY = 27;
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap());
@@ -296,11 +297,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setUpgrade(cmp.getInteger(TAG_UPGRADE));
+		dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade());
+		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY));
 	}
 
 	@Override
