@@ -69,6 +69,7 @@ public final class ConfigHandler {
 	public static boolean stones18Enabled = true;
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean enderStuff19Enabled = true;
+	public static boolean invertMagnetRing = false;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
