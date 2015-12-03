@@ -93,7 +93,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			else for(EntityItem item : event.drops) {
 				ItemStack stack = item.getEntityItem();
 				if(stack.getItem() == Items.blaze_rod)
-					item.setEntityItemStack(new ItemStack(Items.blaze_powder, stack.stackSize * 6));
+					item.setEntityItemStack(new ItemStack(Items.blaze_powder, stack.stackSize * 10));
 			}
 	}
 
