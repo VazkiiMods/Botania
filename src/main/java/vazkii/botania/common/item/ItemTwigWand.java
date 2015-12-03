@@ -282,7 +282,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_BIND_MODE, false);
+		return ItemNBTHelper.getBoolean(stack, TAG_BIND_MODE, true);
 	}
 
 	public static void setBindMode(ItemStack stack, boolean bindMode) {
