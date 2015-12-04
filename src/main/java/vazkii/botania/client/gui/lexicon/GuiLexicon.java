@@ -212,7 +212,7 @@ public class GuiLexicon extends GuiScreen {
 
 		String subtitle = getSubtitle();
 		if(subtitle != null)
-			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true);
+			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true, 191);
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		
 		if(isMainPage())
@@ -288,11 +288,16 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
+	
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
-		drawBookmark(x, y, s, drawLeft, 0x111111);
+		drawBookmark(x, y, s, drawLeft, 180);
+	}
+	
+	public void drawBookmark(int x, int y, String s, boolean drawLeft, int v) {
+		drawBookmark(x, y, s, drawLeft, 0x111111, v);
 	}
 
-	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color) {
+	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
 		// This function is called from the buttons so I can't use fontRendererObj
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
@@ -308,11 +313,11 @@ public class GuiLexicon extends GuiScreen {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, 180, 6, 11);
+		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, v, 6, 11);
 		if(drawLeft)
-			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, 180, 6, 11);
+			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, v, 6, 11);
 		for(int i = 0; i < l + 6; i++)
-			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, 180, 1, 11);
+			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, v, 1, 11);
 
 		font.drawString(s, x - l / 2 + fontOff, y, color, false);
 		font.setUnicodeFlag(unicode);
