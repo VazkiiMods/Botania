@@ -32,11 +32,13 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -507,6 +509,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
+		
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
 		tutorial.add(LexiconData.apothecary);
@@ -518,17 +521,10 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.generatingIntro);
 		tutorial.add(LexiconData.passiveGen);
 		tutorial.add(LexiconData.daybloom);
-		tutorial.add(LexiconData.endoflame);
-		tutorial.add(LexiconData.openCrate);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
-		tutorial.add(LexiconData.baublesIntro);
-		tutorial.add(LexiconData.manaTablet);
-		tutorial.add(LexiconData.manasteelGear);
-		tutorial.add(LexiconData.dispenserTweaks);
-		if(SheddingHandler.hasShedding())
-			tutorial.add(LexiconData.shedding);
-		tutorial.add(LexiconData.challenges);
+		
+		MinecraftForge.EVENT_BUS.post(new BotaniaTutorialStartEvent(tutorial));
 	}
 
 	public final void putTutorialArrow() {
