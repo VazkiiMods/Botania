@@ -83,8 +83,9 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
-	public static Set<Item> looniumBlacklist = new LinkedHashSet();
+	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
 	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -214,7 +215,7 @@ public final class BotaniaAPI {
 		registerModWiki("EnderIO", new SimpleWikiProvider("EnderIO Wiki", "http://wiki.enderio.com/%s"));
 		registerModWiki("TropiCraft", new SimpleWikiProvider("Tropicraft Wiki", "http://wiki.tropicraft.net/wiki/%s"));
 		registerModWiki("RandomThings", new SimpleWikiProvider("Random Things Wiki", "http://randomthingsminecraftmod.wikispaces.com/%s"));
-		registerModWiki("Witchery", new SimpleWikiProvider("Witchery Wiki", "https://sites.google.com/site/witcherymod/%s", "-"));
+		registerModWiki("Witchery", new SimpleWikiProvider("Witchery Wiki", "https://sites.google.com/site/witcherymod/%s", "-", true));
 		registerModWiki("AppliedEnergistics2", new SimpleWikiProvider("AE2 Wiki", "http://ae-mod.info/%s"));
 		registerModWiki("BigReactors", technicWiki);
 		registerModWiki("BuildCraft|Core", buildcraftWiki);
@@ -280,6 +281,47 @@ public final class BotaniaAPI {
 	public static Block registerPaintableBlock(Block paintable){
 		paintableBlocks.add(paintable);
 		return paintable;
+	}
+	
+	/**
+	 * Blacklists an item from being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
+	 */
+	public static void blacklistItemFromMagnet(ItemStack stack) {
+		String key = getMagnetKey(stack);
+		magnetBlacklist.add(key);
+	}
+	
+	/**
+	 * Blacklists a block from having items on top of it being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as meta for a wildcard.
+	 */
+	public static void blacklistBlockFromMagnet(Block block, int meta) {
+		String key = getMagnetKey(block, meta);
+		magnetBlacklist.add(key);
+	}
+	
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
+		if(stack.getItemDamage() != Short.MAX_VALUE) {
+			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
+			boolean general = isItemBlacklistedFromMagnet(copy);
+			if(general)
+				return true;
+		}
+		
+		String key = getMagnetKey(stack);
+		return magnetBlacklist.contains(key);
+	}
+	
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
+		if(meta != Short.MAX_VALUE) {
+			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE);
+			if(general)
+				return true;
+		}
+		
+		String key = getMagnetKey(block, meta);
+		return magnetBlacklist.contains(key);
 	}
 
 	/**
@@ -559,4 +601,16 @@ public final class BotaniaAPI {
 	public static Set<String> getAllSubTiles() {
 		return subTiles.keySet();
 	}
+	
+	private static String getMagnetKey(ItemStack stack) {
+		if(stack == null)
+			return "";
+			
+		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();
+	}
+
+	private static String getMagnetKey(Block block, int meta) {
+		return "bm_" + block.getUnlocalizedName() + "@" + meta;
+	}
+	
 }

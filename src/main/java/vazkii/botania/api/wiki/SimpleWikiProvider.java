@@ -20,15 +20,28 @@ import org.apache.commons.lang3.text.WordUtils;
 public class SimpleWikiProvider implements IWikiProvider {
 
 	final String name, urlBase, replacement;
+	final boolean lowercase;
 
 	public SimpleWikiProvider(String name, String urlBase) {
 		this(name, urlBase, "%20");
 	}
 
+	public SimpleWikiProvider(String name, String urlBase, boolean lowercase) {
+		this(name, urlBase, "%20", lowercase);
+	}
+	
 	public SimpleWikiProvider(String name, String urlBase, String replacement) {
 		this.name = name;
 		this.urlBase = urlBase;
 		this.replacement = replacement;
+		this.lowercase = false;
+	}
+	
+	public SimpleWikiProvider(String name, String urlBase, String replacement, boolean lowercase) {
+		this.name = name;
+		this.urlBase = urlBase;
+		this.replacement = replacement;
+		this.lowercase = lowercase;
 	}
 
 	@Override
@@ -61,7 +74,12 @@ public class SimpleWikiProvider implements IWikiProvider {
 		String name = getBlockName(world, pos);
 		if(name == null)
 			return null;
-		return String.format(urlBase, WordUtils.capitalizeFully(name).replaceAll(" ", replacement));
+		
+		if(lowercase) {
+			return String.format(urlBase, name.toLowerCase().replaceAll(" ", replacement));
+		} else {
+			return String.format(urlBase, WordUtils.capitalizeFully(name).replaceAll(" ", replacement));
+		}
 	}
 
 	@Override

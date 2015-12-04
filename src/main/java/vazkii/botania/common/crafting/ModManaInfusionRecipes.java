@@ -26,8 +26,6 @@ import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModManaInfusionRecipes {
 
-	public static RecipeManaInfusion poolRecipe;
-
 	public static List<RecipeManaInfusion> manaPetalRecipes;
 	public static List<RecipeManaInfusion> manasteelRecipes;
 	public static RecipeManaInfusion manaPearlRecipe;
@@ -46,15 +44,13 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion sugarCaneRecipe;
 
 	public static void init() {
-		poolRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pool), new ItemStack(ModBlocks.pool, 1, 2), 320);
-
 		manaPetalRecipes = new ArrayList();
 		for(int i = 0; i < 16; i++)
 			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 200));
 
 		manasteelRecipes = new ArrayList();
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000));
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 30000));
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 27000));
 
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Items.ender_pearl), 6000);
 

@@ -38,6 +38,8 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 
+	RecipeRuneAltar currentRecipe;
+
 	public int manaToGet = 0;
 	int mana = 0;
 	int cooldown = 0;
@@ -47,7 +49,26 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	int recipeKeepTicks = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
+		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon)
+			return false;
+
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.livingrock) && stack.getItemDamage() == 0) {
+			if(player == null || !player.capabilities.isCreativeMode) {
+				stack.stackSize--;
+				if(stack.stackSize == 0 && player != null)
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			}
+
+			EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1, zCoord + 0.5, new ItemStack(ModBlocks.livingrock));
+			item.delayBeforeCanPickup = 40;
+			item.motionX = item.motionY = item.motionZ = 0;
+			if(!worldObj.isRemote)
+				worldObj.spawnEntityInWorld(item);
+
+			return true;
+		}
+
+		if(manaToGet != 0)
 			return false;
 
 		boolean did = false;
@@ -120,18 +141,24 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		if(recipeKeepTicks > 0)
 			--recipeKeepTicks;
 		else lastRecipe = null;
+		
+		updateRecipe();
 	}
 
 	public void updateRecipe() {
 		int manaToGet = this.manaToGet;
 
 		getMana : {
-			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-				if(recipe.matches(this)) {
-					this.manaToGet = recipe.getManaUsage();
-					break getMana;
-				}
-			this.manaToGet = 0;
+			if(currentRecipe != null)
+				this.manaToGet = currentRecipe.getManaUsage();
+			else {
+				for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+					if(recipe.matches(this)) {
+						this.manaToGet = recipe.getManaUsage();
+						break getMana;
+					}
+				this.manaToGet = 0;
+			}
 		}
 
 		if(manaToGet != this.manaToGet) {
@@ -166,11 +193,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		updateRecipe();
-
 		RecipeRuneAltar recipe = null;
 
-		for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
+		if(currentRecipe != null)
+			recipe = currentRecipe;
+		else for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
 			if(recipe_.matches(this)) {
 				recipe = recipe_;
 				break;
@@ -193,6 +220,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 					ItemStack output = recipe.getOutput().copy();
 					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 					worldObj.spawnEntityInWorld(outputItem);
+					currentRecipe = null;
 					cooldown = 60;
 				}
 
@@ -210,8 +238,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				craftingFanciness();
 			}
 		}
-
-		updateRecipe();
 	}
 
 	public void craftingFanciness() {

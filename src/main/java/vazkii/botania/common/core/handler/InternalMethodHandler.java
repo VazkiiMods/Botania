@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -46,6 +47,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -235,6 +237,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
+	}
+	
+	@Override
+	public boolean hasSolegnoliaAround(Entity e) {
+		return SubTileSolegnolia.hasSolegnoliaAround(e);
 	}
 
 	@Override

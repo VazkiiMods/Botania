@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 
 public final class IMCHandler {
-
+	
 	public static void processMessages(ImmutableList<IMCMessage> messageList) {
 		Iterator<IMCMessage> iterator = messageList.iterator();
 		while(iterator.hasNext()) {

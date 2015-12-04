@@ -24,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
@@ -47,6 +48,8 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.RUNE_ALTAR);
+		
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 
 		random = new Random();
 	}

@@ -455,11 +455,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				} else {
 					GL11.glScalef(0.75F, 0.75F, 0.75F);
 					GL11.glTranslatef(0F, 0F, 0.5F);
+					GL11.glRotatef(90F, 0F, 1F, 0F);
 					int renderPass = 0;
 					do {
 						IIcon icon = slotStack.getItem().getIcon(slotStack, renderPass);
 						if(icon != null) {
-							GL11.glRotatef(90F, 0F, 1F, 0F);
 							Color color = new Color(slotStack.getItem().getColorFromItemStack(slotStack, renderPass));
 							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 							float f = icon.getMinU();

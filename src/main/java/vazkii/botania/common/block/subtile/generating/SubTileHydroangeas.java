@@ -26,11 +26,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+@PassiveFlower
 public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -92,30 +94,6 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 				sync();
 			}
 		}
-	}
-
-	public int getSurroundingFlowers() {
-		int flowers = 0;
-		for(int[] offsetArray : OFFSETS) {
-			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + offsetArray[0], supertile.yCoord, supertile.zCoord + offsetArray[1]);
-			if(tile != null && tile instanceof ISubTileContainer) {
-				ISubTileContainer flower = (ISubTileContainer) tile;
-				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
-					flowers++;
-
-					Color color = new Color(getColor());
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
-
-					float m = 0.045F;
-					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, offsetArray[0] * m, 0, offsetArray[1] * m);
-				}
-			}
-		}
-
-		return flowers;
 	}
 
 	public void doBurnParticles() {
@@ -193,8 +171,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		int adj = getSurroundingFlowers();
-		return supertile.getWorldObj().rand.nextInt(adj + 1) == 0 && burnTime > 0;
+		return burnTime > 0;
 	}
 
 	@Override

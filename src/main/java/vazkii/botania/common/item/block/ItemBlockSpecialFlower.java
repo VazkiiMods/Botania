@@ -84,6 +84,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		String type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
+		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
+		
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
@@ -94,7 +96,6 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		String mod = BotaniaAPI.subTileMods.get(type);
 		if(!mod.equals(LibMisc.MOD_ID))
 			par3List.add(EnumChatFormatting.ITALIC + "[" + mod + "]");
-		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
 	}
 
 	public static String getType(ItemStack stack) {

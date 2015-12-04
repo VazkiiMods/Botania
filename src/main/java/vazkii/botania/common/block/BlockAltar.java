@@ -163,6 +163,19 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
+    public void fillWithRain(World world, int x, int y, int z) {
+        if(world.rand.nextInt(20) == 1) {
+        	TileEntity tile = world.getTileEntity(x, y, z);
+        	if(tile instanceof TileAltar) {
+        		TileAltar altar = (TileAltar) tile;
+        		if(!altar.hasLava && !altar.hasWater)
+        			altar.setWater(true);
+				world.func_147453_f(x, y, z, this);
+        	}
+        }
+    }
+	
+	@Override
 	public int damageDropped(int meta) {
 		return meta;
 	}

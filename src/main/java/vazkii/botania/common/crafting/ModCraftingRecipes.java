@@ -52,6 +52,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesSpreader;
 	public static List<IRecipe> recipesManaLens;
 	public static IRecipe recipePool;
+	public static IRecipe recipePoolDiluted;
 	public static List<IRecipe> recipesRuneAltar;
 	public static IRecipe recipeLensVelocity;
 	public static IRecipe recipeLensPotency;
@@ -306,6 +307,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeAvatar;
 	public static IRecipe recipeSextant;
 	public static List<IRecipe> recipesAltGrassSeeds;
+	public static IRecipe recipeSpeedUpBelt;
+	public static IRecipe recipeBaubleCase;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -387,11 +390,17 @@ public final class ModCraftingRecipes {
 		recipesManaLens = BotaniaAPI.getLatestAddedRecipes(2);
 
 		// Mana Pool Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
+		addOreDictRecipe(new ItemStack(ModBlocks.pool),
 				"R R", "RRR",
 				'R', LibOreDict.LIVING_ROCK);
 		recipePool = BotaniaAPI.getLatestAddedRecipe();
 
+		// Diluted Mana Pool Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
+				"R R", "RRR",
+				'R', new ItemStack(ModFluffBlocks.livingrockSlab));
+		recipePoolDiluted = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Runic Altar Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.runeAltar),
 				"SSS", "SPS",
@@ -1877,6 +1886,16 @@ public final class ModCraftingRecipes {
 				'D', LibOreDict.DRAGONSTONE);
 		recipeCocoon = BotaniaAPI.getLatestAddedRecipe();
 
+		// Fel Pumpkin
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.felPumpkin),
+				" S ", "BPF", " G ",
+				'S', new ItemStack(Items.string),
+				'B', new ItemStack(Items.bone),
+				'P', new ItemStack(Blocks.pumpkin),
+				'F', new ItemStack(Items.rotten_flesh),
+				'G', new ItemStack(Items.gunpowder));
+		recipeFelPumpkin = BotaniaAPI.getLatestAddedRecipe();
+
 		// Luminizer Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay), LibOreDict.RED_STRING, LibOreDict.DRAGONSTONE, "dustGlowstone", "dustGlowstone");
 		recipeLuminizer = BotaniaAPI.getLatestAddedRecipe();
@@ -2063,6 +2082,23 @@ public final class ModCraftingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.grassSeeds, 1, 8), new ItemStack(ModItems.grassSeeds), new ItemStack(Items.spider_eye));
 		recipesAltGrassSeeds = BotaniaAPI.getLatestAddedRecipes(6);
 		
+		// Planestrider's Sash Recipe
+		GameRegistry.addRecipe(new ItemStack(ModItems.speedUpBelt),
+				" M ", "PBP", " S ",
+				'M', new ItemStack(Items.filled_map, 1, Short.MAX_VALUE),
+				'P', new ItemStack(ModItems.grassSeeds),
+				'B', new ItemStack(ModItems.travelBelt),
+				'S', new ItemStack(Items.sugar));
+		recipeSpeedUpBelt = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Bauble Case Recipe
+		addOreDictRecipe(new ItemStack(ModItems.baubleBox), 
+				" M ", "MCG", " M ",
+				'M', LibOreDict.MANA_STEEL,
+				'C', new ItemStack(Blocks.chest),
+				'G', "ingotGold");
+		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
@@ -2192,16 +2228,6 @@ public final class ModCraftingRecipes {
 		// Magma Pearl to Slimeball
 		addShapelessOreDictRecipe(new ItemStack(Items.slime_ball), new ItemStack(Items.magma_cream), new ItemStack(Items.water_bucket));
 		recipeMagmaToSlimeball = BotaniaAPI.getLatestAddedRecipe();
-
-		// Fel Pumpkin
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.felPumpkin),
-				" S ", "BPF", " G ",
-				'S', new ItemStack(Items.string),
-				'B', new ItemStack(Items.bone),
-				'P', new ItemStack(Blocks.pumpkin),
-				'F', new ItemStack(Items.rotten_flesh),
-				'G', new ItemStack(Items.gunpowder));
-		recipeFelPumpkin = BotaniaAPI.getLatestAddedRecipe();
 
 		// Ender Portal
 		addOreDictRecipe(new ItemStack(Blocks.end_portal_frame),

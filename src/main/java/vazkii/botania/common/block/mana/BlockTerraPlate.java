@@ -12,17 +12,22 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -38,8 +43,34 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.TERRA_PLATE);
+		
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
+	@Override
+	public boolean onBlockActivated(World worldObj, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {	
+		ItemStack stack = player.getCurrentEquippedItem();
+		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
+			if(player == null || !player.capabilities.isCreativeMode) {
+				stack.stackSize--;
+				if(stack.stackSize == 0 && player != null)
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			}
+
+			ItemStack target = stack.copy();
+			target.stackSize = 1;
+			EntityItem item = new EntityItem(worldObj, x + 0.5, y + 0.5, z + 0.5, target);
+			item.delayBeforeCanPickup = 40;
+			item.motionX = item.motionY = item.motionZ = 0;
+			if(!worldObj.isRemote)
+				worldObj.spawnEntityInWorld(item);
+
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;

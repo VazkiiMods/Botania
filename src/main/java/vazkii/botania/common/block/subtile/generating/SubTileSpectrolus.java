@@ -51,7 +51,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 				if(stack != null && stack.getItem() == wool) {
 					int meta = stack.getItemDamage();
 					if(meta == nextColor) {
-						mana = Math.min(getMaxMana(), mana + 200);
+						mana = Math.min(getMaxMana(), mana + 300);
 						nextColor = nextColor == 15 ? 0 : nextColor + 1;
 
 						sync();
@@ -69,7 +69,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 	@Override
 	public int getMaxMana() {
-		return 4000;
+		return 8000;
 	}
 
 	@Override

@@ -27,6 +27,9 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
+	
+	private static final int TOTAL_TIME = 1200;
+	private static final int TIME_PER = TOTAL_TIME / 8;
 
 	private static final int[][] POSITIONS = new int[][] {
 		{ -1, 0, -1 },
@@ -40,7 +43,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	};
 
 	int positionAt = 0;
-	int[] ticksRemaining = new int[] { 200, 200, 200, 200, 200, 200, 200, 200 };
+	int[] ticksRemaining = new int[] { TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER };
 
 	@Override
 	public void onUpdate() {
@@ -70,7 +73,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 				Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 				if(ticksRemaining[positionAt] <= 0) {
-					ticksRemaining[positionAt] = 200;
+					ticksRemaining[positionAt] = TIME_PER;
 
 					if(recipe.set(world,coords.posX, coords.posY, coords.posZ, this)) {
 						for(int i = 0; i < 25; i++) {
@@ -84,7 +87,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(recipe.getOutput()) + (recipe.getOutputMeta() << 12));
 					}
 				}
-			} else ticksRemaining[positionAt] = 200;
+			} else ticksRemaining[positionAt] = TIME_PER;
 		}
 	}
 

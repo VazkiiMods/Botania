@@ -52,7 +52,19 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			"snowLayer",
 			"mycelium",
 			"podzol",
-			"sandstone"
+			"sandstone",
+			
+			// Mod support
+			"blockDiorite",
+			"stoneDiorite",
+			"blockGranite",
+			"stoneGranite",
+			"blockAndesite",
+			"stoneAndesite",
+			"marble",
+			"blockMarble",
+			"limestone",
+			"blockLimestone"
 	});
 
 	public ItemTerraformRod() {

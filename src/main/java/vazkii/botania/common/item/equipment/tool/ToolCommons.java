@@ -137,7 +137,7 @@ public final class ToolCommons {
 		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
 		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
 		if (!world.isRemote && player instanceof EntityPlayer)
-			d1 += 1.62D;
+			d1 += ((EntityPlayer) player).eyeHeight;
 		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
 		Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
 		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);

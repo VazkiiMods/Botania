@@ -272,12 +272,7 @@ public final class HUDHandler {
 					int x = res.getScaledWidth() / 2 - 11;
 					int y = res.getScaledHeight() / 2 + 10;
 
-					boolean diluted = false;
 					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-					if(u == 0 && tile.getBlockMetadata() == 2 && recipe.getOutput().getItem() != Item.getItemFromBlock(ModBlocks.pool)) {
-						u = 44;
-						diluted = true;
-					}
 					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
 					GL11.glEnable(GL11.GL_BLEND);
@@ -292,11 +287,6 @@ public final class HUDHandler {
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-
-					if(diluted) {
-						String s = StatCollector.translateToLocal("botaniamisc.pay2win");
-						mc.fontRenderer.drawStringWithShadow(s, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, y + 20, 0xFF8888);
-					}
 
 					GL11.glDisable(GL11.GL_LIGHTING);
 					GL11.glDisable(GL11.GL_BLEND);

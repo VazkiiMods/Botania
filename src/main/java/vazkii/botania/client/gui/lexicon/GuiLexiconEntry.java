@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:47:06 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon;
@@ -161,7 +161,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				break;
 			case 3 :
 				Minecraft mc = Minecraft.getMinecraft();
-				String cmd = "/botania-share " + entry.unlocalizedName;
+				String cmd = "/botania-share " + entry.getUnlocalizedName();
 
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
 				mc.thePlayer.sendChatMessage(cmd);

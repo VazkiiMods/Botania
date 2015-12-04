@@ -368,6 +368,21 @@ botania.versioning.flavour46=Você esperava que o Botania estive atualizado, mas
 botania.versioning.flavour47=Rumores dizem que em baixo do caminhão, há uma atualização do Botania.
 botania.versioning.flavour48=Quando o Bevo vai atualizar o modpack...
 botania.versioning.flavour49=1 Botania Update on the wall, 1 Botania Update on the wall.
+botania.versioning.flavour50=Você nota que Botania atualizou. Isso te enche de determinação.
+botania.versioning.flavour51=Sjin, atualize seu jogo!
+botania.versioning.flavour52=Teu lorde aplicaste uma atualização nova
+botania.versioning.flavour53=Quem quer atualizar o Botania às 3 da manhã?
+botania.versioning.flavour54=Todos digam: Atualizando-de!
+botania.versioning.flavour55=Thank you for signing up for Update Facts! Botania has updated!
+botania.versioning.flavour56=Atualize o Botania, pequeno, suporte a pirâmide =)
+botania.versioning.flavour57=gr8 b8 m8 here's an upd8
+botania.versioning.flavour58=O poder da atualização te domina
+botania.versioning.flavour59=NICOLO BREADMUND GIVE UPDATE
+botania.versioning.flavour60=Atualizações do Botania. Elas fazem o que querem, porque podem.
+botania.versioning.flavour61=Me atualize! Me atulize! Me atualize Seymore!
+botania.versioning.flavour62=Nove entre dez médicos recomendam atualizar o Botania.
+botania.versioning.flavour63=The update bacons at midnight.
+botania.versioning.flavour64=Uma nova atualização do Botania está disponível. E seu nome é JOHN CENA! DOO DOO DOO DOO
 botania.versioning.outdated=Você possui a versão %s, a mais recente é %s.
 botania.versioning.updateMessage=["Clique para... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui baixará automaticamente a nova versão","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aquie levará ao site do mod","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui levará ao Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
 botania.versioning.startingDownload=[{"text":"Baixando %s. Não remova seu HD. Gosta do ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Considere doar para ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" no [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Patreon de Vazkii","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
@@ -1151,6 +1166,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0SlabFull.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0Stairs.name=Escadas de de Madeira Reluzente
 tile.botania:avatar.name=Avatar de Madeira-viva
+tile.botania:altGrass0.name=Grama Seca
+tile.botania:altGrass1.name=Grama Dourada
+tile.botania:altGrass2.name=Grama Vívia
+tile.botania:altGrass3.name=Grama Queimada
+tile.botania:altGrass4.name=Grama Infusa
+tile.botania:altGrass5.name=Grama Mutante
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1266,6 +1287,8 @@ tile.botania:flower.bubbellChibi.name=Bubbell Petite
 tile.botania:flower.bubbellChibi.reference=And whistle
 tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
+tile.botania:flower.solegnoliaChibi.name=Solegnolia
+tile.botania:flower.solegnoliaChibi.reference=All your magnets are belong to us
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1345,6 +1368,12 @@ item.botania:lensLight.name=Lentes de Mana: Clarão
 item.botania:lensLight.short=Clarão
 item.botania:lensWarp.name=Lentes de Mana: Teleporte
 item.botania:lensWarp.short=Teleporte
+item.botania:lensRedirect.name=Lentes de Mana: Redirecional
+item.botania:lensRedirect.short=Redirecional
+item.botania:lensFirework.name=Lentes de Mana: Celebração
+item.botania:lensFirework.short=Celebração
+item.botania:lensFlare.name=Lentes de Mana: Labareda
+item.botania:lensFlare.short=Labareda
 item.botania:manaPetal0.name=Pétala de Mana Branca
 item.botania:manaPetal1.name=Pétala de Mana Laranja
 item.botania:manaPetal2.name=Pétala de Mana Magenta
@@ -1386,6 +1415,12 @@ item.botania:fertilizer.name=Fertilizante Floral
 item.botania:grassSeeds0.name=Sementes de Pasto
 item.botania:grassSeeds1.name=Sementes Boreais
 item.botania:grassSeeds2.name=Espóros Infestantes
+item.botania:grassSeeds3.name=Sementes Secas
+item.botania:grassSeeds4.name=Sementes Douradas
+item.botania:grassSeeds5.name=Sementes Vívidas
+item.botania:grassSeeds6.name=Sementes Queimadas
+item.botania:grassSeeds7.name=Sementes Infusas
+item.botania:grassSeeds8.name=Sementes Mutantes
 item.botania:livingwoodTwig.name=Graveto de Madeira-viva
 item.botania:dirtRod.name=Cajado das Terras
 item.botania:terraformRod.name=Cajado de Terra Firma
@@ -1596,6 +1631,9 @@ item.botania:manaweaveChest.name=Robe Superior de Tecido de Mana
 item.botania:manaweaveLegs.name=Robe Inferior de Tecido de Mana
 item.botania:manaweaveBoots.name=Botas de Tecido de Mana
 item.botania:gaiaHead.name=Cabeça de Guardião de Gaia
+item.botania:sextant.name=Sextante do Modulador do Mundo
+item.botania:speedUpBelt.name=Cinta do Desbravador Planar
+item.botania:baubleBox.name=Caixa de Baubles
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2202,17 +2240,20 @@ botania.page.dreamwoodSpreader1=Um Dispersor melhor, só isso
 botania.page.dreamwoodSpreader2=Combinando esse poderoso Dispersor com um &1Espírito de Gaia&0 e uma &1Pedra Draconiana&0, uma variante ainda mais poderosa pode ser criada. O &1Disperosr de Gaia&0 é o melhor dos Dispersores de Mana, com todas melhorias.<br>Note que esse Dispersordispara cargas maiores de Mana, e por isso pode disparar com menos frequência.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
-# -- PAINTSLINGER LENS
-botania.entry.paintLens=Lentes: Paintslinger
-botania.tagline.paintLens=Lentes de Mana que colorem lã e outras coisas
-botania.page.paintLens0=Os &4Elfos&0 são muito criativos. Essa lente é única comparada as outras. A &1Lente Paintslinger&0 precisa ser colorida com uma das 16 cores do espectro para ser usada. Quando um Pulso atinge um bloco colorível (&1Lã, Argila Endurecida ou Vidro&0...) ele faz com que qualquer bloco próximo, da mesma cor, se torne da cor do &4Pulso de Mana&0. Parece funcionar com &4Ovelhas&0 também.
-botania.page.paintLens1=A M'AIDER Stranded Girl
-
-# -- WARP LENS
-botania.entry.warpLens=Lentes: Teleporte
-botania.tagline.warpLens=Lentes de Mana que com um Transmisor de Mana teleporta Pulsos
-botania.page.warpLens0=A &1Lente de Teleporte&0 é interessante. Um &4Pulso de Mana&0 com esse efeito, ao colidir com um &1Transmissor de Matéria&0 se teleporta para a posição de saída de tal &1Transmissor de Matéria&0, mantendo seu momento. Além disso, se combinada com a &1Lente de Escavação&0 (a &1Lente de Escavação&0 deve estar visível) o Pulso não destrói o &1Transmissor de Matéria&0 ou &1Pistões&0, e ainda teleporta os blocos minerados para o local onde foi disparado.
-botania.page.warpLens1=Hakase Quarries
+# -- ELVEN MANA LENSES
+botania.entry.elvenLenses=Lentes de Mana Élficas
+botania.tagline.elvenLenses=Lentes avançadas com novas habilidades
+botania.page.elvenLenses0=O conhecimento sobre a manipulação de mana de Alfheim traz uma gama de novas &1Lentes de Mana&0 que podem ter usos interessantes.<br>Diferente de lentes mundanas, essas possuem uma influência mais forte no mundo...
+botania.page.elvenLenses1=A &1Lente Paintslinger&0 precisa ser colorida com uma das 16 cores do espectro para ser usada. Quando um Pulso atinge um bloco tingível (&1Lã, Argila Endurecida ou Vidro&0...) ele faz com que qualquer bloco próximo, da mesma cor, se torne da cor do &4Pulso de Mana&0. Parece funcionar com &4Ovelhas&0 também.
+botania.page.elvenLenses2=Lente: Paintslinger
+botania.page.elvenLenses3=A &1Lente de Teleporte&0 é interessante. Um &4Pulso de Mana&0 com esse efeito, ao colidir com um &1Transmissor de Matéria&0 se teleporta para a posição de saída de tal &1Transmissor de Matéria&0, mantendo seu momento. Além disso, se combinada com a &1Lente de Escavação&0 (a &1Lente de Escavação&0 deve estar visível) o Pulso não destrói o &1Transmissor de Matéria&0 ou &1Pistões&0, e ainda teleporta os blocos minerados para o local onde foi disparado.
+botania.page.elvenLenses4=Lente: Teleporte
+botania.page.elvenLenses5=A &1Lente Redirecional&0 só funciona se usada por um &1Dispersor de Mana&0. Quando qualquer pulso disparado com esse efeito colide com um &1Dispersor de Mana&0, além da transferência normal de &4Mana&0, o dispersor atingido aponta em direção ao que disparou.
+botania.page.elvenLenses6=Lente: Redirecional
+botania.page.elvenLenses7=A &1Lente de Celebração&0 funciona como a &1Lente de Entropia&0, entretanto, ao invés de explodir, ela produz fogos de artifício da cor do pulso.
+botania.page.elvenLenses8=Lente: Celebração
+botania.page.elvenLenses9=A &1Lente de Labareda&0 muda a funcionalidade de um &1Dispersor de Mana&0, o impedindo de disparar. Ao invés disso, o dispersor libera um feixe contínuo da cor que a lente for colorida, na direção apontada.<br>Certamente há vários usos decorativos para isso.
+botania.page.elvenLenses10=Lente: Labareda
 
 # -- MANA PRISM
 botania.entry.prism=Prisma de Mana
@@ -2285,7 +2326,6 @@ botania.entry.heiseiDream=Heisei Dream
 botania.tagline.heiseiDream=Causa desconfiança entre monstros
 botania.page.heiseiDream0=A &1Heisei Dream&0, ao custo de &4Mana&0, desperta raiva e vingança entre qualquer &4monstro&0, os fazendo lutar entre si.
 botania.page.heiseiDream1=&oUma prazerosa era mata pessoas&r.
-botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
 
 # -- TIGERSEYE
 botania.entry.tigerseye=Tigerseye
@@ -2311,7 +2351,6 @@ botania.tagline.fallenKanade=Regeneração potente de curta distância
 botania.page.fallenKanade0=A &1Fallen Kanade&0 é uma flor com propriedades celestiais, ela usa &4Mana&0 de um &4Poço de Mana&0 para aplicar um forte efeito de regeneração para qualquer &4jogador&0 ao redor.
 botania.page.fallenKanade0a=A &1Fallen Kanade&0 é uma flor com propriedades celestiais, ela usa &4Mana&0 de um &4Poço de Mana&0 para aplicar um forte efeito de regeneração para qualquer &4jogador&0 ao redor.<br>Interessantemente, &4Magos de Sangue&0 são conhecidos por colocar estranhas runas em volta de seus altares, fazendo a flor não funcionar, isso talvez seja útil lembrar.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
-botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
 
 # -- EXOFLAME
 botania.entry.exoflame=Exoflame
@@ -2449,8 +2488,6 @@ botania.page.daybloom1=Essas flores tendem a competir entre si pela luz da área
 botania.page.daybloom1a=Havendo outra dela nas quatro direções cardinais resulte em retornos diminuídos de &4Mana&0. Isso se aplica apenas para &1Dayblooms&0 e &1Nightshades&0.<br>&1Dayblooms&0 não são muito resistentes, após um tempo elas secam e morrem. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
 botania.page.daybloom3=Retornos diminuídos
 botania.page.daybloom2=&oComeçando um novo e belo dia&r.
-botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
-botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
@@ -2513,9 +2550,6 @@ botania.page.gourmaryllis0=A &1Gourmaryllis&0 é uma flor faminta. Ela consome q
 botania.page.gourmaryllis1=O tempo que leva para ela digerir depende do valor nutricional, em termos leigos, o valor de fome restaurada.<br>Por isso, &1Carne&0 leva quatro segundos para digerir, &1Cenouras&0 levam dois, &1Pão&0 leva quatro segundos e meio, e assim por diante.
 botania.page.gourmaryllis2=A quantidade de &4Mana&0 criada também depende da saturação. Por exemplo, uma única &1Carne&0 produz mais &1Mana&0 que duas &1Cenouras&0&0, tanto absolutamente, quanto por tempo.
 botania.page.gourmaryllis3=&oUm prato quente para nossos novos residentes&r.
-botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
-botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
-botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
 # -- NARSLIMMUS
 botania.entry.narslimmus=Narslimmus

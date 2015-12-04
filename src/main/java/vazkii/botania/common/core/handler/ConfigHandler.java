@@ -69,6 +69,7 @@ public final class ConfigHandler {
 	public static boolean stones18Enabled = true;
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean enderStuff19Enabled = true;
+	public static boolean invertMagnetRing = false;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
@@ -207,6 +208,9 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the 1.9 Ender features available as recipes. This only disables the recipes and entries. Old ones that are already in the world will stay.";
 		enderStuff19Enabled = loadPropBool("19enderStuff.enabled", desc, enderStuff19Enabled);
 
+		desc = "Set this to true to invert the Ring of Magnetization's controls (from shift to stop to shift to work)";
+		invertMagnetRing = loadPropBool("magnetRing.invert", desc, invertMagnetRing);
+		
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

@@ -79,15 +79,21 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
-					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
-						player.moveFlying(0F, 1F, player.capabilities.isFlying ? ((ItemTravelBelt) belt.getItem()).speed : ((ItemTravelBelt) belt.getItem()).speed * 2);
+					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
+
+					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+						float speed = beltItem.getSpeed(belt);
+						player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
+						beltItem.onMovedTick(belt, player);
+						
+						if(player.ticksExisted % COST_INTERVAL == 0)
+							ManaItemHandler.requestManaExact(belt, player, COST, true);
+					} else beltItem.onNotMovingTick(belt, player);
 
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
 					else player.stepHeight = 1F;
 
-					if(player.ticksExisted % COST_INTERVAL == 0)
-						ManaItemHandler.requestManaExact(belt, player, COST, true);
 				} else {
 					player.stepHeight = 0.5F;
 					playersWithStepup.remove(s);
@@ -97,6 +103,18 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 				player.stepHeight = 1F;
 			}
 		}
+	}
+	
+	public float getSpeed(ItemStack stack) {
+		return speed;
+	}
+	
+	public void onMovedTick(ItemStack stack, EntityPlayer player) {
+		// NO-OP
+	}
+	
+	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
+		// NO-OP
 	}
 
 	@SubscribeEvent
