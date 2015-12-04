@@ -432,7 +432,8 @@ public final class ModCraftingRecipes {
 		recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
 
 		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 7),
-				" R ", "ALA", " R ",
+				" P ", "ALA", " R ",
+				'P', new ItemStack(Blocks.piston),
 				'R', "dustRedstone",
 				'A', "gemLapis",
 				'L', new ItemStack(ModItems.lens));
