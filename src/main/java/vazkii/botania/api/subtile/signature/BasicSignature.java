@@ -64,8 +64,6 @@ public class BasicSignature extends SubTileSignature {
 		if(clazz == null)
 			return "uwotm8";
 		
-		System.out.println(clazz + " " + clazz.isAssignableFrom(SubTileGenerating.class));
-		
 		if(clazz.getAnnotation(PassiveFlower.class) != null)
 			return "botania.flowerType.passiveGenerating";
 		
