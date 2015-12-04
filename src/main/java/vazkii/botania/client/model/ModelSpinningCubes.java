@@ -17,6 +17,9 @@ import net.minecraft.client.renderer.OpenGlHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+
 public class ModelSpinningCubes extends ModelBase {
 
 	ModelRenderer spinningCube;
@@ -36,7 +39,7 @@ public class ModelSpinningCubes extends ModelBase {
 		final float radiusBase = 0.35F;
 		final float radiusMod = 0.05F;
 
-		double ticks = Minecraft.getMinecraft().thePlayer.ticksExisted - 1.3 * (origRepeat - repeat);
+		double ticks = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) - 1.3 * (origRepeat - repeat);
 		float offsetPerCube = 360 / cubes;
 
 		GL11.glPushMatrix();
