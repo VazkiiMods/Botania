@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -42,6 +43,8 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.TERRA_PLATE);
+		
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -128,15 +129,26 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		ItemStack stack = item.getEntityItem();
-		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
+		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
 			return false;
 
 		int x = net.minecraft.util.MathHelper.floor_double(item.posX);
-		int y = net.minecraft.util.MathHelper.floor_double(item.posY);
+		int y = (int) Math.floor(item.posY);
 		int z = net.minecraft.util.MathHelper.floor_double(item.posZ);
-		if(item.worldObj.getBlock(x, y, z) == ModBlocks.terraPlate)
-			return false;
+		Block block = item.worldObj.getBlock(x, y, z);
+		int meta = item.worldObj.getBlockMetadata(x, y, z);
 
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
+			return false;
+		
+		if(item.worldObj.isRemote) {
+			block = item.worldObj.getBlock(x, y - 1, z);
+			meta = item.worldObj.getBlockMetadata(x, y - 1, z);
+
+			if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
+				return false;
+		}
+		
 		return true;
 	}
 

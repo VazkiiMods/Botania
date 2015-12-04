@@ -31,6 +31,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -61,6 +62,8 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
+		
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Override
