@@ -26,6 +26,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PageTutorial extends PageText {
 
+	// Turn this on once we have an up to date video
+	private static final boolean VIDEO_ENABLED = false;
+	
 	GuiButton buttonText, buttonVideo;
 
 	public PageTutorial(String unlocalizedName) {
@@ -35,18 +38,29 @@ public class PageTutorial extends PageText {
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
 		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialText"));
-		buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialVideo"));
+		if(VIDEO_ENABLED)
+			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialVideo"));
 
 		gui.getButtonList().add(buttonText);
-		gui.getButtonList().add(buttonVideo);
+		if(VIDEO_ENABLED)
+			gui.getButtonList().add(buttonVideo);
 	}
 
 	@Override
 	public void onClosed(IGuiLexiconEntry gui) {
 		gui.getButtonList().remove(buttonText);
-		gui.getButtonList().remove(buttonVideo);
+		if(VIDEO_ENABLED) 
+			gui.getButtonList().remove(buttonVideo);
 	}
 
+	@Override
+	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
+		super.renderScreen(gui, mx, my);
+		
+		if(!VIDEO_ENABLED)
+			PageText.renderText(buttonText.xPosition + buttonText.width + 4, buttonText.yPosition - 14, 65, 100, "botaniamisc.noVideo");
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {

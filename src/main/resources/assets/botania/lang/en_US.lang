@@ -146,7 +146,7 @@ botaniamisc.badArena=As hard as you try, the Beacon will not accept your sacrifi
 botaniamisc.tutorialText=Ingame
 botaniamisc.tutorialVideo=Video
 botaniamisc.shiftToStopSpin=(SHIFT to stop animation)
-botaniamisc.noVideo=Video will be back soon. Sorry :(
+botaniamisc.noVideo=&4Video will be back soon. Sorry :(
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
