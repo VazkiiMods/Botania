@@ -431,7 +431,11 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 6), new ItemStack(ModItems.lens), LibOreDict.RUNE[7]);
 		recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 7), new ItemStack(ModItems.lens), LibOreDict.RUNE[11]);
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 7),
+				" R ", "ALA", " R ",
+				'R', "dustRedstone",
+				'A', "gemLapis",
+				'L', new ItemStack(ModItems.lens));
 		recipeLensBore = BotaniaAPI.getLatestAddedRecipe();
 
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
