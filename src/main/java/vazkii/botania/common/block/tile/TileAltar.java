@@ -142,7 +142,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			ItemStack stack = getStackInSlot(i);
 			if(stack == null)
 				break;
-			lastRecipe.add(stack);
+			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
 	}

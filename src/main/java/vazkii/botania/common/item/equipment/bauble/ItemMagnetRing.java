@@ -141,13 +141,11 @@ public class ItemMagnetRing extends ItemBauble {
 		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
 			return false;
 		
-		if(item.worldObj.isRemote) {
-			block = item.worldObj.getBlock(x, y - 1, z);
-			meta = item.worldObj.getBlockMetadata(x, y - 1, z);
+		block = item.worldObj.getBlock(x, y - 1, z);
+		meta = item.worldObj.getBlockMetadata(x, y - 1, z);
 
-			if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
-				return false;
-		}
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
+			return false;
 		
 		return true;
 	}

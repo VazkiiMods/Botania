@@ -173,7 +173,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			ItemStack stack = getStackInSlot(i);
 			if(stack == null)
 				break;
-			lastRecipe.add(stack);
+			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
 	}
@@ -225,8 +225,17 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				}
 
 				saveLastRecipe();
-				for(int i = 0; i < getSizeInventory(); i++)
-					setInventorySlotContents(i, null);
+				for(int i = 0; i < getSizeInventory(); i++) {
+					ItemStack stack = getStackInSlot(i);
+					if(stack != null) {
+						if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
+							EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack.copy());
+							worldObj.spawnEntityInWorld(outputItem);
+						}
+						
+						setInventorySlotContents(i, null);
+					}
+				}
 
 				if(!worldObj.isRemote) {
 					ItemStack livingrockItem = livingrock.getEntityItem();
