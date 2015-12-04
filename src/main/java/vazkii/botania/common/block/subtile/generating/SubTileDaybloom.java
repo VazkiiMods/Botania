@@ -10,19 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 
+@PassiveFlower
 public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	private static final String TAG_PRIME_POSITION_X = "primePositionX";

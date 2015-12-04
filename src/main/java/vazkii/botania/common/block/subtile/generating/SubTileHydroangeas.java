@@ -26,11 +26,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+@PassiveFlower
 public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";

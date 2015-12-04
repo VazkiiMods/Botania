@@ -281,6 +281,12 @@ botania.knowledge.minecraft=Minecraftian Knowledge
 botania.knowledge.alfheim=&aElven&7 Knowledge
 botania.knowledge.relic=&5Relic&7 Knowledge
 
+# FLOWER TYPES
+botania.flowerType.passiveGenerating=Passive Generating Flower
+botania.flowerType.generating=Generating Flower
+botania.flowerType.functional=Functional Flower
+botania.flowerType.misc=Miscellaneous Flower
+
 # CONFIGURATION
 blockBreakingParticles.enabled=Block Break Particles
 blockBreakingParticlesTool.enabled=Tool Block Break Particles

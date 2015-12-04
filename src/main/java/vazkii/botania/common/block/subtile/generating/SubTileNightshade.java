@@ -11,8 +11,10 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 
+@PassiveFlower
 public class SubTileNightshade extends SubTileDaybloom {
 
 	@Override
