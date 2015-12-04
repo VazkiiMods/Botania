@@ -123,7 +123,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		if(Botania.gardenOfGlassLoaded) {
 			addBlock(ModBlocks.root);
-			addBlock(ModBlocks.felPumpkin);
 			addItem(ModItems.waterBowl);
 		}
 
@@ -143,9 +142,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.incensePlate);
 		addItem(ModItems.incenseStick);
 		addItem(ModItems.bloodPendant);
+		addBlock(ModBlocks.felPumpkin);
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.hourglass);
+
 
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);

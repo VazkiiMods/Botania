@@ -160,6 +160,7 @@ public final class LexiconData {
 	public static LexiconEntry manaBomb;
 	public static LexiconEntry teruTeruBozu;
 	public static LexiconEntry avatar;
+	public static LexiconEntry felPumpkin;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -352,7 +353,7 @@ public final class LexiconData {
 
 		if(Botania.gardenOfGlassLoaded) {
 			gardenOfGlass = new BLexiconEntry(LibLexicon.BASICS_GARDEN_OF_GLASS, categoryBasics);
-			gardenOfGlass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeRootToSapling), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRootToFertilizer), new PageCraftingRecipe("5", ModCraftingRecipes.recipePebbleCobblestone), new PageText("6"), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.sugarCaneRecipe), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball), new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeFelPumpkin), new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeEndPortal));
+			gardenOfGlass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeRootToSapling), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRootToFertilizer), new PageCraftingRecipe("5", ModCraftingRecipes.recipePebbleCobblestone), new PageText("6"), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.sugarCaneRecipe), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball), new PageText("9"), new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeEndPortal));
 			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.manaResource, 1, 20));
 		}
 
@@ -669,6 +670,9 @@ public final class LexiconData {
 		avatar = new BLexiconEntry(LibLexicon.DEVICE_AVATAR, categoryDevices);
 		avatar.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAvatar));
 
+		felPumpkin = new BLexiconEntry(LibLexicon.DEVICE_FEL_PUMPKIN, categoryDevices);
+		felPumpkin.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFelPumpkin));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
