@@ -50,7 +50,6 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 			cooldown--;
 			for(int i = 0; i < 3; i++)
 				Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
-			return;
 		}
 
 		if(burnTime == 0) {
@@ -78,7 +77,10 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 								supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						}
 
-						burnTime += getBurnTime();
+						if(cooldown == 0)
+							burnTime += getBurnTime();
+						else cooldown = getCooldown();
+						
 						sync();
 						playSound();
 						break;
