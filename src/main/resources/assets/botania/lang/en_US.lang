@@ -633,6 +633,7 @@ tile.botania:spreader3.name=Gaia Mana Spreader
 tile.botania:pool0.name=Mana Pool
 tile.botania:pool1.name=The Everlasting Guilty Pool
 tile.botania:pool2.name=Diluted Mana Pool
+tile.botania:pool3.name=Fabulous Mana Pool
 tile.botania:runeAltar.name=Runic Altar
 tile.botania:unstableBlock0.name=White Unstable Cube
 tile.botania:unstableBlock1.name=Orange Unstable Cube
@@ -2955,6 +2956,7 @@ botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 botania.page.rainbowRod3=&1Bifrost Blocks&0 for decoration
 botania.page.rainbowRod4=Rainbow &1Shimmerrock&0
 botania.page.rainbowRod5=Rainbow &1Shimmerwood Planks&0
+botania.page.rainbowRod7=&1Fabulous Mana Pool&0! Stores as much as a normal one
 
 # -- ROD OF THE SKIES
 botania.entry.tornadoRod=Rod of the Skies

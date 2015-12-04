@@ -106,8 +106,9 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		par3.add(new ItemStack(par1, 1, 2));
 		par3.add(new ItemStack(par1, 1, 0));
+		par3.add(new ItemStack(par1, 1, 2));
+		par3.add(new ItemStack(par1, 1, 3));
 		par3.add(new ItemStack(par1, 1, 1));
 	}
 
@@ -194,7 +195,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.pool;
+		return world.getBlockMetadata(x, y, z) == 3 ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
 	@Override

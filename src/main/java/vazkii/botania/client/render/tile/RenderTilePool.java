@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.Color;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -59,14 +62,25 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GL11.glTranslated(d0, d1, d2);
 		boolean inf = tileentity.getWorldObj() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
 		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
-
+		boolean fab = tileentity.getWorldObj() == null ? forceMeta == 3 : tileentity.getBlockMetadata() == 3;
+		
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
-		int color = pool.color;
-		float[] acolor = EntitySheep.fleeceColorTable[color];
-		GL11.glColor4f(acolor[0], acolor[1], acolor[2], a);
+		if(fab) {
+			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			if(tileentity != null)
+				time += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(100000);
+			
+			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
+			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
+		} else {
+			int color = pool.color;
+			float[] acolor = EntitySheep.fleeceColorTable[color];
+			GL11.glColor4f(acolor[0], acolor[1], acolor[2], a);
+		}
+
 		model.render();
 		GL11.glColor4f(1F, 1F, 1F, a);
 		GL11.glScalef(1F, -1F, -1F);
