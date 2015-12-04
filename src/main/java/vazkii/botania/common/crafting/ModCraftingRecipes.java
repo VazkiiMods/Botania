@@ -1036,7 +1036,7 @@ public final class ModCraftingRecipes {
 			addOreDictRecipe(new ItemStack(ModBlocks.spreader, 1, 2),
 					"WWW", "EP ", "WWW",
 					'W', LibOreDict.DREAM_WOOD,
-					'P', LibOreDict.MANA_PETAL[i],
+					'P', LibOreDict.PETAL[i],
 					'E', LibOreDict.ELEMENTIUM);
 		recipesDreamwoodSpreader = BotaniaAPI.getLatestAddedRecipes(16);
 
@@ -1333,7 +1333,7 @@ public final class ModCraftingRecipes {
 			addOreDictRecipe(new ItemStack(ModItems.spark),
 					" P ", "BNB", " P ",
 					'B', new ItemStack(Items.blaze_powder),
-					'P', LibOreDict.MANA_PETAL[i],
+					'P', LibOreDict.PETAL[i],
 					'N', "nuggetGold");
 		recipesSpark = BotaniaAPI.getLatestAddedRecipes(16);
 
@@ -1706,7 +1706,7 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 32; i++)
 			addOreDictRecipe(new ItemStack(ModItems.cosmetic, 1, i),
 					"PPP", "PSP", "PPP",
-					'P', new ItemStack(i < 16 ? ModItems.petal : ModItems.manaPetal, 1, i % 16),
+					'P', new ItemStack(i < 16 ? ModItems.petal : ModItems.dye, 1, i % 16),
 					'S', LibOreDict.MANA_STRING);
 		recipesCosmeticItems = BotaniaAPI.getLatestAddedRecipes(32);
 

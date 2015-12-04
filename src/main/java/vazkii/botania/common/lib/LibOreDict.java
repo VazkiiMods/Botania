@@ -41,6 +41,7 @@ public final class LibOreDict {
 	public static final String ROOT = "livingRoot";
 	public static final String PEBBLE = "pebble";
 	public static final String MANAWEAVE_CLOTH = "clothManaweave";
+	public static final String MANA_POWDER = "powderMana";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
@@ -74,13 +75,6 @@ public final class LibOreDict {
 		"dyeYellow", "dyeLime", "dyePink", "dyeGray",
 		"dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
 		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
-	};
-
-	public static final String[] MANA_PETAL = new String[] {
-		"manaPetalWhite", "manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue",
-		"manaPetalYellow", "manaPetalLime", "manaPetalPink", "manaPetalGray",
-		"manaPetalLightGray", "manaPetalCyan", "manaPetalPurple", "manaPetalBlue",
-		"manaPetalBrown", "manaPetalGreen", "manaPetalRed", "manaPetalBlack"
 	};
 
 	public static final String[] RUNE = new String[] {

@@ -26,10 +26,10 @@ import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModManaInfusionRecipes {
 
-	public static List<RecipeManaInfusion> manaPetalRecipes;
 	public static List<RecipeManaInfusion> manasteelRecipes;
 	public static RecipeManaInfusion manaPearlRecipe;
 	public static List<RecipeManaInfusion> manaDiamondRecipes;
+	public static List<RecipeManaInfusion> manaPowderRecipes;
 	public static RecipeManaInfusion pistonRelayRecipe;
 	public static RecipeManaInfusion manaCookieRecipe;
 	public static RecipeManaInfusion grassSeedsRecipe;
@@ -44,10 +44,6 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion sugarCaneRecipe;
 
 	public static void init() {
-		manaPetalRecipes = new ArrayList();
-		for(int i = 0; i < 16; i++)
-			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 200));
-
 		manasteelRecipes = new ArrayList();
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000));
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 27000));
@@ -58,6 +54,14 @@ public final class ModManaInfusionRecipes {
 		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000));
 		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 3), new ItemStack(Blocks.diamond_block), 90000));
 
+		manaPowderRecipes = new ArrayList();
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.gunpowder), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.redstone), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.glowstone_dust), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.sugar), 500));
+		for(int i = 0; i < 16; i++)
+			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(ModItems.dye, 1, i), 400));
+		
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.piston), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.cookie), 20000);
 		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.tallgrass, 1, 1), 2500);

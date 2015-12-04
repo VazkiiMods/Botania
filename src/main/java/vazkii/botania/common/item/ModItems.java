@@ -128,7 +128,6 @@ public final class ModItems {
 	public static Item twigWand;
 	public static Item manaResource;
 	public static Item lens;
-	public static Item manaPetal;
 	public static Item rune;
 	public static Item signalFlare;
 	public static Item manaTablet;
@@ -278,7 +277,6 @@ public final class ModItems {
 		twigWand = new ItemTwigWand();
 		manaResource = new ItemManaResource();
 		lens = new ItemLens();
-		manaPetal = new ItemManaPetal();
 		rune = new ItemRune();
 		signalFlare = new ItemSignalFlare();
 		manaTablet = new ItemManaTablet();
@@ -424,7 +422,6 @@ public final class ModItems {
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
-			OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
@@ -451,6 +448,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.ROOT, new ItemStack(manaResource, 1, 20));
 		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(manaResource, 1, 21));
 		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaResource, 1, 22));
+		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaResource, 1, 23));
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));

@@ -60,7 +60,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.flower);
 		addBlock(ModBlocks.specialFlower);
 		addItem(ModItems.petal);
-		addItem(ModItems.manaPetal);
 		addItem(ModItems.pestleAndMortar);
 		addItem(ModItems.dye);
 		addItem(ModItems.fertilizer);
@@ -146,7 +145,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.hourglass);
-
 
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);

@@ -1,5 +1,5 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
+* This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
@@ -45,7 +45,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 23;
+	final int types = 24;
 	IIcon[] icons;
 
 	// begin dank_memes
@@ -164,7 +164,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
 		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8 || meta == 5;
+		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
 	}
 
 	@Override
@@ -177,7 +177,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		int meta = stack.getItemDamage();
 		return meta == 7 || meta == 8 || meta == 9;
 	}
-
 
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
