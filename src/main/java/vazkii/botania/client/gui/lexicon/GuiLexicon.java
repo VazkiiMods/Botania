@@ -210,14 +210,11 @@ public class GuiLexicon extends GuiScreen {
 		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
 
-		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
-		if(subtitle != null) {
-			GL11.glScalef(0.5F, 0.5F, 1F);
-			drawCenteredString(fontRendererObj, subtitle, left * 2 + guiWidth, (top - getTitleHeight() + 11) * 2, 0x00FF00);
-			GL11.glScalef(2F, 2F, 1F);
-		}
-
+		if(subtitle != null)
+			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true);
+		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
+		
 		if(isMainPage())
 			drawHeader();
 
@@ -449,7 +446,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	int getTitleHeight() {
-		return getSubtitle() == null ? 12 : 16;
+		return getSubtitle() == null ? 12 : 22;
 	}
 
 	boolean isIndex() {
