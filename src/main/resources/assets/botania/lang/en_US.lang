@@ -2512,7 +2512,7 @@ botania.page.thermalily1=&o0108 Style&r.
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.tagline.arcanerose=Mana from experience
-botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0. 
+botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0.<br>What the flower can not do, however, is absorb raw experience orbs from the floor. They must first be gathered by a player.
 botania.page.arcanerose1=&oWhen this card is Summoned, toss a coin&r.
 
 # -- MUNCHDEW
