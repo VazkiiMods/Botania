@@ -1,3 +1,60 @@
+r1.8 238
+*<b>This update warrants a major version increase due to the sheer number of tweaks and changes that overall make the game better. This update's objective is to polish any roughness around the edges the mod might have had and to get it to a great state for newer and older players alike. Despite it being somewhat long, I would advise you to read it all, lest some small change trip you up.</b>
+*Added a "SHIFT to stop animation" tidbit to Rune and Petal pages.
+*Added a config option to invert the Ring of Magnetization's controls.
+*Added a proper HUD to the Petal Apothecary and Runic Altar that shows you what is currently in it and what you're crafting.
+*Added an Adaptative Config system, which changes your config options for you if you are using default values from old versions. helping you get the new changes without having to delete configs. You can turn this off in the config if you don't like it.
+*Added Mana Powder as a new crafting material.
+*Added the Fabulous Mana Pool. A new rainbow Mana Pool variant crafted with Shimmerrock. <i>Yes that is its name.</i>
+*Blazes spawned by a Fel Pumpkin (Garden of Glass) drop more Blaze Powder now.
+*Changed a bunch of details in the lexicon all over the place to make it a lot easier to understand.
+*Changed almost all flower recipes to follow a new "no more than 4 different petals per flower" rule, effectively simplifying flower crafting.
+*Changed how crossmod/addon entries' titles look.
+*Changed the Bore Lens recipe to be a lot easier to make.
+*Changed the mana costs for runes in the Runic Altar.
+*Changed the recipes for Terrasteel Armor.
+*Changed tier 1 rune recipes to use Mana Powder and only make 2 per.
+*Changed tier 3 rune recipes to only make 1 per.
+*Danked some memes.
+*Dayblooms and Nightshades about twice as strong now.
+*Disabled the tutorial video until there's one that's updated with the new changes.
+*Documented properly the fact that buried petals can be used to grow tall flowers.
+*Fixed a crash when removing bookmarks.
+*Fixed creating Manasteel in bulk blocks taking 10x as much instead of 9x as much. (TheWhiteWolves)
+*Fixed Mana Pools not updating their comparator output properly when mana is being taken from them.
+*Fixed the Manaseer Monocle's range viewing functionality rendering as a gray square when used alongside other mods that use GL_LIGHTING, like Neat.
+*Fixed the new grass types not having a properly lexicon linking. (TheWhiteWolves)
+*Fixed the Petal Apothecary sometimes desyncing with the client.
+*Fixed Thermalilies not writing their cooldown to NBT properly.
+*Flowers' tooltips now tell you what type of flower they are.
+*Increased the Thermalily's production rate, time and lowered its cooldown (to 5 minutes).
+*Lowered (by a bunch) the amount of flowers that are generated in the world.
+*Lowered the Pure Daisy's craft time to 60 seconds (from 80).
+*Made a bunch of entries priority entries (italicized) to help lead new players into the important stuff without bogging down the tutorial.
+*Made the runic altar's floaty cube animation smoother. <i>144hz master race.</i>
+*Made the Zoom text in Rune and Mana Infusion pages more clear. 
+*Removed a bunch of needless entries from the Tutorial to make it faster to get started.
+*Removed diminishing returns for passive flowers.
+*Removed Mana Petals. Any recipes that used them previously have been tweaked.
+*Rewrote the "Welcome to Botania" entry to be a lot more concise and help new players better.
+*Right clicking a Runic Altar with Livingrock now places it on top perfectly centered. (same for the T.A. Plate and relevant items)
+*Runes used for recipes in the Runic Altar are now given back upon the recipe's completion.
+*Sparks can now be dyed with Phantom Ink to make them highly translucent.
+*Terrasteel armor now has Knockback Resistance as an attribute and Passive Mana Generation (like a Band of Aura) as a set bonus.
+*The Diluted Mana Pool can now infuse items just like the normal one.
+*The Diluted Mana Pool is no longer a required part of progression, you can craft the normal one with the old diluted recipe and the diluted one with slabs instead.
+*The Fel Pumpkin is now part of botania itself and not Garden of Glass.
+*The Petal Apothecary now fills up with rain like vanilla Cauldrons do.
+*The Ring of Magnetization will no longer pull items that are on top of Mana Pools or Runic Altars.
+*The Runic Altar no longer needs a wand interaction to be started.
+*The Thermalily now resets its cooldown back to 5 minutes if it absorbs any lava while it's in cooldown.
+*The Wand of the Forest now comes in Bind Mode when crafted.
+*[API] Added a proper blacklist for the ring of magnetization.
+*[API] Added BotaniaTutorialStartEvent. It does exactly what you think it does.
+*[API] Added a @PassiveFlower annotation for detection of passives without creating an instance. Used for SubTileSignatures.
+*[API] Changed BasicSignature to include a getType() function for the tootlip.
+*[API] Exposed SubTileSolegnolia.hasSolegnoliaAround() to the internal method handler.
+*[API] Increased version number to 70.
 r1.7 237
 *Fixed the Gaia Guardian spawning on the client side when it shouldn't.
 *The Brew of Overload has a larger Weakness period now.
