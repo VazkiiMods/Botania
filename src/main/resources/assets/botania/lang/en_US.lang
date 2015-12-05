@@ -148,6 +148,8 @@ botaniamisc.tutorialVideo=Video
 botaniamisc.shiftToStopSpin=(SHIFT to stop animation)
 botaniamisc.noVideo=&4Video will be back soon. Sorry :(
 botaniamisc.adaptativeConfigChanges=Botania's Adaptative Config has changed the following config defaults for you:
+botaniamisc.altarRefill0=Right click with an empty hand to
+botaniamisc.altarRefill1=add back the last recipe
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

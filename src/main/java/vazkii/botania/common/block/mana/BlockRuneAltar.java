@@ -36,7 +36,7 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockRuneAltar extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
+public class BlockRuneAltar extends BlockModContainer implements IWandable, ILexiconable {
 
 	Random random;
 	IIcon[] icons;
@@ -165,11 +165,5 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.runicAltar;
 	}
-
-	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileRuneAltar) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-	}
-
 
 }

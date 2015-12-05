@@ -33,6 +33,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -89,7 +90,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-			tile.collideEntityItem((EntityItem) par5Entity);
+			if(tile.collideEntityItem((EntityItem) par5Entity))
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 	}
 

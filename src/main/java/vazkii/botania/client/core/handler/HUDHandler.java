@@ -52,6 +52,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -112,12 +114,16 @@ public final class HUDHandler {
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 							profiler.endSection();
 						}
-					}
-					else if(pos != null && equippedStack.getItem() instanceof ILexicon)
+					} else if(pos != null && equippedStack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
-					else if(tile != null && tile instanceof TilePool)
+					if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
+				if(tile != null && tile instanceof TileAltar)
+					((TileAltar) tile).renderHUD(mc, event.resolution);
+				else if(tile != null && tile instanceof TileRuneAltar)
+					((TileRuneAltar) tile).renderHUD(mc, event.resolution);
+				
 				if(tile != null && tile instanceof TileCorporeaCrystalCube)
 					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
 			}
