@@ -85,7 +85,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
 		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
-		
+
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);

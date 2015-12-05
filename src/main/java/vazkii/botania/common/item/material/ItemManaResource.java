@@ -1,5 +1,5 @@
 /**
-* This class was created by <Vazkii>. It's distributed as
+ * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 

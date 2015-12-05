@@ -45,7 +45,7 @@ public class ClientTickHandler {
 		total = ticksInGame + partialTicks;
 		delta = total - oldTotal;
 	}
-	
+
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START)
@@ -107,7 +107,7 @@ public class ClientTickHandler {
 					ticksWithLexicaOpen--;
 				}
 			}
-			
+
 			calcDelta();
 		}
 	}

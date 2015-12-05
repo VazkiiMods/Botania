@@ -48,7 +48,7 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, orientation, 1 | 2);
 	}
-	
+
 	@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
 		return RotationHelper.rotateVanillaBlock(Blocks.piston, worldObj, x, y, z, axis);

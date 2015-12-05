@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -18,7 +17,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public class ModelSpinningCubes extends ModelBase {
 
@@ -39,7 +37,7 @@ public class ModelSpinningCubes extends ModelBase {
 		final float radiusBase = 0.35F;
 		final float radiusMod = 0.05F;
 
-		double ticks = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) - 1.3 * (origRepeat - repeat);
+		double ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks - 1.3 * (origRepeat - repeat);
 		float offsetPerCube = 360 / cubes;
 
 		GL11.glPushMatrix();

@@ -52,7 +52,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	void runSimulation() {
 		int[][] table = getCellTable();
 		List<int[]> changes = new ArrayList();
-		List<TileCell> cells = new ArrayList();
+		new ArrayList();
 		boolean wipe = false;
 
 		for(int i = 0; i < table.length; i++)
@@ -125,7 +125,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		if(tile instanceof TileCell)
 			return ((TileCell) tile).isSameFlower(supertile) ? ((TileCell) tile).getGeneration() : 0;
 
-		return -1;
+			return -1;
 	}
 
 	int getAdjCells(int[][] table, int x, int z) {

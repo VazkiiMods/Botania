@@ -67,7 +67,7 @@ public final class SubTileRadiusRenderHandler {
 			return;
 
 		boolean light = GL11.glGetBoolean(GL11.GL_LIGHTING);
-		
+
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_LIGHTING);

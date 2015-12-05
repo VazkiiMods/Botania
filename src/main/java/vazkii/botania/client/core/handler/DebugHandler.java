@@ -40,15 +40,15 @@ public final class DebugHandler {
 			String version = LibMisc.VERSION;
 			if(version.contains("GRADLE"))
 				version = "N/A";
-			
+
 			event.left.add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
 			event.left.add(PREFIX + "netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
-	
+
 			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
 				event.left.add(PREFIX + "Config Context");
 				event.left.add("  shaders.enabled: " + ConfigHandler.useShaders);
 				event.left.add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
-				
+
 				ContextCapabilities caps = GLContext.getCapabilities();
 				event.left.add(PREFIX + "OpenGL Context");
 				event.left.add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
@@ -61,7 +61,7 @@ public final class DebugHandler {
 			} else if(Minecraft.isRunningOnMac)
 				event.left.add(PREFIX + "SHIFT+CMD for context");
 			else event.left.add(PREFIX + "SHIFT+CTRL for context");
-		} 
+		}
 	}
 
 

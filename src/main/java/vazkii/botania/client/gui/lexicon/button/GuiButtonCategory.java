@@ -49,7 +49,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			int texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+			GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
 
@@ -87,7 +87,6 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 
 		float s = 1F / 32F;
-		float defAlpha = 0F;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -102,7 +101,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 		int texture = 0;
 		boolean shaders = ShaderHelper.useShaders();
-		
+
 		if(shaders) {
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
@@ -111,13 +110,13 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		ShaderHelper.useShader(ShaderHelper.categoryButton, shaderCallback);
 		RenderHelper.drawTexturedModalRect(xPosition * 2, yPosition * 2, zLevel * 2, 0, 0, 32, 32, s, s);
 		ShaderHelper.releaseShader();
-		
+
 		if(shaders) {
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
-		
+
 		GL11.glPopMatrix();
 
 		if(inside)

@@ -25,45 +25,45 @@ public class LensFlare extends Lens {
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		return false;
 	}
-	
+
 	@Override
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		if(!redstone)
 			emitParticles(stack, spreader, redstone);
 	}
-	
+
 	@Override
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		emitParticles(stack, spreader, redstone);
 	}
-	
+
 	private void emitParticles(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		float rotationYaw = -(spreader.getRotationX() + 90F);
 		float rotationPitch = spreader.getRotationY();
-		
+
 		// Lots of EntityThrowable copypasta
 		float f = 0.3F;
 		float mx = (float) (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 		float mz = (float) (-(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
 		float my = (float) (MathHelper.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
-		
+
 		int storedColor = ItemLens.getStoredColor(stack);
 		float r = 1, g = 1, b = 1;
-		
+
 		TileEntity tile = (TileEntity) spreader;
 		if(storedColor == 16) {
 			Color c = Color.getHSBColor(tile.getWorldObj().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
-			r = (float) c.getRed() / 255F;
-			g = (float) c.getGreen() / 255F; 
-			b = (float) c.getBlue() / 255F; 
+			r = c.getRed() / 255F;
+			g = c.getGreen() / 255F;
+			b = c.getBlue() / 255F;
 		} else if(storedColor >= 0) {
 			float[] colortable = EntitySheep.fleeceColorTable[storedColor];
 			r = colortable[0];
 			g = colortable[1];
 			b = colortable[2];
 		}
-		
+
 		Botania.proxy.wispFX(tile.getWorldObj(), tile.xCoord + 0.5, tile.yCoord + 0.5, tile.zCoord + 0.5, r, g, b, 0.4F, mx, my, mz);
 	}
-	
+
 }

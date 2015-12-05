@@ -12,21 +12,14 @@ package vazkii.botania.common.core.version;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 
 public final class AdaptorNotifier {
 
 	boolean triedToWarnPlayer;
-	
+
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
 		if(!triedToWarnPlayer && Minecraft.getMinecraft().thePlayer != null) {
@@ -36,5 +29,5 @@ public final class AdaptorNotifier {
 			triedToWarnPlayer = true;
 		}
 	}
-	
+
 }

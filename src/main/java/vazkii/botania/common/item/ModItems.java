@@ -88,7 +88,6 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmReveal
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemDye;
-import vazkii.botania.common.item.material.ItemManaPetal;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
@@ -417,7 +416,7 @@ public final class ModItems {
 		sextant = new ItemSextant();
 		speedUpBelt = new ItemSpeedUpBelt();
 		baubleBox = new ItemBaubleBox();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

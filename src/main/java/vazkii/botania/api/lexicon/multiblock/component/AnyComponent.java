@@ -28,5 +28,5 @@ public class AnyComponent extends MultiblockComponent {
 		Block block = world.getBlock(x, y, z);
 		return !block.isAir(world, x, y, z) && block.getCollisionBoundingBoxFromPool(world, x, y, z) != null;
 	}
-	
+
 }

@@ -87,57 +87,57 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 				int i1 = x + rand.nextInt(3) - 1;
 				int j1 = y + rand.nextInt(5) - 3;
 				int k1 = z + rand.nextInt(3) - 1;
-				
-				Block block = world.getBlock(i1, j1 + 1, k1);
+
+				world.getBlock(i1, j1 + 1, k1);
 
 				if(world.getBlock(i1, j1, k1) == Blocks.dirt && world.getBlockMetadata(i1, j1, k1) == 0 && world.getBlockLightValue(i1, j1 + 1, k1) >= 4 && world.getBlockLightOpacity(i1, j1 + 1, k1) <= 2)
 					world.setBlock(i1, j1, k1, this, meta, 1 | 2);
 			}
 		}
 	}
-	
+
 	@Override
-    	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-        return Blocks.dirt.getItemDropped(0, p_149650_2_, p_149650_3_);
-    	}
-	
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+		return Blocks.dirt.getItemDropped(0, p_149650_2_, p_149650_3_);
+	}
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(this, 1, world.getBlockMetadata(x, y, z));
 	}
-	
+
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
 		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random r) {
 		int meta = world.getBlockMetadata(x, y, z);
 		switch(meta) {
 		case 0: // Dry
-			break;
+		break;
 		case 1: // Golden
 			break;
 		case 2: // Vivid
-			break; 
+			break;
 		case 3: // Scorched
 			if(r.nextInt(80) == 0)
-	        	world.spawnParticle("flame", x + r.nextFloat(), y + 1.1, z + r.nextFloat(), 0, 0, 0);
+				world.spawnParticle("flame", x + r.nextFloat(), y + 1.1, z + r.nextFloat(), 0, 0, 0);
 			break;
 		case 4: // Infused
 			if(r.nextInt(100) == 0)
 				Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-			break; 
+			break;
 		case 5: // Mutated
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)
 					Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-				else Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5); 
+				else Botania.proxy.sparkleFX(world, x + r.nextFloat(), y + 1.05, z + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5);
 			}
 			break;
 		}
-    	}
+	}
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {

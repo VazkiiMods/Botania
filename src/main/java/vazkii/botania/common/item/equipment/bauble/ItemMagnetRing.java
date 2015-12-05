@@ -27,7 +27,6 @@ import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -99,7 +98,7 @@ public class ItemMagnetRing extends ItemBauble {
 				setCooldown(stack, 2);
 			return;
 		}
-		
+
 		if(cooldown <= 0) {
 			if(player.isSneaking() == ConfigHandler.invertMagnetRing) {
 				double x = player.posX;
@@ -140,13 +139,13 @@ public class ItemMagnetRing extends ItemBauble {
 
 		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
 			return false;
-		
+
 		block = item.worldObj.getBlock(x, y - 1, z);
 		meta = item.worldObj.getBlockMetadata(x, y - 1, z);
 
 		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
 			return false;
-		
+
 		return true;
 	}
 

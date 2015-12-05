@@ -123,7 +123,7 @@ public final class HUDHandler {
 					((TileAltar) tile).renderHUD(mc, event.resolution);
 				else if(tile != null && tile instanceof TileRuneAltar)
 					((TileRuneAltar) tile).renderHUD(mc, event.resolution);
-				
+
 				if(tile != null && tile instanceof TileCorporeaCrystalCube)
 					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
 			}
@@ -146,7 +146,7 @@ public final class HUDHandler {
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-			
+
 			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
 				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);

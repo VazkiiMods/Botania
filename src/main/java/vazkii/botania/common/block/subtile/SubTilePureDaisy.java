@@ -27,7 +27,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
-	
+
 	private static final int TOTAL_TIME = 1200;
 	private static final int TIME_PER = TOTAL_TIME / 8;
 

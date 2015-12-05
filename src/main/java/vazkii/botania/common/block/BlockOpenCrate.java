@@ -13,9 +13,6 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -33,6 +30,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
@@ -187,25 +188,25 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileCraftCrate) {
 			TileCraftCrate craft = (TileCraftCrate) tile;
-			
+
 			int width = 52;
 			int height = 52;
 			int xc = res.getScaledWidth() / 2 + 20;
 			int yc = res.getScaledHeight() / 2 - height / 2;
-			
+
 			Gui.drawRect(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
 			Gui.drawRect(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
-			
+
 			for(int i = 0; i < 3; i++)
 				for(int j = 0; j < 3; j++) {
 					int index = i * 3 + j;
 					int xp = xc + j * 18;
 					int yp = yc + i * 18;
-					
+
 					boolean enabled = true;
 					if(craft.pattern > -1)
 						enabled = TileCraftCrate.PATTERNS[craft.pattern][index];
-					
+
 					Gui.drawRect(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
 					ItemStack item = craft.getStackInSlot(index);

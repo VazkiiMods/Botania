@@ -19,11 +19,11 @@ import cpw.mods.fml.common.eventhandler.Event;
  * own entries to the tutorial here. Please use this responsibly.
  */
 public class BotaniaTutorialStartEvent extends Event {
-	
+
 	public final Queue<LexiconEntry> tutorial;
-	
+
 	public BotaniaTutorialStartEvent(Queue<LexiconEntry> tutorial) {
 		this.tutorial = tutorial;
 	}
-	
+
 }

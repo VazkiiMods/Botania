@@ -53,7 +53,7 @@ public final class MultiblockRenderHandler {
 		currentMultiblock = set;
 		anchor = null;
 		angle = 0;
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.theWorld != null)
 			dimension = mc.theWorld.provider.dimensionId;

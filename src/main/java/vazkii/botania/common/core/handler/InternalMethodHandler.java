@@ -238,7 +238,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
 	}
-	
+
 	@Override
 	public boolean hasSolegnoliaAround(Entity e) {
 		return SubTileSolegnolia.hasSolegnoliaAround(e);

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -25,7 +24,6 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibPotionNames;
@@ -44,7 +42,7 @@ public final class ConfigHandler {
 	public static final int hardcorePassiveGeneration = 72000;
 
 	public static boolean useAdaptativeConfig = true;
-	
+
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
 	public static boolean lexiconJustifiedText = false;
@@ -118,7 +116,7 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the Adaptative Config. Adaptative Config changes any default config values from old versions to the new defaults to make sure you aren't missing out on changes because of old configs. It will not touch any values that were changed manually.";
 		useAdaptativeConfig = loadPropBool("adaptativeConfig.enabled", desc, useAdaptativeConfig);
 		adaptor = new ConfigAdaptor(useAdaptativeConfig);
-		
+
 		desc = "Set this to false to disable the use of shaders for some of the mod's renders.";
 		useShaders = loadPropBool("shaders.enabled", desc, useShaders);
 
@@ -175,13 +173,13 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable custom armor models.";
 		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
-		
+
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
-		
+
 		desc = "Set this to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 
@@ -229,7 +227,7 @@ public final class ConfigHandler {
 
 		desc = "Set this to true to invert the Ring of Magnetization's controls (from shift to stop to shift to work)";
 		invertMagnetRing = loadPropBool("magnetRing.invert", desc, invertMagnetRing);
-		
+
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
@@ -275,30 +273,30 @@ public final class ConfigHandler {
 	public static int loadPropInt(String propName, String desc, int default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
-		
+
 		if(adaptor != null)
 			adaptor.adaptPropertyInt(prop, prop.getInt(default_));
-		
+
 		return prop.getInt(default_);
 	}
 
 	public static double loadPropDouble(String propName, String desc, double default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
-		
+
 		if(adaptor != null)
 			adaptor.adaptPropertyDouble(prop, prop.getDouble(default_));
-		
+
 		return prop.getDouble(default_);
 	}
 
 	public static boolean loadPropBool(String propName, String desc, boolean default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
-		
+
 		if(adaptor != null)
 			adaptor.adaptPropertyBool(prop, prop.getBoolean(default_));
-		
+
 		return prop.getBoolean(default_);
 	}
 
@@ -325,17 +323,17 @@ public final class ConfigHandler {
 	}
 
 	public static class ConfigAdaptor {
-		
+
 		private boolean enabled;
 		private int lastBuild;
-		private int currentBuild; 
-		
+		private int currentBuild;
+
 		private Map<String, List<AdaptableValue>> adaptableValues = new HashMap();
 		private List<String> changes = new ArrayList();
-		
+
 		public ConfigAdaptor(boolean enabled) {
 			this.enabled = enabled;
-			
+
 			String lastVersion = Botania.proxy.getLastVersion();
 			try {
 				lastBuild = Integer.parseInt(lastVersion);
@@ -344,32 +342,32 @@ public final class ConfigHandler {
 				this.enabled = false;
 			}
 		}
-		
+
 		public <T> void adaptProperty(Property prop, T val) {
 			if(!enabled)
 				return;
-			
+
 			String name = prop.getName();
 
 			if(!adaptableValues.containsKey(name))
 				return;
-			
+
 			AdaptableValue<T> bestValue = null;
 			for(AdaptableValue<T> value : adaptableValues.get(name)) {
 				if(value.version >= lastBuild) // If version is newer than what we last used we don't care about it
 					continue;
-				
+
 				if(bestValue == null || value.version > bestValue.version)
 					bestValue = value;
 			}
-			
+
 			if(bestValue != null) {
 				T expected = bestValue.value;
 				if(val.getClass() == Double.class || val.getClass() == Float.class) {
 					double epsilon = 1.0E-6;
 					float valF = ((Number) val).floatValue();
 					float expectedF = ((Number) expected).floatValue();
-					
+
 					if(Math.abs(valF - expectedF) < epsilon) {
 						prop.setValue(prop.getDefault());
 						changes.add(" " + prop.getName() + ": " + val + " -> " + prop.getDefault());
@@ -380,11 +378,11 @@ public final class ConfigHandler {
 				}
 			}
 		}
-		
+
 		public <T> void addMapping(int version, String key, T val) {
 			if(!enabled)
 				return;
-			
+
 			AdaptableValue<T> adapt = new AdaptableValue<T>(version, val);
 			if(!adaptableValues.containsKey(key)) {
 				ArrayList list = new ArrayList();
@@ -394,32 +392,32 @@ public final class ConfigHandler {
 			List<AdaptableValue> list = adaptableValues.get(key);
 			list.add(adapt);
 		}
-		
+
 		public void tellChanges(EntityPlayer player) {
 			if(changes.size() == 0)
 				return;
-			
+
 			player.addChatComponentMessage(new ChatComponentTranslation("botaniamisc.adaptativeConfigChanges").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GOLD)));
 			for(String change : changes)
 				player.addChatMessage(new ChatComponentText(change).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 		}
-		
+
 		public void addMappingInt(int version, String key, int val) {
 			this.<Integer>addMapping(version, key, val);
 		}
-		
+
 		public void addMappingDouble(int version, String key, double val) {
 			this.<Double>addMapping(version, key, val);
 		}
-		
+
 		public void addMappingBool(int version, String key, boolean val) {
 			this.<Boolean>addMapping(version, key, val);
 		}
-		
+
 		public void adaptPropertyInt(Property prop, int val) {
 			this.<Integer>adaptProperty(prop, val);
 		}
-		
+
 		public void adaptPropertyDouble(Property prop, double val) {
 			this.<Double>adaptProperty(prop, val);
 		}
@@ -427,23 +425,23 @@ public final class ConfigHandler {
 		public void adaptPropertyBool(Property prop, boolean val) {
 			this.<Boolean>adaptProperty(prop, val);
 		}
-		
+
 		public static class AdaptableValue<T> {
-			
+
 			public final int version;
 			public final T value;
 			public final Class<? extends T> valueType;
-			
+
 			public AdaptableValue(int version, T value) {
 				this.version = version;
 				this.value = value;
 				valueType = (Class<? extends T>) value.getClass();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public static class ChangeListener {
 
 		@SubscribeEvent

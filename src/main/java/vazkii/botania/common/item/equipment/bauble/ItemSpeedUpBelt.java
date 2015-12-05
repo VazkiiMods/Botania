@@ -25,7 +25,7 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	private static final String TAG_OLD_X = "oldX";
 	private static final String TAG_OLD_Y = "oldY";
 	private static final String TAG_OLD_Z = "oldZ";
-	
+
 	public ItemSpeedUpBelt() {
 		super(LibItemNames.SPEED_UP_BELT, 0F, 0.2F, 2F);
 	}
@@ -34,12 +34,12 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	public ResourceLocation getRenderTexture() {
 		return texture;
 	}
-	
+
 	@Override
 	public float getSpeed(ItemStack stack) {
 		return ItemNBTHelper.getFloat(stack, TAG_SPEED, 0F);
 	}
-	
+
 	@Override
 	public void onMovedTick(ItemStack stack, EntityPlayer player) {
 		float speed = getSpeed(stack);
@@ -47,27 +47,27 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 		ItemNBTHelper.setFloat(stack, TAG_SPEED, newspeed);
 		commitPositionAndCompare(stack, player);
 	}
-	
+
 	@Override
 	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
 		if(!commitPositionAndCompare(stack, player))
 			ItemNBTHelper.setFloat(stack, TAG_SPEED, 0F);
 	}
-	
+
 	public boolean commitPositionAndCompare(ItemStack stack, EntityPlayer player) {
 		if(player.worldObj.isRemote)
 			return true;
-		
+
 		double oldX = ItemNBTHelper.getDouble(stack, TAG_OLD_X, 0);
 		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
 		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);
-		
+
 		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.posX);
 		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.posY);
 		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.posZ);
-		
+
 		return Math.abs(oldX - player.posX) > 0.001 || Math.abs(oldY - player.posY) > 0.001 || Math.abs(oldZ - player.posZ) > 0.001;
 	}
-	
+
 }
 

@@ -38,22 +38,23 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
 		models[slot] = new ModelArmorTerrasteel(slot);
 		return models[slot];
 	}
-	
+
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : ( slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0);
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
-	
+
 	@Override
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = HashMultimap.create();

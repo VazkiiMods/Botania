@@ -57,25 +57,25 @@ public class BasicSignature extends SubTileSignature {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getType() {
 		Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(name);
-		
+
 		if(clazz == null)
 			return "uwotm8";
-		
+
 		if(clazz.getAnnotation(PassiveFlower.class) != null)
 			return "botania.flowerType.passiveGenerating";
-		
+
 		if(SubTileGenerating.class.isAssignableFrom(clazz))
 			return "botania.flowerType.generating";
-		
+
 		if(SubTileFunctional.class.isAssignableFrom(clazz))
 			return "botania.flowerType.functional";
-		
+
 		return "botania.flowerType.misc";
 	}
-	
+
 	@Override
 	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
 		tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(getType()));

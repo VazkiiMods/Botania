@@ -11,7 +11,7 @@
 package vazkii.botania.api.mana;
 
 /**
- * Any TileEntity that implements this is defined as having a direction, 
+ * Any TileEntity that implements this is defined as having a direction,
  * and has two rotations (X and Y).
  * An example of this is the Mana Spreader.
  */

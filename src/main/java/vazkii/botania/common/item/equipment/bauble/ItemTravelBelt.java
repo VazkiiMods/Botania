@@ -85,7 +85,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 						float speed = beltItem.getSpeed(belt);
 						player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
 						beltItem.onMovedTick(belt, player);
-						
+
 						if(player.ticksExisted % COST_INTERVAL == 0)
 							ManaItemHandler.requestManaExact(belt, player, COST, true);
 					} else beltItem.onNotMovingTick(belt, player);
@@ -104,15 +104,15 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			}
 		}
 	}
-	
+
 	public float getSpeed(ItemStack stack) {
 		return speed;
 	}
-	
+
 	public void onMovedTick(ItemStack stack, EntityPlayer player) {
 		// NO-OP
 	}
-	
+
 	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
 		// NO-OP
 	}
@@ -157,7 +157,6 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
 			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
 			GL11.glTranslatef(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;

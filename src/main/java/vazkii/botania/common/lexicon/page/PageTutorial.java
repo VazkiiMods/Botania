@@ -28,7 +28,7 @@ public class PageTutorial extends PageText {
 
 	// Turn this on once we have an up to date video
 	private static final boolean VIDEO_ENABLED = false;
-	
+
 	GuiButton buttonText, buttonVideo;
 
 	public PageTutorial(String unlocalizedName) {
@@ -49,18 +49,18 @@ public class PageTutorial extends PageText {
 	@Override
 	public void onClosed(IGuiLexiconEntry gui) {
 		gui.getButtonList().remove(buttonText);
-		if(VIDEO_ENABLED) 
+		if(VIDEO_ENABLED)
 			gui.getButtonList().remove(buttonVideo);
 	}
 
 	@Override
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		super.renderScreen(gui, mx, my);
-		
+
 		if(!VIDEO_ENABLED)
 			PageText.renderText(buttonText.xPosition + buttonText.width + 4, buttonText.yPosition - 14, 65, 100, "botaniamisc.noVideo");
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {

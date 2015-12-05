@@ -52,7 +52,7 @@ public class TileCell extends TileMod {
 	public boolean isSameFlower(TileEntity flower) {
 		return matchCoords(validCoords, this) && matchCoords(flowerCoords, flower);
 	}
-	
+
 	private boolean matchCoords(ChunkCoordinates coords, TileEntity tile) {
 		return coords.posX == tile.xCoord && coords.posY == tile.yCoord && coords.posZ == tile.zCoord;
 	}

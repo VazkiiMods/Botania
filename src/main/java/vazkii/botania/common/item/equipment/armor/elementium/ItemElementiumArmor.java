@@ -2,9 +2,6 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 
 import java.util.List;
 
-import baubles.common.Config;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,10 +10,11 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
-import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
@@ -24,15 +22,16 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		super(type, name, BotaniaAPI.elementiumArmorMaterial);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
 		models[slot] = new ModelArmorElementium(slot);
 		return models[slot];
 	}
-	
+
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : (slot == 2 ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0);
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : slot == 2 ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
 	@Override

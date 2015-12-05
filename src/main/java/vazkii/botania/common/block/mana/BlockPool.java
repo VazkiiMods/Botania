@@ -62,7 +62,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
-		
+
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
@@ -125,23 +125,23 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, par2, par3, par4);
 		}
 	}
-	
+
 	@Override
-    public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
-    	float f = 1F / 16F;
-    	setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-        setBlockBounds(0.0F, 0.0F, 0.0F, f, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, f);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-        setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-        setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 0.5F, 1.0F);
-        super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-    }
-	
+	public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+		float f = 1F / 16F;
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, f, 0.5F, 1.0F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, f);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 0.5F, 1.0F);
+		super.addCollisionBoxesToList(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_, p_149743_5_, p_149743_6_, p_149743_7_);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	}
+
 	@Override
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		return side == ForgeDirection.DOWN;

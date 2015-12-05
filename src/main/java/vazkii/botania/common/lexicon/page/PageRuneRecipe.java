@@ -62,12 +62,12 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
 		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
 		String stopStr = StatCollector.translateToLocal("botaniamisc.shiftToStopSpin");
-		
+
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
 		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
-		font.setUnicodeFlag(unicode);		
+		font.setUnicodeFlag(unicode);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 

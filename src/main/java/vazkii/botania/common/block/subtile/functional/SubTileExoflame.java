@@ -72,7 +72,7 @@ public class SubTileExoflame extends SubTileFunctional {
 										heatable.boostBurnTime();
 										mana = Math.max(0, mana - cost);
 									}
-										
+
 									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
 

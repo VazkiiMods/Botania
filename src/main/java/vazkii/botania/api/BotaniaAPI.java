@@ -282,7 +282,7 @@ public final class BotaniaAPI {
 		paintableBlocks.add(paintable);
 		return paintable;
 	}
-	
+
 	/**
 	 * Blacklists an item from being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
@@ -291,7 +291,7 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(stack);
 		magnetBlacklist.add(key);
 	}
-	
+
 	/**
 	 * Blacklists a block from having items on top of it being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as meta for a wildcard.
@@ -300,7 +300,7 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(block, meta);
 		magnetBlacklist.add(key);
 	}
-	
+
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
 		if(stack.getItemDamage() != Short.MAX_VALUE) {
 			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
@@ -308,18 +308,18 @@ public final class BotaniaAPI {
 			if(general)
 				return true;
 		}
-		
+
 		String key = getMagnetKey(stack);
 		return magnetBlacklist.contains(key);
 	}
-	
+
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
 		if(meta != Short.MAX_VALUE) {
 			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE);
 			if(general)
 				return true;
 		}
-		
+
 		String key = getMagnetKey(block, meta);
 		return magnetBlacklist.contains(key);
 	}
@@ -601,16 +601,16 @@ public final class BotaniaAPI {
 	public static Set<String> getAllSubTiles() {
 		return subTiles.keySet();
 	}
-	
+
 	private static String getMagnetKey(ItemStack stack) {
 		if(stack == null)
 			return "";
-			
+
 		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();
 	}
 
 	private static String getMagnetKey(Block block, int meta) {
 		return "bm_" + block.getUnlocalizedName() + "@" + meta;
 	}
-	
+
 }

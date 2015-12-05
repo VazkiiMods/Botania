@@ -30,11 +30,11 @@ public class Lens  {
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		// NO-OP
 	}
-	
+
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		return true;
 	}
-	
+
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		// NO-OP
 	}
@@ -42,6 +42,6 @@ public class Lens  {
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		// NO-OP
 	}
-	
+
 
 }

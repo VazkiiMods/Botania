@@ -22,7 +22,6 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModManaInfusionRecipes {
 
@@ -61,7 +60,7 @@ public final class ModManaInfusionRecipes {
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.sugar), 500));
 		for(int i = 0; i < 16; i++)
 			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(ModItems.dye, 1, i), 400));
-		
+
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.piston), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.cookie), 20000);
 		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.tallgrass, 1, 1), 2500);

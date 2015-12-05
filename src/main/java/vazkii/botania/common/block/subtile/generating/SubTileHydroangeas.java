@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,11 +19,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.Botania;
@@ -80,7 +77,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 						if(cooldown == 0)
 							burnTime += getBurnTime();
 						else cooldown = getCooldown();
-						
+
 						sync();
 						playSound();
 						break;

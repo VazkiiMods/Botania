@@ -104,7 +104,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 					if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
 						ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
-						
+
 						Block blockToPlace = null;
 						if(stackItem instanceof IFlowerPlaceable)
 							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
@@ -130,7 +130,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									SubTileEntity subtile = container.getSubTile();
 									subtile.onBlockPlacedBy(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ, null, stack);
 								}
-								
+
 								if(stackItem instanceof IFlowerPlaceable)
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords.posX, coords.posY, coords.posZ);
 

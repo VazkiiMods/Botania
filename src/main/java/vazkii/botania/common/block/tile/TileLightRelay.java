@@ -84,7 +84,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
 				vecTip.add(vecMag);
 			}
-			
+
 			ChunkCoordinates endpoint = getEndpoint();
 			if(endpoint != null && !worldObj.isRemote) {
 				float range = 0.5F;
@@ -102,31 +102,31 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		Block block = worldObj.getBlock(bindX, bindY, bindZ);
 		return block == ModBlocks.lightRelay;
 	}
-	
+
 	public ChunkCoordinates getEndpoint() {
 		List<TileLightRelay> pointsPassed = new ArrayList();
 		TileLightRelay relay = this;
 		ChunkCoordinates lastCoords = null;
-		
+
 		// Doing while(true) gives an unreachable code error
 		boolean run = true;
 		while(run) {
 			if(pointsPassed.contains(relay))
 				return null; // Circular path
 			pointsPassed.add(relay);
-			
+
 			ChunkCoordinates coords = relay.getBinding();
 			if(coords == null)
 				return lastCoords;
-			
+
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof TileLightRelay)
 				relay = (TileLightRelay) tile;
 			else return lastCoords;
-			
+
 			lastCoords = coords;
 		}
-		
+
 		return null;
 	}
 

@@ -59,7 +59,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -214,7 +213,7 @@ public class GuiLexicon extends GuiScreen {
 		if(subtitle != null)
 			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true, 191);
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
-		
+
 		if(isMainPage())
 			drawHeader();
 
@@ -288,11 +287,11 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
-	
+
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
 		drawBookmark(x, y, s, drawLeft, 180);
 	}
-	
+
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int v) {
 		drawBookmark(x, y, s, drawLeft, 0x111111, v);
 	}
@@ -400,7 +399,7 @@ public class GuiLexicon extends GuiScreen {
 		String key = getNotesKey();
 		if(i == bookmarks.size()) {
 			if(!bookmarkKeys.contains(key)) {
-				bookmarks.add(this.copy());
+				bookmarks.add(copy());
 				bookmarkKeys.add(key);
 				modified = true;
 			}
@@ -408,7 +407,7 @@ public class GuiLexicon extends GuiScreen {
 			if(isShiftKeyDown()) {
 				bookmarks.remove(i);
 				bookmarkKeys.remove(i);
-				
+
 				modified = true;
 			} else {
 				GuiLexicon bookmark = bookmarks.get(i).copy();
@@ -511,7 +510,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
-		
+
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
 		tutorial.add(LexiconData.apothecary);
@@ -525,7 +524,7 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
-		
+
 		MinecraftForge.EVENT_BUS.post(new BotaniaTutorialStartEvent(tutorial));
 	}
 

@@ -96,7 +96,7 @@ public interface IInternalMethodHandler {
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side);
 
 	public boolean hasSolegnoliaAround(Entity e);
-	
+
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 

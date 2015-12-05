@@ -21,7 +21,6 @@ import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -33,7 +32,7 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 
 	private static IIcon[] icons;
 	private static IIcon[] iconsAlt;
-	
+
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);

@@ -11,24 +11,14 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemBaubleBox extends ItemMod {
 
@@ -72,5 +62,5 @@ public class ItemBaubleBox extends ItemMod {
 
 		ItemNBTHelper.setList(stack, TAG_ITEMS, var2);
 	}
-	
+
 }

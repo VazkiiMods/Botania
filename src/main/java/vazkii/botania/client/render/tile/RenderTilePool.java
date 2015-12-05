@@ -63,7 +63,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		boolean inf = tileentity.getWorldObj() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
 		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
 		boolean fab = tileentity.getWorldObj() == null ? forceMeta == 3 : tileentity.getBlockMetadata() == 3;
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
@@ -72,7 +72,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			if(tileentity != null)
 				time += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(100000);
-			
+
 			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
 			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
 		} else {

@@ -32,11 +32,11 @@ public class GuiButtonBack extends GuiButtonLexicon {
 		if(enabled) {
 			field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 			int k = getHoverState(field_146123_n);
-	
+
 			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
-	
+
 			List<String> tooltip = getTooltip();
 			int tooltipY = (tooltip.size() - 1) * 10;
 			if(k == 2)

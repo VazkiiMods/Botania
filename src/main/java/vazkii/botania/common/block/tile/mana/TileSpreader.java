@@ -238,10 +238,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(shouldShoot)
 					control.onControlledSpreaderPulse(lens, this, redstone);
 			} else control.onControlledSpreaderTick(lens, this, redstone);
-			
+
 			shouldShoot &= control.allowBurstShooting(lens, this, redstone);
 		}
-		
+
 		if(shouldShoot)
 			tryShootBurst();
 
@@ -452,7 +452,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		ILensControl control = getLensController(stack);
 		if(control != null && !control.allowBurstShooting(stack, this, false))
 			return;
-		
+
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
@@ -504,14 +504,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		}
 		return null;
 	}
-	
+
 	public ILensControl getLensController(ItemStack stack) {
 		if(stack != null && stack.getItem() instanceof ILensControl) {
 			ILensControl control = (ILensControl) stack.getItem();
 			if(control.isControlLens(stack))
 				return control;
 		}
-		
+
 		return null;
 	}
 
@@ -708,12 +708,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void setRotationY(float rot) {
 		rotationY = rot;
 	}
-	
+
 	@Override
 	public void commitRedirection() {
 		checkForReceiver();
 	}
-	
+
 	@Override
 	public void setCanShoot(boolean canShoot) {
 		canShootBurst = canShoot;

@@ -44,7 +44,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
-		IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID, 
+		IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID,
 		IslandType.SCORCHED, IslandType.INFUSED, IslandType.MUTATED
 	};
 
@@ -88,7 +88,7 @@ public class ItemGrassSeeds extends ItemMod {
 		Block block = par3World.getBlock(par4, par5, par6);
 		int bmeta = par3World.getBlockMetadata(par4, par5, par6);
 
-		if((block == Blocks.dirt || (block == Blocks.grass && par1ItemStack.getItemDamage() != 0)) && bmeta == 0) {
+		if((block == Blocks.dirt || block == Blocks.grass && par1ItemStack.getItemDamage() != 0) && bmeta == 0) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(par3World, par4, par5, par6, meta);

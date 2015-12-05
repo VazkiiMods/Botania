@@ -21,7 +21,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -105,8 +104,6 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public void recieveMana(int mana) {
-		boolean full = getCurrentMana() >= manaCap;
-
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		markDispatchable();

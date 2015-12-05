@@ -179,7 +179,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		updatePageButtons();
 		currentPage.onActionPerformed(this, par1GuiButton);
 	}
-	
+
 	public GuiLexiconEntry setFirstEntry() {
 		firstEntry = true;
 		return this;

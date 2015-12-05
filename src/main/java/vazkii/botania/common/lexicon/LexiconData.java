@@ -425,9 +425,9 @@ public final class LexiconData {
 		dreamwoodSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesDreamwoodSpreader), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeUltraSpreader));
 
 		elvenLenses = new ALexiconEntry(LibLexicon.MANA_ELVEN_LENSES, categoryMana);
-		elvenLenses.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLensPaint), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeLensWarp), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLensRedirect), 
+		elvenLenses.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLensPaint), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeLensWarp), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLensRedirect),
 				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeLensFirework), new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeLensFlare));
-		
+
 		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
 		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePrism));
 
@@ -672,7 +672,7 @@ public final class LexiconData {
 
 		felPumpkin = new BLexiconEntry(LibLexicon.DEVICE_FEL_PUMPKIN, categoryDevices);
 		felPumpkin.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFelPumpkin));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
@@ -806,7 +806,7 @@ public final class LexiconData {
 
 		sextant = new BLexiconEntry(LibLexicon.TOOL_SEXTANT, categoryTools);
 		sextant.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeSextant));
-		
+
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -962,7 +962,7 @@ public final class LexiconData {
 
 		baubleBox = new BLexiconEntry(LibLexicon.BAUBLE_BOX, categoryBaubles);
 		baubleBox.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBaubleCase)).setPriority();
-		
+
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCraftingRecipes.recipeNaturaPylon), new PageMultiblock("4", ModMultiblocks.alfPortal),

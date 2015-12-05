@@ -14,8 +14,6 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +25,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
@@ -48,7 +45,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.RUNE_ALTAR);
-		
+
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 
 		random = new Random();

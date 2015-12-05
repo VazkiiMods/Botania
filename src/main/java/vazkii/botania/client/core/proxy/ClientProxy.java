@@ -198,7 +198,7 @@ public class ClientProxy extends CommonProxy {
 			FMLLog.severe("Botania's persistent Variables couldn't load!");
 			e.printStackTrace();
 		}
-		
+
 		super.preInit(event);
 	}
 
@@ -224,7 +224,7 @@ public class ClientProxy extends CommonProxy {
 			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
-		
+
 		if(ConfigHandler.enableSeasonalFeatures) {
 			Calendar calendar = Calendar.getInstance();
 			if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
@@ -236,7 +236,7 @@ public class ClientProxy extends CommonProxy {
 
 		initRenderers();
 	}
-	
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
@@ -360,7 +360,7 @@ public class ClientProxy extends CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
-	
+
 	@Override
 	public void setToTutorialIfFirstLaunch() {
 		if(PersistentVariableHelper.firstLoad)
@@ -419,14 +419,14 @@ public class ClientProxy extends CommonProxy {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String getLastVersion() {
 		String s = PersistentVariableHelper.lastBotaniaVersion;
-		
+
 		if(s == null)
 			return "N/A";
-		
+
 		if(s.indexOf("-") > 0)
 			return s.split("-")[1];
 
@@ -448,24 +448,24 @@ public class ClientProxy extends CommonProxy {
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;
 	}
-	
+
 	@Override
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
 		MultiblockSextant mb = new MultiblockSextant();
-		
+
 		int iradius = (int) radius + 1;
 		for(int i = 0; i < iradius * 2 + 1; i++)
 			for(int j = 0; j < iradius * 2 + 1; j++) {
 				int xp = x + i - iradius;
 				int zp = z + j - iradius;
-				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
+				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
 					mb.addComponent(new AnyComponent(new ChunkCoordinates(xp - x, 1, zp - z), block, 0));
 			}
-		
+
 		MultiblockRenderHandler.setMultiblock(mb.makeSet());
 		MultiblockRenderHandler.anchor = new ChunkCoordinates(x, y, z);
 	}
-	
+
 	@Override
 	public void removeSextantMultiblock() {
 		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;

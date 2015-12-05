@@ -167,9 +167,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					float r = 1F;
 					float g = 0F;
 					float b = 1F;
-					float m = 0.15F;
-					float mv = 0.35F;
-
 					float rad = i * (float) Math.PI / 180F;
 					double x = par4 + 0.5 - Math.cos(rad) * RANGE;
 					double y = par5 + 0.5;
@@ -177,17 +174,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 					Botania.proxy.sparkleFX(par3World, x, y, z, r, g, b, 5F, 120);
 				}
-				
+
 				if(!par3World.isRemote)
 					player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
 			}
 
 			par1ItemStack.stackSize--;
-			
+
 			if(par3World.isRemote)
 				return true;
-			
+
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
@@ -219,13 +216,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int range = (int) Math.ceil(RANGE);
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++) {
-				if((Math.abs(i) == 4 && Math.abs(j) == 4) || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > RANGE)
+				if(Math.abs(i) == 4 && Math.abs(j) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > RANGE)
 					continue; // Ignore pylons and out of circle
-				
+
 				int x = sx + i;
 				int z = sz + j;
 				int air = 0;
-				
+
 				yCheck: {
 					for(int k = heightCheck + heightMin + 1; k >= -heightCheck; k--) {
 						int y = sy + k;
@@ -240,11 +237,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							air = 0;
 						}
 					}
-					
+
 					return false;
 				}
 			}
-		
+
 		return true;
 	}
 
@@ -512,7 +509,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		
+
 		if(ridingEntity != null) {
 			if(ridingEntity.riddenByEntity != null)
 				ridingEntity.riddenByEntity = null;

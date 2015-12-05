@@ -16,8 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-
 /**
  * This annotation used for detecting whether a SubTileEntity
  * is a passive flower without having to instantiate it. This
@@ -26,5 +24,5 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 @Retention(value = RUNTIME)
 @Target(value = TYPE)
 public @interface PassiveFlower {
-	
+
 }

@@ -29,14 +29,14 @@ public class SimpleWikiProvider implements IWikiProvider {
 	public SimpleWikiProvider(String name, String urlBase, boolean lowercase) {
 		this(name, urlBase, "%20", lowercase);
 	}
-	
+
 	public SimpleWikiProvider(String name, String urlBase, String replacement) {
 		this.name = name;
 		this.urlBase = urlBase;
 		this.replacement = replacement;
-		this.lowercase = false;
+		lowercase = false;
 	}
-	
+
 	public SimpleWikiProvider(String name, String urlBase, String replacement, boolean lowercase) {
 		this.name = name;
 		this.urlBase = urlBase;
@@ -74,7 +74,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 		String name = getBlockName(world, pos);
 		if(name == null)
 			return null;
-		
+
 		if(lowercase) {
 			return String.format(urlBase, name.toLowerCase().replaceAll(" ", replacement));
 		} else {

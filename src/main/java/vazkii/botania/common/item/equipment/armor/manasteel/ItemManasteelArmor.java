@@ -53,7 +53,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	protected ModelBiped[] models = null;
 	public int type;
-	
+
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
@@ -117,9 +117,9 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : (slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0);
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
@@ -127,28 +127,28 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
 			if(model == null)
 				model = provideArmorModelForSlot(itemStack, armorSlot);
-			
+
 			if(model != null)
 				return model;
 		}
-		
+
 		return super.getArmorModel(entityLiving, itemStack, armorSlot);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
 		if(models == null)
 			models = new ModelBiped[4];
-		
+
 		return models[slot];
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
 		models[slot] = new ModelArmorManasteel(slot);
 		return models[slot];
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
