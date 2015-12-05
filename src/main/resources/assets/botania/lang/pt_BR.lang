@@ -47,7 +47,7 @@ botaniamisc.bookmark=Favoritar #%s
 botaniamisc.clickToSee=Clique para ler
 botaniamisc.shiftToRemove=Shiftclique para remover
 botaniamisc.clickToAdd=Adicionar Favorito
-botaniamisc.ratio=Zoom: %sx
+botaniamisc.ratio=Zoom: %sx (passe o mouse para ver normal)
 botaniamisc.bottleTooltip=Desenvolveu um sabor
 botaniamisc.coarseDirt0=Terra áspera, a grama
 botaniamisc.coarseDirt1=não crescerá.
@@ -145,6 +145,11 @@ botaniamisc.changes5=&fClique esquerdo&7 para dispensar
 botaniamisc.badArena=Você tenta, mas o Sinalizador não aceita seu sacrifício. Talvez a área do ritual esteja errada. É uma boa ideia checar por obstruções ou buracos ao redor.
 botaniamisc.tutorialText=Em-jogo
 botaniamisc.tutorialVideo=Vídeo
+botaniamisc.shiftToStopSpin=(SHIFT para parar a rotação)
+botaniamisc.noVideo=O vídeo volta em breve. Desculpa :(
+botaniamisc.adaptativeConfigChanges=As configurações adaptivas do Botania mudaram alguns padrões por você:
+botaniamisc.altarRefill0=Clique com a mão vazia para
+botaniamisc.altarRefill1=recriar a última receita
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -224,6 +229,7 @@ botania.armorset.elementium.desc=Chance de que fadas apliquem efeito de poções
 botania.armorset.terrasteel.name=Vontade dos Ancestrais
 botania.armorset.terrasteel.desc0=-20% no custo de Mana em ferramentas e varinhas
 botania.armorset.terrasteel.desc1=Regeneração contínua mesmo com fome
+botania.armorset.terrasteel.desc2=Geração passiva de Mana para Tabletes de Mana
 botania.armorset.manaweave.name=Proeza da Maré de Mana
 botania.armorset.manaweave.desc0=-35% no custo de Mana em ferramentas e varinhas
 botania.armorset.manaweave.desc1=Proeficiência aumentada com Varinhas
@@ -278,6 +284,12 @@ botania.roman30=XXX
 botania.knowledge.minecraft=Conhecimento Minecraftiano
 botania.knowledge.alfheim=Conhecimento &aÉflico&7
 botania.knowledge.relic=Conhecimento em &5Relíquias&7
+
+# FLOWER TYPES
+botania.flowerType.passiveGenerating=Flor de Geração Passiva
+botania.flowerType.generating=Flor Geradora
+botania.flowerType.functional=Flor Funcional
+botania.flowerType.misc=Flor Variada
 
 # CONFIGURATION
 blockBreakingParticles.enabled=Partículas de quebra de bloco
@@ -625,6 +637,7 @@ tile.botania:spreader3.name=Dispersor de Mana de Gaia
 tile.botania:pool0.name=Poço de Mana
 tile.botania:pool1.name=O Eterno Poço da Culpa
 tile.botania:pool2.name=Poço de Mana diluído
+tile.botania:pool3.name=Poço de Mana Fabuloso
 tile.botania:runeAltar.name=Altar Rúnico
 tile.botania:unstableBlock0.name=Cubo Instável Branco
 tile.botania:unstableBlock1.name=Cubo Instável Laranja
@@ -1278,9 +1291,9 @@ tile.botania:flower.spectranthemum.reference=In the shell
 tile.botania:flower.medumone.name=Medumone
 tile.botania:flower.medumone.reference=Tudo culpa de Hades
 tile.botania:flower.marimorphosis.name=Marimorphosis
-tile.botania:flower.marimorphosis.reference=Sólida como pedra
+tile.botania:flower.marimorphosis.reference=U-MA-RU
 tile.botania:flower.marimorphosisChibi.name=Marimorphosis Petite
-tile.botania:flower.marimorphosisChibi.reference=Sólida com pedra
+tile.botania:flower.marimorphosisChibi.reference=U-MA-RU
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
 tile.botania:flower.bubbellChibi.name=Bubbell Petite
@@ -1374,22 +1387,6 @@ item.botania:lensFirework.name=Lentes de Mana: Celebração
 item.botania:lensFirework.short=Celebração
 item.botania:lensFlare.name=Lentes de Mana: Labareda
 item.botania:lensFlare.short=Labareda
-item.botania:manaPetal0.name=Pétala de Mana Branca
-item.botania:manaPetal1.name=Pétala de Mana Laranja
-item.botania:manaPetal2.name=Pétala de Mana Magenta
-item.botania:manaPetal3.name=Pétala de Mana Azul Claro
-item.botania:manaPetal4.name=Pétala de Mana Amarela
-item.botania:manaPetal5.name=Pétala de Mana Lima
-item.botania:manaPetal6.name=Pétala de Mana Rosa
-item.botania:manaPetal7.name=Pétala de Mana Cinza
-item.botania:manaPetal8.name=Pétala de Mana Azul Claro
-item.botania:manaPetal9.name=Pétala de Mana Ciano
-item.botania:manaPetal10.name=Pétala de Mana Roxa
-item.botania:manaPetal11.name=Pétala de Mana Azul
-item.botania:manaPetal12.name=Pétala de Mana Marrom
-item.botania:manaPetal13.name=Pétala de Mana Verde
-item.botania:manaPetal14.name=Pétala de Mana Vermelha
-item.botania:manaPetal15.name=Pétala de Mana Preta
 item.botania:rune0.name=Runa da Água
 item.botania:rune1.name=Runa do Fogo
 item.botania:rune2.name=Runa da Terra
@@ -1634,6 +1631,7 @@ item.botania:gaiaHead.name=Cabeça de Guardião de Gaia
 item.botania:sextant.name=Sextante do Modulador do Mundo
 item.botania:speedUpBelt.name=Cinta do Desbravador Planar
 item.botania:baubleBox.name=Caixa de Baubles
+item.botania:manaPowder.name=Pó de Mana
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1976,8 +1974,7 @@ botania.page.gardenOfGlass5=Criando &1Pedregulho&0
 botania.page.gardenOfGlass6=Além disso, outras coisas no Botania são diferentes para funcionar em skyblock: a &1Orechid&0 é bem mais fácil de se obter; o &1Casúlo de Caprice&0 e o &1Dispersor de Mana&0 possuem receitas diferentes; a &1Lâmpada Infernal&0, que é usada para obter &1Obsidiana&0, usa pó ao invés de varas; sementes de melancia ou abóbora podem ser encontradas em grama alta; fertlizante floral é produzido em maiores quantidades, e &1Cana-de-açúcar&0 e &1Gosma de Slime&0 podem ser criadas.
 botania.page.gardenOfGlass7=Criando &1Canas-de-açúcar&0
 botania.page.gardenOfGlass8=Criando &1Gosma de Slime&0
-botania.page.gardenOfGlass9=É possível infundir uma &1Abóbora&0 com o espírito de monstros derrotados, criando uma &1Abóbora de Fel&0. Ela pode ser colocada sobre duas &1Barras de Iron&0, similar a um &1Golem de Neve&0, para invocar um &1Blaze&0.<br>&1Blazes&0 invocados desse método derrubam &1Pó de Blaze&0 ao invés de &1Varas Incandescentes&0.
-botania.page.gardenOfGlass10=Nerfando warlocks outra vez
+botania.page.gardenOfGlass9=Um problema é a entrada para o &4Nether&0. Mas não se preocupe, já que &1Lâmpadas Infernais&0, mencionadas em outro capítulo, podem criar &1Obsidiana&0. Para conseguir essas lâmpadas, criar &1Blazes&0 com a &1Abóbora Fel&0 pode ser um bom investimento.<br>Mas como não há uma boa fonte de &1Pederneira&0, abrir o portal com uma &1Bola de Fogo&0 deve servir.
 botania.page.gardenOfGlass11=Além de fornecer luz, o &1Clarão de Mana&0 presente na ilha permite o jogador recuperar o &1Lexica Botania&0 em caso de perdas, usando uma &1Muda&0, clicando com ela no &1Clarão de Mana&0.<br>Isso só pode ser feito se o jogador não possuir um &1Lexica Botania&0 com ele.
 botania.page.gardenOfGlass12=Por último, receita para o &1Portal do Fim&0
 
@@ -2001,7 +1998,8 @@ botania.page.flowers5=Moendo pétalas.
 botania.page.flowers6=Clicando com &1Pó Floral&0 em qualquer &1Lã&0 ou &1Carpete&0 colore correspondedo à cor do pó.<br>Misturando &1Pó Floral&0 com um pouco de &1Farinha de Osso&0, é possível criar um tipo diferente de fertilizante. O &1Fertilizante Floral&0 gera um pequena quantidade de &1Flores Místicas&0 nas proximidades, no caso de você possuir poucas.
 botania.page.flowers7=Criando fertilizante (qualquer pó funciona)
 botania.page.flowers8=Usar flores típicas também funciona
-botania.page.flowers10=Também existem variantes mais altas de &1Flores Místicas&0, espalhadas pelo mundo. Esse tipo só pode ser coletado com &1Tesouras&0, mas podem ser usadas para conseguir o dobro de pétalas de uma flor normal. Entretanto, elas são um pouco grandes para colorir.<br>Elas podem ser feitas manualmente fertilizando qualquer &1Flor Mística&0 com &1Farinha de Osso&0.
+botania.page.flowers10=Também existem variantes mais altas de &1Flores Místicas&0, espalhadas pelo mundo. Esse tipo só pode ser coletado com &1Tesouras&0, mas podem ser usadas para conseguir o dobro de pétalas de uma flor normal. Entretanto, elas são um pouco grandes para colorir.
+botania.page.flowers12=Variantes altas podem ser feitas manualmente fertilizando qualquer &1Flor Mística&0 ou uma &1Pétala Enterrada&0 com &1Farinha de Osso&0.</br>Se você ficar sem alguma cor, tente enterrar uma pétala dela e usar &1Farinha de Osso&0.
 botania.page.flowers11=Prepare-se para encrenca
 botania.page.flowers9=Pétalas podem ser convertidas em blocos
 
@@ -2013,6 +2011,7 @@ botania.page.apothecary1=O &1Boticário de Pétalas&0.
 botania.page.apothecary2=Este bloco, quando colocado no mundo e abastecido com água (usando um &1Balde de Água&0), aceita qualquer &1Pétala Mística&0 jogado nele, liberando suas energias.<br>Quando as pétalas certas forem unidas, jogar &1Sementes&0 conclui o processo.<br>Jogar um balde cheio também enche o recipiente com água.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
 botania.page.apothecary4=Ao invés de &1Água&0, pode-se colocar &1Lava&0 nesse bloco, feito isso, ele serve como incenerador, destuindo qualquer item que faz contato com ele.<br>Finalmente, jogar &1Vinhas&0 dá um visual mais rústico ao bloco.
+botania.page.apothecary7=&1Comparadores&0 podem detectar se há água ou não.<br>Já que o &1Boticário de Pétalas&0 pode ser enchido jogando um &1Balde de Água (item)&0, e &1Ejetores&0 podem encher baldes com um sistema automático, isso não deve ser difícil.
 botania.page.apothecary6=Um truque para melhor eficiência, se em até vinte segundos, clicar no bloco prepare o mesmo padrão da flor anterior, perfeito para criação em massa. Isso só funciona se o Boticário possuir água.
 botania.page.apothecary5=Criando o &Boticário de Pétalas&0.
 
@@ -2038,11 +2037,11 @@ botania.entry.runeAltar=Altar Rúnico
 botania.tagline.runeAltar=Produz runas para itens e plantas mais fortes
 botania.page.runeAltar21=A criação de runas é um processo importante para avançar em magia botânica. Entretanto, esse processo requer um conhecimento decente de &4Manipulação de Mana&0. Antes de prosseguir, ler os tópicos importantes (aqueles em &oItálico&r) naquela seção do &1Lexica Botania&0 talvez se prove interessante.
 botania.page.runeAltar0=&1Runas&0 são componentes importantes em dispositivos mágicos complexos ou em flora.<br>Para criá-las, precisa-se de um &1Altar Rúnico&0.<br>Para utilizar o &1Altar Rúnico&0, comece colocando, clicando ou simplesmente derrubando, os componentes da runa que deseja criar.
-botania.page.runeAltar1=Prossiga ligando um &1Dispersor de Mana&0 ao altar, e clique com o botão direito com uma &1Varinha da Floresta&0.<br>É possível perceber quando o altar recebeu &4Mana&0 suficiente. Quando isso acontece, apenas derrube uma &1Rocha-viva&0 em cima do altar e use a varinha novamenteon para coletar a runa.
+botania.page.runeAltar1=Prossiga apontando um &1Dispersor de Mana&0 ao altar.<br>É possível perceber quando o altar recebeu &4Mana&0 suficiente. Quando isso acontecer, apenas derrube uma &1Rocha-viva&0 em cima, ou clique nele com uma, e use a varinha novamente para coletar a runa.
 botania.page.runeAltar2=Criando o &1Altar Rúnico&0.
 botania.page.runeAltar3=Existem 16 &1Runas&0 no total.<br>As mais básicas possuem o nome dos &4Quatro Elementos&0. As runas intermediárias possuem os nomes das &4Quatro Estações&0, e as runas mais avançadas possuem os nomes dos &4Sete Pecados Capitais&0. Uma &1Runa de Mana&0 também existe.
 botania.page.runeAltar20=Clicar com o botão direito segurando shift no &1Altar Rúnico&0 com as mãos vazias enquanto não recebe mana remove o último item colocado.<br>Finalmente, colocando um &1Comparador&0 ao lado emite um sinal de redstone igual a &41&0 se o altar estiver recebendo &4Mana&0 e um sinal de &42&0 se ele estiver pronto para criar a runa.
-botania.page.runeAltar22=Similar ao &1Boticário de Pétalas&0, clicar nesse bloco com a mão vazia depois de terminar prepara o padrão anterior.
+botania.page.runeAltar22=Qualquer runa usada no &1Altar Rúnico&0 funciona como catalista, e são devolvidas depois.<br>Similar ao &1Boticário de Pétalas&0, clicar nesse bloco com a mão vazia depois de terminar prepara o padrão anterior.
 botania.page.runeAltar4=A &1Runa da Água&0.
 botania.page.runeAltar5=A &1Runa da Terra&0.
 botania.page.runeAltar6=A &1Runa do Ar&0.
@@ -2111,14 +2110,15 @@ botania.entry.pool=Poço de Mana
 botania.tagline.pool=Armazenamento em massa de Mana
 botania.page.pool0=O &1Poço de Mana&0 é, simplesmente, um reservatório de &4Mana&0.<br>Mana  pode ser inserida usando um &1Dispersor de Mana&0, e qualquer &1Dispersor de Mana&0 adjacente puxará Mana para encher seu reservatório automaticamente.<br>Qualquer &4Flor Funcional&0 requer um &1Poço de Mana&0 por perto para usar Mana.
 botania.page.pool9=O &1Poço Mana&0 possúi duas variantes, uma fraca variedade &1Diluída&0 que armazena pouca &4Mana&0 e não consegue infundir intens, e uma variedade &1Normal&0, que armazena cem vezes mais que a variedade diluída e pode infundir itens.<br>Quando um "Poço de Mana" for citado em qualquer lugar do manual, se refere ao normal.
-botania.page.pool1=Criando um &1Poço de Mana Diluído&0.
-botania.page.pool10=Infundindo um &1Poço de Mana&0
+botania.page.pool1=Criando um &1Poço de Mana&0.
+botania.page.pool10=Criando um &1Poço de Mana Diluído&0
 botania.page.pool2=Jogando alguns recursos em um &1Poço de Mana&0  normal os faz infundir com &4Mana&0, transformando-os em formas mais poderosas.<br>Alguns exemplos são &1Barras de Ferro&0 ou &1Pétalas Místicas&0.<br>A leitura de &4Mana&0 para esse bloco é similar ao &1Dispersor de Mana&0. Um &1Comparador de Redstone&0 pode emitir um sinal baseado no conteúdo.
+botania.page.pool14=O &1Poço de Mana Diluído&0 pode ser útil pra quem quer um pequeno resrvatório de mana para plantas, já que o normal armazena bastante &4Mana&0. Graças a isso, a leitura de &4Mana&0 para o poço normal não são muito precisas, devido a escala, é normal que a barra demore para se mover.
 botania.page.pool8=Por motivos artísticos, jogar qualquer cor de &1Pó Floral&0 no poço o colore, todas as dezesseis cores são possíveis para decoração ou organização.
 botania.page.pool3=Infundindo &1Manasteel&0
 botania.page.pool4=Infundindo &1Pérolas de Mana&0
 botania.page.pool5=Infundindo &1Diamantes de Mana&0
-botania.page.pool6=Infundindo &1Pétalas de Mana&0
+botania.page.pool6=Infundindo &1Pó de Mana&0
 botania.page.pool11=Infundindo &1Managlass&0, vidro transparente.
 botania.page.pool12=Infundindo &1Linha&0
 botania.page.pool13=&1Linha Infundida em Mana&0 para fazer &1Teia&0
@@ -2129,6 +2129,7 @@ botania.entry.sparks=Fagulhas
 botania.tagline.sparks=Transportador simples de curta distância de Mana
 botania.page.sparks0=&1Fagulha&0 são entidades interessantes. Criadas de uma combinação de energia pura e &4Mana&0, elas possuem a habilidade de serem colocadas em cima de certos blocos que utilizam &4Mana&0, principalmente, &1Poços de Mana&0.<br>Alguns blocos possuem a habilidade de extrair &4Mana&0 de &1Fagulhas&0, mas seus usos ainda são um pouco limitados.
 botania.page.sparks1=Colocando uma &1Fagulha&0 em cima de um &1Poço de Mana&0 e outra em cima de outro bloco que possa receber Mana permite que este acesse remotamente o conteúdo de um &1Poço de Mana&0 quando necessário, mas que não esteja muito longe.<br>Para remover uma &1Fagulha&0 use shift+clique direito com uma &1Varinha da Floresta&0. Apenas clicar mostra quais &1Fagulhas&0 estão conectadas.
+botania.page.sparks3=No caso das &1Fagulhas&0 serem muito chamativas, usar &1Tinta Fantasma&0 para fazer a &1Fagulha&0 bastante transparente. Isso não consome a tinta.
 botania.page.sparks2=&oholds up spork&r
 
 # -- SPARK AUGMENTATION
@@ -2235,7 +2236,7 @@ botania.page.manastar1=&rUma estrela cadente voando pelos céus&r.
 # -- ELVEN MANA SPREADERS
 botania.entry.dreamwoodSpreader=Dispersor de Mana Élfico
 botania.tagline.dreamwoodSpreader=Harder, better, faster, stronger
-botania.page.dreamwoodSpreader0=Simplificando, &1Madeira dos sonhos&0 conduz &4Mana&0 melhor que &1Madeira-viva&0. Colocando alguns ajustes como &1Elementium&0 e &1Pétalas de Mana&0 e o que você consegue é um &1Dispersor de Mana&0 que pode conduzir mais &4Mana&0, mais rápido e por mais tempo sem &4perda de Mana&0.<br>No lado negativo, ele não pode ser convertido em um &1Dispersor de Mana por Redstone&0.
+botania.page.dreamwoodSpreader0=Simplificando, &1Madeira dos sonhos&0 conduz &4Mana&0 melhor que &1Madeira-viva&0. Colocando alguns ajustes como usar &1Elementium&0 ao invés de &1Ouro&0 e o que você consegue é um &1Dispersor de Mana&0 que pode conduzir mais &4Mana&0, mais rápido e por mais tempo sem &4perda de Mana&0.<br>No lado negativo, ele não pode ser convertido em um &1Dispersor de Mana por Redstone&0.
 botania.page.dreamwoodSpreader1=Um Dispersor melhor, só isso
 botania.page.dreamwoodSpreader2=Combinando esse poderoso Dispersor com um &1Espírito de Gaia&0 e uma &1Pedra Draconiana&0, uma variante ainda mais poderosa pode ser criada. O &1Disperosr de Gaia&0 é o melhor dos Dispersores de Mana, com todas melhorias.<br>Note que esse Dispersordispara cargas maiores de Mana, e por isso pode disparar com menos frequência.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
@@ -2484,16 +2485,13 @@ botania.page.primusLoci1=Essas flores agem como &1Dayblooms&0 ou &1Nightshades&0
 botania.entry.daybloom=Daybloom
 botania.tagline.daybloom=Mana pelo céu
 botania.page.daybloom0=A &1Daybloom&0 é a mais básica e rudimentar das &4Flores Geradoras&0. Simpificando, ela realiza um processo modificado de fotossíntese, convertendo luz em &4Mana&0.<br>Esse processo é bem lento, mais ou menos 10 ou 12 delas devem produzir uma quantidade suficiente para avançar.
-botania.page.daybloom1=Essas flores tendem a competir entre si pela luz da área, fazendo que outra dela nas quatro direções cardinais resulte em retornos diminuídos de &4Mana&0. Isso se aplica apenas para &1Dayblooms&0 e &1Nightshades&0. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
-botania.page.daybloom1a=Havendo outra dela nas quatro direções cardinais resulte em retornos diminuídos de &4Mana&0. Isso se aplica apenas para &1Dayblooms&0 e &1Nightshades&0.<br>&1Dayblooms&0 não são muito resistentes, após um tempo elas secam e morrem. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
-botania.page.daybloom3=Retornos diminuídos
+botania.page.daybloom1=&1Dayblooms&0 são classificadas como &4plantas passivas&0, significando que elas secam depois de um tempo. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
 botania.page.daybloom2=&oComeçando um novo e belo dia&r.
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
 botania.tagline.nightshade=Mana pela lua
-botania.page.nightshade0=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela sofre retornos diminuídos se houver uma igual adjacente.
-botania.page.nightshade0a=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela sofre retornos diminuídos se houver uma igual adjacente e não são muito resistentes, após um tempo secam e morrem.
+botania.page.nightshade0=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela não é muito resistentes, após um tempo secam e morrem.
 botania.page.nightshade1=&oA sombra do dia&r.
 
 # -- ENDOFLAME
@@ -2501,27 +2499,28 @@ botania.entry.endoflame=Endoflame
 botania.tagline.endoflame=Mana por combustível
 botania.page.endoflame0=Enquanto &1Dayblooms&0 são boas e tudo, um botanista precisa de meios mais efetivos de geração de &4Mana&0.<br>A &1Endoflame&0 faz justamente isso, absorvendo qualquer item combustível no solo próximo (apenas um de cada vez) e usando-o para produzir mana enquanto o combustível durar.
 botania.page.endoflame1=Há uma pequena exigência entretanto, a &1Endoflame&0 não consome itens que retornam outros, por exemplo, &1Baldes de Lava&0, que retornam um &1Balde&0 vazio.<br>Devido ao seu comportamento, um &1Caixote Aberto&0, que pode ser visto na seção &4Aparatos Naturais&0, pode ser uma boa escolha para torná-la auto-suficiente.
+botania.page.endoflame3=Como a &1Endoflame&0 geralmente é a primeira escolhe entre as &4Flores de Geração Ativas&0, não é bom mantê-la em uso manual pra sempre. Como a flor requer itens jogados no chão, um &1Caixote Aberto&0 (leia em &4Aparatos Naturais&0), e algum tipo de mecanismo limitador (um timer ou placa de pressão) seriam ideais.
 botania.page.endoflame2=&oNão é nitor&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.tagline.hydroangeas=Mana pela água
-botania.page.hydroangeas0=Enquanto a geração passiva de &4Mana&0 pode ser facilmente alcançado com &1Dayblooms&0, meios diferentes podem ser úteis. A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Elas também parecem ser mais rápidas durante &4chuvas&0, quem diria?
-botania.page.hydroangeas0a=A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Elas também parecem ser mais rápidas durante &4chuvas&0, quem diria?<br>Similar a &1Daybloom&0, essas flores não são muito resistente, e após um tempo secam e morrem.
+botania.page.hydroangeas0=A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Sua produção é comparável a das &1Endoflames&0. Elas parecem ser mais rápidas durante &4chuvas&0.<br>&1Hydroangeas&0são classificadas como &4flores passivas&0.
 botania.page.hydroangeas2=Sistema simples de &1Hydroangeas&0
-botania.page.hydroangeas3=Essas flores, similar a &1Dayblooms&0 ou &1Nightshades&0 sofrem retornos diminuídos se estiverem em uma formação muito compacta. Tendo duas &1Hydroangeas&0 com distância de um bloco de cada uma, incluindo diagonais, drasticamente diminui a produção de ambas, já que as raízes se entrelaçam. Tendo mais ainda, diminui muito mais a potência. As partículas azuis são um indicador. 
 botania.page.hydroangeas1=&oDe alguma Hiperdimensão&r?
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
 botania.tagline.thermalily=Mana pela lava
-botania.page.thermalily0=Chega um tempo em que a geração devagar de &1Hydroangeas&0 ou &1Endoflame&0 não é o bastante. Uma resposta para isso é a &1Thermalily&0, que funciona parecido com a &1Hydroangeas&0, exceto que usa &1Lava&0, ela produz uma grande quantidade de &1Mana&0 de uma vez quando consome a &1Lava&0, ela se aquece no processo, precisando esfriar para continuar a produção.
+botania.page.thermalily0=A &1Thermalily&0 age como uma versão de &1Lava&0 das &1Hydroangeas&0. Como esperado, a flor absorve &1Lava&0 ao redor dela, na mesma altura, para gerar &4Mana&0.<br>Depois de absorver a &1Lava&0, a flor produz &4Mana&0 por aproximadamente 45 segundos. Depois que ela acaba, ela precisa de um pouco de tempo para esfriar (em torno de 5 minutos) antes de poder absorver mais &1Lava&0.
+botania.page.thermalily2=The amount of &4Mana&0 the &1Thermalily&0 produces during its active period is extremely high, serving as a very functional flower for when a quick boost is needed.<br>During the "cooldown" period, if the flower were to absorb any &4Lava&0, it instead consumes it, generating no &4Mana&0 and having to wait 5 minutes from there to start over.
+botania.page.thermalily3=Enquanto colocar &1Lava&0 no mundo é possível usando um &1Ejetor&0, armazenar e carregar ela do &4Nether&0 ou do fundo da terra é história pra um outro dia.<br>As such, the &1Thermalily&0 is clasified as a "semi-automatable" flower.
 botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.tagline.arcanerose=Mana pela experiência
-botania.page.arcanerose0=&4Pontos de Experiência&0 são uma forma de magia. A &1Rosa Arcana&0 pode aproveitar isso, absorvendo a experiência de jogadores ao redor dela, produzindo &1Mana&0. 
+botania.page.arcanerose0=&4Pontos de Experiência&0 são uma forma de magia. A &1Rosa Arcana&0 pode aproveitar isso, absorvendo a experiência de jogadores ao redor dela, produzindo &1Mana&0.<br>A flor não consegue coletar orbes do chão, o jogador deve pegá-las antes.
 botania.page.arcanerose1=&oQuando essa carta é ativada, jogue uma moeda&r.
 
 # -- MUNCHDEW
@@ -2643,3 +2642,9 @@ botania.page.manaAlchemy22=Quebrando &1Argila&0 e &1Tijolos&0
 botania.page.manaAlchemy23=Fazendo &1Terra Áspera&0
 botania.page.manaAlchemy24=Transmutando &1Grama&0
 botania.page.manaAlchemy25=Transmutando flores mundanas
+
+# -- FEL PUMPKIN
+botania.entry.felPumpkin=Fel Pumpkin
+botania.tagline.felPumpkin=Uma abóbora que pode invocar Blazes
+botania.page.felPumpkin0=A &1Abóbora Fel&0 é uma infusão maligna entre uma &1Abóbora&0 com o espírito de monstros mortos. Essa abóbora amaldiçoada pode ser colocada no topo de duas &1Grades de Ferro&0, igual a um &1Golem de Neve&0, para invocar um &1Blaze&0.<br>&1Blazes&0 invocados com esse método derrubam uma boa quantidade de &1Pó de Blaze&0 ao invés de &1Varas Incandescentes&0.
+botania.page.felPumpkin1=Nerfando os warlocks outra vez
