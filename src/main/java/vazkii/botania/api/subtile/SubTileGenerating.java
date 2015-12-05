@@ -186,8 +186,7 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
 		ArrayList<ItemStack> drops = super.getDrops(list);
-		if(isPassiveFlower())
-			populateDropStackNBTs(drops);
+		populateDropStackNBTs(drops);
 		return drops;
 	}
 
