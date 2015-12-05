@@ -680,21 +680,39 @@ public final class ModCraftingRecipes {
 		recipeGrassHorn = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terrasteel Armor Recipes
+		addOreDictRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
+				"TRT", "SAS", " S ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.TERRA_STEEL,
+				'R', LibOreDict.RUNE[4],
+				'A', new ItemStack(ModItems.manasteelHelmRevealing));
 		addOreDictRecipe(new ItemStack(ModItems.terrasteelHelm),
-				"SSS", "S S",
-				'S', LibOreDict.TERRA_STEEL);
+				"TRT", "SAS", " S ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.TERRA_STEEL,
+				'R', LibOreDict.RUNE[4],
+				'A', new ItemStack(ModItems.manasteelHelm));
 		recipeTerrasteelHelm = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.terrasteelChest),
-				"S S", "SSS", "SSS",
-				'S', LibOreDict.TERRA_STEEL);
+				"TRT", "SAS", " S ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.TERRA_STEEL,
+				'R', LibOreDict.RUNE[5],
+				'A', new ItemStack(ModItems.manasteelChest));
 		recipeTerrasteelChest = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.terrasteelLegs),
-				"SSS", "S S", "S S",
-				'S', LibOreDict.TERRA_STEEL);
+				"TRT", "SAS", " S ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.TERRA_STEEL,
+				'R', LibOreDict.RUNE[6],
+				'A', new ItemStack(ModItems.manasteelLegs));
 		recipeTerrasteelLegs = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.terrasteelBoots),
-				"S S", "S S",
-				'S', LibOreDict.TERRA_STEEL);
+				"TRT", "SAS", " S ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.TERRA_STEEL,
+				'R', LibOreDict.RUNE[7],
+				'A', new ItemStack(ModItems.manasteelBoots));
 		recipeTerrasteelBoots = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terra Blade Recipe

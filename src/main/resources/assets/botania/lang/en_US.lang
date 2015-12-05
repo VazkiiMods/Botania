@@ -229,6 +229,7 @@ botania.armorset.elementium.desc=Chance for pixies to apply potion effects
 botania.armorset.terrasteel.name=Will of the Ancients
 botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools and Rods
 botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
+botania.armorset.terrasteel.desc2=Passive Mana generation on Mana Tablets
 botania.armorset.manaweave.name=Manatide Prowess
 botania.armorset.manaweave.desc0=35% less Mana cost on Mana Tools and Rods
 botania.armorset.manaweave.desc1=Increased proficiency with Magical Rods

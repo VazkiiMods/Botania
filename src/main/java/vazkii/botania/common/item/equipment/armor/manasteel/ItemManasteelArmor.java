@@ -52,6 +52,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	protected ModelBiped[] models = null;
+	public int type;
 	
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
@@ -59,6 +60,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
 		super(mat, 0, type);
+		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 	}
