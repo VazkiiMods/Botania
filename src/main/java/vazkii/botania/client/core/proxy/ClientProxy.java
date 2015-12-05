@@ -155,6 +155,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.core.version.AdaptorNotifier;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -167,8 +168,8 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -188,9 +189,16 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		super.preInit(event);
-
 		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
+		try {
+			PersistentVariableHelper.load();
+			PersistentVariableHelper.save();
+		} catch (IOException e) {
+			FMLLog.severe("Botania's persistent Variables couldn't load!");
+			e.printStackTrace();
+		}
+		
+		super.preInit(event);
 	}
 
 	@Override
@@ -211,9 +219,11 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
 
+		if(ConfigHandler.useAdaptativeConfig)
+			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
-
+		
 		if(ConfigHandler.enableSeasonalFeatures) {
 			Calendar calendar = Calendar.getInstance();
 			if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
@@ -224,15 +234,8 @@ public class ClientProxy extends CommonProxy {
 
 
 		initRenderers();
-
-		try {
-			PersistentVariableHelper.load();
-			PersistentVariableHelper.save();
-		} catch (IOException e) {
-			FMLLog.severe("Botania's persistent Variables couldn't load!");
-			e.printStackTrace();
-		}
 	}
+	
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
@@ -408,6 +411,19 @@ public class ClientProxy extends CommonProxy {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public String getLastVersion() {
+		String s = PersistentVariableHelper.lastBotaniaVersion;
+		
+		if(s == null)
+			return "N/A";
+		
+		if(s.indexOf("-") > 0)
+			return s.split("-")[1];
+
+		return s;
 	}
 
 	@Override
