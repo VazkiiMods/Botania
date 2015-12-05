@@ -13,19 +13,27 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -204,7 +212,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 		}
 
-		if(manaToGet > 0 && mana >= manaToGet && !worldObj.isRemote) {
+		if(manaToGet > 0 && mana >= manaToGet) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
@@ -225,19 +233,19 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				}
 
 				saveLastRecipe();
-				for(int i = 0; i < getSizeInventory(); i++) {
-					ItemStack stack = getStackInSlot(i);
-					if(stack != null) {
-						if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
-							EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack.copy());
-							worldObj.spawnEntityInWorld(outputItem);
-						}
-						
-						setInventorySlotContents(i, null);
-					}
-				}
-
 				if(!worldObj.isRemote) {
+					for(int i = 0; i < getSizeInventory(); i++) {
+						ItemStack stack = getStackInSlot(i);
+						if(stack != null) {
+							if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
+								EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack.copy());
+								worldObj.spawnEntityInWorld(outputItem);
+							}
+
+							setInventorySlotContents(i, null);
+						}
+					}
+
 					ItemStack livingrockItem = livingrock.getEntityItem();
 					livingrockItem.stackSize--;
 					if(livingrockItem.stackSize == 0)
@@ -344,20 +352,64 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		if(manaToGet > 0) {
-			int x = res.getScaledWidth() / 2 + 20;
-			int y = res.getScaledHeight() / 2 - 8;
-
-			RecipeRuneAltar recipe = null;
-			for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes)
-				if(recipe_.matches(this)) {
-					recipe = recipe_;
-					break;
+		int xc = res.getScaledWidth() / 2;
+		int yc = res.getScaledHeight() / 2;
+		
+		float angle = -90;
+		int radius = 24;
+		int amt = 0;
+		for(int i = 0; i < getSizeInventory(); i++) {
+			if(getStackInSlot(i) == null)
+				break;
+			amt++;
+		}
+		
+		if(amt > 0) {
+			float anglePer = 360F / amt;
+			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+				if(recipe.matches(this)) {
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					
+					ItemStack stack = recipe.getOutput();
+					float progress = (float) mana / (float) manaToGet;
+					
+					mc.renderEngine.bindTexture(HUDHandler.manaBar);
+					GL11.glColor4f(1F, 1F, 1F, 1F);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
+					
+					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+					if(progress == 1F) {
+						RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
+						GL11.glTranslatef(0F, 0F, 100F);
+						RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
+						GL11.glTranslatef(0F, 0F, -100F);
+					}
+						
+					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
+					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+					
+					if(progress == 1F)
+						mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 12, 0xFFFFFF);
 				}
-			if(recipe == null)
-				return;
-
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput());
+			
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			for(int i = 0; i < amt; i++) {
+				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
+				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
+				GL11.glTranslated(xPos, yPos, 0);
+				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, getStackInSlot(i), 0, 0);
+				GL11.glTranslated(-xPos, -yPos, 0);				
+				
+				angle += anglePer;
+			}
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		} else if(recipeKeepTicks > 0) {
+			String s = StatCollector.translateToLocal("botaniamisc.altarRefill0");
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			s = StatCollector.translateToLocal("botaniamisc.altarRefill1");
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

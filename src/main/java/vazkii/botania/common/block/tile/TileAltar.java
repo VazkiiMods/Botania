@@ -350,6 +350,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes)
 				if(recipe.matches(this)) {
+					GL11.glColor4f(1F, 1F, 1F, 1F);
 					mc.renderEngine.bindTexture(HUDHandler.manaBar);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
 					
