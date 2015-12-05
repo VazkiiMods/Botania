@@ -171,6 +171,7 @@ import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -358,6 +359,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
+	}
+	
+	@Override
+	public void setToTutorialIfFirstLaunch() {
+		if(PersistentVariableHelper.firstLoad)
+			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon())).setFirstEntry();
 	}
 
 	@Override

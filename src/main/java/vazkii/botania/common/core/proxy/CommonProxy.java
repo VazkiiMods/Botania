@@ -27,6 +27,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
@@ -187,6 +190,10 @@ public class CommonProxy {
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {
+		// NO-OP
+	}
+	
+	public void setToTutorialIfFirstLaunch() {
 		// NO-OP
 	}
 

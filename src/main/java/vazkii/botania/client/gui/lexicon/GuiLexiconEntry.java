@@ -42,6 +42,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	private static final String TAG_PAGE = "page";
 
 	public int page = 0;
+	public boolean firstEntry = false;
 	LexiconEntry entry;
 	GuiScreen parent;
 	String title;
@@ -178,10 +179,17 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		updatePageButtons();
 		currentPage.onActionPerformed(this, par1GuiButton);
 	}
+	
+	public GuiLexiconEntry setFirstEntry() {
+		firstEntry = true;
+		return this;
+	}
 
 	public void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page + 1 < entry.pages.size();
+		if(firstEntry)
+			backButton.enabled = !rightButton.enabled;
 	}
 
 	@Override
