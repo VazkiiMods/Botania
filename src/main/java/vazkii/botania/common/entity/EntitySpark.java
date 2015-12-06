@@ -285,7 +285,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	public boolean doPhantomInk(ItemStack stack) {
-		if(stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
 			int invis = dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY);
 			dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
 			return true;
