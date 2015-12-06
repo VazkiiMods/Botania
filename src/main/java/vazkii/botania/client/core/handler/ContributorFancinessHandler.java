@@ -54,6 +54,8 @@ public final class ContributorFancinessHandler {
 		} else if(name.equals("haighyorkie"))
 			renderGoldfish(event);
 
+		firstStart();
+		
 		name = name.toLowerCase();
 		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
