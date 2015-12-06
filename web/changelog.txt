@@ -1,3 +1,8 @@
+r1.8 239
+*Fixed a crash when right clicking a spark with an empty hand.
+*Fixed patreon flowers not rendering on players properly unless there's a named tiny potato around. <i>For real.</i>
+*Fixed the Rune of Air recipe not being adapted fully to the new pattern.
+*Fixed using a Rod of the Unstable Reservoir with a Livingwood Avatar crashing the game if it kills a named mob while CoFHCore's "alert named mob kills" config is enabled. <i>And people ask me why compatibility is so hard...</i>
 r1.8 238
 *<b>This update warrants a major version increase due to the sheer number of tweaks and changes that overall make the game better. This update's objective is to polish any roughness around the edges the mod might have had and to get it to a great state for newer and older players alike. Despite it being somewhat long, I would advise you to read it all, lest some small change trip you up.</b>
 *Added a "SHIFT to stop animation" tidbit to Rune and Petal pages.
