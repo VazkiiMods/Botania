@@ -1,3 +1,5 @@
+r1.8 240
+*Fixed the Mana Pool achievement. Since it's one of the first achievements it's really annyoing if it's broken :V
 r1.8 239
 *Fixed a crash when right clicking a spark with an empty hand.
 *Fixed patreon flowers not rendering on players properly unless there's a named tiny potato around. <i>For real.</i>
