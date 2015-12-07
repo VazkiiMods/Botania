@@ -302,9 +302,16 @@ public final class BotaniaAPI {
 	}
 
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
+		return isItemBlacklistedFromMagnet(stack, 0);
+	}
+	
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
+		if(recursion > 5)
+			return false;
+		
 		if(stack.getItemDamage() != Short.MAX_VALUE) {
 			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
-			boolean general = isItemBlacklistedFromMagnet(copy);
+			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
 			if(general)
 				return true;
 		}
@@ -312,10 +319,17 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(stack);
 		return magnetBlacklist.contains(key);
 	}
-
+	
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
+		return isBlockBlacklistedFromMagnet(block, meta, 0);
+	}
+
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
+		if(recursion >= 5)
+			return false;
+			
 		if(meta != Short.MAX_VALUE) {
-			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE);
+			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
 			if(general)
 				return true;
 		}
