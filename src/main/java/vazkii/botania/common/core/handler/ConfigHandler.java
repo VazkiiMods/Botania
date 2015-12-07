@@ -336,10 +336,8 @@ public final class ConfigHandler {
 
 			String lastVersion = Botania.proxy.getLastVersion();
 			try {
-//				lastBuild = Integer.parseInt(lastVersion);
-//				currentBuild = Integer.parseInt(LibMisc.BUILD);
-				lastBuild = 240;
-				currentBuild = 240;
+				lastBuild = Integer.parseInt(lastVersion);
+				currentBuild = Integer.parseInt(LibMisc.BUILD);
 			} catch(NumberFormatException e) {
 				this.enabled = false;
 			}
