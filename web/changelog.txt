@@ -1,3 +1,8 @@
+r1.8 241
+*Fixed a crash when some odd items are dropped around a Ring of Magnetization.
+*Fixed the Config Adaptor trying to modify correct values and spamming you about it in the chat.
+*[API] Implemented a recursion limiter to the magnet ring's blacklist functions for pesky items that intercept getItemDamage().
+*[API] Increased version number to 71.
 r1.8 240
 *Fixed the Mana Pool achievement. Since it's one of the first achievements it's really annyoing if it's broken :V
 r1.8 239
