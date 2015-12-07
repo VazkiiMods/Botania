@@ -336,8 +336,10 @@ public final class ConfigHandler {
 
 			String lastVersion = Botania.proxy.getLastVersion();
 			try {
-				lastBuild = Integer.parseInt(lastVersion);
-				currentBuild = Integer.parseInt(LibMisc.BUILD);
+//				lastBuild = Integer.parseInt(lastVersion);
+//				currentBuild = Integer.parseInt(LibMisc.BUILD);
+				lastBuild = 240;
+				currentBuild = 240;
 			} catch(NumberFormatException e) {
 				this.enabled = false;
 			}
@@ -363,18 +365,11 @@ public final class ConfigHandler {
 
 			if(bestValue != null) {
 				T expected = bestValue.value;
-				if(val.getClass() == Double.class || val.getClass() == Float.class) {
-					double epsilon = 1.0E-6;
-					float valF = ((Number) val).floatValue();
-					float expectedF = ((Number) expected).floatValue();
-
-					if(Math.abs(valF - expectedF) < epsilon) {
-						prop.setValue(prop.getDefault());
-						changes.add(" " + prop.getName() + ": " + val + " -> " + prop.getDefault());
-					}
-				} else if(val == expected) {
-					prop.setValue(prop.getDefault());
-					changes.add(" " + prop.getName() + ": " + val + " -> " + prop.getDefault());
+				T def = (T) prop.getDefault();
+				
+				if(areEqualNumbers(val, expected) && !areEqualNumbers(val, def)) {
+					prop.setValue(def.toString());
+					changes.add(" " + prop.getName() + ": " + val + " -> " + def);
 				}
 			}
 		}
@@ -391,6 +386,18 @@ public final class ConfigHandler {
 
 			List<AdaptableValue> list = adaptableValues.get(key);
 			list.add(adapt);
+		}
+		
+		public boolean areEqualNumbers(Object v1, Object v2) {
+			double epsilon = 1.0E-6;
+			float v1f = ((Number) v1).floatValue();
+			float v2f;
+			
+			if(v2 instanceof String)
+				v2f = Float.parseFloat((String) v2);
+			else v2f = ((Number) v2).floatValue();
+
+			return Math.abs(v1f - v2f) < epsilon;
 		}
 
 		public void tellChanges(EntityPlayer player) {
