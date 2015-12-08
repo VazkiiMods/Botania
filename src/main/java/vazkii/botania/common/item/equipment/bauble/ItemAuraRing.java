@@ -13,11 +13,12 @@ package vazkii.botania.common.item.equipment.bauble;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemAuraRing extends ItemBauble {
+public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 
 	public ItemAuraRing(String name) {
 		super(name);
