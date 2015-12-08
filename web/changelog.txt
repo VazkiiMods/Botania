@@ -1,3 +1,7 @@
+r1.8 242
+*Fixed the Terra Shatterer not working when the player has full Terrasteel Armor and their first available Mana Tablet isn't full and is in a hotbar slot before the Terra Shatterer.
+*[API] Added IManaGivingItem to help track which items should be blacklisted from the Terra Shatterer.
+*[API] Increased version number to 72.
 r1.8 241
 *Fixed a crash when some odd items are dropped around a Ring of Magnetization.
 *Fixed the Config Adaptor trying to modify correct values and spamming you about it in the chat.
