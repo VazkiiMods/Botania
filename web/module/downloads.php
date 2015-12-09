@@ -45,7 +45,14 @@
 			if($first)
 				$group_class = ' btn-group-first';
 			
-			$downloads_str .= "<div class='btn-group$group_class'><a href='dl.php?file=$file' class='btn btn-material-lightgreen'><b><span class='glyphicon glyphicon-download'></span> $file</b></a>$deobf_dl<a href='changelog.php#$version_name' class='btn $extra_class btn-material-cyan'><b>Changelog</b></a><a class='btn $extra_class btn-material-pink dl-counter'><b>$mc_version</b></a><a href='dl.php?file=$file' class='btn $extra_class btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a></div>";
+			$downloads_str .= "
+			<div class='btn-group$group_class'>
+			<a href='dl.php?file=$file' class='btn btn-material-lightgreen'><b><span class='glyphicon glyphicon-download'></span> $file</b></a>
+			$deobf_dl
+			<a href='changelog.php#$version_name' class='btn $extra_class btn-material-cyan'><b>Changelog</b></a>
+			<a class='btn $extra_class btn-material-pink dl-counter'><b>Minecraft $mc_version</b></a>
+			<a href='dl.php?file=$file' class='btn $extra_class btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a>
+			</div>";
 			
 			if($first) {
 				$downloads_str .= '<hr><font size="6">Old Versions</font><div>';
@@ -73,7 +80,11 @@
 		<div class='reddit-card'><div class='reddit-alien'><img src='img/reddit-alien.svg'></img></div><div class='reddit-info'><div class='reddit-header'><a href='http://reddit.com/r/botania'>/r/botania</a> is a thing now!</div><div class='reddit-desc'>Come discuss the mod on reddit!<br>The subreddit is still new but will hopefully grow as time passes!</div></div></div>
 		<br></br>
 		<font size='4'>Misc Downloads</font><br>
-		<div class='btn-group'><a href='http://www.curseforge.com/projects/225643/' class='btn btn-material-orange'><b>CurseForge</b></a><a href='dl.php?file=GardenOfGlass.jar' class='btn btn-material-cyan'><b>Garden of Glass</b></a></div> <a href='gardenofglass.php' class='btn btn-flat btn-material-cyan withripple' style='width:260px'><b>What's Garden of Glass?</b></a>
+		<div class='btn-group'>
+		<a href='http://minecraft.curseforge.com/projects/botania-skyblock-the-modpack-the-mod-the-modpack' class='btn btn-material-lightgreen'><b>Official Modpack</b></a>
+		<a href='http://www.curseforge.com/projects/225643/' class='btn btn-material-orange'><b>CurseForge</b></a>
+		<a href='dl.php?file=GardenOfGlass.jar' class='btn btn-material-cyan'><b>Garden of Glass</b></a></div> 
+		<a href='gardenofglass.php' class='btn btn-flat btn-material-cyan withripple' style='width:260px'><b>What's Garden of Glass?</b></a>
 		<br><br>
 		<font size='5'>Latest Download</font><br>");
 	print($downloads_str);
