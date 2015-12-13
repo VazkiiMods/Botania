@@ -1,3 +1,16 @@
+r1.8 243
+*Added NEI integration for the Lexica Botania, it sometiles also tells you which entry something is in and gives you little tidbits of info like how to make livingwood/livingrock or terrasteel.
+*Added recipe indicators (the items that appear when you hover shift on an entry's name) to a few entries that don't have direct recipes. (like pure daisy or ender air)
+*Fixed a crash if Red Stringed Interceptors are triggered too fast.
+*Fixed double tall flowers not respecting alternate textures. (yrsegal)
+*Fixed the Corporea Funnel ignoring an inventory 2 blocks below it if there's another Corporea Funnel directly below it. (yrsegal)
+*Fixed the Gaia Guardian not being able to be summoned with Et Futurum and Chisel beacons. (yrsegal)
+*Mana Pools are now dyed by right clicking with Floral Powder, not dropping it. On other news, you'll no longer dye your pool while making Mana Powder, yay!
+*NEI integration for Elven Trade no longer requires a Lexica Botania with Elven Knowledge on your inventory.
+*(Internal) ItemBlockSpecialFlower lexicon mappings are now prefixed by "flower.".
+*(Internal) The extra info feature for the lexica botania NEI integration can be used by adding a key to a lang file, in the following format: "botania.nei.quickInfo:" + the lexicon mapping key. You can find it by pressing CTRL+SHIFT in the NEI Lexica Botania entry for an item if F3+H is enabled.
+*[API] Added addExtraDisplayedRecipe() to LexiconEntry so more recipe indicators can be added without being linked to a page.
+*[API] Increased version number to 73.
 r1.8 242
 *Fixed the Terra Shatterer not working when the player has full Terrasteel Armor and their first available Mana Tablet isn't full and is in a hotbar slot before the Terra Shatterer.
 *[API] Added IManaGivingItem to help track which items should be blacklisted from the Terra Shatterer.
