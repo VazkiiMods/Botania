@@ -43,7 +43,10 @@ public class TileRedStringInterceptor extends TileRedString {
 		List<TileRedStringInterceptor> remove = new ArrayList();
 		boolean did = false;
 
-		for(TileRedStringInterceptor inter : interceptors) {
+		// CMEs are amazing
+		List<TileRedStringInterceptor> interceptorsCopy = new ArrayList(interceptors);
+		
+		for(TileRedStringInterceptor inter : interceptorsCopy) {
 			if(!inter.removeFromList()) {
 				remove.add(inter);
 				continue;
