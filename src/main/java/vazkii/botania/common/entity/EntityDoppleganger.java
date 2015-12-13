@@ -41,6 +41,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -133,15 +134,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(new BeaconComponent(new ChunkCoordinates(i - 1, 0, j - 1)));
 
-		mb.addComponent(0, 1, 0, Blocks.beacon, 0);
+		mb.addComponent(new BeaconBeamComponent(new ChunkCoordinates(0, 1, 0)));
 		mb.setRenderOffset(0, -1, 0);
 
 		return mb.makeSet();
 	}
 
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {
-		Block block = par3World.getBlock(par4, par5, par6);
-		if(block == Blocks.beacon && isTruePlayer(player)) {
+		if(par3World.getTileEntity(par4, par5, par6) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL) {
 				if(!par3World.isRemote)
 					player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
@@ -895,5 +895,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			return world.getBlock(x, y, z).isBeaconBase(world, x, y, z, x - relPos.posX, y - relPos.posY, z - relPos.posZ);
 		};
 
+	}
+
+	public static class BeaconBeamComponent extends MultiblockComponent {
+
+		public BeaconBeamComponent(ChunkCoordinates relPos) {
+			super(relPos, Blocks.beacon, 0);
+		}
+
+		@Override
+		public boolean matches(World world, int x, int y, int z) {
+			return world.getTileEntity(x, y, z) instanceof TileEntityBeacon;
+		}
 	}
 }

@@ -42,6 +42,8 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable {
 
@@ -76,6 +78,12 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	@Override
 	public int damageDropped(int p_149692_1_) {
 		return p_149692_1_ & 7;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon func_149888_a(boolean top, int index) {
+		return (ConfigHandler.altFlowerTextures ? top ? doublePlantTopIconsAlt : doublePlantBottomIconsAlt : top ? doublePlantTopIcons : doublePlantBottomIcons)[index & 7];
 	}
 
 	@Override
