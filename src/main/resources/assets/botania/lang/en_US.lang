@@ -159,7 +159,24 @@ botania.nei.manaPool=Mana Infusion
 botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 botania.nei.pureDaisy=Pure Daisy
+botania.nei.lexica=Lexica Botania
 
+botania.nei.lexicaSeparator=Extra Info:
+botania.nei.lexicaNoInfo=(there's no Extra Info for this entry, sorry!)
+
+# NEI QUICK LOOKS
+botania.nei.quickInfo:tile.livingwood0~0=You can create Livingwood by placing Wood next to a Pure Daisy
+botania.nei.quickInfo:tile.livingrock0~0=You can create Livingrock by placing Stone next to a Pure Daisy
+
+botania.nei.quickInfo:flower.daybloom=In this world, it's kill or be killed
+botania.nei.quickInfo:flower.daybloomPrimus=This flower can not be harvested, but can be found rarely in the world
+botania.nei.quickInfo:flower.nightshadePrimus=This flower can not be harvested, but can be found rarely in the world
+
+botania.nei.quickInfo:item.bone~0=You're gonna have a bad time
+botania.nei.quickInfo:item.lexicon~0=What exactly did you expect?
+botania.nei.quickInfo:item.terrasteel~4=You can get Terrasteel by tossing the right materials on a Terrestrial Agglomeration Plate
+botania.nei.quickInfo:item.enderAirBottle~15=You can get this by right clicking with a Glass Bottle while in the End
+primus
 # BUILDCRAFT INTEGRATION
 botania.triggers.manaDetector=Mana Burst
 botania.triggers.manaEmpty=Mana Empty

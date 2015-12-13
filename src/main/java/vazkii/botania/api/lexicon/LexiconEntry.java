@@ -30,6 +30,8 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
 	private ItemStack icon = null;
+	
+	private List<ItemStack> extraDisplayedRecipes = new ArrayList();
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
@@ -146,8 +148,14 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 				}
 			}
 		}
+		
+		list.addAll(extraDisplayedRecipes);
 
 		return list;
+	}
+	
+	public void addExtraDisplayedRecipe(ItemStack stack) {
+		extraDisplayedRecipes.add(stack);
 	}
 
 	@Override

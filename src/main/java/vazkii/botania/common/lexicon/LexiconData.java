@@ -334,6 +334,8 @@ public final class LexiconData {
 
 		pureDaisy = new BLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
 		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLivingwoodTwig), new PageText("4"), new PagePetalRecipe("3", ModPetalRecipes.pureDaisyRecipe)).setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
+		pureDaisy.addExtraDisplayedRecipe(new ItemStack(ModBlocks.livingwood));
+		pureDaisy.addExtraDisplayedRecipe(new ItemStack(ModBlocks.livingrock));
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingwood), pureDaisy, 1);
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingrock), pureDaisy, 1);
 
@@ -347,7 +349,8 @@ public final class LexiconData {
 
 		blackLotus = new BLexiconEntry(LibLexicon.BASICS_BLACK_LOTUS, categoryBasics);
 		blackLotus.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.blackLotus));
-
+		blackLotus.addExtraDisplayedRecipe(new ItemStack(ModItems.blackLotus));
+		
 		flowerBag = new BLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
 		flowerBag.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
 
@@ -536,7 +539,9 @@ public final class LexiconData {
 		primusLoci = new BLexiconEntry(LibLexicon.GFLOWER_PRIMUS_LOCI, categoryGenerationFlowers);
 		primusLoci.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
 		primusLoci.setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
-
+		primusLoci.addExtraDisplayedRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
+		primusLoci.addExtraDisplayedRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME));
+		
 		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
 		daybloom.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.daybloomRecipe));
 
@@ -776,7 +781,9 @@ public final class LexiconData {
 
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
 		overgrowthSeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.overgrowthSeed));
-
+		overgrowthSeed.addExtraDisplayedRecipe(new ItemStack(ModItems.overgrowthSeed));
+		overgrowthSeed.addExtraDisplayedRecipe(new ItemStack(ModBlocks.enchantedSoil));
+		
 		livingwoodBow = new BLexiconEntry(LibLexicon.TOOL_LIVINGWOOD_BOW, categoryTools);
 		livingwoodBow.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLivingwoodBow));
 
@@ -810,6 +817,7 @@ public final class LexiconData {
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
+		enderAir.addExtraDisplayedRecipe(new ItemStack(ModItems.manaResource, 1, 15));
 		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 15), enderAir, 0);
 
 		enderEyeBlock = new BLexiconEntry(LibLexicon.ENDER_ENDER_EYE_BLOCK, categoryEnder);

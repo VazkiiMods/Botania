@@ -113,7 +113,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public String getKey(ItemStack stack) {
-		return getType(stack);
+		return "flower." + getType(stack);
 	}
 
 	@Override
