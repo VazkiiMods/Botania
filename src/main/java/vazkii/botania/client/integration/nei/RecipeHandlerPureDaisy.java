@@ -37,7 +37,12 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 
 			if(recipe.getInput() instanceof String)
 				inputs.add(new PositionedStack(OreDictionary.getOres((String) recipe.getInput()), 42, 23));
-			else inputs.add(new PositionedStack(new ItemStack((Block) recipe.getInput()), 42, 23));
+			else {
+				if(recipe.getInputMeta() != null)
+					inputs.add(new PositionedStack(new ItemStack((Block) recipe.getInput(), 1, (int)recipe.getInputMeta()), 42, 23));
+				else
+					inputs.add(new PositionedStack(new ItemStack((Block) recipe.getInput()), 42, 23));
+			}
 
 			output = new PositionedStack(new ItemStack(recipe.getOutput()), 101, 23);
 		}
