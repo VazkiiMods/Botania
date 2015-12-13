@@ -124,7 +124,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		List<TileSignature> tiles;
 		if(!map.containsKey(world))
-			map.put(world, new ArrayList());
+			map.put(world, new ArrayList<TileSignature>());
 
 		tiles = map.get(world);
 
@@ -144,7 +144,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	private List<TileSignature> getAllInWorld(Map<World, List<TileSignature>> map, World world) {
 		if(!map.containsKey(world))
-			return new ArrayList();
+			return new ArrayList<TileSignature>();
 
 		return map.get(world);
 	}
