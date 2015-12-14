@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -39,7 +40,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 				inputs.add(new PositionedStack(OreDictionary.getOres((String) recipe.getInput()), 42, 23));
 			else inputs.add(new PositionedStack(new ItemStack((Block) recipe.getInput()), 42, 23));
 
-			output = new PositionedStack(new ItemStack(recipe.getOutput()), 101, 23);
+			output = new PositionedStack(new ItemStack(recipe.getOutputState().getBlock()), 101, 23); // todo 1.8 getOutput -> getOutputState
 		}
 
 		@Override
@@ -117,7 +118,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 			if(recipe == null)
 				continue;
 
-			if(NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.getOutput()), result))
+			if(NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.getOutputState().getBlock()), result)) // todo 1.8 getOutput -> getOutputState
 				arecipes.add(new CachedPureDaisyRecipe(recipe));
 		}
 	}

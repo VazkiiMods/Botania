@@ -13,6 +13,7 @@ package vazkii.botania.client.render.tile;
 import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -42,20 +43,21 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer {
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
 
 			int renderPass = 0;
-			do {
-				IIcon icon = stack.getItem().getIcon(stack, renderPass);
-				if(icon != null) {
-					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-					float f = icon.getMinU();
-					float f1 = icon.getMaxU();
-					float f2 = icon.getMinV();
-					float f3 = icon.getMaxV();
-					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-					GlStateManager.color(1F, 1F, 1F);
-				}
-				renderPass++;
-			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
+			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//			do {
+//				IIcon icon = stack.getItem().getIcon(stack, renderPass);
+//				if(icon != null) {
+//					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
+//					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+//					float f = icon.getMinU();
+//					float f1 = icon.getMaxU();
+//					float f2 = icon.getMinV();
+//					float f3 = icon.getMaxV();
+//					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+//					GlStateManager.color(1F, 1F, 1F);
+//				}
+//				renderPass++;
+//			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);

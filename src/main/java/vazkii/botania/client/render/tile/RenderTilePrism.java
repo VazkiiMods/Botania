@@ -42,7 +42,7 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(90F, 1F, 0F, 0F);
 				GlStateManager.translate(0F, 0F, pos);
-				RenderLens.render(stack, lens.getLensColor(stack));
+				// todo 1.8 RenderLens.render(stack, lens.getLensColor(stack));
 				GlStateManager.popMatrix();
 			}
 		}

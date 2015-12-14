@@ -199,7 +199,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.translate(0.5F, 0.5F, 0F);
 				GlStateManager.scale(0.3F, 0.3F, 0.3F);
 
-				RenderBlocks.getInstance().renderBlockAsItem(Blocks.iron_ore, 0, 1F);
+				mc.getBlockRendererDispatcher().renderBlockBrightness(Blocks.iron_ore.getDefaultState(), 1F);
 			} else if(name.equals("profmobius")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -255,7 +255,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			} else if(name.equals("nebris")) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
-				RenderBlocks.getInstance().renderBlockAsItem(Blocks.glowstone, 0, 1F);
+				mc.getBlockRendererDispatcher().renderBlockBrightness(Blocks.glowstone.getDefaultState(), 1F);
 			} else if(name.equals("ible")) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
@@ -263,7 +263,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				RenderBlocks.getInstance().renderBlockAsItem(Blocks.portal, 0, 1F);
+				mc.getBlockRendererDispatcher().renderBlockBrightness(Blocks.portal.getDefaultState(), 1F);
 			} else if(name.equals("razz") || name.equals("razzleberryfox")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -281,7 +281,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
 				GlStateManager.translate(0F, 0.9F, 0F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
-				RenderBlocks.getInstance().renderBlockAsItem(Blocks.command_block, 0, 1F);
+				mc.getBlockRendererDispatcher().renderBlockBrightness(Blocks.command_block.getDefaultState(), 1F);
 			} else if(name.equals("bdoubleo100") || name.equals("bdoubleo")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -299,7 +299,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				GlStateManager.translate(1.5F, -0.5F, 0.7F);
-				RenderBlocks.getInstance().renderBlockAsItem(Blocks.cake, 0, 1F);
+				mc.getBlockRendererDispatcher().renderBlockBrightness(Blocks.cake.getDefaultState());
 			} else if(name.equals("sjin")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -334,11 +334,11 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GlStateManager.scale(1F, -1F, -1F);
 
 		MovingObjectPosition pos = mc.objectMouseOver;
-		if(!name.isEmpty() && pos != null && pos.blockX == potato.xCoord && pos.blockY == potato.yCoord && pos.blockZ == potato.zCoord) {
+		if(!name.isEmpty() && pos != null && pos.getBlockPos().equals(potato.getPos())) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0F, -0.6F, 0F);
-			GlStateManager.rotate(-RenderManager.instance.playerViewY, 0.0F, 1.0F, 0.0F);
-			GlStateManager.rotate(RenderManager.instance.playerViewX, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+			GlStateManager.rotate(mc.getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
 			float f = 1.6F;
 			float f1 = 0.016666668F * f;
 			GlStateManager.scale(-f1, -f1, f1);

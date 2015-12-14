@@ -13,8 +13,8 @@ package vazkii.botania.common.core.handler;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +27,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
@@ -98,16 +97,17 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public TextureAtlasSprite getSubTileIconForName(String name) {
-		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
-		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
+//		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
+//		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon; todo 1.8
+		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:red_flower");
 	}
 
 	@Override
 	public void registerBasicSignatureIcons(String name, TextureMap map) {
-		IIcon normal = IconHelper.forName(register, name);
-		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
-		BlockSpecialFlower.icons.put(name, normal);
-		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);
+//		IIcon normal = IconHelper.forName(register, name); todo 1.8
+//		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
+//		BlockSpecialFlower.icons.put(name, normal);
+//		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);
 	}
 
 	@Override

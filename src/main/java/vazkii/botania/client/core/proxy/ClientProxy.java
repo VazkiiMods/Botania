@@ -71,11 +71,6 @@ import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.entity.RenderThornChakram;
-import vazkii.botania.client.render.item.RenderBow;
-import vazkii.botania.client.render.item.RenderFloatingFlowerItem;
-import vazkii.botania.client.render.item.RenderLens;
-import vazkii.botania.client.render.item.RenderLexicon;
-import vazkii.botania.client.render.item.RenderTransparentItem;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileAvatar;
@@ -266,19 +261,19 @@ public class ClientProxy extends CommonProxy {
 //		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
 //		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
 
-		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
-		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-		RenderBow renderBow = new RenderBow();
-
-		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
-		if(ConfigHandler.lexicon3dModel)
-			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
-		MinecraftForgeClient.registerItemRenderer(ModItems.glassPick, renderTransparentItem);
-		MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
-		MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
-		MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
+//		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
+//		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
+//		RenderBow renderBow = new RenderBow();
+//
+//		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
+//		if(ConfigHandler.lexicon3dModel)
+//			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
+//		MinecraftForgeClient.registerItemRenderer(ModItems.glassPick, renderTransparentItem);
+//		MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
+//		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
+//		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
+//		MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
+//		MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());

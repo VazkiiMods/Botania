@@ -90,7 +90,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.4F, -1.4F, -0.4375F);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			RenderLens.render(stack, lens.getLensColor(stack));
+			// todo 1.8 RenderLens.render(stack, lens.getLensColor(stack));
 			GlStateManager.popMatrix();
 		}
 
@@ -99,26 +99,26 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 
 			Block block = Blocks.carpet;
 			int color = spreader.paddingColor;
-			RenderBlocks render = RenderBlocks.getInstance();
+			//RenderBlocks render = RenderBlocks.getInstance();
 			float f = 1F / 16F;
 			GlStateManager.translate(0F, -f, 0F);
-			render.renderBlockAsItem(block, color, 1F);
+			//render.renderBlockAsItem(block, color, 1F);
 			GlStateManager.translate(0F, -f * 15, 0F);
-			render.renderBlockAsItem(block, color, 1F);
+			//render.renderBlockAsItem(block, color, 1F);
 			GlStateManager.rotate(90F, 1F, 0F, 0F);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(f * 14F, 1F, 1F);
-			render.renderBlockAsItem(block, color, 1F);
+			//render.renderBlockAsItem(block, color, 1F);
 			GlStateManager.popMatrix();
 
 			GlStateManager.rotate(90F, 1F, 0F, 0F);
 			GlStateManager.translate(0F, 0F, -f / 2);
 			GlStateManager.scale(f * 14F, 1F, f * 15F);
-			render.renderBlockAsItem(block, color, 1F);
+			//render.renderBlockAsItem(block, color, 1F);
 			GlStateManager.translate(0F, f * 15F, 0F);
-			render.renderBlockAsItem(block, color, 1F);
+			//render.renderBlockAsItem(block, color, 1F); todo 1.8
 		}
 
 		GlStateManager.enableRescaleNormal();

@@ -12,8 +12,10 @@ package vazkii.botania.common.item.material;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +27,11 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -44,12 +49,13 @@ import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
 	final int types = 23;
 
-	// begin dank_memes
+	// begin dank_memes todo 1.8 if I can figure out how to render arbitrary baked models then these will no longer be needed
 	public TextureAtlasSprite tailIcon = null;
 	public TextureAtlasSprite phiFlowerIcon = null;
 	public TextureAtlasSprite goldfishIcon = null;
@@ -70,6 +76,15 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower");
 		goldfishIcon = IconHelper.forName(evt.map, "goldfish");
 		nerfBatIcon = IconHelper.forName(evt.map, "nerfBat");
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent evt) {
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/tail", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/tail")));
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/phiFlower", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/phiFlower")));
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/goldfish", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/goldfish")));
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/nerfBat", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/nerfBat")));
 	}
 
 	@SubscribeEvent
