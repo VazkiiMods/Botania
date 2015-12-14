@@ -47,7 +47,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
-		IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID, 
+		IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID,
 		IslandType.SCORCHED, IslandType.INFUSED, IslandType.MUTATED
 	};
 

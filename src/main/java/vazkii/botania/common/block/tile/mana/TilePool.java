@@ -23,7 +23,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -110,13 +109,9 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public void recieveMana(int mana) {
-		boolean full = getCurrentMana() >= manaCap;
-
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
-		if(full == mana < 0) {
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-			markDispatchable();
-		}
+		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		markDispatchable();
 	}
 
 	@Override
@@ -150,7 +145,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
+			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration)) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);

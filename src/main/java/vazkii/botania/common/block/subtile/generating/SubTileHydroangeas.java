@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,13 +26,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+@PassiveFlower
 public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -76,7 +76,10 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 								supertile.getWorld().setBlockToAir(pos);
 						}
 
-						burnTime += getBurnTime();
+						if(cooldown == 0)
+							burnTime += getBurnTime();
+						else cooldown = getCooldown();
+
 						sync();
 						playSound();
 						break;
@@ -92,30 +95,6 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 				sync();
 			}
 		}
-	}
-
-	public int getSurroundingFlowers() {
-		int flowers = 0;
-		for(BlockPos offset : OFFSETS) {
-			TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().add(offset));
-			if(tile != null && tile instanceof ISubTileContainer) {
-				ISubTileContainer flower = (ISubTileContainer) tile;
-				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
-					flowers++;
-
-					Color color = new Color(getColor());
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
-
-					float m = 0.045F;
-					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.5, supertile.getPos().getY() + 0.05, supertile.getPos().getZ() + 0.5, r, g, b, 0.1F, offset.getX() * m, 0, offset.getZ() * m);
-				}
-			}
-		}
-
-		return flowers;
 	}
 
 	public void doBurnParticles() {
@@ -193,8 +172,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		int adj = getSurroundingFlowers();
-		return supertile.getWorld().rand.nextInt(adj + 1) == 0 && burnTime > 0;
+		return burnTime > 0;
 	}
 
 	@Override

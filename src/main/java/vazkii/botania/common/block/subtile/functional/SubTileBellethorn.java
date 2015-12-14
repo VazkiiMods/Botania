@@ -62,7 +62,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 					int dmg = 4;
 					if(entity instanceof EntityWitch)
 						dmg = 20;
-					
+
 					entity.attackEntityFrom(DamageSource.magic, dmg);
 					mana -= manaToUse;
 					break;

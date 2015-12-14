@@ -131,6 +131,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.core.version.AdaptorNotifier;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -143,9 +144,10 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -164,9 +166,16 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		super.preInit(event);
-
 		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
+		try {
+			PersistentVariableHelper.load();
+			PersistentVariableHelper.save();
+		} catch (IOException e) {
+			FMLLog.severe("Botania's persistent Variables couldn't load!");
+			e.printStackTrace();
+		}
+
+		super.preInit(event);
 	}
 
 	@Override
@@ -187,6 +196,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
 
+		if(ConfigHandler.useAdaptativeConfig)
+			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
 
@@ -200,15 +211,8 @@ public class ClientProxy extends CommonProxy {
 
 
 		initRenderers();
-
-		try {
-			PersistentVariableHelper.load();
-			PersistentVariableHelper.save();
-		} catch (IOException e) {
-			FMLLog.severe("Botania's persistent Variables couldn't load!");
-			e.printStackTrace();
-		}
 	}
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
@@ -334,6 +338,12 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public void setToTutorialIfFirstLaunch() {
+		if(PersistentVariableHelper.firstLoad)
+			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon())).setFirstEntry();
+	}
+
+	@Override
 	public void setLexiconStack(ItemStack stack) {
 		GuiLexicon.stackUsed = stack;
 	}
@@ -387,6 +397,19 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public String getLastVersion() {
+		String s = PersistentVariableHelper.lastBotaniaVersion;
+
+		if(s == null)
+			return "N/A";
+
+		if(s.indexOf("-") > 0)
+			return s.split("-")[1];
+
+		return s;
+	}
+
+	@Override
 	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(record == null)
@@ -401,24 +424,28 @@ public class ClientProxy extends CommonProxy {
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;
 	}
-	
+
 	@Override
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
 		MultiblockSextant mb = new MultiblockSextant();
-		
+
 		int iradius = (int) radius + 1;
 		for(int i = 0; i < iradius * 2 + 1; i++)
 			for(int j = 0; j < iradius * 2 + 1; j++) {
 				int xp = x + i - iradius;
 				int zp = z + j - iradius;
+
 				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
 					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
+
+				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
+					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
 			}
-		
+
 		MultiblockRenderHandler.setMultiblock(mb.makeSet());
 		MultiblockRenderHandler.anchor = new BlockPos(x, y, z);
 	}
-	
+
 	@Override
 	public void removeSextantMultiblock() {
 		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;

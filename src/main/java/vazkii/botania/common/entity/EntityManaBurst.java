@@ -393,11 +393,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
-    public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_, boolean p_70056_10_) {
-        setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
-        setRotation(p_70056_7_, p_70056_8_);
-    }
+	@SideOnly(Side.CLIENT)
+	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_, boolean p_70056_10) {
+		setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
+		setRotation(p_70056_7_, p_70056_8_);
+	}
 
 	@Override
 	public boolean handleWaterMovement() {

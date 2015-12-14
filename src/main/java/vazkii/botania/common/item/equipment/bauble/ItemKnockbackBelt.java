@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
@@ -55,7 +56,7 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
+
 			GlStateManager.translate(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;

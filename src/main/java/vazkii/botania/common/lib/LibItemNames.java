@@ -210,6 +210,7 @@ public final class LibItemNames {
 		"elementiumNugget",
 		"root",
 		"pebble",
-		"manaweaveCloth"
+		"manaweaveCloth",
+		"manaPowder"
 	};
 }

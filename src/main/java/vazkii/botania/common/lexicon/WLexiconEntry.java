@@ -20,7 +20,7 @@ import vazkii.botania.common.lib.LibLexicon;
 
 public class WLexiconEntry extends BLexiconEntry {
 
-	private static final int PAGES = 9;
+	private static final int PAGES = 7;
 
 	public WLexiconEntry() {
 		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);

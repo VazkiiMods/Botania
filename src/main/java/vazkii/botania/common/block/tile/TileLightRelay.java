@@ -90,6 +90,7 @@ public class TileLightRelay extends TileMod implements IWandBindable, IUpdatePla
 			}
 			
 			BlockPos endpoint = getEndpoint();
+
 			if(endpoint != null && !worldObj.isRemote) {
 				float range = 0.5F;
 				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(1 + range, 1 + range, 1 + range)));
@@ -111,7 +112,7 @@ public class TileLightRelay extends TileMod implements IWandBindable, IUpdatePla
 		List<TileLightRelay> pointsPassed = new ArrayList();
 		TileLightRelay relay = this;
 		BlockPos lastCoords = null;
-		
+
 		// Doing while(true) gives an unreachable code error
 		boolean run = true;
 		while(run) {
@@ -127,10 +128,10 @@ public class TileLightRelay extends TileMod implements IWandBindable, IUpdatePla
 			if(tile != null && tile instanceof TileLightRelay)
 				relay = (TileLightRelay) tile;
 			else return lastCoords;
-			
+
 			lastCoords = coords;
 		}
-		
+
 		return null;
 	}
 

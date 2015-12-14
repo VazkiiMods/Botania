@@ -210,7 +210,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GlStateManager.scale(fract, 1F, 1F);
 			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
-			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF);
+
+			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
 			mc.fontRendererObj.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();

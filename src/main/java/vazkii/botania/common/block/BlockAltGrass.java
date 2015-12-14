@@ -30,12 +30,15 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockAltGrass extends BlockMod {
+public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	public BlockAltGrass() {
 		super(Material.grass);
@@ -92,22 +95,22 @@ public class BlockAltGrass extends BlockMod {
 			}
 		}
 	}
-	
+
 	@Override
     public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
         return Blocks.dirt.getItemDropped(state, p_149650_2_, p_149650_3_);
     }
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
-	
+
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random r) {
 		AltGrassVariant variant = ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
@@ -130,10 +133,14 @@ public class BlockAltGrass extends BlockMod {
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)
 					Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-				else Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5); 
+				else Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5);
 			}
 			break;
 		}
-    }
+	}
 
+	@Override
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.grassSeeds;
+	}
 }

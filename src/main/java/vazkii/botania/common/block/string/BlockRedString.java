@@ -46,6 +46,12 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	}
 
 	@Override
+	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
+		par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
+	}
+
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		return ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
 	}
@@ -53,12 +59,6 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.getFront(meta));
-	}
-
-	@Override
-	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
-		par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
 	}
 
 	@Override

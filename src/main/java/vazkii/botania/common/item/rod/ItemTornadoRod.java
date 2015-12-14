@@ -55,7 +55,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean holding) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
-			ItemStack itemInUse = player.getCurrentEquippedItem();
+			player.getCurrentEquippedItem();
 			boolean damaged = par1ItemStack.getItemDamage() > 0;
 
 			if(damaged && !isFlying(par1ItemStack))
@@ -69,7 +69,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 				if(holding) {
 					player.fallDistance = 0F;
 					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player) ? 1.6 : 1.25;
-					
+
 					player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
 						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));

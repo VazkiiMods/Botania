@@ -58,6 +58,8 @@ public final class ContributorFancinessHandler {
 		} else if(name.equals("haighyorkie"))
 			renderGoldfish(event);
 
+		firstStart();
+		
 		name = name.toLowerCase();
 		if(event.entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));

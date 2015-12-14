@@ -11,25 +11,32 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 
@@ -41,8 +48,35 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setHardness(3F);
 		setResistance(10F);
 		setStepSound(soundTypeMetal);
+
 		setUnlocalizedName(LibBlockNames.TERRA_PLATE);
 		MinecraftForge.EVENT_BUS.register(this);
+
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldObj, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+		ItemStack stack = player.getCurrentEquippedItem();
+		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
+			if(player == null || !player.capabilities.isCreativeMode) {
+				stack.stackSize--;
+				if(stack.stackSize == 0 && player != null)
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+			}
+
+			ItemStack target = stack.copy();
+			target.stackSize = 1;
+			EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
+			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, 40, LibObfuscation.PICKUP_DELAY);
+			item.motionX = item.motionY = item.motionZ = 0;
+			if(!worldObj.isRemote)
+				worldObj.spawnEntityInWorld(item);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@SubscribeEvent

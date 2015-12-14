@@ -79,6 +79,12 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon func_149888_a(boolean top, int index) {
+		return (ConfigHandler.altFlowerTextures ? top ? doublePlantTopIconsAlt : doublePlantBottomIconsAlt : top ? doublePlantTopIcons : doublePlantBottomIcons)[index & 7];
+	}
+
+	@Override
 	public void func_149889_c(World p_149889_1_, int p_149889_2_, int p_149889_3_, int p_149889_4_, int p_149889_5_, int p_149889_6_) {
 		p_149889_1_.setBlock(p_149889_2_, p_149889_3_, p_149889_4_, this, p_149889_5_, p_149889_6_);
 		p_149889_1_.setBlock(p_149889_2_, p_149889_3_ + 1, p_149889_4_, this, p_149889_5_ | 8, p_149889_6_);

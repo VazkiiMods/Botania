@@ -180,7 +180,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		ejectAll();
 		return true;
 	}
-	
+
 	@Override
 	public void markDirty() {
 		super.markDirty();
@@ -191,7 +191,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	public int getSignal() {
 		return signal;
 	}
-	
+
 	@Override
 	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
 		int lastPattern = pattern;

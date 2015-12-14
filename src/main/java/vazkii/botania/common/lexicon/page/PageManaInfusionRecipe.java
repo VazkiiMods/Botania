@@ -116,7 +116,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 			hoveringOverDrop = true;
 
 		font.drawString(dropString, dx, dy, 0x77000000);
-		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
+		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
 		GlStateManager.disableBlend();
@@ -142,7 +142,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	public void updateScreen() {
 		if(GuiScreen.isShiftKeyDown())
 			return;
-		
+
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 

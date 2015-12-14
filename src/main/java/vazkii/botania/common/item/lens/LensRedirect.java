@@ -17,11 +17,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IDirectioned;
-import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IRedirectable;
 import vazkii.botania.api.mana.IThrottledPacket;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class LensRedirect extends Lens {
@@ -59,14 +56,14 @@ public class LensRedirect extends Lens {
 					if(sourceVec.y < tileVec.y)
 						angle = -angle;
 					redir.setRotationY((float) angle);
-					
+
 					redir.commitRedirection();
 					if(redir instanceof IThrottledPacket)
 						((IThrottledPacket) redir).markDispatchable();
 				}
 			}
 		}
-		
+
 		if(!isManaBlock) {
 			dead = false;
 			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
@@ -74,5 +71,5 @@ public class LensRedirect extends Lens {
 
 		return dead;
 	}
-	
+
 }

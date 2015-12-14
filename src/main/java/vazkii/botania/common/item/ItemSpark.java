@@ -19,6 +19,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -26,7 +27,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSpark extends ItemMod implements ICraftAchievement {
+public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
 
 	public ItemSpark() {
 		setUnlocalizedName(LibItemNames.SPARK);

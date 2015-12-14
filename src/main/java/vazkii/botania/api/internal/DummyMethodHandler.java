@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -202,10 +203,14 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return false;
 	}
 
-
 	@Override
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		// NO-OP
+	}
+
+	@Override
+	public boolean hasSolegnoliaAround(Entity e) {
+		return false;
 	}
 
 	@Override

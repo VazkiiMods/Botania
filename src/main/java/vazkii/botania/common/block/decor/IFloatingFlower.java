@@ -21,7 +21,7 @@ public interface IFloatingFlower {
 	public IslandType getIslandType();
 
 	public void setIslandType(IslandType type);
-	
+
 	public static enum IslandType {
 		GRASS(LibResources.MODEL_MINI_ISLAND),
 		PODZOL(LibResources.MODEL_MINI_ISLAND_PODZOL),

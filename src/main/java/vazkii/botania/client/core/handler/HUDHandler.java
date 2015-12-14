@@ -53,6 +53,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -113,12 +115,16 @@ public final class HUDHandler {
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.getBlockPos());
 							profiler.endSection();
 						}
-					}
-					else if(pos != null && equippedStack.getItem() instanceof ILexicon)
+					} else if(pos != null && equippedStack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
-					else if(tile != null && tile instanceof TilePool)
+					if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
+				if(tile != null && tile instanceof TileAltar)
+					((TileAltar) tile).renderHUD(mc, event.resolution);
+				else if(tile != null && tile instanceof TileRuneAltar)
+					((TileRuneAltar) tile).renderHUD(mc, event.resolution);
+
 				if(tile != null && tile instanceof TileCorporeaCrystalCube)
 					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
 			}
@@ -141,7 +147,7 @@ public final class HUDHandler {
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-			
+
 			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
 				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);
@@ -273,12 +279,7 @@ public final class HUDHandler {
 					int x = res.getScaledWidth() / 2 - 11;
 					int y = res.getScaledHeight() / 2 + 10;
 
-					boolean diluted = false;
 					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-					if(u == 0 && tile.getBlockMetadata() == 2 && recipe.getOutput().getItem() != Item.getItemFromBlock(ModBlocks.pool)) {
-						u = 44;
-						diluted = true;
-					}
 					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
 					GlStateManager.enableBlend();
@@ -294,13 +295,10 @@ public final class HUDHandler {
 					mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe.getOutput(), x + 26, y, "");
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-					if(diluted) {
-						String s = StatCollector.translateToLocal("botaniamisc.pay2win");
-						mc.fontRendererObj.drawStringWithShadow(s, res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, y + 20, 0xFF8888);
-					}
 
 					GlStateManager.disableLighting();
 					GlStateManager.disableBlend();
+
 
 					break;
 				}

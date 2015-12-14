@@ -86,8 +86,11 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
-	public static Set<Item> looniumBlacklist = new LinkedHashSet();
+
+	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
 	public static Map<Block, PropertyEnum> paintableBlocks = new LinkedHashMap<Block, PropertyEnum>();
+	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
+
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -291,6 +294,61 @@ public final class BotaniaAPI {
 		return paintable;
 
 		//todo 1.8 improve this
+	}
+
+	/**
+	 * Blacklists an item from being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
+	 */
+	public static void blacklistItemFromMagnet(ItemStack stack) {
+		String key = getMagnetKey(stack);
+		magnetBlacklist.add(key);
+	}
+
+	/**
+	 * Blacklists a block from having items on top of it being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as meta for a wildcard.
+	 */
+	public static void blacklistBlockFromMagnet(Block block, int meta) {
+		String key = getMagnetKey(block, meta);
+		magnetBlacklist.add(key);
+	}
+
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
+		return isItemBlacklistedFromMagnet(stack, 0);
+	}
+	
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
+		if(recursion > 5)
+			return false;
+		
+		if(stack.getItemDamage() != Short.MAX_VALUE) {
+			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
+			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
+			if(general)
+				return true;
+		}
+
+		String key = getMagnetKey(stack);
+		return magnetBlacklist.contains(key);
+	}
+	
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
+		return isBlockBlacklistedFromMagnet(block, meta, 0);
+	}
+
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
+		if(recursion >= 5)
+			return false;
+			
+		if(meta != Short.MAX_VALUE) {
+			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
+			if(general)
+				return true;
+		}
+
+		String key = getMagnetKey(block, meta);
+		return magnetBlacklist.contains(key);
 	}
 
 	/**
@@ -569,4 +627,16 @@ public final class BotaniaAPI {
 	public static Set<String> getAllSubTiles() {
 		return subTiles.keySet();
 	}
+
+	private static String getMagnetKey(ItemStack stack) {
+		if(stack == null)
+			return "";
+
+		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();
+	}
+
+	private static String getMagnetKey(Block block, int meta) {
+		return "bm_" + block.getUnlocalizedName() + "@" + meta;
+	}
+
 }

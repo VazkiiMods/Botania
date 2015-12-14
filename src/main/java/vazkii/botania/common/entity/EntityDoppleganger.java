@@ -43,6 +43,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -130,15 +131,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
 
-		mb.addComponent(new BlockPos(0, 1, 0), Blocks.beacon.getDefaultState());
+		mb.addComponent(new BeaconBeamComponent(new BlockPos(0, 1, 0)));
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();
 	}
 
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, BlockPos pos, boolean hard) {
-		Block block = par3World.getBlockState(pos).getBlock();
-		if(block == Blocks.beacon && isTruePlayer(player)) {
+		if(par3World.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {
 				if(!par3World.isRemote)
 					player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
@@ -162,9 +162,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					float r = 1F;
 					float g = 0F;
 					float b = 1F;
-					float m = 0.15F;
-					float mv = 0.35F;
-
 					float rad = i * (float) Math.PI / 180F;
 					double x = pos.getX() + 0.5 - Math.cos(rad) * RANGE;
 					double y = pos.getY() + 0.5;
@@ -172,13 +169,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 					Botania.proxy.sparkleFX(par3World, x, y, z, r, g, b, 5F, 120);
 				}
-				
+
 				if(!par3World.isRemote)
 					player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
 			}
 
 			par1ItemStack.stackSize--;
+
+			if(par3World.isRemote)
+				return true;
+
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
@@ -210,11 +211,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int range = (int) Math.ceil(RANGE);
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++) {
-				if((Math.abs(i) == 4 && Math.abs(j) == 4) || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > RANGE)
+				if(Math.abs(i) == 4 && Math.abs(j) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > RANGE)
 					continue; // Ignore pylons and out of circle
 
 				int air = 0;
-				
+
 				yCheck: {
 					for(int k = heightCheck + heightMin + 1; k >= -heightCheck; k--) {
 						BlockPos pos = startPos.add(i, k, j);
@@ -229,11 +230,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							air = 0;
 						}
 					}
-					
+
 					return false;
 				}
 			}
-		
+
 		return true;
 	}
 
@@ -366,7 +367,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(Potion.blindness) && p.ridingEntity == null;
 			}
 
-			int cap = crit ? 50 : 35;
+			int cap = crit ? 60 : 40;
 			return super.attackEntityFrom(par1DamageSource, Math.min(cap, dmg) * (isHardMode() ? 0.6F : 1F));
 		}
 		return false;
@@ -501,7 +502,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		
+
 		if(ridingEntity != null) {
 			if(ridingEntity.riddenByEntity != null)
 				ridingEntity.riddenByEntity = null;
@@ -883,5 +884,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			return world.getBlockState(pos).getBlock().isBeaconBase(world, pos, pos.add(relPos.multiply(-1)));
 		};
 
+	}
+
+	public static class BeaconBeamComponent extends MultiblockComponent {
+
+		public BeaconBeamComponent(BlockPos relPos) {
+			super(relPos, Blocks.beacon.getDefaultState());
+		}
+
+		@Override
+		public boolean matches(World world, BlockPos pos) {
+			return world.getTileEntity(pos) instanceof TileEntityBeacon;
+		}
 	}
 }

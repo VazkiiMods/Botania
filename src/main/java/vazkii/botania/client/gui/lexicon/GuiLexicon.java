@@ -34,11 +34,13 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -59,7 +61,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -210,13 +211,11 @@ public class GuiLexicon extends GuiScreen {
 		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
 
-		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
-		if(subtitle != null) {
-			GlStateManager.scale(0.5F, 0.5F, 1F);
-			drawCenteredString(fontRendererObj, subtitle, left * 2 + guiWidth, (top - getTitleHeight() + 11) * 2, 0x00FF00);
-			GlStateManager.scale(2F, 2F, 1F);
-		}
+
+		if(subtitle != null)
+			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true, 191);
+		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 
 		if(isMainPage())
 			drawHeader();
@@ -291,11 +290,16 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
+
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
-		drawBookmark(x, y, s, drawLeft, 0x111111);
+		drawBookmark(x, y, s, drawLeft, 180);
 	}
 
-	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color) {
+	public void drawBookmark(int x, int y, String s, boolean drawLeft, int v) {
+		drawBookmark(x, y, s, drawLeft, 0x111111, v);
+	}
+
+	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
 		// This function is called from the buttons so I can't use fontRendererObj
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
@@ -311,11 +315,12 @@ public class GuiLexicon extends GuiScreen {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, 180, 6, 11);
+		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, v, 6, 11);
+
 		if(drawLeft)
-			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, 180, 6, 11);
+			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, v, 6, 11);
 		for(int i = 0; i < l + 6; i++)
-			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, 180, 1, 11);
+			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, v, 1, 11);
 
 		font.drawString(s, x - l / 2 + fontOff, y, color, false);
 		font.setUnicodeFlag(unicode);
@@ -398,16 +403,15 @@ public class GuiLexicon extends GuiScreen {
 		String key = getNotesKey();
 		if(i == bookmarks.size()) {
 			if(!bookmarkKeys.contains(key)) {
-				bookmarks.add(this.copy());
+				bookmarks.add(copy());
 				bookmarkKeys.add(key);
 				modified = true;
 			}
 		} else {
 			if(isShiftKeyDown()) {
-				int index = bookmarkKeys.indexOf(key);
-				bookmarks.remove(index);
-				bookmarkKeys.remove(index);
-				
+				bookmarks.remove(i);
+				bookmarkKeys.remove(i);
+
 				modified = true;
 			} else {
 				GuiLexicon bookmark = bookmarks.get(i).copy();
@@ -450,7 +454,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	int getTitleHeight() {
-		return getSubtitle() == null ? 12 : 16;
+		return getSubtitle() == null ? 12 : 22;
 	}
 
 	boolean isIndex() {
@@ -510,6 +514,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
+
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
 		tutorial.add(LexiconData.apothecary);
@@ -521,17 +526,10 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.generatingIntro);
 		tutorial.add(LexiconData.passiveGen);
 		tutorial.add(LexiconData.daybloom);
-		tutorial.add(LexiconData.endoflame);
-		tutorial.add(LexiconData.openCrate);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
-		tutorial.add(LexiconData.baublesIntro);
-		tutorial.add(LexiconData.manaTablet);
-		tutorial.add(LexiconData.manasteelGear);
-		tutorial.add(LexiconData.dispenserTweaks);
-		if(SheddingHandler.hasShedding())
-			tutorial.add(LexiconData.shedding);
-		tutorial.add(LexiconData.challenges);
+
+		MinecraftForge.EVENT_BUS.post(new BotaniaTutorialStartEvent(tutorial));
 	}
 
 	public final void putTutorialArrow() {

@@ -18,11 +18,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.tileentity.TileEntitySkull;
@@ -54,7 +51,7 @@ public class BlockGaiaHead extends BlockSkull {
 	public Item getItem(World p_149694_1_, BlockPos pos) {
 		return ModItems.gaiaHead;
 	}
-	
+
     @Override
     public List<ItemStack> getDrops(IBlockAccess p_149749_1_, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
@@ -75,7 +72,7 @@ public class BlockGaiaHead extends BlockSkull {
     public Item getItemDropped(IBlockState p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return ModItems.gaiaHead;
     }
-    
+
 	@Override
 	public int getDamageValue(World p_149643_1_, BlockPos pos)  {
 		return 0;

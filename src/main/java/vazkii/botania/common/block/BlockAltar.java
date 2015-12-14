@@ -34,6 +34,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -85,7 +86,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
-			tile.collideEntityItem((EntityItem) par5Entity);
+			if(tile.collideEntityItem((EntityItem) par5Entity))
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 	}
 
@@ -156,6 +158,18 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		}
 
 		return false;
+	}
+
+	public void fillWithRain(World world, BlockPos pos) {
+		if(world.rand.nextInt(20) == 1) {
+			TileEntity tile = world.getTileEntity(pos);
+			if(tile instanceof TileAltar) {
+				TileAltar altar = (TileAltar) tile;
+				if(!altar.hasLava && !altar.hasWater)
+					altar.setWater(true);
+				world.updateComparatorOutputLevel(pos, this);
+			}
+		}
 	}
 
 	@Override

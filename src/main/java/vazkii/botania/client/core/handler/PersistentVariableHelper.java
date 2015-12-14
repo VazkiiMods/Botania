@@ -22,8 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
-import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public final class PersistentVariableHelper {
@@ -109,10 +107,8 @@ public final class PersistentVariableHelper {
 		lastBotaniaVersion = cmp.hasKey(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
 
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
-		if(firstLoad) {
-			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon()));
+		if(firstLoad)
 			lastBotaniaVersion = LibMisc.VERSION;
-		}
 	}
 
 	public static void saveSafe() {

@@ -18,9 +18,9 @@ package vazkii.botania.api.mana;
 public interface IRedirectable extends IDirectioned {
 
 	public void setRotationX(float rot);
-	
+
 	public void setRotationY(float rot);
-	
+
 	/**
 	 * This should be called after rotation setting is done to allow
 	 * for the block to re-calculate.

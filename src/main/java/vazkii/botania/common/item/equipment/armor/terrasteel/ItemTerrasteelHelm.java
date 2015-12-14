@@ -35,6 +35,8 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.IManaGivingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -42,7 +44,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer {
+public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer, IManaGivingItem {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
 	static TextureAtlasSprite willIcon;
@@ -69,6 +71,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			int food = player.getFoodStats().getFoodLevel();
 			if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
 				player.heal(1F);
+			ManaItemHandler.dispatchManaExact(stack, player, 1, true);
 		}
 	}
 

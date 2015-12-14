@@ -159,8 +159,10 @@ public final class TooltipAdditionDisplayHandler {
 							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
 							GlStateManager.scale(0.5F, 0.5F, 1F);
 							boolean mac = Minecraft.isRunningOnMac;
-							mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : (mac ? "Cmd" : "Ctrl")), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+
+							mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
 							GlStateManager.scale(2F, 2F, 1F);
+
 
 							GlStateManager.enableDepth();
 						} else lexiconLookupTime = 0F;

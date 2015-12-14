@@ -24,7 +24,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileSolegnolia extends SubTileFunctional {
 
 	private static final double RANGE = 5;
-	private static final double RANGE_MINI = 1; 
+	private static final double RANGE_MINI = 1;
 
 	public static Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
@@ -74,7 +74,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public double getRange() {
 		return RANGE;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toBlockPos(), getRange());
@@ -84,7 +84,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.solegnolia;
 	}
-	
+
 	public static class Mini extends SubTileSolegnolia {
 		@Override public double getRange() { return RANGE_MINI; }
 	}

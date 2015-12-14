@@ -53,7 +53,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 23;
+	final int types = 24;
 
 	// begin dank_memes todo 1.8 if I can figure out how to render arbitrary baked models then these will no longer be needed
 	public TextureAtlasSprite tailIcon = null;
@@ -170,7 +170,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
 		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8 || meta == 5;
+		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
 	}
 
 	@Override
@@ -183,7 +183,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		int meta = stack.getItemDamage();
 		return meta == 7 || meta == 8 || meta == 9;
 	}
-
 
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {

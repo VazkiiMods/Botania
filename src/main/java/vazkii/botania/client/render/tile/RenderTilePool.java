@@ -10,6 +10,9 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.Color;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -52,20 +55,32 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.enableRescaleNormal();
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
+
 		GlStateManager.color(1F, 1F, 1F, a);
 		GlStateManager.translate(d0, d1, d2);
 		boolean inf = tileentity.getWorld() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
 		boolean dil = tileentity.getWorld() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
+		boolean fab = tileentity.getWorld() == null ? forceMeta == 3 : tileentity.getBlockMetadata() == 3;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
-		int hex = pool.color.getMapColor().colorValue;
-		int r = (hex & 0xFF0000) >> 16;
-		int g = (hex & 0xFF00) >> 8;
-		int b = (hex & 0xFF);
-		GlStateManager.color(r, g, b, a);
+		if(fab) {
+			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			if(tileentity != null)
+				time += new Random(tileentity.getPos().hashCode()).nextInt(100000);
+
+			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
+			GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
+		} else {
+			int hex = pool.color.getMapColor().colorValue;
+			int r = (hex & 0xFF0000) >> 16;
+			int g = (hex & 0xFF00) >> 8;
+			int b = (hex & 0xFF);
+			GlStateManager.color(r, g, b, a);
+		}
+
 		model.render();
 		GlStateManager.color(1F, 1F, 1F, a);
 		GlStateManager.scale(1F, -1F, -1F);

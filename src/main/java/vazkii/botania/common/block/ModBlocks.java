@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -362,7 +361,7 @@ public final class ModBlocks {
 		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 		avatar = new BlockAvatar();
 		altGrass = new BlockAltGrass();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

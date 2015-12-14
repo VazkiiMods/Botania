@@ -11,6 +11,8 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.BlockColored;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
@@ -29,7 +31,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemDye extends Item16Colors implements IManaDissolvable {
+public class ItemDye extends Item16Colors {
 
 	public ItemDye() {
 		super(LibItemNames.DYE);
@@ -37,25 +39,27 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
-		if (par3World.getBlockState(pos).getBlock().recolorBlock(par3World, pos, side, EnumDyeColor.byMetadata(par1ItemStack.getItemDamage()))) {
+		Block block = par3World.getBlockState(pos).getBlock();
+		EnumDyeColor color = EnumDyeColor.byMetadata(par1ItemStack.getItemDamage());
+		if(block == Blocks.wool && color != par3World.getBlockState(pos).getValue(BlockColored.COLOR)
+				|| block == Blocks.carpet && color != par3World.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
+			par3World.setBlockState(pos, par3World.getBlockState(pos).withProperty(block == Blocks.wool ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
 			par1ItemStack.stackSize--;
 			return true;
 		}
-		return false;
-	}
 
-	@Override
-	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item) {
-		if(!item.worldObj.isRemote && pool instanceof IDyablePool) {
-			IDyablePool dyable = (IDyablePool) pool;
-			TileEntity tile = (TileEntity) pool;
-			EnumDyeColor color = EnumDyeColor.byMetadata(stack.getItemDamage());
+		TileEntity tile = par3World.getTileEntity(pos);
+		if(tile instanceof IDyablePool) {
+			IDyablePool dyable = (IDyablePool) tile;
+			int itemMeta = par1ItemStack.getItemDamage();
 			if(color != dyable.getColor()) {
 				dyable.setColor(color);
-				stack.stackSize--;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
+				par1ItemStack.stackSize--;
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	@Override

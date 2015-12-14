@@ -30,17 +30,19 @@ public class GuiButtonBack extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(hovered);
+		if(enabled) {
+			hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+			int k = getHoverState(hovered);
 
-		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
+			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
 
-		List<String> tooltip = getTooltip();
-		int tooltipY = (tooltip.size() - 1) * 10;
-		if(k == 2)
-			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+			List<String> tooltip = getTooltip();
+			int tooltipY = (tooltip.size() - 1) * 10;
+			if(k == 2)
+				RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+		}
 	}
 
 	public List<String> getTooltip() {

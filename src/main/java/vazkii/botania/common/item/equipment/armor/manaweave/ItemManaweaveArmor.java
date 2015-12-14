@@ -34,7 +34,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	public ItemManaweaveArmor(int type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
 		models[slot] = new ModelArmorManaweave(slot);
@@ -43,7 +44,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANAWEAVE_NEW : (slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0);
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANAWEAVE_NEW : slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
 
 	@Override

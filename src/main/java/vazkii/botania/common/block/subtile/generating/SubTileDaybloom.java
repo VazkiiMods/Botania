@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +19,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 
+@PassiveFlower
 public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	private static final String TAG_PRIME_POSITION_X = "primePositionX";
@@ -70,31 +68,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return isPrime() ? 22 : 25 + (int) (getSurroundingFlowers() * 7.5);
-	}
-
-	public int getSurroundingFlowers() {
-		int flowers = 0;
-		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().offset(dir));
-			if(tile != null && tile instanceof ISubTileContainer) {
-				ISubTileContainer flower = (ISubTileContainer) tile;
-				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
-					flowers++;
-
-					Color color = new Color(getColor());
-					float r = color.getRed() / 255F;
-					float g = color.getGreen() / 255F;
-					float b = color.getBlue() / 255F;
-
-					float m = 0.045F;
-					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.5, supertile.getPos().getY() + 0.05, supertile.getPos().getZ() + 0.5, r, g, b, 0.1F, dir.getFrontOffsetX() * m, dir.getFrontOffsetY() * m, dir.getFrontOffsetZ() * m);
-				}
-			}
-		}
-
-		return flowers;
+		return isPrime() ? 10 : 12;
 	}
 
 	@Override

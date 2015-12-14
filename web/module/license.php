@@ -26,6 +26,8 @@
 	
 	$clause_open_source = build_clause('Copyleft', 'random', 'Your project must be open source (have its source visible and allow for redistribution and modification) and include a clause similar to this one in its license.');
 	
+	$clause_api = build_clause('API', 'asterisk', 'Any of the other clauses under this section do not apply to any Botania API code. However, if Botania API code is used, it must be included verbatim as it was obtained. Furthermore, the package-info.java file included with the API must be present, and in the right spot, for any mods that package any compiled API classes within to prevent conflicts.<br><i>Learn more about the API annotation <a href="https://github.com/Minalien/BlogArchive/blob/master/ForgeTutorials/Spotlight__API_Annotation.md">here</a>.');
+
 	function add_clause($clause) {
 		global $clauses;
 		$clauses .= $clause;
@@ -89,5 +91,6 @@ If you simply wish to play with the mod and do nothing else, go for it, this pag
 	
 	add_clause($clause_attribution);
 	add_clause($clause_open_source);
+	add_clause($clause_api);
 	print_license_point("If you want to <b>Use $mod_name Code or Assets</b>", 'Usage of code or assets falls under the Extensive Clause.');
 ?>

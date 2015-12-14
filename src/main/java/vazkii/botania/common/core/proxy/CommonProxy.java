@@ -66,6 +66,7 @@ import vazkii.botania.common.entity.ModEntities;
 //import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -189,16 +190,24 @@ public class CommonProxy {
 		// NO-OP
 	}
 
+	public void setToTutorialIfFirstLaunch() {
+		// NO-OP
+	}
+
 	public void setLexiconStack(ItemStack stack) {
 		// NO-OP
 	}
-	
+
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
 	}
 
 	public boolean isClientPlayerWearingMonocle() {
 		return false;
+	}
+
+	public String getLastVersion() {
+		return LibMisc.BUILD;
 	}
 
 	public void setExtraReach(EntityLivingBase entity, float reach) {
@@ -217,11 +226,11 @@ public class CommonProxy {
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
 		// NO-OP
 	}
-	
+
 	public void removeSextantMultiblock() {
 		// NO-OP
 	}
-	
+
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}

@@ -37,7 +37,7 @@ public class ManaGunLensRecipe implements IRecipe {
 						foundLens = true;
 					else return false;
 				}
-					
+
 				else return false; // Found an invalid item, breaking the recipe
 			}
 		}

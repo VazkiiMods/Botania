@@ -103,7 +103,7 @@ public class PageElvenRecipe extends PageRecipe {
 	public void updateScreen() {
 		if(GuiScreen.isShiftKeyDown())
 			return;
-		
+
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
