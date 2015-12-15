@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.Optional;
@@ -40,7 +41,7 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return LibResources.MODEL_ELEMENTIUM_2;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : LibResources.MODEL_ELEMENTIUM_2;
 	}
 
 }

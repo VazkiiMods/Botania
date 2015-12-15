@@ -37,12 +37,23 @@ public class ClientTickHandler {
 	public static int pageFlipTicks = 0;
 	public static int ticksInGame = 0;
 	public static float partialTicks = 0;
+	public static float delta = 0;
+	public static float total = 0;
+
+	private void calcDelta() {
+		float oldTotal = total;
+		total = ticksInGame + partialTicks;
+		delta = total - oldTotal;
+	}
 
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
-		else TerraPickRankDisplayHandler.render();
+		else {
+			TooltipAdditionDisplayHandler.render();
+			calcDelta();
+		}
 	}
 
 	@SubscribeEvent
@@ -61,6 +72,7 @@ public class ClientTickHandler {
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
 				ticksInGame++;
+				partialTicks = 0;
 
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				if(player != null) {
@@ -95,6 +107,8 @@ public class ClientTickHandler {
 					ticksWithLexicaOpen--;
 				}
 			}
+
+			calcDelta();
 		}
 	}
 

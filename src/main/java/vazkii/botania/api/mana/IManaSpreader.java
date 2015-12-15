@@ -14,13 +14,8 @@ package vazkii.botania.api.mana;
 /**
  * Any TileEntity that implements this is considered a Mana Spreader,
  * by which can fire mana bursts as a spreader.
- * 
  */
-public interface IManaSpreader extends IManaBlock {
-
-	public float getRotationX();
-
-	public float getRotationY();
+public interface IManaSpreader extends IManaBlock, IPingable, IDirectioned {
 
 	public void setCanShoot(boolean canShoot);
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -31,7 +32,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		if(mana == 0) {
 			List<EntityTNTPrimed> tnts = supertile.getWorldObj().getEntitiesWithinAABB(EntityTNTPrimed.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityTNTPrimed tnt : tnts) {
-				if(tnt.fuse == 1 && !tnt.isDead) {
+				if(tnt.fuse == 1 && !tnt.isDead && !supertile.getWorldObj().getBlock(MathHelper.floor_double(tnt.posX), MathHelper.floor_double(tnt.posY), MathHelper.floor_double(tnt.posZ)).getMaterial().isLiquid()) {
 					if(!supertile.getWorldObj().isRemote) {
 						tnt.setDead();
 						mana += getMaxMana();

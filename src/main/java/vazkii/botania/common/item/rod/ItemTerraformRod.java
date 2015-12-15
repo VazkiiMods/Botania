@@ -18,21 +18,27 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
+public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
 
 	private static final int COST_PER = 55;
 
@@ -46,7 +52,19 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 			"snowLayer",
 			"mycelium",
 			"podzol",
-			"sandstone"
+			"sandstone",
+
+			// Mod support
+			"blockDiorite",
+			"stoneDiorite",
+			"blockGranite",
+			"stoneGranite",
+			"blockAndesite",
+			"stoneAndesite",
+			"marble",
+			"blockMarble",
+			"limestone",
+			"blockLimestone"
 	});
 
 	public ItemTerraformRod() {
@@ -78,7 +96,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 	}
 
 	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int range = 16;
+		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
 
 		int xCenter = (int) par3EntityPlayer.posX;
 		int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);
@@ -139,7 +157,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 
 		int cost = COST_PER * blocks.size();
 
-		if(par2World.isRemote || ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, cost, true)) {
+		if(par2World.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, cost, true)) {
 			if(!par2World.isRemote)
 				for(CoordsWithBlock block : blocks)
 					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
@@ -172,6 +190,25 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		if(block == Blocks.dirt && meta == 0)
+			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		if(block == Blocks.dirt && meta == 0)
+			return -1;
+		return 0;
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.terraformRodCraft;
 	}
 
 }

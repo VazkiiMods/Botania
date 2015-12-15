@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
@@ -46,7 +47,7 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return LibResources.MODEL_MANASTEEL_2;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : LibResources.MODEL_MANASTEEL_2;
 	}
 
 }

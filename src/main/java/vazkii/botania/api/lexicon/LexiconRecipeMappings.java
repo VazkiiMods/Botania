@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.mana.IManaItem;
 
 /**
  * This class contains mappings for which entry and page correspond to each
@@ -48,12 +49,16 @@ public final class LexiconRecipeMappings {
 	public static EntryData getDataForStack(ItemStack stack) {
 		return mappings.get(stackToString(stack));
 	}
-
+	
 	public static String stackToString(ItemStack stack) {
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getUnlocalizedName() + "~" + stack.getItemDamage();
+		return stack.getUnlocalizedName() + (ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
+	}
+
+	public static boolean ignoreMeta(ItemStack stack) {
+		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem;
 	}
 
 	public static class EntryData {

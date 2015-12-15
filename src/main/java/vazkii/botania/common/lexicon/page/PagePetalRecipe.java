@@ -10,14 +10,17 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -67,7 +70,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) ClientTickHandler.ticksInGame : 0;
+		float currentDegree = ConfigHandler.lexiconRotatingItems ? GuiScreen.isShiftKeyDown() ? ticksElapsed : (float) (ticksElapsed + ClientTickHandler.partialTicks) : 0;
 
 		for(Object obj : inputs) {
 			Object input = obj;
@@ -96,12 +99,28 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
-		// NO-OP
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		int x = gui.getLeft() + gui.getWidth() / 2 - 50;
+		int y = gui.getTop() + 120;
+
+		boolean unicode = font.getUnicodeFlag();
+		font.setUnicodeFlag(true);
+		String stopStr = StatCollector.translateToLocal("botaniamisc.shiftToStopSpin");
+		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
+		font.setUnicodeFlag(unicode);
+
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
@@ -109,6 +128,15 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 				recipeAt = 0;
 		}
 		++ticksElapsed;
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(T r : recipes)
+			list.add(r.getOutput());
+
+		return list;
 	}
 
 }

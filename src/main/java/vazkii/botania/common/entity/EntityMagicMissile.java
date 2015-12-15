@@ -34,7 +34,6 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	private static final String TAG_TIME = "time";
 
-	EntityLivingBase target;
 	double lockX, lockY = -1, lockZ;
 	int time = 0;
 
@@ -52,6 +51,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	@Override
 	protected void entityInit() {
 		dataWatcher.addObject(25, (byte) 0);
+		dataWatcher.addObject(26, 0);
 	}
 
 	public void setEvil(boolean evil) {
@@ -62,8 +62,25 @@ public class EntityMagicMissile extends EntityThrowable {
 		return dataWatcher.getWatchableObjectByte(25) == 1;
 	}
 
+	public void setTarget(EntityLivingBase e) {
+		dataWatcher.updateObject(26, e == null ? -1 : e.getEntityId());
+	}
+
+	public EntityLivingBase getTargetEntity() {
+		int id = dataWatcher.getWatchableObjectInt(26);
+		Entity e = worldObj.getEntityByID(id);
+		if(e != null && e instanceof EntityLivingBase)
+			return (EntityLivingBase) e;
+
+		return null;
+	}
+
 	@Override
 	public void onUpdate() {
+		double lastTickPosX = this.lastTickPosX;
+		double lastTickPosY = this.lastTickPosY;
+		double lastTickPosZ = this.lastTickPosZ;
+
 		super.onUpdate();
 
 		if(!worldObj.isRemote && (!getTarget() || time > 40)) {
@@ -89,7 +106,8 @@ public class EntityMagicMissile extends EntityThrowable {
 		}
 		Botania.proxy.setSparkleFXCorrupt(false);
 
-		if(!worldObj.isRemote) {
+		EntityLivingBase target = getTargetEntity();
+		if(target != null) {
 			if(lockY == -1) {
 				lockX = target.posX;
 				lockY = target.posY;
@@ -108,8 +126,11 @@ public class EntityMagicMissile extends EntityThrowable {
 			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
-				EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
-				target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+				if(thrower != null) {
+					EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
+					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+				} else target.attackEntityFrom(DamageSource.generic, evil ? 12 : 7);
+				
 				setDead();
 			}
 
@@ -134,20 +155,23 @@ public class EntityMagicMissile extends EntityThrowable {
 
 
 	public boolean getTarget() {
+		EntityLivingBase target = getTargetEntity();
 		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
 			return true;
-		target = null;
+		if(target != null)
+			setTarget(null);
 
 		double range = 12;
 		List entities = worldObj.getEntitiesWithinAABB(isEvil() ? EntityPlayer.class : IMob.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 		while(entities.size() > 0) {
 			Entity e = (Entity) entities.get(worldObj.rand.nextInt(entities.size()));
-			if(!(e instanceof EntityLivingBase)) { // Just in case...
+			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...
 				entities.remove(e);
 				continue;
 			}
 
 			target = (EntityLivingBase) e;
+			setTarget(target);
 			break;
 		}
 
@@ -158,7 +182,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition pos) {
 		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 
-		if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves) && (pos.entityHit == null || target == pos.entityHit))
+		if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves) && (pos.entityHit == null || getTargetEntity() == pos.entityHit))
 			setDead();
 	}
 

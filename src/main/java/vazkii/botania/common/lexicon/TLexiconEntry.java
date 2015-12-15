@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lexicon.page.PageTutorial;
 import vazkii.botania.common.lib.LibLexicon;
@@ -19,6 +21,7 @@ public class TLexiconEntry extends BLexiconEntry {
 	public TLexiconEntry() {
 		super(LibLexicon.BASICS_TUTORIAL, BotaniaAPI.categoryBasics);
 		setPriority();
+		setIcon(new ItemStack(Items.book));
 		setLexiconPages(new PageTutorial("0"));
 	}
 

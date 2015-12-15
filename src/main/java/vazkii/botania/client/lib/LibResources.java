@@ -36,6 +36,7 @@ public final class LibResources {
 	public static final String GUI_TERRASTEEL_OVERLAY = PREFIX_GUI + "terrasteelOverlay.png";
 	public static final String GUI_ELVEN_TRADE_OVERLAY = PREFIX_GUI + "elvenTradeOverlay.png";
 	public static final String GUI_SHEDDING_OVERLAY = PREFIX_GUI + "sheddingOverlay.png";
+	public static final String GUI_MULTIBLOCK_OVERLAY = PREFIX_GUI + "multiblockOverlay.png";
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 	public static final String GUI_BOSS_BAR = PREFIX_GUI + "bossBar.png";
@@ -43,6 +44,9 @@ public final class LibResources {
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flowerBag.png";
+	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "baubleBox.png";
+	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
+	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
@@ -50,23 +54,14 @@ public final class LibResources {
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
 	public static final String ENTRY_UNSTABLE_BLOCK = PREFIX_ENTRIES + "unstableBlock.png";
 	public static final String ENTRY_UNSTABLE_BEACON = PREFIX_ENTRIES + "unstableBeacon.png";
-	public static final String ENTRY_ENCHANTER0 = PREFIX_ENTRIES + "enchanter0.png";
-	public static final String ENTRY_ENCHANTER1 = PREFIX_ENTRIES + "enchanter1.png";
-	public static final String ENTRY_ENCHANTER2 = PREFIX_ENTRIES + "enchanter2.png";
-	public static final String ENTRY_ENCHANTER3 = PREFIX_ENTRIES + "enchanter3.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
-	public static final String ENTRY_PORTAL0 = PREFIX_ENTRIES + "portal0.png";
-	public static final String ENTRY_PORTAL1 = PREFIX_ENTRIES + "portal1.png";
-	public static final String ENTRY_PORTAL2 = PREFIX_ENTRIES + "portal2.png";
-	public static final String ENTRY_PORTAL3 = PREFIX_ENTRIES + "portal3.png";
-	public static final String ENTRY_PORTAL4 = PREFIX_ENTRIES + "portal4.png";
 	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elvenGarde.png";
-	public static final String ENTRY_GAIA_RITUAL = PREFIX_ENTRIES + "gaiaRitual.png";
 	public static final String ENTRY_DIMINISHING_RETURNS = PREFIX_ENTRIES + "diminishingReturns.png";
 	public static final String ENTRY_HYDROANGEAS = PREFIX_ENTRIES + "hydroangeas.png";
 	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craftCrate.png";
 	public static final String ENTRY_AZULEJOS = PREFIX_ENTRIES + "azulejos.png";
 	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphicStones.png";
+	public static final String ENTRY_BANNERS = PREFIX_ENTRIES + "banners.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_ALTAR_META = PREFIX_MODEL + "altarMeta%d.png";
@@ -74,6 +69,9 @@ public final class LibResources {
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreaderRedstone.png";
 	public static final String MODEL_SPREADER_DREAMWOOD = PREFIX_MODEL + "spreaderDreamwood.png";
+	public static final String MODEL_SPREADER_HALLOWEEN = PREFIX_MODEL + "spreader_halloween.png";
+	public static final String MODEL_SPREADER_REDSTONE_HALLOWEEN = PREFIX_MODEL + "spreaderRedstone_halloween.png";
+	public static final String MODEL_SPREADER_DREAMWOOD_HALLOWEEN = PREFIX_MODEL + "spreaderDreamwood_halloween.png";
 	public static final String MODEL_POOL = PREFIX_MODEL + "pool.png";
 	public static final String MODEL_INFINITE_POOL = PREFIX_MODEL + "infinitePool.png";
 	public static final String MODEL_DILUTED_POOL = PREFIX_MODEL + "dilutedPool.png";
@@ -87,18 +85,27 @@ public final class LibResources {
 	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel0.png";
 	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel1.png";
 	public static final String MODEL_MANASTEEL_2 = PREFIX_MODEL + "manasteel2.png";
+	public static final String MODEL_MANASTEEL_NEW = PREFIX_MODEL + "manasteelNew.png";
 	public static final String MODEL_TERRASTEEL_0 = PREFIX_MODEL + "terrasteel0.png";
 	public static final String MODEL_TERRASTEEL_1 = PREFIX_MODEL + "terrasteel1.png";
 	public static final String MODEL_TERRASTEEL_2 = PREFIX_MODEL + "terrasteel2.png";
+	public static final String MODEL_TERRASTEEL_NEW = PREFIX_MODEL + "terrasteelNew.png";
 	public static final String MODEL_ELEMENTIUM_0 = PREFIX_MODEL + "elementium0.png";
 	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium1.png";
 	public static final String MODEL_ELEMENTIUM_2 = PREFIX_MODEL + "elementium2.png";
+	public static final String MODEL_ELEMENTIUM_NEW = PREFIX_MODEL + "elementiumNew.png";
+	public static final String MODEL_MANAWEAVE_0 = PREFIX_MODEL + "manaweave0.png";
+	public static final String MODEL_MANAWEAVE_1 = PREFIX_MODEL + "manaweave1.png";
+	public static final String MODEL_MANAWEAVE_NEW = PREFIX_MODEL + "manaweaveNew.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
+	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tinyPotatoGray.png";
+	public static final String MODEL_TINY_POTATO_HALLOWEEN = PREFIX_MODEL + "tinyPotato_halloween.png";
 	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
+	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "speedUpBelt.png";
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
@@ -109,16 +116,34 @@ public final class LibResources {
 	public static final String MODEL_MINI_ISLAND_PODZOL = PREFIX_MODEL + "miniIslandPodzol.png";
 	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
 	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
+	public static final String MODEL_MINI_ISLAND_DRY = PREFIX_MODEL + "miniIslandDry.png";
+	public static final String MODEL_MINI_ISLAND_GOLDEN = PREFIX_MODEL + "miniIslandGolden.png";
+	public static final String MODEL_MINI_ISLAND_VIVID = PREFIX_MODEL + "miniIslandVivid.png";
+	public static final String MODEL_MINI_ISLAND_SCORCHED = PREFIX_MODEL + "miniIslandScorched.png";
+	public static final String MODEL_MINI_ISLAND_INFUSED = PREFIX_MODEL + "miniIslandInfused.png";
+	public static final String MODEL_MINI_ISLAND_MUTATED = PREFIX_MODEL + "miniIslandMutated.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";
 	public static final String MODEL_CRYSTAL_CUBE = PREFIX_MODEL + "crystalCube.png";
 	public static final String MODEL_INCENSE_PLATE = PREFIX_MODEL + "incensePlate.png";
+	public static final String MODEL_HOURGLASS = PREFIX_MODEL + "hourglass.png";
+	public static final String MODEL_COCOON = PREFIX_MODEL + "cocoon.png";
+	public static final String MODEL_BELLOWS = PREFIX_MODEL + "bellows.png";
+	public static final String MODEL_TERU_TERU_BOZU = PREFIX_MODEL + "teruTeruBozu.png";
+	public static final String MODEL_TERU_TERU_BOZU_HALLOWEEN = PREFIX_MODEL + "teruTeruBozu_halloween.png";
+	public static final String MODEL_AVATAR = PREFIX_MODEL + "avatar.png";
+	public static final String MODEL_AVATAR_DIVINING = PREFIX_MODEL + "avatarDivining.png";
+	public static final String MODEL_AVATAR_FIRE = PREFIX_MODEL + "avatarFire.png";
+	public static final String MODEL_AVATAR_MISSILE = PREFIX_MODEL + "avatarMissile.png";
+	public static final String MODEL_AVATAR_RAINBOW = PREFIX_MODEL + "avatarRainbow.png";
+	public static final String MODEL_AVATAR_TORNADO = PREFIX_MODEL + "avatarTornado.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
 	public static final String MISC_HALO = PREFIX_MISC + "halo.png";
-	public static final String MISC_GLOW_PINK = PREFIX_MISC + "glow0.png";
+	public static final String MISC_GLOW_GREEN = PREFIX_MISC + "glow0.png";
 	public static final String MISC_GLOW_CYAN = PREFIX_MISC + "glow1.png";
+	public static final String MISC_BABYLON = PREFIX_MISC + "babylon.png";
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 
@@ -134,5 +159,6 @@ public final class LibResources {
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
+	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
 
 }

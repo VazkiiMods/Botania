@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.util.regex.Pattern;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -29,6 +30,9 @@ public final class CorporeaHelper {
 
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
+	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<ICorporeaAutoCompleteController>();
+
+	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 
 	public static final String[] WILDCARD_STRINGS = new String[] {
 		"...", "~", "+", "?" , "*"
@@ -178,6 +182,7 @@ public final class CorporeaHelper {
 
 		int count = itemCount;
 		for(IInventory inv : inventories) {
+			boolean removedAny = false;
 			ICorporeaSpark invSpark = getSparkForInventory(inv);
 
 			if(inv instanceof ICorporeaInterceptor) {
@@ -205,6 +210,7 @@ public final class CorporeaHelper {
 					lastRequestExtractions += rem;
 					if(doit && rem > 0) {
 						inv.decrStackSize(i, rem);
+						removedAny = true;
 						if(invSpark != null)
 							invSpark.onItemExtracted(stackAt);
 					}
@@ -212,6 +218,9 @@ public final class CorporeaHelper {
 						count -= rem;
 				}
 			}
+
+			if(removedAny)
+				inv.markDirty();
 		}
 
 		for(ICorporeaInterceptor interceptor : interceptors.keySet())
@@ -285,7 +294,7 @@ public final class CorporeaHelper {
 		}
 
 
-		String name = stack.getDisplayName().toLowerCase().trim();
+		String name = stripControlCodes(stack.getDisplayName().toLowerCase().trim());
 		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);
 	}
 
@@ -313,5 +322,27 @@ public final class CorporeaHelper {
 	 */
 	public static boolean equalOrContain(String s1, String s2, boolean contain) {
 		return contain ? s1.contains(s2) : s1.equals(s2);
+	}
+
+	/**
+	 * Registers a ICorporeaAutoCompleteController
+	 */
+	public static void registerAutoCompleteController(ICorporeaAutoCompleteController controller) {
+		autoCompleteControllers.add(controller);
+	}
+
+	/**
+	 * Returns if the auto complete helper should run
+	 */
+	public static boolean shouldAutoComplete() {
+		for(ICorporeaAutoCompleteController controller : autoCompleteControllers)
+			if(controller.shouldAutoComplete())
+				return true;
+		return false;
+	}
+
+	// Copy from StringUtils
+	public static String stripControlCodes(String str) {
+		return patternControlCode.matcher(str).replaceAll("");
 	}
 }

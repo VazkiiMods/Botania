@@ -45,10 +45,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 17;
+	final int types = 24;
 	IIcon[] icons;
 
+	// begin dank_memes
 	public IIcon tailIcon = null;
+	public IIcon phiFlowerIcon = null;
+	public IIcon goldfishIcon = null;
+	public IIcon nerfBatIcon = null;
+	// end dank_memes
 
 	public ItemManaResource() {
 		super();
@@ -89,6 +94,12 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
 			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par1ItemStack.getItemDamage() == 14);
+		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, par4, par5, par6, par2EntityPlayer)) {
+			if(!par3World.isRemote)
+				par3World.playAuxSFX(2005, par4, par5, par6, 0);
+
+			return true;
+		}
 
 		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 	}
@@ -113,7 +124,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < types; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
+				par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
@@ -124,6 +136,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
 
 		tailIcon = IconHelper.forName(par1IconRegister, "tail");
+		phiFlowerIcon = IconHelper.forName(par1IconRegister, "phiFlower");
+		goldfishIcon = IconHelper.forName(par1IconRegister, "goldfish");
+		nerfBatIcon = IconHelper.forName(par1IconRegister, "nerfBat");
 	}
 
 	@Override
@@ -149,7 +164,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
 		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8;
+		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
 	}
 
 	@Override
@@ -162,7 +177,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		int meta = stack.getItemDamage();
 		return meta == 7 || meta == 8 || meta == 9;
 	}
-
 
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {

@@ -70,33 +70,36 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
-		if(ShaderHelper.useShaders())
-			GL11.glColor4f(1F, 1F, 1F, alpha);
-		else {
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			GL11.glColor4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+
+		if(alpha > 0) {
+			if(ShaderHelper.useShaders())
+				GL11.glColor4f(1F, 1F, 1F, alpha);
+			else {
+				int light = 15728880;
+				int lightmapX = light % 65536;
+				int lightmapY = light / 65536;
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+				GL11.glColor4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+			}
+
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+
+			if(enchanter.stage == 3 || enchanter.stage == 4) {
+				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
+				int angle = ticks * 2;
+				float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
+				float scale = ticks < 10 ? 1F : 1F - Math.min(20, ticks - 10) / 20F * 0.75F;
+
+				GL11.glTranslatef(2.5F, 2.5F, -yTranslation);
+				GL11.glScalef(scale, scale, 1F);
+				GL11.glRotatef(angle, 0F, 0F, 1F);
+				GL11.glTranslatef(-2.5F, -2.5F, 0F);
+			}
+
+			ShaderHelper.useShader(ShaderHelper.enchanterRune);
+			renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
+			ShaderHelper.releaseShader();
 		}
-
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-
-		if(enchanter.stage == 3 || enchanter.stage == 4) {
-			int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
-			int angle = ticks * 2;
-			float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
-			float scale = ticks < 10 ? 1F : 1F - Math.min(20, ticks - 10) / 20F * 0.75F;
-
-			GL11.glTranslatef(2.5F, 2.5F, -yTranslation);
-			GL11.glScalef(scale, scale, 1F);
-			GL11.glRotatef(angle, 0F, 0F, 1F);
-			GL11.glTranslatef(-2.5F, -2.5F, 0F);
-		}
-
-		ShaderHelper.useShader(ShaderHelper.enchanterRune);
-		renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
-		ShaderHelper.releaseShader();
 
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);

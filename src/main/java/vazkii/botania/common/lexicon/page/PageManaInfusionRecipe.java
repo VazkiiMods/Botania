@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 			hoveringOverDrop = true;
 
 		font.drawString(dropString, dx, dy, 0x77000000);
-		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
+		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
 		GL11.glDisable(GL11.GL_BLEND);
@@ -138,6 +139,9 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
@@ -145,6 +149,15 @@ public class PageManaInfusionRecipe extends PageRecipe {
 				recipeAt = 0;
 		}
 		++ticksElapsed;
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(RecipeManaInfusion r : recipes)
+			list.add(r.getOutput());
+
+		return list;
 	}
 
 }

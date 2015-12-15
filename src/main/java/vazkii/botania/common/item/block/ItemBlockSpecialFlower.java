@@ -84,6 +84,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		String type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
+		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
+
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
@@ -94,7 +96,6 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		String mod = BotaniaAPI.subTileMods.get(type);
 		if(!mod.equals(LibMisc.MOD_ID))
 			par3List.add(EnumChatFormatting.ITALIC + "[" + mod + "]");
-		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
 	}
 
 	public static String getType(ItemStack stack) {
@@ -112,7 +113,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public String getKey(ItemStack stack) {
-		return getType(stack);
+		return "flower." + getType(stack);
 	}
 
 	@Override
@@ -126,6 +127,12 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			return ModAchievements.kekimurusPickup;
 		else if(type.equals(LibBlockNames.SUBTILE_HEISEI_DREAM))
 			return ModAchievements.heiseiDreamPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_POLLIDISIAC))
+			return ModAchievements.pollidisiacPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_BUBBELL))
+			return ModAchievements.bubbellPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_DANDELIFEON))
+			return ModAchievements.dandelifeonPickup;
 		else if(type.equals(""))
 			return ModAchievements.nullFlower;
 		return null;

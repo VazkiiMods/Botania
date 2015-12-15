@@ -151,7 +151,9 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 				return false;
 
 		if(lens == null && isHeldItemLens) {
-			par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+			if (!par5EntityPlayer.capabilities.isCreativeMode)
+				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+
 			spreader.setInventorySlotContents(0, heldItem.copy());
 			spreader.markDirty();
 		} else if(lens != null && !wool) {

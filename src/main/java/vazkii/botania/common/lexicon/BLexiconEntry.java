@@ -41,6 +41,11 @@ public class BLexiconEntry extends LexiconEntry {
 		return "botania.entry." + super.getUnlocalizedName();
 	}
 
+	@Override
+	public String getTagline() {
+		return "botania.tagline." + super.getUnlocalizedName();
+	}
+
 	public String getLazyUnlocalizedName() {
 		return super.getUnlocalizedName();
 	}
@@ -48,6 +53,11 @@ public class BLexiconEntry extends LexiconEntry {
 	@Override
 	public String getWebLink() {
 		return "http://botaniamod.net/lexicon.php#" + unlocalizedName;
+	}
+
+	@Override
+	public int compareTo(LexiconEntry o) {
+		return o instanceof WLexiconEntry ? 1 : super.compareTo(o);
 	}
 
 }

@@ -24,6 +24,7 @@ import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
 import vazkii.botania.common.block.corporea.BlockCorporeaInterceptor;
+import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
 import vazkii.botania.common.block.decor.BlockBlaze;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
@@ -39,6 +40,8 @@ import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
+import vazkii.botania.common.block.decor.BlockShimmerrock;
+import vazkii.botania.common.block.decor.BlockShimmerwoodPlanks;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
@@ -48,6 +51,7 @@ import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
+import vazkii.botania.common.block.mana.BlockBellows;
 import vazkii.botania.common.block.mana.BlockBrewery;
 import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
 import vazkii.botania.common.block.mana.BlockDistributor;
@@ -68,7 +72,9 @@ import vazkii.botania.common.block.string.BlockRedStringComparator;
 import vazkii.botania.common.block.string.BlockRedStringContainer;
 import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
+import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.string.BlockRedStringRelay;
+import vazkii.botania.common.block.subtile.SubTileDecor;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -97,6 +103,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
+import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
@@ -106,12 +113,17 @@ import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
+import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.tile.TileCacophonium;
+import vazkii.botania.common.block.tile.TileCell;
+import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileEnderEye;
@@ -119,23 +131,30 @@ import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileForestEye;
+import vazkii.botania.common.block.tile.TileGaiaHead;
+import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileIncensePlate;
+import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
@@ -149,10 +168,12 @@ import vazkii.botania.common.block.tile.string.TileRedStringComparator;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
+import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
@@ -226,6 +247,27 @@ public final class ModBlocks {
 	public static Block corporeaInterceptor;
 	public static Block corporeaCrystalCube;
 	public static Block incensePlate;
+	public static Block hourglass;
+	public static Block ghostRail;
+	public static Block sparkChanger;
+	public static Block root;
+	public static Block felPumpkin;
+	public static Block cocoon;
+	public static Block lightRelay;
+	public static Block lightLauncher;
+	public static Block manaBomb;
+	public static Block cacophonium;
+	public static Block bellows;
+	public static Block bifrostPerm;
+	public static Block cellBlock;
+	public static Block redStringInterceptor;
+	public static Block gaiaHead;
+	public static Block corporeaRetainer;
+	public static Block teruTeruBozu;
+	public static Block shimmerrock;
+	public static Block shimmerwoodPlanks;
+	public static Block avatar;
+	public static Block altGrass;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -297,6 +339,27 @@ public final class ModBlocks {
 		corporeaInterceptor = new BlockCorporeaInterceptor();
 		corporeaCrystalCube = new BlockCorporeaCrystalCube();
 		incensePlate = new BlockIncensePlate();
+		hourglass = new BlockHourglass();
+		ghostRail = new BlockGhostRail();
+		sparkChanger = new BlockSparkChanger();
+		root = new BlockRoot();
+		felPumpkin = new BlockFelPumpkin();
+		cocoon = new BlockCocoon();
+		lightRelay = new BlockLightRelay();
+		lightLauncher = new BlockLightLauncher();
+		manaBomb = new BlockManaBomb();
+		cacophonium = new BlockCacophonium();
+		bellows = new BlockBellows();
+		bifrostPerm = new BlockBifrostPerm();
+		cellBlock = new BlockCell();
+		redStringInterceptor = new BlockRedStringInterceptor();
+		gaiaHead = new BlockGaiaHead();
+		corporeaRetainer = new BlockCorporeaRetainer();
+		teruTeruBozu = new BlockTeruTeruBozu();
+		shimmerrock = new BlockShimmerrock();
+		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
+		avatar = new BlockAvatar();
+		altGrass = new BlockAltGrass();
 
 		ModFluffBlocks.init();
 
@@ -331,6 +394,11 @@ public final class ModBlocks {
 		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
 		OreDictionary.registerOre("ice", Blocks.ice);
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.stone_slab, 1, 3));
+		OreDictionary.registerOre("chestWood", Blocks.chest);
+		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
+
+		BotaniaAPI.registerPaintableBlock(unstableBlock);
+		BotaniaAPI.registerPaintableBlock(manaBeacon);
 
 		initTileEntities();
 	}
@@ -385,15 +453,29 @@ public final class ModBlocks {
 		registerTile(TileCorporeaInterceptor.class, LibBlockNames.CORPOREA_INTERCEPTOR);
 		registerTile(TileCorporeaCrystalCube.class, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		registerTile(TileIncensePlate.class, LibBlockNames.INCENSE_PLATE);
+		registerTile(TileHourglass.class, LibBlockNames.HOURGLASS);
+		registerTile(TileSparkChanger.class, LibBlockNames.SPARK_CHANGER);
+		registerTile(TileCocoon.class, LibBlockNames.COCOON);
+		registerTile(TileLightRelay.class, LibBlockNames.LIGHT_RELAY);
+		registerTile(TileCacophonium.class, LibBlockNames.CACOPHONIUM);
+		registerTile(TileBellows.class, LibBlockNames.BELLOWS);
+		registerTile(TileCell.class, LibBlockNames.CELL_BLOCK);
+		registerTile(TileRedStringInterceptor.class, LibBlockNames.RED_STRING_INTERCEPTOR);
+		registerTile(TileGaiaHead.class, LibBlockNames.GAIA_HEAD);
+		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
+		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
+		registerTile(TileAvatar.class, LibBlockNames.AVATAR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class);
+		registerSubTileWithDecor(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class, SubTileDecor.Daybloom.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM_PRIME, SubTileDaybloom.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class);
+		registerSubTileWithDecor(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class, SubTileDecor.Hydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_THERMALILY, SubTileThermalily.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NIGHTSHADE, SubTileNightshade.class);
+		registerSubTileWithDecor(LibBlockNames.SUBTILE_NIGHTSHADE, SubTileNightshade.class, SubTileDecor.Nightshade.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME, SubTileNightshade.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
@@ -401,6 +483,8 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_GOURMARYLLIS, SubTileGourmaryllis.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NARSLIMMUS, SubTileNarslimmus.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTROLUS, SubTileSpectrolus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DANDELIFEON, SubTileDandelifeon.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_RAFFLOWSIA, SubTileRafflowsia.class);
 
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);
@@ -426,7 +510,16 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MEDUMONE, SubTileMedumone.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
+		registerSubTileWithMini(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
+	}
+
+	public static void registerMultiparts() {
+		if(Loader.isModLoaded("ForgeMultipart")) {
+			try {
+				Class clazz = Class.forName("vazkii.botania.common.integration.multipart.MultipartHandler");
+				clazz.newInstance();
+			} catch(Throwable e) {}
+		}
 	}
 
 	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
@@ -435,6 +528,11 @@ public final class ModBlocks {
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
+	}
+
+	private static void registerSubTileWithDecor(String key, Class<? extends SubTileEntity> clazz, Class<? extends SubTileEntity> decor) {
+		BotaniaAPI.registerSubTile(key, clazz);
+		BotaniaAPI.registerMiniSubTile(key + "Decor", decor, key);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

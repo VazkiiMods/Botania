@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
@@ -28,8 +27,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
+import vazkii.botania.api.lexicon.multiblock.component.FlowerComponent;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -76,6 +80,23 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private static final int[][] FLOWER_LOCATIONS = new int[][] {
 		{ -1, 0, -1 }, { 1, 0, -1 }, { -1, 0, 1 }, { 1, 0, 1 }
 	};
+
+	public static MultiblockSet makeMultiblockSet() {
+		Multiblock mb = new Multiblock();
+
+		for(int[] o : OBSIDIAN_LOCATIONS)
+			mb.addComponent(o[0], o[1] + 1, o[2], Blocks.obsidian, 0);
+		for(int[] p : PYLON_LOCATIONS[0]) {
+			mb.addComponent(p[0], p[1] + 1, p[2], ModBlocks.pylon, 0);
+			mb.addComponent(new FlowerComponent(new ChunkCoordinates(p[0], p[1], p[2]), ModBlocks.flower));
+		}
+		for(int[] f : FLOWER_LOCATIONS)
+			mb.addComponent(new FlowerComponent(new ChunkCoordinates(f[0], f[1] + 1, f[2]), ModBlocks.flower));
+
+		mb.addComponent(0, 1, 0, Blocks.lapis_block, 0);
+
+		return mb.makeSet();
+	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(stage != 0 || itemToEnchant == null || !itemToEnchant.isItemEnchantable())
@@ -348,16 +369,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				return false;
 
 		for(int[] pylon : PYLON_LOCATIONS[meta])
-			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon ||
-			world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower && world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.shinyFlower)
+			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pylon[0] + x, pylon[1] + y - 1, pylon[2] + z))
 				return false;
 
-		for(int[] flower : FLOWER_LOCATIONS) {
-			Block block = world.getBlock(flower[0] + x, flower[1] + y, flower[2] + z);
-			if(block != ModBlocks.flower && block != ModBlocks.shinyFlower)
+		for(int[] flower : FLOWER_LOCATIONS)
+			if(!BotaniaAPI.internalHandler.isBotaniaFlower(world, flower[0] + x, flower[1] + y, flower[2] + z))
 				return false;
-		}
-
 
 		return true;
 	}

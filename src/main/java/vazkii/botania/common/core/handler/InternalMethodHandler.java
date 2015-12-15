@@ -12,9 +12,12 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -28,11 +31,15 @@ import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -40,6 +47,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lexicon.page.PageBrew;
@@ -48,10 +57,13 @@ import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageLoreText;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
 import buildcraft.api.transport.IPipeTile;
 import cpw.mods.fml.common.Optional;
 
@@ -142,6 +154,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
+	public LexiconPage multiblockPage(String key, MultiblockSet mb) {
+		return new PageMultiblock(key, mb);
+	}
+
+	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
 	}
@@ -169,6 +186,16 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name, res);
+	}
+
+	@Override
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
+		HUDHandler.drawComplexManaHUD(color, mana, maxMana, name, res, bindDisplay, properlyBound);
+	}
+
+	@Override
+	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
+		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.spreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.pool) : new ItemStack(ModItems.twigWand);
 	}
 
 	@Override
@@ -210,5 +237,27 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
+	}
+
+	@Override
+	public boolean hasSolegnoliaAround(Entity e) {
+		return SubTileSolegnolia.hasSolegnoliaAround(e);
+	}
+
+	@Override
+	public long getWorldElapsedTicks() {
+		return Botania.proxy.getWorldElapsedTicks();
+	}
+
+	@Override
+	public boolean isBotaniaFlower(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
+	}
+
+	@Override
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
+		if(player instanceof EntityPlayerMP)
+			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 	}
 }

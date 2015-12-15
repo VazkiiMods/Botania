@@ -211,7 +211,7 @@ public final class RenderHelper {
 		int centerX = x + 8;
 		int centerY = y + 8;
 		int degs = (int) (360 * progress);
-		float a = 0.5F + 0.2F * ((float) Math.cos((double) ClientTickHandler.ticksInGame / 10) * 0.5F + 0.5F);
+		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);

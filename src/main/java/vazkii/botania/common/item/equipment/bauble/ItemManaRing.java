@@ -18,11 +18,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemManaRing extends ItemBauble implements IManaItem {
+public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
 
 	protected static final int MAX_MANA = 500000;
 
@@ -108,6 +109,11 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	@Override
 	public boolean isNoExport(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	public float getManaFractionForDisplay(ItemStack stack) {
+		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
 
 }

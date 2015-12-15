@@ -32,6 +32,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -45,7 +47,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider {
+public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, IManaUsingItem {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -82,6 +84,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		ChunkCoordinates originCoords = getOriginPos(lokiRing);
 		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
+		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		int cursorCount = cursors.size();
+
+		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.posY == -1 && lookPos != null) {
@@ -95,35 +101,33 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 					if(player instanceof EntityPlayerMP)
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				} else {
-					List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 					addCursor : {
-						int relX = lookPos.blockX - originCoords.posX;
-						int relY = lookPos.blockY - originCoords.posY;
-						int relZ = lookPos.blockZ - originCoords.posZ;
+					int relX = lookPos.blockX - originCoords.posX;
+					int relY = lookPos.blockY - originCoords.posY;
+					int relZ = lookPos.blockZ - originCoords.posZ;
 
-						for(ChunkCoordinates cursor : cursors)
-							if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
-								cursors.remove(cursor);
-								setCursorList(lokiRing, cursors);
-								if(player instanceof EntityPlayerMP)
-									PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
-								break addCursor;
-							}
+					for(ChunkCoordinates cursor : cursors)
+						if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
+							cursors.remove(cursor);
+							setCursorList(lokiRing, cursors);
+							if(player instanceof EntityPlayerMP)
+								PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+							break addCursor;
+						}
 
-						addCursor(lokiRing, relX, relY, relZ);
-						if(player instanceof EntityPlayerMP)
-							PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
-					}
+					addCursor(lokiRing, relX, relY, relZ);
+					if(player instanceof EntityPlayerMP)
+						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+				}
 				}
 			}
-		} else if(originCoords.posY == -1 && heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
-			List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
 			for(ChunkCoordinates cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;
 				int y = lookPos.blockY + cursor.posY;
 				int z = lookPos.blockZ + cursor.posZ;
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(x, y, z)) {
+				if(!player.worldObj.isAirBlock(x, y, z) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
@@ -271,6 +275,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(x, y, z));
 		cmp.setInteger(TAG_CURSOR_COUNT, count + 1);
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

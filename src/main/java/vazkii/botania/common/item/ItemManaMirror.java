@@ -23,13 +23,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem {
+public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	IIcon[] icons;
 
@@ -266,6 +267,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		IManaPool pool = getManaPool(stack);
 
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
+	}
+
+	@Override
+	public float getManaFractionForDisplay(ItemStack stack) {
+		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
 
 }

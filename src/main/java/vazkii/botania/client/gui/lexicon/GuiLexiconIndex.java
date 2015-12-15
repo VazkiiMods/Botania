@@ -14,13 +14,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -33,6 +39,9 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
+	private static final String TAG_CATEGORY = "category";
+	private static final String TAG_PAGE = "page";
+
 	LexiconCategory category;
 	String title;
 	int page = 0;
@@ -43,12 +52,24 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	GuiLexicon parent;
 	GuiTextField searchField;
 
+	GuiButton currentButton;
+	LexiconEntry currentEntry;
+	float infoTime;
+
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
+
+	public GuiLexiconIndex() {
+		parent = new GuiLexicon();
+	}
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
-		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 		parent = new GuiLexicon();
+		setTitle();
+	}
+
+	public void setTitle() {
+		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
 	@Override
@@ -104,7 +125,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
 		for(LexiconEntry entry : category == null ? BotaniaAPI.getAllEntries() : category.entries) {
-			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
+			if(entry.isVisible() && lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
 				entriesToDisplay.add(entry);
 		}
 		Collections.sort(entriesToDisplay);
@@ -126,6 +147,13 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		}
 	}
 
+	public void setHoveredButton(GuiButtonInvisible b) {
+		if(b == null)
+			currentEntry = null;
+		else currentEntry = entriesToDisplay.get(b.id + page * 12);
+		currentButton = b;
+	}
+
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
@@ -142,6 +170,68 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
 			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
+
+		float animationTime = 4F;
+		if(isShiftKeyDown()) {
+			if(currentButton != null)
+				infoTime = Math.min(animationTime, infoTime + timeDelta);
+		} else {
+			infoTime = Math.max(0, infoTime - timeDelta);
+
+			if(currentButton != null && infoTime == 0) {
+				int x = par1 + 10;
+				int y = par2;
+
+				x = currentButton.xPosition - 20;
+				y = currentButton.yPosition;
+
+				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
+				GL11.glScalef(0.5F, 0.5F, 1F);
+				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				GL11.glScalef(2F, 2F, 1F);
+			}
+		}
+
+		if(currentButton != null && infoTime > 0) {
+			float fract = infoTime / animationTime;
+
+			int x = currentButton.xPosition;
+			int y = currentButton.yPosition;
+			String s = StatCollector.translateToLocal(currentEntry.getTagline());
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
+			int width = mc.fontRenderer.getStringWidth(s);
+
+			GL11.glPushMatrix();
+			GL11.glTranslatef(x, y, 0);
+			GL11.glScalef(fract, 1F, 1F);
+			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
+			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
+			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
+			mc.fontRenderer.setUnicodeFlag(unicode);
+
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
+
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
+			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
+			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
+
+			if(stacks.size() > 0) {
+				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
+				for(int i = 0; i < stacks.size(); i++) {
+					ItemStack stack = stacks.get(i);
+					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 38 + spaceForEach * i, -28);
+				}
+			}
+
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+
+			GL11.glPopMatrix();
+		}
+
+		setHoveredButton(null);
 	}
 
 	@Override
@@ -176,6 +266,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
+		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 		else
 			switch(par1GuiButton.id) {
 			case 12 :
@@ -281,7 +373,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
-		else if(par2 == 14 && searchField.getText().isEmpty()) // Backspace
+		else if(par2 == 14 && !notesEnabled && searchField.getText().isEmpty()) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
@@ -289,10 +381,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		} else if(par2 == 28 && entriesToDisplay.size() == 1) // Enter
 			openEntry(0);
 
-		String search = searchField.getText();
-		searchField.textboxKeyTyped(par1, par2);
-		if(!searchField.getText().equalsIgnoreCase(search))
-			updateAll();
+		if(!notesEnabled) {
+			String search = searchField.getText();
+			searchField.textboxKeyTyped(par1, par2);
+			if(!searchField.getText().equalsIgnoreCase(search))
+				updateAll();
+		}
 
 		super.keyTyped(par1, par2);
 	}
@@ -317,4 +411,40 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			leftButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
+
+	@Override
+	public void serialize(NBTTagCompound cmp) {
+		super.serialize(cmp);
+		cmp.setString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
+		cmp.setInteger(TAG_PAGE, page);
+	}
+
+	@Override
+	public void load(NBTTagCompound cmp) {
+		super.load(cmp);
+		String categoryStr = cmp.getString(TAG_CATEGORY);
+		if(categoryStr.isEmpty())
+			category = null;
+		else for(LexiconCategory cat : BotaniaAPI.getAllCategories())
+			if(cat.getUnlocalizedName().equals(categoryStr)) {
+				category = cat;
+				break;
+			}
+		page = cmp.getInteger(TAG_PAGE);
+		setTitle();
+	}
+
+	@Override
+	public GuiLexicon copy() {
+		GuiLexiconIndex gui = new GuiLexiconIndex(category);
+		gui.page = page;
+		gui.setTitle();
+		return gui;
+	}
+
+	@Override
+	public String getNotesKey() {
+		return "category_" + (category == null ? "lexindex" : category.unlocalizedName);
+	}
 }
+

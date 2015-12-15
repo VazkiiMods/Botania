@@ -10,8 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.material.Material;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -34,18 +33,13 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public int getSurroundingFlowers() {
-		return 0;
-	}
-
-	@Override
 	public boolean isPassiveFlower() {
 		return false;
 	}
 
 	@Override
-	public Block getBlockToSearchFor() {
-		return Blocks.lava;
+	public Material getMaterialToSearchFor() {
+		return Material.lava;
 	}
 
 	@Override
@@ -60,22 +54,22 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public int getBurnTime() {
-		return 875;
+		return 900;
 	}
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 12;
+		return 20;
 	}
 
 	@Override
 	public int getMaxMana() {
-		return 250;
+		return 500;
 	}
 
 	@Override
 	public int getCooldown() {
-		return 8400;
+		return 6000;
 	}
 
 }

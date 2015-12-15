@@ -64,6 +64,7 @@ public final class LibBlockNames {
 	public static final String RED_STRING_FERTILIZER = "redStringFertilizer";
 	public static final String RED_STRING_COMPARATOR = "redStringComparator";
 	public static final String RED_STRING_RELAY = "redStringRelay";
+	public static final String RED_STRING_INTERCEPTOR = "redStringInterceptor";
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
 	public static final String PRISM = "prism";
@@ -84,15 +85,38 @@ public final class LibBlockNames {
 	public static final String CORPOREA_INTERCEPTOR = "corporeaInterceptor";
 	public static final String CORPOREA_CRYSTAL_CUBE = "corporeaCrystalCube";
 	public static final String INCENSE_PLATE = "incensePlate";
+	public static final String HOURGLASS = "hourglass";
+	public static final String GHOST_RAIL = "ghostRail";
+	public static final String SPARK_CHANGER = "sparkChanger";
+	public static final String ROOT = "root";
+	public static final String FEL_PUMPKIN = "felPumpkin";
+	public static final String COCOON = "cocoon";
+	public static final String LIGHT_RELAY = "lightRelay";
+	public static final String LIGHT_LAUNCHER = "lightLauncher";
+	public static final String MANA_BOMB = "manaBomb";
+	public static final String CACOPHONIUM = "cacophoniumBlock";
+	public static final String BELLOWS = "bellows";
+	public static final String BIFROST_PERM = "bifrostPerm";
+	public static final String PAVEMENT = "pavement";
+	public static final String CELL_BLOCK = "cellBlock";
+	public static final String GAIA_HEAD = "gaiaHeadBlock";
+	public static final String CORPOREA_RETAINER = "corporeaRetainer";
+	public static final String TERU_TERU_BOZU = "teruTeruBozu";
+	public static final String SHIMMERROCK = "shimmerrock";
+	public static final String SHIMMERWOOD_PLANKS = "shimmerwoodPlanks";
+	public static final String AVATAR = "avatar";
+	public static final String ALT_GRASS = "altGrass";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
 
 	public static final String SUBTILE_DAYBLOOM = "daybloom";
+	public static final String SUBTILE_DAYBLOOM_PRIME = "daybloomPrime";
 	public static final String SUBTILE_ENDOFLAME = "endoflame";
 	public static final String SUBTILE_HYDROANGEAS = "hydroangeas";
 	public static final String SUBTILE_THERMALILY = "thermalily";
 	public static final String SUBTILE_NIGHTSHADE = "nightshade";
+	public static final String SUBTILE_NIGHTSHADE_PRIME = "nightshadePrime";
 	public static final String SUBTILE_ARCANE_ROSE = "arcanerose";
 	public static final String SUBTILE_MUNCHDEW = "munchdew";
 	public static final String SUBTILE_ENTROPINNYUM = "entropinnyum";
@@ -100,6 +124,8 @@ public final class LibBlockNames {
 	public static final String SUBTILE_GOURMARYLLIS = "gourmaryllis";
 	public static final String SUBTILE_NARSLIMMUS = "narslimmus";
 	public static final String SUBTILE_SPECTROLUS = "spectrolus";
+	public static final String SUBTILE_DANDELIFEON = "dandelifeon";
+	public static final String SUBTILE_RAFFLOWSIA = "rafflowsia";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
 	public static final String SUBTILE_DREADTHORN = "dreadthorn";

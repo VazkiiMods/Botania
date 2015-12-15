@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -23,7 +25,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.world.WorldTypeSkyblock;
 import cpw.mods.fml.common.Optional;
 
 public class BlockManaFlame extends BlockModContainer {
@@ -76,6 +80,22 @@ public class BlockManaFlame extends BlockModContainer {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
 		return null;
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
+			ItemStack stack = player.getCurrentEquippedItem();
+			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.sapling) && !player.inventory.hasItem(ModItems.lexicon)) {
+				if(!world.isRemote)
+					stack.stackSize--;
+				if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon)))
+					player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.lexicon), false);
+				return true;
+			}
+
+		}
+		return false;
 	}
 
 	@Override

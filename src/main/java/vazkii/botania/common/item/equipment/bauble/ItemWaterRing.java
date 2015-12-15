@@ -58,7 +58,8 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 			if(player.getAir() <= 1 && player instanceof EntityPlayer) {
 				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
-				player.setAir(mana);
+				if(mana > 0) // If zero gets in the player has no air but won't drown.
+					player.setAir(mana);
 			}
 		} else onUnequipped(stack, player);
 	}

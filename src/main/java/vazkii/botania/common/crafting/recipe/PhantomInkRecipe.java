@@ -30,7 +30,7 @@ public class PhantomInkRecipe implements IRecipe {
 				if(stack.getItem() == ModItems.phantomInk && !foundInk)
 					foundInk = true;
 				else if(!foundItem) {
-					if(stack.getItem() instanceof IPhantomInkable)
+					if(stack.getItem() instanceof IPhantomInkable && stack.getItem().getContainerItem(stack) == null)
 						foundItem = true;
 					else return false;
 				} else return false;
@@ -51,11 +51,8 @@ public class PhantomInkRecipe implements IRecipe {
 		}
 
 		IPhantomInkable inkable = (IPhantomInkable) item.getItem();
-		if(inkable.hasPhantomInk(item))
-			return null;
-
 		ItemStack copy = item.copy();
-		inkable.setPhantomInk(copy, true);
+		inkable.setPhantomInk(copy, !inkable.hasPhantomInk(item));
 		return copy;
 	}
 

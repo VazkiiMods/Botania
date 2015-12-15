@@ -19,6 +19,15 @@ public class TileTinyPotato extends TileMod {
 
 	public int jumpTicks = 0;
 	public String name = "";
+	public int nextDoIt = 0;
+
+	public void interact() {
+		jump();
+		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
+			nextDoIt = 40;
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
+		}
+	}
 
 	public void jump() {
 		if(jumpTicks == 0)
@@ -32,6 +41,8 @@ public class TileTinyPotato extends TileMod {
 
 		if(jumpTicks > 0)
 			jumpTicks--;
+		if(nextDoIt > 0)
+			nextDoIt--;
 	}
 
 	@Override

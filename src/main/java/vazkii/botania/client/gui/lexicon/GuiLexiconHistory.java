@@ -13,6 +13,7 @@ package vazkii.botania.client.gui.lexicon;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -41,6 +42,21 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 		if(history.contains(entry))
 			history.remove(entry);
 		history.add(entry);
+	}
+
+	@Override
+	public GuiLexicon copy() {
+		return new GuiLexiconHistory();
+	}
+
+	@Override
+	public void load(NBTTagCompound cmp) {
+		// NO-OP
+	}
+
+	@Override
+	public String getNotesKey() {
+		return "history";
 	}
 
 }

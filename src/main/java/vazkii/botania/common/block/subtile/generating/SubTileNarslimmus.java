@@ -38,7 +38,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		if(ticksExisted % 5 == 0) {
 			List<EntitySlime> slimes = supertile.getWorldObj().getEntitiesWithinAABB(EntitySlime.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE, supertile.zCoord + RANGE + 1));
 			for(EntitySlime slime : slimes) {
-				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED)) {
+				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && !slime.isDead) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 820 * mul;
@@ -70,7 +70,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 	@Override
 	public int getMaxMana() {
-		return 5000;
+		return 8000;
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 				event.entityLiving.getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
 		}
 
-		public boolean isSlimeChunk(World world, int x, int z) {
+		public static boolean isSlimeChunk(World world, int x, int z) {
 			Chunk chunk = world.getChunkFromBlockCoords(x, z);
 			return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
 		}

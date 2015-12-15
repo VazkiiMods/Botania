@@ -35,7 +35,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 110 : 99, 180, 11, 11);
+		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();
 		for(int i = 0; i < 3; i++)

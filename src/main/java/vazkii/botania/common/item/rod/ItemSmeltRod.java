@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -59,7 +60,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer p, int time) {
-		if(!ManaItemHandler.requestManaExact(stack, p, COST_PER_TICK, false))
+		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
@@ -86,7 +87,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								p.worldObj.playSoundAtEntity(p, "fire.ignite", 0.6F, 1F);
 								p.worldObj.playSoundAtEntity(p, "fire.fire", 1F, 1F);
 
-								ManaItemHandler.requestManaExact(stack, p, COST_PER_TICK, true);
+								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p.getGameProfile().getName());
 								decremented = false;
 							}
@@ -103,13 +104,16 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 				}
 
 				if(!decremented)
-					playerData.put(p, new SmeltData(pos, TIME));
-				else for(int i = 0; i < 2; i++) {
-					double x = pos.blockX + Math.random();
-					double y = pos.blockY + Math.random();
-					double z = pos.blockZ + Math.random();
-					p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
-					Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p) ? (int) (TIME * 0.6) : TIME));
+				else {
+					for(int i = 0; i < 2; i++) {
+						double x = pos.blockX + Math.random();
+						double y = pos.blockY + Math.random();
+						double z = pos.blockZ + Math.random();
+						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+					}
+					if(time % 10 == 0)
+						p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

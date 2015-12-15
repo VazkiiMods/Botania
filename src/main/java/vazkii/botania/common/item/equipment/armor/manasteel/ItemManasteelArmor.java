@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,25 +26,33 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import thaumcraft.api.IRunicArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable {
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
+public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
+
+	protected ModelBiped[] models = null;
+	public int type;
 
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
@@ -51,6 +60,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
 		super(mat, 0, type);
+		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 	}
@@ -107,7 +117,36 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
+		if(ConfigHandler.enableArmorModels) {
+			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
+			if(model == null)
+				model = provideArmorModelForSlot(itemStack, armorSlot);
+
+			if(model != null)
+				return model;
+		}
+
+		return super.getArmorModel(entityLiving, itemStack, armorSlot);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
+		if(models == null)
+			models = new ModelBiped[4];
+
+		return models[slot];
+	}
+
+	@SideOnly(Side.CLIENT)
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
+		models[slot] = new ModelArmorManasteel(slot);
+		return models[slot];
 	}
 
 	@Override
@@ -198,7 +237,12 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, true);
+		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
+	@Override
+	@Optional.Method(modid = "Thaumcraft")
+	public int getRunicCharge(ItemStack itemstack) {
+		return 0;
+	}
 }

@@ -33,10 +33,12 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.ModItems;
@@ -88,7 +90,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-			tile.collideEntityItem((EntityItem) par5Entity);
+			if(tile.collideEntityItem((EntityItem) par5Entity))
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 	}
 
@@ -115,7 +118,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					break;
 				}
 			}
-		} else if(tile.isEmpty() && stack == null)
+		} else if(tile.isEmpty() && tile.hasWater && stack == null)
 			tile.trySetLastRecipe(par5EntityPlayer);
 		else {
 			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false))) {
@@ -139,7 +142,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				par1World.func_147453_f(par2, par3, par4, this);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava)) {
+			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.lava_bucket) : new ItemStack(Items.water_bucket);
 				if(stack.stackSize == 1)
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, bucket);
@@ -162,14 +165,30 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
+	public void fillWithRain(World world, int x, int y, int z) {
+		if(world.rand.nextInt(20) == 1) {
+			TileEntity tile = world.getTileEntity(x, y, z);
+			if(tile instanceof TileAltar) {
+				TileAltar altar = (TileAltar) tile;
+				if(!altar.hasLava && !altar.hasWater)
+					altar.setWater(true);
+				world.func_147453_f(x, y, z, this);
+			}
+		}
+	}
+
+	@Override
 	public int damageDropped(int meta) {
 		return meta;
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if (stack.stackSize != 1)
+		if(stack == null || stack.stackSize != 1)
 			return false;
-		if (stack.getItem() instanceof IFluidContainerItem) {
+		if(stack.getItem() == ModItems.waterBowl)
+			return true;
+
+		if(stack.getItem() instanceof IFluidContainerItem) {
 			FluidStack fluidStack = ((IFluidContainerItem) stack.getItem()).getFluid(stack);
 			return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
 		}
@@ -178,6 +197,9 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	private ItemStack getContainer(ItemStack stack) {
+		if(stack.getItem() == ModItems.waterBowl)
+			return new ItemStack(Items.bowl);
+
 		if (stack.getItem().hasContainerItem(stack))
 			return stack.getItem().getContainerItem(stack);
 		else if (stack.getItem() instanceof IFluidContainerItem) {

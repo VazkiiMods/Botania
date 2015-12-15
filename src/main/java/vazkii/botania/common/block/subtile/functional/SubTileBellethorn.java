@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -49,7 +50,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
+			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + 1, supertile.zCoord + range + 1));
 			IEntitySelector selector = getSelector();
 
 			for(EntityLivingBase entity : entities) {
@@ -57,7 +58,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 					continue;
 
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
-					entity.attackEntityFrom(DamageSource.magic, 4);
+					int dmg = 4;
+					if(entity instanceof EntityWitch)
+						dmg = 20;
+
+					entity.attackEntityFrom(DamageSource.magic, dmg);
 					mana -= manaToUse;
 					break;
 				}

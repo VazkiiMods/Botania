@@ -24,14 +24,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.util.RotationHelper;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -63,9 +60,7 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 			did = true;
 		} else if(plateStack != null && !plate.burning) {
 			if(stack != null && stack.getItem() == Items.flint_and_steel) {
-				plate.burning = true;
-				Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(plateStack);
-				plate.timeLeft = brew.getPotionEffects(plateStack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER;
+				plate.ignite();
 				stack.damageItem(1, player);
 				did = true;
 			} else {
@@ -88,6 +83,16 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2);
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+		return ((TileIncensePlate) world.getTileEntity(x, y, z)).comparatorOutput;
 	}
 
 	@Override

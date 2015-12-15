@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -23,11 +24,16 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -37,7 +43,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBlackHoleTalisman extends ItemMod {
+public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_META = "blockMeta";
@@ -103,10 +109,18 @@ public class ItemBlackHoleTalisman extends ItemMod {
 					}
 				}
 			} else {
-				int remove = remove(par1ItemStack, 1);
-				if(remove > 0) {
-					Item.getItemFromBlock(bBlock).onItemUse(new ItemStack(bBlock, 1, bmeta), par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
-					set = true;
+				ForgeDirection dir = ForgeDirection.getOrientation(par7);
+				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
+
+				if(entities == 0) {
+					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
+					if(remove > 0) {
+						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
+						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
+
+						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+						set = true;
+					}
 				}
 			}
 		}
@@ -173,6 +187,15 @@ public class ItemBlackHoleTalisman extends ItemMod {
 	}
 
 	@Override
+	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+		Block block = getBlock(par1ItemStack);
+		int meta = getBlockMeta(par1ItemStack);
+		ItemStack stack = new ItemStack(block, 1, meta);
+
+		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + EnumChatFormatting.GREEN + stack.getDisplayName() + EnumChatFormatting.RESET + ")");
+	}
+
+	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
@@ -232,7 +255,7 @@ public class ItemBlackHoleTalisman extends ItemMod {
 		Block block = getBlock(par1ItemStack);
 		if(block != null && block != Blocks.air) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name") + " (x" + count + ")");
+			par3List.add(count + " " + StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
@@ -270,6 +293,31 @@ public class ItemBlackHoleTalisman extends ItemMod {
 
 	public static int getBlockCount(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
+	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		Block stored = getBlock(stack);
+		int storedMeta = getBlockMeta(stack);
+		if(stored == block && storedMeta == meta) {
+			int count = getBlockCount(stack);
+			if(count > 0) {
+				if(doit)
+					setCount(stack, count - 1);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		Block stored = getBlock(stack);
+		int storedMeta = getBlockMeta(stack);
+		if(stored == block && storedMeta == meta)
+			return getBlockCount(stack);
+		return 0;
 	}
 
 }

@@ -90,4 +90,14 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		return LexiconData.corporeaCrystalCube;
 	}
 
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
+		return ((TileCorporeaCrystalCube) world.getTileEntity(x, y, z)).compValue;
+	}
+
 }

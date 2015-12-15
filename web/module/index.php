@@ -4,20 +4,21 @@
 		<li data-target="#myCarousel" data-slide-to="1"></li>
 		<li data-target="#myCarousel" data-slide-to="2"></li>
 		<li data-target="#myCarousel" data-slide-to="3"></li>
+		<li data-target="#myCarousel" data-slide-to="4"></li>
 	</ol>
 	<div class="carousel-inner">
 		<div class="item active">
-		  <img src="img/ss0.jpg" alt="First slide">
+		  <img src="img/ss0.png" alt="First slide">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Beautifully Presented</h1>
-			  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they have shiny particles and can be used for dying.</p>
+			  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they have shiny particles and can be used for dyeing.</p>
 			  <p><a class="btn btn-lg btn-material-lightgreen" href="./downloads.php" role="button">Download Botania</a></p>
 			</div>
 		  </div>
 		</div>
 		<div class="item">
-		  <img src="img/ss1.jpg" alt="Second slide">
+		  <img src="img/ss1.png" alt="Second slide">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Uniquely Powered</h1>
@@ -27,21 +28,31 @@
 		  </div>
 		</div>
 		<div class="item">
-		  <img src="img/ss2.jpg" alt="Third slide">
+		  <img src="img/ss2.png" alt="Third slide">
 		  <div class="container">
 			<div class="carousel-caption">
-			  <h1>Functionally Immersive</h1>
-			  <p>By utilizing <b>no GUIs</b> in it's design, all of the functionality of Botania is based on in-world interaction, keeping it simple and immersive, while maintaining the ability to create automated systems.</p>
+			  <h1>Immersive &amp; Automatable</h1>
+			  <p>Botania takes the work to the world, with a <b>no GUIs</b> for interaction philosophy and careful design to make sure almost everything is <b>perfectly automatable</b> within itself. Given some thought, of course.</p>
 			  <p><a class="btn btn-lg btn-material-lightgreen" href="./downloads.php" role="button">Download Botania</a></p>
 			</div>
 		  </div>
 		</div>
 		<div class="item">
-		  <img src="img/ss3.jpg" alt="Fourth slide">
+		  <img src="img/ss3.png" alt="Fourth slide">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Thoroughly Documented</h1>
-			  <p>The <b>Lexica Botania</b> is the compedium of knowledge of this mod, easilly craftable in-game via a book and a sapling gives you all the information you'd ever need to know about Botania.</p>
+			  <p>The <b>Lexica Botania</b> is the compedium of knowledge of this mod, easilly craftable in-game via a book and a sapling, it gives you all the information you'd ever need to know about Botania.</p>
+			  <p><a class="btn btn-lg btn-material-lightgreen" href="./downloads.php" role="button">Download Botania</a></p>
+			</div>
+		  </div>
+		</div>
+		<div class="item">
+		  <img src="img/ss4.png" alt="Fifth slide">
+		  <div class="container">
+			<div class="carousel-caption">
+			  <h1>Packed with Content</h1>
+			  <p>With <b>hundreds of different items and blocks</b> and infinite manners of putting them together, Botania is packed with a ton of content. Much more content is hidden under the item list with the challenges it presents.</p>
 			  <p><a class="btn btn-lg btn-material-lightgreen" href="./downloads.php" role="button">Download Botania</a></p>
 			</div>
 		  </div>
@@ -56,13 +67,19 @@
 
 	<div class="row featurette">
 		<div class="col-md-5">
-			<img class="featurette-image img-responsive" src="img/feature0.jpg" alt="Generic placeholder image">
+			<!--<img class="featurette-image img-responsive" src="img/feature0.jpg" alt="Generic placeholder image">-->
+			<video class="featurette-image img-responsive" poster="https://thumbs.gfycat.com/QuestionableAromaticCats-poster.jpg" autoplay="" muted="" loop=""><source id="webmSource" src="https://fat.gfycat.com/QuestionableAromaticCats.webm" type="video/webm"><source id="mp4Source" src="https://giant.gfycat.com/QuestionableAromaticCats.mp4" type="video/mp4">
+				Sorry, your browser doesn't support HTML5 video.
+			</video>
+			<span class="text-muted">A tree farm made purely with Botania. Credit: <a href="https://www.reddit.com/r/feedthebeast/comments/33tb9j/botania_tree_farm">/u/prybulets</a></span>
 		</div>
 		<div class="col-md-7">
 			<h2 class="featurette-heading">Magic, Tech. <span class="text-muted">Naturally.</span></h2>
-			<p class="lead">Botania is a magic tech mod based on nature. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of <i>Mana</i>.<br><br>
+			<p class="lead">Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of <i>Mana</i>.<br><br>
 			
-			The Mana system works through aiming Mana Spreaders into other blocks, because pipes or instantaneous connections are boring.<br><br>
+			Botania is fully playable by itself (and is designed to be played like that), but it functions well with other mods too.<br><br>
+
+			The mod focuses on automation without grinding. By which systems have to be thought out and not just created by following blueprints on NEI or a wiki.<br><br>
 			
 			<b>Botania follows some design rules...</b><br>
 			<span class="glyphicon glyphicon-ok"></span> No pipes, wires or equivalent, they are boring and overdone;<br>
@@ -71,6 +88,7 @@
 			<span class="glyphicon glyphicon-ok"></span> Provide pleasing visuals utilizing only two different particle effects;<br>
 			<span class="glyphicon glyphicon-ok"></span> Utilize or provide renewable resources where possible.<br><br>
 			<b>With a few goals in mind...</b><br>
+			<span class="glyphicon glyphicon-ok"></span> Break the norm of mods being means to an end, by being engaging in play, not only reward;<br>
 			<span class="glyphicon glyphicon-ok"></span> Deliver fun and balanced gameplay, without the use of grinding;<br>
 			<span class="glyphicon glyphicon-ok"></span> Incentivize sandbox gameplay and the creation of fun contraptions;<br>
 			<span class="glyphicon glyphicon-ok"></span> Provide an immersive experience overall.<br>
@@ -85,29 +103,30 @@
 <div class="row featurette">
 	<div class="col-md-7">
 		<h2 class="featurette-heading">Not convinced yet? <span class="text-muted">Check out some videos.</span></h2>
-		<div class="video-intro">WTFG33ks' fast paced spotlights cover a good part of the mod.</div>
+		<div class="video-intro">Riskable and Jansey's tutorials are a great way to see what you can do with the mod.</div>
 		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/eElyj6S8ggs" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/-9PZgC00aK8" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/myYI32o2J1M" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/GM_BLKkiCF8" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/8E-9HMsTiKU" frameborder="0" allowfullscreen></iframe>
+		
+			<iframe src="//www.youtube.com/embed/21wLyza082Q" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/bDtoajbSCh0" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/QBOgWz_enQQ" frameborder="0" allowfullscreen></iframe>
 		</div>
-		<div class="video-intro">Haighyorkie's 11 part spotlight covers most of the mod, if you have the time to watch it :-)</div>
-		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/Id_gS5eoRmI" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/T-0ZVlLd1MY" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/JLX_HmlXFZA" frameborder="0" allowfullscreen></iframe><br>
-			<iframe src="//www.youtube.com/embed/W9EGTdakYeY" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/BLna8Hfw69k" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/MQZZmsl4o1o" frameborder="0" allowfullscreen></iframe><br>
-			<iframe src="//www.youtube.com/embed/7mwCLWJ9G5U" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/qTSPOTxbU7M" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/m6FivAsnUxs" frameborder="0" allowfullscreen></iframe><br>
-			<iframe src="//www.youtube.com/embed/0X4w6wBAEOg" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/RDiY6Ltbcos" frameborder="0" allowfullscreen></iframe>
-		</div>
-		<div class="video-intro">Direwolf20's 2 part spotlight is a good getting started guide to Botania.</div>
+		<div class="video-intro">If you prefer a more traditional assessment, try Direwolf20's spotlight. Note: might be outdated.</div>
 		<div class="lead youtube">
 			<iframe src="//www.youtube.com/embed/ixIVMYrbpaw" frameborder="0" allowfullscreen></iframe>
 			<iframe src="//www.youtube.com/embed/bpM_MSJZY2o" frameborder="0" allowfullscreen></iframe>
+
+			<iframe src="//www.youtube.com/embed/igyN7rkx17E" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/Z2tlGSqZaE4" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/H8-3_U6tvas" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<div class="video-intro">Looking for a Let's Play? Check out Vanhal's Garden of Glass (optional botania skyblock mode) LP.</div>
+		<div class="lead youtube">
+			<iframe src="//www.youtube.com/embed/JD7WZ1Vab-w" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/YBNAqJYemxQ" frameborder="0" allowfullscreen></iframe>
+			<iframe src="//www.youtube.com/embed/SN0rxfvOiJM" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 </div>

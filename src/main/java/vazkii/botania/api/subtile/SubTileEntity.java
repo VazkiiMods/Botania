@@ -40,6 +40,11 @@ public class SubTileEntity {
 
 	public int ticksExisted = 0;
 
+	/** true if this flower is working on Enchanted Soil **/
+	public boolean overgrowth = false;
+	/** true if this flower is working on Enchanted Soil and this is the second tick **/
+	public boolean overgrowthBoost = false;
+
 	/** The Tag items should use to store which sub tile they are. **/
 	public static final String TAG_TYPE = "type";
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
@@ -192,4 +197,34 @@ public class SubTileEntity {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		// NO-OP
 	}
+
+	/**
+	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
+	 */
+	public int getLightValue() {
+		return -1;
+	}
+
+	/**
+	 * Gets the comparator input value for this SubTileEntity
+	 */
+	public int getComparatorInputOverride(int side) {
+		return 0;
+	}
+
+	/**
+	 * Gets the redstone power level for this SubTileEntity
+	 */
+	public int getPowerLevel(int side) {
+		return 0;
+	}
+
+	/**
+	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.
+	 */
+	public boolean isOvergrowthAffected() {
+		return true;
+	}
+
+
 }

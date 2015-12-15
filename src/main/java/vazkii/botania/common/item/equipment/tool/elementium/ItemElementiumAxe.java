@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +16,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -39,7 +42,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
 					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));
-				else if(event.entityLiving instanceof EntityZombie && rand.nextInt(26) <= 2 + 2 * looting)
+				else if(event.entityLiving instanceof EntityZombie && !(event.entityLiving instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 2));
 				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
@@ -47,7 +50,8 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 					ItemStack stack = new ItemStack(Items.skull, 1, 3);
 					ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer)event.entityLiving).getCommandSenderName());
 					addDrop(event, stack);
-				}
+				} else if(event.entityLiving instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
+					addDrop(event, new ItemStack(ModItems.gaiaHead));
 			}
 		}
 	}

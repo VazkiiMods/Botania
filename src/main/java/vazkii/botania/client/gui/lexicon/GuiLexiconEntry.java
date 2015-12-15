@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:47:06 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon;
@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
@@ -24,6 +25,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -36,7 +38,11 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
+	private static final String TAG_ENTRY = "entry";
+	private static final String TAG_PAGE = "page";
+
 	public int page = 0;
+	public boolean firstEntry = false;
 	LexiconEntry entry;
 	GuiScreen parent;
 	String title;
@@ -44,9 +50,22 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	GuiButton leftButton, rightButton, backButton;
 
+	public GuiLexiconEntry() {
+		parent = new GuiLexicon();
+		setTitle();
+	}
+
 	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
 		this.entry = entry;
 		this.parent = parent;
+		setTitle();
+	}
+
+	public void setTitle() {
+		if(entry == null) {
+			title = "(null)";
+			return;
+		}
 
 		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
 		if(entry instanceof IAddonEntry)
@@ -63,7 +82,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 		if(entry.getWebLink() != null)
-			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
+			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 12));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -116,6 +135,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
+		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 		else
 			switch(par1GuiButton.id) {
 			case 0 :
@@ -141,7 +162,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				break;
 			case 3 :
 				Minecraft mc = Minecraft.getMinecraft();
-				String cmd = "/botania-share " + entry.unlocalizedName;
+				String cmd = "/botania-share " + entry.getUnlocalizedName();
 
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
 				mc.thePlayer.sendChatMessage(cmd);
@@ -159,9 +180,16 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		currentPage.onActionPerformed(this, par1GuiButton);
 	}
 
+	public GuiLexiconEntry setFirstEntry() {
+		firstEntry = true;
+		return this;
+	}
+
 	public void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page + 1 < entry.pages.size();
+		if(firstEntry)
+			backButton.enabled = !rightButton.enabled;
 	}
 
 	@Override
@@ -174,9 +202,10 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public void updateScreen() {
+		super.updateScreen();
+
 		LexiconPage page = entry.pages.get(this.page);
 		page.updateScreen(this);
-
 
 		if(this.page == entry.pages.size() - 1) {
 			LexiconEntry entry = tutorial.peek();
@@ -284,21 +313,24 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
+		handleNoteKey(par1, par2);
+
 		LexiconPage page = entry.pages.get(this.page);
 		page.onKeyPressed(par1, par2);
 
-		if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
+		if(par2 == 1) {
+			mc.displayGuiScreen((GuiScreen)null);
+			mc.setIngameFocus();
+		} else if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
-		else if(par2 == 14) // Backspace
+		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
 		}
-
-		super.keyTyped(par1, par2);
 	}
 
 	void back() {
@@ -312,6 +344,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.func_146113_a(mc.getSoundHandler());
+			updateNote();
 		}
 	}
 
@@ -319,7 +352,15 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.func_146113_a(mc.getSoundHandler());
+			updateNote();
 		}
+	}
+
+	void updateNote() {
+		String key = getNotesKey();
+		if(!notes.containsKey(key))
+			note = "";
+		else note = notes.get(key);
 	}
 
 	@Override
@@ -340,5 +381,41 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	@Override
 	public float getTickDelta() {
 		return timeDelta;
+	}
+
+	@Override
+	public void serialize(NBTTagCompound cmp) {
+		super.serialize(cmp);
+		cmp.setString(TAG_ENTRY, entry.getUnlocalizedName());
+		cmp.setInteger(TAG_PAGE, page);
+	}
+
+	@Override
+	public void load(NBTTagCompound cmp) {
+		super.load(cmp);
+
+		String entryStr = cmp.getString(TAG_ENTRY);
+		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
+			if(entry.getUnlocalizedName().equals(entryStr)) {
+				this.entry = entry;
+				break;
+			}
+
+		page = cmp.getInteger(TAG_PAGE);
+
+		setTitle();
+	}
+
+	@Override
+	public GuiLexicon copy() {
+		GuiLexiconEntry gui = new GuiLexiconEntry(entry, new GuiScreen());
+		gui.page = page;
+		gui.setTitle();
+		return gui;
+	}
+
+	@Override
+	public String getNotesKey() {
+		return "entry_" + entry.unlocalizedName + "_" + page;
 	}
 }

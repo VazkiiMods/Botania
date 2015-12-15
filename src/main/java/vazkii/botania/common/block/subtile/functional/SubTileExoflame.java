@@ -18,8 +18,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileExoflame extends SubTileFunctional {
 
@@ -31,6 +33,7 @@ public class SubTileExoflame extends SubTileFunctional {
 		super.onUpdate();
 
 		boolean did = false;
+		int cost = 300;
 
 		fireFurnaces : {
 			for(int i = -RANGE; i < RANGE + 1; i++)
@@ -51,28 +54,29 @@ public class SubTileExoflame extends SubTileFunctional {
 										if(furnace.furnaceBurnTime == 0)
 											BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
 										furnace.furnaceBurnTime = 200;
+										mana = Math.max(0, mana - cost);
 									}
 									if(ticksExisted % 2 == 0)
 										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
 
-									mana -= 2;
 									did = true;
 
-									if(mana == 0)
+									if(mana <= 0)
 										break fireFurnaces;
 								}
 							} else if(tile instanceof IExoflameHeatable) {
 								IExoflameHeatable heatable = (IExoflameHeatable) tile;
 
 								if(heatable.canSmelt() && mana > 2) {
-									if(heatable.getBurnTime() == 0)
+									if(heatable.getBurnTime() == 0) {
 										heatable.boostBurnTime();
+										mana = Math.max(0, mana - cost);
+									}
+
 									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
 
-									mana -= 2;
-
-									if(mana == 0)
+									if(mana <= 0)
 										break fireFurnaces;
 								}
 							}
@@ -84,7 +88,7 @@ public class SubTileExoflame extends SubTileFunctional {
 			sync();
 	}
 
-	public boolean canFurnaceSmelt(TileEntityFurnace furnace){
+	public static boolean canFurnaceSmelt(TileEntityFurnace furnace){
 		if(furnace.getStackInSlot(0) == null)
 			return false;
 		else {
@@ -117,6 +121,11 @@ public class SubTileExoflame extends SubTileFunctional {
 	@Override
 	public int getColor() {
 		return 0x661600;
+	}
+
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.exoflame;
 	}
 
 }

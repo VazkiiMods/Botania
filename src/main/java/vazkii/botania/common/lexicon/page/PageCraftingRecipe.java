@@ -70,7 +70,6 @@ public class PageCraftingRecipe extends PageRecipe {
 		IRecipe recipe = recipes.get(recipeAt);
 		renderCraftingRecipe(gui, recipe);
 
-
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
 
@@ -109,6 +108,9 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
@@ -177,5 +179,14 @@ public class PageCraftingRecipe extends PageRecipe {
 		}
 
 		renderItemAtGridPos(gui, 2, 0, recipe.getRecipeOutput(), false);
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(IRecipe r : recipes)
+			list.add(r.getRecipeOutput());
+
+		return list;
 	}
 }

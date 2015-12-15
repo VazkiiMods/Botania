@@ -37,7 +37,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
 
-	IIcon elucidatorIcon;
+	public static IIcon elucidatorIcon;
 
 	public ItemManasteelSword() {
 		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SWORD);
@@ -76,7 +76,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	@Override
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return par1ItemStack.getDisplayName().equalsIgnoreCase("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
+		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
+		return name.equals("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
 	}
 
 	@Override

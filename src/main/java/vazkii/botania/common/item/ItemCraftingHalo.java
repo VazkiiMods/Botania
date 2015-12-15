@@ -33,6 +33,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -42,6 +43,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -50,6 +52,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -62,12 +66,12 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCraftingHalo extends ItemMod {
+public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_PINK);
+	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.crafting_table);
 
-	private static final int SEGMENTS = 12;
+	public static final int SEGMENTS = 12;
 
 	private static final String TAG_LAST_CRAFTING = "lastCrafting";
 	private static final String TAG_STORED_RECIPE_PREFIX = "storedRecipe";
@@ -76,10 +80,14 @@ public class ItemCraftingHalo extends ItemMod {
 	private static final String TAG_ROTATION_BASE = "rotationBase";
 
 	public ItemCraftingHalo() {
-		setUnlocalizedName(LibItemNames.CRAFTING_HALO);
-		setMaxStackSize(1);
+		this(LibItemNames.CRAFTING_HALO);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
+	}
+
+	public ItemCraftingHalo(String name) {
+		setUnlocalizedName(name);
+		setMaxStackSize(1);
 	}
 
 	@Override
@@ -92,10 +100,16 @@ public class ItemCraftingHalo extends ItemMod {
 		else {
 			if(itemForPos == null)
 				assignRecipe(stack, itemForPos, segment);
-			else tryCraft(player, stack, segment);
+			else tryCraft(player, stack, segment, true, getFakeInv(player), true);
 		}
 
 		return stack;
+	}
+
+	public static IInventory getFakeInv(EntityPlayer player) {
+		GenericInventory tempInv = new GenericInventory("temp", false, player.inventory.getSizeInventory() - 4);
+		tempInv.copyFrom(player.inventory);
+		return tempInv;
 	}
 
 	@Override
@@ -112,11 +126,17 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 	}
 
-	private void tryCraft(EntityPlayer player, ItemStack stack, int slot) {
-		ItemStack[] recipe = validateRecipe(player, stack, getCraftingItems(stack, slot), slot);
+	void tryCraft(EntityPlayer player, ItemStack stack, int slot, boolean particles, IInventory inv, boolean validate) {
+		ItemStack itemForPos = getItemForSlot(stack, slot);
+		if(itemForPos == null)
+			return;
 
-		if(canCraft(player, recipe))
-			doCraft(player, recipe);
+		ItemStack[] recipe = getCraftingItems(stack, slot);
+		if(validate)
+			recipe = validateRecipe(player, stack, recipe, slot);
+
+		if(canCraft(player, recipe, inv))
+			doCraft(player, recipe, particles);
 	}
 
 	private static ItemStack[] validateRecipe(EntityPlayer player, ItemStack stack, ItemStack[] recipe, int slot) {
@@ -138,19 +158,23 @@ public class ItemCraftingHalo extends ItemMod {
 		return recipe;
 	}
 
-	private static boolean canCraft(EntityPlayer player, ItemStack[] recipe) {
+	private static boolean canCraft(EntityPlayer player, ItemStack[] recipe, IInventory inv) {
 		if(recipe == null)
 			return false;
 
-		GenericInventory tempInv = new GenericInventory("temp", false, player.inventory.getSizeInventory());
-		tempInv.copyFrom(player.inventory);
-		return consumeRecipeIngredients(recipe, tempInv, null);
+		if(recipe[9].stackSize != InventoryHelper.testInventoryInsertion(inv, recipe[9], ForgeDirection.UNKNOWN))
+			return false;
+
+		return consumeRecipeIngredients(recipe, inv, null);
 	}
 
-	private static void doCraft(EntityPlayer player, ItemStack[] recipe) {
+	private static void doCraft(EntityPlayer player, ItemStack[] recipe, boolean particles) {
 		consumeRecipeIngredients(recipe, player.inventory, player);
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
 			player.dropPlayerItemWithRandomChoice(recipe[9], false);
+
+		if(!particles)
+			return;
 
 		Vec3 lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
@@ -281,7 +305,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = event.player.inventory.getStackInSlot(i);
-			if(stack != null && stack.getItem() == this)
+			if(stack != null && stack.getItem() instanceof ItemCraftingHalo)
 				saveRecipeToStack(event, stack);
 		}
 	}
@@ -370,7 +394,7 @@ public class ItemCraftingHalo extends ItemMod {
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack stack = player.getCurrentEquippedItem();
-		if(stack != null && stack.getItem() == this)
+		if(stack != null && stack.getItem() instanceof ItemCraftingHalo)
 			render(stack, player, event.partialTicks);
 	}
 
@@ -431,11 +455,11 @@ public class ItemCraftingHalo extends ItemMod {
 				} else {
 					GL11.glScalef(0.75F, 0.75F, 0.75F);
 					GL11.glTranslatef(0F, 0F, 0.5F);
+					GL11.glRotatef(90F, 0F, 1F, 0F);
 					int renderPass = 0;
 					do {
 						IIcon icon = slotStack.getItem().getIcon(slotStack, renderPass);
 						if(icon != null) {
-							GL11.glRotatef(90F, 0F, 1F, 0F);
 							Color color = new Color(slotStack.getItem().getColorFromItemStack(slotStack, renderPass));
 							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 							float f = icon.getMinU();
@@ -463,7 +487,9 @@ public class ItemCraftingHalo extends ItemMod {
 				GL11.glColor4f(0.6F, 0.6F, 0.6F, a);
 			else GL11.glColor4f(1F, 1F, 1F, a);
 
-			mc.renderEngine.bindTexture(glowTexture);
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
+			mc.renderEngine.bindTexture(item.getGlowResource());
 			tess.startDrawingQuads();
 			for(int i = 0; i < segAngles; i++) {
 				float ang = i + seg * segAngles + shift;
@@ -481,10 +507,15 @@ public class ItemCraftingHalo extends ItemMod {
 			}
 			y0 = 0;
 			tess.draw();
-
+			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public ResourceLocation getGlowResource() {
+		return glowTexture;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -558,13 +589,18 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 		int yoff = 110;
-		if(setRecipe && !canCraft(player, recipe)) {
+		if(setRecipe && !canCraft(player, recipe, getFakeInv(player))) {
 			String warning = EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.cantCraft");
 			mc.fontRenderer.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
 		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.craftingHaloCraft;
 	}
 
 }

@@ -38,6 +38,7 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -71,29 +72,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
 			if(tile instanceof IWandBindable) {
 				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
-					if(par3World.isRemote) {
-						Vector3 orig = new Vector3(boundTile.posX + 0.5, boundTile.posY + 0.5, boundTile.posZ + 0.5);
-						Vector3 end = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
-						Vector3 diff = end.copy().sub(orig);
-						Vector3 movement = diff.copy().normalize().multiply(0.05);
-						int iters = (int) (diff.mag() / movement.mag());
-						float huePer = 1F / iters;
-						float hueSum = (float) Math.random();
-
-						Vector3 currentPos = orig.copy();
-						for(int i = 0; i < iters; i++) {
-							float hue = i * huePer + hueSum;
-							Color color = Color.getHSBColor(hue, 1F, 1F);
-							float r = color.getRed() / 255F;
-							float g = color.getGreen() / 255F;
-							float b = color.getBlue() / 255F;
-
-							Botania.proxy.setSparkleFXNoClip(true);
-							Botania.proxy.sparkleFX(par3World, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
-							Botania.proxy.setSparkleFXNoClip(false);
-							currentPos.add(movement);
-						}
-					}
+					Vector3 orig = new Vector3(boundTile.posX + 0.5, boundTile.posY + 0.5, boundTile.posZ + 0.5);
+					Vector3 end = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
+					doParticleBeam(par3World, orig, end);
 
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, boundTile.posX, boundTile.posY, boundTile.posZ);
 					setBoundTile(par1ItemStack, 0, -1, 0);
@@ -116,6 +97,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 			if(meta != -1 && !par3World.isRemote) {
 				par3World.setBlock(par4, par5, par6, ModBlocks.enchanter, meta, 1 | 2);
+				par2EntityPlayer.addStat(ModAchievements.enchanterMake, 1);
 				par3World.playSoundEffect(par4, par5, par6, "botania:enchanterBlock", 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
@@ -161,11 +143,35 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
 
-			if(par3World.isRemote)
-				par2EntityPlayer.swingItem();
+			par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
 		}
 
 		return false;
+	}
+
+	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {
+		if(!world.isRemote)
+			return;
+
+		Vector3 diff = end.copy().sub(orig);
+		Vector3 movement = diff.copy().normalize().multiply(0.05);
+		int iters = (int) (diff.mag() / movement.mag());
+		float huePer = 1F / iters;
+		float hueSum = (float) Math.random();
+
+		Vector3 currentPos = orig.copy();
+		for(int i = 0; i < iters; i++) {
+			float hue = i * huePer + hueSum;
+			Color color = Color.getHSBColor(hue, 1F, 1F);
+			float r = color.getRed() / 255F;
+			float g = color.getGreen() / 255F;
+			float b = color.getBlue() / 255F;
+
+			Botania.proxy.setSparkleFXNoClip(true);
+			Botania.proxy.sparkleFX(world, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
+			Botania.proxy.setSparkleFXNoClip(false);
+			currentPos.add(movement);
+		}
 	}
 
 	@Override
@@ -276,7 +282,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_BIND_MODE, false);
+		return ItemNBTHelper.getBoolean(stack, TAG_BIND_MODE, true);
 	}
 
 	public static void setBindMode(ItemStack stack, boolean bindMode) {

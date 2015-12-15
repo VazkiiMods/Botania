@@ -57,7 +57,7 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 1 : { // Water
-			if(!player.worldObj.isRemote)
+			if(!player.worldObj.isRemote && !player.worldObj.provider.isHellWorld)
 				player.worldObj.setBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), Blocks.flowing_water);
 			break;
 		}
@@ -72,9 +72,12 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 4 : { // Mega Jump
-			if(!player.worldObj.isRemote)
-				player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
-			player.motionY = 6;
+			if(!player.worldObj.provider.isHellWorld) {
+				if(!player.worldObj.isRemote)
+					player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
+				player.motionY = 6;
+			}
+
 			break;
 		}
 		case 5 : { // Randomly set HP
@@ -102,7 +105,6 @@ public class ItemBottledMana extends ItemMod {
 		case 8 : { // Break your neck
 			player.rotationPitch = (float) Math.random() * 360F;
 			player.rotationYaw = (float) Math.random() * 180F;
-
 
 			break;
 		}

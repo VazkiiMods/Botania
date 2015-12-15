@@ -29,7 +29,6 @@ public class EntityFlameRing extends Entity {
 		super(world);
 	}
 
-
 	@Override
 	protected void entityInit() {
 		setSize(0F, 0F);

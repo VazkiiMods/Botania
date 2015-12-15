@@ -20,6 +20,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -43,6 +45,20 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	private static final String TAG_MANA = "mana";
 
 	int mana;
+
+	public static MultiblockSet makeMultiblockSet() {
+		Multiblock mb = new Multiblock();
+
+		for(int[] l : LAPIS_BLOCKS)
+			mb.addComponent(l[0], 0, l[1], Blocks.lapis_block, 0);
+		for(int[] l : LIVINGROCK_BLOCKS)
+			mb.addComponent(l[0], 0, l[1], ModBlocks.livingrock, 0);
+
+		mb.addComponent(0, 1, 0, ModBlocks.terraPlate, 0);
+		mb.setRenderOffset(0, 1, 0);
+
+		return mb.makeSet();
+	}
 
 	@Override
 	public void updateEntity() {
@@ -74,6 +90,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 					mana = 0;
+					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 				}
 			}
@@ -185,6 +202,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
+		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
 
 	@Override

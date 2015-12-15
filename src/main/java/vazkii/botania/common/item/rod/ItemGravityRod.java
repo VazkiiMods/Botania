@@ -22,6 +22,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -122,7 +123,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 			}
 
-			if(ManaItemHandler.requestManaExact(stack, player, COST, true) && item != null) {
+			if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true) && item != null) {
 				if(item instanceof EntityItem)
 					((EntityItem)item).delayBeforeCanPickup = 5;
 
@@ -209,9 +210,10 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
 					if(item instanceof EntityItem) {
 						((EntityItem)item).delayBeforeCanPickup = 20;
-						item.motionX = moveVector.x * 1.5F;
-						item.motionY = moveVector.y * 1.0F;
-						item.motionZ = moveVector.z * 1.5F;
+						float mot = IManaProficiencyArmor.Helper.hasProficiency(player) ? 2.25F : 1.5F;
+						item.motionX = moveVector.x * mot;
+						item.motionY = moveVector.y;
+						item.motionZ = moveVector.z * mot;
 						if(!player.worldObj.isRemote) {
 							EntityThrownItem thrown = new EntityThrownItem(item.worldObj, item.posX, item.posY, item.posZ, (EntityItem) item);
 							item.worldObj.spawnEntityInWorld(thrown);

@@ -1,3 +1,635 @@
+r1.8 243
+*Added NEI integration for the Lexica Botania, it sometiles also tells you which entry something is in and gives you little tidbits of info like how to make livingwood/livingrock or terrasteel.
+*Added recipe indicators (the items that appear when you hover shift on an entry's name) to a few entries that don't have direct recipes. (like pure daisy or ender air)
+*Fixed a crash if Red Stringed Interceptors are triggered too fast.
+*Fixed double tall flowers not respecting alternate textures. (yrsegal)
+*Fixed the Corporea Funnel ignoring an inventory 2 blocks below it if there's another Corporea Funnel directly below it. (yrsegal)
+*Fixed the Gaia Guardian not being able to be summoned with Et Futurum and Chisel beacons. (yrsegal)
+*Mana Pools are now dyed by right clicking with Floral Powder, not dropping it. On other news, you'll no longer dye your pool while making Mana Powder, yay!
+*NEI integration for Elven Trade no longer requires a Lexica Botania with Elven Knowledge on your inventory.
+*(Internal) ItemBlockSpecialFlower lexicon mappings are now prefixed by "flower.".
+*(Internal) The extra info feature for the lexica botania NEI integration can be used by adding a key to a lang file, in the following format: "botania.nei.quickInfo:" + the lexicon mapping key. You can find it by pressing CTRL+SHIFT in the NEI Lexica Botania entry for an item if F3+H is enabled.
+*[API] Added addExtraDisplayedRecipe() to LexiconEntry so more recipe indicators can be added without being linked to a page.
+*[API] Increased version number to 73.
+r1.8 242
+*Fixed the Terra Shatterer not working when the player has full Terrasteel Armor and their first available Mana Tablet isn't full and is in a hotbar slot before the Terra Shatterer.
+*[API] Added IManaGivingItem to help track which items should be blacklisted from the Terra Shatterer.
+*[API] Increased version number to 72.
+r1.8 241
+*Fixed a crash when some odd items are dropped around a Ring of Magnetization.
+*Fixed the Config Adaptor trying to modify correct values and spamming you about it in the chat.
+*[API] Implemented a recursion limiter to the magnet ring's blacklist functions for pesky items that intercept getItemDamage().
+*[API] Increased version number to 71.
+r1.8 240
+*Fixed the Mana Pool achievement. Since it's one of the first achievements it's really annyoing if it's broken :V
+r1.8 239
+*Fixed a crash when right clicking a spark with an empty hand.
+*Fixed patreon flowers not rendering on players properly unless there's a named tiny potato around. <i>For real.</i>
+*Fixed the Rune of Air recipe not being adapted fully to the new pattern.
+*Fixed using a Rod of the Unstable Reservoir with a Livingwood Avatar crashing the game if it kills a named mob while CoFHCore's "alert named mob kills" config is enabled. <i>And people ask me why compatibility is so hard...</i>
+r1.8 238
+*<b>This update warrants a major version increase due to the sheer number of tweaks and changes that overall make the game better. This update's objective is to polish any roughness around the edges the mod might have had and to get it to a great state for newer and older players alike. Despite it being somewhat long, I would advise you to read it all, lest some small change trip you up.</b>
+*Added a "SHIFT to stop animation" tidbit to Rune and Petal pages.
+*Added a config option to invert the Ring of Magnetization's controls.
+*Added a proper HUD to the Petal Apothecary and Runic Altar that shows you what is currently in it and what you're crafting.
+*Added an Adaptative Config system, which changes your config options for you if you are using default values from old versions. helping you get the new changes without having to delete configs. You can turn this off in the config if you don't like it.
+*Added Mana Powder as a new crafting material.
+*Added the Fabulous Mana Pool. A new rainbow Mana Pool variant crafted with Shimmerrock. <i>Yes that is its name.</i>
+*Blazes spawned by a Fel Pumpkin (Garden of Glass) drop more Blaze Powder now.
+*Changed a bunch of details in the lexicon all over the place to make it a lot easier to understand.
+*Changed almost all flower recipes to follow a new "no more than 4 different petals per flower" rule, effectively simplifying flower crafting.
+*Changed how crossmod/addon entries' titles look.
+*Changed the Bore Lens recipe to be a lot easier to make.
+*Changed the mana costs for runes in the Runic Altar.
+*Changed the recipes for Terrasteel Armor.
+*Changed tier 1 rune recipes to use Mana Powder and only make 2 per.
+*Changed tier 3 rune recipes to only make 1 per.
+*Danked some memes.
+*Dayblooms and Nightshades about twice as strong now.
+*Disabled the tutorial video until there's one that's updated with the new changes.
+*Documented properly the fact that buried petals can be used to grow tall flowers.
+*Fixed a crash when removing bookmarks.
+*Fixed creating Manasteel in bulk blocks taking 10x as much instead of 9x as much. (TheWhiteWolves)
+*Fixed Mana Pools not updating their comparator output properly when mana is being taken from them.
+*Fixed the Manaseer Monocle's range viewing functionality rendering as a gray square when used alongside other mods that use GL_LIGHTING, like Neat.
+*Fixed the new grass types not having a properly lexicon linking. (TheWhiteWolves)
+*Fixed the Petal Apothecary sometimes desyncing with the client.
+*Fixed Thermalilies not writing their cooldown to NBT properly.
+*Flowers' tooltips now tell you what type of flower they are.
+*Increased the Thermalily's production rate, time and lowered its cooldown (to 5 minutes).
+*Lowered (by a bunch) the amount of flowers that are generated in the world.
+*Lowered the Pure Daisy's craft time to 60 seconds (from 80).
+*Made a bunch of entries priority entries (italicized) to help lead new players into the important stuff without bogging down the tutorial.
+*Made the runic altar's floaty cube animation smoother. <i>144hz master race.</i>
+*Made the Zoom text in Rune and Mana Infusion pages more clear. 
+*Removed a bunch of needless entries from the Tutorial to make it faster to get started.
+*Removed diminishing returns for passive flowers.
+*Removed Mana Petals. Any recipes that used them previously have been tweaked.
+*Rewrote the "Welcome to Botania" entry to be a lot more concise and help new players better.
+*Right clicking a Runic Altar with Livingrock now places it on top perfectly centered. (same for the T.A. Plate and relevant items)
+*Runes used for recipes in the Runic Altar are now given back upon the recipe's completion.
+*Sparks can now be dyed with Phantom Ink to make them highly translucent.
+*Terrasteel armor now has Knockback Resistance as an attribute and Passive Mana Generation (like a Band of Aura) as a set bonus.
+*The Diluted Mana Pool can now infuse items just like the normal one.
+*The Diluted Mana Pool is no longer a required part of progression, you can craft the normal one with the old diluted recipe and the diluted one with slabs instead.
+*The Fel Pumpkin is now part of botania itself and not Garden of Glass.
+*The Petal Apothecary now fills up with rain like vanilla Cauldrons do.
+*The Ring of Magnetization will no longer pull items that are on top of Mana Pools or Runic Altars.
+*The Runic Altar no longer needs a wand interaction to be started.
+*The Thermalily now resets its cooldown back to 5 minutes if it absorbs any lava while it's in cooldown.
+*The Wand of the Forest now comes in Bind Mode when crafted.
+*[API] Added a proper blacklist for the ring of magnetization.
+*[API] Added BotaniaTutorialStartEvent. It does exactly what you think it does.
+*[API] Added a @PassiveFlower annotation for detection of passives without creating an instance. Used for SubTileSignatures.
+*[API] Changed BasicSignature to include a getType() function for the tootlip.
+*[API] Exposed SubTileSolegnolia.hasSolegnoliaAround() to the internal method handler.
+*[API] Increased version number to 70.
+r1.7 237
+*Fixed the Gaia Guardian spawning on the client side when it shouldn't.
+*The Brew of Overload has a larger Weakness period now.
+*The Damage Lens now deals more damage.
+*The Fruit of Grisaia uses less mana now.
+*The Gaia Guardian's damage cap now is higher to accommodate for Overload Brews. HP remains the same.
+*The Rosa Arcana now produces and holds more mana.
+*The Spectrolus now produces and holds more mana.
+r1.7 236
+*Added Chisel stone support to the Rod of the Terra Firma.
+*Added floating flower variants to all the new pasture seed types.
+*Added the Bauble Case, a way of storing baubles on your person.
+*Added the Planestrider's Sash, a new belt item that gives you more speed the more you walk.
+*Buffed the amount of damage the Key of the King's Law does.
+*Fixed Botania armor models not resetting the "using a bow" state.
+*Fixed Botania grass types not spreading.
+*Fixed Featherfall disabling the Flugel Tiara's glide. (TheWhiteWolves)
+*Fixed items getting destroyed if they're left in a crafting table when the lexicon's Ctrl lookup feature is used. 
+*Fixed lexicon bookmarks being weird if you do multiple in the same entry.
+*Fixed Mana Bursts' position in the client sometimes going above the block they're inside.
+*Fixed multiblock previews rendering in dimensions other than the one they were created in.
+*Fixed raytracing ignoring the player's height.
+*Fixed the Gaia Guardian head not breaking properly or having the right drops.
+*Fixed the Halos not rendering multipassed items properly.
+*Fixed the travel sashes using mana even if the player isn't moving.
+*Fixed the weapons spawned by the Key of the King's Law not despawning if the player that created them dies.
+*Fixed Witchery wiki lookup not working because google sites requires lowercase URLs. (TheWhiteWolves)
+*Glimmering flowers now have slightly altered textures from the normal ones.
+*[API] Added ICompositableLens for API level lens composition handling. (WireSegal)
+*[API] Added lowercase conversion support to SimpleWikiProvider. (TheWhiteWolves)
+*[API] Increased version number to 69.
+r1.7 235
+*Fixed the Crafty Crate not syncing properly, and by extension, the Wand HUD for it not being accurate.
+*Fixed the Hopperhock not updating inventories properly.
+*Fixed the Mutated Grass having a missing texture.
+*If an arena for the gaia guardian fight is obstructed or has holes, there'll be a quick particle display showing you how large it needs to be.
+r1.7 234
+*Added 3 new lenses:<ul><li>Mana Lens: Redirectory - Bursts that have this lens fired from a spreader will, when colliding with another spreader, rotate the collided spreader to point towards the one that shot. It also gives bursts the Phantom effect.</li><li>Mana Lens: Celebratory - When it collides with a block it'll make a firework of the color of the burst.</li><li>Mana Lens: Flare - Spreader only. Prevents the spreader from firing any mana bursts. Instead, the spreader fires a continuous beam of particles of the color of the lens. (<a href="https://twitter.com/Vazkii/status/666012115900190720">demo 1</a> | <a href="https://twitter.com/Vazkii/status/666013977089060864">demo 2</a>)</li></ul>
+*Added 6 new types of decorative grass (and six new types of pasture seeds to make them) that don't turn into dirt if there's anything above.
+*Bellethornes now kill Witches properly.
+*Changed armor item icons to match the new armor models.
+*Condensed the Paintslinger Lens and Warp Lens entries as well as the 3 new lenses in this version into an "Elven Lenses" page.
+*Fixed botania Panes having weird lighting in corners.
+*Fixed bursts with the Entropic lens exploding in contact with a full spreader.
+*Fixed the Exoflame not using mana properly on interfaced blocks.
+*Fixed white tinted mana lens not being able to be crafted.
+*Holding shift on a recipe page with multiple recipes will pause the recipe changing. It'll also stop petals/rune pieces from rotating if it's a petal/rune recipe.
+*Luminizers and Agricarnations are now quieter.
+*Pasture Seeds for blocks other than Grass can now be used on Grass.
+*Removed the "lore" pages after some flowers' recipes, as interesting as they are, they served no practical purpose and only confused people.
+*Renamed the Talent Shredder achievement to a much more fitting name.
+*The bottom side of Mana Pools is now solid (so you can put stuff like levers now, if you want to do that for some reason :V)
+*Tweaked armor textures and models a bit.
+*[API] Added IDirectioned and IRedirectable to work with the new lens.
+*[API] Added IFlowerPlaceable for items that can be placed by the Rannuncarpus. 
+*[API] Added ILensControl for lenses that control a spreader's behaviour.
+*[API] Increased version number to 68.
+*[API] Stripped getRotationX() and getRotationY from IManaSpreader and moved it to IDirectioned (which IManaSpreader extends now).
+r1.7 233
+*Fixed items that take damage when used in a crafting recipe taking damage purely by being put in the grid.
+*Fixed the Lexica Botania's main page making the screen dark on lower end (and integrated) graphics cards.
+r1.7 232
+*Added the botania version to the F3 menu next to the network monitors.
+*Changed the way multitexture is handled on graphics cards that don't support OpenGL 1.3 (using ARB instead).
+*Fixed Corporea Interceptors not intercepting requests from Corporea Funnels for more than item and not checking NBT properly.
+*Fixed the Corporea Index working between dimensions.
+*Holding CTRL+SHIFT on the F3 menu will show you the OpenGL Context and relevant config settings.
+*Luminizers now synergize with Ender Pearls.
+*Primus Loci are a bit less rare now.
+*Using Phantom Ink on an item that already has it will now remove it.
+*You can stand inside mana pools now. <i>update of the year 10/10</i>
+r1.7 231
+*Added new models to all botania sets of armor. You can turn these off in the config if you're mean and hate everything that's fun.
+*Added the Solegnolia Petite. Not much to explain here.
+*Changed the Lexica Botania's Category Icon Shader to use GL Texture Unit 7 rather than 15. Also added a config option to change which unit is used, just in case. This should fix GL errors with old and integrated graphics cards.
+*Fixed a crash with the Worldshaper's Sextant if CodeChickenCore isn't installed. (TheWhiteWolves)
+*Fixed a minor grammar derp. (shadowfacts)
+*Fixed Shimmerrock and Shimmerwood Planks not having microblocks.
+*Fixed the Mana Prism accepting non lens items through automation and crashing the game if any make it in.
+*Fixed the Ring of Loki's entry not telling the player they need to sneak.
+*Looking at a Crafty Crate with a Wand of the Forest now shows you the items inside.
+*Looking at an Applied Energistics Dense Cable while having their config to turn off channels set to false will no longer crash the game. <i>fix yer game ae</i>
+*The Flugel Tiara's Glide ability now only starts if you've fallen at least 2 blocks.
+*The Solegnolia now negates any rings worn by players inside it.
+r1.7 230
+*<b>2 MILLION DOWNLOAD HYPE</b>
+*Fixed the Dandelifeon not properly making mana.
+*The Teru Teru Bozu can now be made sad. :(
+r1.7 229
+*Added 15 new update flavour messages.
+*Added the Worlshaper's Sextant, a new item to help you make circles.
+*Changed the Flugel Tiara's flight time from 10 seconds to 30 seconds.
+*Fixed Shimmerwood Plank Slabs having the wrong step sound. (SnowShock35)
+*Fixed the Dandelifeon being able to destroy Bedrock and pretty much any other block. 
+*Fixed the Dandelifeon being able to generate mana from cells ticked by other Dandelifeons.
+*Fixed the Enchanting with Mana page missing two pages. (AlterAkima)
+*Fixed the Lexica Botania Quick Lookup key showing up as Ctrl in mac instead of Cmd.
+*Fixed the Lexica Botania Quick Lookup time being dependant on fps, also made it 1 second rather than 1.5.
+*Fixed the Rod of the Skies being able to be used for earlygame infinite flight by item switching.
+*Increased the Narslimmus' mana buffer to not have it overflow when it eats a big slime.
+*Mana Pools should sync better when receiving or sending out mana.
+*Red String Blocks can now be rotated with a Wand of the Forest.
+*Sparks are now cheaper.
+*The Gaia Guardian's arena checking is now less retarded, circular and doesn't require skylight.
+*[API] Added AnyComponent, a MultiblockComponent that matches any non air block.
+*[API] Added support for MultiblockSets with an array with length < 4.
+*[API] Increased version number to 67.
+r1.7 228
+*Fixed the Gaia Guardian being able to ride minecarts.
+*Fixed the Livingwood Avatar's render taking over other mod item renders.
+*Fixed typos.
+r1.7 227
+*Added a "Quick Lookup" feature to the Lexica Botania. You can hold CTRL on an item in your inventory while you have a Lexica Botania in your hotbar to open its entry.
+*Added the Livingwood Avatar, a new block you can give a few rods to and will have effects depending on which one. These are the current effects:<ul><li>Rod of the Bifrost: Creates temporary bifrost bridges in the area directly in front of it where the player would walk to.</li><li>Rod of the Hells: Creates a perpetual fire ring around it, like the rod does.</li><li>Rod of the Plentiful Mantle: Minims the rod's effect of showing nearby ores, the colors stay the same as long as it stays in the same place.</li><li>Rod of the Skies: Any players that jump near it will jump as high as if they had used the rod, as well as get temporary fall damage resistance.</li><li>Rod of the Unstable Reservoir: Shoots magic missiles at nearby mobs, like the rod does.</li></ul>
+*Added Primus Loci. Rare worldgen flower patches with Primus variants of Dayblooms and Nightshades that don't decay.
+*Added Railcraft support to the Mana Pool with Minecart.
+*Buffed the Rafflowsia, again.
+*Fixed Isolated and Recessive Spark banners (Et Futurum Integration) having the wrong recipes.
+*Fixed the Mana Pump's render crashing the game if it's placed with an invalid metadata somehow.
+*Fixed the Terra Shatterer's mana bar being slightly off center. Phew.
+*Fixed transparent blocks not rendering properly under the mana enchanter.
+*Looking at any entry in a Lexica Botania category page and holding shift shows you a preview with a tagline of what it is and what crafting recipes are in the entry.
+*Mana Tablets, Rings and Mirrors now have a similar mana bar to that of the Terra Shatterer.
+*Merged the "A Tutorial of the Basics" and the "An Introductory Video" entries.
+*Redesigned the Lexica Botania main page with smaller, bolder icons and fancier animations.
+*The "missiles" fired by the Rod of the Unstable Reservoir are a bit less choppy now.
+*The Manaseer Monocle's Lexicon Entry now has priority (is in italics).
+*The Terra Truncator now properly breaks around diagonals.
+*[API] Added IHornHarvestable for usage with the various horns. <i>Get on it, Agricraft.</i>
+*[API] Deprecated IGrassHornExcempt in favor of IHornHarvestable.
+*[API] Added IManaTooltipDisplay for items that display a mana bar on the tooltip.
+*[API] Added getTagline() to LexiconEntry.
+*[API] Added paintableBlocks and registerPaintableBlock() to BotaniaAPI for use with the Paintslinger lens. (L0neKitsune)
+*[API] Increased version number to 66.
+r1.7 226
+*Added a config option to disable seasonal (halloween and christmas) features.
+*Fixed the Spellbinding Cloth taking damage simply by putting it in the crafting grid.
+*Phantom Ink and Timless Ivy can no longer be applied to items that have a container item to prevent dupes.
+*Spookied up the place.
+*The Mana Cookie was renamed to Biscuit of Totality.
+*The Rafflowsia produces more mana than before.
+r1.7 225
+*Added Shimmerrock and Shimmerwood Planks, rainbow blocks made with Bifrost Blocks.
+*Added the Rafflowsia, a new flower that eats passive flowers for mana. And you thought they were useless!
+*Fixed some entries telling you to go to "Magical Apparatus" when the section is actually called "Natural Apparatus".
+*Flowers can now be dyed using Floral Powder.
+*The Dandelifeon produces a lot more mana per cell now, however, whenever a cell is eaten, the board is wiped. Also added an "warning: experimental" page to the entry.<i>As always, this is still not final.</i>
+*[API] Fixed API dependency on non-API Botania classes.
+*[API] Increased version number to 65
+r1.7 224
+*Added "Motif" variants of passive flowers. Same as Petite, but instead of being smaller, they don't decay nor produce mana. Since they use the same system, you can find them in the Flower Shrinking page.
+*Added "Redstone Helper" features to the Manaseer Monocle. Looking at redstone things will show you some data about them.
+*Added a recipe counter to the recipe registing code just for fun. You can now see how many recipes botania adds, woohoo.
+*Added comparator support to the Corporea Crystal Cube, it can now detect how many items are in a corporea network with exponential output.
+*Added Managlass, Alfglass and Bifrost Panes.
+*Added the Corporea Retainer, a new corporea block you can place next to a Corporea Interceptor, it'll remember the last intercepted request and have the requestor redo it if it gets a redstone signal.
+*Added the Teru Teru Bozu, a new (cute as hell) block that can send the rain away.
+*Added two new Portuguese Pavement Colors, yellow and green.
+*Changed some checks to use Material instead of Block (such as Hydroangeas and Thermalilies). Should make compatibility with TerraFirmaCraft or other mods' different water and lava blocks work better.
+*Changed the "no mana killzone" of the Dandelifeon from a 5x5 to a 7x7. <i>To be honest, I really don't know where I'm going with this one. It's seeming to me like it's a failed experiment, as the optimal build always ends up being a really simple thing, which I'm not a big fan of. I'm just trying various things and seeing what sticks. I might end up removing it alltogether.</i>
+*Changed the Gaia Guardian's health to 800 (from 300) and the damage cap to 35 (from 12), 50 if it's a crit. In a way, if you're properly prepared, the boss is actually easier now as it's definitely possible to hit that hard with the proper enchants and potions, it just requires preparation.
+*Fixed the Corporea Crystal Cube and Hovering Hourglass not rendering every model piece in the inventory.
+*Fixed the Elementium Axe dropping Zombie Heads from Zombie Pigmen.
+*Fixed typos.
+*The Corporea Crystal Cube now shows how many items are in the network in its render without you having to hover on it.
+*The Corporea Index is now less stingy on how close you need to be to it in the Y axis.
+*The Manaseer Monocle can now be used as a Cosmetic Override to other baubles. Its benefits are not removed when you do this, so you can use the monocle without taking up a slot.
+*The Rannuncarpus can now place botania flowers that do stuff as well as redstone dust.
+*[API] Added ICorporeaRequestor for use with the Corporea Retainer.
+*[API] Increased version number to 64.
+r1.7 223
+*Added code to safely crash the game if someone overrides the Botania API's Internal Method Handler. Overriding the Internal Method Handler is a sure fire way to crash the game or cause incompatibility problems later down the line, so at least you're getting informed about it with a proper error message. It's sad that I even had to makXe this, to be honest.
+*Fixed a circular dependency chain with DragonAPI not allowing for the game to load.
+*Fixed Red Stringed Conparators only seeing half of a double chest.
+*Reused old botania shaders as new tiny potato variants. <i>You know, this whole potato variant thing is starting to become a good stress relief measure.</i>
+r1.7 222
+*Added 12 new achievements, moved some old ones around to make space.
+*Added arena checking code to the Gaia Guardian to prevent it from being killable with little to no effort underground.
+*Added Comparator Support to the Spark Tinkerer.
+*Added the ability to get the Gaia Guardian's Head. How to do it though...
+*Added the Red Stringed Interceptor, a new block to the Red String arsenal that intercepts right clicks.
+*Buffed hydroangeas' mana production rate.
+*Enchanted Soil now has an interpolated texture, like Prismarine and Bifrost.
+*Fixed a wrong error message for the /botania-skyblock-spread command.
+*Fixed Mana Spreaders being able to pull mana from pools before even being added to the mana network.
+*Fixed the Dandelifeon not having an alt texture.
+*Fixed the Mana in a Bottle allowing for water to be placed in the nether and for the roof of the nether being accessed.
+*Fixed the Weight Lens being able to drop blocks that normally can't be Silk Touched.
+*Overgrowth Seeds no longer speed up passive flowers, instead they prevent their decay.
+*Potion ID configs now work properly with DragonAPI's potion array extending.
+*Redstone Mana Spreaders can now pull mana from their target pools.
+*Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it <a href="http://vazkii.us/uncategorized/sins-of-a-solar-empire-or-the-passive-generation-conundrum/">right here</a>.
+*Some Dandelifeon tweaks, the 5x5 area around it will no longer kill generation 1 cells, the output rate has been lowered a bit and the recipe for Cellular Blocks has been changed.
+*Sparks now produce less, but bigger, particles to make it less likely to reach the particle limit.
+*The Mana Pool's "water" icon is now a different icon and not the one used for water. (it still looks the same, it's just in a different file)
+*The Ring of Magnetism now has a limit of 200 entities it can pull so it doesn't kill your FPS if you manage to get a lot of items in one place for whatever reason.
+*The Thorn and Flare Chakrams now pass through leaves and folliage.
+*[API] Added an "overgrowth" and "overgrowthBoost" variables to SubTileEntity for when it's working on Enchanted Soil.
+*[API] Added isOvergrowthAffected() to SubTileEntity to allow for flowers to opt out of Enchanted Soil.
+*[API] Separated ticksExisted from passiveDecayTicks and moved the internal drop handling code from SubTileGeneratingPassive to SubTileGenerating.
+*[API] Increased version number to 63.
+r1.7 221
+*Added some extra rules to the Dandelifeon to prevent some exploits. Also lowered the mana value of each cellular block.
+*Double slabs are now properly localized. (MrKunji)
+*Made the Dandelifeon's texture not be as horrid as the one I made while wiiv was away :V
+r1.7 220
+*Added more taters.
+*Added the Dandelifeon, a new generating flower for maniacs that utilizes Conway's Game of Life.
+*Fixed a flower dupe with the Flower Pouch.
+*Fixed BotaniaVars.dat not generating in the right directory when using symlinks. (shadowfacts)
+*Fixed removing a Master Corporea Spark not properly resetting the corporea network.
+*Fixed the Mana Blaster with a Lens Clip showing that you have infinite mana lenses instead of showing you the name of the lens.
+*Fixed the Pink Wither not being able to be named.
+*Holding a Wand of the Forest in bind mode while wearing a Manaseer Monocle shows you the range of the flower the wand is bound to, even if you're not looking at it.
+*Luminizers can now move items.
+*Manastorm Charge mana bursts have more mana.
+*Upgraded goldfish.
+*[API] Added acceptsRedstone() to SubTileGenerating.
+*[API] Bunch of work done on multiblocks to support a custom IBlockAccess for renders like stairs or redstone. (SoundLogic)
+*[API] Changed the IMultiblockRenderHook.renderBlockForMultiblock() signature and added nedsTranslate(). (SoundLogic)
+*[API] Increased version number to 62.
+r1.7 219
+*Added comparator support to the T.A. Plate.
+*Added ForgeMultipart microblock support.
+*Added Portuguese Pavement building blocks, they're good for roads (duh) and come in white, black, blue and red, as they do in the streets of Portugal.
+*Added the Manufactory Halo, effectively an automatic Assembly Halo.
+*Capped the flower patch size config option to 8 blocks to prevent worldgen crashes when the generator seeps into other chunks and forces the world to generate a new chunk while already generating one.
+*Changed the Assembly Halo's glow to be green rather than pink, it also properly renders on the outside now.
+*Fixed an exploit that made the Exoflame ridiculously fuel efficient.
+r1.7 218
+*Fixed the Black Hole Talisman crashing the game if used on lit redstone.
+*Fixed the Flugel Tiara HUD not rendering if you have Tinkers Construct and Blood Arsenal. Maybe.
+*Fixed the mana bursts created by the Shard of Laputa and Manastorm Charge being able to be converted to normal ones with prisms.
+*Fixed the Rod of the Shfiting Crust not using mana for the left click function.
+*Fixed the snowflake pendant having no documentation. (MrKunji) <i>I deleted it by accident, ok? D:</i>
+*Having a Haste buff enabled now lowers the Mana Blaster's cooldown.
+*Increased the incense plate range to 30 blocks (from 24).
+r1.7 217
+*Fixed server crash.
+r1.7 216
+*Added Manweave Cloth and Armor. Manaweave Armor's set bonus gives a 35% discount on tools and rods and makes rods be more powerful or have larger range.
+*Added the Manatide Bellows, a block that increases the speed of Mana Pools' mana output and Furnaces' smelting.
+*Bifrost Blocks are now craftable using a Rod of the Bifrost and Alfglass (you don't lose the rod). They also have a smoother animation now thanks to the interpolated icon (same as the one used for prismarine) and emit light.
+*Fixed Mana Pools leaving sometimes a tiny sliver of mana in the client side if used to charge a mana tablet.
+*Fixed the Flare Chakram returning a Thorn Chakram when picked up instead of the proper Flare Chakram.
+*Fixed the Mana Pump dispatching needless network packets.
+*Increased the amount of time the bridges created by the Rod of the Bifrost to double of what it was before.
+*Made the Exoflame a bit cheaper.
+*Rods are now affected by Armor Sets' mana discounts (like the Manasteel armor set).
+*Spellbinding Cloth is now crafted using Manaweave Cloth.
+*[API] Added IManaProficiencyArmor.
+*[API] Added manaweaveArmorMaterial to the API main class.
+*[API] Increased version number to 61.
+r1.7 215
+*Added the Flare Chakram, a fire version of the Thorn Chakram.
+*Added the Thundercaller, a new Terra Blade sidegrade that calls upon chain lightning.
+*Botania slab recipes are now revertable.
+*Changed the way the gaia guardian counts players to try to fix the bug where it would scale for more players than those present.
+*Fixed the Slime in a Bottle not detecting slime chunks properly as it was ticking in the client where it doesn't know the world seed.
+*Petal and Rune recipe pages now animate a lot smoother.
+*Pixies (friendly and hostile) are now forced to despawn if they exist for more than 10 seconds.
+*The Head Creation page now links to the <a href="http://heads.freshcoal.com/usernames.php">player head database</a> to give you ideas on what cool stuff you can do with heads.
+*The high council of Elven Garde, after having received countless unintended "gifts" of unenchanted Iron Ingots, Diamonds and Ender Pearls from unskilled skim-reading botanists are now returning those back to the senders.
+*Tweaked the Elven Portal's render a bit. The lighting on it doesn't spazz out and it renders properly when you're in it now.
+r1.7 214
+*Added a little bar to the Flugel Tiara's flight HUD that shows the dash cooldown.
+*Added a notification to the lexicon's main page when the mod updates to let you know things have changed and not to panic if something doesn't work as it used to.
+*Added support for the 1.8 Banners backported by Et Futurum by adding 15 new banner icons. They're documented in the Misc part of the book if you have Et Futurum installed (which you should!).
+*Lowered goldfish.
+*Lowered the Gaia Guardian's arena player search diameter to 31 blocks (from 65)
+*The Orechid is now more expensive in Garden of Glass to prevent it from being used to infinitely generate ores and mana using the Coal it produces without an external mana supply.
+r1.7 213
+*Added a config option to disable the 1.9 ender blocks for if you're using Et Futurum.
+*Added the ability to use a Cacophonium on a Note Block to make a Cacophonium Block.
+*Fixed the Mana Fluxfield not calculating the mana value properly. (LethalRes)
+*Patreon supports now have their head flower on flowers named after them.
+*Strengthened the ranks of the potato army. Nobody expects the potato inquisition!
+*Updated recipes to use the newer ore dictionary keys. (Adaptivity)
+r1.7 212
+*Added the Greater Ring of Magnetization with a larger range. Big magnet!
+*Fixed giving another player a relic ring crashing their client.
+*Fixed the Rod of the Depths not showing infinite cobblestone when used with the Rod of the Shifting Crust, but rather, infinite dirt.
+*Fixed the Rod of the Shifting Crust placing fake blocks in the client side.
+*Mana Lenses can now be made with Glass as well as Glass Panes, because if you're low enough that you can't make panes it becomes a pain. <i>Ha, I made a funny.</i>
+r1.7 211
+*Added even MORE tiny potato variants :D
+*Added Grass conjuration recipe.
+*Added Mithril and Platinum ores to the orechid's list. (phantamanta44)
+*Added the Rod of the Shifting Crust, effectively a copy of the Thaumcraft Wand of Equal trade with a few new things added on.
+*Changed the Rune of Sloth in the Orechid recipe to a Rune of Greed. <i>Turns out I planned the rune recipes really poorly, the only thing you could make with the greed rune for the longest time was the bore lens. Since the new rod uses a sloth rune I moved this around and now all is balanced :D</i>
+*Fixed a crash when you /give yourself a botania flower with the wrong metadata.
+*Fixed more typos.
+*Fixed the Corporea Index kicking you out of the server if you try requesting an item with control codes in the name (such as brews).
+*Fixed the Flugel Tiara rubberbanding in multiplayer. Maybe. Hopefully. Probably not.
+*Fixed the Flugel Tiara using CodeChickenLib Vector3 rather than Botania Vector3, causing crashes if the item is worn without NEI loaded.
+*Fixed the Flugel Tiara's sprint delay being 1.5 seconds rather than the intended 3 seconds, also changed it to 2 seconds, so the intended is now 2 seconds rather than 3 seconds. So this line should read "Fixed the Flugel Tiara's sprint delay being 1.5 seconds rather than the intended 2 seconds", but the intended was 3 seconds before and 2 seconds now because 2 seconds feels better than 3 seconds. I don't even know.
+*Fixed the Hand of Ender being stackable.
+*Fixed the Hovering Hourglass accepting any item through automation and not just sand and not syncing its contents properly when its inventory is changed through automation.
+*Fixed the name suffix of the Black Hole Talisman not using the block's damage value to get the name.
+*Fixed the Tiara flight bar not rendering with Tinkers Construct. (TheWhiteWolves)
+*Rewrote the way the conversion in the Mana Fluxfield works to prevent a dupe with EnderIO capacitors banks.
+*The "Items Remaining" display now has colors to make it easier to read if there's multiple stacks left.
+*Trying to infuse an item with a Diluted Mana Pool now shows a "Upgrade your Mana Pool to infuse this item" indicator.
+*Updated the Force Relay entry to say how to break the block properly.
+*[API] Added IBlockProvider, an interface for items that can provide blocks for the Rod of the Shifting Crust or other things.
+*[API] Added oreMithril and orePlatinum to the orechid weight table. (phantamanta44)
+*[API] IWireframeCoordinateListProvider.getWireframesToDraw is now @SideOnly(Side.CLIENT), because that just makes sense, really.
+*[API] Increased version number to 60.
+r1.7 210
+*Added the ability to Dash and Glide to the Flugel Tiara, read on these new abilities in the book!
+*Fixed a major dupe with the Resolute Ivy and container items.
+*Fixed more typos.
+*Fixed the recipe for the spectral platform crashing the client if used with the Shift-? feature in NEI. 
+*Hopperhocks now check all 6 sides instead of only the 4 cardinal directions. (iambob314)
+*The Flugel Tiara no longer sets you on fire if you run out of charge, that was a cool thematic idea but it ended up just being annoying and dumb.
+r1.7 209
+*Added a recipe for cobwebs.
+*Added factorization's new dark iron ore dictionary key to the orechid's list. (TheWhiteWolves)
+*Added Relic Knowledge, a new knowledge type for relics. This knowledge is unlocked by opening the lexicon with a relic in the inventory. The contents update dynamically depending on what relic achievements have so far been acquired. This replaces the poems in the relics' tooltips.
+*Added the ability for botania armor and baubles to have Thaumcraft runic shielding. (ruifung)
+*Added the Slime in a Bottle, effectively a slime chunk detector.
+*Added the Starcaller by very popular request. A new sword that makes shooting stars. Yes, it's the Starfury/Star Wrath from terraria.
+*Changed the 1.9 brick textures to the actual ones from the 1.9 snapshot jar.
+*Changed the element and season runes' textures to new versions in Sosho by miznib.
+*Changed the hardcore passive generation value to 48000 by default instead of 24000. <i>It was supposed to be that to begin with but I can't do math.</i>
+*Dice of Fate dropped by the Gaia Guardian now bind on drop rather than on pickup.
+*Fixed baubles that store mana not updating the mana bar above the XP bar in real time.
+*Fixed being able to remove water from the Petal Apothecary with a bucket in GoG, allowing for water to be acquired a lot earlier.
+*Fixed fake players locking the multiblock display.
+*Fixed more typos.
+*Fixed some botania entities not having proper localizations.
+*Fixed some of the double tall flowers having secondary drops.
+*Fixed the Ritual of Gaia's multiblock display only accepting iron rather than all valid beacon blocks.
+*Fixed the sashes not being counted as mana using items despite using mana.
+*Fixed there being duped text in the runic altar entry.
+*Hydroangeas are now quieter.
+*Increased the Hopperhock's vertical range by one block.
+*Lowered the default and max radius of /botania-skyblock-spread by a tenfold to prevent floating point errors such as hopperhocks not recognising item frames at extreme distances.
+*Made the Rod of the Molten Core's sound a lot less infuriating.
+*Passive flowers now get replaced with Dead Bushes when they despawn rather than getting removed altogether.
+*Prismarine now animates properly.
+*Removed the Holy Sword Excaliber and replaced it with something far cooler.
+*Removed the regen from the Ring of Odin. It already gives you a full heart bar, come on.
+*Replaced the Mana Pool HUD's Sparing/Accepting text with a more pleasing visual.
+*Repurposed the Eye of the Flugel a bit, I wasn't happy with what it did before.
+*The Dice of Fate no longer hurts players if they're not the right owner.
+*The elven portal is now much faster at outputting the stuff you put in.
+*The Flugel Tiara now has a limit of how much you can fly with it.
+*The Fruit of Grisaia, Ring of Loki and Eye of the Flugel now use mana.
+*The Gaia Guardian's difficulty and rewards now scale on the amount of players participating.
+*The hardmode Gaia Guardian now drops a lot more runes.
+*The Pink Wither no longer drops Nether Stars.
+*The Wither effect the Gaia Guardian's purple fire creates can no longer be healed by milk or brew of absorption.
+*[API] Add oreFzDarkIron to the orechid weight table.
+*[API] Addded relic knowledge to the main class, it's there for completeness sake and shouldn't be used.
+*[API] Added LexiconEntry.isVisible(), currently used for the relics but can also be used for other types of dynamic entries.
+*[API] Changed the SubTileGenerating despawn to place a dead bush instead of air.
+*[API] IBotaniaBoss.bossBarRenderCallback now has some params.
+*[API] Increased version number to 59.
+r1.7 208
+*Added the ability to transmute between all vanilla flowers with the alchemy catalyst.
+*Added the vanilla Coarse Dirt to the botania creative tab, because ya know, it's craftable with botania and stuff.
+*Changed the Blaze Lamp's burn time to be 10x that of a blaze rod rather than 9x. Also made that value half if Garden of Glass is enabled.
+*Changed the Cocoon of Caprice's texture to be 64x32 rather than 48x32, that apparently was making it not display properly in some setups.
+*Changed the endoflame cap to be that of a Block of Coal Coke. That should encompass all non ridiculous fuels.
+*Fixed buried petals displayed an unlocalized name on waila or other name viewing things of the sort.
+*Fixed the Cocoon of Caprice not saving its data properly. (Titanium237458)
+*The Black Hole Talisman no longer uses up items in creative.
+*The Black Hole Talisman now tells you what block is in it in the item's name, it also shows how many are remaining when you place a block.
+*The Ghast Tear to Ender Pearl recipe is now a 1:1 ratio conversion.
+*The Hopperhock now ignores damage on items that stack up to 1 and can be damaged, it'll also ignore the mana value on anything that can store mana.
+r1.7 207
+*Fixed another crash when opening the Lexicon Index >_>
+r1.7 206
+*Fixed a crash when opening the Lexicon Index.
+r1.7 205
+*Addded a Brew of Absolution that clears all potion effects.
+*Addded some tiny potato variants :3
+*Added "update notification message" to the version checker config option's description for noobs who just CTRL-F.
+*Added the ability to add Emeralds to the Cocoon of Caprice to influence the outcome towards something different.
+*Added the ability to take notes in the lexica botania.
+*Added the Manastorm Charge, a new fun explosive thing that also happens to have another use...
+*Change the Cacophonium texture to not be horrible, thanks wiiv :D
+*Changed the color of the Brew of Vanity's Emptiness to be different from the new Brew of Absolution.
+*Disabled the number keys in the Floral Pouch to fix a dupe.
+*Fixed a visual bug with the Petal Apothecary when a seed is thrown in the middle of two or more Petal Apothecaries that have a complete recipe. <i>I swear, how do people find these things?</i>
+*Fixed ender brick slabs breaking in one hit.
+*Fixed flowers being able to pull mana from and put mana into mana pools or spreaders that no longer exist.
+*Fixed the Agricarnation Petite having the wrong range.
+*Fixed the tiny potato's jump animation being somewhat jaggy.
+*Fixed there being a "botania.sign-1" slot in the Eye of the Flugel under some occasions.
+*If a tiny potato is named, the name will only show up when you're looking at it.
+*If you lose your Lexica Botania in Garden of Glass you can now exchange a Sapling for it by right clicking with it on the Mana Flame.
+*The Endoflame now caps how much each fuel is worth to the value of a Coal Block. It can still accept larger fuels, but they are capped to a Coal Block. <i>Now, before you start raging and raising your pitchforks around at this, please think about what botania tries to do, and how much super condensed fuels like Aeternalis Fuel Blocks negate that. Ok, you chill now?</i>
+*The Influence lens can now move mana bursts. Have fun with this one :3
+*Unclipped secret pretty dev things.
+*[API] Added TinyPotatoRenderEvent, because Vexatos would not stop annoying me.
+*[API] Changed how isValidBinding() checks for SubTileGenerating/SubTileFunctional.
+*[API] SubTileGenerating and SubTileFunctional instances now check isValidBinding() before interacting with the bound collector or pool.
+*[API] Increased version number to 58.
+r1.7 204
+*Added an indicator to the generating and functional flower HUDs that shows if they're properly bound or not.
+*Added the Cacophonium, a <a href="https://www.youtube.com/watch?v=PwXAcA1M_m0">trolly</a> item :3 (don't hate on the terrible icon, wiiv wasn't around :C)
+*Added the Floral Obedience Stick, a way to mass bind flowers, since that's more relevant now.
+*Doubled the Pebble drop rate in Garden of Glass. (TheWhiteWolves)
+*Fixed a crash with the Force Relay.
+*Fixed lens being consumed when attached to a prism in creative mode. (TheWhiteWolves)
+*Fixed luminizers sometimes getting unbound on chunkload.
+*Fixed torches not being able to be placed on top of botania walls. (TheWhiteWolves)
+*Functional and Generating Flowers no longer rebind to the closest spreader/pool if the one they were bound to stops existing. Instead, they'll keep the binding in the position and wait for a new spreader/pool to appear there. Of course you can still rebind manaully. This is a workaround for the bug where flowers would lose or change their binding on chunk unload, which is hopefully fixed now :T
+*[API] Added drawComplexManaHUD() and getBindDisplayForFlowerType() to the internal method handler.
+*[API] Added functions to force bind SubTileGenerating and SubTileFunctional instances.
+*[API] Made the range for SubTileGenerating and SubTileFunctional visible as a constant.
+*[API] Rewote SubTileGenerating/SubTileFunctional binding logic, again.
+*[API] Increased version number to 57.
+r1.7 203
+*Added the ability to define the range of /botania-skyblock-spread with a second parameter.
+*Added Walls to the following botania blocks: Livingrock, Livingwood, Dreamwood, Prismarine, Reed Block, Metamorphoic and 1.8 Stones. <i>About time...</i>
+*Doubled the damage the Thorn Chakram does. They can also be stacked up to 6 in a single slot, making them much more usable. The recipe makes 2 instead of 1 as well.
+*Fixed a dupe with the Spark Tinkerer (TheWhiteWolves).
+*Fixed Goldfish ungoldfishifying when it should be goldfishified.
+*Fixed the Blood Magic armor and possible other non-enchantable armors being enchantable with the Mana Enchanter.
+*Fixed the Guardian of Gaia's music resetting if you die to it.
+*The /botania-skyblock-spread command will now check for where the island would be created to prevent it from being created within a 100 block radius of the spawn point.
+r1.7 202
+*Added a /botania-skyblock-spread command for server owners. It sends the target player randomly into the world and created a GoG skyblock for them.
+*Added Luminizers, new star like blocks that let you transport players and other things around. <a href="https://www.youtube.com/watch?v=jLeKuUeune0">Here's</a> a demo.
+*Added the Detector Luminizer for redstone output on Luminizer paths.
+*Added the Luminizer Launcher to get mobs on the Luminizer paths.
+*Fixed the Ring of Loki being broken, again. (TheWhiteWolves)
+*Retextured the Livingrock Bricks to look less horrible.
+r1.7 201
+*Added an end portal recipe to Garden of Glass.
+*Fixed a crash when leaving the nether in a Garden of Glass world.
+r1.7 200
+*In Garden of Glass using a Bowl in water will create a Bowl of Water that can be used to fill the Petal Apothecary. <i>I can't believe I forgot that >_></i>
+*<i>Happy 200th build... yay...</i>
+r1.7 199
+*<b>Added the Garden of Glass</b>. A new skyblock world type with recipe tweaks and some new blocks. This requires a separate jar file to be installed. Check <a href="gardenofglass.php">the page</a> for more info.
+*Added a recipe to create snow blocks using water and the Pure Daisy.
+*Added Alchemy Recipes to switch between all types of tall grass.
+*Added the 1.9 Ender Bricks to the Decorative Ender Blocks section. Textures may not be 100% percise as they were reproduced from the low quality screenshots available.
+*Added the Cocoon of Caprice, a new block that can spawn baby animals.
+*Changed the End Stone Bricks' textures to be similar to the ones announced for 1.9.
+*Fixed a crash with the Pure Daisy's NEI lookup when a recipe with a Block input is registered.
+*Made the Pure Daisy more performant.
+*Platform blocks now accept any solid block. This includes chisel's but they won't have connected textures.
+*[API] Rewrote some code in RecipePureDaisy to be more performant. The matches() signature changed, mod authors must adapt if overriding.
+*[API] Increased version number to 56.
+r1.6 198
+*Fixed a crash related to the Elven Portal that someone managed to get and I'm still astounded as to how they managed to do so.
+*Fixed the Gaia Guardian breaking blocks on the client side.
+r1.6 197
+*Fixed a crash when clicking the Info button in the gui for a challenge. 
+r1.6 196
+*<i>I wanted to get this version out today because Terraria 1.3 is coming out and I want to play that. Since the new FTB pack with botania is coming out I wanted to sneak in this feature before I allowed for Terraria to eat up all of my time.</i>
+*Added a challenge system, a new section in the lexicon with suggestions for challenges you can try to test your expertise of redstone and botania mechanics. These should be done using vanilla and botania only, of course.
+*Added the ability to duplicate Leaves using the Conjuration Catalyst.
+*Removed a debug print I left behind in the Rod of the Skies' code.
+*Some of the more important entries in the Misc section are now prioritized.
+*The Entropinnyum will no longer make mana if the TNT falls in water.
+*[API] Added multiblockPage() to the internal method handler because I forgot last time D:
+*[API] Increased version number to 55.
+r1.6 195
+*Added a config to change the height of the mana bar for people who use Dual Hotbars or other mods that change the HUD.
+*Added a Multiblock Preview system, that lets you view botania multiblocks in the world as a guideline for building.
+*Added the Spark Tinkerer, a new block that can change the augments in Sparks.
+*Fixed the Narslimmus being able to absorb slimes that have been absorbed by other Narslimmus already.
+*Fixed the Rod of the Skies being abusable for infinite flight.
+*Fixed the Soujouner's Sash jump feature not requiring mana. (TheWhiteWolves)
+*Replaced every multiblock instruction picture in the lexicon with a 3D render of the multiblock.
+*The Gaia Guardian now breaks whatever block its on, it if happens to be inside any. Sorry Bear Trap users.
+*When next to a Corporea Index, using TAB will autocomplete the name of the item being written in chat. (SoundLogic)
+*[API] Added corporea autocompletion functions to CorporeaHelper and ICorporeaAutoCompleteController. (SoundLogic)
+*[API] Added getWorldElapsedTicks() and isBotaniaFlower() to the internal method handler.
+*[API] Added Multiblock framework.
+*[API] Increased version number to 54.
+r1.6 194
+*Added some new cache handling methods for generating/functional flowers. Trying to fix the good old chunkloading bugs where the flowers change their bindings on chunk unload >_>
+*Bookmarks now presist through sessions. <i>(this is saved in BotaniaVars.dat in your minecraft directory root)</i>
+*Capped the amount of damage the Gaia Guardian can take from a single hit to 12 so you can't just curbstomp it with OP weapons. Sorry!
+*Crossmod lexicon entries now have a little display to tell you about them.
+*Excaliber's beams no longer home on boss mobs.
+*Fixed BoP Malachite getting generated by the Orechid Ignem.
+*Fixed the Force Lens being able to move Bedrock.
+*Ores from Nether Ores will no longer be generated by the Orechid Ignem if the overworld equivalent is not in the pack.
+*The first time you load up the game, you'll be taken to the "Welcome to Botania" entry.
+*The Spectrolus now produces double the amount of mana as before.
+*[API] Changed the linking methods of SubTileGenerating/Functional a bit.
+*[API] Removed oreMalachite from the Orechid's nether table.
+*[API] Write SubTileGenerating/Functional's cache to NBT if it exists rather than defaulting to (0, -1, 0).
+*[API] Increased version number to 53.
+r1.6 193
+*Added evil dev stuff. And more goldfish.
+*Added Nuggets for Manasteel, Terrasteel and Elementium.
+*Added the Drum of the Canopy. (TheWhiteWolves)
+*Changed some lexicon text about the decay mechanic a bit to be more obvious how it works.
+*Changed the procedure for flower binding a little. This may fix flowers sometimes being unable to bind to spreaders after a chunk unload or world reload.
+*Changed the way Mana Spreaders and the bursts they fire communicate. This may fix spreaders sometimes being unable to fire after a chunk unload or world reload.
+*Fixed the Ring of Loki not working properly. (TheWhiteWolves)
+*Hardcore Passive Generation is now enabled by default at 2 days (24000 ticks). This is the config that makes passive flowers decay after some time. Old configs won't be affected, but you should change yours to reflect this, especially if you're a modpack author (please D:).
+*Made the Elven Portal's components' recipes to be easier to make.
+*Made the Endoflame produce a bit less.
+*Mana Petals are now cheaper, making starting off a lot easier.
+*The Force Relay now gives a ding sound when properly bound. (TheWhiteWolves)
+*(Technical) Introduced a <a href="https://github.com/Vazkii/Botania/commit/cb113050a7aaa8ac88e3326cf59859b33cab9e2d">Pinging system</a> between Mana Spreaders and Mana Bursts. Addon authors must adapt.
+*[API] Added IIdentifiable and IPingable.
+*[API] IManaSpreader now extends IPingable for the new Pinging system. Addon authors must adapt.
+*[API] Modified IManaBurst with new methods for the Pinging system. Addon authors must adapt.
+*[API] SubTileGenerating and SubTileFunctional's NBT reads now set the cached spreader/pool to null if the pos Y tag is -1.
+*[API] Increased version number to 52.
+r1.6 192
+*Added the Spectral Rail. A new rail that makes carts fly. Woooosh~
+*Changed the Spectranthemum to have a limited range and not be chainable. Use minecarts for long range yo.
+*Fixed a memory leak with the Hovering Hourglass' render.
+*Fixed Corporea requests not updating inventories.
+*Fixed lenses being consumed when adding them to spreaders in creative.
+*Fixed the Black Hole Talisman being able to place blocks inside the player.
+*Fixed the Terra Shatterer's mana display overlapping tooltips when they would go off screen.
+*Fixed the yellow quartz Flugel Tiara having pink particles.
+*Made the Clayconia's texture more visible.
+*Made the mana network, spreaders, pools and flowers more aware of TileEntity invalidation. This may or may not fix the chunkloading issues.
+*[API] Added a bunch of isInvalid() checks to SubTileGenerating and SubTileFunctional.
+*[API] Corporea properly calls markDirty().
+*[API] Increased version number to 51.
+r1.6 191
+*Added a "Welcome To Botania" entry written by GideonSeymour, it's the first entry in the book and sets the tone for new players.
+*Added icons to the tutorial pages, they deserve them, good pages.
+*Added the Hovering Hourglass, a new sand based timer.
+*Fixed 1.8 Stones' Chiselsed Bricks not being craftable.
+*Fixed the Terra Shatterer's rank bar displaying if the player has an item in their cursor.
+*Fixed the text highlighter being bad at highlighting text in multiple lines. (the message from alfheim page will no longer only be half italicized)
+*Made the Soujourner's Sash require a little bit of Mana to work.
+*Shift right clicking a special Floating Flower with the Lexica Botania takes you the flower's page rather than the Glimmering Flowers page. (TheWhiteWolves)
+r1.6 190
+*Added a bit more info to the Flower Pouch page, it should've been there to begin with but I forgot >_>
+*Added the ability to light an Incense Plate with a Flash Lens. It also has a comparator output now.
+*Fixed being able to re-do petal apothecary recipes if the apothecary doesn't have water.
+*Fixed Incense Stick missing texture log spam.
+*Fixed the Flower Pouch showing a single chest interface when depositing the items in a double chest.
+*Fixed the Incense Plate not syncing its inventory to the client when it receives an item from a hopper.
+*Lowered goldfish.
+*Mana Bursts with the Flash lens can now create flashes in tall grass and other replaceable blocks.
+*Retextured the Terra Blade, Crafting Patterns and Placeholders.
+*[API] Added hooks for SubTiles to control redstone behavior and light. (SoundLogic)
+*[API] Increased version number to 50.
 r1.6 189
 *Added Incense Sticks and an Incense Plate to burn them on. They provide AoE brew effects. <i>It's as they say, Incense is Wincense.</i>
 *Added the Terra Truncator (Terrasteel Axe), as you'd expect, it breaks whole trees.

@@ -23,11 +23,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -35,6 +37,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
+import vazkii.botania.common.integration.coloredlights.LightHelper;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -47,6 +50,39 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		int currentLight = ((TileSpecialFlower) world.getTileEntity(x, y, z)).getLightValue();
+		if(currentLight == -1)
+			currentLight = originalLight;
+		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getComparatorInputOverride(side);
+	}
+
+	@Override
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
+	}
+
+	@Override
+	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
+		return isProvidingWeakPower(world, x, y, z, side);
+	}
+
+	@Override
+	public boolean canProvidePower() {
+		return true;
 	}
 
 	@Override
@@ -133,4 +169,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		return new TileFloatingSpecialFlower();
 	}
 
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
+	}
 }

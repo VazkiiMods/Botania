@@ -49,13 +49,14 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 		double time = ClientTickHandler.ticksInGame + f;
 		double worldTicks = tileentity.getWorldObj() == null ? 0 : time;
 
+		Minecraft mc = Minecraft.getMinecraft();
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		mc.renderEngine.bindTexture(texture);
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
 		model.renderBase();
@@ -68,12 +69,46 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			GL11.glRotatef(180F, 0F, 0F, 1F);
 			((Render) RenderManager.instance.entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
 			GL11.glPopMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+			mc.renderEngine.bindTexture(texture);
 		}
 
-		GL11.glColor4f(1F, 1F, 1F, 0.7F);
+		GL11.glColor4f(1F, 1F, 1F, 0.4F);
 		model.renderCube();
 		GL11.glColor3f(1F, 1F, 1F);
+
+		if(stack != null) {
+			int count = cube.getItemCount();
+			String countStr = "" + count;
+			int color = 0xFFFFFF;
+			if(count > 9999) {
+				countStr = count / 1000 + "K";
+				color = 0xFFFF00;
+				if(count > 9999999) {
+					countStr = count / 10000000 + "M";
+					color = 0x00FF00;
+				}
+			}
+			color |= 0xA0 << 24;
+			int colorShade = (color & 16579836) >> 2 | color & -16777216;
+
+			float s = 1F / 64F;
+			GL11.glScalef(s, s, s);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			int l = mc.fontRenderer.getStringWidth(countStr);
+
+			GL11.glTranslatef(0F, 55F, 0F);
+			float tr = -16.5F;
+			for(int i = 0; i < 4; i++) {
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(0F, 0F, tr);
+				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
+				GL11.glTranslatef(0F, 0F, 0.1F);
+				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
+				GL11.glTranslatef(0F, 0F, -tr - 0.1F);
+			}
+			GL11.glEnable(GL11.GL_LIGHTING);
+		}
+
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();

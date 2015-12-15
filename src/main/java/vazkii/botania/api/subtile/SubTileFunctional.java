@@ -30,6 +30,8 @@ import vazkii.botania.api.mana.IManaPool;
  */
 public class SubTileFunctional extends SubTileEntity {
 
+	public static final int RANGE = 10;
+
 	private static final String TAG_MANA = "mana";
 
 	private static final String TAG_POOL_X = "poolX";
@@ -59,7 +61,7 @@ public class SubTileFunctional extends SubTileEntity {
 
 		linkPool();
 
-		if(linkedPool != null) {
+		if(linkedPool != null && isValidBinding()) {
 			IManaPool pool = (IManaPool) linkedPool;
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;
@@ -85,8 +87,6 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public void linkPool() {
-		final int range = 10;
-
 		boolean needsNew = false;
 		if(linkedPool == null) {
 			needsNew = true;
@@ -96,32 +96,32 @@ public class SubTileFunctional extends SubTileEntity {
 				if(supertile.getWorldObj().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
-					if(tileAt != null && tileAt instanceof IManaPool) {
+					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 						linkedPool = tileAt;
 						needsNew = false;
 					}
 					cachedPoolCoordinates = null;
 				}
 			}
-		}
-
-		if(!needsNew && linkedPool != null) {
+		} else {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-			if(!(tileAt instanceof IManaPool)) {
-				linkedPool = null;
-				needsNew = true;
-			} else linkedPool = tileAt;
+			if(tileAt != null && tileAt instanceof IManaPool)
+				linkedPool = tileAt;
 		}
 
-		if(needsNew) {
+		if(needsNew && ticksExisted == 1) { // Only for new flowers
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
+				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
+	}
+
+	public void linkToForcefully(TileEntity pool) {
+		linkedPool = pool;
 	}
 
 	public void addMana(int mana) {
@@ -155,20 +155,26 @@ public class SubTileFunctional extends SubTileEntity {
 		int y = cmp.getInteger(TAG_POOL_Y);
 		int z = cmp.getInteger(TAG_POOL_Z);
 
-		cachedPoolCoordinates = new ChunkCoordinates(x, y, z);
+		cachedPoolCoordinates = y < 0 ? null : new ChunkCoordinates(x, y, z);
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 
-		int x = linkedPool == null ? 0 : linkedPool.xCoord;
-		int y = linkedPool == null ? -1 : linkedPool.yCoord;
-		int z = linkedPool == null ? 0 : linkedPool.zCoord;
+		if(cachedPoolCoordinates != null) {
+			cmp.setInteger(TAG_POOL_X, cachedPoolCoordinates.posX);
+			cmp.setInteger(TAG_POOL_Y, cachedPoolCoordinates.posY);
+			cmp.setInteger(TAG_POOL_Z, cachedPoolCoordinates.posZ);
+		} else {
+			int x = linkedPool == null ? 0 : linkedPool.xCoord;
+			int y = linkedPool == null ? -1 : linkedPool.yCoord;
+			int z = linkedPool == null ? 0 : linkedPool.zCoord;
 
-		cmp.setInteger(TAG_POOL_X, x);
-		cmp.setInteger(TAG_POOL_Y, y);
-		cmp.setInteger(TAG_POOL_Z, z);
+			cmp.setInteger(TAG_POOL_X, x);
+			cmp.setInteger(TAG_POOL_Y, y);
+			cmp.setInteger(TAG_POOL_Z, z);
+		}
 	}
 
 	@Override
@@ -200,11 +206,15 @@ public class SubTileFunctional extends SubTileEntity {
 		return false;
 	}
 
+	public boolean isValidBinding() {
+		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
+	}
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

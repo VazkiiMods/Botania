@@ -28,7 +28,7 @@ public class PotionFeatherfeet extends PotionMod {
 	public void onEntityUpdate(LivingUpdateEvent event) {
 		EntityLivingBase e = event.entityLiving;
 		if(hasEffect(e))
-			e.fallDistance = 0F;
+			e.fallDistance = 2.5F;
 	}
 
 }

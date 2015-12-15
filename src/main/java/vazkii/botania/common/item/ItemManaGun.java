@@ -20,6 +20,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -72,14 +74,19 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		int effCd = COOLDOWN;
+		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(Potion.digSpeed);
+		if(effect != null)
+			effCd -= (effect.getAmplifier() + 1) * 8;
+
 		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
 			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(par2World.isRemote)
 				par3EntityPlayer.swingItem();
 			ItemStack lens = getLens(par1ItemStack);
-			ItemsRemainingRenderHandler.set(lens, -1);
-			par1ItemStack.setItemDamage(COOLDOWN);
+			ItemsRemainingRenderHandler.set(lens, -2);
+			par1ItemStack.setItemDamage(effCd);
 		} else if(par1ItemStack.getItemDamage() == 0) {
 			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
 			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
@@ -95,7 +102,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					par3EntityPlayer.motionY -= burst.motionY * 0.3;
 					par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
 				}
-				par1ItemStack.setItemDamage(COOLDOWN);
+				par1ItemStack.setItemDamage(effCd);
 			} else if(!par2World.isRemote)
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 		}

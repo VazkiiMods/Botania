@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import thaumcraft.api.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -30,10 +31,12 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable {
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
+public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
@@ -207,4 +210,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
+	@Override
+	@Optional.Method(modid = "Thaumcraft")
+	public int getRunicCharge(ItemStack itemstack) {
+		return 0;
+	}
 }

@@ -16,6 +16,7 @@ import java.lang.reflect.Modifier;
 import net.minecraft.potion.Potion;
 import vazkii.botania.common.brew.potion.PotionAllure;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
+import vazkii.botania.common.brew.potion.PotionClear;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionFeatherfeet;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
@@ -27,6 +28,7 @@ public class ModPotions {
 	public static Potion emptiness;
 	public static Potion bloodthrst;
 	public static Potion allure;
+	public static Potion clear;
 
 	public static void init() {
 		if(Potion.potionTypes.length < 256)
@@ -37,6 +39,7 @@ public class ModPotions {
 		emptiness = new PotionEmptiness();
 		bloodthrst = new PotionBloodthirst();
 		allure = new PotionAllure();
+		clear = new PotionClear();
 	}
 
 	private static void extendPotionArray() {

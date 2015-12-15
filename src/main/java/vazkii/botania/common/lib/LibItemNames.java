@@ -130,7 +130,7 @@ public final class LibItemNames {
 	public static final String POOL_MINECART = "poolMinecart";
 	public static final String PINKINATOR = "pinkinator";
 	public static final String INFINITE_FRUIT = "infiniteFruit";
-	public static final String EXCALIBER = "excaliber";
+	public static final String KING_KEY = "kingKey";
 	public static final String FLUGEL_EYE = "flugelEye";
 	public static final String THOR_RING = "thorRing";
 	public static final String ODIN_RING = "odinRing";
@@ -144,6 +144,23 @@ public final class LibItemNames {
 	public static final String TEMPERANCE_STONE = "temperanceStone";
 	public static final String INCENSE_STICK = "incenseStick";
 	public static final String TERRA_AXE = "terraAxe";
+	public static final String WATER_BOWL = "waterBowl";
+	public static final String OBEDIENCE_STICK = "obedienceStick";
+	public static final String CACOPHONIUM = "cacophonium";
+	public static final String SLIME_BOTTLE = "slimeBottle";
+	public static final String STAR_SWORD = "starSword";
+	public static final String EXCHANGE_ROD = "exchangeRod";
+	public static final String MAGNET_RING_GREATER = "magnetRingGreater";
+	public static final String THUNDER_SWORD = "thunderSword";
+	public static final String MANAWEAVE_HELM = "manaweaveHelm";
+	public static final String MANAWEAVE_CHEST = "manaweaveChest";
+	public static final String MANAWEAVE_LEGS = "manaweaveLegs";
+	public static final String MANAWEAVE_BOOTS = "manaweaveBoots";
+	public static final String AUTOCRAFTING_HALO = "autocraftingHalo";
+	public static final String GAIA_HEAD = "gaiaHead";
+	public static final String SEXTANT = "sextant";
+	public static final String SPEED_UP_BELT = "speedUpBelt";
+	public static final String BAUBLE_BOX = "baubleBox";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
@@ -164,7 +181,10 @@ public final class LibItemNames {
 		"lensFire",
 		"lensPiston",
 		"lensLight",
-		"lensWarp"
+		"lensWarp",
+		"lensRedirect",
+		"lensFirework",
+		"lensFlare"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
@@ -184,6 +204,13 @@ public final class LibItemNames {
 		"dreamwoodTwig",
 		"gaiaIngot",
 		"enderAirBottle",
-		"manaString"
+		"manaString",
+		"manasteelNugget",
+		"terrasteelNugget",
+		"elementiumNugget",
+		"root",
+		"pebble",
+		"manaweaveCloth",
+		"manaPowder"
 	};
 }

@@ -15,7 +15,8 @@ import net.minecraft.item.ItemStack;
 
 /**
  * An armor item that implements this can provide a mana discount for mana tools.
- * Mana tools are the ones on the main toolset (Pick, Shovel, Axe, Sword and Shovel).
+ * Mana tools are the ones on the main toolset (Pick, Shovel, Axe, Sword and Shovel)
+ * as well as Rods.
  */
 public interface IManaDiscountArmor {
 

@@ -25,7 +25,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -43,6 +42,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
+	private static final String TAG_INVIS = "invis";
+	public static final int INVISIBILITY_DATA_WATCHER_KEY = 27;
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap());
 
@@ -57,7 +58,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
+		dataWatcher.addObject(INVISIBILITY_DATA_WATCHER_KEY, 0);
 		dataWatcher.addObject(28, 0);
+		dataWatcher.setObjectWatched(INVISIBILITY_DATA_WATCHER_KEY);
 		dataWatcher.setObjectWatched(28);
 	}
 
@@ -219,7 +222,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
 		Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
 		Vector3 diff = end.copy().sub(orig);
-		Vector3 movement = diff.copy().normalize().multiply(0.05);
+		Vector3 movement = diff.copy().normalize().multiply(0.1);
 		int iters = (int) (diff.mag() / movement.mag());
 		float huePer = 1F / iters;
 		float hueSum = (float) Math.random();
@@ -233,7 +236,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
 
 			Botania.proxy.setSparkleFXNoClip(true);
-			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.6F, 12);
+			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
 			Botania.proxy.setSparkleFXNoClip(false);
 			currentPos.add(movement);
 		}
@@ -278,17 +281,29 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			}
 		}
 
+		return doPhantomInk(stack);
+	}
+
+	public boolean doPhantomInk(ItemStack stack) {
+		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+			int invis = dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY);
+			dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			return true;
+		}
+
 		return false;
 	}
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setUpgrade(cmp.getInteger(TAG_UPGRADE));
+		dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade());
+		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY));
 	}
 
 	@Override
@@ -318,7 +333,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public Collection<ISparkEntity> getTransfers() {
 		Collection<ISparkEntity> removals = new ArrayList();
-		new NBTTagList();
 
 		for(ISparkEntity e : transfers) {
 			ISparkEntity spark = e;

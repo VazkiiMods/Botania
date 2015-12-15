@@ -23,6 +23,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -91,6 +93,24 @@ public class TileAlfPortal extends TileMod {
 		}
 	};
 
+	public static MultiblockSet makeMultiblockSet() {
+		Multiblock mb = new Multiblock();
+
+		for(int[] l : LIVINGWOOD_POSITIONS)
+			mb.addComponent(l[0], l[1] + 1, l[2], ModBlocks.livingwood, 0);
+		for(int[] g : GLIMMERING_LIVINGWOOD_POSITIONS)
+			mb.addComponent(g[0], g[1] + 1, g[2], ModBlocks.livingwood, 5);
+		for(int[] p : PYLON_POSITIONS)
+			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pylon, 1);
+		for(int[] p : POOL_POSITIONS)
+			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pool, 0);
+
+		mb.addComponent(0, 1, 0, ModBlocks.alfPortal, 0);
+		mb.setRenderOffset(0, -1, 0);
+
+		return mb.makeSet();
+	}
+
 	@Override
 	public void updateEntity() {
 		int meta = getBlockMetadata();
@@ -127,7 +147,7 @@ public class TileAlfPortal extends TileMod {
 						}
 					}
 
-				if(ticksSinceLastItem >= 20) {
+				if(ticksSinceLastItem >= 4) {
 					if(!worldObj.isRemote)
 						resolveRecipes();
 				}
@@ -192,7 +212,7 @@ public class TileAlfPortal extends TileMod {
 	void resolveRecipes() {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			if(stack.getItem() instanceof ILexicon) {
+			if(stack != null && stack.getItem() instanceof ILexicon) {
 				((ILexicon) stack.getItem()).unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
 				ItemLexicon.setForcedPage(stack, LexiconData.elvenMessage.unlocalizedName);
 				spawnItem(stack);

@@ -26,6 +26,8 @@ public class TilePylon extends TileEntity {
 	int centerX, centerY, centerZ;
 	int ticks = 0;
 
+
+
 	@Override
 	public void updateEntity() {
 		++ticks;

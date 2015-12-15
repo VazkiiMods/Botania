@@ -26,7 +26,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemDye extends Item16Colors implements IManaDissolvable {
+public class ItemDye extends Item16Colors {
 
 	public ItemDye() {
 		super(LibItemNames.DYE);
@@ -41,21 +41,19 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 			par1ItemStack.stackSize--;
 			return true;
 		}
-		return false;
-	}
-
-	@Override
-	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item) {
-		if(!item.worldObj.isRemote && pool instanceof IDyablePool) {
-			IDyablePool dyable = (IDyablePool) pool;
-			TileEntity tile = (TileEntity) pool;
-			int meta = stack.getItemDamage();
+		
+		TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+		if(tile instanceof IDyablePool) {
+			IDyablePool dyable = (IDyablePool) tile;
+			int itemMeta = par1ItemStack.getItemDamage();
 			if(meta != dyable.getColor()) {
 				dyable.setColor(meta);
-				stack.stackSize--;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+				par1ItemStack.stackSize--;
+				return true;
 			}
 		}
+		
+		return false;
 	}
 
 	@Override

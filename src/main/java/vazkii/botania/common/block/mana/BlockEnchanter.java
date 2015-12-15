@@ -88,7 +88,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
-		boolean stackEnchantable = stack != null && stack.getItem() != Items.book && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability() > 0;
+		boolean stackEnchantable = stack != null && stack.getItem() != Items.book && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability(stack) > 0;
 
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {

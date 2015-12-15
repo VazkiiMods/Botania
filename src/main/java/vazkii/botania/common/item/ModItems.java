@@ -27,6 +27,10 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveBoots;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveChest;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveHelm;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveLegs;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
@@ -38,6 +42,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
@@ -50,6 +55,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
 import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
+import vazkii.botania.common.item.equipment.bauble.ItemSpeedUpBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemSwapRing;
@@ -59,6 +65,8 @@ import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
+import vazkii.botania.common.item.equipment.tool.ItemStarSword;
+import vazkii.botania.common.item.equipment.tool.ItemThunderSword;
 import vazkii.botania.common.item.equipment.tool.bow.ItemCrystalBow;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
@@ -80,7 +88,6 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmReveal
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemDye;
-import vazkii.botania.common.item.material.ItemManaPetal;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
@@ -90,15 +97,16 @@ import vazkii.botania.common.item.record.ItemRecordGaia1;
 import vazkii.botania.common.item.record.ItemRecordGaia2;
 import vazkii.botania.common.item.relic.ItemAesirRing;
 import vazkii.botania.common.item.relic.ItemDice;
-import vazkii.botania.common.item.relic.ItemExcaliber;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.item.rod.ItemCobbleRod;
 import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
+import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.item.rod.ItemFireRod;
 import vazkii.botania.common.item.rod.ItemGravityRod;
 import vazkii.botania.common.item.rod.ItemMissileRod;
@@ -119,7 +127,6 @@ public final class ModItems {
 	public static Item twigWand;
 	public static Item manaResource;
 	public static Item lens;
-	public static Item manaPetal;
 	public static Item rune;
 	public static Item signalFlare;
 	public static Item manaTablet;
@@ -229,7 +236,7 @@ public final class ModItems {
 	public static Item poolMinecart;
 	public static Item pinkinator;
 	public static Item infiniteFruit;
-	public static Item excaliber;
+	public static Item kingKey;
 	public static Item flugelEye;
 	public static Item thorRing;
 	public static Item odinRing;
@@ -243,6 +250,23 @@ public final class ModItems {
 	public static Item temperanceStone;
 	public static Item incenseStick;
 	public static Item terraAxe;
+	public static Item waterBowl;
+	public static Item obedienceStick;
+	public static Item cacophonium;
+	public static Item slimeBottle;
+	public static Item starSword;
+	public static Item exchangeRod;
+	public static Item magnetRingGreater;
+	public static Item thunderSword;
+	public static Item manaweaveHelm;
+	public static Item manaweaveChest;
+	public static Item manaweaveLegs;
+	public static Item manaweaveBoots;
+	public static Item autocraftingHalo;
+	public static Item gaiaHead;
+	public static Item sextant;
+	public static Item speedUpBelt;
+	public static Item baubleBox;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -252,7 +276,6 @@ public final class ModItems {
 		twigWand = new ItemTwigWand();
 		manaResource = new ItemManaResource();
 		lens = new ItemLens();
-		manaPetal = new ItemManaPetal();
 		rune = new ItemRune();
 		signalFlare = new ItemSignalFlare();
 		manaTablet = new ItemManaTablet();
@@ -362,7 +385,7 @@ public final class ModItems {
 		poolMinecart = new ItemPoolMinecart();
 		pinkinator = new ItemPinkinator();
 		infiniteFruit = new ItemInfiniteFruit();
-		excaliber = new ItemExcaliber();
+		kingKey = new ItemKingKey();
 		flugelEye = new ItemFlugelEye();
 		thorRing = new ItemThorRing();
 		odinRing = new ItemOdinRing();
@@ -376,12 +399,28 @@ public final class ModItems {
 		temperanceStone = new ItemTemperanceStone();
 		incenseStick = new ItemIncenseStick();
 		terraAxe = new ItemTerraAxe();
+		waterBowl = new ItemWaterBowl();
+		obedienceStick = new ItemObedienceStick();
+		cacophonium = new ItemCacophonium();
+		slimeBottle = new ItemSlimeBottle();
+		starSword = new ItemStarSword();
+		exchangeRod = new ItemExchangeRod();
+		magnetRingGreater = new ItemGreaterMagnetRing();
+		thunderSword = new ItemThunderSword();
+		manaweaveHelm = new ItemManaweaveHelm();
+		manaweaveLegs = new ItemManaweaveLegs();
+		manaweaveChest = new ItemManaweaveChest();
+		manaweaveBoots = new ItemManaweaveBoots();
+		autocraftingHalo = new ItemAutocraftingHalo();
+		gaiaHead = new ItemGaiaHead();
+		sextant = new ItemSextant();
+		speedUpBelt = new ItemSpeedUpBelt();
+		baubleBox = new ItemBaubleBox();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
-			OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
@@ -402,6 +441,13 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.GAIA_INGOT, new ItemStack(manaResource, 1, 14));
 		OreDictionary.registerOre(LibOreDict.ENDER_AIR_BOTTLE, new ItemStack(manaResource, 1, 15));
 		OreDictionary.registerOre(LibOreDict.MANA_STRING, new ItemStack(manaResource, 1, 16));
+		OreDictionary.registerOre(LibOreDict.MANASTEEL_NUGGET, new ItemStack(manaResource, 1, 17));
+		OreDictionary.registerOre(LibOreDict.TERRASTEEL_NUGGET, new ItemStack(manaResource, 1, 18));
+		OreDictionary.registerOre(LibOreDict.ELEMENTIUM_NUGGET, new ItemStack(manaResource, 1, 19));
+		OreDictionary.registerOre(LibOreDict.ROOT, new ItemStack(manaResource, 1, 20));
+		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(manaResource, 1, 21));
+		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaResource, 1, 22));
+		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaResource, 1, 23));
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
@@ -415,5 +461,6 @@ public final class ModItems {
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 
 		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
+		OreDictionary.registerOre("powderBlaze", Items.blaze_powder);
 	}
 }

@@ -64,11 +64,17 @@ public class ItemRelic extends ItemMod implements IRelic {
 			if(stack.getItem() == ModItems.aesirRing)
 				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.dropIkea"), list);
 
-			addStringToTooltip("", list);
-			String name = stack.getUnlocalizedName() + ".poem";
-			for(int i = 0; i < 4; i++)
-				addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+			if(stack.getItem() == ModItems.dice) {
+				addStringToTooltip("", list);
+				String name = stack.getUnlocalizedName() + ".poem";
+				for(int i = 0; i < 4; i++)
+					addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+			}
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
+	}
+
+	public boolean shouldDamageWrongPlayer() {
+		return true;
 	}
 
 	@Override
@@ -95,7 +101,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			soulbind = getSoulbindUsernameS(stack);
 		}
 
-		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0)
+		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
 			player.attackEntityFrom(damageSource(), 2);
 	}
 

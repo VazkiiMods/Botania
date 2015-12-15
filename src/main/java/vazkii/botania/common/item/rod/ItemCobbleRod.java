@@ -10,15 +10,18 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemCobbleRod extends ItemMod implements IManaUsingItem {
+public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	static final int COST = 150;
 
@@ -40,6 +43,20 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		if(block == Blocks.cobblestone && meta == 0)
+			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		if(block == Blocks.cobblestone && meta == 0)
+			return -1;
+		return 0;
 	}
 
 }

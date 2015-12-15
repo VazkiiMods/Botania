@@ -34,6 +34,8 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.IManaGivingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -41,7 +43,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer {
+public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer, IManaGivingItem {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
 	static IIcon willIcon;
@@ -69,6 +71,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			int food = player.getFoodStats().getFoodLevel();
 			if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
 				player.heal(1F);
+			ManaItemHandler.dispatchManaExact(stack, player, 1, true);
 		}
 	}
 
@@ -120,7 +123,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.26F, 0.3F, -0.29F);
+			GL11.glTranslatef(-0.26F, 0.15F, -0.39F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, willIcon.getIconWidth(), willIcon.getIconHeight(), 1F / 16F);
 			GL11.glPopMatrix();

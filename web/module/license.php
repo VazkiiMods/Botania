@@ -14,7 +14,7 @@
 	
 	$clause_waive = build_clause('Waive', 'thumbs-up', 'All restrictive clauses in this license can be ignored with personal permission. Read the above clause.');
 	
-	$clause_extensive =  build_clause('Extensive', 'th-large', "This license applies to $mod_name, the $mod_name website, the legacy $mod_name website and all other code or binaries found on this website or the github repository unless otherwise indicated.");
+	$clause_extensive =  build_clause('Extensive', 'th-large', "This license applies to $mod_name, the $mod_name website, the legacy $mod_name website and all other code, assets or binaries found on this website or the github repository unless otherwise indicated.");
 	
 	$clause_non_court = build_clause('Informal', 'file', 'This license will not hold up in court. I have no intention of suing anyone for breaking it, the worst that can happen to you if you do is that I\'ll get annoyed and ask you to rectify your mistake. If you use a public distribution platform (such as CurseForge) it\'s also possible your project will get taken down. Breaking the license also makes you a jerk, and you don\'t want to be a jerk, do you?');
 	
@@ -24,8 +24,10 @@
 	
 	$clause_thief = build_clause('Thief', 'lock', "You must not claim that you made $mod_name. Giving appropriate credit to $mod_creator as the creator of $mod_name makes you cooler, but you don't have to do it if you don't want to.");
 	
-	$clause_open_source = build_clause('Open Source', 'random', 'Your project must be open source (have its source visible and allow for redistribution and modification).');
+	$clause_open_source = build_clause('Copyleft', 'random', 'Your project must be open source (have its source visible and allow for redistribution and modification) and include a clause similar to this one in its license.');
 	
+	$clause_api = build_clause('API', 'asterisk', 'Any of the other clauses under this section do not apply to any Botania API code. However, if Botania API code is used, it must be included verbatim as it was obtained. Furthermore, the package-info.java file included with the API must be present, and in the right spot, for any mods that package any compiled API classes within to prevent conflicts.<br><i>Learn more about the API annotation <a href="https://github.com/Minalien/BlogArchive/blob/master/ForgeTutorials/Spotlight__API_Annotation.md">here</a>.');
+
 	function add_clause($clause) {
 		global $clauses;
 		$clauses .= $clause;
@@ -82,12 +84,13 @@ If you simply wish to play with the mod and do nothing else, go for it, this pag
 
 	add_clause($clause_attribution);
 	add_clause($clause_non_monetary);
-	print_license_point("If you want to <b>Distribute $mod_name</b>", '"Distribution" refers to making available binaries or source of the mod available from the original sources as part of your modpack or otherwise.');
+	print_license_point("If you want to <b>Distribute $mod_name</b>", '"Distribution" refers to making available binaries, assets, or source of the mod available from the original sources as part of your modpack or otherwise.');
 	
 	add_clause($clause_thief);
-	print_license_point("If you want to <b>Feature $mod_name</b>", "\"Featuring\" refers to using $mod_name in an environment where you do not distribute binaries or source. An example would be a YouTube Let's Play.");
+	print_license_point("If you want to <b>Feature $mod_name</b>", "\"Featuring\" refers to using $mod_name in an environment where you do not distribute binaries, assets, or source. An example would be a YouTube Let's Play.");
 	
 	add_clause($clause_attribution);
 	add_clause($clause_open_source);
-	print_license_point("If you want to <b>Use $mod_name Code</b>", 'Usage of code falls under the Extensive Clause.');
+	add_clause($clause_api);
+	print_license_point("If you want to <b>Use $mod_name Code or Assets</b>", 'Usage of code or assets falls under the Extensive Clause.');
 ?>

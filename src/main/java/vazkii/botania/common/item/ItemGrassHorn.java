@@ -29,6 +29,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IGrassHornExcempt;
+import vazkii.botania.api.item.IHornHarvestable;
+import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -104,13 +106,14 @@ public class ItemGrassHorn extends ItemMod {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
 		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-			breakGrass(player.worldObj, stack.getItemDamage(), (int) player.posX, (int) player.posY, (int) player.posZ);
+			breakGrass(player.worldObj, stack, stack.getItemDamage(), (int) player.posX, (int) player.posY, (int) player.posZ);
 
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
 	}
 
-	public static void breakGrass(World world, int stackDmg, int srcx, int srcy, int srcz) {
+	public static void breakGrass(World world, ItemStack stack, int stackDmg, int srcx, int srcy, int srcz) {
+		EnumHornType type = EnumHornType.getTypeForMeta(stackDmg);
 		Random rand = new Random(srcx ^ srcy ^ srcz);
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
@@ -124,7 +127,7 @@ public class ItemGrassHorn extends ItemMod {
 					int z = srcz + j;
 
 					Block block = world.getBlock(x, y, z);
-					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
+					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, x, y, z, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
 						coords.add(new ChunkCoordinates(x, y, z));
 				}
 
@@ -138,7 +141,9 @@ public class ItemGrassHorn extends ItemMod {
 			int meta = world.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);
 			items.addAll(block.getDrops(world, currCoords.posX, currCoords.posY, currCoords.posZ, meta, 0));
 
-			if(!world.isRemote) {
+			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type))
+				((IHornHarvestable) block).harvestByHorn(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type);
+			else if(!world.isRemote) {
 				world.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
 				if(ConfigHandler.blockBreakParticles)
 					world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));

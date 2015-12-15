@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,7 +37,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 
 			if(recipe.getInput() instanceof String)
 				inputs.add(new PositionedStack(OreDictionary.getOres((String) recipe.getInput()), 42, 23));
-			else inputs.add(new PositionedStack(recipe.getInput(), 42, 23));
+			else inputs.add(new PositionedStack(new ItemStack((Block) recipe.getInput()), 42, 23));
 
 			output = new PositionedStack(new ItemStack(recipe.getOutput()), 101, 23);
 		}

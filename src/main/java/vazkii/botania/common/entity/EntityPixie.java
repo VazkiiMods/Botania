@@ -105,7 +105,7 @@ public class EntityPixie extends EntityFlyingCreature {
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 
-		if(getAttackTarget() == null && ticksExisted > 100)
+		if(getAttackTarget() == null || ticksExisted > 200)
 			die();
 
 		boolean dark = getType() == 1;

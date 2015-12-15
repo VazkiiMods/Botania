@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -42,11 +43,14 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.IPingable;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
@@ -64,6 +68,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_LAST_MOTION_X = "lastMotionX";
 	private static final String TAG_LAST_MOTION_Y = "lastMotionY";
 	private static final String TAG_LAST_MOTION_Z = "lastMotionZ";
+	private static final String TAG_HAS_SHOOTER = "hasShooter";
+	private static final String TAG_SHOOTER_UUID_MOST = "shooterUUIDMost";
+	private static final String TAG_SHOOTER_UUID_LEAST = "shooterUUIDLeast";
 
 	boolean fake = false;
 
@@ -74,6 +81,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	boolean fullManaLastTick = true;
 
+	UUID shooterIdentity = null;
 	int _ticksExisted = 0;
 	boolean scanBeam = false;
 	public List<PositionProperties> propsList = new ArrayList();
@@ -352,12 +360,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
 
-		if(!fake && !isDead) {
-			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-			if(tile != null && tile instanceof IManaSpreader)
-				((IManaSpreader) tile).setCanShoot(false);
-		}
+		if(!fake && !isDead)
+			ping();
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)
@@ -390,6 +394,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					propsList.add(props);
 			}
 		}
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_) {
+		setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
+		setRotation(p_70056_7_, p_70056_8_);
 	}
 
 	@Override
@@ -437,6 +448,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_X, motionX);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
+
+		UUID identity = getShooterUIID();
+		boolean hasShooter = identity != null;
+		par1nbtTagCompound.setBoolean(TAG_HAS_SHOOTER, hasShooter);
+		if(hasShooter) {
+			par1nbtTagCompound.setLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
+			par1nbtTagCompound.setLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
+		}
 	}
 
 	@Override
@@ -467,6 +486,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		double lastMotionZ = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Z);
 
 		setMotion(lastMotionX, lastMotionY, lastMotionZ);
+
+		boolean hasShooter = par1nbtTagCompound.getBoolean(TAG_HAS_SHOOTER);
+		if(hasShooter) {
+			long most = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_MOST);
+			long least = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_LEAST);
+			UUID identity = getShooterUIID();
+			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
+				shooterIdentity = new UUID(most, least);
+		}
 	}
 
 	public void particles() {
@@ -626,11 +654,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		super.setDead();
 
 		if(!fake) {
-			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+			TileEntity tile = getShooter();
 			if(tile != null && tile instanceof IManaSpreader)
 				((IManaSpreader) tile).setCanShoot(true);
 		} else setDeathTicksForFakeParticle();
+	}
+
+	public TileEntity getShooter() {
+		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+		return tile;
 	}
 
 	@Override
@@ -781,20 +814,35 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return x + ":" + y + ":" + z;
 	}
 
+	@Override
+	public void setShooterUUID(UUID uuid) {
+		shooterIdentity = uuid;
+	}
+
+	@Override
+	public UUID getShooterUIID() {
+		return shooterIdentity;
+	}
+
+	@Override
+	public void ping() {
+		TileEntity tile = getShooter();
+		if(tile != null && tile instanceof IPingable)
+			((IPingable) tile).pingback(this, getShooterUIID());
+	}
+
 	public boolean shouldDoFakeParticles() {
 		if(ConfigHandler.staticWandBeam)
 			return true;
 
-		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IManaSpreader)
 			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((IManaSpreader) tile).getBurstParticleTick() - getTicksExisted()) < 4;
 		return false;
 	}
 
 	public void incrementFakeParticleTick() {
-		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IManaSpreader) {
 			IManaSpreader spreader = (IManaSpreader) tile;
 			spreader.setBurstParticleTick(spreader.getBurstParticleTick()+2);
@@ -842,4 +890,5 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			return block == this.block && meta == this.meta;
 		}
 	}
+
 }

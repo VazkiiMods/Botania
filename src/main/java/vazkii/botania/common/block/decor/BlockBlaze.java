@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -44,7 +45,7 @@ public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 
 	@Override
 	public int getBurnTime(ItemStack fuel) {
-		return fuel.getItem() == Item.getItemFromBlock(this) ? TileEntityFurnace.getItemBurnTime(new ItemStack(Items.blaze_rod)) * 9 : 0;
+		return fuel.getItem() == Item.getItemFromBlock(this) ? TileEntityFurnace.getItemBurnTime(new ItemStack(Items.blaze_rod)) * (Botania.gardenOfGlassLoaded ? 5 : 10) : 0;
 	}
 
 }

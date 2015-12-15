@@ -32,14 +32,14 @@ public class ItemDice extends ItemRelic {
 		-1, 0, 1, 2, -1, 2, 3, 4
 	};
 
-	final ItemStack[] relicStacks;
+	public static ItemStack[] relicStacks;
 
 	public ItemDice() {
 		super(LibItemNames.DICE);
 
 		relicStacks = new ItemStack[] {
 				new ItemStack(ModItems.infiniteFruit),
-				new ItemStack(ModItems.excaliber),
+				new ItemStack(ModItems.kingKey),
 				new ItemStack(ModItems.flugelEye),
 				new ItemStack(ModItems.thorRing),
 				new ItemStack(ModItems.odinRing),
@@ -79,6 +79,11 @@ public class ItemDice extends ItemRelic {
 		}
 
 		return stack;
+	}
+
+	@Override
+	public boolean shouldDamageWrongPlayer() {
+		return false;
 	}
 
 	boolean hasRelicAlready(EntityPlayer player, int relic) {

@@ -39,23 +39,33 @@ import cpw.mods.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 
-	private volatile static Map<String, IIcon> flowerMap = null;
-	private static boolean startedLoading = false;
+	public volatile static Map<String, IIcon> flowerMap = null;
+	private volatile static boolean startedLoading = false;
+
+	private static boolean phi = true;
 
 	public static void render(RenderPlayerEvent.Specials event) {
+		String name = event.entityPlayer.getDisplayName();
+
+		if(name.equals("Vazkii") || name.equals("_phi")) {
+			if(phi)
+				renderPhiFlower(event);
+			else renderTwintails(event);
+		} else if(name.equals("haighyorkie"))
+			renderGoldfish(event);
+
+		firstStart();
+		
+		name = name.toLowerCase();
+		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
+			renderFlower(event, flowerMap.get(name));
+	}
+
+	public static void firstStart() {
 		if(!startedLoading) {
 			new ThreadContributorListLoader();
 			startedLoading = true;
 		}
-
-		String name = event.entityPlayer.getDisplayName();
-
-		if(name.equals("Vazkii"))
-			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
-
-		name = name.toLowerCase();
-		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
-			renderFlower(event, flowerMap.get(name));
 	}
 
 	public static void load(Properties props) {
@@ -76,8 +86,7 @@ public final class ContributorFancinessHandler {
 		}
 	}
 
-
-	private static void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
+	private static void renderTwintails(RenderPlayerEvent event) {
 		GL11.glPushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
 		float f = icon.getMinU();
@@ -103,6 +112,44 @@ public final class ContributorFancinessHandler {
 		GL11.glScalef(-1F, 1F, 1F);
 		GL11.glTranslatef(t, -0F, 0F);
 		GL11.glRotatef(r, 0F, 0F, 1F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glPopMatrix();
+	}
+
+	private static void renderPhiFlower(RenderPlayerEvent event) {
+		GL11.glPushMatrix();
+		IIcon icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		Helper.translateToHeadLevel(event.entityPlayer);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glRotatef(180F, 1F, 0F, 0F);
+		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glScalef(0.4F, 0.4F, 0.4F);
+		GL11.glTranslatef(-1.2F, 0.2F, 0.125F);
+		GL11.glRotatef(20F, 1F, 0F, 0F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glPopMatrix();
+	}
+
+	private static void renderGoldfish(RenderPlayerEvent event) {
+		GL11.glPushMatrix();
+		IIcon icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		Helper.rotateIfSneaking(event.entityPlayer);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glRotatef(180F, 0F, 0F, 1F);
+		GL11.glTranslatef(-0.75F, 0.5F, 0F);
+		GL11.glScalef(0.4F, 0.4F, 0.4F);
+		GL11.glTranslatef(1.2F, 0.5F, 0F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}

@@ -77,7 +77,6 @@ public class PageShedding extends PageEntity {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
-
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 			List<String> parsedTooltip = new ArrayList();
@@ -144,6 +143,13 @@ public class PageShedding extends PageEntity {
 		}
 
 		GL11.glDisable(GL11.GL_LIGHTING);
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		list.add(shedStack);
+		return list;
 	}
 
 }

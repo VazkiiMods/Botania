@@ -11,14 +11,26 @@
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import java.util.List;
+import java.util.UUID;
 
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
@@ -27,13 +39,28 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
+		models[slot] = new ModelArmorTerrasteel(slot);
+		return models[slot];
+	}
+
+	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+
+	@Override
+	public Multimap getItemAttributeModifiers() {
+		Multimap multimap = HashMultimap.create();
+		UUID uuid = new UUID(getUnlocalizedName().hashCode(), 0);
+		multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type) / 20, 0));
+		return multimap;
 	}
 
 	static ItemStack[] armorset;
@@ -76,6 +103,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc0"), list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc1"), list);
+		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc2"), list);
 	}
 
 }

@@ -30,6 +30,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -82,7 +83,9 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
-	public static Set<Item> looniumBlacklist = new LinkedHashSet();
+	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
+	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -93,9 +96,15 @@ public final class BotaniaAPI {
 	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
+	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", 5, new int[] { 1, 2, 2, 1 }, 18);
+
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
 
-	public static KnowledgeType basicKnowledge, elvenKnowledge;
+	public static KnowledgeType basicKnowledge;
+	public static KnowledgeType elvenKnowledge;
+
+	// This is here for completeness sake, but you shouldn't use it
+	public static KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -116,6 +125,7 @@ public final class BotaniaAPI {
 
 		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
+		relicKnowledge = registerKnowledgeType("relic", EnumChatFormatting.DARK_PURPLE, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -127,7 +137,8 @@ public final class BotaniaAPI {
 		addOreWeight("oreCoal", 46525); // Vanilla
 		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
 		addOreWeight("oreDark", 1350); // EvilCraft
-		addOreWeight("oreDarkIron", 1700); // Factorization
+		addOreWeight("oreDarkIron", 1700); // Factorization (older versions)
+		addOreWeight("oreFzDarkIron", 1700); // Factorization (newer versions)
 		addOreWeight("oreDiamond", 1265); // Vanilla
 		addOreWeight("oreEmerald", 780); // Vanilla
 		addOreWeight("oreGalena", 1000); // Factorization
@@ -142,8 +153,10 @@ public final class BotaniaAPI {
 		addOreWeight("oreLapis", 1285); // Vanilla
 		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
 		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
+		addOreWeight("oreMithril", 8); // Thermal Expansion
 		addOreWeight("oreNickel", 2275); // Thermal Expansion
 		addOreWeight("oreOlivine", 1100); // Project RED
+		addOreWeight("orePlatinum", 365); // Thermal Expansion
 		addOreWeight("oreRedstone", 6885); // Vanilla
 		addOreWeight("oreRuby", 1100); // Project RED
 		addOreWeight("oreSapphire", 1100); // Project RED
@@ -177,7 +190,6 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreNetherSteel", 1690); // Nether Ores
 		addOreWeightNether("oreNetherTin", 3750); // Nether Ores
 		addOreWeightNether("oreFyrite", 1000); // Netherrocks
-		addOreWeightNether("oreMalachite", 1000); // Netherrocks
 		addOreWeightNether("oreAshstone", 1000); // Netherrocks
 		addOreWeightNether("oreDragonstone", 175); // Netherrocks
 		addOreWeightNether("oreArgonite", 1000); // Netherrocks
@@ -203,7 +215,7 @@ public final class BotaniaAPI {
 		registerModWiki("EnderIO", new SimpleWikiProvider("EnderIO Wiki", "http://wiki.enderio.com/%s"));
 		registerModWiki("TropiCraft", new SimpleWikiProvider("Tropicraft Wiki", "http://wiki.tropicraft.net/wiki/%s"));
 		registerModWiki("RandomThings", new SimpleWikiProvider("Random Things Wiki", "http://randomthingsminecraftmod.wikispaces.com/%s"));
-		registerModWiki("Witchery", new SimpleWikiProvider("Witchery Wiki", "https://sites.google.com/site/witcherymod/%s", "-"));
+		registerModWiki("Witchery", new SimpleWikiProvider("Witchery Wiki", "https://sites.google.com/site/witcherymod/%s", "-", true));
 		registerModWiki("AppliedEnergistics2", new SimpleWikiProvider("AE2 Wiki", "http://ae-mod.info/%s"));
 		registerModWiki("BigReactors", technicWiki);
 		registerModWiki("BuildCraft|Core", buildcraftWiki);
@@ -218,14 +230,21 @@ public final class BotaniaAPI {
 		registerModWiki("GanysSurface", new SimpleWikiProvider("Gany's Surface Wiki", "http://ganys-surface.wikia.com/wiki/%s"));
 		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
 		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
+
+		registerPaintableBlock(Blocks.stained_glass);
+		registerPaintableBlock(Blocks.stained_glass_pane);
+		registerPaintableBlock(Blocks.stained_hardened_clay);
+		registerPaintableBlock(Blocks.wool);
+		registerPaintableBlock(Blocks.carpet);
 	}
 
 	/**
-	 * The internal method handler in use. Do not overwrite.
+	 * The internal method handler in use.
+	 * <b>DO NOT OVERWRITE THIS OR YOU'RE GOING TO FEEL MY WRATH WHEN I UPDATE THE API.</b>
+	 * The fact I have to write that means some moron already tried, don't be that moron.
 	 * @see IInternalMethodHandler
 	 */
 	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
-
 
 	/**
 	 * Registers a new Knowledge Type.
@@ -254,6 +273,69 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
+	}
+
+	/**
+	 * Registers a paintableBlock and returns it.
+	 */
+	public static Block registerPaintableBlock(Block paintable){
+		paintableBlocks.add(paintable);
+		return paintable;
+	}
+
+	/**
+	 * Blacklists an item from being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
+	 */
+	public static void blacklistItemFromMagnet(ItemStack stack) {
+		String key = getMagnetKey(stack);
+		magnetBlacklist.add(key);
+	}
+
+	/**
+	 * Blacklists a block from having items on top of it being pulled by the Ring of Magnetization.
+	 * Short.MAX_VALUE can be used as meta for a wildcard.
+	 */
+	public static void blacklistBlockFromMagnet(Block block, int meta) {
+		String key = getMagnetKey(block, meta);
+		magnetBlacklist.add(key);
+	}
+
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
+		return isItemBlacklistedFromMagnet(stack, 0);
+	}
+	
+	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
+		if(recursion > 5)
+			return false;
+		
+		if(stack.getItemDamage() != Short.MAX_VALUE) {
+			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
+			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
+			if(general)
+				return true;
+		}
+
+		String key = getMagnetKey(stack);
+		return magnetBlacklist.contains(key);
+	}
+	
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
+		return isBlockBlacklistedFromMagnet(block, meta, 0);
+	}
+
+	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
+		if(recursion >= 5)
+			return false;
+			
+		if(meta != Short.MAX_VALUE) {
+			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
+			if(general)
+				return true;
+		}
+
+		String key = getMagnetKey(block, meta);
+		return magnetBlacklist.contains(key);
 	}
 
 	/**
@@ -462,6 +544,9 @@ public final class BotaniaAPI {
 	 * https://gist.github.com/Vazkii/9493322
 	 */
 	public static void addOreWeightNether(String ore, int weight) {
+		if(ore.contains("Nether") && OreDictionary.getOres(ore.replace("Nether", "")).size() == 0)
+			return;
+
 		oreWeightsNether.put(ore, weight);
 	}
 
@@ -530,4 +615,16 @@ public final class BotaniaAPI {
 	public static Set<String> getAllSubTiles() {
 		return subTiles.keySet();
 	}
+
+	private static String getMagnetKey(ItemStack stack) {
+		if(stack == null)
+			return "";
+
+		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();
+	}
+
+	private static String getMagnetKey(Block block, int meta) {
+		return "bm_" + block.getUnlocalizedName() + "@" + meta;
+	}
+
 }

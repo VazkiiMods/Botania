@@ -32,6 +32,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private static final String TAG_MASTER = "master";
 	private static final String TAG_NETWORK = "network";
+	private static final String TAG_INVIS = "invis";
 
 	ICorporeaSpark master;
 	List<ICorporeaSpark> connections = new ArrayList();
@@ -48,11 +49,13 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
+		dataWatcher.addObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, 0);
 		dataWatcher.addObject(28, 0);
 		dataWatcher.addObject(29, 0);
 		dataWatcher.addObject(30, 0);
 		dataWatcher.addObject(31, new ItemStack(Blocks.stone, 0, 0));
 
+		dataWatcher.setObjectWatched(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
 		dataWatcher.setObjectWatched(28);
 		dataWatcher.setObjectWatched(29);
 		dataWatcher.setObjectWatched(30);
@@ -87,7 +90,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			else firstUpdateServer = false;
 		}
 
-		if(master != null && master.getNetwork() != getNetwork())
+		if(master != null && (((Entity) master).isDead || master.getNetwork() != getNetwork()))
 			master = null;
 
 		int displayTicks = getItemDisplayTicks();
@@ -148,7 +151,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		List<ICorporeaSpark> sparks = getNearbySparks();
 		if(sparks.size() > 0) {
 			for(ICorporeaSpark spark : sparks)
-				if(spark.getNetwork() == getNetwork()) {
+				if(spark.getNetwork() == getNetwork() && !((Entity) spark).isDead) {
 					ICorporeaSpark master = spark.getMaster();
 					if(master != null) {
 						this.master = master;
@@ -254,6 +257,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					setDead();
+					if(isMaster())
+						restartNetwork();
 					if(player.worldObj.isRemote)
 						player.swingItem();
 					return true;
@@ -277,6 +282,16 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			}
 		}
 
+		return doPhantomInk(stack);
+	}
+
+	public boolean doPhantomInk(ItemStack stack) {
+		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+			int invis = dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
+			dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			return true;
+		}
+
 		return false;
 	}
 
@@ -284,12 +299,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setNetwork(cmp.getInteger(TAG_NETWORK));
+		dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
 		cmp.setInteger(TAG_NETWORK, getNetwork());
+		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY));
 	}
 
 }

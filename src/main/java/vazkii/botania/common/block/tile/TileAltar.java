@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,11 +29,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -109,10 +118,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				if(recipe.matches(this)) {
 					saveLastRecipe();
 
-					for(int i = 0; i < getSizeInventory(); i++)
-						setInventorySlotContents(i, null);
-
 					if(!worldObj.isRemote) {
+						for(int i = 0; i < getSizeInventory(); i++)
+							setInventorySlotContents(i, null);
+
 						stack.stackSize--;
 						if(stack.stackSize == 0)
 							item.setDead();
@@ -120,11 +129,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
+
+						setWater(false);
+						worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					}
 
 					craftingFanciness();
-					setWater(false);
-					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					didChange = true;
 
 					break;
@@ -141,7 +151,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			ItemStack stack = getStackInSlot(i);
 			if(stack == null)
 				break;
-			lastRecipe.add(stack);
+			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
 	}
@@ -318,6 +328,56 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 	public boolean hasLava() {
 		return hasLava;
+	}
+
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		int xc = res.getScaledWidth() / 2;
+		int yc = res.getScaledHeight() / 2;
+
+		float angle = -90;
+		int radius = 24;
+		int amt = 0;
+		for(int i = 0; i < getSizeInventory(); i++) {
+			if(getStackInSlot(i) == null)
+				break;
+			amt++;
+		}
+
+		if(amt > 0) {
+			float anglePer = 360F / amt;
+
+			for(RecipePetals recipe : BotaniaAPI.petalRecipes)
+				if(recipe.matches(this)) {
+					GL11.glColor4f(1F, 1F, 1F, 1F);
+					mc.renderEngine.bindTexture(HUDHandler.manaBar);
+					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
+
+					ItemStack stack = recipe.getOutput();
+
+					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+					RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, xc + radius + 32, yc - 8);
+					RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(Items.wheat_seeds), xc + radius + 16, yc + 6);
+					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
+				}
+
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			for(int i = 0; i < amt; i++) {
+				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
+				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
+				GL11.glTranslated(xPos, yPos, 0);
+				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, getStackInSlot(i), 0, 0);
+				GL11.glTranslated(-xPos, -yPos, 0);
+
+				angle += anglePer;
+			}
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		} else if(recipeKeepTicks > 0 && hasWater) {
+			String s = StatCollector.translateToLocal("botaniamisc.altarRefill0");
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			s = StatCollector.translateToLocal("botaniamisc.altarRefill1");
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+		}
 	}
 
 }

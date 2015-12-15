@@ -41,7 +41,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_CULL_FACE);
-		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F);
+		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 		GL11.glColor4f(1F, 1F, 1F, alpha);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -51,25 +51,18 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 		}
 
-		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
-		if(meta == 2) {
-			GL11.glTranslated(0F, 0F, 0.5F);
-			renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
-			GL11.glTranslated(0F, 0F, -0.5F);
-		}
-
-		GL11.glRotatef(180F, 0F, 1F, 0F);
-		GL11.glTranslated(-3F, 0F, -0.5F);
-		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
-		if(meta == 2) {
-			GL11.glTranslated(0F, 0F, 0.5F);
-			renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
-			GL11.glTranslated(0F, 0F, -0.5F);
-		}
-
 		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
+
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glTranslated(0F, 0F, 0.5F);
+		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
+
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glPopMatrix();
 	}

@@ -89,9 +89,17 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 				}
 			}
 
+			boolean special = isOnSpecialSoil();
+			if(special) {
+				subTile.overgrowth = true;
+				if(subTile.isOvergrowthAffected()) {
+					subTile.onUpdate();
+					subTile.overgrowthBoost = true;
+				}
+			}
 			subTile.onUpdate();
-			if(isOnSpecialSoil())
-				subTile.onUpdate();
+			subTile.overgrowth = false;
+			subTile.overgrowthBoost = false;
 		}
 	}
 
@@ -192,5 +200,23 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		if(subTile == null)
 			return false;
 		return subTile.bindTo(player, wand, x, y, z, side);
+	}
+
+	public int getLightValue() {
+		if(subTile == null)
+			return -1;
+		return subTile.getLightValue();
+	}
+
+	public int getComparatorInputOverride(int side) {
+		if(subTile == null)
+			return 0;
+		return subTile.getComparatorInputOverride(side);
+	}
+
+	public int getPowerLevel(int side) {
+		if(subTile == null)
+			return 0;
+		return subTile.getPowerLevel(side);
 	}
 }

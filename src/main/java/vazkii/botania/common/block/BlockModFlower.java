@@ -101,7 +101,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return (ConfigHandler.altFlowerTextures ? iconsAlt : icons)[par2];
+		return (ConfigHandler.altFlowerTextures ? iconsAlt : icons)[Math.min(icons.length - 1, par2)];
 	}
 
 	@Override

@@ -18,6 +18,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileIncensePlate;
 
 public class LensFire extends Lens {
 
@@ -36,7 +38,10 @@ public class LensFire extends Lens {
 
 			if(blockAt == Blocks.portal)
 				entity.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Blocks.air);
-			else if(blockAt_.isAir(entity.worldObj, x, y, z))
+			else if(blockAt == ModBlocks.incensePlate) {
+				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+				plate.ignite();
+			} else if(blockAt_.isAir(entity.worldObj, x, y, z))
 				entity.worldObj.setBlock(x, y, z, Blocks.fire);
 		}
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.lib.LibResources;
@@ -59,19 +60,19 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.flower);
 		addBlock(ModBlocks.specialFlower);
 		addItem(ModItems.petal);
-		addItem(ModItems.manaPetal);
 		addItem(ModItems.pestleAndMortar);
 		addItem(ModItems.dye);
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
-		addItem(ModItems.grassSeeds);
 		addItem(ModItems.blackLotus);
 		addItem(ModItems.twigWand);
+		addItem(ModItems.obedienceStick);
 		addItem(ModItems.manaResource);
 		addBlock(ModBlocks.storage);
 		addItem(ModItems.manaCookie);
 		addItem(ModItems.rune);
 
+		addBlock(ModBlocks.avatar);
 		addItem(ModItems.dirtRod);
 		addItem(ModItems.skyDirtRod);
 		addItem(ModItems.cobbleRod);
@@ -81,9 +82,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.waterRod);
 		addItem(ModItems.openBucket);
 		addItem(ModItems.rainbowRod);
+		addBlock(ModBlocks.bifrostPerm);
+		addBlock(ModFluffBlocks.bifrostPane);
+		addBlock(ModBlocks.shimmerrock);
+		addBlock(ModBlocks.shimmerwoodPlanks);
 		addItem(ModItems.tornadoRod);
 		addItem(ModItems.fireRod);
 		addItem(ModItems.smeltRod);
+		addItem(ModItems.exchangeRod);
 		addItem(ModItems.diviningRod);
 		addItem(ModItems.gravityRod);
 		addItem(ModItems.missileRod);
@@ -95,6 +101,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
 		addBlock(ModBlocks.enchantedSoil);
+		addItem(ModItems.grassSeeds);
+		addBlock(ModBlocks.altGrass);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
 		addBlock(ModBlocks.forestDrum);
@@ -103,9 +111,19 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.enderHand);
 		addItem(ModItems.spellCloth);
 		addItem(ModItems.craftingHalo);
+		addItem(ModItems.autocraftingHalo);
 		addItem(ModItems.spawnerMover);
 		addBlock(ModBlocks.spawnerClaw);
+		addBlock(ModBlocks.cocoon);
+		addBlock(ModBlocks.teruTeruBozu);
+		addItem(ModItems.slimeBottle);
+		addItem(ModItems.sextant);
 		addItem(ModItems.blackHoleTalisman);
+
+		if(Botania.gardenOfGlassLoaded) {
+			addBlock(ModBlocks.root);
+			addItem(ModItems.waterBowl);
+		}
 
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
@@ -123,21 +141,26 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.incensePlate);
 		addItem(ModItems.incenseStick);
 		addItem(ModItems.bloodPendant);
+		addBlock(ModBlocks.felPumpkin);
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
+		addBlock(ModBlocks.hourglass);
 
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);
 		addBlock(ModBlocks.redStringFertilizer);
 		addBlock(ModBlocks.redStringComparator);
 		addBlock(ModBlocks.redStringRelay);
+		addBlock(ModBlocks.redStringInterceptor);
 
 		addBlock(ModBlocks.tinyPotato);
 		addBlock(ModBlocks.starfield);
 
 		addBlock(ModBlocks.dreamwood);
 		addBlock(ModBlocks.manaGlass);
+		addBlock(ModFluffBlocks.managlassPane);
 		addBlock(ModBlocks.elfGlass);
+		addBlock(ModFluffBlocks.alfglassPane);
 
 		addItem(ModItems.glassPick);
 		addItem(ModItems.manasteelPick);
@@ -153,11 +176,17 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);
 		addItem(ModItems.manasteelBoots);
+		addItem(ModItems.manaweaveHelm);
+		addItem(ModItems.manaweaveChest);
+		addItem(ModItems.manaweaveLegs);
+		addItem(ModItems.manaweaveBoots);
 		addItem(ModItems.elementiumPick);
 		addItem(ModItems.elementiumShovel);
 		addItem(ModItems.elementiumAxe);
 		addItem(ModItems.elementiumShears);
 		addItem(ModItems.elementiumSword);
+		addItem(ModItems.starSword);
+		addItem(ModItems.thunderSword);
 		addItem(ModItems.crystalBow);
 		addItem(ModItems.elementiumHelm);
 		if(Botania.thaumcraftLoaded)
@@ -177,14 +206,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
 		addItem(ModItems.phantomInk);
+		addItem(ModItems.cacophonium);
 		addItem(ModItems.recordGaia1);
 		addItem(ModItems.recordGaia2);
 		addItem(ModItems.ancientWill);
 		addItem(ModItems.pinkinator);
+		addItem(ModItems.gaiaHead);
 		if(ConfigHandler.relicsEnabled) {
 			addItem(ModItems.dice);
 			addItem(ModItems.infiniteFruit);
-			addItem(ModItems.excaliber);
+			addItem(ModItems.kingKey);
 			addItem(ModItems.flugelEye);
 			addItem(ModItems.thorRing);
 			addItem(ModItems.odinRing);
@@ -192,6 +223,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addItem(ModItems.aesirRing);
 		}
 
+		addItem(ModItems.baubleBox);
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);
@@ -201,11 +233,13 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.waterRing);
 		addItem(ModItems.miningRing);
 		addItem(ModItems.magnetRing);
+		addItem(ModItems.magnetRingGreater);
 		addItem(ModItems.swapRing);
 		addItem(ModItems.reachRing);
 		addItem(ModItems.pixieRing);
 		addItem(ModItems.travelBelt);
 		addItem(ModItems.superTravelBelt);
+		addItem(ModItems.speedUpBelt);
 		addItem(ModItems.knockbackBelt);
 		addItem(ModItems.itemFinder);
 		addItem(ModItems.monocle);
@@ -226,7 +260,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.conjurationCatalyst);
 		addBlock(ModBlocks.distributor);
 		addBlock(ModBlocks.manaVoid);
+		addBlock(ModBlocks.bellows);
 		addBlock(ModBlocks.manaDetector);
+		addBlock(ModBlocks.manaBomb);
+		addBlock(ModBlocks.ghostRail);
 		addItem(ModItems.poolMinecart);
 		addBlock(ModBlocks.pump);
 		addBlock(ModBlocks.rfGenerator);
@@ -238,11 +275,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.clip);
 		addItem(ModItems.spark);
 		addItem(ModItems.sparkUpgrade);
+		addBlock(ModBlocks.sparkChanger);
 		addItem(ModItems.corporeaSpark);
 		addBlock(ModBlocks.corporeaIndex);
 		addBlock(ModBlocks.corporeaFunnel);
 		addBlock(ModBlocks.corporeaInterceptor);
+		addBlock(ModBlocks.corporeaRetainer);
 		addBlock(ModBlocks.corporeaCrystalCube);
+		addBlock(ModBlocks.lightRelay);
+		addBlock(ModBlocks.lightLauncher);
+		addBlock(ModBlocks.cellBlock);
 
 		// FLUFF
 
@@ -257,6 +299,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
 
+		addStack(new ItemStack(Blocks.dirt, 1, 1));
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
 
@@ -264,6 +307,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.seaLamp);
 		addBlock(ModFluffBlocks.prismarineStairs);
 		addBlock(ModFluffBlocks.prismarineSlab);
+		addBlock(ModFluffBlocks.prismarineWall);
 		addBlock(ModFluffBlocks.prismarineBrickStairs);
 		addBlock(ModFluffBlocks.prismarineBrickSlab);
 		addBlock(ModFluffBlocks.darkPrismarineStairs);
@@ -274,6 +318,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.reedBlock);
 		addBlock(ModFluffBlocks.reedStairs);
 		addBlock(ModFluffBlocks.reedSlab);
+		addBlock(ModFluffBlocks.reedWall);
 		addBlock(ModBlocks.thatch);
 		addBlock(ModFluffBlocks.thatchStairs);
 		addBlock(ModFluffBlocks.thatchSlab);
@@ -290,16 +335,23 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
+		addBlock(ModFluffBlocks.livingwoodWall);
 		addBlock(ModFluffBlocks.livingwoodPlankStairs);
 		addBlock(ModFluffBlocks.livingwoodPlankSlab);
 		addBlock(ModFluffBlocks.livingrockStairs);
 		addBlock(ModFluffBlocks.livingrockSlab);
+		addBlock(ModFluffBlocks.livingrockWall);
 		addBlock(ModFluffBlocks.livingrockBrickStairs);
 		addBlock(ModFluffBlocks.livingrockBrickSlab);
 		addBlock(ModFluffBlocks.dreamwoodStairs);
 		addBlock(ModFluffBlocks.dreamwoodSlab);
+		addBlock(ModFluffBlocks.dreamwoodWall);
 		addBlock(ModFluffBlocks.dreamwoodPlankStairs);
 		addBlock(ModFluffBlocks.dreamwoodPlankSlab);
+		addBlock(ModFluffBlocks.shimmerwoodPlankStairs);
+		addBlock(ModFluffBlocks.shimmerwoodPlankSlab);
+		addBlock(ModFluffBlocks.shimmerrockStairs);
+		addBlock(ModFluffBlocks.shimmerrockSlab);
 
 		addItem(ModItems.quartz);
 		if(ConfigHandler.darkQuartzEnabled) {
@@ -329,10 +381,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		if(ConfigHandler.stones18Enabled) {
 			addBlock(ModFluffBlocks.stone);
-			for(int i= 0; i < 8; i++)
+			for(int i = 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneStairs[i]);
-			for(int i= 0; i < 8; i++)
+			for(int i = 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneSlabs[i]);
+			addBlock(ModFluffBlocks.stoneWall);
 		}
 
 		addBlock(ModFluffBlocks.biomeStoneA);
@@ -341,10 +394,21 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(ModFluffBlocks.biomeStoneStairs[i]);
 		for(int i = 0; i < 24; i++)
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
+		addBlock(ModFluffBlocks.biomeStoneWall);
 
-		addBlock(ModBlocks.endStoneBrick);
-		addBlock(ModFluffBlocks.endStoneSlab);
-		addBlock(ModFluffBlocks.endStoneStairs);
+		addBlock(ModFluffBlocks.pavement);
+		for (Block pavementStair : ModFluffBlocks.pavementStairs)
+			addBlock(pavementStair);
+		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
+			addBlock(pavementSlab);
+
+		if(ConfigHandler.enderStuff19Enabled) {
+			addBlock(ModBlocks.endStoneBrick);
+			addBlock(ModFluffBlocks.endStoneSlab);
+			addBlock(ModFluffBlocks.endStoneStairs);
+			addBlock(ModFluffBlocks.enderBrickSlab);
+			addBlock(ModFluffBlocks.enderBrickStairs);
+		}
 
 		addItem(ModItems.cosmetic);
 	}
@@ -356,6 +420,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(stack.getItem(), this, list);
+	}
+
+	private void addStack(ItemStack stack) {
+		list.add(stack);
 	}
 
 }

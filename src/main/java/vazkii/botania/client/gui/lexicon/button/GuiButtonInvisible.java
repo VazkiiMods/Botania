@@ -20,16 +20,16 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.helper.FontHelper;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.common.lib.LibMisc;
 
 public class GuiButtonInvisible extends GuiButtonLexicon {
 
-	GuiLexicon gui;
+	GuiLexiconIndex gui;
 	public ItemStack displayStack = null;
 	float timeHover = 0;
 
-	public GuiButtonInvisible(GuiLexicon gui, int par1, int par2, int par3, int par4, int par5, String par6Str) {
+	public GuiButtonInvisible(GuiLexiconIndex gui, int par1, int par2, int par3, int par4, int par5, String par6Str) {
 		super(par1, par2, par3, par4, par5, par6Str);
 		this.gui = gui;
 	}
@@ -41,9 +41,10 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		int k = getHoverState(field_146123_n);
 		boolean showStack = displayStack != null && !displayString.isEmpty();
 
-		if(!displayString.isEmpty() && k == 2)
+		if(!displayString.isEmpty() && k == 2) {
 			timeHover = Math.min(5, timeHover + gui.timeDelta);
-		else timeHover = Math.max(0, timeHover - gui.timeDelta);
+			gui.setHoveredButton(this);
+		} else timeHover = Math.max(0, timeHover - gui.timeDelta);
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);

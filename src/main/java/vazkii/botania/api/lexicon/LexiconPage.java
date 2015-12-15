@@ -10,7 +10,10 @@
  */
 package vazkii.botania.api.lexicon;
 
+import java.util.List;
+
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -89,6 +92,14 @@ public abstract class LexiconPage {
 	 */
 	public void onPageAdded(LexiconEntry entry, int index) {
 		// NO-OP
+	}
+
+	/**
+	 * Shows the list of recipes present in this page for display in the category
+	 * page. Can return null for an entry with no recipes.
+	 */
+	public List<ItemStack> getDisplayedRecipes() {
+		return null;
 	}
 
 	public String getUnlocalizedName() {

@@ -55,10 +55,9 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
-			GL11.glTranslatef(0F, 0.1F, 0F);
+			GL11.glTranslatef(0F, 0.2F, 0F);
 
-			float s = (armor ? 1.3F : 1.05F) / 16F;
+			float s = 1.05F / 16F;
 			GL11.glScalef(s, s, s);
 
 			if(model == null)

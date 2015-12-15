@@ -90,8 +90,10 @@ public class TilePump extends TileMod {
 
 	public void setActive(boolean active) {
 		if(!worldObj.isRemote) {
+			boolean diff = this.active != active;
 			this.active = active;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			if(diff)
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 	}
 

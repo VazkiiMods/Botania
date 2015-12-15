@@ -15,15 +15,20 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.RotationHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockRedString extends BlockModContainer<TileRedString> implements ILexiconable {
 
@@ -45,11 +50,18 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	}
 
 	@Override
+	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
+		return RotationHelper.rotateVanillaBlock(Blocks.piston, worldObj, x, y, z, axis);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		senderIcon = IconHelper.forName(par1IconRegister, "redStringSender");
 		sideIcon = registerSideIcon(par1IconRegister);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public IIcon registerSideIcon(IIconRegister register) {
 		return IconHelper.forBlock(register, this);
 	}

@@ -50,25 +50,49 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public final class HUDHandler {
 
-	private static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
+	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
+		if(event.type == ElementType.HEALTH) {
+			profiler.startSection("botania-hud");
+			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
+			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
+				profiler.startSection("flugelTiara");
+				ItemFlightTiara.renderHUD(event.resolution, mc.thePlayer, amulet);
+				profiler.endSection();
+			}
+			profiler.endSection();
+		}
+	}
 
 	@SubscribeEvent
-	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
+	public void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
@@ -90,31 +114,54 @@ public final class HUDHandler {
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 							profiler.endSection();
 						}
-					}
-					else if(pos != null && equippedStack.getItem() instanceof ILexicon)
+					} else if(pos != null && equippedStack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
-					else if(tile != null && tile instanceof TilePool)
+					if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
+				if(tile != null && tile instanceof TileAltar)
+					((TileAltar) tile).renderHUD(mc, event.resolution);
+				else if(tile != null && tile instanceof TileRuneAltar)
+					((TileRuneAltar) tile).renderHUD(mc, event.resolution);
+
 				if(tile != null && tile instanceof TileCorporeaCrystalCube)
 					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
 			}
 
-			if(!TileCorporeaIndex.input.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
+			if(!TileCorporeaIndex.getInputHandler().getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay(event.resolution);
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
+			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
+				profiler.startSection("multiblockRightClick");
+				String s = StatCollector.translateToLocal("botaniamisc.rightClickToAnchor");
+				mc.fontRenderer.drawStringWithShadow(s, event.resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, event.resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
+				profiler.endSection();
+			}
+
+			if(equippedStack != null && equippedStack.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo");
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
+			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
+				profiler.startSection("sextant");
+				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				profiler.endSection();
+			}
+
+			/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
 				profiler.startSection("flugelEye");
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				profiler.endSection();
+			}*/
+
+			if(Botania.proxy.isClientPlayerWearingMonocle()) {
+				profiler.startSection("monocle");
+				ItemMonocle.renderHUD(event.resolution, mc.thePlayer);
 				profiler.endSection();
 			}
 
@@ -196,7 +243,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
-		int y = res.getScaledHeight() - 29;
+		int y = res.getScaledHeight() - ConfigHandler.manaBarHeight;
 
 		if(!hasCreative) {
 			if(totalMaxMana == 0)
@@ -232,8 +279,6 @@ public final class HUDHandler {
 					int y = res.getScaledHeight() / 2 + 10;
 
 					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-					if(u == 0 && tile.getBlockMetadata() == 2 && recipe.getOutput().getItem() != Item.getItemFromBlock(ModBlocks.pool))
-						u = 44;
 					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
 					GL11.glEnable(GL11.GL_BLEND);
@@ -293,6 +338,7 @@ public final class HUDHandler {
 		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
 		String drawStr = "";
+		String secondLine = "";
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -306,6 +352,7 @@ public final class HUDHandler {
 					font = mc.standardGalacticFontRenderer;
 
 				drawStr = StatCollector.translateToLocal(entry.getUnlocalizedName());
+				secondLine = EnumChatFormatting.ITALIC + StatCollector.translateToLocal(entry.getTagline());
 				draw = true;
 			}
 		}
@@ -328,12 +375,20 @@ public final class HUDHandler {
 		if(draw) {
 			if(!mc.thePlayer.isSneaking()) {
 				drawStr = "?";
+				secondLine = "";
 				font = mc.fontRenderer;
 			}
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
+			font.drawStringWithShadow(secondLine, sx + 10, sy + 18, 0xFFAAAAAA);
+
+			if(!mc.thePlayer.isSneaking()) {
+				GL11.glScalef(0.5F, 0.5F, 1F);
+				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
+				GL11.glScalef(2F, 2F, 1F);
+			}
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
@@ -385,6 +440,30 @@ public final class HUDHandler {
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
+	}
+
+	public static void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
+		drawSimpleManaHUD(color, mana, maxMana, name, res);
+
+		Minecraft mc = Minecraft.getMinecraft();
+
+		int x = res.getScaledWidth() / 2 + 55;
+		int y = res.getScaledHeight() / 2 + 12;
+
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, bindDisplay, x, y);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		if(properlyBound) {
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
+		} else {
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 9, 0x4C0000);
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 8, 0xD2080D);
+		}
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 	}
 
 	public static void renderManaBar(int x, int y, int color, float alpha, int mana, int maxMana) {

@@ -14,8 +14,6 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +22,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
@@ -35,7 +33,7 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockRuneAltar extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
+public class BlockRuneAltar extends BlockModContainer implements IWandable, ILexiconable {
 
 	Random random;
 	IIcon[] icons;
@@ -47,6 +45,8 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.RUNE_ALTAR);
+
+		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 
 		random = new Random();
 	}
@@ -162,11 +162,5 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.runicAltar;
 	}
-
-	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileRuneAltar) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-	}
-
 
 }

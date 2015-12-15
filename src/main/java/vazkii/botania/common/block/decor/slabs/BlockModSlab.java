@@ -48,6 +48,11 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	@Override
+	public int quantityDropped(int meta, int fortune, Random random) {
+		return super.quantityDropped(meta, fortune, random);
+	}
+
+	@Override
 	public ItemStack createStackedBlock(int par1) {
 		return new ItemStack(getSingleBlock());
 	}

@@ -34,8 +34,8 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
+			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
+			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
 				int y = supertile.yCoord + i;
@@ -49,7 +49,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
-					supertile.getWorldObj().playSoundEffect(x, y, z, "botania:agricarnation", 0.1F, 0.5F + (float) Math.random() * 0.5F);
+					supertile.getWorldObj().playSoundEffect(x, y, z, "botania:agricarnation", 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}
