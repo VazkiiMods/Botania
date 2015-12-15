@@ -25,16 +25,44 @@ public class RecipePureDaisy {
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap();
 
 	Object input;
+	Integer inputMeta;
 	Block output;
 	int outputMeta;
 
-	public RecipePureDaisy(Object input, Block output, int outputMeta) {
+	/**
+	 * @param input Oredict <code>String</code> to match
+	 */
+	public RecipePureDaisy(String inputOreDict, Block output, int outputMeta) {
+		this((Object)inputOreDict, null, output, outputMeta);
+	}
+
+	/**
+	 * @param inputMeta metadata of input, or null for any.
+	 */
+	public RecipePureDaisy(Block input, Integer inputMeta, Block output, int outputMeta) {
+		this((Object)input, inputMeta, output, outputMeta);
+	}
+
+	private RecipePureDaisy(Object input, Integer inputMeta, Block output, int outputMeta) {
 		this.input = input;
+		this.inputMeta = inputMeta;
 		this.output = output;
 		this.outputMeta = outputMeta;
 
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
+		else if(input instanceof String && inputMeta != null)
+			throw new IllegalArgumentException("inputMeta must be null if input is an oredict String.");
+	}
+
+	/**
+	 * Equivalent to <code>RecipePureDaisy(input, null, output, outputMeta)</code>
+	 * 
+	 * @deprecated Use the other two instead.
+	 */
+	@Deprecated
+	public RecipePureDaisy(Object input, Block output, int outputMeta) {
+		this(input, null, output, outputMeta);
 	}
 
 	/**
@@ -42,7 +70,7 @@ public class RecipePureDaisy {
 	 */
 	public boolean matches(World world, int x, int y, int z, SubTileEntity pureDaisy, Block block, int meta) {
 		if(input instanceof Block)
-			return block == input;
+			return block == input && (inputMeta == null || (int)inputMeta == meta);
 
 		ItemStack stack = new ItemStack(block, 1, meta);
 		String oredict = (String) input;
@@ -86,6 +114,10 @@ public class RecipePureDaisy {
 
 	public Object getInput() {
 		return input;
+	}
+
+	public Integer getInputMeta() {
+		return inputMeta;
 	}
 
 	public Block getOutput() {

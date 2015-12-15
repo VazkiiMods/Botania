@@ -353,13 +353,44 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Pure Daisy Recipe.
+	 * 
+	 * @deprecated Use {@link #registerPureDaisyRecipe(String, Block, int)} or
+	 * {@link #registerPureDaisyRecipe(Block, Integer, Block, int)} instead.
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
 	 * @param output The block to be placed upon recipe completion.
 	 * @param outputMeta The metadata to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
+	@Deprecated
 	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
 		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+		pureDaisyRecipes.add(recipe);
+		return recipe;
+	}
+
+	/**
+	 * Registers a Pure Daisy Recipe.
+	 * @param input The block that works as an input for the recipe as on oredict String.
+	 * @param output The block to be placed upon recipe completion.
+	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @return The recipe created.
+	 */
+	public static RecipePureDaisy registerPureDaisyRecipe(String input, Block output, int outputMeta) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+		pureDaisyRecipes.add(recipe);
+		return recipe;
+	}
+
+	/**
+	 * Registers a Pure Daisy Recipe.
+	 * @param input The block that works as an input for the recipe as a Block
+	 * @param inputMeta The metadata of the input, or <code>null</code> to match all.
+	 * @param output The block to be placed upon recipe completion.
+	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @return The recipe created.
+	 */
+	public static RecipePureDaisy registerPureDaisyRecipe(Block input, Integer inputMeta, Block output, int outputMeta) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, inputMeta, output, outputMeta);
 		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}
