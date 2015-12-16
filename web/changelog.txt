@@ -1,3 +1,11 @@
+r1.8 244
+*Added a "Preventing Decay" entry to the Miscellaneous section. Something seems a bit off with it though.
+*Fixed a crash with NEI when some mods think it's a good idea to use stacks without a valid item.
+*Fixed Resolute Ivy not working.
+*Fixed the Ring of Chordata stopping the player from drowning if they have no mana. (howtonotwin)
+*Polished a few things all with completely inconsequential particle effects.<ul><li>Hopperhock makes smoke</li><li>Extrapolated Bucket makes smoke</li><li>Mana Pump makes smoke</li><li>Endoflame makes fire and smoke</li><li>Gourmaryllismakes food bits go all over the place</li><li>Spectrolus makes wool bits go all over the place</li><li>Ender Overseer has redstone particles when looked at</li></ul>
+*[API] Added a fallback for LexiconRecipeMappings.stackToString().
+*[API] Increased version number to 74
 r1.8 243
 *Added NEI integration for the Lexica Botania, it sometiles also tells you which entry something is in and gives you little tidbits of info like how to make livingwood/livingrock or terrasteel.
 *Added recipe indicators (the items that appear when you hover shift on an entry's name) to a few entries that don't have direct recipes. (like pure daisy or ender air)
