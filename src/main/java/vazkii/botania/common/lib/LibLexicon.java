@@ -258,6 +258,7 @@ public final class LibLexicon {
 	public static final String MISC_CHALLENGES = "challenges";
 	public static final String MISC_CACOPHONIUM = "cacophonium";
 	public static final String MISC_PAVEMENT = "pavement";
+	public static final String MISC_PRENTING_DECAY = "preventingDecay";
 
 	public static final String MISC_TC_INTEGRATION = "tcIntegration";
 	public static final String MISC_BC_INTEGRATION = "bcIntegration";

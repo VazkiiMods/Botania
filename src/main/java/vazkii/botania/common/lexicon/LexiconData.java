@@ -287,6 +287,7 @@ public final class LexiconData {
 	public static LexiconEntry challenges;
 	public static LexiconEntry cacophonium;
 	public static LexiconEntry pavement;
+	public static LexiconEntry preventingDecay;
 
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
@@ -1081,6 +1082,9 @@ public final class LexiconData {
 		pavement = new BLexiconEntry(LibLexicon.MISC_PAVEMENT, categoryMisc);
 		pavement.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesPavement));
 
+		preventingDecay = new DLexiconEntry(LibLexicon.MISC_PRENTING_DECAY, categoryMisc);
+		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Blocks.deadbush));
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

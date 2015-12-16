@@ -27,6 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
+	private static final String TAG_DOG = "dog";
 	private static final String TAG_BOOKMARK_COUNT = "bookmarkCount";
 	private static final String TAG_BOOKMARK_PREFIX = "bookmark";
 	private static final String TAG_BOOKMARKS = "bookmarks";
@@ -37,6 +38,7 @@ public final class PersistentVariableHelper {
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
+	public static boolean dog = true;
 	public static String lastBotaniaVersion = "";
 
 	public static void save() throws IOException {
@@ -68,6 +70,7 @@ public final class PersistentVariableHelper {
 		cmp.setTag(TAG_LEXICON_NOTES, notesCmp);
 
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
+		cmp.setBoolean(TAG_DOG, dog);
 		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
 
 		injectNBTToFile(cmp, getCacheFile());
@@ -109,6 +112,8 @@ public final class PersistentVariableHelper {
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad)
 			lastBotaniaVersion = LibMisc.VERSION;
+		
+		dog = cmp.getBoolean(TAG_DOG);
 	}
 
 	public static void saveSafe() {

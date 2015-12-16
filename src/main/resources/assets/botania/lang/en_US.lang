@@ -3840,3 +3840,8 @@ botania.entry.banners=Banner Additions
 botania.tagline.banners=Lots of new banner patterns
 botania.page.banners0=In the presence of the &1Banners&0 from the future, &1Botania&0 adds &415&0 new icons to them, which can be mixed and matched with the original patterns and icons.<br>The following items can be used alongside a dye in the crafting grid to add an icon to a &1Banner&0: &1All Iron Tools&0, &1Spark Augments&0, &1Raw Fish&0, &1Livingwood and Dreamwood Twigs&0, &1Lexica Botania&0, &1Terrasteel&0 and the &1Tiny Potato&0.
 botania.page.banners1=Showcase of the various banners
+
+# -- PREVNTING DECAY
+botania.entry.preventingDecay=Preventing Decay
+botania.tagline.preventingDecay=Preventing passive flowers' decay
+botania.entry.preventingDecay0=no

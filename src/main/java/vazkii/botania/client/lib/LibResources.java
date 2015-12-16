@@ -47,6 +47,7 @@ public final class LibResources {
 	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "baubleBox.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
 	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
+	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";

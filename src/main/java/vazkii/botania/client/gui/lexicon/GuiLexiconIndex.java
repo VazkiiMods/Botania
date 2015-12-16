@@ -36,6 +36,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
+import vazkii.botania.common.lexicon.DLexiconEntry;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
@@ -143,6 +144,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				button.displayStack = entry.getIcon();
 				if(entry == tutEntry)
 					tutPage = page;
+				
+				if(entry instanceof DLexiconEntry)
+					button.dog = true;
 			} else button.displayString = "";
 		}
 	}
@@ -287,8 +291,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				ClientTickHandler.notifyPageChange();
 				break;
 			default :
-				int index = par1GuiButton.id + page * 12;
-				openEntry(index);
+				if(par1GuiButton instanceof GuiButtonInvisible && ((GuiButtonInvisible) par1GuiButton).dog)
+					((GuiButtonInvisible) par1GuiButton).click();
+				else {
+					int index = par1GuiButton.id + page * 12;
+					openEntry(index);
+				}
 			}
 	}
 
