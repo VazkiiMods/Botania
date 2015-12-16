@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemOpenBucket extends ItemMod {
@@ -45,13 +46,12 @@ public class ItemOpenBucket extends ItemMod {
 				Material material = par2World.getBlock(i, j, k).getMaterial();
 				int l = par2World.getBlockMetadata(i, j, k);
 
-				if(material == Material.water && l == 0) {
+				if((material == Material.lava || material == Material.water) && l == 0) {
 					par2World.setBlockToAir(i, j, k);
-					return par1ItemStack;
-				}
-
-				if(material == Material.lava && l == 0) {
-					par2World.setBlockToAir(i, j, k);
+					
+					for(int x = 0; x < 5; x++)
+						par2World.spawnParticle("explode", i + Math.random(), j + Math.random(), k + Math.random(), 0, 0, 0);
+					
 					return par1ItemStack;
 				}
 			}

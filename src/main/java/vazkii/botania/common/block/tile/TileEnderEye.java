@@ -24,9 +24,6 @@ public class TileEnderEye extends TileMod {
 
 	@Override
 	public void updateEntity() {
-		if(worldObj.isRemote)
-			return;
-
 		int meta = getBlockMetadata();
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + range, yCoord + range, zCoord + range));
@@ -45,8 +42,16 @@ public class TileEnderEye extends TileMod {
 		}
 
 		int newMeta = looking ? 15 : 0;
-		if(newMeta != meta)
+		if(newMeta != meta && !worldObj.isRemote)
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
+		
+		if(looking) {
+			double x = xCoord - 0.1 + Math.random() * 1.2;
+			double y = yCoord - 0.1 + Math.random() * 1.2;
+			double z = zCoord - 0.1 + Math.random() * 1.2;
+			
+			worldObj.spawnParticle("reddust", x, y, z, 1, 0, 0);
+		}
 	}
 
 }

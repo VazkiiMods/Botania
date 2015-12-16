@@ -51,6 +51,8 @@ public class TilePump extends TileMod {
 			if(innerRingPos >= max) {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
+				for(int x = 0; x < 2; x++)
+					worldObj.spawnParticle("explode", xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 0, 0, 0);
 			}
 		} else if(innerRingPos > min) {
 			innerRingPos -= incr * 2;

@@ -43,21 +43,31 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorldObj().isRemote) {
-			Item wool = Item.getItemFromBlock(Blocks.wool);
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
-			for(EntityItem item : items) {
-				ItemStack stack = item.getEntityItem();
-				if(stack != null && stack.getItem() == wool) {
-					int meta = stack.getItemDamage();
-					if(meta == nextColor) {
+		boolean remote = supertile.getWorldObj().isRemote;
+		Item wool = Item.getItemFromBlock(Blocks.wool);
+		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+		for(EntityItem item : items) {
+			ItemStack stack = item.getEntityItem();
+			if(stack != null && stack.getItem() == wool) {
+				int meta = stack.getItemDamage();
+				if(meta == nextColor) {
+					if(!remote) {
 						mana = Math.min(getMaxMana(), mana + 300);
 						nextColor = nextColor == 15 ? 0 : nextColor + 1;
-
 						sync();
 					}
-					item.setDead();
+					
+					for(int i = 0; i < 10; i++) {
+						float m = 0.2F;
+						float mx = (float) (Math.random() - 0.5) * m;
+						float my = (float) (Math.random() - 0.5) * m;
+						float mz = (float) (Math.random() - 0.5) * m;
+						supertile.getWorldObj().spawnParticle("blockcrack_" + Item.getIdFromItem(stack.getItem()) + "_" + meta, item.posX, item.posY, item.posZ, mx, my, mz);
+					}
 				}
+				
+				if(!remote)
+					item.setDead();
 			}
 		}
 	}

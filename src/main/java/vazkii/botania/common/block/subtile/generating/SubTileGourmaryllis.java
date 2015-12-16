@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,21 +43,31 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 			sync();
 		}
 
-		if(!supertile.getWorldObj().isRemote) {
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
-			for(EntityItem item : items) {
-				ItemStack stack = item.getEntityItem();
-				if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
-					if(cooldown == 0) {
+		boolean remote = supertile.getWorldObj().isRemote;
+		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+		for(EntityItem item : items) {
+			ItemStack stack = item.getEntityItem();
+			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
+				if(cooldown == 0) {
+					if(!remote) {
 						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
 						storedMana = val * val * 64;
 						cooldown = val * 10;
 						supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
 						sync();
-					}
-
-					item.setDead();
+					} else 
+						for(int i = 0; i < 10; i++) {
+							float m = 0.2F;
+							float mx = (float) (Math.random() - 0.5) * m;
+							float my = (float) (Math.random() - 0.5) * m;
+							float mz = (float) (Math.random() - 0.5) * m;
+							supertile.getWorldObj().spawnParticle("iconcrack_" + Item.getIdFromItem(stack.getItem()), item.posX, item.posY, item.posZ, mx, my, mz);
+						}
+							
 				}
+
+				if(!remote)
+					item.setDead();
 			}
 		}
 	}

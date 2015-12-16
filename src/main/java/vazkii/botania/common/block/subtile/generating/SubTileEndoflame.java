@@ -39,7 +39,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 		if(linkedCollector != null) {
 			if(burnTime == 0) {
-				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
+				if(mana < getMaxMana()) {
 					boolean didSomething = false;
 
 					List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
@@ -53,13 +53,19 @@ public class SubTileEndoflame extends SubTileGenerating {
 							if(burnTime > 0 && stack.stackSize > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.stackSize--;
-								supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:endoflame", 0.2F, 1F);
+								if(!supertile.getWorldObj().isRemote) {
+									stack.stackSize--;
+									supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:endoflame", 0.2F, 1F);
 
-								if(stack.stackSize == 0)
-									item.setDead();
+									if(stack.stackSize == 0)
+										item.setDead();
 
-								didSomething = true;
+									didSomething = true;
+								} else {
+						            item.worldObj.spawnParticle("largesmoke", item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
+						            item.worldObj.spawnParticle("flame", item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
+								}
+
 
 								break;
 							}
@@ -70,8 +76,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 						sync();
 				}
 			} else {
-				if(supertile.getWorldObj().rand.nextInt(8) == 0)
-					Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+				if(supertile.getWorldObj().rand.nextInt(10) == 0)
+		            supertile.getWorldObj().spawnParticle("flame", supertile.xCoord + 0.4 + Math.random() * 0.2, supertile.yCoord + 0.65, supertile.zCoord + 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 
 				burnTime--;
 			}
