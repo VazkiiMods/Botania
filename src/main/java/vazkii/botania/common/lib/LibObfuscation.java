@@ -83,8 +83,10 @@ public final class LibObfuscation {
 	// TextureAtlasSprite
 	public static final String[] ANIMATION_METADATA = new String[] { "animationMetadata", "field_110982_k", "j" };
 	
-	// RenderGloba
+	// RenderGlobal
+	public static final String[] STAR_GL_CALL_LIST = new String[] { "starGLCallList", "field_72772_v", "F" };
 	public static final String[] GL_SKY_LIST = new String[] { "glSkyList", "field_72771_w", "G" };
 	public static final String[] GL_SKY_LIST2 = new String[] { "glSkyList2", "field_72781_x", "H" };
+	
 
 }
