@@ -20,7 +20,6 @@ public class WorldTypeSkyblock extends WorldType {
 
 	public WorldTypeSkyblock() {
 		super("botania-skyblock");
-		MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 	}
 
 	public static boolean isWorldSkyblock(World world) {
@@ -51,10 +50,10 @@ public class WorldTypeSkyblock extends WorldType {
 	public float getCloudHeight() {
 		return 260f;
 	}
-
+	
 	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
 		return new ChunkProviderFlat(world, world.getSeed(), false, "2;1x0;");
 	}
-
+	
 }

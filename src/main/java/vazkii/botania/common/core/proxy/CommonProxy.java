@@ -66,6 +66,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
+import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
@@ -123,6 +124,9 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
+		
+		if(Botania.gardenOfGlassLoaded)
+			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 

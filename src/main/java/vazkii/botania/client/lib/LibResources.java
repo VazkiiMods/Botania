@@ -48,6 +48,7 @@ public final class LibResources {
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
 	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
 	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
+	public static final String GUI_FLOWEY = PREFIX_GUI + "flowey.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
@@ -145,6 +146,7 @@ public final class LibResources {
 	public static final String MISC_GLOW_GREEN = PREFIX_MISC + "glow0.png";
 	public static final String MISC_GLOW_CYAN = PREFIX_MISC + "glow1.png";
 	public static final String MISC_BABYLON = PREFIX_MISC + "babylon.png";
+	public static final String MISC_SKYBOX = PREFIX_MISC + "skybox.png";
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 

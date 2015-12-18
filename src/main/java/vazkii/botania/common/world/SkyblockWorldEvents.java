@@ -14,6 +14,7 @@ import java.awt.Color;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -23,15 +24,19 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import vazkii.botania.client.render.world.SkyblockSkyRenderer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public final class SkyblockWorldEvents {
 
@@ -117,7 +122,7 @@ public final class SkyblockWorldEvents {
 			}
 		}
 	}
-
+	
 	public static void spawnPlayer(EntityPlayer player, int x, int y, int z, boolean fabricated) {
 		NBTTagCompound data = player.getEntityData();
 		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
