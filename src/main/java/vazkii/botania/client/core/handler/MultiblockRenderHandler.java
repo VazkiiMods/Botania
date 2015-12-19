@@ -83,6 +83,11 @@ public final class MultiblockRenderHandler {
 			int anchorY = anchor != null ? anchor.posY : src.blockY;
 			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
 
+			GL11.glPushMatrix();
+			GL11.glPushAttrib(GL11.GL_LIGHTING);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glDisable(GL11.GL_LIGHTING);
 			rendering = true;
 			Multiblock mb = anchor != null ? currentMultiblock.getForIndex(angle) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
@@ -93,7 +98,9 @@ public final class MultiblockRenderHandler {
 				if(renderComponentInWorld(player.worldObj, mb, comp, anchorX, anchorY, anchorZ))
 					didAny = true;
 			rendering = false;
-
+			GL11.glPopAttrib();
+			GL11.glPopMatrix();
+			
 			if(!didAny) {
 				setMultiblock(null);
 				player.addChatComponentMessage(new ChatComponentTranslation("botaniamisc.structureComplete").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));

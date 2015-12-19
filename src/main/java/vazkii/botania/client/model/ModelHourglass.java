@@ -66,7 +66,7 @@ public class ModelHourglass extends ModelBase {
 		base2.render(f);
 		Color c = new Color(color);
 		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
-		boolean normalize = GL11.glGetBoolean(GL11.GL_NORMALIZE);
+		GL11.glPushAttrib(GL11.GL_NORMALIZE);
 		GL11.glEnable(GL11.GL_NORMALIZE);
 
 		if(fract1 > 0) {
@@ -97,8 +97,7 @@ public class ModelHourglass extends ModelBase {
 			GL11.glPopMatrix();
 		}
 
-		if(!normalize)
-			GL11.glDisable(GL11.GL_NORMALIZE);
+		GL11.glPopAttrib();
 		GL11.glColor3f(1F, 1F, 1F);
 		glass1.render(f);
 		glass2.render(f);

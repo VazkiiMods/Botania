@@ -186,16 +186,15 @@ public final class TooltipAdditionDisplayHandler {
 		Gui.drawRect(mouseX + offx + rainbowWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);
 
 		String rank = StatCollector.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
-		boolean light = GL11.glGetBoolean(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = StatCollector.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
 		}
-		if(light)
-			GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glPopAttrib();
 	}
 
 	private static void drawManaBar(ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int offx, int offy, int width, int height) {

@@ -39,8 +39,10 @@ public final class BoundTileRenderer {
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		GL11.glPushMatrix();
+		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_BLEND);
 
 		Tessellator.renderingWorldRenderer = false;
@@ -85,6 +87,7 @@ public final class BoundTileRenderer {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glPopAttrib();
 		GL11.glPopMatrix();
 	}
 
