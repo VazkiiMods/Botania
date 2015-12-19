@@ -54,6 +54,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -506,9 +507,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		mc.renderEngine.bindTexture(textureHud);
 		int xo = resolution.getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = resolution.getScaledHeight() - 49;
+		int y = resolution.getScaledHeight() - ConfigHandler.flightBarHeight;
 		if(player.getAir() < 300)
-			y -= 10;
+			y = resolution.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 

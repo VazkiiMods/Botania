@@ -63,6 +63,8 @@ public final class ConfigHandler {
 	public static boolean useShiftForQuickLookup = false;
 	public static boolean enableArmorModels = true;
 	public static int manaBarHeight = 29;
+	public static int flightBarHeight = 49;
+	public static int flightBarBreathHeight = 59;
 	public static int glSecondaryTextureUnit = 7;
 
 	public static boolean altFlowerTextures = false;
@@ -177,6 +179,12 @@ public final class ConfigHandler {
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 
+		desc = "The height of the Flugel Tiara flight bar. You can change this if you have a mod that adds a bar in that spot.";
+		flightBarHeight = loadPropInt("flightBar.height", desc, flightBarHeight);
+
+		desc = "The height of the Flugel Tiara flight bar if your breath bar is shown. You can change this if you have a mod that adds a bar in that spot.";
+		flightBarBreathHeight = loadPropInt("flightBarBreath.height", desc, flightBarBreathHeight);
+		
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
 
