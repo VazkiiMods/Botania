@@ -13,12 +13,16 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -31,6 +35,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
 
+	IIcon iconChristmas;
+	
 	public ItemManaweaveArmor(int type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 	}
@@ -41,12 +47,32 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		models[slot] = new ModelArmorManaweave(slot);
 		return models[slot];
 	}
-
+	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		iconChristmas = IconHelper.forItem(par1IconRegister, this, "Holiday");
+	}
+	
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANAWEAVE_NEW : slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+		return ConfigHandler.enableArmorModels ? (ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW) : slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
 
+	@Override
+	public IIcon getIconFromDamage(int dmg) {
+		return ClientProxy.jingleTheBells ? iconChristmas : super.getIconFromDamage(dmg);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getUnlocalizedName(ItemStack p_77667_1_) {
+		String name = super.getUnlocalizedName(p_77667_1_);
+		if(ClientProxy.jingleTheBells)
+			name = name.replaceAll("manaweave", "santaweave");
+		return name;
+	}
+	
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 22 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
@@ -87,11 +113,22 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	public String getArmorSetName() {
 		return StatCollector.translateToLocal("botania.armorset.manaweave.name");
 	}
-
+	
+	@Override
+	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+		if(ClientProxy.jingleTheBells) {
+			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.santaweaveInfo"), list);
+			addStringToTooltip("", list);
+		}
+		
+		super.addInformationAfterShift(stack, player, list, adv);
+	}
+	
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc0"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc1"), list);	}
+		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc1"), list);	
+	}
 
 	@Override
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
