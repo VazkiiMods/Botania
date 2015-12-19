@@ -220,10 +220,9 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
 		
-		if(Botania.gardenOfGlassLoaded)
-			MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		if(ConfigHandler.useAdaptativeConfig)
 			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)

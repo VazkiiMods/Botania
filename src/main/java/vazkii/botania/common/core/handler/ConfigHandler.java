@@ -62,6 +62,9 @@ public final class ConfigHandler {
 	public static boolean enableSeasonalFeatures = true;
 	public static boolean useShiftForQuickLookup = false;
 	public static boolean enableArmorModels = true;
+	public static boolean enableFancySkybox = true;
+	public static boolean enableFancySkyboxInNormalWorlds = false;
+	
 	public static int manaBarHeight = 29;
 	public static int flightBarHeight = 49;
 	public static int flightBarBreathHeight = 59;
@@ -176,6 +179,12 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable custom armor models.";
 		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
 
+		desc = "Set this to false to disable the fancy skybox in Garden of Glass.";
+		enableFancySkybox = loadPropBool("fancySkybox.enable", desc, enableFancySkybox);
+		
+		desc = "Set this to true to enable the fancy skybox in non Garden of Glass worlds. (Does not require Garden of Glass loaded to use, needs 'fancySkybox.enable' to be true as well)";
+		enableFancySkyboxInNormalWorlds = loadPropBool("fancySkybox.normalWorlds", desc, enableFancySkyboxInNormalWorlds);
+		
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 

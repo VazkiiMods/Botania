@@ -13,6 +13,7 @@ package vazkii.botania.client.render.world;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -21,7 +22,7 @@ public final class SkyblockRenderEvents {
 	@SubscribeEvent
 	public void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getMinecraft().theWorld;
-		if(world.provider.dimensionId == 0/* && WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().theWorld)*/) {
+		if(ConfigHandler.enableFancySkybox && world.provider.dimensionId == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().theWorld))) {
 			if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
 				world.provider.setSkyRenderer(new SkyblockSkyRenderer());
 		}
