@@ -10,6 +10,8 @@
  */
 package vazkii.botania.client.render.world;
 
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -31,6 +33,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class SkyblockSkyRenderer extends IRenderHandler {
 
 	private static final ResourceLocation textureSkybox = new ResourceLocation(LibResources.MISC_SKYBOX);
+	private static final ResourceLocation textureRainbow = new ResourceLocation(LibResources.MISC_RAINBOW);
 	private static final ResourceLocation textureMoonPhases = new ResourceLocation("textures/environment/moon_phases.png");
     private static final ResourceLocation textureSun = new ResourceLocation("textures/environment/sun.png");
     private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
@@ -167,72 +170,114 @@ public class SkyblockSkyRenderer extends IRenderHandler {
         // === Rays
         mc.renderEngine.bindTexture(textureSkybox); 
         
-        if(a > 0) {
-            f10 = 20F;
-            GL11.glPushMatrix();
-            OpenGlHelper.glBlendFunc(770, 1, 1, 0);
-            GL11.glTranslatef(0F, -1F, 0F);
-            GL11.glColor4f(1F, 1F, 1F, a);
-            GL11.glRotatef(220F, 1F, 0F, 0F);
-            int angles = 90;
-    		float s = 3F;
-    		float m = 1F;
-    		float y = 2F;
-    		float y0 = 0F;
-    		float uPer = 1F / 360F;
-    		float anglePer = 360F / angles;
-    		double fuzzPer = (Math.PI * 10) / angles;
-    		float rotSpeed = 1F;
-    		
-    		for(int p = 0; p < 3; p++) {
-    			float baseAngle = rotSpeed * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-    			GL11.glRotatef((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed, 0F, 1F, 0F);
-    			
-    	        tessellator1.startDrawingQuads();
-    			for(int i = 0; i < angles; i++) {
-    				int j = i;
-    				if(i % 2 == 0)
-    					j--;
-    				
-    				float ang = j * anglePer + baseAngle;
-    				double xp = Math.cos(ang * Math.PI / 180F) * f10;
-    				double zp = Math.sin(ang * Math.PI / 180F) * f10;
-    				double yo = Math.sin(fuzzPer * j) * 1;
-    				
-    				float ut = ang * uPer;
-    				if(i % 2 == 0) {
-    					tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
-        				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);   
-    				} else {
-        				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);
-        				tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
-    				}
+        f10 = 20F;
+        GL11.glPushMatrix();
+        OpenGlHelper.glBlendFunc(770, 1, 1, 0);
+        GL11.glTranslatef(0F, -1F, 0F);
+        GL11.glRotatef(220F, 1F, 0F, 0F);
+        GL11.glColor4f(1F, 1F, 1F, a);
+        int angles = 90;
+		float s = 3F;
+		float m = 1F;
+		float y = 2F;
+		float y0 = 0F;
+		float uPer = 1F / 360F;
+		float anglePer = 360F / angles;
+		double fuzzPer = (Math.PI * 10) / angles;
+		float rotSpeed = 1F;
+		float rotSpeedMod = 0.4F;
+		
+		for(int p = 0; p < 3; p++) {
+			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
+			GL11.glRotatef((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
+			
+	        tessellator1.startDrawingQuads();
+			for(int i = 0; i < angles; i++) {
+				int j = i;
+				if(i % 2 == 0)
+					j--;
+				
+				float ang = j * anglePer + baseAngle;
+				double xp = Math.cos(ang * Math.PI / 180F) * f10;
+				double zp = Math.sin(ang * Math.PI / 180F) * f10;
+				double yo = Math.sin(fuzzPer * j) * 1;
+				
+				float ut = ang * uPer;
+				if(i % 2 == 0) {
+					tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
+    				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);   
+				} else {
+    				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);
+    				tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
+				}
 
-    			}
-    			tessellator1.draw();
+			}
+			tessellator1.draw();
 
-    			switch(p) {
-    				case 0:
-    					GL11.glRotatef(20F, 1F, 0F, 0F);
-    					GL11.glColor4f(1F, 0.4F, 0.4F, a);
-    					fuzzPer = (Math.PI * 14) / angles;
-    					rotSpeed = 0.2F;
-    					break;
-    				case 1:
-    					GL11.glRotatef(50F, 1F, 0F, 0F);
-    					GL11.glColor4f(0.4F, 1F, 0.7F, a);
-    					fuzzPer = (Math.PI * 6) / angles;
-    					rotSpeed = 2F;
-    					break;
-    			}
-    		}
-    		
-    		GL11.glPopMatrix();
-        }
+			switch(p) {
+				case 0:
+					GL11.glRotatef(20F, 1F, 0F, 0F);
+					GL11.glColor4f(1F, 0.4F, 0.4F, a);
+					fuzzPer = (Math.PI * 14) / angles;
+					rotSpeed = 0.2F;
+					break;
+				case 1:
+					GL11.glRotatef(50F, 1F, 0F, 0F);
+					GL11.glColor4f(0.4F, 1F, 0.7F, a);
+					fuzzPer = (Math.PI * 6) / angles;
+					rotSpeed = 2F;
+					break;
+			}
+		}
+		GL11.glPopMatrix();
+		
+		// === Rainbow
+		GL11.glPushMatrix();
+        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+        mc.renderEngine.bindTexture(textureRainbow); 
+        f10 = 10F;
+        float effCelAng1 = celAng;
+        if(effCelAng1 > 0.25F)
+        	effCelAng1 = 1F - effCelAng1;
+        effCelAng1 = 0.25F - Math.min(0.25F, effCelAng1);
+        
+        long time = world.getWorldTime() + 1000;
+        int day = (int) (time / 24000L);
+        Random rand = new Random(("" + day).hashCode());
+        float angle1 = rand.nextFloat() * 360F;
+        float angle2 = rand.nextFloat() * 360F;
+        GL11.glColor4f(1F, 1F, 1F, effCelAng1);
+		GL11.glRotatef(angle1, 0F, 1F, 0F);
+		GL11.glRotatef(angle2, 0F, 0F, 1F);
 
-        GL11.glColor4f(1F, 1F, 1F, 1F - insideVoid);
+        tessellator1.startDrawingQuads();
+		for(int i = 0; i < angles; i++) {
+			int j = i;
+			if(i % 2 == 0)
+				j--;
+			
+			float ang = j * anglePer;
+			double xp = Math.cos(ang * Math.PI / 180F) * f10;
+			double zp = Math.sin(ang * Math.PI / 180F) * f10;
+			double yo = 0;
+			
+			float ut = ang * uPer;
+			if(i % 2 == 0) {
+				tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
+				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);   
+			} else {
+				tessellator1.addVertexWithUV(xp, yo + y0, zp, ut, 0);
+				tessellator1.addVertexWithUV(xp, yo + y0 + y, zp, ut, 1F);
+			}
+
+		}
+		tessellator1.draw();
+		GL11.glPopMatrix();
+
+		GL11.glColor4f(1F, 1F, 1F, 1F - insideVoid);
         
         OpenGlHelper.glBlendFunc(770, 1, 1, 0);
+        
         // === Sun	
         GL11.glRotatef(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
         f10 = 60.0F;
@@ -257,6 +302,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
         tessellator1.draw();
         
         // === Stars
+        f6 *= Math.max(0.1F, effCelAng * 2);
         float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_TEXTURE_2D);
