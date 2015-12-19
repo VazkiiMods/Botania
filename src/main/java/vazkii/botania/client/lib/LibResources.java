@@ -99,6 +99,7 @@ public final class LibResources {
 	public static final String MODEL_MANAWEAVE_0 = PREFIX_MODEL + "manaweave0.png";
 	public static final String MODEL_MANAWEAVE_1 = PREFIX_MODEL + "manaweave1.png";
 	public static final String MODEL_MANAWEAVE_NEW = PREFIX_MODEL + "manaweaveNew.png";
+	public static final String MODEL_MANAWEAVE_NEW_HOLIDAY = PREFIX_MODEL + "manaweaveNewHoliday.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tinyPotatoGray.png";

@@ -150,6 +150,7 @@ botaniamisc.noVideo=&4Video will be back soon. Sorry :(
 botaniamisc.adaptativeConfigChanges=Botania's Adaptative Config has changed the following config defaults for you:
 botaniamisc.altarRefill0=Right click with an empty hand to
 botaniamisc.altarRefill1=add back the last recipe
+botaniamisc.santaweaveInfo=Manaweave, changed up for the &cs&fe&ca&fs&co&fn
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1644,6 +1645,10 @@ item.botania:manaweaveHelm.name=Manaweave Cowl
 item.botania:manaweaveChest.name=Manaweave Robe Top
 item.botania:manaweaveLegs.name=Manaweave Robe Bottom
 item.botania:manaweaveBoots.name=Manaweave Boots
+item.botania:santaweaveHelm.name=Santaweave Cowl
+item.botania:santaweaveChest.name=Santaweave Robe Top
+item.botania:santaweaveLegs.name=Santaweave Robe Bottom
+item.botania:santaweaveBoots.name=Santaweave Boots
 item.botania:gaiaHead.name=Gaia Guardian's Head
 item.botania:sextant.name=Worldshaper's Sextant
 item.botania:speedUpBelt.name=Planestrider's Sash
