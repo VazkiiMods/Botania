@@ -227,8 +227,9 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 						worldObj.scheduleBlockUpdate(x, y, z, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
 
-					ChunkCoordinates bind = ((TileLightRelay) tile).getBinding();
-					if(bind != null) {
+					TileLightRelay relay = (TileLightRelay) tile;
+					ChunkCoordinates bind = relay.getBinding();
+					if(bind != null && relay.isValidBinding()) {
 						setExit(bind.posX, bind.posY, bind.posZ);
 						return;
 					}
