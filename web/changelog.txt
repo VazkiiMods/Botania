@@ -1,3 +1,11 @@
+r1.8 245
+*Added a new fancy skybox effect to Garden of Glass. <a href="https://imgur.com/a/0ecOV">Here's an album.</a> It looks cooler ingame. (there are config options to disable it and enable it in normal worlds as well, if you want)
+*Added configs to move the Flugel Tiara's flight bar as apparently I'm not the only person that thought it was cute to put a bar there.
+*Changed the period in which the mod enabled Christmas features to be in sync with Winter's Veil in World of Warcraft. <i>Priorities!</i>
+*Fixed a bunch of stuff in the mod not rendering properly (going all gray) if some mod disables GL_LIGHTING (See: NEI, Neat).
+*Fixed Luminizers that have been bound to another Luminizer that has then been removed taking you to the position where the removed one was.
+*Increased the drop rate of Melon and Pumpkin seeds on Garden of Glass. Again.
+*Manaweave armor is now Santaweave during Christmas.
 r1.8 244
 *Added a "Preventing Decay" entry to the Miscellaneous section. Something seems a bit off with it though.
 *Fixed a crash with NEI when some mods think it's a good idea to use stacks without a valid item.
