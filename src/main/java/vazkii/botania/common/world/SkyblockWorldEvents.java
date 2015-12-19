@@ -111,7 +111,7 @@ public final class SkyblockWorldEvents {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.world) && event.block == Blocks.tallgrass) {
 			ItemStack stackToRemove = null;
 			for(ItemStack stack : event.drops)
-				if(stack.getItem() == Items.wheat_seeds && event.world.rand.nextInt(10) == 0) {
+				if(stack.getItem() == Items.wheat_seeds && event.world.rand.nextInt(4) == 0) {
 					stackToRemove = stack;
 					break;
 				}
