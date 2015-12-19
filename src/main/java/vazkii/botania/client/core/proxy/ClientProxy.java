@@ -187,7 +187,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
-	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
+	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
 	@Override
@@ -231,12 +231,11 @@ public class ClientProxy extends CommonProxy {
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			Calendar calendar = Calendar.getInstance();
-			if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
-				singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+			if((calendar.get(2) == 11 && calendar.get(5) >= 16) || (calendar.get(2) == 0 && calendar.get(5) <= 2))
+				jingleTheBells = true;
 			if(calendar.get(2) == 9)
 				dootDoot = true;
 		}
-
 
 		initRenderers();
 	}
