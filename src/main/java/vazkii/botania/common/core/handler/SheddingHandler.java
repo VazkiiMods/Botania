@@ -70,7 +70,7 @@ public final class SheddingHandler {
 
 		int i = 1;
 		for(ShedPattern pattern : patterns) {
-			PageShedding page = new PageShedding(String.valueOf(i), (String)EntityList.classToStringMapping.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
+			PageShedding page = new PageShedding(String.valueOf(i), EntityList.classToStringMapping.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
 			LexiconData.shedding.addPage(page);
 		}
 	}
@@ -124,7 +124,7 @@ public final class SheddingHandler {
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
 		if(itemName != null && !itemName.isEmpty() && rate != -1)
-			patterns.add(new ShedPattern((Class<?>) EntityList.stringToClassMapping.get(key), new ItemStack((Item) Item.itemRegistry.getObject(itemName), 1, metadata), rate, lexiconSize));
+			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(itemName), 1, metadata), rate, lexiconSize));
 	}
 
 	public static class ShedPattern {
@@ -149,7 +149,7 @@ public final class SheddingHandler {
 		}
 
 		public String getEntityString() {
-			return (String) EntityList.classToStringMapping.get(EntityClass);
+			return EntityList.classToStringMapping.get(EntityClass);
 		}
 	}
 

@@ -27,7 +27,7 @@ public class TileEnderEye extends TileMod implements ITickable {
 
 	@Override
 	public void update() {
-		boolean wasLooking = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
+		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 

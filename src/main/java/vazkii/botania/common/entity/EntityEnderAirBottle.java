@@ -53,7 +53,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		int range = 4;
 		int rangeY = 4;
 
-		for (BlockPos bPos : ((Iterable<BlockPos>) BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range)))) {
+		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
 			Block block = worldObj.getBlockState(pos).getBlock();
 			if(block != null && block.isReplaceableOreGen(worldObj, pos, BlockHelper.forBlock(Blocks.stone)))
 				possibleCoords.add(pos);

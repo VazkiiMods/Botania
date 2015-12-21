@@ -69,7 +69,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 0 : 15;
+		return state.getValue(BotaniaStateProps.POWERED) ? 0 : 15;
 	}
 
 	@Override

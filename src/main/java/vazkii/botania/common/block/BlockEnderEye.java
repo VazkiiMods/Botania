@@ -50,7 +50,7 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return ((Integer) state.getValue(BotaniaStateProps.POWER));
+		return state.getValue(BotaniaStateProps.POWER);
 	}
 
 	@Override

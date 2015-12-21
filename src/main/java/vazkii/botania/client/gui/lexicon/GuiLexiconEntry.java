@@ -320,7 +320,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		page.onKeyPressed(par1, par2);
 
 		if(par2 == 1) {
-			mc.displayGuiScreen((GuiScreen)null);
+			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		} else if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();

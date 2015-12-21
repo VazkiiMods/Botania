@@ -24,7 +24,7 @@ public class HelmRevealingRecipe implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
-		Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
+		Item goggles = Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
 		if(goggles == null)
 			return false; // NO TC loaded
 

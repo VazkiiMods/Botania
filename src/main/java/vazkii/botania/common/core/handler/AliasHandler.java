@@ -45,7 +45,7 @@ public final class AliasHandler {
 
 	private static Item getItem(String name) {
 		for(Object o : Item.itemRegistry.getKeys()) {
-			Item i = (Item) Item.itemRegistry.getObject(new ResourceLocation(o));
+			Item i = Item.itemRegistry.getObject(new ResourceLocation(o));
 			if(i.getUnlocalizedName().substring("item.".length()).equals(name))
 				return i;
 		}
@@ -55,7 +55,7 @@ public final class AliasHandler {
 
 	private static Block getBlock(String name) {
 		for(Object o : Block.blockRegistry.getKeys()) {
-			Block b = (Block) Block.blockRegistry.getObject(new ResourceLocation(o));
+			Block b = Block.blockRegistry.getObject(new ResourceLocation(o));
 			if(b.getUnlocalizedName().substring("tile.".length()).equals(name))
 				return b;
 		}

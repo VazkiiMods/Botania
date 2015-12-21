@@ -27,7 +27,7 @@ public class GuiAchievementsHacky extends GuiAchievements {
 	@Override
 	public void initGui() {
 		super.initGui();
-		((GuiButton) buttonList.get(1)).displayString = ModAchievements.botaniaPage.getName();
+		buttonList.get(1).displayString = ModAchievements.botaniaPage.getName();
 	}
 
 }

@@ -57,7 +57,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.stackSize;
 
-				if(missing > 0 && !((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED))) {
+				if(missing > 0 && !worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED)) {
 					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					worldObj.scheduleUpdate(getPos(), getBlockType(), 2);
 

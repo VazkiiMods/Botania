@@ -25,7 +25,7 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost, IT
 	@Override
 	public void update() {
 		if(!worldObj.isRemote) {
-			boolean state = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
+			boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 			boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 			if(state != expectedState)
 				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);

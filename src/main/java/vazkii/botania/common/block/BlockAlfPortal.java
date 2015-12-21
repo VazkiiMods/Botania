@@ -91,7 +91,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return ((AlfPortalState) world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE)) == AlfPortalState.OFF ? 0 : 15;
+		return world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF ? 0 : 15;
 	}
 
 }

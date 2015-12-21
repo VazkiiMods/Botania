@@ -68,7 +68,7 @@ public class TileBellows extends TileMod implements ITickable {
 
 				if(furnace.getBlockType() == Blocks.lit_furnace) {
 					// Copypasta from BlockFurnace
-					EnumFacing enumfacing = (EnumFacing)worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
+					EnumFacing enumfacing = worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
 					double d0 = (double)pos.getX() + 0.5D;
 					double d1 = (double)pos.getY() + worldObj.rand.nextDouble() * 6.0D / 16.0D;
 					double d2 = (double)pos.getZ() + 0.5D;

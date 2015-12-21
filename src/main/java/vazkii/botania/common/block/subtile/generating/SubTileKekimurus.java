@@ -37,7 +37,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 						IBlockState state = supertile.getWorld().getBlockState(pos);
 						Block block = state.getBlock();
 						if(block instanceof BlockCake) {
-							int nextSlicesEaten = ((Integer) state.getValue(BlockCake.BITES)) + 1;
+							int nextSlicesEaten = state.getValue(BlockCake.BITES) + 1;
 							if(nextSlicesEaten == 6)
 								supertile.getWorld().setBlockToAir(pos);
 							else supertile.getWorld().setBlockState(pos, state.withProperty(BlockCake.BITES, nextSlicesEaten), 1 | 2);

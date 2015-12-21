@@ -63,7 +63,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
 
 		if(par5EntityPlayer.isSneaking()) {
-			if(brew.recipe == null && !((Boolean) state.getValue(BotaniaStateProps.POWERED)))
+			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
 				for(int i = brew.getSizeInventory() - 1; i >= 0; i--) {
 					ItemStack stackAt = brew.getStackInSlot(i);
 					if(stackAt != null) {

@@ -67,7 +67,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR ? 1 : 0;
-		if (((Boolean) state.getValue(BotaniaStateProps.POWERED))) {
+		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {
 			meta &= -9;
@@ -149,7 +149,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	@Override
 	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
 		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT
-				&& ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
+				&& state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override

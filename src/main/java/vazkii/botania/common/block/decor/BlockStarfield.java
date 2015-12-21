@@ -46,7 +46,7 @@ public class BlockStarfield extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
 	@Override

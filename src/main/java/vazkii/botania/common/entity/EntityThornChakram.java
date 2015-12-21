@@ -119,9 +119,9 @@ public class EntityThornChakram extends EntityThrowable {
 		boolean fire = isFire();
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
-			((EntityLivingBase) pos.entityHit).attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
+			pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
 			if(fire)
-				((EntityLivingBase) pos.entityHit).setFire(5);
+				pos.entityHit.setFire(5);
 			else if(worldObj.rand.nextInt(3) == 0)
 				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
 		} else {

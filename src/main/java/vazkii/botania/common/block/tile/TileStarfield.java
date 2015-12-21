@@ -18,7 +18,7 @@ public class TileStarfield extends TileMod implements ITickable {
 
 	@Override
 	public void update() {
-		boolean state = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
+		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		if(!worldObj.isRemote) {
 			boolean newState = !worldObj.isDaytime();
 			if(newState != state) {

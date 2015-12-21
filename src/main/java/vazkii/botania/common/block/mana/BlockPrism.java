@@ -67,8 +67,8 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return (((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 8 : 0)
-				+ (((Boolean) state.getValue(BotaniaStateProps.HAS_LENS)) ? 1 : 0);
+		return (state.getValue(BotaniaStateProps.POWERED) ? 8 : 0)
+				+ (state.getValue(BotaniaStateProps.HAS_LENS) ? 1 : 0);
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
-		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(!world.isRemote) {
 			if(power && !powered)

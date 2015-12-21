@@ -36,7 +36,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int meta = ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
-		if (((Boolean) state.getValue(BotaniaStateProps.POWERED))) {
+		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {
 			meta &= -9;
@@ -55,7 +55,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
-		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			((TileRedStringDispenser) world.getTileEntity(pos)).tickDispenser();

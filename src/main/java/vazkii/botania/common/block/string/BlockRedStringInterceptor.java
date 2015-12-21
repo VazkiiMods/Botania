@@ -43,7 +43,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int meta = ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
-		if (((Boolean) state.getValue(BotaniaStateProps.POWERED))) {
+		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {
 			meta &= -9;
@@ -72,7 +72,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	@Override
 	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override

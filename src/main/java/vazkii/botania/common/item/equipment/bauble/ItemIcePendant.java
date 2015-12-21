@@ -93,7 +93,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 			playerIceBlocks.put(user, new ArrayList());
 
 		List<IceRemover> ice = playerIceBlocks.get(user);
-		if(player.worldObj.getBlockState(coords).getBlock() == Blocks.water && ((Integer) player.worldObj.getBlockState(coords).getValue(BlockLiquid.LEVEL)) == 0) {
+		if(player.worldObj.getBlockState(coords).getBlock() == Blocks.water && player.worldObj.getBlockState(coords).getValue(BlockLiquid.LEVEL) == 0) {
 			player.worldObj.setBlockState(coords, Blocks.ice.getDefaultState());
 
 			if(!player.worldObj.isRemote)

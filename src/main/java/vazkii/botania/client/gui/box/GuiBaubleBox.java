@@ -43,7 +43,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 
 		for(int i1 = 0; i1 < 4; ++i1) {
-			Slot slot = (Slot) inventorySlots.inventorySlots.get(i1);
+			Slot slot = inventorySlots.inventorySlots.get(i1);
 			if(slot.getHasStack() && slot.getSlotStackLimit() == 1)
 				drawTexturedModalRect(k+slot.xDisplayPosition, l+slot.yDisplayPosition, 200, 0, 16, 16);
 		}

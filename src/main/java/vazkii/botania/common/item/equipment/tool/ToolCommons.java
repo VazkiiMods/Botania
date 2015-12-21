@@ -51,7 +51,7 @@ public final class ToolCommons {
 	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos posStart, BlockPos posEnd, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
 		float blockHardness = block == null ? 1F : block.getBlockHardness(world, pos);
 
-		for (BlockPos iterPos : ((Iterable<BlockPos>) BlockPos.getAllInBox(posStart, posEnd))) {
+		for (BlockPos iterPos : BlockPos.getAllInBox(posStart, posEnd)) {
 			removeBlockWithDrops(player, stack, world, iterPos, pos, block, materialsListing, silk, fortune, blockHardness, dispose);
 		}
 	}

@@ -46,7 +46,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 
 	@Override
 	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override

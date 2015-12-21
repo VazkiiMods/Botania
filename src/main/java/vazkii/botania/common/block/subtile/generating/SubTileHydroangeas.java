@@ -63,7 +63,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 					BlockPos pos = supertile.getPos().add(offset);
 
 					Material search = getMaterialToSearchFor();
-					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && ((Integer) supertile.getWorld().getBlockState(pos).getValue(BlockLiquid.LEVEL))/* todo 1.8 may crash */ == 0) {
+					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && supertile.getWorld().getBlockState(pos).getValue(BlockLiquid.LEVEL)/* todo 1.8 may crash */ == 0) {
 						if(search != Material.water)
 							supertile.getWorld().setBlockToAir(pos);
 						else {

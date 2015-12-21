@@ -628,10 +628,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								}
 								case 1 : {
 									entity = new EntitySkeleton(worldObj);
-									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+									entity.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 									if(worldObj.rand.nextInt(8) == 0) {
 										((EntitySkeleton) entity).setSkeletonType(1);
-										((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
+										entity.setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
 									}
 									break;
 								}

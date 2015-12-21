@@ -33,7 +33,7 @@ public class LensMagnet extends Lens {
 		int range = 3;
 
 		magnetize : {
-			for (BlockPos pos : ((Iterable<BlockPos>) BlockPos.getAllInBox(basePos.add(-range, -range, -range), basePos.add(range, range, range)))) {
+			for (BlockPos pos : BlockPos.getAllInBox(basePos.add(-range, -range, -range), basePos.add(range, range, range))) {
 				if(entity.worldObj.getTileEntity(pos) instanceof IManaReceiver) {
 					TileEntity tile = entity.worldObj.getTileEntity(pos);
 

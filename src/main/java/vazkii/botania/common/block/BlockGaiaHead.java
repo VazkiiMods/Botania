@@ -56,7 +56,7 @@ public class BlockGaiaHead extends BlockSkull {
     public List<ItemStack> getDrops(IBlockAccess p_149749_1_, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         
-        if(!((Boolean) state.getValue(NODROP))) {
+        if(!state.getValue(NODROP)) {
             ItemStack itemstack = new ItemStack(ModItems.gaiaHead, 1);
             TileEntitySkull tileentityskull = (TileEntitySkull)p_149749_1_.getTileEntity(pos);
 

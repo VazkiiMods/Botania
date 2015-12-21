@@ -53,7 +53,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 1 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 
 	@Override
 	public int getWeakPower(IBlockAccess par1iBlockAccess, BlockPos pos, IBlockState state, EnumFacing side) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override

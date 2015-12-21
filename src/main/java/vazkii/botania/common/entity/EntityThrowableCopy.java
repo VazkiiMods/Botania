@@ -311,7 +311,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		tagCompound.setShort("xTile", (short)this.xTile);
 		tagCompound.setShort("yTile", (short)this.yTile);
 		tagCompound.setShort("zTile", (short)this.zTile);
-		ResourceLocation resourcelocation = (ResourceLocation)Block.blockRegistry.getNameForObject(this.inTile);
+		ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(this.inTile);
 		tagCompound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
 		tagCompound.setByte("shake", (byte)this.throwableShake);
 		tagCompound.setByte("inGround", (byte)(this.inGround ? 1 : 0));

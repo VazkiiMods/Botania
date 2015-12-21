@@ -48,7 +48,7 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 8 : 0;
+		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
-		boolean powered = ((Boolean) state.getValue(BotaniaStateProps.POWERED));
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();

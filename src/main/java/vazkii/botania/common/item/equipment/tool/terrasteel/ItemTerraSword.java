@@ -108,7 +108,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
 
 		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer && (((EntityPlayer) living).getName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
+			if(living instanceof EntityPlayer && (living.getName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {

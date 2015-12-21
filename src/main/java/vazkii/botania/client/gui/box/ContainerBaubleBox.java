@@ -91,7 +91,7 @@ public class ContainerBaubleBox extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
 		ItemStack itemstack = null;
-		Slot slot = (Slot)inventorySlots.get(p_82846_2_);
+		Slot slot = inventorySlots.get(p_82846_2_);
 
 		if(slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
@@ -107,7 +107,7 @@ public class ContainerBaubleBox extends Container {
 			}
 
 			if(itemstack1.stackSize == 0)
-				slot.putStack((ItemStack)null);
+				slot.putStack(null);
 			else slot.onSlotChanged();
 
 			if(itemstack1.stackSize == itemstack.stackSize)

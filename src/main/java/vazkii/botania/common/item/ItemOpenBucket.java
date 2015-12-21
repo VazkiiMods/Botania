@@ -44,7 +44,7 @@ public class ItemOpenBucket extends ItemMod {
 					return par1ItemStack;
 
 				Material material = par2World.getBlockState(pos).getBlock().getMaterial();
-				int l = ((Integer) par2World.getBlockState(pos).getValue(BlockLiquid.LEVEL));
+				int l = par2World.getBlockState(pos).getValue(BlockLiquid.LEVEL);
 
 				if((material == Material.lava || material == Material.water) && l == 0) {
 					par2World.setBlockToAir(pos);

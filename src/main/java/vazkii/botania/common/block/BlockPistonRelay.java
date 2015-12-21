@@ -211,7 +211,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				if(block == Blocks.piston_extension) {
 					IBlockState state = getStateAt(s);
 					boolean sticky = BlockPistonExtension.EnumPistonType.STICKY == state.getValue(BlockPistonMoving.TYPE);
-					EnumFacing dir = ((EnumFacing) state.getValue(BlockPistonMoving.FACING)).getOpposite();
+					EnumFacing dir = state.getValue(BlockPistonMoving.FACING).getOpposite();
 
 					MinecraftServer server = MinecraftServer.getServer();
 

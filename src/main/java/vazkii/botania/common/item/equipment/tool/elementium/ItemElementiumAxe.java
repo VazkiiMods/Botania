@@ -50,7 +50,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
 				else if(event.entityLiving instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
 					ItemStack stack = new ItemStack(Items.skull, 1, 3);
-					ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer)event.entityLiving).getName());
+					ItemNBTHelper.setString(stack, "SkullOwner", event.entityLiving.getName());
 					addDrop(event, stack);
 				} else if(event.entityLiving instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
 					addDrop(event, new ItemStack(ModItems.gaiaHead));
