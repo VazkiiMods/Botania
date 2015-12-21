@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry.UniqueIdentifier;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
 
 public class WikiHooks {
 
@@ -24,8 +24,8 @@ public class WikiHooks {
 	private static final Map<String, IWikiProvider> modWikis = new HashMap();
 
 	public static IWikiProvider getWikiFor(Block block) {
-		UniqueIdentifier mod = GameRegistry.findUniqueIdentifierFor(block);
-		return getWikiFor(mod == null ? "" : mod.modId.toLowerCase());
+		ResourceLocation mod = GameData.getBlockRegistry().getNameForObject(block);
+		return getWikiFor(mod == null ? "" : mod.getResourceDomain().toLowerCase());
 	}
 
 	public static IWikiProvider getWikiFor(String mod) {

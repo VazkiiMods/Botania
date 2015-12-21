@@ -12,6 +12,8 @@ package vazkii.botania.api.mana.spark;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -25,8 +27,8 @@ public final class SparkHelper {
 
 	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, World world, double x, double y, double z) {
 		int r = SPARK_SCAN_RANGE;
-		List<T> entities = world.getEntitiesWithinAABB(clazz, new AxisAlignedBB(x - r, y - r, z - r, x + r, y + r, z + r));
-		return entities;
+		List entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
+		return ((List<T>) entities);
 	}
 
 }
