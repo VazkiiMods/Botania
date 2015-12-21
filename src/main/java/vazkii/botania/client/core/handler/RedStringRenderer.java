@@ -38,11 +38,10 @@ public final class RedStringRenderer {
 	public static void renderAll() {
 		if(!redStringTiles.isEmpty()) {
 			GlStateManager.pushMatrix();
-			boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 			GlStateManager.disableTexture2D();
 			GlStateManager.enableBlend();
-			if(lighting)
-				GlStateManager.disableLighting();
+			GL11.glPushAttrib(GL11.GL_LIGHTING);
+			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
 
@@ -51,10 +50,9 @@ public final class RedStringRenderer {
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);
 
-			if(lighting)
-				GlStateManager.enableLighting();
 			GlStateManager.enableTexture2D();
 			GlStateManager.disableBlend();
+			GL11.glPopAttrib();
 			GlStateManager.popMatrix();
 
 		}

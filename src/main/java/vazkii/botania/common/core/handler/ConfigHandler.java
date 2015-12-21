@@ -62,7 +62,12 @@ public final class ConfigHandler {
 	public static boolean enableSeasonalFeatures = true;
 	public static boolean useShiftForQuickLookup = false;
 	public static boolean enableArmorModels = true;
+	public static boolean enableFancySkybox = true;
+	public static boolean enableFancySkyboxInNormalWorlds = false;
+	
 	public static int manaBarHeight = 29;
+	public static int flightBarHeight = 49;
+	public static int flightBarBreathHeight = 59;
 	public static int glSecondaryTextureUnit = 7;
 
 	public static boolean altFlowerTextures = false;
@@ -174,9 +179,21 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable custom armor models.";
 		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
 
+		desc = "Set this to false to disable the fancy skybox in Garden of Glass.";
+		enableFancySkybox = loadPropBool("fancySkybox.enable", desc, enableFancySkybox);
+		
+		desc = "Set this to true to enable the fancy skybox in non Garden of Glass worlds. (Does not require Garden of Glass loaded to use, needs 'fancySkybox.enable' to be true as well)";
+		enableFancySkyboxInNormalWorlds = loadPropBool("fancySkybox.normalWorlds", desc, enableFancySkyboxInNormalWorlds);
+		
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 
+		desc = "The height of the Flugel Tiara flight bar. You can change this if you have a mod that adds a bar in that spot.";
+		flightBarHeight = loadPropInt("flightBar.height", desc, flightBarHeight);
+
+		desc = "The height of the Flugel Tiara flight bar if your breath bar is shown. You can change this if you have a mod that adds a bar in that spot.";
+		flightBarBreathHeight = loadPropInt("flightBarBreath.height", desc, flightBarBreathHeight);
+		
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
 

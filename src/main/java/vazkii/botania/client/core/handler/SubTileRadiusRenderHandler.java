@@ -65,28 +65,22 @@ public final class SubTileRadiusRenderHandler {
 		if(descriptor == null)
 			return;
 
-
-		boolean light = GL11.glGetBoolean(GL11.GL_LIGHTING);
-
 		GlStateManager.pushMatrix();
 		GlStateManager.disableTexture2D();
+		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		// todo 1.8 Tessellator.renderingWorldRenderer = false;
 
-
 		if(descriptor.isCircle())
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
 		else renderRectangle(descriptor.getAABB());
 
-
-		if(light)
-			GlStateManager.enableLighting();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+		GL11.glPopAttrib();
 		GlStateManager.popMatrix();
-
 	}
 
 	public void renderRectangle(AxisAlignedBB aabb) {

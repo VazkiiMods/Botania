@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumParticleTypes;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -39,7 +40,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 		if(linkedCollector != null) {
 			if(burnTime == 0) {
-				if(mana < getMaxMana() && !supertile.getWorld().isRemote) {
+				if(mana < getMaxMana()) {
 					boolean didSomething = false;
 
 					List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
@@ -53,13 +54,19 @@ public class SubTileEndoflame extends SubTileGenerating {
 							if(burnTime > 0 && stack.stackSize > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.stackSize--;
-								supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:endoflame", 0.2F, 1F);
+								if(!supertile.getWorld().isRemote) {
+									stack.stackSize--;
+									supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:endoflame", 0.2F, 1F);
 
-								if(stack.stackSize == 0)
-									item.setDead();
+									if(stack.stackSize == 0)
+										item.setDead();
 
-								didSomething = true;
+									didSomething = true;
+								} else {
+						            item.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
+						            item.worldObj.spawnParticle(EnumParticleTypes.FLAME, item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
+								}
+
 
 								break;
 							}
@@ -70,8 +77,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 						sync();
 				}
 			} else {
-				if(supertile.getWorld().rand.nextInt(8) == 0)
-					Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+				if(supertile.getWorld().rand.nextInt(10) == 0)
+		            supertile.getWorld().spawnParticle(EnumParticleTypes.FLAME, supertile.getPos().getX() + 0.4 + Math.random() * 0.2, supertile.getPos().getY() + 0.65, supertile.getPos().getZ() + 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 
 				burnTime--;
 			}

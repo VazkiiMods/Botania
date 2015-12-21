@@ -227,8 +227,9 @@ public class TileLightRelay extends TileMod implements IWandBindable, ITickable 
 						worldObj.scheduleUpdate(pos, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
 
-					BlockPos bind = ((TileLightRelay) tile).getBinding();
-					if(bind != null) {
+					TileLightRelay relay = (TileLightRelay) tile;
+					BlockPos bind = relay.getBinding();
+					if(bind != null && relay.isValidBinding()) {
 						setExit(bind);
 						return;
 					}

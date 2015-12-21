@@ -16,28 +16,56 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.FontHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
 
 public class GuiButtonInvisible extends GuiButtonLexicon {
 
+	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
+	
 	GuiLexiconIndex gui;
 	public ItemStack displayStack = null;
+	public boolean dog = false;
 	float timeHover = 0;
+	
+	boolean enableDog = false;
+	double dogPos = 0;
 
 	public GuiButtonInvisible(GuiLexiconIndex gui, int par1, int par2, int par3, int par4, int par5, String par6Str) {
 		super(par1, par2, par3, par4, par5, par6Str);
 		this.gui = gui;
 	}
-
+	
+	public void click() {
+		enableDog = true;
+		PersistentVariableHelper.dog = true;
+		PersistentVariableHelper.saveSafe();
+	}
 
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
+		if(enableDog) {
+			dogPos += ClientTickHandler.delta * 10;
+			
+			par1Minecraft.renderEngine.bindTexture(dogResource);
+			float f = 1F / 64F;
+			GL11.glTranslated(dogPos, 0, 0);
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, yPosition, zLevel + 10, (dogPos % 100 < 50) ? 23 : 0, 0, 23, 19, f, f);
+			xPosition = (int) Math.max(xPosition, dogPos + 10);
+			
+			GL11.glTranslated(-dogPos, 0, 0);
+		}
+		
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);
 		boolean showStack = displayStack != null && !displayString.isEmpty();

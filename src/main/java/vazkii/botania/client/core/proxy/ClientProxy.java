@@ -98,6 +98,8 @@ import vazkii.botania.client.render.tile.RenderTileStarfield;
 import vazkii.botania.client.render.tile.RenderTileTerraPlate;
 import vazkii.botania.client.render.tile.RenderTileTeruTeruBozu;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
+import vazkii.botania.client.render.world.SkyblockRenderEvents;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -161,7 +163,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
-	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
+	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
 	@Override
@@ -194,8 +196,9 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
-
+		
 		if(ConfigHandler.useAdaptativeConfig)
 			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)
@@ -203,12 +206,11 @@ public class ClientProxy extends CommonProxy {
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			Calendar calendar = Calendar.getInstance();
-			if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
-				singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+			if((calendar.get(2) == 11 && calendar.get(5) >= 16) || (calendar.get(2) == 0 && calendar.get(5) <= 2))
+				jingleTheBells = true;
 			if(calendar.get(2) == 9)
 				dootDoot = true;
 		}
-
 
 		initRenderers();
 	}

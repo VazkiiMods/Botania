@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -26,9 +27,6 @@ public class TileEnderEye extends TileMod implements ITickable {
 
 	@Override
 	public void update() {
-		if(worldObj.isRemote)
-			return;
-
 		boolean wasLooking = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
@@ -46,8 +44,16 @@ public class TileEnderEye extends TileMod implements ITickable {
 			}
 		}
 
-		if(looking != wasLooking)
+		if(looking != wasLooking && !worldObj.isRemote)
 			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
+		
+		if(looking) {
+			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
+			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
+			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
+			
+			worldObj.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 1, 0, 0);
+		}
 	}
 
 }

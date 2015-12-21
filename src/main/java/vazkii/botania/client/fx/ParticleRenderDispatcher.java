@@ -31,15 +31,14 @@ public final class ParticleRenderDispatcher {
 	public static void dispatch() {
 		Tessellator tessellator = Tessellator.getInstance();
 
-		boolean isLightingEnabled = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
 
+		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GlStateManager.depthMask(false);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		if(isLightingEnabled)
-			GlStateManager.disableLighting();
+		GlStateManager.disableLighting();
 
 		profiler.startSection("sparkle");
 		FXSparkle.dispatchQueuedRenders(tessellator);
@@ -47,11 +46,10 @@ public final class ParticleRenderDispatcher {
 		FXWisp.dispatchQueuedRenders(tessellator);
 		profiler.endSection();
 
-		if(isLightingEnabled)
-			GlStateManager.enableLighting();
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
+		GL11.glPopAttrib();
 	}
 
 }

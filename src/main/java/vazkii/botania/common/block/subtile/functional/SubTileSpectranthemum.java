@@ -64,11 +64,11 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 					int cost = stack.stackSize * COST;
 					if(mana >= cost) {
-						spawnExplosionParticles(item);
+						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
-						spawnExplosionParticles(item);
+						spawnExplosionParticles(item, 10);
 						if(!supertile.getWorld().isRemote) {
 							mana -= cost;
 							did = true;
@@ -82,8 +82,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		}
 	}
 
-	void spawnExplosionParticles(EntityItem item) {
-		for(int i = 0; i < 10; i++) {
+	public static void spawnExplosionParticles(EntityItem item, int p) {
+		for(int i = 0; i < p; i++) {
 			double m = 0.01;
 			double d0 = item.worldObj.rand.nextGaussian() * m;
 			double d1 = item.worldObj.rand.nextGaussian() * m;

@@ -42,6 +42,7 @@ public final class BoundTileRenderer {
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		GlStateManager.pushMatrix();
+		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GlStateManager.disableDepth();
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
@@ -88,6 +89,7 @@ public final class BoundTileRenderer {
 		GlStateManager.enableDepth();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+		GL11.glPopAttrib();
 		GlStateManager.popMatrix();
 	}
 

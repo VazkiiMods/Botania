@@ -154,17 +154,21 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
-		if(GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(getArmorSetTitle(player), list);
-			addArmorSetDescription(stack, list);
-			ItemStack[] stacks = getArmorSetStacks();
-			for(int i = 0; i < stacks.length; i++)
-				addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
-			if(hasPhantomInk(stack))
-				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), list);
-		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
+		if(GuiScreen.isShiftKeyDown())
+			addInformationAfterShift(stack, player, list, adv);
+		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
 
+	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+		addStringToTooltip(getArmorSetTitle(player), list);
+		addArmorSetDescription(stack, list);
+		ItemStack[] stacks = getArmorSetStacks();
+		for(int i = 0; i < stacks.length; i++)
+			addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
+		if(hasPhantomInk(stack))
+			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), list);
+	}
+	
 	public void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}

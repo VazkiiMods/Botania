@@ -47,6 +47,8 @@ public final class LibResources {
 	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "baubleBox.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
 	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
+	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
+	public static final String GUI_FLOWEY = PREFIX_GUI + "flowey.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
@@ -97,6 +99,7 @@ public final class LibResources {
 	public static final String MODEL_MANAWEAVE_0 = PREFIX_MODEL + "manaweave0.png";
 	public static final String MODEL_MANAWEAVE_1 = PREFIX_MODEL + "manaweave1.png";
 	public static final String MODEL_MANAWEAVE_NEW = PREFIX_MODEL + "manaweaveNew.png";
+	public static final String MODEL_MANAWEAVE_NEW_HOLIDAY = PREFIX_MODEL + "manaweaveNewHoliday.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tinyPotatoGray.png";
@@ -144,6 +147,9 @@ public final class LibResources {
 	public static final String MISC_GLOW_GREEN = PREFIX_MISC + "glow0.png";
 	public static final String MISC_GLOW_CYAN = PREFIX_MISC + "glow1.png";
 	public static final String MISC_BABYLON = PREFIX_MISC + "babylon.png";
+	public static final String MISC_SKYBOX = PREFIX_MISC + "skybox.png";
+	public static final String MISC_RAINBOW = PREFIX_MISC + "rainbow.png";
+	public static final String MISC_PLANET = PREFIX_MISC + "planet";
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 

@@ -51,6 +51,9 @@ public final class LexiconRecipeMappings {
 	}
 	
 	public static String stackToString(ItemStack stack) {
+		if(stack == null || stack.getItem() == null)
+			return "NULL";
+		
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 

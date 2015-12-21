@@ -208,7 +208,7 @@ public class GuiLexicon extends GuiScreen {
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 
-		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
+		if(ClientProxy.jingleTheBells)
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
 
 		String subtitle = getSubtitle();
