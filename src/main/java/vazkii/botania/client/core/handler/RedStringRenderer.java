@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -95,7 +96,7 @@ public final class RedStringRenderer {
 
 			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glLineWidth(1F);
-			tessellator.getWorldRenderer().startDrawing(GL11.GL_LINES);
+			tessellator.getWorldRenderer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getPos().hashCode()).nextInt(10000);
 			double add = vecMag.mag();
@@ -122,7 +123,7 @@ public final class RedStringRenderer {
 		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetY()) - 1) + rand * randMul;
 		double z = zpos + (dir.getFrontOffsetY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getFrontOffsetZ()) - 1) + rand * randMul;
 
-		tess.getWorldRenderer().addVertex(x, y, z);
+		tess.getWorldRenderer().pos(x, y, z).endVertex();
 	}
 
 }

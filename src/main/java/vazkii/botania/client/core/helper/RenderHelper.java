@@ -18,6 +18,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -113,13 +114,11 @@ public final class RenderHelper {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		Tessellator var15 = Tessellator.getInstance();
-		var15.getWorldRenderer().startDrawingQuads();
-		var15.getWorldRenderer().setColorRGBA_F(var8, var9, var10, var7);
-		var15.getWorldRenderer().addVertex(par3, par2, z);
-		var15.getWorldRenderer().addVertex(par1, par2, z);
-		var15.getWorldRenderer().setColorRGBA_F(var12, var13, var14, var11);
-		var15.getWorldRenderer().addVertex(par1, par4, z);
-		var15.getWorldRenderer().addVertex(par3, par4, z);
+		var15.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+		var15.getWorldRenderer().pos(par3, par2, z).color(var8, var9, var10, var7).endVertex();
+		var15.getWorldRenderer().pos(par1, par2, z).color(var8, var9, var10, var7).endVertex();
+		var15.getWorldRenderer().pos(par1, par4, z).color(var12, var13, var14, var11).endVertex();
+		var15.getWorldRenderer().pos(par3, par4, z).color(var12, var13, var14, var11).endVertex();
 		var15.draw();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GlStateManager.disableBlend();
@@ -133,11 +132,11 @@ public final class RenderHelper {
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6, float f, float f1) {
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par6, z, (par3 + 0) * f, (par4 + par6) * f1);
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + par5, par2 + par6, z, (par3 + par5) * f, (par4 + par6) * f1);
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + par5, par2 + 0, z, (par3 + par5) * f, (par4 + 0) * f1);
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + 0, z, (par3 + 0) * f, (par4 + 0) * f1);
+		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator.getWorldRenderer().pos(par1 + 0, par2 + par6, z).tex((par3 + 0) * f, (par4 + par6) * f1).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + par5, par2 + par6, z).tex((par3 + par5) * f, (par4 + par6) * f1).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + par5, par2 + 0, z).tex((par3 + par5) * f, (par4 + 0) * f1).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + 0, par2 + 0, z).tex((par3 + 0) * f, (par4 + 0) * f1).endVertex();
 		tessellator.draw();
 	}
 
@@ -171,16 +170,16 @@ public final class RenderHelper {
 			GlStateManager.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
 			GlStateManager.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
 			GlStateManager.rotate(random.nextFloat() * 360F + f1 * 90F, 0F, 0F, 1F);
-			tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
+			tessellator.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
 			tessellator.getWorldRenderer().setColorRGBA_I(color, (int) (255F * (1F - f2)));
-			tessellator.getWorldRenderer().addVertex(0, 0, 0);
+			tessellator.getWorldRenderer().pos(0, 0, 0).color().endVertex();
 			tessellator.getWorldRenderer().setColorRGBA_F(0F, 0F, 0F, 0);
-			tessellator.getWorldRenderer().addVertex(-0.866D * f4, f3, -0.5F * f4);
-			tessellator.getWorldRenderer().addVertex(0.866D * f4, f3, -0.5F * f4);
-			tessellator.getWorldRenderer().addVertex(0, f3, 1F * f4);
-			tessellator.getWorldRenderer().addVertex(-0.866D * f4, f3, -0.5F * f4);
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).endVertex();
+			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).endVertex();
+			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).endVertex();
 			tessellator.draw();
 		}
 

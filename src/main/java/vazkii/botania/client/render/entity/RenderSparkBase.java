@@ -18,12 +18,12 @@ import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.entity.EntitySpark;
@@ -38,7 +38,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	@Override
 	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
 		T tEntity = (T) par1Entity;
-		IIcon iicon = getBaseIcon(tEntity);
+		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float)par2, (float)par4, (float)par6);
@@ -65,7 +65,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GlStateManager.rotate(-renderManager.playerViewX, 1F, 0F, 0F);
 		func_77026_a(tessellator, iicon);
 
-		IIcon spinningIcon = getSpinningIcon(tEntity);
+		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
 		if(spinningIcon != null) {
 			GlStateManager.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 			GlStateManager.scale(0.2F, 0.2F, 0.2F);
@@ -81,7 +81,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GlStateManager.popMatrix();
 	}
 
-	public IIcon getBaseIcon(T entity) {
+	public TextureAtlasSprite getBaseIcon(T entity) {
 		return ItemSpark.worldIcon;
 	}
 
@@ -89,7 +89,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		// NO-OP
 	}
 
-	public IIcon getSpinningIcon(T entity) {
+	public TextureAtlasSprite getSpinningIcon(T entity) {
 		return null;
 	}
 
@@ -111,13 +111,12 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.getWorldRenderer().startDrawingQuads();
-		p_77026_1_.getWorldRenderer().setNormal(0.0F, 1.0F, 0.0F);
+		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
 		p_77026_1_.getWorldRenderer().setBrightness(240);
-		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
-		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
-		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
-		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
+		p_77026_1_.getWorldRenderer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
+		p_77026_1_.getWorldRenderer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
+		p_77026_1_.getWorldRenderer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+		p_77026_1_.getWorldRenderer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.draw();
 
 	}

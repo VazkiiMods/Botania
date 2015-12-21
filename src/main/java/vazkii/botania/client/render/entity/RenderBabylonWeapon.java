@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -91,11 +92,11 @@ public class RenderBabylonWeapon extends Render {
 
 		GlStateManager.rotate(charge * 9F + (weapon.ticksExisted + par9) * 0.5F + rand.nextFloat() * 360F, 0F, 1F, 0F);
 
-		tes.getWorldRenderer().startDrawingQuads();
-		tes.getWorldRenderer().addVertexWithUV(-1, 0, -1, 0, 0);
-		tes.getWorldRenderer().addVertexWithUV(-1, 0, 1, 0, 1);
-		tes.getWorldRenderer().addVertexWithUV(1, 0, 1, 1, 1);
-		tes.getWorldRenderer().addVertexWithUV(1, 0, -1, 1, 0);
+		tes.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tes.getWorldRenderer().pos(-1, 0, -1).tex(0, 0).endVertex();
+		tes.getWorldRenderer().pos(-1, 0, 1).tex(0, 1).endVertex();
+		tes.getWorldRenderer().pos(1, 0, 1).tex(1, 1).endVertex();
+		tes.getWorldRenderer().pos(1, 0, -1).tex(1, 0).endVertex();
 		tes.draw();
 
 		ShaderHelper.releaseShader();

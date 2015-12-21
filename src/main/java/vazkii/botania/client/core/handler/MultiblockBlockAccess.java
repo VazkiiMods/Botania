@@ -115,7 +115,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	 * Returns the multiblock component for the coordinates, adjusted based on the anchor
 	 */
 	protected MultiblockComponent getComponent(BlockPos pos) {
-		MultiblockComponent comp = multiblock.getComponentForLocation(pos.add(anchorPos.multiply(-1)));
+		MultiblockComponent comp = multiblock.getComponentForLocation(pos.add(new BlockPos(-anchorPos.getX(), -anchorPos.getY(), -anchorPos.getZ())));
 		return comp;
 	}
 }

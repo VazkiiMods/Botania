@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -154,42 +155,42 @@ public final class BoundTileRenderer {
 		double ay = aabb.maxY;
 		double az = aabb.maxZ;
 
-		tessellator.getWorldRenderer().startDrawing(GL11.GL_LINES);
-		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
-		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
+		tessellator.getWorldRenderer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
-		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
+		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
-		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
+		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
-		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
+		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, iy, az);
-		tessellator.getWorldRenderer().addVertex(ix, ay, az);
+		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
+		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, iy, az);
-		tessellator.getWorldRenderer().addVertex(ax, iy, az);
+		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
+		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ax, iy, az);
-		tessellator.getWorldRenderer().addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
+		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, ay, az);
-		tessellator.getWorldRenderer().addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
+		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
-		tessellator.getWorldRenderer().addVertex(ix, iy, az);
+		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
-		tessellator.getWorldRenderer().addVertex(ix, ay, az);
+		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
-		tessellator.getWorldRenderer().addVertex(ax, iy, az);
+		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
-		tessellator.getWorldRenderer().addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
+		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
 
 		tessellator.draw();
 	}
