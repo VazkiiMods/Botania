@@ -11,7 +11,6 @@
 package vazkii.botania.api.subtile;
 
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be

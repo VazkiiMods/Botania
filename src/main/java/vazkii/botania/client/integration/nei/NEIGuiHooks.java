@@ -10,9 +10,8 @@
  */
 package vazkii.botania.client.integration.nei;
 
+import net.minecraftforge.fml.common.API;
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
-import codechicken.nei.api.API;
-import codechicken.nei.recipe.DefaultOverlayHandler;
 
 public class NEIGuiHooks {
 

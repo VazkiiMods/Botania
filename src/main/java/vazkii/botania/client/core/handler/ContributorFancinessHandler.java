@@ -21,8 +21,8 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings.Options;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.fml.common.FMLLog;
 
 import org.lwjgl.opengl.GL11;
 
@@ -35,7 +35,6 @@ import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.material.ItemManaResource;
-import cpw.mods.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 

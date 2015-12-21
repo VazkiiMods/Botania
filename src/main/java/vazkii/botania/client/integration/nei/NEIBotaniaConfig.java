@@ -1,8 +1,7 @@
 package vazkii.botania.client.integration.nei;
 
+import net.minecraftforge.fml.common.API;
 import vazkii.botania.common.lib.LibMisc;
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
 
 public class NEIBotaniaConfig implements IConfigureNEI {
 

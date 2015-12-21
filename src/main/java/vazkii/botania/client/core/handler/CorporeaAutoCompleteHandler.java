@@ -25,15 +25,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import org.lwjgl.input.Keyboard;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class CorporeaAutoCompleteHandler {
 

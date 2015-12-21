@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.UniqueIdentifier;
 
 public class WikiHooks {
 

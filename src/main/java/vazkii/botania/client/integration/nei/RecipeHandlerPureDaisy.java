@@ -17,10 +17,6 @@ import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.NEIServerUtils;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 

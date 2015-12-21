@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.util.IIcon;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 

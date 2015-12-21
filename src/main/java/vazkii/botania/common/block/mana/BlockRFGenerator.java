@@ -22,7 +22,6 @@ import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 
 public class BlockRFGenerator extends BlockModContainer implements ILexiconable {
 

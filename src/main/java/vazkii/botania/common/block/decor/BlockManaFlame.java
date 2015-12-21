@@ -13,14 +13,12 @@ package vazkii.botania.common.block.decor;
 import java.util.ArrayList;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.BlockModContainer;
@@ -28,7 +26,6 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-import cpw.mods.fml.common.Optional;
 
 public class BlockManaFlame extends BlockModContainer {
 

@@ -15,8 +15,8 @@ import java.awt.Rectangle;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * An extension of IBossDisplayData. This counts as a botania boss and as a normal

@@ -18,9 +18,9 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.lwjgl.opengl.GL11;
 
@@ -30,7 +30,6 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class SubTileRadiusRenderHandler {
 

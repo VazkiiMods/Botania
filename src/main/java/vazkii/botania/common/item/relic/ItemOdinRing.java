@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -30,8 +31,6 @@ import baubles.common.lib.PlayerHandler;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemOdinRing extends ItemRelicBauble {
 

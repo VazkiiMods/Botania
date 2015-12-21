@@ -15,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemOpenBucket extends ItemMod {

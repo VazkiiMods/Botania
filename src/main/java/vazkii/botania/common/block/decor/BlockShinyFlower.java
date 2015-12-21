@@ -10,13 +10,10 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -25,7 +22,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {

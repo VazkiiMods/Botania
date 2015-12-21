@@ -28,11 +28,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.lwjgl.opengl.GL11;
 
@@ -40,7 +40,6 @@ import vazkii.botania.client.core.handler.LightningHandler.LightningBolt.Segment
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class LightningHandler {
 

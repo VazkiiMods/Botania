@@ -12,6 +12,8 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.common.block.BlockModFlower;
@@ -19,9 +21,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BiomeDecorationHandler {
 

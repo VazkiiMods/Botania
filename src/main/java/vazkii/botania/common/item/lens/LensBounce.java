@@ -12,9 +12,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.Vector3;
 

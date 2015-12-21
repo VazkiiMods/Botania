@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 public class TileRedStringInterceptor extends TileRedString {

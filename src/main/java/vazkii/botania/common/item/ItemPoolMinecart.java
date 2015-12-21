@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import mods.railcraft.api.core.items.IMinecartItem;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,8 +23,6 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
 
 import com.mojang.authlib.GameProfile;
-
-import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
 public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMinecartItem {

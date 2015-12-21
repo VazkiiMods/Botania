@@ -16,15 +16,14 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.common.core.helper.MathHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class ManaNetworkHandler implements IManaNetwork {
 

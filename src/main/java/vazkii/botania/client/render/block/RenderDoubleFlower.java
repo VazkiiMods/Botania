@@ -12,12 +12,9 @@ package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.client.lib.LibRenderIDs;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderDoubleFlower implements ISimpleBlockRenderingHandler {
 

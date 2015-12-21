@@ -27,7 +27,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 //From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {

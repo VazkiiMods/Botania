@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;

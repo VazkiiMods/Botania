@@ -1,9 +1,7 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -11,9 +9,6 @@ import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibTriggerNames;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerExternal;
 
 public class TriggerManaLevel extends StatementBase implements ITriggerExternal {
 	public enum State {

@@ -16,9 +16,8 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockVariantWall extends BlockModWall {
 

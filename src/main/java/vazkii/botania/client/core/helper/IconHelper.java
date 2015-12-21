@@ -11,9 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
 import vazkii.botania.client.lib.LibResources;
 
 public final class IconHelper {

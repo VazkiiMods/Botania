@@ -18,6 +18,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -26,8 +28,6 @@ import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
 

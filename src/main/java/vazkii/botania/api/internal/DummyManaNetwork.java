@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
 

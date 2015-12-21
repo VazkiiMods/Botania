@@ -12,10 +12,8 @@ package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -24,7 +22,6 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 

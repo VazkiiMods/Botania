@@ -55,8 +55,6 @@ import vazkii.botania.api.wiki.WikiHooks;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import cpw.mods.fml.common.Loader;
-
 public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();

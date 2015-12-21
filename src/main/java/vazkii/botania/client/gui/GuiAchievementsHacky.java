@@ -14,8 +14,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.stats.StatFileWriter;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.achievement.ModAchievements;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class GuiAchievementsHacky extends GuiAchievements {
 

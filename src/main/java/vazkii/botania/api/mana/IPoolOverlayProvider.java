@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 /**

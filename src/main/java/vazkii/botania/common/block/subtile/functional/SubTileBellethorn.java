@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.List;
 
-import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitch;

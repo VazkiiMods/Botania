@@ -12,13 +12,10 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList({
 	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),

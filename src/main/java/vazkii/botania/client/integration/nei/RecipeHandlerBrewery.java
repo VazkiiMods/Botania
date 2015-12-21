@@ -16,9 +16,6 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 

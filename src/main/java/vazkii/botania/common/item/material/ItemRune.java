@@ -12,7 +12,6 @@ package vazkii.botania.common.item.material;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +19,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.IPickupAchievement;

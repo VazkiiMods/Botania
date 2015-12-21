@@ -18,36 +18,16 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
-
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.nei.RecipeHandlerManaPool.CachedManaPoolRecipe;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.tile.RenderTilePool;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lexicon.page.PageRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.NEIServerUtils;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
-import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 public class RecipeHandlerLexicaBotania extends TemplateRecipeHandler {
 

@@ -12,14 +12,11 @@ package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMultiblockRenderHook {
 

@@ -14,7 +14,6 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;

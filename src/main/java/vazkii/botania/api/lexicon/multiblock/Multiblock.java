@@ -17,7 +17,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**

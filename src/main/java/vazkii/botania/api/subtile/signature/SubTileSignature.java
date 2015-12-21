@@ -12,10 +12,8 @@ package vazkii.botania.api.subtile.signature;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.

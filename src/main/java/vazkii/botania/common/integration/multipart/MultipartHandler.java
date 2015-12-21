@@ -18,8 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
-import codechicken.microblock.BlockMicroMaterial;
-import codechicken.microblock.MicroMaterialRegistry;
 
 public class MultipartHandler {
 

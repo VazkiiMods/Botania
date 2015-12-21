@@ -12,8 +12,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 

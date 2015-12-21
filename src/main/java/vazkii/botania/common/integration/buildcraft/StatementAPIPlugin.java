@@ -4,15 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileRuneAltar;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.ITriggerExternal;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.api.statements.ITriggerProvider;
-import buildcraft.api.statements.StatementManager;
 
 public class StatementAPIPlugin implements ITriggerProvider {
 

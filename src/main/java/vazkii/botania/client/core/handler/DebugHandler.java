@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ContextCapabilities;
@@ -26,7 +27,6 @@ import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class DebugHandler {
 

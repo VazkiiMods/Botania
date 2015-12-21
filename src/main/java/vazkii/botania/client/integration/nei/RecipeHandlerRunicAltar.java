@@ -10,7 +10,6 @@ import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import codechicken.nei.PositionedStack;
 
 public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 

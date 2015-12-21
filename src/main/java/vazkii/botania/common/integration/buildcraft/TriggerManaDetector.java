@@ -1,6 +1,5 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -8,9 +7,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibTriggerNames;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerInternal;
 
 public class TriggerManaDetector extends StatementBase implements ITriggerInternal {
 

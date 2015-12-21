@@ -2,12 +2,11 @@ package vazkii.botania.common.core.handler;
 
 import java.util.Iterator;
 
+import net.minecraftforge.fml.common.event.FMLInterModComms.IMCMessage;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.lib.LibMisc;
 
 import com.google.common.collect.ImmutableList;
-
-import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 
 public final class IMCHandler {
 

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraftforge.common.util.ForgeDirection;
 
 public final class LibMisc {
 
