@@ -88,7 +88,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	}
 
 	private void addIceBlock(EntityPlayer player, BlockPos coords) {
-		String user = player.getCommandSenderName();
+		String user = player.getName();
 		if(!playerIceBlocks.containsKey(user))
 			playerIceBlocks.put(user, new ArrayList());
 
@@ -102,7 +102,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	}
 
 	private void tickIceRemovers(EntityPlayer player) {
-		String user = player.getCommandSenderName();
+		String user = player.getName();
 		if(!playerIceBlocks.containsKey(user))
 			return;
 

@@ -33,7 +33,7 @@ public class ItemWorldSeed extends ItemMod {
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.getCollidingBoundingBoxes(player, player.getBoundingBox()).isEmpty())
+			while(!world.getCollidingBoundingBoxes(player, player.getEntityBoundingBox()).isEmpty())
 				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
 
 			world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);

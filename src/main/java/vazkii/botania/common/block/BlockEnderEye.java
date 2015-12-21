@@ -59,7 +59,7 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return ((Integer) state.getValue(BotaniaStateProps.POWER));
 	}
 

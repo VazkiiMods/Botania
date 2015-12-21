@@ -22,7 +22,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
@@ -44,7 +44,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver, IUpdatePlayerListBox {
+public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
@@ -304,7 +304,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.RUNE_ALTAR;
 	}
 

@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.BotaniaAPI;
@@ -36,7 +36,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 
 // This is mostly copypasta from TileRuneAltar
-public class TileBrewery extends TileSimpleInventory implements ISidedInventory, IManaReceiver, IUpdatePlayerListBox {
+public class TileBrewery extends TileSimpleInventory implements ISidedInventory, IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 
@@ -200,7 +200,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.RUNE_ALTAR;
 	}
 

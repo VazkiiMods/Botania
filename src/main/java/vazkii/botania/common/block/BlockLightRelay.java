@@ -147,7 +147,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
+	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
 		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT
 				&& ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
 	}

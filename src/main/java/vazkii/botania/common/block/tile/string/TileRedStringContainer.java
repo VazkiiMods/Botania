@@ -49,9 +49,9 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot) {
+	public ItemStack removeStackFromSlot(int slot) {
 		IInventory inv = getInventory();
-		return inv != null ? inv.getStackInSlotOnClosing(slot) : null;
+		return inv != null ? inv.removeStackFromSlot(slot) : null;
 	}
 
 	@Override
@@ -62,9 +62,9 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		IInventory inv = getInventory();
-		return inv != null ? inv.getCommandSenderName() : LibBlockNames.RED_STRING_CONTAINER;
+		return inv != null ? inv.getName() : LibBlockNames.RED_STRING_CONTAINER;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	@Override
 	public IChatComponent getDisplayName() {
 		IInventory inv = getInventory();
-		return inv != null ? inv.getDisplayName() : new ChatComponentText(getCommandSenderName());
+		return inv != null ? inv.getDisplayName() : new ChatComponentText(getName());
 	}
 
 	@Override

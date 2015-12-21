@@ -11,10 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
-public class TileBifrost extends TileMod implements IUpdatePlayerListBox {
+public class TileBifrost extends TileMod implements ITickable {
 
 	private static final String TAG_TICKS = "ticks";
 

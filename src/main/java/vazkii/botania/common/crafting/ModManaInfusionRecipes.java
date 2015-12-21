@@ -17,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
@@ -74,7 +75,7 @@ public final class ModManaInfusionRecipes {
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.potato), 1337);
 
 		if(Botania.thaumcraftLoaded) {
-			Item inkwell = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemInkwell");
+			Item inkwell = Item.itemRegistry.getObject(new ResourceLocation("Thaumcraft:ItemInkwell"));
 			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
 		}
 

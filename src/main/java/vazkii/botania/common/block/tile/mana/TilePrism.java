@@ -61,7 +61,7 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.PRISM;
 	}
 

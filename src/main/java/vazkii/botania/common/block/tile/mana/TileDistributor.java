@@ -13,7 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -22,7 +22,7 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileDistributor extends TileMod implements IManaReceiver, IUpdatePlayerListBox {
+public class TileDistributor extends TileMod implements IManaReceiver, ITickable {
 
 	List<IManaReceiver> validPools = new ArrayList();
 

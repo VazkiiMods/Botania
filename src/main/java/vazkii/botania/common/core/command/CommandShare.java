@@ -32,7 +32,7 @@ public class CommandShare extends CommandBase {
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
 		String json = StatCollector.translateToLocal("botaniamisc.shareMsg");
-		json = json.replaceAll("%name%", sender.getCommandSenderName());
+		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);
 		json = json.replaceAll("%entryname%", StatCollector.translateToLocal(args[0]));
 

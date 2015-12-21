@@ -14,13 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import vazkii.botania.api.BotaniaAPI;
@@ -43,8 +41,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMagnetRing extends ItemBauble {
 
-	IIcon iconOff;
-
 	private static final String TAG_COOLDOWN = "cooldown";
 
 	private static final List<String> BLACKLIST = Arrays.asList(new String[] {
@@ -61,19 +57,6 @@ public class ItemMagnetRing extends ItemBauble {
 	public ItemMagnetRing(String name, int range) {
 		super(name);
 		this.range = range;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		iconOff = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconIndex(ItemStack stack) {
-		return getCooldown(stack) <= 0 ? itemIcon : iconOff;
 	}
 
 	@SubscribeEvent

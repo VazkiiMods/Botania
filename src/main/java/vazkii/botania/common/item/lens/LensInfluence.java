@@ -12,6 +12,7 @@ package vazkii.botania.common.item.lens;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
@@ -29,13 +30,13 @@ public class LensInfluence extends Lens {
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		if(!burst.isFake()) {
 			double range = 3.5;
-			List<Entity> movables = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
+			List movables = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
 			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
 			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
 			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityFallingBlock.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.worldObj.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range), Predicates.instanceOf(IManaBurst.class)));
 
-			for(Entity movable : movables) {
+			for(Entity movable : ((List<Entity>) movables)) {
 				if(movable == burst)
 					continue;
 

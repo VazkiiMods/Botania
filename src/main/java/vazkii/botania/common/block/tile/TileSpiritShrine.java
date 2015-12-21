@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
-public class TileSpiritShrine extends TileMod implements IUpdatePlayerListBox {
+public class TileSpiritShrine extends TileMod implements ITickable {
 
 	int ticks;
 

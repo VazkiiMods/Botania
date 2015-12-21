@@ -10,9 +10,9 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 
-public class TileTeruTeruBozu extends TileMod implements IUpdatePlayerListBox {
+public class TileTeruTeruBozu extends TileMod implements ITickable {
 
 	public boolean wasRaining = false;
 

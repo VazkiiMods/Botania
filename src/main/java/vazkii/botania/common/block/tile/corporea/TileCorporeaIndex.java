@@ -24,7 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -45,7 +45,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, IUpdatePlayerListBox {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
 
 	public static final double RADIUS = 2.5;
 
@@ -196,7 +196,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.CORPOREA_INDEX;
 	}
 

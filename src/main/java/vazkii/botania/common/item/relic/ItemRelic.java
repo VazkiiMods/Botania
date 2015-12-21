@@ -106,7 +106,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
-		bindToUsernameS(player.getCommandSenderName(), stack);
+		bindToUsernameS(player.getName(), stack);
 	}
 
 	public static void bindToUsernameS(String username, ItemStack stack) {
@@ -114,7 +114,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public static boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
-		return isRightPlayer(player.getCommandSenderName(), stack);
+		return isRightPlayer(player.getName(), stack);
 	}
 
 	public static boolean isRightPlayer(String player, ItemStack stack) {

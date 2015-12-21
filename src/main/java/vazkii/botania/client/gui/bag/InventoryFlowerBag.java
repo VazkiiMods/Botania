@@ -111,7 +111,7 @@ public class InventoryFlowerBag implements IInventory {
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
+	public ItemStack removeStackFromSlot(int i) {
 		return getStackInSlot(i);
 	}
 
@@ -163,7 +163,7 @@ public class InventoryFlowerBag implements IInventory {
 
 	@Override
 	public IChatComponent getDisplayName() {
-		return new ChatComponentText(getCommandSenderName());
+		return new ChatComponentText(getName());
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class InventoryFlowerBag implements IInventory {
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibItemNames.FLOWER_BAG;
 	}
 

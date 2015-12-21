@@ -78,7 +78,7 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
+	public ItemStack removeStackFromSlot(int i) {
 		return getStackInSlot(i);
 	}
 
@@ -137,6 +137,6 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 
 	@Override
 	public IChatComponent getDisplayName() {
-		return new ChatComponentText(getCommandSenderName());
+		return new ChatComponentText(getName());
 	}
 }

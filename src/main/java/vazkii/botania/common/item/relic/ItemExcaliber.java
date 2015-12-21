@@ -139,7 +139,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 		burst.setMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
 
 		ItemStack lens = stack.copy();
-		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getCommandSenderName());
+		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getName());
 		burst.setSourceLens(lens);
 		return burst;
 	}
@@ -190,7 +190,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 		}
 
 		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
+			if(living instanceof EntityPlayer && (((EntityPlayer) living).getName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {

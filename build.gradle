@@ -11,7 +11,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
 
@@ -22,8 +23,8 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
-apply plugin: 'curseforge'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
 
 ext.configFile = file('build.properties')
 
@@ -36,8 +37,9 @@ archivesBaseName = config.mod_name
 
 minecraft {
     version = "${config.mc_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse/assets"
 
+    mappings = "snapshot_20151128"
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number
@@ -60,9 +62,9 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
-    compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
-    compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
+    //compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
+    //compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
+    //compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
     //compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
 
     //and a bit more for SCP
@@ -207,14 +209,18 @@ jar {
     archiveName = "${baseName} ${version}.${extension}"
 }
 
-curse {
+curseforge {
     apiKey = priv.cfkey
-    projectId = "225643"
-    changelog = """
-		See http://botaniamod.net/changelog.php#${version}
-    """
-    releaseType = "release"
-    relatedProject 'baubles': 'requiredLibrary'
+    project {
+        id = "225643"
+        changelog = """
+		    See http://botaniamod.net/changelog.php#${version}
+        """
+        releaseType = "release"
+        relations {
+            requiredLibrary 'baubles'
+        }
+    }
 }
 
 defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'

@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -60,7 +61,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 					final int range = 20;
 
-					List<IMob> mobs = player.worldObj.getEntitiesWithinAABB(IMob.class, new AxisAlignedBB(event.entity.posX - range, event.entity.posY - range, event.entity.posZ - range, event.entity.posX + range, event.entity.posY + range, event.entity.posZ + range));
+					List<Entity> mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.entity.posX - range, event.entity.posY - range, event.entity.posZ - range, event.entity.posX + range, event.entity.posY + range, event.entity.posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
 						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.entityLiving, mobs)) {
 							if(event.entityLiving instanceof EntityCreeper)

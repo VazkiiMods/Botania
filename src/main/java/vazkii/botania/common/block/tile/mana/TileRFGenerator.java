@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +25,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
-public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection, IUpdatePlayerListBox {
+public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection, ITickable {
 
 	private static final int CONVERSION_RATE = 10;
 	private static final int MAX_MANA = 1280 * CONVERSION_RATE;

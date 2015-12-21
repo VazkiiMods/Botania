@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Predicates;
+import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -246,8 +248,8 @@ public final class CorporeaHelper {
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
 	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)));
-		return sparks.isEmpty() ? null : sparks.get(0);
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+		return sparks.isEmpty() ? null : ((ICorporeaSpark) sparks.get(0));
 	}
 
 	/**

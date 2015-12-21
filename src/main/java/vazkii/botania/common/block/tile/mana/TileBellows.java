@@ -13,7 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
@@ -23,7 +23,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileBellows extends TileMod implements IUpdatePlayerListBox {
+public class TileBellows extends TileMod implements ITickable {
 
 	private static final String TAG_ACTIVE = "active";
 

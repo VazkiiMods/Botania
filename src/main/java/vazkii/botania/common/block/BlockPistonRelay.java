@@ -132,7 +132,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return false;
 
 		if(!player.isSneaking()) {
-			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.getDimensionId(), pos));
+			playerPositions.put(player.getName(), getCoordsAsString(world.provider.getDimensionId(), pos));
 			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));

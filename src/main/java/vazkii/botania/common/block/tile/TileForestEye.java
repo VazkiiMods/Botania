@@ -11,10 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileForestEye extends TileMod implements IUpdatePlayerListBox {
+public class TileForestEye extends TileMod implements ITickable {
 
 	public int entities = 0;
 

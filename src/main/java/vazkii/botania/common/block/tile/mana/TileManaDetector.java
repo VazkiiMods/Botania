@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import com.google.common.base.Predicates;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -18,13 +20,13 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileManaDetector extends TileMod implements IManaCollisionGhost, IUpdatePlayerListBox {
+public class TileManaDetector extends TileMod implements IManaCollisionGhost, ITickable {
 
 	@Override
 	public void update() {
 		if(!worldObj.isRemote) {
 			boolean state = ((Boolean) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED));
-			boolean expectedState = worldObj.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(pos, pos.add(1, 1, 1))).size() != 0;
+			boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 			if(state != expectedState)
 				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
 

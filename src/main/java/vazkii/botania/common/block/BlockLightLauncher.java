@@ -85,11 +85,11 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 		if(!relays.isEmpty()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos, pos.add(1, 1, 1));
-			List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+			List entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 			entities.addAll(world.getEntitiesWithinAABB(EntityItem.class, aabb));
 
 			if(!entities.isEmpty()) {
-				for(Entity entity : entities) {
+				for(Entity entity : ((List<Entity>) entities)) {
 					TileLightRelay relay = relays.get(world.rand.nextInt(relays.size()));
 					relay.mountEntity(entity);
 				}

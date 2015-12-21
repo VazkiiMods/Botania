@@ -225,7 +225,7 @@ public class GuiLexicon extends GuiScreen {
 			bookmarksNeedPopulation = false;
 		}
 
-		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
+		if(mc.thePlayer.getName().equals("haighyorkie")) {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);

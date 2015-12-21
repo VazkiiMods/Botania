@@ -15,12 +15,12 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 
-public class TileRedStringInterceptor extends TileRedString implements IUpdatePlayerListBox {
+public class TileRedStringInterceptor extends TileRedString implements ITickable {
 
 	public static List<TileRedStringInterceptor> interceptors = new ArrayList();
 

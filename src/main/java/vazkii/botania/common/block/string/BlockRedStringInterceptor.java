@@ -71,7 +71,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return ((Boolean) state.getValue(BotaniaStateProps.POWERED)) ? 15 : 0;
 	}
 

@@ -261,7 +261,7 @@ public class InventoryHelper {
 		}
 
 		@Override
-		public ItemStack getStackInSlotOnClosing(int i) {
+		public ItemStack removeStackFromSlot(int i) {
 			if(i >= inventoryContents.length)
 				return null;
 
@@ -358,7 +358,7 @@ public class InventoryHelper {
 		}
 
 		@Override
-		public String getCommandSenderName() {
+		public String getName() {
 			return null;
 		}
 
@@ -369,7 +369,7 @@ public class InventoryHelper {
 
 		@Override
 		public IChatComponent getDisplayName() {
-			return new ChatComponentText(getCommandSenderName());
+			return new ChatComponentText(getName());
 		}
 
 		@Override

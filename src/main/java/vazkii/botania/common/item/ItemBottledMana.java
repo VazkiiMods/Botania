@@ -167,7 +167,7 @@ public class ItemBottledMana extends ItemMod {
 			if(!player.worldObj.isRemote) {
 				player.attackEntityFrom(DamageSource.magic, player.getHealth() - 1);
 				ItemStack stack = new ItemStack(Items.skull, 1, 3);
-				ItemNBTHelper.setString(stack, "SkullOwner", player.getCommandSenderName());
+				ItemNBTHelper.setString(stack, "SkullOwner", player.getName());
 				player.dropPlayerItemWithRandomChoice(stack, true);
 			}
 			break;

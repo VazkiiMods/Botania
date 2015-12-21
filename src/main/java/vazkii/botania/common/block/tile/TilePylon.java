@@ -15,7 +15,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -25,7 +25,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
-public class TilePylon extends TileEntity implements IUpdatePlayerListBox {
+public class TilePylon extends TileEntity implements ITickable {
 
 	boolean activated = false;
 	BlockPos centerPos;

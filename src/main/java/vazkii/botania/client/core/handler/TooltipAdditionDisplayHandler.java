@@ -56,7 +56,7 @@ public final class TooltipAdditionDisplayHandler {
 			if(slot != null && slot.getHasStack()) {
 				ItemStack stack = slot.getStack();
 				if(stack != null) {
-					ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+					ScaledResolution res = new ScaledResolution(mc);
 					FontRenderer font = mc.fontRendererObj;
 					int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
 					int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;

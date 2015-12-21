@@ -12,13 +12,14 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -33,7 +34,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable, IUpdatePlayerListBox {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickable {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
@@ -227,9 +228,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IUpdate
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)));
+		List<Entity> sparks = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if(sparks.size() == 1) {
-			Entity e = (Entity) sparks.get(0);
+			Entity e = sparks.get(0);
 			return (ISparkEntity) e;
 		}
 

@@ -14,13 +14,13 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class TileOpenCrate extends TileSimpleInventory implements IUpdatePlayerListBox {
+public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 
 	@Override
 	public int getSizeInventory() {
@@ -28,7 +28,7 @@ public class TileOpenCrate extends TileSimpleInventory implements IUpdatePlayerL
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.OPEN_CRATE;
 	}
 

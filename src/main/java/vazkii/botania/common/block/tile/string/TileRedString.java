@@ -12,7 +12,7 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -21,7 +21,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
-public abstract class TileRedString extends TileMod implements ITileBound, IUpdatePlayerListBox {
+public abstract class TileRedString extends TileMod implements ITileBound, ITickable {
 
 	private BlockPos binding;
 

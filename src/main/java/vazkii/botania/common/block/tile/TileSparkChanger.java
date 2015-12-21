@@ -84,7 +84,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.SPARK_CHANGER;
 	}
 

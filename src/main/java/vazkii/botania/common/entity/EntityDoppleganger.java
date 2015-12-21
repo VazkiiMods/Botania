@@ -357,8 +357,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		Entity e = par1DamageSource.getEntity();
 		if((par1DamageSource.damageType.equals("player") || e instanceof EntityPixie) && e != null && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
-			if(!playersWhoAttacked.contains(player.getCommandSenderName()))
-				playersWhoAttacked.add(player.getCommandSenderName());
+			if(!playersWhoAttacked.contains(player.getName()))
+				playersWhoAttacked.add(player.getName());
 
 			float dmg = par2;
 			boolean crit = false;
@@ -380,7 +380,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		EntityPlayer player = (EntityPlayer) e;
 
-		String name = player.getCommandSenderName();
+		String name = player.getName();
 		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
 	}
 

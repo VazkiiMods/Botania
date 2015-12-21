@@ -13,6 +13,7 @@ package vazkii.botania.client.render.item;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBook;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -75,8 +76,8 @@ public class RenderLexicon implements IItemRenderer {
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
 			GlStateManager.translate(-0.3F, -0.21F, -0.07F);
 			GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
-			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("BevoLJ");
-			boolean saice = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("saice");
+			boolean bevo = Minecraft.getMinecraft().thePlayer.getName().equalsIgnoreCase("BevoLJ");
+			boolean saice = Minecraft.getMinecraft().thePlayer.getName().equalsIgnoreCase("saice");
 
 			String title = ModItems.lexicon.getItemStackDisplayName(null);
 			String origTitle = title;

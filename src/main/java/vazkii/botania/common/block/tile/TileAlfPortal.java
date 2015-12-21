@@ -19,7 +19,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -44,7 +44,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 import com.google.common.base.Function;
 
-public class TileAlfPortal extends TileMod implements IUpdatePlayerListBox {
+public class TileAlfPortal extends TileMod implements ITickable {
 
 	private static final BlockPos[] LIVINGWOOD_POSITIONS = {
 		new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),

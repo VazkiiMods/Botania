@@ -18,7 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
@@ -29,7 +29,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver, IUpdatePlayerListBox {
+public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 

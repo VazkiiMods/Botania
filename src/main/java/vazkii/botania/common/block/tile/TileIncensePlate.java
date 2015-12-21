@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.BotaniaAPI;
@@ -30,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory, IUpdatePlayerListBox {
+public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory, ITickable {
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
@@ -107,7 +107,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.INCENSE_PLATE;
 	}
 

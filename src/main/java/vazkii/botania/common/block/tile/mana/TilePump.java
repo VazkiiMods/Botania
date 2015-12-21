@@ -11,12 +11,12 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod implements IUpdatePlayerListBox {
+public class TilePump extends TileMod implements ITickable {
 
 	private static final String TAG_ACTIVE = "active";
 

@@ -12,12 +12,12 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 
-public class TileManaBeacon extends TileMod implements IUpdatePlayerListBox {
+public class TileManaBeacon extends TileMod implements ITickable {
 
 	@Override
 	public void update() {

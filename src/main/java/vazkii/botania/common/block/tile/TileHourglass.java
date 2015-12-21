@@ -19,7 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
 
@@ -30,7 +30,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerListBox {
+public class TileHourglass extends TileSimpleInventory implements ITickable {
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
@@ -172,7 +172,7 @@ public class TileHourglass extends TileSimpleInventory implements IUpdatePlayerL
 	}
 
 	@Override
-	public String getCommandSenderName() {
+	public String getName() {
 		return LibBlockNames.HOURGLASS;
 	}
 
