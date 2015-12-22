@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -34,6 +35,15 @@ public class StatementAPIPlugin implements ITriggerProvider {
 		StatementManager.registerStatement(triggerRuneAltarCanCraft);
 
 		StatementManager.registerTriggerProvider(this);
+
+		// Register them all to the event bus so they can stitch textures
+		MinecraftForge.EVENT_BUS.register(triggerManaEmpty);
+		MinecraftForge.EVENT_BUS.register(triggerManaContains);
+		MinecraftForge.EVENT_BUS.register(triggerManaSpace);
+		MinecraftForge.EVENT_BUS.register(triggerManaFull);
+		MinecraftForge.EVENT_BUS.register(triggerManaDetector);
+
+		MinecraftForge.EVENT_BUS.register(triggerRuneAltarCanCraft);
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.mana.IManaBlock;
@@ -34,9 +36,9 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 		return "botania:mana" + state.name();
 	}
 
-	@Override
-	public void registerIcons(TextureMap iconRegister) {
-		icon = IconHelper.forName(iconRegister, "triggers/mana" + WordUtils.capitalizeFully(state.name()));
+	@SubscribeEvent
+	public void registerIcons(TextureStitchEvent.Pre evt) {
+		icon = IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(state.name()));
 	}
 
 	@Override

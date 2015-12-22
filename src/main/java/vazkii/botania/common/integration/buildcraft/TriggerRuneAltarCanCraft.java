@@ -4,6 +4,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.lib.LibTriggerNames;
@@ -18,9 +20,9 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 		return "botania:runeAltarCanCraft";
 	}
 
-	@Override
-	public void registerIcons(TextureMap iconRegister) {
-		icon = IconHelper.forName(iconRegister, "triggers/runeAltarCanCraft");
+	@SubscribeEvent
+	public void registerIcons(TextureStitchEvent.Pre evt) {
+		icon = IconHelper.forName(evt.map, "triggers/runeAltarCanCraft");
 	}
 
 	@Override

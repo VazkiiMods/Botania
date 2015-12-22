@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -21,9 +23,9 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 		return "botania:manaDetector";
 	}
 
-	@Override
-	public void registerIcons(TextureMap iconRegister) {
-		icon = IconHelper.forName(iconRegister, "triggers/manaDetector");
+	@SubscribeEvent
+	public void registerIcons(TextureStitchEvent.Pre evt) {
+		icon = IconHelper.forName(evt.map, "triggers/manaDetector");
 	}
 
 	@Override
