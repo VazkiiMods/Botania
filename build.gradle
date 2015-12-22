@@ -9,9 +9,14 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name = "gradle"
+            url = "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+	classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.0.5'
     }
 }
 
@@ -23,7 +28,7 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'curseforge'
+apply plugin: 'com.matthewprenger.cursegradle'
 
 ext.configFile = file('build.properties')
 
@@ -35,8 +40,8 @@ group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-con
 archivesBaseName = config.mod_name
 
 minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    version = "${config.forge_version}-${config.mc_version}"
+    runDir = "eclipse"
 
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
@@ -207,14 +212,19 @@ jar {
     archiveName = "${baseName} ${version}.${extension}"
 }
 
-curse {
+curseforge {
     apiKey = priv.cfkey
-    projectId = "225643"
-    changelog = """
+    project {
+        id = "225643"
+        changelog = """
 		See http://botaniamod.net/changelog.php#${version}
-    """
-    releaseType = "release"
-    relatedProject 'baubles': 'requiredLibrary'
+        """
+        releaseType = "release"
+        relations {
+            requiredLibrary 'baubles'
+            optionalLibrary 'notenoughitems'
+        }
+    }
 }
 
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
+defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curseforge', 'upload'
