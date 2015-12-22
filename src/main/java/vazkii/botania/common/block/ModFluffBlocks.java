@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -83,6 +84,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Collection;
+import java.util.Set;
 
 public final class ModFluffBlocks {
 
@@ -320,9 +322,13 @@ public final class ModFluffBlocks {
 		}
 		biomeStoneWall = new BlockBiomeStoneWall();
 
+		Set<FutureStoneVariant> allowed = ImmutableSet.of(FutureStoneVariant.ANDESITE, FutureStoneVariant.ANDESITE_BRICK,
+				FutureStoneVariant.BASALT, FutureStoneVariant.BASALT_BRICK, FutureStoneVariant.DIORITE, FutureStoneVariant.DIORITE_BRICK,
+				FutureStoneVariant.GRANITE, FutureStoneVariant.GRANITE_BRICK);
+
 		count = 0;
 		for(FutureStoneVariant variant : FutureStoneVariant.values()) {
-			if (!(variant.ordinal() >= 0 && variant.ordinal() <= 3 || variant.ordinal() >= 8 && variant.ordinal() <= 11)) {
+			if (!allowed.contains(variant)) {
 				// Filter - only get the base blocks, and the brick versions
 				continue;
 			}
