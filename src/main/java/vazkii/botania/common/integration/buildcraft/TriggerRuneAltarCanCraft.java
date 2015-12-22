@@ -1,9 +1,9 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.lib.LibTriggerNames;
@@ -19,7 +19,7 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 	}
 
 	@Override
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerIcons(TextureMap iconRegister) {
 		icon = IconHelper.forName(iconRegister, "triggers/runeAltarCanCraft");
 	}
 
@@ -29,7 +29,7 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 	}
 
 	@Override
-	public boolean isTriggerActive(TileEntity target, ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters) {
+	public boolean isTriggerActive(TileEntity target, EnumFacing side, IStatementContainer source, IStatementParameter[] parameters) {
 		if(target instanceof TileRuneAltar) return ((TileRuneAltar) target).hasValidRecipe();
 		return false;
 	}

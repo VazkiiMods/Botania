@@ -1,7 +1,7 @@
 package buildcraft.api.core.render;
 
-import net.minecraft.util.IIcon;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public interface ITextureStateManager {
-	void set(IIcon icon);
+    void set(TextureAtlasSprite icon);
 }

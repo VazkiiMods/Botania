@@ -1,9 +1,9 @@
 package buildcraft.api.transport.pluggable;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import buildcraft.api.transport.IPipe;
 
 public interface IPipePluggableDynamicRenderer {
-	void renderPluggable(IPipe pipe, ForgeDirection side, PipePluggable pipePluggable, double x, double y, double z);
+    void renderDynamicPluggable(IPipe pipe, EnumFacing side, PipePluggable pipePluggable, double x, double y, double z);
 }

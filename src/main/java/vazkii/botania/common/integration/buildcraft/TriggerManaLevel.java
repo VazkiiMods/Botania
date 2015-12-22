@@ -1,9 +1,9 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -35,7 +35,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 	}
 
 	@Override
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerIcons(TextureMap iconRegister) {
 		icon = IconHelper.forName(iconRegister, "triggers/mana" + WordUtils.capitalizeFully(state.name()));
 	}
 
@@ -45,7 +45,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 	}
 
 	@Override
-	public boolean isTriggerActive(TileEntity target, ForgeDirection side, IStatementContainer source, IStatementParameter[] parameters) {
+	public boolean isTriggerActive(TileEntity target, EnumFacing side, IStatementContainer source, IStatementParameter[] parameters) {
 		if(target instanceof IManaBlock) {
 			if(state == State.EMPTY) return ((IManaBlock) target).getCurrentMana() == 0;
 			else if(state == State.CONTAINS) return ((IManaBlock) target).getCurrentMana() > 0;
