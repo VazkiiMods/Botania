@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
@@ -87,15 +88,13 @@ public class LightningHandler {
 		ParticleRenderDispatcher.lightningCount = 0;
 
 		render.bindTexture(outsideResource);
-		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.getWorldRenderer().setBrightness(0xF000F0);
+		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 0, false);
 		tessellator.draw();
 
 		render.bindTexture(insideResource);
-		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.getWorldRenderer().setBrightness(0xF000F0);
+		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 1, true);
 		tessellator.draw();
@@ -146,29 +145,32 @@ public class LightningHandler {
 			Vector3 endvec = rendersegment.endpoint.point;
 
 			int color = inner ? bolt.colorInner : bolt.colorOuter;
-			tessellator.getWorldRenderer().putColor(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
+			int r = (color & 0xFF0000) >> 16;
+			int g = (color & 0xFF00) >> 8;
+			int b = (color & 0xFF);
+			int a = (int) (mainalpha * rendersegment.light * new Color(color).getAlpha());
 
-			tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).endVertex();
-			tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).endVertex();
-			tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).endVertex();
-			tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).endVertex();
+			tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).lightmap(0xF0, 0xF0).tex(0.5, 0).color(r, g, b, a).endVertex();
+			tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).lightmap(0xF0, 0xF0).tex(0.5, 0).color(r, g, b, a).endVertex();
+			tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).lightmap(0xF0, 0xF0).tex(0.5, 1).color(r, g, b, a).endVertex();
+			tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).lightmap(0xF0, 0xF0).tex(0.5, 1).color(r, g, b, a).endVertex();
 
 			if(rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.getWorldRenderer().pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).endVertex();
-				tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).endVertex();
-				tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).endVertex();
-				tessellator.getWorldRenderer().pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).tex(0, 1).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).lightmap(0xF0, 0xF0).tex(0, 0).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).lightmap(0xF0, 0xF0).tex(0.5, 0).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).lightmap(0xF0, 0xF0).tex(0.5, 1).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).lightmap(0xF0, 0xF0).tex(0, 1).color(r, g, b, a).endVertex();
 			}
 
 			if(rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).endVertex();
-				tessellator.getWorldRenderer().pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).endVertex();
-				tessellator.getWorldRenderer().pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).tex(0, 1).endVertex();
-				tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).endVertex();
+				tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).lightmap(0xF0, 0xF0).tex(0.5, 0).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).lightmap(0xF0, 0xF0).tex(0, 0).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).lightmap(0xF0, 0xF0).tex(0, 1).color(r, g, b, a).endVertex();
+				tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).lightmap(0xF0, 0xF0).tex(0.5, 1).color(r, g, b, a).endVertex();
 			}
 		}
 	}

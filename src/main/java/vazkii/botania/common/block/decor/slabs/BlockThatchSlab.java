@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockThatchSlab extends BlockLivingSlab {
 
 	public BlockThatchSlab(boolean full) {
-		super(full, ModBlocks.thatch, 0);
+		super(full, ModBlocks.thatch.getDefaultState());
 		setHardness(1.0F);
 		setStepSound(soundTypeGrass);
 	}

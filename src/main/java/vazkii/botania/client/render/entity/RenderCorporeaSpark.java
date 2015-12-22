@@ -15,9 +15,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -31,6 +33,10 @@ import vazkii.botania.common.item.ItemCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
+	public RenderCorporeaSpark(RenderManager p_i46185_1_) {
+		super(p_i46185_1_);
+	}
+
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
 		return entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
@@ -39,6 +45,8 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
 		int network = Math.min(15, entity.getNetwork());
+		int hex = EnumDyeColor.byMetadata(network).getMapColor().colorValue;
+
 		GlStateManager.color(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2], a);
 	}
 

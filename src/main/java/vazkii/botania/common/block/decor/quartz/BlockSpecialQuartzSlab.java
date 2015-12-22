@@ -97,21 +97,6 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 	}
 
 	@Override
-	public boolean isDouble() {
-		return getFullBlock() == this;
-	}
-
-	@Override
-	public IProperty getVariantProperty() {
-		return null;
-	}
-
-	@Override
-	public Object getVariant(ItemStack stack) {
-		return null;
-	}
-
-	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return this == ModFluffBlocks.elfQuartzSlab ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
 	}

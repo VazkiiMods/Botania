@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockDirtPathSlab extends BlockLivingSlab {
 
 	public BlockDirtPathSlab(boolean full) {
-		super(full, ModBlocks.dirtPath, 0);
+		super(full, ModBlocks.dirtPath.getDefaultState());
 		setHardness(0.6F);
 	}
 

@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockEndStoneSlab extends BlockLivingSlab {
 
 	public BlockEndStoneSlab(boolean full) {
-		super(full, ModBlocks.endStoneBrick, 0);
+		super(full, ModBlocks.endStoneBrick.getDefaultState());
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);

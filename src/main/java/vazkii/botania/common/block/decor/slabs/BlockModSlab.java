@@ -5,11 +5,14 @@ import java.util.Random;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -24,15 +27,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	String name;
+	protected final boolean doubleSlab;
+	public static final PropertyEnum DUMMY = PropertyEnum.create("dummy", DummyEnum.class); // todo 1.8.8 statemapper ignore this prop for everything
 
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(mat);
 		this.name = name;
 		setUnlocalizedName(name);
+		doubleSlab = full;
 		if(!full) {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			useNeighborBrightness = true;
 		}
+		setDefaultState(blockState.getBaseState().withProperty(DUMMY, DummyEnum.SINGLETON));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, getVariantProperty());
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState();
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
 	}
 
 	public abstract BlockSlab getFullBlock();
@@ -69,17 +91,32 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	@Override
-	public abstract boolean isDouble();
+	public final boolean isDouble() {
+		return doubleSlab;
+	}
 
 	@Override
-	public abstract IProperty getVariantProperty();
+	public final IProperty getVariantProperty() {
+		return DUMMY;
+	}
 
 	@Override
-	public abstract Object getVariant(ItemStack stack);
+	public final Object getVariant(ItemStack stack) {
+		return DummyEnum.SINGLETON;
+	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
+	}
+
+	public enum DummyEnum implements IStringSerializable {
+		SINGLETON {
+			@Override
+			public String getName() {
+				return name();
+			}
+		}
 	}
 
 }

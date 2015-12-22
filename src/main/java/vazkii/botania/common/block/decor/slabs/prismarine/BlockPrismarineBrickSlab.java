@@ -1,12 +1,13 @@
 package vazkii.botania.common.block.decor.slabs.prismarine;
 
 import net.minecraft.block.BlockSlab;
+import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 
 public class BlockPrismarineBrickSlab extends BlockPrismarineSlab {
 
 	public BlockPrismarineBrickSlab(boolean full) {
-		super(full, 1);
+		super(full, PrismarineVariant.PRISMARINE_BRICKS);
 	}
 
 	@Override

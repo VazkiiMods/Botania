@@ -12,11 +12,14 @@ package vazkii.botania.common.item.relic;
 
 import java.util.Random;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -31,20 +34,18 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	private static final String TAG_CHARGING = "charging";
 
 	private static final int WEAPON_TYPES = 12;
-	// public static IIcon[] weaponIcons;
+	public static TextureAtlasSprite[] weaponIcons;
 
 	public ItemKingKey() {
 		super(LibItemNames.KING_KEY);
 	}
 
-//	@Override
-//	public void registerIcons(IIconRegister par1IconRegister) {
-//		super.registerIcons(par1IconRegister);
-//
-//		weaponIcons = new IIcon[WEAPON_TYPES];
-//		for(int i = 0; i < WEAPON_TYPES; i++)
-//			weaponIcons[i] = IconHelper.forName(par1IconRegister, "gateWeapon" + i);
-//	} todo 1.8
+	@SubscribeEvent
+	public void registerIcons(TextureStitchEvent.Pre event) {
+		weaponIcons = new TextureAtlasSprite[WEAPON_TYPES];
+		for(int i = 0; i < WEAPON_TYPES; i++)
+			weaponIcons[i] = IconHelper.forName(event.map, "gateWeapon" + i);
+	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {

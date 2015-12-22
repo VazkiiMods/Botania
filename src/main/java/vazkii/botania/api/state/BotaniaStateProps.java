@@ -19,12 +19,6 @@ public class BotaniaStateProps {
 
     /** Common properties to all blocks to use **/
 
-    // Cardinal connection booleans (think fence or wall)
-    public static final PropertyBool CONNECT_NORTH = PropertyBool.create("north");
-    public static final PropertyBool CONNECT_SOUTH = PropertyBool.create("south");
-    public static final PropertyBool CONNECT_WEST = PropertyBool.create("west");
-    public static final PropertyBool CONNECT_EAST = PropertyBool.create("east");
-
     // The 16 Minecraft colors
     public static final PropertyEnum COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
@@ -51,7 +45,7 @@ public class BotaniaStateProps {
 
     /** Properties for individual blocks **/
 
-    // Block18Stone,
+    // Block18Stone
     public static final PropertyEnum FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
 
     // Block18StoneWall

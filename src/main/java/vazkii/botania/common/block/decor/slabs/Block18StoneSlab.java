@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -23,8 +25,8 @@ public class Block18StoneSlab extends BlockLivingSlab {
 
 	int index;
 
-	public Block18StoneSlab(boolean full, int meta, int index) {
-		super(full, ModFluffBlocks.stone, meta);
+	public Block18StoneSlab(boolean full, FutureStoneVariant variant, int index) {
+		super(full, ModFluffBlocks.stone.getDefaultState().withProperty(BotaniaStateProps.FUTURESTONE_VARIANT, variant));
 		this.index = index;
 		setHardness(1.5F);
 		setResistance(10F);

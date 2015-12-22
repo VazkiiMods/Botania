@@ -11,12 +11,13 @@
 package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 
 public class BlockSoulBrickSlab extends BlockCustomBrickSlab {
 
 	public BlockSoulBrickSlab(boolean full) {
-		super(full, 1);
+		super(full, CustomBrickVariant.SOUL_BRICK);
 	}
 
 	@Override

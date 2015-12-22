@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockReedSlab extends BlockLivingSlab {
 
 	public BlockReedSlab(boolean full) {
-		super(full, ModBlocks.reedBlock, 0);
+		super(full, ModBlocks.reedBlock.getDefaultState());
 		setHardness(1.0F);
 		setStepSound(soundTypeWood);
 	}

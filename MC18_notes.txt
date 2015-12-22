@@ -18,6 +18,7 @@ since BlockPos'es are immutable and thus can be reused everywhere.
 Unless someone figures out a way to use the old one
 * The alt textures will probably be a resource pack now to decrease complexity...
 sorry :/ The systems needed to dynamically switch out the textures like that is not worth just throwing them into a resource pack
+* Slabs are kinda janky if you look at them - Mojang made some extremely silly assumptions and we're going to have to go with them
 
 -- Todo --
 * JSON models for everything (tedious/med-hard)

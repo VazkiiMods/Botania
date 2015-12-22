@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
@@ -24,11 +26,11 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockCustomBrickSlab extends BlockLivingSlab {
 
 	public BlockCustomBrickSlab(boolean full) {
-		this(full, 0);
+		this(full, CustomBrickVariant.HELLISH_BRICK);
 	}
 
-	public BlockCustomBrickSlab(boolean full, int meta) {
-		super(full, ModBlocks.customBrick, meta);
+	public BlockCustomBrickSlab(boolean full, CustomBrickVariant variant) {
+		super(full, ModBlocks.customBrick.getDefaultState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, variant));
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeStone);

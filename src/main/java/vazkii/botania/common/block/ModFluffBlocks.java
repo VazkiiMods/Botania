@@ -11,6 +11,11 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeBrickVariant;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.common.block.decor.Block18Stone;
 import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
@@ -76,6 +81,8 @@ import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.Collection;
 
 public final class ModFluffBlocks {
 
@@ -297,27 +304,40 @@ public final class ModFluffBlocks {
 		dirtPathSlab = new BlockDirtPathSlab(false);
 		dirtPathSlabFull = new BlockDirtPathSlab(true);
 
-		for(int i = 0; i < 24; i++) {
-			int meta = i % 16;
-			Block block = i < 16 ? biomeStoneA : biomeStoneB;
-			biomeStoneStairs[i] = new BlockBiomeStoneStairs(block, meta);
-			biomeStoneSlabs[i] = new BlockBiomeStoneSlab(false, block, meta, i);
-			biomeStoneFullSlabs[i] = new BlockBiomeStoneSlab(true, block, meta, i);
+		int count = 0;
+		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
+			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
+			count++;
+		}
+
+		for (BiomeBrickVariant variant : BiomeBrickVariant.values()) {
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
+			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
+			count++;
 		}
 		biomeStoneWall = new BlockBiomeStoneWall();
 
-		for(int i = 0; i < 8; i++) {
-			int meta = i > 3 ? i + 4 : i;
-			stoneStairs[i] = new Block18StoneStairs(meta);
-			stoneSlabs[i] = new Block18StoneSlab(false, meta, i);
-			stoneFullSlabs[i] = new Block18StoneSlab(true, meta, i);
+		count = 0;
+		for(FutureStoneVariant variant : FutureStoneVariant.values()) {
+			if (!(variant.ordinal() >= 0 && variant.ordinal() <= 3 || variant.ordinal() >= 8 && variant.ordinal() <= 11)) {
+				// Filter - only get the base blocks, and the brick versions
+				continue;
+			}
+
+			stoneStairs[count] = new Block18StoneStairs(variant);
+			stoneSlabs[count] = new Block18StoneSlab(false, variant, count);
+			stoneFullSlabs[count] = new Block18StoneSlab(true, variant, count);
+			count++;
 		}
 		stoneWall = new Block18StoneWall();
 
-		for(int i = 0; i < pavementStairs.length; i++) {
-			pavementStairs[i] = new BlockPavementStairs(i);
-			pavementSlabs[i] = new BlockPavementSlab(false, i, i);
-			pavementFullSlabs[i] = new BlockPavementSlab(true, i, i);
+		count = 0;
+		for (EnumDyeColor color : ((Collection<EnumDyeColor>) BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues())) {
+			pavementStairs[count] = new BlockPavementStairs(color);
+			count++;
 		}
 
 		endStoneSlab = new BlockEndStoneSlab(false);

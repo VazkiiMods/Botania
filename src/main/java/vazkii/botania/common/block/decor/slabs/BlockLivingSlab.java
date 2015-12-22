@@ -1,19 +1,18 @@
 package vazkii.botania.common.block.decor.slabs;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockLivingSlab extends BlockModSlab {
 
-	Block source;
-	int meta;
+	IBlockState sourceState;
 
-	public BlockLivingSlab(boolean full, Block source, int meta) {
-		super(full, source.getMaterial(), source.getUnlocalizedName().replaceAll("tile.", "") + meta + "Slab" + (full ? "Full" : ""));
-		setStepSound(source.stepSound);
-		this.source = source;
-		this.meta = meta;
+	public BlockLivingSlab(boolean full, IBlockState state) {
+		super(full, state.getBlock().getMaterial(), state.getBlock().getUnlocalizedName().replaceAll("tile.", "") + state.getBlock().getMetaFromState(state) + "Slab" + (full ? "Full" : ""));
+		setStepSound(state.getBlock().stepSound);
+		this.sourceState = state;
 	}
 
 }

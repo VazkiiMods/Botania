@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockPavementStairs extends BlockLivingStairs {
 
 	public BlockPavementStairs(EnumDyeColor color) {
-		super(ModFluffBlocks.pavement.getDefaultState().withProperty(BotaniaStateProps.COLOR, color));
+		super(ModFluffBlocks.pavement.getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color));
 	}
 
 	@Override

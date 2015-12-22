@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -23,7 +25,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockEnderBrickSlab extends BlockLivingSlab {
 
 	public BlockEnderBrickSlab(boolean full) {
-		super(full, ModBlocks.endStoneBrick, 2);
+		super(full, ModBlocks.endStoneBrick.getDefaultState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.ENDER_BRICKS));
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);

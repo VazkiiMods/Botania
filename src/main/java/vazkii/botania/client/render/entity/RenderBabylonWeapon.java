@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
@@ -60,7 +61,7 @@ public class RenderBabylonWeapon extends Render {
 		GlStateManager.scale(s, s, s);
 		GlStateManager.rotate(-90F, 0F, 1F, 0F);
 		GlStateManager.rotate(45F, 0F, 0F, 1F);
-		IIcon icon = ItemKingKey.weaponIcons[weapon.getVariety()];
+		TextureAtlasSprite icon = ItemKingKey.weaponIcons[weapon.getVariety()];
 		GlStateManager.color(1F, 1F, 1F, chargeMul);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

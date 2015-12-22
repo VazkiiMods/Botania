@@ -18,7 +18,7 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 public class BlockShimmerwoodPlankSlab extends BlockLivingSlab {
 
 	public BlockShimmerwoodPlankSlab(boolean full) {
-		super(full, ModBlocks.shimmerwoodPlanks, 0);
+		super(full, ModBlocks.shimmerwoodPlanks.getDefaultState());
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeWood);

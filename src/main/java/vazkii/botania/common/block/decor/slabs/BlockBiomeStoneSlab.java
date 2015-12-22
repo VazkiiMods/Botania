@@ -12,6 +12,7 @@ package vazkii.botania.common.block.decor.slabs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -24,8 +25,8 @@ public class BlockBiomeStoneSlab extends BlockLivingSlab {
 
 	int index;
 
-	public BlockBiomeStoneSlab(boolean full, Block source, int meta, int index) {
-		super(full, source, meta);
+	public BlockBiomeStoneSlab(boolean full, IBlockState state, int index) {
+		super(full, state);
 		this.index = index;
 		setHardness(1.5F);
 		setResistance(10F);
