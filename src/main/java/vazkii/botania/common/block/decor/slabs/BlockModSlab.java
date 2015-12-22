@@ -28,7 +28,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	String name;
 	protected final boolean doubleSlab;
-	public static final PropertyEnum DUMMY = PropertyEnum.create("dummy", DummyEnum.class); // todo 1.8.8 statemapper ignore this prop for everything
+	public static final PropertyEnum DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
 
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(mat);
@@ -39,22 +39,30 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			useNeighborBrightness = true;
 		}
-		setDefaultState(blockState.getBaseState().withProperty(DUMMY, DummyEnum.SINGLETON));
+		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, getVariantProperty());
+		return new BlockState(this, HALF, getVariantProperty());
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState();
+		if (doubleSlab) {
+			return getDefaultState();
+		} else {
+			return getDefaultState().withProperty(HALF, meta == 8 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM);
+		}
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return 0;
+		if (doubleSlab) {
+			return 0;
+		} else {
+			return state.getValue(HALF) == EnumBlockHalf.TOP ? 8 : 0;
+		}
 	}
 
 	public abstract BlockSlab getFullBlock();

@@ -109,11 +109,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idSpecialFlower;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}

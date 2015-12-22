@@ -28,4 +28,4 @@ sorry :/ The systems needed to dynamically switch out the textures like that is 
     - Sub to texture stitch and bake our own model there to use?
     - This remains the largest portion of what is left
     - Where is the method to render an arbitrary baked model?
-* CRITICAL: All blockstates are done, but they appear to not be registered correctly (always have default variant)... is it the itemblock's fault??
+* ItemBlocks seem to merge subtypes (shift clicking storage blocks onto each other)

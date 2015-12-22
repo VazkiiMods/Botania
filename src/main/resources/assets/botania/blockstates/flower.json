@@ -1,0 +1,71 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "color": {
+      "white": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower0" }
+      },
+      "orange": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower1" }
+      },
+      "magenta": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower2" }
+      },
+      "light_blue": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower3" }
+      },
+      "yellow": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower4" }
+      },
+      "lime": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower5" }
+      },
+      "pink": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower6" }
+      },
+      "gray": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower7" }
+      },
+      "silver": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower8" }
+      },
+      "cyan": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower9" }
+      },
+      "purple": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower10" }
+      },
+      "blue": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower11" }
+      },
+      "brown": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower12" }
+      },
+      "green": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower13" }
+      },
+      "red": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower14" }
+      },
+      "black": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/flower15" }
+      }
+    }
+  }
+}

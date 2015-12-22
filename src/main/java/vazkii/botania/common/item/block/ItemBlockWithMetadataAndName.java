@@ -25,6 +25,7 @@ public class ItemBlockWithMetadataAndName extends ItemBlock implements IPickupAc
 
 	public ItemBlockWithMetadataAndName(Block par2Block) {
 		super(par2Block);
+		setHasSubtypes(true);
 	}
 
 	@Override
@@ -45,6 +46,12 @@ public class ItemBlockWithMetadataAndName extends ItemBlock implements IPickupAc
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return block instanceof IPickupAchievement ? ((IPickupAchievement) block).getAchievementOnPickup(stack, player, item) : null;
+	}
+
+	@Override
+	public int getMetadata(int damage)
+	{
+		return damage;
 	}
 
 }

@@ -1,0 +1,71 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "color": {
+      "white": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom0" }
+      },
+      "orange": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom1" }
+      },
+      "magenta": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom2" }
+      },
+      "light_blue": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom3" }
+      },
+      "yellow": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom4" }
+      },
+      "lime": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom5" }
+      },
+      "pink": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom6" }
+      },
+      "gray": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom7" }
+      },
+      "silver": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom8" }
+      },
+      "cyan": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom9" }
+      },
+      "purple": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom10" }
+      },
+      "blue": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom11" }
+      },
+      "brown": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom12" }
+      },
+      "green": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom13" }
+      },
+      "red": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom14" }
+      },
+      "black": {
+        "model": "minecraft:cross",
+        "textures": { "cross": "botania:blocks/mushroom15" }
+      }
+    }
+  }
+}

@@ -51,6 +51,7 @@ import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
@@ -178,6 +179,8 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		super.preInit(event);
+
+		ModelHandler.registerModels();
 	}
 
 	@Override

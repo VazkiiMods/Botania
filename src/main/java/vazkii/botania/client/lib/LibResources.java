@@ -12,7 +12,7 @@ package vazkii.botania.client.lib;
 
 public final class LibResources {
 
-	public static final String PREFIX_MOD = "botania:"; // todo 1.8 take out the colon?
+	public static final String PREFIX_MOD = "botania:";
 
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
 	public static final String PREFIX_SHADER = "/assets/botania/shader/";
