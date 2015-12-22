@@ -116,16 +116,11 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		BlockPos pos = new BlockPos(item);
-		Block block = item.worldObj.getBlockState(x, y, z);
-		int meta = item.worldObj.getBlockMetadata(x, y, z);
 
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.worldObj.getBlockState(pos)))
 			return false;
 
-		block = item.worldObj.getBlock(x, y - 1, z);
-		meta = item.worldObj.getBlockMetadata(x, y - 1, z);
-
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(block, meta))
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.worldObj.getBlockState(pos.down())))
 			return false;
 
 		return true;

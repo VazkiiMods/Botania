@@ -397,7 +397,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
-		Tessellator.renderingWorldRenderer = false;
+		// todo 1.8.8 Tessellator.renderingWorldRenderer = false;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

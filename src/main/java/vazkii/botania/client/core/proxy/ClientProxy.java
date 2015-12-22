@@ -61,7 +61,7 @@ import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
-import vazkii.botania.client.integration.nei.NEIGuiHooks;
+// todo 1.8.8 restore when nei updates import vazkii.botania.client.integration.nei.NEIGuiHooks;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -307,19 +307,19 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
+		// todo 1.8.8 awaiting forge issue ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball<EntityVineBall>(Minecraft.getMinecraft().getRenderManager(), ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram(Minecraft.getMinecraft().getRenderManager()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.manaResource, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball<EntityEnderAirBottle>(Minecraft.getMinecraft().getRenderManager(), ModItems.manaResource, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm(Minecraft.getMinecraft().getRenderManager()));
@@ -331,7 +331,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {
-		NEIGuiHooks.init();
+		// todo 1.8.8 restore when nei updates  NEIGuiHooks.init();
 	}
 
 	@Override

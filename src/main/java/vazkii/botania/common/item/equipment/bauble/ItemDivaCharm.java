@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
@@ -61,9 +62,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 					final int range = 20;
 
-					List<Entity> mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.entity.posX - range, event.entity.posY - range, event.entity.posZ - range, event.entity.posX + range, event.entity.posY + range, event.entity.posZ + range), Predicates.instanceOf(IMob.class));
+					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.entity.posX - range, event.entity.posY - range, event.entity.posZ - range, event.entity.posX + range, event.entity.posY + range, event.entity.posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
-						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.entityLiving, mobs)) {
+						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.entityLiving, ((List<IMob>) mobs))) {
 							if(event.entityLiving instanceof EntityCreeper)
 								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.entityLiving, 2, LibObfuscation.TIME_SINCE_IGNITED);
 							event.entityLiving.heal(event.entityLiving.getMaxHealth());

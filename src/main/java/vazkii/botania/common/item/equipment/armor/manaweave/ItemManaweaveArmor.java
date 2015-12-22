@@ -13,12 +13,11 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -34,8 +33,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
-
-	IIcon iconChristmas;
 	
 	public ItemManaweaveArmor(int type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
@@ -48,21 +45,21 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		return models[slot];
 	}
 	
-	@Override
+	/*@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		iconChristmas = IconHelper.forItem(par1IconRegister, this, "Holiday");
-	}
+	}*/
 	
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return ConfigHandler.enableArmorModels ? (ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW) : slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
 
-	@Override
-	public IIcon getIconFromDamage(int dmg) {
-		return ClientProxy.jingleTheBells ? iconChristmas : super.getIconFromDamage(dmg);
-	}
+//	@Override
+//	public IIcon getIconFromDamage(int dmg) {
+//		return ClientProxy.jingleTheBells ? iconChristmas : super.getIconFromDamage(dmg);
+//	} todo 1.8.8 to smartmodel or getModel lookup
 	
 	@Override
 	@SideOnly(Side.CLIENT)

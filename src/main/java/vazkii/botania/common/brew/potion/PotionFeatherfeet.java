@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PotionFeatherfeet extends PotionMod {
 
 	public PotionFeatherfeet() {
-		super(ConfigHandler.potionIDFeatherfeet, LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
+		super(LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

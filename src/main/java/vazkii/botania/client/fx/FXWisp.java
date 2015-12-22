@@ -18,6 +18,7 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
@@ -84,7 +85,7 @@ public class FXWisp extends EntityFX {
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		if(!queuedRenders.isEmpty()) {
-			tessellator.getWorldRenderer().startDrawingQuads();
+			tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 			for(FXWisp wisp : queuedRenders)
 				wisp.renderQueued(tessellator, true);
 			tessellator.draw();
@@ -92,7 +93,7 @@ public class FXWisp extends EntityFX {
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
 			GlStateManager.disableDepth();
-			tessellator.getWorldRenderer().startDrawingQuads();
+			tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
@@ -120,12 +121,10 @@ public class FXWisp extends EntityFX {
 		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
 		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 
-		tessellator.getWorldRenderer().setBrightness(240);
-		tessellator.getWorldRenderer().setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
-		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
-		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
-		tessellator.getWorldRenderer().addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
-		tessellator.getWorldRenderer().addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10, 0, 0);
+		tessellator.getWorldRenderer().pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10).tex(0, 1).color(particleRed, particleGreen, particleBlue, 0.5F).lightmap(0x00, 0xF0).endVertex();
+		tessellator.getWorldRenderer().pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10).tex(1, 1).color(particleRed, particleGreen, particleBlue, 0.5F).lightmap(0x00, 0xF0).endVertex();
+		tessellator.getWorldRenderer().pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10).tex(1, 0).color(particleRed, particleGreen, particleBlue, 0.5F).lightmap(0x00, 0xF0).endVertex();
+		tessellator.getWorldRenderer().pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10).tex(0, 0).color(particleRed, particleGreen, particleBlue, 0.5F).lightmap(0x00, 0xF0).endVertex();
 	}
 
 	@Override

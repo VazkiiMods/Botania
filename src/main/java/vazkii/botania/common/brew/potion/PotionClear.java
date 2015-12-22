@@ -20,7 +20,7 @@ import vazkii.botania.common.lib.LibPotionNames;
 public class PotionClear extends PotionMod {
 
 	public PotionClear() {
-		super(ConfigHandler.potionIDClear, LibPotionNames.CLEAR, false, 0xFFFFFF, 0);
+		super(LibPotionNames.CLEAR, false, 0xFFFFFF, 0);
 	}
 
 	@Override

@@ -332,7 +332,11 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(stack);
 		return magnetBlacklist.contains(key);
 	}
-	
+
+	public static boolean isBlockBlacklistedFromMagnet(IBlockState state) {
+		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state), 0);
+	}
+
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
 		return isBlockBlacklistedFromMagnet(block, meta, 0);
 	}

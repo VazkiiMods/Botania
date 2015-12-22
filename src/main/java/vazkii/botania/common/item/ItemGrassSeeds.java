@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -57,7 +58,7 @@ public class ItemGrassSeeds extends ItemMod {
 		super();
 		setUnlocalizedName(LibItemNames.GRASS_SEEDS);
 		setHasSubtypes(true);
-		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override

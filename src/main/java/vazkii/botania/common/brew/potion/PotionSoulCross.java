@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PotionSoulCross extends PotionMod {
 
 	public PotionSoulCross() {
-		super(ConfigHandler.potionIDSoulCross, LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
+		super(LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

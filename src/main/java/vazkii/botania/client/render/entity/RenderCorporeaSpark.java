@@ -23,8 +23,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -46,8 +44,10 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
 		int network = Math.min(15, entity.getNetwork());
 		int hex = EnumDyeColor.byMetadata(network).getMapColor().colorValue;
-
-		GlStateManager.color(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2], a);
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = (hex & 0xFF);
+		GlStateManager.color(r, g, b, a);
 	}
 
 	@Override

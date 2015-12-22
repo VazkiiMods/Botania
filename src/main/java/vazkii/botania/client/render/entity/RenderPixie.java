@@ -27,7 +27,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
-public class RenderPixie extends RenderLiving {
+public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	ShaderCallback callback = new ShaderCallback() {
 
@@ -50,17 +50,15 @@ public class RenderPixie extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityPixie entity) {
 		return new ResourceLocation(LibResources.MODEL_PIXIE);
 	}
 
 	@Override
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-		EntityPixie pixie = (EntityPixie) par1Entity;
-
+	public void doRender(EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
 		if(pixie.getType() == 1)
 			ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
-		super.doRender(par1Entity, par2, par4, par6, par8, par9);
+		super.doRender(pixie, par2, par4, par6, par8, par9);
 		if(pixie.getType() == 1)
 			ShaderHelper.releaseShader();
 	}

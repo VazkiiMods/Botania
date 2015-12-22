@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PotionAllure extends PotionMod {
 
 	public PotionAllure() {
-		super(ConfigHandler.potionIDAllure, LibPotionNames.ALLURE, false, 0x0034E4, 5);
+		super(LibPotionNames.ALLURE, false, 0x0034E4, 5);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

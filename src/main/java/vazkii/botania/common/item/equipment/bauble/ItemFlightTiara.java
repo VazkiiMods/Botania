@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -89,7 +90,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
 		MinecraftForge.EVENT_BUS.register(this);
-		FMLCommonHandler.instance().bus().register(this);
 		setHasSubtypes(true);
 	}
 
@@ -475,11 +475,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
-		tes.getWorldRenderer().startDrawingQuads();
-		tes.getWorldRenderer().addVertexWithUV(-0.75, 0, -0.75, 0, 0);
-		tes.getWorldRenderer().addVertexWithUV(-0.75, 0, 0.75, 0, 1);
-		tes.getWorldRenderer().addVertexWithUV(0.75, 0, 0.75, 1, 1);
-		tes.getWorldRenderer().addVertexWithUV(0.75, 0, -0.75, 1, 0);
+		tes.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tes.getWorldRenderer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
+		tes.getWorldRenderer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();
+		tes.getWorldRenderer().pos(0.75, 0, 0.75).tex(1, 1).endVertex();
+		tes.getWorldRenderer().pos(0.75, 0, -0.75).tex(1, 0).endVertex();
 		tes.draw();
 		ShaderHelper.releaseShader();
 

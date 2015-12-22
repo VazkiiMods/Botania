@@ -22,27 +22,26 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
-public class RenderManaStorm extends Render {
+public class RenderManaStorm extends Render<EntityManaStorm> {
 
 	public RenderManaStorm(RenderManager renderManager) {
 		super(renderManager);
 	}
 
 	@Override
-	public void doRender(Entity e, double x, double y, double z, float something, float pticks) {
+	public void doRender(EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
-		EntityManaStorm storm = (EntityManaStorm) e;
 		float maxScale = 1.95F;
 		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
-		RenderHelper.renderStar(0x00FF00, scale, scale, scale, e.getUniqueID().getMostSignificantBits());
+		RenderHelper.renderStar(0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());
 		GlStateManager.disableBlend();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+	protected ResourceLocation getEntityTexture(EntityManaStorm p_110775_1_) {
 		return null;
 	}
 

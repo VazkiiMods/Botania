@@ -129,7 +129,7 @@ public class CommonProxy {
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 
-		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
+		MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 

@@ -8,6 +8,7 @@ This can be changed to match vanilla signature, but either would break backward 
 Anyways, vanilla removed it from their method so we follow suit.
 * SubTileEntity's methods that are copied from block (onBlockadded, etc.) updated to match vanilla counterparts
 * Multiblock system reworked to use states and blockposes
+* Magnet blacklist still uses metas instead of states because they need to support the short maxvalue wildcard.
 
 -- Other --
 * Most things left untouched to make patches from upstream easier

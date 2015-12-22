@@ -18,17 +18,16 @@ import net.minecraft.entity.item.EntityMinecart;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
-public class RenderPoolMinecart extends RenderMinecart {
+public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 
 	public RenderPoolMinecart(RenderManager p_i46155_1_) {
 		super(p_i46155_1_);
 	}
 
 	@Override
-	protected void func_180560_a(EntityMinecart p_147910_1_, float p_147910_2_, IBlockState state) {
-		EntityPoolMinecart poolCart = (EntityPoolMinecart) p_147910_1_;
+	protected void func_180560_a(EntityPoolMinecart poolCart, float p_147910_2_, IBlockState state) {
 		RenderTilePool.forceManaNumber = poolCart.getMana();
-		super.func_180560_a(p_147910_1_, p_147910_2_, state);
+		super.func_180560_a(poolCart, p_147910_2_, state);
 	}
 
 

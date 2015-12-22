@@ -24,7 +24,7 @@ import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
-public class RenderDoppleganger extends RenderBiped {
+public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
 	public static float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	public static float DEFAULT_DISFIGURATION = 0.025F;
@@ -65,8 +65,7 @@ public class RenderDoppleganger extends RenderBiped {
 	}
 
 	@Override
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-		EntityDoppleganger dopple = (EntityDoppleganger) par1Entity;
+	public void doRender(EntityDoppleganger dopple, double par2, double par4, double par6, float par8, float par9) {
 		BossBarHandler.setCurrentBoss(dopple);
 
 		int invulTime = dopple.getInvulTime();
@@ -79,12 +78,12 @@ public class RenderDoppleganger extends RenderBiped {
 		}
 
 		ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
-		super.doRender(par1Entity, par2, par4, par6, par8, par9);
+		super.doRender(dopple, par2, par4, par6, par8, par9);
 		ShaderHelper.releaseShader();
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
+	protected ResourceLocation getEntityTexture(EntityDoppleganger par1Entity) {
 		return Minecraft.getMinecraft().thePlayer.getLocationSkin();
 	}
 

@@ -15,6 +15,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
@@ -50,7 +51,7 @@ public class ItemOpenBucket extends ItemMod {
 					par2World.setBlockToAir(pos);
 					
 					for(int x = 0; x < 5; x++)
-						par2World.spawnParticle("explode", pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+						par2World.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 
 					return par1ItemStack;
 				}

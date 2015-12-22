@@ -28,15 +28,14 @@ import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.item.ModItems;
 
 // Basically a bit of an extension of RenderSnowball
-public class RenderThornChakram extends Render {
+public class RenderThornChakram extends Render<EntityThornChakram> {
 
 	public RenderThornChakram(RenderManager renderManager) {
 		super(renderManager);
 	}
 
 	@Override
-	public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-		EntityThornChakram c = (EntityThornChakram) p_76986_1_;
+	public void doRender(EntityThornChakram c, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
 		boolean fire = c.isFire();
 		IIcon iicon = ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
 
@@ -45,7 +44,7 @@ public class RenderThornChakram extends Render {
 			GlStateManager.translate((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			bindEntityTexture(p_76986_1_);
+			bindEntityTexture(c);
 			Tessellator tessellator = Tessellator.getInstance();
 
 			func_77026_a(tessellator, iicon, fire ? 240 : -1);
@@ -55,7 +54,7 @@ public class RenderThornChakram extends Render {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+	protected ResourceLocation getEntityTexture(EntityThornChakram p_110775_1_) {
 		return TextureMap.locationBlocksTexture;
 	}
 
