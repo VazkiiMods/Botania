@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.state.enums.LivingRockVariant;
+import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -36,6 +37,9 @@ public final class ModelHandler {
         registerMushroomItemBlocks();
         registerFlowerItemBlocks();
         registerLivingRockWood();
+        registerStairs();
+        registerSlabs();
+        registerFullSlabs();
         /** Normal Items **/
 
         /** Special Item Meshers **/
@@ -149,6 +153,33 @@ public final class ModelHandler {
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
+
+        item = Item.getItemFromBlock(ModBlocks.livingwood);
+        for (LivingWoodVariant variant : LivingWoodVariant.values()) {
+            String name = "botania:" + "livingwood_" + variant.getName();
+            ModelLoader.addVariantName(item, name);
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
+        }
+    }
+
+    private static void registerStairs() {
+        registerItemModel(ModFluffBlocks.livingwoodStairs);
+        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.livingrockStairs);
+        registerItemModel(ModFluffBlocks.livingrockBrickStairs);
+
+    }
+
+    private static void registerSlabs() {
+
+    }
+
+    private static void registerFullSlabs() {
+
+    }
+
+    private static void registerItemModel(Block b) {
+        registerItemModel(Item.getItemFromBlock(b));
     }
 
     private static void registerItemModel(Item i) {
