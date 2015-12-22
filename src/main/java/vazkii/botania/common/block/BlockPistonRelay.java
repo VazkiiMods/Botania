@@ -65,7 +65,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		setStepSound(soundTypeMetal);
 
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
