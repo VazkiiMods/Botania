@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -121,7 +122,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 						ItemStack stack = altar.getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-						Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//						Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //						IIcon icon = stack.getItem().getIcon(stack, 0);
 //						if(icon != null) {
 //							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
@@ -171,13 +172,13 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getWorldRenderer().startDrawingQuads();
+		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		if(brightness != -1)
-			tessellator.getWorldRenderer().setBrightness(brightness);
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());
-		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + 0, 0, par3Icon.getMinU(), par3Icon.getMinV());
+			//tessellator.getWorldRenderer().setBrightness(brightness);
+		tessellator.getWorldRenderer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();
+		tessellator.getWorldRenderer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).endVertex();
 		tessellator.draw();
 	}
 

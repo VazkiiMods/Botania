@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -37,7 +36,7 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 	@Override
 	public void doRender(EntityThornChakram c, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
 		boolean fire = c.isFire();
-		IIcon iicon = ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
+		TextureAtlasSprite iicon = null;//ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
 
 		if(iicon != null)  {
 			GlStateManager.pushMatrix();
@@ -70,7 +69,7 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 		GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
 		if(light != -1)
-			p_77026_1_.getWorldRenderer().setBrightness(light);
+			//p_77026_1_.getWorldRenderer().setBrightness(light);
 		p_77026_1_.getWorldRenderer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0.0F, 1.0F, 0.0F).endVertex();

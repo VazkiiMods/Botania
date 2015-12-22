@@ -126,7 +126,7 @@ public final class BaubleRenderHandler {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//				Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //				for(int j = 0; j < 2; j++) {
 //					IIcon icon = item.getIcon(stack, j);
 //					float f = icon.getMinU();

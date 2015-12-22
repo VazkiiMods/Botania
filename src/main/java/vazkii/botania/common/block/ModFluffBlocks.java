@@ -83,7 +83,9 @@ import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Set;
 
 public final class ModFluffBlocks {
@@ -315,6 +317,10 @@ public final class ModFluffBlocks {
 		}
 
 		for (BiomeBrickVariant variant : BiomeBrickVariant.values()) {
+			if (variant.getName().toLowerCase(Locale.ROOT).contains("chiseled")) {
+				// No chiseled stairs/slabs
+				continue;
+			}
 			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
 			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
 			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
@@ -343,6 +349,8 @@ public final class ModFluffBlocks {
 		count = 0;
 		for (EnumDyeColor color : ((Collection<EnumDyeColor>) BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues())) {
 			pavementStairs[count] = new BlockPavementStairs(color);
+			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
+			pavementFullSlabs[count] = new BlockPavementSlab(true, color, count);
 			count++;
 		}
 

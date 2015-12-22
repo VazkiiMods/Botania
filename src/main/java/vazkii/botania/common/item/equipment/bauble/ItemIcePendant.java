@@ -21,14 +21,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -42,7 +40,7 @@ import baubles.api.BaubleType;
 
 public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 
-	IIcon gemIcon;
+	//IIcon gemIcon;
 	public static Map<String, List<IceRemover>> playerIceBlocks = new HashMap();
 
 	public ItemIcePendant() {
@@ -54,11 +52,11 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 		return BaubleType.AMULET;
 	}
 
-	@Override
+	/*@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		gemIcon = IconHelper.forItem(par1IconRegister, this, "Gem");
-	}
+	}*/
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
@@ -113,7 +111,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		if(type == RenderType.BODY) {
+		/*if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
@@ -127,7 +125,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
-		}
+		}*/
 	}
 
 	class IceRemover {

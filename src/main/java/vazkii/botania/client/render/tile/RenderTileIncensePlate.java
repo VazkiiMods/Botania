@@ -67,7 +67,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 			GlStateManager.translate(0.1F, -1.46F, 0F);
 			GlStateManager.scale(s, s, s);
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
-			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //			int renderPass = 0;
 //			do {
 //				IIcon icon = stack.getItem().getIcon(stack, renderPass);

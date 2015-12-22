@@ -137,7 +137,7 @@ public final class BoundTileRenderer {
 				renderBlockOutline(axis);
 
 				GL11.glLineWidth(thickness + 3F);
-				GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+				GL11.glColor3ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue());
 				renderBlockOutline(axis);
 			}
 		}

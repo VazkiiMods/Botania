@@ -21,7 +21,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.render.item.RenderLens;
+//import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
 public class RenderTilePrism extends TileEntitySpecialRenderer {

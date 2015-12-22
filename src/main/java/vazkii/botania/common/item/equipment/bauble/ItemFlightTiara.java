@@ -83,7 +83,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int COST_OVERKILL = COST * 3;
 	private static final int MAX_FLY_TIME = 1200;
 
-	public static IIcon[] wingIcons;
+	//public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
 	private static final int WING_TYPES = 9;
 
@@ -332,6 +332,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+/*
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= ItemFlightTiara.wingIcons.length) {
@@ -451,6 +452,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(event.entityPlayer, event.partialRenderTick);
+*/
 	}
 
 	@SideOnly(Side.CLIENT)

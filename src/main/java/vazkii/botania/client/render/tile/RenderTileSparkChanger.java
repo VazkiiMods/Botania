@@ -43,7 +43,7 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer {
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
 
 			int renderPass = 0;
-			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //			do {
 //				IIcon icon = stack.getItem().getIcon(stack, renderPass);
 //				if(icon != null) {

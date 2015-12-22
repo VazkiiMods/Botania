@@ -51,6 +51,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+/*
 		if(type == RenderType.HEAD) {
 			float f = itemIcon.getMinU();
 			float f1 = itemIcon.getMaxU();
@@ -65,6 +66,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			GlStateManager.scale(0.35F, 0.35F, 0.35F);
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
+*/
 	}
 
 	@SideOnly(Side.CLIENT)

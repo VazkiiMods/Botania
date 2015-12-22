@@ -14,12 +14,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -33,7 +31,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 
-	IIcon gemIcon;
+	//IIcon gemIcon;
 
 	public ItemSuperLavaPendant() {
 		super(LibItemNames.SUPER_LAVA_PENDANT);
@@ -58,14 +56,15 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 		return BaubleType.AMULET;
 	}
 
-	@Override
+	/*@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		gemIcon = IconHelper.forItem(par1IconRegister, this, "Gem");
-	}
+	}*/
 
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+/*
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
@@ -81,5 +80,6 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 			float f3 = gemIcon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
 		}
+*/
 	}
 }

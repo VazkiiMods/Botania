@@ -70,7 +70,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 			float s = 0.25F;
 			GlStateManager.scale(s, s, s);
 			GlStateManager.scale(2F, 2F, 2F);
-			mc.getRenderItem().renderItemModel(stack); // todo 1.8
+//			mc.getRenderItem().renderItemModel(stack); // todo 1.8
 //			if(!ForgeHooksClient.renderEntityItem(new EntityItem(brewery.getWorld(), brewery.xCoord, brewery.yCoord, brewery.zCoord, stack), stack, 0F, 0F, brewery.getWorld().rand, mc.renderEngine, RenderBlocks.getInstance(), 1)) {
 //				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 //				if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {

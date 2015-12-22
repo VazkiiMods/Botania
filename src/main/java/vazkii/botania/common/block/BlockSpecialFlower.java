@@ -112,12 +112,12 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.COLOR);
+		return new BlockState(this, getTypeProperty(), BotaniaStateProps.COLOR);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		if (meta > 15) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta)).withProperty(type, EnumFlowerType.POPPY);
 	}
 
 	@Override

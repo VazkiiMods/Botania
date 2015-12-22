@@ -60,12 +60,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.COLOR);
+		return new BlockState(this, getTypeProperty(), BotaniaStateProps.COLOR);
 	}
 
 	@Override
@@ -75,7 +75,10 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta)).withProperty(type, EnumFlowerType.POPPY);
 	}
 
 	@Override

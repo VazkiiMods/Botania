@@ -395,6 +395,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	@SideOnly(Side.CLIENT)
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
+/*
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
 		// todo 1.8.8 Tessellator.renderingWorldRenderer = false;
@@ -506,6 +507,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
+*/
 	}
 
 	@SideOnly(Side.CLIENT)

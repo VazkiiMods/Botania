@@ -34,12 +34,12 @@ public class Block18StoneWall extends BlockModWall {
 		super(ModFluffBlocks.stone, 4);
 		setHardness(1.5F);
 		setResistance(10F);
-		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE));
+		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE).withProperty(VARIANT, EnumType.NORMAL));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.FUTURESTONEWALL_VARIANT);
+		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.FUTURESTONEWALL_VARIANT);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Block18StoneWall extends BlockModWall {
 		if (meta < 0 || meta > 3) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.values()[meta]);
+		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.values()[meta]).withProperty(VARIANT, EnumType.NORMAL);
 	}
 
 	@Override

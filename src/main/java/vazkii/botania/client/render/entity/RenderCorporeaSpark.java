@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -37,7 +38,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
+		return null;//entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
 	}
 
 	@Override
@@ -52,11 +53,12 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(EntityCorporeaSpark entity) {
-		return ItemCorporeaSpark.iconColorStar;
+		return null;//ItemCorporeaSpark.iconColorStar;
 	}
 
 	@Override
 	public void renderCallback(EntityCorporeaSpark entity, float pticks) {
+/*
 		int time = entity.getItemDisplayTicks();
 		if(time == 0)
 			return;
@@ -108,6 +110,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
+*/
 	}
 
 }

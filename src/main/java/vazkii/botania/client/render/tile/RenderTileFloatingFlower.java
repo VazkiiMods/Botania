@@ -59,7 +59,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 
 		ItemStack stack = flower.getDisplayStack();
-		Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//		Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //		IIcon icon = stack.getIconIndex();
 //
 //		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

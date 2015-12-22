@@ -100,6 +100,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+/*
 		if(type == RenderType.HEAD) {
 			float f = itemIcon.getMinU();
 			float f1 = itemIcon.getMaxU();
@@ -114,6 +115,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
+*/
 	}
 
 }

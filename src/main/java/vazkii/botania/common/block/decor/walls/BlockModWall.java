@@ -43,12 +43,23 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 				.withProperty(SOUTH, false)
 				.withProperty(WEST, false)
 				.withProperty(EAST, false)
+				.withProperty(VARIANT, EnumType.NORMAL)
 		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST);
+		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState();
 	}
 
 	@Override

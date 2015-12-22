@@ -55,6 +55,16 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getIndex();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getStackInSlot(0);

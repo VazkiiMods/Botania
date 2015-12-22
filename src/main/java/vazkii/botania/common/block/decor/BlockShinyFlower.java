@@ -37,25 +37,6 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
-	}
-
-	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.COLOR);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta >= EnumDyeColor.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override

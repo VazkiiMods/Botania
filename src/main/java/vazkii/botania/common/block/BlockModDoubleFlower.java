@@ -50,14 +50,16 @@ import java.util.List;
 import java.util.Random;
 
 // Lots of copy paste from BlockDoublePlant because we can no longer extend it in 1.8.x
-public class BlockModDoubleFlower extends BlockBush implements IGrowable, IShearable, ILexiconable {
+public abstract class BlockModDoubleFlower extends BlockBush implements IGrowable, IShearable, ILexiconable {
 	public static final PropertyEnum<BlockDoublePlant.EnumBlockHalf> HALF = BlockDoublePlant.HALF;
 	private static final int COUNT = 8;
 
 	final int offset;
+	final boolean second;
 
 	public BlockModDoubleFlower(boolean second) {
 		super(Material.vine);
+		this.second = second;
 		this.setHardness(0.0F);
 		this.setStepSound(soundTypeGrass);
 		offset = second ? 8 : 0;
@@ -66,37 +68,16 @@ public class BlockModDoubleFlower extends BlockBush implements IGrowable, IShear
 		setStepSound(soundTypeGrass);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-
-		if (second) {
-			setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.SILVER));
-		} else {
-			setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE));
-		}
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, offset == 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, HALF);
-	}
+	public abstract BlockState createBlockState();
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		int meta = ((EnumDyeColor) state.getValue(offset == 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1)).getMetadata();
-		meta -= offset;
-		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
-			meta |= 8;
-		}
-		return meta;
-	}
+	public abstract int getMetaFromState(IBlockState state);
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		BlockDoublePlant.EnumBlockHalf half = (meta & 8) > 0 ? BlockDoublePlant.EnumBlockHalf.UPPER : BlockDoublePlant.EnumBlockHalf.LOWER;
-		meta &= -9;
-		meta += offset;
-		EnumDyeColor color = EnumDyeColor.byMetadata(meta);
-		return getDefaultState().withProperty(HALF, half).withProperty(offset == 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color);
-	}
+	public abstract IBlockState getStateFromMeta(int meta);
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {

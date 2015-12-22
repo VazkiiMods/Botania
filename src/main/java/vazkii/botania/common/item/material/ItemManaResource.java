@@ -81,10 +81,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onModelBake(ModelBakeEvent evt) {
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/tail", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/tail")));
+		/*evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/tail", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/tail")));
 		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/phiFlower", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/phiFlower")));
 		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/goldfish", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/goldfish")));
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/nerfBat", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/nerfBat")));
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/nerfBat", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/nerfBat")));*/
 	}
 
 	@SubscribeEvent

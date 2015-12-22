@@ -45,7 +45,7 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	public RenderPixie() {
 		super(Minecraft.getMinecraft().getRenderManager(), new ModelPixie(), 0.25F);
-		setRenderPassModel(new ModelPixie());
+		//setRenderPassModel(new ModelPixie());
 		shadowSize = 0.0F;
 	}
 
@@ -88,8 +88,8 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 		}
 	}
 
-	@Override
+	/*@Override
 	protected int shouldRenderPass(EntityLivingBase par1EntityLivingBase, int par2, float par3) {
 		return setPixieBrightness((EntityPixie)par1EntityLivingBase, par2, par3);
-	}
+	}*/
 }

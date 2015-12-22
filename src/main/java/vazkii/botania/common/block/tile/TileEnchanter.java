@@ -103,7 +103,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		for(BlockPos f : FLOWER_LOCATIONS)
 			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.flower));
 
-		mb.addComponent(BlockPos.ORIGIN, Blocks.lapis_block.getDefaultState());
+		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.lapis_block.getDefaultState());
 
 		return mb.makeSet();
 	}

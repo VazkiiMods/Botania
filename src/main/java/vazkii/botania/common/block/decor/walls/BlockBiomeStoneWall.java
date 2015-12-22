@@ -34,12 +34,12 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		super(ModFluffBlocks.biomeStoneA, 8);
 		setHardness(1.5F);
 		setResistance(10F);
-		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST));
+		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST).withProperty(VARIANT, EnumType.NORMAL));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONE_VARIANT);
+		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONE_VARIANT);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		if (meta < 0 || meta >= BiomeStoneVariant.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]);
+		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]).withProperty(VARIANT, EnumType.NORMAL);
 	}
 
 	@Override

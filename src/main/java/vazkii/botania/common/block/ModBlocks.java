@@ -333,8 +333,8 @@ public final class ModBlocks {
 		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
 		pump = new BlockPump();
-		doubleFlower1 = new BlockModDoubleFlower(false);
-		doubleFlower2 = new BlockModDoubleFlower(true);
+		doubleFlower1 = new BlockModDoubleFlower1();
+		doubleFlower2 = new BlockModDoubleFlower2();
 		fakeAir = new BlockFakeAir();
 		blazeBlock = new BlockBlaze();
 		corporeaInterceptor = new BlockCorporeaInterceptor();

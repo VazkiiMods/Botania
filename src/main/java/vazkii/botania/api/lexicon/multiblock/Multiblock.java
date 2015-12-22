@@ -29,9 +29,9 @@ public class Multiblock {
 	public List<MultiblockComponent> components = new ArrayList();
 	public List<ItemStack> materials = new ArrayList();
 
-	public BlockPos minPos;
-	public BlockPos maxPos;
-	public BlockPos offPos;
+	public BlockPos minPos = BlockPos.ORIGIN;
+	public BlockPos maxPos = BlockPos.ORIGIN;
+	public BlockPos offPos = BlockPos.ORIGIN;
 
 	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<BlockPos, MultiblockComponent>();
 

@@ -17,6 +17,7 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.ResourceLocation;
@@ -31,55 +32,55 @@ import org.lwjgl.opengl.GL11;
 // todo 1.8 copied directly from new class, so need to update to be what botania was. possibly json model for frame, tesr for starfield
 public class RenderTileStarfield extends TileEntitySpecialRenderer {
 
-	private static final ResourceLocation field_147529_c = new ResourceLocation("textures/environment/end_sky.png");
-	private static final ResourceLocation field_147526_d = new ResourceLocation("textures/entity/end_portal.png");
+	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
+	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
 	private static final Random field_147527_e = new Random(31100L);
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
-	@Override
-	public void renderTileEntityAt(TileEntity p_180544_1_, double p_180544_2_, double p_180544_4_, double p_180544_6_, float p_180544_8_, int p_180544_9_) {
-		float f1 = (float)this.rendererDispatcher.entityX;
-		float f2 = (float)this.rendererDispatcher.entityY;
-		float f3 = (float)this.rendererDispatcher.entityZ;
+	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage)
+	{
+		float f = (float)this.rendererDispatcher.entityX;
+		float f1 = (float)this.rendererDispatcher.entityY;
+		float f2 = (float)this.rendererDispatcher.entityZ;
 		GlStateManager.disableLighting();
 		field_147527_e.setSeed(31100L);
-		float f4 = 0.75F;
+		float f3 = 0.75F;
 
-		for (int j = 0; j < 16; ++j)
+		for (int i = 0; i < 16; ++i)
 		{
 			GlStateManager.pushMatrix();
-			float f5 = (float)(16 - j);
-			float f6 = 0.0625F;
-			float f7 = 1.0F / (f5 + 1.0F);
+			float f4 = (float)(16 - i);
+			float f5 = 0.0625F;
+			float f6 = 1.0F / (f4 + 1.0F);
 
-			if (j == 0)
+			if (i == 0)
 			{
-				this.bindTexture(field_147529_c);
-				f7 = 0.1F;
-				f5 = 65.0F;
-				f6 = 0.125F;
+				this.bindTexture(END_SKY_TEXTURE);
+				f6 = 0.1F;
+				f4 = 65.0F;
+				f5 = 0.125F;
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(770, 771);
 			}
 
-			if (j >= 1)
+			if (i >= 1)
 			{
-				this.bindTexture(field_147526_d);
+				this.bindTexture(END_PORTAL_TEXTURE);
 			}
 
-			if (j == 1)
+			if (i == 1)
 			{
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(1, 1);
-				f6 = 0.5F;
+				f5 = 0.5F;
 			}
 
-			float f8 = (float)(-(p_180544_4_ + (double)f4));
-			float f9 = f8 + (float)ActiveRenderInfo.getPosition().yCoord;
-			float f10 = f8 + f5 + (float)ActiveRenderInfo.getPosition().yCoord;
-			float f11 = f9 / f10;
-			f11 += (float)(p_180544_4_ + (double)f4);
-			GlStateManager.translate(f1, f11, f3);
+			float f7 = (float)(-(y + (double)f3));
+			float f8 = f7 + (float)ActiveRenderInfo.getPosition().yCoord;
+			float f9 = f7 + f4 + (float)ActiveRenderInfo.getPosition().yCoord;
+			float f10 = f8 / f9;
+			f10 = (float)(y + (double)f3) + f10;
+			GlStateManager.translate(f, f10, f2);
 			GlStateManager.texGen(GlStateManager.TexGen.S, 9217);
 			GlStateManager.texGen(GlStateManager.TexGen.T, 9217);
 			GlStateManager.texGen(GlStateManager.TexGen.R, 9217);
@@ -97,35 +98,33 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			GlStateManager.pushMatrix();
 			GlStateManager.loadIdentity();
 			GlStateManager.translate(0.0F, (float)(Minecraft.getSystemTime() % 700000L) / 700000.0F, 0.0F);
-			GlStateManager.scale(f6, f6, f6);
+			GlStateManager.scale(f5, f5, f5);
 			GlStateManager.translate(0.5F, 0.5F, 0.0F);
-			GlStateManager.rotate((float)(j * j * 4321 + j * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate((float)(i * i * 4321 + i * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.translate(-0.5F, -0.5F, 0.0F);
-			GlStateManager.translate(-f1, -f3, -f2);
-			f9 = f8 + (float)ActiveRenderInfo.getPosition().yCoord;
-			GlStateManager.translate((float)ActiveRenderInfo.getPosition().xCoord * f5 / f9, (float)ActiveRenderInfo.getPosition().zCoord * f5 / f9, -f2);
+			GlStateManager.translate(-f, -f2, -f1);
+			f8 = f7 + (float)ActiveRenderInfo.getPosition().yCoord;
+			GlStateManager.translate((float)ActiveRenderInfo.getPosition().xCoord * f4 / f8, (float)ActiveRenderInfo.getPosition().zCoord * f4 / f8, -f1);
 			Tessellator tessellator = Tessellator.getInstance();
 			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-			worldrenderer.startDrawingQuads();
-			float f12 = field_147527_e.nextFloat() * 0.5F + 0.1F;
-			float f13 = field_147527_e.nextFloat() * 0.5F + 0.4F;
-			float f14 = field_147527_e.nextFloat() * 0.5F + 0.5F;
+			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			float f11 = (field_147527_e.nextFloat() * 0.5F + 0.1F) * f6;
+			float f12 = (field_147527_e.nextFloat() * 0.5F + 0.4F) * f6;
+			float f13 = (field_147527_e.nextFloat() * 0.5F + 0.5F) * f6;
 
-			if (j == 0)
+			if (i == 0)
 			{
-				f14 = 1.0F;
-				f13 = 1.0F;
-				f12 = 1.0F;
+				f11 = f12 = f13 = 1.0F * f6;
 			}
 
-			worldrenderer.setColorRGBA_F(f12 * f7, f13 * f7, f14 * f7, 1.0F);
-			worldrenderer.addVertex(p_180544_2_, p_180544_4_ + (double)f4, p_180544_6_);
-			worldrenderer.addVertex(p_180544_2_, p_180544_4_ + (double)f4, p_180544_6_ + 1.0D);
-			worldrenderer.addVertex(p_180544_2_ + 1.0D, p_180544_4_ + (double)f4, p_180544_6_ + 1.0D);
-			worldrenderer.addVertex(p_180544_2_ + 1.0D, p_180544_4_ + (double)f4, p_180544_6_);
+			worldrenderer.pos(x, y + (double)f3, z).color(f11, f12, f13, 1.0F).endVertex();
+			worldrenderer.pos(x, y + (double)f3, z + 1.0D).color(f11, f12, f13, 1.0F).endVertex();
+			worldrenderer.pos(x + 1.0D, y + (double)f3, z + 1.0D).color(f11, f12, f13, 1.0F).endVertex();
+			worldrenderer.pos(x + 1.0D, y + (double)f3, z).color(f11, f12, f13, 1.0F).endVertex();
 			tessellator.draw();
 			GlStateManager.popMatrix();
 			GlStateManager.matrixMode(5888);
+			this.bindTexture(END_SKY_TEXTURE);
 		}
 
 		GlStateManager.disableBlend();
@@ -136,10 +135,11 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 		GlStateManager.enableLighting();
 	}
 
-	private FloatBuffer func_147525_a(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_) {
-		field_147528_b.clear();
-		field_147528_b.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
-		field_147528_b.flip();
-		return field_147528_b;
+	private FloatBuffer func_147525_a(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_)
+	{
+		this.field_147528_b.clear();
+		this.field_147528_b.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
+		this.field_147528_b.flip();
+		return this.field_147528_b;
 	}
 }

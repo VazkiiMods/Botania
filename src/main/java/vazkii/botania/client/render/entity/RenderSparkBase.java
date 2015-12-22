@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -82,7 +81,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	}
 
 	public TextureAtlasSprite getBaseIcon(T entity) {
-		return ItemSpark.worldIcon;
+		return null;//ItemSpark.worldIcon;
 	}
 
 	public void colorSpinningIcon(T entity, float a) {
@@ -112,7 +111,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		float f6 = 0.25F;
 
 		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
-		p_77026_1_.getWorldRenderer().setBrightness(240);
+		//p_77026_1_.getWorldRenderer().setBrightness(240);
 		p_77026_1_.getWorldRenderer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0.0F, 1.0F, 0.0F).endVertex();

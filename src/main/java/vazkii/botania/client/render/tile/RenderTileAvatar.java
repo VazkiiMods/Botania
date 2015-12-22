@@ -69,7 +69,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 			GlStateManager.translate(-1.2F, -3.5F, -0.65F);
 			GlStateManager.rotate(20F, 0F, 0F, 1F);
 
-			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
+//			Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
 //			int renderPass = 0;
 //			do {
 //				IIcon icon = stack.getItem().getIcon(stack, renderPass);

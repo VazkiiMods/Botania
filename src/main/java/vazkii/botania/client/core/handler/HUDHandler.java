@@ -102,7 +102,7 @@ public final class HUDHandler {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
 
-			if(pos != null) {
+			if(pos != null && pos.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 				Block block = mc.theWorld.getBlockState(pos.getBlockPos()).getBlock();
 				TileEntity tile = mc.theWorld.getTileEntity(pos.getBlockPos());
 
