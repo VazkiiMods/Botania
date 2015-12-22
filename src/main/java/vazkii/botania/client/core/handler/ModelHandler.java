@@ -10,9 +10,11 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameData;
+import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -33,6 +35,7 @@ public final class ModelHandler {
         registerStorageItemBlocks();
         registerMushroomItemBlocks();
         registerFlowerItemBlocks();
+        registerLivingRockWood();
         /** Normal Items **/
 
         /** Special Item Meshers **/
@@ -108,7 +111,7 @@ public final class ModelHandler {
     private static void registerStorageItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.storage);
         for (StorageVariant variant : StorageVariant.values()) {
-            String name = "botania:" + variant.getName() + "_block";
+            String name = "botania:" + "storage_" + variant.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
@@ -117,7 +120,7 @@ public final class ModelHandler {
     private static void registerMushroomItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + color.getName() + "_mushroom";
+            String name = "botania:" + "mushroom_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
         }
@@ -126,16 +129,25 @@ public final class ModelHandler {
     private static void registerFlowerItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + color.getName() + "_flower";
+            String name = "botania:" + "flower_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
         }
 
         item = Item.getItemFromBlock(ModBlocks.shinyFlower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + color.getName() + "_shinyFlower";
+            String name = "botania:" + "shinyFlower_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+        }
+    }
+
+    private static void registerLivingRockWood() {
+        Item item = Item.getItemFromBlock(ModBlocks.livingrock);
+        for (LivingRockVariant variant : LivingRockVariant.values()) {
+            String name = "botania:" + "livingrock_" + variant.getName();
+            ModelLoader.addVariantName(item, name);
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
     }
 

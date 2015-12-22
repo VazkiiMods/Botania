@@ -1,9 +1,9 @@
 {
   "variants": {
-    "variant=manasteel": { "model": "botania:manasteel_block" },
-    "variant=terrasteel": { "model": "botania:terrasteel_block" },
-    "variant=elementium": { "model": "botania:elementium_block" },
-    "variant=mana_diamond": { "model": "botania:mana_diamond_block" },
-    "variant=dragonstone": { "model": "botania:dragonstone_block" }
+    "variant=manasteel": { "model": "botania:storage_manasteel" },
+    "variant=terrasteel": { "model": "botania:storage_terrasteel" },
+    "variant=elementium": { "model": "botania:storage_elementium" },
+    "variant=mana_diamond": { "model": "botania:storage_mana_diamond" },
+    "variant=dragonstone": { "model": "botania:storage_dragonstone" }
   }
 }

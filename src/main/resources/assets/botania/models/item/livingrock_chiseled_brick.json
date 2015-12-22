@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/terrasteel_block",
+  "parent": "botania:block/livingrock_chiseled_brick",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

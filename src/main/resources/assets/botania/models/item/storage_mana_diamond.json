@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/elementium_block",
+  "parent": "botania:block/storage_mana_diamond",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

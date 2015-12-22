@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/dragonstone_block",
+  "parent": "botania:block/storage_elementium",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],
