@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -205,10 +206,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
 				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).expand(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
-				List<IManaBurst> bursts = worldObj.getEntitiesWithinAABB(IManaBurst.class, aabb);
+				List bursts = worldObj.getEntitiesWithinAABB(Entity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
-				for(IManaBurst burst : bursts)
+				for(IManaBurst burst : ((List<IManaBurst>) bursts))
 					if(burst != null && identity.equals(burst.getShooterUIID())) {
 						found = burst;
 						break;

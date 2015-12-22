@@ -881,7 +881,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		@Override
 		public boolean matches(World world, BlockPos pos) {
-			return world.getBlockState(pos).getBlock().isBeaconBase(world, pos, pos.add(relPos.multiply(-1)));
+			return world.getBlockState(pos).getBlock().isBeaconBase(world, pos, pos.add(new BlockPos(-relPos.getX(), -relPos.getY(), -relPos.getZ())));
 		};
 
 	}

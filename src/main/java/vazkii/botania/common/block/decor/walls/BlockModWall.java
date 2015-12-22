@@ -37,19 +37,18 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 		super(block);
 		this.block = block;
 		setUnlocalizedName(block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall");
-		specifyDefaultState();
+		setDefaultState(blockState.getBaseState()
+				.withProperty(UP, false)
+				.withProperty(NORTH, false)
+				.withProperty(SOUTH, false)
+				.withProperty(WEST, false)
+				.withProperty(EAST, false)
+		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST);
-	}
-
-	protected void specifyDefaultState() {
-		setDefaultState(blockState.getBaseState()
-				.withProperty(UP, false).withProperty(NORTH, false).withProperty(SOUTH, false)
-				.withProperty(WEST, false).withProperty(EAST, false)
-		);
 	}
 
 	@Override

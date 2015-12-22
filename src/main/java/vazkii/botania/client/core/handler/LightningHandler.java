@@ -146,29 +146,29 @@ public class LightningHandler {
 			Vector3 endvec = rendersegment.endpoint.point;
 
 			int color = inner ? bolt.colorInner : bolt.colorOuter;
-			tessellator.getWorldRenderer().setColorRGBA_I(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
+			tessellator.getWorldRenderer().putColor(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
 
-			tessellator.getWorldRenderer().addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-			tessellator.getWorldRenderer().addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-			tessellator.getWorldRenderer().addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
-			tessellator.getWorldRenderer().addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
+			tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).endVertex();
+			tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).endVertex();
+			tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).endVertex();
+			tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).endVertex();
 
 			if(rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.getWorldRenderer().addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
-				tessellator.getWorldRenderer().addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-				tessellator.getWorldRenderer().addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
-				tessellator.getWorldRenderer().addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
+				tessellator.getWorldRenderer().pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).endVertex();
+				tessellator.getWorldRenderer().pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).endVertex();
+				tessellator.getWorldRenderer().pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z).tex(0, 1).endVertex();
 			}
 
 			if(rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.getWorldRenderer().addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-				tessellator.getWorldRenderer().addVertexWithUV(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z, 0, 0);
-				tessellator.getWorldRenderer().addVertexWithUV(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z, 0, 1);
-				tessellator.getWorldRenderer().addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
+				tessellator.getWorldRenderer().pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).endVertex();
+				tessellator.getWorldRenderer().pos(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z).tex(0, 1).endVertex();
+				tessellator.getWorldRenderer().pos(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z).tex(0.5, 1).endVertex();
 			}
 		}
 	}

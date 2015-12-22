@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -162,7 +163,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			setTarget(null);
 
 		double range = 12;
-		List entities = worldObj.getEntitiesWithinAABB(isEvil() ? EntityPlayer.class : IMob.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+		List entities = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range), Predicates.instanceOf(isEvil() ? EntityPlayer.class : IMob.class));
 		while(entities.size() > 0) {
 			Entity e = (Entity) entities.get(worldObj.rand.nextInt(entities.size()));
 			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...

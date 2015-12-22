@@ -15,13 +15,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class Block18StoneStairs extends BlockLivingStairs {
 
-	public Block18StoneStairs(int meta) {
-		super(ModFluffBlocks.stone, meta);
+	public Block18StoneStairs(FutureStoneVariant variant) {
+		super(ModFluffBlocks.stone.getDefaultState().withProperty(BotaniaStateProps.FUTURESTONE_VARIANT, variant));
 	}
 
 	@Override

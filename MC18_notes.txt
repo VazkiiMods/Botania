@@ -16,6 +16,8 @@ since BlockPos'es are immutable and thus can be reused everywhere.
 * Some really needed fields in EntityItem are private now. Reflection time :(. If this is a
 * Alfglass now just uses the vanilla random model selection system to choose a pattern. Some of your builds may look different.
 Unless someone figures out a way to use the old one
+* The alt textures will probably be a resource pack now to decrease complexity...
+sorry :/ The systems needed to dynamically switch out the textures like that is not worth just throwing them into a resource pack
 
 -- Todo --
 * JSON models for everything (tedious/med-hard)

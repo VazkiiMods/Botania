@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.walls;
 
 import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -33,6 +34,7 @@ public class Block18StoneWall extends BlockModWall {
 		super(ModFluffBlocks.stone, 4);
 		setHardness(1.5F);
 		setResistance(10F);
+		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE));
 	}
 
 	@Override
@@ -41,12 +43,16 @@ public class Block18StoneWall extends BlockModWall {
 	}
 
 	@Override
-	protected void specifyDefaultState() {
-		setDefaultState(blockState.getBaseState()
-				.withProperty(UP, false).withProperty(NORTH, false).withProperty(SOUTH, false)
-				.withProperty(WEST, false).withProperty(EAST, false)
-				.withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE)
-		);
+	public int getMetaFromState(IBlockState state) {
+		return ((Enum) state.getValue(BotaniaStateProps.FUTURESTONEWALL_VARIANT)).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 0 || meta > 3) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.values()[meta]);
 	}
 
 	@Override

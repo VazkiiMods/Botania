@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.walls;
 
 import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -32,16 +34,25 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		super(ModFluffBlocks.biomeStoneA, 8);
 		setHardness(1.5F);
 		setResistance(10F);
+		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.BIOME);
+		return new BlockState(this, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONE_VARIANT);
 	}
 
 	@Override
-	protected void specifyDefaultState() {
+	public int getMetaFromState(IBlockState state) {
+		return ((Enum) state.getValue(BotaniaStateProps.BIOMESTONE_VARIANT)).ordinal();
+	}
 
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 0 || meta >= BiomeStoneVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]);
 	}
 
 	@Override

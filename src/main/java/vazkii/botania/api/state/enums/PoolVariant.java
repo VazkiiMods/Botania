@@ -7,7 +7,8 @@ import java.util.Locale;
 public enum PoolVariant implements IStringSerializable {
     DEFAULT,
     CREATIVE,
-    DILUTED;
+    DILUTED,
+    FABULOUS;
 
     @Override
     public String getName() {

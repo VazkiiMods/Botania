@@ -2,6 +2,7 @@ package vazkii.botania.common.block.decor.stairs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -15,17 +16,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockModStairs extends BlockStairs implements ILexiconable {
 
-	public BlockModStairs(Block source, int meta, String name) {
-		super(source, meta);
-		setBlockName(name);
+	public BlockModStairs(IBlockState state, String name) {
+		super(state);
+		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		useNeighborBrightness = true;
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
+	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

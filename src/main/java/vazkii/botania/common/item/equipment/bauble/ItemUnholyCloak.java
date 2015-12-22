@@ -12,6 +12,8 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,8 +38,8 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.source.isUnblockable()) {
 			int range = 6;
-			List<IMob> mobs = player.worldObj.getEntitiesWithinAABB(IMob.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
-			for(IMob mob : mobs)
+			List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range), Predicates.instanceOf(IMob.class));
+			for(IMob mob : ((List<IMob>) mobs))
 				if(mob instanceof EntityLivingBase) {
 					EntityLivingBase entity = (EntityLivingBase) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.ammount);

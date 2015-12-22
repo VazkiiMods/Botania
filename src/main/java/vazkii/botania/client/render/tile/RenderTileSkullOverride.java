@@ -38,7 +38,7 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 	public static final ModelSkullOverride modelSkull = new ModelSkullOverride();
 
 	@Override
-	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
+	public void renderTileEntityAt(TileEntitySkull p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
 		if (p_147500_1_ instanceof TileEntitySkull) {
 			TileEntitySkull skull = ((TileEntitySkull) p_147500_1_);
 			render(skull, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, EnumFacing.getFront(p_147500_1_.getBlockMetadata() & 7) /*todo 1.8*/, skull.getSkullRotation() * 360 / 16.0F, skull.getSkullType(), skull.getPlayerProfile(), digProgress);

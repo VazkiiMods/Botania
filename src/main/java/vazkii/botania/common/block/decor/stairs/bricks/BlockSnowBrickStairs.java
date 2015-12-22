@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.block.decor.stairs.bricks;
 
+import vazkii.botania.api.state.enums.CustomBrickVariant;
+
 public class BlockSnowBrickStairs extends BlockCustomBrickStairs {
 
 	public BlockSnowBrickStairs() {
-		super(2);
+		super(CustomBrickVariant.FROSTY_BRICK);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.base.Predicates;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -56,9 +57,9 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List<IShearable> sheep = player.worldObj.getEntitiesWithinAABB(IShearable.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List sheep = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
-				for(IShearable target : sheep) {
+				for(IShearable target : ((List<IShearable>) sheep)) {
 					Entity entity = (Entity) target;
 					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
 						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));

@@ -96,6 +96,23 @@ public class BotaniaStateProps {
     // BlockLivingRock
     public static final PropertyEnum LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
 
+    // BlockModDoubleFlower
+    public static final PropertyEnum DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+        @Override
+        public boolean apply(EnumDyeColor input) {
+            // White to gray
+            return input.ordinal() >= 0 && input.ordinal() <= 7;
+        }
+    });
+
+    public static final PropertyEnum DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+        @Override
+        public boolean apply(EnumDyeColor input) {
+            // Silver to black
+            return input.ordinal() >= 8 && input.ordinal() <= 15;
+        }
+    });
+
     // BlockOpenCrate
     public static final PropertyEnum CRATE_VARIANT = PropertyEnum.create("variant", CrateVariant.class);
 

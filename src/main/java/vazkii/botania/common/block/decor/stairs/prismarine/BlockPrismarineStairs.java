@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.stairs.BlockLivingStairs;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -12,11 +14,11 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockPrismarineStairs extends BlockLivingStairs {
 
 	public BlockPrismarineStairs() {
-		this(0);
+		this(PrismarineVariant.PRISMARINE);
 	}
 
-	public BlockPrismarineStairs(int meta) {
-		super(ModBlocks.prismarine, meta);
+	public BlockPrismarineStairs(PrismarineVariant variant) {
+		super(ModBlocks.prismarine.getDefaultState().withProperty(BotaniaStateProps.PRISMARINE_VARIANT, variant));
 	}
 
 	@Override

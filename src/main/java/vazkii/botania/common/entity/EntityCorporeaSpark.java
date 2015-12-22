@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -131,7 +132,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	List<ICorporeaSpark> getNearbySparks() {
-		return worldObj.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE));
+		List ret = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		return ((List<ICorporeaSpark>) ret);
 	}
 
 	void restartNetwork() {

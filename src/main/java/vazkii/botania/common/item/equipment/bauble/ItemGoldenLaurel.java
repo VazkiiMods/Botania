@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -73,7 +74,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			float f3 = itemIcon.getMaxV();
 			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(-100F, 1F, 0F, 0F);

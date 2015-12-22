@@ -27,6 +27,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -124,7 +125,7 @@ public final class SheddingHandler {
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
 		if(itemName != null && !itemName.isEmpty() && rate != -1)
-			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(itemName), 1, metadata), rate, lexiconSize));
+			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
 	}
 
 	public static class ShedPattern {

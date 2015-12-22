@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -24,7 +25,7 @@ public class HelmRevealingRecipe implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
-		Item goggles = Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
+		Item goggles = Item.itemRegistry.getObject(new ResourceLocation("Thaumcraft", "ItemGoggles"));
 		if(goggles == null)
 			return false; // NO TC loaded
 

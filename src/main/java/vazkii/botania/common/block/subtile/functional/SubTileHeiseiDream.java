@@ -13,6 +13,8 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Predicates;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -37,9 +39,9 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 
 		final int cost = 100;
 
-		List<IMob> mobs = supertile.getWorld().getEntitiesWithinAABB(IMob.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List mobs = supertile.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
 		if(mobs.size() > 1 && mana >= cost)
-			for(IMob mob : mobs) {
+			for(IMob mob : ((List<IMob>) mobs)) {
 				if(mob instanceof EntityLiving) {
 					EntityLiving entity = (EntityLiving) mob;
 					if(brainwashEntity(entity, mobs)) {

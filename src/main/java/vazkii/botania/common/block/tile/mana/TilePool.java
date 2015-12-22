@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import java.awt.Color;
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -406,7 +407,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)));
+		List sparks = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if(sparks.size() == 1) {
 			Entity e = (Entity) sparks.get(0);
 			return (ISparkEntity) e;

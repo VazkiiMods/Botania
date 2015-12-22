@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockSpecialQuartzStairs extends BlockModStairs {
 
 	public BlockSpecialQuartzStairs(Block source) {
-		super(source, 0, "quartzStairs" + ((BlockSpecialQuartz) source).type);
+		super(source.getDefaultState(), "quartzStairs" + ((BlockSpecialQuartz) source).type);
 	}
 
 	@Override

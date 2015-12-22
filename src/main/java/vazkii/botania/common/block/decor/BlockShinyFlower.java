@@ -34,9 +34,6 @@ import net.minecraftforge.fml.common.Optional;
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
 
-	private static IIcon[] icons;
-	private static IIcon[] iconsAlt;
-
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);

@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -61,7 +62,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<Entity> entities = world.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
 		for(Entity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();

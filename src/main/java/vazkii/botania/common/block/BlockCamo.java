@@ -23,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileCamo;
@@ -36,21 +35,6 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 
 	protected BlockCamo(Material par2Material) {
 		super(par2Material);
-	}
-
-	@Override
-	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		int meta = world.getBlockMetadata(x, y, z);
-
-		if(tile instanceof TileCamo) {
-			TileCamo camo = (TileCamo) tile;
-			Block block = camo.camo;
-			if(block != null && isValidBlock(block))
-				return block.getIcon(side, camo.camoMeta);
-		}
-
-		return getIconFromSideAfterCheck(tile, meta, side);
 	}
 
 	public static boolean isValidBlock(Block block) {

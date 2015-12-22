@@ -153,9 +153,8 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	public static void placeDoubleFlower(World world, BlockPos pos, EnumDyeColor color, int flags) {
 		Block flower = color.getMetadata() >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
-		int placeMeta = meta & 7;
-		world.setBlockState(pos, flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
-		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
+		world.setBlockState(pos, flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
+		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
 	}
 
 }

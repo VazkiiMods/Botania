@@ -103,7 +103,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				} else {
 					addCursor : {
-					BlockPos relPos = lookPos.getBlockPos().add(originCoords.multiply(-1));
+					BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
 
 					for(BlockPos cursor : cursors)
 						if(cursor.equals(relPos)) {

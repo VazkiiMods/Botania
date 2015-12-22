@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -484,20 +485,20 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			GlStateManager.disableCull();
 			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 			mc.renderEngine.bindTexture(item.getGlowResource());
-			tess.getWorldRenderer().startDrawingQuads();
+			tess.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < segAngles; i++) {
 				float ang = i + seg * segAngles + shift;
 				double xp = Math.cos(ang * Math.PI / 180F) * s;
 				double zp = Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.getWorldRenderer().addVertexWithUV(xp * m, y, zp * m, u, v);
-				tess.getWorldRenderer().addVertexWithUV(xp, y0, zp, u, 0);
+				tess.getWorldRenderer().pos(xp * m, y, zp * m).tex(u, v).endVertex();
+				tess.getWorldRenderer().pos(xp, y0, zp).tex(u, 0).endVertex();
 
 				xp = Math.cos((ang + 1) * Math.PI / 180F) * s;
 				zp = Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.getWorldRenderer().addVertexWithUV(xp, y0, zp, 0, 0);
-				tess.getWorldRenderer().addVertexWithUV(xp * m, y, zp * m, 0, v);
+				tess.getWorldRenderer().pos(xp, y0, zp).tex(0, 0).endVertex();
+				tess.getWorldRenderer().pos(xp * m, y, zp * m).tex(0, v).endVertex();
 			}
 			y0 = 0;
 			tess.draw();
@@ -577,7 +578,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			}
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe[9], x + 72, y + 18);
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe[9], x + 72, y + 18, "");
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}

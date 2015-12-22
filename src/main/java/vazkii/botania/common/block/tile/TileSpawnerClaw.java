@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Ref;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -36,6 +38,11 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	int mana = 0;
 
 	private static final Method isActivated = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
+	private static final Field spawnDelay = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.SPAWN_DELAY);
+	private static final Field mobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.MOB_ROTATION);
+	private static final Field prevMobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.PREV_MOB_ROTATION);
+	private static final Method spawnNewEntity = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.SPAWN_NEW_ENTITY);
+	private static final Method getEntityNameToSpawn = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.GET_ENTITY_TO_SPAWN);
 
 	@Override
 	public void update() {
@@ -50,19 +57,21 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
                         mana -= 6;
 
                     if(logic.getSpawnerWorld().isRemote) {
-                        if(logic.spawnDelay > 0)
-                            --logic.spawnDelay;
+						int delay = spawnDelay.getInt(logic);
+                        if(delay > 0)
+							spawnDelay.setInt(logic, delay - 1);
 
                         if(Math.random() > 0.5)
                             Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
-                        logic.prevMobRotation = logic.getMobRotation();
-                        logic.mobRotation = (logic.getMobRotation() + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
-                    } else if(logic.spawnDelay == -1)
+						prevMobRotation.set(logic, logic.getMobRotation());
+                        mobRotation.set(logic, (logic.getMobRotation() + 1000.0F / (spawnDelay.getInt(logic) + 200.0F)) % 360.0D);
+                    } else if(spawnDelay.getInt(logic) == -1)
                         resetTimer(logic);
 
-                    if(logic.spawnDelay > 0) {
-                        --logic.spawnDelay;
+					int delay = spawnDelay.getInt(logic);
+					if(delay > 0) {
+						spawnDelay.setInt(logic, delay - 1);
                         return;
                     }
 
@@ -73,28 +82,28 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
                     int maxNearbyEntities = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_NEARBY_ENTITIES);
 
                     for(int i = 0; i < spawnCount; ++i) {
-                        Entity entity = EntityList.createEntityByName(logic.getEntityNameToSpawn(), logic.getSpawnerWorld());
+                        Entity entity = EntityList.createEntityByName(((String) getEntityNameToSpawn.invoke(logic)), logic.getSpawnerWorld());
 
                         if (entity == null)
                             return;
 
-                        int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.func_177221_b(), logic.func_177221_b().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
+                        int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.getSpawnerPosition(), logic.getSpawnerPosition().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
 
                         if (j >= maxNearbyEntities) {
                             resetTimer(logic);
                             return;
                         }
 
-                        double d2 = logic.func_177221_b().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-                        double d3 = logic.func_177221_b().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
-                        double d4 = logic.func_177221_b().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+                        double d2 = logic.getSpawnerPosition().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+                        double d3 = logic.getSpawnerPosition().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
+                        double d4 = logic.getSpawnerPosition().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
                         EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
                         entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
                         if(entityliving == null || entityliving.getCanSpawnHere()) {
                             if(!worldObj.isRemote)
-                                logic.func_98265_a(entity);
-                            logic.getSpawnerWorld().playAuxSFX(2004, logic.func_177221_b(), 0);
+                                spawnNewEntity.invoke(logic, entity, true);
+                            logic.getSpawnerWorld().playAuxSFX(2004, logic.getSpawnerPosition(), 0);
 
                             if (entityliving != null)
                                 entityliving.spawnExplosionParticle();
@@ -107,23 +116,23 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
                         resetTimer(logic);
                 }
 			} catch (IllegalAccessException e) {
-				Botania.instance.handleIMC();
+				e.printStackTrace();
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private void resetTimer(MobSpawnerBaseLogic logic) {
+	private void resetTimer(MobSpawnerBaseLogic logic) throws IllegalAccessException {
 		int maxSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_SPAWN_DELAY);
 		int minSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MIN_SPAWN_DELAY);
 		List potentialEntitySpawns = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.POTENTIAL_ENTITY_SPAWNS);
 
 		if(maxSpawnDelay <= minSpawnDelay)
-			logic.spawnDelay = minSpawnDelay;
+			spawnDelay.set(logic, minSpawnDelay);
 		else {
 			int i = maxSpawnDelay - minSpawnDelay;
-			logic.spawnDelay = minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i);
+			spawnDelay.set(logic, minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i));
 		}
 
 		if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)

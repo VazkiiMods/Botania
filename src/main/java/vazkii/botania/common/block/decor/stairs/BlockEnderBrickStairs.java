@@ -15,13 +15,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockEnderBrickStairs extends BlockLivingStairs {
 
 	public BlockEnderBrickStairs() {
-		super(ModBlocks.endStoneBrick, 2);
+		super(ModBlocks.endStoneBrick.getDefaultState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.ENDER_BRICKS));
 	}
 
 	@Override

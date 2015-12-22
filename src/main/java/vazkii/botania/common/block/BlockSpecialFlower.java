@@ -157,7 +157,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int isProvidingStrongPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getStrongPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
 		return getWeakPower(world, pos, state, side);
 	}
 

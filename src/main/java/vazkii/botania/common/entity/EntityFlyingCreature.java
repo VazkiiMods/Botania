@@ -40,7 +40,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 			motionX *= 0.800000011920929D;
 			motionY *= 0.800000011920929D;
 			motionZ *= 0.800000011920929D;
-		} else if(handleLavaMovement()) {
+		} else if(isNotColliding()) {
 			moveFlying(par1, par2, 0.02F);
 			moveEntity(motionX, motionY, motionZ);
 			motionX *= 0.5D;

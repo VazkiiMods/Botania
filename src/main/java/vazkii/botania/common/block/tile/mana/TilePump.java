@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -53,7 +54,7 @@ public class TilePump extends TileMod implements ITickable {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
 				for(int x = 0; x < 2; x++)
-					worldObj.spawnParticle("explode", xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 0, 0, 0);
+					worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
 			}
 		} else if(innerRingPos > min) {
 			innerRingPos -= incr * 2;
