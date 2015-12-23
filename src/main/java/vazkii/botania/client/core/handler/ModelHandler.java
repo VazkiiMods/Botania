@@ -1,5 +1,7 @@
 package vazkii.botania.client.core.handler;
 
+import static vazkii.botania.common.item.ModItems.*;
+
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -23,7 +25,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.item.ItemGaiaHead;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 public final class ModelHandler {
@@ -62,12 +63,47 @@ public final class ModelHandler {
 	}
 
 	private static void registerStandardItems() {
-		registerItemModel(ModItems.pestleAndMortar);
-		registerItemModel(ModItems.blackLotus);
-		registerItemModel(ModItems.blackLotus, 1);
-		registerItemModel(ModItems.lexicon);
-		registerItemModel(ModItems.manaResource, 0);
-		registerItemModel(ModItems.manaResource, 1);
+		registerItemModel(pestleAndMortar);
+		registerItemModel(blackLotus);
+		registerItemModel(blackLotus, 1);
+		registerItemModel(lexicon);
+
+		registerItemModel(manasteelHelm);
+		registerItemModel(manasteelChest);
+		registerItemModel(manasteelLegs);
+		registerItemModel(manasteelBoots);
+
+		registerItemModel(manasteelPick);
+		registerItemModel(manasteelShovel);
+		registerItemModel(manasteelAxe);
+		registerItemModel(manasteelShears);
+		registerItemModel(manasteelSword);
+
+		registerItemModel(elementiumHelm);
+		registerItemModel(elementiumChest);
+		registerItemModel(elementiumLegs);
+		registerItemModel(elementiumBoots);
+
+		registerItemModel(elementiumPick);
+		registerItemModel(elementiumShovel);
+		registerItemModel(elementiumAxe);
+		registerItemModel(elementiumShears);
+		registerItemModel(elementiumSword);
+
+		registerItemModel(manaweaveHelm);
+		registerItemModel(manaweaveChest);
+		registerItemModel(manaweaveLegs);
+		registerItemModel(manaweaveBoots);
+
+		registerItemModel(terrasteelHelm);
+		registerItemModel(terrasteelHelmRevealing);
+		registerItemModel(terrasteelChest);
+		registerItemModel(terrasteelLegs);
+		registerItemModel(terrasteelBoots);
+
+		registerItemModel(starSword);
+		registerItemModel(thunderSword);
+		registerItemModel(glassPick);
 	}
 
 	private static void registerStateMappers() {
@@ -243,7 +279,7 @@ public final class ModelHandler {
 	}
 
 	private static void registerManaResources() {
-		Item item = ModItems.manaResource;
+		Item item = manaResource;
 		for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
 			String name = "botania:" + LibItemNames.MANA_RESOURCE_NAMES[i];
 			ModelLoader.addVariantName(item, name);
