@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
@@ -52,6 +53,7 @@ public final class ModelHandler {
         registerFullSlabs();
         registerPanes();
         registerPylons();
+        registerUnstableBeaconPetal();
 
         /** Normal Items **/
         registerStandardItems();
@@ -59,10 +61,13 @@ public final class ModelHandler {
 
         /** Special Item Meshers **/
     }
+
     private static void registerStandardBlocks() {
-    	  registerItemModel(ModBlocks.manaGlass);
-          registerItemModel(ModBlocks.elfGlass);
+        registerItemModel(ModBlocks.manaGlass);
+        registerItemModel(ModBlocks.elfGlass);
+
     }
+
     private static void registerStandardItems() {
         registerItemModel(pestleAndMortar);
         registerItemModel(blackLotus);
@@ -106,6 +111,7 @@ public final class ModelHandler {
         registerItemModel(thunderSword);
         registerItemModel(glassPick);
     }
+
     private static void registerManaResources() {
         Item item = manaResource;
         for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
@@ -116,6 +122,11 @@ public final class ModelHandler {
     }
 
     private static void registerStateMappers() {
+        // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
+        ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.petalBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+
         // Ignore vanilla variant in flowers
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
@@ -301,6 +312,18 @@ public final class ModelHandler {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("botania:pylon", "variant=mana"));
         ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation("botania:pylon", "variant=natura"));
         ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation("botania:pylon", "variant=gaia"));
+    }
+
+    private static void registerUnstableBeaconPetal() {
+        // The blocks that are dynamically colored, not through their states
+        for (EnumDyeColor color : EnumDyeColor.values()) {
+            Item unstable = Item.getItemFromBlock(ModBlocks.unstableBlock);
+            Item beacon = Item.getItemFromBlock(ModBlocks.manaBeacon);
+            Item petal = Item.getItemFromBlock(ModBlocks.petalBlock);
+            ModelLoader.setCustomModelResourceLocation(unstable, color.getMetadata(), new ModelResourceLocation("botania:unstableBlock", "inventory"));
+            ModelLoader.setCustomModelResourceLocation(beacon, color.getMetadata(), new ModelResourceLocation("botania:manaBeacon", "inventory"));
+            ModelLoader.setCustomModelResourceLocation(petal, color.getMetadata(), new ModelResourceLocation("botania:petalBlock", "inventory"));
+        }
     }
 
     private static void registerItemModel(Block b) {

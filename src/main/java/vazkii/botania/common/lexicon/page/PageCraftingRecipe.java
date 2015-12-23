@@ -171,7 +171,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 						Object input = shapeless.getInput().get(index);
 						if(input != null)
-							renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((ArrayList<ItemStack>) input).get(0), true);
+							renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((List<ItemStack>) input).get(0), true);
 					}
 			}
 

@@ -33,6 +33,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -76,7 +77,7 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
 
