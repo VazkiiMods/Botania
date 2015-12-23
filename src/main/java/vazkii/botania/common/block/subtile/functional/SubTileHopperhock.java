@@ -73,6 +73,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			IInventory invToPutItemIn = null;
 			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
 			boolean priorityInv = false;
+			int amountToPutIn = 0;
 
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 				int x_ = x + dir.offsetX;
@@ -83,8 +84,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
-					canAccept &= stackSize == stack.stackSize;
+					int availablePut = InventoryHelper.testInventoryInsertion(inv, stack, dir);
+					canAccept &= availablePut > 0;
 
 					if(canAccept) {
 						boolean priority = !filter.isEmpty();
@@ -96,19 +97,22 @@ public class SubTileHopperhock extends SubTileFunctional {
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
+							amountToPutIn = availablePut;
 						}
 					}
 				}
 			}
 
 			if(invToPutItemIn != null) {
-				boolean remote = supertile.getWorldObj().isRemote; 
+				boolean remote = supertile.getWorldObj().isRemote;
 				if(!item.isDead && remote)
 					SubTileSpectranthemum.spawnExplosionParticles(item, 1);
 				else {
-					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
+					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
 					invToPutItemIn.markDirty();
-					item.setDead();
+					item.setEntityItemStack(stack.splitStack(stack.stackSize - amountToPutIn));
+					if(item.getEntityItem().stackSize == 0)
+						item.setDead();
 					pulledAny = true;
 				}
 			}
