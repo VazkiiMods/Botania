@@ -1,1 +1,7 @@
-{"parent":"botania:item/standard_tool","textures":{"layer0":"botania:items/starSword"}}
+{
+    "parent": "botania:item/standard_tool",
+    "textures": 
+    {
+        "layer0": "botania:items/starSword"
+    }
+}
