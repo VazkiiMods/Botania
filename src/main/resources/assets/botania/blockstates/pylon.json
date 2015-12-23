@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:pylon.obj",
+    "transform": "forge:default-block",
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "variant": {
+      "mana": { "textures": { "#pylon": "botania:model/pylon" } },
+      "natura": { "textures": { "#pylon": "botania:model/pylon1" } },
+      "gaia": { "textures": { "#pylon": "botania:model/pylon2" } }
+    },
+    "inventory": [{}]
+  }
+}

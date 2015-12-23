@@ -13,18 +13,22 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
+import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
+import java.util.Locale;
 
 public final class ModelHandler {
 
@@ -32,6 +36,8 @@ public final class ModelHandler {
     // In addition, many of the jsons currently use the vanilla format (simple and verified bug-free).
     // Once things settle down, we'll move to forge jsons, which will drastically cut down on the number of json files
     public static void registerModels() {
+        OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
+
         /** Custom statemappers **/
         registerStateMappers();
 
@@ -47,6 +53,7 @@ public final class ModelHandler {
         registerPanes();
         registerItemModel(ModBlocks.manaGlass);
         registerItemModel(ModBlocks.elfGlass);
+        registerPylons();
 
         /** Normal Items **/
         registerItemModel(ModItems.lexicon);
@@ -198,6 +205,13 @@ public final class ModelHandler {
 
     private static void registerPanes() {
 
+    }
+
+    private static void registerPylons() {
+        Item item = Item.getItemFromBlock(ModBlocks.pylon);
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("botania:pylon", "variant=mana"));
+        ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation("botania:pylon", "variant=natura"));
+        ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation("botania:pylon", "variant=gaia"));
     }
 
     private static void registerItemModel(Block b) {

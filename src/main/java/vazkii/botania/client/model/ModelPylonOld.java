@@ -12,6 +12,7 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import vazkii.botania.api.state.enums.PylonVariant;
 
 public class ModelPylonOld extends ModelBase implements IPylonModel {
 
@@ -119,7 +120,7 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderCrystal() {
+	public void renderCrystal(PylonVariant variant) {
 		float f = 1F / 16F;
 		crystal1.render(f);
 		crystal2.render(f);
@@ -132,7 +133,7 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderRing() {
+	public void renderRing(PylonVariant variant) {
 		float f = 1F / 16F;
 		outside1.render(f);
 		outside2.render(f);
@@ -151,7 +152,7 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderGems() {
+	public void renderGems(PylonVariant variant) {
 		// NO-OP
 	}
 
