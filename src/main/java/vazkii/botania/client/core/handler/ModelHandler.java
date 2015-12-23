@@ -56,7 +56,10 @@ public final class ModelHandler {
         /** Normal Items **/
         registerStandardItems();
         registerManaResources();
-
+        
+        registerItemModelMetas(rune, LibItemNames.RUNE, 16);
+        registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
+        registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         /** Special Item Meshers **/
     }
     private static void registerStandardBlocks() {
@@ -302,7 +305,13 @@ public final class ModelHandler {
         ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation("botania:pylon", "variant=natura"));
         ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation("botania:pylon", "variant=gaia"));
     }
-
+    private static void registerItemModelMetas(Item item, String loc,int range) {
+     	for(int i =0; i < range;i++)  {
+     		String name = "botania:"+loc+i;
+     		ModelLoader.addVariantName(item, name);
+     		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name,"inventory"));
+     	}
+    }
     private static void registerItemModel(Block b) {
         registerItemModel(Item.getItemFromBlock(b));
     }
