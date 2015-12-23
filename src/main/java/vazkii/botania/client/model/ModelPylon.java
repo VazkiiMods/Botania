@@ -26,6 +26,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.LightUtil;
@@ -57,31 +58,37 @@ public class ModelPylon implements IPylonModel {
 		}
 	};
 
-	private static final Set<String> GROUP_NAMES = ImmutableSet.of("Crystal", "CrystalRing", "Ring_Panel01", "Ring_Panel02",
+	private static final Set<String> GROUP_NAMES = ImmutableSet.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
 			"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
 
 	public ModelPylon() {
 		try {
-			OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:model/block/pylon.obj")));
+			OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
 
-			OBJModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:models/pylon")));
-			OBJModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:models/pylon1")));
-			OBJModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:models/pylon2")));
+			IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
+			IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
+			IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
 
 			// Turn off all except "Crystal"
-			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Crystal"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Crystal"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Crystal"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 
-			// Turn off all except "CrystalRing", and "Ring_Panel0x"
-			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("CrystalRing", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("CrystalRing", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("CrystalRing", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			// Turn off all except "Crystal_Ring", and "Ring_Panel0x"
+			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 
 			// Turn off all except "Ring_Gem0x"
-			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.copyOf(Sets.difference(GROUP_NAMES, ImmutableSet.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"))), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
+					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 		} catch (IOException e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
@@ -124,11 +131,6 @@ public class ModelPylon implements IPylonModel {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(GL11.GL_QUADS, model.getFormat());
-
-		for (EnumFacing enumfacing : EnumFacing.values())
-		{
-			this.renderQuads(worldrenderer, model.getFaceQuads(enumfacing), color);
-		}
 
 		this.renderQuads(worldrenderer, model.getGeneralQuads(), color);
 		tessellator.draw();
