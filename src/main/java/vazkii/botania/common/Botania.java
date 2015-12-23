@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -25,7 +23,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -64,8 +61,7 @@ public class Botania {
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
-		// TODO remove this \/
-		MinecraftForge.EVENT_BUS.register(this);
+
 		proxy.preInit(event);
 	}
 
@@ -99,11 +95,6 @@ public class Botania {
 		IMCHandler.processMessages(event.getMessages());
 	}
 
-	// TODO remove this, was for testing
-	@SubscribeEvent
-	public void tooltip(ItemTooltipEvent e) {
-		e.toolTip.add(e.itemStack.getUnlocalizedName() + ":" + e.itemStack.getItemDamage());
-	}
 	/*
 	 * @EventHandler public void missingMappings(FMLMissingMappingsEvent event)
 	 * { AliasHandler.onMissingMappings(event); }
