@@ -12,7 +12,11 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
+import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -34,6 +38,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
+	public static final PropertyEnum<EnumRailDirection> SHAPE = BlockRailPowered.SHAPE;
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
 	public BlockGhostRail() {
@@ -41,6 +46,22 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(this);
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
+		setDefaultState(blockState.getBaseState().withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH));
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, SHAPE);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(SHAPE).getMetadata();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(SHAPE, EnumRailDirection.byMetadata(meta));
 	}
 
 	@Override
@@ -87,7 +108,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	}
 
 	@Override
-	public IProperty getShapeProperty() {
-		return null; // todo 1.8 ??
+	public IProperty<EnumRailDirection> getShapeProperty() {
+		return BlockRailPowered.SHAPE;
 	}
 }

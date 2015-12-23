@@ -291,7 +291,9 @@ public final class ModelHandler {
     }
 
     private static void registerPanes() {
-
+        registerItemModel(ModFluffBlocks.alfglassPane);
+        registerItemModel(ModFluffBlocks.bifrostPane);
+        registerItemModel(ModFluffBlocks.managlassPane);
     }
 
     private static void registerPylons() {

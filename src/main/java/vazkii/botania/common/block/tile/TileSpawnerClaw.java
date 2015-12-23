@@ -41,7 +41,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	private static final Field spawnDelay = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.SPAWN_DELAY);
 	private static final Field mobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.MOB_ROTATION);
 	private static final Field prevMobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.PREV_MOB_ROTATION);
-	private static final Method spawnNewEntity = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.SPAWN_NEW_ENTITY);
+	private static final Method spawnNewEntity = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.SPAWN_NEW_ENTITY, Entity.class, boolean.class);
 	private static final Method getEntityNameToSpawn = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.GET_ENTITY_TO_SPAWN);
 
 	@Override

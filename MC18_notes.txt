@@ -14,13 +14,14 @@ Anyways, vanilla removed it from their method so we follow suit.
 * Most things left untouched to make patches from upstream easier
 * Most uses of chunkcoordinates directly convert blockpos (THANK YOU VAZKII FOR USING THEM). Remove creation of extra instances
 since BlockPos'es are immutable and thus can be reused everywhere.
-* Some really needed fields in EntityItem are private now. Reflection time :(. If this is a
+* Some really needed fields in EntityItem are private now. Reflection time :(
 * Alfglass now just uses the vanilla random model selection system to choose a pattern. Some of your builds may look different.
 Unless someone figures out a way to use the old one
 * The alt textures will probably be a resource pack now to decrease complexity...
 sorry :/ The systems needed to dynamically switch out the textures like that is not worth just throwing them into a resource pack
 * Slabs are kinda janky if you look at them - Mojang made some extremely silly assumptions and we're going to have to go with them
 * Quartz stair textures may be assigned incorrectly - resource pack authors check me
+* Glass pane inner faces are not getting culled
 
 -- Todo --
 * JSON models for everything (tedious/med-hard)
@@ -29,4 +30,3 @@ sorry :/ The systems needed to dynamically switch out the textures like that is 
     - Sub to texture stitch and bake our own model there to use?
     - This remains the largest portion of what is left
     - Where is the method to render an arbitrary baked model?
-* ItemBlocks seem to merge subtypes (shift clicking storage blocks onto each other)

@@ -15,6 +15,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.common.Loader;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
 import cofh.api.energy.IEnergyConnection;
@@ -47,9 +48,8 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI|energy")
 	public void update() {
-		if(!worldObj.isRemote) {
+		if(!worldObj.isRemote && Loader.isModLoaded("CoFHAPI|energy")) {
 			if(deadCache)
 				reCache();
 

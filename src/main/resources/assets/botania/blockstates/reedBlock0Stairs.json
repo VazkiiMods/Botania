@@ -17,7 +17,7 @@
     "facing=south,half=bottom,shape=outer_right": { "model": "minecraft:outer_stairs", "y": 90, "uvlock": true },
     "facing=north,half=bottom,shape=outer_right": { "model": "minecraft:outer_stairs", "y": 270, "uvlock": true },
     "facing=east,half=bottom,shape=outer_left":  { "model": "minecraft:outer_stairs", "y": 270, "uvlock": true },
-    "facing=west,half=bottom,shape=outer_left":  { "model": "mdinecraft:outer_stairs", "y": 90, "uvlock": true },
+    "facing=west,half=bottom,shape=outer_left":  { "model": "minecraft:outer_stairs", "y": 90, "uvlock": true },
     "facing=south,half=bottom,shape=outer_left": { "model": "minecraft:outer_stairs" },
     "facing=north,half=bottom,shape=outer_left": { "model": "minecraft:outer_stairs", "y": 180, "uvlock": true },
     "facing=east,half=bottom,shape=inner_right":  { "model": "minecraft:inner_stairs" },
