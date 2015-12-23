@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "bottom": "botania:blocks/livingrock1",
-      "top": "botania:blocks/livingrock1",
-      "side": "botania:blocks/livingrock1"
+      "bottom": "botania:blocks/biomeStone23",
+      "top": "botania:blocks/biomeStone23",
+      "side": "botania:blocks/biomeStone23"
     }
   },
   "variants": {

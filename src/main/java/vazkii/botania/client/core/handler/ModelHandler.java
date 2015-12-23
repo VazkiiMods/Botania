@@ -7,10 +7,8 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -18,7 +16,6 @@ import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -45,9 +42,9 @@ public final class ModelHandler {
 
         /** ItemBlocks **/
         registerStandardBlocks();
-        registerStorageItemBlocks();
-        registerMushroomItemBlocks();
-        registerFlowerItemBlocks();
+        registerStorage();
+        registerMushrooms();
+        registerFlowers();
         registerLivingRockWood();
         registerAltGrass();
         registerStairs();
@@ -194,7 +191,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerStorageItemBlocks() {
+    private static void registerStorage() {
         Item item = Item.getItemFromBlock(ModBlocks.storage);
         for (StorageVariant variant : StorageVariant.values()) {
             String name = "botania:storage_" + variant.getName();
@@ -203,7 +200,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerMushroomItemBlocks() {
+    private static void registerMushrooms() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
             String name = "botania:mushroom_" + color.getName();
@@ -212,7 +209,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerFlowerItemBlocks() {
+    private static void registerFlowers() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
             String name = "botania:flower_" + color.getName();
@@ -245,11 +242,44 @@ public final class ModelHandler {
     }
 
     private static void registerStairs() {
-        registerItemModel(ModFluffBlocks.livingwoodStairs);
-        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
+        for (Block b : ModFluffBlocks.stoneStairs) {
+            registerItemModel(b);
+        }
+
+        for (Block b : ModFluffBlocks.pavementStairs) {
+            registerItemModel(b);
+        }
+
+        for (Block b : ModFluffBlocks.biomeStoneStairs) {
+            registerItemModel(b);
+        }
+
+        registerItemModel(ModFluffBlocks.blazeQuartzStairs);
+        registerItemModel(ModFluffBlocks.darkPrismarineStairs);
+        registerItemModel(ModFluffBlocks.darkQuartzStairs);
+        registerItemModel(ModFluffBlocks.dreamwoodStairs);
+        registerItemModel(ModFluffBlocks.dreamwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.elfQuartzStairs);
+        registerItemModel(ModFluffBlocks.enderBrickStairs);
+        registerItemModel(ModFluffBlocks.endStoneStairs);
+        registerItemModel(ModFluffBlocks.lavenderQuartzStairs);
         registerItemModel(ModFluffBlocks.livingrockStairs);
         registerItemModel(ModFluffBlocks.livingrockBrickStairs);
-
+        registerItemModel(ModFluffBlocks.livingwoodStairs);
+        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.manaQuartzStairs);
+        registerItemModel(ModFluffBlocks.netherBrickStairs);
+        registerItemModel(ModFluffBlocks.prismarineStairs);
+        registerItemModel(ModFluffBlocks.prismarineBrickStairs);
+        registerItemModel(ModFluffBlocks.redQuartzStairs);
+        registerItemModel(ModFluffBlocks.reedStairs);
+        registerItemModel(ModFluffBlocks.shimmerrockStairs);
+        registerItemModel(ModFluffBlocks.shimmerwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.snowBrickStairs);
+        registerItemModel(ModFluffBlocks.soulBrickStairs);
+        registerItemModel(ModFluffBlocks.sunnyQuartzStairs);
+        registerItemModel(ModFluffBlocks.thatchStairs);
+        registerItemModel(ModFluffBlocks.tileStairs);
     }
 
     private static void registerSlabs() {
@@ -274,10 +304,12 @@ public final class ModelHandler {
     private static void registerItemModel(Block b) {
         registerItemModel(Item.getItemFromBlock(b));
     }
+
     private static void registerItemModel(Item i,int meta) {
         ResourceLocation loc = GameData.getItemRegistry().getNameForObject(i);
         ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "inventory"));
     }
+
     private static void registerItemModel(Item i) {
         registerItemModel(i, 0);
     }
