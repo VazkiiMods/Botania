@@ -1,0 +1,7 @@
+{
+    "parent": "botania:item/standard_tool",
+    "textures": 
+    {
+        "layer0": "botania:items/manasteelAxe"
+    }
+}

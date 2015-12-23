@@ -16,20 +16,17 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
-		setPotionEffect(Potion.saturation.id, 1,  0, 1F);
+		setPotionEffect(Potion.saturation.id, 1, 0, 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 	}
@@ -48,9 +45,12 @@ public class ItemManaCookie extends ItemFood {
 
 	@Override
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
+		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.",
+				"item." + LibResources.PREFIX_MOD);
 	}
 
-	// todo 1.8 return stack.getDisplayName().toLowerCase().equals("totalbiscuit") ? totalBiscuitIcon : super.getIconIndex(stack);
+	// todo 1.8 return
+	// stack.getDisplayName().toLowerCase().equals("totalbiscuit") ?
+	// totalBiscuitIcon : super.getIconIndex(stack);
 
 }

@@ -10,13 +10,6 @@
  */
 package vazkii.botania.common;
 
-import vazkii.botania.common.core.handler.IMCHandler;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.proxy.CommonProxy;
-import vazkii.botania.common.integration.coloredlights.ILightHelper;
-import vazkii.botania.common.integration.coloredlights.LightHelperColored;
-import vazkii.botania.common.integration.coloredlights.LightHelperVanilla;
-import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -30,6 +23,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import vazkii.botania.common.core.handler.IMCHandler;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.integration.coloredlights.ILightHelper;
+import vazkii.botania.common.integration.coloredlights.LightHelperColored;
+import vazkii.botania.common.integration.coloredlights.LightHelperVanilla;
+import vazkii.botania.common.lib.LibMisc;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
@@ -64,6 +64,7 @@ public class Botania {
 
 		proxy.preInit(event);
 	}
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
@@ -94,8 +95,8 @@ public class Botania {
 		IMCHandler.processMessages(event.getMessages());
 	}
 
-	/*@EventHandler
-	public void missingMappings(FMLMissingMappingsEvent event) {
-		AliasHandler.onMissingMappings(event);
-	}*/
+	/*
+	 * @EventHandler public void missingMappings(FMLMissingMappingsEvent event)
+	 * { AliasHandler.onMissingMappings(event); }
+	 */
 }
