@@ -1,10 +1,18 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all"
+  },
   "variants": {
     "normal": [
-      { "model": "botania:elfGlass0" },
-      { "model": "botania:elfGlass1" },
-      { "model": "botania:elfGlass2" },
-      { "model": "botania:elfGlass3" }
-    ]
+      { "textures": { "all": "botania:blocks/elfGlass0" } },
+      { "textures": { "all": "botania:blocks/elfGlass1" } },
+      { "textures": { "all": "botania:blocks/elfGlass2" } },
+      { "textures": { "all": "botania:blocks/elfGlass3" } }
+    ],
+    "inventory": [{
+      "transform": "forge:default-block",
+      "textures": { "all": "botania:blocks/elfGlass" }
+    }]
   }
 }

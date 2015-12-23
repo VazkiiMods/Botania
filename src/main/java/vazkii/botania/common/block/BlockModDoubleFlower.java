@@ -212,7 +212,7 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 
 	@Override
 	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
-		int hex = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+		int hex = ((EnumDyeColor) state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1)).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = (hex & 0xFF);

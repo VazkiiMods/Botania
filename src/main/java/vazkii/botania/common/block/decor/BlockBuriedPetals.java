@@ -69,6 +69,6 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Override
 	public int getRenderType() {
-		return 0;
+		return -1;
 	}
 }

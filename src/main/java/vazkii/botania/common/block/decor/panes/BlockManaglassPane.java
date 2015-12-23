@@ -10,12 +10,18 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
+import net.minecraft.util.EnumWorldBlockLayer;
 import vazkii.botania.common.block.ModBlocks;
 
 public class BlockManaglassPane extends BlockModPane {
 
 	public BlockManaglassPane() {
 		super(ModBlocks.manaGlass);
+	}
+
+	@Override
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.TRANSLUCENT;
 	}
 
 }

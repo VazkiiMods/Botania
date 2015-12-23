@@ -76,7 +76,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		float f6 = 0.25F;
 
 		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		p_77026_1_.getWorldRenderer().putNormal(0.0F, 1.0F, 0.0F);
+		//p_77026_1_.getWorldRenderer().putNormal(0.0F, 1.0F, 0.0F);
 		//p_77026_1_.getWorldRenderer().setBrightness(240);
 		p_77026_1_.getWorldRenderer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).endVertex();

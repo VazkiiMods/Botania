@@ -116,8 +116,9 @@ public class TileBellows extends TileMod implements ITickable {
 	}
 
 	public TileEntity getLinkedTile() {
-		EnumFacing side = ((EnumFacing) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS));
-		return worldObj.getTileEntity(getPos().offset(side));
+		return null;
+//		EnumFacing side = ((EnumFacing) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS));
+//		return worldObj.getTileEntity(getPos().offset(side));
 	}
 
 	@Override

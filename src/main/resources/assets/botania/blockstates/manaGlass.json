@@ -1,7 +1,15 @@
 {
-  "variants": {
-    "normal": {
-      "model": "botania:manaGlass"
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "textures": {
+      "all": "botania:blocks/manaGlass"
     }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "transform": "forge:default-block"
+    }]
   }
 }

@@ -105,7 +105,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idPylon;
+		return 2;
 	}
 
 	@Override

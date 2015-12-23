@@ -7,12 +7,11 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
@@ -23,10 +22,12 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.item.ModItems.*;
 
 import java.util.List;
+import java.util.Locale;
 
 public final class ModelHandler {
 
@@ -34,23 +35,27 @@ public final class ModelHandler {
     // In addition, many of the jsons currently use the vanilla format (simple and verified bug-free).
     // Once things settle down, we'll move to forge jsons, which will drastically cut down on the number of json files
     public static void registerModels() {
+        OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
+
         /** Custom statemappers **/
         registerStateMappers();
 
         /** ItemBlocks **/
-        registerStorageItemBlocks();
-        registerMushroomItemBlocks();
-        registerFlowerItemBlocks();
+        registerStandardBlocks();
+        registerStorage();
+        registerMushrooms();
+        registerFlowers();
         registerLivingRockWood();
         registerAltGrass();
         registerStairs();
         registerSlabs();
         registerFullSlabs();
         registerPanes();
-        registerStandardBlocks();
-        registerManaResources();
+        registerPylons();
+
         /** Normal Items **/
-        
+        registerStandardItems();
+        registerManaResources();
 
         /** Special Item Meshers **/
     }
@@ -186,7 +191,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerStorageItemBlocks() {
+    private static void registerStorage() {
         Item item = Item.getItemFromBlock(ModBlocks.storage);
         for (StorageVariant variant : StorageVariant.values()) {
             String name = "botania:storage_" + variant.getName();
@@ -195,7 +200,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerMushroomItemBlocks() {
+    private static void registerMushrooms() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
             String name = "botania:mushroom_" + color.getName();
@@ -204,7 +209,7 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerFlowerItemBlocks() {
+    private static void registerFlowers() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
             String name = "botania:flower_" + color.getName();
@@ -237,11 +242,44 @@ public final class ModelHandler {
     }
 
     private static void registerStairs() {
-        registerItemModel(ModFluffBlocks.livingwoodStairs);
-        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
+        for (Block b : ModFluffBlocks.stoneStairs) {
+            registerItemModel(b);
+        }
+
+        for (Block b : ModFluffBlocks.pavementStairs) {
+            registerItemModel(b);
+        }
+
+        for (Block b : ModFluffBlocks.biomeStoneStairs) {
+            registerItemModel(b);
+        }
+
+        registerItemModel(ModFluffBlocks.blazeQuartzStairs);
+        registerItemModel(ModFluffBlocks.darkPrismarineStairs);
+        registerItemModel(ModFluffBlocks.darkQuartzStairs);
+        registerItemModel(ModFluffBlocks.dreamwoodStairs);
+        registerItemModel(ModFluffBlocks.dreamwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.elfQuartzStairs);
+        registerItemModel(ModFluffBlocks.enderBrickStairs);
+        registerItemModel(ModFluffBlocks.endStoneStairs);
+        registerItemModel(ModFluffBlocks.lavenderQuartzStairs);
         registerItemModel(ModFluffBlocks.livingrockStairs);
         registerItemModel(ModFluffBlocks.livingrockBrickStairs);
-
+        registerItemModel(ModFluffBlocks.livingwoodStairs);
+        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.manaQuartzStairs);
+        registerItemModel(ModFluffBlocks.netherBrickStairs);
+        registerItemModel(ModFluffBlocks.prismarineStairs);
+        registerItemModel(ModFluffBlocks.prismarineBrickStairs);
+        registerItemModel(ModFluffBlocks.redQuartzStairs);
+        registerItemModel(ModFluffBlocks.reedStairs);
+        registerItemModel(ModFluffBlocks.shimmerrockStairs);
+        registerItemModel(ModFluffBlocks.shimmerwoodPlankStairs);
+        registerItemModel(ModFluffBlocks.snowBrickStairs);
+        registerItemModel(ModFluffBlocks.soulBrickStairs);
+        registerItemModel(ModFluffBlocks.sunnyQuartzStairs);
+        registerItemModel(ModFluffBlocks.thatchStairs);
+        registerItemModel(ModFluffBlocks.tileStairs);
     }
 
     private static void registerSlabs() {
@@ -253,16 +291,27 @@ public final class ModelHandler {
     }
 
     private static void registerPanes() {
+        registerItemModel(ModFluffBlocks.alfglassPane);
+        registerItemModel(ModFluffBlocks.bifrostPane);
+        registerItemModel(ModFluffBlocks.managlassPane);
+    }
 
+    private static void registerPylons() {
+        Item item = Item.getItemFromBlock(ModBlocks.pylon);
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("botania:pylon", "variant=mana"));
+        ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation("botania:pylon", "variant=natura"));
+        ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation("botania:pylon", "variant=gaia"));
     }
 
     private static void registerItemModel(Block b) {
         registerItemModel(Item.getItemFromBlock(b));
     }
+
     private static void registerItemModel(Item i,int meta) {
         ResourceLocation loc = GameData.getItemRegistry().getNameForObject(i);
         ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "inventory"));
     }
+
     private static void registerItemModel(Item i) {
         registerItemModel(i, 0);
     }

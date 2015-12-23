@@ -15,13 +15,18 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -57,14 +62,16 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 			GlStateManager.color(1F, 1F, 1F, a);
+			PylonVariant variant = null;
 			if(tileentity.getWorld() != null) {
-				green = tileentity.getBlockMetadata() == 1;
-				pink = tileentity.getBlockMetadata() == 2;
+				variant = ((PylonVariant) tileentity.getWorld().getBlockState(tileentity.getPos()).getValue(BotaniaStateProps.PYLON_VARIANT));
+				green = variant == PylonVariant.NATURA;
+				pink = variant == PylonVariant.GAIA;
 			}
 
 			if(ConfigHandler.oldPylonModel)
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
-			else Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePink : green ? textureGreen : texture);
+			else Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 			double worldTime = tileentity.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
@@ -88,9 +95,9 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				if(!ConfigHandler.oldPylonModel)
 					GlStateManager.translate(-0.5F, 0F, 0.5F);
 
-				model.renderRing();
+				model.renderRing(variant);
 				GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
-				model.renderGems();
+				model.renderGems(variant);
 				GlStateManager.popMatrix();
 			}
 
@@ -106,7 +113,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
 
 			GlStateManager.disableCull();
-			model.renderCrystal();
+			model.renderCrystal(variant);
 
 			GlStateManager.color(1F, 1F, 1F, a);
 			if(!ShaderHelper.useShaders()) {
@@ -125,7 +132,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			else GlStateManager.translate(0F, -0.09F, 0F);
 
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
-			model.renderCrystal();
+			model.renderCrystal(variant);
 			ShaderHelper.releaseShader();
 
 			GlStateManager.enableAlpha();
