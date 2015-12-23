@@ -50,7 +50,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
-	
+
 	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap());
 
 	int filterType = 0;
@@ -68,7 +68,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
-		
+
 		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 		for(EntityItem item : items) {
 			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
@@ -79,6 +79,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			IInventory invToPutItemIn = null;
 			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
 			boolean priorityInv = false;
+			int amountToPutIn = 0;
 
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 				int x_ = x + dir.offsetX;
@@ -89,8 +90,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
-					canAccept &= stackSize == stack.stackSize;
+					int availablePut = InventoryHelper.testInventoryInsertion(inv, stack, dir);
+					canAccept &= availablePut > 0;
 
 					if(canAccept) {
 						boolean priority = !filter.isEmpty();
@@ -102,6 +103,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
+							amountToPutIn = availablePut;
 						}
 					}
 				}
@@ -115,9 +117,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 						particled.add(item);
 					}
 				} else {
-					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
+					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
+					item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
 					invToPutItemIn.markDirty();
-					item.setDead();
+					if(item.getEntityItem().stackSize == 0)
+						item.setDead();
 					pulledAny = true;
 				}
 			}
