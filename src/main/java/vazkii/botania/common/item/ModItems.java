@@ -35,7 +35,34 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
-import vazkii.botania.common.item.equipment.bauble.*;
+import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
+import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterMagnetRing;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
+import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
+import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
+import vazkii.botania.common.item.equipment.bauble.ItemItemFinder;
+import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
+import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
+import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
+import vazkii.botania.common.item.equipment.bauble.ItemSpeedUpBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemSwapRing;
+import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
+import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
 import vazkii.botania.common.item.equipment.tool.ItemStarSword;
@@ -76,7 +103,19 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
-import vazkii.botania.common.item.rod.*;
+import vazkii.botania.common.item.rod.ItemCobbleRod;
+import vazkii.botania.common.item.rod.ItemDirtRod;
+import vazkii.botania.common.item.rod.ItemDiviningRod;
+import vazkii.botania.common.item.rod.ItemExchangeRod;
+import vazkii.botania.common.item.rod.ItemFireRod;
+import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.common.item.rod.ItemMissileRod;
+import vazkii.botania.common.item.rod.ItemRainbowRod;
+import vazkii.botania.common.item.rod.ItemSkyDirtRod;
+import vazkii.botania.common.item.rod.ItemSmeltRod;
+import vazkii.botania.common.item.rod.ItemTerraformRod;
+import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -280,7 +319,7 @@ public final class ModItems {
 		terraPick = new ItemTerraPick();
 		divaCharm = new ItemDivaCharm();
 		flightTiara = new ItemFlightTiara();
-		enderDagger = new ItemEnderDagger();
+		enderDagger	= new ItemEnderDagger();
 		quartz = new ItemQuartz();
 		waterRod = new ItemWaterRod();
 		elementiumHelm = new ItemElementiumHelm();
@@ -379,7 +418,7 @@ public final class ModItems {
 		baubleBox = new ItemBaubleBox();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
-		for (int i = 0; i < 16; i++) {
+		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
@@ -418,7 +457,7 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
 		int min = Item.getIdFromItem(Items.record_13);
 		int max = Item.getIdFromItem(Items.record_wait);
-		for (int i = min; i <= max; i++)
+		for(int i = min; i <= max; i++)
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 
 		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
