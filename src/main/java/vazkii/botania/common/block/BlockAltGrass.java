@@ -88,10 +88,10 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				
-				Block block = world.getBlockState(pos1.up()).getBlock();
+				world.getBlockState(pos1.up()).getBlock();
 
-				if(world.getBlockState(pos1).getBlock() == Blocks.dirt && world.getBlockState(pos).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos.up()) <= 2)
-					world.setBlockState(pos, this.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
+				if(world.getBlockState(pos1).getBlock() == Blocks.dirt && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
+					world.setBlockState(pos1, this.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
 			}
 		}
 	}

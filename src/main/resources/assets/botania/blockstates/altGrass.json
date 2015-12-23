@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=dry": { "model": "botania:altGrass_dry" },
+    "variant=golden": { "model": "botania:altGrass_golden" },
+    "variant=vivid": { "model": "botania:altGrass_vivid" },
+    "variant=scorched": { "model": "botania:altGrass_scorched" },
+    "variant=infused": { "model": "botania:altGrass_infused" },
+    "variant=mutated": { "model": "botania:altGrass_mutated" }
+  }
+}

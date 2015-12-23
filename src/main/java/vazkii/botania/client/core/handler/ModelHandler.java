@@ -14,12 +14,15 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameData;
+import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.item.ItemGaiaHead;
+import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
@@ -37,10 +40,16 @@ public final class ModelHandler {
         registerMushroomItemBlocks();
         registerFlowerItemBlocks();
         registerLivingRockWood();
+        registerAltGrass();
         registerStairs();
         registerSlabs();
         registerFullSlabs();
+        registerPanes();
+        registerItemModel(ModBlocks.manaGlass);
+        registerItemModel(ModBlocks.elfGlass);
+
         /** Normal Items **/
+        registerItemModel(ModItems.lexicon);
 
         /** Special Item Meshers **/
     }
@@ -112,10 +121,19 @@ public final class ModelHandler {
         }
     }
 
+    private static void registerAltGrass() {
+        Item item = ItemGaiaHead.getItemFromBlock(ModBlocks.altGrass);
+        for (AltGrassVariant variant : AltGrassVariant.values()) {
+            String name = "botania:altGrass_" + variant.getName();
+            ModelLoader.addVariantName(item, name);
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
+        }
+    }
+
     private static void registerStorageItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.storage);
         for (StorageVariant variant : StorageVariant.values()) {
-            String name = "botania:" + "storage_" + variant.getName();
+            String name = "botania:storage_" + variant.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
@@ -124,7 +142,7 @@ public final class ModelHandler {
     private static void registerMushroomItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + "mushroom_" + color.getName();
+            String name = "botania:mushroom_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
         }
@@ -133,14 +151,14 @@ public final class ModelHandler {
     private static void registerFlowerItemBlocks() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + "flower_" + color.getName();
+            String name = "botania:flower_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
         }
 
         item = Item.getItemFromBlock(ModBlocks.shinyFlower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:" + "shinyFlower_" + color.getName();
+            String name = "botania:shinyFlower_" + color.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
         }
@@ -149,14 +167,14 @@ public final class ModelHandler {
     private static void registerLivingRockWood() {
         Item item = Item.getItemFromBlock(ModBlocks.livingrock);
         for (LivingRockVariant variant : LivingRockVariant.values()) {
-            String name = "botania:" + "livingrock_" + variant.getName();
+            String name = "botania:livingrock_" + variant.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
 
         item = Item.getItemFromBlock(ModBlocks.livingwood);
         for (LivingWoodVariant variant : LivingWoodVariant.values()) {
-            String name = "botania:" + "livingwood_" + variant.getName();
+            String name = "botania:livingwood_" + variant.getName();
             ModelLoader.addVariantName(item, name);
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
@@ -175,6 +193,10 @@ public final class ModelHandler {
     }
 
     private static void registerFullSlabs() {
+
+    }
+
+    private static void registerPanes() {
 
     }
 

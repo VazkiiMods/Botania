@@ -10,17 +10,13 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -29,12 +25,6 @@ public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexico
 	public BlockElfGlass() {
 		super(LibBlockNames.ELF_GLASS);
 	}
-
-//	@Override
-//	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int s) {
-//		int v = (int) Math.floor(new Random(x * 10 ^ y * 20 ^ z * 30).nextInt(ICON_COUNT * 100) / 100.0);
-//		return icons[v];
-//	} // todo 1.8 use randomized states for this
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {

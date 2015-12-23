@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "normal": [
+      { "model": "botania:elfGlass0" },
+      { "model": "botania:elfGlass1" },
+      { "model": "botania:elfGlass2" },
+      { "model": "botania:elfGlass3" }
+    ]
+  }
+}
