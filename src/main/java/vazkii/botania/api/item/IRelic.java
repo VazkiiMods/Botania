@@ -13,6 +13,8 @@ package vazkii.botania.api.item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
+import java.util.UUID;
+
 /**
  * An item that implements this counts as a Relic item. This is purely for interaction
  * and other mod items should not implement this interface.
@@ -20,14 +22,14 @@ import net.minecraft.stats.Achievement;
 public interface IRelic {
 
 	/**
-	 * Binds to the player name passed in.
+	 * Binds to the player UUID passed in.
 	 */
-	public void bindToUsername(String playerName, ItemStack stack);
+	public void bindToUuid(UUID playerName, ItemStack stack);
 
 	/**
-	 * Gets the username of the person this relic is bound to.
+	 * Gets the UUID of the person this relic is bound to.
 	 */
-	public String getSoulbindUsername(ItemStack stack);
+	public UUID getSoulbindUuid(ItemStack stack);
 
 	/**
 	 * Sets the achievement that this relic binds to.

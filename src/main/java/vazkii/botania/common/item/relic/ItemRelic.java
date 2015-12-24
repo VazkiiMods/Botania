@@ -11,7 +11,9 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +32,8 @@ import vazkii.botania.common.item.ModItems;
 
 public class ItemRelic extends ItemMod implements IRelic {
 
-	private static final String TAG_SOULBIND = "soulbind";
+	private static final String TAG_SOLBIND_NAME = "soulbind";
+	private static final String TAG_SOULBIND_UUID = "soulbindUuid";
 
 	Achievement achievement;
 
@@ -50,15 +53,19 @@ public class ItemRelic extends ItemMod implements IRelic {
 		addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
 	}
 
-	public static void addBindInfo(List list, ItemStack stack, EntityPlayer player) {
+	public static void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String bind = getSoulbindUsernameS(stack);
-			if(bind.isEmpty())
+			UUID bind = getSoulbindUuidS(stack);
+			if(bind == null)
 				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.relicUnbound"), list);
 			else {
-				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), bind), list);
+				String disp = getSoulbindNameS(stack);
+				if (disp.isEmpty()) {
+					disp = bind.toString();
+				}
+				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), disp), list);
 				if(!isRightPlayer(player, stack))
-					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), bind), list);
+					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), disp), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)
@@ -86,19 +93,28 @@ public class ItemRelic extends ItemMod implements IRelic {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
-	public static String getSoulbindUsernameS(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_SOULBIND, "");
+	public static UUID getSoulbindUuidS(ItemStack stack) {
+		try {
+			return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
+		} catch (IllegalArgumentException ex) {
+			// Bad text in tag
+			return null;
+		}
+	}
+
+	public static String getSoulbindNameS(ItemStack stack) {
+		return ItemNBTHelper.getString(stack, TAG_SOLBIND_NAME, "");
 	}
 
 	public static void updateRelic(ItemStack stack, EntityPlayer player) {
 		if(stack == null || !(stack.getItem() instanceof IRelic))
 			return;
 
-		String soulbind = getSoulbindUsernameS(stack);
-		if(soulbind.isEmpty()) {
+		UUID soulbind = getSoulbindUuidS(stack);
+		if(soulbind == null) {
 			player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
 			bindToPlayer(player, stack);
-			soulbind = getSoulbindUsernameS(stack);
+			soulbind = getSoulbindUuidS(stack);
 		}
 
 		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
@@ -106,19 +122,24 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
-		bindToUsernameS(player.getName(), stack);
+		bindToUuidS(player.getUniqueID(), stack);
+		bindToNameS(player.getName(), stack);
 	}
 
-	public static void bindToUsernameS(String username, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND, username);
+	public static void bindToNameS(String playerName, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOLBIND_NAME, playerName);
+	}
+
+	public static void bindToUuidS(UUID uuid, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
 	}
 
 	public static boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
-		return isRightPlayer(player.getName(), stack);
+		return isRightPlayer(player.getUniqueID(), stack);
 	}
 
-	public static boolean isRightPlayer(String player, ItemStack stack) {
-		return getSoulbindUsernameS(stack).equals(player);
+	public static boolean isRightPlayer(UUID uuid, ItemStack stack) {
+		return uuid.equals(getSoulbindUuidS(stack));
 	}
 
 	public static DamageSource damageSource() {
@@ -126,13 +147,13 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		bindToUsernameS(playerName, stack);
+	public void bindToUuid(UUID playerName, ItemStack stack) {
+		bindToUuidS(playerName, stack);
 	}
 
 	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return getSoulbindUsernameS(stack);
+	public UUID getSoulbindUuid(ItemStack stack) {
+		return getSoulbindUuidS(stack);
 	}
 
 	@Override
