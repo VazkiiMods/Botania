@@ -129,7 +129,8 @@ public final class ModelHandler {
         // Ignore redstone power state in some blocks
         ModelLoader.setCustomStateMapper(ModBlocks.starfield, (new StateMap.Builder()).ignore(BotaniaStateProps.POWERED).build());
 
-        // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
+        // Ignore color in special flower, unstable cube, mana beacon, and petals (handled by color multiplier)
+        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.petalBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());

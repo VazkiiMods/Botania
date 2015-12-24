@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania_SPECIAL:specialFlower",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{
+      "custom": {
+        "base": "minecraft:poppy#normal"
+      }
+    }]
+  }
+}

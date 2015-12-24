@@ -12,13 +12,12 @@ package vazkii.botania.common.block;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,17 +31,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.PropertyClass;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.integration.coloredlights.LightHelper;
@@ -112,12 +117,26 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
+		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.SUBTILE_CLASS, SubTileDaybloom.class)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
+		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, getTypeProperty(), BotaniaStateProps.COLOR);
+		return new ExtendedBlockState(this, new IProperty[]{ getTypeProperty(), BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_CLASS } );
+	}
+
+	@Override
+	public IExtendedBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileSpecialFlower) {
+			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
+			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_CLASS, clazz);
+		} else {
+			return ((IExtendedBlockState) state);
+		}
 	}
 
 	@Override
@@ -168,7 +187,12 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idSpecialFlower;
+		return 3;
+	}
+
+	@Override
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT;
 	}
 
 	@Override
@@ -257,9 +281,14 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
-		return ((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR))
+	public int getRenderColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR))
 				.getMapColor().colorValue;
+	}
+
+	@Override
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
+		return getRenderColor(world.getBlockState(pos));
 	}
 
 	@Override

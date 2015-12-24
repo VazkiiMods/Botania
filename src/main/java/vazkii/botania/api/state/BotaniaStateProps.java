@@ -17,6 +17,10 @@ import javax.annotation.Nullable;
  */
 public class BotaniaStateProps {
 
+    /** The property for specialFlower **/
+
+    public static final PropertyClass SUBTILE_CLASS = new PropertyClass("subtile_class");
+
     /** Common properties to all blocks to use **/
 
     // The 16 Minecraft colors
