@@ -21,7 +21,9 @@ Unless someone figures out a way to use the old one
 sorry :/ The systems needed to dynamically switch out the textures like that is not worth just throwing them into a resource pack
 * Slabs are kinda janky if you look at them - Mojang made some extremely silly assumptions and we're going to have to go with them
 * Quartz stair textures may be assigned incorrectly - resource pack authors check me
-* Glass pane inner faces are not getting culled
+* Glass pane inner faces are not getting culled (vanilla bug?)
+* Some item forms of technical/non-user blocks are removed
+    * Full list: [all double slab items, all solid vine items]
 
 -- Todo --
 * JSON models for everything (tedious/med-hard)

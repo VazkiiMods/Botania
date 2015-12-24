@@ -52,7 +52,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
+		GameRegistry.registerBlock(this, null, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
 

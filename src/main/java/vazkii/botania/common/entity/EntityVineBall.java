@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -20,6 +22,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.Map;
 
 public class EntityVineBall extends EntityThrowable {
 
@@ -39,18 +43,18 @@ public class EntityVineBall extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition var1) {
 		if(var1 != null) {
 			EnumFacing dir = var1.sideHit;
-			int[] metaPlace = new int[] {
-					1, 4, 8, 2
-			};
 
-			if(dir.getAxis() != EnumFacing.Axis.Y) {
+			Map<EnumFacing, PropertyBool> propMap = ImmutableMap.of(EnumFacing.NORTH, BlockVine.NORTH, EnumFacing.SOUTH, BlockVine.SOUTH,
+					EnumFacing.WEST, BlockVine.WEST, EnumFacing.EAST, BlockVine.EAST);
+
+			if(dir != null && dir.getAxis() != EnumFacing.Axis.Y) {
 				BlockPos pos = var1.getBlockPos().offset(dir);
 				while(pos.getY() > 0) {
 					Block block = worldObj.getBlockState(pos).getBlock();
 					if(block.isAir(worldObj, pos)) {
-						IBlockState state = ModBlocks.solidVines.getDefaultState().withProperty(BlockVine.ALL_FACES[dir.getIndex() + 1], true);
+						IBlockState state = ModBlocks.solidVines.getDefaultState().withProperty(propMap.get(dir.getOpposite()), true);
 						worldObj.setBlockState(pos, state, 1 | 2);
-						worldObj.playAuxSFX(2001, pos, Block.getStateId(state)); // todo 1.8 verify
+						worldObj.playAuxSFX(2001, pos, Block.getStateId(state));
 						pos = pos.down();
 					} else break;
 				}
