@@ -192,7 +192,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idPool;
+		return 2;
 	}
 
 	@Override

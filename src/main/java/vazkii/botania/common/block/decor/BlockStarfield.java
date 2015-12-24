@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -37,6 +38,16 @@ public class BlockStarfield extends BlockModContainer implements ILexiconable {
 		setUnlocalizedName(LibBlockNames.STARFIELD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
+	}
+
+	@Override
+	public int getRenderType() {
+		return 3;
+	}
+
+	@Override
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT_MIPPED;
 	}
 
 	@Override

@@ -54,6 +54,7 @@ public final class ModelHandler {
         registerPanes();
         registerPylons();
         registerUnstableBeaconPetal();
+        registerDrums();
 
         /** Normal Items **/
         registerStandardItems();
@@ -65,7 +66,10 @@ public final class ModelHandler {
     private static void registerStandardBlocks() {
         registerItemModel(ModBlocks.manaGlass);
         registerItemModel(ModBlocks.elfGlass);
-
+        registerItemModel(ModBlocks.runeAltar);
+        registerItemModel(ModBlocks.pistonRelay);
+        registerItemModel(ModBlocks.distributor);
+        registerItemModel(ModBlocks.starfield);
     }
 
     private static void registerStandardItems() {
@@ -122,6 +126,9 @@ public final class ModelHandler {
     }
 
     private static void registerStateMappers() {
+        // Ignore redstone power state in some blocks
+        ModelLoader.setCustomStateMapper(ModBlocks.starfield, (new StateMap.Builder()).ignore(BotaniaStateProps.POWERED).build());
+
         // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
         ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
@@ -323,6 +330,15 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(unstable, color.getMetadata(), new ModelResourceLocation("botania:unstableBlock", "inventory"));
             ModelLoader.setCustomModelResourceLocation(beacon, color.getMetadata(), new ModelResourceLocation("botania:manaBeacon", "inventory"));
             ModelLoader.setCustomModelResourceLocation(petal, color.getMetadata(), new ModelResourceLocation("botania:petalBlock", "inventory"));
+        }
+    }
+
+    private static void registerDrums() {
+        Item item = Item.getItemFromBlock(ModBlocks.forestDrum);
+        for (LivingRockVariant variant : LivingRockVariant.values()) {
+            String name = "botania:drum_" + variant.getName();
+            ModelLoader.addVariantName(item, name);
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation(name, "inventory"));
         }
     }
 

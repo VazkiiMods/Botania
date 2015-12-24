@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "variant=wild": { "model": "botania:drum_wild" },
+    "variant=gathering": { "model": "botania:drum_gathering" },
+    "variant=canopy": { "model": "botania:drum_canopy" }
+  }
+}

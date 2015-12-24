@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:biggerthanslab",
+    "textures": {
+      "top": "botania:blocks/runeAltar1",
+      "side": "botania:blocks/runeAltar2",
+      "bottom": "botania:blocks/runeAltar0"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "transform": "forge:default-block"
+    }]
+  }
+}
