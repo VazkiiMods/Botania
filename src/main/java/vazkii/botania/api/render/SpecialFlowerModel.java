@@ -43,20 +43,6 @@ import java.util.Map;
 public class SpecialFlowerModel implements IModelCustomData {
 
     /**
-     * Internal implementation
-     **/
-    // SpecialFlowerModel for when there are no models registered for a subtile
-    public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation>of());
-    // Models registered from the externel API thus far
-    private static final Map<Class<? extends SubTileEntity>, ModelResourceLocation> queuedModels = Maps.newHashMap();
-    private final ImmutableMap<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation> models;
-
-
-    public SpecialFlowerModel(ImmutableMap<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation> models) {
-        this.models = models;
-    }
-
-    /**
      * Register your model for the given subtile class here.
      * Call this DURING PREINIT. Calling it anytime after models have already baked does not guarantee that your model will work.
      * Your model json must specify key "tintindex" in all the faces it wants tint applied.
@@ -68,6 +54,21 @@ public class SpecialFlowerModel implements IModelCustomData {
      */
     public static void register(Class<? extends SubTileEntity> subTileClass, ModelResourceLocation model) {
         queuedModels.put(subTileClass, model);
+    }
+
+    /**
+     * Internal implementation
+     **/
+    // SpecialFlowerModel for when there are no models registered for a subtile
+    public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation>of());
+    // Models registered from the externel API thus far
+    private static final Map<Class<? extends SubTileEntity>, ModelResourceLocation> queuedModels = Maps.newHashMap();
+
+
+    private final ImmutableMap<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation> models;
+
+    public SpecialFlowerModel(ImmutableMap<Optional<Class<? extends SubTileEntity>>, ModelResourceLocation> models) {
+        this.models = models;
     }
 
     @Override
@@ -125,8 +126,10 @@ public class SpecialFlowerModel implements IModelCustomData {
 
             @Override
             public boolean accepts(ResourceLocation modelLocation) {
-                return "botania_SPECIAL".equals(modelLocation.getResourceDomain())
-                        && "specialFlower".equals(modelLocation.getResourcePath());
+                return modelLocation.getResourceDomain().equals("botania_special") && (
+                        modelLocation.getResourcePath().equals("specialFlower") ||
+                                modelLocation.getResourcePath().equals("models/block/specialFlower") ||
+                                modelLocation.getResourcePath().equals("models/item/specialFlower"));
             }
 
             @Override
@@ -154,7 +157,8 @@ public class SpecialFlowerModel implements IModelCustomData {
         }
 
         private void refreshBakedModels() {
-            if (baseModel == null) {
+            System.out.println("Refreshing");
+            //if (baseModel == null) {
                 ModelManager manager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
                 baseModel = getModel(manager, Optional.<Class<? extends SubTileEntity>>absent());
 
@@ -173,11 +177,11 @@ public class SpecialFlowerModel implements IModelCustomData {
                     quadBuilder.put(Optional.of(side), buildQuads(Optional.of(side)));
                 }
                 quads = quadBuilder.build();
-            }
+            //}
         }
 
-        private IBakedModel getModel(ModelManager manager, Optional<Class<? extends SubTileEntity>> layer) {
-            ModelResourceLocation loc = models.get(layer);
+        private IBakedModel getModel(ModelManager manager, Optional<Class<? extends SubTileEntity>> optClazz) {
+            ModelResourceLocation loc = models.get(optClazz);
             if (loc == null) {
                 loc = new ModelResourceLocation("builtin/missing", "missing");
             }
@@ -205,7 +209,7 @@ public class SpecialFlowerModel implements IModelCustomData {
         @Override
         public List<BakedQuad> getGeneralQuads() {
             refreshBakedModels();
-            return quads.get(Optional.absent());
+            return quads.get(Optional.<EnumFacing>absent());
         }
 
         @Override
@@ -239,6 +243,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
         @Override
         public IBakedModel handleBlockState(IBlockState state) {
+            refreshBakedModels();
             IExtendedBlockState extendedState = ((IExtendedBlockState) state);
             Class<? extends SubTileEntity> clazz = extendedState.getValue(BotaniaStateProps.SUBTILE_CLASS);
             return bakedFlowerModels.get(clazz);

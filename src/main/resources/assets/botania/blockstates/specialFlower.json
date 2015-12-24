@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania_SPECIAL:specialFlower",
+    "model": "botania_special:specialFlower",
     "transform": "forge:default-block"
   },
   "variants": {

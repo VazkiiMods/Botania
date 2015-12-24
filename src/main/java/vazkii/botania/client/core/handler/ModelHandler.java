@@ -11,8 +11,10 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
+import vazkii.botania.api.render.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
@@ -21,6 +23,7 @@ import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -36,7 +39,10 @@ public final class ModelHandler {
     // In addition, many of the jsons currently use the vanilla format (simple and verified bug-free).
     // Once things settle down, we'll move to forge jsons, which will drastically cut down on the number of json files
     public static void registerModels() {
+        ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
+
+        SpecialFlowerModel.register(SubTileDaybloom.class, new ModelResourceLocation("botania:daybloom"));
 
         /** Custom statemappers **/
         registerStateMappers();
@@ -129,8 +135,7 @@ public final class ModelHandler {
         // Ignore redstone power state in some blocks
         ModelLoader.setCustomStateMapper(ModBlocks.starfield, (new StateMap.Builder()).ignore(BotaniaStateProps.POWERED).build());
 
-        // Ignore color in special flower, unstable cube, mana beacon, and petals (handled by color multiplier)
-        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+        // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
         ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.petalBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());

@@ -22,6 +22,8 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,9 +37,14 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -121,6 +128,18 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				.withProperty(BotaniaStateProps.SUBTILE_CLASS, SubTileDaybloom.class)
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent evt) {
+		evt.modelManager.getBlockModelShapes().registerBlockWithStateMapper(this, new DefaultStateMapper() {
+			@Override
+			public ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				return new ModelResourceLocation("botania:specialFlower");
+			}
+		});
 	}
 
 	@Override

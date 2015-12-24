@@ -182,7 +182,6 @@ public class ClientProxy extends CommonProxy {
 
 		super.preInit(event);
 
-		ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
 		ModelHandler.registerModels();
 	}
 

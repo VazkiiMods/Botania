@@ -9,6 +9,8 @@ Anyways, vanilla removed it from their method so we follow suit.
 * SubTileEntity's methods that are copied from block (onBlockadded, etc.) updated to match vanilla counterparts
 * Multiblock system reworked to use states and blockposes
 * Magnet blacklist still uses metas instead of states because they need to support the short maxvalue wildcard.
+* Now includes a way for addons to pass the Botania loader the models they want to use to render their subtile with
+    * todo: possibly make the unlisted properties use the subtile string name instead of class. Will be much easier.
 
 -- Other --
 * Most things left untouched to make patches from upstream easier
