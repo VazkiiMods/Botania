@@ -7,7 +7,12 @@
   "variants": {
     "normal": [{
       "custom": {
-        "base": "minecraft:poppy#normal"
+        "base": "botania:flower#color=white"
+      }
+    }],
+    "inventory": [{
+      "custom": {
+        "base": "minecraft:poppy"
       }
     }]
   }

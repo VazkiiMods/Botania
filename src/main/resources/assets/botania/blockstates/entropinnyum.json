@@ -4,7 +4,7 @@
     "normal": [{
       "model": "botania:cross_tinted",
       "textures": {
-        "cross": "botania:blocks/daybloom"
+        "cross": "botania:blocks/entropinnyum"
       }
     }]
   }

@@ -23,8 +23,50 @@ import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.block.subtile.SubTileDecor;
+import vazkii.botania.common.block.subtile.SubTileManastar;
+import vazkii.botania.common.block.subtile.SubTilePureDaisy;
+import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
+import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
+import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
+import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
+import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
+import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
+import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
+import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
+import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
+import vazkii.botania.common.block.subtile.functional.SubTileHyacidus;
+import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
+import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
+import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.subtile.functional.SubTileMarimorphosis;
+import vazkii.botania.common.block.subtile.functional.SubTileMedumone;
+import vazkii.botania.common.block.subtile.functional.SubTileOrechid;
+import vazkii.botania.common.block.subtile.functional.SubTileOrechidIgnem;
+import vazkii.botania.common.block.subtile.functional.SubTilePollidisiac;
+import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
+import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
+import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
+import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
+import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
+import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
+import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
+import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
+import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
+import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
+import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
+import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
+import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
+import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
+import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
+import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.item.ItemGaiaHead;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -42,7 +84,8 @@ public final class ModelHandler {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
 
-        SpecialFlowerModel.register(SubTileDaybloom.class, new ModelResourceLocation("botania:daybloom"));
+        /** Subtile block models **/
+        registerSubtiles();
 
         /** Custom statemappers **/
         registerStateMappers();
@@ -69,6 +112,64 @@ public final class ModelHandler {
         /** Special Item Meshers **/
     }
 
+    private static void registerSubtiles() {
+        SpecialFlowerModel.register(SubTileManastar.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MANASTAR));
+        SpecialFlowerModel.register(SubTilePureDaisy.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_PUREDAISY));
+
+        SpecialFlowerModel.register(SubTileDaybloom.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM));
+        SpecialFlowerModel.register(SubTileDecor.Daybloom.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM + "Decor"));
+        SpecialFlowerModel.register(SubTileDaybloom.Prime.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
+        SpecialFlowerModel.register(SubTileEndoflame.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ENDOFLAME));
+        SpecialFlowerModel.register(SubTileHydroangeas.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HYDROANGEAS));
+        SpecialFlowerModel.register(SubTileDecor.Hydroangeas.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HYDROANGEAS + "Decor"));
+        SpecialFlowerModel.register(SubTileThermalily.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_THERMALILY));
+        SpecialFlowerModel.register(SubTileNightshade.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE));
+        SpecialFlowerModel.register(SubTileDecor.Nightshade.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE + "Decor"));
+        SpecialFlowerModel.register(SubTileNightshade.Prime.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE_PRIME));
+        SpecialFlowerModel.register(SubTileArcaneRose.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ARCANE_ROSE));
+        SpecialFlowerModel.register(SubTileMunchdew.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MUNCHDEW));
+        SpecialFlowerModel.register(SubTileEntropinnyum.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ENTROPINNYUM));
+        SpecialFlowerModel.register(SubTileKekimurus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_KEKIMURUS));
+        SpecialFlowerModel.register(SubTileGourmaryllis.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_GOURMARYLLIS));
+        SpecialFlowerModel.register(SubTileNarslimmus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NARSLIMMUS));
+        SpecialFlowerModel.register(SubTileSpectrolus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SPECTROLUS));
+        SpecialFlowerModel.register(SubTileDandelifeon.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DANDELIFEON));
+        SpecialFlowerModel.register(SubTileRafflowsia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_RAFFLOWSIA));
+
+        SpecialFlowerModel.register(SubTileBellethorn.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BELLETHORN));
+        SpecialFlowerModel.register(SubTileBellethorn.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BELLETHORN + "Chibi"));
+        SpecialFlowerModel.register(SubTileDreadthorn.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DREADTHORN));
+        SpecialFlowerModel.register(SubTileHeiseiDream.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HEISEI_DREAM));
+        SpecialFlowerModel.register(SubTileTigerseye.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_TIGERSEYE));
+        SpecialFlowerModel.register(SubTileJadedAmaranthus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_JADED_AMARANTHUS));
+        SpecialFlowerModel.register(SubTileOrechid.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ORECHID));
+        SpecialFlowerModel.register(SubTileOrechidIgnem.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ORECHID_IGNEM));
+        SpecialFlowerModel.register(SubTileFallenKanade.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_FALLEN_KANADE));
+        SpecialFlowerModel.register(SubTileExoflame.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_EXOFLAME));
+        SpecialFlowerModel.register(SubTileAgricarnation.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_AGRICARNATION));
+        SpecialFlowerModel.register(SubTileAgricarnation.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_AGRICARNATION + "Chibi"));
+        SpecialFlowerModel.register(SubTileHopperhock.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HOPPERHOCK));
+        SpecialFlowerModel.register(SubTileHopperhock.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HOPPERHOCK + "Chibi"));
+        SpecialFlowerModel.register(SubTileTangleberrie.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_TANGLEBERRIE));
+        SpecialFlowerModel.register(SubTileJiyuulia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_JIYUULIA));
+        SpecialFlowerModel.register(SubTileRannuncarpus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_RANNUNCARPUS));
+        SpecialFlowerModel.register(SubTileRannuncarpus.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_RANNUNCARPUS + "Chibi"));
+        SpecialFlowerModel.register(SubTileHyacidus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HYACIDUS));
+        SpecialFlowerModel.register(SubTilePollidisiac.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_POLLIDISIAC));
+        SpecialFlowerModel.register(SubTileClayconia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_CLAYCONIA));
+        SpecialFlowerModel.register(SubTileLoonuim.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_LOONIUM));
+        SpecialFlowerModel.register(SubTileDaffomill.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAFFOMILL));
+        SpecialFlowerModel.register(SubTileVinculotus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_VINCULOTUS));
+        SpecialFlowerModel.register(SubTileSpectranthemum.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SPECTRANTHEMUM));
+        SpecialFlowerModel.register(SubTileMedumone.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MEDUMONE));
+        SpecialFlowerModel.register(SubTileMarimorphosis.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MARIMORPHOSIS));
+        SpecialFlowerModel.register(SubTileMarimorphosis.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MARIMORPHOSIS + "Chibi"));
+        SpecialFlowerModel.register(SubTileBubbell.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BUBBELL));
+        SpecialFlowerModel.register(SubTileBubbell.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BUBBELL + "Chibi"));
+        SpecialFlowerModel.register(SubTileSolegnolia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SOLEGNOLIA));
+        SpecialFlowerModel.register(SubTileSolegnolia.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SOLEGNOLIA + "Chibi"));
+    }
+
     private static void registerStandardBlocks() {
         registerItemModel(ModBlocks.manaGlass);
         registerItemModel(ModBlocks.elfGlass);
@@ -76,6 +177,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.pistonRelay);
         registerItemModel(ModBlocks.distributor);
         registerItemModel(ModBlocks.starfield);
+        registerItemModel(ModBlocks.specialFlower);
     }
 
     private static void registerStandardItems() {
@@ -144,7 +246,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
 
         // Ignore vanilla variant in walls
         ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());

@@ -10,8 +10,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.enums.*;
 
-import javax.annotation.Nullable;
-
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
  */
@@ -19,7 +17,7 @@ public class BotaniaStateProps {
 
     /** The property for specialFlower **/
 
-    public static final PropertyClass SUBTILE_CLASS = new PropertyClass("subtile_class");
+    public static final PropertyString SUBTILE_ID = new PropertyString("subtile_id");
 
     /** Common properties to all blocks to use **/
 

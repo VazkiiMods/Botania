@@ -292,8 +292,6 @@ public final class BotaniaAPI {
 
 		paintableBlocks.put(paintable, colorProp);
 		return paintable;
-
-		//todo 1.8 improve this
 	}
 
 	/**
@@ -334,7 +332,7 @@ public final class BotaniaAPI {
 	}
 
 	public static boolean isBlockBlacklistedFromMagnet(IBlockState state) {
-		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state), 0);
+		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state));
 	}
 
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {

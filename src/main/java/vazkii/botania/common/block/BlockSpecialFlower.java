@@ -23,6 +23,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,6 +36,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.RegistrySimple;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -46,10 +48,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.render.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.PropertyClass;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandHUD;
@@ -125,7 +127,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.SUBTILE_CLASS, SubTileDaybloom.class)
+				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -134,6 +136,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onModelBake(ModelBakeEvent evt) {
+		// Ignore all vanilla rules, redirect all blockstates to blockstates/specialFlower.json#normal
 		evt.modelManager.getBlockModelShapes().registerBlockWithStateMapper(this, new DefaultStateMapper() {
 			@Override
 			public ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -144,15 +147,16 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public BlockState createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[]{ getTypeProperty(), BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_CLASS } );
+		return new ExtendedBlockState(this, new IProperty[] { getTypeProperty(), BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID } );
 	}
 
 	@Override
 	public IExtendedBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof TileSpecialFlower) {
+		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
 			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
-			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_CLASS, clazz);
+			String id = BotaniaAPI.getSubTileStringMapping(clazz);
+			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, id);
 		} else {
 			return ((IExtendedBlockState) state);
 		}
