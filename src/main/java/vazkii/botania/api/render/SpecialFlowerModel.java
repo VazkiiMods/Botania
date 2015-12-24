@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -47,40 +48,67 @@ public class SpecialFlowerModel implements IModelCustomData {
 
     /**
      * Register your model for the given subtile class here.
-     * Call this DURING PREINIT. Calling it anytime after models have already baked does not guarantee that your model will work.
+     * Call this DURING PREINIT. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
      * Your model json must specify key "tintindex" in all the faces it wants tint applied.
      * Tint is applied whenever a player recolors the flower using floral dye
      * todo 1.8.8 move this elsewhere or otherwise make it fit better with the rest of the subtile registration process
      *
-     * @param subTileName The String ID of the subtile 
+     * @param subTileName The String ID of the subtile
      * @param model A path to a blockstate json and variant to be used for this subtile
+     * @param itemModel A path to a blockstate json and variant to be used for this subtile's item form
+     */
+    public static void register(String subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
+        queuedBlockModels.put(subTileName, model);
+        queuedItemModels.put(subTileName, itemModel);
+    }
+
+    /**
+     * Register your model for the given subtile class here.
+     * Call this DURING PREINIT. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
+     * Your model json must specify key "tintindex" in all the faces it wants tint applied.
+     * Tint is applied whenever a player recolors the flower using floral dye
+     * todo 1.8.8 move this elsewhere or otherwise make it fit better with the rest of the subtile registration process
+     *
+     * @param subTileName The String ID of the subtile
+     * @param model A path to a blockstate json and variant to be used the block. The item model will be drawn from the same blockstate json, from variant "inventory"
      */
     public static void register(String subTileName, ModelResourceLocation model) {
-        queuedModels.put(subTileName, model);
+        register(subTileName, model, new ModelResourceLocation(model.getResourceDomain() + ":" + model.getResourcePath(), "inventory"));
     }
 
     public static void register(Class<? extends SubTileEntity> clazz, ModelResourceLocation model) {
         register(BotaniaAPI.getSubTileStringMapping(clazz), model);
     }
 
+    public static void register(Class<? extends SubTileEntity> clazz, ModelResourceLocation model, ModelResourceLocation itemModel) {
+        register(BotaniaAPI.getSubTileStringMapping(clazz), model, itemModel);
+    }
+
     /**
      * Internal implementation
      **/
-    // SpecialFlowerModel for when there are no models registered for a subtile
-    public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<String>, ModelResourceLocation>of());
+    // SpecialFlowerModel for when there are no blockModels registered for a subtile
+    public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<String>, ModelResourceLocation>of(), ImmutableMap.<Optional<String>, ModelResourceLocation>of());
     // Models registered from the externel API thus far
-    private static final Map<String, ModelResourceLocation> queuedModels = Maps.newHashMap();
+    private static final Map<String, ModelResourceLocation> queuedBlockModels = Maps.newHashMap();
+    private static final Map<String, ModelResourceLocation> queuedItemModels = Maps.newHashMap();
 
 
-    private final ImmutableMap<Optional<String>, ModelResourceLocation> models;
+    private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
+    private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
 
-    public SpecialFlowerModel(ImmutableMap<Optional<String>, ModelResourceLocation> models) {
-        this.models = models;
+    public SpecialFlowerModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
+                              ImmutableMap<Optional<String>, ModelResourceLocation> itemModels) {
+        this.blockModels = blockModels;
+        this.itemModels = itemModels;
     }
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
-        return ImmutableList.<ResourceLocation>copyOf(models.values());
+        ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
+        builder.addAll(blockModels.values());
+        builder.addAll(itemModels.values());
+        return builder.build();
     }
 
     @Override
@@ -90,8 +118,8 @@ public class SpecialFlowerModel implements IModelCustomData {
 
     @Override
     public IFlexibleBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        // "Bake" the SpecialFlowerModel (in reality, just create another wrapper for all the delegate models)
-        return new SpecialFlowerBakedModel(models, format, IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+        // "Bake" the SpecialFlowerModel (in reality, just create another wrapper for all the delegate blockModels)
+        return new SpecialFlowerBakedModel(blockModels, itemModels, format, IPerspectiveAwareModel.MapWrapper.getTransforms(state));
     }
 
     @Override
@@ -102,18 +130,26 @@ public class SpecialFlowerModel implements IModelCustomData {
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
         // Load the base variant from blockstate json, and also add all the model paths we received from external API
-        ImmutableMap.Builder<Optional<String>, ModelResourceLocation> builder = ImmutableMap.builder();
+        ImmutableMap.Builder<Optional<String>, ModelResourceLocation> blockBuilder = ImmutableMap.builder();
+        ImmutableMap.Builder<Optional<String>, ModelResourceLocation> itemBuilder = ImmutableMap.builder();
+
         for (String key : customData.keySet()) {
             if ("base".equals(key)) {
-                builder.put(Optional.<String>absent(), getLocation(customData.get(key)));
-            }
-            for (Map.Entry<String, ModelResourceLocation> e : queuedModels.entrySet()) {
-                builder.put(Optional.<String>of(e.getKey()), e.getValue());
+                blockBuilder.put(Optional.<String>absent(), getLocation(customData.get(key)));
             }
         }
-        ImmutableMap<Optional<String>, ModelResourceLocation> models = builder.build();
-        if (models.isEmpty()) return INSTANCE;
-        return new SpecialFlowerModel(models);
+
+        for (Map.Entry<String, ModelResourceLocation> e : queuedBlockModels.entrySet()) {
+            blockBuilder.put(Optional.of(e.getKey()), e.getValue());
+        }
+        for (Map.Entry<String, ModelResourceLocation> e : queuedItemModels.entrySet()) {
+            itemBuilder.put(Optional.of(e.getKey()), e.getValue());
+        }
+
+        ImmutableMap<Optional<String>, ModelResourceLocation> blockModels = blockBuilder.build();
+        ImmutableMap<Optional<String>, ModelResourceLocation> itemModels = itemBuilder.build();
+        if (blockModels.isEmpty() && itemModels.isEmpty()) return INSTANCE;
+        return new SpecialFlowerModel(blockModels, itemModels);
     }
 
     private ModelResourceLocation getLocation(String json) {
@@ -141,7 +177,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
             @Override
             public IModel loadModel(ResourceLocation modelLocation) throws IOException {
-                // Load a dummy model for now, all actual models added in process().
+                // Load a dummy model for now, all actual blockModels added in process().
                 return SpecialFlowerModel.INSTANCE;
             }
         }
@@ -150,33 +186,46 @@ public class SpecialFlowerModel implements IModelCustomData {
     public static class SpecialFlowerBakedModel implements IPerspectiveAwareModel, ISmartBlockModel, ISmartItemModel {
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
-        private final ImmutableMap<Optional<String>, ModelResourceLocation> models;
+        private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
+        private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
         private final VertexFormat vertexFormat;
 
         private IBakedModel baseModel;
-        private ImmutableMap<String, IBakedModel> bakedFlowerModels;
+        private ImmutableMap<String, IBakedModel> bakedBlockModels;
+        private ImmutableMap<String, IBakedModel> bakedItemModels;
         private ImmutableMap<Optional<EnumFacing>, ImmutableList<BakedQuad>> quads;
 
-        public SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> models, VertexFormat format, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
-            this.models = models;
+        public SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
+                                       ImmutableMap<Optional<String>, ModelResourceLocation> itemModels,
+                                       VertexFormat format, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
+            this.blockModels = blockModels;
+            this.itemModels = itemModels;
             this.vertexFormat = format;
             this.transforms = cameraTransforms;
         }
 
         private void refreshBakedModels() {
             if (baseModel == null) {
-                System.out.println("Refreshing baked models");
                 ModelManager manager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
-                baseModel = getModel(manager, Optional.<String>absent());
+                baseModel = getBlockModel(manager, Optional.<String>absent());
 
                 ImmutableMap.Builder<String, IBakedModel> builder = ImmutableMap.builder();
-                for (Map.Entry<Optional<String>, ModelResourceLocation> e : models.entrySet()) {
+                for (Map.Entry<Optional<String>, ModelResourceLocation> e : blockModels.entrySet()) {
                     if (e.getKey().isPresent()) {
-                        builder.put(e.getKey().get(), getModel(manager, e.getKey()));
+                        builder.put(e.getKey().get(), getBlockModel(manager, e.getKey()));
                     }
                 }
 
-                bakedFlowerModels = builder.build();
+                bakedBlockModels = builder.build();
+
+                ImmutableMap.Builder<String, IBakedModel> builder2 = ImmutableMap.builder();
+                for (Map.Entry<Optional<String>, ModelResourceLocation> e : itemModels.entrySet()) {
+                    if (e.getKey().isPresent()) {
+                        builder2.put(e.getKey().get(), getItemModel(manager, e.getKey()));
+                    }
+                }
+
+                bakedItemModels = builder2.build();
 
                 ImmutableMap.Builder<Optional<EnumFacing>, ImmutableList<BakedQuad>> quadBuilder = ImmutableMap.builder();
                 quadBuilder.put(Optional.<EnumFacing>absent(), buildQuads(Optional.<EnumFacing>absent()));
@@ -187,8 +236,16 @@ public class SpecialFlowerModel implements IModelCustomData {
             }
         }
 
-        private IBakedModel getModel(ModelManager manager, Optional<String> optClazz) {
-            ModelResourceLocation loc = models.get(optClazz);
+        private IBakedModel getBlockModel(ModelManager manager, Optional<String> opt) {
+            ModelResourceLocation loc = blockModels.get(opt);
+            if (loc == null) {
+                loc = new ModelResourceLocation("builtin/missing", "missing");
+            }
+            return manager.getModel(loc);
+        }
+
+        private IBakedModel getItemModel(ModelManager manager, Optional<String> opt) {
+            ModelResourceLocation loc = itemModels.get(opt);
             if (loc == null) {
                 loc = new ModelResourceLocation("builtin/missing", "missing");
             }
@@ -197,13 +254,22 @@ public class SpecialFlowerModel implements IModelCustomData {
 
         private ImmutableList<BakedQuad> buildQuads(Optional<EnumFacing> side) {
             ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-            for (IBakedModel model : bakedFlowerModels.values()) {
+            for (IBakedModel model : bakedBlockModels.values()) {
                 if (side.isPresent()) {
                     builder.addAll(model.getFaceQuads(side.get()));
                 } else {
                     builder.addAll(model.getGeneralQuads());
                 }
             }
+
+            for (IBakedModel model : bakedItemModels.values()) {
+                if (side.isPresent()) {
+                    builder.addAll(model.getFaceQuads(side.get()));
+                } else {
+                    builder.addAll(model.getGeneralQuads());
+                }
+            }
+
             return builder.build();
         }
 
@@ -252,7 +318,7 @@ public class SpecialFlowerModel implements IModelCustomData {
         public IBakedModel handleBlockState(IBlockState state) {
             refreshBakedModels();
             IExtendedBlockState extendedState = ((IExtendedBlockState) state);
-            IBakedModel ret = bakedFlowerModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
+            IBakedModel ret = bakedBlockModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
             if (ret == null) {
                 System.out.println("Warning: no flower model for subtile: " + extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
             }
@@ -272,7 +338,14 @@ public class SpecialFlowerModel implements IModelCustomData {
         @Override
         public IBakedModel handleItemState(ItemStack stack) {
             refreshBakedModels();
-            return bakedFlowerModels.get(ItemBlockSpecialFlower.getType(stack));
+            //System.out.println("calling smart item");
+            IBakedModel item = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
+            if (item == null) {
+                System.out.println("Missing item model, selecting block model");
+                item = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
+            }
+
+            return item == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : item;
         }
     }
 }

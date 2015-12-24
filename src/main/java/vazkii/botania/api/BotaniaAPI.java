@@ -88,7 +88,7 @@ public final class BotaniaAPI {
 	public static Map<Item, Block> seeds = new HashMap();
 
 	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
-	public static Map<Block, PropertyEnum> paintableBlocks = new LinkedHashMap<Block, PropertyEnum>();
+	public static Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<Block, PropertyEnum<EnumDyeColor>>();
 	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
 
 
@@ -285,11 +285,7 @@ public final class BotaniaAPI {
 	 * You must also provide the PropertyEnum that this block uses to express its color
 	 * The component type of the property must be EnumDyeColor
 	 */
-	public static Block registerPaintableBlock(Block paintable, PropertyEnum colorProp){
-		if (colorProp.getValueClass() != EnumDyeColor.class) {
-			throw new IllegalArgumentException("Must be EnumDyeColor");
-		}
-
+	public static Block registerPaintableBlock(Block paintable, PropertyEnum<EnumDyeColor> colorProp){
 		paintableBlocks.put(paintable, colorProp);
 		return paintable;
 	}

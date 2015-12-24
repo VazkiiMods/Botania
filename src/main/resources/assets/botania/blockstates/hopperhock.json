@@ -6,6 +6,13 @@
       "textures": {
         "cross": "botania:blocks/hopperhock"
       }
+    }],
+    "inventory": [{
+      "model": "builtin/generated",
+      "transform": "forge:default-item",
+      "textures": {
+        "layer0": "botania:blocks/hopperhock"
+      }
     }]
   }
 }
