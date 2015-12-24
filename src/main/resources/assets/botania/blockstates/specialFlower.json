@@ -6,14 +6,10 @@
   },
   "variants": {
     "normal": [{
-      "custom": {
-        "base": "botania:flower#color=white"
-      }
+      "custom": { "base": "minecraft:poppy" }
     }],
     "inventory": [{
-      "custom": {
-        "base": "minecraft:poppy"
-      }
+      "custom": { "base": "minecraft:poppy" }
     }]
   }
 }
