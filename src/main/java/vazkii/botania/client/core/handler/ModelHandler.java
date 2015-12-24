@@ -178,6 +178,8 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.distributor);
         registerItemModel(ModBlocks.starfield);
         registerItemModel(ModBlocks.specialFlower);
+        registerItemModel(ModBlocks.dirtPath);
+        registerItemModel(ModBlocks.felPumpkin);
     }
 
     private static void registerStandardItems() {
@@ -222,6 +224,7 @@ public final class ModelHandler {
         registerItemModel(starSword);
         registerItemModel(thunderSword);
         registerItemModel(glassPick);
+        registerItemModel(twigWand);
     }
 
     private static void registerManaResources() {
