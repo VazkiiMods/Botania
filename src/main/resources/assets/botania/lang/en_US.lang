@@ -161,6 +161,7 @@ botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 botania.nei.pureDaisy=Pure Daisy
 botania.nei.lexica=Lexica Botania
+nei.options.keys.gui.botania_corporea_request=Corporea Request
 
 botania.nei.lexicaSeparator=Extra Info:
 botania.nei.lexicaNoInfo=(there's no Extra Info for this entry, sorry!)

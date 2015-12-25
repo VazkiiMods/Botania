@@ -285,7 +285,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			}
 		}
 
-		public List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
+		public static List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
 			List<TileCorporeaIndex> indexList = new ArrayList();
 			for(TileCorporeaIndex index : indexes)
 				if(isInRangeOfIndex(player, index) && index.worldObj.isRemote == player.worldObj.isRemote)
