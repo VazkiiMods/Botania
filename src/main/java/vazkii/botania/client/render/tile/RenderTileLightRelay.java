@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 
 public class RenderTileLightRelay extends TileEntitySpecialRenderer {
@@ -56,7 +57,10 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(0F, -off, 0F);
 
 		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		ShaderHelper.useShader(ShaderHelper.halo);
 		func_77026_a(tessellator, iicon);
+		ShaderHelper.releaseShader();
+		
 		GL11.glPopMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_BLEND);
@@ -69,6 +73,13 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		float f1 = p_77026_2_.getMaxU();
 		float f2 = p_77026_2_.getMinV();
 		float f3 = p_77026_2_.getMaxV();
+		float size = f1 - f;
+		float pad = size / 8F;
+		f += pad;
+		f1 -= pad;
+		f2 += pad;
+		f3 -= pad;
+		
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
