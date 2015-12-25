@@ -38,9 +38,6 @@ public class SubTileSolegnolia extends SubTileFunctional {
 			if(!registered)
 				registered = true;
 		}
-
-		if(ticksExisted % 10 == 0 && mana > 0 && redstoneSignal == 0)
-			mana--;
 	}
 
 	@Override
@@ -50,7 +47,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 
 	public static boolean hasSolegnoliaAround(Entity e) {
 		for(SubTileSolegnolia flower : existingFlowers) {
-			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
+			if(flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 				continue;
 
 			double range = flower.getRange();
@@ -63,7 +60,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 
 	@Override
 	public int getMaxMana() {
-		return 20;
+		return 1;
 	}
 
 	@Override
