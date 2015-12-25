@@ -11,7 +11,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,6 +33,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import scala.reflect.internal.util.WeakHashSet;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -46,6 +50,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
+	
+	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap());
 
 	int filterType = 0;
 
@@ -62,7 +68,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
-
+		
 		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 		for(EntityItem item : items) {
 			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
@@ -105,9 +111,12 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 			if(invToPutItemIn != null) {
 				boolean remote = supertile.getWorldObj().isRemote;
-				if(!item.isDead && remote)
-					SubTileSpectranthemum.spawnExplosionParticles(item, 1);
-				else {
+				if(!item.isDead && remote) {
+					if(!particled.contains(item)) {
+						SubTileSpectranthemum.spawnExplosionParticles(item, 3);
+						particled.add(item);
+					}
+				} else {
 					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
 					invToPutItemIn.markDirty();
 					item.setEntityItemStack(stack.splitStack(stack.stackSize - amountToPutIn));
