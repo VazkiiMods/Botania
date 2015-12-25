@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -31,10 +32,10 @@ import java.util.List;
 public class Block18StoneWall extends BlockModWall {
 
 	public Block18StoneWall() {
-		super(ModFluffBlocks.stone, 4);
+		super(ModFluffBlocks.stone, 0);
 		setHardness(1.5F);
 		setResistance(10F);
-		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE).withProperty(VARIANT, EnumType.NORMAL));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.ANDESITE).withProperty(VARIANT, EnumType.NORMAL));
 	}
 
 	@Override
@@ -52,7 +53,12 @@ public class Block18StoneWall extends BlockModWall {
 		if (meta < 0 || meta > 3) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.values()[meta]).withProperty(VARIANT, EnumType.NORMAL);
+		return getDefaultState().withProperty(BotaniaStateProps.FUTURESTONEWALL_VARIANT, FutureStoneVariant.values()[meta]);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return super.getActualState(state, worldIn, pos).withProperty(VARIANT, EnumType.NORMAL);
 	}
 
 	@Override
@@ -69,6 +75,11 @@ public class Block18StoneWall extends BlockModWall {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.stoneAlchemy;
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 }

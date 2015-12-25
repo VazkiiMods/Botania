@@ -10,6 +10,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.enums.*;
 
+import javax.annotation.Nullable;
+
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
  */
@@ -70,6 +72,14 @@ public class BotaniaStateProps {
 
     // BlockBiomeStoneB
     public static final PropertyEnum BIOMEBRICK_VARIANT = PropertyEnum.create("variant", BiomeBrickVariant.class);
+
+    // BlockBiomeStoneWall
+    public static final PropertyEnum BIOMESTONEWALL_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
+        @Override
+        public boolean apply(BiomeStoneVariant input) {
+            return input.getName().contains("cobble");
+        }
+    });
 
     // BlockCustomBrick
     public static final PropertyEnum CUSTOMBRICK_VARIANT = PropertyEnum.create("variant", CustomBrickVariant.class);
