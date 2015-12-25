@@ -79,7 +79,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 			IInventory invToPutItemIn = null;
 			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
 			boolean priorityInv = false;
-			int amountToPutIn = 0;
 
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 				int x_ = x + dir.offsetX;
@@ -90,8 +89,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int availablePut = InventoryHelper.testInventoryInsertion(inv, stack, dir);
-					canAccept &= availablePut > 0;
+					int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
+					canAccept &= stackSize == stack.stackSize;
 
 					if(canAccept) {
 						boolean priority = !filter.isEmpty();
@@ -103,7 +102,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
-							amountToPutIn = availablePut;
 						}
 					}
 				}
@@ -117,11 +115,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 						particled.add(item);
 					}
 				} else {
-					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
+					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
 					invToPutItemIn.markDirty();
-					item.setEntityItemStack(stack.splitStack(stack.stackSize - amountToPutIn));
-					if(item.getEntityItem().stackSize == 0)
-						item.setDead();
+					item.setDead();
 					pulledAny = true;
 				}
 			}
