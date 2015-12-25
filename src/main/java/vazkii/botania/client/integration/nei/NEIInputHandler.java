@@ -13,6 +13,7 @@ package vazkii.botania.client.integration.nei;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -36,7 +37,15 @@ public class NEIInputHandler implements IContainerInputHandler {
 		    if(layoutManager != null && LayoutManager.itemPanel != null && !NEIClientConfig.isHidden()) {
 		    	ItemStack stack = GuiContainerManager.getStackMouseOver(gui);
 		    	if(stack != null && stack.getItem() != null) {
-		    		int count = NEIClientConfig.getItemQuantity();
+		    		int count = 1;
+		    		int max = stack.getMaxStackSize();
+		    		if(gui.isShiftKeyDown()) {
+		    			count = max;
+		    			if(gui.isCtrlKeyDown())
+		    				count /= 4;
+		    		} else if(gui.isCtrlKeyDown())
+		    			count = max / 2;
+		    		
 		    		if(count > 0) {
 		    			String name = CorporeaHelper.stripControlCodes(stack.getDisplayName());
 		    			String full = count + " " + name;
