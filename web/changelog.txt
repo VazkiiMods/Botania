@@ -1,3 +1,14 @@
+r1.8 246
+*Added NEI integration for Corporea. Pressing C on an item in an inventory or the NEI panel while near a Corporea Index will request 1 of it. Shift-C will request a full stack.
+*Fixed a crash when autocompleting a player's name near a Corporea Index.
+*Fixed the Hopperhock spamming smoke particles when it can't pick up an item properly.
+*Fixed the special sky renderer being super dark in superflat worlds.
+*Fixed the special sky renderer still showing the planets in the void.
+*Luminizers are now shiny.
+*Replaced incentive to not lose your way.
+*The Hopperhock can now split stacks properly between inventories if one is full. (howtonotwin)
+*The Solegnolia no longer uses mana.
+*Tweaked and fancified the Gaia Guardian fight(s) a bit.
 r1.8 245
 *Added a new fancy skybox effect to Garden of Glass. <a href="https://imgur.com/a/0ecOV">Here's an album.</a> It looks cooler ingame. (there are config options to disable it and enable it in normal worlds as well, if you want)
 *Added configs to move the Flugel Tiara's flight bar as apparently I'm not the only person that thought it was cute to put a bar there.
