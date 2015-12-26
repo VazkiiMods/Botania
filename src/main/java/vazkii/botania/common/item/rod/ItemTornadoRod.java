@@ -12,6 +12,7 @@ package vazkii.botania.common.item.rod;
 
 import java.util.List;
 
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -104,10 +105,10 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	}
 
-//	@Override todo 1.8
-//	public IIcon getIconIndex(ItemStack par1ItemStack) {
-//		return isFlying(par1ItemStack) ? iconFlying : iconIdle;
-//	}
+	@Override
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+		return isFlying(stack) ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory") : new ModelResourceLocation("botania:tornadoRod", "inventory");
+	}
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {

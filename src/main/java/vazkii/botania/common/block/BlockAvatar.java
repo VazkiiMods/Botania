@@ -45,7 +45,7 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.AVATAR);
 		setBlockBounds(EnumFacing.Axis.Z);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 		random = new Random();
 	}
 
@@ -56,11 +56,14 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getIndex();
+		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 2 || meta > 5) {
+			meta = 2;
+		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 
@@ -87,7 +90,7 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
-		setBlockBounds(((EnumFacing) w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS)).getAxis());
+		setBlockBounds(w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS).getAxis());
 	}
 
 	public void setBlockBounds(EnumFacing.Axis horiz) {

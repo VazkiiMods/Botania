@@ -278,6 +278,9 @@ public final class ModelHandler {
         registerItemModel(skyDirtRod);
         registerItemModel(tornadoRod);
         registerItemModel(terraformRod);
+
+        registerItemModel(tornadoRod);
+        ModelLoader.registerItemVariants(tornadoRod, new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
     }
 
     private static void registerManaResources() {

@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
@@ -71,34 +72,8 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			if(stack != null) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-				GlStateManager.scale(2F, 2F, 2F);
-//				mc.getRenderItem().renderItemModel(stack);
-//				if(!ForgeHooksClient.renderEntityItem(new EntityItem(altar.getWorld(), altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.getWorld().rand, mc.renderEngine, renderBlocks, 1)) {
-//					GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//					if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
-//						GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//						GlStateManager.translate(1F, 1.1F, 0F);
-//						renderBlocks.renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
-//						GlStateManager.translate(-1F, -1.1F, 0F);
-//						GlStateManager.scale(2F, 2F, 2F);
-//					} else {
-//						int renderPass = 0;
-//						do {
-//							IIcon icon = stack.getItem().getIcon(stack, renderPass);
-//							if(icon != null) {
-//								Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-//								GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-//								float f = icon.getMinU();
-//								float f1 = icon.getMaxU();
-//								float f2 = icon.getMinV();
-//								float f3 = icon.getMaxV();
-//								ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-//								GlStateManager.color(1F, 1F, 1F);
-//							}
-//							renderPass++;
-//						} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
-//					}
-//				}
+				mc.getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
+
 			}
 			GlStateManager.popMatrix();
 		}
