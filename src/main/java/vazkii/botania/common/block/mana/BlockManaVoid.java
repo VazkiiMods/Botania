@@ -45,6 +45,11 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
+	@Override
+	public int getRenderType() {
+		return 3;
+	}
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {

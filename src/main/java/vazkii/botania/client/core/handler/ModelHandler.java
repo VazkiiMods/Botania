@@ -3,6 +3,7 @@ package vazkii.botania.client.core.handler;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockSlab;
@@ -188,6 +189,10 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.ghostRail);
         registerItemModel(ModBlocks.shimmerrock);
         registerItemModel(ModBlocks.shimmerwoodPlanks);
+        registerItemModel(ModBlocks.manaVoid);
+        registerItemModel(ModBlocks.alchemyCatalyst);
+        registerItemModel(ModBlocks.conjurationCatalyst);
+        registerItemModel(ModBlocks.reedBlock);
 
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
@@ -196,6 +201,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.dreamwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
@@ -257,6 +263,10 @@ public final class ModelHandler {
     }
 
     private static void registerStateMappers() {
+        // Ignore vanilla facing, variant in double flower
+        ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower1, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower2, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
+
         // Ignore redstone power state in some blocks
         ModelLoader.setCustomStateMapper(ModBlocks.starfield, (new StateMap.Builder()).ignore(BotaniaStateProps.POWERED).build());
 
@@ -269,6 +279,9 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
+
+        // Ignore in special flower to suppress errors (handled in custom statemapper in BlockSpecialFlower
+        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR, ((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
 
         // Ignore vanilla variant in walls
         ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
@@ -354,6 +367,22 @@ public final class ModelHandler {
             String name = "botania:shinyFlower_" + color.getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+        }
+
+        item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
+        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1.getAllowedValues()) {
+            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower1).toString();
+            String variant = "inventory_" + color.getName();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, variant));
+        }
+
+        item = Item.getItemFromBlock(ModBlocks.doubleFlower2);
+        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
+            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower2).toString();
+            String variant = "inventory_" + color.getName();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(name, variant));
         }
     }
 

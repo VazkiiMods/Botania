@@ -1,0 +1,65 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cross"
+  },
+  "variants": {
+    "half=lower,variant=silver": [{ "textures": { "cross": "botania:blocks/flower8Tall0" } }],
+    "half=upper,variant=silver": [{ "textures": { "cross": "botania:blocks/flower8Tall1" } }],
+    "half=lower,variant=cyan": [{ "textures": { "cross": "botania:blocks/flower9Tall0" } }],
+    "half=upper,variant=cyan": [{ "textures": { "cross": "botania:blocks/flower9Tall1" } }],
+    "half=lower,variant=purple": [{ "textures": { "cross": "botania:blocks/flower10Tall0" } }],
+    "half=upper,variant=purple": [{ "textures": { "cross": "botania:blocks/flower10Tall1" } }],
+    "half=lower,variant=blue": [{ "textures": { "cross": "botania:blocks/flower11Tall0" } }],
+    "half=upper,variant=blue": [{ "textures": { "cross": "botania:blocks/flower11Tall1" } }],
+    "half=lower,variant=brown": [{ "textures": { "cross": "botania:blocks/flower12Tall0" } }],
+    "half=upper,variant=brown": [{ "textures": { "cross": "botania:blocks/flower12Tall1" } }],
+    "half=lower,variant=green": [{ "textures": { "cross": "botania:blocks/flower13Tall0" } }],
+    "half=upper,variant=green": [{ "textures": { "cross": "botania:blocks/flower13Tall1" } }],
+    "half=lower,variant=red": [{ "textures": { "cross": "botania:blocks/flower14Tall0" } }],
+    "half=upper,variant=red": [{ "textures": { "cross": "botania:blocks/flower14Tall1" } }],
+    "half=lower,variant=black": [{ "textures": { "cross": "botania:blocks/flower15Tall0" } }],
+    "half=upper,variant=black": [{ "textures": { "cross": "botania:blocks/flower15Tall1" } }],
+
+    "inventory_silver": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower8Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_cyan": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower9Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_purple": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower10Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_blue": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower11Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_brown": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower12Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_green": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower13Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_red": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower14Tall1" },
+      "transform": "forge:default-item"
+    }],
+    "inventory_black": [{
+      "model": "builtin/generated",
+      "textures": { "layer0": "botania:blocks/flower15Tall1" },
+      "transform": "forge:default-item"
+    }]
+  }
+}

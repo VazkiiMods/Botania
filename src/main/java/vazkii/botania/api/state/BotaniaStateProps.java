@@ -2,6 +2,8 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import net.minecraft.block.BlockRailBase;
+import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -95,6 +97,9 @@ public class BotaniaStateProps {
 
     // BlockForestDrum
     public static final PropertyEnum<DrumVariant> DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
+
+    // BlockGhostRail
+    public static final PropertyEnum<BlockRailBase.EnumRailDirection> RAIL_DIRECTION = BlockRailPowered.SHAPE;
 
     // BlockLightRelay
     public static final PropertyEnum<LuminizerVariant> LUMINIZER_VARIANT = PropertyEnum.create("variant", LuminizerVariant.class);
