@@ -147,16 +147,12 @@ botaniamisc.pay2win=升级你的魔力池来注魔这个物品
 
 botaniamisc.justDoIt=放手去做吧
 botaniamisc.changes0=自从你上一次使用&aBotania&7以来，它已经发生了某种改变！
-
-botaniamisc.changes1=你之前所用的&aBotania&7版本为&b%s&7.
+botaniamisc.changes1=之前所用的&aBotania&7版本为&b%s&7.
 botaniamisc.changes2=物换星移，但无需为此所困。若因此不可行者，恳请二试。
 botaniamisc.changes3=&o我们害怕改变，但改变是前进的动力。
-
-
 botaniamisc.changes4=&fShift左击&7以阅读更新内容
 botaniamisc.changes5=&f左击&7以忽略它
 botaniamisc.badArena=只要你努力，信标就不会让你白白牺牲。你相信这个仪式有些地方疏忽了。确认周围摆放物品的高度差也许是个好主意
-
 botaniamisc.tutorialText=Ingame
 botaniamisc.tutorialVideo=Video
 botaniamisc.shiftToStopSpin=(SHIFT以停止动画)
@@ -164,6 +160,8 @@ botaniamisc.noVideo=&4视频教程很快就有,抱歉 :(
 botaniamisc.adaptativeConfigChanges=Botania自调整系统为你调整了以下默认设定:
 botaniamisc.altarRefill0=用空手右击
 botaniamisc.altarRefill1=返回最后一个合成
+botaniamisc.santaweaveInfo=魔源套,因&c季&f节&c物&f转&c星&f移
+
 # NEI INTEGRATION
 botania.nei.brewery=植物酿造
 botania.nei.elvenTrade=精灵交易
@@ -172,7 +170,22 @@ botania.nei.manaPool=魔力灌注
 botania.nei.petalApothecary=花瓣炼制
 botania.nei.runicAltar=符文祭坛
 botania.nei.pureDaisy=白雏菊
+botania.nei.lexica=植物魔法辞典
+nei.options.keys.gui.botania_corporea_request=多媒体请求
 
+botania.nei.lexicaSeparator=详细信息:
+botania.nei.lexicaNoInfo=(并没有这种东西,抱歉!)
+# NEI QUICK LOOKS
+botania.nei.quickInfo:tile.livingwood0~0=将原木放置在白雏菊旁边并等一会儿以制作活木
+botania.nei.quickInfo:tile.livingrock0~0=将石头放置在白雏菊旁边并等一会儿以制作活石
+botania.nei.quickInfo:flower.daybloom=努力活下去吧,在这乱世之中.杀或是被杀,自己选择吧.
+botania.nei.quickInfo:flower.daybloomPrimus=这朵花不能摘取,且极少现身于世上
+botania.nei.quickInfo:flower.nightshadePrimus=这朵花不能摘取,且极少现身于世上
+botania.nei.quickInfo:item.bone~0=你要倒霉了
+botania.nei.quickInfo:item.lexicon~0=你期待着什么?
+botania.nei.quickInfo:item.terrasteel~4=将正确的材料放在泰拉凝聚板上以制作泰拉钢
+botania.nei.quickInfo:item.enderAirBottle~15=要获取它,只需在在末地用玻璃瓶右击
+primus
 # BUILDCRAFT INTEGRATION
 botania.triggers.manaDetector=魔力脉冲
 botania.triggers.manaEmpty=魔力为0
@@ -459,7 +472,7 @@ botania.versioning.downloadedAlready=你已下载最新版本.关闭你的游戏
 
 botania.versioning.downloadingAlready=更新正在下载中,给它点时间,好吗?
 botania.versioning.error=Woah!看起来在下载植物魔法新版本时出现了点问题.不知vazkii.us是否已经关闭了?
-botania.versioning.disabled=抱歉.该特性由于服务器主机的原因已被禁用,很快应该就会好的. 
+botania.versioning.disabled=抱歉.自动升级由于服务器主机的原因已被禁用,很快应该就会好的. 
 
 
 
@@ -1713,8 +1726,13 @@ item.botania:thunderSword.name=召雷者
 item.botania:manaweaveCloth.name=魔源布匹
 item.botania:manaweaveHelm.name=魔源头蓬
 item.botania:manaweaveChest.name=魔源长袍
-item.botania:manaweaveLegs.name=魔源长袍(下身)
+item.botania:manaweaveLegs.name=魔源长袍(下半身)
 item.botania:manaweaveBoots.name=魔源长靴
+item.botania:gaiaHead.name=盖亚守护者的头
+item.botania:santaweaveHelm.name=圣诞编织斗篷
+item.botania:santaweaveChest.name=圣诞编织长袍
+item.botania:santaweaveLegs.name=圣诞编织长袍(下半身)
+item.botania:santaweaveBoots.name=圣诞编织长靴
 item.botania:gaiaHead.name=盖亚守护者的头
 item.botania:sextant.name=盖世六分仪
 
@@ -2617,7 +2635,7 @@ botania.page.bubbell1=&o就像一些休闲游戏&r.
 botania.entry.solegnolia=弱磁兰
 botania.tagline.solegnolia=创造一个磁化指环无法工作的地方
 
-botania.page.solegnolia0=&1磁化指环&0对于搜集材料的人 而言十分便利,但这也会让他 们陷入另一个麻烦:总是会捡 起不需要的物品.<br>&1弱磁兰&0会抑制指环的能力并 阻止任何物品被吸往佩戴指 环的人.它所消耗的魔力不足 一提.
+botania.page.solegnolia0=&1磁化指环&0对于搜集材料的人 而言十分便利,但这也会让他 们陷入另一个麻烦:总是会捡 起不需要的物品.<br>&1弱磁兰&0会抑制指环的能力并 阻止任何物品被吸往佩戴指 环的人.这朵花不会消耗任何 魔力,尽管它有一个魔力缓存 区(也许是bug)
 
 
 botania.page.solegnolia1=On/Off
