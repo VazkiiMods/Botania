@@ -1,10 +1,30 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_bottom_top",
+    "textures": { "bottom": "minecraft:blocks/dirt" },
+    "transform": "forge:default-block"
+  },
   "variants": {
-    "variant=dry": { "model": "botania:altGrass_dry" },
-    "variant=golden": { "model": "botania:altGrass_golden" },
-    "variant=vivid": { "model": "botania:altGrass_vivid" },
-    "variant=scorched": { "model": "botania:altGrass_scorched" },
-    "variant=infused": { "model": "botania:altGrass_infused" },
-    "variant=mutated": { "model": "botania:altGrass_mutated" }
+    "variant": {
+      "dry": {
+        "textures": { "top": "botania:blocks/altGrass0", "side": "botania:blocks/altGrass1" }
+      },
+      "golden": {
+        "textures": { "top": "botania:blocks/altGrass2", "side": "botania:blocks/altGrass3" }
+      },
+      "vivid": {
+        "textures": { "top": "botania:blocks/altGrass4", "side": "botania:blocks/altGrass5" }
+      },
+      "scorched": {
+        "textures": { "top": "botania:blocks/altGrass6", "side": "botania:blocks/altGrass7" }
+      },
+      "infused": {
+        "textures": { "top": "botania:blocks/altGrass8", "side": "botania:blocks/altGrass9" }
+      },
+      "mutated": {
+        "textures": { "top": "botania:blocks/altGrass10", "side": "botania:blocks/altGrass11" }
+      }
+    }
   }
 }

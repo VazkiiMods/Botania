@@ -2,8 +2,8 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "bottom": "botania:blocks/reedBlock0",
-      "top": "botania:blocks/reedBlock0",
+      "bottom": "botania:blocks/reedBlock1",
+      "top": "botania:blocks/reedBlock1",
       "side": "botania:blocks/reedBlock0"
     }
   },

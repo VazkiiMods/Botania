@@ -1,0 +1,90 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:wall_post",
+    "uvlock": true,
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "east=false,north=true,south=true,up=false,variant=forest_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=plains_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=mountain_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=fungal_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=swamp_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=desert_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=taiga_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,variant=mesa_cobble,west=false": { "model": null },
+
+    "east=true,north=false,south=false,up=false,variant=forest_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=plains_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=mountain_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=fungal_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=swamp_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=desert_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=taiga_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,variant=mesa_cobble,west=true": { "model": null },
+
+    "north": {
+      "true": { "submodel": "botania:wall_connect" },
+      "false": {}
+    },
+    "south": {
+      "true": { "submodel": "botania:wall_connect", "y": 180 },
+      "false": {}
+    },
+    "west": {
+      "true": { "submodel": "botania:wall_connect", "y": 270 },
+      "false": {}
+    },
+    "east": {
+      "true": { "submodel": "botania:wall_connect", "y": 90 },
+      "false": {}
+    },
+    "up": {
+      "true": {},
+      "false": {}
+    },
+    "variant": {
+      "forest_cobble": { "textures": { "wall": "botania:blocks/biomeStone8" } },
+      "plains_cobble": { "textures": { "wall": "botania:blocks/biomeStone9" } },
+      "mountain_cobble": { "textures": { "wall": "botania:blocks/biomeStone10" } },
+      "fungal_cobble": { "textures": { "wall": "botania:blocks/biomeStone11" } },
+      "swamp_cobble": { "textures": { "wall": "botania:blocks/biomeStone12" } },
+      "desert_cobble": { "textures": { "wall": "botania:blocks/biomeStone13" } },
+      "taiga_cobble": { "textures": { "wall": "botania:blocks/biomeStone14" } },
+      "mesa_cobble": { "textures": { "wall": "botania:blocks/biomeStone15" } }
+    },
+    "inventory_forest_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone8" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_plains_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone9" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_mountain_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone10" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_fungal_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone11" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_swamp_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone12" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_desert_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone13" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_taiga_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone14" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }],
+    "inventory_mesa_cobble": [{
+      "textures": { "wall": "botania:blocks/biomeStone15" },
+      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+    }]
+  }
+}

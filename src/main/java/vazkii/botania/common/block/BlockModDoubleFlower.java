@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockDoublePlant;
@@ -30,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -50,15 +53,13 @@ import java.util.List;
 import java.util.Random;
 
 // Lots of copy paste from BlockDoublePlant because we can no longer extend it in 1.8.x
-public abstract class BlockModDoubleFlower extends BlockBush implements IGrowable, IShearable, ILexiconable {
-	public static final PropertyEnum<BlockDoublePlant.EnumBlockHalf> HALF = BlockDoublePlant.HALF;
+public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable {
 	private static final int COUNT = 8;
 
 	final int offset;
 	final boolean second;
 
 	public BlockModDoubleFlower(boolean second) {
-		super(Material.vine);
 		this.second = second;
 		this.setHardness(0.0F);
 		this.setStepSound(soundTypeGrass);
@@ -93,7 +94,7 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state.withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER));
+		return 0;
 	}
 
 	@Override
@@ -104,11 +105,6 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 		return true;
-	}
-
-	@Override
-	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
-		// todo 1.8.8 drop
 	}
 
 	@Override
@@ -185,7 +181,10 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-		ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER))));
+		if (world.getBlockState(pos.down()).getBlock() == this
+				&& world.getBlockState(pos.down()).getValue(HALF) == EnumBlockHalf.LOWER) {
+			ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos.down()))));
+		}
 		return ret;
 	}
 
@@ -206,13 +205,8 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 	}
 
 	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idDoubleFlower;
-	}
-
-	@Override
 	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
-		int hex = ((EnumDyeColor) state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1)).getMapColor().colorValue;
+		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = (hex & 0xFF);
@@ -227,93 +221,18 @@ public abstract class BlockModDoubleFlower extends BlockBush implements IGrowabl
 		return LexiconData.flowers;
 	}
 
-
-
-	/** BEGIN COPY BlockDoublePlant **/
-
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-	{
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-	}
-
-	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-	{
-		return super.canPlaceBlockAt(worldIn, pos) && worldIn.isAirBlock(pos.up());
-	}
-
-	@Override
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
-	{
-		if (!this.canBlockStay(worldIn, pos, state))
-		{
-			boolean flag = state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER;
-			BlockPos blockpos = flag ? pos : pos.up();
-			BlockPos blockpos1 = flag ? pos.down() : pos;
-			Block block = (Block)(flag ? this : worldIn.getBlockState(blockpos).getBlock());
-			Block block1 = (Block)(flag ? worldIn.getBlockState(blockpos1).getBlock() : this);
-
-			if (!flag) this.dropBlockAsItem(worldIn, pos, state, 0); //Forge move above the setting to air.
-
-			if (block == this)
-			{
-				worldIn.setBlockState(blockpos, Blocks.air.getDefaultState(), 2);
-			}
-
-			if (block1 == this)
-			{
-				worldIn.setBlockState(blockpos1, Blocks.air.getDefaultState(), 3);
-			}
-		}
-	}
-
-	@Override
-	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-	{
-		if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER)
-		{
-			return worldIn.getBlockState(pos.down()).getBlock() == this;
-		}
-		else
-		{
-			IBlockState iblockstate = worldIn.getBlockState(pos.up());
-			return iblockstate.getBlock() == this && super.canBlockStay(worldIn, pos, iblockstate);
-		}
-	}
-
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-	{
-		worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(HALF, BlockDoublePlant.EnumBlockHalf.UPPER), 2);
-	}
-
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-	{
-		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER)
-		{
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.down());
 
-			if (iblockstate.getBlock() == this)
-			{
-				state = state.withProperty(BotaniaStateProps.COLOR, iblockstate.getValue(BotaniaStateProps.COLOR));
+			if (iblockstate.getBlock() == this) {
+				PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
+				state = state.withProperty(prop, iblockstate.getValue(prop));
 			}
 		}
 
-		return state;
+		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(field_181084_N, EnumFacing.SOUTH);
 	}
-
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
-	{
-		//Forge: Break both parts on the client to prevent the top part flickering as default type for a few frames.
-		IBlockState state = world.getBlockState(pos);
-		if (state.getBlock() ==  this && state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.LOWER && world.getBlockState(pos.up()).getBlock() == this)
-			world.setBlockToAir(pos.up());
-		return world.setBlockToAir(pos);
-	}
-
 
 }

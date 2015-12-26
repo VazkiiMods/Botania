@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": [{
+      "model": "minecraft:cube_bottom_top",
+      "textures": {
+        "bottom": "botania:blocks/blockDarkQuartz0",
+        "top": "botania:blocks/blockDarkQuartz1",
+        "side": "botania:blocks/blockDarkQuartz2"
+      }
+    }]
+  }
+}

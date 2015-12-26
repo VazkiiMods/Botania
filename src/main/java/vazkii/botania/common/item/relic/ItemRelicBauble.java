@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -64,13 +65,13 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	}
 
 	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		ItemRelic.bindToUsernameS(playerName, stack);
+	public void bindToUuid(UUID playerName, ItemStack stack) {
+		ItemRelic.bindToUuidS(playerName, stack);
 	}
 
 	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return ItemRelic.getSoulbindUsernameS(stack);
+	public UUID getSoulbindUuid(ItemStack stack) {
+		return ItemRelic.getSoulbindUuidS(stack);
 	}
 
 	@Override

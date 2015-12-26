@@ -1,0 +1,29 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{
+      "model": "botania:thinnerthanslab",
+      "textures": {
+        "bottom": "botania:blocks/starfield0",
+        "top": "botania:blocks/starfield1",
+        "side": "botania:blocks/starfield2"
+      }
+    }],
+    "inventory": [{
+      "model": "botania:thinnerthanslab",
+      "textures": {
+        "bottom": "botania:blocks/starfield0",
+        "top": "botania:blocks/starfield0",
+        "side": "botania:blocks/starfield2"
+      },
+      "transform": {
+        "firstperson": {
+          "translation": [ 0, 0.125, 0 ]
+        }
+      }
+    }]
+  }
+}
