@@ -1,8 +1,10 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -18,8 +20,10 @@ import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.render.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
+import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.DrumVariant;
+import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
@@ -99,9 +103,9 @@ public final class ModelHandler {
         registerStandardBlocks();
         registerMushrooms();
         registerFlowers();
+        registerPavement();
         registerStairs();
         registerSlabs();
-        registerFullSlabs();
         registerWalls();
         registerPanes();
         registerUnstableBeaconPetal();
@@ -181,14 +185,21 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.specialFlower);
         registerItemModel(ModBlocks.dirtPath);
         registerItemModel(ModBlocks.felPumpkin);
+        registerItemModel(ModBlocks.ghostRail);
+        registerItemModel(ModBlocks.shimmerrock);
+        registerItemModel(ModBlocks.shimmerwoodPlanks);
 
         // Blocks which share models with their item, and have only one variant to switch over
-        registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "botania:altGrass", "variant");
-        registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "botania:storage", "variant");
-        registerVariantsDefaulted(ModBlocks.pylon, PylonVariant.class, "botania:pylon", "variant");
-        registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "botania:forestDrum", "variant");
-        registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "botania:livingrock", "variant");
-        registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "botania:livingwood", "variant");
+        registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.pylon, PylonVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -282,11 +293,12 @@ public final class ModelHandler {
         }
 
         List<Block> otherSlabs = ImmutableList.copyOf(new Block[] {
-                ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingrockSlab, ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.livingrockBrickSlab,
+                ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodPlankSlab, ModFluffBlocks.livingrockSlab, ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.livingrockBrickSlab,
                 ModFluffBlocks.dreamwoodPlankSlab, ModFluffBlocks.prismarineSlab, ModFluffBlocks.prismarineBrickSlab, ModFluffBlocks.darkPrismarineSlab,
                 ModFluffBlocks.reedSlab, ModFluffBlocks.thatchSlab, ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
                 ModFluffBlocks.tileSlab, ModFluffBlocks.darkQuartzSlab, ModFluffBlocks.manaQuartzSlab, ModFluffBlocks.blazeQuartzSlab,
-                ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab
+                ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab, ModFluffBlocks.dirtPathSlab,
+                ModFluffBlocks.shimmerrockSlab, ModFluffBlocks.shimmerwoodPlankSlab, ModFluffBlocks.endStoneSlab, ModFluffBlocks.enderBrickSlab
         });
 
         for (Block b : otherSlabs) {
@@ -305,13 +317,14 @@ public final class ModelHandler {
         for (Block b : ModFluffBlocks.stoneFullSlabs) {
             ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
         }
-
+        
         List<Block> otherFullSlabs = ImmutableList.copyOf(new Block[] {
-                ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
+                ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingwoodPlankSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
                 ModFluffBlocks.dreamwoodPlankSlabFull, ModFluffBlocks.prismarineSlabFull, ModFluffBlocks.prismarineBrickSlabFull, ModFluffBlocks.darkPrismarineSlabFull,
                 ModFluffBlocks.reedSlabFull, ModFluffBlocks.thatchSlabFull, ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
                 ModFluffBlocks.tileSlabFull, ModFluffBlocks.darkQuartzSlabFull, ModFluffBlocks.manaQuartzSlabFull, ModFluffBlocks.blazeQuartzSlabFull,
-                ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull
+                ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull, ModFluffBlocks.dirtPathSlabFull,
+                ModFluffBlocks.shimmerrockSlabFull, ModFluffBlocks.shimmerwoodPlankSlabFull, ModFluffBlocks.endStoneSlabFull, ModFluffBlocks.enderBrickSlabFull
         });
 
         for (Block b : otherFullSlabs) {
@@ -341,6 +354,48 @@ public final class ModelHandler {
             String name = "botania:shinyFlower_" + color.getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+        }
+    }
+
+    private static void registerPavement() {
+        Item item = Item.getItemFromBlock(ModFluffBlocks.pavement);
+        String name = GameData.getBlockRegistry().getNameForObject(ModFluffBlocks.pavement).toString();
+
+        for (EnumDyeColor e : BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues()) {
+            String variant = "color=" + e.getName();
+            switch (e) {
+                case BLACK: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, variant));
+                    break;
+                }
+                case BLUE: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, variant));
+                    break;
+                }
+                case RED: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 3, new ModelResourceLocation(name, variant));
+                    break;
+                }
+                case YELLOW: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 4, new ModelResourceLocation(name, variant));
+                    break;
+                }
+                case GREEN: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 5, new ModelResourceLocation(name, variant));
+                    break;
+                }
+                case WHITE:
+                default: {
+                    ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variant));
+                    ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, variant));
+                    break;
+                }
+            }
         }
     }
 
@@ -386,27 +441,70 @@ public final class ModelHandler {
     }
 
     private static void registerSlabs() {
+        for (Block b : ModFluffBlocks.biomeStoneSlabs) {
+            registerItemModel(b);
+        }
 
-    }
+        for (Block b : ModFluffBlocks.pavementSlabs) {
+            registerItemModel(b);
+        }
 
-    private static void registerFullSlabs() {
+        for (Block b : ModFluffBlocks.stoneSlabs) {
+            registerItemModel(b);
+        }
+
+        registerItemModel(ModFluffBlocks.livingwoodSlab);
+        registerItemModel(ModFluffBlocks.livingwoodPlankSlab);
+        registerItemModel(ModFluffBlocks.livingrockSlab);
+        registerItemModel(ModFluffBlocks.livingrockBrickSlab);
+
+        registerItemModel(ModFluffBlocks.blazeQuartzSlab);
+        registerItemModel(ModFluffBlocks.darkQuartzSlab);
+        registerItemModel(ModFluffBlocks.elfQuartzSlab);
+        registerItemModel(ModFluffBlocks.lavenderQuartzSlab);
+        registerItemModel(ModFluffBlocks.manaQuartzSlab);
+        registerItemModel(ModFluffBlocks.redQuartzSlab);
+        registerItemModel(ModFluffBlocks.sunnyQuartzSlab);
+
+        registerItemModel(ModFluffBlocks.dreamwoodSlab);
+        registerItemModel(ModFluffBlocks.dreamwoodPlankSlab);
+        registerItemModel(ModFluffBlocks.prismarineSlab);
+        registerItemModel(ModFluffBlocks.prismarineBrickSlab);
+        registerItemModel(ModFluffBlocks.darkPrismarineSlab);
+        registerItemModel(ModFluffBlocks.dirtPathSlab);
+        registerItemModel(ModFluffBlocks.shimmerrockSlab);
+        registerItemModel(ModFluffBlocks.shimmerwoodPlankSlab);
+        registerItemModel(ModFluffBlocks.endStoneSlab);
+        registerItemModel(ModFluffBlocks.enderBrickSlab);
+        registerItemModel(ModFluffBlocks.netherBrickSlab);
+        registerItemModel(ModFluffBlocks.soulBrickSlab);
+        registerItemModel(ModFluffBlocks.snowBrickSlab);
+        registerItemModel(ModFluffBlocks.tileSlab);
+        registerItemModel(ModFluffBlocks.reedSlab);
+        registerItemModel(ModFluffBlocks.thatchSlab);
 
     }
 
     private static void registerWalls() {
         Item item = Item.getItemFromBlock(ModFluffBlocks.biomeStoneWall);
-        for (BiomeStoneVariant variant : ((Collection<BiomeStoneVariant>) BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues())) {
+        for (BiomeStoneVariant variant : BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues()) {
             String variantName = "inventory_" + variant.getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation("botania:biomeStoneA0Wall", variantName));
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation("botania:biomeStoneA0Wall", variantName));
         }
 
         item = Item.getItemFromBlock(ModFluffBlocks.stoneWall);
-        for (FutureStoneVariant variant : ((Collection<FutureStoneVariant>) BotaniaStateProps.FUTURESTONEWALL_VARIANT.getAllowedValues())) {
+        for (FutureStoneVariant variant : BotaniaStateProps.FUTURESTONEWALL_VARIANT.getAllowedValues()) {
             String variantName = "inventory_" + variant.getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation("botania:stone0Wall", variantName));
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation("botania:stone0Wall", variantName));
         }
+
+        registerItemModel(ModFluffBlocks.livingrockWall);
+        registerItemModel(ModFluffBlocks.livingwoodWall);
+        registerItemModel(ModFluffBlocks.dreamwoodWall);
+        registerItemModel(ModFluffBlocks.prismarineWall);
+        registerItemModel(ModFluffBlocks.reedWall);
     }
 
     private static void registerPanes() {
@@ -427,9 +525,10 @@ public final class ModelHandler {
         }
     }
 
-    private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String baseName, String variantHeader) {
+    private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String variantHeader) {
         Item item = Item.getItemFromBlock(b);
         for (T e : enumclazz.getEnumConstants()) {
+            String baseName = GameData.getBlockRegistry().getNameForObject(b).toString();
             String variantName = variantHeader + "=" + e.getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(baseName, variantName));
             ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(baseName, variantName));

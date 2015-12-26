@@ -57,11 +57,6 @@ public class Block18StoneWall extends BlockModWall {
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return super.getActualState(state, worldIn, pos).withProperty(VARIANT, EnumType.NORMAL);
-	}
-
-	@Override
 	public void register(String name) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
 	}
@@ -75,11 +70,6 @@ public class Block18StoneWall extends BlockModWall {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.stoneAlchemy;
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
 	}
 
 }
