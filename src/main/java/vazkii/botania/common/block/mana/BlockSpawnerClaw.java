@@ -59,7 +59,7 @@ public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable 
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idSpawnerClaw;
+		return 2;
 	}
 
 	@Override

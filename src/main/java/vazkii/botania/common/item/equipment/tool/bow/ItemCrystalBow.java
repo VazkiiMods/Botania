@@ -10,12 +10,16 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -47,6 +51,31 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
 		arrow.canBePickedUp = 2;
 		ManaItemHandler.requestManaExactForTool(p_77615_1_, p_77615_3_, ARROW_COST / (infinity ? 2 : 1), false);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+		String name = GameData.getItemRegistry().getNameForObject(this).toString();
+
+		if (useRemaining == 0) {
+			return new ModelResourceLocation(name, "inventory");
+		}
+
+		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
+
+		if(j >= 28)
+			return new ModelResourceLocation(name + "_pulling_5", "inventory");
+		if(j >= 23)
+			return new ModelResourceLocation(name + "_pulling_4", "inventory");
+		if(j >= 18)
+			return new ModelResourceLocation(name + "_pulling_3", "inventory");
+		if(j > 13)
+			return new ModelResourceLocation(name + "_pulling_2", "inventory");
+		if(j > 0)
+			return new ModelResourceLocation(name + "_pulling_1", "inventory");
+
+		return new ModelResourceLocation(name, "inventory");
 	}
 
 }

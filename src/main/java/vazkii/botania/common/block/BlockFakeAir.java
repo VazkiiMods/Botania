@@ -39,6 +39,11 @@ public class BlockFakeAir extends BlockModContainer {
 	}
 
 	@Override
+	public int getRenderType() {
+		return -1;
+	}
+
+	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
 		if(shouldRemove(world, pos))
 			world.scheduleUpdate(pos, this, tickRate(world));

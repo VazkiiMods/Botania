@@ -1,9 +1,9 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:microblock_all_tinted",
+    "model": "minecraft:cube_all",
     "textures": {
-      "all": "botania:blocks/unstableBlock"
+      "all": "botania:blocks/thatch"
     },
     "transform": "forge:default-block"
   },

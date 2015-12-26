@@ -32,6 +32,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -72,12 +73,12 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite()); //todo 1.8 verify
+		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite());
 	}
 
 	@Override
 	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT_MIPPED; // todo 1.8
+		return EnumWorldBlockLayer.TRANSLUCENT;
 	}
 
 	@Override

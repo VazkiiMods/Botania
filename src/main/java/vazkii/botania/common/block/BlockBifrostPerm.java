@@ -53,7 +53,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite()); //todo 1.8 verify
+		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite());
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	@Override
 	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT_MIPPED; // todo 1.8 verify
+		return EnumWorldBlockLayer.TRANSLUCENT;
 	}
 
 	@Override

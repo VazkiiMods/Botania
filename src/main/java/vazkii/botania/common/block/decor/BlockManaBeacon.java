@@ -53,11 +53,6 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderType() {
-		return 3;
-	}
-
-	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.COLOR);
 	}

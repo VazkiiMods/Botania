@@ -23,6 +23,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.state.enums.DrumVariant;
 import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.api.state.enums.FutureStoneVariant;
@@ -114,6 +115,9 @@ public final class ModelHandler {
         /** Normal Items **/
         registerStandardItems();
         registerManaResources();
+        registerDyesPetals();
+        registerRunes();
+        registerBows();
 
         /** Special Item Meshers **/
     }
@@ -193,6 +197,13 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.alchemyCatalyst);
         registerItemModel(ModBlocks.conjurationCatalyst);
         registerItemModel(ModBlocks.reedBlock);
+        registerItemModel(ModBlocks.bifrost);
+        registerItemModel(ModBlocks.bifrostPerm);
+        registerItemModel(ModBlocks.enderEye);
+        registerItemModel(ModBlocks.tinyPlanet);
+        registerItemModel(ModBlocks.thatch);
+        registerItemModel(ModBlocks.blazeBlock);
+        registerItemModel(ModBlocks.forestEye);
 
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
@@ -206,6 +217,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -251,6 +263,9 @@ public final class ModelHandler {
         registerItemModel(thunderSword);
         registerItemModel(glassPick);
         registerItemModel(twigWand);
+        registerItemModel(flowerBag);
+        registerItemModel(fertilizer);
+        registerItemModel(obedienceStick);
     }
 
     private static void registerManaResources() {
@@ -260,6 +275,46 @@ public final class ModelHandler {
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
         }
+    }
+
+    private static void registerDyesPetals() {
+        Item item = dye;
+        String name = GameData.getItemRegistry().getNameForObject(item).toString();
+
+        Item item2 = petal;
+        String name2 = GameData.getItemRegistry().getNameForObject(item2).toString();
+
+        for (EnumDyeColor color : EnumDyeColor.values()) {
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+
+            ModelLoader.registerItemVariants(item2, new ModelResourceLocation(name2, "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item2, color.getMetadata(), new ModelResourceLocation(name2, "inventory"));
+        }
+    }
+
+    private static void registerRunes() {
+        List<String> variantNames = ImmutableList.of("water", "fire", "earth", "air", "spring", "summer", "autumn", "winter", "mana", "lust", "gluttony", "greed", "sloth", "wrath", "envy", "pride");
+        for (int i = 0; i < variantNames.size(); i++) {
+            ModelLoader.registerItemVariants(rune, new ModelResourceLocation("botania:rune_" + variantNames.get(i), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(rune, i, new ModelResourceLocation("botania:rune_" + variantNames.get(i), "inventory"));
+        }
+    }
+
+    private static void registerBows() {
+        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow", "inventory"));
+        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_1", "inventory"));
+        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_2", "inventory"));
+        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_3", "inventory"));
+        registerItemModel(livingwoodBow);
+
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow", "inventory"));
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_1", "inventory"));
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_2", "inventory"));
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_3", "inventory"));
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_4", "inventory"));
+        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_5", "inventory"));
+        registerItemModel(crystalBow);
     }
 
     private static void registerStateMappers() {

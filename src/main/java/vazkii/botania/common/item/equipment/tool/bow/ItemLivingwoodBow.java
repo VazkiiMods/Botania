@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -23,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -164,21 +166,25 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		return true;
 	}
 
-//	@Override todo 1.8
-//	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-//		if(stack != usingItem)
-//			return itemIcon;
-//
-//		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
-//
-//		if(j >= 18)
-//			return pullIcons[2];
-//		if(j > 13)
-//			return pullIcons[1];
-//		if(j > 0)
-//			return pullIcons[0];
-//
-//		return itemIcon;
-//	}
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+		String name = GameData.getItemRegistry().getNameForObject(this).toString();
+
+		if (useRemaining == 0) {
+			return new ModelResourceLocation(name, "inventory");
+		}
+
+		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
+
+		if(j >= 18)
+			return new ModelResourceLocation(name + "_pulling_3", "inventory");
+		if(j > 13)
+			return new ModelResourceLocation(name + "_pulling_2", "inventory");
+		if(j > 0)
+			return new ModelResourceLocation(name + "_pulling_1", "inventory");
+
+		return new ModelResourceLocation(name, "inventory");
+	}
 
 }

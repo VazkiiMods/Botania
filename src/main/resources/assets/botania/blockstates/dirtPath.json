@@ -4,7 +4,8 @@
     "model": "botania:minusone_all",
     "textures": {
       "all": "botania:blocks/dirtPath"
-    }
+    },
+    "transform": "forge:default-block"
   },
   "variants": {
     "normal": [{}],

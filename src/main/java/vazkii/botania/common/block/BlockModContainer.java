@@ -33,6 +33,11 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 	}
 
 	@Override
+	public int getRenderType() {
+		return 3;
+	}
+
+	@Override
 	public Block setUnlocalizedName(String par1Str) {
 		if(shouldRegisterInNameSet())
 			GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);

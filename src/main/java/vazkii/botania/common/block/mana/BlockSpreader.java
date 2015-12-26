@@ -143,7 +143,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idSpreader;
+		return 2;
 	}
 
 	@Override
