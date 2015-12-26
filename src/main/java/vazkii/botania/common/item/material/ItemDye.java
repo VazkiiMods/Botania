@@ -51,7 +51,6 @@ public class ItemDye extends Item16Colors {
 		TileEntity tile = par3World.getTileEntity(pos);
 		if(tile instanceof IDyablePool) {
 			IDyablePool dyable = (IDyablePool) tile;
-			int itemMeta = par1ItemStack.getItemDamage();
 			if(color != dyable.getColor()) {
 				dyable.setColor(color);
 				par1ItemStack.stackSize--;

@@ -176,13 +176,11 @@ public final class RenderHelper {
 			int r = (color & 0xFF0000) >> 16;
 			int g = (color & 0xFF00) >> 8;
 			int b = (color & 0xFF);
-			tessellator.getWorldRenderer().putColorMultiplier(r, g, b, (int) (255F * (1F - f2)));
-			tessellator.getWorldRenderer().pos(0, 0, 0).endVertex();
-			tessellator.getWorldRenderer().putColorMultiplier(0F, 0F, 0F, 0);
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).endVertex();
-			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).endVertex();
-			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).endVertex();
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).endVertex();
+			tessellator.getWorldRenderer().pos(0, 0, 0).color(r, g, b, 255F * (1F - f2)).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
 			tessellator.draw();
 		}
 

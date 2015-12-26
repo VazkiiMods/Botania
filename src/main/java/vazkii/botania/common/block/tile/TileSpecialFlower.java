@@ -44,6 +44,11 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	SubTileEntity subTile;
 
 	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return oldState.getBlock() != newState.getBlock();
+	}
+
+	@Override
 	public SubTileEntity getSubTile() {
 		return subTile;
 	}

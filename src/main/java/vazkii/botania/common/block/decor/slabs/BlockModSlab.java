@@ -90,7 +90,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	public void register() {
-		GameRegistry.registerBlock(this, ItemBlockModSlab.class, name);
+		GameRegistry.registerBlock(this, isDouble() ? null : ItemBlockModSlab.class, name);
 	}
 
 	@Override

@@ -1,9 +1,14 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
   "variants": {
-    "variant=manasteel": { "model": "botania:storage_manasteel" },
-    "variant=terrasteel": { "model": "botania:storage_terrasteel" },
-    "variant=elementium": { "model": "botania:storage_elementium" },
-    "variant=mana_diamond": { "model": "botania:storage_mana_diamond" },
-    "variant=dragonstone": { "model": "botania:storage_dragonstone" }
+    "variant=manasteel": [{ "textures": { "all": "botania:blocks/storage0" } }],
+    "variant=terrasteel": [{ "textures": { "all": "botania:blocks/storage1" } }],
+    "variant=elementium": [{ "textures": { "all": "botania:blocks/storage2" } }],
+    "variant=mana_diamond": [{ "textures": { "all": "botania:blocks/storage3" } }],
+    "variant=dragonstone": [{ "textures": { "all": "botania:blocks/storage4" } }]
   }
 }

@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": [{
+      "model": "minecraft:cube_bottom_top",
+      "textures": {
+        "bottom": "botania:blocks/blockBlazeQuartz0",
+        "top": "botania:blocks/blockBlazeQuartz1",
+        "side": "botania:blocks/blockBlazeQuartz2"
+      }
+    }]
+  }
+}

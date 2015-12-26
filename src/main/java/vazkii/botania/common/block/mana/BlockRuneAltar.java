@@ -53,6 +53,11 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
+	public int getRenderType() {
+		return 3;
+	}
+
+	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}

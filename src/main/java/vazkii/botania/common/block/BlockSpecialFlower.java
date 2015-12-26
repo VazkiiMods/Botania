@@ -12,37 +12,58 @@ package vazkii.botania.common.block;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.RegistrySimple;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.render.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.integration.coloredlights.LightHelper;
@@ -112,12 +133,40 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
+		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
+		);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent evt) {
+		// Ignore all vanilla rules, redirect all blockstates to blockstates/specialFlower.json#normal
+		evt.modelManager.getBlockModelShapes().registerBlockWithStateMapper(this, new DefaultStateMapper() {
+			@Override
+			public ModelResourceLocation getModelResourceLocation(IBlockState state) {
+				return new ModelResourceLocation("botania:specialFlower");
+			}
+		});
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, getTypeProperty(), BotaniaStateProps.COLOR);
+		return new ExtendedBlockState(this, new IProperty[] { getTypeProperty(), BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID } );
+	}
+
+	@Override
+	public IExtendedBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
+			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
+			String id = BotaniaAPI.getSubTileStringMapping(clazz);
+			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, id);
+		} else {
+			return ((IExtendedBlockState) state);
+		}
 	}
 
 	@Override
@@ -167,8 +216,8 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idSpecialFlower;
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT;
 	}
 
 	@Override
@@ -257,9 +306,14 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
-		return ((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR))
+	public int getRenderColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR))
 				.getMapColor().colorValue;
+	}
+
+	@Override
+	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
+		return getRenderColor(world.getBlockState(pos));
 	}
 
 	@Override
@@ -278,6 +332,40 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
+	}
+
+	@Override
+	public boolean addLandingEffects(net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
+		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
+		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
+		if (d0 > 2.5D) {
+			d0 = 2.5D;
+		}
+		int i = (int)(150.0D * d0);
+		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.waterlily.getDefaultState()));
+		return true;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer) {
+		if (world.getBlockState(pos).getBlock() == this) {
+			int i = 4;
+			EntityDiggingFX.Factory factory = new EntityDiggingFX.Factory();
+			for (int j = 0; j < i; ++j) {
+				for (int k = 0; k < i; ++k) {
+					for (int l = 0; l < i; ++l) {
+						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
+						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
+						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
+						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.waterlily.getDefaultState())));
+					}
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

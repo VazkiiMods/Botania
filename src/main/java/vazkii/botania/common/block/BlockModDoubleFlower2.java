@@ -4,6 +4,7 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 
 // Silver to black
@@ -11,17 +12,21 @@ public class BlockModDoubleFlower2 extends BlockModDoubleFlower {
 
     public BlockModDoubleFlower2() {
         super(true);
-        setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.SILVER));
+        setDefaultState(blockState.getBaseState()
+                .withProperty(field_181084_N, EnumFacing.SOUTH)
+                .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
+                .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
+                .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.SILVER));
     }
 
     @Override
     public BlockState createBlockState() {
-        return new BlockState(this, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_2);
+        return new BlockState(this, field_181084_N, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_2);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        int meta = ((EnumDyeColor) state.getValue(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2)).getMetadata() - 8;
+        int meta = state.getValue(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2).getMetadata() - 8;
         if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
             meta |= 8;
         }

@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "color=white": [{ "textures": { "all": "botania:blocks/pavement0" } }],
+    "color=black": [{ "textures": { "all": "botania:blocks/pavement1" } }],
+    "color=blue": [{ "textures": { "all": "botania:blocks/pavement2"  } }],
+    "color=red": [{ "textures": { "all": "botania:blocks/pavement3"} }],
+    "color=yellow": [{ "textures": { "all": "botania:blocks/pavement4"} }],
+    "color=green": [{ "textures": { "all": "botania:blocks/pavement5" } }]
+  }
+}

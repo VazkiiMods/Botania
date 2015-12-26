@@ -33,6 +33,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileManaBeacon;
+import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -49,6 +50,11 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
 		setUnlocalizedName(LibBlockNames.MANA_BEACON);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public int getRenderType() {
+		return 3;
 	}
 
 	@Override
@@ -77,7 +83,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
 

@@ -13,7 +13,10 @@ package vazkii.botania.common.entity;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import net.minecraft.block.Block;
@@ -107,7 +110,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	boolean spawnPixies = false;
 	boolean anyWithArmor = false;
 
-	List<String> playersWhoAttacked = new ArrayList();
+	List<UUID> playersWhoAttacked = new ArrayList<UUID>();
 
 	private static boolean isPlayingMusic = false;
 
@@ -357,8 +360,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		Entity e = par1DamageSource.getEntity();
 		if((par1DamageSource.damageType.equals("player") || e instanceof EntityPixie) && e != null && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
-			if(!playersWhoAttacked.contains(player.getName()))
-				playersWhoAttacked.add(player.getName());
+			if(!playersWhoAttacked.contains(player.getUniqueID()))
+				playersWhoAttacked.add(player.getUniqueID());
 
 			float dmg = par2;
 			boolean crit = false;
@@ -445,7 +448,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
 					if(ConfigHandler.relicsEnabled) {
 						ItemStack dice = new ItemStack(ModItems.dice);
-						ItemRelic.bindToUsernameS(playersWhoAttacked.get(pl), dice);
+						ItemRelic.bindToUuidS(playersWhoAttacked.get(pl), dice);
 						entityDropItem(dice, 1F);
 					}
 

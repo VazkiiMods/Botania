@@ -44,7 +44,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 		float f2 = (float)this.rendererDispatcher.entityZ;
 		GlStateManager.disableLighting();
 		field_147527_e.setSeed(31100L);
-		float f3 = 0.75F;
+		float f3 = 0.24F;
 
 		for (int i = 0; i < 16; ++i)
 		{
@@ -97,7 +97,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
 			GlStateManager.loadIdentity();
-			GlStateManager.translate(0.0F, (float)(Minecraft.getSystemTime() % 700000L) / 700000.0F, 0.0F);
+			GlStateManager.translate(0.0F, (float)(Minecraft.getSystemTime() % 20000) / 20000.0F, 0.0F);
 			GlStateManager.scale(f5, f5, f5);
 			GlStateManager.translate(0.5F, 0.5F, 0.0F);
 			GlStateManager.rotate((float)(i * i * 4321 + i * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
@@ -116,6 +116,13 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			{
 				f11 = f12 = f13 = 1.0F * f6;
 			}
+
+			Color color = Color.getHSBColor(Minecraft.getSystemTime() / 20F % 360 / 360F, 1F, 1F);
+			f11 = color.getRed() / 255F;
+			f12 = color.getGreen() / 255F;
+			f13 = color.getBlue() / 255F;
+
+			f11 *= f6; f12 *= f6; f13 *= f6;
 
 			worldrenderer.pos(x, y + (double)f3, z).color(f11, f12, f13, 1.0F).endVertex();
 			worldrenderer.pos(x, y + (double)f3, z + 1.0D).color(f11, f12, f13, 1.0F).endVertex();

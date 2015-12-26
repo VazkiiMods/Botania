@@ -20,7 +20,7 @@ import net.minecraft.stats.Achievement;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.IPickupAchievement;
-// todo 1.8 revalidate this (used to extend ItemBlockWithMetadata which got removed)
+
 public class ItemBlockWithMetadataAndName extends ItemBlock implements IPickupAchievement, ICraftAchievement {
 
 	public ItemBlockWithMetadataAndName(Block par2Block) {

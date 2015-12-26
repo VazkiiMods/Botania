@@ -73,7 +73,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 				time += new Random(tileentity.getPos().hashCode()).nextInt(100000);
 
 			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
-			GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
+			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
 		} else {
 			int hex = pool.color.getMapColor().colorValue;
 			int r = (hex & 0xFF0000) >> 16;

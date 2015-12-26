@@ -36,6 +36,11 @@ public class BlockDistributor extends BlockModContainer implements ILexiconable 
 	}
 
 	@Override
+	public int getRenderType() {
+		return 3;
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileDistributor();
 	}

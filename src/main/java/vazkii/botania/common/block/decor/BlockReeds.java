@@ -15,6 +15,7 @@ import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -47,7 +48,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		switch (((EnumFacing.Axis) state.getValue(BotaniaStateProps.AXIS_FACING))) {
+		switch (state.getValue(BotaniaStateProps.AXIS_FACING)) {
 			case Z: return 8;
 			case X: return 4;
 			case Y:
@@ -65,6 +66,11 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 			default: axis = EnumFacing.Axis.Y; break;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.AXIS_FACING, axis);
+	}
+
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return getStateFromMeta(meta).withProperty(BotaniaStateProps.AXIS_FACING, facing.getAxis());
 	}
 
 	@Override

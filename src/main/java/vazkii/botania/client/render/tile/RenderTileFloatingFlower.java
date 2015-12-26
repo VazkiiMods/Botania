@@ -16,8 +16,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
@@ -59,17 +61,9 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		GlStateManager.popMatrix();
 
 		ItemStack stack = flower.getDisplayStack();
-//		Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
-//		IIcon icon = stack.getIconIndex();
-//
-//		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-//		float f = icon.getMinU();
-//		float f1 = icon.getMaxU();
-//		float f2 = icon.getMinV();
-//		float f3 = icon.getMaxV();
-//		GlStateManager.translate(0.25F, 0.4F, 0.5F);
-//		GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+		GlStateManager.translate(0.5F, 0.65F, 0.5F);
+		GlStateManager.scale(0.5F, 0.5F, 0.5F);
+		Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.NONE);
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.popMatrix();
 	}

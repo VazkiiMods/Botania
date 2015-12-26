@@ -48,6 +48,16 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 	}
 
 	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return super.getActualState(state, world, pos).withProperty(VARIANT, EnumType.NORMAL);
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
+	}
+
+	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST);
 	}

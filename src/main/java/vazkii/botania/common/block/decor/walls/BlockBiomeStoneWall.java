@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -31,28 +32,28 @@ import java.util.List;
 public class BlockBiomeStoneWall extends BlockModWall {
 
 	public BlockBiomeStoneWall() {
-		super(ModFluffBlocks.biomeStoneA, 8);
+		super(ModFluffBlocks.biomeStoneA, 0);
 		setHardness(1.5F);
 		setResistance(10F);
-		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST).withProperty(VARIANT, EnumType.NORMAL));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.FOREST_COBBLE).withProperty(VARIANT, EnumType.NORMAL));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONE_VARIANT);
+		return new BlockState(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONEWALL_VARIANT);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Enum) state.getValue(BotaniaStateProps.BIOMESTONE_VARIANT)).ordinal();
+		return ((Enum) state.getValue(BotaniaStateProps.BIOMESTONEWALL_VARIANT)).ordinal() - 8;
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (meta < 0 || meta >= BiomeStoneVariant.values().length) {
+		if (meta < 0 || meta >= BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues().size()) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]).withProperty(VARIANT, EnumType.NORMAL);
+		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.values()[meta + 8]);
 	}
 
 	@Override
