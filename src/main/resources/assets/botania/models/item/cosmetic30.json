@@ -1,0 +1,6 @@
+{
+  "parent": "botania:item/standard_item",
+  "textures": {
+    "layer0": "botania:items/cosmetic30"
+  }
+}

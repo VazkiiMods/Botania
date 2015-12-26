@@ -119,6 +119,8 @@ public final class ModelHandler {
         registerRunes();
         registerBows();
 
+        registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
+        registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         /** Special Item Meshers **/
     }
 
@@ -225,6 +227,7 @@ public final class ModelHandler {
         registerItemModel(blackLotus);
         registerItemModel(blackLotus, 1);
         registerItemModel(lexicon);
+        registerItemModel(manaCookie);
 
         registerItemModel(manasteelHelm);
         registerItemModel(manasteelChest);
@@ -263,9 +266,18 @@ public final class ModelHandler {
         registerItemModel(thunderSword);
         registerItemModel(glassPick);
         registerItemModel(twigWand);
+
         registerItemModel(flowerBag);
         registerItemModel(fertilizer);
         registerItemModel(obedienceStick);
+        
+        registerItemModel(dirtRod);
+        registerItemModel(cobbleRod);
+        registerItemModel(fireRod);
+        registerItemModel(rainbowRod);
+        registerItemModel(skyDirtRod);
+        registerItemModel(tornadoRod);
+        registerItemModel(terraformRod);
     }
 
     private static void registerManaResources() {
@@ -619,6 +631,13 @@ public final class ModelHandler {
         }
     }
 
+    private static void registerItemModelMetas(Item item, String loc, int range) {
+     	for(int i = 0; i < range;i++) {
+     		String name = "botania:" + loc + i;
+     		ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
+     		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
+     	}
+    }
 
     private static void registerItemModel(Block b) {
         registerItemModel(Item.getItemFromBlock(b));
