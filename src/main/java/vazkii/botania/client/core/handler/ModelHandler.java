@@ -348,25 +348,25 @@ public final class ModelHandler {
     private static void registerMushrooms() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:mushroom_" + color.getName();
-            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.mushroom).toString();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory_" + color.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
     }
 
     private static void registerFlowers() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:flower_" + color.getName();
-            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.flower).toString();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory_" + color.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
 
         item = Item.getItemFromBlock(ModBlocks.shinyFlower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = "botania:shinyFlower_" + color.getName();
-            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
+            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.shinyFlower).toString();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory_" + color.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
 
         item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
