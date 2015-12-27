@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
@@ -88,9 +89,9 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			ILens lens = (ILens) stack.getItem();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(-0.4F, -1.4F, -0.4375F);
+			GlStateManager.translate(-0.0F, -1F, -0.4375F);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			// todo 1.8 RenderLens.render(stack, lens.getLensColor(stack));
+			Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.FIXED);
 			GlStateManager.popMatrix();
 		}
 

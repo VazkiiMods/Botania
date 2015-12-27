@@ -118,6 +118,7 @@ public final class ModelHandler {
         registerDyesPetals();
         registerRunes();
         registerBows();
+        registerLens();
 
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
@@ -330,6 +331,14 @@ public final class ModelHandler {
         ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_4", "inventory"));
         ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_5", "inventory"));
         registerItemModel(crystalBow);
+    }
+
+    private static void registerLens() {
+        int counter = 0;
+        for (String s : LibItemNames.LENS_NAMES) {
+            ModelLoader.registerItemVariants(lens, new ModelResourceLocation("botania:" + s, "inventory"));
+            ModelLoader.setCustomModelResourceLocation(lens, counter++, new ModelResourceLocation("botania:" + s, "inventory"));
+        }
     }
 
     private static void registerStateMappers() {
