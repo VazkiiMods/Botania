@@ -10,6 +10,8 @@
  */
 package vazkii.botania.api.item;
 
+import java.util.UUID;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
@@ -22,12 +24,28 @@ public interface IRelic {
 	/**
 	 * Binds to the player name passed in.
 	 */
+	@Deprecated
 	public void bindToUsername(String playerName, ItemStack stack);
 
 	/**
 	 * Gets the username of the person this relic is bound to.
 	 */
 	public String getSoulbindUsername(ItemStack stack);
+
+	/**
+	 * Binds to the UUID passed in.
+	 */
+	public void bindToUUID(UUID uuid, ItemStack stack);
+
+	/**
+	 * Gets the UUID of the person this relic is bound to.
+	 */
+	public UUID getSoulbindUUID(ItemStack stack);
+
+	/**
+	 * Checks if the relic is using UUIDs.
+	 */
+	public boolean hasUUID(ItemStack stack);
 
 	/**
 	 * Sets the achievement that this relic binds to.
