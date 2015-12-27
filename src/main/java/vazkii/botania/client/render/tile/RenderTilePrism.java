@@ -12,6 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
@@ -41,8 +42,8 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 				ILens lens = (ILens) stack.getItem();
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.translate(0F, 0F, pos);
-				// todo 1.8 RenderLens.render(stack, lens.getLensColor(stack));
+				GlStateManager.translate(0.5F, 0.5F, pos);
+				Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.NONE);
 				GlStateManager.popMatrix();
 			}
 		}

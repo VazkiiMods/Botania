@@ -259,7 +259,7 @@ public final class HUDHandler {
 		}
 
 		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
-		GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
+		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
 		mc.renderEngine.bindTexture(manaBar);
 
 		GlStateManager.enableBlend();
@@ -484,7 +484,7 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, 100, 3);
 
 		Color color_ = new Color(color);
-		GlStateManager.color((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
+		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
 	}
 }

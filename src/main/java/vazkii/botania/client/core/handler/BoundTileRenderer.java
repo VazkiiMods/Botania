@@ -114,7 +114,7 @@ public final class BoundTileRenderer {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(pos.getX() - getRenderPosX(), pos.getY() - getRenderPosY(), pos.getZ() - getRenderPosZ() + 1);
 		Color colorRGB = new Color(color);
-		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
 		Block block = world.getBlockState(pos).getBlock();

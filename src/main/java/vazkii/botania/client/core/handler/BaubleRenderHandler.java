@@ -136,7 +136,7 @@ public final class BaubleRenderHandler {
 //					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 //
 //					Color color = new Color(item.getColorFromItemStack(stack, 1));
-//					GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+//					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 //				}
 				GlStateManager.popMatrix();
 

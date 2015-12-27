@@ -87,7 +87,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 //						IIcon icon = stack.getItem().getIcon(stack, renderPass);
 //						if(icon != null) {
 //							Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-//							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+//							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 //							float f = icon.getMinU();
 //							float f1 = icon.getMaxU();
 //							float f2 = icon.getMinV();

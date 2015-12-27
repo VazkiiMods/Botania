@@ -80,7 +80,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 	@Override
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT_MIPPED; // todo 1.8
+		return EnumWorldBlockLayer.TRANSLUCENT;
 	}
 
 	@Override
@@ -123,7 +123,6 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 			prism.setInventorySlotContents(0, null);
 			prism.markDirty();
 			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
-//			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta & 14, 1 | 2);
 		}
 
 		return true;

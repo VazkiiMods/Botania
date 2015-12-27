@@ -181,7 +181,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);*/
 
 				Color color = new Color(getColorFromItemStack(stack, 1));
-				GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;

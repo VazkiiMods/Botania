@@ -102,7 +102,7 @@ public final class SubTileRadiusRenderHandler {
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
-		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
 
 		double f = 1F / 16F;
 		double x = aabb.maxX - aabb.minX - f;
@@ -119,7 +119,7 @@ public final class SubTileRadiusRenderHandler {
 		x += f;
 		z += f;
 		double f1 = f + f / 4F;
-		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 		tessellator.getWorldRenderer().pos(x, f1, 0).endVertex();
 		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
@@ -139,7 +139,7 @@ public final class SubTileRadiusRenderHandler {
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
-		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 32);
 
 		double f = 1F / 16F;
 
@@ -162,7 +162,7 @@ public final class SubTileRadiusRenderHandler {
 
 		radius += f;
 		double f1 = f + f / 4F;
-		GlStateManager.color((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 		tessellator.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
 		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {

@@ -123,6 +123,7 @@ public final class ModelHandler {
         registerBows();
         registerLens();
 
+        registerItemModelAllMeta(laputaShard, 20);
         registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
         registerItemModelAllMeta(dye, EnumDyeColor.values().length);
         registerItemModelAllMeta(petal, EnumDyeColor.values().length);
@@ -217,6 +218,9 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.forestEye);
         registerItemModel(ModBlocks.seaLamp);
         registerItemModel(ModBlocks.cellBlock);
+        registerItemModel(ModBlocks.enchantedSoil);
+        registerItemModel(ModBlocks.enchanter);
+        registerItemModel(ModBlocks.prism);
 
         // Item models which all use the same base model and recolored by render layer
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
@@ -299,6 +303,10 @@ public final class ModelHandler {
 
         registerItemModel(tornadoRod);
         ModelLoader.registerItemVariants(tornadoRod, new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
+
+        registerItemModel(openBucket);
+        registerItemModel(bloodPendant);
+
     }
 
     private static void registerManaResources() {

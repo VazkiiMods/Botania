@@ -78,7 +78,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		switch (((EnumFacing.Axis) state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION))) {
+		switch (state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION)) {
 			case Z: return 1;
 			case X:
 			default: return 0;
