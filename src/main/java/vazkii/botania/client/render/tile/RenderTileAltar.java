@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -122,19 +123,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 						ItemStack stack = altar.getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-//						Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
-//						IIcon icon = stack.getItem().getIcon(stack, 0);
-//						if(icon != null) {
-//							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-//							GlStateManager.color((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-//							float f = icon.getMinU();
-//							float f1 = icon.getMaxU();
-//							float f2 = icon.getMinV();
-//							float f3 = icon.getMaxV();
-//							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-//							GlStateManager.color(1F, 1F, 1F);
-//						}
-
+						Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
 						GlStateManager.popMatrix();
 					}
 

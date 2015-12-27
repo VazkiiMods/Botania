@@ -1,0 +1,12 @@
+altar
+up-down
+west-south-east-north
+
+base textures         pillar tex
+
+
+
+						northsouth face cup (1 always faces south)
+						eastwest face cup (blue always faces east)
+						cupbase 2
+						cubbase
