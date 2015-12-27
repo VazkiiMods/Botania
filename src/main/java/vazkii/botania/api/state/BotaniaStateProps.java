@@ -67,7 +67,6 @@ public class BotaniaStateProps {
     public static final PropertyEnum<AlfPortalState> ALFPORTAL_STATE = PropertyEnum.create("state", AlfPortalState.class);
 
     // BlockAltar
-    public static final PropertyEnum<AltarLiquidState> ALTAR_LIQUID_STATE = PropertyEnum.create("liquid", AltarLiquidState.class);
     public static final PropertyEnum<AltarVariant> ALTAR_VARIANT = PropertyEnum.create("variant", AltarVariant.class);
     public static final PropertyBool MOSSY = PropertyBool.create("mossy");
 

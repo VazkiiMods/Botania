@@ -28,6 +28,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -62,11 +64,11 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		//Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
+		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
 
 		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GlStateManager.scale(1F, -1F, -1F);
-		//model.render();
+		model.render();
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 
@@ -130,6 +132,28 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					GlStateManager.popMatrix();
 				}
 			}
+
+
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Fluid fluid = lava ? FluidRegistry.LAVA : FluidRegistry.WATER;
+			int brightness = lava ? 240 : -1;
+			float alpha = lava ? 1F : 0.7F;
+
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableAlpha();
+			if(lava)
+				GlStateManager.disableLighting();
+			GlStateManager.color(1F, 1F, 1F, alpha);
+			GlStateManager.translate(w, -0.3F, w);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.scale(s, s, s);
+
+			renderIcon(0, 0, fluid.getStill(), 16, 16, brightness);
+			if(lava)
+				GlStateManager.enableLighting();
+			GlStateManager.enableAlpha();
+			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
@@ -137,11 +161,12 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		forceMeta = -1;
 	}
 
-	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
+	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
+		TextureAtlasSprite par3Icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(loc.toString());
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		if(brightness != -1)
-			//tessellator.getWorldRenderer().setBrightness(brightness);
+		//if(brightness != -1)
+			//tessellator.getWorldRenderer().putBrightness4(brightness, brightness, brightness, brightness);
 		tessellator.getWorldRenderer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
 		tessellator.getWorldRenderer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
 		tessellator.getWorldRenderer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();

@@ -17,25 +17,6 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "liquid": {
-      "none": {},
-      "water": {
-        "submodel": {
-          "waterlayer": {
-            "model": "botania:altar_liquid",
-            "textures": { "liquid": "minecraft:blocks/water_still" }
-          }
-        }
-      },
-      "lava": {
-        "submodel": {
-          "lavalayer": {
-            "model": "botania:altar_liquid",
-            "textures": { "liquid": "minecraft:blocks/lava_still" }
-          }
-        }
-      }
-    },
     "mossy": {
       "true": {
         "textures": {

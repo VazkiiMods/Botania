@@ -639,7 +639,7 @@ public final class ModelHandler {
         Item item = Item.getItemFromBlock(ModBlocks.altar);
         String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.altar).toString();
         for (int i = 0; i < AltarVariant.values().length; i++) {
-            String variantName = "liquid=none,mossy=false,variant=" + AltarVariant.values()[i].getName();
+            String variantName = "mossy=false,variant=" + AltarVariant.values()[i].getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variantName));
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, variantName));
         }

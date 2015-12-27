@@ -28,6 +28,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -39,7 +40,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltarLiquidState;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
@@ -69,14 +69,13 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.MOSSY, false)
-				.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.NONE)
 				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT)
 		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.ALTAR_LIQUID_STATE, BotaniaStateProps.ALTAR_VARIANT, BotaniaStateProps.MOSSY);
+		return new BlockState(this, BotaniaStateProps.ALTAR_VARIANT, BotaniaStateProps.MOSSY);
 	}
 
 	@Override
@@ -97,17 +96,17 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		TileEntity te = worldIn.getTileEntity(pos);
 		if (te instanceof TileAltar) {
 			TileAltar altar = ((TileAltar) te);
+
 			if (altar.isMossy) {
 				state = state.withProperty(BotaniaStateProps.MOSSY, true);
 			}
-			if (altar.hasLava()) {
-				state = state.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.LAVA);
-			}
-			if (altar.hasWater()) {
-				state = state.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.WATER);
-			}
 		}
 		return state;
+	}
+
+	@Override
+	public int getRenderType() {
+		return 2;
 	}
 
 	@Override
@@ -171,6 +170,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 					tile.setWater(true);
 					par1World.updateComparatorOutputLevel(pos, this);
+					par1World.checkLight(pos);
 				}
 
 				return true;
@@ -181,6 +181,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				tile.setLava(true);
 				tile.setWater(false);
 				par1World.updateComparatorOutputLevel(pos, this);
+				par1World.checkLight(pos);
 
 				return true;
 			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
@@ -197,6 +198,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					tile.setLava(false);
 				else tile.setWater(false);
 				par1World.updateComparatorOutputLevel(pos, this);
+				par1World.checkLight(pos);
 
 				return true;
 			}
