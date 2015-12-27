@@ -15,12 +15,12 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,6 +38,9 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AltarLiquidState;
+import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -63,6 +66,48 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
 
 		random = new Random();
+
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.MOSSY, false)
+				.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.NONE)
+				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT)
+		);
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, BotaniaStateProps.ALTAR_LIQUID_STATE, BotaniaStateProps.ALTAR_VARIANT, BotaniaStateProps.MOSSY);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.ALTAR_VARIANT).ordinal();
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 0 || meta >= AltarVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.values()[meta]);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		TileEntity te = worldIn.getTileEntity(pos);
+		if (te instanceof TileAltar) {
+			TileAltar altar = ((TileAltar) te);
+			if (altar.isMossy) {
+				state = state.withProperty(BotaniaStateProps.MOSSY, true);
+			}
+			if (altar.hasLava()) {
+				state = state.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.LAVA);
+			}
+			if (altar.hasWater()) {
+				state = state.withProperty(BotaniaStateProps.ALTAR_LIQUID_STATE, AltarLiquidState.WATER);
+			}
+		}
+		return state;
 	}
 
 	@Override
@@ -212,11 +257,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	@Override
 	public boolean isFullCube() {
 		return false;
-	}
-
-	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idAltar;
 	}
 
 	@Override

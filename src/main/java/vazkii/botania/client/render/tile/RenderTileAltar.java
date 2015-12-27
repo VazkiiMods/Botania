@@ -62,11 +62,11 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
+		//Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
 
 		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GlStateManager.scale(1F, -1F, -1F);
-		model.render();
+		//model.render();
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 
@@ -130,29 +130,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					GlStateManager.popMatrix();
 				}
 			}
-
-			// todo 1.8 this theoretically would be completely done in models and getActualState
-//			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-//			Block block = lava ? Blocks.lava : Blocks.water;
-//			int brightness = lava ? 240 : -1;
-//			float alpha = lava ? 1F : 0.7F;
-//
-//			GlStateManager.enableBlend();
-//			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//			GlStateManager.disableAlpha();
-//			if(lava)
-//				GlStateManager.disableLighting();
-//			GlStateManager.color(1F, 1F, 1F, alpha);
-//			GlStateManager.translate(w, -0.3F, w);
-//			GlStateManager.rotate(90F, 1F, 0F, 0F);
-//			GlStateManager.scale(s, s, s);
-//
-//			renderIcon(0, 0, block.getIcon(0, 0), 16, 16, brightness);
-//			if(lava)
-//				GlStateManager.enableLighting();
-//			GlStateManager.enableAlpha();
-//			GlStateManager.disableBlend();
-//			GlStateManager.popMatrix();
+			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
 
