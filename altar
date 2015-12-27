@@ -10,3 +10,5 @@ base textures         pillar tex
 						eastwest face cup (blue always faces east)
 						cupbase 2
 						cubbase
+
+						water-lava texture simply one level below top of cup
