@@ -6,7 +6,7 @@ import vazkii.botania.api.state.enums.PrismarineVariant;
 public class BlockDarkPrismarineStairs extends BlockPrismarineStairs {
 
 	public BlockDarkPrismarineStairs() {
-		super(PrismarineVariant.DARK_PRIMSARINE);
+		super(PrismarineVariant.DARK_PRISMARINE);
 	}
 
 }

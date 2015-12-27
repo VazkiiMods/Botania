@@ -57,7 +57,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((QuartzVariant) state.getValue(BotaniaStateProps.QUARTZ_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.QUARTZ_VARIANT).ordinal();
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		QuartzVariant variant = ((QuartzVariant) state.getValue(BotaniaStateProps.QUARTZ_VARIANT));
+		QuartzVariant variant = state.getValue(BotaniaStateProps.QUARTZ_VARIANT);
 		if (variant == QuartzVariant.PILLAR_X || variant == QuartzVariant.PILLAR_Z) {
 			state = state.withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y);
 		}
@@ -119,7 +119,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getRenderType() {
-		return 39;
+		return 3;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import vazkii.botania.common.block.ModFluffBlocks;
 public class BlockDarkPrismarineSlab extends BlockPrismarineSlab {
 
 	public BlockDarkPrismarineSlab(boolean full) {
-		super(full, PrismarineVariant.DARK_PRIMSARINE);
+		super(full, PrismarineVariant.DARK_PRISMARINE);
 	}
 
 	@Override

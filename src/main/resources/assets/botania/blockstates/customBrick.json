@@ -1,0 +1,27 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "variant": {
+      "hellish_brick": { "textures": { "all": "botania:blocks/customBrick0" } },
+      "soul_brick": { "textures": { "all": "botania:blocks/customBrick1" } },
+      "frosty_brick": { "textures": { "all": "botania:blocks/customBrick2" } },
+      "roof_tile": { "textures": { "all": "botania:blocks/customBrick3" } },
+      "azulejo_1": { "textures": { "all": "botania:blocks/customBrick4" } },
+      "azulejo_2": { "textures": { "all": "botania:blocks/customBrick5" } },
+      "azulejo_3": { "textures": { "all": "botania:blocks/customBrick6" } },
+      "azulejo_4": { "textures": { "all": "botania:blocks/customBrick7" } },
+      "azulejo_5": { "textures": { "all": "botania:blocks/customBrick8" } },
+      "azulejo_6": { "textures": { "all": "botania:blocks/customBrick9" } },
+      "azulejo_7": { "textures": { "all": "botania:blocks/customBrick10" } },
+      "azulejo_8": { "textures": { "all": "botania:blocks/customBrick11" } },
+      "azulejo_9": { "textures": { "all": "botania:blocks/customBrick12" } },
+      "azulejo_10": { "textures": { "all": "botania:blocks/customBrick13" } },
+      "azulejo_11": { "textures": { "all": "botania:blocks/customBrick14" } },
+      "azulejo_12": { "textures": { "all": "botania:blocks/customBrick15" } }
+    }
+  }
+}

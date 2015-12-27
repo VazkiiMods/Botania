@@ -25,11 +25,13 @@ import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CrateVariant;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.api.state.enums.DrumVariant;
 import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
+import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
@@ -111,17 +113,21 @@ public final class ModelHandler {
         registerSlabs();
         registerWalls();
         registerPanes();
-        registerUnstableBeaconPetal();
         registerAltars();
+        registerQuartzBlocks();
 
         /** Normal Items **/
         registerStandardItems();
         registerManaResources();
-        registerDyesPetals();
         registerRunes();
         registerBows();
         registerLens();
 
+        registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
+        registerItemModelAllMeta(dye, EnumDyeColor.values().length);
+        registerItemModelAllMeta(petal, EnumDyeColor.values().length);
+        registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
+        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 8);
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         /** Special Item Meshers **/
@@ -209,6 +215,13 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.thatch);
         registerItemModel(ModBlocks.blazeBlock);
         registerItemModel(ModBlocks.forestEye);
+        registerItemModel(ModBlocks.seaLamp);
+        registerItemModel(ModBlocks.cellBlock);
+
+        // Item models which all use the same base model and recolored by render layer
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.petalBlock), EnumDyeColor.values().length);
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.manaBeacon), EnumDyeColor.values().length);
 
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
@@ -223,6 +236,8 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -292,22 +307,6 @@ public final class ModelHandler {
             String name = "botania:" + LibItemNames.MANA_RESOURCE_NAMES[i];
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
-        }
-    }
-
-    private static void registerDyesPetals() {
-        Item item = dye;
-        String name = GameData.getItemRegistry().getNameForObject(item).toString();
-
-        Item item2 = petal;
-        String name2 = GameData.getItemRegistry().getNameForObject(item2).toString();
-
-        for (EnumDyeColor color : EnumDyeColor.values()) {
-            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory"));
-
-            ModelLoader.registerItemVariants(item2, new ModelResourceLocation(name2, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item2, color.getMetadata(), new ModelResourceLocation(name2, "inventory"));
         }
     }
 
@@ -623,18 +622,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.managlassPane);
     }
 
-    private static void registerUnstableBeaconPetal() {
-        // The blocks that are dynamically colored, not through their states
-        for (EnumDyeColor color : EnumDyeColor.values()) {
-            Item unstable = Item.getItemFromBlock(ModBlocks.unstableBlock);
-            Item beacon = Item.getItemFromBlock(ModBlocks.manaBeacon);
-            Item petal = Item.getItemFromBlock(ModBlocks.petalBlock);
-            ModelLoader.setCustomModelResourceLocation(unstable, color.getMetadata(), new ModelResourceLocation("botania:unstableBlock", "inventory"));
-            ModelLoader.setCustomModelResourceLocation(beacon, color.getMetadata(), new ModelResourceLocation("botania:manaBeacon", "inventory"));
-            ModelLoader.setCustomModelResourceLocation(petal, color.getMetadata(), new ModelResourceLocation("botania:petalBlock", "inventory"));
-        }
-    }
-
     private static void registerAltars() {
         Item item = Item.getItemFromBlock(ModBlocks.altar);
         String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.altar).toString();
@@ -642,6 +629,19 @@ public final class ModelHandler {
             String variantName = "mossy=false,variant=" + AltarVariant.values()[i].getName();
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, variantName));
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, variantName));
+        }
+    }
+
+    private static void registerQuartzBlocks() {
+        for (Block b : ImmutableList.of(ModFluffBlocks.blazeQuartz, ModFluffBlocks.darkQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.sunnyQuartz)) {
+            Item item = Item.getItemFromBlock(b);
+            String name = GameData.getBlockRegistry().getNameForObject(b).toString();
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "variant=normal"));
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "variant=chiseled"));
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "variant=pillar_y"));
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "variant=normal"));
+            ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, "variant=chiseled"));
+            ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, "variant=pillar_y"));
         }
     }
 
@@ -655,8 +655,23 @@ public final class ModelHandler {
         }
     }
 
+    /**
+     * Registers all metas of the given item to models/item/registryname.json
+     */
+    private static void registerItemModelAllMeta(Item item, int range) {
+        String loc = GameData.getItemRegistry().getNameForObject(item).toString();
+        for(int i = 0; i < range; i++) {
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(loc, "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(loc, "inventory"));
+        }
+    }
+
+    /**
+     * Registers each meta of an item to models/item/registryname<meta>.json
+     * Range is exclusive upper bound
+     */
     private static void registerItemModelMetas(Item item, String loc, int range) {
-     	for(int i = 0; i < range;i++) {
+     	for(int i = 0; i < range; i++) {
      		String name = "botania:" + loc + i;
      		ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
      		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));

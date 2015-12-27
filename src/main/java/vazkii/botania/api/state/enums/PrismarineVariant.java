@@ -7,7 +7,7 @@ import java.util.Locale;
 public enum PrismarineVariant implements IStringSerializable {
     PRISMARINE,
     PRISMARINE_BRICKS,
-    DARK_PRIMSARINE;
+    DARK_PRISMARINE;
 
     @Override
     public String getName() {

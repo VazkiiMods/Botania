@@ -9,7 +9,7 @@ public enum CustomBrickVariant implements IStringSerializable {
     SOUL_BRICK,
     FROSTY_BRICK,
     ROOF_TILE,
-    AZULEJO_1, // todo 1.8 must rename these
+    AZULEJO_1,
     AZULEJO_2,
     AZULEJO_3,
     AZULEJO_4,
