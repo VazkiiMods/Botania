@@ -120,7 +120,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
+	public boolean isSugoiKawaiiDesuNe(ItemStack stack) {
 		return stack.getDisplayName().equalsIgnoreCase("desu gun");
 	}
 

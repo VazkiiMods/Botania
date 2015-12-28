@@ -8,10 +8,12 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -79,6 +81,8 @@ import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
+import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -122,16 +126,26 @@ public final class ModelHandler {
         registerRunes();
         registerBows();
         registerLens();
+        registerBrews();
 
-        registerItemModelAllMeta(laputaShard, 20);
-        registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
-        registerItemModelAllMeta(dye, EnumDyeColor.values().length);
-        registerItemModelAllMeta(petal, EnumDyeColor.values().length);
-        registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
-        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 8);
-        registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
-        registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         /** Special Item Meshers **/
+        ModelLoader.registerItemVariants(manaGun,
+                new ModelResourceLocation("botania:manaGun", "inventory"),
+                new ModelResourceLocation("botania:manaGunClip", "inventory"),
+                new ModelResourceLocation("botania:desuGun", "inventory"),
+                new ModelResourceLocation("botania:desuGunClip", "inventory"));
+        ModelLoader.setCustomMeshDefinition(manaGun, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String name;
+                if (((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack)) {
+                    name = ItemManaGun.hasClip(stack) ? "botania:desuGunClip" : "botania:desuGun";
+                } else {
+                    name = ItemManaGun.hasClip(stack) ? "botania:manaGunClip": "botania:manaGun";
+                }
+                return new ModelResourceLocation(name, "inventory");
+            }
+        });
     }
 
     private static void registerSubtiles() {
@@ -294,19 +308,46 @@ public final class ModelHandler {
         registerItemModel(obedienceStick);
         
         registerItemModel(dirtRod);
+        registerItemModel(waterRod);
         registerItemModel(cobbleRod);
         registerItemModel(fireRod);
         registerItemModel(rainbowRod);
         registerItemModel(skyDirtRod);
         registerItemModel(tornadoRod);
         registerItemModel(terraformRod);
+        registerItemModel(diviningRod);
+        registerItemModel(gravityRod);
+        registerItemModel(missileRod);
+        registerItemModel(smeltRod);
+        registerItemModel(exchangeRod);
 
         registerItemModel(tornadoRod);
         ModelLoader.registerItemVariants(tornadoRod, new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
 
         registerItemModel(openBucket);
         registerItemModel(bloodPendant);
+        registerItemModel(manaTablet);
+        registerItemModel(enderDagger);
+        registerItemModel(slingshot);
+        registerItemModel(vineBall);
+        registerItemModel(regenIvy);
+        registerItemModel(keepIvy);
+        registerItemModel(recordGaia1);
+        registerItemModel(recordGaia2);
+        registerItemModel(overgrowthSeed);
+        registerItemModel(worldSeed);
+        registerItemModel(incenseStick);
 
+        registerItemModelAllMeta(laputaShard, 20);
+        registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
+        registerItemModelAllMeta(dye, EnumDyeColor.values().length);
+        registerItemModelAllMeta(petal, EnumDyeColor.values().length);
+        registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
+        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 8);
+        registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
+        registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
+        registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
+        registerItemModelMetas(grassHorn, LibItemNames.GRASS_HORN, 3);
     }
 
     private static void registerManaResources() {
@@ -348,6 +389,36 @@ public final class ModelHandler {
             ModelLoader.registerItemVariants(lens, new ModelResourceLocation("botania:" + s, "inventory"));
             ModelLoader.setCustomModelResourceLocation(lens, counter++, new ModelResourceLocation("botania:" + s, "inventory"));
         }
+    }
+
+    private static void registerBrews() {
+        ModelLoader.registerItemVariants(vial, new ModelResourceLocation("botania:vial", "inventory"), new ModelResourceLocation("botania:flask", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(vial, 0, new ModelResourceLocation("botania:vial", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(vial, 1, new ModelResourceLocation("botania:flask", "inventory"));
+
+        for (int i = 0; i < 6; i++) {
+            ModelLoader.registerItemVariants(brewFlask, new ModelResourceLocation("botania:flask1_" + i, "inventory"));
+        }
+
+        ModelLoader.setCustomMeshDefinition(brewFlask, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                int swigsTaken = 6 - ((ItemBrewBase) brewFlask).getSwigsLeft(stack);
+                return new ModelResourceLocation("botania:flask1_" + swigsTaken, "inventory");
+            }
+        });
+
+        for (int i = 0; i < 4; i++) {
+            ModelLoader.registerItemVariants(brewVial, new ModelResourceLocation("botania:vial1_" + i, "inventory"));
+        }
+
+        ModelLoader.setCustomMeshDefinition(brewVial, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                int swigsTaken = 4 - ((ItemBrewBase) brewVial).getSwigsLeft(stack);
+                return new ModelResourceLocation("botania:vial1_" + swigsTaken, "inventory");
+            }
+        });
     }
 
     private static void registerStateMappers() {

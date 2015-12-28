@@ -1,0 +1,7 @@
+{
+  "parent": "botania:item/standard_item",
+  "textures": {
+    "layer0": "botania:items/manaGun2",
+    "layer1": "botania:items/manaGun1"
+  }
+}
