@@ -70,6 +70,11 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
+	public int getRenderType() {
+		return 2; // todo
+	}
+
+	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.COLOR);
 	}

@@ -22,7 +22,7 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 
 	@SubscribeEvent
 	public void registerIcons(TextureStitchEvent.Pre evt) {
-		icon = IconHelper.forName(evt.map, "triggers/runeAltarCanCraft");
+		icon = IconHelper.forName(evt.map, "triggers/runeAltarCanCraft", "items");
 	}
 
 	@Override

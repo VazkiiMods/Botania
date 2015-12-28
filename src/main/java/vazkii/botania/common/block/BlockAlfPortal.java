@@ -50,7 +50,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@SubscribeEvent
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		portalTex = IconHelper.forBlock(evt.map, this, "Inside");
+		portalTex = IconHelper.forName(evt.map, "alfheimPortalInside", "blocks");
 	}
 
 	@Override

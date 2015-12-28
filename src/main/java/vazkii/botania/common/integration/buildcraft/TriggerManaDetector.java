@@ -25,7 +25,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 
 	@SubscribeEvent
 	public void registerIcons(TextureStitchEvent.Pre evt) {
-		icon = IconHelper.forName(evt.map, "triggers/manaDetector");
+		icon = IconHelper.forName(evt.map, "triggers/manaDetector", "items");
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forBlock(evt.map, this, "Overlay");
+		overlay = IconHelper.forName(evt.map, "enchanterOverlay", "blocks");
 	}
 
 	@Override

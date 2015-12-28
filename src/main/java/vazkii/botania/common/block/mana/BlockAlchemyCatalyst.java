@@ -47,7 +47,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 
 	@SubscribeEvent
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forBlock(evt.map, this, 3);
+		overlay = IconHelper.forName(evt.map, "alchemyCatalyst3", "blocks");
 	}
 
 	@Override

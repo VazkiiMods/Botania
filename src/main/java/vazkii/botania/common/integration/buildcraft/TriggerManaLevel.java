@@ -38,7 +38,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 
 	@SubscribeEvent
 	public void registerIcons(TextureStitchEvent.Pre evt) {
-		icon = IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(state.name()));
+		icon = IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(state.name()), "items");
 	}
 
 	@Override

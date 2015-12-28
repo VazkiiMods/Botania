@@ -61,7 +61,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent evt) {
-		willIcon = IconHelper.forName(evt.map, "willFlame");
+		willIcon = IconHelper.forName(evt.map, "willFlame", "items");
 	}
 
 	@Override

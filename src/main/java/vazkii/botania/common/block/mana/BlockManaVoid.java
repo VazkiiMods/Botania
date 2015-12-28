@@ -53,7 +53,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forBlock(evt.map, this, 1);
+		overlay = IconHelper.forName(evt.map, "manaVoid1", "blocks");
 	}
 
 	@Override

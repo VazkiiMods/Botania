@@ -72,19 +72,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		tailIcon = IconHelper.forName(evt.map, "tail");
-		phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower");
-		goldfishIcon = IconHelper.forName(evt.map, "goldfish");
-		nerfBatIcon = IconHelper.forName(evt.map, "nerfBat");
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onModelBake(ModelBakeEvent evt) {
-		/*evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/tail", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/tail")));
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/phiFlower", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/phiFlower")));
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/goldfish", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/goldfish")));
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:item/nerfBat", "inventory"), IconHelper.loadAndBakeArbitraryModel(new ResourceLocation("botania:item/nerfBat")));*/
+		tailIcon = IconHelper.forName(evt.map, "tail", "items");
+		phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower", "items");
+		goldfishIcon = IconHelper.forName(evt.map, "goldfish", "items");
+		nerfBatIcon = IconHelper.forName(evt.map, "nerfBat", "items");
 	}
 
 	@SubscribeEvent

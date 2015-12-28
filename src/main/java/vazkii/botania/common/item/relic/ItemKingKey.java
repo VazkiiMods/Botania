@@ -44,7 +44,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public void registerIcons(TextureStitchEvent.Pre event) {
 		weaponIcons = new TextureAtlasSprite[WEAPON_TYPES];
 		for(int i = 0; i < WEAPON_TYPES; i++)
-			weaponIcons[i] = IconHelper.forName(event.map, "gateWeapon" + i);
+			weaponIcons[i] = IconHelper.forName(event.map, "gateWeapon" + i, "items");
 	}
 
 	@Override

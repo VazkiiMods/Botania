@@ -101,7 +101,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		manaIcon = IconHelper.forName(evt.map, "manaWater");
+		manaIcon = IconHelper.forName(evt.map, "manaWater", "blocks");
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, Entity par5Entity) {
+	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, IBlockState state, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
 			TilePool tile = (TilePool) par1World.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
@@ -160,7 +160,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World p_149743_1_, BlockPos pos, IBlockState state, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_) {
+	public void addCollisionBoxesToList(World p_149743_1_, BlockPos pos, IBlockState state, AxisAlignedBB p_149743_5_, List<AxisAlignedBB> p_149743_6_, Entity p_149743_7_) {
 		float f = 1F / 16F;
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
 		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);

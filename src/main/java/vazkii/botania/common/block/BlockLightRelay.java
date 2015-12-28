@@ -85,8 +85,8 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		worldIcon = IconHelper.forBlock(evt.map, this, 1);
-		worldIconRed = IconHelper.forBlock(evt.map, this, 3);
+		worldIcon = IconHelper.forName(evt.map, "lightRelay1", "blocks");
+		worldIconRed = IconHelper.forName(evt.map, "lightRelay3", "blocks");
 	}
 
 	@Override

@@ -82,7 +82,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forBlock(evt.map, this, "Overlay");
+		overlay = IconHelper.forName(evt.map, "terraPlateOverlay", "blocks");
 	}
 
 	@Override
