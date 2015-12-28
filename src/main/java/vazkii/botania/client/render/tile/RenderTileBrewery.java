@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
@@ -65,43 +66,14 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 	public void renderItemStack(ItemStack stack) {
 		if(stack != null) {
 			Minecraft mc = Minecraft.getMinecraft();
+			GlStateManager.pushMatrix();
 			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 			float s = 0.25F;
 			GlStateManager.scale(s, s, s);
-			GlStateManager.scale(2F, 2F, 2F);
-//			mc.getRenderItem().renderItemModel(stack); // todo 1.8
-//			if(!ForgeHooksClient.renderEntityItem(new EntityItem(brewery.getWorld(), brewery.xCoord, brewery.yCoord, brewery.zCoord, stack), stack, 0F, 0F, brewery.getWorld().rand, mc.renderEngine, RenderBlocks.getInstance(), 1)) {
-//				GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//				if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
-//					GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//					GlStateManager.translate(1F, 1.1F, 0F);
-//					GlStateManager.pushMatrix();
-//					RenderBlocks.getInstance().renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
-//					GlStateManager.popMatrix();
-//					GlStateManager.translate(-1F, -1.1F, 0F);
-//					GlStateManager.scale(2F, 2F, 2F);
-//				} else {
-//					int renderPass = 0;
-//					do {
-//						IIcon icon = stack.getItem().getIcon(stack, renderPass);
-//						if(icon != null) {
-//							Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-//							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-//							float f = icon.getMinU();
-//							float f1 = icon.getMaxU();
-//							float f2 = icon.getMinV();
-//							float f3 = icon.getMaxV();
-//
-//							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-//							GlStateManager.color(1F, 1F, 1F);
-//						}
-//						renderPass++;
-//					} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
-//				}
-//			}
+			mc.getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
 			GlStateManager.scale(1F / s, 1F / s, 1F / s);
-
+			GlStateManager.popMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		}
 	}

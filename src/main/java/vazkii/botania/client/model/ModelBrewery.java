@@ -59,9 +59,11 @@ public class ModelBrewery extends ModelBase {
 		GlStateManager.rotate(polerot, 0F, 1F, 0F);
 		if(render.brewery.getStackInSlot(0) != null) {
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-1F / 8F, -0.5F, 1F / 128F);
+			GlStateManager.translate(0, -0.45, 0);
+			//GlStateManager.translate(-1F / 8F, -0.5F, 1F / 128F);
 			render.renderItemStack(render.brewery.getStackInSlot(0));
-			GlStateManager.translate(1F / 8F, 0.5F, -1F / 128F);
+			//GlStateManager.translate(1F / 8F, 0.5F, -1F / 128F);
+			GlStateManager.translate(0, 0.45, 0);
 			GlStateManager.rotate(-180F, 1F, 0F, 0F);
 		}
 
@@ -86,7 +88,9 @@ public class ModelBrewery extends ModelBase {
 				GlStateManager.rotate(rot, 0F, 1F, 0F);
 				GlStateManager.translate(transX, transY, transZ);
 				GlStateManager.rotate(-90F, 1F, 0F, 0F);
+				GlStateManager.translate(0.125, 0.125, 0);
 				render.renderItemStack(render.brewery.getStackInSlot(i + 1));
+				GlStateManager.translate(-0.125, -0.125, 0);
 				GlStateManager.rotate(90F, 1F, 0F, 0F);
 				GlStateManager.translate(-transX, -transY, -transZ);
 				GlStateManager.rotate(-rot, 0F, 1F, 0F);

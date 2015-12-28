@@ -67,7 +67,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Override
 	public WorldType getWorldType() {
-		return null; // todo 1.8
+		return WorldType.DEFAULT;
 	}
 
 	@Override
