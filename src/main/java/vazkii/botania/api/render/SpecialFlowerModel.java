@@ -36,12 +36,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.vecmath.Matrix4f;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SpecialFlowerModel implements IModelCustomData {
@@ -108,6 +110,12 @@ public class SpecialFlowerModel implements IModelCustomData {
         ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
         builder.addAll(blockModels.values());
         builder.addAll(itemModels.values());
+
+        // Force mini island model to be loaded and baked, for use elsewhere. See <TODO>
+        for (IFloatingFlower.IslandType i : IFloatingFlower.IslandType.values()) {
+            builder.add(new ModelResourceLocation("botania:miniIsland", i.name().toLowerCase(Locale.ROOT)));
+        }
+
         return builder.build();
     }
 

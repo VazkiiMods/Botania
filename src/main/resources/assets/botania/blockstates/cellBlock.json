@@ -1,9 +1,9 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "minecraft:cube_all",
+    "model": "botania:miniIsland",
     "textures": {
-      "all": "botania:blocks/cellBlock"
+      "all": "botania:model/miniIslandCopy"
     },
     "transform": "forge:default-block"
   },

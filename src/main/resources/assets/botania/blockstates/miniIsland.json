@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:miniIsland"
+  },
+  "variants": {
+    "grass": { "textures": { "all": "botania:model/miniIsland" } },
+    "podzol": { "textures": { "all": "botania:model/miniIslandPodzol" } },
+    "mycel": { "textures": { "all": "botania:model/miniIslandMycelium" } },
+    "snow": { "textures": { "all": "botania:model/miniIslandSnow" } },
+    "dry": { "textures": { "all": "botania:model/miniIslandDry" } },
+    "golden": { "textures": { "all": "botania:model/miniIslandGolden" } },
+    "vivid": { "textures": { "all": "botania:model/miniIslandVivid" } },
+    "scorched": { "textures": { "all": "botania:model/miniIslandScorched" } },
+    "infused": { "textures": { "all": "botania:model/miniIslandInfused" } },
+    "mutated": { "textures": { "all": "botania:model/miniIslandMutated" } }
+  }
+}
