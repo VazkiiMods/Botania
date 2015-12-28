@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:orientable",
+    "textures": {
+      "top": "botania:blocks/redStringRelay",
+      "front": "botania:blocks/redStringSender",
+      "side": "botania:blocks/redStringRelay"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "facing": {
+      "north": {},
+      "south": { "y": 180 },
+      "west": { "y": 270 },
+      "east": { "y": 90 },
+      "down": { "x": 90 },
+      "up": { "x": 270 }
+    },
+    "inventory": [{}]
+  }
+}

@@ -82,7 +82,10 @@ import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ItemSpawnerMover;
 import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -144,6 +147,61 @@ public final class ModelHandler {
                     name = ItemManaGun.hasClip(stack) ? "botania:manaGunClip": "botania:manaGun";
                 }
                 return new ModelResourceLocation(name, "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(spawnerMover,
+                new ModelResourceLocation("botania:spawnerMover", "inventory"),
+                new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
+        ModelLoader.setCustomMeshDefinition(spawnerMover, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                if (ItemSpawnerMover.hasData(stack)) {
+                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
+                } else {
+                    return new ModelResourceLocation("botania:spawnerMoverFull", "inventory");
+                }
+            }
+        });
+
+        ModelLoader.registerItemVariants(terraPick,
+                new ModelResourceLocation("botania:terraPick", "inventory"),
+                new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
+                new ModelResourceLocation("botania:terraPickTipped", "inventory"),
+                new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
+        ModelLoader.setCustomMeshDefinition(terraPick, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String name = "botania:terraPick";
+                if (ItemTerraPick.isTipped(stack)) {
+                    name += "Tipped";
+                }
+                if (ItemTerraPick.isEnabled(stack)) {
+                    name += "Enabled";
+                }
+                return new ModelResourceLocation(name, "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(infiniteFruit,
+                new ModelResourceLocation("botania:infiniteFruit", "inventory"),
+                new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
+        ModelLoader.setCustomMeshDefinition(infiniteFruit, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ItemInfiniteFruit.isBoot(stack) ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
+                        : new ModelResourceLocation("botania:infiniteFruit", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(manasteelSword,
+                new ModelResourceLocation("botania:manasteelSword", "inventory"),
+                new ModelResourceLocation("botania:elucidator", "inventory"));
+        ModelLoader.setCustomMeshDefinition(manasteelSword, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? new ModelResourceLocation("botania:elucidator", "inventory")
+                        : new ModelResourceLocation("botania:manasteelSword", "inventory");
             }
         });
     }
@@ -235,6 +293,13 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.enchantedSoil);
         registerItemModel(ModBlocks.enchanter);
         registerItemModel(ModBlocks.prism);
+        registerItemModel(ModBlocks.redStringContainer);
+        registerItemModel(ModBlocks.redStringDispenser);
+        registerItemModel(ModBlocks.redStringComparator);
+        registerItemModel(ModBlocks.redStringFertilizer);
+        registerItemModel(ModBlocks.redStringInterceptor);
+        registerItemModel(ModBlocks.redStringRelay);
+
 
         // Item models which all use the same base model and recolored by render layer
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
@@ -274,7 +339,6 @@ public final class ModelHandler {
         registerItemModel(manasteelShovel);
         registerItemModel(manasteelAxe);
         registerItemModel(manasteelShears);
-        registerItemModel(manasteelSword);
 
         registerItemModel(elementiumHelm);
         registerItemModel(elementiumChest);
@@ -297,6 +361,8 @@ public final class ModelHandler {
         registerItemModel(terrasteelChest);
         registerItemModel(terrasteelLegs);
         registerItemModel(terrasteelBoots);
+        registerItemModel(terraSword);
+        registerItemModelMetas(terraAxe, LibItemNames.TERRA_AXE, 2);
 
         registerItemModel(starSword);
         registerItemModel(thunderSword);
@@ -337,11 +403,41 @@ public final class ModelHandler {
         registerItemModel(overgrowthSeed);
         registerItemModel(worldSeed);
         registerItemModel(incenseStick);
+        registerItemModel(enderHand);
+        registerItemModel(craftingHalo);
+        registerItemModel(spellCloth);
+        registerItemModel(autocraftingHalo);
+        registerItemModel(sextant);
+        registerItemModel(cacophonium);
+        registerItemModel(clip);
+        registerItemModel(phantomInk);
+        registerItemModel(poolMinecart);
+        registerItemModel(pinkinator);
+        registerItemModel(dice);
+        registerItemModel(kingKey);
+        registerItemModel(flugelEye);
+        registerItemModel(thorRing);
+        registerItemModel(lokiRing);
+        registerItemModel(odinRing);
+        registerItemModel(aesirRing);
+        registerItemModel(baubleBox);
+        registerItemModel(tinyPlanet);
+        registerItemModel(manaRing);
+        registerItemModel(manaRingGreater);
+        registerItemModel(auraRing);
+        registerItemModel(auraRingGreater);
 
         registerItemModelAllMeta(laputaShard, 20);
         registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
         registerItemModelAllMeta(dye, EnumDyeColor.values().length);
         registerItemModelAllMeta(petal, EnumDyeColor.values().length);
+
+        registerItemModelMetas(manaBottle, LibItemNames.MANA_BOTTLE, 6);
+        registerItemModelMetas(ancientWill, LibItemNames.ANCIENT_WILL, 6);
+        registerItemModelMetas(temperanceStone, LibItemNames.TEMPERANCE_STONE, 2);
+        registerItemModelMetas(thornChakram, LibItemNames.THORN_CHAKRAM, 2);
+        registerItemModelMetas(blackHoleTalisman, LibItemNames.BLACK_HOLE_TALISMAN, 2);
+        registerItemModelMetas(slimeBottle, LibItemNames.SLIME_BOTTLE, 2);
         registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
         registerItemModelMetas(quartz, LibItemNames.QUARTZ, 8);
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);

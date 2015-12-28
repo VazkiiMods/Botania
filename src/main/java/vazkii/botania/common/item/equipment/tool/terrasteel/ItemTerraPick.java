@@ -197,7 +197,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F);
 	}
 
-	boolean isEnabled(ItemStack stack) {
+	public static boolean isEnabled(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
 

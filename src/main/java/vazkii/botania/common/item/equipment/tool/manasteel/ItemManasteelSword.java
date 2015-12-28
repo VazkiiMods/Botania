@@ -64,12 +64,6 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 		return true;
 	}
 
-//	@Override todo 1.8
-//	public IIcon getIconIndex(ItemStack par1ItemStack) {
-//		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
-//		return name.equals("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
-//	}
-
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entity) {
 		if(usesMana(stack) && block.getBlockHardness(world, pos) != 0F)

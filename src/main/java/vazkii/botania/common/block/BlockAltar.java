@@ -128,7 +128,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, IBlockState state, Entity par5Entity) {
-		System.out.println("Collide");
 		if(par5Entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) par5Entity))

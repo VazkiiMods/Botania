@@ -60,12 +60,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
-//	@Override todo 1.8
-//	public IIcon getIconIndex(ItemStack par1ItemStack) {
-//		return isBoot(par1ItemStack) ? dasBootIcon : super.getIconIndex(par1ItemStack);
-//	}
-
-	private boolean isBoot(ItemStack par1ItemStack) {
+	public static boolean isBoot(ItemStack par1ItemStack) {
 		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
 		return name.equals("das boot");
 	}
