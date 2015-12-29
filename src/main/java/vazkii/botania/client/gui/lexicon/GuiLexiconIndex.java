@@ -126,10 +126,28 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
 		for(LexiconEntry entry : category == null ? BotaniaAPI.getAllEntries() : category.entries) {
-			if(entry.isVisible() && lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
+			if(entry.isVisible() && lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && matchesSearch(entry))
 				entriesToDisplay.add(entry);
 		}
 		Collections.sort(entriesToDisplay);
+	}
+	
+	boolean matchesSearch(LexiconEntry e) {
+		String search = searchField.getText().trim();
+		if(search.isEmpty())
+			return true;
+		
+		search = search.toLowerCase();
+		if(StatCollector.translateToLocal(e.getUnlocalizedName()).toLowerCase().contains(search))
+			return true;
+		
+		for(ItemStack stack : e.getDisplayedRecipes()) {
+			String stackName = stack.getDisplayName().toLowerCase().trim();
+			if(stackName.contains(search))
+				return true;
+		}
+				
+		return false;
 	}
 
 	@Override
@@ -167,6 +185,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.renderEngine.bindTexture(texture);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
+			
+			if(entriesToDisplay.size() == 1) {
+				boolean unicode = mc.fontRenderer.getUnicodeFlag();
+				mc.fontRenderer.setUnicodeFlag(true);
+				String s = StatCollector.translateToLocal("botaniamisc.enterToView");
+				mc.fontRenderer.drawString(s, left + guiWidth / 2 - mc.fontRenderer.getStringWidth(s) / 2, top + 30, 0x666666);
+				mc.fontRenderer.setUnicodeFlag(unicode);
+			}
 		} else {
 			boolean unicode = mc.fontRenderer.getUnicodeFlag();
 			mc.fontRenderer.setUnicodeFlag(true);
