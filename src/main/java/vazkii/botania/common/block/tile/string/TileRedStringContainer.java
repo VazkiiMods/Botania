@@ -22,8 +22,21 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 
 	@Override
 	public boolean acceptBlock(int x, int y, int z) {
-		TileEntity inv = worldObj.getTileEntity(x, y, z);
-		return inv != null && inv instanceof IInventory;
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
+		if(tile != null && tile instanceof IInventory) {
+			IInventory inv = (IInventory) tile;
+			if(inv instanceof ISidedInventory) {
+				ISidedInventory sidedInv = (ISidedInventory) inv;
+				for(int i = 0; i < 6; i++)
+					if(sidedInv.getAccessibleSlotsFromSide(i).length != 0)
+						return true;
+				return false;
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
