@@ -88,6 +88,8 @@ public final class ConfigHandler {
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean enderStuff19Enabled = true;
 	public static boolean invertMagnetRing = false;
+	public static boolean enableThaumcraftStablizers = true;
+	
 	public static int harvestLevelWeight = 2;
 	public static int harvestLevelBore = 3;
 
@@ -247,6 +249,9 @@ public final class ConfigHandler {
 		desc = "Set this to true to invert the Ring of Magnetization's controls (from shift to stop to shift to work)";
 		invertMagnetRing = loadPropBool("magnetRing.invert", desc, invertMagnetRing);
 
+		desc = "Set this to false to disable Thaumcraft Infusion Stabilizing in botania blocks";
+		enableThaumcraftStablizers = loadPropBool("thaumraftStabilizers.enabled", desc, enableThaumcraftStablizers);
+		
 		desc = "The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)";
 		harvestLevelWeight = loadPropInt("harvestLevel.weightLens", desc, harvestLevelWeight);
 

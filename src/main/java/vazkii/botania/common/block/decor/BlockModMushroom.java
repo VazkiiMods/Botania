@@ -128,7 +128,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 	@Override
 	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
-		return true;
+		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@Override

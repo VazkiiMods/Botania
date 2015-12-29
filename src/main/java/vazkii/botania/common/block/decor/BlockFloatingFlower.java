@@ -170,6 +170,6 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 
 	@Override
 	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
-		return true;
+		return ConfigHandler.enableThaumcraftStablizers;
 	}
 }
