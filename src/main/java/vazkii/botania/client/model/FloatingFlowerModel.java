@@ -105,7 +105,6 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
             // Enhance!
             CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
-            System.out.println("Recreated model");
             CACHE.put(islandType, identifier, model);
             return model;
         }
