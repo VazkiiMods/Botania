@@ -9,9 +9,11 @@ import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -38,6 +40,7 @@ import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
@@ -106,6 +109,7 @@ public final class ModelHandler {
     public static void registerModels() {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
+        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(FloatingFlowerModel.INSTANCE);
 
         /** Subtile block models **/
         registerSubtiles();
@@ -302,6 +306,8 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.redStringInterceptor);
         registerItemModel(ModBlocks.redStringRelay);
         registerItemModel(ModBlocks.floatingSpecialFlower);
+
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
 
         // Item models which all use the same base model and recolored by render layer
@@ -526,6 +532,13 @@ public final class ModelHandler {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return new ModelResourceLocation("botania:floatingSpecialFlower", "normal");
+            }
+        });
+
+        ModelLoader.setCustomStateMapper(ModBlocks.floatingFlower, new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return new ModelResourceLocation("botania:miniIsland", "normal");
             }
         });
 

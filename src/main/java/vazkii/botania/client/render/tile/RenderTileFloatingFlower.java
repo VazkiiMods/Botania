@@ -44,14 +44,15 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		IFloatingFlower flower = (IFloatingFlower) tile;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.translate(d0, d1, d2 + 1);
 
 		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
 		GlStateManager.translate(0.5F, 0F, 0.5F);
-		GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
+		// todo 1.8.8 fix spin
+		//GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
 		GlStateManager.translate(-0.5F, 0F, -0.5F);
 
 		if(tile.getWorld() != null) {

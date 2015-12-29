@@ -72,35 +72,14 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
-				.withProperty(BotaniaStateProps.ISLAND_TYPE, IFloatingFlower.IslandType.GRASS)
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE)
+				.withProperty(ISLAND_TYPE, IFloatingFlower.IslandType.GRASS));
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2; // todo
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onModelBake(ModelBakeEvent evt) {
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
-	}
-
-	@Override
 	public BlockState createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] {BotaniaStateProps.ISLAND_TYPE, BotaniaStateProps.COLOR}, new IUnlistedProperty[] {BotaniaStateProps.SUBTILE_ID});
-	}
-
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
-		if (te instanceof TileFloatingSpecialFlower) {
-			state = state.withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
-		}
-		return state;
+		return new ExtendedBlockState(this, new IProperty[] { ISLAND_TYPE, BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID });
 	}
 
 	@Override

@@ -47,10 +47,6 @@ public class BotaniaStateProps {
     // The axis directions (think quartz pillars and wood logs)
     public static final PropertyEnum<EnumFacing.Axis> AXIS_FACING = BlockRotatedPillar.AXIS;
 
-    // Island type (floating flowers)
-    // TODO !!!! MOVE TYPE "ISLANDTYPE" INTO API
-    public static final PropertyEnum ISLAND_TYPE = PropertyEnum.create("islandtype", IFloatingFlower.IslandType.class);
-
     // Extra Quartz Blocks
     public static final PropertyEnum<QuartzVariant> QUARTZ_VARIANT = PropertyEnum.create("variant", QuartzVariant.class);
 

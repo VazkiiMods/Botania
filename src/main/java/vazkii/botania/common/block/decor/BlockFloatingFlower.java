@@ -15,9 +15,17 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.resources.FallbackResourceManager;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,19 +36,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
+import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ItemGrassSeeds;
@@ -53,6 +69,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
+
+	// Island type (floating flowers)
+	// Not in BotaniaStateProps so we don't have to bundle IslandType in the API
+	public static final PropertyEnum<IslandType> ISLAND_TYPE = PropertyEnum.create("islandtype", IFloatingFlower.IslandType.class);
 
 	public BlockFloatingFlower() {
 		this(LibBlockNames.MINI_ISLAND);
@@ -67,7 +87,9 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 
 		float f = 0.1F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE)
+				.withProperty(ISLAND_TYPE, IFloatingFlower.IslandType.GRASS));
 	}
 
 	@Override
@@ -75,9 +97,18 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		return 2;
 	}
 
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent evt) {
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+	}
+
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.COLOR);
+		return new BlockState(this, BotaniaStateProps.COLOR, ISLAND_TYPE);
 	}
 
 	@Override
@@ -91,6 +122,51 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			 meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileFloatingFlower) {
+			state = state.withProperty(ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
+		} else if (te instanceof TileFloatingSpecialFlower) {
+			state = state.withProperty(ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
+		}
+		return state;
+	}
+
+	@Override
+	public boolean addLandingEffects(net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
+		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
+		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
+		if (d0 > 2.5D) {
+			d0 = 2.5D;
+		}
+		int i = (int)(150.0D * d0);
+		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.dirt.getDefaultState()));
+		return true;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer) {
+		if (world.getBlockState(pos).getBlock() == this) {
+			int i = 4;
+			EntityDiggingFX.Factory factory = new EntityDiggingFX.Factory();
+			for (int j = 0; j < i; ++j) {
+				for (int k = 0; k < i; ++k) {
+					for (int l = 0; l < i; ++l) {
+						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
+						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
+						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
+						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.dirt.getDefaultState())));
+					}
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
