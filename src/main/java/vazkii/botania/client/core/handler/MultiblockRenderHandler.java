@@ -34,6 +34,7 @@ import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibObfuscation;
 
 public final class MultiblockRenderHandler {
@@ -44,13 +45,13 @@ public final class MultiblockRenderHandler {
 
 	public static MultiblockSet currentMultiblock;
 	public static BlockPos anchor;
-	public static int angle;
+	public static EnumFacing angle;
 	public static int dimension;
 
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;
-		angle = 0;
+		angle = EnumFacing.DOWN;
 
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.theWorld != null)
@@ -70,7 +71,7 @@ public final class MultiblockRenderHandler {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
 			anchor = event.pos;
-			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
+			angle = event.entityPlayer.getHorizontalFacing();
 			event.setCanceled(true);
 		}
 	}
@@ -79,13 +80,13 @@ public final class MultiblockRenderHandler {
 		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimensionId()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			GL11.glPushAttrib(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glDisable(GL11.GL_LIGHTING);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableLighting();
 			rendering = true;
-			Multiblock mb = anchor != null ? currentMultiblock.getForFacing(EnumFacing.getHorizontal(angle)) : currentMultiblock.getForEntity(player);
+			Multiblock mb = anchor != null ? currentMultiblock.getForFacing(angle) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
 
 			blockAccess.update(player.worldObj, mb, anchorPos);
@@ -95,7 +96,7 @@ public final class MultiblockRenderHandler {
 					didAny = true;
 			rendering = false;
 			GL11.glPopAttrib();
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 			
 			if(!didAny) {
 				setMultiblock(null);
@@ -157,38 +158,8 @@ public final class MultiblockRenderHandler {
 		}
 		else {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			brd.renderBlockBrightness(state, 1.0F); // todo 1.8 check brightness
-//			if(comp.shouldDoFancyRender()) {
-//				int color = block.colorMultiplier(blockAccess, x, y, z);
-//				float red = (color >> 16 & 255) / 255.0F;
-//				float green = (color >> 8 & 255) / 255.0F;
-//				float blue = (color & 255) / 255.0F;
-//				GlStateManager.color(red, green, blue, alpha);
-//				IBlockAccess oldBlockAccess = blockRender.blockAccess;
-//				blockRender.blockAccess = blockAccess;
-//				Tessellator tessellator = Tessellator.getInstance();
-//				blockRender.renderAllFaces = true;
-//				tessellator.getWorldRenderer().startDrawingQuads();
-//				tessellator.disableColor();
-//				try {
-//					blockRender.renderBlockByRenderType(block, x, y, z);
-//				}
-//				catch(Exception e) {
-//					comp.doFancyRender = false;
-//				}
-//				tessellator.draw();
-//				blockRender.renderAllFaces = false;
-//				blockRender.blockAccess = oldBlockAccess;
-//			}
-//			else {
-//				int color = block.getRenderColor(meta);
-//				float red = (color >> 16 & 255) / 255.0F;
-//				float green = (color >> 8 & 255) / 255.0F;
-//				float blue = (color & 255) / 255.0F;
-//				GlStateManager.color(red, green, blue, alpha);
-//				GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
-//				blockRender.renderBlockAsItem(block, meta, 1F);
-//			}
+			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ());
+			brd.renderBlockBrightness(state, 0.5F); // todo 1.8 check brightness
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableDepth();

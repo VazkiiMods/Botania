@@ -380,7 +380,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 				return false;
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
-			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon)))
+			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon).down()))
 				return false;
 
 		for(BlockPos flower : FLOWER_LOCATIONS)
