@@ -88,6 +88,8 @@ public final class ConfigHandler {
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean enderStuff19Enabled = true;
 	public static boolean invertMagnetRing = false;
+	public static int harvestLevelWeight = 2;
+	public static int harvestLevelBore = 3;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 2;
@@ -245,6 +247,12 @@ public final class ConfigHandler {
 		desc = "Set this to true to invert the Ring of Magnetization's controls (from shift to stop to shift to work)";
 		invertMagnetRing = loadPropBool("magnetRing.invert", desc, invertMagnetRing);
 
+		desc = "The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)";
+		harvestLevelWeight = loadPropInt("harvestLevel.weightLens", desc, harvestLevelWeight);
+
+		desc = "The harvest level of the Mana Lens: Bore. 3 is diamond level. Defaults to 3";
+		harvestLevelBore = loadPropInt("harvestLevel.boreLens", desc, harvestLevelBore);
+		
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

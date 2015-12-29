@@ -16,6 +16,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class LensWeight extends Lens {
 
@@ -25,10 +26,14 @@ public class LensWeight extends Lens {
 			int x = pos.blockX;
 			int y = pos.blockY;
 			int z = pos.blockZ;
+			int harvestLevel = ConfigHandler.harvestLevelWeight;
+			
 			Block block = entity.worldObj.getBlock(x, y, z);
 			Block blockBelow = entity.worldObj.getBlock(x, y - 1, z);
 			int meta = entity.worldObj.getBlockMetadata(x, y, z);
-			if(blockBelow.isAir(entity.worldObj, x, y - 1, z) && block.getBlockHardness(entity.worldObj, x, y, z) != -1 && entity.worldObj.getTileEntity(x, y, z) == null && block.canSilkHarvest(entity.worldObj, null, x, y, z, meta)) {
+			int neededHarvestLevel = block.getHarvestLevel(meta);
+			
+			if(blockBelow.isAir(entity.worldObj, x, y - 1, z) && block.getBlockHardness(entity.worldObj, x, y, z) != -1 && neededHarvestLevel <= harvestLevel && entity.worldObj.getTileEntity(x, y, z) == null && block.canSilkHarvest(entity.worldObj, null, x, y, z, meta)) {
 				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, block, meta);
 				if(!entity.worldObj.isRemote)
 					entity.worldObj.spawnEntityInWorld(falling);

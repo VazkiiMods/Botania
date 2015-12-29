@@ -37,21 +37,23 @@ public class LensMine extends Lens {
 		int y = pos.blockY;
 		int z = pos.blockZ;
 		Block block = world.getBlock(x, y, z);
-
+		int meta = world.getBlockMetadata(x, y, z);
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
 		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
-
+		
 		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.piston || block == Blocks.piston_extension || block == Blocks.piston_head))
 			return false;
 
+		int harvestLevel = ConfigHandler.harvestLevelBore;
+		
 		TileEntity tile = world.getTileEntity(x, y, z);
 
-		int meta = world.getBlockMetadata(x, y, z);
 		float hardness = block.getBlockHardness(world, x, y, z);
+		int neededHarvestLevel = block.getHarvestLevel(meta);
 		int mana = burst.getMana();
 
 		ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-		if((coords.posX != x || coords.posY != y || coords.posZ != z) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+		if((coords.posX != x || coords.posY != y || coords.posZ != z) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 			List<ItemStack> items = new ArrayList();
 
 			items.addAll(block.getDrops(world, x, y, z, meta, 0));
