@@ -113,7 +113,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
         // Force mini island model to be loaded and baked, for use elsewhere. See <TODO>
         for (IFloatingFlower.IslandType i : IFloatingFlower.IslandType.values()) {
-            builder.add(new ModelResourceLocation("botania:miniIsland", i.name().toLowerCase(Locale.ROOT)));
+            builder.add(new ModelResourceLocation("botania:miniIsland", "variant=" + i.name().toLowerCase(Locale.ROOT)));
         }
 
         return builder.build();

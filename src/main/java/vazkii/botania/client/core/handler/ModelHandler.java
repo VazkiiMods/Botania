@@ -299,6 +299,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.redStringFertilizer);
         registerItemModel(ModBlocks.redStringInterceptor);
         registerItemModel(ModBlocks.redStringRelay);
+        registerItemModel(ModBlocks.floatingSpecialFlower);
 
 
         // Item models which all use the same base model and recolored by render layer
