@@ -14,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +33,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
@@ -38,7 +51,9 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
@@ -55,6 +70,47 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
+		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
+				.withProperty(BotaniaStateProps.ISLAND_TYPE, IFloatingFlower.IslandType.GRASS)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@Override
+	public int getRenderType() {
+		return 2; // todo
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent evt) {
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
+		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new ExtendedBlockState(this, new IProperty[] {BotaniaStateProps.ISLAND_TYPE, BotaniaStateProps.COLOR}, new IUnlistedProperty[] {BotaniaStateProps.SUBTILE_ID});
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileFloatingSpecialFlower) {
+			state = state.withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
+		}
+		return state;
+	}
+
+	@Override
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		state = getActualState(state, world, pos);
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileFloatingSpecialFlower) {
+			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, ((TileFloatingSpecialFlower) te).subTileName);
+		}
+		return state;
 	}
 
 	@Override
@@ -62,7 +118,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 		if(currentLight == -1)
 			currentLight = originalLight;
-		return LightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), currentLight);
+		return LightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), currentLight);
 	}
 
 	@Override

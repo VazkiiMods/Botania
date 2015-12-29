@@ -8,8 +8,10 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -519,6 +521,14 @@ public final class ModelHandler {
     }
 
     private static void registerStateMappers() {
+        // Override for floating flowers
+        ModelLoader.setCustomStateMapper(ModBlocks.floatingSpecialFlower, new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return new ModelResourceLocation("botania:floatingSpecialFlower", "normal");
+            }
+        });
+
         // Ignore vanilla facing, variant in double flower
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower1, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower2, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());

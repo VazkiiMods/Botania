@@ -11,8 +11,11 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
+
+import java.util.Locale;
 
 public interface IFloatingFlower {
 
@@ -22,7 +25,7 @@ public interface IFloatingFlower {
 
 	public void setIslandType(IslandType type);
 
-	public static enum IslandType {
+	public static enum IslandType implements IStringSerializable {
 		GRASS(LibResources.MODEL_MINI_ISLAND),
 		PODZOL(LibResources.MODEL_MINI_ISLAND_PODZOL),
 		MYCEL(LibResources.MODEL_MINI_ISLAND_MYCEL),
@@ -50,6 +53,11 @@ public interface IFloatingFlower {
 
 		public ResourceLocation getResource() {
 			return res;
+		}
+
+		@Override
+		public String getName() {
+			return name().toLowerCase(Locale.ROOT);
 		}
 
 	}

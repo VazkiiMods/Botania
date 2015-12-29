@@ -12,7 +12,9 @@ package vazkii.botania.client.render.tile;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,9 +25,12 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.client.model.ISmartBlockModel;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.ModelMiniIsland;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 
@@ -35,6 +40,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		IFloatingFlower flower = (IFloatingFlower) tile;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -53,19 +59,18 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 			GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 		}
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(flower.getIslandType().getResource());
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.5F, 1.4F, 0.5F);
-		GlStateManager.scale(1F, -1F, -1F);
-		model.render();
+
+		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
+		IBakedModel ibakedmodel = FloatingFlowerModel.INSTANCE.handleBlockState(state);
+
+		brd.getBlockModelRenderer().renderModelBrightness(ibakedmodel, state, 1.0F, true);
+
+		GlStateManager.popMatrix();
 		GlStateManager.popMatrix();
 
-		ItemStack stack = flower.getDisplayStack();
-		GlStateManager.translate(0.5F, 0.65F, 0.5F);
-		GlStateManager.scale(0.5F, 0.5F, 0.5F);
-		Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.NONE);
-		GlStateManager.color(1F, 1F, 1F);
-		GlStateManager.popMatrix();
 	}
 
 }
