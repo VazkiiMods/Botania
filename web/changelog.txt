@@ -1,3 +1,13 @@
+r1.8 247
+*Added a config option to disable thaumcraft infusion stabilizing because some people are sadists, apparently.
+*Added config options to change the harvest level of the Weight and Bore Lenses and defined said harvest levels properly in the check for what they can break/displace.
+*Added the ability for Flowers that interact with items in the world to be placed on Podzol or Mycellium to add a delay to when they can pick the items up. You can read more on the Modulating Delay entry under Functional Flora.
+*Fixed the A Message From Alfheim entry not loading up properly after you throw the book in the portal.
+*Red Stringed Comparators will no longer bind to blocks that can't have automation handling.
+*Searching in the lexicon now also search the names of the items whose recipes are shown in the relevant entries. Also added a "Press ENTER to view" indicator thingy.
+*Special flowers can now be planted in Mycellium.
+*[API] Added ISubTileSlowableContainer.
+*[API] Increased version number to 75.
 r1.8 246
 *Added NEI integration for Corporea. Pressing C on an item in an inventory or the NEI panel while near a Corporea Index will request 1 of it. Shift-C will request a full stack.
 *Fixed a crash when autocompleting a player's name near a Corporea Index.
