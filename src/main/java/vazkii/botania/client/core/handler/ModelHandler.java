@@ -435,12 +435,15 @@ public final class ModelHandler {
         registerItemModel(manaRingGreater);
         registerItemModel(auraRing);
         registerItemModel(auraRingGreater);
+        registerItemModel(spark);
 
         registerItemModelAllMeta(laputaShard, 20);
         registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
         registerItemModelAllMeta(dye, EnumDyeColor.values().length);
         registerItemModelAllMeta(petal, EnumDyeColor.values().length);
 
+        registerItemModelMetas(sparkUpgrade, LibItemNames.SPARK_UPGRADE, 4);
+        registerItemModelMetas(corporeaSpark, LibItemNames.CORPOREA_SPARK, 2);
         registerItemModelMetas(manaBottle, LibItemNames.MANA_BOTTLE, 6);
         registerItemModelMetas(ancientWill, LibItemNames.ANCIENT_WILL, 6);
         registerItemModelMetas(temperanceStone, LibItemNames.TEMPERANCE_STONE, 2);

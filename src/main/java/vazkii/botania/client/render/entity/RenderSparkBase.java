@@ -81,7 +81,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	}
 
 	public TextureAtlasSprite getBaseIcon(T entity) {
-		return null;//ItemSpark.worldIcon;
+		return ItemSpark.worldIcon;
 	}
 
 	public void colorSpinningIcon(T entity, float a) {

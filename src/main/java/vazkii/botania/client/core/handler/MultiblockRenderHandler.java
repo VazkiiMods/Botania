@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
@@ -47,6 +48,22 @@ public final class MultiblockRenderHandler {
 	public static BlockPos anchor;
 	public static EnumFacing angle;
 	public static int dimension;
+
+	static {
+		//todo 1.8 remove when fixed by forge
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, new IMultiblockRenderHook() {
+			@Override
+			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha) {
+				IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);
+				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
+			}
+
+			@Override
+			public boolean needsTranslate(IBlockState state) {
+				return true;
+			}
+		});
+	}
 
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;

@@ -23,9 +23,8 @@ public class RenderSpark extends RenderSparkBase<EntitySpark> {
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(EntitySpark entity) {
-		return null;
-		/*int upgrade = entity.getUpgrade() - 1;
-		return upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length ? ItemSparkUpgrade.worldIcons[upgrade] : null;*/
+		int upgrade = entity.getUpgrade() - 1;
+		return upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length ? ItemSparkUpgrade.worldIcons[upgrade] : null;
 	}
 
 }

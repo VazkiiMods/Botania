@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,6 +22,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -28,9 +34,12 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemCorporeaSpark extends ItemMod {
 
+	public static TextureAtlasSprite worldIcon, worldIconMaster, iconColorStar;
+
 	public ItemCorporeaSpark() {
 		setUnlocalizedName(LibItemNames.CORPOREA_SPARK);
 		setHasSubtypes(true);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -57,14 +66,13 @@ public class ItemCorporeaSpark extends ItemMod {
 		return false;
 	}
 
-//	@Override todo 1.8
-//	public void registerIcons(IIconRegister par1IconRegister) {
-//		invIcon = IconHelper.forItem(par1IconRegister, this, 0);
-//		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
-//		invIconMaster = IconHelper.forItem(par1IconRegister, this, 2);
-//		worldIconMaster = IconHelper.forItem(par1IconRegister, this, 3);
-//		iconColorStar = IconHelper.forItem(par1IconRegister, this, "Star");
-//	}
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTextureStitch(TextureStitchEvent.Pre evt) {
+		worldIcon = IconHelper.forName(evt.map, "corporeaSpark1", "items");
+		worldIconMaster = IconHelper.forName(evt.map, "corporeaSpark3", "items");
+		iconColorStar = IconHelper.forName(evt.map, "corporeaSparkStar", "items");
+	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {

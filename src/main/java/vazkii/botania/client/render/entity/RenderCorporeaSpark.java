@@ -38,7 +38,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return null;//entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
+		return entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(EntityCorporeaSpark entity) {
-		return null;//ItemCorporeaSpark.iconColorStar;
+		return ItemCorporeaSpark.iconColorStar;
 	}
 
 	@Override
