@@ -26,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -73,6 +74,21 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
+	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
+		if (collidingEntity instanceof EntityItem) {
+			float f = 1F / 16F * 2F;
+
+			// Todo 1.8 temporary hack to let items collide from the top. Figure out what changed to break this.
+			setBlockBounds(f, f, f, 1F - f, 0.65F, 1F -f);
+			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+			setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
+			return;
+		} else {
+			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+		}
+	}
+
+	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.ALTAR_VARIANT);
 	}
@@ -87,7 +103,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		if (meta < 0 || meta >= AltarVariant.values().length ) {
 			meta = 0;
 		}
-		System.out.println(AltarVariant.values()[meta]);
 		return getDefaultState().withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.values()[meta]);
 	}
 

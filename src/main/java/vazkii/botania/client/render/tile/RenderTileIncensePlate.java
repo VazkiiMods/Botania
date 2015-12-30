@@ -68,7 +68,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 			GlStateManager.translate(-0.075F, -1.25F, 0F);
 			GlStateManager.scale(s, s, s);
 			//GlStateManager.rotate(180F, 0F, 1F, 0F);
-			Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.color(1F, 1F, 1F);

@@ -125,7 +125,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 						ItemStack stack = altar.getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-						Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
+						Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 						GlStateManager.popMatrix();
 					}
 

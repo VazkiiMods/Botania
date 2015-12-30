@@ -43,7 +43,7 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(90F, 1F, 0F, 0F);
 				GlStateManager.translate(0.5F, 0.5F, pos);
-				Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.NONE);
+				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 				GlStateManager.popMatrix();
 			}
 		}

@@ -91,7 +91,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.0F, -1F, -0.4375F);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			Minecraft.getMinecraft().getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.FIXED);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.FIXED);
 			GlStateManager.popMatrix();
 		}
 

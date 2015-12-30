@@ -72,7 +72,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			if(stack != null) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-				mc.getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
+				mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 
 			}
 			GlStateManager.popMatrix();

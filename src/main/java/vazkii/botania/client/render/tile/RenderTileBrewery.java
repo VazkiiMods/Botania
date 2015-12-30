@@ -71,7 +71,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 
 			float s = 0.25F;
 			GlStateManager.scale(s, s, s);
-			mc.getRenderItem().func_181564_a(stack, ItemCameraTransforms.TransformType.GROUND);
+			mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 			GlStateManager.scale(1F / s, 1F / s, 1F / s);
 			GlStateManager.popMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);

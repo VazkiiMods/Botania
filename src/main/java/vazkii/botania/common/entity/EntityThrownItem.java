@@ -99,7 +99,7 @@ public class EntityThrownItem extends EntityItem {
 		{
 			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlockState(movingobjectposition.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				func_181015_d(movingobjectposition.getBlockPos());
+				setPortal(movingobjectposition.getBlockPos());
 			}
 			else
 			{
