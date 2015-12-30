@@ -8,7 +8,7 @@
  * 
  * File Created @ [12/12/2015, 23:25:47 (GMT)]
  */
-package vazkii.botania.client.integration.nei;
+package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.nei.RecipeHandlerManaPool.CachedManaPoolRecipe;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerManaPool.CachedManaPoolRecipe;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.ModBlocks;

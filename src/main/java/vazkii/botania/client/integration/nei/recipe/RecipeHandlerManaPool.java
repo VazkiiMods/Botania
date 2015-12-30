@@ -1,4 +1,4 @@
-package vazkii.botania.client.integration.nei;
+package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

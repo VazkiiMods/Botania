@@ -75,10 +75,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			int rangePlaceY = getRangeY();
 
 			BlockPos pos = supertile.getPos();
-
+			
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
-				if(item.getAge() < 60 || item.isDead)
+				if(item.getAge() < (60 + slowdown) || item.isDead)
 					continue;
 
 				ItemStack stack = item.getEntityItem();

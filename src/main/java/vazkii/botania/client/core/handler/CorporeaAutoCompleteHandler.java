@@ -142,8 +142,12 @@ public class CorporeaAutoCompleteHandler {
 	}
 
 	private ArrayList<CompletionData> getNames(String prefix) {
+		String s = prefix.trim();
+		if(s.isEmpty())
+			return new ArrayList();
+				
 		TreeSet<CompletionData> result = new TreeSet<CompletionData>();
-		String[] words = prefix.split(" ");
+		String[] words = s.split(" ");
 		int i = words.length - 1;
 		String curPrefix = words[i];
 		while(i >= 0) {

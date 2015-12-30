@@ -47,10 +47,13 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 		boolean remote = supertile.getWorld().isRemote;
 		Item wool = Item.getItemFromBlock(Blocks.wool);
+
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		int slowdown = getSlowdownFactor();
+
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() == wool) {
+			if(stack != null && stack.getItem() == wool && !item.isDead && item.getAge() >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					if(!remote) {

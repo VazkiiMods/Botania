@@ -34,23 +34,27 @@ public class LensMine extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.worldObj;
+
 		BlockPos pos_ = pos.getBlockPos();
 		Block block = world.getBlockState(pos_).getBlock();
 
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
 		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
-
+		
 		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.piston || block == Blocks.piston_extension || block == Blocks.piston_head))
 			return false;
 
+		int harvestLevel = ConfigHandler.harvestLevelBore;
+		
 		TileEntity tile = world.getTileEntity(pos_);
 
 		IBlockState state = world.getBlockState(pos_);
 		float hardness = block.getBlockHardness(world, pos_);
+		int neededHarvestLevel = block.getHarvestLevel(state);
 		int mana = burst.getMana();
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 			List<ItemStack> items = new ArrayList();
 
 			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));

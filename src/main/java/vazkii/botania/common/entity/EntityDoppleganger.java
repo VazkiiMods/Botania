@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +80,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
-	public static final int SPAWN_TICKS = 100;
+	public static final int SPAWN_TICKS = 160;
 	private static final float RANGE = 12F;
 	private static final float MAX_HP = 800F;
 
@@ -105,6 +106,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		new BlockPos(-4, 1, 4),
 		new BlockPos(-4, 1, -4)
 	};
+
+	private static final List<String> CHEATY_BLOCKS = Arrays.asList(new String[] {
+			"OpenBlocks:beartrap",
+			"ThaumicTinkerer:magnet"
+	});
 
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
@@ -517,17 +523,28 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			setDead();
 
 		if(!worldObj.isRemote) {
-			BlockPos pos = new BlockPos(this);
-			Block block = worldObj.getBlockState(pos).getBlock();
-			if(block.getBlockHardness(worldObj, pos) >= 0) {
-				List<ItemStack> items = block.getDrops(worldObj, pos, worldObj.getBlockState(pos), 0);
-				for(ItemStack stack : items) {
-					if(ConfigHandler.blockBreakParticles)
-						worldObj.playAuxSFX(2001, pos, Block.getStateId(worldObj.getBlockState(pos)));
-					worldObj.spawnEntityInWorld(new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack));
-				}
-				worldObj.setBlockToAir(pos);
-			}
+			int radius = 1;
+			int posXInt = MathHelper.floor_double(posX);
+			int posYInt = MathHelper.floor_double(posY);
+			int posZInt = MathHelper.floor_double(posZ);
+			for(int i = -radius; i < radius + 1; i++)
+				for(int j = -radius; j < radius + 1; j++)
+					for(int k = -radius; k < radius + 1; k++) {
+						int xp = posXInt + i;
+						int yp = posYInt + j;
+						int zp = posZInt + k;
+						BlockPos posp = new BlockPos(xp, yp, zp);
+						if(isCheatyBlock(worldObj, posp)) {
+							Block block = worldObj.getBlockState(posp).getBlock();
+							List<ItemStack> items = block.getDrops(worldObj, posp, worldObj.getBlockState(posp), 0);
+							for(ItemStack stack : items) {
+								if(ConfigHandler.blockBreakParticles)
+									worldObj.playAuxSFX(2001, posp, Block.getStateId(worldObj.getBlockState(posp)));
+								worldObj.spawnEntityInWorld(new EntityItem(worldObj, xp + 0.5, yp + 0.5, zp + 0.5, stack));
+							}
+							worldObj.setBlockToAir(posp);
+						}
+					}
 		}
 
 		BlockPos source = getSource();
@@ -593,10 +610,37 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int mobTicks = getMobSpawnTicks();
 		boolean spawnMissiles = hard && ticksExisted % 15 < 4;
 
+		if(invul > 10) {
+			Vector3 pos = Vector3.fromEntityCenter(this).subtract(new Vector3(0, 0.2, 0));
+			for(int i = 0; i < PYLON_LOCATIONS.length; i++) {
+				BlockPos arr = PYLON_LOCATIONS[i];
+
+				Vector3 pylonPos = new Vector3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
+				double worldTime = ticksExisted;
+				worldTime /= 5;
+
+				float rad = 0.75F + (float) Math.random() * 0.05F;
+				double xp = pylonPos.x + 0.5 + Math.cos(worldTime) * rad;
+				double zp = pylonPos.z + 0.5 + Math.sin(worldTime) * rad;
+
+				Vector3 partPos = new Vector3(xp, pylonPos.y, zp);
+				Vector3 mot = pos.copy().sub(partPos).multiply(0.04);
+
+				float r = 0.7F + (float) Math.random() * 0.3F;
+				float g = (float) Math.random() * 0.3F;
+				float b = 0.7F + (float) Math.random() * 0.3F;
+
+				Botania.proxy.wispFX(worldObj, partPos.x, partPos.y, partPos.z, r, g, b, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
+				Botania.proxy.wispFX(worldObj, partPos.x, partPos.y, partPos.z, r, g, b, 0.4F, (float) mot.x, (float) mot.y, (float) mot.z);
+			}
+		}
+
 		if(invul > 0 && mobTicks == MOB_SPAWN_TICKS) {
-			if(invul < SPAWN_TICKS && invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
-				for(int i = 0; i < 2; i++)
-					spawnExplosionParticle();
+			if(invul < SPAWN_TICKS)  {
+				if(invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
+					for(int i = 0; i < 2; i++)
+						spawnExplosionParticle();
+			}
 
 			if(!worldObj.isRemote) {
 				setHealth(getHealth() + (getMaxHealth() - 1F) / SPAWN_TICKS);
@@ -624,7 +668,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								switch(worldObj.rand.nextInt(2)) {
 								case 0 : {
 									entity = new EntityZombie(worldObj);
-									if(worldObj.rand.nextInt(hard ? 9 : 12) == 0)
+									if(worldObj.rand.nextInt(hard ? 3 : 12) == 0)
 										entity = new EntityWitch(worldObj);
 
 									break;
@@ -677,8 +721,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 						if(tries >= 50)
 							teleportTo(source.getX() + 0.5, source.getY() + 1.6, source.getZ() + 0.5);
 
-						if(spawnLandmines)
-							for(int i = 0; i < 6; i++) {
+						if(spawnLandmines) {
+							int count = dying && hard ? 7 : 6;
+							for(int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
 								int z = source.getZ() - 10 + rand.nextInt(20);
 								int y = worldObj.getTopSolidOrLiquidBlock(new BlockPos(x, -1, z)).getY();
@@ -689,6 +734,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								worldObj.spawnEntityInWorld(landmine);
 							}
 
+						}
+							
 						if(!players.isEmpty())
 							for(int pl = 0; pl < playerCount; pl++)
 								for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
@@ -698,7 +745,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 									worldObj.spawnEntityInWorld(pixie);
 								}
 
-						setTPDelay(hard ? dying ? 20 : 45 : dying ? 40 : 60);
+						setTPDelay(hard ? (dying ? 35 : 45) : (dying ? 40 : 60));
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
@@ -724,6 +771,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				worldObj.spawnEntityInWorld(missile);
 			}
 		}
+	}
+
+	public static boolean isCheatyBlock(World world, BlockPos pos) {
+		Block block = world.getBlockState(pos).getBlock();
+		String name = Block.blockRegistry.getNameForObject(block).toString();
+		return CHEATY_BLOCKS.contains(name);
 	}
 
 	// EntityEnderman code below ============================================================================

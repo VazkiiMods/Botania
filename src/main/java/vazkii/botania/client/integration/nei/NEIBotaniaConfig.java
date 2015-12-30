@@ -1,11 +1,24 @@
 package vazkii.botania.client.integration.nei;
 
+import org.lwjgl.input.Keyboard;
+
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerBrewery;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerElvenTrade;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerFloatingFlowers;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerLexicaBotania;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerManaPool;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerPetalApothecary;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerPureDaisy;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerRunicAltar;
 import vazkii.botania.common.lib.LibMisc;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
+import codechicken.nei.guihook.GuiContainerManager;
 
 public class NEIBotaniaConfig implements IConfigureNEI {
 
+	public static final String CORPOREA_KEY = "gui.botania_corporea_request";
+	
 	@Override
 	public String getName() {
 		return LibMisc.MOD_NAME;
@@ -41,6 +54,9 @@ public class NEIBotaniaConfig implements IConfigureNEI {
 		
 		API.registerRecipeHandler(new RecipeHandlerLexicaBotania());
 		API.registerUsageHandler(new RecipeHandlerLexicaBotania());
+		
+		API.addKeyBind(CORPOREA_KEY, Keyboard.KEY_C);
+		GuiContainerManager.addInputHandler(new NEIInputHandler());
 	}
 
 }

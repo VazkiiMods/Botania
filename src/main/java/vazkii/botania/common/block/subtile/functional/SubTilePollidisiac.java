@@ -36,6 +36,8 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			List<EntityAnimal> animals = supertile.getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			int slowdown = getSlowdownFactor();
+
 			for(EntityAnimal animal : animals) {
 				if(mana < manaCost)
 					break;
@@ -43,7 +45,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
 				if(animal.getGrowingAge() == 0 && love <= 0) {
 					for(EntityItem item : items) {
-						if(item.getAge() < 60 || item.isDead)
+						if(item.getAge() < (60 + slowdown) || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();

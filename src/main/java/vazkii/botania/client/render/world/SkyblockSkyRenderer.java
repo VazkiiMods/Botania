@@ -63,8 +63,10 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float f3 = (float)vec3.zCoord;
 		float f6;
 
-		int startFade = 25;
-		float insideVoid = Math.max(0F, ((float) (startFade - mc.thePlayer.posY) / startFade));
+		float insideVoid = 0;
+		if(mc.thePlayer.posY <= -2)
+			insideVoid = (float) Math.min(1F, -(mc.thePlayer.posY + 2) / 30F);
+		
 		f1 = Math.max(0F, f1 - insideVoid);
 		f2 = Math.max(0F, f2 - insideVoid);
 		f3 = Math.max(0F, f3 - insideVoid);
@@ -136,7 +138,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, a * 4);
+		GL11.glColor4f(1F, 1F, 1F, (a * 4) * (1F - insideVoid));
 		GL11.glRotatef(90F, 0.5F, 0.5F, 0.0F);
 		for(int p = 0; p < planetTextures.length; p++) {
 			mc.renderEngine.bindTexture(planetTextures[p]);

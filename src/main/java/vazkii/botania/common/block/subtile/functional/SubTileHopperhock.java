@@ -11,7 +11,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -32,6 +35,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import scala.reflect.internal.util.WeakHashSet;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -49,6 +53,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
 
+	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap());
+
 	int filterType = 0;
 
 	@Override
@@ -64,8 +70,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 		BlockPos pos = supertile.getPos();
 
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+		int slowdown = getSlowdownFactor();
+		
 		for(EntityItem item : items) {
-			if(item.getAge() < 60 || item.getAge() >= 105 && item.getAge() < 110 || item.isDead)
+			if(item.getAge() < (60 + slowdown) || item.getAge() >= 105 && item.getAge() < 110 || item.isDead)
 				continue;
 
 			ItemStack stack = item.getEntityItem();
@@ -73,6 +81,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			IInventory invToPutItemIn = null;
 			EnumFacing sideToPutItemIn = null;
 			boolean priorityInv = false;
+			int amountToPutIn = 0;
 
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
@@ -81,8 +90,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
-					canAccept &= stackSize == stack.stackSize;
+					int availablePut = InventoryHelper.testInventoryInsertion(inv, stack, dir);
+					canAccept &= availablePut > 0;
 
 					if(canAccept) {
 						boolean priority = !filter.isEmpty();
@@ -94,6 +103,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
+							amountToPutIn = availablePut;
 						}
 					}
 				}
@@ -101,12 +111,17 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 			if(invToPutItemIn != null) {
 				boolean remote = supertile.getWorld().isRemote;
-				if(!item.isDead && remote)
-					SubTileSpectranthemum.spawnExplosionParticles(item, 1);
-				else {
-					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
+				if(!item.isDead && remote) {
+					if(!particled.contains(item)) {
+						SubTileSpectranthemum.spawnExplosionParticles(item, 3);
+						particled.add(item);
+					}
+				} else {
+					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
+					item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
 					invToPutItemIn.markDirty();
-					item.setDead();
+					if(item.getEntityItem().stackSize == 0)
+						item.setDead();
 					pulledAny = true;
 				}
 			}

@@ -32,6 +32,7 @@ import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePylon;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -123,8 +124,9 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 		PylonVariant variant = ((PylonVariant) world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT));
 		return variant == PylonVariant.MANA ? LexiconData.pylon : variant == PylonVariant.NATURA ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
 	}
+
 	@Override
 	public boolean canStabaliseInfusion(World world, BlockPos pos) {
-		return true;
+		return ConfigHandler.enableThaumcraftStablizers;
 	}
 }

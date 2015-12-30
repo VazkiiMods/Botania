@@ -44,11 +44,14 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 			sync();
 		}
 
+		int slowdown = getSlowdownFactor();
+
 		boolean remote = supertile.getWorld().isRemote;
-						List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
+			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && item.getAge() >= slowdown) {
 				if(cooldown == 0) {
 					if(!remote) {
 						int val = ((ItemFood) stack.getItem()).getHealAmount(stack);

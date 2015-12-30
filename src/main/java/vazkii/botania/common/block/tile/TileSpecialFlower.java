@@ -13,7 +13,9 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,18 +26,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.api.subtile.ISubTileSlowableContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
-public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer, ITickable {
+public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer, ITickable {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -212,5 +213,20 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		if(subTile == null)
 			return 0;
 		return subTile.getPowerLevel(side);
+	}
+
+	@Override
+	public int getSlowdownFactor() {
+		Block below = worldObj.getBlockState(getPos().down()).getBlock();
+		if(below == Blocks.mycelium)
+			return SLOWDOWN_FACTOR_MYCEL;
+		
+		if(below == Blocks.dirt) {
+			BlockDirt.DirtType type = worldObj.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
+			if(type == BlockDirt.DirtType.PODZOL)
+				return SLOWDOWN_FACTOR_PODZOL;
+		}
+		
+		return 0;
 	}
 }

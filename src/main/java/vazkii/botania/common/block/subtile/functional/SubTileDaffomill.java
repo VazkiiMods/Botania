@@ -49,11 +49,13 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 			if(axis != null) {
 				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
-				for(EntityItem item : items) {
-					item.motionX += orientation.getFrontOffsetX() * 0.05;
-					item.motionY += orientation.getFrontOffsetY() * 0.05;
-					item.motionZ += orientation.getFrontOffsetZ() * 0.05;
-				}
+				int slowdown = getSlowdownFactor();
+				for(EntityItem item : items)
+					if(!item.isDead && item.getAge() >= slowdown) {
+						item.motionX += orientation.getFrontOffsetX() * 0.05;
+						item.motionY += orientation.getFrontOffsetY() * 0.05;
+						item.motionZ += orientation.getFrontOffsetZ() * 0.05;
+					}
 			}
 
 			windTicks--;

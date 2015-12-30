@@ -93,6 +93,7 @@ public final class LexiconData {
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry flowerShrinking;
+	public static LexiconEntry flowerSpeed;
 	public static LexiconEntry jadedAmaranthus;
 	public static LexiconEntry bellethorne;
 	public static LexiconEntry dreadthorne;
@@ -451,6 +452,10 @@ public final class LexiconData {
 		flowerShrinking = new BLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes)).setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN + "Chibi"));
 
+		flowerSpeed = new BLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
+		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
+		flowerSpeed.setIcon(new ItemStack(Blocks.dirt, 1, 2));
+		
 		jadedAmaranthus = new BLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
 		jadedAmaranthus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.jadedAmaranthusRecipe), new PageText("2"));
 
@@ -852,7 +857,7 @@ public final class LexiconData {
 		corporea.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeCorporeaSpark), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMasterCorporeaSpark));
 
 		corporeaIndex = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_INDEX, categoryEnder);
-		corporeaIndex.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeCorporeaIndex));
+		corporeaIndex.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("8"), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeCorporeaIndex));
 
 		corporeaFunnel = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_FUNNEL, categoryEnder);
 		corporeaFunnel.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaFunnel));
@@ -1100,7 +1105,10 @@ public final class LexiconData {
 
 		if(Botania.thaumcraftLoaded) {
 			tcIntegration = new CLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
-			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b")).setIcon(new ItemStack(ModItems.manaInkwell));
+			
+			if(ConfigHandler.enableThaumcraftStablizers)
+				tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b")).setIcon(new ItemStack(ModItems.manaInkwell));
+			else tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b")).setIcon(new ItemStack(ModItems.manaInkwell));
 		}
 
 		if(Botania.etFuturumLoaded) {

@@ -57,7 +57,7 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 
 	@Override
 	public boolean canStabaliseInfusion(World world, BlockPos pos) {
-		return true;
+		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@Override
