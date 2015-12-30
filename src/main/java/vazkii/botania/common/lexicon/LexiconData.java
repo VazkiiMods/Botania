@@ -93,6 +93,7 @@ public final class LexiconData {
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry flowerShrinking;
+	public static LexiconEntry flowerSpeed;
 	public static LexiconEntry jadedAmaranthus;
 	public static LexiconEntry bellethorne;
 	public static LexiconEntry dreadthorne;
@@ -451,6 +452,10 @@ public final class LexiconData {
 		flowerShrinking = new BLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes)).setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN + "Chibi"));
 
+		flowerSpeed = new BLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
+		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
+		flowerSpeed.setIcon(new ItemStack(Blocks.dirt, 1, 2));
+		
 		jadedAmaranthus = new BLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
 		jadedAmaranthus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.jadedAmaranthusRecipe), new PageText("2"));
 

@@ -225,6 +225,19 @@ public class SubTileEntity {
 	public boolean isOvergrowthAffected() {
 		return true;
 	}
+	
+	/**
+	 * Gets ths slowdown factor of this SubTile.
+	 * @see ISubTileSlowableContainer
+	 */
+	public int getSlowdownFactor() {
+		if(supertile instanceof ISubTileSlowableContainer) {
+			ISubTileSlowableContainer slowable = (ISubTileSlowableContainer) supertile;
+			return slowable.getSlowdownFactor();
+		}
+		
+		return 0;
+	}
 
 
 }

@@ -70,8 +70,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int z = supertile.zCoord;
 
 		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+		int slowdown = getSlowdownFactor();
+		
 		for(EntityItem item : items) {
-			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
+			if(item.age < (60 + slowdown) || item.age >= 105 && item.age < 110 || item.isDead)
 				continue;
 
 			ItemStack stack = item.getEntityItem();

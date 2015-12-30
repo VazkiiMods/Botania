@@ -36,6 +36,8 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 + RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
 			List<EntityAnimal> animals = supertile.getWorldObj().getEntitiesWithinAABB(EntityAnimal.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 +RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
+			int slowdown = getSlowdownFactor();
+			
 			for(EntityAnimal animal : animals) {
 				if(mana < manaCost)
 					break;
@@ -43,7 +45,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
 				if(animal.getGrowingAge() == 0 && love <= 0) {
 					for(EntityItem item : items) {
-						if(item.age < 60 || item.isDead)
+						if(item.age < (60 + slowdown) || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();

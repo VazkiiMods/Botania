@@ -52,4 +52,13 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 		type = IslandType.ofType(cmp.getString(TAG_ISLAND_TYPE));
 	}
 
+	@Override
+	public int getSlowdownFactor() {
+		switch(getIslandType()) {
+		case MYCEL: return SLOWDOWN_FACTOR_MYCEL;
+		case PODZOL: return SLOWDOWN_FACTOR_PODZOL;
+		default: return 0;
+		}
+	}
+
 }

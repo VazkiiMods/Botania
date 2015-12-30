@@ -54,8 +54,10 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 			boolean did = false;
 			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
+			int slowdown = getSlowdownFactor();
+			
 			for(EntityItem item : items) {
-				if(item.age < 60 || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(item.age < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();

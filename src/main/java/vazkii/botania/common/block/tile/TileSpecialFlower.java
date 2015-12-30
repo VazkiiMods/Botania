@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,13 +26,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.api.subtile.ISubTileSlowableContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
-public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
+public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -218,5 +219,20 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		if(subTile == null)
 			return 0;
 		return subTile.getPowerLevel(side);
+	}
+
+	@Override
+	public int getSlowdownFactor() {
+		Block below = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+		if(below == Blocks.mycelium)
+			return SLOWDOWN_FACTOR_MYCEL;
+		
+		if(below == Blocks.dirt) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
+			if(meta == 2)
+				return SLOWDOWN_FACTOR_PODZOL;
+		}
+		
+		return 0;
 	}
 }

@@ -26,6 +26,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -192,7 +193,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	protected boolean canPlaceBlockOn(Block block) {
-		return super.canPlaceBlockOn(block) || block == ModBlocks.redStringRelay;
+		return super.canPlaceBlockOn(block) || block == ModBlocks.redStringRelay || block == Blocks.mycelium;
 	}
 
 	@Override
