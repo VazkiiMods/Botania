@@ -13,7 +13,8 @@ public enum AltarVariant implements IStringSerializable {
     SWAMP,
     DESERT,
     TAIGA,
-    MESA;
+    MESA,
+    MOSSY;
 
     @Override
     public String getName() {

@@ -69,7 +69,6 @@ public class BotaniaStateProps {
 
     // BlockAltar
     public static final PropertyEnum<AltarVariant> ALTAR_VARIANT = PropertyEnum.create("variant", AltarVariant.class);
-    public static final PropertyBool MOSSY = PropertyBool.create("mossy");
 
     // BlockAltGrass
     public static final PropertyEnum<AltGrassVariant> ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);

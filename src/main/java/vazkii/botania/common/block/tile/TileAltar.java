@@ -68,13 +68,17 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			return false;
 
 		if(!isMossy && getBlockMetadata() == 0) {
-			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine) && !worldObj.isRemote) {
+			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine)) {
 				isMossy = true;
-				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					item.setDead();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+				if (worldObj.isRemote) {
+					worldObj.markBlockRangeForRenderUpdate(getPos(), getPos());
+				} else {
+					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						item.setDead();
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+				}
 			}
 		}
 

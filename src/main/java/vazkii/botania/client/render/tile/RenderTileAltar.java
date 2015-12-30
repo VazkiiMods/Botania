@@ -64,11 +64,11 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
+//		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
 
 		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GlStateManager.scale(1F, -1F, -1F);
-		model.render();
+//		model.render();
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 

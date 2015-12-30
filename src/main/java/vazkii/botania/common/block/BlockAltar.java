@@ -68,14 +68,13 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		random = new Random();
 
 		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.MOSSY, false)
 				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT)
 		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.ALTAR_VARIANT, BotaniaStateProps.MOSSY);
+		return new BlockState(this, BotaniaStateProps.ALTAR_VARIANT);
 	}
 
 	@Override
@@ -85,9 +84,10 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (meta < 0 || meta >= AltarVariant.values().length) {
+		if (meta < 0 || meta >= AltarVariant.values().length ) {
 			meta = 0;
 		}
+		System.out.println(AltarVariant.values()[meta]);
 		return getDefaultState().withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.values()[meta]);
 	}
 
@@ -98,15 +98,15 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 			TileAltar altar = ((TileAltar) te);
 
 			if (altar.isMossy) {
-				state = state.withProperty(BotaniaStateProps.MOSSY, true);
+				state = state.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.MOSSY);
 			}
 		}
 		return state;
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT;
 	}
 
 	@Override
@@ -145,7 +145,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
-
 		if(par5EntityPlayer.isSneaking()) {
 			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
 				ItemStack stackAt = tile.getStackInSlot(i);

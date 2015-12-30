@@ -1,0 +1,51 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:altar",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "variant": {
+      "default": { "textures": {
+        "all": "botania:model/altar",
+        "particle": "minecraft:blocks/cobblestone"
+      }},
+      "forest": { "textures": {
+        "all": "botania:model/altarMeta0",
+        "particle": "botania:blocks/biomeStone0"
+      }},
+      "plains": { "textures": {
+        "all": "botania:model/altarMeta1",
+        "particle": "botania:blocks/biomeStone1"
+      }},
+      "mountain": { "textures": {
+        "all": "botania:model/altarMeta2",
+        "particle": "botania:blocks/biomeStone2"
+      }},
+      "fungal": { "textures": {
+        "all": "botania:model/altarMeta3",
+        "particle": "botania:blocks/biomeStone3"
+      }},
+      "swamp": { "textures": {
+        "all": "botania:model/altarMeta4",
+        "particle": "botania:blocks/biomeStone4"
+      }},
+      "desert": { "textures": {
+        "all": "botania:model/altarMeta5",
+        "particle": "botania:blocks/biomeStone5"
+      }},
+      "taiga": { "textures": {
+        "all": "botania:model/altarMeta6",
+        "particle": "botania:blocks/biomeStone6"
+      }},
+      "mesa": { "textures": {
+        "all": "botania:model/altarMeta7",
+        "particle": "botania:blocks/biomeStone7"
+      }},
+      "mossy": { "textures": {
+        "all": "botania:model/altarMossy",
+        "particle": "minecraft:blocks/cobblestone"
+      }}
+    }
+  }
+}
