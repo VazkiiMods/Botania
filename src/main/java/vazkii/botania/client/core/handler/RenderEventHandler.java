@@ -69,6 +69,7 @@ public class RenderEventHandler {
 
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre evt) {
+        System.out.println("CALLING TEXTURE STITCH");
         alfPortalTex = IconHelper.forName(evt.map, "alfheimPortalInside", "blocks");
         lightRelayWorldIcon = IconHelper.forName(evt.map, "lightRelay1", "blocks");
         lightRelayWorldIconRed = IconHelper.forName(evt.map, "lightRelay3", "blocks");

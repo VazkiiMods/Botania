@@ -25,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.item.ItemSpark;
 
@@ -81,7 +82,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	}
 
 	public TextureAtlasSprite getBaseIcon(T entity) {
-		return ItemSpark.worldIcon;
+		return RenderEventHandler.INSTANCE.sparkWorldIcon;
 	}
 
 	public void colorSpinningIcon(T entity, float a) {
@@ -110,7 +111,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+		p_77026_1_.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
 		//p_77026_1_.getWorldRenderer().setBrightness(240);
 		p_77026_1_.getWorldRenderer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
 		p_77026_1_.getWorldRenderer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();

@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:threehigh",
+    "textures": {
+      "bottom": "botania:blocks/terraPlate0",
+      "top": "botania:blocks/terraPlate1",
+      "side": "botania:blocks/terraPlate2"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

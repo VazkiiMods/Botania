@@ -35,8 +35,6 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
 
-	public static TextureAtlasSprite worldIcon;
-
 	public ItemSpark() {
 		setUnlocalizedName(LibItemNames.SPARK);
 	}

@@ -306,6 +306,8 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.redStringInterceptor);
         registerItemModel(ModBlocks.redStringRelay);
         registerItemModel(ModBlocks.floatingSpecialFlower);
+        registerItemModel(ModBlocks.sparkChanger);
+        registerItemModel(ModBlocks.terraPlate);
 
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
