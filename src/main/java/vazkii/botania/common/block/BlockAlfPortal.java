@@ -37,20 +37,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
 
-	public static TextureAtlasSprite portalTex;
-
 	public BlockAlfPortal() {
 		super(Material.wood);
 		setHardness(10F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		portalTex = IconHelper.forName(evt.map, "alfheimPortalInside", "blocks");
 	}
 
 	@Override

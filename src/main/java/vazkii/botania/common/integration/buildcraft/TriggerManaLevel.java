@@ -1,5 +1,6 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +12,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibTriggerNames;
 import buildcraft.api.statements.IStatementContainer;
@@ -36,9 +38,9 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 		return "botania:mana" + state.name();
 	}
 
-	@SubscribeEvent
-	public void registerIcons(TextureStitchEvent.Pre evt) {
-		icon = IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(state.name()), "items");
+	@Override
+	public TextureAtlasSprite getGuiSprite() {
+		return RenderEventHandler.INSTANCE.manaLevelTriggerIcons.get(state);
 	}
 
 	@Override

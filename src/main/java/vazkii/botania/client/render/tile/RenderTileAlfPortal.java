@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.common.block.BlockAlfPortal;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
@@ -55,11 +56,11 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 
 		GlStateManager.disableCull();
 		GlStateManager.disableLighting();
-		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
+		renderIcon(0, 0, RenderEventHandler.INSTANCE.alfPortalTex, 3, 3, 240);
 
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.translate(0F, 0F, 0.5F);
-		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
+		renderIcon(0, 0, RenderEventHandler.INSTANCE.alfPortalTex, 3, 3, 240);
 
 		GlStateManager.enableCull();
 		GlStateManager.enableAlpha();

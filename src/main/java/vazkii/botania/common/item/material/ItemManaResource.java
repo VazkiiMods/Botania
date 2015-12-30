@@ -55,27 +55,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	final int types = 24;
 
-	// begin dank_memes todo 1.8 if I can figure out how to render arbitrary baked models then these will no longer be needed
-	public TextureAtlasSprite tailIcon = null;
-	public TextureAtlasSprite phiFlowerIcon = null;
-	public TextureAtlasSprite goldfishIcon = null;
-	public TextureAtlasSprite nerfBatIcon = null;
-	// end dank_memes
-
 	public ItemManaResource() {
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		tailIcon = IconHelper.forName(evt.map, "tail", "items");
-		phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower", "items");
-		goldfishIcon = IconHelper.forName(evt.map, "goldfish", "items");
-		nerfBatIcon = IconHelper.forName(evt.map, "nerfBat", "items");
 	}
 
 	@SubscribeEvent

@@ -35,15 +35,6 @@ public class StatementAPIPlugin implements ITriggerProvider {
 		StatementManager.registerStatement(triggerRuneAltarCanCraft);
 
 		StatementManager.registerTriggerProvider(this);
-
-		// Register them all to the event bus so they can stitch textures
-		MinecraftForge.EVENT_BUS.register(triggerManaEmpty);
-		MinecraftForge.EVENT_BUS.register(triggerManaContains);
-		MinecraftForge.EVENT_BUS.register(triggerManaSpace);
-		MinecraftForge.EVENT_BUS.register(triggerManaFull);
-		MinecraftForge.EVENT_BUS.register(triggerManaDetector);
-
-		MinecraftForge.EVENT_BUS.register(triggerRuneAltarCanCraft);
 	}
 
 	@Override

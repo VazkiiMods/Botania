@@ -56,6 +56,7 @@ import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -182,6 +183,7 @@ public class ClientProxy extends CommonProxy {
 
 		super.preInit(event);
 
+		MinecraftForge.EVENT_BUS.register(RenderEventHandler.INSTANCE);
 		ModelHandler.registerModels();
 	}
 
@@ -191,7 +193,7 @@ public class ClientProxy extends CommonProxy {
 
 		ModChallenges.init();
 
-		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+		MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 		if(ConfigHandler.boundBlockWireframe)
@@ -202,10 +204,10 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
-		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
+		MinecraftForge.EVENT_BUS.register(new CorporeaAutoCompleteHandler());
 		
 		if(ConfigHandler.useAdaptativeConfig)
-			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
+			MinecraftForge.EVENT_BUS.register(new AdaptorNotifier());
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
 

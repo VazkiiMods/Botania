@@ -74,7 +74,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE)
 				.withProperty(ISLAND_TYPE, IFloatingFlower.IslandType.GRASS));
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override

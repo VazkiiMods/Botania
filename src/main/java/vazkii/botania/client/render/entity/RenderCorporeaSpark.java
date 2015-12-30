@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
 
@@ -38,7 +39,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return entity.isMaster() ? ItemCorporeaSpark.worldIconMaster : ItemCorporeaSpark.worldIcon;
+		return entity.isMaster() ? RenderEventHandler.INSTANCE.corporeaWorldIconMaster : RenderEventHandler.INSTANCE.corporeaWorldIcon;
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(EntityCorporeaSpark entity) {
-		return ItemCorporeaSpark.iconColorStar;
+		return RenderEventHandler.INSTANCE.corporeaIconStar;
 	}
 
 	@Override

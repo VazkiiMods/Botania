@@ -39,13 +39,6 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 
 	public ItemSpark() {
 		setUnlocalizedName(LibItemNames.SPARK);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		worldIcon = IconHelper.forName(evt.map, "items/spark1");
 	}
 
 	@Override

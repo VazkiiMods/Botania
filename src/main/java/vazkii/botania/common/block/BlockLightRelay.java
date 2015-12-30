@@ -48,14 +48,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLightRelay extends BlockModContainer implements IWandable, ILexiconable {
 
-	public static TextureAtlasSprite worldIcon, worldIconRed;
-
 	protected BlockLightRelay() {
 		super(Material.glass);
 		float f = 5F / 16F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
-		MinecraftForge.EVENT_BUS.register(this);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
@@ -80,13 +77,6 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 		boolean powered = (meta & 8) != 0;
 		meta &= -9;
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, meta == 1 ? LuminizerVariant.DETECTOR : LuminizerVariant.DEFAULT);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		worldIcon = IconHelper.forName(evt.map, "lightRelay1", "blocks");
-		worldIconRed = IconHelper.forName(evt.map, "lightRelay3", "blocks");
 	}
 
 	@Override

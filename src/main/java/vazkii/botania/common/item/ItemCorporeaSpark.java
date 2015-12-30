@@ -34,12 +34,9 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemCorporeaSpark extends ItemMod {
 
-	public static TextureAtlasSprite worldIcon, worldIconMaster, iconColorStar;
-
 	public ItemCorporeaSpark() {
 		setUnlocalizedName(LibItemNames.CORPOREA_SPARK);
 		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -64,14 +61,6 @@ public class ItemCorporeaSpark extends ItemMod {
 			return true;
 		}
 		return false;
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		worldIcon = IconHelper.forName(evt.map, "corporeaSpark1", "items");
-		worldIconMaster = IconHelper.forName(evt.map, "corporeaSpark3", "items");
-		iconColorStar = IconHelper.forName(evt.map, "corporeaSparkStar", "items");
 	}
 
 	@Override

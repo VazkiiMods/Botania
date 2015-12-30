@@ -24,6 +24,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 
@@ -32,7 +33,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks, int digProgress) {
 		Minecraft mc = Minecraft.getMinecraft();
-		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
+		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? RenderEventHandler.INSTANCE.lightRelayWorldIconRed : RenderEventHandler.INSTANCE.lightRelayWorldIcon;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);

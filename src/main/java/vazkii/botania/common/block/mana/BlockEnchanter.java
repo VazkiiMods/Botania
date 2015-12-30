@@ -51,7 +51,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable, IWandHUD {
 
 	Random random;
-	public static TextureAtlasSprite overlay;
 
 	public BlockEnchanter() {
 		super(Material.rock);
@@ -62,13 +61,6 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 		random = new Random();
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forName(evt.map, "enchanterOverlay", "blocks");
 	}
 
 	@Override

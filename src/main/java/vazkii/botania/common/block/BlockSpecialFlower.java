@@ -137,19 +137,6 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onModelBake(ModelBakeEvent evt) {
-		// Ignore all vanilla rules, redirect all blockstates to blockstates/specialFlower.json#normal
-		evt.modelManager.getBlockModelShapes().registerBlockWithStateMapper(this, new DefaultStateMapper() {
-			@Override
-			public ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return new ModelResourceLocation("botania:specialFlower");
-			}
-		});
 	}
 
 	@Override

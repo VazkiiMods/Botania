@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -157,7 +158,7 @@ public final class ModAchievements {
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);
 
-		FMLCommonHandler.instance().bus().register(new AchievementTriggerer());
+		MinecraftForge.EVENT_BUS.register(new AchievementTriggerer());
 	}
 
 }

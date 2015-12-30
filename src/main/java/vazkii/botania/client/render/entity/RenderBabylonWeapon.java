@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -60,7 +61,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.scale(s, s, s);
 		GlStateManager.rotate(-90F, 0F, 1F, 0F);
 		GlStateManager.rotate(45F, 0F, 0F, 1F);
-		TextureAtlasSprite icon = ItemKingKey.weaponIcons[weapon.getVariety()];
+		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.kingKeyWeaponIcons[weapon.getVariety()];
 		GlStateManager.color(1F, 1F, 1F, chargeMul);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

@@ -97,15 +97,6 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		return 2;
 	}
 
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onModelBake(ModelBakeEvent evt) {
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
-		evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
-	}
-
 	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.COLOR, ISLAND_TYPE);

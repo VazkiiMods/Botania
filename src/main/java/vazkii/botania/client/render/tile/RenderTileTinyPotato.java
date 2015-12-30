@@ -33,6 +33,7 @@ import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -140,14 +141,14 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.translate(0.45F, 0F, 0.4F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.rotate(20F, 1F, 0F, 1F);
-				renderIcon(((ItemManaResource) ModItems.manaResource).phiFlowerIcon);
+				renderIcon(RenderEventHandler.INSTANCE.phiFlowerIcon);
 
 				if(name.equals("vazkii")) {
 					GlStateManager.rotate(-20F, 1F, 0F, 1F);
 					GlStateManager.scale(1.25F, 1.25F, 1.25F);
 					GlStateManager.rotate(180F, 0F, 0F, 1F);
 					GlStateManager.translate(-1.5F, -1.3F, -0.75F);
-					renderIcon(((ItemManaResource) ModItems.manaResource).nerfBatIcon);
+					renderIcon(RenderEventHandler.INSTANCE.nerfBatIcon);
 				}
 			} else if(name.equals("skull kid")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
@@ -164,7 +165,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				renderIcon(((ItemManaResource) ModItems.manaResource).goldfishIcon);
+				renderIcon(RenderEventHandler.INSTANCE.goldfishIcon);
 			} else if(name.equals("chitoge")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);

@@ -21,6 +21,7 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.BlockAlfPortal;
 import net.minecraftforge.fml.relauncher.Side;
@@ -74,7 +75,7 @@ public class PageElvenRecipe extends PageRecipe {
 			i++;
 		}
 
-		TextureAtlasSprite portalIcon = BlockAlfPortal.portalTex;
+		TextureAtlasSprite portalIcon = RenderEventHandler.INSTANCE.alfPortalTex;
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}

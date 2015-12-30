@@ -92,7 +92,7 @@ public final class ContributorFancinessHandler {
 
 	private static void renderTwintails(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
+		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -122,7 +122,7 @@ public final class ContributorFancinessHandler {
 
 	private static void renderPhiFlower(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
+		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -142,7 +142,7 @@ public final class ContributorFancinessHandler {
 
 	private static void renderGoldfish(RenderPlayerEvent event) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
+		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

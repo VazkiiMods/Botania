@@ -29,6 +29,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
@@ -139,7 +140,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GlStateManager.scale(s, s, s);
 
 			ShaderHelper.useShader(ShaderHelper.manaPool);
-			renderIcon(0, 0, BlockPool.manaIcon, 16, 16, 240);
+			renderIcon(0, 0, RenderEventHandler.INSTANCE.manaWater, 16, 16, 240);
 			ShaderHelper.releaseShader();
 
 			GlStateManager.enableAlpha();

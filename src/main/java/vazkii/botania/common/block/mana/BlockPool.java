@@ -64,8 +64,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	boolean lastFragile = false;
 
-	public static TextureAtlasSprite manaIcon;
-
 	public BlockPool() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -74,7 +72,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setUnlocalizedName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 
-		MinecraftForge.EVENT_BUS.register(this);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT));
 
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
@@ -87,7 +84,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((PoolVariant) state.getValue(BotaniaStateProps.POOL_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.POOL_VARIANT).ordinal();
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.values()[meta]);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		manaIcon = IconHelper.forName(evt.map, "manaWater", "blocks");
 	}
 
 	@Override

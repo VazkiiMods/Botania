@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -100,7 +101,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			}
 
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
-			renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
+			renderIcon(0, 0, RenderEventHandler.INSTANCE.enchanterOverlay, 5, 5, 240);
 			ShaderHelper.releaseShader();
 		}
 

@@ -33,18 +33,10 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
 	private static final String TAG_CHARGING = "charging";
 
-	private static final int WEAPON_TYPES = 12;
-	public static TextureAtlasSprite[] weaponIcons;
+	public static final int WEAPON_TYPES = 12;
 
 	public ItemKingKey() {
 		super(LibItemNames.KING_KEY);
-	}
-
-	@SubscribeEvent
-	public void registerIcons(TextureStitchEvent.Pre event) {
-		weaponIcons = new TextureAtlasSprite[WEAPON_TYPES];
-		for(int i = 0; i < WEAPON_TYPES; i++)
-			weaponIcons[i] = IconHelper.forName(event.map, "gateWeapon" + i, "items");
 	}
 
 	@Override

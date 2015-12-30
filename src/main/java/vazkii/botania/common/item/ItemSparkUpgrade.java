@@ -26,23 +26,11 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSparkUpgrade extends ItemMod {
 
-	private static final int VARIANTS = 4;
-
-	public static TextureAtlasSprite[] worldIcons;
+	public static final int VARIANTS = 4;
 
 	public ItemSparkUpgrade() {
 		setUnlocalizedName(LibItemNames.SPARK_UPGRADE);
 		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		worldIcons = new TextureAtlasSprite[VARIANTS];
-		for(int i = 0; i < VARIANTS; i++) {
-			worldIcons[i] = IconHelper.forName(evt.map, "sparkUpgradeL" + i, "items");
-		}
 	}
 
 	@Override

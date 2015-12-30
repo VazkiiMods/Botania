@@ -26,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
@@ -34,26 +35,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaVoid extends BlockModContainer implements ILexiconable, IPoolOverlayProvider {
 
-	TextureAtlasSprite overlay;
-
 	public BlockManaVoid() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(2000F);
 		setStepSound(Block.soundTypeStone);
 		setUnlocalizedName(LibBlockNames.MANA_VOID);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@Override
-	public int getRenderType() {
-		return 3;
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forName(evt.map, "manaVoid1", "blocks");
 	}
 
 	@Override
@@ -68,7 +55,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 
 	@Override
 	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
-		return overlay;
+		return RenderEventHandler.INSTANCE.manaVoidOverlay;
 	}
 
 }

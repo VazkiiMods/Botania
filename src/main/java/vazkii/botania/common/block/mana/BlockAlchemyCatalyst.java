@@ -23,14 +23,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
-
-	TextureAtlasSprite overlay;
 
 	public BlockAlchemyCatalyst() {
 		this(LibBlockNames.ALCHEMY_CATALYST);
@@ -42,12 +41,6 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 		setResistance(10.0F);
 		setStepSound(Block.soundTypeStone);
 		setUnlocalizedName(name);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forName(evt.map, "alchemyCatalyst3", "blocks");
 	}
 
 	@Override
@@ -57,7 +50,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 
 	@Override
 	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
-		return overlay;
+		return RenderEventHandler.INSTANCE.alchemyCatalystOverlay;
 	}
 
 }

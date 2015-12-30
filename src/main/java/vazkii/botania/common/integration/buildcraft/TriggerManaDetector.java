@@ -1,6 +1,7 @@
 package vazkii.botania.common.integration.buildcraft;
 
 import com.google.common.base.Predicates;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
@@ -9,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibTriggerNames;
@@ -19,13 +21,13 @@ import buildcraft.api.statements.ITriggerInternal;
 public class TriggerManaDetector extends StatementBase implements ITriggerInternal {
 
 	@Override
-	public String getUniqueTag() {
-		return "botania:manaDetector";
+	public TextureAtlasSprite getGuiSprite() {
+		return RenderEventHandler.INSTANCE.manaDetectorIcon;
 	}
 
-	@SubscribeEvent
-	public void registerIcons(TextureStitchEvent.Pre evt) {
-		icon = IconHelper.forName(evt.map, "triggers/manaDetector", "items");
+	@Override
+	public String getUniqueTag() {
+		return "botania:manaDetector";
 	}
 
 	@Override

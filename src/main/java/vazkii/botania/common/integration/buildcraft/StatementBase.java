@@ -5,12 +5,9 @@ import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
 
 public abstract class StatementBase implements IStatement {
-	protected TextureAtlasSprite icon;
 
 	@Override
-	public TextureAtlasSprite getGuiSprite() {
-		return icon;
-	}
+	public abstract TextureAtlasSprite getGuiSprite();
 
 	@Override
 	public int maxParameters() {

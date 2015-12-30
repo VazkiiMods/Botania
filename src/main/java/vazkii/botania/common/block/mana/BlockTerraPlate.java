@@ -40,8 +40,6 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 
-	public static TextureAtlasSprite overlay;
-
 	public BlockTerraPlate() {
 		super(Material.iron);
 		setBlockBounds(0F, 0F, 0F, 1F, 3F / 16F, 1F);
@@ -50,7 +48,6 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeMetal);
 
 		setUnlocalizedName(LibBlockNames.TERRA_PLATE);
-		MinecraftForge.EVENT_BUS.register(this);
 
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
@@ -77,12 +74,6 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 		}
 
 		return false;
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		overlay = IconHelper.forName(evt.map, "terraPlateOverlay", "blocks");
 	}
 
 	@Override
