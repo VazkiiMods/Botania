@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -175,7 +176,8 @@ public final class MultiblockRenderHandler {
 		}
 		else {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ());
+			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1); // todo 1.8 bandaid for things rendering one block off...why?
+			GlStateManager.color(1, 1, 1, alpha);
 			brd.renderBlockBrightness(state, 0.5F); // todo 1.8 check brightness
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
