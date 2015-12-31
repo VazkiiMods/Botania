@@ -12,8 +12,10 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -61,7 +63,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	};
 
 	public RenderDoppleganger(RenderManager renderManager) {
-		super(renderManager, new ModelBiped(0.5F), 0F);
+		super(renderManager, new ModelPlayer(0.0F, false), 0F); // todo 1.8 was ModelBiped(0.5)
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityDoppleganger par1Entity) {
-		return Minecraft.getMinecraft().thePlayer.getLocationSkin();
+		return DefaultPlayerSkin.getDefaultSkinLegacy();
 	}
 
 }

@@ -50,11 +50,14 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getIndex();
+		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 2 || meta > 5) {
+			meta = 2;
+		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 
