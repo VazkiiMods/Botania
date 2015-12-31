@@ -21,9 +21,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings.Options;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -33,6 +35,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
@@ -41,28 +44,34 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.material.ItemManaResource;
 import net.minecraftforge.fml.common.FMLLog;
 
-public final class ContributorFancinessHandler {
+public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
 
 	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
 	private static boolean phi = true;
 
-	public static void render(RenderPlayerEvent.Specials event) {
-		String name = event.entityPlayer.getDisplayName().getUnformattedText();
+	@Override
+	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
+		String name = player.getDisplayName().getUnformattedText();
 
 		if(name.equals("Vazkii") || name.equals("_phi")) {
 			if(phi)
-				renderPhiFlower(event);
-			else renderTwintails(event);
+				renderPhiFlower(player);
+			else renderTwintails(player, partialTicks);
 		} else if(name.equals("haighyorkie"))
-			renderGoldfish(event);
+			renderGoldfish(player);
 
 		firstStart();
-		
+
 		name = name.toLowerCase();
-		if(event.entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
-			renderFlower(event, flowerMap.get(name));
+		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
+			renderFlower(player, flowerMap.get(name));
+	}
+
+	@Override
+	public boolean shouldCombineTextures() {
+		return false;
 	}
 
 	public static void firstStart() {
@@ -90,96 +99,85 @@ public final class ContributorFancinessHandler {
 		}
 	}
 
-	private static void renderTwintails(RenderPlayerEvent event) {
+	private static void renderTwintails(EntityPlayer player, float partialTicks) {
 		GlStateManager.pushMatrix();
 		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.translateToHeadLevel(event.entityPlayer);
+		Helper.translateToHeadLevel(player);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		//GlStateManager.rotate(90F, 0F, 1F, 0F); todo 1.8 refine
+		GlStateManager.translate(0, 1.62, 0);
 		float t = 0.13F;
 		GlStateManager.translate(t, -0.5F, -0.1F);
-		if(event.entityPlayer.motionY < 0)
-			GlStateManager.rotate((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
+		if(player.motionY < 0)
+			GlStateManager.rotate((float) player.motionY * 20F, -1F, 0F, 0F);
 
-		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
+		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.05F) * 2F;
 		GlStateManager.rotate(r, 0F, 0F, 1F);
 		float s = 0.9F;
 		GlStateManager.scale(s, s, s);
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.rotate(-r, 0F, 0F, 1F);
 		GlStateManager.translate(-t, -0F, 0F);
 		GlStateManager.scale(-1F, 1F, 1F);
 		GlStateManager.translate(t, -0F, 0F);
 		GlStateManager.rotate(r, 0F, 0F, 1F);
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
-	private static void renderPhiFlower(RenderPlayerEvent event) {
+	private static void renderPhiFlower(EntityPlayer player) {
 		GlStateManager.pushMatrix();
 		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.translateToHeadLevel(event.entityPlayer);
+		Helper.translateToHeadLevel(player);
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		// todo 1.8 refine
+//		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
-		GlStateManager.translate(-1.2F, 0.2F, 0.125F);
-		GlStateManager.rotate(20F, 1F, 0F, 0F);
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.translate(0.70F, -3.5F, 0.125F);
+//		GlStateManager.rotate(20F, 1F, 0F, 0F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
-	private static void renderGoldfish(RenderPlayerEvent event) {
+	private static void renderGoldfish(EntityPlayer player) {
 		GlStateManager.pushMatrix();
 		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.rotateIfSneaking(event.entityPlayer);
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		Helper.rotateIfSneaking(player);
 		GlStateManager.rotate(180F, 0F, 0F, 1F);
 		GlStateManager.translate(-0.75F, 0.5F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
 		GlStateManager.translate(1.2F, 0.5F, 0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
-	private static void renderFlower(RenderPlayerEvent event, ItemStack flower) {
+	private static void renderFlower(EntityPlayer player, ItemStack flower) {
 		GlStateManager.pushMatrix();
-		Helper.translateToHeadLevel(event.entityPlayer);
+		Helper.translateToHeadLevel(player);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		GlStateManager.rotate(-90, 1, 0, 0);
+		GlStateManager.translate(0, 0, 1.22); // todo 1.8 refine
 		ShaderHelper.useShader(ShaderHelper.gold);
-		Minecraft.getMinecraft().getRenderItem().renderItemModelForEntity(flower, event.entityPlayer, ItemCameraTransforms.TransformType.THIRD_PERSON);
+		Minecraft.getMinecraft().getRenderItem().renderItemModelForEntity(flower, player, ItemCameraTransforms.TransformType.THIRD_PERSON);
 		ShaderHelper.releaseShader();
 		GlStateManager.popMatrix();
-
-//		float f = icon.getMinU();
-//		float f1 = icon.getMaxU();
-//		float f2 = icon.getMinV();
-//		float f3 = icon.getMaxV();
-//		GlStateManager.rotate(180F, 0F, 0F, 1F);
-//		GlStateManager.rotate(90F, 0F, 1F, 0F);
-//		GlStateManager.scale(0.5F, 0.5F, 0.5F);
-//		GlStateManager.translate(-0.5F, 0.7F, 0F);
-//
-//		ShaderHelper.useShader(ShaderHelper.gold);
-//		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-//		ShaderHelper.releaseShader();
-//		GlStateManager.popMatrix();
 	}
 
 	public static class ThreadContributorListLoader extends Thread {

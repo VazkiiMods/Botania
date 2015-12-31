@@ -67,7 +67,6 @@ public final class BaubleRenderHandler {
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, event);
 
-		ContributorFancinessHandler.render(event);
 		GlStateManager.popMatrix();
 	}
 
@@ -126,18 +125,7 @@ public final class BaubleRenderHandler {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-//				Minecraft.getMinecraft().getRenderItem().renderItemModel(stack); // todo 1.8
-//				for(int j = 0; j < 2; j++) {
-//					IIcon icon = item.getIcon(stack, j);
-//					float f = icon.getMinU();
-//					float f1 = icon.getMaxU();
-//					float f2 = icon.getMinV();
-//					float f3 = icon.getMaxV();
-//					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-//
-//					Color color = new Color(item.getColorFromItemStack(stack, 1));
-//					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-//				}
+				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON);
 				GlStateManager.popMatrix();
 
 				if(renderedOne)

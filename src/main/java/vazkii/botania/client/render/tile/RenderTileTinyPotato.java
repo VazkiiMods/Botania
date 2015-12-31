@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -34,6 +35,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -133,7 +135,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 			ContributorFancinessHandler.firstStart();
-
+			// todo 1.8 refine all below
 			float scale = 1F / 4F;
 			GlStateManager.translate(0F, 1F, 0F);
 			GlStateManager.scale(scale, scale, scale);
@@ -154,12 +156,12 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(23));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 23), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("kamina")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.1F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(26));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 26), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("haighyorkie")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -170,33 +172,33 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -0.7F, 0.1F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(7));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 7), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("direwolf20")) {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -2.2F, -0.5F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("doctor")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.15F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(25));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 25), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("snoo")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -0.7F, 0.1F);
 				GlStateManager.rotate(20F, 0F, 0F, 1F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(24));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 24), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("charlotte")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(12));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 12), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("greg") || name.equals("gregorioust")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.5F, -0.4F);
-				//renderIcon(Items.book.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Items.book, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.translate(0.5F, 0.5F, 0F);
@@ -208,48 +210,50 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(Items.bread.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Items.bread, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("martysgames") || name.equals("marty")) {
 				GlStateManager.scale(0.7F, 0.7F, 0.7F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.75F, -2.4F, -0.7F);
 				GlStateManager.rotate(10F, 0F, 0F, 1F);
-				//renderIcon(ItemInfiniteFruit.dasBootIcon);
+				ItemStack renderStack = new ItemStack(ModItems.infiniteFruit, 1);
+				renderStack.setStackDisplayName("das boot");
+				Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("tromped")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(ModItems.cacophonium.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cacophonium, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("kain vinosec")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.3F, -1.5F, -0.4F);
-				//renderIcon(ModItems.recordGaia1.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.recordGaia1, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 				GlStateManager.translate(0F, 0F, 0.85F);
-				//renderIcon(ModItems.recordGaia2.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.recordGaia2, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("mankrik")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -0.2F, -0.1F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(31));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 31), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("kurumi")) {
 				GlStateManager.scale(0.4F, 0.4F, 0.4F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.9F, -2.5F, -1.3F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(17));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 17), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("ichun")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(15));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 15), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("wiiv") || name.equals("dylan4ever") || name.equals("dylankaiser")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.1F, -0.325F);
-				//renderIcon(Items.painting.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Items.painting, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("jibril")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				GlStateManager.translate(0F, 0.7F, 0F);
@@ -272,13 +276,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1F, 0.45F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(8));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 8), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("etho") || name.equals("ethoslab")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				//renderIcon(Items.cookie.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Items.cookie, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("sethbling")) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
@@ -289,15 +293,15 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-1F, -1.1F, -0.1F);
-				//renderIcon(Items.stick.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Items.stick, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("kingdaddydmac")) {
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.3F, -2.5F, 1.075F);
-				//renderIcon(ModItems.manaRing.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.manaRing, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 				GlStateManager.translate(0F, 0F, -4F);
-				//renderIcon(ModItems.manaRing.getIconFromDamage(0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.manaRing, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
@@ -307,13 +311,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -1.27F, -0.4F);
-				//renderIcon(ModItems.cosmetic.getIconFromDamage(27));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(ModItems.cosmetic, 1, 27), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			} else if(name.equals("martyn") || name.equals("inthelittlewood")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.5F, -0.45F, -0.1F);
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				//renderIcon(Blocks.sapling.getIcon(0, 0));
+				Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(Blocks.sapling, 1, 0), ItemCameraTransforms.TransformType.THIRD_PERSON);
 			}else if(ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.get(name);
 				if(icon != null) {
@@ -321,7 +325,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 					GlStateManager.rotate(180F, 1F, 0F, 0F);
 					GlStateManager.translate(-0.5F, -0.5F, 0F);
 					ShaderHelper.useShader(ShaderHelper.gold);
-					//renderIcon(icon);
+					Minecraft.getMinecraft().getRenderItem().renderItem(icon, ItemCameraTransforms.TransformType.THIRD_PERSON);
 					ShaderHelper.releaseShader();
 				}
 			}
@@ -396,6 +400,6 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 	}
 }
