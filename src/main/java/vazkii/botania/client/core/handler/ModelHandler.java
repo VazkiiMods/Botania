@@ -341,6 +341,8 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.manaDetector);
         registerItemModel(ModBlocks.manaBomb);
         registerItemModel(ModBlocks.rfGenerator);
+        registerItemModel(ModBlocks.alfPortal);
+        registerItemModel(ModBlocks.root);
 
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 

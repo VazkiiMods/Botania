@@ -55,7 +55,6 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			double x = par3EntityPlayer.posX;
 			double y = par3EntityPlayer.posY;
 			double z = par3EntityPlayer.posZ;
-			BlockPos playerPos = new BlockPos(par3EntityPlayer);
 
 			double lx = 0;
 			double ly = -1;
@@ -66,21 +65,25 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
+			BlockPos playerPos = new BlockPos((int) x, (int) y, (int) z);
 			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlockState(playerPos).getBlock().isAir(par2World, playerPos) || par2World.getBlockState(playerPos).getBlock() == place) {
 				if(y >= 256 || y <= 0)
 					break;
 
 				for(int i = -2; i < 1; i++)
-					for(int j = -2; j < 1; j++)
-						if(par2World.getBlockState(playerPos.add(i, 0, j)).getBlock().isAir(par2World, playerPos.add(i, 0, j)) || par2World.getBlockState(playerPos.add(i, 0, j)).getBlock() == place) {
-							par2World.setBlockState(playerPos.add(i, 0, j), place.getDefaultState());
-							TileBifrost tile = (TileBifrost) par2World.getTileEntity(playerPos.add(i, 0, j));
+					for(int j = -2; j < 1; j++) {
+						BlockPos pos_ = new BlockPos((int) x + i, (int) y, (int) z + j);
+						if(par2World.getBlockState(pos_).getBlock().isAir(par2World, pos_) || par2World.getBlockState(pos_).getBlock() == place) {
+							par2World.setBlockState(pos_, place.getDefaultState());
+							TileBifrost tile = (TileBifrost) par2World.getTileEntity(pos_);
 							if(tile != null) {
 								for(int k = 0; k < 4; k++)
 									Botania.proxy.sparkleFX(par2World, tile.getPos().getX() + Math.random(), tile.getPos().getY() + Math.random(), tile.getPos().getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 								tile.ticks = time;
 							}
 						}
+
+					}
 
 				lx = x;
 				ly = y;

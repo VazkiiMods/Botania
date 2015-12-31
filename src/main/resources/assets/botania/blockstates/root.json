@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "textures": {
+      "all": "botania:blocks/root"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}
