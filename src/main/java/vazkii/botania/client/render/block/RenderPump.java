@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 18, 2015, 4:42:08 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
@@ -47,3 +48,4 @@ public class RenderPump implements ISimpleBlockRenderingHandler {
 	}
 
 }
+*/

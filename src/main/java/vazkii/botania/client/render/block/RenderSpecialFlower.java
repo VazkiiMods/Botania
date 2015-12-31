@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 25, 2014, 4:15:46 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
@@ -134,3 +135,4 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 	}
 
 }
+*/

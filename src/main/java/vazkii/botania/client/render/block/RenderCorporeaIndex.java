@@ -8,6 +8,7 @@
  * 
  * File Created @ [Feb 15, 2015, 1:57:50 AM (GMT)]
  */
+/*
 package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
@@ -51,3 +52,4 @@ public class RenderCorporeaIndex implements ISimpleBlockRenderingHandler {
 	}
 
 }
+*/

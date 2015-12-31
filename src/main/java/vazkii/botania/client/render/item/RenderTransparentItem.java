@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Aug 6, 2014, 10:04:57 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.render.item;
 
 import net.minecraft.client.renderer.ItemRenderer;
@@ -77,3 +78,4 @@ public class RenderTransparentItem implements IItemRenderer {
 
 
 }
+*/

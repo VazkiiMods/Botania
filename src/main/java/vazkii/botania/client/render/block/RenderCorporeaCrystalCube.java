@@ -8,6 +8,7 @@
  * 
  * File Created @ [Apr 30, 2015, 6:22:32 PM (GMT)]
  */
+/*
 package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
@@ -49,3 +50,4 @@ public class RenderCorporeaCrystalCube implements ISimpleBlockRenderingHandler {
 	}
 
 }
+*/

@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 31, 2014, 3:08:00 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.render.item;
 
 import java.awt.Color;
@@ -120,4 +121,4 @@ public class RenderLens implements IItemRenderer {
 		tessellator.draw();
 	}
 
-}
+}*/
