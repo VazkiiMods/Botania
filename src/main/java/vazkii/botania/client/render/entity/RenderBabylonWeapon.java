@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -70,7 +71,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
 		GlStateManager.disableLighting();
-		//ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 
 		GlStateManager.disableCull();
