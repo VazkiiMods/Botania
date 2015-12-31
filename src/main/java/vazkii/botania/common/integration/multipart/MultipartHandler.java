@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Sep 1, 2015, 5:32:15 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.common.integration.multipart;
 
 import java.util.ArrayList;
@@ -70,4 +71,4 @@ public class MultipartHandler {
 		MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
 	}
 
-}
+}*/

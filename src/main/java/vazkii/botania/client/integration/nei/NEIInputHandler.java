@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [25/12/2015, 02:22:32 (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.integration.nei;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -101,3 +102,4 @@ public class NEIInputHandler implements IContainerInputHandler {
 	}
 
 }
+*/

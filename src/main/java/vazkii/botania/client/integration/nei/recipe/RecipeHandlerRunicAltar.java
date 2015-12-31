@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.client.integration.nei.recipe;
 
 import java.util.List;
@@ -55,3 +56,4 @@ public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 	}
 
 }
+*/

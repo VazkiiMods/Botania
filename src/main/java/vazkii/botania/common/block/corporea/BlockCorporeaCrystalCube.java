@@ -68,7 +68,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idCorporeaCrystalCybe;
+		return 2;
 	}
 
 	@Override

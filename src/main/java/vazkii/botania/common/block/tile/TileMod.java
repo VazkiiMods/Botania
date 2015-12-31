@@ -10,13 +10,23 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 public class TileMod extends TileEntity {
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		// todo: review all subclasses. this could potentially leave stragglers hanging.
+		// todo: example: open crate and crafty crate should refresh when variants change
+		return oldState.getBlock() != newState.getBlock();
+	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {

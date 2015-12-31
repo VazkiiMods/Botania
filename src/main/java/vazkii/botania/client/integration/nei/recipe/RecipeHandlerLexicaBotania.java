@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [12/12/2015, 23:25:47 (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
@@ -169,3 +170,4 @@ public class RecipeHandlerLexicaBotania extends TemplateRecipeHandler {
 	}
 
 }
+*/

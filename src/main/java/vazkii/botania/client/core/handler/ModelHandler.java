@@ -37,6 +37,7 @@ import vazkii.botania.api.state.enums.EndBrickVariant;
 import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
+import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
@@ -128,6 +129,7 @@ public final class ModelHandler {
         registerPanes();
         registerAltars();
         registerQuartzBlocks();
+        registerLuminizers();
 
         /** Normal Items **/
         registerStandardItems();
@@ -308,6 +310,10 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.floatingSpecialFlower);
         registerItemModel(ModBlocks.sparkChanger);
         registerItemModel(ModBlocks.terraPlate);
+        registerItemModel(ModBlocks.corporeaRetainer);
+        registerItemModel(ModBlocks.corporeaInterceptor);
+        registerItemModel(ModBlocks.corporeaFunnel);
+        registerItemModel(ModBlocks.lightLauncher);
 
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
@@ -550,9 +556,6 @@ public final class ModelHandler {
         // Ignore vanilla facing, variant in double flower
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower1, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower2, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
-
-        // Ignore redstone power state in some blocks
-        ModelLoader.setCustomStateMapper(ModBlocks.starfield, (new StateMap.Builder()).ignore(BotaniaStateProps.POWERED).build());
 
         // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
         ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
@@ -846,6 +849,15 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "variant=normal"));
             ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, "variant=chiseled"));
             ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, "variant=pillar_y"));
+        }
+    }
+
+    private static void registerLuminizers() {
+        Item item = Item.getItemFromBlock(ModBlocks.lightRelay);
+        String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.lightRelay).toString();
+        for (LuminizerVariant v : LuminizerVariant.values()) {
+            ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
+            ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
         }
     }
 

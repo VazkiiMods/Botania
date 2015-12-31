@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
@@ -138,3 +139,4 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 	}
 
 }
+*/

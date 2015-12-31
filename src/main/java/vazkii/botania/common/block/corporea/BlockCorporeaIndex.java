@@ -44,7 +44,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idCorporeaIndex;
+		return 2;
 	}
 
 	@Override

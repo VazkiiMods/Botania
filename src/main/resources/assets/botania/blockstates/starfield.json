@@ -1,19 +1,20 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "model": "botania:fourhigh",
+    "textures": {
+      "bottom": "botania:blocks/starfield0",
+      "top": "botania:blocks/starfield1",
+      "side": "botania:blocks/starfield2"
+    },
     "transform": "forge:default-block"
   },
   "variants": {
-    "normal": [{
-      "model": "botania:fourhigh",
-      "textures": {
-        "bottom": "botania:blocks/starfield0",
-        "top": "botania:blocks/starfield1",
-        "side": "botania:blocks/starfield2"
-      }
-    }],
+    "powered": {
+      "true": {},
+      "false": {}
+    },
     "inventory": [{
-      "model": "botania:fourhigh",
       "textures": {
         "bottom": "botania:blocks/starfield0",
         "top": "botania:blocks/starfield0",

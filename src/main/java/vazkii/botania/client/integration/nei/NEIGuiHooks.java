@@ -7,7 +7,8 @@
  * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Dec 15, 2014, 6:09:38 PM (GMT)]
- */
+ *//*
+
 package vazkii.botania.client.integration.nei;
 
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
@@ -22,3 +23,4 @@ public class NEIGuiHooks {
 	}
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.client.integration.nei;
 
 import org.lwjgl.input.Keyboard;
@@ -60,3 +61,4 @@ public class NEIBotaniaConfig implements IConfigureNEI {
 	}
 
 }
+*/

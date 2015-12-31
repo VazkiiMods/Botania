@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
@@ -98,7 +99,8 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	}
 
 	private static boolean hasElvenKnowledge() {
-		/*EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		*/
+/*EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		if (player != null) {
 			for (ItemStack stack : player.inventory.mainInventory) {
 				if (stack != null && stack.getItem() instanceof ILexicon) {
@@ -109,7 +111,8 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 				}
 			}
 		}
-		return false;*/
+		return false;*//*
+
 		return true;
 	}
 
@@ -166,3 +169,4 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	}
 
 }
+*/

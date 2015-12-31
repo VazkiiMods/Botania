@@ -48,11 +48,6 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	int manaLastTick = 0;
 	public int signal = 0;
 
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return oldState.getBlock() != newState.getBlock();
-	}
-
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || getStackInSlot(0) == null != stack.getItem() instanceof IBrewContainer)
 			return false;
