@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.RenderHelper;
@@ -56,7 +57,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		int glSkyList2 = ReflectionHelper.getPrivateValue(RenderGlobal.class, mc.renderGlobal, LibObfuscation.GL_SKY_LIST2); // Horizon line. We don't have it here
 		int starGLCallList = ReflectionHelper.getPrivateValue(RenderGlobal.class, mc.renderGlobal, LibObfuscation.STAR_GL_CALL_LIST);
 
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.disableTexture2D();
 		Vec3 vec3 = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
 		float f1 = (float)vec3.xCoord;
 		float f2 = (float)vec3.yCoord;
@@ -72,13 +73,13 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		f3 = Math.max(0F, f3 - insideVoid);
 
 		Tessellator tessellator1 = Tessellator.getInstance();
-		GL11.glDepthMask(false);
-		GL11.glEnable(GL11.GL_FOG);
-		GL11.glColor3f(f1, f2, f3);
-		GL11.glCallList(glSkyList);
-		GL11.glDisable(GL11.GL_FOG);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.depthMask(false);
+		GlStateManager.enableFog();
+		GlStateManager.color(f1, f2, f3);
+		GlStateManager.callList(glSkyList);
+		GlStateManager.disableFog();
+		GlStateManager.disableAlpha();
+		GlStateManager.enableBlend();
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 		RenderHelper.disableStandardItemLighting();
 		float[] afloat = world.provider.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
@@ -89,12 +90,12 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		// === Sunset
 		if(afloat != null) {
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
-			GL11.glPushMatrix();
-			GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-			GL11.glRotatef(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
-			GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.disableTexture2D();
+			GlStateManager.shadeModel(GL11.GL_SMOOTH);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
 			f6 = afloat[0];
 			f7 = afloat[1];
 			f8 = afloat[2];
@@ -112,19 +113,19 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			}
 
 			tessellator1.draw();
-			GL11.glPopMatrix();
-			GL11.glShadeModel(GL11.GL_FLAT);
+			GlStateManager.popMatrix();
+			GlStateManager.shadeModel(GL11.GL_FLAT);
 		}
 
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glPushMatrix();
+		GlStateManager.enableTexture2D();
+		GlStateManager.pushMatrix();
 		f6 = Math.max(0.2F, 1.0F - world.getRainStrength(partialTicks)) * (1F - insideVoid);
 		f7 = 0.0F;
 		f8 = 0.0F;
 		f9 = 0.0F;
 
-		GL11.glTranslatef(f7, f8, f9);
-		GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.translate(f7, f8, f9);
+		GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
 
 		float celAng = world.getCelestialAngle(partialTicks);
 		float effCelAng = celAng;
@@ -137,48 +138,48 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float a = Math.max(0.1F, lowA);
 
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, (a * 4) * (1F - insideVoid));
-		GL11.glRotatef(90F, 0.5F, 0.5F, 0.0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.color(1F, 1F, 1F, (a * 4) * (1F - insideVoid));
+		GlStateManager.rotate(90F, 0.5F, 0.5F, 0.0F);
 		for(int p = 0; p < planetTextures.length; p++) {
 			mc.renderEngine.bindTexture(planetTextures[p]);
 			drawObject(tessellator1, f10);
 
 			switch(p) {
 			case 0:
-				GL11.glRotatef(70F, 1F, 0F, 0F);
+				GlStateManager.rotate(70F, 1F, 0F, 0F);
 				f10 = 12F;
 				break;
 			case 1: 
-				GL11.glRotatef(120F, 0F, 0F, 1F);
+				GlStateManager.rotate(120F, 0F, 0F, 1F);
 				f10 = 15F;
 				break;
 			case 2:
-				GL11.glRotatef(80F, 1F, 0F, 1F);
+				GlStateManager.rotate(80F, 1F, 0F, 1F);
 				f10 = 25F;
 				break;
 			case 3:
-				GL11.glRotatef(100F, 0F, 0F, 1F);
+				GlStateManager.rotate(100F, 0F, 0F, 1F);
 				f10 = 10F;
 				break;
 			case 4:
-				GL11.glRotatef(-60F, 1F, 0F, 0.5F);
+				GlStateManager.rotate(-60F, 1F, 0F, 0.5F);
 				f10 = 40F;
 			}
 		}
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.popMatrix();
 
 		// === Rays
 		mc.renderEngine.bindTexture(textureSkybox); 
 
 		f10 = 20F;
 		a = lowA;
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		OpenGlHelper.glBlendFunc(770, 1, 1, 0);
-		GL11.glTranslatef(0F, -1F, 0F);
-		GL11.glRotatef(220F, 1F, 0F, 0F);
-		GL11.glColor4f(1F, 1F, 1F, a);
+		GlStateManager.translate(0F, -1F, 0F);
+		GlStateManager.rotate(220F, 1F, 0F, 0F);
+		GlStateManager.color(1F, 1F, 1F, a);
 		int angles = 90;
 		float s = 3F;
 		float m = 1F;
@@ -192,7 +193,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		for(int p = 0; p < 3; p++) {
 			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-			GL11.glRotatef((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
+			GlStateManager.rotate((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
 
 			tessellator1.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < angles; i++) {
@@ -219,23 +220,23 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 			switch(p) {
 			case 0:
-				GL11.glRotatef(20F, 1F, 0F, 0F);
-				GL11.glColor4f(1F, 0.4F, 0.4F, a);
+				GlStateManager.rotate(20F, 1F, 0F, 0F);
+				GlStateManager.color(1F, 0.4F, 0.4F, a);
 				fuzzPer = (Math.PI * 14) / angles;
 				rotSpeed = 0.2F;
 				break;
 			case 1:
-				GL11.glRotatef(50F, 1F, 0F, 0F);
-				GL11.glColor4f(0.4F, 1F, 0.7F, a);
+				GlStateManager.rotate(50F, 1F, 0F, 0F);
+				GlStateManager.color(0.4F, 1F, 0.7F, a);
 				fuzzPer = (Math.PI * 6) / angles;
 				rotSpeed = 2F;
 				break;
 			}
 		}
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		// === Rainbow
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 		mc.renderEngine.bindTexture(textureRainbow); 
 		f10 = 10F;
@@ -249,9 +250,9 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		Random rand = new Random(day * 0xFF);
 		float angle1 = rand.nextFloat() * 360F;
 		float angle2 = rand.nextFloat() * 360F;
-		GL11.glColor4f(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
-		GL11.glRotatef(angle1, 0F, 1F, 0F);
-		GL11.glRotatef(angle2, 0F, 0F, 1F);
+		GlStateManager.color(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
+		GlStateManager.rotate(angle1, 0F, 1F, 0F);
+		GlStateManager.rotate(angle2, 0F, 0F, 1F);
 
 		tessellator1.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		for(int i = 0; i < angles; i++) {
@@ -275,14 +276,14 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		}
 		tessellator1.draw();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
-		GL11.glColor4f(1F, 1F, 1F, 1F - insideVoid);
+		GlStateManager.color(1F, 1F, 1F, 1F - insideVoid);
 
 		OpenGlHelper.glBlendFunc(770, 1, 1, 0);
 
 		// === Sun	
-		GL11.glRotatef(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
 		f10 = 60.0F;
 		mc.renderEngine.bindTexture(textureSun); 
 		drawObject(tessellator1, f10);
@@ -307,54 +308,54 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		// === Stars
 		f6 *= Math.max(0.1F, effCelAng * 2);
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.pushMatrix();
+		GlStateManager.disableTexture2D();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t * 3, 0F, 1F, 0F);
-		GL11.glColor4f(1F, 1F, 1F, f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t * 3, 0F, 1F, 0F);
+		GlStateManager.color(1F, 1F, 1F, f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t, 0F, 1F, 0F);
-		GL11.glColor4f(0.5F, 1F, 1F, f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t, 0F, 1F, 0F);
+		GlStateManager.color(0.5F, 1F, 1F, f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t * 2, 0F, 1F, 0F);
-		GL11.glColor4f(1F, 0.75F, 0.75F, f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t * 2, 0F, 1F, 0F);
+		GlStateManager.color(1F, 0.75F, 0.75F, f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t * 3, 0F, 0F, 1F);
-		GL11.glColor4f(1F, 1F, 1F, 0.25F * f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t * 3, 0F, 0F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 0.25F * f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t, 0F, 0F, 1F);
-		GL11.glColor4f(0.5F, 1F, 1F, 0.25F * f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t, 0F, 0F, 1F);
+		GlStateManager.color(0.5F, 1F, 1F, 0.25F * f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glPushMatrix();
-		GL11.glRotatef(t * 2, 0F, 0F, 1F);
-		GL11.glColor4f(1F, 0.75F, 0.75F, 0.25F * f6);
-		GL11.glCallList(starGLCallList);
-		GL11.glPopMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(t * 2, 0F, 0F, 1F);
+		GlStateManager.color(1F, 0.75F, 0.75F, 0.25F * f6);
+		GlStateManager.callList(starGLCallList);
+		GlStateManager.popMatrix();
 
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glPopMatrix();
+		GlStateManager.enableTexture2D();
+		GlStateManager.popMatrix();
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_FOG);
-		GL11.glPopMatrix();
-		GL11.glDepthMask(true);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.disableBlend();
+		GlStateManager.enableAlpha();
+		GlStateManager.enableFog();
+		GlStateManager.popMatrix();
+		GlStateManager.depthMask(true);
 	}
 
 	private void drawObject(Tessellator tess, float f10) {
