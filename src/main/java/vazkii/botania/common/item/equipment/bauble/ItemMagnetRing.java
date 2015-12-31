@@ -86,7 +86,7 @@ public class ItemMagnetRing extends ItemBauble {
 		if(cooldown <= 0) {
 			if(player.isSneaking() == ConfigHandler.invertMagnetRing) {
 				double x = player.posX;
-				double y = player.posY -(player.worldObj.isRemote ? 1.62 : 0) + 0.75;
+				double y = player.posY + 0.75;
 				double z = player.posZ;
 
 				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));

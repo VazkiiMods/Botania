@@ -85,7 +85,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	//public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
-	private static final int WING_TYPES = 9;
+	public static final int WING_TYPES = 9;
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);

@@ -90,6 +90,8 @@ import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
 import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -210,6 +212,28 @@ public final class ModelHandler {
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? new ModelResourceLocation("botania:elucidator", "inventory")
                         : new ModelResourceLocation("botania:manasteelSword", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(magnetRing,
+                new ModelResourceLocation("botania:magnetRingOn", "inventory"),
+                new ModelResourceLocation("botania:magnetRingOff", "inventory"));
+        ModelLoader.setCustomMeshDefinition(magnetRing, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ItemMagnetRing.getCooldown(stack) <= 0 ? new ModelResourceLocation("botania:magnetRingOn", "inventory")
+                        : new ModelResourceLocation("botania:magnetRingOff", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(magnetRingGreater,
+                new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory"),
+                new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
+        ModelLoader.setCustomMeshDefinition(magnetRingGreater, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ItemMagnetRing.getCooldown(stack) <= 0 ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
+                        : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory");
             }
         });
     }
@@ -445,6 +469,29 @@ public final class ModelHandler {
         registerItemModel(auraRingGreater);
         registerItemModel(spark);
 
+        registerItemModel(waterRing);
+        registerItemModel(miningRing);
+        registerItemModel(reachRing);
+        registerItemModel(swapRing);
+        registerItemModel(pixieRing);
+        registerItemModel(travelBelt);
+        registerItemModel(superTravelBelt);
+        registerItemModel(speedUpBelt);
+        registerItemModel(knockbackBelt);
+        registerItemModel(itemFinder);
+        registerItemModel(monocle);
+        registerItemModel(icePendant);
+        registerItemModel(lavaPendant);
+        registerItemModel(superLavaPendant);
+        registerItemModel(holyCloak);
+        registerItemModel(unholyCloak);
+        registerItemModel(goldLaurel);
+        registerItemModel(flightTiara);
+        registerItemModel(divaCharm);
+        registerItemModel(manaMirror);
+        // magnet ring and greater version - custom mesher
+
+        registerItemModelAllMeta(flightTiara, ItemFlightTiara.WING_TYPES);
         registerItemModelAllMeta(laputaShard, 20);
         registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
         registerItemModelAllMeta(dye, EnumDyeColor.values().length);
