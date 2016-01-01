@@ -141,21 +141,21 @@ public class ModelArmorManasteel extends ModelBiped {
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		helm.showModel = slot == 0;
-		body.showModel = slot == 1;
-		armR.showModel = slot == 1;
-		armL.showModel = slot == 1;
-		legR.showModel = slot == 2;
-		legL.showModel = slot == 2;
-		bootL.showModel = slot == 3;
-		bootR.showModel = slot == 3;
+		helm.showModel = slot == 3; // 1.8: now reversed. yay mojang.
+		body.showModel = slot == 2;
+		armR.showModel = slot == 2;
+		armL.showModel = slot == 2;
+		legR.showModel = slot == 1;
+		legL.showModel = slot == 1;
+		bootL.showModel = slot == 0;
+		bootR.showModel = slot == 0;
 		bipedHeadwear.showModel = false;
 
 		bipedHead = helm;
 		bipedBody = body;
 		bipedRightArm = armR;
 		bipedLeftArm = armL;
-		if(slot == 2) {
+		if(slot == 1) {
 			bipedRightLeg = legR;
 			bipedLeftLeg = legL;
 		} else {
@@ -170,6 +170,7 @@ public class ModelArmorManasteel extends ModelBiped {
 	public void prepareForRender(Entity entity) {
 		EntityLivingBase living = (EntityLivingBase) entity;
 		isSneak = living != null ? living.isSneaking() : false;
+		isChild = living != null ? living.isChild() : false;
 		if(living != null && living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
 
