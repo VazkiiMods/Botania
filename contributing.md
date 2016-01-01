@@ -11,7 +11,6 @@ Hey there. Looks like you want to contribute with an issue. Great. Here's what y
 
 The following "bugs" are not accepted:
 * Intended Behaviour
-  * The e in Excaliber
   * Double tall flowers need be harvested with shears to not clutter the inventory
 * Already fixed but people keep reporting it for some reason
   * Wearing a Ring of Loki or Ring of the Aesir shows a wireframe below bedrock
@@ -23,7 +22,6 @@ The following "bugs" are not accepted:
   * Mana Bursts get destroyed on Cauldron by the ClearLagg plugin (add botania:manaBurst to the ClearLagg blacklist)
   * Force Relays destroy blocks when used very fast (Can't fix due to the nature of the block)
   * Terrasteel crafting won't start (make sure your checkerboard is correct, there's Livingrock under the plate)
-  * The speed tooltip on Excaliber scales with the Sharpness enchant (Vanilla bug)
   * The Horn of the Canopy doesn't break Thaumcraft leaves (Thaumcraft doesn't use the typical class or material)
   * Some Baubles don't work properly on LAN (Baubles bug)
 
