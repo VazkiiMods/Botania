@@ -45,21 +45,10 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		return models[slot];
 	}
 	
-	/*@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
-		iconChristmas = IconHelper.forItem(par1IconRegister, this, "Holiday");
-	}*/
-	
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return ConfigHandler.enableArmorModels ? (ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW) : slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
-
-//	@Override
-//	public IIcon getIconFromDamage(int dmg) {
-//		return ClientProxy.jingleTheBells ? iconChristmas : super.getIconFromDamage(dmg);
-//	} todo 1.8.8 to smartmodel or getModel lookup
 	
 	@Override
 	@SideOnly(Side.CLIENT)

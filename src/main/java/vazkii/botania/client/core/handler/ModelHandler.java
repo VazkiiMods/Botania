@@ -41,6 +41,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -236,6 +237,54 @@ public final class ModelHandler {
                         : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory");
             }
         });
+
+        ModelLoader.registerItemVariants(manaweaveBoots,
+                new ModelResourceLocation("botania:manaweaveBoots", "inventory"),
+                new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory"));
+
+        ModelLoader.setCustomMeshDefinition(manaweaveBoots, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory")
+                        : new ModelResourceLocation("botania:manaweaveBoots", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(manaweaveChest,
+                new ModelResourceLocation("botania:manaweaveChest", "inventory"),
+                new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory"));
+
+        ModelLoader.setCustomMeshDefinition(manaweaveChest, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory")
+                        : new ModelResourceLocation("botania:manaweaveChest", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(manaweaveHelm,
+                new ModelResourceLocation("botania:manaweaveHelm", "inventory"),
+                new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory"));
+
+        ModelLoader.setCustomMeshDefinition(manaweaveHelm, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory")
+                        : new ModelResourceLocation("botania:manaweaveHelm", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(manaweaveLegs,
+                new ModelResourceLocation("botania:manaweaveLegs", "inventory"),
+                new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory"));
+
+        ModelLoader.setCustomMeshDefinition(manaweaveLegs, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory")
+                        : new ModelResourceLocation("botania:manaweaveLegs", "inventory");
+            }
+        });
     }
 
     private static void registerSubtiles() {
@@ -397,11 +446,6 @@ public final class ModelHandler {
         registerItemModel(elementiumAxe);
         registerItemModel(elementiumShears);
         registerItemModel(elementiumSword);
-
-        registerItemModel(manaweaveHelm);
-        registerItemModel(manaweaveChest);
-        registerItemModel(manaweaveLegs);
-        registerItemModel(manaweaveBoots);
 
         registerItemModel(terrasteelHelm);
         registerItemModel(terrasteelHelmRevealing);
