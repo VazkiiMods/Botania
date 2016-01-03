@@ -24,13 +24,10 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public class ColorSwitchingComponent extends MultiblockComponent {
 
-	private final PropertyEnum colorProp;
+	private final PropertyEnum<EnumDyeColor> colorProp;
 
-	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum colorProp) {
+	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum<EnumDyeColor> colorProp) {
 		super(relPos, block.getDefaultState());
-		if (colorProp.getValueClass() != EnumDyeColor.class) {
-			throw new IllegalArgumentException("Must be EnumDyeColor");
-		}
 		this.colorProp = colorProp;
 	}
 

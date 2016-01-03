@@ -1,3 +1,11 @@
+/**
+ * This class was created by <williewillus>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.model;
 
 import com.google.common.base.Function;
@@ -42,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, IResourceManagerReloadListener {
+
     public static final FloatingFlowerModel INSTANCE = new FloatingFlowerModel();
 
     private static Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
@@ -222,4 +231,5 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+
 }

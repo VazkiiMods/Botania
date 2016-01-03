@@ -141,4 +141,5 @@ public class ModelPylon implements IPylonModel {
 		for (BakedQuad bakedquad : quads)
 			LightUtil.renderQuadColor(renderer, bakedquad, color);
 	}
+
 }

@@ -1,3 +1,11 @@
+/**
+ * This class was created by <williewillus>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.api.render;
 
 import com.google.common.base.Function;
@@ -111,7 +119,8 @@ public class SpecialFlowerModel implements IModelCustomData {
         builder.addAll(blockModels.values());
         builder.addAll(itemModels.values());
 
-        // Force mini island model to be loaded and baked, for use elsewhere. See <TODO>
+        // Force mini island model to be loaded and baked, for use elsewhere. See FloatingFlowerModel
+        // TODO 1.8.8!!!! IslandType is not in the API, will crash when botania is not present!! Must relocate this elsewhere!
         for (IFloatingFlower.IslandType i : IFloatingFlower.IslandType.values()) {
             builder.add(new ModelResourceLocation("botania:miniIsland", "variant=" + i.name().toLowerCase(Locale.ROOT)));
         }
@@ -214,6 +223,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
         private void refreshBakedModels() {
             if (baseModel == null) {
+                // If not done already, steal all the real baked models and cache them
                 ModelManager manager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
                 baseModel = getBlockModel(manager, Optional.<String>absent());
 
@@ -327,9 +337,6 @@ public class SpecialFlowerModel implements IModelCustomData {
             refreshBakedModels();
             IExtendedBlockState extendedState = ((IExtendedBlockState) state);
             IBakedModel ret = bakedBlockModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-            if (ret == null) {
-                System.out.println("Warning: no flower model for subtile: " + extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-            }
             return ret == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : ret;
         }
 
@@ -346,14 +353,13 @@ public class SpecialFlowerModel implements IModelCustomData {
         @Override
         public IBakedModel handleItemState(ItemStack stack) {
             refreshBakedModels();
-            //System.out.println("calling smart item");
             IBakedModel item = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
             if (item == null) {
-                System.out.println("Missing item model, selecting block model");
                 item = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
             }
 
             return item == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : item;
         }
     }
+
 }

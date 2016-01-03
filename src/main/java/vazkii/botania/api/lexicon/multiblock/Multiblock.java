@@ -185,4 +185,5 @@ public class Multiblock {
 	public MultiblockComponent getComponentForLocation(BlockPos pos) {
 		return locationCache.get(pos);
 	}
+
 }

@@ -1,3 +1,11 @@
+/**
+ * This class was created by <williewillus>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.api.state;
 
 import com.google.common.base.Predicate;
@@ -11,9 +19,6 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.enums.*;
-import vazkii.botania.common.block.decor.IFloatingFlower;
-
-import javax.annotation.Nullable;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -163,4 +168,5 @@ public class BotaniaStateProps {
     public static final PropertyEnum<StorageVariant> STORAGE_VARIANT = PropertyEnum.create("variant", StorageVariant.class);
 
     private BotaniaStateProps() {}
+
 }

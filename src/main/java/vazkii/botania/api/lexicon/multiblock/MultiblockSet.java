@@ -35,4 +35,5 @@ public class MultiblockSet {
 	public Multiblock getForFacing(EnumFacing facing) {
 		return mbs.get(facing);
 	}
+
 }

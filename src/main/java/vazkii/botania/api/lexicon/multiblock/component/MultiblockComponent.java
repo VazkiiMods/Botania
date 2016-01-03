@@ -88,4 +88,5 @@ public class MultiblockComponent {
 	public boolean shouldDoFancyRender() {
 		return doFancyRender;
 	}
+
 }
