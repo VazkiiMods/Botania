@@ -2169,7 +2169,7 @@ public final class ModCraftingRecipes {
 
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
-			Item goggles = Item.itemRegistry.getObject(new ResourceLocation("Thaumcraft:ItemGoggles"));
+			Item goggles = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "goggles"));
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), goggles);
 			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe(); //We want manasteel to show in the Lexicon
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), goggles);
