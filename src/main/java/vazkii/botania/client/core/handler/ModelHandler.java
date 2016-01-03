@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -43,6 +44,7 @@ import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
@@ -88,6 +90,8 @@ import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
 import vazkii.botania.common.item.brew.ItemBrewBase;
@@ -136,6 +140,7 @@ public final class ModelHandler {
 
         /** Normal Items **/
         registerStandardItems();
+        registerTESRItems();
         registerManaResources();
         registerRunes();
         registerBows();
@@ -561,6 +566,14 @@ public final class ModelHandler {
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
         registerItemModelMetas(grassHorn, LibItemNames.GRASS_HORN, 3);
+    }
+
+    // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
+    private static void registerTESRItems() {
+        registerItemModel(ModBlocks.corporeaCrystalCube);
+        registerItemModel(ModBlocks.corporeaIndex);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
     }
 
     private static void registerManaResources() {

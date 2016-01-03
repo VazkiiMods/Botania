@@ -32,6 +32,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partticks, int digProgress) {
 		TileCorporeaIndex index = (TileCorporeaIndex) tile;
+		move = index != null;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y, z + 0.5);
@@ -44,7 +45,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 		crystal.render(null, 0F, rotation, translation, 0F, 0F, 1F / 16F);
 		GlStateManager.scale(1F / scale, 1F / scale, 1F / scale);
 
-		if(index.closeby > 0F) {
+		if(index != null && index.closeby > 0F) {
 			float starScale = 0.02F;
 			float starRadius = (float) TileCorporeaIndex.RADIUS * index.closeby + (index.closeby == 1F ? 0F : index.hasCloseby ? partticks : -partticks) * 0.2F;
 			double rads = (index.ticksWithCloseby + partticks) * 2 * Math.PI / 180;

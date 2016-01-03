@@ -42,15 +42,18 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) tileentity;
 
-		if(entity == null)
-			entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
+		ItemStack stack = null;
+		if (cube != null) {
+			if(entity == null)
+                entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
-		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entity, ClientTickHandler.ticksInGame, LibObfuscation.AGE);
-		ItemStack stack = cube.getRequestTarget();
-		entity.setEntityItemStack(stack);
+			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entity, ClientTickHandler.ticksInGame, LibObfuscation.AGE);
+			stack = cube.getRequestTarget();
+			entity.setEntityItemStack(stack);
+		}
 
 		double time = ClientTickHandler.ticksInGame + f;
-		double worldTicks = tileentity.getWorld() == null ? 0 : time;
+		double worldTicks = tileentity == null || tileentity.getWorld() == null ? 0 : time;
 
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.pushMatrix();
