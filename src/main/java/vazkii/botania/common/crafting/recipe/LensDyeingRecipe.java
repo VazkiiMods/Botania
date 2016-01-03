@@ -44,6 +44,7 @@ public class LensDyeingRecipe implements IRecipe {
 						foundDye = true;
 					else return false;
 				}
+				else return false;//This means we have an additional item in the recipe after the lens and dye
 			}
 		}
 
@@ -60,7 +61,7 @@ public class LensDyeingRecipe implements IRecipe {
 			if(stack != null) {
 				if(stack.getItem() instanceof ILens && lens == null)
 					lens = stack;
-				else color = getStackColor(stack);
+				else color = getStackColor(stack);//We can assume if its not a lens its a dye because we checked it in matches()
 			}
 		}
 
