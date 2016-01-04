@@ -92,18 +92,6 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			usedShader = true;
 		}
 
-		GlStateManager.translate(0.5F, 0F, 0.5F);
-		//GlStateManager.scale(1F, -1F, -1F);
-		EnumFacing facing = potato.getWorld() == null ? EnumFacing.NORTH : potato.getWorld().getBlockState(potato.getPos()).getValue(BotaniaStateProps.CARDINALS);
-		float rotY = 0;
-		switch (facing) {
-			case NORTH: break;
-			case SOUTH: rotY = 180; break;
-			case WEST: rotY = 90; break;
-			case EAST: rotY = 270; break;
-		}
-		GlStateManager.rotate(rotY, 0F, 1F, 0F);
-
 		float jump = potato.jumpTicks;
 		if(jump > 0)
 			jump -= var8;
@@ -117,12 +105,12 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GlStateManager.pushMatrix();
 		if(name.equals("pahimar")) {
 			GlStateManager.scale(1F, 0.3F, 1F);
-			GlStateManager.translate(0F, 3.5F, 0F);
+			//GlStateManager.translate(0F, 3.5F, 0F);
 		} else if(name.equals("kyle hyde")) {
 			// 1.8: handled using getActualState - mc.renderEngine.bindTexture(textureGrayscale);
 		} else if(name.equals("dinnerbone") || name.equals("grumm")) {
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
-			GlStateManager.translate(0F, -2.625F, 0F);
+			//GlStateManager.translate(0F, -2.625F, 0F);
 		} else if(name.equals("aureylian"))
 			GlStateManager.color(1F, 0.5F, 1F);
 
@@ -132,11 +120,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if(render) {
+			GlStateManager.rotate(-90, 0, 1, 0);
 			mc.getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(bakedModel, potato.getWorld().getBlockState(potato.getPos()), 1.0F, false);
+			GlStateManager.rotate(90, 0, 1, 0);
 			//model.render();
 		}
 		if(name.equals("kingdaddydmac")) {
-			GlStateManager.translate(0.5F, 0F, 0F);
+			GlStateManager.translate(-0.5F, 0F, 0F);
 			mc.getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(bakedModel, potato.getWorld().getBlockState(potato.getPos()), 1.0F, false);
 			//model.render();
 		}
@@ -352,14 +342,12 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
 
 		GlStateManager.rotate(-rotZ, 0F, 0F, 1F);
-		GlStateManager.rotate(-rotY, 0F, 1F, 0F);
 		GlStateManager.color(1F, 1F, 1F);
-		//GlStateManager.scale(1F, -1F, -1F);
 
 		MovingObjectPosition pos = mc.objectMouseOver;
 		if(!name.isEmpty() && pos != null && pos.getBlockPos().equals(potato.getPos())) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, -0.6F, 0F);
+			GlStateManager.translate(0.5F, 0.75F, 0.5F);
 			GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(mc.getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
 			float f = 1.6F;

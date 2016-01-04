@@ -19,9 +19,9 @@
     },
     "facing": {
       "north": {},
-      "south": {},
-      "west": {},
-      "east": {}
+      "south": { "y": 180 },
+      "west": { "y": 270 },
+      "east": { "y": 90 }
     },
     "inventory": [{
       "transform": {
