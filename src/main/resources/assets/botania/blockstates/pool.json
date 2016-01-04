@@ -7,10 +7,10 @@
   "variants": {
     "variant": {
       "default": { "textures": { "all": "botania:model/poolCopy" } },
-      "diluted": { "textures": { "all": "botania:model/poolCopy" } },
+      "diluted": { "textures": { "all": "botania:model/dilutedPoolCopy" } },
       "creative": {
         "model": "botania:pool_filled",
-        "textures": { "all": "botania:model/poolCopy", "liquid": "botania:blocks/manaWater" }
+        "textures": { "all": "botania:model/infinitePoolCopy", "liquid": "botania:blocks/manaWater" }
       },
       "fabulous": {
         "model": "botania:pool_tinted",

@@ -17,6 +17,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,8 +25,6 @@ import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ItemBlockPool extends ItemBlockWithMetadataAndName {
-
-	private final Random rand = new Random();
 
 	public ItemBlockPool(Block par2Block) {
 		super(par2Block);
@@ -43,7 +42,6 @@ public class ItemBlockPool extends ItemBlockWithMetadataAndName {
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {
 		if (stack.getItemDamage() == PoolVariant.FABULOUS.ordinal() && renderPass == 0) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			time += rand.nextInt(100000);
 			return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
 		} else {
 			return 16777215;
