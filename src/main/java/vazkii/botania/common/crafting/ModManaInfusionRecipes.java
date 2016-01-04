@@ -75,7 +75,7 @@ public final class ModManaInfusionRecipes {
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.potato), 1337);
 
 		if(Botania.thaumcraftLoaded) {
-			Item inkwell = Item.itemRegistry.getObject(new ResourceLocation("Thaumcraft:ItemInkwell"));
+			Item inkwell = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "scribing_tools"));
 			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
 		}
 
