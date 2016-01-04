@@ -47,6 +47,7 @@ import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
@@ -430,6 +431,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.pool, PoolVariant.class, "variant");
     }
 
     private static void registerStandardItems() {

@@ -10,14 +10,22 @@
  */
 package vazkii.botania.common.item.block;
 
+import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ItemBlockPool extends ItemBlockWithMetadataAndName {
+
+	private final Random rand = new Random();
 
 	public ItemBlockPool(Block par2Block) {
 		super(par2Block);
@@ -28,6 +36,18 @@ public class ItemBlockPool extends ItemBlockWithMetadataAndName {
 		if(par1ItemStack.getItemDamage() == 1)
 			for(int i = 0; i < 2; i++)
 				par3List.add(StatCollector.translateToLocal("botaniamisc.creativePool" + i));
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack stack, int renderPass) {
+		if (stack.getItemDamage() == PoolVariant.FABULOUS.ordinal() && renderPass == 0) {
+			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			time += rand.nextInt(100000);
+			return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+		} else {
+			return 16777215;
+		}
 	}
 
 }
