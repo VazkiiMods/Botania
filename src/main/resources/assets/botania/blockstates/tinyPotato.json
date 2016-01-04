@@ -1,0 +1,34 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:tiny_potato",
+    "textures": {
+      "all": "botania:model/tinyPotatoCopy"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "variant": {
+      "default": {},
+      "halloween": {
+        "textures": { "all": "botania:model/tinyPotato_halloweenCopy" }
+      },
+      "grayscale": {
+        "textures": { "all": "botania:model/tinyPotatoGrayCopy" }
+      }
+    },
+    "facing": {
+      "north": {},
+      "south": {},
+      "west": {},
+      "east": {}
+    },
+    "inventory": [{
+      "transform": {
+        "firstperson": {
+          "translation": [ 0, 0.25, 0 ]
+        }
+      }
+    }]
+  }
+}

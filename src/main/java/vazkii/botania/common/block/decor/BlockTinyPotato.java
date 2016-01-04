@@ -28,9 +28,14 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PotatoVariant;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
@@ -48,17 +53,20 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 		setUnlocalizedName(LibBlockNames.TINY_POTATO);
 		float f = 1F / 16F * 6F;
 		setBlockBounds(f, 0, f, 1F - f, f, 1F - f);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH)
+				.withProperty(BotaniaStateProps.POTATO_VARIANT, PotatoVariant.DEFAULT)
+		);
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.CARDINALS);
+		return new BlockState(this, BotaniaStateProps.CARDINALS, BotaniaStateProps.POTATO_VARIANT);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		switch (((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS))) {
+		switch (state.getValue(BotaniaStateProps.CARDINALS)) {
 			case NORTH: return 0;
 			case WEST: return 3;
 			case EAST: return 1;
@@ -80,6 +88,19 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 				side = EnumFacing.SOUTH; break;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, side);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if (ClientProxy.dootDoot) {
+			return state.withProperty(BotaniaStateProps.POTATO_VARIANT, PotatoVariant.HALLOWEEN);
+		} else if (world.getTileEntity(pos) instanceof TileTinyPotato) {
+			if (((TileTinyPotato) world.getTileEntity(pos)).name.toLowerCase().equals("kyle hyde")) {
+				return state.withProperty(BotaniaStateProps.POTATO_VARIANT, PotatoVariant.GRAYSCALE);
+			}
+		}
+		return state.withProperty(BotaniaStateProps.POTATO_VARIANT, PotatoVariant.DEFAULT);
 	}
 
 	@Override
@@ -145,7 +166,7 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idTinyPotato;
+		return 2;
 	}
 
 	@Override
