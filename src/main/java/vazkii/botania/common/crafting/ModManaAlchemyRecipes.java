@@ -129,13 +129,14 @@ public final class ModManaAlchemyRecipes {
 
 		coarseDirtRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt), 120);
 
-		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.quartz), 200);
+		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.prismarine_shard), new ItemStack(Items.quartz), 200);
 
 		if(ConfigHandler.stones18Enabled) {
 			stoneRecipes = new ArrayList();
-			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone), "stone", 200));
-			for(int i = 0; i < 4; i++)
-				stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone, 1, i), new ItemStack(ModFluffBlocks.stone, 1, i == 0 ? 3 : i - 1), 200));
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 5), "stone", 200)); // Stone->Andesite todo 1.8.8 might want to un-OD this?
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 3), new ItemStack(Blocks.stone, 1, 5), 200)); // Andesite->Diorite
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 1), new ItemStack(Blocks.stone, 1, 3), 200)); // Diorite->Granite
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 5), new ItemStack(Blocks.stone, 1, 1), 200)); // Granite->Andesite
 		}
 
 		tallgrassRecipes = new ArrayList();

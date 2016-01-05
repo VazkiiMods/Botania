@@ -164,10 +164,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeVineBall;
 	public static IRecipe recipeSlingshot;
 	public static IRecipe recipeMossStone;
-	public static IRecipe recipePrismarine;
-	public static IRecipe recipePrismarineBrick;
-	public static IRecipe recipeDarkPrismarine;
-	public static IRecipe recipeSeaLamp;
 	public static IRecipe recipeLensInfluence;
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
@@ -265,7 +261,6 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesPetalsDouble;
 	public static IRecipe recipeKeepIvy;
 	public static IRecipe recipeBlackHoleTalisman;
-	public static List<IRecipe> recipe18StonePolish;
 	public static List<IRecipe> recipe18StoneBrick;
 	public static List<IRecipe> recipe18StoneChisel;
 	public static IRecipe recipeBlazeBlock;
@@ -1121,34 +1116,6 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(Blocks.mossy_cobblestone), "cobblestone", new ItemStack(ModItems.vineBall));
 		recipeMossStone = BotaniaAPI.getLatestAddedRecipe();
 
-		// Prismarine Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 0),
-				" S ", "SBS", " S ",
-				'S', LibOreDict.PRISMARINE_SHARD,
-				'B', "cobblestone");
-		recipePrismarine = BotaniaAPI.getLatestAddedRecipe();
-
-		// Prismarine Brick Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 1),
-				" S ", "SBS", " S ",
-				'S', LibOreDict.PRISMARINE_SHARD,
-				'B', new ItemStack(Blocks.stonebrick));
-		recipePrismarineBrick = BotaniaAPI.getLatestAddedRecipe();
-
-		// Dark Prismarine Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 2),
-				" S ", "SBS", " S ",
-				'S', LibOreDict.PRISMARINE_SHARD,
-				'B', new ItemStack(Blocks.nether_brick));
-		recipeDarkPrismarine = BotaniaAPI.getLatestAddedRecipe();
-
-		// Sea Lantern Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.seaLamp),
-				" S ", "SBS", " S ",
-				'S', LibOreDict.PRISMARINE_SHARD,
-				'B', "glowstone");
-		recipeSeaLamp = BotaniaAPI.getLatestAddedRecipe();
-
 		// Influence Lens Recipe
 		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 12),
 				"PRP", "PLP", "PPP",
@@ -1262,7 +1229,7 @@ public final class ModCraftingRecipes {
 				"BSB", "PMP", "PEP",
 				'B', new ItemStack(Items.blaze_rod),
 				'S', LibOreDict.ELEMENTIUM,
-				'P', new ItemStack(ModBlocks.prismarine, 1, 2),
+				'P', new ItemStack(Blocks.prismarine, 1, 2),
 				'M', new ItemStack(ModBlocks.storage),
 				'E', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeSpawnerClaw = BotaniaAPI.getLatestAddedRecipe();
@@ -1818,15 +1785,9 @@ public final class ModCraftingRecipes {
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 
 		// 1.8 Stone Recipes
-		recipe18StonePolish = new ArrayList();
 		recipe18StoneBrick = new ArrayList();
 		recipe18StoneChisel = new ArrayList();
 		for(int i = 0; i < 4; i++) {
-			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 8, i + 4),
-					"SSS", "S S", "SSS",
-					'S', LibOreDict.STONE_18_VARIANTS[i]);
-			recipe18StonePolish.add(BotaniaAPI.getLatestAddedRecipe());
-
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8),
 					"SS", "SS",
 					'S', LibOreDict.STONE_18_VARIANTS[i]);
@@ -2200,6 +2161,9 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.livingrock, 1, ModFluffBlocks.livingrockBrickStairs, ModFluffBlocks.livingrockBrickSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModFluffBlocks.dreamwoodPlankStairs, ModFluffBlocks.dreamwoodPlankSlab);
+		addStairsAndSlabs(Blocks.prismarine, 0, ModFluffBlocks.prismarineStairs, ModFluffBlocks.prismarineSlab);
+		addStairsAndSlabs(Blocks.prismarine, 1, ModFluffBlocks.prismarineBrickStairs, ModFluffBlocks.prismarineBrickSlab);
+		addStairsAndSlabs(Blocks.prismarine, 2, ModFluffBlocks.darkPrismarineStairs, ModFluffBlocks.darkPrismarineSlab);
 		addStairsAndSlabs(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineStairs, ModFluffBlocks.prismarineSlab);
 		addStairsAndSlabs(ModBlocks.prismarine, 1, ModFluffBlocks.prismarineBrickStairs, ModFluffBlocks.prismarineBrickSlab);
 		addStairsAndSlabs(ModBlocks.prismarine, 2, ModFluffBlocks.darkPrismarineStairs, ModFluffBlocks.darkPrismarineSlab);
@@ -2217,12 +2181,19 @@ public final class ModCraftingRecipes {
 		addWall(ModBlocks.livingrock, 0, ModFluffBlocks.livingrockWall, 0);
 		addWall(ModBlocks.livingwood, 0, ModFluffBlocks.livingwoodWall, 0);
 		addWall(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodWall, 0);
+		addWall(Blocks.prismarine, 0, ModFluffBlocks.prismarineWall, 0);
 		addWall(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineWall, 0);
 		addWall(ModBlocks.reedBlock, 0, ModFluffBlocks.reedWall, 0);
 		for(int i = 0; i < 8; i++)
 			addWall(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneWall, i);
-		for(int i = 0; i < 4; i++)
-			addWall(ModFluffBlocks.stone, i, ModFluffBlocks.stoneWall, i);
+
+		addWall(ModFluffBlocks.stone, 0, ModFluffBlocks.stoneWall, 0); // Andesite todo 1.8 convert to OreDict?
+		addWall(Blocks.stone, 5, ModFluffBlocks.stoneWall, 0);
+		addWall(ModFluffBlocks.stone, 1, ModFluffBlocks.stoneWall, 1); // Basalt
+		addWall(ModFluffBlocks.stone, 2, ModFluffBlocks.stoneWall, 2); // Diorite
+		addWall(Blocks.stone, 3, ModFluffBlocks.stoneWall, 2); // Diorite
+		addWall(ModFluffBlocks.stone, 3, ModFluffBlocks.stoneWall, 3); // Granite
+		addWall(Blocks.stone, 1, ModFluffBlocks.stoneWall, 3); // Granite
 
 		// Pane Recipes
 		addPane(ModBlocks.manaGlass, ModFluffBlocks.managlassPane);
@@ -2239,11 +2210,23 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
 		}
 
-		// 1.8 Block Stone Stairs & Slabs
-		for(int i = 0; i < 4; i++) {
-			addStairsAndSlabs(ModFluffBlocks.stone, i, ModFluffBlocks.stoneStairs[i], ModFluffBlocks.stoneSlabs[i]);
-			addStairsAndSlabs(ModFluffBlocks.stone, i + 8, ModFluffBlocks.stoneStairs[i + 4], ModFluffBlocks.stoneSlabs[i + 4]);
-		}
+		// Andesite Basalt Diorite Granite Stair/Slab todo 1.8 convert to oredict?
+		addStairsAndSlabs(ModFluffBlocks.stone, 0, ModFluffBlocks.stoneStairs[0], ModFluffBlocks.stoneSlabs[0]);
+		addStairsAndSlabs(Blocks.stone, 5, ModFluffBlocks.stoneStairs[0], ModFluffBlocks.stoneSlabs[0]);
+
+		addStairsAndSlabs(ModFluffBlocks.stone, 1, ModFluffBlocks.stoneStairs[1], ModFluffBlocks.stoneSlabs[1]);
+
+		addStairsAndSlabs(ModFluffBlocks.stone, 2, ModFluffBlocks.stoneStairs[2], ModFluffBlocks.stoneSlabs[2]);
+		addStairsAndSlabs(Blocks.stone, 3, ModFluffBlocks.stoneStairs[2], ModFluffBlocks.stoneSlabs[2]);
+
+		addStairsAndSlabs(ModFluffBlocks.stone, 3, ModFluffBlocks.stoneStairs[3], ModFluffBlocks.stoneSlabs[3]);
+		addStairsAndSlabs(Blocks.stone, 1, ModFluffBlocks.stoneStairs[3], ModFluffBlocks.stoneSlabs[3]);
+
+		// Andesite Basalt Diorite Granite Bricks Stair/Slab
+		addStairsAndSlabs(ModFluffBlocks.stone, 8, ModFluffBlocks.stoneStairs[4], ModFluffBlocks.stoneSlabs[4]);
+		addStairsAndSlabs(ModFluffBlocks.stone, 9, ModFluffBlocks.stoneStairs[5], ModFluffBlocks.stoneSlabs[5]);
+		addStairsAndSlabs(ModFluffBlocks.stone, 10, ModFluffBlocks.stoneStairs[6], ModFluffBlocks.stoneSlabs[6]);
+		addStairsAndSlabs(ModFluffBlocks.stone, 11, ModFluffBlocks.stoneStairs[7], ModFluffBlocks.stoneSlabs[7]);
 
 		// Pavement Stairsm & Stairs
 		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)

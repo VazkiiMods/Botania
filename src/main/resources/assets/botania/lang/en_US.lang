@@ -2145,6 +2145,7 @@ botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
 botania.page.pool12=Infusing &1String&0
 botania.page.pool13=Used &1Mana Infused String&0 to make &1Cobwebs&0
 botania.page.pool7=A total space biscuit
+botania.page.pool15=Creating &1Prismarine Shards&0
 
 # -- SPARKS
 botania.entry.sparks=Sparks
@@ -3802,9 +3803,12 @@ botania.entry.stoneAlchemy=Stone Alchemy
 botania.tagline.stoneAlchemy=Create new stone types
 botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cyle.<br>Similarly to &1Prismarine&0, some scholars admit that this technique came from the future. Stairs and slabs can be made from the rough and brick variants of these.
 botania.page.stoneAlchemy1=Creating the stones
-botania.page.stoneAlchemy2=Polish
-botania.page.stoneAlchemy3=Brickage
-botania.page.stoneAlchemy4=Chiseling
+botania.page.stoneAlchemy2=Brickage
+botania.page.stoneAlchemy3=Chiseling
+
+#botania.page.stoneAlchemy2=Polish
+#botania.page.stoneAlchemy3=Brickage
+#botania.page.stoneAlchemy4=Chiseling
 
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=Blaze Light

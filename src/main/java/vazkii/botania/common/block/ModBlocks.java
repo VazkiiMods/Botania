@@ -397,6 +397,13 @@ public final class ModBlocks {
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.stone_slab, 1, 3));
 		OreDictionary.registerOre("chestWood", Blocks.chest);
 		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
+		OreDictionary.registerOre(LibOreDict.PRISMARINE_BLOCK, new ItemStack(Blocks.prismarine, 1, OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[3], new ItemStack(Blocks.stone, 1, 1));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[2], new ItemStack(Blocks.stone, 1, 3));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[0], new ItemStack(Blocks.stone, 1, 5));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[7], new ItemStack(Blocks.stone, 1, 2));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[6], new ItemStack(Blocks.stone, 1, 4));
+		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[4], new ItemStack(Blocks.stone, 1, 6));
 
 		BotaniaAPI.registerPaintableBlock(unstableBlock, BotaniaStateProps.COLOR);
 		BotaniaAPI.registerPaintableBlock(manaBeacon, BotaniaStateProps.COLOR);
