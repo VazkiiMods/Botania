@@ -111,7 +111,12 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 
 	@Override
 	public float getEnchantPowerBonus(World world, BlockPos pos) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? 8 : 15;
+		IBlockState state = world.getBlockState(pos);
+		if (state.getBlock() != this || state.getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA) {
+			return 8;
+		} else {
+			return 15;
+		}
 	}
 
 	@Override
