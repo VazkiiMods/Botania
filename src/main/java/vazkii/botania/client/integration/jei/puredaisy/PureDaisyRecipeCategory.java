@@ -19,13 +19,9 @@ import java.util.Collection;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory {
 
-    private final IDrawableStatic background;
+    private final IDrawable background;
     private final String localizedName;
-    private final IDrawableStatic overlay;
-
-    private static final int inputSlot = 0;
-    private static final int pureDaisySlot = 1;
-    private static final int outputSlot = 2;
+    private final IDrawable overlay;
 
     public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
         background = guiHelper.createBlankDrawable(168, 64);
@@ -75,29 +71,29 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 
 
         if (inputFluid) {
-            recipeLayout.getFluidStacks().init(inputSlot, true, 40, 12, 16, 16, 1000, false, null);
-            recipeLayout.getFluidStacks().set(inputSlot, wrapper.getFluidInputs().get(0));
+            recipeLayout.getFluidStacks().init(0, true, 40, 12, 16, 16, 1000, false, null);
+            recipeLayout.getFluidStacks().set(0, wrapper.getFluidInputs().get(0));
         } else {
-            recipeLayout.getItemStacks().init(inputSlot, true, 40, 12);
+            recipeLayout.getItemStacks().init(0, true, 40, 12);
             if (wrapper.getInputs().get(0) instanceof Collection) {
-                recipeLayout.getItemStacks().set(inputSlot, ((Collection<ItemStack>) wrapper.getInputs().get(0)));
+                recipeLayout.getItemStacks().set(0, ((Collection<ItemStack>) wrapper.getInputs().get(0)));
             } else {
-                recipeLayout.getItemStacks().set(inputSlot, ((ItemStack) wrapper.getInputs().get(0)));
+                recipeLayout.getItemStacks().set(0, ((ItemStack) wrapper.getInputs().get(0)));
             }
         }
 
-        recipeLayout.getItemStacks().init(pureDaisySlot, true, 72, 12);
-        recipeLayout.getItemStacks().set(pureDaisySlot, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
+        recipeLayout.getItemStacks().init(1, true, 70, 12);
+        recipeLayout.getItemStacks().set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
 
         if (outputFluid) {
-            recipeLayout.getFluidStacks().init(outputSlot, false, 99, 12, 16, 16, 1000, false, null);
-            recipeLayout.getFluidStacks().set(outputSlot, wrapper.getFluidOutputs().get(0));
+            recipeLayout.getFluidStacks().init(2, false, 99, 12, 16, 16, 1000, false, null);
+            recipeLayout.getFluidStacks().set(2, wrapper.getFluidOutputs().get(0));
         } else {
-            recipeLayout.getItemStacks().init(outputSlot, false, 99, 12);
+            recipeLayout.getItemStacks().init(2, false, 99, 12);
             if (wrapper.getOutputs().get(0) instanceof Collection) {
-                recipeLayout.getItemStacks().set(outputSlot, ((Collection<ItemStack>) wrapper.getOutputs().get(0)));
+                recipeLayout.getItemStacks().set(2, ((Collection<ItemStack>) wrapper.getOutputs().get(0)));
             } else {
-                recipeLayout.getItemStacks().set(outputSlot, ((ItemStack) wrapper.getOutputs().get(0)));
+                recipeLayout.getItemStacks().set(2, ((ItemStack) wrapper.getOutputs().get(0)));
             }
         }
     }

@@ -61,27 +61,32 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-        recipeLayout.getItemStacks().init(slotContainerInput, true, 39, 41);
-        recipeLayout.getItemStacks().init(slotIngredient1, true, 64, 6);
-        recipeLayout.getItemStacks().init(slotIngredient2, true, 80, 6);
-        recipeLayout.getItemStacks().init(slotIngredient3, true, 96, 6);
-        recipeLayout.getItemStacks().init(slotIngredient4, true, 112, 6);
-        recipeLayout.getItemStacks().init(slotIngredient5, true, 128, 6);
-        recipeLayout.getItemStacks().init(slotIngredient6, true, 144, 6);
-        recipeLayout.getItemStacks().init(slotOutput, false, 87, 41);
-
+        if (!(recipeWrapper instanceof BreweryRecipeWrapper))
+            return;
         BreweryRecipeWrapper wrapper = ((BreweryRecipeWrapper) recipeWrapper);
+
         List inputs = wrapper.getInputs();
-        for (int i = 0; i < inputs.size(); i++) {
-            if (i > slotOutput) {
-                break;
-            }
-            if (inputs.get(i) instanceof ItemStack) {
-                recipeLayout.getItemStacks().set(i, ((ItemStack) inputs.get(i)));
-            } else if (inputs.get(i) instanceof Collection) {
-                recipeLayout.getItemStacks().set(i, ((Collection<ItemStack>) inputs.get(i)));
-            }
+
+        recipeLayout.getItemStacks().init(0, true, 39, 41);
+        if (inputs.get(0) instanceof ItemStack) {
+            recipeLayout.getItemStacks().set(0, ((ItemStack) inputs.get(0)));
+        } else {
+            recipeLayout.getItemStacks().set(0, ((Collection<ItemStack>) inputs.get(0)));
         }
-        recipeLayout.getItemStacks().set(slotOutput, wrapper.getOutputs().get(0));
+
+        int index = 1, posX = 60;
+        for (Object o : wrapper.getInputs()) {
+            recipeLayout.getItemStacks().init(index, true, posX, 6);
+            if (o instanceof ItemStack) {
+                recipeLayout.getItemStacks().set(index, ((ItemStack) o));
+            } else if (o instanceof Collection) {
+                recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) o));
+            }
+            index++;
+            posX += 18;
+        }
+
+        recipeLayout.getItemStacks().init(7, false, 87, 41);
+        recipeLayout.getItemStacks().set(7, wrapper.getOutputs().get(0));
     }
 }

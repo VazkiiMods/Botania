@@ -1,27 +1,28 @@
-package vazkii.botania.client.integration.jei.brewery;
+package vazkii.botania.client.integration.jei.runicaltar;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class BreweryRecipeWrapper implements IRecipeWrapper {
+public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 
     private final List input;
     private final ItemStack output;
+    private final int manaUsage;
 
-    public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
+    public RunicAltarRecipeWrapper(RecipeRuneAltar recipe) {
         ImmutableList.Builder builder = ImmutableList.builder();
-        builder.add(new ItemStack(ModItems.vial));
-        for (Object o : recipeBrew.getInputs()) {
+        for (Object o : recipe.getInputs()) {
             if (o instanceof ItemStack) {
                 builder.add(o);
             }
@@ -29,9 +30,9 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
                 builder.add(OreDictionary.getOres(((String) o)));
             }
         }
-
         input = builder.build();
-        output = recipeBrew.getOutput(new ItemStack(ModItems.vial)).copy();
+        output = recipe.getOutput();
+        manaUsage = recipe.getManaUsage();
     }
 
     @Override
@@ -45,14 +46,23 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
     }
 
     @Override
-    public List<FluidStack> getFluidInputs() { return ImmutableList.of(); }
+    public List<FluidStack> getFluidInputs() {
+        return ImmutableList.of();
+    }
 
     @Override
-    public List<FluidStack> getFluidOutputs() { return ImmutableList.of(); }
+    public List<FluidStack> getFluidOutputs() {
+        return ImmutableList.of();
+    }
 
     @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {}
+    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+        GlStateManager.enableAlpha();
+        HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, manaUsage, TilePool.MAX_MANA / 10);
+        GlStateManager.disableAlpha();
+    }
 
     @Override
     public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {}
+
 }

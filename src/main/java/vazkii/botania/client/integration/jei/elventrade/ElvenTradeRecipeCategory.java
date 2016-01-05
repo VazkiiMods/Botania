@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.RenderEventHandler;
-import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
