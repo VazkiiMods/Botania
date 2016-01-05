@@ -7,6 +7,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -53,7 +54,11 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 
     @Override
     public void drawExtras(Minecraft minecraft) {
+        GlStateManager.enableAlpha();
+        GlStateManager.enableBlend();
         overlay.draw(minecraft, 48, 0);
+        GlStateManager.disableBlend();
+        GlStateManager.disableAlpha();
     }
 
     @Override
