@@ -443,6 +443,7 @@ public final class ModelHandler {
         registerItemModel(manaCookie);
 
         registerItemModel(manasteelHelm);
+        registerItemModel(manasteelHelmRevealing);
         registerItemModel(manasteelChest);
         registerItemModel(manasteelLegs);
         registerItemModel(manasteelBoots);
@@ -453,6 +454,7 @@ public final class ModelHandler {
         registerItemModel(manasteelShears);
 
         registerItemModel(elementiumHelm);
+        registerItemModel(elementiumHelmRevealing);
         registerItemModel(elementiumChest);
         registerItemModel(elementiumLegs);
         registerItemModel(elementiumBoots);
