@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.Level;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -322,6 +323,22 @@ public final class ModCraftingRecipes {
 
 	public static void init() {
 		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
+
+		// The future is now (botania -> vanilla recipes for future added items and blocks)
+		addShapelessOreDictRecipe(new ItemStack(Items.prismarine_shard), new ItemStack(ModItems.manaResource, 1, 10));
+
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 0), new ItemStack(ModBlocks.prismarine, 1, 0));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 1), new ItemStack(ModBlocks.prismarine, 1, 1));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 2), new ItemStack(ModBlocks.prismarine, 1, 2));
+
+		addShapelessOreDictRecipe(new ItemStack(Blocks.sea_lantern), new ItemStack(ModBlocks.seaLamp));
+
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 1), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.GRANITE.ordinal()));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 2), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_GRANITE.ordinal()));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 3), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.DIORITE.ordinal()));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 4), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_DIORITE.ordinal()));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 5), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.ANDESITE.ordinal()));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 6), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_ANDESITE.ordinal()));
 
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
