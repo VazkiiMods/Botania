@@ -20,6 +20,8 @@ import mezz.jei.api.JEIPlugin;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeHandler;
+import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
+import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeHandler;
 import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
 import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeHandler;
 
@@ -48,16 +50,19 @@ public class JEIBotaniaPlugin implements IModPlugin {
     public void register(IModRegistry registry) {
         registry.addRecipeCategories(
                 new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
-                new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper())
+                new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
+                new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper())
         );
 
         registry.addRecipeHandlers(
                 new BreweryRecipeHandler(),
-                new PureDaisyRecipeHandler()
+                new PureDaisyRecipeHandler(),
+                new PetalApothecaryRecipeHandler()
         );
 
         registry.addRecipes(BotaniaAPI.brewRecipes);
         registry.addRecipes(BotaniaAPI.pureDaisyRecipes);
+        registry.addRecipes(BotaniaAPI.petalRecipes);
     }
 
     @Override

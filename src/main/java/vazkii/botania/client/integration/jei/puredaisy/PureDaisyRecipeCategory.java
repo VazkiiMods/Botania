@@ -27,8 +27,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
     private static final int outputSlot = 2;
 
     public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation("botania", "textures/gui/neiBlank.png");
-        background = guiHelper.createDrawable(location, 0, 0, 166, 65, 0, 0, 0, 0);
+        background = guiHelper.createBlankDrawable(168, 64);
         localizedName = StatCollector.translateToLocal("botania.nei.pureDaisy");
         overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
                 0, 0, 64, 46);

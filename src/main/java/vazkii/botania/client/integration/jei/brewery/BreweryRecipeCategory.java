@@ -68,7 +68,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().init(slotIngredient4, true, 112, 6);
         recipeLayout.getItemStacks().init(slotIngredient5, true, 128, 6);
         recipeLayout.getItemStacks().init(slotIngredient6, true, 144, 6);
-        recipeLayout.getItemStacks().init(slotOutput, false, 87, 41); // todo coords
+        recipeLayout.getItemStacks().init(slotOutput, false, 87, 41);
 
         BreweryRecipeWrapper wrapper = ((BreweryRecipeWrapper) recipeWrapper);
         List inputs = wrapper.getInputs();
