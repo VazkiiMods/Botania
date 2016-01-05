@@ -1,3 +1,11 @@
+/**
+ * This class was created by <williewillus>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.client.integration.jei.brewery;
 
 import mezz.jei.api.IGuiHelper;
@@ -19,15 +27,6 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 
     private final IDrawableStatic background;
     private final String localizedName;
-
-    private static final int slotContainerInput = 0;
-    private static final int slotIngredient1 = 1;
-    private static final int slotIngredient2 = 2;
-    private static final int slotIngredient3 = 3;
-    private static final int slotIngredient4 = 4;
-    private static final int slotIngredient5 = 5;
-    private static final int slotIngredient6 = 6;
-    private static final int slotOutput = 7;
 
     public BreweryRecipeCategory(IGuiHelper guiHelper) {
         ResourceLocation location = new ResourceLocation("botania", "textures/gui/neiBrewery.png");
@@ -89,4 +88,5 @@ public class BreweryRecipeCategory implements IRecipeCategory {
         recipeLayout.getItemStacks().init(7, false, 87, 41);
         recipeLayout.getItemStacks().set(7, wrapper.getOutputs().get(0));
     }
+
 }

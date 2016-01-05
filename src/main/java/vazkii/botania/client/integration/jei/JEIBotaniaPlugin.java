@@ -5,10 +5,7 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
- * File Created @ [Jan 3, 2016, 2:32:39 AM (GMT)]
  */
-
 package vazkii.botania.client.integration.jei;
 
 import mezz.jei.api.IItemRegistry;
@@ -35,7 +32,6 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
 public class JEIBotaniaPlugin implements IModPlugin {
 
     private IJeiHelpers jeiHelpers;
-    private IItemRegistry itemRegistry;
 
     @Override
     public boolean isModLoaded() {
@@ -48,9 +44,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
     }
 
     @Override
-    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
-        this.itemRegistry = itemRegistry;
-    }
+    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {}
 
     @Override
     public void register(IModRegistry registry) {
