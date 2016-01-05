@@ -93,7 +93,7 @@ public class FXWisp extends EntityFX {
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
 			GlStateManager.disableDepth();
-			tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+			tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();

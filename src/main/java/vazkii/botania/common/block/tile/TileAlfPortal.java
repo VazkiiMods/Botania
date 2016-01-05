@@ -124,11 +124,12 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 	@Override
 	public void update() {
-		AlfPortalState state = ((AlfPortalState) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE));
-		if(state == AlfPortalState.OFF) {
+		IBlockState iBlockState = worldObj.getBlockState(getPos());
+		if(iBlockState.getBlock() != ModBlocks.alfPortal || iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
+		AlfPortalState state = iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		AlfPortalState newState = getValidState();
 
 		if(!hasUnloadedParts) {
