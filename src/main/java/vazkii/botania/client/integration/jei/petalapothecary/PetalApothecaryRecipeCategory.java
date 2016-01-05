@@ -94,7 +94,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
     private Point rotatePointAbout(Point in, Point about, double degrees) {
         double rad = degrees * Math.PI / 180.0;
         double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
-        double newY = Math.sin(rad) * (in.x - about.x) - Math.cos(rad) * (in.y - about.y) + about.y;
+        double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
         return new Point(((int) newX), ((int) newY));
     }
 
