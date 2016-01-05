@@ -21,6 +21,9 @@ repositories {
         name = "chickenbones"
         url = "http://chickenbones.net/maven/"
     }
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -46,6 +49,7 @@ minecraft {
     replace 'GRADLE:VERSION', config.version
 
     replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+    useDepAts = true
 }
 
 //This here is for SCP
@@ -66,6 +70,8 @@ dependencies {
     //compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
     //compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
     //compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
+
+    deobfCompile "mezz.jei:jei_1.8.9:2.13.7.64"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
