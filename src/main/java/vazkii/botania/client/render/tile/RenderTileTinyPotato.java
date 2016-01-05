@@ -345,7 +345,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GlStateManager.color(1F, 1F, 1F);
 
 		MovingObjectPosition pos = mc.objectMouseOver;
-		if(!name.isEmpty() && pos != null && pos.getBlockPos().equals(potato.getPos())) {
+		if(!name.isEmpty() && pos != null && potato.getPos().equals(pos.getBlockPos())) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0.5F, 0.75F, 0.5F);
 			GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);

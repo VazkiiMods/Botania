@@ -153,7 +153,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
-		return tile.hasLava ? 15 : 0;
+		return (tile != null && tile.hasLava) ? 15 : 0;
 	}
 
 	@Override
