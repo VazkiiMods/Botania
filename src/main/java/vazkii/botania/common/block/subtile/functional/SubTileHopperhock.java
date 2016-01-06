@@ -33,6 +33,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import scala.reflect.internal.util.WeakHashSet;
@@ -43,6 +44,7 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -73,7 +75,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int slowdown = getSlowdownFactor();
 		
 		for(EntityItem item : items) {
-			if(item.getAge() < (60 + slowdown) || item.getAge() >= 105 && item.getAge() < 110 || item.isDead)
+			int age = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE);
+			if(age < (60 + slowdown) || age >= 105 && age < 110 || item.isDead)
 				continue;
 
 			ItemStack stack = item.getEntityItem();

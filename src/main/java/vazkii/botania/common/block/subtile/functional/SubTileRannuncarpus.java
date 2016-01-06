@@ -31,6 +31,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
@@ -79,7 +80,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
-				if(item.getAge() < (60 + slowdown) || item.isDead)
+				if(((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) < (60 + slowdown) || item.isDead)
 					continue;
 
 				ItemStack stack = item.getEntityItem();

@@ -26,12 +26,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -53,7 +55,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() == wool && !item.isDead && item.getAge() >= slowdown) {
+			if(stack != null && stack.getItem() == wool && !item.isDead && ((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					if(!remote) {

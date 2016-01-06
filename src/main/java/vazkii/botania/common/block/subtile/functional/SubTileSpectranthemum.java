@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -28,6 +29,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
 
@@ -56,7 +58,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int slowdown = getSlowdownFactor();
 			
 			for(EntityItem item : items) {
-				if(item.getAge() < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();

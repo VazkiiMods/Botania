@@ -142,7 +142,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				item.setDead();
 		}
 
-		if(item.getAge() > 100 && item.getAge() < 130 || !catalystsRegistered)
+		int age = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)
+		if(age > 100 && age < 130 || !catalystsRegistered)
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
