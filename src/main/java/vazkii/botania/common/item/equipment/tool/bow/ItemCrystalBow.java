@@ -64,15 +64,15 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
 
-		if(j >= 28)
-			return new ModelResourceLocation(name + "_pulling_5", "inventory");
-		if(j >= 23)
-			return new ModelResourceLocation(name + "_pulling_4", "inventory");
 		if(j >= 18)
+			return new ModelResourceLocation(name + "_pulling_5", "inventory");
+		if(j >= 15)
+			return new ModelResourceLocation(name + "_pulling_4", "inventory");
+		if(j >= 12)
 			return new ModelResourceLocation(name + "_pulling_3", "inventory");
-		if(j > 13)
+		if(j > 9)
 			return new ModelResourceLocation(name + "_pulling_2", "inventory");
-		if(j > 0)
+		if(j > 6)
 			return new ModelResourceLocation(name + "_pulling_1", "inventory");
 
 		return new ModelResourceLocation(name, "inventory");
