@@ -11,6 +11,7 @@ Anyways, vanilla removed it from their method so we follow suit.
 * Magnet blacklist still uses metas instead of states because they need to support the short maxvalue wildcard.
 * Now includes a way for addons to pass the Botania loader the models they want to use to render their subtile with
 * IRelic changed to use UUIDs
+* Removed icon methods from SubTileSignature
 
 -- Other --
 * Most things left untouched to make patches from upstream easier
@@ -26,11 +27,3 @@ sorry :/ The systems needed to dynamically switch out the textures like that is 
 * Glass pane inner faces are not getting culled (vanilla bug?)
 * Some item forms of technical/non-user blocks are removed
     * Full list: [all double slab items, all solid vine items]
-
--- Todo --
-* JSON models for everything (tedious/med-hard)
-* Migrate the PlayerRender events (baubles, etc.) to LayerRenderers (med)
-* For rendering arbitrary icons (that DO NOT HAVE AN ITEM) in a 3D style (manaResource icons, etc.)
-    - Sub to texture stitch and bake our own model there to use?
-    - This remains the largest portion of what is left
-    - Where is the method to render an arbitrary baked model?
