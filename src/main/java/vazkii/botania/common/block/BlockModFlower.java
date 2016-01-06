@@ -115,13 +115,13 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
-		int hex = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = (hex & 0xFF);
 
 		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
-			Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.5 + par5Random.nextFloat() * 0.5, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r, g, b, par5Random.nextFloat(), 5);
+			Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.5 + par5Random.nextFloat() * 0.5, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, par5Random.nextFloat(), 5);
 	}
 
 	@Override

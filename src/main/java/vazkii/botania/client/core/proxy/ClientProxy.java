@@ -474,7 +474,7 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 
-	private static boolean noclipEnabled = true;
+	private static boolean noclipEnabled = false;
 	private static boolean corruptSparkle = false;
 
 	@Override

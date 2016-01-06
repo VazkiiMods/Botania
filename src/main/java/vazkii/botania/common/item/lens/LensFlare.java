@@ -64,7 +64,7 @@ public class LensFlare extends Lens {
 			b = (hex & 0xFF);
 		}
 
-		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r, g, b, 0.4F, mx, my, mz);
+		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r / 255F, g / 255F, b / 255F, 0.4F, mx, my, mz);
 	}
 
 }

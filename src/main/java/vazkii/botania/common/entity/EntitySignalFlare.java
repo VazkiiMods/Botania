@@ -52,10 +52,10 @@ public class EntitySignalFlare extends Entity {
 
 				Botania.proxy.setWispFXDistanceLimit(false);
 				for(int i = 0; i < 3; i++)
-					Botania.proxy.wispFX(worldObj, posX, posY, posZ + 0.5, r, g, b, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
+					Botania.proxy.wispFX(worldObj, posX, posY, posZ + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
 
 				for(int i = 0; i < 4; i++)
-					Botania.proxy.wispFX(worldObj, posX + 0.5, 256, posZ + 0.5, r, g, b, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+					Botania.proxy.wispFX(worldObj, posX + 0.5, 256, posZ + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				Botania.proxy.setWispFXDistanceLimit(true);
 			}
 		}

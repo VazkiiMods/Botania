@@ -76,11 +76,11 @@ public class TilePylon extends TileEntity implements ITickable {
 					int b = (hex & 0xFF);
 
 					if(worldObj.rand.nextInt(4) == 0)
-						Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r, g, b, (float) Math.random(), 8);
+						Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random(), 8);
 
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r, g, b, (float) Math.random() / 3F, -0.04F);
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, r, g, b, (float) Math.random() / 5F, -0.001F);
-					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r, g, b, (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r / 255F, g / 255F, b / 255F, (float) Math.random() / 3F, -0.04F);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, r / 255F, g / 255F, b / 255F, (float) Math.random() / 5F, -0.001F);
+					Botania.proxy.wispFX(worldObj, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r / 255F, g / 255F, b / 255F, (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 				}
 			}
 		}
