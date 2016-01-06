@@ -10,15 +10,11 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -36,16 +32,6 @@ public class BasicSignature extends SubTileSignature {
 
 	public BasicSignature(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public void registerIcons(TextureMap register) {
-		BotaniaAPI.internalHandler.registerBasicSignatureIcons(name, register);
-	}
-
-	@Override
-	public TextureAtlasSprite getIconForStack(ItemStack stack) {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(name);
 	}
 
 	@Override

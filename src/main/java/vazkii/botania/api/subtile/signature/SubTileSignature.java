@@ -25,16 +25,6 @@ public abstract class SubTileSignature {
 	public static final String SPECIAL_FLOWER_PREFIX = "flower.";
 
 	/**
-	 * Equivalent to Block.registerBlockIcons.
-	 */
-	public abstract void registerIcons(TextureMap map);
-	// todo 1.8 evaluate need for these two
-	/**
-	 * Gets the icon to display for the flower item.
-	 */
-	public abstract TextureAtlasSprite getIconForStack(ItemStack stack);
-
-	/**
 	 * Gets the display name for the flower item.
 	 */
 	public abstract String getUnlocalizedNameForStack(ItemStack stack);

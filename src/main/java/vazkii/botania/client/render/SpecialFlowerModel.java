@@ -6,14 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.render;
+package vazkii.botania.client.render;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import net.minecraft.block.state.IBlockState;
@@ -41,9 +40,8 @@ import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.lang3.tuple.Pair;
-import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
@@ -56,53 +54,8 @@ import java.util.Map;
 
 public class SpecialFlowerModel implements IModelCustomData {
 
-    /**
-     * Register your model for the given subtile class here.
-     * Call this DURING PREINIT. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
-     * Your model json must specify key "tintindex" in all the faces it wants tint applied.
-     * Tint is applied whenever a player recolors the flower using floral dye
-     * todo 1.8.8 move this elsewhere or otherwise make it fit better with the rest of the subtile registration process
-     *
-     * @param subTileName The String ID of the subtile
-     * @param model A path to a blockstate json and variant to be used for this subtile
-     * @param itemModel A path to a blockstate json and variant to be used for this subtile's item form
-     */
-    public static void register(String subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
-        queuedBlockModels.put(subTileName, model);
-        queuedItemModels.put(subTileName, itemModel);
-    }
-
-    /**
-     * Register your model for the given subtile class here.
-     * Call this DURING PREINIT. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
-     * Your model json must specify key "tintindex" in all the faces it wants tint applied.
-     * Tint is applied whenever a player recolors the flower using floral dye
-     * todo 1.8.8 move this elsewhere or otherwise make it fit better with the rest of the subtile registration process
-     *
-     * @param subTileName The String ID of the subtile
-     * @param model A path to a blockstate json and variant to be used the block. The item model will be drawn from the same blockstate json, from variant "inventory"
-     */
-    public static void register(String subTileName, ModelResourceLocation model) {
-        register(subTileName, model, new ModelResourceLocation(model.getResourceDomain() + ":" + model.getResourcePath(), "inventory"));
-    }
-
-    public static void register(Class<? extends SubTileEntity> clazz, ModelResourceLocation model) {
-        register(BotaniaAPI.getSubTileStringMapping(clazz), model);
-    }
-
-    public static void register(Class<? extends SubTileEntity> clazz, ModelResourceLocation model, ModelResourceLocation itemModel) {
-        register(BotaniaAPI.getSubTileStringMapping(clazz), model, itemModel);
-    }
-
-    /**
-     * Internal implementation
-     **/
     // SpecialFlowerModel for when there are no blockModels registered for a subtile
     public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<String>, ModelResourceLocation>of(), ImmutableMap.<Optional<String>, ModelResourceLocation>of());
-    // Models registered from the externel API thus far
-    private static final Map<String, ModelResourceLocation> queuedBlockModels = Maps.newHashMap();
-    private static final Map<String, ModelResourceLocation> queuedItemModels = Maps.newHashMap();
-
 
     private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
     private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
@@ -120,7 +73,6 @@ public class SpecialFlowerModel implements IModelCustomData {
         builder.addAll(itemModels.values());
 
         // Force mini island model to be loaded and baked, for use elsewhere. See FloatingFlowerModel
-        // TODO 1.8.8!!!! IslandType is not in the API, will crash when botania is not present!! Must relocate this elsewhere!
         for (IFloatingFlower.IslandType i : IFloatingFlower.IslandType.values()) {
             builder.add(new ModelResourceLocation("botania:miniIsland", "variant=" + i.name().toLowerCase(Locale.ROOT)));
         }
@@ -156,10 +108,10 @@ public class SpecialFlowerModel implements IModelCustomData {
             }
         }
 
-        for (Map.Entry<String, ModelResourceLocation> e : queuedBlockModels.entrySet()) {
+        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.queuedBlockModels.entrySet()) {
             blockBuilder.put(Optional.of(e.getKey()), e.getValue());
         }
-        for (Map.Entry<String, ModelResourceLocation> e : queuedItemModels.entrySet()) {
+        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.queuedItemModels.entrySet()) {
             itemBuilder.put(Optional.of(e.getKey()), e.getValue());
         }
 
