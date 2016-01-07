@@ -419,6 +419,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.tinyPotato);
         registerItemModel(ModBlocks.spawnerClaw);
         registerItemModel(ModBlocks.turntable);
+        registerItemModel(ModBlocks.manaFlame);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See RenderEventHandler
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
@@ -569,6 +570,7 @@ public final class ModelHandler {
         registerItemModel(divaCharm);
         registerItemModel(manaMirror);
         registerItemModel(manaInkwell);
+        registerItemModel(waterBowl);
 
         registerItemModelAllMeta(flightTiara, ItemFlightTiara.WING_TYPES);
         registerItemModelAllMeta(laputaShard, 20);
