@@ -97,8 +97,14 @@ import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
+import vazkii.botania.common.block.tile.TileAvatar;
+import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.tile.TileGaiaHead;
+import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.mana.TileBellows;
+import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
 import vazkii.botania.common.item.brew.ItemBrewBase;
@@ -583,9 +589,28 @@ public final class ModelHandler {
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
     private static void registerTESRItems() {
         registerItemModel(ModBlocks.corporeaCrystalCube);
-        registerItemModel(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
+
+        registerItemModel(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
+
+        registerItemModel(ModBlocks.avatar);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
+
+        registerItemModel(ModBlocks.teruTeruBozu);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
+
+        registerItemModel(ModBlocks.brewery);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
+
+        registerItemModel(ModBlocks.gaiaHead);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.gaiaHead), 0, TileGaiaHead.class);
+
+        registerItemModel(ModBlocks.bellows);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
+
+        registerItemModel(ModBlocks.pump);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
     }
 
     private static void registerManaResources() {

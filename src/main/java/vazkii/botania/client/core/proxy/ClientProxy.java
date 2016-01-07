@@ -224,65 +224,6 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private void initRenderers() {
-//		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idTinyPotato = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idSpawnerClaw = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idBrewery = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idDoubleFlower = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idCorporeaCrystalCybe = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idIncensePlate = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idHourglass = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idCocoon = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idLightRelay = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idBellows = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idTeruTeruBozu = RenderingRegistry.getNextAvailableRenderId();
-//		LibRenderIDs.idAvatar = RenderingRegistry.getNextAvailableRenderId();
-//
-//		RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
-//		RenderingRegistry.registerBlockHandler(new RenderAltar());
-//		RenderingRegistry.registerBlockHandler(specialFlowerRender);
-//		RenderingRegistry.registerBlockHandler(new RenderSpreader());
-//		RenderingRegistry.registerBlockHandler(new RenderPool());
-//		RenderingRegistry.registerBlockHandler(new RenderPylon());
-//		RenderingRegistry.registerBlockHandler(new RenderFloatingFlower());
-//		RenderingRegistry.registerBlockHandler(new RenderTinyPotato());
-//		RenderingRegistry.registerBlockHandler(new RenderSpawnerClaw());
-//		RenderingRegistry.registerBlockHandler(new RenderBrewery());
-//		RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
-//		RenderingRegistry.registerBlockHandler(new RenderPump());
-//		RenderingRegistry.registerBlockHandler(new RenderDoubleFlower());
-//		RenderingRegistry.registerBlockHandler(new RenderCorporeaCrystalCube());
-//		RenderingRegistry.registerBlockHandler(new RenderIncensePlate());
-//		RenderingRegistry.registerBlockHandler(new RenderHourglass());
-//		RenderingRegistry.registerBlockHandler(new RenderCocoon());
-//		RenderingRegistry.registerBlockHandler(new RenderBellows());
-//		RenderingRegistry.registerBlockHandler(new RenderTeruTeruBozu());
-//		RenderingRegistry.registerBlockHandler(new RenderAvatar());
-
-//		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
-//		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
-
-//		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
-//		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-//		RenderBow renderBow = new RenderBow();
-//
-//		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
-//		if(ConfigHandler.lexicon3dModel)
-//			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
-//		MinecraftForgeClient.registerItemRenderer(ModItems.glassPick, renderTransparentItem);
-//		MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
-//		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
-//		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
-//		MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
-//		MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
-
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());

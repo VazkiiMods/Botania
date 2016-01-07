@@ -44,7 +44,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
 		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
-		boolean hasWorld = tileentity.getWorld() != null;
+		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if(hasWorld)
 			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);
 

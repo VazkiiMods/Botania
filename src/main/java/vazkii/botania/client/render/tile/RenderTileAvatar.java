@@ -52,12 +52,20 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int meta = avatar.getWorld() != null ? avatar.getBlockMetadata() : 0;
+		int meta = avatar != null && avatar.getWorld() != null ? avatar.getBlockMetadata() : 0;
 
 		GlStateManager.translate(0.5F, 1.6F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, meta - 2), 0)], 0F, 1F, 0F);
 		model.render();
+
+		if (avatar == null) {
+			GlStateManager.color(1F, 1F, 1F);
+			GlStateManager.scale(1F, -1F, -1F);
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.popMatrix();
+			return;
+		}
 
 		ItemStack stack = avatar.getStackInSlot(0);
 		if(stack != null) {

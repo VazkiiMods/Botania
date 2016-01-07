@@ -84,7 +84,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		}
 
 		model.render();
-		GlStateManager.color(1F, 1F, 1F, a);
+		GL11.glColor4f(1F, 1F, 1F, a); // Use GL11 manually since we call color4ub above, and GlStateManager doesn't know that, so the color leaks
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 

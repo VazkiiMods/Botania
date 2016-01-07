@@ -42,12 +42,12 @@ public class RenderTilePump extends TileEntitySpecialRenderer {
 		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int meta = pump.getWorld() != null ? pump.getBlockMetadata() : 0;
+		int meta = pump != null && pump.getWorld() != null ? pump.getBlockMetadata() : 0;
 
 		GlStateManager.translate(0.5F, 0.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, meta - 2), 0)], 0F, 1F, 0F);
-		model.render(Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * f)));
+		model.render(Math.max(0F, Math.min(8F, pump == null ? 8 : pump.innerRingPos + pump.moving * f)));
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
