@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -63,32 +64,31 @@ public class ModelPylon implements IPylonModel {
 
 	public ModelPylon() {
 		try {
+			// Load the OBJ
 			OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
 
+			// Apply the texture and flip the v's of the model
 			IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
 			IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
 			IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
 
-			// Turn off all except "Crystal"
-			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			// All groups are off by default
+			// (OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group)
 
-			// Turn off all except "Crystal_Ring", and "Ring_Panel0x"
-			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			// Turn on "Crystal"
+			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 
-			// Turn off all except "Ring_Gem0x"
-			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-					"Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			// Turn on "Crystal_Ring", and "Ring_Panel0x"
+			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+
+			// Turn on "Ring_Gem0x"
+			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 		} catch (IOException e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
@@ -105,20 +105,24 @@ public class ModelPylon implements IPylonModel {
 
 	@Override
 	public void renderRing(PylonVariant variant) {
+		GlStateManager.disableLighting();
 		switch (variant) {
 			case MANA: renderModel(manaRingsAndPanes); break;
 			case NATURA: renderModel(naturaRingsAndPanes); break;
 			case GAIA: renderModel(gaiaRingsAndPanes); break;
 		}
+		GlStateManager.enableLighting();
 	}
 
 	@Override
 	public void renderGems(PylonVariant variant) {
+		GlStateManager.disableLighting();
 		switch (variant) {
 			case MANA: renderModel(manaGems); break;
 			case NATURA: renderModel(naturaGems); break;
 			case GAIA: renderModel(gaiaGems); break;
 		}
+		GlStateManager.enableLighting();
 	}
 
 	private void renderModel(IFlexibleBakedModel model)

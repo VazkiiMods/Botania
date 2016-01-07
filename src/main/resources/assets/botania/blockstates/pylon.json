@@ -12,7 +12,6 @@
       "mana": { "textures": { "#pylon": "botania:model/pylon" } },
       "natura": { "textures": { "#pylon": "botania:model/pylon1" } },
       "gaia": { "textures": { "#pylon": "botania:model/pylon2" } }
-    },
-    "inventory": [{}]
+    }
   }
 }

@@ -17,16 +17,22 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -125,9 +131,7 @@ import java.util.Locale;
 
 public final class ModelHandler {
 
-    // Very hardocode-y right now. Will be refactored after things work.
-    // In addition, many of the jsons currently use the vanilla format (simple and verified bug-free).
-    // Once things settle down, we'll move to forge jsons, which will drastically cut down on the number of json files
+    // todo reorganize, alphabetize
     public static void registerModels() {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
@@ -416,8 +420,9 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.spawnerClaw);
         registerItemModel(ModBlocks.turntable);
 
+        // Register all metas to variant inventory, so the smartmodel can take over from there. See RenderEventHandler
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
-
 
         // Item models which all use the same base model and recolored by render layer
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
@@ -427,7 +432,6 @@ public final class ModelHandler {
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.pylon, PylonVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
@@ -564,7 +568,7 @@ public final class ModelHandler {
         registerItemModel(flightTiara);
         registerItemModel(divaCharm);
         registerItemModel(manaMirror);
-        // magnet ring and greater version - custom mesher
+        registerItemModel(manaInkwell);
 
         registerItemModelAllMeta(flightTiara, ItemFlightTiara.WING_TYPES);
         registerItemModelAllMeta(laputaShard, 20);

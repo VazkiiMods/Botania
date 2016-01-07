@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.model.PylonItemModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
@@ -65,11 +66,13 @@ public class RenderEventHandler {
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+
+        // Pylon item model
+        evt.modelRegistry.putObject(new ModelResourceLocation("botania:pylon", "inventory"), new PylonItemModel());
     }
 
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre evt) {
-        System.out.println("CALLING TEXTURE STITCH");
         alfPortalTex = IconHelper.forName(evt.map, "alfheimPortalInside", "blocks");
         lightRelayWorldIcon = IconHelper.forName(evt.map, "lightRelay1", "blocks");
         lightRelayWorldIconRed = IconHelper.forName(evt.map, "lightRelay3", "blocks");
