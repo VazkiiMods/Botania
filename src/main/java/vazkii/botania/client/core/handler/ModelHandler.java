@@ -406,6 +406,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.cacophonium);
         registerItemModel(ModBlocks.tinyPotato);
         registerItemModel(ModBlocks.spawnerClaw);
+        registerItemModel(ModBlocks.turntable);
 
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
