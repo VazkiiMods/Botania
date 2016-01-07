@@ -100,6 +100,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileGaiaHead;
+import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -107,6 +108,7 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
@@ -603,14 +605,17 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.brewery);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
 
-        registerItemModel(ModBlocks.gaiaHead);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.gaiaHead), 0, TileGaiaHead.class);
+        registerItemModel(ModItems.gaiaHead);
+        ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
         registerItemModel(ModBlocks.bellows);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
 
         registerItemModel(ModBlocks.pump);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
+
+        registerItemModel(ModBlocks.hourglass);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
     }
 
     private static void registerManaResources() {

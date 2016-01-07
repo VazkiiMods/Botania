@@ -33,14 +33,12 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
-public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
+public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar> {
 
 	ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks, int digProgress) {
-		TileRuneAltar altar = (TileRuneAltar) tileentity;
-
+	public void renderTileEntityAt(TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(x, y, z);

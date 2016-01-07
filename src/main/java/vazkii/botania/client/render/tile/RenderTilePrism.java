@@ -25,11 +25,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 //import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
-public class RenderTilePrism extends TileEntitySpecialRenderer {
+public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partTicks, int digProgress) {
-		TilePrism prism = (TilePrism) tile;
+	public void renderTileEntityAt(TilePrism prism, double x, double y, double z, float partTicks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
@@ -39,7 +38,6 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			if(stack.getItem() instanceof ILens) {
-				ILens lens = (ILens) stack.getItem();
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(90F, 1F, 0F, 0F);
 				GlStateManager.translate(0.5F, 0.5F, pos);

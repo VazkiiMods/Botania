@@ -36,7 +36,7 @@ import vazkii.botania.client.model.ModelPool;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
-public class RenderTilePool extends TileEntitySpecialRenderer {
+public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_POOL);
 	private static final ResourceLocation textureInf = new ResourceLocation(LibResources.MODEL_INFINITE_POOL);
@@ -49,9 +49,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	public static int forceManaNumber = -1;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TilePool pool = (TilePool) tileentity;
-
+	public void renderTileEntityAt(TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -60,9 +58,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		GlStateManager.color(1F, 1F, 1F, a);
 		GlStateManager.translate(d0, d1, d2);
-		boolean inf = tileentity.getWorld() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
-		boolean dil = tileentity.getWorld() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
-		boolean fab = tileentity.getWorld() == null ? forceMeta == 3 : tileentity.getBlockMetadata() == 3;
+		boolean inf = pool.getWorld() == null ? forceMeta == 1 : pool.getBlockMetadata() == 1;
+		boolean dil = pool.getWorld() == null ? forceMeta == 2 : pool.getBlockMetadata() == 2;
+		boolean fab = pool.getWorld() == null ? forceMeta == 3 : pool.getBlockMetadata() == 3;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
@@ -70,8 +68,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GlStateManager.scale(1F, -1F, -1F);
 		if(fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			if(tileentity != null)
-				time += new Random(tileentity.getPos().hashCode()).nextInt(100000);
+			if(pool != null)
+				time += new Random(pool.getPos().hashCode()).nextInt(100000);
 
 			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
 			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);

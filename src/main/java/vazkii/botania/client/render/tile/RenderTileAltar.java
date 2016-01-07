@@ -38,7 +38,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAltar;
 import vazkii.botania.common.block.tile.TileAltar;
 
-public class RenderTileAltar extends TileEntitySpecialRenderer {
+public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	private static final ResourceLocation[] textures = new ResourceLocation[] {
 		new ResourceLocation(LibResources.MODEL_ALTAR),
@@ -58,9 +58,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 	public static int forceMeta = -1;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
-		TileAltar altar = (TileAltar) tileentity;
-
+	public void renderTileEntityAt(TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

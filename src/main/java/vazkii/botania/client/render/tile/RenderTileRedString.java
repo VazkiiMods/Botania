@@ -15,11 +15,10 @@ import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.RedStringRenderer;
 import vazkii.botania.common.block.tile.string.TileRedString;
 
-public class RenderTileRedString extends TileEntitySpecialRenderer {
+public class RenderTileRedString extends TileEntitySpecialRenderer<TileRedString> {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks, int digProgress) {
-		TileRedString trs = (TileRedString) tileentity;
+	public void renderTileEntityAt(TileRedString trs, double x, double y, double z, float partticks, int digProgress) {
 		RedStringRenderer.redStringTiles.add(trs);
 	}
 }

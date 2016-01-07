@@ -23,7 +23,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
-public class RenderTileBellows extends TileEntitySpecialRenderer {
+public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
@@ -33,9 +33,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer {
 	private static final ModelBellows model = new ModelBellows();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileBellows bellows = (TileBellows) tileentity;
-
+	public void renderTileEntityAt(TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

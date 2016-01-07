@@ -23,15 +23,13 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCocoon;
 import vazkii.botania.common.block.tile.TileCocoon;
 
-public class RenderTileCocoon extends TileEntitySpecialRenderer {
+public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_COCOON);
 	ModelCocoon model = new ModelCocoon();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileCocoon cocoon = (TileCocoon) tileentity;
-
+	public void renderTileEntityAt(TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if(cocoon.timePassed % modval < 10) {

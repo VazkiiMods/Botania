@@ -28,12 +28,10 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.mana.BlockTerraPlate;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
-public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
+public class RenderTileTerraPlate extends TileEntitySpecialRenderer<TileTerraPlate> {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileTerraPlate plate = (TileTerraPlate) tileentity;
-
+	public void renderTileEntityAt(TileTerraPlate plate, double d0, double d1, double d2, float f, int digProgress) {
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 		GlStateManager.pushMatrix();

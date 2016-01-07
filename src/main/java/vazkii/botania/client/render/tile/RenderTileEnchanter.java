@@ -34,13 +34,12 @@ import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class RenderTileEnchanter extends TileEntitySpecialRenderer {
+public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
 
 	EntityItem item;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileEnchanter enchanter = (TileEnchanter) tileentity;
+	public void renderTileEntityAt(TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == 2)

@@ -33,7 +33,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.tile.TileAvatar;
 
-public class RenderTileAvatar extends TileEntitySpecialRenderer {
+public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
@@ -43,9 +43,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
-		TileAvatar avatar = (TileAvatar) tileentity;
-
+	public void renderTileEntityAt(TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

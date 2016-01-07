@@ -23,7 +23,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPump;
 import vazkii.botania.common.block.tile.mana.TilePump;
 
-public class RenderTilePump extends TileEntitySpecialRenderer {
+public class RenderTilePump extends TileEntitySpecialRenderer<TilePump> {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
@@ -33,9 +33,7 @@ public class RenderTilePump extends TileEntitySpecialRenderer {
 	private static final ModelPump model = new ModelPump();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TilePump pump = (TilePump) tileentity;
-
+	public void renderTileEntityAt(TilePump pump, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

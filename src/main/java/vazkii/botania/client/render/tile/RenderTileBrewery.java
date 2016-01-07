@@ -35,7 +35,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
-public class RenderTileBrewery extends TileEntitySpecialRenderer {
+public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
 	ModelBrewery model = new ModelBrewery();
@@ -43,8 +43,8 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 	public static boolean rotate = true;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		brewery = (TileBrewery) tileentity;
+	public void renderTileEntityAt(TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
+		this.brewery = brewery;
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

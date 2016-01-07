@@ -50,7 +50,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 
-public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
+public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
@@ -58,8 +58,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 	private static final ModelTinyPotato model = new ModelTinyPotato();
 
 	@Override
-	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8, int digProgress) {
-		TileTinyPotato potato = (TileTinyPotato) var1;
+	public void renderTileEntityAt(TileTinyPotato potato, double d0, double d1, double d2, float var8, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

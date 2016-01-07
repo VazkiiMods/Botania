@@ -34,7 +34,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
-public class RenderTileSpreader extends TileEntitySpecialRenderer {
+public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
@@ -47,8 +47,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
-		TileSpreader spreader = (TileSpreader) tileentity;
+	public void renderTileEntityAt(TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -77,7 +76,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		GlStateManager.color(1F, 1F, 1F);
 
 		GlStateManager.pushMatrix();
-		double worldTicks = tileentity.getWorld() == null ? 0 : time;
+		double worldTicks = spreader.getWorld() == null ? 0 : time;
 		GlStateManager.rotate((float) worldTicks % 360, 0F, 1F, 0F);
 		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();

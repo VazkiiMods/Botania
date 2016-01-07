@@ -23,15 +23,14 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
-public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
+public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorporeaIndex> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX);
 	ModelEnderCrystal crystal = new ModelEnderCrystal(0F, false);
 	public static boolean move = true;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partticks, int digProgress) {
-		TileCorporeaIndex index = (TileCorporeaIndex) tile;
+	public void renderTileEntityAt(TileCorporeaIndex index, double x, double y, double z, float partticks, int digProgress) {
 		move = index != null;
 
 		GlStateManager.pushMatrix();

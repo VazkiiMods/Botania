@@ -32,16 +32,14 @@ import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
+public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CRYSTAL_CUBE);
 	ModelCrystalCube model = new ModelCrystalCube();
 	EntityItem entity = null;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) tileentity;
-
+	public void renderTileEntityAt(TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
 		ItemStack stack = null;
 		if (cube != null) {
 			if(entity == null)
@@ -53,7 +51,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
-		double worldTicks = tileentity == null || tileentity.getWorld() == null ? 0 : time;
+		double worldTicks = cube == null || cube.getWorld() == null ? 0 : time;
 
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.pushMatrix();

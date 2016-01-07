@@ -32,7 +32,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelIncensePlate;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
-public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
+public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
@@ -42,9 +42,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 	ModelIncensePlate model = new ModelIncensePlate();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
-		TileIncensePlate plate = (TileIncensePlate) tileentity;
-
+	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
 		EnumFacing facing = plate.getWorld() != null ? plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS) : EnumFacing.SOUTH;
 
 		GlStateManager.pushMatrix();

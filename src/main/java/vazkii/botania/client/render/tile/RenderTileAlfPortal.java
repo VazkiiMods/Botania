@@ -21,18 +21,26 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.RenderEventHandler;
 import vazkii.botania.common.block.BlockAlfPortal;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
-public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
+public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal> {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
-		TileAlfPortal portal = (TileAlfPortal) tileentity;
-		int meta = portal.getBlockMetadata();
-		if(meta == 0)
+	public void renderTileEntityAt(TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
+		AlfPortalState state;
+		if (portal.getWorld().getBlockState(portal.getPos()) != ModBlocks.alfPortal) {
+			state = AlfPortalState.OFF;
+		} else {
+			state = portal.getWorld().getBlockState(portal.getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
+		}
+
+		if(state == AlfPortalState.OFF)
 			return;
 
 		GlStateManager.pushMatrix();
@@ -49,7 +57,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-		if(meta == 2) {
+		if(state == AlfPortalState.ON_X) {
 			GlStateManager.translate(1.25F, 0F, 1.75F);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 		}

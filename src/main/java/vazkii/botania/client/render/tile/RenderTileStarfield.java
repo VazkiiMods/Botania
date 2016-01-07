@@ -23,27 +23,28 @@ import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.common.block.tile.TileStarfield;
 
 // THIS CODE WAS STOLEN FROM THE END PORTAL
 // OH GOD
 // I HAVE NO IDEA WHAT I'M DOING
 // SO MUCH STUFF I DON'T UNDERSTAND D:
 // HELP
-public class RenderTileStarfield extends TileEntitySpecialRenderer {
+public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield> {
 
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
 	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
 	private static final Random field_147527_e = new Random(31100L);
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
-	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage)
+	public void renderTileEntityAt(TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		float f = (float)this.rendererDispatcher.entityX;
 		float f1 = (float)this.rendererDispatcher.entityY;
 		float f2 = (float)this.rendererDispatcher.entityZ;
 		GlStateManager.disableLighting();
 		field_147527_e.setSeed(31100L);
-		float f3 = 0.24F;
+		float f3 = 0.24F; // Botania: move to bottom of block space
 
 		for (int i = 0; i < 16; ++i)
 		{
@@ -116,6 +117,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 				f11 = f12 = f13 = 1.0F * f6;
 			}
 
+			// Botania: change color based on time
 			Color color = Color.getHSBColor(Minecraft.getSystemTime() / 20F % 360 / 360F, 1F, 1F);
 			f11 = color.getRed() / 255F;
 			f12 = color.getGreen() / 255F;

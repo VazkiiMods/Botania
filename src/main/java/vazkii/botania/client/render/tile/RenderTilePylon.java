@@ -34,9 +34,11 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylon;
 import vazkii.botania.client.model.ModelPylonOld;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class RenderTilePylon extends TileEntitySpecialRenderer {
+public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 	private static final ResourceLocation textureOld = new ResourceLocation(LibResources.MODEL_PYLON_OLD);
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_PYLON);
@@ -52,7 +54,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 	public static boolean pink = false;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
 
@@ -63,8 +65,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 			GlStateManager.color(1F, 1F, 1F, a);
 			PylonVariant variant = null;
-			if(tileentity.getWorld() != null) {
-				variant = ((PylonVariant) tileentity.getWorld().getBlockState(tileentity.getPos()).getValue(BotaniaStateProps.PYLON_VARIANT));
+			if(pylon.getWorld() != null && pylon.getWorld().getBlockState(pylon.getPos()).getBlock() == ModBlocks.pylon) {
+				variant = pylon.getWorld().getBlockState(pylon.getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 				green = variant == PylonVariant.NATURA;
 				pink = variant == PylonVariant.GAIA;
 			}
@@ -73,10 +75,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
 			else Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-			double worldTime = tileentity.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
+			double worldTime = pylon.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
-			if(tileentity != null)
-				worldTime += new Random(tileentity.getPos().hashCode()).nextInt(360);
+			if(pylon != null)
+				worldTime += new Random(pylon.getPos().hashCode()).nextInt(360);
 
 			if(ConfigHandler.oldPylonModel) {
 				GlStateManager.translate(d0 + 0.5, d1 + 2.2, d2 + 0.5);

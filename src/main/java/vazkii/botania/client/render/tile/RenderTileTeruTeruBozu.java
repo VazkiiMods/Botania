@@ -25,15 +25,16 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
-public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
+public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTeruBozu> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();

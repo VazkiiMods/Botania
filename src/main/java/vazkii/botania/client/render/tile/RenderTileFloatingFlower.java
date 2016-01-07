@@ -33,6 +33,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.ModelMiniIsland;
 import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 

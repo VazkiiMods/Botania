@@ -80,7 +80,7 @@ public class ItemGaiaHead extends ItemMod {
 				if (!worldIn.isRemote)
 				{
 					if (!Blocks.skull.canPlaceBlockOnSide(worldIn, pos, side)) return false;
-					worldIn.setBlockState(pos, Blocks.skull.getDefaultState().withProperty(BlockSkull.FACING, side), 3);
+					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().withProperty(BlockSkull.FACING, side), 3); // Botania: skull -> gaia Head
 					int i = 0;
 
 					if (side == EnumFacing.UP)
@@ -94,7 +94,7 @@ public class ItemGaiaHead extends ItemMod {
 					{
 						TileEntitySkull tileentityskull = (TileEntitySkull)tileentity;
 
-						if (stack.getMetadata() == 3)
+						if (stack.getMetadata() == 3) // Botania: Don't retrieve skins
 						{
 //							GameProfile gameprofile = null;
 //
