@@ -56,7 +56,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 		ItemStack stack = block.getPickBlock(pos, world, bPos, null);
 
 		if(stack == null || stack.getItem() == null)
-			stack = new ItemStack(block, 1, block.getMetaFromState(world.getBlockState(bPos)));
+			stack = new ItemStack(block, 1, block.getDamageValue(world, bPos));
 
 		if(stack.getItem() == null)
 			return null;

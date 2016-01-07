@@ -179,9 +179,9 @@ public final class ModelHandler {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 if (ItemSpawnerMover.hasData(stack)) {
-                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
-                } else {
                     return new ModelResourceLocation("botania:spawnerMoverFull", "inventory");
+                } else {
+                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
                 }
             }
         });
@@ -405,6 +405,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.root);
         registerItemModel(ModBlocks.cacophonium);
         registerItemModel(ModBlocks.tinyPotato);
+        registerItemModel(ModBlocks.spawnerClaw);
 
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 

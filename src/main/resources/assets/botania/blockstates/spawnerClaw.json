@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:claw",
+    "textures": {
+      "all": "botania:model/spawnerClaw"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "transform": {
+        "firstperson": {
+          "translation": [ 0, 0.25, 0 ]
+        },
+        "gui": {
+          "translation": [ 0, 0.25, 0 ]
+        }
+      }
+    }]
+  }
+}

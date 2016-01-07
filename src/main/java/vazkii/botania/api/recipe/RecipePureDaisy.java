@@ -44,7 +44,7 @@ public class RecipePureDaisy {
 		if(input instanceof Block)
 			return state.getBlock() == input;
 
-		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 		String oredict = (String) input;
 		return isOreDict(stack, oredict);
 	}
