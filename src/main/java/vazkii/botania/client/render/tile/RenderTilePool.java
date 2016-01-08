@@ -17,13 +17,18 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
@@ -62,31 +67,32 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		boolean dil = pool.getWorld() == null ? forceMeta == 2 : pool.getBlockMetadata() == 2;
 		boolean fab = pool.getWorld() == null ? forceMeta == 3 : pool.getBlockMetadata() == 3;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
-
-		GlStateManager.translate(0.5F, 1.5F, 0.5F);
-		GlStateManager.scale(1F, -1F, -1F);
-		if(fab) {
-			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			if(pool != null)
-				time += new Random(pool.getPos().hashCode()).nextInt(100000);
-
-			Color color = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
-			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
-		} else {
-			int hex = pool.color.getMapColor().colorValue;
-			int r = (hex & 0xFF0000) >> 16;
-			int g = (hex & 0xFF00) >> 8;
-			int b = (hex & 0xFF);
-			GlStateManager.color(r, g, b, a);
-		}
-
-		model.render();
-		GL11.glColor4f(1F, 1F, 1F, a); // Use GL11 manually since we call color4ub above, and GlStateManager doesn't know that, so the color leaks
-		GlStateManager.scale(1F, -1F, -1F);
-		GlStateManager.enableRescaleNormal();
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		int color = pool.getColor().getMapColor().colorValue | 0xFF000000; // Add alpha
+		if (fab) {
+			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+		}
+		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool.getWorld().getBlockState(pool.getPos()));
+		Tessellator tess = Tessellator.getInstance();
+		tess.getWorldRenderer().begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
+
+		for (BakedQuad quad : model.getGeneralQuads()) {
+			LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
+		}
+
+		for (EnumFacing e : EnumFacing.VALUES) {
+			for (BakedQuad quad: model.getFaceQuads(e)) {
+				LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
+			}
+		}
+
+		tess.draw();
+
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.color(1, 1, 1, a);
+		GlStateManager.enableRescaleNormal();
 
 		int mana = pool.getCurrentMana();
 		if(forceManaNumber > -1)

@@ -155,6 +155,7 @@ public final class ModelHandler {
         registerAltars();
         registerQuartzBlocks();
         registerLuminizers();
+        registerPools();
 
         /** Normal Items **/
         registerStandardItems();
@@ -445,7 +446,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.pool, PoolVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -1017,6 +1017,21 @@ public final class ModelHandler {
         for (LuminizerVariant v : LuminizerVariant.values()) {
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
             ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
+        }
+    }
+
+    private static void registerPools() {
+        Item item = Item.getItemFromBlock(ModBlocks.pool);
+        String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.pool).toString();
+        for (PoolVariant v : PoolVariant.values()) {
+            if (v == PoolVariant.CREATIVE) {
+                // Special case to have mana water layer
+                ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory_creative"));
+                ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "inventory_creative"));
+            } else {
+                ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "variant=" + v.getName()));
+                ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "variant=" + v.getName()));
+            }
         }
     }
 
