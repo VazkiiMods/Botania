@@ -34,10 +34,10 @@ botaniamisc.toolRank=%s&7 Rank
 botaniamisc.edition=%s Edition
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Writer's
-botaniamisc.lexiconcover0=Your guide to all
-botaniamisc.lexiconcover1=Botanical needs
-botaniamisc.lexiconcover2=From Bestselling author
-botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
+botaniamisc.lexiconcover0=A manual by Lizbeth
+botaniamisc.lexiconcover1="Vazkii" Whitewood
+botaniamisc.lexiconcover2=The official guide for
+botaniamisc.lexiconcover3=all your Botania needs!
 botaniamisc.lexiconcover4=Edited by BevoLJ
 botaniamisc.lexiconcover5=Edited by Saice
 botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
