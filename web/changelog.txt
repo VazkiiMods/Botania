@@ -1,3 +1,14 @@
+r1.8 248
+*Botania panes now have light. (Lazersmoke)
+*Botania's backported 1.8 stones now support the ore dictionary for variant recipes. (Lazersmoke)
+*Changed a bit the Lexica Botania's cover.
+*Fixed alternate grass types not being able to sustain sugar cane.
+*Fixed alternate grass types not breaking faster with a shovel.
+*Fixed Mana Flashes not having a lexicon binding.
+*Fixed Mana Lenses having a possible invalid recipe. (Lazersmoke)
+*Fixed the Hopperhock calling inventory methods on the client side, and thus, crashing when used alongside a BetterStorage Crate.
+*Fixed the Ring of Odin Fire Resistance config not changing its extinguish behaviour.
+*Platforms now handle block render colors via metadata. (yrsegal)
 r1.8 247
 *Added a config option to disable thaumcraft infusion stabilizing because some people are sadists, apparently.
 *Added config options to change the harvest level of the Weight and Bore Lenses and defined said harvest levels properly in the check for what they can break/displace.
