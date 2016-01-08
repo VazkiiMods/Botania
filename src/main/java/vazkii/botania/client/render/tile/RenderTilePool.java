@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -69,15 +70,20 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		int color = pool.getColor().getMapColor().colorValue | 0xFF000000; // Add alpha
+		int color;
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+		} else {
+			color = pool.getColor().getMapColor().colorValue | 0xFF000000; // Add alpha
 		}
+
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool.getWorld().getBlockState(pool.getPos()));
 		Tessellator tess = Tessellator.getInstance();
+
 		tess.getWorldRenderer().begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
 
+		GlStateManager.disableLighting();
 		for (BakedQuad quad : model.getGeneralQuads()) {
 			LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
 		}
