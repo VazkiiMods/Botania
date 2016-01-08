@@ -17,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -94,11 +95,19 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * Gets the icon for this SubTileEntity, this is a block icon.
+	 * Gets the block model path for this subtile
 	 */
-	@SideOnly(Side.CLIENT) // todo 1.8 reevaluate need
-	public TextureAtlasSprite getIcon() {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getBlockModel() {
+		return BotaniaAPI.internalHandler.getSubTileBlockModelForName(getUnlocalizedName());
+	}
+
+	/**
+	 * Gets the item model path for this subtile
+	 */
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getItemModel() {
+		return BotaniaAPI.internalHandler.getSubTileItemModelForName(getUnlocalizedName());
 	}
 
 	/**

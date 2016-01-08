@@ -108,10 +108,10 @@ public class SpecialFlowerModel implements IModelCustomData {
             }
         }
 
-        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.queuedBlockModels.entrySet()) {
+        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.getRegisteredSubtileBlockModels().entrySet()) {
             blockBuilder.put(Optional.of(e.getKey()), e.getValue());
         }
-        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.queuedItemModels.entrySet()) {
+        for (Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.getRegisteredSubtileItemModels().entrySet()) {
             itemBuilder.put(Optional.of(e.getKey()), e.getValue());
         }
 

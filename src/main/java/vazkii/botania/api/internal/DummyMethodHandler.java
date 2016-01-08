@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -27,6 +28,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -134,13 +137,13 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public TextureAtlasSprite getSubTileIconForName(String name) {
-		return null; //todo 1.8 return Blocks.red_flower.getIcon(0, 0);
+	public ModelResourceLocation getSubTileBlockModelForName(String name) {
+		return new ModelResourceLocation("builtin/missing", "missing");
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, TextureMap map) {
-		// NO-OP
+	public ModelResourceLocation getSubTileItemModelForName(String name) {
+		return new ModelResourceLocation("builtin/missing", "missing");
 	}
 
 	@Override

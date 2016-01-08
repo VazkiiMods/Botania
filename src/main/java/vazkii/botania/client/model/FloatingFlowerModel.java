@@ -96,6 +96,7 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
         return getModel(islandType, identifier);
     }
 
+    // Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
     private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, String identifier) {
         ModelManager modelManager = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager();
 
@@ -177,59 +178,35 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
             genQuads = genBuilder.build();
         }
 
-        @Override
-        public List<BakedQuad> getGeneralQuads() {
+        // Forward all to flower model
+        @Override public List<BakedQuad> getGeneralQuads() {
             return genQuads;
         }
-
-        @Override
-        public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return ImmutableList.of(); }
-
-        @Override
-        public boolean isAmbientOcclusion() {
+        @Override public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return ImmutableList.of(); }
+        @Override public boolean isAmbientOcclusion() {
             return base.isAmbientOcclusion();
         }
-
-        @Override
-        public boolean isGui3d() {
+        @Override public boolean isGui3d() {
             return true;
         }
-
-        @Override
-        public boolean isBuiltInRenderer() {
+        @Override public boolean isBuiltInRenderer() {
             return base.isBuiltInRenderer();
         }
-
-        @Override
-        public TextureAtlasSprite getParticleTexture() {
+        @Override public TextureAtlasSprite getParticleTexture() {
             return base.getParticleTexture();
         }
-
-        @Override
-        public ItemCameraTransforms getItemCameraTransforms() {
+        @Override public ItemCameraTransforms getItemCameraTransforms() {
             return base.getItemCameraTransforms();
         }
     }
 
-    @Override
-    public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return ImmutableList.of(); }
-
-    @Override
-    public List<BakedQuad> getGeneralQuads() { return ImmutableList.of(); }
-
-    @Override
-    public boolean isAmbientOcclusion() { return false; }
-
-    @Override
-    public boolean isGui3d() { return true; }
-
-    @Override
-    public boolean isBuiltInRenderer() { return false; }
-
-    @Override
-    public TextureAtlasSprite getParticleTexture() { return null; }
-
-    @Override
-    public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+    // Dummy results
+    @Override public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return ImmutableList.of(); }
+    @Override public List<BakedQuad> getGeneralQuads() { return ImmutableList.of(); }
+    @Override public boolean isAmbientOcclusion() { return false; }
+    @Override public boolean isGui3d() { return true; }
+    @Override public boolean isBuiltInRenderer() { return false; }
+    @Override public TextureAtlasSprite getParticleTexture() { return null; }
+    @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
 }

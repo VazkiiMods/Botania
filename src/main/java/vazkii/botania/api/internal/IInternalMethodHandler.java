@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -85,10 +86,11 @@ public interface IInternalMethodHandler {
 
 	public String getStackSubTileKey(ItemStack stack);
 
-	// todo 1.8 evaluate need for these two
-	public TextureAtlasSprite getSubTileIconForName(String name);
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getSubTileBlockModelForName(String name);
 
-	public void registerBasicSignatureIcons(String name, TextureMap map);
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getSubTileItemModelForName(String name);
 
 	public boolean shouldForceCheck();
 

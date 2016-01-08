@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -30,6 +31,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
@@ -46,6 +49,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.render.SpecialFlowerModel;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
@@ -98,18 +102,13 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public TextureAtlasSprite getSubTileIconForName(String name) {
-//		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
-//		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon; todo 1.8
-		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:red_flower");
+	public ModelResourceLocation getSubTileBlockModelForName(String name) {
+		return BotaniaAPIClient.getRegisteredSubtileBlockModels().get(name);
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, TextureMap map) {
-//		IIcon normal = IconHelper.forName(register, name); todo 1.8
-//		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
-//		BlockSpecialFlower.icons.put(name, normal);
-//		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);
+	public ModelResourceLocation getSubTileItemModelForName(String name) {
+		return BotaniaAPIClient.getRegisteredSubtileItemModels().get(name);
 	}
 
 	@Override
