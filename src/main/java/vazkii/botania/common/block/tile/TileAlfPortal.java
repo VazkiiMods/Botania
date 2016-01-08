@@ -194,7 +194,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	public boolean onWanded() {
-		AlfPortalState state = ((AlfPortalState) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE));
+		AlfPortalState state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {

@@ -52,7 +52,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((CustomBrickVariant) state.getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT).ordinal();
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		CustomBrickVariant variant = ((CustomBrickVariant) world.getBlockState(pos).getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT));
+		CustomBrickVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT);
 		return variant.getName().contains("azulejo") ? LexiconData.azulejo : LexiconData.decorativeBlocks;
 	}
 

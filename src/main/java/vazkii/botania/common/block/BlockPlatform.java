@@ -57,7 +57,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((PlatformVariant) state.getValue(BotaniaStateProps.PLATFORM_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT).ordinal();
 	}
 
 	@Override
@@ -92,14 +92,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-		PlatformVariant variant = ((PlatformVariant) state.getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override
 	public float getBlockHardness(World par1World, BlockPos pos) {
-		PlatformVariant variant = ((PlatformVariant) par1World.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		PlatformVariant variant = par1World.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(par1World, pos);
 	}
 
@@ -110,7 +110,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		PlatformVariant variant = ((PlatformVariant) world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT));
+		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		return variant == PlatformVariant.ABSTRUSE ? LexiconData.platform : variant == PlatformVariant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 

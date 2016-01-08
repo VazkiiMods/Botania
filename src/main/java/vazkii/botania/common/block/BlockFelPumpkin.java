@@ -52,7 +52,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getHorizontalIndex();
+		return state.getValue(BotaniaStateProps.CARDINALS).getHorizontalIndex();
 	}
 
 	@Override

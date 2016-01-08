@@ -35,7 +35,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int meta = ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
+		int meta = state.getValue(BotaniaStateProps.FACING).getIndex();
 		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {

@@ -70,7 +70,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
-		placeDoubleFlower(world, pos, ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)), 1 | 2);
+		placeDoubleFlower(world, pos, state.getValue(BotaniaStateProps.COLOR), 1 | 2);
 	}
 
 	public static void placeDoubleFlower(World world, BlockPos pos, EnumDyeColor color, int flags) {

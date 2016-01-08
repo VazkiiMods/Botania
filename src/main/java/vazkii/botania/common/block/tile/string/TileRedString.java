@@ -76,7 +76,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	}
 
 	public EnumFacing getOrientation() {
-		return ((EnumFacing) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.FACING));
+		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.FACING);
 	}
 
 	public TileEntity getTileAtBinding() {

@@ -31,7 +31,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((BiomeBrickVariant) state.getValue(BotaniaStateProps.BIOMEBRICK_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.BIOMEBRICK_VARIANT).ordinal();
 	}
 
 	@Override

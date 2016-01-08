@@ -29,7 +29,7 @@ public class TileManaBeacon extends TileMod implements ITickable {
 		}
 
 		if(!redstone) {
-			int hex = ((EnumDyeColor) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+			int hex = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 			int r = (hex & 0xFF0000) >> 16;
 			int g = (hex & 0xFF00) >> 8;
 			int b = (hex & 0xFF);

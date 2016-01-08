@@ -56,7 +56,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.ALTGRASS_VARIANT).ordinal();
 	}
 
 	@Override
@@ -83,8 +83,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		if(!world.isRemote && world.getLight(pos.up()) >= 9) {
-			AltGrassVariant variant = ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
+		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
+			AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				
@@ -113,7 +113,9 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random r) {
-		AltGrassVariant variant = ((AltGrassVariant) state.getValue(BotaniaStateProps.ALTGRASS_VARIANT));
+		if (state.getBlock() != this)
+			return;
+		AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 		switch(variant) {
 		case DRY: // Dry
 			break;

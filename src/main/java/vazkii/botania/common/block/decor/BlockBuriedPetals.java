@@ -40,12 +40,12 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return ColoredLightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), originalLight);
+		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
 	@Override
 	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
-		EnumDyeColor color = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR));
+		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);
 		int hex = color.getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

@@ -60,7 +60,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((AlfPortalState) state.getValue(BotaniaStateProps.ALFPORTAL_STATE)).ordinal();
+		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE).ordinal();
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF ? 0 : 15;
+		return world.getBlockState(pos).getBlock() == this && world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;
 	}
 
 }

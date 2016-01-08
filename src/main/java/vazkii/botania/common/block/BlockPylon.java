@@ -61,7 +61,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((PylonVariant) state.getValue(BotaniaStateProps.PYLON_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.PYLON_VARIANT).ordinal();
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		PylonVariant variant = ((PylonVariant) world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT));
+		PylonVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT);
 		return variant == PylonVariant.MANA ? LexiconData.pylon : variant == PylonVariant.NATURA ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
 	}
 

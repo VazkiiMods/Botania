@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.google.common.base.Predicates;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -140,6 +141,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	List<PositionProperties> lastTentativeBurst;
 	boolean invalidTentativeBurst = false;
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return true;
+	}
 
 	@Override
 	public boolean isFull() {

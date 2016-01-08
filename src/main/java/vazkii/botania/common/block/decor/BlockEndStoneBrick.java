@@ -52,7 +52,7 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EndBrickVariant) state.getValue(BotaniaStateProps.ENDBRICK_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.ENDBRICK_VARIANT).ordinal();
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getRenderColor(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+		return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 	}
 
 	@Override

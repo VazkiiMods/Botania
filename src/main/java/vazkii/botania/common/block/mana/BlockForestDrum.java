@@ -65,7 +65,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((DrumVariant) state.getValue(BotaniaStateProps.DRUM_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.DRUM_VARIANT).ordinal();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(burst.isFake())
 			return;
-		DrumVariant variant = ((DrumVariant) world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT));
+		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
 		if(variant == DrumVariant.WILD)
 			ItemGrassHorn.breakGrass(world, null, 0, pos);
 		else if(variant == DrumVariant.CANOPY)
@@ -172,7 +172,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		DrumVariant variant = ((DrumVariant) world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT));
+		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
 
 		switch(variant) {
 		case GATHERING:

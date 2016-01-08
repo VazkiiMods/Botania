@@ -52,7 +52,7 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.CARDINALS)).getIndex();
+		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
 	@Override

@@ -147,7 +147,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR)).getMetadata();
+		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
 	@Override
@@ -163,7 +163,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 		if(currentLight == -1)
 			currentLight = 0;
-		return LightHelper.getPackedColor(((EnumDyeColor) world.getBlockState(pos).getValue(BotaniaStateProps.COLOR)), currentLight);
+		return LightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), currentLight);
 	}
 
 	@Override
@@ -283,7 +283,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public int getRenderColor(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR))
+		return state.getValue(BotaniaStateProps.COLOR)
 				.getMapColor().colorValue;
 	}
 
@@ -297,7 +297,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.dye) {
 			EnumDyeColor newColor = EnumDyeColor.byMetadata(stack.getItemDamage());
-			EnumDyeColor oldColor = ((EnumDyeColor) state.getValue(BotaniaStateProps.COLOR));
+			EnumDyeColor oldColor = state.getValue(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
 				world.setBlockState(pos, state.withProperty(BotaniaStateProps.COLOR, newColor), 1 | 2);
 		}

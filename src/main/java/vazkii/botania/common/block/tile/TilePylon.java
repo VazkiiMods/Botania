@@ -36,7 +36,7 @@ public class TilePylon extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		++ticks;
-		PylonVariant variant = ((PylonVariant) worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT));
+		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 
 		if(activated && worldObj.isRemote) {
 			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && worldObj.getBlockState(centerPos).getBlock().getMetaFromState(worldObj.getBlockState(centerPos)) == 0) { // todo 1.8 clarify
@@ -70,7 +70,7 @@ public class TilePylon extends TileEntity implements ITickable {
 
 				Block block = worldObj.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int hex = ((EnumDyeColor) worldObj.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR)).getMapColor().colorValue;
+					int hex = worldObj.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = (hex & 0xFF);

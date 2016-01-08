@@ -45,7 +45,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Enum) state.getValue(BotaniaStateProps.BIOMESTONEWALL_VARIANT)).ordinal() - 8;
+		return state.getValue(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ordinal() - 8;
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Enum) state.getValue(BotaniaStateProps.STORAGE_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.STORAGE_VARIANT).ordinal();
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		StorageVariant variant = ((StorageVariant) world.getBlockState(pos).getValue(BotaniaStateProps.STORAGE_VARIANT));
+		StorageVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.STORAGE_VARIANT);
 		return variant == StorageVariant.MANASTEEL ? LexiconData.pool : LexiconData.terrasteel;
 	}
 

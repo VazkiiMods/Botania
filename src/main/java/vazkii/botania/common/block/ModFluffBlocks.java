@@ -347,7 +347,7 @@ public final class ModFluffBlocks {
 		stoneWall = new Block18StoneWall();
 
 		count = 0;
-		for (EnumDyeColor color : ((Collection<EnumDyeColor>) BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues())) {
+		for (EnumDyeColor color : BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues()) {
 			pavementStairs[count] = new BlockPavementStairs(color);
 			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
 			pavementFullSlabs[count] = new BlockPavementSlab(true, color, count);

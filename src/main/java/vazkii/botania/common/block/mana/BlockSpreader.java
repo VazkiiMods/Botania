@@ -71,7 +71,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((SpreaderVariant) state.getValue(BotaniaStateProps.SPREADER_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal();
 	}
 
 	@Override
@@ -252,7 +252,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		SpreaderVariant variant = ((SpreaderVariant) world.getBlockState(pos).getValue(BotaniaStateProps.SPREADER_VARIANT));
+		SpreaderVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.SPREADER_VARIANT);
 		return variant == SpreaderVariant.MANA ? LexiconData.spreader : variant == SpreaderVariant.REDSTONE ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 

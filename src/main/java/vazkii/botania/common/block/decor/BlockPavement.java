@@ -53,7 +53,7 @@ public class BlockPavement extends BlockMod {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		switch ((EnumDyeColor) state.getValue(BotaniaStateProps.PAVEMENT_COLOR)) {
+		switch (state.getValue(BotaniaStateProps.PAVEMENT_COLOR)) {
 			case GREEN: return 5;
 			case YELLOW: return 4;
 			case RED: return 3;

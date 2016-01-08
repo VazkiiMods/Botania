@@ -52,7 +52,7 @@ public class Block18Stone extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((FutureStoneVariant) state.getValue(BotaniaStateProps.FUTURESTONE_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.FUTURESTONE_VARIANT).ordinal();
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 				if(tile != null && tile instanceof IManaPool && !pump.hasRedstone) {
 					IManaPool pool = (IManaPool) tile;
-					EnumFacing pumpDir = ((EnumFacing) worldObj.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS));
+					EnumFacing pumpDir = worldObj.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS);
 					boolean did = false;
 					boolean can = false;
 

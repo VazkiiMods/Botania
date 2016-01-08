@@ -68,7 +68,7 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
-		EnumFacing facing = ((EnumFacing) w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS));
+		EnumFacing facing = w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS);
 		setBlockBounds(facing.getAxis());
 	}
 

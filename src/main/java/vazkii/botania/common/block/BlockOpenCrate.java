@@ -73,7 +73,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((CrateVariant) state.getValue(BotaniaStateProps.CRATE_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.CRATE_VARIANT).ordinal();
 	}
 
 	@Override

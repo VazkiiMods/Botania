@@ -54,7 +54,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((LivingWoodVariant) state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT).ordinal();
 	}
 
 	@Override

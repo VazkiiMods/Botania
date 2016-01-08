@@ -53,7 +53,7 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(BotaniaStateProps.FACING)).getIndex();
+		return state.getValue(BotaniaStateProps.FACING).getIndex();
 	}
 
 	@Override

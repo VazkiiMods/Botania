@@ -53,7 +53,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((PrismarineVariant) state.getValue(BotaniaStateProps.PRISMARINE_VARIANT)).ordinal();
+		return state.getValue(BotaniaStateProps.PRISMARINE_VARIANT).ordinal();
 	}
 
 	@Override
