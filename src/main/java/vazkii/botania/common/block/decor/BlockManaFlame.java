@@ -23,14 +23,17 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import cpw.mods.fml.common.Optional;
 
-public class BlockManaFlame extends BlockModContainer {
+public class BlockManaFlame extends BlockModContainer implements ILexiconable {
 
 	public BlockManaFlame() {
 		super(Material.cloth);
@@ -111,6 +114,11 @@ public class BlockManaFlame extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileManaFlame();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.lenses;
 	}
 
 }
