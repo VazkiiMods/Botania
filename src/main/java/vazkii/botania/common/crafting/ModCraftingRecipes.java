@@ -2223,8 +2223,31 @@ public final class ModCraftingRecipes {
 
 		// 1.8 Block Stone Stairs & Slabs
 		for(int i = 0; i < 4; i++) {
-			addStairsAndSlabs(ModFluffBlocks.stone, i, ModFluffBlocks.stoneStairs[i], ModFluffBlocks.stoneSlabs[i]);
-			addStairsAndSlabs(ModFluffBlocks.stone, i + 8, ModFluffBlocks.stoneStairs[i + 4], ModFluffBlocks.stoneSlabs[i + 4]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneSlabs[i], 6),
+					"QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneStairs[i], 4),
+					"  Q", " QQ", "QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneStairs[i], 4),
+					"Q  ", "QQ ", "QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i),
+					"Q", "Q",
+					'Q', new ItemStack(ModFluffBlocks.stoneSlabs[i]));
+			
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 6),
+					"QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i + 8]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneStairs[i + 4], 4),
+					"  Q", " QQ", "QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i + 8]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stoneStairs[i + 4], 4),
+					"Q  ", "QQ ", "QQQ",
+					'Q', LibOreDict.STONE_18_VARIANTS[i + 8]);
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 8),	//VERY 		VERY
+					"Q", "Q",												//BIG		BIG
+					'Q', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4]));	//PROBLEM	PROBLEM
 		}
 
 		// Pavement Stairsm & Stairs
