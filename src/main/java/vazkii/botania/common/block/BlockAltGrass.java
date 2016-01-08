@@ -51,6 +51,11 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
+	public boolean isToolEffective(String type, int metadata) {
+		return type.equals("shovel");
+	}
+	
+	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
@@ -108,7 +113,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
+		EnumPlantType type = plantable.getPlantType(world, x, y - 1, z); 
+		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
 	}
 
 	@Override
