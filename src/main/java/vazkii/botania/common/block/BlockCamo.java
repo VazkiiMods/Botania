@@ -121,8 +121,7 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 			TileCamo camo = (TileCamo) tile;
 			Block block = camo.camo;
 			if(block != null)
-				return block instanceof BlockCamo ? 0xFFFFFF : block.colorMultiplier(par1World, pos, pass);
-
+				return block instanceof BlockCamo ? 0xFFFFFF : block.getRenderColor(block.getDefaultState()); // todo
 		}
 		return 0xFFFFFF;
 	}

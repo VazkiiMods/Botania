@@ -55,6 +55,11 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
+	public boolean isToolEffective(String type, IBlockState state) {
+		return type.equals("shovel");
+	}
+
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(BotaniaStateProps.ALTGRASS_VARIANT).ordinal();
 	}
@@ -108,7 +113,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
-		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
+		EnumPlantType type = plantable.getPlantType(world, pos.down());
+		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
 	}
 
 	@Override

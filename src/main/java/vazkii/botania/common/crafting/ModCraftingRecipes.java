@@ -2187,13 +2187,10 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 8; i++)
 			addWall(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneWall, i);
 
-		addWall(ModFluffBlocks.stone, 0, ModFluffBlocks.stoneWall, 0); // Andesite todo 1.8 convert to OreDict?
-		addWall(Blocks.stone, 5, ModFluffBlocks.stoneWall, 0);
-		addWall(ModFluffBlocks.stone, 1, ModFluffBlocks.stoneWall, 1); // Basalt
-		addWall(ModFluffBlocks.stone, 2, ModFluffBlocks.stoneWall, 2); // Diorite
-		addWall(Blocks.stone, 3, ModFluffBlocks.stoneWall, 2); // Diorite
-		addWall(ModFluffBlocks.stone, 3, ModFluffBlocks.stoneWall, 3); // Granite
-		addWall(Blocks.stone, 1, ModFluffBlocks.stoneWall, 3); // Granite
+		addWallWithOreDict(LibOreDict.STONE_18_VARIANTS[0], ModFluffBlocks.stoneWall, 0); // Andesite
+		addWallWithOreDict(LibOreDict.STONE_18_VARIANTS[1], ModFluffBlocks.stoneWall, 1); // Basalt
+		addWallWithOreDict(LibOreDict.STONE_18_VARIANTS[2], ModFluffBlocks.stoneWall, 2); // Diorite
+		addWallWithOreDict(LibOreDict.STONE_18_VARIANTS[3], ModFluffBlocks.stoneWall, 3); // Granite
 
 		// Pane Recipes
 		addPane(ModBlocks.manaGlass, ModFluffBlocks.managlassPane);
@@ -2210,23 +2207,20 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
 		}
 
-		// Andesite Basalt Diorite Granite Stair/Slab todo 1.8 convert to oredict?
-		addStairsAndSlabs(ModFluffBlocks.stone, 0, ModFluffBlocks.stoneStairs[0], ModFluffBlocks.stoneSlabs[0]);
-		addStairsAndSlabs(Blocks.stone, 5, ModFluffBlocks.stoneStairs[0], ModFluffBlocks.stoneSlabs[0]);
+		// Andesite Basalt Diorite Granite Stair/Slab
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[0], Blocks.stone, 5, ModFluffBlocks.stoneStairs[0], ModFluffBlocks.stoneSlabs[0]);
 
-		addStairsAndSlabs(ModFluffBlocks.stone, 1, ModFluffBlocks.stoneStairs[1], ModFluffBlocks.stoneSlabs[1]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[1], ModFluffBlocks.stone, 1, ModFluffBlocks.stoneStairs[1], ModFluffBlocks.stoneSlabs[1]);
 
-		addStairsAndSlabs(ModFluffBlocks.stone, 2, ModFluffBlocks.stoneStairs[2], ModFluffBlocks.stoneSlabs[2]);
-		addStairsAndSlabs(Blocks.stone, 3, ModFluffBlocks.stoneStairs[2], ModFluffBlocks.stoneSlabs[2]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[2], Blocks.stone, 3, ModFluffBlocks.stoneStairs[2], ModFluffBlocks.stoneSlabs[2]);
 
-		addStairsAndSlabs(ModFluffBlocks.stone, 3, ModFluffBlocks.stoneStairs[3], ModFluffBlocks.stoneSlabs[3]);
-		addStairsAndSlabs(Blocks.stone, 1, ModFluffBlocks.stoneStairs[3], ModFluffBlocks.stoneSlabs[3]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[3], Blocks.stone, 1, ModFluffBlocks.stoneStairs[3], ModFluffBlocks.stoneSlabs[3]);
 
 		// Andesite Basalt Diorite Granite Bricks Stair/Slab
-		addStairsAndSlabs(ModFluffBlocks.stone, 8, ModFluffBlocks.stoneStairs[4], ModFluffBlocks.stoneSlabs[4]);
-		addStairsAndSlabs(ModFluffBlocks.stone, 9, ModFluffBlocks.stoneStairs[5], ModFluffBlocks.stoneSlabs[5]);
-		addStairsAndSlabs(ModFluffBlocks.stone, 10, ModFluffBlocks.stoneStairs[6], ModFluffBlocks.stoneSlabs[6]);
-		addStairsAndSlabs(ModFluffBlocks.stone, 11, ModFluffBlocks.stoneStairs[7], ModFluffBlocks.stoneSlabs[7]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[8], ModFluffBlocks.stone, 8, ModFluffBlocks.stoneStairs[4], ModFluffBlocks.stoneSlabs[4]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[9], ModFluffBlocks.stone, 9, ModFluffBlocks.stoneStairs[5], ModFluffBlocks.stoneSlabs[5]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[10], ModFluffBlocks.stone, 10, ModFluffBlocks.stoneStairs[6], ModFluffBlocks.stoneSlabs[6]);
+		addStairsAndSlabsWithOredict(LibOreDict.STONE_18_VARIANTS[11], ModFluffBlocks.stone, 11, ModFluffBlocks.stoneStairs[7], ModFluffBlocks.stoneSlabs[7]);
 
 		// Pavement Stairsm & Stairs
 		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
@@ -2283,10 +2277,32 @@ public final class ModCraftingRecipes {
 				'Q', new ItemStack(slab));
 	}
 
+	// Same as above, but use od for forward recipes, only use block and meta for slab -> full block recipe
+	private static void addStairsAndSlabsWithOredict(String od, Block block, int meta, Block stairs, Block slab) {
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slab, 6),
+				"QQQ",
+				'Q', od));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairs, 4),
+				"  Q", " QQ", "QQQ",
+				'Q', od));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairs, 4),
+				"Q  ", "QQ ", "QQQ",
+				'Q', od));
+		GameRegistry.addRecipe(new ItemStack(block, 1, meta),
+				"Q", "Q",
+				'Q', new ItemStack(slab)); // TODO this causes conflicts between the brick slab -> brick restoration recipe and the brick slab -> chiseled brick recipe
+	}
+
 	private static void addWall(Block block, int blockMeta, Block wall, int wallMeta) {
 		GameRegistry.addRecipe(new ItemStack(wall, 6, wallMeta),
 				"BBB", "BBB",
 				'B', new ItemStack(block, 1, blockMeta));
+	}
+
+	private static void addWallWithOreDict(String od, Block wall, int wallMeta) {
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wall, 6, wallMeta),
+				"BBB", "BBB",
+				'B', od));
 	}
 
 	private static void addPane(Block block, Block pane) {

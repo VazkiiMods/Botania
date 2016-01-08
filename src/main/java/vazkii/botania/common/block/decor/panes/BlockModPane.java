@@ -35,6 +35,7 @@ public class BlockModPane extends BlockPane {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
 		setStepSound(soundTypeGlass);
+		setLightLevel(1.0F);
 		useNeighborBrightness = true;
 	}
 

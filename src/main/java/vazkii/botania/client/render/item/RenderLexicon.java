@@ -99,12 +99,14 @@ public class RenderLexicon implements IItemRenderer {
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
 			GlStateManager.translate(0F, 10F, 0F);
-			font.drawString(EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
+			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
 			GlStateManager.translate(0F, 50F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
+
 			GlStateManager.translate(0F, 10F, 0F);
-			font.drawString(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
+			font.drawString(EnumChatFormatting.UNDERLINE + "" + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
+
 			if(bevo || saice) {
 				GlStateManager.translate(0F, 10F, 0F);
 				font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);

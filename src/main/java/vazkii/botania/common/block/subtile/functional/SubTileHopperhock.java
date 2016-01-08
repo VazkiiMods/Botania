@@ -93,7 +93,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int availablePut = InventoryHelper.testInventoryInsertion(inv, stack, dir);
+					int availablePut = supertile.getWorld().isRemote ? 1 : InventoryHelper.testInventoryInsertion(inv, stack, dir);
 					canAccept &= availablePut > 0;
 
 					if(canAccept) {
@@ -112,9 +112,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 				}
 			}
 
-			if(invToPutItemIn != null) {
+			if(invToPutItemIn != null && !item.isDead) {
 				boolean remote = supertile.getWorld().isRemote;
-				if(!item.isDead && remote) {
+				if(remote) {
 					if(!particled.contains(item)) {
 						SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 						particled.add(item);
