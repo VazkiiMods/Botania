@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
-import java.util.UUID;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -62,10 +61,10 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 			if(stack.getItem() != null && stack.getItem() == this) {
 				event.entityItem.setDead();
 
-				UUID user = getSoulbindUuid(stack);
+				String user = getSoulbindUsername(stack);
 				for(Item item : new Item[] { ModItems.thorRing, ModItems.lokiRing, ModItems.odinRing }) {
 					ItemStack stack1 = new ItemStack(item);
-					bindToUuid(user, stack1);
+					bindToUsername(user, stack1);
 					EntityItem entity = new EntityItem(event.entityItem.worldObj, event.entityItem.posX, event.entityItem.posY, event.entityItem.posZ, stack1);
 					entity.motionX = event.entityItem.motionX;
 					entity.motionY = event.entityItem.motionY;

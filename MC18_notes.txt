@@ -10,7 +10,6 @@ Anyways, vanilla removed it from their method so we follow suit.
 * Multiblock system reworked to use states and blockposes
 * Magnet blacklist still uses metas instead of states because they need to support the short maxvalue wildcard.
 * Now includes a way for addons to pass the Botania loader the models they want to use to render their subtile with
-* IRelic changed to use UUIDs
 * Removed icon methods from SubTileSignature
 
 -- Other --

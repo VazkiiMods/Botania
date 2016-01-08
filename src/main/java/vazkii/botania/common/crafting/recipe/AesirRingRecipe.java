@@ -18,8 +18,6 @@ import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.UUID;
-
 public class AesirRingRecipe implements IRecipe {
 
 	@Override
@@ -46,13 +44,13 @@ public class AesirRingRecipe implements IRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
-		UUID soulbind = null;
+		String soulbind = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
 				if(stack.getItem() instanceof IRelic) {
-					UUID bind = ((IRelic) stack.getItem()).getSoulbindUuid(stack);
+					String bind = ((IRelic) stack.getItem()).getSoulbindUsername(stack);
 					if(soulbind == null)
 						soulbind = bind;
 					else if(!soulbind.equals(bind))
@@ -62,7 +60,7 @@ public class AesirRingRecipe implements IRecipe {
 		}
 
 		ItemStack stack = new ItemStack(ModItems.aesirRing);
-		((IRelic) ModItems.aesirRing).bindToUuid(soulbind, stack);
+		((IRelic) ModItems.aesirRing).bindToUsername(soulbind, stack);
 		return stack;
 	}
 
