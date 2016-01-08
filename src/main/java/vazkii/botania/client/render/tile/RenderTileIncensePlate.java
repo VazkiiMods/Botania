@@ -51,11 +51,11 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		// Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, facing.getIndex() - 2), 0)], 0F, 1F, 0F);
-		model.render();
+		// model.render();
 		GlStateManager.scale(1F, -1F, -1F);
 
 		ItemStack stack = plate.getStackInSlot(0);

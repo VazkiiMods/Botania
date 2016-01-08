@@ -420,6 +420,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.spawnerClaw);
         registerItemModel(ModBlocks.turntable);
         registerItemModel(ModBlocks.manaFlame);
+        registerItemModel(ModBlocks.incensePlate);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See RenderEventHandler
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);

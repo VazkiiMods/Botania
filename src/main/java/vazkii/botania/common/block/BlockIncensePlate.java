@@ -137,11 +137,6 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
-	}
-
-	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileIncensePlate();
 	}
