@@ -34,12 +34,12 @@ botaniamisc.toolRank=Rank %s&7
 botaniamisc.edition=%sª Edição
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Escritor
-botaniamisc.lexiconcover0=Seu guia para
-botaniamisc.lexiconcover1=necessidades Botânicas
-botaniamisc.lexiconcover2=do melhor autor
-botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
-botaniamisc.lexiconcover4=Editado por BevoLJ
-botaniamisc.lexiconcover5=Editado por Saice
+botaniamisc.lexiconcover0=Um manual por Lizbeth
+botaniamisc.lexiconcover1="Vazkii" Whitewood
+botaniamisc.lexiconcover2=O guia oficial para
+botaniamisc.lexiconcover3=suas dúvidas em Botania!
+botaniamisc.lexiconcover4=Edited by BevoLJ
+botaniamisc.lexiconcover5=Edited by Saice
 botaniamisc.shiftinfo=Segure &bSHIFT&7 para mais informações
 botaniamisc.knowledgeTypesSingular=Contém a Escola de Conhecimento: %s
 botaniamisc.knowledgeTypesPlural=Contém as Escolas de Conhecimento: %s
@@ -65,7 +65,7 @@ botaniamisc.dropTip1=CTRL-%key% derruba uma stack completa
 botaniamisc.wandMode.bind=Modo de associação
 botaniamisc.wandMode.function=Mode funcional
 botaniamisc.playVideo=Mostrar vídeo
-botaniamisc.brewOf=Poção de %s
+botaniamisc.brewOf=Fermentado de %s
 botaniamisc.needsCatalysts=Não importa o quanto você forçe a barra de Terrasteel no Sinalizador, nada acontece, talvez a disposição dos pilões catalizadores esteja errada.
 botaniamisc.peacefulNoob=Você tenta oferecer a barra de Terrasteel, mas vibrações pacíficas do seu mundo parecem impedir. Talvez você possa fazer algo para resolver.
 botaniamisc.notInfused=Não infundido
@@ -150,6 +150,8 @@ botaniamisc.noVideo=O vídeo volta em breve. Desculpa :(
 botaniamisc.adaptativeConfigChanges=As configurações adaptivas do Botania mudaram alguns padrões por você:
 botaniamisc.altarRefill0=Clique com a mão vazia para
 botaniamisc.altarRefill1=recriar a última receita
+botaniamisc.santaweaveInfo=Manaweave, mudada para as &cf&fe&cs&ft&ca&fs
+botaniamisc.enterToView=^ Aperte ENTER para ver ^
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -159,6 +161,24 @@ botania.nei.manaPool=Infusão com Mana
 botania.nei.petalApothecary=Boticário de Pétalas
 botania.nei.runicAltar=Altar Rúnico
 botania.nei.pureDaisy=Margarida Pura
+botania.nei.lexica=Lexica Botania
+nei.options.keys.gui.botania_corporea_request=Pedido Corporea
+
+botania.nei.lexicaSeparator=Informação extra:
+botania.nei.lexicaNoInfo=(não há informação adicional aqui, desculpa!)
+
+# NEI QUICK LOOKS
+botania.nei.quickInfo:tile.livingwood0~0=Você pode criar Madeira-viva colocando Madeira do lado da Margarida Pura
+botania.nei.quickInfo:tile.livingrock0~0=Você pode criar Rocha-viva colocando Pedra do lado da Margarida Pura
+
+botania.nei.quickInfo:flower.daybloom=Nesse mundo, é matar ou morrer
+botania.nei.quickInfo:flower.daybloomPrimus=Essa flor não pode ser movida, apenas encontrada pelo mundo
+botania.nei.quickInfo:flower.nightshadePrimus=Essa flor não pode ser movida, apenas encontrada pelo mundo
+
+botania.nei.quickInfo:item.bone~0=Você pode se arrepender
+botania.nei.quickInfo:item.lexicon~0=O que você esperava?
+botania.nei.quickInfo:item.terrasteel~4=Você consegue Terrasteel ao jogar os materiais certos na Placa de Aglomeração Terrestre
+botania.nei.quickInfo:item.enderAirBottle~15=Você consegue isso ao clicar com uma Garrafa de Vidro no Fim
 
 # BUILDCRAFT INTEGRATION
 botania.trigger.manaDetector=Pulso de Mana
@@ -1512,10 +1532,10 @@ item.botania:diviningRod.name=Cajado do Manto Pleno
 item.botania:gravityRod.name=Cajado da Mesa Sombria
 item.botania:regenIvy.name=Hera Eterna
 item.botania:manaInkwell.name=Tinteiro do Botanurgista
-item.botania:vial0.name=Frasco de Vidro de Mana
-item.botania:vial1.name=Garrafa de Vidro Élfico
-item.botania:brewVial.name=Frasco de %s (%s)
-item.botania:brewFlask.name=Garrafa de %s (%s)
+item.botania:vial0.name=Frasco Pequeno
+item.botania:vial1.name=Frasco de Vidro Élfico
+item.botania:brewVial.name=Frasco Pequeno de %s (%s)
+item.botania:brewFlask.name=Frasco de %s (%s)
 item.botania:bloodPendant.name=Pingente de Sangue
 item.botania:redString.name=Fio-vermelho
 item.botania:missileRod.name=Cajado do Depósito Instável
@@ -1627,6 +1647,10 @@ item.botania:manaweaveHelm.name=Capuz de Tecido de Mana
 item.botania:manaweaveChest.name=Robe Superior de Tecido de Mana
 item.botania:manaweaveLegs.name=Robe Inferior de Tecido de Mana
 item.botania:manaweaveBoots.name=Botas de Tecido de Mana
+item.botania:santaweaveHelm.name=Capuz Natalino
+item.botania:santaweaveChest.name=Robe Superior Natalino
+item.botania:santaweaveLegs.name=Robe Inferior Natalino
+item.botania:santaweaveBoots.name=Botas Natalinas
 item.botania:gaiaHead.name=Cabeça de Guardião de Gaia
 item.botania:sextant.name=Sextante do Modulador do Mundo
 item.botania:speedUpBelt.name=Cinta do Desbravador Planar
@@ -2238,7 +2262,7 @@ botania.entry.dreamwoodSpreader=Dispersor de Mana Élfico
 botania.tagline.dreamwoodSpreader=Harder, better, faster, stronger
 botania.page.dreamwoodSpreader0=Simplificando, &1Madeira dos sonhos&0 conduz &4Mana&0 melhor que &1Madeira-viva&0. Colocando alguns ajustes como usar &1Elementium&0 ao invés de &1Ouro&0 e o que você consegue é um &1Dispersor de Mana&0 que pode conduzir mais &4Mana&0, mais rápido e por mais tempo sem &4perda de Mana&0.<br>No lado negativo, ele não pode ser convertido em um &1Dispersor de Mana por Redstone&0.
 botania.page.dreamwoodSpreader1=Um Dispersor melhor, só isso
-botania.page.dreamwoodSpreader2=Combinando esse poderoso Dispersor com um &1Espírito de Gaia&0 e uma &1Pedra Draconiana&0, uma variante ainda mais poderosa pode ser criada. O &1Disperosr de Gaia&0 é o melhor dos Dispersores de Mana, com todas melhorias.<br>Note que esse Dispersordispara cargas maiores de Mana, e por isso pode disparar com menos frequência.
+botania.page.dreamwoodSpreader2=Combinando esse poderoso Dispersor com um &1Espírito de Gaia&0 e uma &1Pedra Draconiana&0, uma variante ainda mais poderosa pode ser criada. O &1Dispersor de Gaia&0 é o melhor dos Dispersores de Mana, com todas melhorias.<br>Note que esse Dispersordispara cargas maiores de Mana, e por isso pode disparar com menos frequência.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
 # -- ELVEN MANA LENSES
@@ -2343,7 +2367,7 @@ botania.page.orechid1=&oNot dragon poop&r.
 # -- ORECHID IGNEM
 botania.entry.orechidIgnem=Orechid Ignem
 botania.tagline.orechidIgnem=Cria minérios a partir de Rocha do Nether
-botania.page.orechidIgnem0=A &1Orechid&0 é uma boa flor. A habilidade de criar minérios com &4Mana&0 pode ser uma benção para qualquer botanista sedentério. Entretano, não cria minérios do &4Nether&0. Isso é resolvido facilmente, trocando algumas pétalas, elas cria minérios do &4Nether&0 em &1Rocha do Nether&0. A flor deve estar no Nether para funcionar.
+botania.page.orechidIgnem0=A &1Orechid&0 é uma boa flor. A habilidade de criar minérios com &4Mana&0 pode ser uma benção para qualquer botanista sedentério. Entretanto, não cria minérios do &4Nether&0. Isso é resolvido facilmente, trocando algumas pétalas, elas cria minérios do &4Nether&0 em &1Rocha do Nether&0. A flor deve estar no Nether para funcionar.
 botania.page.orechidIgnem1=&oTá meio quente aqui&r.
 
 # -- FALLEN KANADE
@@ -2569,7 +2593,7 @@ botania.tagline.rafflowsia=Mana de flores
 botania.page.rafflowsia0=Uma vez, os plebeus da nação se divertiam em plantar enormes campos de &1Dayblooms&0, &1Nightshades&0 e &1Hydroangeas&0. Os cidadãos inferiores se aprovetiavam do ganho gratuito de &4Mana&0 proveniente de vários elementos.<br>Eles eram felizes com a própria ignorância.
 botania.page.rafflowsia1=Um dia, os plebeus acordaram com seus grandes jardins secos, e todo seu trabalho duro se tornou &1Arbustos Mortos&0.<br>Revoltados com a traição de seus deuses, os homens e mulheres da nação gritaram: "Flores passivas são inúteis agora!"
 botania.page.rafflowsia2=Ou isso eles acreditavam. Em pouco tempo, sábios engenhosos descobriram uma flor que pode utilizar dessas 'flores inutilizadas'.<br>Essa flor foi apelidada de &1Rafflowsia&0.
-botania.page.rafflowsia3=A &1Rafflowsia&0 funciona como a &1Kekimurus&0, mas usando &4flores passivas&0, ela as encontra e as destrói, gerando &4Mana&0.<br>Entretando, há retornos diminuídos nesse processo, para um uso eficiente, o mesmo tipo de flor não deve ser usada várias vezes seguidas.
+botania.page.rafflowsia3=A &1Rafflowsia&0 funciona como a &1Kekimurus&0, mas usando &4flores passivas&0, ela as encontra e as destrói, gerando &4Mana&0.<br>Entretanto, há retornos diminuídos nesse processo, para um uso eficiente, o mesmo tipo de flor não deve ser usada várias vezes seguidas.
 botania.page.rafflowsia4=&oUm Novo Amanhecer, assim dizendo&r.
 
 # -- DANDELIFEON
@@ -2642,6 +2666,77 @@ botania.page.manaAlchemy22=Quebrando &1Argila&0 e &1Tijolos&0
 botania.page.manaAlchemy23=Fazendo &1Terra Áspera&0
 botania.page.manaAlchemy24=Transmutando &1Grama&0
 botania.page.manaAlchemy25=Transmutando flores mundanas
+
+# -- BOTANICAL BREWERY
+botania.entry.brewery=Fermentador Botânico
+botania.tagline.brewery=Cria poções mais fortes
+botania.page.brewery0=Devido a versatilidade da &4Mana&0, o fato de ser possível fazer novas &4Poções&0 não é surpresa. Simplificando, &4Fermentados&0 são uma variante de &4Poções&0. Eles são produzidos usando &4Mana&0 e alguns outros ingredientes.<br>Diferente das &4Poções&0, &4Fermentados&0 possum receita fixa, e cada frasco dura várias doses.
+botania.page.brewery1=Para criar &4Fermentados&0 é necessário um &1Fermentador Botânico&0, &1Frascos&0 e claro, os reagentes.<br>A &4Mana&0 funciona como solvente e fonte de energia e é fornecida por &4Pulsos de Mana&0, mirando um &1Dispersor de Mana&0 para o &1Fermentador&0.
+botania.page.brewery2=Criando o &1Fermentador Botânico&0
+botania.page.brewery3=Criando &1Frascos&0
+botania.page.brewery4=Trabalhar com o &1Fermentador Botânico&0 é simples. Primeiramente, para adicionar um item, clique com ele no bloco ou jogue-o.<br>Comece adicionando o &1Frasco&0, que é colocado ao topo do fermentador. Prossiga adicionando os reagentes necessários. Assim que um &4Fermentado&0 puder ser criado com tais ingredientes, &4Mana&0 começará a fluir, depois basta esperar.
+botania.page.brewery5a=Um fermentado simples, que replica uma &1Poção de Velocidade&0, aplicando um efeito de &4Velocidade II&0.
+botania.page.brewery5b=Gotta go fast
+botania.page.brewery6a=Um fermentado simples, que replica uma &1Poção de Força&0, aplicando um efeito de &4Força II&0.
+botania.page.brewery6b=Hodor
+botania.page.brewery7a=Um fermentado simples, que replica uma &1Poção de Pressa&0, aplicando um efeito de &4Pressa II&0.
+botania.page.brewery7b=Cheio de C9H13NO3
+botania.page.brewery8a=Um fermentado simples, que replica uma &1Poção de Cura&0, aplicando um efeito de &4Cura Instantânea II&0.
+botania.page.brewery8b=He pulled a Truesilver, GG
+botania.page.brewery9a=Um fermentado simples, que replica uma &1Poção de Super-pulo&0, aplicando um efeito de &4Super Pulo II&0.
+botania.page.brewery9b=I got jumps, isn't that what the kids say?
+botania.page.brewery10a=Um fermentado simples, que replica uma &1Poção de Regeneração&0, aplicando um efeito de &4Regeneração II&0.
+botania.page.brewery10b=Good reaction to simochi
+botania.page.brewery17a=Um fermentado simples, que replica uma &1Poção de Regeneração&0, aplicando um efeito de &4Regeneração&0 mais longo que.
+botania.page.brewery17b=I guess she was just more resilient
+botania.page.brewery11a=Um fermentado simples, que replica uma &1Poção de Resistência&0, aplicando um efeito de &4Resistência II&0.
+botania.page.brewery11b=Can't touch this
+botania.page.brewery12a=Um fermentado simples, que replica uma &1Poção de Resistência ao Fogo&0, aplicando um efeito de &4Resistência ao Fogo&0.
+botania.page.brewery12b=Ele não dragão, fogo não mata dragão
+botania.page.brewery13a=Um fermentado simples, que replica uma &1Poção de Respiração Aquática&0, aplicando um efeito de &4Respiração Aquática&0.
+botania.page.brewery13b=Under the sea, under the sea
+botania.page.brewery14a=Um fermentado simples, que replica uma &1Poção de Invisibilidade&0, aplicando um efeito de &4Invisibilidade&0.
+botania.page.brewery14b=Finja que tem Incursio
+botania.page.brewery15a=Um fermentado simples, que replica uma &1Poção de Visão Noturna&0, aplicando um efeito de &4Visão Noturna&0.
+botania.page.brewery15b=Does it come with a silence?
+botania.page.brewery16a=Um fermentado simples, que replica uma &1Poção de Absorção&0, aplicando um efeito de &4Absorção IV&0.
+botania.page.brewery16b=Você vai pegar um resfriado
+
+# -- BREWING FLASKS
+botania.entry.flasks=Garrafas de Poção
+botania.tagline.flasks=Mais usos para poções
+botania.page.flasks0=&1Vidro Élfico&0 parece ser mais maleável que o &1Vidro de Mana&0 comum usado em &1Frascos Pequenos&0. Um &1Frasco&0, feito de &1Vidro Élfico&0 é o típico armazenamento élfico para &4Fermentados&0, e pode conservar 6 doses, ao invés das 4 de um &1Frasco Pequeno&0.
+botania.page.flasks1=Os custos em ingredientes para um &1Frasco&0 é menor a longo prazo, o custo de &4Mana&0 dobra.<br>Finalmente, devido ao gargalo maior do &1Frasco&0, os conteúdos podem ser consumidos mais rapidamente.
+botania.page.flasks2=Pegue um em baixo da ponte
+
+# -- COMPLEX BREWING
+botania.entry.complexBrews=Fermentados Complexos
+botania.tagline.complexBrews=Poções mais fortes com novos efeitos
+botania.page.complexBrews0=Além dos padrões, simples &1Fermentados&0 que não passam de mímicas de &1Poções&0 que podem ser feitas em um &1Estande de Poções&0 também existem fermentados complexos, com mais efeitos.
+botania.page.complexBrews1a=Essa poção aplica efeitos positivos e negativos. Tomá-la deixa o usuário em um estado de poder, mas com vulnerabilidades.
+botania.page.complexBrews1b=96 Herblore
+botania.page.complexBrews2a=Qualquer entidade afetada por essa poção regenera vida sempre que matar outra criatura.
+botania.page.complexBrews2b=It predates the set
+botania.page.complexBrews3a=Qualquer entidade afetada por essa poção não sofre dano de queda.
+botania.page.complexBrews3b=And I call it magic
+botania.page.complexBrews4a=Essa poção lança uma aura de vazio ao redor de quem a usar. No raio de 128 blocos, nenhum monstro pode aparecer naturalmente.
+botania.page.complexBrews4b=Fechem as comportas
+botania.page.complexBrews5a=Essa poção lança uma aura de vazio ao redor de quem a usar. No raio de 64 blocos, as restrições de aparecimento de monstros são retiradas. Não funciona com &1Vazio da Alma&0.
+botania.page.complexBrews5b=Devemos rezar por um milagre?
+botania.page.complexBrews6a=Um jogador afetado pelo efeito dessa poção possui muito mais habilidade de pesca e consegue os resultados na metade do tempo.
+botania.page.complexBrews6b=Maybe you'll catch a Chris
+botania.page.complexBrews7a=Quando consumida, limpa qualquer efeito do jogador, negativo ou não.
+botania.page.complexBrews7b=Absolute sooooooul
+
+# -- BREW INCENSES
+botania.entry.incense=Incensos
+botania.tagline.incense=Poções com efeito em área
+botania.page.incense0=&4Fermentado&0 oferecem uma variedade de efeitos na forma líquida. Entretanto, não duram muito e levam espaço no inventário. Usando &1Incensos&0, esse problema é aliviado. Eles podem ser infundidos como &4Fermentados&0, mas levam dez vezes mais &4Mana&0.
+botania.page.incense1=Um &1Incenso&0 pode ser colocado numa &1Bandeja de Incensos&0 ao clicar, e um &1Isqueiro&0 para acender. Uma vez acesa, a vareta não pode ser recuperada.<br>Uma única vareta queima por sessenta vezes mais que a forma líquida da poção antes de acabar.
+botania.page.incense2=&1Bandejas de Incenso&0 com &1Incensos&0 acesos aplicam o efeito do &4Fermentado&0 infuso na vareta para qualquer jogador num raio de 30 blocos.<br>Nem todos efeitos são possíveis de aplicar aos &1Incensos&0, por exemplo, &4Cura Instantânea&0 ou &1Absorção&0, ou qualquer fermentado com mais de um efeito.
+botania.page.incense5=Para os amantes de incensos que também são viciados em automação, a &1Bandeja de Incensos&0 pode receber itens por &1Funis&0 ou outros métodos. Ela emite um sinal de &1Comparador&0 de força 1 quando tem uma vareta, e de 2 quando aceso.<br>Finalmente, quando um &4Pulso de Mana&0 com &1Lente de Aquecimento&0 acerta uma bandeja com um incenso, ele se acende.
+botania.page.incense3=Incense is wincense
+botania.page.incense4=I can incense it
 
 # -- FEL PUMPKIN
 botania.entry.felPumpkin=Fel Pumpkin
