@@ -40,7 +40,14 @@ public class PlatformModel implements ISmartBlockModel {
         } else if (heldState != null){
             if (heldState.getBlock().canRenderInLayer(layer)) {
                 // Steal camo's model
-                return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelForState(heldState);
+                IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModelForState(heldState);
+
+                if (model instanceof ISmartBlockModel) {
+                    // Their model can be smart too
+                    model = ((ISmartBlockModel) model).handleBlockState(heldState);
+                }
+
+                return model;
             }
         }
 
