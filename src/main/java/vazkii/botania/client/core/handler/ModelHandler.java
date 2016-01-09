@@ -38,6 +38,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.client.render.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
@@ -446,6 +447,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -697,7 +699,7 @@ public final class ModelHandler {
     }
 
     private static void registerStateMappers() {
-        // Override for floating flowers
+        // Override to let smartmodels work, see RenderEventHandler
         ModelLoader.setCustomStateMapper(ModBlocks.floatingSpecialFlower, new StateMapperBase() {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -712,22 +714,27 @@ public final class ModelHandler {
             }
         });
 
+        ModelLoader.setCustomStateMapper(ModBlocks.platform, new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return new ModelResourceLocation("botania:platform", "normal");
+            }
+        });
+
         // Ignore vanilla facing, variant in double flower
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower1, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
         ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower2, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.field_181084_N).build());
 
-        // Ignore color in unstable cube, mana beacon, and petals (handled by color multiplier)
+        // Ignore color in unstable cube, mana beacon, special flower, and petals (handled by color multiplier)
         ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
         ModelLoader.setCustomStateMapper(ModBlocks.petalBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR, ((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
 
         // Ignore vanilla variant in flowers
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
-
-        // Ignore in special flower to suppress errors (handled in custom statemapper in BlockSpecialFlower
-        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR, ((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
 
         // Ignore vanilla variant in walls
         ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());

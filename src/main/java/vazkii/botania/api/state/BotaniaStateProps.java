@@ -25,9 +25,13 @@ import vazkii.botania.api.state.enums.*;
  */
 public class BotaniaStateProps {
 
-    /** The property for specialFlower **/
+    /** Unlisted properties **/
 
+    // The property for specialFlower subtile id
     public static final PropertyString SUBTILE_ID = new PropertyString("subtile_id");
+
+    // The property for platform held blockstate id
+    public static final PropertyState HELD_STATE = new PropertyState("held_state");
 
     /** Common properties to all blocks to use **/
 

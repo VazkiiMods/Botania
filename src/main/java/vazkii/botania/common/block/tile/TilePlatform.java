@@ -25,7 +25,7 @@ public class TilePlatform extends TileCamo implements IManaCollisionGhost {
 
 	public boolean onWanded(EntityPlayer player) {
 		if(player != null) {
-			if(camo == null || player.isSneaking())
+			if(camoState == null || player.isSneaking())
 				swapSelfAndPass(this, true);
 			else swapSurroudings(this, false);
 			return true;
@@ -45,15 +45,14 @@ public class TilePlatform extends TileCamo implements IManaCollisionGhost {
 			TileEntity tileAt = worldObj.getTileEntity(pos);
 			if(tileAt != null && tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
-				if(empty ? platform.camo != null : platform.camo == null)
+				if(empty ? platform.camoState != null : platform.camoState == null)
 					swapSelfAndPass(platform, empty);
 			}
 		}
 	}
 
 	void swap(TilePlatform tile, boolean empty) {
-		tile.camo = empty ? null : camo;
-		tile.camoMeta = empty ? 0 : camoMeta;
+		tile.camoState = empty ? null : camoState;
 		worldObj.markBlockForUpdate(tile.getPos());
 	}
 

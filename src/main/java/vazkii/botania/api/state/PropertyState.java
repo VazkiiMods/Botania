@@ -8,14 +8,15 @@
  */
 package vazkii.botania.api.state;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
-// An unlisted property that holds a String, used for subtile rendering
-public class PropertyString implements IUnlistedProperty<String> {
+// An unlisted property that holds an IBlockState. Used for platform rendering
+public class PropertyState implements IUnlistedProperty<IBlockState> {
 
     private final String name;
 
-    public PropertyString(String name) {
+    public PropertyState(String name) {
         this.name = name;
     }
 
@@ -25,17 +26,18 @@ public class PropertyString implements IUnlistedProperty<String> {
     }
 
     @Override
-    public boolean isValid(String value) {
+    public boolean isValid(IBlockState value) {
         return true;
     }
 
     @Override
-    public Class<String> getType() {
-        return String.class;
+    public Class<IBlockState> getType() {
+        return IBlockState.class;
     }
 
     @Override
-    public String valueToString(String value) {
-        return value;
+    public String valueToString(IBlockState value) {
+        return value.toString();
     }
+
 }

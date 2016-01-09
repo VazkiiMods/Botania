@@ -31,18 +31,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 
-	static List<Integer> validRenderTypes = Arrays.asList(0, 31, 39);
-
 	protected BlockCamo(Material par2Material) {
 		super(par2Material);
 	}
 
 	public static boolean isValidBlock(Block block) {
-		return block.isOpaqueCube() || isValidRenderType(block.getRenderType());
-	}
-
-	public static boolean isValidRenderType(int type) {
-		return validRenderTypes.contains(type);
+		return block.isOpaqueCube() || block.getRenderType() == 3;
 	}
 
 	@Override
@@ -72,28 +66,13 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 			}
 
 			if(doChange && currentStack.getItem() != null) {
-				int metadata = currentStack.getItemDamage();
+				IBlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateFromMeta(currentStack.getItemDamage());
 				if(block instanceof BlockDirectional) {
-					switch (par6) {
-					case DOWN:
-					case UP:
-						break;
-					case NORTH:
-						metadata = metadata & 12 | 2;
-						break;
-					case SOUTH:
-						metadata = metadata & 12;
-						break;
-					case WEST:
-						metadata = metadata & 12 | 1;
-						break;
-					case EAST:
-						metadata = metadata & 12 | 3;
-						break;
+					if (BlockDirectional.FACING.getAllowedValues().contains(par6.getOpposite())) {
+						changeState = changeState.withProperty(BlockDirectional.FACING, par6.getOpposite());
 					}
 				}
-				camo.camo = Block.getBlockFromItem(currentStack.getItem());
-				camo.camoMeta = metadata;
+				camo.camoState = changeState;
 				par1World.markBlockForUpdate(pos);
 
 				return true;
@@ -119,9 +98,9 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 		TileEntity tile = par1World.getTileEntity(pos);
 		if(tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
-			Block block = camo.camo;
-			if(block != null)
-				return block instanceof BlockCamo ? 0xFFFFFF : block.getRenderColor(block.getDefaultState()); // todo
+			IBlockState state = camo.camoState;
+			if(state != null)
+				return state.getBlock() instanceof BlockCamo ? 0xFFFFFF : state.getBlock().getRenderColor(state);
 		}
 		return 0xFFFFFF;
 	}

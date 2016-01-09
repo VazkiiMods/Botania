@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +25,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -47,12 +53,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		setResistance(5.0F);
 		setStepSound(Block.soundTypeWood);
 		setUnlocalizedName(LibBlockNames.PLATFORM);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
+		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.HELD_STATE, null)
+				.withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.PLATFORM_VARIANT);
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, }, new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE });
 	}
 
 	@Override
@@ -66,6 +74,21 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.values()[meta]);
+	}
+
+	@Override
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if (world.getTileEntity(pos) instanceof TileCamo) {
+			TileCamo tile = ((TileCamo) world.getTileEntity(pos));
+			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
+		} else {
+			return ((IExtendedBlockState) state);
+		}
+	}
+
+	@Override
+	public boolean canRenderInLayer(EnumWorldBlockLayer layer) {
+		return true;
 	}
 
 	@Override
@@ -93,7 +116,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	@Override
 	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
 	}
 

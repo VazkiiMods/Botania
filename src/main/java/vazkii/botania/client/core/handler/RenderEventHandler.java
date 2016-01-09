@@ -9,8 +9,10 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
+import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.PylonItemModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
@@ -43,7 +45,7 @@ public class RenderEventHandler {
     public TextureAtlasSprite[] kingKeyWeaponIcons;
     public Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
 
-    // begin dank_memes todo 1.8 if I can figure out how to render arbitrary baked models then these will no longer be needed
+    // begin dank_memes
     public TextureAtlasSprite tailIcon = null;
     public TextureAtlasSprite phiFlowerIcon = null;
     public TextureAtlasSprite goldfishIcon = null;
@@ -69,6 +71,9 @@ public class RenderEventHandler {
 
         // Pylon item model
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:pylon", "inventory"), new PylonItemModel());
+
+        // Platforms
+        evt.modelRegistry.putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
     }
 
     @SubscribeEvent

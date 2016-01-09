@@ -36,6 +36,9 @@ public class LensMine extends Lens {
 		World world = entity.worldObj;
 
 		BlockPos pos_ = pos.getBlockPos();
+		if (pos_ == null)
+			return false;
+
 		Block block = world.getBlockState(pos_).getBlock();
 
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
