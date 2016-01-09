@@ -58,7 +58,7 @@ public class MultiblockComponent {
 	}
 
 	public boolean matches(World world, BlockPos pos) {
-		return world.getBlockState(pos) == state; // todo 1.8?
+		return world.getBlockState(pos) == state;
 	}
 
 	public ItemStack[] getMaterials() {

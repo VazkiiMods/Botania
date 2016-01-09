@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -36,6 +37,7 @@ import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -51,12 +53,31 @@ public final class MultiblockRenderHandler {
 	public static int dimension;
 
 	static {
-		//todo 1.8 remove when fixed by forge
+		// todo 1.8.8 temporary shim, because cannot renderBlockBrightness directly, see MinecraftForge issue 2353
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, new IMultiblockRenderHook() {
 			@Override
 			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha) {
-				IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);
+				// Steal itemstack model since it has the proper group visibilities configured
+				ItemStack stack = new ItemStack(ModBlocks.pylon, 1, state.getBlock().getMetaFromState(state));
+				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+				GlStateManager.scale(0.65F, 0.65, 0.65F);
+				GlStateManager.translate(0.5F, -0.75F, 0.5F);
 				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
+			}
+
+			@Override
+			public boolean needsTranslate(IBlockState state) {
+				return true;
+			}
+		});
+
+		// TODO also a temporary shim for same reason as above
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.pool, new IMultiblockRenderHook() {
+			@Override
+			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha) {
+				GlStateManager.translate(-0.5F, -0.5F, 0.5F);
+				IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(ModBlocks.pool.getDefaultState());
+				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, ModBlocks.pool.getDefaultState(), 1.0F, false);
 			}
 
 			@Override

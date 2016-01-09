@@ -115,7 +115,7 @@ public final class HUDHandler {
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.getBlockPos());
 							profiler.endSection();
 						}
-					} else if(pos != null && equippedStack.getItem() instanceof ILexicon)
+					} else if(block != null && equippedStack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
 					if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);

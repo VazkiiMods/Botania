@@ -28,6 +28,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
+import vazkii.botania.api.lexicon.multiblock.component.StateInsensitiveComponent;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -114,7 +115,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		for(BlockPos p : PYLON_POSITIONS)
 			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
 		for(BlockPos p : POOL_POSITIONS)
-			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool.getDefaultState());
+			mb.addComponent(new StateInsensitiveComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool));
 
 		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal.getDefaultState());
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
