@@ -13,20 +13,16 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
@@ -34,7 +30,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 	@Override
 	public void renderTileEntityAt(TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
 		Minecraft mc = Minecraft.getMinecraft();
-		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? RenderEventHandler.INSTANCE.lightRelayWorldIconRed : RenderEventHandler.INSTANCE.lightRelayWorldIcon;
+		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed : MiscellaneousIcons.INSTANCE.lightRelayWorldIcon;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);

@@ -55,7 +55,7 @@ import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -95,7 +95,6 @@ import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
 import vazkii.botania.client.render.tile.RenderTileSkullOverride;
 import vazkii.botania.client.render.tile.RenderTileSparkChanger;
-import vazkii.botania.client.render.tile.RenderTileSpawnerClaw;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.client.render.tile.RenderTileStarfield;
 import vazkii.botania.client.render.tile.RenderTileTerraPlate;
@@ -117,7 +116,6 @@ import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
@@ -179,7 +177,7 @@ public class ClientProxy extends CommonProxy {
 
 		super.preInit(event);
 
-		MinecraftForge.EVENT_BUS.register(RenderEventHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 		ModelHandler.registerModels();
 	}
 

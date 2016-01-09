@@ -14,7 +14,6 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -22,17 +21,15 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
-import vazkii.botania.common.item.relic.ItemKingKey;
 
 public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 
@@ -62,7 +59,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.scale(s, s, s);
 		GlStateManager.rotate(-90F, 0F, 1F, 0F);
 		GlStateManager.rotate(45F, 0F, 0F, 1F);
-		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.kingKeyWeaponIcons[weapon.getVariety()];
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.kingKeyWeaponIcons[weapon.getVariety()];
 		GlStateManager.color(1F, 1F, 1F, chargeMul);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

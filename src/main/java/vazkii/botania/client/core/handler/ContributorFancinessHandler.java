@@ -18,19 +18,14 @@ import java.util.Properties;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender.Helper;
@@ -39,9 +34,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.item.material.ItemManaResource;
 import net.minecraftforge.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
@@ -101,7 +94,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 
 	private static void renderTwintails(EntityPlayer player, float partialTicks) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.tailIcon;
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -132,7 +125,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 
 	private static void renderPhiFlower(EntityPlayer player) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.phiFlowerIcon;
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -153,7 +146,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 
 	private static void renderGoldfish(EntityPlayer player) {
 		GlStateManager.pushMatrix();
-		TextureAtlasSprite icon = RenderEventHandler.INSTANCE.goldfishIcon;
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

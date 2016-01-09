@@ -22,9 +22,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.creativetab.CreativeTabs;
@@ -47,6 +47,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -61,7 +62,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -83,7 +83,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int COST_OVERKILL = COST * 3;
 	private static final int MAX_FLY_TIME = 1200;
 
-	//public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
 
@@ -223,7 +222,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
 						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
-							double y = event.entityLiving.posY - 1.7;
+							double y = event.entityLiving.posY - 0.5;
 							double z = event.entityLiving.posZ - 0.5;
 
 							player.getGameProfile().getName();
@@ -332,12 +331,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-/*
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
-			if(meta > 0 && meta <= ItemFlightTiara.wingIcons.length) {
-				IIcon icon = ItemFlightTiara.wingIcons[meta - 1];
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
+				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 				boolean flying = event.entityPlayer.capabilities.isFlying;
 
@@ -428,7 +426,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GlStateManager.rotate(rx, 1F, 0F, 0F);
 				GlStateManager.rotate(ry, 0F, 1F, 0F);
 				GlStateManager.scale(s, s, s);
-				ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 				GlStateManager.scale(sr, sr, sr);
 				GlStateManager.rotate(-ry, 0F, 1F, 0F);
 				GlStateManager.rotate(-rx, 1F, 0F, 0F);
@@ -440,7 +438,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					GlStateManager.rotate(rx, 1F, 0F, 0F);
 					GlStateManager.rotate(ry, 0F, 1F, 0F);
 					GlStateManager.scale(s, s, s);
-					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+					IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 					GlStateManager.scale(sr, sr, sr);
 					GlStateManager.rotate(-ry, 1F, 0F, 0F);
 					GlStateManager.rotate(-rx, 1F, 0F, 0F);
@@ -452,7 +450,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(event.entityPlayer, event.partialRenderTick);
-*/
 	}
 
 	@SideOnly(Side.CLIENT)

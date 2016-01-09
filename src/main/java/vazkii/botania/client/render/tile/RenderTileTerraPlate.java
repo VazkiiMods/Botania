@@ -18,14 +18,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.mana.BlockTerraPlate;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
 public class RenderTileTerraPlate extends TileEntitySpecialRenderer<TileTerraPlate> {
@@ -58,7 +56,7 @@ public class RenderTileTerraPlate extends TileEntitySpecialRenderer<TileTerraPla
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 		ShaderHelper.useShader(ShaderHelper.terraPlateRune);
-		renderIcon(0, 0, RenderEventHandler.INSTANCE.terraPlateOverlay, 1, 1, 240);
+		renderIcon(0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, 240);
 		ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlpha();

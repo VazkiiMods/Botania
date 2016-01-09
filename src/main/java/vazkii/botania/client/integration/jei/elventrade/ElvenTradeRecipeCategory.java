@@ -24,7 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -71,7 +71,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
     @Override
     public void drawAnimations(Minecraft minecraft) {
         minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-        TextureAtlasSprite sprite = RenderEventHandler.INSTANCE.alfPortalTex;
+        TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
         Tessellator tess = Tessellator.getInstance();
         WorldRenderer wr = tess.getWorldRenderer();
         wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);

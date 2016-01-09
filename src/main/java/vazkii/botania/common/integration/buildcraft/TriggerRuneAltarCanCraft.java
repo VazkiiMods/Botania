@@ -1,14 +1,10 @@
 package vazkii.botania.common.integration.buildcraft;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import vazkii.botania.client.core.handler.RenderEventHandler;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.lib.LibTriggerNames;
 import buildcraft.api.statements.IStatementContainer;
@@ -24,7 +20,7 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 
 	@Override
 	public TextureAtlasSprite getGuiSprite() {
-		return RenderEventHandler.INSTANCE.runeAltarTriggerIcon;
+		return MiscellaneousIcons.INSTANCE.runeAltarTriggerIcon;
 	}
 
 	@Override

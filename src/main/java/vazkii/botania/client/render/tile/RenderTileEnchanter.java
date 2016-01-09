@@ -15,22 +15,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.tileentity.TileEntity;
 
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -100,7 +96,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 			}
 
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
-			renderIcon(0, 0, RenderEventHandler.INSTANCE.enchanterOverlay, 5, 5, 240);
+			renderIcon(0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, 240);
 			ShaderHelper.releaseShader();
 		}
 

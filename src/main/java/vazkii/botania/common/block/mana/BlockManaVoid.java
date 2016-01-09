@@ -18,16 +18,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
-import vazkii.botania.client.core.handler.RenderEventHandler;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -55,7 +49,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 
 	@Override
 	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
-		return RenderEventHandler.INSTANCE.manaVoidOverlay;
+		return MiscellaneousIcons.INSTANCE.manaVoidOverlay;
 	}
 
 }

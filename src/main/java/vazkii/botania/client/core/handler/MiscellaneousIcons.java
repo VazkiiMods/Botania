@@ -9,7 +9,6 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
-import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.PlatformModel;
@@ -17,13 +16,14 @@ import vazkii.botania.client.model.PylonItemModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
 import java.util.Map;
 
-public class RenderEventHandler {
+public class MiscellaneousIcons {
 
-    public static final RenderEventHandler INSTANCE = new RenderEventHandler();
+    public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
     public TextureAtlasSprite
         alfPortalTex,
@@ -44,6 +44,7 @@ public class RenderEventHandler {
     public TextureAtlasSprite[] sparkUpgradeIcons;
     public TextureAtlasSprite[] kingKeyWeaponIcons;
     public Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
+    public TextureAtlasSprite[] tiaraWingIcons;
 
     // begin dank_memes
     public TextureAtlasSprite tailIcon = null;
@@ -111,7 +112,12 @@ public class RenderEventHandler {
         for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
             manaLevelTriggerIcons.put(s, IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
         }
+
+        tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
+        for (int i = 0; i < tiaraWingIcons.length; i++) {
+            tiaraWingIcons[i] = IconHelper.forName(evt.map, "flightTiara" + i, "items");
+        }
     }
 
-    private RenderEventHandler() {}
+    private MiscellaneousIcons() {}
 }

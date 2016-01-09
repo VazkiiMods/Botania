@@ -13,11 +13,9 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -26,29 +24,22 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.material.ItemManaResource;
-import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 
@@ -148,14 +139,14 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.translate(0.45F, 0F, 0.4F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.rotate(20F, 1F, 0F, 1F);
-				renderIcon(RenderEventHandler.INSTANCE.phiFlowerIcon);
+				renderIcon(MiscellaneousIcons.INSTANCE.phiFlowerIcon);
 
 				if(name.equals("vazkii")) {
 					GlStateManager.rotate(-20F, 1F, 0F, 1F);
 					GlStateManager.scale(1.25F, 1.25F, 1.25F);
 					GlStateManager.rotate(180F, 0F, 0F, 1F);
 					GlStateManager.translate(-1.5F, -1.3F, -0.75F);
-					renderIcon(RenderEventHandler.INSTANCE.nerfBatIcon);
+					renderIcon(MiscellaneousIcons.INSTANCE.nerfBatIcon);
 				}
 			} else if(name.equals("skull kid")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
@@ -172,7 +163,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
-				renderIcon(RenderEventHandler.INSTANCE.goldfishIcon);
+				renderIcon(MiscellaneousIcons.INSTANCE.goldfishIcon);
 			} else if(name.equals("chitoge")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);

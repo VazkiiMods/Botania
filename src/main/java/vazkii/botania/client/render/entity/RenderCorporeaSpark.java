@@ -10,26 +10,14 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.handler.RenderEventHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.item.ItemCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
@@ -39,7 +27,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return entity.isMaster() ? RenderEventHandler.INSTANCE.corporeaWorldIconMaster : RenderEventHandler.INSTANCE.corporeaWorldIcon;
+		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster : MiscellaneousIcons.INSTANCE.corporeaWorldIcon;
 	}
 
 	@Override
@@ -54,7 +42,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(EntityCorporeaSpark entity) {
-		return RenderEventHandler.INSTANCE.corporeaIconStar;
+		return MiscellaneousIcons.INSTANCE.corporeaIconStar;
 	}
 
 	@Override
