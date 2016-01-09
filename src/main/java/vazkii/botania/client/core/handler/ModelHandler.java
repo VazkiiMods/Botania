@@ -17,29 +17,23 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.enums.PlatformVariant;
-import vazkii.botania.client.render.SpecialFlowerModel;
+import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.AltarVariant;
@@ -115,6 +109,7 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -310,6 +305,17 @@ public final class ModelHandler {
                         : new ModelResourceLocation("botania:manaweaveLegs", "inventory");
             }
         });
+
+        ModelLoader.registerItemVariants(twigWand,
+                new ModelResourceLocation("botania:twigWand", "inventory"),
+                new ModelResourceLocation("botania:twigWand_bind", "inventory"));
+        ModelLoader.setCustomMeshDefinition(twigWand, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String path = "botania:twigWand";
+                return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
+            }
+        });
     }
 
     private static void registerSubtiles() {
@@ -491,7 +497,6 @@ public final class ModelHandler {
         registerItemModel(starSword);
         registerItemModel(thunderSword);
         registerItemModel(glassPick);
-        registerItemModel(twigWand);
 
         registerItemModel(flowerBag);
         registerItemModel(fertilizer);

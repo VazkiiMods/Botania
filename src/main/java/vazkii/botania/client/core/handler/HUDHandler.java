@@ -102,9 +102,9 @@ public final class HUDHandler {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
 
-			if(pos != null && pos.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				Block block = mc.theWorld.getBlockState(pos.getBlockPos()).getBlock();
-				TileEntity tile = mc.theWorld.getTileEntity(pos.getBlockPos());
+			if(pos != null) {
+				Block block = pos.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()).getBlock() : null;
+				TileEntity tile = pos.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK ? mc.theWorld.getTileEntity(pos.getBlockPos()) : null;
 
 				if(equippedStack != null) {
 					if(pos != null && equippedStack.getItem() == ModItems.twigWand) {

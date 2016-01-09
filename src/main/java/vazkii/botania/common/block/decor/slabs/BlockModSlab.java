@@ -105,7 +105,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	@Override
 	public final IProperty getVariantProperty() {
-		return DUMMY;
+		return DUMMY; // Vanilla expects us to store different kinds of slabs into one block ID. Except we don't. We need this dummy property and dummy value to satisfy it.
 	}
 
 	@Override

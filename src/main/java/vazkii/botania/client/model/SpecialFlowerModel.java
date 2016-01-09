@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render;
+package vazkii.botania.client.model;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
