@@ -2174,6 +2174,7 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.customBrick, 2, ModFluffBlocks.snowBrickStairs, ModFluffBlocks.snowBrickSlab);
 		addStairsAndSlabs(ModBlocks.customBrick, 3, ModFluffBlocks.tileStairs, ModFluffBlocks.tileSlab);
 		addStairsAndSlabs(ModBlocks.endStoneBrick, 0, ModFluffBlocks.endStoneStairs, ModFluffBlocks.endStoneSlab);
+		addStairsAndSlabs(ModBlocks.endStoneBrick, 2, ModFluffBlocks.enderBrickStairs, ModFluffBlocks.enderBrickSlab);
 		addStairsAndSlabs(ModBlocks.shimmerrock, 0, ModFluffBlocks.shimmerrockStairs, ModFluffBlocks.shimmerrockSlab);
 		addStairsAndSlabs(ModBlocks.shimmerwoodPlanks, 0, ModFluffBlocks.shimmerwoodPlankStairs, ModFluffBlocks.shimmerwoodPlankSlab);
 
