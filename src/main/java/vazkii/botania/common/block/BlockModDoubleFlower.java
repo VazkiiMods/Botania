@@ -52,7 +52,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// Lots of copy paste from BlockDoublePlant because we can no longer extend it in 1.8.x
 public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable {
 	private static final int COUNT = 8;
 
@@ -181,10 +180,17 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-		if (world.getBlockState(pos.down()).getBlock() == this
-				&& world.getBlockState(pos.down()).getValue(HALF) == EnumBlockHalf.LOWER) {
+		IBlockState state = world.getBlockState(pos);
+		IBlockState stateBelow = world.getBlockState(pos.down());
+
+		if (stateBelow.getBlock() == this && stateBelow.getValue(HALF) == EnumBlockHalf.LOWER && state.getValue(HALF) == EnumBlockHalf.UPPER) {
 			ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos.down()))));
 		}
+
+		if (state.getValue(HALF) == EnumBlockHalf.LOWER) {
+			ret.add(new ItemStack(this, 1, getMetaFromState(state)));
+		}
+
 		return ret;
 	}
 
