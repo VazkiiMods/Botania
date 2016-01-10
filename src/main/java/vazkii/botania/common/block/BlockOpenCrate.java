@@ -41,6 +41,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -62,13 +63,15 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setUnlocalizedName(LibBlockNames.OPEN_CRATE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN));
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
+				.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
 		random = new Random();
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.CRATE_VARIANT);
+		return new BlockState(this, BotaniaStateProps.CRATE_VARIANT, BotaniaStateProps.CRATE_PATTERN);
 	}
 
 	@Override
@@ -78,10 +81,22 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (meta > CrateVariant.values().length) {
+		if (meta >= CrateVariant.values().length) {
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.values()[meta]);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if (world.getTileEntity(pos) instanceof TileCraftCrate) {
+			TileCraftCrate tile = ((TileCraftCrate) world.getTileEntity(pos));
+			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
+		} else {
+			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE);
+		}
+
+		return state;
 	}
 
 	@Override

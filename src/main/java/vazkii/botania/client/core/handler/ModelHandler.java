@@ -430,7 +430,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.manaFlame);
         registerItemModel(ModBlocks.incensePlate);
 
-        // Register all metas to variant inventory, so the smartmodel can take over from there. See RenderEventHandler
+        // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
@@ -450,7 +450,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
