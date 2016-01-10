@@ -615,7 +615,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.avatar);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
 
-        registerItemModel(ModBlocks.bellows);
+        registerItemModel(ModBlocks.bellows); // todo await animation api
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
 
         registerItemModel(ModBlocks.brewery);
@@ -624,16 +624,16 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.corporeaCrystalCube);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
 
-        registerItemModel(ModBlocks.corporeaIndex);
+        registerItemModel(ModBlocks.corporeaIndex); // todo json maybe? await animation api
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
 
         registerItemModel(ModItems.gaiaHead);
         ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
-        registerItemModel(ModBlocks.hourglass);
+        registerItemModel(ModBlocks.hourglass); // todo json maybe?
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
-        registerItemModel(ModBlocks.pump);
+        registerItemModel(ModBlocks.pump); // todo await animation api
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
 
         registerItemModel(ModBlocks.teruTeruBozu);
