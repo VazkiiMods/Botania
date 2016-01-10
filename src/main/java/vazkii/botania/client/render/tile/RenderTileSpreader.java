@@ -14,12 +14,15 @@ import java.awt.Color;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -90,35 +93,37 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.0F, -1F, -0.4375F);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.FIXED);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 			GlStateManager.popMatrix();
 		}
 
 		if(spreader.paddingColor != -1) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-			Block block = Blocks.carpet;
-			int color = spreader.paddingColor;
-			//RenderBlocks render = RenderBlocks.getInstance();
-			float f = 1F / 16F;
-			GlStateManager.translate(0F, -f, 0F);
-			//render.renderBlockAsItem(block, color, 1F);
-			GlStateManager.translate(0F, -f * 15, 0F);
-			//render.renderBlockAsItem(block, color, 1F);
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			IBlockState carpet = Blocks.carpet.getDefaultState().withProperty(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
 
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(f * 14F, 1F, 1F);
-			//render.renderBlockAsItem(block, color, 1F);
-			GlStateManager.popMatrix();
+			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
+			float f = 1 / 16F;
 
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.translate(0F, 0F, -f / 2);
-			GlStateManager.scale(f * 14F, 1F, f * 15F);
-			//render.renderBlockAsItem(block, color, 1F);
-			GlStateManager.translate(0F, f * 15F, 0F);
-			//render.renderBlockAsItem(block, color, 1F); todo 1.8
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.rotate(270, 0, 0, 1);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(0, 15 * f, 0);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(15 * f, f, 0);
+			GlStateManager.rotate(270, 0, 0, 1);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(0, -1, 0);
+			GlStateManager.rotate(90, 1, 0, 0);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
 		}
 
 		GlStateManager.enableRescaleNormal();

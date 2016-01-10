@@ -33,6 +33,7 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.enums.PlatformVariant;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
@@ -463,6 +464,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }
