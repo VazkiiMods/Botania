@@ -160,7 +160,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		int currentLight = ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
+		int currentLight = world.getTileEntity(pos) == null ? -1 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 		if(currentLight == -1)
 			currentLight = 0;
 		return LightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), currentLight);
