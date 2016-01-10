@@ -19,6 +19,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -36,10 +37,14 @@ public class TilePylon extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		++ticks;
+
+		if (worldObj.getBlockState(getPos()) != ModBlocks.pylon)
+			return;
+
 		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && worldObj.getBlockState(centerPos).getBlock().getMetaFromState(worldObj.getBlockState(centerPos)) == 0) { // todo 1.8 clarify
+			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && portalOff()) { // todo 1.8 clarify
 				activated = false;
 				return;
 			}
@@ -91,6 +96,11 @@ public class TilePylon extends TileEntity implements ITickable {
 
 	private Block getBlockForMeta() {
 		return worldObj.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+	}
+
+	private boolean portalOff() {
+		return worldObj.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
+				|| worldObj.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
 	}
 
 }
