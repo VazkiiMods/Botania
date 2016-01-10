@@ -31,6 +31,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -278,13 +279,18 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(player.capabilities.isCreativeMode)
 			return new ItemStack(block, 1, meta);
 
-		return removeFromInventory(player, player.inventory, stack, block, meta, doit);
+		ItemStack outStack = removeFromInventory(player, player.inventory, stack, block, meta, doit);
+		if (outStack == null)
+			outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta, doit);
+		return outStack;
 	}
 
 	public static int getInventoryItemCount(EntityPlayer player, ItemStack stack, Block block, int meta) {
 		if(player.capabilities.isCreativeMode)
 			return -1;
-		return getInventoryItemCount(player, player.inventory, stack, block, meta);
+		int count = getInventoryItemCount(player, player.inventory, stack, block, meta);
+		count += getInventoryItemCount(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta);
+		return count;
 	}
 
 	public static int getInventoryItemCount(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta) {
