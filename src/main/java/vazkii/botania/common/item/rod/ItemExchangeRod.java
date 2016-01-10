@@ -31,6 +31,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -243,10 +244,22 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return block != null && block != Blocks.air;
 	}
 
-	public static ItemStack removeFromInventory(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta, boolean doit) {
+	public static ItemStack removeFromInventory(EntityPlayer player, IInventory mainInv, ItemStack stack, Block block, int meta, boolean doit) {
 		List<ItemStack> providers = new ArrayList();
-		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
-			ItemStack invStack = inv.getStackInSlot(i);
+
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		int count = 0;
+		for(int i = 0; i < size; i++) {
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack invStack = inv.getStackInSlot(slot);
 			if(invStack == null)
 				continue;
 
@@ -256,7 +269,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				if(doit) {
 					invStack.stackSize--;
 					if(invStack.stackSize == 0)
-						inv.setInventorySlotContents(i, null);
+						inv.setInventorySlotContents(slot, null);
 				}
 				return retStack;
 			}
@@ -287,13 +300,23 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return getInventoryItemCount(player, player.inventory, stack, block, meta);
 	}
 
-	public static int getInventoryItemCount(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta) {
+	public static int getInventoryItemCount(EntityPlayer player, IInventory mainInv, ItemStack stack, Block block, int meta) {
 		if(player.capabilities.isCreativeMode)
 			return -1;
 
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
 		int count = 0;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack invStack = inv.getStackInSlot(i);
+		for(int i = 0; i < size; i++) {
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack invStack = inv.getStackInSlot(slot);
 			if(invStack == null)
 				continue;
 
