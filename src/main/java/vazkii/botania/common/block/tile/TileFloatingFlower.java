@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 
@@ -28,8 +30,9 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 			forcedStack = null;
 			return retStack;
 		}
-
-		return new ItemStack(ModBlocks.shinyFlower, 1, getBlockMetadata());
+		EnumDyeColor color = worldObj.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE
+				: worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR);
+		return new ItemStack(ModBlocks.shinyFlower, 1, color.getMetadata());
 	}
 
 	@Override

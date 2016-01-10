@@ -19,6 +19,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -26,7 +27,7 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = getStackInSlot(0);
-		boolean active = (getBlockMetadata() & 8) == 0;
+		boolean active = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		boolean valid = lens != null && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if(active) {

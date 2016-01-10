@@ -41,6 +41,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
@@ -67,7 +69,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		if(stack == null || item.isDead)
 			return false;
 
-		if(!isMossy && getBlockMetadata() == 0) {
+		if(!isMossy && worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
 			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine)) {
 				isMossy = true;
 				if (worldObj.isRemote) {

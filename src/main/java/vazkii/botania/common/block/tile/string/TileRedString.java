@@ -19,6 +19,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
+import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.block.tile.TileMod;
 
 public abstract class TileRedString extends TileMod implements ITileBound, ITickable {
@@ -27,6 +28,9 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 	@Override
 	public void update() {
+		if (!(worldObj.getBlockState(getPos()).getBlock() instanceof BlockRedString))
+			return;
+
 		EnumFacing dir = getOrientation();
 		BlockPos pos_ = getPos();
 		int range = getRange();

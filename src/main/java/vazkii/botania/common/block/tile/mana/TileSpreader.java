@@ -48,6 +48,8 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IRedirectable;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -440,15 +442,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public boolean isRedstone() {
-		return worldObj == null ? staticRedstone : getBlockMetadata() == 1;
+		return worldObj == null ? staticRedstone : worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT) == SpreaderVariant.REDSTONE;
 	}
 
 	public boolean isDreamwood() {
-		return worldObj == null ? staticDreamwood : getBlockMetadata() == 2 || getBlockMetadata() == 3;
+		SpreaderVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT);
+		return worldObj == null ? staticDreamwood : variant == SpreaderVariant.ELVEN || variant == SpreaderVariant.GAIA;
 	}
 
 	public boolean isULTRA_SPREADER() {
-		return worldObj == null ? staticUltra : getBlockMetadata() == 3;
+		return worldObj == null ? staticUltra : worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT) == SpreaderVariant.GAIA;
 	}
 
 	public void checkForReceiver() {
@@ -543,7 +546,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 

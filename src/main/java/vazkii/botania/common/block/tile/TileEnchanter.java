@@ -140,12 +140,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			return;
 		EnumFacing.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 
-		if(getBlockMetadata() < PYLON_LOCATIONS.size())
-			for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
-				TileEntity tile = worldObj.getTileEntity(pos.add(pylon));
-				if(tile != null && tile instanceof TilePylon)
-					((TilePylon) tile).activated = false;
-			}
+		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
+			TileEntity tile = worldObj.getTileEntity(pos.add(pylon));
+			if(tile != null && tile instanceof TilePylon)
+				((TilePylon) tile).activated = false;
+		}
 
 		if(!canEnchanterExist(worldObj, pos, axis)) {
 

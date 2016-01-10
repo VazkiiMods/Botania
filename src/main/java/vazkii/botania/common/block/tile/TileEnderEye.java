@@ -21,12 +21,15 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class TileEnderEye extends TileMod implements ITickable {
 
 	@Override
 	public void update() {
+		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.enderEye)
+			return;
 		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));

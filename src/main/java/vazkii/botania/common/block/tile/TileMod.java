@@ -23,8 +23,6 @@ public class TileMod extends TileEntity {
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		// todo: review all subclasses. this could potentially leave stragglers hanging.
-		// todo: example: open crate and crafty crate should refresh when variants change
 		return oldState.getBlock() != newState.getBlock();
 	}
 

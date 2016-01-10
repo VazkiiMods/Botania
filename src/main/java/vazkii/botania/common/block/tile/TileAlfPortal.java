@@ -127,7 +127,8 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	public void update() {
 		IBlockState iBlockState = worldObj.getBlockState(getPos());
 		if(iBlockState.getBlock() != ModBlocks.alfPortal || iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
-			ticksOpen = 0;
+			if (iBlockState.getBlock() == ModBlocks.alfPortal)
+				ticksOpen = 0;
 			return;
 		}
 		AlfPortalState state = iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);
@@ -209,7 +210,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 	AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if(getBlockMetadata() == 2)
+		if(worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
 
 		return aabb;

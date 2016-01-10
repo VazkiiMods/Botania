@@ -51,6 +51,8 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -198,10 +200,13 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public void update() {
+		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pool)
+			return;
+
 		boolean wasDoingTransfer = isDoingTransfer;
 		isDoingTransfer = false;
 		if(manaCap == -1)
-			manaCap = getBlockMetadata() == 2 ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 
 		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isInvalid())
 			ManaNetworkEvent.addPool(this);
@@ -349,7 +354,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		ItemStack pool = new ItemStack(ModBlocks.pool, 1, getBlockMetadata());
+		ItemStack pool = new ItemStack(ModBlocks.pool, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT).ordinal());
 		String name = StatCollector.translateToLocal(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
@@ -391,7 +396,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public int getCurrentMana() {
-		return worldObj != null && getBlockMetadata() == 1 ? MAX_MANA : mana;
+		return worldObj != null && worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.CREATIVE ? MAX_MANA : mana;
 	}
 
 	@Override

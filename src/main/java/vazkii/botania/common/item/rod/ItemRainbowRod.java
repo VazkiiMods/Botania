@@ -24,6 +24,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -145,17 +146,17 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		int l = 20;
 
 		AxisAlignedBB axis = null;
-		switch(te.getBlockMetadata() - 2) {
-		case 0 :
+		switch(world.getBlockState(tePos).getValue(BotaniaStateProps.CARDINALS)) {
+		case NORTH :
 			axis = new AxisAlignedBB(tePos.add(-w, -h, -l), tePos.add(w + 1, h, 0));
 			break;
-		case 1 :
+		case SOUTH :
 			axis = new AxisAlignedBB(tePos.add(-w, -h, 1), tePos.add(w + 1, h, l + 1));
 			break;
-		case 2 :
+		case WEST :
 			axis = new AxisAlignedBB(tePos.add(-l, -h, -w), tePos.add(0, h, w + 1));
 			break;
-		case 3 :
+		case EAST :
 			axis = new AxisAlignedBB(tePos.add(1, -h, -w), tePos.add(l + 1, h, w + 1));
 		}
 
