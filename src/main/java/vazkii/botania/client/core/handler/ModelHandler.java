@@ -116,6 +116,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -163,57 +164,6 @@ public final class ModelHandler {
         registerBrews();
 
         /** Special Item Meshers **/
-        ModelLoader.registerItemVariants(manaGun,
-                new ModelResourceLocation("botania:manaGun", "inventory"),
-                new ModelResourceLocation("botania:manaGunClip", "inventory"),
-                new ModelResourceLocation("botania:desuGun", "inventory"),
-                new ModelResourceLocation("botania:desuGunClip", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manaGun, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String name;
-                if (((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack)) {
-                    name = ItemManaGun.hasClip(stack) ? "botania:desuGunClip" : "botania:desuGun";
-                } else {
-                    name = ItemManaGun.hasClip(stack) ? "botania:manaGunClip": "botania:manaGun";
-                }
-                return new ModelResourceLocation(name, "inventory");
-            }
-        });
-
-        ModelLoader.registerItemVariants(spawnerMover,
-                new ModelResourceLocation("botania:spawnerMover", "inventory"),
-                new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
-        ModelLoader.setCustomMeshDefinition(spawnerMover, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                if (ItemSpawnerMover.hasData(stack)) {
-                    return new ModelResourceLocation("botania:spawnerMoverFull", "inventory");
-                } else {
-                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
-                }
-            }
-        });
-
-        ModelLoader.registerItemVariants(terraPick,
-                new ModelResourceLocation("botania:terraPick", "inventory"),
-                new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
-                new ModelResourceLocation("botania:terraPickTipped", "inventory"),
-                new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
-        ModelLoader.setCustomMeshDefinition(terraPick, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String name = "botania:terraPick";
-                if (ItemTerraPick.isTipped(stack)) {
-                    name += "Tipped";
-                }
-                if (ItemTerraPick.isEnabled(stack)) {
-                    name += "Enabled";
-                }
-                return new ModelResourceLocation(name, "inventory");
-            }
-        });
-
         ModelLoader.registerItemVariants(infiniteFruit,
                 new ModelResourceLocation("botania:infiniteFruit", "inventory"),
                 new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
@@ -222,17 +172,6 @@ public final class ModelHandler {
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return ItemInfiniteFruit.isBoot(stack) ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
                         : new ModelResourceLocation("botania:infiniteFruit", "inventory");
-            }
-        });
-
-        ModelLoader.registerItemVariants(manasteelSword,
-                new ModelResourceLocation("botania:manasteelSword", "inventory"),
-                new ModelResourceLocation("botania:elucidator", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manasteelSword, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? new ModelResourceLocation("botania:elucidator", "inventory")
-                        : new ModelResourceLocation("botania:manasteelSword", "inventory");
             }
         });
 
@@ -255,6 +194,45 @@ public final class ModelHandler {
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return ItemMagnetRing.getCooldown(stack) <= 0 ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
                         : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(manaGun,
+                new ModelResourceLocation("botania:manaGun", "inventory"),
+                new ModelResourceLocation("botania:manaGunClip", "inventory"),
+                new ModelResourceLocation("botania:desuGun", "inventory"),
+                new ModelResourceLocation("botania:desuGunClip", "inventory"));
+        ModelLoader.setCustomMeshDefinition(manaGun, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String name;
+                if (((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack)) {
+                    name = ItemManaGun.hasClip(stack) ? "botania:desuGunClip" : "botania:desuGun";
+                } else {
+                    name = ItemManaGun.hasClip(stack) ? "botania:manaGunClip": "botania:manaGun";
+                }
+                return new ModelResourceLocation(name, "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(tornadoRod,
+                new ModelResourceLocation("botania:tornadoRod", "inventory"),
+                new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
+        ModelLoader.setCustomMeshDefinition(tornadoRod, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return ((ItemTornadoRod) ModItems.tornadoRod).isFlying(stack) ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory") : new ModelResourceLocation("botania:tornadoRod", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(twigWand,
+                new ModelResourceLocation("botania:twigWand", "inventory"),
+                new ModelResourceLocation("botania:twigWand_bind", "inventory"));
+        ModelLoader.setCustomMeshDefinition(twigWand, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String path = "botania:twigWand";
+                return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
             }
         });
 
@@ -306,14 +284,47 @@ public final class ModelHandler {
             }
         });
 
-        ModelLoader.registerItemVariants(twigWand,
-                new ModelResourceLocation("botania:twigWand", "inventory"),
-                new ModelResourceLocation("botania:twigWand_bind", "inventory"));
-        ModelLoader.setCustomMeshDefinition(twigWand, new ItemMeshDefinition() {
+        ModelLoader.registerItemVariants(manasteelSword,
+                new ModelResourceLocation("botania:manasteelSword", "inventory"),
+                new ModelResourceLocation("botania:elucidator", "inventory"));
+        ModelLoader.setCustomMeshDefinition(manasteelSword, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String path = "botania:twigWand";
-                return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
+                return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? new ModelResourceLocation("botania:elucidator", "inventory")
+                        : new ModelResourceLocation("botania:manasteelSword", "inventory");
+            }
+        });
+
+        ModelLoader.registerItemVariants(spawnerMover,
+                new ModelResourceLocation("botania:spawnerMover", "inventory"),
+                new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
+        ModelLoader.setCustomMeshDefinition(spawnerMover, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                if (ItemSpawnerMover.hasData(stack)) {
+                    return new ModelResourceLocation("botania:spawnerMoverFull", "inventory");
+                } else {
+                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
+                }
+            }
+        });
+
+        ModelLoader.registerItemVariants(terraPick,
+                new ModelResourceLocation("botania:terraPick", "inventory"),
+                new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
+                new ModelResourceLocation("botania:terraPickTipped", "inventory"),
+                new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
+        ModelLoader.setCustomMeshDefinition(terraPick, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                String name = "botania:terraPick";
+                if (ItemTerraPick.isTipped(stack)) {
+                    name += "Tipped";
+                }
+                if (ItemTerraPick.isEnabled(stack)) {
+                    name += "Enabled";
+                }
+                return new ModelResourceLocation(name, "inventory");
             }
         });
     }
@@ -377,83 +388,83 @@ public final class ModelHandler {
     }
 
     private static void registerStandardBlocks() {
-        registerItemModel(ModBlocks.manaGlass);
-        registerItemModel(ModBlocks.elfGlass);
-        registerItemModel(ModBlocks.runeAltar);
-        registerItemModel(ModBlocks.pistonRelay);
-        registerItemModel(ModBlocks.distributor);
-        registerItemModel(ModBlocks.starfield);
-        registerItemModel(ModBlocks.specialFlower);
-        registerItemModel(ModBlocks.dirtPath);
-        registerItemModel(ModBlocks.felPumpkin);
-        registerItemModel(ModBlocks.ghostRail);
-        registerItemModel(ModBlocks.shimmerrock);
-        registerItemModel(ModBlocks.shimmerwoodPlanks);
-        registerItemModel(ModBlocks.manaVoid);
         registerItemModel(ModBlocks.alchemyCatalyst);
-        registerItemModel(ModBlocks.conjurationCatalyst);
-        registerItemModel(ModBlocks.reedBlock);
+        registerItemModel(ModBlocks.alfPortal);
         registerItemModel(ModBlocks.bifrost);
         registerItemModel(ModBlocks.bifrostPerm);
-        registerItemModel(ModBlocks.enderEye);
-        registerItemModel(ModBlocks.tinyPlanet);
-        registerItemModel(ModBlocks.thatch);
         registerItemModel(ModBlocks.blazeBlock);
-        registerItemModel(ModBlocks.forestEye);
-        registerItemModel(ModBlocks.seaLamp);
+        registerItemModel(ModBlocks.cacophonium);
         registerItemModel(ModBlocks.cellBlock);
+        registerItemModel(ModBlocks.conjurationCatalyst);
+        registerItemModel(ModBlocks.corporeaFunnel);
+        registerItemModel(ModBlocks.corporeaInterceptor);
+        registerItemModel(ModBlocks.corporeaRetainer);
+        registerItemModel(ModBlocks.dirtPath);
+        registerItemModel(ModBlocks.distributor);
+        registerItemModel(ModBlocks.elfGlass);
         registerItemModel(ModBlocks.enchantedSoil);
         registerItemModel(ModBlocks.enchanter);
+        registerItemModel(ModBlocks.enderEye);
+        registerItemModel(ModBlocks.felPumpkin);
+        registerItemModel(ModBlocks.floatingSpecialFlower);
+        registerItemModel(ModBlocks.forestEye);
+        registerItemModel(ModBlocks.ghostRail);
+        registerItemModel(ModBlocks.incensePlate);
+        registerItemModel(ModBlocks.lightLauncher);
+        registerItemModel(ModBlocks.manaBomb);
+        registerItemModel(ModBlocks.manaDetector);
+        registerItemModel(ModBlocks.manaFlame);
+        registerItemModel(ModBlocks.manaGlass);
+        registerItemModel(ModBlocks.manaVoid);
         registerItemModel(ModBlocks.prism);
+        registerItemModel(ModBlocks.pistonRelay);
+        registerItemModel(ModBlocks.redStringComparator);
         registerItemModel(ModBlocks.redStringContainer);
         registerItemModel(ModBlocks.redStringDispenser);
-        registerItemModel(ModBlocks.redStringComparator);
         registerItemModel(ModBlocks.redStringFertilizer);
         registerItemModel(ModBlocks.redStringInterceptor);
         registerItemModel(ModBlocks.redStringRelay);
-        registerItemModel(ModBlocks.floatingSpecialFlower);
-        registerItemModel(ModBlocks.sparkChanger);
-        registerItemModel(ModBlocks.terraPlate);
-        registerItemModel(ModBlocks.corporeaRetainer);
-        registerItemModel(ModBlocks.corporeaInterceptor);
-        registerItemModel(ModBlocks.corporeaFunnel);
-        registerItemModel(ModBlocks.lightLauncher);
-        registerItemModel(ModBlocks.manaDetector);
-        registerItemModel(ModBlocks.manaBomb);
+        registerItemModel(ModBlocks.reedBlock);
         registerItemModel(ModBlocks.rfGenerator);
-        registerItemModel(ModBlocks.alfPortal);
         registerItemModel(ModBlocks.root);
-        registerItemModel(ModBlocks.cacophonium);
-        registerItemModel(ModBlocks.tinyPotato);
+        registerItemModel(ModBlocks.runeAltar);
+        registerItemModel(ModBlocks.seaLamp);
+        registerItemModel(ModBlocks.shimmerrock);
+        registerItemModel(ModBlocks.shimmerwoodPlanks);
+        registerItemModel(ModBlocks.sparkChanger);
         registerItemModel(ModBlocks.spawnerClaw);
+        registerItemModel(ModBlocks.specialFlower);
+        registerItemModel(ModBlocks.starfield);
+        registerItemModel(ModBlocks.thatch);
+        registerItemModel(ModBlocks.terraPlate);
+        registerItemModel(ModBlocks.tinyPlanet);
+        registerItemModel(ModBlocks.tinyPotato);
         registerItemModel(ModBlocks.turntable);
-        registerItemModel(ModBlocks.manaFlame);
-        registerItemModel(ModBlocks.incensePlate);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
 
         // Item models which all use the same base model and recolored by render layer
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.petalBlock), EnumDyeColor.values().length);
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.manaBeacon), EnumDyeColor.values().length);
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.petalBlock), EnumDyeColor.values().length);
+        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
 
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.dreamwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.dreamwood, LivingWoodVariant.class, "variant");
-        registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
-        registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
-        registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
-        registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
+        registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }
 
     private static void registerStandardItems() {
@@ -515,9 +526,6 @@ public final class ModelHandler {
         registerItemModel(missileRod);
         registerItemModel(smeltRod);
         registerItemModel(exchangeRod);
-
-        registerItemModel(tornadoRod);
-        ModelLoader.registerItemVariants(tornadoRod, new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
 
         registerItemModel(openBucket);
         registerItemModel(bloodPendant);
@@ -604,32 +612,32 @@ public final class ModelHandler {
 
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
     private static void registerTESRItems() {
+        registerItemModel(ModBlocks.avatar);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
+
+        registerItemModel(ModBlocks.bellows);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
+
+        registerItemModel(ModBlocks.brewery);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
+
         registerItemModel(ModBlocks.corporeaCrystalCube);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
 
         registerItemModel(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
 
-        registerItemModel(ModBlocks.avatar);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
-
-        registerItemModel(ModBlocks.teruTeruBozu);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
-
-        registerItemModel(ModBlocks.brewery);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
-
         registerItemModel(ModItems.gaiaHead);
         ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
-        registerItemModel(ModBlocks.bellows);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
+        registerItemModel(ModBlocks.hourglass);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
         registerItemModel(ModBlocks.pump);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
 
-        registerItemModel(ModBlocks.hourglass);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
+        registerItemModel(ModBlocks.teruTeruBozu);
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
     }
 
     private static void registerManaResources() {
