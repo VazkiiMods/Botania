@@ -22,12 +22,12 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileDistributor extends TileMod implements IManaReceiver, ITickable {
+public class TileDistributor extends TileMod implements IManaReceiver {
 
 	List<IManaReceiver> validPools = new ArrayList();
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		validPools.clear();
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tileAt = worldObj.getTileEntity(pos.offset(dir));

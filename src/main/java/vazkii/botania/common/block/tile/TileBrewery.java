@@ -36,7 +36,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 
 // This is mostly copypasta from TileRuneAltar
-public class TileBrewery extends TileSimpleInventory implements ISidedInventory, IManaReceiver, ITickable {
+public class TileBrewery extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 
@@ -80,8 +80,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	}
 
 	@Override
-	public void update() {
-
+	public void updateEntity() {
 		if(mana > 0 && recipe == null) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(this)) {

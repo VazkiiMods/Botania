@@ -26,7 +26,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileHourglass extends TileSimpleInventory implements ITickable {
+public class TileHourglass extends TileSimpleInventory {
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
@@ -43,8 +43,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	public boolean move = true;
 
 	@Override
-	public void update() {
-
+	public void updateEntity() {
 		int totalTime = getTotalTime();
 		if(totalTime > 0) {
 			if(move)

@@ -14,14 +14,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
-public class TileBifrost extends TileMod implements ITickable {
+public class TileBifrost extends TileMod {
 
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		if(!worldObj.isRemote) {
 			if(ticks <= 0) {
 				worldObj.setBlockToAir(pos);

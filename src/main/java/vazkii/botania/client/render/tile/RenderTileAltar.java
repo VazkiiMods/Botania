@@ -51,6 +51,10 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	@Override
 	public void renderTileEntityAt(TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
+		if (altar != null && altar.getWorld() != null && !altar.getWorld().isBlockLoaded(altar.getPos(), false)) {
+			return;
+		}
+
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

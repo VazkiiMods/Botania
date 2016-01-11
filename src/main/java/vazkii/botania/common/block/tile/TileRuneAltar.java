@@ -43,7 +43,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver, ITickable {
+public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
@@ -106,7 +106,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 
 		// Update every tick.
 		recieveMana(0);

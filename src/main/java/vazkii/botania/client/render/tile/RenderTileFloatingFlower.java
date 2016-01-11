@@ -32,6 +32,10 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+		if (tile != null && tile.getWorld() != null && !tile.getWorld().isBlockLoaded(tile.getPos(), false)) {
+			return;
+		}
+
 		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		IFloatingFlower flower = (IFloatingFlower) tile;
 		GlStateManager.pushMatrix();

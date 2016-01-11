@@ -15,7 +15,7 @@ import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 
-public class TileManaFlame extends TileMod implements ITickable {
+public class TileManaFlame extends TileMod {
 
 	private static final String TAG_COLOR = "color";
 
@@ -32,7 +32,7 @@ public class TileManaFlame extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		float c = 0.3F;
 
 		if(Math.random() < c) {

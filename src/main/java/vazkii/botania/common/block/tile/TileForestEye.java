@@ -14,12 +14,12 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileForestEye extends TileMod implements ITickable {
+public class TileForestEye extends TileMod {
 
 	public int entities = 0;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		int range = 6;
 		int entityCount = worldObj.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if(entityCount != entities) {

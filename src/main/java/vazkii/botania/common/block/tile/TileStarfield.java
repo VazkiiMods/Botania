@@ -15,13 +15,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
-public class TileStarfield extends TileMod implements ITickable {
+public class TileStarfield extends TileMod {
 
 	@Override
-	public void update() {
-		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.starfield)
-			return;
-
+	public void updateEntity() {
 		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		if(!worldObj.isRemote) {
 			boolean newState = !worldObj.isDaytime();

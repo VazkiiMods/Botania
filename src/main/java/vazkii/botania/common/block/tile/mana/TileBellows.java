@@ -22,7 +22,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileBellows extends TileMod implements ITickable {
+public class TileBellows extends TileMod {
 
 	private static final String TAG_ACTIVE = "active";
 
@@ -36,7 +36,7 @@ public class TileBellows extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		boolean disable = true;
 		TileEntity tile = getLinkedTile();
 		if(!active && tile instanceof TilePool) {

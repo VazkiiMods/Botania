@@ -22,7 +22,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
@@ -35,7 +35,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public int compValue = 0;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		++ticks;
 		if(ticks % 20 == 0)
 			updateCount();

@@ -45,7 +45,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 
 	public static final double RADIUS = 2.5;
 
@@ -152,7 +152,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public boolean hasCloseby;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		double x = pos.getX() + 0.5;
 		double y = pos.getY() + 0.5;
 		double z = pos.getZ() + 0.5;

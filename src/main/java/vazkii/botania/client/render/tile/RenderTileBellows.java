@@ -30,6 +30,10 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
 	@Override
 	public void renderTileEntityAt(TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
+		if (bellows != null && bellows.getWorld() != null && !bellows.getWorld().isBlockLoaded(bellows.getPos(), false)) {
+			return;
+		}
+		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

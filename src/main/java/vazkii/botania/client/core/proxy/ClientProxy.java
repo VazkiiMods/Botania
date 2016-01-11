@@ -180,11 +180,14 @@ public class ClientProxy extends CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 		ModelHandler.registerModels();
+		initRenderers();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+
+		initAuxiliaryRender();
 
 		ModChallenges.init();
 
@@ -214,7 +217,6 @@ public class ClientProxy extends CommonProxy {
 				dootDoot = true;
 		}
 
-		initRenderers();
 	}
 
 	@Override
@@ -270,7 +272,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack(renderManager, new ItemStack(ModItems.manaResource, 1, 15), Minecraft.getMinecraft().getRenderItem()));
 
 		ShaderHelper.initShaders();
+	}
 
+	private void initAuxiliaryRender() {
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		RenderPlayer render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());

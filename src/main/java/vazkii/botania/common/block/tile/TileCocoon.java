@@ -24,7 +24,7 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 
-public class TileCocoon extends TileMod implements ITickable {
+public class TileCocoon extends TileMod {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
@@ -36,7 +36,7 @@ public class TileCocoon extends TileMod implements ITickable {
 	public int emeraldsGiven;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		timePassed++;
 		if(timePassed >= TOTAL_TIME)
 			hatch();

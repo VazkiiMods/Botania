@@ -67,7 +67,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickable {
+public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -198,10 +198,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	@Override
-	public void update() {
-		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pool)
-			return;
-
+	public void updateEntity() {
 		boolean wasDoingTransfer = isDoingTransfer;
 		isDoingTransfer = false;
 		if(manaCap == -1)

@@ -30,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory, ITickable {
+public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory {
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
@@ -42,7 +42,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	public int comparatorOutput = 0;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		ItemStack stack = getStackInSlot(0);
 		if(stack != null && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);

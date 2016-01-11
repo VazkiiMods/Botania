@@ -47,7 +47,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary, ITickable {
+public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 
@@ -226,7 +226,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 21D,1)));
 
 		boolean didChange = false;

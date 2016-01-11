@@ -14,10 +14,10 @@ import net.minecraft.util.ITickable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-public class TileTinyPlanet extends TileMod implements IManaCollisionGhost, ITickable {
+public class TileTinyPlanet extends TileMod implements IManaCollisionGhost {
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		ItemTinyPlanet.applyEffect(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 	}
 

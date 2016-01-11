@@ -52,6 +52,10 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 	@Override
 	public void renderTileEntityAt(TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
+		if (pool != null && pool.getWorld() != null && !pool.getWorld().isBlockLoaded(pool.getPos(), false)) {
+			return;
+		}
+
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -91,6 +95,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		}
 
 		tess.draw();
+
+		GlStateManager.enableLighting();
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.color(1, 1, 1, a);

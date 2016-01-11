@@ -45,7 +45,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 import com.google.common.base.Function;
 
-public class TileAlfPortal extends TileMod implements ITickable {
+public class TileAlfPortal extends TileMod {
 
 	private static final BlockPos[] LIVINGWOOD_POSITIONS = {
 		new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),
@@ -109,11 +109,10 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		IBlockState iBlockState = worldObj.getBlockState(getPos());
-		if(iBlockState.getBlock() != ModBlocks.alfPortal || iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
-			if (iBlockState.getBlock() == ModBlocks.alfPortal)
-				ticksOpen = 0;
+		if(iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+			ticksOpen = 0;
 			return;
 		}
 		AlfPortalState state = iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);

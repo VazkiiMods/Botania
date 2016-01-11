@@ -24,12 +24,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
-public class TileEnderEye extends TileMod implements ITickable {
+public class TileEnderEye extends TileMod {
 
 	@Override
-	public void update() {
-		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.enderEye)
-			return;
+	public void updateEntity() {
 		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));

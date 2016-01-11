@@ -37,7 +37,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
-public class TileLightRelay extends TileMod implements IWandBindable, ITickable {
+public class TileLightRelay extends TileMod implements IWandBindable {
 
 	private static final int MAX_DIST = 20;
 
@@ -63,7 +63,7 @@ public class TileLightRelay extends TileMod implements IWandBindable, ITickable 
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		ticksElapsed++;
 
 		if(bindPos.getY() > -1 && isValidBinding()) {

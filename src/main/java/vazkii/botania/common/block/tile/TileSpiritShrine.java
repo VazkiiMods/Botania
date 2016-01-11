@@ -13,12 +13,12 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
-public class TileSpiritShrine extends TileMod implements ITickable {
+public class TileSpiritShrine extends TileMod {
 
 	int ticks;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		if(worldObj.isRemote) {
 			if(ticks >= 40) {
 				float[][] colors = new float[][] {

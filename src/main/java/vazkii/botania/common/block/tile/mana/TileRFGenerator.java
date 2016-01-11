@@ -26,7 +26,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
-public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection, ITickable {
+public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
 
 	private static final int CONVERSION_RATE = 10;
 	private static final int MAX_MANA = 1280 * CONVERSION_RATE;
@@ -48,7 +48,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		if(!worldObj.isRemote && Loader.isModLoaded("CoFHAPI|energy")) {
 			if(deadCache)
 				reCache();

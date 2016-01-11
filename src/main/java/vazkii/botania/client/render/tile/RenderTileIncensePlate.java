@@ -37,7 +37,11 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 
 	@Override
 	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
-		EnumFacing facing = plate.getWorld() != null ? plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS) : EnumFacing.SOUTH;
+		if (plate != null && plate.getWorld() != null && !plate.getWorld().isBlockLoaded(plate.getPos(), false)) {
+			return;
+		}
+		
+		EnumFacing facing = plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();

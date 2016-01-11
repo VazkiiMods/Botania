@@ -49,7 +49,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable, ITickable {
+public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
@@ -133,10 +133,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		IBlockState state = worldObj.getBlockState(getPos());
-		if (state.getBlock() != ModBlocks.enchanter)
-			return;
 		EnumFacing.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {

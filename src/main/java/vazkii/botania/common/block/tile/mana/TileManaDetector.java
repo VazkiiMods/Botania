@@ -21,11 +21,11 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileManaDetector extends TileMod implements IManaCollisionGhost, ITickable {
+public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 
 	@Override
-	public void update() {
-		if(!worldObj.isRemote && worldObj.getBlockState(getPos()).getBlock() == ModBlocks.manaDetector) {
+	public void updateEntity() {
+		if(!worldObj.isRemote) {
 			boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 			boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 			if(state != expectedState)

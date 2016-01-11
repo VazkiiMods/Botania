@@ -31,12 +31,11 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal
 
 	@Override
 	public void renderTileEntityAt(TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
-		AlfPortalState state;
-		if (portal.getWorld().getBlockState(portal.getPos()).getBlock() != ModBlocks.alfPortal) {
-			state = AlfPortalState.OFF;
-		} else {
-			state = portal.getWorld().getBlockState(portal.getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
+		if (portal != null && portal.getWorld() != null && !portal.getWorld().isBlockLoaded(portal.getPos(), false)) {
+			return;
 		}
+
+		AlfPortalState state = portal.getWorld().getBlockState(portal.getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
 
 		if(state == AlfPortalState.OFF)
 			return;

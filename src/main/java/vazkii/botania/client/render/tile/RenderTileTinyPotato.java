@@ -50,6 +50,10 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 	@Override
 	public void renderTileEntityAt(TileTinyPotato potato, double d0, double d1, double d2, float var8, int digProgress) {
+		if (potato != null && potato.getWorld() != null && !potato.getWorld().isBlockLoaded(potato.getPos(), false)) {
+			return;
+		}
+		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

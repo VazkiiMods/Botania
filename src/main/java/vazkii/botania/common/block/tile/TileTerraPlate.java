@@ -34,7 +34,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
@@ -68,7 +68,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	}
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {

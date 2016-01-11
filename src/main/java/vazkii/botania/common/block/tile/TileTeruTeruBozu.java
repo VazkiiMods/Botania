@@ -10,14 +10,12 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.ITickable;
-
-public class TileTeruTeruBozu extends TileMod implements ITickable {
+public class TileTeruTeruBozu extends TileMod {
 
 	public boolean wasRaining = false;
 
 	@Override
-	public void update() {
+	public void updateEntity() {
 		boolean isRaining = worldObj.isRaining();
 		if(isRaining && worldObj.rand.nextInt(9600) == 0)
 			worldObj.getWorldInfo().setRaining(false);

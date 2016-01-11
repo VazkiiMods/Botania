@@ -46,7 +46,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 
 			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
 				MovingObjectPosition pos = ToolCommons.raytraceFromEntity(par2World, par3Entity, true, 48);
-				if(pos != null) {
+				if(pos != null && pos.getBlockPos() != null) {
 					Vector3 posVec = new Vector3(pos.getBlockPos().getX(), pos.getBlockPos().getY(), pos.getBlockPos().getZ());
 					Vector3 motVec = new Vector3((Math.random() - 0.5) * 18, 24, (Math.random() - 0.5) * 18);
 					posVec.add(motVec);

@@ -29,6 +29,10 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 
 	@Override
 	public void renderTileEntityAt(TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+		if (tile != null && tile.getWorld() != null && !tile.getWorld().isBlockLoaded(tile.getPos(), false)) {
+			return;
+		}
+		
 		Minecraft mc = Minecraft.getMinecraft();
 		TextureAtlasSprite iicon = tile.getBlockMetadata() > 0 ? MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed : MiscellaneousIcons.INSTANCE.lightRelayWorldIcon;
 
