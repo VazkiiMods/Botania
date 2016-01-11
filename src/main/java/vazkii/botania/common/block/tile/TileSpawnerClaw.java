@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Ref;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -115,9 +114,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
                     if (flag)
                         resetTimer(logic);
                 }
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
+			} catch (IllegalAccessException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}

@@ -49,14 +49,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
-			Predicate<Entity> selector = new Predicate<Entity>() {
-
-				@Override
-				public boolean apply(Entity e) {
-					return e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
-				}
-
-			};
+			Predicate<Entity> selector = e -> e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
 
 			Random rand = new Random(lightningSeed);
 			EntityLivingBase lightningSource = entity;

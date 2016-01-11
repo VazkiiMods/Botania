@@ -10,41 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.boss.IBossDisplayData;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.stats.Achievement;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.item.IRelic;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILensEffect;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
-import vazkii.botania.common.lib.LibItemNames;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 /*
 public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEffect {
 

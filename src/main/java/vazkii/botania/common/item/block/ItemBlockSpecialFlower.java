@@ -14,8 +14,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,17 +24,10 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
-import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -120,22 +111,24 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		String type = getType(stack);
-		if(type.equals(LibBlockNames.SUBTILE_DAYBLOOM))
-			return ModAchievements.daybloomPickup;
-		else if(type.equals(LibBlockNames.SUBTILE_ENDOFLAME))
-			return ModAchievements.endoflamePickup;
-		else if(type.equals(LibBlockNames.SUBTILE_KEKIMURUS))
-			return ModAchievements.kekimurusPickup;
-		else if(type.equals(LibBlockNames.SUBTILE_HEISEI_DREAM))
-			return ModAchievements.heiseiDreamPickup;
-		else if(type.equals(LibBlockNames.SUBTILE_POLLIDISIAC))
-			return ModAchievements.pollidisiacPickup;
-		else if(type.equals(LibBlockNames.SUBTILE_BUBBELL))
-			return ModAchievements.bubbellPickup;
-		else if(type.equals(LibBlockNames.SUBTILE_DANDELIFEON))
-			return ModAchievements.dandelifeonPickup;
-		else if(type.equals(""))
-			return ModAchievements.nullFlower;
+		switch (type) {
+			case LibBlockNames.SUBTILE_DAYBLOOM:
+				return ModAchievements.daybloomPickup;
+			case LibBlockNames.SUBTILE_ENDOFLAME:
+				return ModAchievements.endoflamePickup;
+			case LibBlockNames.SUBTILE_KEKIMURUS:
+				return ModAchievements.kekimurusPickup;
+			case LibBlockNames.SUBTILE_HEISEI_DREAM:
+				return ModAchievements.heiseiDreamPickup;
+			case LibBlockNames.SUBTILE_POLLIDISIAC:
+				return ModAchievements.pollidisiacPickup;
+			case LibBlockNames.SUBTILE_BUBBELL:
+				return ModAchievements.bubbellPickup;
+			case LibBlockNames.SUBTILE_DANDELIFEON:
+				return ModAchievements.dandelifeonPickup;
+			case "":
+				return ModAchievements.nullFlower;
+		}
 		return null;
 	}
 

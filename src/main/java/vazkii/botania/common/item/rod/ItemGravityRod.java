@@ -89,7 +89,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
-				List<Entity> entities = new ArrayList<Entity>();
+				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
@@ -107,7 +107,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 			if(item == null) {
 				Vector3 target = Vector3.fromEntityCenter(player);
-				List<Entity> entities = new ArrayList<Entity>();
+				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
@@ -193,7 +193,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
-				List<Entity> entities = new ArrayList<Entity>();
+				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));

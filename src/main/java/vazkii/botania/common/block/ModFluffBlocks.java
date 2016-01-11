@@ -83,8 +83,6 @@ import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
 

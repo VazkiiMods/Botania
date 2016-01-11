@@ -168,165 +168,116 @@ public final class ModelHandler {
         ModelLoader.registerItemVariants(infiniteFruit,
                 new ModelResourceLocation("botania:infiniteFruit", "inventory"),
                 new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
-        ModelLoader.setCustomMeshDefinition(infiniteFruit, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ItemInfiniteFruit.isBoot(stack) ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
-                        : new ModelResourceLocation("botania:infiniteFruit", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(infiniteFruit, stack ->
+                ItemInfiniteFruit.isBoot(stack)
+                    ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
+                    : new ModelResourceLocation("botania:infiniteFruit", "inventory"));
 
         ModelLoader.registerItemVariants(magnetRing,
                 new ModelResourceLocation("botania:magnetRingOn", "inventory"),
                 new ModelResourceLocation("botania:magnetRingOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRing, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ItemMagnetRing.getCooldown(stack) <= 0 ? new ModelResourceLocation("botania:magnetRingOn", "inventory")
-                        : new ModelResourceLocation("botania:magnetRingOff", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(magnetRing, stack ->
+                ItemMagnetRing.getCooldown(stack) <= 0
+                    ? new ModelResourceLocation("botania:magnetRingOn", "inventory")
+                    : new ModelResourceLocation("botania:magnetRingOff", "inventory"));
 
         ModelLoader.registerItemVariants(magnetRingGreater,
                 new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory"),
                 new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRingGreater, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ItemMagnetRing.getCooldown(stack) <= 0 ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
-                        : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(magnetRingGreater, stack ->
+                ItemMagnetRing.getCooldown(stack) <= 0
+                    ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
+                    : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
 
         ModelLoader.registerItemVariants(manaGun,
                 new ModelResourceLocation("botania:manaGun", "inventory"),
                 new ModelResourceLocation("botania:manaGunClip", "inventory"),
                 new ModelResourceLocation("botania:desuGun", "inventory"),
                 new ModelResourceLocation("botania:desuGunClip", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manaGun, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String name;
-                if (((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack)) {
-                    name = ItemManaGun.hasClip(stack) ? "botania:desuGunClip" : "botania:desuGun";
-                } else {
-                    name = ItemManaGun.hasClip(stack) ? "botania:manaGunClip": "botania:manaGun";
-                }
-                return new ModelResourceLocation(name, "inventory");
-            }
+        ModelLoader.setCustomMeshDefinition(manaGun, stack -> {
+            String name = ((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack) ? "botania:desuGun" : "botania:manaGun";
+            return new ModelResourceLocation(name + (ItemManaGun.hasClip(stack) ? "Clip" : ""), "inventory");
         });
 
         ModelLoader.registerItemVariants(tornadoRod,
                 new ModelResourceLocation("botania:tornadoRod", "inventory"),
                 new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
-        ModelLoader.setCustomMeshDefinition(tornadoRod, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ((ItemTornadoRod) ModItems.tornadoRod).isFlying(stack) ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory") : new ModelResourceLocation("botania:tornadoRod", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(tornadoRod, stack ->
+                ((ItemTornadoRod) ModItems.tornadoRod).isFlying(stack)
+                    ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory")
+                    : new ModelResourceLocation("botania:tornadoRod", "inventory"));
 
         ModelLoader.registerItemVariants(twigWand,
                 new ModelResourceLocation("botania:twigWand", "inventory"),
                 new ModelResourceLocation("botania:twigWand_bind", "inventory"));
-        ModelLoader.setCustomMeshDefinition(twigWand, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String path = "botania:twigWand";
-                return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
-            }
+        ModelLoader.setCustomMeshDefinition(twigWand, stack -> {
+            String path = "botania:twigWand";
+            return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
         });
 
         ModelLoader.registerItemVariants(manaweaveBoots,
                 new ModelResourceLocation("botania:manaweaveBoots", "inventory"),
                 new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveBoots, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory")
-                        : new ModelResourceLocation("botania:manaweaveBoots", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(manaweaveBoots, stack ->
+                ClientProxy.jingleTheBells
+                    ? new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory")
+                    : new ModelResourceLocation("botania:manaweaveBoots", "inventory"));
 
         ModelLoader.registerItemVariants(manaweaveChest,
                 new ModelResourceLocation("botania:manaweaveChest", "inventory"),
                 new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveChest, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory")
-                        : new ModelResourceLocation("botania:manaweaveChest", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(manaweaveChest, stack ->
+                ClientProxy.jingleTheBells
+                    ? new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory")
+                    : new ModelResourceLocation("botania:manaweaveChest", "inventory"));
 
         ModelLoader.registerItemVariants(manaweaveHelm,
                 new ModelResourceLocation("botania:manaweaveHelm", "inventory"),
                 new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveHelm, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory")
-                        : new ModelResourceLocation("botania:manaweaveHelm", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(manaweaveHelm, stack ->
+                ClientProxy.jingleTheBells
+                    ? new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory")
+                    : new ModelResourceLocation("botania:manaweaveHelm", "inventory"));
 
         ModelLoader.registerItemVariants(manaweaveLegs,
                 new ModelResourceLocation("botania:manaweaveLegs", "inventory"),
                 new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveLegs, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return ClientProxy.jingleTheBells ? new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory")
-                        : new ModelResourceLocation("botania:manaweaveLegs", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(manaweaveLegs, stack ->
+                ClientProxy.jingleTheBells
+                    ? new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory")
+                    : new ModelResourceLocation("botania:manaweaveLegs", "inventory"));
 
         ModelLoader.registerItemVariants(manasteelSword,
                 new ModelResourceLocation("botania:manasteelSword", "inventory"),
                 new ModelResourceLocation("botania:elucidator", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manasteelSword, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? new ModelResourceLocation("botania:elucidator", "inventory")
-                        : new ModelResourceLocation("botania:manasteelSword", "inventory");
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(manasteelSword, stack ->
+                "the elucidator".equals(stack.getDisplayName().toLowerCase().trim())
+                    ? new ModelResourceLocation("botania:elucidator", "inventory")
+                    : new ModelResourceLocation("botania:manasteelSword", "inventory"));
 
         ModelLoader.registerItemVariants(spawnerMover,
                 new ModelResourceLocation("botania:spawnerMover", "inventory"),
                 new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
-        ModelLoader.setCustomMeshDefinition(spawnerMover, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                if (ItemSpawnerMover.hasData(stack)) {
-                    return new ModelResourceLocation("botania:spawnerMoverFull", "inventory");
-                } else {
-                    return new ModelResourceLocation("botania:spawnerMover", "inventory");
-                }
-            }
-        });
+        ModelLoader.setCustomMeshDefinition(spawnerMover, stack -> new ModelResourceLocation("botania:spawnerMover" + (ItemSpawnerMover.hasData(stack) ? "Full" : ""), "inventory"));
 
         ModelLoader.registerItemVariants(terraPick,
                 new ModelResourceLocation("botania:terraPick", "inventory"),
                 new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
                 new ModelResourceLocation("botania:terraPickTipped", "inventory"),
                 new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
-        ModelLoader.setCustomMeshDefinition(terraPick, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                String name = "botania:terraPick";
-                if (ItemTerraPick.isTipped(stack)) {
-                    name += "Tipped";
-                }
-                if (ItemTerraPick.isEnabled(stack)) {
-                    name += "Enabled";
-                }
-                return new ModelResourceLocation(name, "inventory");
+        ModelLoader.setCustomMeshDefinition(terraPick, stack -> {
+            String name = "botania:terraPick";
+            if (ItemTerraPick.isTipped(stack)) {
+                name += "Tipped";
             }
+            if (ItemTerraPick.isEnabled(stack)) {
+                name += "Enabled";
+            }
+            return new ModelResourceLocation(name, "inventory");
         });
     }
 
@@ -692,24 +643,18 @@ public final class ModelHandler {
             ModelLoader.registerItemVariants(brewFlask, new ModelResourceLocation("botania:flask1_" + i, "inventory"));
         }
 
-        ModelLoader.setCustomMeshDefinition(brewFlask, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                int swigsTaken = 6 - ((ItemBrewBase) brewFlask).getSwigsLeft(stack);
-                return new ModelResourceLocation("botania:flask1_" + swigsTaken, "inventory");
-            }
+        ModelLoader.setCustomMeshDefinition(brewFlask, stack -> {
+            int swigsTaken = 6 - ((ItemBrewBase) brewFlask).getSwigsLeft(stack);
+            return new ModelResourceLocation("botania:flask1_" + swigsTaken, "inventory");
         });
 
         for (int i = 0; i < 4; i++) {
             ModelLoader.registerItemVariants(brewVial, new ModelResourceLocation("botania:vial1_" + i, "inventory"));
         }
 
-        ModelLoader.setCustomMeshDefinition(brewVial, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                int swigsTaken = 4 - ((ItemBrewBase) brewVial).getSwigsLeft(stack);
-                return new ModelResourceLocation("botania:vial1_" + swigsTaken, "inventory");
-            }
+        ModelLoader.setCustomMeshDefinition(brewVial, stack -> {
+            int swigsTaken = 4 - ((ItemBrewBase) brewVial).getSwigsLeft(stack);
+            return new ModelResourceLocation("botania:vial1_" + swigsTaken, "inventory");
         });
     }
 

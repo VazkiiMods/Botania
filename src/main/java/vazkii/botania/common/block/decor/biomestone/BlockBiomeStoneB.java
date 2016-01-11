@@ -14,7 +14,6 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
-import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockBiomeStoneB extends BlockBiomeStone {

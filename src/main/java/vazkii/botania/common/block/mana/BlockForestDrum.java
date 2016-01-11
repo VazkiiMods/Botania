@@ -37,7 +37,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.DrumVariant;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.ItemGrassHorn;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;

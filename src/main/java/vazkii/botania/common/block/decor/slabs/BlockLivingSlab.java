@@ -1,9 +1,6 @@
 package vazkii.botania.common.block.decor.slabs;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockLivingSlab extends BlockModSlab {
 

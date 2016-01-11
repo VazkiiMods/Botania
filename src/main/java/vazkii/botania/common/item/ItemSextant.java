@@ -170,7 +170,7 @@ public class ItemSextant extends ItemMod {
 
 		@Override
 		public Map<EnumFacing, Multiblock> createRotations() {
-			Map<EnumFacing, Multiblock> ret = new EnumMap<EnumFacing, Multiblock>(EnumFacing.class);
+			Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
 			for (EnumFacing e : EnumFacing.HORIZONTALS) {
 				ret.put(e, this);
 			}

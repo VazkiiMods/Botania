@@ -12,7 +12,6 @@ package vazkii.botania.common.item.lens;
 
 import java.awt.Color;
 
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

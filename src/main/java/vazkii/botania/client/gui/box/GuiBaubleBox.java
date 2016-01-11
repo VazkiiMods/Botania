@@ -17,8 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.lib.LibResources;
 
 public class GuiBaubleBox extends InventoryEffectRenderer {

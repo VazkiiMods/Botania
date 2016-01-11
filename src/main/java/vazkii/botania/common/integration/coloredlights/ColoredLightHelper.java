@@ -63,7 +63,7 @@ public class ColoredLightHelper {
 	}
 
 	private static void initPackedColors() {
-		packedColors = new EnumMap<EnumDyeColor, int[]>(EnumDyeColor.class);
+		packedColors = new EnumMap<>(EnumDyeColor.class);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			packedColors.put(color, new int[16]);
 			for(int j = 0; j < 16; j++)

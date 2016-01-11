@@ -10,14 +10,11 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.lexicon.LexiconData;

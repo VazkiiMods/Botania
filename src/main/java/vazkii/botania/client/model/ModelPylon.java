@@ -14,7 +14,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -22,7 +21,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.crash.CrashReport;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
@@ -52,12 +50,7 @@ public class ModelPylon implements IPylonModel {
 	private IFlexibleBakedModel gaiaRingsAndPanes;
 	private IFlexibleBakedModel gaiaGems;
 
-	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = new Function<ResourceLocation, TextureAtlasSprite>() {
-		@Override
-		public TextureAtlasSprite apply(ResourceLocation input) {
-			return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
-		}
-	};
+	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 
 	private static final Set<String> GROUP_NAMES = ImmutableSet.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
 			"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");

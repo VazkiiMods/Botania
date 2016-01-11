@@ -22,7 +22,6 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibAchievementNames;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public final class ModAchievements {
 

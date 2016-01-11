@@ -10,11 +10,9 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.entity.item.EntityMinecart;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 

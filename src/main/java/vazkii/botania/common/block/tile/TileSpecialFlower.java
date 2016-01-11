@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.BlockDirt;

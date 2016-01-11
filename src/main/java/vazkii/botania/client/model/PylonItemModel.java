@@ -31,7 +31,6 @@ import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.http.annotation.Immutable;
 import org.apache.logging.log4j.Level;
 
 import javax.vecmath.Matrix4f;
@@ -83,12 +82,7 @@ public class PylonItemModel implements ISmartItemModel {
         // All groups are off by default
         // OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group
 
-        final Function<ResourceLocation, TextureAtlasSprite> textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
-            @Override
-            public TextureAtlasSprite apply(ResourceLocation input) {
-                return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
-            }
-        };
+        final Function<ResourceLocation, TextureAtlasSprite> textureGetter = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 
         ImmutableList<String> standardGroups = ImmutableList.of("Crystal", "Crystal_Ring",
                 "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04",

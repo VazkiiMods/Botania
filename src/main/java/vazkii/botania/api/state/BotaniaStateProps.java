@@ -65,12 +65,9 @@ public class BotaniaStateProps {
     public static final PropertyEnum<FutureStoneVariant> FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
 
     // Block18StoneWall
-    public static final PropertyEnum<FutureStoneVariant> FUTURESTONEWALL_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class, new Predicate<FutureStoneVariant>() {
-        @Override
-        public boolean apply(FutureStoneVariant variant) {
-            // Just the four kinds (no polished, chiseled, etc.)
-            return variant.ordinal() >= 0 && variant.ordinal() <= 3;
-        }
+    public static final PropertyEnum<FutureStoneVariant> FUTURESTONEWALL_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class, variant -> {
+        // Just the four kinds (no polished, chiseled, etc.)
+        return variant.ordinal() >= 0 && variant.ordinal() <= 3;
     });
 
     // BlockAlfPortal
@@ -89,12 +86,7 @@ public class BotaniaStateProps {
     public static final PropertyEnum<BiomeBrickVariant> BIOMEBRICK_VARIANT = PropertyEnum.create("variant", BiomeBrickVariant.class);
 
     // BlockBiomeStoneWall
-    public static final PropertyEnum<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
-        @Override
-        public boolean apply(BiomeStoneVariant input) {
-            return input.getName().contains("cobble");
-        }
-    });
+    public static final PropertyEnum<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class, input -> input.getName().contains("cobble"));
 
     // BlockCustomBrick
     public static final PropertyEnum<CustomBrickVariant> CUSTOMBRICK_VARIANT = PropertyEnum.create("variant", CustomBrickVariant.class);
@@ -120,36 +112,21 @@ public class BotaniaStateProps {
     // BlockLivingRock
     public static final PropertyEnum<LivingRockVariant> LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
 
-    // BlockModDoubleFlower
-    public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-        @Override
-        public boolean apply(EnumDyeColor input) {
-            // White to gray
-            return input.ordinal() >= 0 && input.ordinal() <= 7;
-        }
-    });
+    // BlockModDoubleFlower (white to gray)
+    public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("variant", EnumDyeColor.class, input -> input.ordinal() >= 0 && input.ordinal() <= 7);
 
-    public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-        @Override
-        public boolean apply(EnumDyeColor input) {
-            // Silver to black
-            return input.ordinal() >= 8 && input.ordinal() <= 15;
-        }
-    });
+    // (silver to black)
+    public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("variant", EnumDyeColor.class, input -> input.ordinal() >= 8 && input.ordinal() <= 15);
 
     // BlockOpenCrate
     public static final PropertyEnum<CrateVariant> CRATE_VARIANT = PropertyEnum.create("variant", CrateVariant.class);
     public static final PropertyEnum<CratePattern> CRATE_PATTERN = PropertyEnum.create("pattern", CratePattern.class);
 
     // BlockPavement
-    public static final PropertyEnum<EnumDyeColor> PAVEMENT_COLOR = PropertyEnum.create("color", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-        @Override
-        public boolean apply(EnumDyeColor color) {
-            return color == EnumDyeColor.WHITE || color == EnumDyeColor.BLACK
-                    || color == EnumDyeColor.BLUE || color == EnumDyeColor.RED
-                    || color == EnumDyeColor.YELLOW || color == EnumDyeColor.GREEN;
-        }
-    });
+    public static final PropertyEnum<EnumDyeColor> PAVEMENT_COLOR = PropertyEnum.create("color", EnumDyeColor.class, color ->
+            color == EnumDyeColor.WHITE || color == EnumDyeColor.BLACK
+            || color == EnumDyeColor.BLUE || color == EnumDyeColor.RED
+            || color == EnumDyeColor.YELLOW || color == EnumDyeColor.GREEN);
 
     // BlockPlatform
     public static final PropertyEnum<PlatformVariant> PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);

@@ -20,7 +20,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	private static int count = 0;
 
 	public final String unlocalizedName;
-	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
+	public final List<LexiconEntry> entries = new ArrayList<>();
 	private final int sortingId;
 	private ResourceLocation icon;
 	private int priority = 5;

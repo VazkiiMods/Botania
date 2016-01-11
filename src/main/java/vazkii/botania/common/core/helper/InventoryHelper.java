@@ -100,7 +100,7 @@ public class InventoryHelper {
 				attemptSlots[a] = a;
 		}
 		if(intoSlot > -1) {
-			Set<Integer> x = new HashSet<Integer>();
+			Set<Integer> x = new HashSet<>();
 			for(int attemptedSlot : attemptSlots)
 				x.add(attemptedSlot);
 

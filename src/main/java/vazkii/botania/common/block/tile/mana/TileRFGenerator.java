@@ -112,7 +112,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 		if(tile instanceof IEnergyReceiver && ((IEnergyReceiver)tile).canConnectEnergy(side)) {
 			if(receiverCache == null)
-				receiverCache = new EnumMap<EnumFacing, IEnergyReceiver>(EnumFacing.class);
+				receiverCache = new EnumMap<>(EnumFacing.class);
 			receiverCache.put(side, (IEnergyReceiver)tile);
 		}
 	}

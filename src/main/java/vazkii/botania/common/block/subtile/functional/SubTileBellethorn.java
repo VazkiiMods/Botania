@@ -84,14 +84,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 	}
 
 	public Predicate<Entity> getSelector() {
-		return new Predicate<Entity>() {
-
-			@Override
-			public boolean apply(Entity entity) {
-				return !(entity instanceof EntityPlayer);
-			}
-
-		};
+		return entity -> !(entity instanceof EntityPlayer);
 	}
 
 	@Override

@@ -12,7 +12,6 @@ package vazkii.botania.api.lexicon.multiblock;
 
 import java.util.*;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -33,7 +32,7 @@ public class Multiblock {
 	public BlockPos maxPos = BlockPos.ORIGIN;
 	public BlockPos offPos = BlockPos.ORIGIN;
 
-	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<BlockPos, MultiblockComponent>();
+	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z
@@ -125,7 +124,7 @@ public class Multiblock {
 	 * orientations.
 	 */
 	public Map<EnumFacing, Multiblock> createRotations() {
-		Map<EnumFacing, Multiblock> ret = new EnumMap<EnumFacing, Multiblock>(EnumFacing.class);
+		Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
 
 		ret.put(EnumFacing.SOUTH, this);
 

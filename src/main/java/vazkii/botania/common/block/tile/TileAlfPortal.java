@@ -84,26 +84,11 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	private boolean closeNow = false;
 	private boolean hasUnloadedParts = false;
 
-	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = new Function<BlockPos, BlockPos>() {
-		@Override
-		public BlockPos apply(BlockPos input) {
-			return new BlockPos(input.getZ(), input.getY(), input.getX());
-		}
-	};
+	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = input -> new BlockPos(input.getZ(), input.getY(), input.getX());
 
-	private static final Function<double[], double[]> CONVERTER_X_Z_FP = new Function<double[], double[]>() {
-		@Override
-		public double[] apply(double[] input) {
-			return new double[] { input[2], input[1], input[0] };
-		}
-	};
+	private static final Function<double[], double[]> CONVERTER_X_Z_FP = input -> new double[] { input[2], input[1], input[0] };
 
-	private static final Function<BlockPos, BlockPos> CONVERTER_Z_SWAP = new Function<BlockPos, BlockPos>() {
-		@Override
-		public BlockPos apply(BlockPos input) {
-			return new BlockPos(input.getX(), input.getY(), -input.getZ());
-		}
-	};
+	private static final Function<BlockPos, BlockPos> CONVERTER_Z_SWAP = input -> new BlockPos(input.getX(), input.getY(), -input.getZ());
 
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();

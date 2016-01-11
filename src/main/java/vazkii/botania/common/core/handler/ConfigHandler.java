@@ -406,7 +406,7 @@ public final class ConfigHandler {
 			if(!enabled)
 				return;
 
-			AdaptableValue<T> adapt = new AdaptableValue<T>(version, val);
+			AdaptableValue<T> adapt = new AdaptableValue<>(version, val);
 			if(!adaptableValues.containsKey(key)) {
 				ArrayList list = new ArrayList();
 				adaptableValues.put(key, list);

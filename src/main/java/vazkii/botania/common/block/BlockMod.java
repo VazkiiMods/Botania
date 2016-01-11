@@ -13,13 +13,10 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMod extends Block {
 

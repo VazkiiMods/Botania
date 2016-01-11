@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -31,16 +30,12 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.core.helper.ObfuscationHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemManasteelShears extends ItemShears implements IManaUsingItem {

@@ -10,12 +10,10 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -43,8 +41,8 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 		}
 	};
 
-	public RenderPixie() {
-		super(Minecraft.getMinecraft().getRenderManager(), new ModelPixie(), 0.25F);
+	public RenderPixie(RenderManager renderManager) {
+		super(renderManager, new ModelPixie(), 0.25F);
 		//setRenderPassModel(new ModelPixie());
 		shadowSize = 0.0F;
 	}

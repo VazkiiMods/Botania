@@ -17,10 +17,10 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelPump extends ModelBase{
 
-	private ArrayList<ModelRenderer> parts = new ArrayList<ModelRenderer>();
+	private ArrayList<ModelRenderer> parts = new ArrayList<>();
 
-	private ArrayList<ModelRenderer> innerRing = new ArrayList<ModelRenderer>();
-	private ArrayList<ModelRenderer> outerRing = new ArrayList<ModelRenderer>();
+	private ArrayList<ModelRenderer> innerRing = new ArrayList<>();
+	private ArrayList<ModelRenderer> outerRing = new ArrayList<>();
 
 	public ModelPump() {
 		textureWidth = 64;
