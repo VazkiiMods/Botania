@@ -25,14 +25,15 @@ public class TinyPotatoRenderEvent extends Event {
 	public final String name;
 	public final double x, y, z;
 	public final float partTicks;
+	public final int destroyStage;
 
-	public TinyPotatoRenderEvent(TileEntity tile, String name, double x, double y, double z, float partTicks) {
+	public TinyPotatoRenderEvent(TileEntity tile, String name, double x, double y, double z, float partTicks, int destroyStage) {
 		this.tile = tile;
 		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.partTicks = partTicks;
+		this.destroyStage = destroyStage;
 	}
-
 }
