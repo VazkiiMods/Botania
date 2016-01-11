@@ -17,6 +17,7 @@ import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -165,111 +166,113 @@ public final class ModelHandler {
         registerBrews();
 
         /** Special Item Meshers **/
+        // Must wrap messhers in a wrapper for now, see the MesherWrapper class definition at bottom of file
+
         ModelLoader.registerItemVariants(infiniteFruit,
                 new ModelResourceLocation("botania:infiniteFruit", "inventory"),
                 new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
-        ModelLoader.setCustomMeshDefinition(infiniteFruit, stack ->
+        ModelLoader.setCustomMeshDefinition(infiniteFruit, MesherWrapper.of(stack ->
                 ItemInfiniteFruit.isBoot(stack)
                     ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
-                    : new ModelResourceLocation("botania:infiniteFruit", "inventory"));
+                    : new ModelResourceLocation("botania:infiniteFruit", "inventory")));
 
         ModelLoader.registerItemVariants(magnetRing,
                 new ModelResourceLocation("botania:magnetRingOn", "inventory"),
                 new ModelResourceLocation("botania:magnetRingOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRing, stack ->
+        ModelLoader.setCustomMeshDefinition(magnetRing, MesherWrapper.of(stack ->
                 ItemMagnetRing.getCooldown(stack) <= 0
                     ? new ModelResourceLocation("botania:magnetRingOn", "inventory")
-                    : new ModelResourceLocation("botania:magnetRingOff", "inventory"));
+                    : new ModelResourceLocation("botania:magnetRingOff", "inventory")));
 
         ModelLoader.registerItemVariants(magnetRingGreater,
                 new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory"),
                 new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRingGreater, stack ->
+        ModelLoader.setCustomMeshDefinition(magnetRingGreater, MesherWrapper.of(stack ->
                 ItemMagnetRing.getCooldown(stack) <= 0
                     ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
-                    : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
+                    : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory")));
 
         ModelLoader.registerItemVariants(manaGun,
                 new ModelResourceLocation("botania:manaGun", "inventory"),
                 new ModelResourceLocation("botania:manaGunClip", "inventory"),
                 new ModelResourceLocation("botania:desuGun", "inventory"),
                 new ModelResourceLocation("botania:desuGunClip", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manaGun, stack -> {
+        ModelLoader.setCustomMeshDefinition(manaGun, MesherWrapper.of(stack -> {
             String name = ((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack) ? "botania:desuGun" : "botania:manaGun";
             return new ModelResourceLocation(name + (ItemManaGun.hasClip(stack) ? "Clip" : ""), "inventory");
-        });
+        }));
 
         ModelLoader.registerItemVariants(tornadoRod,
                 new ModelResourceLocation("botania:tornadoRod", "inventory"),
                 new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
-        ModelLoader.setCustomMeshDefinition(tornadoRod, stack ->
+        ModelLoader.setCustomMeshDefinition(tornadoRod, MesherWrapper.of(stack ->
                 ((ItemTornadoRod) ModItems.tornadoRod).isFlying(stack)
                     ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory")
-                    : new ModelResourceLocation("botania:tornadoRod", "inventory"));
+                    : new ModelResourceLocation("botania:tornadoRod", "inventory")));
 
         ModelLoader.registerItemVariants(twigWand,
                 new ModelResourceLocation("botania:twigWand", "inventory"),
                 new ModelResourceLocation("botania:twigWand_bind", "inventory"));
-        ModelLoader.setCustomMeshDefinition(twigWand, stack -> {
+        ModelLoader.setCustomMeshDefinition(twigWand, MesherWrapper.of(stack -> {
             String path = "botania:twigWand";
             return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
-        });
+        }));
 
         ModelLoader.registerItemVariants(manaweaveBoots,
                 new ModelResourceLocation("botania:manaweaveBoots", "inventory"),
                 new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveBoots, stack ->
+        ModelLoader.setCustomMeshDefinition(manaweaveBoots, MesherWrapper.of(stack ->
                 ClientProxy.jingleTheBells
                     ? new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveBoots", "inventory"));
+                    : new ModelResourceLocation("botania:manaweaveBoots", "inventory")));
 
         ModelLoader.registerItemVariants(manaweaveChest,
                 new ModelResourceLocation("botania:manaweaveChest", "inventory"),
                 new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveChest, stack ->
+        ModelLoader.setCustomMeshDefinition(manaweaveChest, MesherWrapper.of(stack ->
                 ClientProxy.jingleTheBells
                     ? new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveChest", "inventory"));
+                    : new ModelResourceLocation("botania:manaweaveChest", "inventory")));
 
         ModelLoader.registerItemVariants(manaweaveHelm,
                 new ModelResourceLocation("botania:manaweaveHelm", "inventory"),
                 new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveHelm, stack ->
+        ModelLoader.setCustomMeshDefinition(manaweaveHelm, MesherWrapper.of(stack ->
                 ClientProxy.jingleTheBells
                     ? new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveHelm", "inventory"));
+                    : new ModelResourceLocation("botania:manaweaveHelm", "inventory")));
 
         ModelLoader.registerItemVariants(manaweaveLegs,
                 new ModelResourceLocation("botania:manaweaveLegs", "inventory"),
                 new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory"));
 
-        ModelLoader.setCustomMeshDefinition(manaweaveLegs, stack ->
+        ModelLoader.setCustomMeshDefinition(manaweaveLegs, MesherWrapper.of(stack ->
                 ClientProxy.jingleTheBells
                     ? new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveLegs", "inventory"));
+                    : new ModelResourceLocation("botania:manaweaveLegs", "inventory")));
 
         ModelLoader.registerItemVariants(manasteelSword,
                 new ModelResourceLocation("botania:manasteelSword", "inventory"),
                 new ModelResourceLocation("botania:elucidator", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manasteelSword, stack ->
+        ModelLoader.setCustomMeshDefinition(manasteelSword, MesherWrapper.of(stack ->
                 "the elucidator".equals(stack.getDisplayName().toLowerCase().trim())
                     ? new ModelResourceLocation("botania:elucidator", "inventory")
-                    : new ModelResourceLocation("botania:manasteelSword", "inventory"));
+                    : new ModelResourceLocation("botania:manasteelSword", "inventory")));
 
         ModelLoader.registerItemVariants(spawnerMover,
                 new ModelResourceLocation("botania:spawnerMover", "inventory"),
                 new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
-        ModelLoader.setCustomMeshDefinition(spawnerMover, stack -> new ModelResourceLocation("botania:spawnerMover" + (ItemSpawnerMover.hasData(stack) ? "Full" : ""), "inventory"));
+        ModelLoader.setCustomMeshDefinition(spawnerMover, MesherWrapper.of(stack -> new ModelResourceLocation("botania:spawnerMover" + (ItemSpawnerMover.hasData(stack) ? "Full" : ""), "inventory")));
 
         ModelLoader.registerItemVariants(terraPick,
                 new ModelResourceLocation("botania:terraPick", "inventory"),
                 new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
                 new ModelResourceLocation("botania:terraPickTipped", "inventory"),
                 new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
-        ModelLoader.setCustomMeshDefinition(terraPick, stack -> {
+        ModelLoader.setCustomMeshDefinition(terraPick, MesherWrapper.of(stack -> {
             String name = "botania:terraPick";
             if (ItemTerraPick.isTipped(stack)) {
                 name += "Tipped";
@@ -278,7 +281,7 @@ public final class ModelHandler {
                 name += "Enabled";
             }
             return new ModelResourceLocation(name, "inventory");
-        });
+        }));
     }
 
     private static void registerSubtiles() {
@@ -564,6 +567,7 @@ public final class ModelHandler {
     }
 
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
+    @SuppressWarnings("deprecation")
     private static void registerTESRItems() {
         registerItemModel(ModBlocks.avatar);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
@@ -1049,5 +1053,22 @@ public final class ModelHandler {
     }
 
     private ModelHandler() {}
+
+    // Shim because lambdas/method references for vanilla classes are not reobfuscated properly yet
+    // See https://github.com/MinecraftForge/ForgeGradle/issues/314
+    private interface MesherWrapper extends ItemMeshDefinition {
+
+        static MesherWrapper of(MesherWrapper f) {
+            return f;
+        }
+
+        ModelResourceLocation getLocation(ItemStack stack);
+
+        @Override
+        default ModelResourceLocation getModelLocation(ItemStack stack) {
+            return getLocation(stack);
+        }
+
+    }
 
 }
