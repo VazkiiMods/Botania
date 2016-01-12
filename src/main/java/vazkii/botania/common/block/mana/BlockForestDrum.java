@@ -69,7 +69,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (meta > DrumVariant.values().length) {
+		if (meta >= DrumVariant.values().length) {
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.values()[meta]);
