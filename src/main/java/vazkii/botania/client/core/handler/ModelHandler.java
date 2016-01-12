@@ -352,6 +352,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.cacophonium);
         registerItemModel(ModBlocks.cellBlock);
         registerItemModel(ModBlocks.conjurationCatalyst);
+        registerItemModel(ModBlocks.cocoon);
         registerItemModel(ModBlocks.corporeaFunnel);
         registerItemModel(ModBlocks.corporeaInterceptor);
         registerItemModel(ModBlocks.corporeaRetainer);

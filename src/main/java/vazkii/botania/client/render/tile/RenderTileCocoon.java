@@ -10,9 +10,12 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -41,12 +44,14 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		GlStateManager.rotate(90F, 1F, 0F, 0F);
-		GlStateManager.translate(0.5F, -0.5F - 3F / 16F, -0.5F + 1F / 16F);
-		GlStateManager.rotate(rot, 0F, 1F, 0F);
-		model.render();
+		GlStateManager.translate(d0, d1, d2 + 1);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		GlStateManager.translate(0.5F, 0, 0F);
+		GlStateManager.rotate(rot, 1F, 0F, 0F); // todo 1.8 fixme looks a little weird compared to 1.7
+		GlStateManager.translate(-0.5F, 0, 0F);
+		IBlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
+		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);
+		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();

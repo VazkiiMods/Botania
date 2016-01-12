@@ -1,0 +1,20 @@
+{
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [ 3.0, 0.0, 3.0 ],
+      "to": [ 13.0, 14.0, 13.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 1.0, 0.0, 3.5, 3.5 ] },
+        "north": { "texture": "#all", "uv": [ 3.5, 0.0, 6.0, 3.5 ] },
+        "south": { "texture": "#all", "uv": [ 6.0, 0.0, 8.5, 3.5 ] },
+        "east": { "texture": "#all", "uv": [ 8.5, 0.0, 11.0, 3.5 ] },
+        "up": { "texture": "#all", "uv": [ 3.5, 3.5, 6.0, 6.0 ] },
+        "down": { "texture": "#all", "uv": [ 6.0, 3.5, 8.5, 6.0 ], "cullface": "down" }
+      }
+    }
+  ]
+}
