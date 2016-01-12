@@ -29,7 +29,6 @@ import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
 
-import org.lwjgl.opengl.GL14;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
@@ -37,7 +36,6 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
@@ -75,8 +73,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		int color;
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			Color jcolor = Color.getHSBColor(time * 0.005F, 0.6F, 1F);
-			GL14.glSecondaryColor3ub(((byte) jcolor.getRed()), ((byte) jcolor.getGreen()), ((byte) jcolor.getBlue()));
+			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
 		} else {
 			color = pool.getColor().getMapColor().colorValue | 0xFF000000; // Add alpha
 		}
@@ -84,25 +81,22 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool.getWorld().getBlockState(pool.getPos()));
 		Tessellator tess = Tessellator.getInstance();
 
-//		tess.getWorldRenderer().begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
+		tess.getWorldRenderer().begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
 
+		GlStateManager.disableLighting();
+		for (BakedQuad quad : model.getGeneralQuads()) {
+			LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
+		}
 
-		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(pool.getWorld(), model, pool.getWorld().getBlockState(pool.getPos()), pool.getPos(), tess.getWorldRenderer(), false);
-		GL14.glSecondaryColor3ub(((byte) 255), ((byte) 255), ((byte) 255));
-//		GlStateManager.disableLighting();
-//		for (BakedQuad quad : model.getGeneralQuads()) {
-//			LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
-//		}
-//
-//		for (EnumFacing e : EnumFacing.VALUES) {
-//			for (BakedQuad quad: model.getFaceQuads(e)) {
-//				LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
-//			}
-//		}
+		for (EnumFacing e : EnumFacing.VALUES) {
+			for (BakedQuad quad: model.getFaceQuads(e)) {
+				LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
+			}
+		}
 
-//		tess.draw();
+		tess.draw();
 
-//		GlStateManager.enableLighting();
+		GlStateManager.enableLighting();
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.color(1, 1, 1, a);
