@@ -26,7 +26,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.block.tile.TileFakeAir;
+import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockFakeAir extends BlockModContainer {
@@ -41,6 +43,17 @@ public class BlockFakeAir extends BlockModContainer {
 	@Override
 	public int getRenderType() {
 		return -1;
+	}
+
+	@Override
+	protected boolean shouldRegisterInNameSet() {
+		return false;
+	}
+
+	@Override
+	public Block setUnlocalizedName(String par1Str) {
+		GameRegistry.registerBlock(this, null, par1Str);
+		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

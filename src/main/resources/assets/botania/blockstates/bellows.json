@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:dummy",
+    "textures": {
+      "particle": "botania:blocks/livingwood0"
+    }
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

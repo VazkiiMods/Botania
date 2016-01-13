@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
@@ -561,7 +562,7 @@ public final class ModelHandler {
         registerItemModelMetas(blackHoleTalisman, LibItemNames.BLACK_HOLE_TALISMAN, 2);
         registerItemModelMetas(slimeBottle, LibItemNames.SLIME_BOTTLE, 2);
         registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
-        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 8);
+        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 7);
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
@@ -762,6 +763,14 @@ public final class ModelHandler {
         for (Block b : otherFullSlabs) {
             ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
         }
+
+        // Ignore everything in TESR items to suppress missing model errors
+        ModelLoader.setCustomStateMapper(ModBlocks.avatar, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.bellows, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.brewery, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.gaiaHead, new StateMap.Builder().ignore(BlockSkull.FACING, BlockSkull.NODROP).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.hourglass, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.pump, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
     }
 
     private static void registerMushrooms() {

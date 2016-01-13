@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:dummy",
+    "textures": {
+      "particle": "minecraft:blocks/wool_colored_white"
+    }
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

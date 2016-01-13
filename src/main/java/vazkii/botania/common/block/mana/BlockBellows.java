@@ -55,6 +55,9 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 2 || meta > 5) {
+			meta = 2;
+		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 

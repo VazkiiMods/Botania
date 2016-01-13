@@ -43,18 +43,9 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 
 	public void render(TileEntitySkull skull, float par1, float par2, float par3, EnumFacing par4, float par5, int par6, GameProfile gameProfile, int digProgress) {
 		boolean gaia = skull == null || skull instanceof TileGaiaHead;
-		if(par6 == 3 || gaia) {
-			ResourceLocation resourcelocation = DefaultPlayerSkin.getDefaultSkinLegacy();
+		if(gaia) {
 			Minecraft minecraft = Minecraft.getMinecraft();
-			if(gaia)
-				resourcelocation = minecraft.thePlayer.getLocationSkin();
-			else if(gameProfile != null) {
-				Map map = minecraft.getSkinManager().loadSkinFromCache(gameProfile);
-
-				if (map.containsKey(MinecraftProfileTexture.Type.SKIN)) {
-					resourcelocation = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN);
-				}
-			}
+			ResourceLocation resourcelocation = minecraft.thePlayer.getLocationSkin();
 			bindTexture(resourcelocation);
 			GlStateManager.pushMatrix();
 			GlStateManager.disableCull();
@@ -81,13 +72,11 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 			GlStateManager.enableAlpha();
-			if(gaia)
-				ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
+			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 			modelSkull.render(null, 0F, 0F, 0F, par5, 0F, 0.0625F);
 
-			if(gaia)
-				ShaderHelper.releaseShader();
+			ShaderHelper.releaseShader();
 			GlStateManager.popMatrix();
 		} else super.renderSkull(par1, par2, par3, par4, par5, par6, gameProfile, digProgress);
 	}

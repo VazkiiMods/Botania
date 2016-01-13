@@ -39,7 +39,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, Entity e) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getEntityItem();
