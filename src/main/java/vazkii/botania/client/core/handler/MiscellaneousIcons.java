@@ -141,7 +141,7 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void dumpAtlas(ArrowLooseEvent evt) {
-        if (!evt.entityPlayer.worldObj.isRemote || true)
+        if (!evt.entityPlayer.worldObj.isRemote || false)
             return;
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
