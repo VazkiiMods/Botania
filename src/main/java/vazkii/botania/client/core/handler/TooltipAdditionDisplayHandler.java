@@ -190,7 +190,7 @@ public final class TooltipAdditionDisplayHandler {
 		String rank = StatCollector.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING);
-		GlStateManager.disableLighting();
+		GL11.glDisable(GL11.GL_LIGHTING);
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = StatCollector.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
