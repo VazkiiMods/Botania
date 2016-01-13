@@ -145,8 +145,10 @@ public class MiscellaneousIcons {
             return;
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-        int width = 1024;
-        int height = 1024;
+        int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+        int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
+
+        System.out.printf("Atlas is %d wide by %d tall%n", width, height);
 
         int pixels = width * height;
         
@@ -157,8 +159,7 @@ public class MiscellaneousIcons {
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
         GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, buffer);
-        //GL11.glReadPixels(0, 0, width, height, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, buffer);
-        
+
         buffer.get(pixelValues);
 
         BufferedImage bufferedimage = new BufferedImage(width, height, 2);
