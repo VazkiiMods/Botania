@@ -155,56 +155,57 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		}
 	}
 
-	public Boolean[][][] createMatrix(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
+	public List<ChunkCoordinates> getBlocksToSwap(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
+		// If we have no target block passed in, infer it to be
+		// the block which the swapping is centered on (presumably the block
+		// which the player is looking at)
 		if(targetBlock == null) {
 			targetBlock = world.getBlock(xc, yc, zc);
 			targetMeta = world.getBlockMetadata(xc, yc, zc);
 		}
 
-		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int diameter = effrange * 2 + 1;
-		Boolean[][][] matrix = new Boolean[diameter][diameter][diameter];
-		for(int i = 0; i < diameter; i++)
-			for(int j = 0; j < diameter; j++)
-				for(int k = 0; k < diameter; k++) {
-					int x = xc + i - effrange;
-					int y = yc + j - effrange;
-					int z = zc + k - effrange;
-					Block block = world.getBlock(x, y, z);
-					int meta = world.getBlockMetadata(x, y, z);
-					boolean invalid = !BlockCamo.isValidBlock(block);
-					if(invalid)
-						matrix[i][j][k] = true;
-					else if(block == blockToSwap && meta == metaToSwap || block != targetBlock || meta != targetMeta)
-						matrix[i][j][k] = null;
-					else matrix[i][j][k] = false;
-				}
+		// Our result list
+		List<ChunkCoordinates> coordsList = new ArrayList<ChunkCoordinates>();
 
-		return matrix;
-	}
-
-	public List<ChunkCoordinates> getBlocksToSwap(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
-		List<ChunkCoordinates> coordsList = new ArrayList();
-		Boolean[][][] matrix = createMatrix(world, stack, blockToSwap, metaToSwap, xc, yc, zc, targetBlock, targetMeta);
-
-		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int diameter = effrange * 2;
-		for(int i = 1; i < diameter; i++)
-			for(int j = 1; j < diameter; j++)
-				for(int k = 1; k < diameter; k++) {
-					int x = xc + i - effrange;
-					int y = yc + j - effrange;
-					int z = zc + k - effrange;
-
-					Boolean bool = matrix[i][j][k];
-					if(bool != null && !bool)
-						for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-							Boolean obool = matrix[i + dir.offsetX][j + dir.offsetY][k + dir.offsetZ];
-							if(obool != null && obool) {
-								coordsList.add(new ChunkCoordinates(x, y, z));
-								break;
-							}
+		// We subtract 1 from the effective range as the center tile is included
+		// So, with a range of 3, we are visiting tiles at -2, -1, 0, 1, 2
+		int effRange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
+		
+		// Iterate in all 3 dimensions through our possible positions.
+		for(int offsetX = -effRange; offsetX <= effRange; offsetX++)
+			for(int offsetY = -effRange; offsetY <= effRange; offsetY++)
+				for(int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
+					int x = xc + offsetX, y = yc + offsetY, z = zc + offsetZ;
+					
+					Block currentBlock = world.getBlock(x, y, z);
+					int currentMeta = world.getBlockMetadata(x, y, z);
+					
+					// If this block is not our target, ignore it, as we don't need
+					// to consider replacing it
+					if(currentBlock != targetBlock || currentMeta != targetMeta)
+						continue;
+					
+					// If this block is already the block we're swapping to,
+					// we don't need to swap again
+					if(currentBlock == blockToSwap && currentMeta == metaToSwap)
+						continue;
+					
+					// Check to see if the block is visible on any side:
+					for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+						int adjX = x + dir.offsetX, adjY = y + dir.offsetY, adjZ = z + dir.offsetZ;
+						Block adjBlock = world.getBlock(adjX, adjY, adjZ);
+						
+						// If the side of the adjacent block facing this block is
+						// _not_ solid, then this block is considered "visible"
+						// and should be replaced.
+						
+						// If there is a rendering-specific way to check for this,
+						// that should be placed in preference to this.
+						if(!adjBlock.isSideSolid(world, adjX, adjY, adjZ, dir.getOpposite())) {
+							coordsList.add(new ChunkCoordinates(x, y, z));
+							break;
 						}
+					}
 				}
 
 		return coordsList;
