@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -169,10 +170,14 @@ public class ItemGrassSeeds extends ItemMod {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
-				List<BlockSwapper> swappersSafe = new ArrayList(swappers);
-
-				for(BlockSwapper s : swappersSafe)
-					s.tick(swappers);
+				
+				Iterator<BlockSwapper> iter = swappers.listIterator();
+				
+				while(iter.hasNext()) {
+					BlockSwapper next = iter.next();
+					if(!next.tick())
+						iter.remove();
+				}
 			}
 		}
 	}
@@ -202,30 +207,60 @@ public class ItemGrassSeeds extends ItemMod {
 		}
 	}
 
+	/**
+	 * A block swapper for the Pasture Seeds, which swaps dirt and grass blocks
+	 * centered around a provided point to a provided block/metadata. 
+	 */
 	private static class BlockSwapper {
 
-		final World world;
-		final Random rand;
-		final Block blockToSet;
-		final int metaToSet;
+		/**
+		 * The range of the block swapper, in blocks.
+		 */
+		public static final int RANGE = 3;
+		
+		/**
+		 * The range around which a block can spread in a single tick.
+		 */
+		public static final int TICK_RANGE = 1;
+		
+		private final World world;
+		private final Random rand;
+		private final Block blockToSet;
+		private final int metaToSet;
 
-		ChunkCoordinates startCoords;
-		int ticksExisted = 0;
+		private ChunkCoordinates startCoords;
+		private int ticksExisted = 0;
 
-		BlockSwapper(World world, ChunkCoordinates coords, Block block, int meta) {
+		/**
+		 * Constructs a new block swapper with the provided world, starting
+		 * coordinates, target block, and target metadata.
+		 * @param world The world to swap blocks in.
+		 * @param coords The central coordinates to swap blocks around.
+		 * @param block The target block to swap dirt and grass to.
+		 * @param meta The metadata of the target block to swap dirt and grass to.
+		 */
+		public BlockSwapper(World world, ChunkCoordinates coords, Block block, int meta) {
 			this.world = world;
-			blockToSet = block;
-			metaToSet = meta;
-			rand = new Random(coords.posX ^ coords.posY ^ coords.posZ);
-			startCoords = coords;
+			this.blockToSet = block;
+			this.metaToSet = meta;
+			this.rand = new Random(coords.posX ^ coords.posY ^ coords.posZ);
+			this.startCoords = coords;
 		}
 
-		void tick(List<BlockSwapper> list) {
+		/**
+		 * Ticks this block swapper, allowing it to make an action during
+		 * this game tick. This method should return "false" when the swapper
+		 * has finished operation and should be removed from the world.
+		 * @return true if the swapper should continue to exist, false if it
+		 * should be removed.
+		 */
+		public boolean tick() {
 			++ticksExisted;
 
-			int range = 3;
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++) {
+			// Go through all blocks in the specified RANGE, and then
+			// try and spread around that block if it is our target block already
+			for(int i = -RANGE; i <= RANGE; i++) {
+				for(int j = -RANGE; j <= RANGE; j++) {
 					int x = startCoords.posX + i;
 					int y = startCoords.posY;
 					int z = startCoords.posZ + j;
@@ -233,28 +268,73 @@ public class ItemGrassSeeds extends ItemMod {
 					int meta = world.getBlockMetadata(x, y, z);
 
 					if(block == blockToSet && meta == metaToSet) {
-						if(ticksExisted % 20 == 0) {
-							List<ChunkCoordinates> validCoords = new ArrayList();
-							for(int k = -1; k < 2; k++)
-								for(int l = -1; l < 2; l++) {
-									int x1 = x + k;
-									int z1 = z + l;
-									Block block1 = world.getBlock(x1, y, z1);
-									int meta1 = world.getBlockMetadata(x1, y, z1);
-									if((block1 == Blocks.dirt || block1 == Blocks.grass) && meta1 == 0)
-										validCoords.add(new ChunkCoordinates(x1, y, z1));
-								}
-
-							if(!validCoords.isEmpty() && !world.isRemote) {
-								ChunkCoordinates coords = validCoords.get(rand.nextInt(validCoords.size()));
-								world.setBlock(coords.posX, coords.posY, coords.posZ, blockToSet, metaToSet, 1 | 2);
-							}
-						}
+						// Only make changes every 20 ticks
+						if(ticksExisted % 20 != 0) continue;
+						
+						tickBlock(x, y, z);
 					}
 				}
+			}
 
-			if(ticksExisted >= 80)
-				list.remove(this);
+			// This swapper should exist for 80 ticks
+			return ticksExisted < 80;
+		}
+		
+		/**
+		 * Tick a specific block position, finding the valid blocks
+		 * immediately adjacent to it and then replacing one at random.
+		 * @param x The x-coordinate to use.
+		 * @param y The y-coordinate to use.
+		 * @param z The z-coordinate to use.
+		 */
+		public void tickBlock(int x, int y, int z) {
+			List<ChunkCoordinates> validCoords = new ArrayList<ChunkCoordinates>();
+			
+			// Go around this block and aggregate valid blocks.
+			for(int xOffset = -TICK_RANGE; xOffset <= TICK_RANGE; xOffset++) {
+				for(int zOffset = -TICK_RANGE; zOffset <= TICK_RANGE; zOffset++) {
+					// Skip the current block
+					if(xOffset == 0 && zOffset == 0) continue;
+					
+					if(isValidSwapPosition(x + xOffset, y, z + zOffset))
+						validCoords.add(new ChunkCoordinates(x + xOffset, y, z + zOffset));
+				}
+			}
+			
+			// If we can make changes, and have at least 1 block to swap,
+			// then swap a random block from the valid blocks we could swap.
+			if(!validCoords.isEmpty() && !world.isRemote) {
+				ChunkCoordinates toSwap = validCoords.get(rand.nextInt(validCoords.size()));
+				
+				world.setBlock(toSwap.posX, toSwap.posY, toSwap.posZ, blockToSet, metaToSet, 1 | 2);
+			}
+		}
+		
+		/**
+		 * Determines if a given position is a valid location to spread to, which
+		 * means that the block must be either dirt or grass (with meta 0),
+		 * and have a block above it which does not block grass growth.
+		 * @param x The x-coordinate to check.
+		 * @param y The y-coordinate to check.
+		 * @param z The z-coordinate to check.
+		 * @return True if the position is valid to swap, false otherwise.
+		 */
+		public boolean isValidSwapPosition(int x, int y, int z) {
+			Block block = world.getBlock(x, y, z);
+			int meta = world.getBlockMetadata(x, y, z);
+			
+			Block aboveBlock = world.getBlock(x, y + 1, z);
+			
+			// Valid blocks to spread to are either dirt or grass, and do not
+			// have blocks which block grass growth.
+			
+			// See http://minecraft.gamepedia.com/Grass_Block
+			// The major rule is that a block which reduces light
+			// levels by 2 or more blocks grass growth.
+			
+			return (block == Blocks.dirt || block == Blocks.grass) 
+				&& (meta == 0)
+				&& (aboveBlock.getLightOpacity(world, x, y, z) <= 1);
 		}
 	}
 
