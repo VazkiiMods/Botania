@@ -10,6 +10,17 @@
  */
 package vazkii.botania.common;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -63,7 +74,28 @@ public class Botania {
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
 		proxy.preInit(event);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
+
+	@SubscribeEvent // todo temporary nag, remove when merging back into master
+	public void nagUnofficial(PlayerEvent.PlayerLoggedInEvent evt) {
+		EntityPlayer player = evt.player;
+
+		IChatComponent message = new ChatComponentTranslation("botaniamisc.unofficial.nag");
+		message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setUnderlined(true));
+
+		IChatComponent message2 = new ChatComponentTranslation("botaniamisc.unofficial.report");
+		message2.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW));
+
+		IChatComponent url = new ChatComponentText("https://github.com/williewillus/Botania/issues");
+		url.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/williewillus/Botania/issues"));
+		url.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("CLICK")));
+
+		player.addChatComponentMessage(message);
+
+		player.addChatComponentMessage(message2.appendSibling(url));
+	}
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
