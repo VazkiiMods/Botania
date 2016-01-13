@@ -10,13 +10,20 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.CommandEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.PlatformModel;
@@ -27,6 +34,11 @@ import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.IntBuffer;
 import java.util.Map;
 
 public class MiscellaneousIcons {
@@ -124,6 +136,48 @@ public class MiscellaneousIcons {
         tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
         for (int i = 0; i < tiaraWingIcons.length; i++) {
             tiaraWingIcons[i] = IconHelper.forName(evt.map, "flightTiara" + i, "items");
+        }
+    }
+
+    @SubscribeEvent
+    public void dumpAtlas(ArrowLooseEvent evt) {
+        if (!evt.entityPlayer.worldObj.isRemote || true)
+            return;
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+
+        int width = 1024;
+        int height = 1024;
+
+        int pixels = width * height;
+        
+        IntBuffer buffer = BufferUtils.createIntBuffer(pixels);
+        int[] pixelValues = new int[pixels];
+
+        GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
+        GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+
+        GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, buffer);
+        //GL11.glReadPixels(0, 0, width, height, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, buffer);
+        
+        buffer.get(pixelValues);
+
+        BufferedImage bufferedimage = new BufferedImage(width, height, 2);
+
+        for (int k = 0; k < height; ++k)
+        {
+            for (int l = 0; l < width; ++l)
+            {
+                bufferedimage.setRGB(l, k, pixelValues[k * width + l]);
+            }
+        }
+
+        File mcFolder = Minecraft.getMinecraft().mcDataDir;
+        File result = new File(mcFolder, "atlas.png");
+
+        try {
+            ImageIO.write(bufferedimage, "png", result);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
