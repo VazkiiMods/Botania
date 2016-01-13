@@ -28,6 +28,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -141,7 +143,8 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || Potion.potionTypes[brew.getPotionEffects(stack).get(0).getPotionID()].isInstant())
+		FMLControlledNamespacedRegistry<Potion> potionRegistry = GameData.getPotionRegistry();
+		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || potionRegistry.getObjectById(brew.getPotionEffects(stack).get(0).getPotionID()).isInstant())
 			return null;
 
 		ItemStack brewStack = new ItemStack(this);
