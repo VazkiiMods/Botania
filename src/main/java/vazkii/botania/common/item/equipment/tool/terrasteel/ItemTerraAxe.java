@@ -12,8 +12,12 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -41,9 +45,32 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
+	
 
+	/**
+	 * The number of blocks per tick which the Terra Truncator will
+	 * collect.
+	 */
+	public static final int BLOCK_SWAP_RATE = 10;
+	
+	/**
+	 * The maximum radius (in blocks) which the Terra Truncator will go
+	 * in order to try and murder/cut down the tree.
+	 */
+	public static final int BLOCK_RANGE = 32;
+	
+	/**
+	 * The maximum number of leaf blocks which the Terra Truncator will chew/go
+	 * through once a leaf block is encountered.
+	 */
+	public static final int LEAF_BLOCK_RANGE = 3;
+	
+	/**
+	 * The amount of mana required to restore 1 point of damage.
+	 */
 	private static final int MANA_PER_DAMAGE = 100;
-	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
+	
+	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap<Integer, List<BlockSwapper>>();
 
 	IIcon iconOn, iconOff;
 
@@ -93,7 +120,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(shouldBreak(player)) {
 			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-			addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());
+			addBlockSwapper(player.worldObj, player, stack, coords, 32, true);
 		}
 	}
 
@@ -108,84 +135,248 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
-				List<BlockSwapper> swappersSafe = new ArrayList(swappers);
-				swappers.clear();
-
-				for(BlockSwapper s : swappersSafe)
-					if(s != null)
-						s.tick();
+				
+				// Iterate through all of our swappers, removing any
+				// which no longer need to tick.
+				Iterator<BlockSwapper> swapper = swappers.iterator();
+				while(swapper.hasNext()) {
+					BlockSwapper next = swapper.next();
+					if(!next.tick())
+						swapper.remove();
+				}
 			}
 		}
 	}
 
-	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
-		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, coords, steps, leaves, force, posChecked);
+	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, int steps, boolean leaves) {
+		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new ArrayList());
+			blockSwappers.put(dim, new ArrayList<BlockSwapper>());
+		
 		blockSwappers.get(dim).add(swapper);
 
 		return swapper;
 	}
 
+	/**
+	 * A block swapper for the Terra Truncator, which uses a standard
+	 * Breadth First Search to try and murder/cut down trees.
+	 * 
+	 * The Terra Truncator will look up to BLOCK_RANGE blocks to find wood
+	 * to cut down (only cutting down adjacent pieces of wood, so it doesn't
+	 * jump through the air). However, the truncator will only go through
+	 * LEAF_BLOCK_RANGE leave blocks in order to prevent adjacent trees which
+	 * are connected only by leaves from being devoured as well.
+	 * 
+	 * The leaf restriction is implemented by reducing the number of remaining
+	 * steps to the min of LEAF_BLOCK_RANGE and the current range. The restriction
+	 * can be removed entirely by setting the "leaves" variable to true, in which
+	 * case leaves will be treated normally.
+	 */
 	private static class BlockSwapper {
-
-		final World world;
-		final EntityPlayer player;
-		final ItemStack stack;
-		final ChunkCoordinates origCoords;
-		final int steps;
-		final ChunkCoordinates coords;
-		final boolean leaves;
-		final boolean force;
-		final List<String> posChecked;
-		BlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
+		
+		/**
+		 * Represents the range which a single block will scan when looking
+		 * for the next candidates for swapping. 1 is a good default.
+		 */
+		public static final int SINGLE_BLOCK_RADIUS = 1;
+		
+		
+		/**
+		 * The world the block swapper is doing the swapping in.
+		 */
+		private final World world;
+		
+		/**
+		 * The player the swapper is swapping for.
+		 */
+		private final EntityPlayer player;
+		
+		/**
+		 * The Terra Truncator which created this swapper.
+		 */
+		private final ItemStack truncator;
+		
+		/**
+		 * The origin of the swapper (eg, where it started).
+		 */
+		private final ChunkCoordinates origin;
+		
+		/**
+		 * Denotes whether leaves should be treated specially.
+		 */
+		private final boolean treatLeavesSpecial;
+		
+		/**
+		 * The initial range which this block swapper starts with.
+		 */
+		private final int range;
+		
+		/**
+		 * The priority queue of all possible candidates for swapping.
+		 */
+		private PriorityQueue<SwapCandidate> candidateQueue;
+		
+		/**
+		 * The set of already swaps coordinates which do not have
+		 * to be revisited.
+		 */
+		private Set<ChunkCoordinates> completedCoords;
+		
+		/**
+		 * Creates a new block swapper with the provided parameters.
+		 * @param world The world the swapper is in.
+		 * @param player The player responsible for creating this swapper.
+		 * @param truncator The Terra Truncator responsible for creating this swapper.
+		 * @param origCoords The original coordinates this swapper should start at.
+		 * @param range The range this swapper should swap in.
+		 * @param leaves If true, leaves will be treated specially and
+		 * severely reduce the radius of further spreading when encountered.
+		 */
+		public BlockSwapper(World world, EntityPlayer player, ItemStack truncator, ChunkCoordinates origCoords, int range, boolean leaves) {
 			this.world = world;
 			this.player = player;
-			this.stack = stack;
-			this.origCoords = origCoords;
-			this.coords = coords;
-			this.steps = steps;
-			this.leaves = leaves;
-			this.force = force;
-			this.posChecked = posChecked;
+			this.truncator = truncator;
+			this.origin = origCoords;
+			this.range = range;
+			this.treatLeavesSpecial = leaves;
+			
+			this.candidateQueue = new PriorityQueue<SwapCandidate>();
+			this.completedCoords = new HashSet<ChunkCoordinates>();
+			
+			// Add the origin to our candidate queue with the original range
+			candidateQueue.offer(new SwapCandidate(this.origin, this.range));
 		}
-
-		void tick() {
-			Block blockat = world.getBlock(coords.posX, coords.posY, coords.posZ);
-			if(!force && blockat.isAir(world, coords.posX, coords.posY, coords.posZ))
-				return;
-
-			ToolCommons.removeBlockWithDrops(player, stack, world, coords.posX, coords.posY, coords.posZ, origCoords.posX, origCoords.posY, origCoords.posZ, null, ToolCommons.materialsAxe, EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack), 0F, false, !leaves);
-
-			if(steps == 0)
-				return;
-
-			for(int i = 0; i < 3; i++)
-				for(int j = 0; j < 3; j++)
-					for(int k = 0; k < 3; k++) {
-						int x = coords.posX + i - 1;
-						int y = coords.posY + j - 1;
-						int z = coords.posZ + k - 1;
-						String pstr = posStr(x, y, z);
-						if(posChecked.contains(pstr))
+		
+		/**
+		 * Ticks this Block Swapper, which allows it to swap BLOCK_SWAP_RATE
+		 * further blocks and expands the breadth first search. The return
+		 * value signifies whether or not the block swapper has more blocks
+		 * to swap, or if it has finished swapping.
+		 * @return True if the block swapper has more blocks to swap, false
+		 * otherwise (implying it can be safely removed).
+		 */
+		public boolean tick() {
+			// If empty, this swapper is done.
+			if(candidateQueue.isEmpty())
+				return false;
+			
+			int remainingSwaps = BLOCK_SWAP_RATE;
+			while(remainingSwaps > 0 && !candidateQueue.isEmpty()) {
+				SwapCandidate cand = candidateQueue.poll();
+				
+				// If we've already completed this location, move along, as this
+				// is just a suboptimal one.
+				if(completedCoords.contains(cand.coordinates))
+					continue;
+				
+				// If this candidate is out of range, discard it.
+				if(cand.range <= 0)
+					continue;
+				
+				// Otherwise, perform the break and then look at the adjacent tiles.
+				// This is a ridiculous function call here.
+				ToolCommons.removeBlockWithDrops(player, truncator, world, 
+						cand.coordinates.posX, cand.coordinates.posY, cand.coordinates.posZ, 
+						origin.posX, origin.posY, origin.posZ, 
+						null, ToolCommons.materialsAxe,
+						EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, truncator) > 0, 
+						EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, truncator), 
+						0F, false, treatLeavesSpecial);
+				
+				remainingSwaps--;
+				
+				completedCoords.add(cand.coordinates);
+				
+				// Then, go through all of the adjacent blocks and look if
+				// any of them are any good.
+				for(ChunkCoordinates adj : adjacent(cand.coordinates)) {
+					Block block = world.getBlock(adj.posX, adj.posY, adj.posZ);
+					
+					boolean isWood = block.isWood(world, adj.posX, adj.posY, adj.posZ);
+					boolean isLeaf = block.isLeaves(world, adj.posX, adj.posY, adj.posZ);
+					
+					// If it's not wood or a leaf, we aren't interested.
+					if(!isWood && !isLeaf)
+						continue;
+					
+					// If we treat leaves specially and this is a leaf, it gets
+					// the minimum of the leaf range and the current range - 1.
+					// Otherwise, it gets the standard range - 1.
+					int newRange = treatLeavesSpecial && isLeaf ?
+							Math.min(LEAF_BLOCK_RANGE, cand.range - 1) :
+							cand.range - 1;
+							
+					candidateQueue.offer(new SwapCandidate(adj, newRange));
+				}
+			}
+			
+			// If we did any iteration, then hang around until next tick.
+			return true;
+		}
+		
+		public List<ChunkCoordinates> adjacent(ChunkCoordinates original) {
+			List<ChunkCoordinates> coords = new ArrayList<ChunkCoordinates>();
+			// Visit all the surrounding blocks in the provided radius.
+			// Gotta love these nested loops, right?
+			for(int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++)
+				for(int dy = -SINGLE_BLOCK_RADIUS; dy <= SINGLE_BLOCK_RADIUS; dy++)
+					for(int dz = -SINGLE_BLOCK_RADIUS; dz <= SINGLE_BLOCK_RADIUS; dz++) {
+						// Skip the central tile.
+						if(dx == 0 && dy == 0 && dz == 0) 
 							continue;
-
-						Block block = world.getBlock(x, y, z);
-						boolean log = block.isWood(world, x, y, z);
-						boolean leaf = block.isLeaves(world, x, y, z);
-						if(log || leaf) {
-							int steps = this.steps - 1;
-							steps = leaf ? leaves ? steps : 3 : steps;
-							addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
-							posChecked.add(pstr);
-						}
+						
+						coords.add(new ChunkCoordinates(original.posX + dx, original.posY + dy, original.posZ + dz));
 					}
+			
+			return coords;
 		}
 
-		String posStr(int x, int y, int z) {
-			return x + ":" + y + ":" + z;
+		/**
+		 * Represents a potential candidate for swapping/removal. Sorted by
+		 * range (where a larger range is more preferable). As we're using
+		 * a priority queue, which is a min-heap internally, larger ranges
+		 * are considered "smaller" than smaller ranges (so they show up in the
+		 * min-heap first).
+		 */
+		public static final class SwapCandidate implements Comparable<SwapCandidate> {
+			/**
+			 * The location of this swap candidate.
+			 */
+			public ChunkCoordinates coordinates;
+			
+			/**
+			 * The remaining range of this swap candidate.
+			 */
+			public int range;
+			
+			/**
+			 * Constructs a new Swap Candidate with the provided
+			 * coordinates and range.
+			 * @param coordinates The coordinates of this candidate.
+			 * @param range The remaining range of this candidate.
+			 */
+			public SwapCandidate(ChunkCoordinates coordinates, int range) {
+				this.coordinates = coordinates;
+				this.range = range;
+			}
+			
+			@Override
+			public int compareTo(SwapCandidate other) {
+				// Aka, a bigger range implies a smaller value, meaning
+				// bigger ranges will be preferred in a min-heap
+				return other.range - range;
+			}
+			
+			@Override
+			public boolean equals(Object other) {
+				if(!(other instanceof SwapCandidate)) return false;
+				
+				SwapCandidate cand = (SwapCandidate) other;
+				return coordinates.equals(cand.coordinates) && range == cand.range;
+			}
 		}
 	}
 
