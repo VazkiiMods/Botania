@@ -3,7 +3,12 @@
   "defaults": {
     "model": "botania:cocoon",
     "textures": {
-      "all": "botania:model/cocoon"
+      "bottom": "botania:model/cocoon_bottom",
+      "top": "botania:model/cocoon_top",
+      "north": "botania:model/cocoon_north",
+      "south": "botania:model/cocoon_south",
+      "west": "botania:model/cocoon_west",
+      "east": "botania:model/cocoon_east"
     },
     "transform": "forge:default-block"
   },
