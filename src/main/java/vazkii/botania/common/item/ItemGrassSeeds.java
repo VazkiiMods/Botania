@@ -39,7 +39,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemGrassSeeds extends ItemMod {
+public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
 
@@ -170,9 +170,9 @@ public class ItemGrassSeeds extends ItemMod {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
-				
+
 				Iterator<BlockSwapper> iter = swappers.listIterator();
-				
+
 				while(iter.hasNext()) {
 					BlockSwapper next = iter.next();
 					if(!next.tick())
@@ -209,7 +209,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 	/**
 	 * A block swapper for the Pasture Seeds, which swaps dirt and grass blocks
-	 * centered around a provided point to a provided block/metadata. 
+	 * centered around a provided point to a provided block/metadata.
 	 */
 	private static class BlockSwapper {
 
@@ -217,12 +217,12 @@ public class ItemGrassSeeds extends ItemMod {
 		 * The range of the block swapper, in blocks.
 		 */
 		public static final int RANGE = 3;
-		
+
 		/**
 		 * The range around which a block can spread in a single tick.
 		 */
 		public static final int TICK_RANGE = 1;
-		
+
 		private final World world;
 		private final Random rand;
 		private final Block blockToSet;
@@ -270,7 +270,7 @@ public class ItemGrassSeeds extends ItemMod {
 					if(block == blockToSet && meta == metaToSet) {
 						// Only make changes every 20 ticks
 						if(ticksExisted % 20 != 0) continue;
-						
+
 						tickBlock(x, y, z);
 					}
 				}
@@ -279,7 +279,7 @@ public class ItemGrassSeeds extends ItemMod {
 			// This swapper should exist for 80 ticks
 			return ticksExisted < 80;
 		}
-		
+
 		/**
 		 * Tick a specific block position, finding the valid blocks
 		 * immediately adjacent to it and then replacing one at random.
@@ -289,27 +289,27 @@ public class ItemGrassSeeds extends ItemMod {
 		 */
 		public void tickBlock(int x, int y, int z) {
 			List<ChunkCoordinates> validCoords = new ArrayList<ChunkCoordinates>();
-			
+
 			// Go around this block and aggregate valid blocks.
 			for(int xOffset = -TICK_RANGE; xOffset <= TICK_RANGE; xOffset++) {
 				for(int zOffset = -TICK_RANGE; zOffset <= TICK_RANGE; zOffset++) {
 					// Skip the current block
 					if(xOffset == 0 && zOffset == 0) continue;
-					
+
 					if(isValidSwapPosition(x + xOffset, y, z + zOffset))
 						validCoords.add(new ChunkCoordinates(x + xOffset, y, z + zOffset));
 				}
 			}
-			
+
 			// If we can make changes, and have at least 1 block to swap,
 			// then swap a random block from the valid blocks we could swap.
 			if(!validCoords.isEmpty() && !world.isRemote) {
 				ChunkCoordinates toSwap = validCoords.get(rand.nextInt(validCoords.size()));
-				
+
 				world.setBlock(toSwap.posX, toSwap.posY, toSwap.posZ, blockToSet, metaToSet, 1 | 2);
 			}
 		}
-		
+
 		/**
 		 * Determines if a given position is a valid location to spread to, which
 		 * means that the block must be either dirt or grass (with meta 0),
@@ -322,23 +322,23 @@ public class ItemGrassSeeds extends ItemMod {
 		public boolean isValidSwapPosition(int x, int y, int z) {
 			Block block = world.getBlock(x, y, z);
 			int meta = world.getBlockMetadata(x, y, z);
-			
+
 			Block aboveBlock = world.getBlock(x, y + 1, z);
-			
+
 			// Valid blocks to spread to are either dirt or grass, and do not
 			// have blocks which block grass growth.
-			
+
 			// See http://minecraft.gamepedia.com/Grass_Block
 			// The major rule is that a block which reduces light
 			// levels by 2 or more blocks grass growth.
-			
-			return (block == Blocks.dirt || block == Blocks.grass) 
+
+			return (block == Blocks.dirt || block == Blocks.grass)
 				&& (meta == 0)
 				&& (aboveBlock.getLightOpacity(world, x, y, z) <= 1);
 		}
 	}
 
-	public static IslandType getIslandType(ItemStack stack) {
+	public IslandType getIslandType(ItemStack stack) {
 		return ISLAND_TYPES[Math.min(stack.getItemDamage(), ISLAND_TYPES.length - 1)];
 	}
 
