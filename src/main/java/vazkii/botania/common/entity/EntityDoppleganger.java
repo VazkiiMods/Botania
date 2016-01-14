@@ -49,6 +49,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
+import net.minecraftforge.fml.common.registry.GameData;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import vazkii.botania.api.boss.IBotaniaBossWithShader;
@@ -578,7 +579,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				List<PotionEffect> remove = new ArrayList();
 				Collection<PotionEffect> active = player.getActivePotionEffects();
 				for(PotionEffect effect : active)
-					if(effect.getDuration() < 200 && effect.getIsAmbient() && !ReflectionHelper.<Boolean, Potion>getPrivateValue(Potion.class, Potion.potionTypes[effect.getPotionID()], LibObfuscation.IS_BAD_EFFECT))
+					if(effect.getDuration() < 200 && effect.getIsAmbient() && !GameData.getPotionRegistry().getObjectById(effect.getPotionID()).isBadEffect())
 						remove.add(effect);
 
 				active.removeAll(remove);

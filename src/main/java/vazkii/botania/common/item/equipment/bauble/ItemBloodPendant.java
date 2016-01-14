@@ -94,7 +94,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		addStringToTooltip(EnumChatFormatting.LIGHT_PURPLE + String.format(StatCollector.translateToLocal("botaniamisc.brewOf"), StatCollector.translateToLocal(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
-			Potion potion = Potion.potionTypes[effect.getPotionID()];
+			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
 			EnumChatFormatting format = potion.isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY;
 			addStringToTooltip(" " + format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))), list);
 		}
@@ -114,7 +114,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
 			if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
+				PotionEffect currentEffect = player.getActivePotionEffect(GameData.getPotionRegistry().getObjectById(effect.getPotionID()));
 				boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
 				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
 					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);

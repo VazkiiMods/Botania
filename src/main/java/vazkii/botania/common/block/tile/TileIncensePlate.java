@@ -22,6 +22,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -52,8 +53,8 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 				if(!worldObj.isRemote) {
 					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for(EntityPlayer player : players) {
-						PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
-						boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
+						PotionEffect currentEffect = player.getActivePotionEffect(GameData.getPotionRegistry().getObjectById(effect.getPotionID()));
+						boolean nightVision = effect.getPotionID() == Potion.nightVision.getId();
 						if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
 							PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 							player.addPotionEffect(applyEffect);

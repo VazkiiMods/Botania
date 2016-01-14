@@ -12,6 +12,7 @@ package vazkii.botania.common.brew;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
@@ -67,7 +68,7 @@ public class ModBrews {
 
 	public static void initTC() {
 		Potion warpWardPotion = null;
-		for(Potion potion : Potion.potionTypes)
+		for(Potion potion : GameData.getPotionRegistry().typeSafeIterable())
 			if(potion != null && potion.getName().equals("potion.warpward")) {
 				warpWardPotion = potion;
 				break;

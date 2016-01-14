@@ -101,7 +101,7 @@ public final class ConfigHandler {
 	public static int mushroomQuantity = 40;
 
 	private static boolean verifiedPotionArray = false;
-	private static int potionArrayLimit = 0;
+	private static int potionArrayLimit = 0; // todo 1.8 potion things should be unneeded thanks to potion registry
 
 	public static int potionIDSoulCross = 91;
 	public static int potionIDFeatherfeet = 92;
@@ -282,12 +282,12 @@ public final class ConfigHandler {
 		desc = "The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
 
-		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
-		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
-		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
-		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
-		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
-		potionIDClear = loadPropPotionId(LibPotionNames.CLEAR, potionIDClear);
+//		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross); todo 1.8 should be unneeded thanks to potion registry
+//		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
+//		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
+//		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
+//		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
+//		potionIDClear = loadPropPotionId(LibPotionNames.CLEAR, potionIDClear);
 
 		if(config.hasChanged())
 			config.save();

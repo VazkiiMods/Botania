@@ -31,8 +31,8 @@ public class ModPotions {
 	public static Potion clear;
 
 	public static void init() {
-		if(Potion.potionTypes.length < 256)
-			extendPotionArray();
+//		if(Potion.potionTypes.length < 256)
+//			extendPotionArray(); todo 1.8 this should be unnecessary thanks to potion registry
 
 		soulCross = new PotionSoulCross();
 		featherfeet = new PotionFeatherfeet();

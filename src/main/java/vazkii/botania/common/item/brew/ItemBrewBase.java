@@ -25,6 +25,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -78,7 +79,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
 				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true, true);
-				Potion potion = Potion.potionTypes[newEffect.getPotionID()];
+				Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
 				if(potion.isInstant())
 					potion.affectEntity(player, player, player, newEffect.getAmplifier(), 1F);
 				else player.addPotionEffect(newEffect);
@@ -137,7 +138,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
-			Potion potion = Potion.potionTypes[effect.getPotionID()];
+			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
 			EnumChatFormatting format = potion.isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY;
 			list.add(format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(effect) + ")"));
 		}
