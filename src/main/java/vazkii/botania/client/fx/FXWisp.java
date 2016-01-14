@@ -50,6 +50,7 @@ public class FXWisp extends EntityFX {
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
+		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
