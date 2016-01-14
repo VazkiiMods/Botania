@@ -10,9 +10,8 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -38,13 +37,13 @@ import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
-import vazkii.botania.common.item.ItemGrassSeeds;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.util.List;
+import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
@@ -133,8 +132,8 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			IslandType type = null;
 			if(stack.getItem() == Items.snowball)
 				type = IslandType.SNOW;
-			else if(stack.getItem() == ModItems.grassSeeds) {
-				IslandType newType =  ItemGrassSeeds.getIslandType(stack);
+			else if(stack.getItem() instanceof IFloatingFlowerVariant) {
+				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);
 				if(newType != null)
 					type = newType;
 			}
