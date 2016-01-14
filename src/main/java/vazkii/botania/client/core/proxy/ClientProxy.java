@@ -256,8 +256,6 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
-
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, RenderSpark::new);
