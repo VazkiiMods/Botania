@@ -55,9 +55,6 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	}
 
 	public boolean commitPositionAndCompare(ItemStack stack, EntityPlayer player) {
-		if(player.worldObj.isRemote)
-			return true;
-
 		double oldX = ItemNBTHelper.getDouble(stack, TAG_OLD_X, 0);
 		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
 		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);
