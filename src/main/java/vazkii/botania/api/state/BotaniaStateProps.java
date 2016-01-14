@@ -8,7 +8,6 @@
  */
 package vazkii.botania.api.state;
 
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
@@ -16,8 +15,10 @@ import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.*;
 
 /**
@@ -28,10 +29,13 @@ public class BotaniaStateProps {
     /** Unlisted properties **/
 
     // The property for specialFlower subtile id
-    public static final PropertyString SUBTILE_ID = new PropertyString("subtile_id");
+    public static final PropertyObject<String> SUBTILE_ID = new PropertyObject<>("subtile_id", String.class);
+
+    // The property for floating flower island type
+    public static final PropertyObject<IFloatingFlower.IslandType> ISLAND_TYPE = new PropertyObject<>("islandtype", IFloatingFlower.IslandType.class);
 
     // The property for platform held blockstate id
-    public static final PropertyState HELD_STATE = new PropertyState("held_state");
+    public static final PropertyObject<IBlockState> HELD_STATE = new PropertyObject<>("held_state", IBlockState.class);
 
     /** Common properties to all blocks to use **/
 

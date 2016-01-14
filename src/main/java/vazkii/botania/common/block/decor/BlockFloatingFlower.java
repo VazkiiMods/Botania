@@ -10,12 +10,9 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EffectRenderer;
@@ -35,34 +32,36 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
+import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
-import vazkii.botania.common.item.ItemGrassSeeds;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.List;
+import java.util.Random;
+
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
-
-	// Island type (floating flowers)
-	// Not in BotaniaStateProps so we don't have to bundle IslandType in the API
-	public static final PropertyEnum<IslandType> ISLAND_TYPE = PropertyEnum.create("islandtype", IFloatingFlower.IslandType.class);
 
 	public BlockFloatingFlower() {
 		this(LibBlockNames.MINI_ISLAND);
@@ -77,9 +76,9 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 
 		float f = 0.1F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE)
-				.withProperty(ISLAND_TYPE, IFloatingFlower.IslandType.GRASS));
+		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.ISLAND_TYPE, IslandType.GRASS)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Override
@@ -89,7 +88,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.COLOR, ISLAND_TYPE);
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.ISLAND_TYPE });
 	}
 
 	@Override
@@ -106,12 +105,13 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		state = getActualState(state, world, pos);
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TileFloatingFlower) {
-			state = state.withProperty(ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
+			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
 		} else if (te instanceof TileFloatingSpecialFlower) {
-			state = state.withProperty(ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
+			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
 		}
 		return state;
 	}
@@ -211,8 +211,8 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			IslandType type = null;
 			if(stack.getItem() == Items.snowball)
 				type = IslandType.SNOW;
-			else if(stack.getItem() == ModItems.grassSeeds) {
-				IslandType newType =  ItemGrassSeeds.getIslandType(stack);
+			else if(stack.getItem() instanceof IFloatingFlowerVariant) {
+				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);
 				if(newType != null)
 					type = newType;
 			}

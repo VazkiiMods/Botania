@@ -44,7 +44,7 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
@@ -62,19 +62,19 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
+				.withProperty(BotaniaStateProps.ISLAND_TYPE, IFloatingFlower.IslandType.GRASS)
 				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE)
-				.withProperty(ISLAND_TYPE, IFloatingFlower.IslandType.GRASS));
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { ISLAND_TYPE, BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID });
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID, BotaniaStateProps.ISLAND_TYPE });
 	}
 
 	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		state = getActualState(state, world, pos);
+		state = super.getExtendedState(state, world, pos);
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TileFloatingSpecialFlower) {
 			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, ((TileFloatingSpecialFlower) te).subTileName);

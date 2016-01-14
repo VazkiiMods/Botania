@@ -8,10 +8,8 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Table;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -35,10 +33,12 @@ import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.common.FMLLog;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
@@ -79,12 +79,12 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
     @Override
     public IBakedModel handleBlockState(IBlockState state) {
-        IFloatingFlower.IslandType islandType = state.getValue(BlockFloatingFlower.ISLAND_TYPE);
+        IExtendedBlockState realState = ((IExtendedBlockState) state);
+        IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
         String identifier;
 
         if (state.getBlock() == ModBlocks.floatingSpecialFlower) {
             // Magic flower
-            IExtendedBlockState realState = ((IExtendedBlockState) state);
             identifier = realState.getValue(BotaniaStateProps.SUBTILE_ID);
         } else {
             // Mundane flower
@@ -101,7 +101,7 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
         if (CACHE.contains(islandType, identifier)) {
             return CACHE.get(islandType, identifier);
         } else {
-            IBakedModel islandModel = modelManager.getModel(new ModelResourceLocation("botania:miniIsland", "variant=" + islandType.getName()));
+            IBakedModel islandModel = modelManager.getModel(BotaniaAPIClient.getRegisteredIslandTypeModels().get(islandType));
             IBakedModel flowerModel;
 
             if (identifier.startsWith(MUNDANE_PREFIX)) {
@@ -113,6 +113,7 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
             // Enhance!
             CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
+            FMLLog.info("[Botania]: Cached floating flower model for islandtpye %s and flowertype %s", islandType, identifier);
             CACHE.put(islandType, identifier, model);
             return model;
         }

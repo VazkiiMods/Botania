@@ -196,7 +196,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case 26:
 				faceTranslate();
-				GlStateManager.translate(-0.1F, -0.5F, 0F);
+				GlStateManager.translate(-0.1F, -0.4F, 0F);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GlStateManager.color(1F, 1F, 1F, 0.7F);
@@ -205,7 +205,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 27:
 				faceTranslate();
 				scale(0.75F);
-				GlStateManager.translate(0.04F, -0.5F, 0F);
+				GlStateManager.translate(0.04F, -0.65F, 0F);
 				renderIcon(27);
 				break;
 			case 28:

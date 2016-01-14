@@ -12,7 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFloatingFlower {
@@ -54,11 +54,12 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 
 	@Override
 	public int getSlowdownFactor() {
-		switch(getIslandType()) {
-		case MYCEL: return SLOWDOWN_FACTOR_MYCEL;
-		case PODZOL: return SLOWDOWN_FACTOR_PODZOL;
-		default: return 0;
-		}
+		IslandType type = getIslandType();
+		if (type == IslandType.MYCEL)
+			return SLOWDOWN_FACTOR_MYCEL;
+		else if (type == IslandType.PODZOL)
+			return SLOWDOWN_FACTOR_PODZOL;
+		return 0;
 	}
 
 }

@@ -102,7 +102,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 		boolean didChange = false;
 
-		if(stack.getItem() instanceof IFlowerComponent) {
+		if(stack.getItem() instanceof IFlowerComponent && ((IFlowerComponent) stack.getItem()).canFit(stack, this)) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 

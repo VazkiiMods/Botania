@@ -40,7 +40,7 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;

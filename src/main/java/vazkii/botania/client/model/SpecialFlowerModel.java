@@ -42,7 +42,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.vecmath.Matrix4f;
@@ -72,10 +72,8 @@ public class SpecialFlowerModel implements IModelCustomData {
         builder.addAll(blockModels.values());
         builder.addAll(itemModels.values());
 
-        // Force mini island model to be loaded and baked, for use elsewhere. See FloatingFlowerModel
-        for (IFloatingFlower.IslandType i : IFloatingFlower.IslandType.values()) {
-            builder.add(new ModelResourceLocation("botania:miniIsland", "variant=" + i.name().toLowerCase(Locale.ROOT)));
-        }
+        // Force island models to be loaded and baked. See FloatingFlowerModel.
+        builder.addAll(BotaniaAPIClient.getRegisteredIslandTypeModels().values());
 
         return builder.build();
     }

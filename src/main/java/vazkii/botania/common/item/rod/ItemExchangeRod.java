@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -152,49 +153,55 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		}
 	}
 
-	public Boolean[][][] createMatrix(World world, ItemStack stack, IBlockState swapState, BlockPos pos, IBlockState targetState) {
+	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, IBlockState swapState, BlockPos pos, IBlockState targetState) {
+		// If we have no target block passed in, infer it to be
+		// the block which the swapping is centered on (presumably the block
+		// which the player is looking at)
 		if(targetState == null) {
 			targetState = world.getBlockState(pos);
 		}
 
-		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int diameter = effrange * 2 + 1;
-		Boolean[][][] matrix = new Boolean[diameter][diameter][diameter];
-		for(int i = 0; i < diameter; i++)
-			for(int j = 0; j < diameter; j++)
-				for(int k = 0; k < diameter; k++) {
-					BlockPos pos_ = pos.add(i - effrange, j - effrange, k - effrange);
-					IBlockState state = world.getBlockState(pos_);
-					boolean invalid = !BlockCamo.isValidBlock(state.getBlock());
-					if(invalid)
-						matrix[i][j][k] = true;
-					else if(state == swapState || state != targetState)
-						matrix[i][j][k] = null;
-					else matrix[i][j][k] = false;
-				}
+		// Our result list
+		List<BlockPos> coordsList = new ArrayList<BlockPos>();
 
-		return matrix;
-	}
+		// We subtract 1 from the effective range as the center tile is included
+		// So, with a range of 3, we are visiting tiles at -2, -1, 0, 1, 2
+		int effRange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
+		
+		// Iterate in all 3 dimensions through our possible positions.
+		for(int offsetX = -effRange; offsetX <= effRange; offsetX++)
+			for(int offsetY = -effRange; offsetY <= effRange; offsetY++)
+				for(int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
+					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
 
-	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, IBlockState swapState, BlockPos pos, IBlockState targetState) {
-		List<BlockPos> coordsList = new ArrayList();
-		Boolean[][][] matrix = createMatrix(world, stack, swapState, pos, targetState);
-
-		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int diameter = effrange * 2;
-		for(int i = 1; i < diameter; i++)
-			for(int j = 1; j < diameter; j++)
-				for(int k = 1; k < diameter; k++) {
-					BlockPos pos_ = pos.add(i - effrange, j - effrange, k - effrange);
-					Boolean bool = matrix[i][j][k];
-					if(bool != null && !bool)
-						for(EnumFacing dir : EnumFacing.VALUES) {
-							Boolean obool = matrix[i + dir.getFrontOffsetX()][j + dir.getFrontOffsetY()][k + dir.getFrontOffsetZ()];
-							if(obool != null && obool) {
-								coordsList.add(pos_);
-								break;
-							}
+					IBlockState currentState = world.getBlockState(pos_);
+					
+					// If this block is not our target, ignore it, as we don't need
+					// to consider replacing it
+					if(currentState != targetState)
+						continue;
+					
+					// If this block is already the block we're swapping to,
+					// we don't need to swap again
+					if(currentState == swapState)
+						continue;
+					
+					// Check to see if the block is visible on any side:
+					for(EnumFacing dir : EnumFacing.VALUES) {
+						BlockPos adjPos = pos_.offset(dir);
+						Block adjBlock = world.getBlockState(adjPos).getBlock();
+						
+						// If the side of the adjacent block facing this block is
+						// _not_ solid, then this block is considered "visible"
+						// and should be replaced.
+						
+						// If there is a rendering-specific way to check for this,
+						// that should be placed in preference to this.
+						if(!adjBlock.isSideSolid(world, adjPos, dir.getOpposite())) {
+							coordsList.add(pos_);
+							break;
 						}
+					}
 				}
 
 		return coordsList;
@@ -269,13 +276,23 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(player.capabilities.isCreativeMode)
 			return new ItemStack(block, 1, meta);
 
-		return removeFromInventory(player, player.inventory, stack, block, meta, doit);
+		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta, doit);
+		if (outStack == null)
+			outStack = removeFromInventory(player, player.inventory, stack, block, meta, doit);
+		return outStack;
 	}
 
 	public static int getInventoryItemCount(EntityPlayer player, ItemStack stack, Block block, int meta) {
 		if(player.capabilities.isCreativeMode)
 			return -1;
-		return getInventoryItemCount(player, player.inventory, stack, block, meta);
+
+		int baubleCount = getInventoryItemCount(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta);
+		if (baubleCount == -1) return -1;
+
+		int count = getInventoryItemCount(player, player.inventory, stack, block, meta);
+		if (count == -1) return -1;
+		
+		return count+baubleCount;
 	}
 
 	public static int getInventoryItemCount(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta) {
