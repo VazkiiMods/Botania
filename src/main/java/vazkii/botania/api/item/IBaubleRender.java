@@ -53,7 +53,7 @@ public interface IBaubleRender {
 		}
 
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
+			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.68F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		}
 
 	}

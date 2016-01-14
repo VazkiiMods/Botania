@@ -213,7 +213,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case 26:
 				faceTranslate();
-				GL11.glTranslatef(-0.1F, -0.5F, 0F);
+				GL11.glTranslatef(-0.1F, -0.4F, 0F);
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glColor4f(1F, 1F, 1F, 0.7F);
@@ -222,7 +222,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 27:
 				faceTranslate();
 				scale(0.75F);
-				GL11.glTranslatef(0.04F, -0.5F, 0F);
+				GL11.glTranslatef(0.04F, -0.65F, 0F);
 				renderIcon(27);
 				break;
 			case 28:
