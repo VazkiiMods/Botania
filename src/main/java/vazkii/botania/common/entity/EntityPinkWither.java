@@ -12,16 +12,40 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Iterator;
+
 public class EntityPinkWither extends EntityWither {
 
 	public EntityPinkWither(World p_i1701_1_) {
 		super(p_i1701_1_);
+
+		Iterator<EntityAITasks.EntityAITaskEntry> taskIter = this.tasks.taskEntries.iterator();
+		while (taskIter.hasNext()) {
+			EntityAITasks.EntityAITaskEntry entry = taskIter.next();
+			if (entry.action instanceof EntityAIArrowAttack) {
+				taskIter.remove(); // Remove firing wither skulls
+			}
+		}
+
+
+		Iterator<EntityAITasks.EntityAITaskEntry> targetTaskIter = this.targetTasks.taskEntries.iterator();
+		while (targetTaskIter.hasNext()) {
+			EntityAITasks.EntityAITaskEntry entry = targetTaskIter.next();
+			if (entry.action instanceof EntityAIHurtByTarget
+					|| entry.action instanceof EntityAINearestAttackableTarget) {
+				targetTaskIter.remove(); // Remove revenge and aggro
+			}
+		}
 	}
 
 	@Override
@@ -42,11 +66,6 @@ public class EntityPinkWither extends EntityWither {
 		// NO-OP
 	}
 
-//	@Override todo 1.8 mtd no longer exists?
-//	protected void attackEntity(Entity p_70785_1_, float p_70785_2_) {
-//		// NO-OP
-//	}
-
 	@Override
 	public boolean attackEntityAsMob(Entity p_70652_1_) {
 		return false;
@@ -60,11 +79,6 @@ public class EntityPinkWither extends EntityWither {
 		}
 		return false;
 	}
-
-//	@Override todo 1.8 new AI
-//	protected boolean isAIEnabled() {
-//		return false;
-//	}
 
 	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {

@@ -88,7 +88,6 @@ public class PageEntity extends LexiconPage{
 		GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
 		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
-		// todo 1.8 yOffset gone GlStateManager.translate(0.0F, 0.0F, 0.0F);
 		Minecraft.getMinecraft().getRenderManager().playerViewY = 180.0F;
 		Minecraft.getMinecraft().getRenderManager().renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
 		GlStateManager.popMatrix();

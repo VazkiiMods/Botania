@@ -60,7 +60,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	};
 
 	public RenderDoppleganger(RenderManager renderManager) {
-		super(renderManager, new ModelPlayer(0.0F, false), 0F); // todo 1.8 was ModelBiped(0.5)
+		super(renderManager, new ModelPlayer(0.0F, false), 0F);
 	}
 
 	@Override

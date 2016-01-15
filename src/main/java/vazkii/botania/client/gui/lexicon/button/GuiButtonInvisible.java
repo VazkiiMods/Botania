@@ -86,7 +86,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 				key = format.charAt(1);
 
 			for(EnumChatFormatting ecf : EnumChatFormatting.class.getEnumConstants())
-				if(ecf.toString().indexOf(ecf.toString().length() - 1) == key) { // todo 1.8 recheck (want last char of code)
+				if(ecf.toString().indexOf(ecf.toString().length() - 1) == key) {
 					if(ecf.ordinal() > 15)
 						ecf = EnumChatFormatting.BLACK;
 					color = LibMisc.CONTROL_CODE_COLORS[ecf.ordinal()];

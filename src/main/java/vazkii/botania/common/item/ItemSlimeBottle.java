@@ -19,8 +19,6 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSlimeBottle extends ItemMod {
 
-	// todo 1.8 smart model?
-
 	public ItemSlimeBottle() {
 		setUnlocalizedName(LibItemNames.SLIME_BOTTLE);
 		setMaxStackSize(1);

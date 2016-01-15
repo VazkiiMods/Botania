@@ -68,7 +68,6 @@ public class SubTileSpectrolus extends SubTileGenerating {
 						float mx = (float) (Math.random() - 0.5) * m;
 						float my = (float) (Math.random() - 0.5) * m;
 						float mz = (float) (Math.random() - 0.5) * m;
-						// todo 1.8.8 verify. old: supertile.getWorld().spawnParticle("blockcrack_" + Item.getIdFromItem(stack.getItem()) + "_" + meta, item.posX, item.posY, item.posZ, mx, my, mz);
 						supertile.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, item.posX, item.posY, item.posZ, mx, my, mz, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 					}
 				}

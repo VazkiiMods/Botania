@@ -409,7 +409,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public GuiLexicon copy() {
-		GuiLexiconEntry gui = new GuiLexiconEntry(entry, this.parent); // todo 1.8 recheck last param (was new GuiScreen())
+		GuiLexiconEntry gui = new GuiLexiconEntry(entry, this.parent);
 		gui.page = page;
 		gui.setTitle();
 		return gui;

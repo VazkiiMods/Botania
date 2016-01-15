@@ -41,6 +41,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -118,7 +120,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
 		setSize(0.6F, 1.8F);
-		//todo 1.8 new AI getNavigator().setCanSwim(true);
+		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, Float.MAX_VALUE));
 		isImmuneToFire = true;

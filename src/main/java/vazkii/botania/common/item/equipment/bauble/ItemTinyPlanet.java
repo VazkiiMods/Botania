@@ -108,7 +108,6 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 			GlStateManager.translate(0.25F, -0.5F, 0F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
-//			RenderBlocks.getInstance().renderBlockAsItem(ModBlocks.tinyPlanet, 0, 1F); todo 1.8
 		}
 	}
 

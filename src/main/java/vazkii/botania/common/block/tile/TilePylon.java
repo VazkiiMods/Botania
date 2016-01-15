@@ -42,7 +42,7 @@ public class TilePylon extends TileEntity implements ITickable {
 		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && portalOff()) { // todo 1.8 clarify
+			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && portalOff()) {
 				activated = false;
 				return;
 			}

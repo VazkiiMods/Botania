@@ -31,8 +31,8 @@ public final class LibObfuscation {
 	// EntityAIAttackOnCollide
 	public static final String[] CLASS_TARGET = new String[] { "classTarget", "field_75444_h", "g" };
 
-	// EntityAIAvoidEntity // todo 1.8
-	public static final String[] TARGET_ENTITY_CLASS = new String[] { "targetEntityClass", "field_75381_h", "i" };
+	// EntityAIAvoidEntity
+	public static final String[] TARGET_ENTITY_CLASS = new String[] { "field_181064_i", "i" };
 
 	// EntityCreeper
 	public static final String[] TIME_SINCE_IGNITED = new String[] {  "timeSinceIgnited", "field_70833_d", "c" };
@@ -54,9 +54,6 @@ public final class LibObfuscation {
 	public static final String[] ITEM_IN_USE = new String[] { "itemInUse", "field_71074_e", "g" };
 	public static final String[] ITEM_IN_USE_COUNT = new String[] { "itemInUseCount", "field_71072_f", "h" };
 
-	// Potion
-	public static final String[] IS_BAD_EFFECT = new String[] { "isBadEffect", "field_76418_K", "K" };
-
 	// EntityHorse
 	public static final String[] HORSE_JUMP_STRENGTH = new String[] { "horseJumpStrength", "field_110271_bv", "br" };
 	public static final String[] HORSE_CHEST = new String[] { "horseChest", "field_110296_bG", "bC" };
@@ -72,7 +69,7 @@ public final class LibObfuscation {
 	public static final String[] MAX_NEARBY_ENTITIES = new String[] { "maxNearbyEntities", "field_98292_k", "k" };
 	public static final String[] MAX_SPAWN_DELAY = new String[] { "maxSpawnDelay", "field_98293_h", "h" };
 	public static final String[] MIN_SPAWN_DELAY = new String[] { "minSpawnDelay", "field_98283_g", "g" };
-	public static final String[] POTENTIAL_ENTITY_SPAWNS = new String[] { "potentialEntitySpawns", "field_98285_e", "e" }; // Todo 1.8 new name makes no sense -> "minecartToSpawn"
+	public static final String[] POTENTIAL_ENTITY_SPAWNS = new String[] { "minecartToSpawn", "field_98285_e", "c" }; // Todo 1.8 new name makes no sense -> "minecartToSpawn" see MCP name github issue
 	public static final String[] SPAWN_DELAY = new String[] { "spawnDelay", "field_98286_b", "a" };
 	public static final String[] PREV_MOB_ROTATION = new String[] { "prevMobRotation", "field_98284_d", "f" };
 	public static final String[] MOB_ROTATION = new String[] { "mobRotation", "field_98287_c", "e" };
@@ -94,9 +91,6 @@ public final class LibObfuscation {
 
 	// Entityliving
 	public static final String[] GET_LIVING_SOUND = new String[] { "getLivingSound", "func_70639_aQ", "z" };
-
-	// TextureAtlasSprite
-	public static final String[] ANIMATION_METADATA = new String[] { "animationMetadata", "field_110982_k", "k" };
 	
 	// RenderGlobal
 	public static final String[] STAR_GL_CALL_LIST = new String[] { "starGLCallList", "field_72772_v", "p" };

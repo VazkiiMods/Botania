@@ -52,7 +52,7 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(world, pos, side.getOpposite()); // todo 1.8 recheck (was 1 - sideInt)
+		return shouldSideBeRendered1(world, pos, side.getOpposite());
 	}
 
 	@Override

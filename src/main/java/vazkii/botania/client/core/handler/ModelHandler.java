@@ -171,6 +171,24 @@ public final class ModelHandler {
         // Cannot use lambdas directly yet because FG/SS can't reobfuscate them, need a dummy wrapper
         // See https://github.com/MinecraftForge/ForgeGradle/issues/314.
 
+        ModelLoader.registerItemVariants(elementiumShears,
+                new ModelResourceLocation("botania:elementiumShears", "inventory"),
+                new ModelResourceLocation("botania:dammitReddit", "inventory"));
+        ModelLoader.setCustomMeshDefinition(elementiumShears, MesherWrapper.of(stack ->
+                stack.getDisplayName().equalsIgnoreCase("dammit reddit")
+                    ? new ModelResourceLocation("botania:dammitReddit", "inventory")
+                    : new ModelResourceLocation("botania:elementiumShears", "inventory")));
+
+        ModelLoader.registerItemVariants(grassHorn,
+                new ModelResourceLocation("botania:grassHorn0", "inventory"),
+                new ModelResourceLocation("botania:grassHorn1", "inventory"),
+                new ModelResourceLocation("botania:grassHorn2", "inventory"),
+                new ModelResourceLocation("botania:vuvuzela", "inventory"));
+        ModelLoader.setCustomMeshDefinition(grassHorn, MesherWrapper.of(stack ->
+                stack.getDisplayName().toLowerCase().contains("vuvuzela")
+                        ? new ModelResourceLocation("botania:vuvuzela", "inventory")
+                        : new ModelResourceLocation("botania:grassHorn" + stack.getMetadata(), "inventory")));
+
         ModelLoader.registerItemVariants(infiniteFruit,
                 new ModelResourceLocation("botania:infiniteFruit", "inventory"),
                 new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
@@ -220,6 +238,14 @@ public final class ModelHandler {
             String path = "botania:twigWand";
             return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
         }));
+
+        ModelLoader.registerItemVariants(manaCookie,
+                new ModelResourceLocation("botania:manaCookie", "inventory"),
+                new ModelResourceLocation("botania:totalBiscuit", "inventory"));
+        ModelLoader.setCustomMeshDefinition(manaCookie, MesherWrapper.of(stack ->
+                stack.getDisplayName().toLowerCase().equals("totalbiscuit")
+                    ? new ModelResourceLocation("botania:totalBiscuit", "inventory")
+                    : new ModelResourceLocation("botania:manaCookie", "inventory")));
 
         ModelLoader.registerItemVariants(manaweaveBoots,
                 new ModelResourceLocation("botania:manaweaveBoots", "inventory"),
@@ -443,7 +469,6 @@ public final class ModelHandler {
         registerItemModel(blackLotus);
         registerItemModel(blackLotus, 1);
         registerItemModel(lexicon);
-        registerItemModel(manaCookie);
 
         registerItemModel(manasteelHelm);
         registerItemModel(manasteelHelmRevealing);
@@ -465,7 +490,6 @@ public final class ModelHandler {
         registerItemModel(elementiumPick);
         registerItemModel(elementiumShovel);
         registerItemModel(elementiumAxe);
-        registerItemModel(elementiumShears);
         registerItemModel(elementiumSword);
 
         registerItemModel(terrasteelHelm);
@@ -578,7 +602,6 @@ public final class ModelHandler {
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
-        registerItemModelMetas(grassHorn, LibItemNames.GRASS_HORN, 3);
     }
 
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly

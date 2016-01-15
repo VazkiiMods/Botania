@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.BlockFluidBase;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.signature.PassiveFlower;
@@ -62,7 +64,8 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 					BlockPos pos = supertile.getPos().add(offset);
 
 					Material search = getMaterialToSearchFor();
-					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && supertile.getWorld().getBlockState(pos).getValue(BlockLiquid.LEVEL)/* todo 1.8 may crash */ == 0) {
+					PropertyInteger prop = supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockLiquid ? BlockLiquid.LEVEL : supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockFluidBase ? BlockFluidBase.LEVEL : null;
+					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && (prop == null || supertile.getWorld().getBlockState(pos).getValue(prop) == 0)) {
 						if(search != Material.water)
 							supertile.getWorld().setBlockToAir(pos);
 						else {

@@ -66,7 +66,6 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 								float mod = 1F / lastFlowerTimes;
 
-								// todo 1.8 why is meta +1 'ed ?? int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
 								IBlockState state = supertile.getWorld().getBlockState(pos);
 								supertile.getWorld().setBlockToAir(pos);
 

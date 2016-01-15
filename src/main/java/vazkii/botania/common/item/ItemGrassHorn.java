@@ -51,8 +51,6 @@ public class ItemGrassHorn extends ItemMod {
 			list.add(new ItemStack(item, 1, i));
 	}
 
-	// todo 1.8 return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
-
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();

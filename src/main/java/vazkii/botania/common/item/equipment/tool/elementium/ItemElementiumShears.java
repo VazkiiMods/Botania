@@ -41,11 +41,6 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		return par1ItemStack;
 	}
 
-//	@Override todo 1.8
-//	public IIcon getIconIndex(ItemStack par1ItemStack) {
-//		return par1ItemStack.getDisplayName().equalsIgnoreCase("dammit reddit") ? dammitReddit : super.getIconIndex(par1ItemStack);
-//	}
-
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		if(player.worldObj.isRemote)
