@@ -20,6 +20,8 @@ public class TileForestEye extends TileMod {
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote)
+			return;
 		int range = 6;
 		int entityCount = worldObj.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if(entityCount != entities) {

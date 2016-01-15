@@ -42,6 +42,9 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote)
+			return;
+
 		boolean redstone = false;
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
@@ -73,8 +76,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, -200, LibObfuscation.AGE);
 
 		setInventorySlotContents(0, null);
-		if(!worldObj.isRemote)
-			worldObj.spawnEntityInWorld(item);
+		worldObj.spawnEntityInWorld(item);
 	}
 
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {

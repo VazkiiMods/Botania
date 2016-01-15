@@ -92,7 +92,10 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote && (craft(true) && canEject() || isFull()))
+		if (worldObj.isRemote)
+			return;
+
+		if(craft(true) && canEject() || isFull())
 			ejectAll();
 
 		int newSignal = 0;

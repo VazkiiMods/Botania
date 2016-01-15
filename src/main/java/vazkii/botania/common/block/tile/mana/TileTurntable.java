@@ -36,6 +36,9 @@ public class TileTurntable extends TileMod {
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote)
+			return;
+
 		boolean redstone = false;
 
 		for(EnumFacing dir : EnumFacing.VALUES) {

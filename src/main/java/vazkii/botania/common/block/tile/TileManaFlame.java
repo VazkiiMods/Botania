@@ -35,7 +35,7 @@ public class TileManaFlame extends TileMod {
 	public void updateEntity() {
 		float c = 0.3F;
 
-		if(Math.random() < c) {
+		if(worldObj.isRemote && Math.random() < c) {
 			float v = 0.1F;
 
 			float r = (float) (color >> 16 & 0xFF) / 0xFF + (float) (Math.random() - 0.5) * v;

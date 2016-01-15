@@ -25,16 +25,14 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote) {
-			boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
-			boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
-			if(state != expectedState)
-				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
+		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
+		if(state != expectedState && !worldObj.isRemote)
+			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
 
-			if(expectedState)
-				for(int i = 0; i < 4; i++)
-					Botania.proxy.sparkleFX(getWorld(), pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
-		}
+		if(expectedState)
+			for(int i = 0; i < 4; i++)
+				Botania.proxy.sparkleFX(getWorld(), pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 	}
 
 	@Override

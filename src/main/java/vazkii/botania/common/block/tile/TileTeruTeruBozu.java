@@ -16,6 +16,9 @@ public class TileTeruTeruBozu extends TileMod {
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote)
+			return;
+
 		boolean isRaining = worldObj.isRaining();
 		if(isRaining && worldObj.rand.nextInt(9600) == 0)
 			worldObj.getWorldInfo().setRaining(false);

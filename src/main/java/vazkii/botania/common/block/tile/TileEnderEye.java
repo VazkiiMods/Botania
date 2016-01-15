@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -28,6 +30,9 @@ public class TileEnderEye extends TileMod {
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote)
+			return;
+
 		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
@@ -52,8 +57,8 @@ public class TileEnderEye extends TileMod {
 			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
 			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
 			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
-			
-			worldObj.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 1, 0, 0);
+
+			((WorldServer) worldObj).spawnParticle(EnumParticleTypes.REDSTONE, false, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
 		}
 	}
 

@@ -52,8 +52,10 @@ public class TileHourglass extends TileSimpleInventory {
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
-				worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
+				if (!worldObj.isRemote) {
+					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
+				}
 			}
 			timeFraction = (float) time / (float) totalTime;
 		} else {
