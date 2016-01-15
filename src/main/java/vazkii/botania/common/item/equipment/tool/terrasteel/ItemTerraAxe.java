@@ -11,13 +11,14 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -70,7 +71,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 */
 	private static final int MANA_PER_DAMAGE = 100;
 	
-	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap<Integer, List<BlockSwapper>>();
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new ConcurrentHashMap<Integer, Set<BlockSwapper>>();
 
 	IIcon iconOn, iconOff;
 
@@ -134,27 +135,42 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
-				List<BlockSwapper> swappers = blockSwappers.get(dim);
+				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 				
 				// Iterate through all of our swappers, removing any
 				// which no longer need to tick.
 				Iterator<BlockSwapper> swapper = swappers.iterator();
 				while(swapper.hasNext()) {
 					BlockSwapper next = swapper.next();
-					if(!next.tick())
+
+					// If a null sneaks in or the swapper is done, remove it
+					if(next == null || !next.tick())
 						swapper.remove();
 				}
 			}
 		}
 	}
 
+	/**
+	 * Adds a new block swapper to the provided world as the provided player.
+	 * @param world The world to add the swapper to.
+	 * @param player The player who is responsible for this swapper.
+	 * @param stack The Terra Truncator which caused this block swapper.
+	 * @param origCoords The original coordinates the swapper should start at.
+	 * @param steps The range of the block swapper, in blocks.
+	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
+	 * documentation).
+	 * @return The created block swapper.
+	 */
 	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
+		// If the mapping for this dimension doesn't exist, create it.
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new ArrayList<BlockSwapper>());
+			blockSwappers.put(dim, Collections.newSetFromMap(new ConcurrentHashMap<BlockSwapper, Boolean>()));
 		
+		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
 
 		return swapper;

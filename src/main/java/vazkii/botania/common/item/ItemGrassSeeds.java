@@ -11,11 +11,13 @@
 package vazkii.botania.common.item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -41,7 +43,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
-	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
+	/**
+	 * Represents a map of dimension IDs to a set of all block swappers
+	 * active in that dimension.
+	 */
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new ConcurrentHashMap<Integer, Set<BlockSwapper>>();
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
@@ -169,25 +175,39 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
-				List<BlockSwapper> swappers = blockSwappers.get(dim);
+				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
-				Iterator<BlockSwapper> iter = swappers.listIterator();
+				Iterator<BlockSwapper> iter = swappers.iterator();
 
 				while(iter.hasNext()) {
 					BlockSwapper next = iter.next();
-					if(!next.tick())
+					if(next == null || !next.tick())
 						iter.remove();
 				}
 			}
 		}
 	}
 
+	/**
+	 * Adds a grass seed block swapper to the world at the provided positiona
+	 * and with the provided meta (which designates the type of the grass
+	 * being spread).
+	 * @param world The world the swapper will be in.
+	 * @param x The x-position of the swapper.
+	 * @param y The y-position of the swapper.
+	 * @param z The z-position of the swapper.
+	 * @param meta The meta value representing the type of block being swapped.
+	 * @return The created block swapper.
+	 */
 	private static BlockSwapper addBlockSwapper(World world, int x, int y, int z, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, x, y, z, meta);
 
+		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new ArrayList());
+			blockSwappers.put(dim, Collections.newSetFromMap(new ConcurrentHashMap<BlockSwapper, Boolean>()));
+
+		// Add the block swapper
 		blockSwappers.get(dim).add(swapper);
 
 		return swapper;
