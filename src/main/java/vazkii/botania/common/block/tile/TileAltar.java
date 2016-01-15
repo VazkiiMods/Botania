@@ -227,10 +227,9 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 	@Override
 	public void updateEntity() {
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 21D,1)));
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
 
 		boolean didChange = false;
-
 		for(EntityItem item : items)
 			didChange = collideEntityItem(item) || didChange;
 
