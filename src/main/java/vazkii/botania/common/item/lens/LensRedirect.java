@@ -26,7 +26,7 @@ public class LensRedirect extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.worldObj.isRemote && pos.entityHit == null && coords.getY() != -1 && !pos.getBlockPos().equals(coords)) {
+		if(!entity.worldObj.isRemote && pos.entityHit == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 			TileEntity tile = entity.worldObj.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof IRedirectable) {
 				if(!burst.isFake()) {

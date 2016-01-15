@@ -42,7 +42,7 @@ public class LensPaint extends Lens {
 						sheep.setFleeceColor(EnumDyeColor.byMetadata(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
-			} else {
+			} else if (pos.getBlockPos() != null) {
 				Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
 					IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());

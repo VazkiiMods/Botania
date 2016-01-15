@@ -43,7 +43,7 @@ public class ItemSwapRing extends ItemBauble {
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(entity.worldObj, entity, true, 4.5F);
 		ToolType typeToFind = null;
 
-		if(player.isSwingInProgress && pos != null) {
+		if(player.isSwingInProgress && pos != null && pos.getBlockPos() != null) {
 			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 
 			if(block != null) {

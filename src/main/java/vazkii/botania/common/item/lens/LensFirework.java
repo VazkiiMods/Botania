@@ -27,7 +27,7 @@ public class LensFirework extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && !pos.getBlockPos().equals(coords)) {
+			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				EntityFireworkRocket rocket = new EntityFireworkRocket(entity.worldObj, entity.posX, entity.posY, entity.posZ, fireworkStack);

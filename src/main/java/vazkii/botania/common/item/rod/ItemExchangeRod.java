@@ -395,7 +395,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		int meta = getBlockMeta(stack);
 
 		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
-		if(pos != null) {
+		if(pos != null && pos.getBlockPos() != null) {
 			BlockPos bPos = pos.getBlockPos();
 			Block targetBlock = null;
 			int targetMeta = 0;

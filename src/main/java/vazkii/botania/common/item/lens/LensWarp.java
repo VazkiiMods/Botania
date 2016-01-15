@@ -22,7 +22,7 @@ public class LensWarp extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(burst.isFake())
+		if(burst.isFake() || pos.getBlockPos() == null)
 			return dead;
 
 		Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();

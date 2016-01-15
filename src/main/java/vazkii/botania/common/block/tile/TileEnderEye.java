@@ -44,7 +44,7 @@ public class TileEnderEye extends TileMod {
 				continue;
 
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
-			if(pos != null && pos.getBlockPos().equals(getPos())) {
+			if(pos != null && pos.getBlockPos() != null && pos.getBlockPos().equals(getPos())) {
 				looking = true;
 				break;
 			}

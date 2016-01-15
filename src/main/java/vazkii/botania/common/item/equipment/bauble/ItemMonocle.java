@@ -66,7 +66,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
 		MovingObjectPosition pos = mc.objectMouseOver;
-		if(pos == null)
+		if(pos == null || pos.getBlockPos() == null)
 			return;
 		Block block = player.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 		int meta = block.getMetaFromState(player.worldObj.getBlockState(pos.getBlockPos())); // todo 1.8 use states

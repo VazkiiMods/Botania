@@ -100,7 +100,7 @@ public class ItemSextant extends ItemMod {
 
 		if(!par3EntityPlayer.isSneaking()) {
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(par2World, par3EntityPlayer, false, 128);
-			if(pos != null && pos.entityHit == null) {
+			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
 				if(!par2World.isRemote) {
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.getBlockPos().getY());

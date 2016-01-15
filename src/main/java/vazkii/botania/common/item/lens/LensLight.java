@@ -26,7 +26,7 @@ public class LensLight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+		if((pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())) && !burst.isFake() && !isManaBlock) {
 			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit);
 
 			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();

@@ -23,7 +23,7 @@ public class LensWeight extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake()) {
+		if(!burst.isFake() && pos.getBlockPos() != null) {
 			int harvestLevel = ConfigHandler.harvestLevelWeight;
 			
 			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();

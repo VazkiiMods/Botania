@@ -22,7 +22,7 @@ public class LensStorm extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && !coords.equals(pos.getBlockPos()))
+			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())))
 				entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, 5F, true);
 		} else dead = false;
 

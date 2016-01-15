@@ -66,7 +66,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
 
-		if(pos != null) {
+		if(pos != null && pos.getBlockPos() != null) {
 			IBlockState state = p.worldObj.getBlockState(pos.getBlockPos());
 
 			ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));

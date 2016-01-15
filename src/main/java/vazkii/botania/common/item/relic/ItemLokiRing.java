@@ -91,12 +91,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
-			if(originCoords.getY() == -1 && lookPos != null) {
+			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
 				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
 				if(player instanceof EntityPlayerMP)
 					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
-			} else if(lookPos != null) {
+			} else if(lookPos != null && lookPos.getBlockPos() != null) {
 				if(originCoords.equals(lookPos.getBlockPos())) {
 					setOriginPos(lokiRing, new BlockPos(0, -1, 0));
 					if(player instanceof EntityPlayerMP)
@@ -120,7 +120,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				}
 				}
 			}
-		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
+		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
@@ -173,7 +173,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
 
-		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
+		if(lookPos != null && lookPos.getBlockPos() != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
