@@ -73,21 +73,6 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-		//if (collidingEntity instanceof EntityItem) {
-			/*float f = 1F / 16F * 2F;
-
-			// Todo 1.8 temporary hack to let items collide from the top. Figure out what changed to break this.
-			setBlockBounds(f, f, f, 1F - f, 0.65F, 1F -f);
-			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-			setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
-			return;*/
-		//} else {
-			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-		//}
-	}
-
-	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, BotaniaStateProps.ALTAR_VARIANT);
 	}

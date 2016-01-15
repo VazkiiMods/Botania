@@ -31,7 +31,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 		validPools.clear();
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tileAt = worldObj.getTileEntity(pos.offset(dir));
-			if(tileAt != null && tileAt instanceof IManaPool) {
+			if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 				IManaReceiver receiver = (IManaReceiver) tileAt;
 				if(!receiver.isFull())
 					validPools.add(receiver);

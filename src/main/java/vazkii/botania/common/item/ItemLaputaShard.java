@@ -18,12 +18,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
@@ -38,6 +40,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
 
 	private static final String TAG_BLOCK = "_block";
+	private static final String TAG_BLOCK_NAME = "_blockname";
 	private static final String TAG_META = "_meta";
 	private static final String TAG_TILE = "_tile";
 	private static final String TAG_X = "_x";
@@ -72,7 +75,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
-		if(pos.getY() < 160 && !par3World.provider.doesWaterVaporize()) {
+		if(!par3World.isRemote && pos.getY() < 160 && !par3World.provider.doesWaterVaporize()) {
 			par3World.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
 			spawnBurstFirst(par3World, pos, par1ItemStack);
 			par1ItemStack.stackSize--;
@@ -130,7 +133,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								world.playAuxSFX(2001, pos_, Block.getStateId(state));
 
 								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
-								ItemNBTHelper.setInt(copyLens, TAG_BLOCK, id);
+								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, GameData.getBlockRegistry().getNameForObject(block).toString());
 								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)
@@ -224,8 +227,15 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.worldObj.isAirBlock(pos)) {
-					int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
-					Block block = Block.getBlockById(id);
+					Block block = Blocks.air;
+					if (lens.hasTagCompound()) {
+						if (lens.getTagCompound().hasKey(TAG_BLOCK_NAME)) {
+							block = Block.getBlockFromName(ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, ""));
+						} else if (lens.getTagCompound().hasKey(TAG_BLOCK)) {
+							// Attempt to read legacy tag (integer ID) if string block ID is absent
+							block = Block.getBlockById(ItemNBTHelper.getInt(lens, TAG_BLOCK, 0));
+						}
+					}
 					int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
 
 					TileEntity tile = null;
@@ -250,8 +260,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 		ItemStack lens = burst.getSourceLens();
-		int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
-		Block b = Block.getBlockById(id);
+		String id = ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, "minecraft:air");
+		Block b = Block.getBlockFromName(id);
 		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
 		entity.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ, Block.getStateId(b.getStateFromMeta(meta)));
 
