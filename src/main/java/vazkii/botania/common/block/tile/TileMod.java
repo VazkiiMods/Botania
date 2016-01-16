@@ -66,8 +66,6 @@ public class TileMod extends TileEntity implements ITickable {
 	public final void update() {
 		if (!isInvalid() && worldObj.isBlockLoaded(getPos(), false)) {
 			updateEntity();
-		} else {
-			System.out.println("Skipping a tick because our chunk unloaded");
 		}
 	}
 
