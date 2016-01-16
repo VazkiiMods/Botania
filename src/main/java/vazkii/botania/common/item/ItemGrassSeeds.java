@@ -11,13 +11,13 @@
 package vazkii.botania.common.item;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -47,7 +47,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new ConcurrentHashMap<Integer, Set<BlockSwapper>>();
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
@@ -172,6 +172,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
+		// Block swapper updates should only occur on the server
+		if(event.world.isRemote)
+			return;
+
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
@@ -192,6 +196,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Adds a grass seed block swapper to the world at the provided positiona
 	 * and with the provided meta (which designates the type of the grass
 	 * being spread).
+	 * 
+	 * Block swappers are only actually created on the server, so a client
+	 * calling this method will recieve a marker block swapper which contains
+	 * the provided information but is not ticked.
 	 * @param world The world the swapper will be in.
 	 * @param x The x-position of the swapper.
 	 * @param y The y-position of the swapper.
@@ -202,10 +210,14 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	private static BlockSwapper addBlockSwapper(World world, int x, int y, int z, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, x, y, z, meta);
 
+		// Block swappers are only registered on the server
+		if(world.isRemote)
+			return swapper;
+
 		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, Collections.newSetFromMap(new ConcurrentHashMap<BlockSwapper, Boolean>()));
+			blockSwappers.put(dim, new HashSet<BlockSwapper>());
 
 		// Add the block swapper
 		blockSwappers.get(dim).add(swapper);

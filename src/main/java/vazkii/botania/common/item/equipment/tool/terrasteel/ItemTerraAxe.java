@@ -11,14 +11,13 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -70,8 +69,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The amount of mana required to restore 1 point of damage.
 	 */
 	private static final int MANA_PER_DAMAGE = 100;
-	
-	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new ConcurrentHashMap<Integer, Set<BlockSwapper>>();
+
+	/**
+	 * Represents a map of dimension IDs to a set of all block swappers
+	 * active in that dimension.
+	 */
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
 
 	IIcon iconOn, iconOff;
 
@@ -132,6 +135,10 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
+		// Block Swapping ticking should only occur on the server
+		if(event.world.isRemote)
+			return;
+
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.dimensionId;
 			if(blockSwappers.containsKey(dim)) {
@@ -153,6 +160,10 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	/**
 	 * Adds a new block swapper to the provided world as the provided player.
+	 * Block swappers are only added on the server, and a marker instance
+	 * which is not actually ticked but contains the proper passed in
+	 * information will be returned to the client.
+	 * 
 	 * @param world The world to add the swapper to.
 	 * @param player The player who is responsible for this swapper.
 	 * @param stack The Terra Truncator which caused this block swapper.
@@ -165,11 +176,15 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
+		// Block swapper registration should only occur on the server
+		if(world.isRemote)
+			return swapper;
+
 		// If the mapping for this dimension doesn't exist, create it.
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, Collections.newSetFromMap(new ConcurrentHashMap<BlockSwapper, Boolean>()));
-		
+			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+
 		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
 
