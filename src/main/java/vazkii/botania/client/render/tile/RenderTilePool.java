@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,23 +31,21 @@ import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_POOL);
-	private static final ResourceLocation textureInf = new ResourceLocation(LibResources.MODEL_INFINITE_POOL);
-	private static final ResourceLocation textureDil = new ResourceLocation(LibResources.MODEL_DILUTED_POOL);
-
-	private static final ModelPool model = new ModelPool();
-
-	public static int forceMeta = 0;
+	// Overrides for when we call this TESR without an actual pool
+	public static PoolVariant forceVariant = PoolVariant.DEFAULT;
 	public static boolean forceMana = false;
 	public static int forceManaNumber = -1;
 
@@ -63,11 +62,13 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 
 		GlStateManager.color(1F, 1F, 1F, a);
-		GlStateManager.translate(d0, d1, d2);
-		boolean inf = pool.getWorld() == null ? forceMeta == 1 : pool.getBlockMetadata() == 1;
-		boolean dil = pool.getWorld() == null ? forceMeta == 2 : pool.getBlockMetadata() == 2;
-		boolean fab = pool.getWorld() == null ? forceMeta == 3 : pool.getBlockMetadata() == 3;
+		if (pool == null) { // A null pool means we are calling the TESR without a pool (on a minecart). Adjust accordingly
+			GlStateManager.translate(0, 0, -1);
+		} else {
+			GlStateManager.translate(d0, d1, d2);
+		}
 
+		boolean fab = pool == null ? forceVariant == PoolVariant.FABULOUS : pool.getWorld().getBlockState(pool.getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		int color;
@@ -75,10 +76,10 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
 		} else {
-			color = pool.getColor().getMapColor().colorValue;
+			color = pool == null ? EnumDyeColor.WHITE.getMapColor().colorValue : pool.getColor().getMapColor().colorValue;
 		}
 
-		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool.getWorld().getBlockState(pool.getPos()));
+		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
 		int red = (color & 0xFF0000) >> 16;
 		int green = (color & 0xFF00) >> 8;
 		int blue = (color & 0xFF) >> 0;
@@ -88,10 +89,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		GlStateManager.color(1, 1, 1, a);
 		GlStateManager.enableRescaleNormal();
 
-		int mana = pool.getCurrentMana();
-		if(forceManaNumber > -1)
-			mana = forceManaNumber;
-		int cap = pool.manaCap;
+		int mana = pool == null ? forceManaNumber : pool.getCurrentMana();
+		int cap = pool == null ? -1 : pool.manaCap;
 		if(cap == -1)
 			cap = TilePool.MAX_MANA;
 
@@ -103,7 +102,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		float v = 1F / 8F;
 		float w = -v * 3.5F;
 
-		if(pool.getWorld() != null) {
+		if(pool != null) {
 			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
 			if(below instanceof IPoolOverlayProvider) {
 				TextureAtlasSprite overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
@@ -147,7 +146,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		}
 		GlStateManager.popMatrix();
 
-		forceMeta = 0;
+		forceVariant = PoolVariant.DEFAULT;
 		forceMana = false;
 		forceManaNumber = -1;
 	}
