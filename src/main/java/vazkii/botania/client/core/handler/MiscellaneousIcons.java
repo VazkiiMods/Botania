@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.CommandEvent;
@@ -141,7 +142,7 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void dumpAtlas(ArrowLooseEvent evt) {
-        if (!evt.entityPlayer.worldObj.isRemote || false)
+        if (!evt.entityPlayer.worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")))
             return;
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
