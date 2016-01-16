@@ -10,19 +10,49 @@
  */
 package vazkii.botania.client.challenge;
 
+/**
+ * An enumeration representing the possible difficulty levels of a challenge.
+ */
 public enum EnumChallengeLevel {
 
+	/**
+	 * An "easy" challenge - something with a few moving parts which automates a mundane task.
+	 */
 	EASY("botania.challengelevel.easy"),
+
+	/**
+	 * A normal challenge for sane people who like to automate things.
+	 */
 	NORMAL("botania.challengelevel.normal"),
+
+	/**
+	 * A difficult challenge which requires complex interaction between flowers, blocks,
+	 * and game mechanics.
+	 */
 	HARD("botania.challengelevel.hard"),
+
+	/**
+	 * A challenge for those with too much time and too little sanity.
+	 */
 	LUNATIC("botania.challengelevel.lunatic");
 
-	String name;
+	/**
+	 * The name of the challenge.
+	 */
+	private String name;
 
+	/**
+	 * Constructs a new challenge level with the provided, unlocalized name.
+	 * @param name The unlocalized name of the challenge level.
+	 */
 	private EnumChallengeLevel(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the unlocalized name of the challenge level.
+	 * @return The unlocalized name of the challenge level.
+	 */
 	public String getName() {
 		return name;
 	}
