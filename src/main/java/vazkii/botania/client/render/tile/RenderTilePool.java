@@ -75,28 +75,14 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
 		} else {
-			color = pool.getColor().getMapColor().colorValue | 0xFF000000; // Add alpha
+			color = pool.getColor().getMapColor().colorValue;
 		}
 
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool.getWorld().getBlockState(pool.getPos()));
-		Tessellator tess = Tessellator.getInstance();
-
-		tess.getWorldRenderer().begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
-
-		GlStateManager.disableLighting();
-		for (BakedQuad quad : model.getGeneralQuads()) {
-			LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
-		}
-
-		for (EnumFacing e : EnumFacing.VALUES) {
-			for (BakedQuad quad: model.getFaceQuads(e)) {
-				LightUtil.renderQuadColor(tess.getWorldRenderer(), quad, color);
-			}
-		}
-
-		tess.draw();
-
-		GlStateManager.enableLighting();
+		int red = (color & 0xFF0000) >> 16;
+		int green = (color & 0xFF00) >> 8;
+		int blue = (color & 0xFF) >> 0;
+		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.color(1, 1, 1, a);

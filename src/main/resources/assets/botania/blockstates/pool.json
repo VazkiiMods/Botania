@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:pool",
+    "model": "botania:pool_tinted",
     "transform": "forge:default-block"
   },
   "variants": {
@@ -9,10 +9,7 @@
       "default": { "textures": { "all": "botania:model/poolCopy" } },
       "diluted": { "textures": { "all": "botania:model/dilutedPoolCopy" } },
       "creative": { "textures": { "all": "botania:model/infinitePoolCopy" } },
-      "fabulous": {
-        "model": "botania:pool_tinted",
-        "textures": { "all": "botania:model/poolCopy" }
-      }
+      "fabulous": { "textures": { "all": "botania:model/poolCopy" } }
     },
     "inventory_creative": [{
       "model": "botania:pool_filled",

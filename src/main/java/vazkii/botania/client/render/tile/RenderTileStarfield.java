@@ -22,11 +22,7 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.common.block.tile.TileStarfield;
 
-// THIS CODE WAS STOLEN FROM THE END PORTAL
-// OH GOD
-// I HAVE NO IDEA WHAT I'M DOING
-// SO MUCH STUFF I DON'T UNDERSTAND D:
-// HELP
+// This is copied from the vanilla end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield> {
 
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
