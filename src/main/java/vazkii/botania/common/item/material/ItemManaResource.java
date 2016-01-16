@@ -25,6 +25,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.recipe.IElvenItem;
@@ -49,6 +50,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent
@@ -60,21 +62,25 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 		if(rightEvent && correctStack && ender) {
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
-
 			if(pos == null) {
-				ItemStack stack1 = new ItemStack(this, 1, 15);
-				event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
-
-				if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
-					event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
-
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
-
-				if(event.world.isRemote)
+				if (event.entityPlayer.worldObj.isRemote) {
 					event.entityPlayer.swingItem();
-				else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+				} else {
+					ItemStack stack1 = new ItemStack(this, 1, 15);
+					event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
+
+					if(!event.entityPlayer.inventory.addItemStackToInventory(stack1)) {
+						event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
+					} else {
+						event.entityPlayer.openContainer.detectAndSendChanges();
+					}
+
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
+
+					event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+				}
 			}
 		}
 	}
