@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.List;
 
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -38,9 +40,12 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if (supertile.getWorld().isRemote)
+			return;
+
 		if(cooldown > 0)
 			cooldown--;
-		if(cooldown == 0 && !supertile.getWorld().isRemote) {
+		if(cooldown == 0) {
 			mana = Math.min(getMaxMana(), mana + storedMana);
 			storedMana = 0;
 			sync();
@@ -48,32 +53,21 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 		int slowdown = getSlowdownFactor();
 
-		boolean remote = supertile.getWorld().isRemote;
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && ((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) >= slowdown) {
 				if(cooldown == 0) {
-					if(!remote) {
-						int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
-						storedMana = val * val * 64;
-						cooldown = val * 10;
-						supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
-						sync();
-					} else 
-						for(int i = 0; i < 10; i++) {
-							float m = 0.2F;
-							float mx = (float) (Math.random() - 0.5) * m;
-							float my = (float) (Math.random() - 0.5) * m;
-							float mz = (float) (Math.random() - 0.5) * m;
-							supertile.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, item.posX, item.posY, item.posZ, mx, my, mz, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
-						}
-							
+					int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
+					storedMana = val * val * 64;
+					cooldown = val * 10;
+					supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
+					sync();
+					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 				}
 
-				if(!remote)
-					item.setDead();
+				item.setDead();
 			}
 		}
 	}
