@@ -43,7 +43,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		if (supertile.getWorld().isRemote)
 			return;
 
-		if(cooldown > 0)
+		if(cooldown > -1)
 			cooldown--;
 		if(cooldown == 0) {
 			mana = Math.min(getMaxMana(), mana + storedMana);
@@ -58,7 +58,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && ((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) >= slowdown) {
-				if(cooldown == 0) {
+				if(cooldown <= 0) {
 					int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
 					storedMana = val * val * 64;
 					cooldown = val * 10;
