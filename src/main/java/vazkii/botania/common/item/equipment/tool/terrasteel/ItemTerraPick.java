@@ -121,7 +121,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
 		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
-		if(raycast != null) {
+		if(!player.worldObj.isRemote && raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
 			// ^ Doable with API access through the IInternalMethodHandler.
@@ -266,6 +266,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public boolean disposeOfTrashBlocks(ItemStack stack) {
 		return isTipped(stack);
+	}
+
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack before, ItemStack after, boolean slotChanged) {
+		return isEnabled(before) != isEnabled(after);
 	}
 
 }

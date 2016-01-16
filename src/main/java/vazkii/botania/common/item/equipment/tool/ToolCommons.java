@@ -48,10 +48,15 @@ public final class ToolCommons {
 			stack.damageItem(dmg, entity);
 	}
 
+	/**
+	 * Pos is the actual block coordinate, posStart and posEnd are deltas from pos
+     */
 	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos posStart, BlockPos posEnd, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
 		float blockHardness = block == null ? 1F : block.getBlockHardness(world, pos);
 
-		for (BlockPos iterPos : BlockPos.getAllInBox(posStart, posEnd)) {
+		for (BlockPos iterPos : BlockPos.getAllInBox(pos.add(posStart), pos.add(posEnd))) {
+			if (iterPos.equals(pos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
+				continue;
 			removeBlockWithDrops(player, stack, world, iterPos, pos, block, materialsListing, silk, fortune, blockHardness, dispose);
 		}
 	}
@@ -80,8 +85,10 @@ public final class ToolCommons {
 
 		Material mat = world.getBlockState(pos).getBlock().getMaterial();
 		if(!world.isRemote && blk != null && !blk.isAir(world, pos) && blk.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
-			if(!blk.canHarvestBlock(player.worldObj, pos, player) || !isRightMaterial(mat, materialsListing))
+			if(!blk.canHarvestBlock(player.worldObj, pos, player) || !isRightMaterial(mat, materialsListing)) {
+				System.out.println("Fail harvest and material");
 				return;
+			}
 
 			if(!player.capabilities.isCreativeMode) {
 				IBlockState localState = world.getBlockState(pos);
