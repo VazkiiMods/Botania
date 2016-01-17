@@ -14,7 +14,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -28,7 +29,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
@@ -209,10 +209,10 @@ public class ClientProxy extends CommonProxy {
 			new VersionChecker().init();
 
 		if(ConfigHandler.enableSeasonalFeatures) {
-			Calendar calendar = Calendar.getInstance();
-			if((calendar.get(2) == 11 && calendar.get(5) >= 16) || (calendar.get(2) == 0 && calendar.get(5) <= 2))
+			LocalDateTime now = LocalDateTime.now();
+			if ((now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16) || (now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2))
 				jingleTheBells = true;
-			if(calendar.get(2) == 9)
+			if(now.getMonth() == Month.OCTOBER)
 				dootDoot = true;
 		}
 
