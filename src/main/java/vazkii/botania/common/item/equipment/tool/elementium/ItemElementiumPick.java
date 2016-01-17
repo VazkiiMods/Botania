@@ -17,10 +17,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	static final List<String> validBlocks = Arrays.asList(new String[] {
-			"dirt", "sand", "gravel", "cobblestone", "netherrack"
-	});
-
 	public ItemElementiumPick() {
 		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_PICK);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -30,24 +26,36 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	public void onHarvestDrops(HarvestDropsEvent event) {
 		if(event.harvester != null) {
 			ItemStack stack = event.harvester.getCurrentEquippedItem();
-			if(stack != null && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack)))
+			if(stack != null && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
 				for(int i = 0; i < event.drops.size(); i++) {
 					ItemStack drop = event.drops.get(i);
 					if(drop != null) {
 						Block block = Block.getBlockFromItem(drop.getItem());
-						if(block != null && isDisposable(block))
-							event.drops.remove(i);
+						if(block != null){
+							if(isDisposable(block) || (isSemiDisposable(block) && !event.harvester.isSneaking()))
+								event.drops.remove(i);
+						}
 					}
 				}
+			}
 		}
 	}
 
 	public static boolean isDisposable(Block block) {
-		for(int id : OreDictionary.getOreIDs(new ItemStack(block)))
-			if(validBlocks.contains(OreDictionary.getOreName(id)))
+		for(int id : OreDictionary.getOreIDs(new ItemStack(block))) {
+			String name = OreDictionary.getOreName(id);
+			if(BotaniaAPI.disposableBlocks.contains(name))
 				return true;
-
+		}
 		return false;
 	}
-
+	
+	public static boolean isSemiDisposable(Block block) {
+		for(int id : OreDictionary.getOreIDs(new ItemStack(block))) {
+			String name = OreDictionary.getOreName(id);
+			if(BotaniaAPI.semiDisposableBlocks.contains(name))
+				return true;
+		}
+		return false;
+	}
 }
