@@ -12,7 +12,10 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,15 +23,14 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -39,21 +41,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer, IManaGivingItem {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
-	static TextureAtlasSprite willIcon;
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public ItemTerrasteelHelm(String name) {
 		super(0, name);
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void onTextureStitch(TextureStitchEvent evt) {
-		willIcon = IconHelper.forName(evt.map, "willFlame", "items");
 	}
 
 	@Override
@@ -104,24 +98,22 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void renderOnPlayer(ItemStack stack, RenderPlayerEvent event) {
-/*
+	public static void renderOnPlayer(ItemStack stack, EntityPlayer player) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
 			GlStateManager.pushMatrix();
-			float f = willIcon.getMinU();
-			float f1 = willIcon.getMaxU();
-			float f2 = willIcon.getMinV();
-			float f3 = willIcon.getMaxV();
-			Helper.translateToHeadLevel(event.entityPlayer);
+			float f = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinU();
+			float f1 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxU();
+			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
+			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
+			IBaubleRender.Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.26F, 0.15F, -0.39F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			IconHelper.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, willIcon.getIconWidth(), willIcon.getIconHeight(), 1F / 16F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconHeight(), 1F / 16F);
 			GlStateManager.popMatrix();
 		}
-*/
 	}
 
 	@SubscribeEvent

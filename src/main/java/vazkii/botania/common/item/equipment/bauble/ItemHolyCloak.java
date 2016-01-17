@@ -17,7 +17,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -126,11 +125,11 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
-			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
+			Helper.rotateIfSneaking(player);
+			boolean armor = player.getCurrentArmor(2) != null;
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 0.1F;

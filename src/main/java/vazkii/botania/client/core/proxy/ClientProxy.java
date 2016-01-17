@@ -197,7 +197,6 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
-		MinecraftForge.EVENT_BUS.register(new BaubleRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
@@ -274,10 +273,15 @@ public class ClientProxy extends CommonProxy {
 
 	private void initAuxiliaryRender() {
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
-		RenderPlayer render = skinMap.get("default");
+		RenderPlayer render;
+
+		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new BaubleRenderHandler());
+
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new BaubleRenderHandler());
 	}
 
 	@Override

@@ -13,6 +13,10 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 
 import com.google.common.base.Predicates;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -20,7 +24,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -92,23 +95,17 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-/*
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			float f = itemIcon.getMinU();
-			float f1 = itemIcon.getMaxU();
-			float f2 = itemIcon.getMinV();
-			float f3 = itemIcon.getMaxV();
-			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
-			Helper.translateToHeadLevel(event.entityPlayer);
+			boolean armor = player.getCurrentArmor(3) != null;
+			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.35F : -0.3F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
+			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.THIRD_PERSON);
 		}
-*/
 	}
 
 }

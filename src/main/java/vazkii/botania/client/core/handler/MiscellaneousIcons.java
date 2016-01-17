@@ -60,7 +60,8 @@ public class MiscellaneousIcons {
         corporeaIconStar,
         sparkWorldIcon,
         manaDetectorIcon,
-        runeAltarTriggerIcon;
+        runeAltarTriggerIcon,
+        terrasteelHelmWillIcon;
 
     public TextureAtlasSprite[] sparkUpgradeIcons;
     public TextureAtlasSprite[] kingKeyWeaponIcons;
@@ -138,6 +139,8 @@ public class MiscellaneousIcons {
         for (int i = 0; i < tiaraWingIcons.length; i++) {
             tiaraWingIcons[i] = IconHelper.forName(evt.map, "flightTiara" + i, "items");
         }
+
+        terrasteelHelmWillIcon = IconHelper.forName(evt.map, "willFlame", "items");
     }
 
     @SubscribeEvent

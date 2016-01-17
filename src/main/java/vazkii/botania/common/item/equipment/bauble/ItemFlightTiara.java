@@ -37,7 +37,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
@@ -330,17 +329,17 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-				boolean flying = event.entityPlayer.capabilities.isFlying;
+				boolean flying = player.capabilities.isFlying;
 
 				float rz = 120F;
-				float rx = 20F + (float) ((Math.sin((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+				float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 				float ry = 0F;
 				float h = 0.2F;
 				float i = 0.15F;
@@ -374,7 +373,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rz = 180F;
 					h = 0.5F;
 					rx = 20F;
-					ry = -(float) ((Math.sin((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
+					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					break;
 				}
@@ -395,7 +394,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rz = 0F;
 					ry = -rx;
 					rx = 0F;
-					GlStateManager.color(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
+					GlStateManager.color(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
 					break;
 				}
 				case 8 : { // Mega Ultra Chicken
@@ -408,7 +407,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rx = 0F;
 					s = 1.5F;
 					h = 1.2F;
-					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F + 0.25F : 0F));
+					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
 
@@ -418,7 +417,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				float f3 = icon.getMaxV();
 				float sr = 1F / s;
 
-				Helper.rotateIfSneaking(event.entityPlayer);
+				Helper.rotateIfSneaking(player);
 
 				GlStateManager.translate(0F, h, i);
 
@@ -449,7 +448,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GlStateManager.popMatrix();
 			}
 		} else if(meta == 1) // Jibril's Halo
-			renderHalo(event.entityPlayer, event.partialRenderTick);
+			renderHalo(player, partialTicks);
 	}
 
 	@SideOnly(Side.CLIENT)

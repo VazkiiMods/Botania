@@ -14,13 +14,13 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
@@ -70,10 +70,10 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		if(type == RenderType.HEAD) {
-			Helper.translateToHeadLevel(event.entityPlayer);
+			Helper.translateToHeadLevel(player);
 			switch(stack.getItemDamage()) {
 			case 2:
 				faceTranslate();
@@ -231,7 +231,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			}
 		} else {
-			Helper.rotateIfSneaking(event.entityPlayer);
+			Helper.rotateIfSneaking(player);
 			switch(stack.getItemDamage()) {
 			case 0:
 				chestTranslate();
@@ -314,13 +314,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	public void renderIcon(int i) {
-/*
-		IIcon icon = icons[i];
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-*/
+		ItemStack stack = new ItemStack(this, 1, i);
+		Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON);
 	}
 }

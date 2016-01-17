@@ -26,7 +26,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -163,17 +162,17 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
+			Helper.rotateIfSneaking(player);
+			boolean armor = player.getCurrentArmor(2) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
 			for(int i = 2; i < 4; i++) {
-				/*IIcon icon = icons[i];
+				/*IIcon icon = icons[i]; todo 1.8
 				float f = icon.getMinU();
 				float f1 = icon.getMaxU();
 				float f2 = icon.getMinV();

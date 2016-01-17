@@ -24,7 +24,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.common.lib.LibItemNames;
@@ -102,8 +101,8 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		/*if(type == RenderType.BODY) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
+		/*if(type == RenderType.BODY) { todo 1.8
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;

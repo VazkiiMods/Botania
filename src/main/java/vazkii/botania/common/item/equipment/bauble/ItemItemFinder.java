@@ -27,7 +27,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.village.MerchantRecipe;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.common.Botania;
@@ -203,8 +202,8 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-/*
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
+/* todo 1.8
 		if(type == RenderType.HEAD) {
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();

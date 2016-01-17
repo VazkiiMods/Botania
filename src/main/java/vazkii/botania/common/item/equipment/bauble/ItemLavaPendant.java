@@ -11,8 +11,8 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.common.lib.LibItemNames;
@@ -44,8 +44,8 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 	}*/
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-/*
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
+/* todo 1.8
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);

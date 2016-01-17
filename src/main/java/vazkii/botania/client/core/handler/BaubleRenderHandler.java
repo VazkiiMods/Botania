@@ -14,12 +14,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
@@ -33,38 +33,37 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public final class BaubleRenderHandler {
+public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
-	@SubscribeEvent
-	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
-		if(!ConfigHandler.renderBaubles || event.entityLiving.getActivePotionEffect(Potion.invisibility) != null)
+	@Override
+	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
+		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(Potion.invisibility) != null)
 			return;
 
-		EntityPlayer player = event.entityPlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 
-		dispatchRenders(inv, event, RenderType.BODY);
+		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
 		if(inv.getStackInSlot(3) != null)
-			renderManaTablet(event);
+			renderManaTablet(player);
 
-		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * event.partialRenderTick;
-		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * event.partialRenderTick;
-		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * event.partialRenderTick;
+		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
+		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.rotate(yawOffset, 0, -1, 0);
 		GlStateManager.rotate(yaw - 270, 0, 1, 0);
 		GlStateManager.rotate(pitch, 0, 0, 1);
-		dispatchRenders(inv, event, RenderType.HEAD);
+		dispatchRenders(inv, player, RenderType.HEAD, partialTicks);
 
 		ItemStack helm = player.inventory.armorItemInSlot(3);
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
-			ItemTerrasteelHelm.renderOnPlayer(helm, event);
+			ItemTerrasteelHelm.renderOnPlayer(helm, player);
 
 		GlStateManager.popMatrix();
 	}
 
-	private void dispatchRenders(InventoryBaubles inv, RenderPlayerEvent event, RenderType type) {
+	private void dispatchRenders(InventoryBaubles inv, EntityPlayer player, RenderType type, float partialTicks) {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack != null) {
@@ -82,7 +81,7 @@ public final class BaubleRenderHandler {
 					if(cosmetic != null) {
 						GlStateManager.pushMatrix();
 						GlStateManager.color(1F, 1F, 1F, 1F);
-						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, event, type);
+						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, player, type, partialTicks);
 						GlStateManager.popMatrix();
 						continue;
 					}
@@ -91,24 +90,22 @@ public final class BaubleRenderHandler {
 				if(item instanceof IBaubleRender) {
 					GlStateManager.pushMatrix();
 					GlStateManager.color(1F, 1F, 1F, 1F);
-					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, type);
+					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, player, type, partialTicks);
 					GlStateManager.popMatrix();
 				}
 			}
 		}
 	}
 
-	private void renderManaTablet(RenderPlayerEvent event) {
-		EntityPlayer player = event.entityPlayer;
+	private void renderManaTablet(EntityPlayer player) {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(stack != null && stack.getItem() == ModItems.manaTablet) {
-				Item item = stack.getItem();
 				GlStateManager.pushMatrix();
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				Helper.rotateIfSneaking(event.entityPlayer);
-				boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
+				Helper.rotateIfSneaking(player);
+				boolean armor = player.getCurrentArmor(1) != null;
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.25F, -0.85F, renderedOne ? armor ? 0.2F : 0.28F : armor ? -0.3F : -0.25F);
@@ -129,5 +126,8 @@ public final class BaubleRenderHandler {
 		}
 	}
 
-
+	@Override
+	public boolean shouldCombineTextures() {
+		return false;
+	}
 }
