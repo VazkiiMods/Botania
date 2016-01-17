@@ -23,7 +23,7 @@ public class LensWeight extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake() && pos.getBlockPos() != null) {
+		if(!entity.worldObj.isRemote && !burst.isFake() && pos.getBlockPos() != null) {
 			int harvestLevel = ConfigHandler.harvestLevelWeight;
 			
 			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
@@ -33,8 +33,7 @@ public class LensWeight extends Lens {
 			
 			if(blockBelow.isAir(entity.worldObj, pos.getBlockPos().down()) && block.getBlockHardness(entity.worldObj, pos.getBlockPos()) != -1 && neededHarvestLevel <= harvestLevel && entity.worldObj.getTileEntity(pos.getBlockPos()) == null && block.canSilkHarvest(entity.worldObj, pos.getBlockPos(), entity.worldObj.getBlockState(pos.getBlockPos()), null)) {
 				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, pos.getBlockPos().getX() + 0.5, pos.getBlockPos().getY() + 0.5, pos.getBlockPos().getZ() + 0.5, state);
-				if(!entity.worldObj.isRemote)
-					entity.worldObj.spawnEntityInWorld(falling);
+				entity.worldObj.spawnEntityInWorld(falling);
 			}
 		}
 

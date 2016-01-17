@@ -32,7 +32,7 @@ public class LensPaint extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
-		if(!burst.isFake() && storedColor > -1 && storedColor < 17) {
+		if(!entity.worldObj.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if(pos.entityHit != null && pos.entityHit instanceof EntitySheep) {
 				int r = 20;
 				EnumDyeColor sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
@@ -72,14 +72,13 @@ public class LensPaint extends Lens {
 						IBlockState stateThere = entity.worldObj.getBlockState(coords);
 
 						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor) {
-							if(!entity.worldObj.isRemote)
-								entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
+							entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
 							int hex = placeColor.getMapColor().colorValue;
 							int r = (hex & 0xFF0000) >> 16;
 							int g = (hex & 0xFF00) >> 8;
 							int b = (hex & 0xFF);
 							for(int i = 0; i < 4; i++)
-								Botania.proxy.sparkleFX(entity.worldObj, coords.getX() + (float) Math.random(), coords.getY() + (float) Math.random(), coords.getZ() + (float) Math.random(), r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.3F, 5);
+								Botania.proxy.sparkleFX(entity.worldObj, coords.getX() + (float) Math.random(), coords.getY() + (float) Math.random(), coords.getZ() + (float) Math.random(), r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.3F, 5); // todo 1.8 noop right now due to serversiding
 
 						}
 					}

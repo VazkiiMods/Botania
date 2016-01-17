@@ -18,6 +18,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
@@ -26,7 +27,7 @@ public class LensFire extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+		if(!entity.worldObj.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
 			EnumFacing dir = pos.sideHit;
 
 			BlockPos pos_ = pos.getBlockPos().offset(dir);
@@ -39,6 +40,7 @@ public class LensFire extends Lens {
 			else if(blockAt == ModBlocks.incensePlate) {
 				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.getBlockPos());
 				plate.ignite();
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 			} else if(blockAt_.isAir(entity.worldObj, pos_))
 				entity.worldObj.setBlockState(pos_, Blocks.fire.getDefaultState());
 		}

@@ -20,9 +20,9 @@ public class LensStorm extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake()) {
+		if(!entity.worldObj.isRemote && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())))
+			if(pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())))
 				entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, 5F, true);
 		} else dead = false;
 

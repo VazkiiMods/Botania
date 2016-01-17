@@ -36,7 +36,7 @@ public class LensMine extends Lens {
 		World world = entity.worldObj;
 
 		BlockPos pos_ = pos.getBlockPos();
-		if (pos_ == null)
+		if (world.isRemote || pos_ == null)
 			return false;
 
 		Block block = world.getBlockState(pos_).getBlock();

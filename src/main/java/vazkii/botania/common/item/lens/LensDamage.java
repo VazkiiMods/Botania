@@ -24,6 +24,8 @@ public class LensDamage extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
+		if (entity.worldObj.isRemote)
+			return;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 		for(EntityLivingBase living : entities) {
@@ -34,7 +36,7 @@ public class LensDamage extends Lens {
 				int mana = burst.getMana();
 				if(mana >= 16) {
 					burst.setMana(mana - 16);
-					if(!burst.isFake() && !entity.worldObj.isRemote)
+					if(!burst.isFake())
 						living.attackEntityFrom(DamageSource.magic, 8);
 					break;
 				}
