@@ -65,6 +65,9 @@ public final class BotaniaAPI {
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
 	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
+	
+	public static List<String> disposableBlocks = new ArrayList<String>();
+	public static List<String> semiDisposableBlocks = new ArrayList<String>();
 
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
@@ -236,6 +239,16 @@ public final class BotaniaAPI {
 		registerPaintableBlock(Blocks.stained_hardened_clay);
 		registerPaintableBlock(Blocks.wool);
 		registerPaintableBlock(Blocks.carpet);
+		
+		registerDisposableBlock("dirt"); // Vanilla
+		registerDisposableBlock("sand"); // Vanilla
+		registerDisposableBlock("gravel"); // Vanilla
+		registerDisposableBlock("cobblestone"); // Vanilla
+		registerDisposableBlock("netherrack"); // Vanilla
+		registerSemiDisposableBlock("stoneAndesite"); // Botania
+		registerSemiDisposableBlock("stoneBasalt"); // Botania
+		registerSemiDisposableBlock("stoneDiorite"); // Botania
+		registerSemiDisposableBlock("stoneGranite"); // Botania
 	}
 
 	/**
@@ -275,6 +288,21 @@ public final class BotaniaAPI {
 		return fallbackBrew;
 	}
 
+	/*
+	 * Registers a Block as disposable using its Ore Dictionary Name.
+	 */
+	public static void registerDisposableBlock(String oreDictName) {
+		disposableBlocks.add(oreDictName);
+	}
+	
+	/*
+	 * Registers a Block as semi disposable using its Ore Dictionary Name.
+	 * This means it will not be trashed when sneaking.
+	 */
+	public static void registerSemiDisposableBlock(String oreDictName) {
+		semiDisposableBlocks.add(oreDictName);
+	}
+	
 	/**
 	 * Registers a paintableBlock and returns it.
 	 */
