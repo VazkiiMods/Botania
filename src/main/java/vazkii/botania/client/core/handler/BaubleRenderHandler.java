@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
@@ -80,6 +81,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 					ItemStack cosmetic = attachable.getCosmeticItem(stack);
 					if(cosmetic != null) {
 						GlStateManager.pushMatrix();
+						GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255)); // Some of the baubles use this so we must restore it manually as well
 						GlStateManager.color(1F, 1F, 1F, 1F);
 						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, player, type, partialTicks);
 						GlStateManager.popMatrix();
@@ -89,6 +91,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 				if(item instanceof IBaubleRender) {
 					GlStateManager.pushMatrix();
+					GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255)); // Some of the baubles use this so we must restore it manually as well
 					GlStateManager.color(1F, 1F, 1F, 1F);
 					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, player, type, partialTicks);
 					GlStateManager.popMatrix();
