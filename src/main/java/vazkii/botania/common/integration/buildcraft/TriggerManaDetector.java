@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.Botania;
@@ -17,6 +19,7 @@ import buildcraft.api.statements.ITriggerInternal;
 public class TriggerManaDetector extends StatementBase implements ITriggerInternal {
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public TextureAtlasSprite getGuiSprite() {
 		return MiscellaneousIcons.INSTANCE.manaDetectorIcon;
 	}

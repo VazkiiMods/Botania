@@ -5,6 +5,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.mana.IManaBlock;
@@ -35,6 +37,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public TextureAtlasSprite getGuiSprite() {
 		return MiscellaneousIcons.INSTANCE.manaLevelTriggerIcons.get(state);
 	}
