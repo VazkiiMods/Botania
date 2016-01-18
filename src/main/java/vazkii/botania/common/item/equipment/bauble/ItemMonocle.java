@@ -50,10 +50,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			boolean armor = player.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.35F, -0.1F, armor ? -0.3F : -0.25F);
-			GlStateManager.scale(0.35F, 0.35F, 0.35F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.rotate(90, 0, 0, 1); // todo 1.8 could use some further refinement
+			GlStateManager.translate(2.88F, armor ? -0.75F : -0.63F, 0.62F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this), ItemCameraTransforms.TransformType.THIRD_PERSON);
 		}
 	}
