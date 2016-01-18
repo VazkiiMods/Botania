@@ -235,33 +235,28 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			switch(stack.getItemDamage()) {
 			case 0:
 				chestTranslate();
-				scale(0.5F);
-				GlStateManager.translate(0.5F, 0.7F, 0F);
 				renderIcon(0);
 				break;
 			case 1:
 				chestTranslate();
-				scale(0.75F);
-				GlStateManager.translate(0.15F, -0.1F, 0F);
+				GlStateManager.translate(0F, 0F, 0.2F);
 				renderIcon(1);
 				break;
 			case 3:
 				chestTranslate();
-				scale(0.6F);
-				GlStateManager.translate(0.35F, 0.3F, 0F);
+				GlStateManager.translate(0F, 0F, 0.15F);
 				renderIcon(3);
 				break;
 			case 12:
 				chestTranslate();
 				scale(0.225F);
-				GlStateManager.translate(1.2F, 1.9F, 0F);
+				GlStateManager.translate(-0.725F, 0.45F, -0.6F);
 				renderIcon(12);
 				break;
 			case 13:
 				chestTranslate();
-				GlStateManager.rotate(-90F, 0F, 1F, 0F);
-				scale(0.5F);
-				GlStateManager.translate(-1.3F, -0.4F, -1F);
+				GlStateManager.rotate(-90F, 0F, 0F, 1F);
+				GlStateManager.translate(0.33F, -0.15F, 0.55F);
 				renderIcon(13);
 				break;
 			case 14:
@@ -278,20 +273,19 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 16:
 				chestTranslate();
 				scale(0.225F);
-				GlStateManager.translate(2.3F, 1.9F, 0F);
+				GlStateManager.translate(0.725F, 0.45F, -0.6F);
 				renderIcon(16);
 				break;
 			case 21:
 				chestTranslate();
-				scale(0.3F);
-				GlStateManager.translate(1.2F, 0.5F, 0F);
+				scale(0.5F);
+				GlStateManager.translate(0F, 0.15F, 0.32F);
 				renderIcon(21);
 				break;
 			case 29:
 				chestTranslate();
-				scale(0.8F);
-				GlStateManager.translate(0.2F, -0.2F, -0.35F);
-				GlStateManager.rotate(10F, 0F, 0F, 1F);
+				GlStateManager.translate(0.05F, -0.25F, 0.25F);
+				GlStateManager.rotate(8F, 0F, 1F, 0F);
 				renderIcon(29);
 				break;
 			}
@@ -305,8 +299,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	public void chestTranslate() {
-		GlStateManager.rotate(180F, 1F, 0F, 0F);
-		GlStateManager.translate(-0.5F, -0.7F, 0.15F);
+		GlStateManager.translate(0F, 0.5F, 0F);
+		GlStateManager.rotate(-90F, 1F, 0F, 0F);
 	}
 
 	public void scale(float f) {
