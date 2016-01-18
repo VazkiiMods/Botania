@@ -50,7 +50,7 @@ public interface IBaubleRender {
 		}
 
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GlStateManager.translate(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
+			GlStateManager.translate(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.25 : 0), 0);
 		}
 
 	}

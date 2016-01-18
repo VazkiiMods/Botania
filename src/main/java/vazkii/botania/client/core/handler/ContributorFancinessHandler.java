@@ -48,6 +48,15 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
 		String name = player.getDisplayName().getUnformattedText();
 
+		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
+		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(yawOffset, 0, -1, 0);
+		GlStateManager.rotate(yaw - 270, 0, 1, 0);
+		GlStateManager.rotate(pitch, 0, 0, 1);
+
 		if(name.equals("Vazkii") || name.equals("_phi")) {
 			if(phi)
 				renderPhiFlower(player);
@@ -60,6 +69,8 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		name = name.toLowerCase();
 		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(player, flowerMap.get(name));
+
+		GlStateManager.popMatrix();
 	}
 
 	@Override
@@ -102,12 +113,12 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		Helper.translateToHeadLevel(player);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		//GlStateManager.rotate(90F, 0F, 1F, 0F); todo 1.8 refine
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.translate(0, 1.62, 0);
 		float t = 0.13F;
 		GlStateManager.translate(t, -0.5F, -0.1F);
 		if(player.motionY < 0)
-			GlStateManager.rotate((float) player.motionY * 20F, -1F, 0F, 0F);
+			GlStateManager.rotate((float) player.motionY * 20F, 1F, 0F, 0F);
 
 		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.05F) * 2F;
 		GlStateManager.rotate(r, 0F, 0F, 1F);
@@ -135,11 +146,10 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		// todo 1.8 refine
-//		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
-		GlStateManager.translate(0.70F, -3.5F, 0.125F);
-//		GlStateManager.rotate(20F, 1F, 0F, 0F);
+		GlStateManager.translate(-1F, -3.5F, 0.125F);
+		GlStateManager.rotate(20F, 1F, 0F, 0F);
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
@@ -153,9 +163,9 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		float f3 = icon.getMaxV();
 		Helper.rotateIfSneaking(player);
 		GlStateManager.rotate(180F, 0F, 0F, 1F);
-		GlStateManager.translate(-0.75F, 0.5F, 0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
-		GlStateManager.translate(1.2F, 0.5F, 0F);
+		GlStateManager.translate(-0.5F, 1.6F, 0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
@@ -166,7 +176,8 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		Helper.translateToHeadLevel(player);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.rotate(-90, 1, 0, 0);
-		GlStateManager.translate(0, 0, 1.22); // todo 1.8 refine
+		GlStateManager.translate(0, 0, 1.22);
+		GlStateManager.rotate(90, 0, 0, 1);
 		ShaderHelper.useShader(ShaderHelper.gold);
 		Minecraft.getMinecraft().getRenderItem().renderItemModelForEntity(flower, player, ItemCameraTransforms.TransformType.THIRD_PERSON);
 		ShaderHelper.releaseShader();
