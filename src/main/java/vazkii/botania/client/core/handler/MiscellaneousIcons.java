@@ -75,6 +75,16 @@ public class MiscellaneousIcons {
     public TextureAtlasSprite nerfBatIcon = null;
     // end dank_memes
 
+    // Icons for baubles that don't render their own model on the player
+    public TextureAtlasSprite
+        bloodPendantChain,
+        bloodPendantGem,
+        snowflakePendantGem,
+        itemFinderGem,
+        pyroclastGem,
+        crimsonGem;
+
+
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
         // BlockSpecialFlower
@@ -141,6 +151,13 @@ public class MiscellaneousIcons {
         }
 
         terrasteelHelmWillIcon = IconHelper.forName(evt.map, "willFlame", "items");
+
+        bloodPendantChain = IconHelper.forName(evt.map, "bloodPendant2", "items");
+        bloodPendantGem = IconHelper.forName(evt.map, "bloodPendant3", "items");
+        snowflakePendantGem = IconHelper.forName(evt.map, "icePendantGem", "items");
+        itemFinderGem = IconHelper.forName(evt.map, "itemFinderGem", "items");
+        pyroclastGem = IconHelper.forName(evt.map, "lavaPendantGem", "items");
+        crimsonGem = IconHelper.forName(evt.map, "superLavaPendantGem", "items");
     }
 
     @SubscribeEvent

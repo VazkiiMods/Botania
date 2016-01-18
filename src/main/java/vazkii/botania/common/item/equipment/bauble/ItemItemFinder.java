@@ -13,6 +13,11 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -29,6 +34,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.village.MerchantRecipe;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -44,18 +51,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
-	//IIcon gemIcon;
 	private static final String TAG_POSITIONS = "highlightPositions";
 
 	public ItemItemFinder() {
 		super(LibItemNames.ITEM_FINDER);
 	}
-
-	/*@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
-		gemIcon = IconHelper.forItem(par1IconRegister, this, "Gem");
-	}*/
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
@@ -203,22 +203,21 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-/* todo 1.8
+		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
 		if(type == RenderType.HEAD) {
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
-			Helper.translateToHeadLevel(event.entityPlayer);
+			boolean armor = player.getCurrentArmor(3) != null;
+			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.3F : -0.25F);
+			GlStateManager.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
 			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);
 		}
-*/
 	}
 
 }
