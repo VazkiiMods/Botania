@@ -6,7 +6,7 @@
 <ul>
 
 <li id="q1-fake"><b>Can I use Botania in a modpack, let's play, or its code in my mod?</b> <a href="#q1">(permalink)</a><br>
-Have a look through the <a href="http://localhost/xampp/mod/Botania/license.php">license</a> section of the website.</li><br>
+Have a look through the <a href="http://botaniamod.net/license.php">license</a> section of the website.</li><br>
 
 <li id="q2-fake"><b>Is Botania opensource?</b> <a href="#q2">(permalink)</a><br>
 Yes, <a href="https://github.com/Vazkii/Botania">yes it is</a>.</li><br>
