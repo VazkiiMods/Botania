@@ -395,9 +395,6 @@ public class ClientProxy extends CommonProxy {
 
 				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
 					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
-
-				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
-					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
 			}
 
 		MultiblockRenderHandler.setMultiblock(mb.makeSet());

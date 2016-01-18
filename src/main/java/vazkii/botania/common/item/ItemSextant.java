@@ -171,11 +171,10 @@ public class ItemSextant extends ItemMod {
 		@Override
 		public Map<EnumFacing, Multiblock> createRotations() {
 			Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
-			for (EnumFacing e : EnumFacing.HORIZONTALS) {
+			for (EnumFacing e : EnumFacing.VALUES) {
 				ret.put(e, this);
 			}
 			return ret;
-			// return new Multiblock[] { this }; todo 1.8 verify, this was only the first direction
 		}
 
 	}

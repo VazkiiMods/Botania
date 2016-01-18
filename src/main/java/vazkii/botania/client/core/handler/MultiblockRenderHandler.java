@@ -86,7 +86,7 @@ public final class MultiblockRenderHandler {
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;
-		angle = EnumFacing.DOWN;
+		angle = EnumFacing.SOUTH;
 
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.theWorld != null)
