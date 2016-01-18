@@ -100,10 +100,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			boolean armor = player.getCurrentArmor(3) != null;
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.4F, 0.1F, armor ? -0.35F : -0.3F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+			GlStateManager.rotate(90, 0, 0, 1);
+			GlStateManager.translate(1.475F, armor ? -0.57F : -0.5F, 0.53F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.THIRD_PERSON);
 		}
 	}
