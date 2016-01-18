@@ -106,10 +106,15 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				Helper.rotateIfSneaking(player);
 				boolean armor = player.getCurrentArmor(1) != null;
-				GlStateManager.rotate(180F, 1F, 0F, 0F);
-				GlStateManager.rotate(90F, 0F, 1F, 0F);
-				GlStateManager.translate(-0.25F, -0.85F, renderedOne ? armor ? 0.2F : 0.28F : armor ? -0.3F : -0.25F);
-				GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				GlStateManager.rotate(90, 0, 1, 0);
+				GlStateManager.rotate(90, 1, 0, 0);
+
+				if (renderedOne)
+					GlStateManager.translate(0F, armor ? 0.20F : 0.18F, -0.25F);
+				else
+					GlStateManager.translate(0F, armor ? -0.39F : -0.35F, -0.25F);
+
+				GlStateManager.scale(0.75F, 0.75F, 0.75F);
 
 				GlStateManager.color(1F, 1F, 1F);
 				int light = 15728880;

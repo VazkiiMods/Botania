@@ -109,7 +109,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.26F, 0.15F, -0.39F);
+			GlStateManager.translate(-0.26F, -1.45F, -0.39F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconHeight(), 1F / 16F);
 			GlStateManager.popMatrix();
