@@ -181,7 +181,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			TileEntity tileAt = worldObj.getTileEntity(pos.offset(dir));
-			if(tileAt instanceof IManaPool) {
+			if(worldObj.isBlockLoaded(pos.offset(dir), false) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
 				if(wasInNetwork && (pool != receiver || isRedstone())) {
 					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
