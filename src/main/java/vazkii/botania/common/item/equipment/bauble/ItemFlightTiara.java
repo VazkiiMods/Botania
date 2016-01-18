@@ -465,6 +465,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		if(player != null)
 			Helper.translateToHeadLevel(player);
+		GlStateManager.translate(0, 1.5F, 0);
 		GlStateManager.rotate(30, 1, 0, -1);
 		GlStateManager.translate(-0.1F, -0.5F, -0.1F);
 		if(player != null)
