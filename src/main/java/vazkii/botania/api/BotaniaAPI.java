@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
@@ -89,6 +90,7 @@ public final class BotaniaAPI {
 	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
 	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
 	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
+	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -311,6 +313,22 @@ public final class BotaniaAPI {
 		return paintable;
 	}
 
+	/*
+	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
+	 * Pass in the class for the Entity, e.g. EntityCow.class
+	 */
+	public static void blacklistEntityFromGravityRod(Class entity) {
+		gravityRodBlacklist.add(entity);
+	}
+	
+	/*
+	 * Checks if the provided Entity is contained in the Blacklist.
+	 * Pass in the class for the Entity, e.g. entity.getClass()
+	 */
+	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
+		return gravityRodBlacklist.contains(entity);
+	}
+	
 	/**
 	 * Blacklists an item from being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.

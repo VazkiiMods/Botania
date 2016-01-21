@@ -22,6 +22,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -80,11 +81,12 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
+		
 		if(ticksCooldown == 0) {
 			Entity item = null;
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
-
+				
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
@@ -123,38 +125,43 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 			}
 
-			if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true) && item != null) {
-				if(item instanceof EntityItem)
-					((EntityItem)item).delayBeforeCanPickup = 5;
+			if(item != null) {
+				if(BotaniaAPI.isEntityBlacklistedFromGravityRod(item.getClass()))
+					return stack;
+				
+				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
+					if(item instanceof EntityItem)
+						((EntityItem)item).delayBeforeCanPickup = 5;
 
-				if(item instanceof EntityLivingBase) {
-					EntityLivingBase targetEntity = (EntityLivingBase)item;
-					targetEntity.fallDistance = 0.0F;
-					if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
-						targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true));
+					if(item instanceof EntityLivingBase) {
+						EntityLivingBase targetEntity = (EntityLivingBase)item;
+						targetEntity.fallDistance = 0.0F;
+						if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
+							targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true));
+					}
+
+					Vector3 target3 = Vector3.fromEntityCenter(player);
+					target3.add(new Vector3(player.getLookVec()).multiply(length));
+					target3.y += 0.5;
+					if(item instanceof EntityItem)
+						target3.y += 0.25;
+
+					for(int i = 0; i < 4; i++) {
+						float r = 0.5F + (float) Math.random() * 0.5F;
+						float b = 0.5F + (float) Math.random() * 0.5F;
+						float s = 0.2F + (float) Math.random() * 0.1F;
+						float m = 0.1F;
+						float xm = ((float) Math.random() - 0.5F) * m;
+						float ym = ((float) Math.random() - 0.5F) * m;
+						float zm = ((float) Math.random() - 0.5F) * m;
+						Botania.proxy.wispFX(world, item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
+					}
+					
+					setEntityMotionFromVector(item, target3, 0.3333333F);
+
+					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
+					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 				}
-
-				Vector3 target3 = Vector3.fromEntityCenter(player);
-				target3.add(new Vector3(player.getLookVec()).multiply(length));
-				target3.y += 0.5;
-				if(item instanceof EntityItem)
-					target3.y += 0.25;
-
-				for(int i = 0; i < 4; i++) {
-					float r = 0.5F + (float) Math.random() * 0.5F;
-					float b = 0.5F + (float) Math.random() * 0.5F;
-					float s = 0.2F + (float) Math.random() * 0.1F;
-					float m = 0.1F;
-					float xm = ((float) Math.random() - 0.5F) * m;
-					float ym = ((float) Math.random() - 0.5F) * m;
-					float zm = ((float) Math.random() - 0.5F) * m;
-					Botania.proxy.wispFX(world, item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
-				}
-
-				setEntityMotionFromVector(item, target3, 0.3333333F);
-
-				ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
-				ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 			}
 
 			if(item != null)
@@ -186,6 +193,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item = null;
+			
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
 
