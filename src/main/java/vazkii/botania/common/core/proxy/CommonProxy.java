@@ -94,6 +94,17 @@ public class CommonProxy {
 		ModPotions.init();
 		ModBrews.init();
 
+		ModAchievements.init();
+		ModMultiblocks.init();
+		ModBanners.init();
+
+		ChestGenHandler.init();
+
+		if(Botania.gardenOfGlassLoaded)
+			new WorldTypeSkyblock();
+	}
+
+	public void init(FMLInitializationEvent event) {
 		ModCraftingRecipes.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
@@ -103,19 +114,8 @@ public class CommonProxy {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
-		ModAchievements.init();
-		ModMultiblocks.init();
-		ModBanners.init();
-
-		ChestGenHandler.init();
-
 		LexiconData.init();
 
-		if(Botania.gardenOfGlassLoaded)
-			new WorldTypeSkyblock();
-	}
-
-	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
