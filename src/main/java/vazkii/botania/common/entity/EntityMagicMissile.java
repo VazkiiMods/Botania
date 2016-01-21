@@ -181,10 +181,23 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
-		Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-
-		if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves) && (pos.entityHit == null || getTargetEntity() == pos.entityHit))
-			setDead();
+		switch (pos.typeOfHit) {
+			case BLOCK: {
+				Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+				if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves))
+					setDead();
+				break;
+			}
+			case ENTITY: {
+				if (pos.entityHit == getTargetEntity())
+					setDead();
+				break;
+			}
+			default: {
+				setDead();
+				break;
+			}
+		}
 	}
 
 }
