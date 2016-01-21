@@ -111,10 +111,12 @@ public class EntityThornChakram extends EntityThrowable {
 		if(noClip)
 			return;
 
-		Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-		worldObj.getTileEntity(pos.getBlockPos());
-		if(block instanceof BlockBush || block instanceof BlockLeaves)
-			return;
+		if (pos.getBlockPos() != null) {
+			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			worldObj.getTileEntity(pos.getBlockPos());
+			if(block instanceof BlockBush || block instanceof BlockLeaves)
+				return;
+		}
 
 		boolean fire = isFire();
 		EntityLivingBase thrower = getThrower();
