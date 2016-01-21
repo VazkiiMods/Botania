@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -62,6 +63,9 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos_ = pos.add(i, j, k);
 					IBlockState state = world.getBlockState(pos_);
+					if (Item.getItemFromBlock(state.getBlock()) == null) {
+						continue;
+					}
 					ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 					for(int id : OreDictionary.getOreIDs(orestack)) {
 						String s = OreDictionary.getOreName(id);
