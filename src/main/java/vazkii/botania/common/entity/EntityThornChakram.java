@@ -126,7 +126,7 @@ public class EntityThornChakram extends EntityThrowable {
 				pos.entityHit.setFire(5);
 			else if(worldObj.rand.nextInt(3) == 0)
 				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
-		} else {
+		} else if (pos.getBlockPos() != null) {
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
