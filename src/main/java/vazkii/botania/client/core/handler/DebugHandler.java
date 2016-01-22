@@ -12,6 +12,8 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -28,6 +30,8 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.UUID;
+
 public final class DebugHandler {
 
 	private static final String PREFIX = EnumChatFormatting.GREEN + "[Botania] " + EnumChatFormatting.RESET;
@@ -42,7 +46,16 @@ public final class DebugHandler {
 				version = "N/A";
 
 			event.left.add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
-			event.left.add(PREFIX + "netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
+			event.left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
+
+			if (Minecraft.getMinecraft().isIntegratedServerRunning()) {
+				UUID id = Minecraft.getMinecraft().thePlayer.getUniqueID();
+				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
+				if (ent != null) {
+					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).worldObj;
+					event.left.add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimensionId(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+				}
+			}
 
 			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
 				event.left.add(PREFIX + "Config Context");
