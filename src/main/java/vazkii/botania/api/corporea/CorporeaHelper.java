@@ -12,10 +12,14 @@ package vazkii.botania.api.corporea;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
+
+import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawer;
+import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,6 +29,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.common.Botania;
 
 public final class CorporeaHelper {
 
@@ -123,22 +128,15 @@ public final class CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
-		Map<IInventory, Integer> countMap = new HashMap();
-
-		for(IInventory inv : inventories) {
-			int count = 0;
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
-				if(!isValidSlot(inv, i))
-					continue;
-
-				ItemStack stackAt = inv.getStackInSlot(i);
-				if(stacksMatch(stack, stackAt, checkNBT))
-					count += stackAt.stackSize;
+	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack,List<IInventory> inventories, boolean checkNBT) {
+		Map<IInventory, Integer> countMap = new HashMap<IInventory, Integer>();
+		List<IWrappedInventory> wrappedInventories = CorporeaHelper.wrap(inventories);
+		for (IWrappedInventory inv : wrappedInventories) {
+			CorporeaRequest request = new CorporeaRequest(stack, checkNBT, -1);
+			inv.countItems(request);
+			if (request.foundItems > 0) {
+				countMap.put(inv.getWrappedObject(), request.foundItems);
 			}
-
-			if(count > 0)
-				countMap.put(inv, count);
 		}
 
 		return countMap;
@@ -167,66 +165,72 @@ public final class CorporeaHelper {
 	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
 	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
 	 * equals or matches (case a regex is passed in) the matcher string.
+	 * <br><br>
+	 * When requesting counting of items, individual stacks may exceed maxStackSize for
+	 * purposes of counting huge amounts.
 	 */
-	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		List<ItemStack> stacks = new ArrayList();
+	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT,
+			boolean doit) {
+		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, checkNBT, doit);
-		if(MinecraftForge.EVENT_BUS.post(event))
+		if (MinecraftForge.EVENT_BUS.post(event))
 			return stacks;
 
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
-		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap();
+		List<IWrappedInventory> inventoriesW = wrap(inventories);
+		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<ICorporeaInterceptor, ICorporeaSpark>();
 
-		lastRequestMatches = 0;
-		lastRequestExtractions = 0;
+		CorporeaRequest request = new CorporeaRequest(matcher, checkNBT, itemCount);
+		for (IWrappedInventory inv : inventoriesW) {
+			ICorporeaSpark invSpark = inv.getSpark();
 
-		int count = itemCount;
-		for(IInventory inv : inventories) {
-			boolean removedAny = false;
-			ICorporeaSpark invSpark = getSparkForInventory(inv);
-
-			if(inv instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) inv;
+			Object originalInventory = inv.getWrappedObject();
+			if (originalInventory instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory;
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
 
-			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
-				if(!isValidSlot(inv, i))
-					continue;
-
-				ItemStack stackAt = inv.getStackInSlot(i);
-				if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
-					int rem = Math.min(stackAt.stackSize, count == -1 ? stackAt.stackSize : count);
-
-					if(rem > 0) {
-						ItemStack copy = stackAt.copy();
-						if(rem < copy.stackSize)
-							copy.stackSize = rem;
-						stacks.add(copy);
-					}
-
-					lastRequestMatches += stackAt.stackSize;
-					lastRequestExtractions += rem;
-					if(doit && rem > 0) {
-						inv.decrStackSize(i, rem);
-						removedAny = true;
-						if(invSpark != null)
-							invSpark.onItemExtracted(stackAt);
-					}
-					if(count != -1)
-						count -= rem;
-				}
+			if (doit) {
+				stacks.addAll(inv.extractItems(request));
+			} else {
+				stacks.addAll(inv.countItems(request));
 			}
-
-			if(removedAny)
-				inv.markDirty();
 		}
 
-		for(ICorporeaInterceptor interceptor : interceptors.keySet())
-			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
+		lastRequestMatches = request.foundItems;
+		lastRequestExtractions = request.extractedItems;
+
+		for (ICorporeaInterceptor interceptor : interceptors.keySet())
+			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks,
+					inventories, doit);
 
 		return stacks;
+	}
+
+	/**
+	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.
+	 */
+	private static List<IWrappedInventory> wrap(List<IInventory> inventories) {
+		ArrayList<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		for (IInventory inv : inventories) {
+			ICorporeaSpark spark = getSparkForInventory(inv);
+			IWrappedInventory wrapped = null;
+			// try StorageDrawers integration
+			if (Botania.storageDrawersLoaded) {
+				wrapped = WrappedStorageDrawers.wrap(inv, spark);
+			}
+			//try DeepStorageUnit
+			if (wrapped == null){
+				wrapped = WrappedDeepStorage.wrap(inv, spark);
+			}
+			// last chance - this will always work
+			if (wrapped == null) {
+				wrapped = WrappedIInventory.wrap(inv, spark);
+			}
+			arrayList.add(wrapped);
+		}
+		return arrayList;
 	}
 
 	/**
