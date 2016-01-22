@@ -206,7 +206,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+		return supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	@Override
