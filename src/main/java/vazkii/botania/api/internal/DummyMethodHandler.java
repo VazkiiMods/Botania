@@ -26,6 +26,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
+import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -224,6 +225,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
 		// NO-OP
+	}
+
+	@Override
+	public List<IWrappedInventory> wrapInventory(List<IInventory> inventories) {
+		return null;
 	}
 
 }
