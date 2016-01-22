@@ -79,6 +79,8 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
     @Override
     public IBakedModel handleBlockState(IBlockState state) {
+        if (state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
+            return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
         IExtendedBlockState realState = ((IExtendedBlockState) state);
         IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
         String identifier;

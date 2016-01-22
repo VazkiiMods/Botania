@@ -43,6 +43,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.vecmath.Matrix4f;
@@ -284,6 +285,8 @@ public class SpecialFlowerModel implements IModelCustomData {
 
         @Override
         public IBakedModel handleBlockState(IBlockState state) {
+            if (state.getBlock() != ModBlocks.specialFlower)
+                return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
             refreshBakedModels();
             IExtendedBlockState extendedState = ((IExtendedBlockState) state);
             IBakedModel ret = bakedBlockModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
