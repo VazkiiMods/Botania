@@ -19,6 +19,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibOreDict;
 
 public class ModBrewRecipes {
 
@@ -56,7 +57,7 @@ public class ModBrewRecipes {
 		weakRegenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regenWeak, new ItemStack(Items.nether_wart), new ItemStack(Items.ghast_tear), new ItemStack(Items.redstone));
 		resistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.resistance, new ItemStack(Items.nether_wart), new ItemStack(Items.iron_ingot), new ItemStack(Items.leather));
 		fireResistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.fireResistance, new ItemStack(Items.nether_wart), new ItemStack(Items.magma_cream), new ItemStack(Blocks.netherrack));
-		waterBreathingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.waterBreathing, new ItemStack(Items.nether_wart), new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.glowstone_dust));
+		waterBreathingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.waterBreathing, new ItemStack(Items.nether_wart), LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.glowstone_dust));
 		invisibilityBrew = BotaniaAPI.registerBrewRecipe(ModBrews.invisibility, new ItemStack(Items.nether_wart), new ItemStack(Items.snowball), new ItemStack(Items.glowstone_dust));
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.nether_wart), new ItemStack(Items.spider_eye), new ItemStack(Items.golden_carrot));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.nether_wart), new ItemStack(Items.golden_apple), new ItemStack(Items.potato));

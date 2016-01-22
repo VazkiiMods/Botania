@@ -462,5 +462,6 @@ public final class ModItems {
 
 		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
 		OreDictionary.registerOre("powderBlaze", Items.blaze_powder);
+		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.prismarine_shard));
 	}
 }
