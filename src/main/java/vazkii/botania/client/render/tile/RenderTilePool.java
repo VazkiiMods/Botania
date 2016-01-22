@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.tile;
 
 import java.awt.Color;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -74,6 +75,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		int color;
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			if(pool != null)
+				time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
 			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
 		} else {
 			color = pool == null ? EnumDyeColor.WHITE.getMapColor().colorValue : pool.getColor().getMapColor().colorValue;
