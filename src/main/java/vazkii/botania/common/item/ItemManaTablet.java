@@ -44,13 +44,16 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		par3List.add(new ItemStack(par1, 1, 10000));
+		// Empty tablet
+		par3List.add(new ItemStack(par1, 1));
 
-		ItemStack fullPower = new ItemStack(par1, 1, 1);
+		// Full tablet
+		ItemStack fullPower = new ItemStack(par1, 1);
 		setMana(fullPower, MAX_MANA);
 		par3List.add(fullPower);
 
-		ItemStack creative = new ItemStack(par1, 1, 0);
+		// Creative Tablet
+		ItemStack creative = new ItemStack(par1, 1);
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
 		par3List.add(creative);
@@ -64,8 +67,12 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public int getDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return 1000 - (int) (mana / MAX_MANA * 1000);
+		// Compatibility shim, so tablets from previous versions of botania
+		// stack right in barrels and so forth
+		if(super.getDamage(stack) != 0)
+			super.setDamage(stack, 0);
+
+		return 0;
 	}
 
 	@Override
@@ -140,5 +147,19 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	@Override
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
+	}
+	
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		// If the stack is not creative, show the durability bar.
+		return !isStackCreative(stack);
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		// I believe Forge has their durability values swapped, hence the (1.0 -).
+		// This will probably be fixed soon.
+		return 1.0 - getManaFractionForDisplay(stack);
 	}
 }

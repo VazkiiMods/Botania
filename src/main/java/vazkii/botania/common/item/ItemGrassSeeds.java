@@ -12,10 +12,12 @@ package vazkii.botania.common.item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -41,7 +43,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
 public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
-	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
+	/**
+	 * Represents a map of dimension IDs to a set of all block swappers
+	 * active in that dimension.
+	 */
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
@@ -150,28 +156,52 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
+		// Block swapper updates should only occur on the server
+		if(event.world.isRemote)
+			return;
+
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.getDimensionId();
 			if(blockSwappers.containsKey(dim)) {
-				List<BlockSwapper> swappers = blockSwappers.get(dim);
+				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
-				Iterator<BlockSwapper> iter = swappers.listIterator();
+				Iterator<BlockSwapper> iter = swappers.iterator();
 
 				while(iter.hasNext()) {
 					BlockSwapper next = iter.next();
-					if(!next.tick())
+					if(next == null || !next.tick())
 						iter.remove();
 				}
 			}
 		}
 	}
 
+	/**
+	 * Adds a grass seed block swapper to the world at the provided positiona
+	 * and with the provided meta (which designates the type of the grass
+	 * being spread).
+	 * 
+	 * Block swappers are only actually created on the server, so a client
+	 * calling this method will recieve a marker block swapper which contains
+	 * the provided information but is not ticked.
+	 * @param world The world the swapper will be in.
+	 * @param pos The position of the swapper.
+	 * @param meta The meta value representing the type of block being swapped.
+	 * @return The created block swapper.
+	 */
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, pos, meta);
 
+		// Block swappers are only registered on the server
+		if(world.isRemote)
+			return swapper;
+
+		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.getDimensionId();
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new ArrayList());
+			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+
+		// Add the block swapper
 		blockSwappers.get(dim).add(swapper);
 
 		return swapper;

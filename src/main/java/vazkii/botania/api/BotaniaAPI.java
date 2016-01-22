@@ -18,9 +18,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.block.*;
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -67,7 +72,10 @@ public final class BotaniaAPI {
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<>();
+	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
+	
+	public static List<String> disposableBlocks = new ArrayList<String>();
+	public static List<String> semiDisposableBlocks = new ArrayList<String>();
 
 	public static List<RecipePetals> petalRecipes = new ArrayList<>();
 	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
@@ -90,6 +98,7 @@ public final class BotaniaAPI {
 	public static Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static Set<String> magnetBlacklist = new LinkedHashSet<>();
+	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
 
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18);
@@ -241,6 +250,16 @@ public final class BotaniaAPI {
 		registerPaintableBlock(Blocks.stained_hardened_clay, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.wool, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.carpet, BlockCarpet.COLOR);
+		
+		registerDisposableBlock("dirt"); // Vanilla
+		registerDisposableBlock("sand"); // Vanilla
+		registerDisposableBlock("gravel"); // Vanilla
+		registerDisposableBlock("cobblestone"); // Vanilla
+		registerDisposableBlock("netherrack"); // Vanilla
+		registerSemiDisposableBlock("stoneAndesite"); // Vanilla
+		registerSemiDisposableBlock("stoneBasalt"); // Vanilla
+		registerSemiDisposableBlock("stoneDiorite"); // Vanilla
+		registerSemiDisposableBlock("stoneGranite"); // Vanilla
 	}
 
 	/**
@@ -280,6 +299,21 @@ public final class BotaniaAPI {
 		return fallbackBrew;
 	}
 
+	/*
+	 * Registers a Block as disposable using its Ore Dictionary Name.
+	 */
+	public static void registerDisposableBlock(String oreDictName) {
+		disposableBlocks.add(oreDictName);
+	}
+	
+	/*
+	 * Registers a Block as semi disposable using its Ore Dictionary Name.
+	 * This means it will not be trashed when sneaking.
+	 */
+	public static void registerSemiDisposableBlock(String oreDictName) {
+		semiDisposableBlocks.add(oreDictName);
+	}
+	
 	/**
 	 * Registers a paintableBlock and returns it.
 	 * You must also provide the PropertyEnum that this block uses to express its color
@@ -290,6 +324,22 @@ public final class BotaniaAPI {
 		return paintable;
 	}
 
+	/*
+	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
+	 * Pass in the class for the Entity, e.g. EntityCow.class
+	 */
+	public static void blacklistEntityFromGravityRod(Class entity) {
+		gravityRodBlacklist.add(entity);
+	}
+	
+	/*
+	 * Checks if the provided Entity is contained in the Blacklist.
+	 * Pass in the class for the Entity, e.g. entity.getClass()
+	 */
+	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
+		return gravityRodBlacklist.contains(entity);
+	}
+	
 	/**
 	 * Blacklists an item from being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.

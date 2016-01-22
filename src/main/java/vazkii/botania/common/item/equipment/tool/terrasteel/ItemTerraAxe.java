@@ -65,8 +65,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The amount of mana required to restore 1 point of damage.
 	 */
 	private static final int MANA_PER_DAMAGE = 100;
-	
-	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap<Integer, List<BlockSwapper>>();
+
+	/**
+	 * Represents a map of dimension IDs to a set of all block swappers
+	 * active in that dimension.
+	 */
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
 
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
@@ -107,30 +111,57 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
+		// Block Swapping ticking should only occur on the server
+		if(event.world.isRemote)
+			return;
+
 		if(event.phase == Phase.END) {
 			int dim = event.world.provider.getDimensionId();
 			if(blockSwappers.containsKey(dim)) {
-				List<BlockSwapper> swappers = blockSwappers.get(dim);
+				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 				
 				// Iterate through all of our swappers, removing any
 				// which no longer need to tick.
 				Iterator<BlockSwapper> swapper = swappers.iterator();
 				while(swapper.hasNext()) {
 					BlockSwapper next = swapper.next();
-					if(!next.tick())
+
+					// If a null sneaks in or the swapper is done, remove it
+					if(next == null || !next.tick())
 						swapper.remove();
 				}
 			}
 		}
 	}
-	
+
+	/**
+	 * Adds a new block swapper to the provided world as the provided player.
+	 * Block swappers are only added on the server, and a marker instance
+	 * which is not actually ticked but contains the proper passed in
+	 * information will be returned to the client.
+	 * 
+	 * @param world The world to add the swapper to.
+	 * @param player The player who is responsible for this swapper.
+	 * @param stack The Terra Truncator which caused this block swapper.
+	 * @param origCoords The original coordinates the swapper should start at.
+	 * @param steps The range of the block swapper, in blocks.
+	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
+	 * documentation).
+	 * @return The created block swapper.
+	 */
 	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
+		// Block swapper registration should only occur on the server
+		if(world.isRemote)
+			return swapper;
+
+		// If the mapping for this dimension doesn't exist, create it.
 		int dim = world.provider.getDimensionId();
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new ArrayList<BlockSwapper>());
-		
+			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+
+		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
 
 		return swapper;
