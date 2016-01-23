@@ -23,11 +23,11 @@ import java.util.List;
 public class BreweryRecipeWrapper implements IRecipeWrapper {
 
     private final List input;
-    private final ItemStack output;
+    private final List<ItemStack> output;
 
     public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
         ImmutableList.Builder builder = ImmutableList.builder();
-        builder.add(new ItemStack(ModItems.vial));
+        builder.add(ImmutableList.of(new ItemStack(ModItems.vial, 1, 0), new ItemStack(ModItems.vial, 1, 1)));
         for (Object o : recipeBrew.getInputs()) {
             if (o instanceof ItemStack) {
                 builder.add(o);
@@ -38,7 +38,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
         }
 
         input = builder.build();
-        output = recipeBrew.getOutput(new ItemStack(ModItems.vial)).copy();
+        output = ImmutableList.of(recipeBrew.getOutput(new ItemStack(ModItems.vial)).copy(), recipeBrew.getOutput(new ItemStack(ModItems.vial, 1, 1)).copy());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 
     @Override
     public List<ItemStack> getOutputs() {
-        return ImmutableList.of(output);
+        return output;
     }
 
     @Override

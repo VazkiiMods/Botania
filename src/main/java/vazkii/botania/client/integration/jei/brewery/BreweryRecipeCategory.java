@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -74,7 +75,8 @@ public class BreweryRecipeCategory implements IRecipeCategory {
         }
 
         int index = 1, posX = 60;
-        for (Object o : wrapper.getInputs()) {
+        for (int i = 1; i < wrapper.getInputs().size(); i++) {
+            Object o = wrapper.getInputs().get(i);
             recipeLayout.getItemStacks().init(index, true, posX, 6);
             if (o instanceof ItemStack) {
                 recipeLayout.getItemStacks().set(index, ((ItemStack) o));
@@ -86,7 +88,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
         }
 
         recipeLayout.getItemStacks().init(7, false, 87, 41);
-        recipeLayout.getItemStacks().set(7, wrapper.getOutputs().get(0));
+        recipeLayout.getItemStacks().set(7, wrapper.getOutputs());
     }
 
 }
