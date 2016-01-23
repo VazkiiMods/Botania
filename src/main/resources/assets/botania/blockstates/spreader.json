@@ -1,0 +1,39 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:spreader",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "variant": {
+      "mana": {
+        "textures": {
+          "all": "botania:placeholder",
+          "side": "botania:placeholder",
+          "inside": "botania:placeholder"
+        }
+      },
+      "redstone": {
+        "textures": {
+          "all": "botania:placeholder",
+          "side": "botania:placeholder",
+          "inside": "botania:placeholder"
+        }
+      },
+      "elven": {
+        "textures": {
+          "all": "botania:placeholder",
+          "side": "botania:placeholder",
+          "inside": "botania:placeholder"
+        }
+      },
+      "gaia": {
+        "textures": {
+          "all": "botania:placeholder",
+          "side": "botania:placeholder",
+          "inside": "botania:placeholder"
+        }
+      }
+    }
+  }
+}
