@@ -178,7 +178,7 @@ public final class MultiblockRenderHandler {
 	private static void doRenderComponent(Multiblock mb, MultiblockComponent comp, BlockPos pos, float alpha) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		IBlockState state = comp.getBlockState();
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		if(state == null)
@@ -195,7 +195,7 @@ public final class MultiblockRenderHandler {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1); // todo 1.8 bandaid for things rendering one block off...why?
 			GlStateManager.color(1, 1, 1, alpha);
-			brd.renderBlockBrightness(state, 0.5F); // todo 1.8 check brightness
+			brd.renderBlockBrightness(state, 1.0F);
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableDepth();
