@@ -153,9 +153,6 @@ public class BotaniaStateProps {
     // BlockStorage
     public static final PropertyEnum<StorageVariant> STORAGE_VARIANT = PropertyEnum.create("variant", StorageVariant.class);
 
-    // BlockTinyPotato
-    public static final PropertyEnum<PotatoVariant> POTATO_VARIANT = PropertyEnum.create("variant", PotatoVariant.class);
-
     private BotaniaStateProps() {}
 
 }

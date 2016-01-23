@@ -8,15 +8,6 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "variant": {
-      "default": {},
-      "halloween": {
-        "textures": { "all": "botania:model/tinyPotato_halloweenCopy" }
-      },
-      "grayscale": {
-        "textures": { "all": "botania:model/tinyPotatoGrayCopy" }
-      }
-    },
     "facing": {
       "north": {},
       "south": { "y": 180 },
