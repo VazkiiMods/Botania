@@ -460,6 +460,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
+        // todo 1.8 this is temporary until animation API is done, currnetly item model textures will not match true spreader texture
         registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }

@@ -11,6 +11,10 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRedstoneComparator;
+import net.minecraft.block.BlockRedstoneRepeater;
+import net.minecraft.block.BlockRedstoneWire;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -63,8 +67,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		MovingObjectPosition pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
-		Block block = player.worldObj.getBlockState(pos.getBlockPos()).getBlock();
-		int meta = block.getMetaFromState(player.worldObj.getBlockState(pos.getBlockPos())); // todo 1.8 use states
+		IBlockState state = player.worldObj.getBlockState(pos.getBlockPos());
+		Block block = state.getBlock();
 		player.worldObj.getTileEntity(pos.getBlockPos());
 
 		ItemStack dispStack = null;
@@ -72,13 +76,13 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		if(block == Blocks.redstone_wire) {
 			dispStack = new ItemStack(Items.redstone);
-			text = EnumChatFormatting.RED + "" + meta;
+			text = EnumChatFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
 		} else if(block == Blocks.unpowered_repeater || block == Blocks.powered_repeater) {
 			dispStack = new ItemStack(Items.repeater);
-			text = "" + (((meta & 12) >> 2) + 1);
+			text = "" + state.getValue(BlockRedstoneRepeater.DELAY);
 		} else if(block == Blocks.unpowered_comparator || block == Blocks.powered_comparator) {
 			dispStack = new ItemStack(Items.comparator);
-			text = (meta & 4) == 4 ? "-" : "+";
+			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
 		}
 
 		if(dispStack == null)
