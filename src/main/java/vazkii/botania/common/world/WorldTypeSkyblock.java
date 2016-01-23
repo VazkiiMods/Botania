@@ -47,7 +47,7 @@ public class WorldTypeSkyblock extends WorldType {
 	
 	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
-		return new ChunkProviderFlat(world, world.getSeed(), false, "2;1x0;");
+		return new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
 	}
 	
 }

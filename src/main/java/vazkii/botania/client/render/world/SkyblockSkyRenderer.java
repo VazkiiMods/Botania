@@ -80,7 +80,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.disableFog();
 		GlStateManager.disableAlpha();
 		GlStateManager.enableBlend();
-		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		RenderHelper.disableStandardItemLighting();
 		float[] afloat = world.provider.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
 		float f7;
@@ -137,7 +137,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float lowA = Math.max(0F, effCelAng - 0.3F) * f6;
 		float a = Math.max(0.1F, lowA);
 
-		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, (a * 4) * (1F - insideVoid));
 		GlStateManager.rotate(90F, 0.5F, 0.5F, 0.0F);
@@ -176,7 +176,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		f10 = 20F;
 		a = lowA;
 		GlStateManager.pushMatrix();
-		OpenGlHelper.glBlendFunc(770, 1, 1, 0);
+		GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
 		GlStateManager.translate(0F, -1F, 0F);
 		GlStateManager.rotate(220F, 1F, 0F, 0F);
 		GlStateManager.color(1F, 1F, 1F, a);
@@ -237,7 +237,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		// === Rainbow
 		GlStateManager.pushMatrix();
-		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		mc.renderEngine.bindTexture(textureRainbow); 
 		f10 = 10F;
 		float effCelAng1 = celAng;
@@ -280,7 +280,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		GlStateManager.color(1F, 1F, 1F, 1F - insideVoid);
 
-		OpenGlHelper.glBlendFunc(770, 1, 1, 0);
+		GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
 
 		// === Sun	
 		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
