@@ -37,7 +37,7 @@ public class WorldTypeSkyblock extends WorldType {
 
 	@Override
 	public int getSpawnFuzz() {
-		return 1;
+		return 2;
 	}
 
 	@Override
