@@ -75,7 +75,7 @@ public class ModBrewRecipes {
 		Item resource = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "salis_mundus"));
 		Item bathSalts = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "bath_salts"));
 
-		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.nether_wart), new ItemStack(resource, 1, 14), new ItemStack(bathSalts), new ItemStack(resource, 1, 6));
+		// todo 1.8 see LexiconData: warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.nether_wart), new ItemStack(resource, 1, 14), new ItemStack(bathSalts), new ItemStack(resource, 1, 6));
 	}
 
 
