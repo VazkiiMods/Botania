@@ -29,7 +29,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -160,7 +159,7 @@ public class BlockAvatar extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idAvatar;
+		return 2;
 	}
 
 	@Override

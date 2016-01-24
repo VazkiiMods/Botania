@@ -29,7 +29,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -144,7 +143,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idBrewery;
+		return 2;
 	}
 
 	@Override

@@ -24,7 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -109,7 +108,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idTeruTeruBozu;
+		return 2;
 	}
 
 	@Override

@@ -35,7 +35,6 @@ import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.ModItems;
@@ -177,7 +176,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idHourglass;
+		return 2;
 	}
 
 	@Override

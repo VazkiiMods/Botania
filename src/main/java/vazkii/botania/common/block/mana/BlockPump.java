@@ -23,7 +23,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -81,7 +80,7 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idPump;
+		return 2;
 	}
 
 	@Override

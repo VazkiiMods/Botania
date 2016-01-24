@@ -25,7 +25,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -55,7 +54,7 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getRenderType() {
-		return LibRenderIDs.idCocoon;
+		return 2;
 	}
 
 	@Override
