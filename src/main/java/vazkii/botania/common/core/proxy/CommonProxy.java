@@ -2,16 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 13, 2014, 7:45:37 PM (GMT)]
  */
 package vazkii.botania.common.core.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.EntityDragonPart;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -32,6 +38,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
@@ -58,7 +65,15 @@ import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
+import vazkii.botania.common.entity.EntityCorporeaSpark;
+import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.EntityFlameRing;
+import vazkii.botania.common.entity.EntityMagicLandmine;
+import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.EntityPinkWither;
+import vazkii.botania.common.entity.EntitySignalFlare;
+import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.integration.etfuturum.ModBanners;
@@ -124,7 +139,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
-		
+
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 
@@ -157,11 +172,35 @@ public class CommonProxy {
 					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
 			}
 		FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
+
+		registerDefaultEntityBlacklist();
 	}
 
 	private int countWords(String s) {
 		String s1 = StatCollector.translateToLocal(s);
 		return s1.split(" ").length;
+	}
+
+	private void registerDefaultEntityBlacklist() {
+		// Vanilla
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragonPart.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityPainting.class);
+
+		// Botania
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityCorporeaSpark.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityDoppleganger.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityFlameRing.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicLandmine.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicMissile.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityManaBurst.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityPinkWither.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntitySignalFlare.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntitySpark.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EntityPlayerMover.class);
 	}
 
 	// Overriding the internal method handler will break everything as it changes regularly.
