@@ -35,7 +35,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -121,10 +120,6 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
-		if (worldObj.isRemote) {
-			FMLLog.severe("[Botania]: CLIENT POOL RECEIVE MANA");
-			FMLLog.severe("[Botania]: WORLD: %s, POS: %s", worldObj, pos);
-		}
 		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		markDispatchable();
 	}
