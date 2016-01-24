@@ -2,7 +2,7 @@
  * This class was created by <williewillus>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * <p/>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
@@ -16,27 +16,27 @@ import javax.annotation.Nonnull;
 
 public class ManaPoolRecipeHandler implements IRecipeHandler<RecipeManaInfusion> {
 
-    @Nonnull
-    @Override
-    public Class<RecipeManaInfusion> getRecipeClass() {
-        return RecipeManaInfusion.class;
-    }
+	@Nonnull
+	@Override
+	public Class<RecipeManaInfusion> getRecipeClass() {
+		return RecipeManaInfusion.class;
+	}
 
-    @Nonnull
-    @Override
-    public String getRecipeCategoryUid() {
-        return "botania.manaPool";
-    }
+	@Nonnull
+	@Override
+	public String getRecipeCategoryUid() {
+		return "botania.manaPool";
+	}
 
-    @Nonnull
-    @Override
-    public IRecipeWrapper getRecipeWrapper(@Nonnull RecipeManaInfusion recipe) {
-        return new ManaPoolRecipeWrapper(recipe);
-    }
+	@Nonnull
+	@Override
+	public IRecipeWrapper getRecipeWrapper(@Nonnull RecipeManaInfusion recipe) {
+		return new ManaPoolRecipeWrapper(recipe);
+	}
 
-    @Override
-    public boolean isRecipeValid(@Nonnull RecipeManaInfusion recipe) {
-        return recipe.getManaToConsume() <= 100000;
-    }
+	@Override
+	public boolean isRecipeValid(@Nonnull RecipeManaInfusion recipe) {
+		return recipe.getManaToConsume() <= 100000;
+	}
 
 }

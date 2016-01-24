@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ * <p>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ * <p>
  * File Created @ [Apr 1, 2014, 6:21:48 PM (GMT)]
  */
 package vazkii.botania.client.model;
@@ -38,22 +38,16 @@ import java.util.Set;
 
 public class ModelPylon implements IPylonModel {
 
+	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 	private IFlexibleBakedModel manaCrystal;
 	private IFlexibleBakedModel manaRingsAndPanes;
 	private IFlexibleBakedModel manaGems;
-
 	private IFlexibleBakedModel naturaCrystal;
 	private IFlexibleBakedModel naturaRingsAndPanes;
 	private IFlexibleBakedModel naturaGems;
-
 	private IFlexibleBakedModel gaiaCrystal;
 	private IFlexibleBakedModel gaiaRingsAndPanes;
 	private IFlexibleBakedModel gaiaGems;
-
-	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
-
-	private static final Set<String> GROUP_NAMES = ImmutableSet.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02",
-			"Ring_Panel03", "Ring_Panel04", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
 
 	public ModelPylon() {
 		try {
@@ -82,27 +76,39 @@ public class ModelPylon implements IPylonModel {
 			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
 	}
 
 	@Override
 	public void renderCrystal(PylonVariant variant) {
-		switch (variant) {
-			case MANA: renderModel(manaCrystal); break;
-			case NATURA: renderModel(naturaCrystal); break;
-			case GAIA: renderModel(gaiaCrystal); break;
+		switch(variant) {
+			case MANA:
+				renderModel(manaCrystal);
+				break;
+			case NATURA:
+				renderModel(naturaCrystal);
+				break;
+			case GAIA:
+				renderModel(gaiaCrystal);
+				break;
 		}
 	}
 
 	@Override
 	public void renderRing(PylonVariant variant) {
 		GlStateManager.disableLighting();
-		switch (variant) {
-			case MANA: renderModel(manaRingsAndPanes); break;
-			case NATURA: renderModel(naturaRingsAndPanes); break;
-			case GAIA: renderModel(gaiaRingsAndPanes); break;
+		switch(variant) {
+			case MANA:
+				renderModel(manaRingsAndPanes);
+				break;
+			case NATURA:
+				renderModel(naturaRingsAndPanes);
+				break;
+			case GAIA:
+				renderModel(gaiaRingsAndPanes);
+				break;
 		}
 		GlStateManager.enableLighting();
 	}
@@ -110,21 +116,25 @@ public class ModelPylon implements IPylonModel {
 	@Override
 	public void renderGems(PylonVariant variant) {
 		GlStateManager.disableLighting();
-		switch (variant) {
-			case MANA: renderModel(manaGems); break;
-			case NATURA: renderModel(naturaGems); break;
-			case GAIA: renderModel(gaiaGems); break;
+		switch(variant) {
+			case MANA:
+				renderModel(manaGems);
+				break;
+			case NATURA:
+				renderModel(naturaGems);
+				break;
+			case GAIA:
+				renderModel(gaiaGems);
+				break;
 		}
 		GlStateManager.enableLighting();
 	}
 
-	private void renderModel(IFlexibleBakedModel model)
-	{
+	private void renderModel(IFlexibleBakedModel model) {
 		renderModel(model, -1);
 	}
 
-	private void renderModel(IFlexibleBakedModel model, int color)
-	{
+	private void renderModel(IFlexibleBakedModel model, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(GL11.GL_QUADS, model.getFormat());
@@ -133,9 +143,8 @@ public class ModelPylon implements IPylonModel {
 		tessellator.draw();
 	}
 
-	private void renderQuads(WorldRenderer renderer, List<BakedQuad> quads, int color)
-	{
-		for (BakedQuad bakedquad : quads)
+	private void renderQuads(WorldRenderer renderer, List<BakedQuad> quads, int color) {
+		for(BakedQuad bakedquad : quads)
 			LightUtil.renderQuadColor(renderer, bakedquad, color);
 	}
 

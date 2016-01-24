@@ -2,7 +2,7 @@
  * This class was created by <williewillus>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * <p>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
@@ -40,95 +40,160 @@ import java.util.List;
 
 public class PylonItemModel implements ISmartItemModel {
 
-    private IBakedModel mana;
-    private IBakedModel natura;
-    private IBakedModel gaia;
-    private boolean cached = false;
+	private IBakedModel mana;
+	private IBakedModel natura;
+	private IBakedModel gaia;
+	private boolean cached = false;
 
-    @Override
-    public IBakedModel handleItemState(ItemStack stack) {
-        if (!cached) {
-            cacheModels();
-        }
+	@Override
+	public IBakedModel handleItemState(ItemStack stack) {
+		if(!cached) {
+			cacheModels();
+		}
 
-        switch (stack.getItemDamage()) {
-            case 2: return gaia;
-            case 1: return natura;
-            case 0: return mana;
-            default: 
-                return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-        }
-    }
+		switch(stack.getItemDamage()) {
+			case 2:
+				return gaia;
+			case 1:
+				return natura;
+			case 0:
+				return mana;
+			default:
+				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+		}
+	}
 
-    private void cacheModels() {
-        // Load the OBJ
-        OBJModel model = null;
-        try {
-            model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
-        } catch (IOException e) {
-            FMLLog.log(Level.ERROR, "[Botania]: Error loading pylon item model, substituting missing model");
-            mana = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-            natura = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-            gaia = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-            cached = true;
-            return;
-        }
+	private void cacheModels() {
+		// Load the OBJ
+		OBJModel model = null;
+		try {
+			model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
+		} catch(IOException e) {
+			FMLLog.log(Level.ERROR, "[Botania]: Error loading pylon item model, substituting missing model");
+			mana = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			natura = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			gaia = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			cached = true;
+			return;
+		}
 
-        // Apply the texture and flip the v's of the model
-        IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
-        IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
-        IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
+		// Apply the texture and flip the v's of the model
+		IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
+		IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
+		IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
 
-        // All groups are off by default
-        // OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group
+		// All groups are off by default
+		// OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group
 
-        final Function<ResourceLocation, TextureAtlasSprite> textureGetter = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
+		final Function<ResourceLocation, TextureAtlasSprite> textureGetter = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 
-        ImmutableList<String> standardGroups = ImmutableList.of("Crystal", "Crystal_Ring",
-                "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04",
-                "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
+		ImmutableList<String> standardGroups = ImmutableList.of("Crystal", "Crystal_Ring",
+				"Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04",
+				"Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
 
-        mana = new PerspectiveWrapper(manaModel.bake(new OBJModel.OBJState(standardGroups, false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
-        // Natura model is just the crystal
-        natura = new PerspectiveWrapper(naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
-        gaia = new PerspectiveWrapper(gaiaModel.bake(new OBJModel.OBJState(standardGroups, false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
-        cached = true;
-    }
+		mana = new PerspectiveWrapper(manaModel.bake(new OBJModel.OBJState(standardGroups, false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
+		// Natura model is just the crystal
+		natura = new PerspectiveWrapper(naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
+		gaia = new PerspectiveWrapper(gaiaModel.bake(new OBJModel.OBJState(standardGroups, false), Attributes.DEFAULT_BAKED_FORMAT, textureGetter));
+		cached = true;
+	}
 
-    @Override public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return ImmutableList.of(); }
-    @Override public List<BakedQuad> getGeneralQuads() { return ImmutableList.of(); }
-    @Override public boolean isAmbientOcclusion() { return false; }
-    @Override public boolean isGui3d() { return true; }
-    @Override public boolean isBuiltInRenderer() { return false; }
-    @Override public TextureAtlasSprite getParticleTexture() { return null; }
-    @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+	@Override
+	public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
+		return ImmutableList.of();
+	}
 
-    // Wrapper to transform the model before rendering it, so it looks right in the inventory
-    private class PerspectiveWrapper implements IPerspectiveAwareModel {
+	@Override
+	public List<BakedQuad> getGeneralQuads() {
+		return ImmutableList.of();
+	}
 
-        private final IFlexibleBakedModel parent;
+	@Override
+	public boolean isAmbientOcclusion() {
+		return false;
+	}
 
-        public PerspectiveWrapper(IBakedModel pylonModel) {
-            this.parent = new IFlexibleBakedModel.Wrapper(pylonModel, Attributes.DEFAULT_BAKED_FORMAT);
-        }
+	@Override
+	public boolean isGui3d() {
+		return true;
+	}
 
-        @Override
-        public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-            switch(cameraTransformType) {
-                case FIRST_PERSON: return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, 0, 0.4F), null, new Vector3f(0.75F, 0.75F, 0.75F), null).getMatrix());
-                case GUI: return ImmutablePair.of(parent, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0.5F, 0.1F, 0), null, null, null)).getMatrix());
-                case THIRD_PERSON: return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, -0.2F, 0.5F), null, null, null).getMatrix());
-                default: return ImmutablePair.of(parent, TRSRTransformation.identity().getMatrix());
-            }
-        }
+	@Override
+	public boolean isBuiltInRenderer() {
+		return false;
+	}
 
-        @Override public VertexFormat getFormat() { return Attributes.DEFAULT_BAKED_FORMAT; }
-        @Override public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) { return parent.getFaceQuads(p_177551_1_); }
-        @Override public List<BakedQuad> getGeneralQuads() { return parent.getGeneralQuads(); }
-        @Override public boolean isAmbientOcclusion() { return parent.isAmbientOcclusion(); }
-        @Override public boolean isGui3d() { return parent.isGui3d(); }
-        @Override public boolean isBuiltInRenderer() { return parent.isBuiltInRenderer(); }
-        @Override public TextureAtlasSprite getParticleTexture() { return parent.getParticleTexture(); }
-        @Override public ItemCameraTransforms getItemCameraTransforms() { return parent.getItemCameraTransforms(); }
-    }
+	@Override
+	public TextureAtlasSprite getParticleTexture() {
+		return null;
+	}
+
+	@Override
+	public ItemCameraTransforms getItemCameraTransforms() {
+		return ItemCameraTransforms.DEFAULT;
+	}
+
+	// Wrapper to transform the model before rendering it, so it looks right in the inventory
+	private class PerspectiveWrapper implements IPerspectiveAwareModel {
+
+		private final IFlexibleBakedModel parent;
+
+		public PerspectiveWrapper(IBakedModel pylonModel) {
+			this.parent = new IFlexibleBakedModel.Wrapper(pylonModel, Attributes.DEFAULT_BAKED_FORMAT);
+		}
+
+		@Override
+		public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+			switch(cameraTransformType) {
+				case FIRST_PERSON:
+					return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, 0, 0.4F), null, new Vector3f(0.75F, 0.75F, 0.75F), null).getMatrix());
+				case GUI:
+					return ImmutablePair.of(parent, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0.5F, 0.1F, 0), null, null, null)).getMatrix());
+				case THIRD_PERSON:
+					return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, -0.2F, 0.5F), null, null, null).getMatrix());
+				default:
+					return ImmutablePair.of(parent, TRSRTransformation.identity().getMatrix());
+			}
+		}
+
+		@Override
+		public VertexFormat getFormat() {
+			return Attributes.DEFAULT_BAKED_FORMAT;
+		}
+
+		@Override
+		public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
+			return parent.getFaceQuads(p_177551_1_);
+		}
+
+		@Override
+		public List<BakedQuad> getGeneralQuads() {
+			return parent.getGeneralQuads();
+		}
+
+		@Override
+		public boolean isAmbientOcclusion() {
+			return parent.isAmbientOcclusion();
+		}
+
+		@Override
+		public boolean isGui3d() {
+			return parent.isGui3d();
+		}
+
+		@Override
+		public boolean isBuiltInRenderer() {
+			return parent.isBuiltInRenderer();
+		}
+
+		@Override
+		public TextureAtlasSprite getParticleTexture() {
+			return parent.getParticleTexture();
+		}
+
+		@Override
+		public ItemCameraTransforms getItemCameraTransforms() {
+			return parent.getItemCameraTransforms();
+		}
+	}
 }

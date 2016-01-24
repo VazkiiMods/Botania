@@ -2,7 +2,7 @@
  * This class was created by <williewillus>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * <p/>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
@@ -31,50 +31,52 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
 @JEIPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
 
-    private IJeiHelpers jeiHelpers;
+	private IJeiHelpers jeiHelpers;
 
-    @Override
-    public boolean isModLoaded() {
-        return true;
-    }
+	@Override
+	public boolean isModLoaded() {
+		return true;
+	}
 
-    @Override
-    public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-        this.jeiHelpers = jeiHelpers;
-    }
+	@Override
+	public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
+		this.jeiHelpers = jeiHelpers;
+	}
 
-    @Override
-    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {}
+	@Override
+	public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
+	}
 
-    @Override
-    public void register(IModRegistry registry) {
-        registry.addRecipeCategories(
-                new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
-                new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
-                new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper()),
-                new ElvenTradeRecipeCategory(jeiHelpers.getGuiHelper()),
-                new RunicAltarRecipeCategory(jeiHelpers.getGuiHelper()),
-                new ManaPoolRecipeCategory(jeiHelpers.getGuiHelper())
-        );
+	@Override
+	public void register(IModRegistry registry) {
+		registry.addRecipeCategories(
+				new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
+				new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
+				new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper()),
+				new ElvenTradeRecipeCategory(jeiHelpers.getGuiHelper()),
+				new RunicAltarRecipeCategory(jeiHelpers.getGuiHelper()),
+				new ManaPoolRecipeCategory(jeiHelpers.getGuiHelper())
+		);
 
-        registry.addRecipeHandlers(
-                new BreweryRecipeHandler(),
-                new PureDaisyRecipeHandler(),
-                new PetalApothecaryRecipeHandler(),
-                new ElvenTradeRecipeHandler(),
-                new RunicAltarRecipeHandler(),
-                new ManaPoolRecipeHandler()
-        );
+		registry.addRecipeHandlers(
+				new BreweryRecipeHandler(),
+				new PureDaisyRecipeHandler(),
+				new PetalApothecaryRecipeHandler(),
+				new ElvenTradeRecipeHandler(),
+				new RunicAltarRecipeHandler(),
+				new ManaPoolRecipeHandler()
+		);
 
-        registry.addRecipes(BotaniaAPI.brewRecipes);
-        registry.addRecipes(BotaniaAPI.pureDaisyRecipes);
-        registry.addRecipes(BotaniaAPI.petalRecipes);
-        registry.addRecipes(BotaniaAPI.elvenTradeRecipes);
-        registry.addRecipes(BotaniaAPI.runeAltarRecipes);
-        registry.addRecipes(BotaniaAPI.manaInfusionRecipes);
-    }
+		registry.addRecipes(BotaniaAPI.brewRecipes);
+		registry.addRecipes(BotaniaAPI.pureDaisyRecipes);
+		registry.addRecipes(BotaniaAPI.petalRecipes);
+		registry.addRecipes(BotaniaAPI.elvenTradeRecipes);
+		registry.addRecipes(BotaniaAPI.runeAltarRecipes);
+		registry.addRecipes(BotaniaAPI.manaInfusionRecipes);
+	}
 
-    @Override
-    public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {}
+	@Override
+	public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
+	}
 
 }

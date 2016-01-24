@@ -2,7 +2,7 @@
  * This class was created by <williewillus>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * <p>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
@@ -13,14 +13,14 @@ import net.minecraft.util.IStringSerializable;
 import java.util.Locale;
 
 public enum SpreaderVariant implements IStringSerializable {
-    MANA,
-    REDSTONE,
-    ELVEN,
-    GAIA;
+	MANA,
+	REDSTONE,
+	ELVEN,
+	GAIA;
 
-    @Override
-    public String getName() {
-        return name().toLowerCase(Locale.ROOT);
-    }
+	@Override
+	public String getName() {
+		return name().toLowerCase(Locale.ROOT);
+	}
 
 }
