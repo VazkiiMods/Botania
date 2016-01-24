@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class TileMod extends TileEntity implements ITickable {
 
@@ -65,7 +66,16 @@ public class TileMod extends TileEntity implements ITickable {
 	@Override
 	public final void update() {
 		if (!isInvalid() && worldObj.isBlockLoaded(getPos(), false)) {
-			updateEntity();
+			if (!worldObj.isRemote)
+				updateEntity();
+			else {
+				try {
+					updateEntity();
+				} catch (Exception e) { // todo 1.8 remove this abhorration after I figure out what's going on.
+					FMLLog.severe("[Botania]: CLIENT TICK FAILED: " + this.toString());
+					FMLLog.severe("[Botania]: PLEASE REPORT");
+				}
+			}
 		}
 	}
 
