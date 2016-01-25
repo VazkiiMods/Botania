@@ -10,14 +10,23 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.animation.Animation;
+import net.minecraftforge.client.model.animation.IAnimationProvider;
+import net.minecraftforge.client.model.animation.ITimeValue;
+import net.minecraftforge.client.model.animation.TimeValues;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod {
+public class TilePump extends TileMod implements IAnimationProvider {
 
 	private static final String TAG_ACTIVE = "active";
 
@@ -30,6 +39,19 @@ public class TilePump extends TileMod {
 	public int comparator;
 	public boolean hasRedstone = false;
 	int lastComparator = 0;
+
+	private final TimeValues.VariableValue move;
+	private final IAnimationStateMachine asm;
+
+	public TilePump() {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			move = new TimeValues.VariableValue(0);
+			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
+		} else {
+			move = null;
+			asm = null;
+		}
+	}
 
 	@Override
 	public void updateEntity() {
@@ -64,11 +86,15 @@ public class TilePump extends TileMod {
 				moving = 0F;
 			}
 		}
+		move.setValue(innerRingPos);
+
 
 		if(!hasCartOnTop)
 			comparator = 0;
-		if(!hasCart && active)
+		if(!hasCart && active) {
+
 			setActive(false);
+		}
 		if(active && hasRedstone)
 			setActive(false);
 
@@ -88,6 +114,8 @@ public class TilePump extends TileMod {
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
+		if(worldObj != null && worldObj.isRemote)
+			asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {
@@ -99,4 +127,8 @@ public class TilePump extends TileMod {
 		}
 	}
 
+	@Override
+	public IAnimationStateMachine asm() {
+		return asm;
+	}
 }

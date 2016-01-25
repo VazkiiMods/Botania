@@ -630,7 +630,7 @@ public final class ModelHandler {
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
         registerItemModel(ModBlocks.pump); // todo await animation api
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
+        //ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
 
         registerItemModel(ModBlocks.teruTeruBozu);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
@@ -806,7 +806,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.brewery, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
         ModelLoader.setCustomStateMapper(ModBlocks.gaiaHead, new StateMap.Builder().ignore(BlockSkull.FACING, BlockSkull.NODROP).build());
         ModelLoader.setCustomStateMapper(ModBlocks.hourglass, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.pump, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
     }
 
     private static void registerMushrooms() {
