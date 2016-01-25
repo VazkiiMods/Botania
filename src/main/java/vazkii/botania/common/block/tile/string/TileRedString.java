@@ -90,4 +90,9 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		return binding == null ? Blocks.air : worldObj.getBlockState(binding).getBlock();
 	}
 
+	@Override
+	public boolean hasFastRenderer() {
+		return true;
+	}
+
 }

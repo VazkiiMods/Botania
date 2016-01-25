@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -26,14 +27,11 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelIncensePlate;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
+import java.util.Map;
+
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
 
-	private static final float[] ROTATIONS = new float[] {
-		180F, 0F, 90F, 270F
-	};
-
-	ResourceLocation texture = new ResourceLocation(LibResources.MODEL_INCENSE_PLATE);
-	ModelIncensePlate model = new ModelIncensePlate();
+	private static final Map<EnumFacing, Integer> ROTATIONS = ImmutableMap.of(EnumFacing.NORTH, 180, EnumFacing.SOUTH, 0, EnumFacing.WEST, 270, EnumFacing.EAST, 90);
 
 	@Override
 	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
@@ -45,27 +43,17 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2);
-		// Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
-		GlStateManager.scale(1F, -1F, -1F);
-		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, facing.getIndex() - 2), 0)], 0F, 1F, 0F);
-		// model.render();
-		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.rotate(ROTATIONS.get(facing), 0F, 1F, 0F);
 
 		ItemStack stack = plate.getStackInSlot(0);
 		if(stack != null) {
-			GlStateManager.pushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.4F;
 			GlStateManager.translate(-0.075F, -1.25F, 0F);
 			GlStateManager.scale(s, s, s);
-			//GlStateManager.rotate(180F, 0F, 1F, 0F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-			GlStateManager.popMatrix();
 		}
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.enableRescaleNormal();
