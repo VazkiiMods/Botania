@@ -89,14 +89,6 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (worldIn.isRemote && worldIn.getTileEntity(pos) instanceof TilePump) {
-			((TilePump) worldIn.getTileEntity(pos)).asm().transition("moving");
-		}
-		return true;
-	}
-
-	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}

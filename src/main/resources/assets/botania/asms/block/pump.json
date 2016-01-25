@@ -2,7 +2,7 @@
   "parameters": {},
   "clips": {
     "default": "botania:block/pump_head@default",
-    "moving": "botania:block/pump_head@moving"
+    "moving": [ "apply", "botania:block/pump_head@moving", "#move" ]
   },
   "states": [ "default", "moving" ],
   "transitions": {
