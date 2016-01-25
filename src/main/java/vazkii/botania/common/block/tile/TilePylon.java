@@ -36,7 +36,7 @@ public class TilePylon extends TileEntity implements ITickable {
 	public void update() {
 		++ticks;
 
-		if (worldObj.getBlockState(getPos()) != ModBlocks.pylon)
+		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
 			return;
 
 		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
