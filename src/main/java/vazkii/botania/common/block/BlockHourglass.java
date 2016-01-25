@@ -123,7 +123,8 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
+		if(state.getValue(BotaniaStateProps.POWERED))
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
