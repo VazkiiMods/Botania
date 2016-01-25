@@ -46,7 +46,7 @@ public class TilePump extends TileMod implements IAnimationProvider {
 	public TilePump() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			move = new TimeValues.VariableValue(0);
-			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
+			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of());
 		} else {
 			move = null;
 			asm = null;
@@ -114,8 +114,6 @@ public class TilePump extends TileMod implements IAnimationProvider {
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
-		if(worldObj != null && worldObj.isRemote)
-			asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {

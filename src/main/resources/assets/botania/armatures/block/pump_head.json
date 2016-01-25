@@ -12,10 +12,10 @@
       "loop": true,
       "joint_clips": {
         "head": [{
-          "variable": "offset_z",
+          "variable": "scale",
           "type": "uniform",
           "interpolation": "linear",
-          "samples": [ 0.0, 3.2, 4.0, 4.8, 8.0, 4.8, 4.0, 3.2, 0.0 ]
+          "samples": [ 0, 1 ]
         }]
       },
       "events": {}

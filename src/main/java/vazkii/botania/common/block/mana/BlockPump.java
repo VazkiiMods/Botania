@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,6 +22,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModContainer;
@@ -38,17 +43,22 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeStone);
 		setUnlocalizedName(LibBlockNames.PUMP);
 		setBlockBounds(EnumFacing.Axis.X);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
+		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true).withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.CARDINALS);
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.CARDINALS, Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty });
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.withProperty(Properties.StaticProperty, true);
 	}
 
 	@Override
@@ -76,6 +86,14 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 		} else if (axis == EnumFacing.Axis.Z) {
 			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
 		}
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote && worldIn.getTileEntity(pos) instanceof TilePump) {
+			((TilePump) worldIn.getTileEntity(pos)).asm().transition("moving");
+		}
+		return true;
 	}
 
 	@Override
