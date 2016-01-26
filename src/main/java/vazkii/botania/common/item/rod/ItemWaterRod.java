@@ -1,10 +1,16 @@
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -26,13 +32,22 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, false) && !par3World.provider.doesWaterVaporize()) {
 
-			ItemStack stackToPlace = new ItemStack(Blocks.flowing_water);
-			stackToPlace.onItemUse(par2EntityPlayer, par3World, pos, side, par8, par9, par10);
+			// Adapted from bucket code
+			MovingObjectPosition mop = getMovingObjectPositionFromPlayer(par3World, par2EntityPlayer, false);
 
-			if(stackToPlace.stackSize == 0) {
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, true);
-				for(int i = 0; i < 6; i++)
-					Botania.proxy.sparkleFX(par3World, pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
+			if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+				BlockPos hitPos = mop.getBlockPos();
+				if(!par3World.isBlockModifiable(par2EntityPlayer, hitPos))
+					return false;
+				BlockPos placePos = hitPos.offset(mop.sideHit);
+				if(par2EntityPlayer.canPlayerEdit(placePos, mop.sideHit, par1ItemStack)) {
+					if (ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, true)
+							&& ((ItemBucket) Items.water_bucket).tryPlaceContainedLiquid(par3World, placePos)) {
+						for(int i = 0; i < 6; i++)
+							Botania.proxy.sparkleFX(par3World, pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
+					}
+				}
+
 			}
 		}
 		return true;
