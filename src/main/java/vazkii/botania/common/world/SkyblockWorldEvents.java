@@ -81,10 +81,9 @@ public final class SkyblockWorldEvents {
 				}
 			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.world.isRemote) {
 				MovingObjectPosition movingobjectposition = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
-
 				if(movingobjectposition != null) {
-					if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && !event.world.isRemote) {
-						if(event.world.getBlockState(event.pos).getBlock().getMaterial() == Material.water) {
+					if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+						if(event.world.getBlockState(movingobjectposition.getBlockPos()).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
