@@ -3300,7 +3300,7 @@ botania.page.corporeaIndex7=A certain magical one at that
 botania.entry.corporeaFunnel=Corporea Funnel
 botania.tagline.corporeaFunnel=Request items from a Corporea network via redstone
 botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the &4Corporea Network&0 is the &1Corporea Funnel&0, when given access to a network through a &1Corporea Spark&0 on top, it'll pull a single item from the network when given a redstone signal.<br>This item is put into an inventory 1 or 2 blocks below it, or case one doesn't exist or is full, tossed into the world right above the funnel.
-botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.<br>Rotating the item changes how many will be requested at once, starting at 1, rotating once, twice and three times will pull 16, 32 and 64, respectively.
+botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.<br>Rotating the item changes how many will be requested at once, starting at 1, rotating once will pull 16, and each rotation thereafter increases the count by 8, up to a maximum of 64.
 botania.page.corporeaFunnel2=Energistically applied
 
 # -- CORPOREA INTERCEPTOR

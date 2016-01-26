@@ -42,13 +42,10 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	public List<ItemStack> getFilter() {
-		List<ItemStack> filter = new ArrayList();
+		List<ItemStack> filter = new ArrayList<>();
 
-		final int[] orientationToDir = new int[] {
-				3, 4, 2, 5
-		};
 		final int[] rotationToStackSize = new int[] {
-				1, 16, 32, 64
+				1, 16, 24, 32, 40, 48, 56, 64
 		};
 
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
@@ -95,15 +92,14 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
-		for(ItemStack reqStack : stacks)
-			if(request != null) {
-				if(inv != null && !(inv instanceof TileCorporeaFunnel) && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, EnumFacing.UP))
-					InventoryHelper.insertItemIntoInventory(inv, reqStack);
-				else {
-					EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-					worldObj.spawnEntityInWorld(item);
-				}
+		for(ItemStack reqStack : stacks) {
+			if(inv != null && !(inv instanceof TileCorporeaFunnel) && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, EnumFacing.UP))
+				InventoryHelper.insertItemIntoInventory(inv, reqStack);
+			else {
+				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				worldObj.spawnEntityInWorld(item);
 			}
+		}
 	}
 
 }
