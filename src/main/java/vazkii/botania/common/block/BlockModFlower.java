@@ -27,6 +27,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -77,7 +79,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		if (meta >= EnumDyeColor.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta)).withProperty(type, EnumFlowerType.POPPY);
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.withProperty(type, EnumFlowerType.POPPY);
 	}
 
 	@Override

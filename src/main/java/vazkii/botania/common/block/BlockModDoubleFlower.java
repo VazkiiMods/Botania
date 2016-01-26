@@ -27,6 +27,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -231,6 +232,14 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		}
 
 		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(field_181084_N, EnumFacing.SOUTH);
+	}
+
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+		IBlockState state = world.getBlockState(pos);
+		state = state.getBlock().getActualState(state, world, pos);
+		PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
+		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getValue(prop).ordinal() - (second ? 8 : 0));
 	}
 
 }
