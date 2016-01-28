@@ -10,11 +10,17 @@
  */
 package vazkii.botania.common.block.decor;
 
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -23,13 +29,23 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import java.lang.ref.WeakReference;
+import java.util.UUID;
+
 public class BlockDirtPath extends BlockMod implements ILexiconable {
+
+	private static final UUID speedBoostUuid = UUID.fromString("c5f17cca-c89f-4f12-81da-8f04b1f27679");
+	private static final AttributeModifier speedBoost = new AttributeModifier(speedBoostUuid, "Trodden dirt speed boost", 0.7, 2).setSaved(false);
 
 	public BlockDirtPath() {
 		super(Material.ground);
@@ -39,6 +55,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeGravel);
 		setUnlocalizedName(LibBlockNames.DIRT_PATH);
 		useNeighborBrightness = true;
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -48,15 +65,13 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, Entity entity) {
-		float speed = 2F;
-		float max = 0.4F;
-
-		double motionX = Math.abs(entity.motionX);
-		double motionZ = Math.abs(entity.motionZ);
-		if(motionX < max)
-			entity.motionX *= speed;
-		if(motionZ < max)
-			entity.motionZ *= speed;
+		if(!world.isRemote && entity instanceof EntityPlayerMP) {
+			EntityLivingBase living = ((EntityLivingBase) entity);
+			IAttributeInstance attr = living.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			if(!attr.hasModifier(speedBoost)) {
+				attr.applyModifier(speedBoost);
+			}
+		}
 	}
 
 	@Override
@@ -100,6 +115,17 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.dirtPath;
+	}
+
+	@SubscribeEvent
+	public void onTickEnd(TickEvent.WorldTickEvent event) {
+		if(event.world.isRemote || event.phase != TickEvent.Phase.END)
+			return;
+		for(EntityPlayerMP player : event.world.getPlayers(EntityPlayerMP.class, p -> p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).hasModifier(speedBoost))) {
+			if (event.world.getBlockState(new BlockPos(player).down()).getBlock() != this) {
+				player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(speedBoost);
+			}
+		} // todo 1.8 there's probably a better way to do this.
 	}
 
 }
