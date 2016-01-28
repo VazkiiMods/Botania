@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -35,11 +34,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import java.lang.ref.WeakReference;
 import java.util.UUID;
 
 public class BlockDirtPath extends BlockMod implements ILexiconable {

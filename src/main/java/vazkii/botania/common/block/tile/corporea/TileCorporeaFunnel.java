@@ -45,7 +45,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		List<ItemStack> filter = new ArrayList<>();
 
 		final int[] rotationToStackSize = new int[] {
-				1, 16, 24, 32, 40, 48, 56, 64
+				1, 2, 4, 8, 16, 32, 48, 64
 		};
 
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
