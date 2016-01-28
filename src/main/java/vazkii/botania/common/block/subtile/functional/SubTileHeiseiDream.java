@@ -63,8 +63,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 			while(newTarget == entity);
 
 			if(newTarget instanceof EntityLiving) {
-				List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
-				entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
+				List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);
+				entries.addAll(new ArrayList<>(entity.targetTasks.taskEntries));
 
 				for(EntityAITaskEntry entry : entries)
 					if(entry.action instanceof EntityAINearestAttackableTarget) {
@@ -84,7 +84,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	}
 
 	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, IMob.class, LibObfuscation.TARGET_CLASS);
+		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Entity.class, LibObfuscation.TARGET_CLASS);
+		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Predicates.equalTo(target), LibObfuscation.TARGET_ENTITY_SELECTOR); // todo 1.8 will this leak `target`?
 		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, target, LibObfuscation.TARGET_ENTITY);
 	}
 
