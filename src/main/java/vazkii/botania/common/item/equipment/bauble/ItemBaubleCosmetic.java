@@ -13,13 +13,22 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -149,25 +158,26 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 17:
 				faceTranslate();
 				scale(0.35F);
+				GlStateManager.translate(0.25F, 0.2F, -0.60F);
 				renderIcon(17);
 				break;
 			case 18:
 				faceTranslate();
 				scale(0.75F);
-				GlStateManager.rotate(90F, 0F, 1F, 0F);
-				GlStateManager.translate(-0.3F, 0.1F, 0.55F);
+				GlStateManager.rotate(-90F, 0F, 0F, 1F);
+				GlStateManager.translate(-0.2F, -0.15F, -0.5F);
 				renderIcon(18);
 				break;
 			case 19:
 				faceTranslate();
 				scale(0.6F);
-				GlStateManager.translate(0.2F, -0.2F, 0.1F);
+				GlStateManager.translate(0F, 0F, -0.5F);
 				renderIcon(19);
 				break;
 			case 20:
 				faceTranslate();
 				scale(0.25F);
-				GlStateManager.translate(0.4F, 0.5F, -0.1F);
+				GlStateManager.translate(-0.7F, 0.3F, -1.5F);
 				renderIcon(20);
 				GlStateManager.translate(1.4F, 0F, 0F);
 				renderIcon(20);
@@ -207,10 +217,10 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case 28:
 				faceTranslate();
 				scale(0.25F);
-				GlStateManager.translate(1.55F, -0.2F, -0.1F);
+				GlStateManager.translate(-0.4F, 0.4F, -1.1F);
 				renderIcon(28);
-				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(-0.1F, 0F, 0.1F);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(-0.775F, -0.4F, 0.04F);
 				renderIcon(28);
 				break;
 			case 30:
@@ -255,14 +265,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				break;
 			case 14:
 				chestTranslate();
-				scale(0.5F);
-				GlStateManager.translate(2.3F, 1F, -0.05F);
-				GlStateManager.rotate(180F, 0F, 1F, 0F);
+				scale(0.9F);
+				GlStateManager.translate(0.45F, 0.05F, -0.1F);
 				renderIcon(14);
-				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.color(0F, 0F, 0.3F, 1F);
-				GlStateManager.translate(-2.6F, 0F, 0.05F);
-				renderIcon(14);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(0.9F, -0.25F, 0F);
+				renderKamuiBlack();
 				break;
 			case 16:
 				chestTranslate();
@@ -308,4 +316,75 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON);
 		GlStateManager.popMatrix();
 	}
+
+	public void renderKamuiBlack() {
+		renderStack.setItemDamage(14);
+
+		// Modified copy of RenderItem.renderItem(stack, transformtype)
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+
+		IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(renderStack);
+
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.alphaFunc(516, 0.1F);
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		GlStateManager.pushMatrix();
+		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.THIRD_PERSON);
+
+		GlStateManager.translate(-0.5F, -0.1F, -0.4F);
+		this.renderModel(model, renderStack, 0xFF00004C);
+
+		GlStateManager.cullFace(1029);
+		GlStateManager.popMatrix();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.disableBlend();
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+		//
+	}
+
+	// Adapted from RenderItem.renderModel(model, stack), added extra color param
+	private void renderModel(IBakedModel model, ItemStack stack, int color) {
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
+
+		for (EnumFacing enumfacing : EnumFacing.values())
+		{
+			this.renderQuads(worldrenderer, model.getFaceQuads(enumfacing), color, stack);
+		}
+
+		this.renderQuads(worldrenderer, model.getGeneralQuads(), color, stack);
+		tessellator.draw();
+	}
+
+	// Copy of RenderItem.renderQuads
+	private void renderQuads(WorldRenderer renderer, List<BakedQuad> quads, int color, ItemStack stack)
+	{
+		boolean flag = color == -1 && stack != null;
+		int i = 0;
+
+		for (int j = quads.size(); i < j; ++i)
+		{
+			BakedQuad bakedquad = (BakedQuad)quads.get(i);
+			int k = color;
+
+			if (flag && bakedquad.hasTintIndex())
+			{
+				k = stack.getItem().getColorFromItemStack(stack, bakedquad.getTintIndex());
+
+				if (EntityRenderer.anaglyphEnable)
+				{
+					k = TextureUtil.anaglyphColor(k);
+				}
+
+				k = k | -16777216;
+			}
+
+			net.minecraftforge.client.model.pipeline.LightUtil.renderQuadColor(renderer, bakedquad, k);
+		}
+	}
+
 }
