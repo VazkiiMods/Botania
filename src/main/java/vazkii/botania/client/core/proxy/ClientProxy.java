@@ -75,7 +75,6 @@ import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSnowballStack;
 import vazkii.botania.client.render.entity.RenderSpark;
-import vazkii.botania.client.render.entity.RenderThornChakram;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileAvatar;
@@ -91,7 +90,6 @@ import vazkii.botania.client.render.tile.RenderTileIncensePlate;
 import vazkii.botania.client.render.tile.RenderTileLightRelay;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.client.render.tile.RenderTilePrism;
-import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -258,15 +256,15 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, RenderThornChakram::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, RenderCorporeaSpark::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, RenderPoolMinecart::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, RenderPinkWither::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
 
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.thornChakram, 1, entity.isFire() ? 1 : 0)));
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack(renderManager, new ItemStack(ModItems.manaResource, 1, 15), Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.manaResource, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.manaResource, 1, 15)));
 
 		ShaderHelper.initShaders();
 	}

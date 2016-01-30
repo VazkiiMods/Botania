@@ -8,25 +8,27 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.google.common.base.Function;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 // Same as RenderSnowball, but ItemStack sensitive
 public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
 
-    private final ItemStack stack;
+    private final Function<T, ItemStack> stackGetter;
 
-    public RenderSnowballStack(RenderManager renderManagerIn, ItemStack stack, RenderItem render) {
-        super(renderManagerIn, stack.getItem(), render);
-        this.stack = stack;
+    public RenderSnowballStack(RenderManager renderManagerIn, Item item, RenderItem render, Function<T, ItemStack> stackGetter) {
+        super(renderManagerIn, item, render);
+        this.stackGetter = stackGetter;
     }
 
     @Override
     public ItemStack func_177082_d(T entity) {
-        return stack;
+        return stackGetter.apply(entity);
     }
 
 }

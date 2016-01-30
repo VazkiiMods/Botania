@@ -18,6 +18,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -33,13 +34,15 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private static final int MAX_BOUNCES = 16;
 	boolean bounced = false;
+	private ItemStack stack;
 
 	public EntityThornChakram(World world) {
 		super(world);
 	}
 
-	public EntityThornChakram(World world, EntityLivingBase e) {
+	public EntityThornChakram(World world, EntityLivingBase e, ItemStack stack) {
 		super(world, e);
+		this.stack = stack.copy();
 	}
 
 	@Override
@@ -77,10 +80,10 @@ public class EntityThornChakram extends EntityThrowable {
 				motionX = motion.x;
 				motionY = motion.y;
 				motionZ = motion.z;
-				if(MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
+				if(!worldObj.isRemote && MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
 					if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(getItemStack()))))
 						dropAndKill();
-					else if(!worldObj.isRemote)
+					else
 						setDead();
 			}
 		} else {
@@ -103,7 +106,7 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	private ItemStack getItemStack() {
-		return new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
+		return stack != null ? stack.copy() : new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
 	}
 
 	@Override
@@ -120,7 +123,7 @@ public class EntityThornChakram extends EntityThrowable {
 
 		boolean fire = isFire();
 		EntityLivingBase thrower = getThrower();
-		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
+		if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
 			pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
 			if(fire)
 				pos.entityHit.setFire(5);
@@ -161,6 +164,22 @@ public class EntityThornChakram extends EntityThrowable {
 
 	public void setFire(boolean fire) {
 		dataWatcher.updateObject(31, (byte) (fire ? 1 : 0));
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		if(stack != null) {
+			compound.setTag("fly_stack", stack.writeToNBT(new NBTTagCompound()));
+		}
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if(compound.hasKey("fly_stack")) {
+			stack = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fly_stack"));
+		}
 	}
 
 }
