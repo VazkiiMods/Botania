@@ -99,7 +99,7 @@ public class ModelHourglass extends ModelBase {
 		}
 
 		GL11.glPopAttrib();
-		GL11.glColor3f(1, 1, 1);
+		GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255));
 		glass1.render(f);
 		glass2.render(f);
 	}

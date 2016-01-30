@@ -142,6 +142,7 @@ public final class BoundTileRenderer {
 			}
 		}
 
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 		GlStateManager.popMatrix();
 	}
 

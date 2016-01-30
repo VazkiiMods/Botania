@@ -127,6 +127,7 @@ public final class SubTileRadiusRenderHandler {
 		tessellator.getWorldRenderer().pos(x, f1, z).endVertex();
 		tessellator.draw();
 
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 		GlStateManager.popMatrix();
 	}
 
@@ -173,6 +174,7 @@ public final class SubTileRadiusRenderHandler {
 		}
 		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
 		tessellator.draw();
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 		GlStateManager.popMatrix();
 	}
 

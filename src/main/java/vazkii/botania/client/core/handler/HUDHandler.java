@@ -264,6 +264,7 @@ public final class HUDHandler {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
 		GlStateManager.disableBlend();
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 	}
 
 	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
@@ -484,5 +485,6 @@ public final class HUDHandler {
 		Color color_ = new Color(color);
 		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 	}
 }
