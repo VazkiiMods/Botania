@@ -94,7 +94,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		int rangeY = getRangeY();
 
 		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < rangeY; j++)
+			for(int j = -rangeY; j < rangeY; j++)
 				for(int k = -range; k < range + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
