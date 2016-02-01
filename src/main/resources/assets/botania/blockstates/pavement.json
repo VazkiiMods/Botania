@@ -5,11 +5,13 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "color=white": [{ "textures": { "all": "botania:blocks/pavement0" } }],
-    "color=black": [{ "textures": { "all": "botania:blocks/pavement1" } }],
-    "color=blue": [{ "textures": { "all": "botania:blocks/pavement2"  } }],
-    "color=red": [{ "textures": { "all": "botania:blocks/pavement3"} }],
-    "color=yellow": [{ "textures": { "all": "botania:blocks/pavement4"} }],
-    "color=green": [{ "textures": { "all": "botania:blocks/pavement5" } }]
+    "color": {
+      "white": { "textures": { "all": "botania:blocks/pavement0" } },
+      "black": { "textures": { "all": "botania:blocks/pavement1" } },
+      "blue": { "textures": { "all": "botania:blocks/pavement2"  } },
+      "red": { "textures": { "all": "botania:blocks/pavement3"} },
+      "yellow": { "textures": { "all": "botania:blocks/pavement4"} },
+      "green": { "textures": { "all": "botania:blocks/pavement5" } }
+    }
   }
 }

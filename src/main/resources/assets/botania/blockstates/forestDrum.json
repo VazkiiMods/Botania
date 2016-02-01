@@ -5,8 +5,10 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "variant=wild": [{ "textures": { "top": "botania:blocks/forestDrum0", "side": "botania:blocks/forestDrum1" } }],
-    "variant=gathering": [{ "textures": { "top": "botania:blocks/forestDrum2", "side": "botania:blocks/forestDrum3" } }],
-    "variant=canopy": [{ "textures": { "top": "botania:blocks/forestDrum4", "side": "botania:blocks/forestDrum5" } }]
+    "variant": {
+      "wild": { "textures": { "top": "botania:blocks/forestDrum0", "side": "botania:blocks/forestDrum1" } },
+      "gathering": { "textures": { "top": "botania:blocks/forestDrum2", "side": "botania:blocks/forestDrum3" } },
+      "canopy": { "textures": { "top": "botania:blocks/forestDrum4", "side": "botania:blocks/forestDrum5" } }
+    }
   }
 }

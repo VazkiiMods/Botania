@@ -5,10 +5,12 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "variant=manasteel": [{ "textures": { "all": "botania:blocks/storage0" } }],
-    "variant=terrasteel": [{ "textures": { "all": "botania:blocks/storage1" } }],
-    "variant=elementium": [{ "textures": { "all": "botania:blocks/storage2" } }],
-    "variant=mana_diamond": [{ "textures": { "all": "botania:blocks/storage3" } }],
-    "variant=dragonstone": [{ "textures": { "all": "botania:blocks/storage4" } }]
+    "variant": {
+      "manasteel": { "textures": { "all": "botania:blocks/storage0" } },
+      "terrasteel": { "textures": { "all": "botania:blocks/storage1" } },
+      "elementium": { "textures": { "all": "botania:blocks/storage2" } },
+      "mana_diamond": { "textures": { "all": "botania:blocks/storage3" } },
+      "dragonstone": { "textures": { "all": "botania:blocks/storage4" } }
+    }
   }
 }

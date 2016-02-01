@@ -5,10 +5,12 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "variant=default": [{ "textures": { "all": "botania:blocks/livingrock0" } }],
-    "variant=brick": [{ "textures": { "all": "botania:blocks/livingrock1" } }],
-    "variant=mossy_brick": [{ "textures": { "all": "botania:blocks/livingrock2" } }],
-    "variant=cracked_brick": [{ "textures": { "all": "botania:blocks/livingrock3" } }],
-    "variant=chiseled_brick": [{ "textures": { "all": "botania:blocks/livingrock4" } }]
+    "variant": {
+      "default": { "textures": { "all": "botania:blocks/livingrock0" } },
+      "brick": { "textures": { "all": "botania:blocks/livingrock1" } },
+      "mossy_brick": { "textures": { "all": "botania:blocks/livingrock2" } },
+      "cracked_brick": { "textures": { "all": "botania:blocks/livingrock3" } },
+      "chiseled_brick": { "textures": { "all": "botania:blocks/livingrock4" } }
+    }
   }
 }

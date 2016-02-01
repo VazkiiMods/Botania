@@ -5,11 +5,13 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "variant=default": [{ "textures": { "all": "botania:blocks/livingwood0" } }],
-    "variant=planks": [{ "textures": { "all": "botania:blocks/livingwood1" } }],
-    "variant=mossy_planks": [{ "textures": { "all": "botania:blocks/livingwood2" } }],
-    "variant=framed": [{ "textures": { "all": "botania:blocks/livingwood3" } }],
-    "variant=pattern_framed": [{ "textures": { "all": "botania:blocks/livingwood4" } }],
-    "variant=glimmering": [{ "textures": { "all": "botania:blocks/livingwood5" } }]
+    "variant": {
+      "default": { "textures": { "all": "botania:blocks/livingwood0" } },
+      "planks": { "textures": { "all": "botania:blocks/livingwood1" } },
+      "mossy_planks": { "textures": { "all": "botania:blocks/livingwood2" } },
+      "framed": { "textures": { "all": "botania:blocks/livingwood3" } },
+      "pattern_framed": { "textures": { "all": "botania:blocks/livingwood4" } },
+      "glimmering": { "textures": { "all": "botania:blocks/livingwood5" } }
+    }
   }
 }

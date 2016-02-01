@@ -8,11 +8,10 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "powered=true": [{
-      "textures": {
-        "all": "botania:blocks/enderEyeBlock1"
-      }
-    }],
+    "powered": {
+      "true": { "textures": { "all": "botania:blocks/enderEyeBlock1" } },
+      "false": {}
+    },
     "powered=false": [{}],
     "inventory": [{}]
   }

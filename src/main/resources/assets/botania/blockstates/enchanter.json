@@ -8,8 +8,10 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "facing=x": [{}],
-    "facing=z": [{}],
+    "facing": {
+      "x": {},
+      "z": {}
+    },
     "inventory": [{}]
   }
 }
