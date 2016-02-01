@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.List;
 
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;

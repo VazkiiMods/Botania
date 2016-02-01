@@ -24,7 +24,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal> {

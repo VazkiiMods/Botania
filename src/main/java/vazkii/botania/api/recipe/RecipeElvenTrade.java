@@ -14,7 +14,7 @@ public class RecipeElvenTrade {
 	public RecipeElvenTrade(ItemStack output, Object... inputs) {
 		this.output = output;
 
-		List<Object> inputsToSet = new ArrayList();
+		List<Object> inputsToSet = new ArrayList<>();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
@@ -25,8 +25,8 @@ public class RecipeElvenTrade {
 	}
 
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
-		List<Object> inputsMissing = new ArrayList(inputs);
-		List<ItemStack> stacksToRemove = new ArrayList();
+		List<Object> inputsMissing = new ArrayList<>(inputs);
+		List<ItemStack> stacksToRemove = new ArrayList<>();
 
 		for(ItemStack stack : stacks) {
 			if(stack == null) {
@@ -84,7 +84,7 @@ public class RecipeElvenTrade {
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList(inputs);
+		return new ArrayList<>(inputs);
 	}
 
 	public ItemStack getOutput() {

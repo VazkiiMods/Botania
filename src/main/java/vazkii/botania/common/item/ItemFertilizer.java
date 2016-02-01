@@ -35,7 +35,7 @@ public class ItemFertilizer extends ItemMod {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!par3World.isRemote) {
-			List<BlockPos> validCoords = new ArrayList();
+			List<BlockPos> validCoords = new ArrayList<>();
 
 			for(int i = -range - 1; i < range; i++)
 				for(int j = -range - 1; j < range; j++) {

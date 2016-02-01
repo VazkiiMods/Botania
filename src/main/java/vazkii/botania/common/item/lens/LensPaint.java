@@ -46,14 +46,14 @@ public class LensPaint extends Lens {
 				Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
 					IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
-					List<BlockPos> coordsToPaint = new ArrayList();
-					List<BlockPos> coordsFound = new ArrayList();
+					List<BlockPos> coordsToPaint = new ArrayList<>();
+					List<BlockPos> coordsFound = new ArrayList<>();
 
 					BlockPos theseCoords = pos.getBlockPos();
 					coordsFound.add(theseCoords);
 
 					do {
-						List<BlockPos> iterCoords = new ArrayList(coordsFound);
+						List<BlockPos> iterCoords = new ArrayList<>(coordsFound);
 						for(BlockPos coords : iterCoords) {
 							coordsFound.remove(coords);
 							coordsToPaint.add(coords);

@@ -25,7 +25,7 @@ public class RecipePetals {
 	public RecipePetals(ItemStack output, Object... inputs) {
 		this.output = output;
 
-		List<Object> inputsToSet = new ArrayList();
+		List<Object> inputsToSet = new ArrayList<>();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
@@ -36,7 +36,7 @@ public class RecipePetals {
 	}
 
 	public boolean matches(IInventory inv) {
-		List<Object> inputsMissing = new ArrayList(inputs);
+		List<Object> inputsMissing = new ArrayList<>(inputs);
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -86,7 +86,7 @@ public class RecipePetals {
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList(inputs);
+		return new ArrayList<>(inputs);
 	}
 
 	public ItemStack getOutput() {

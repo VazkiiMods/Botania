@@ -47,7 +47,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
@@ -65,7 +65,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2, List par3) {
+	public void getSubItems(Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
@@ -199,7 +199,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.getDimensionId();
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+			blockSwappers.put(dim, new HashSet<>());
 
 		// Add the block swapper
 		blockSwappers.get(dim).add(swapper);
@@ -294,7 +294,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		 * @param pos The positions to use.
 		 */
 		public void tickBlock(BlockPos pos) {
-			List<BlockPos> validCoords = new ArrayList<BlockPos>();
+			List<BlockPos> validCoords = new ArrayList<>();
 
 			// Go around this block and aggregate valid blocks.
 			for(int xOffset = -TICK_RANGE; xOffset <= TICK_RANGE; xOffset++) {

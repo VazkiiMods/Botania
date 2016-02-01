@@ -26,7 +26,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
-	public static Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
+	public static Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static boolean registered = false;
 
 	@Override

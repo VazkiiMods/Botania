@@ -12,6 +12,7 @@ package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -79,7 +80,7 @@ public class PageShedding extends PageEntity {
 
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-			List<String> parsedTooltip = new ArrayList();
+			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
 			for(String s : tooltipData) {
@@ -95,12 +96,12 @@ public class PageShedding extends PageEntity {
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
 		}
 		else if(tooltipEntity) {
-			List<String> parsedTooltip = new ArrayList();
+			List<String> parsedTooltip = new ArrayList<>();
 			parsedTooltip.add(EntityList.getEntityString(dummyEntity));
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
 		}
@@ -147,7 +148,7 @@ public class PageShedding extends PageEntity {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(shedStack);
 		return list;
 	}

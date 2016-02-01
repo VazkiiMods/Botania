@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.brew;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-
 import net.minecraft.potion.Potion;
 import vazkii.botania.common.brew.potion.PotionAllure;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;

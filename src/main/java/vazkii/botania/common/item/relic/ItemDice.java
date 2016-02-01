@@ -54,8 +54,8 @@ public class ItemDice extends ItemRelic {
 			int side = SIDES_FOR_MOON_PHASES[moonPhase];
 			int relic = side;
 			if(hasRelicAlready(player, relic)) {
-				List<Integer> possible = new ArrayList();
-				List<Integer> alreadyHas = new ArrayList();
+				List<Integer> possible = new ArrayList<>();
+				List<Integer> alreadyHas = new ArrayList<>();
 				for(int i = 0; i < 6; i++)
 					if(hasRelicAlready(player, i))
 						alreadyHas.add(i);

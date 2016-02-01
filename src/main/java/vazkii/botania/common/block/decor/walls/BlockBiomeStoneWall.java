@@ -61,7 +61,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tabs, List<ItemStack> list) {
 		for(int i = 0; i < 8; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile.mana;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;

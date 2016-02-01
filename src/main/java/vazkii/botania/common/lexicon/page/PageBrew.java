@@ -64,7 +64,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 		int i = 0;
 		y = gui.getTop() + gui.getHeight() - 54;
-		List<Object> inputs = new ArrayList(recipe.getInputs());
+		List<Object> inputs = new ArrayList<>(recipe.getInputs());
 
 		int offset = gui.getWidth() / 2 - inputs.size() * 9;
 		for(Object input : inputs) {
@@ -98,7 +98,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(recipe.getOutput(new ItemStack(ModItems.vial)));
 		return list;
 	}

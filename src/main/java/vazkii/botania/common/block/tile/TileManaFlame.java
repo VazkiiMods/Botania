@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 

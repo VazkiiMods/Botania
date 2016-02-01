@@ -11,11 +11,9 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;

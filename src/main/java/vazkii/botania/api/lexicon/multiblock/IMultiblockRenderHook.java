@@ -23,7 +23,7 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
  */
 public interface IMultiblockRenderHook {
 
-	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap();
+	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap<>();
 
 	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha);
 

@@ -25,6 +25,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 	private final List input;
 	private final List<ItemStack> output;
 
+	@SuppressWarnings("unchecked")
 	public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
 		ImmutableList.Builder builder = ImmutableList.builder();
 		builder.add(ImmutableList.of(new ItemStack(ModItems.vial, 1, 0), new ItemStack(ModItems.vial, 1, 1)));

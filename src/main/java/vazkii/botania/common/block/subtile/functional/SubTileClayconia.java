@@ -51,7 +51,7 @@ public class SubTileClayconia extends SubTileFunctional {
 	}
 
 	public BlockPos getCoordsToPut() {
-		List<BlockPos> possibleCoords = new ArrayList();
+		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		for(int i = -RANGE; i < RANGE + 1; i++)
 			for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)

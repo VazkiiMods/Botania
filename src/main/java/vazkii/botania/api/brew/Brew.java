@@ -42,7 +42,7 @@ public class Brew {
 		this.name = name;
 		this.color = color;
 		this.cost = cost;
-		this.effects = new ArrayList(Arrays.asList(effects));
+		this.effects = new ArrayList<>(Arrays.asList(effects));
 	}
 
 	/**

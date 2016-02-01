@@ -45,7 +45,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
 
-	public static List<String> playersWithStepup = new ArrayList();
+	public static List<String> playersWithStepup = new ArrayList<>();
 
 	final float speed;
 	final float jump;

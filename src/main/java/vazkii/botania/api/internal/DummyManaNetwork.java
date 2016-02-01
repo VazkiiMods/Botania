@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -39,12 +39,12 @@ public class DummyManaNetwork implements IManaNetwork {
 
 	@Override
 	public List<TileSignature> getAllCollectorsInWorld(World world) {
-		return new ArrayList();
+		return ImmutableList.of();
 	}
 
 	@Override
 	public List<TileSignature> getAllPoolsInWorld(World world) {
-		return new ArrayList();
+		return ImmutableList.of();
 	}
 
 }

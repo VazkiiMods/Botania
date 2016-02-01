@@ -22,7 +22,6 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
-import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -901,7 +900,7 @@ public final class LexiconData {
 
 		cosmeticBaubles = new BLexiconEntry(LibLexicon.BAUBLE_COSMETIC, categoryBaubles);
 		{
-			List<LexiconPage> pages = new ArrayList();
+			List<LexiconPage> pages = new ArrayList<>();
 			pages.add(new PageText("0"));
 			pages.add(new PageText("1"));
 			for(int i = 0; i < 32; i++)

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.corporea;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -31,8 +31,8 @@ import net.minecraftforge.common.MinecraftForge;
 
 public final class CorporeaHelper {
 
-	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
-	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
+	private static final List<IInventory> empty = ImmutableList.of();
+	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap<>();
 	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<>();
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
@@ -66,7 +66,7 @@ public final class CorporeaHelper {
 				return cache;
 		}
 
-		List<IInventory> inventories = new ArrayList();
+		List<IInventory> inventories = new ArrayList<>();
 		if(network != null)
 			for(ICorporeaSpark otherSpark : network)
 				if(otherSpark != null) {
@@ -127,7 +127,7 @@ public final class CorporeaHelper {
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
 	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
-		Map<IInventory, Integer> countMap = new HashMap();
+		Map<IInventory, Integer> countMap = new HashMap<>();
 
 		for(IInventory inv : inventories) {
 			int count = 0;
@@ -172,13 +172,13 @@ public final class CorporeaHelper {
 	 * equals or matches (case a regex is passed in) the matcher string.
 	 */
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		List<ItemStack> stacks = new ArrayList();
+		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, checkNBT, doit);
 		if(MinecraftForge.EVENT_BUS.post(event))
 			return stacks;
 
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
-		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap();
+		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
 		lastRequestMatches = 0;
 		lastRequestExtractions = 0;

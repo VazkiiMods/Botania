@@ -37,13 +37,13 @@ public class ItemAncientWill extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		addStringToTooltip(StatCollector.translateToLocal("botaniamisc.craftToAddWill"), list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
 	}

@@ -42,7 +42,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
@@ -71,7 +71,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
 			addStringToTooltip(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal("botaniamisc.notInfused"), list);

@@ -38,7 +38,7 @@ import baubles.api.BaubleType;
 
 public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 
-	public static Map<String, List<IceRemover>> playerIceBlocks = new HashMap();
+	public static Map<String, List<IceRemover>> playerIceBlocks = new HashMap<>();
 
 	public ItemIcePendant() {
 		super(LibItemNames.ICE_PENDANT);
@@ -79,7 +79,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	private void addIceBlock(EntityPlayer player, BlockPos coords) {
 		String user = player.getName();
 		if(!playerIceBlocks.containsKey(user))
-			playerIceBlocks.put(user, new ArrayList());
+			playerIceBlocks.put(user, new ArrayList<>());
 
 		List<IceRemover> ice = playerIceBlocks.get(user);
 		if(player.worldObj.getBlockState(coords).getBlock() == Blocks.water && player.worldObj.getBlockState(coords).getValue(BlockLiquid.LEVEL) == 0) {

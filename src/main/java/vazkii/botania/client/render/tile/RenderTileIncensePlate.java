@@ -18,13 +18,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelIncensePlate;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import java.util.Map;

@@ -201,7 +201,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColors(i, i));
 	}
@@ -212,7 +212,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer p, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer p, List<String> list, boolean adv) {
 		list.add(StatCollector.translateToLocal(getModeString(stack)));
 	}
 

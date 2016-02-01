@@ -21,7 +21,7 @@ public class WikiHooks {
 
 	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "http://ftb.gamepedia.com/%s");
 
-	private static final Map<String, IWikiProvider> modWikis = new HashMap();
+	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
 
 	public static IWikiProvider getWikiFor(Block block) {
 		ResourceLocation mod = GameData.getBlockRegistry().getNameForObject(block);

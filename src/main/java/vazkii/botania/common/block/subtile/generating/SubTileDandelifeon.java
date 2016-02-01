@@ -52,7 +52,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 	void runSimulation() {
 		int[][] table = getCellTable();
-		List<int[]> changes = new ArrayList();
+		List<int[]> changes = new ArrayList<>();
 		new ArrayList();
 		boolean wipe = false;
 

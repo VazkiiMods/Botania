@@ -32,7 +32,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 

@@ -43,7 +43,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		// Empty tablet
 		par3List.add(new ItemStack(par1, 1));
 
@@ -76,7 +76,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(isStackCreative(par1ItemStack))
 			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
 	}

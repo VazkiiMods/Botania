@@ -69,7 +69,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int mana : CREATIVE_MANA) {
 			ItemStack stack = new ItemStack(item);
 			setMana(stack, mana);
@@ -78,7 +78,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		String rankFormat = StatCollector.translateToLocal("botaniamisc.toolRank");
 		String rank = StatCollector.translateToLocal("botania.rank" + getLevel(par1ItemStack));
 		par3List.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));

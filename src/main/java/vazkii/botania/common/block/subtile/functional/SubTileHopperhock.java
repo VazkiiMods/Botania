@@ -54,7 +54,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
 
-	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap());
+	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap<>());
 
 	int filterType = 0;
 
@@ -170,7 +170,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	}
 
 	public List<ItemStack> getFilterForInventory(IInventory inv, BlockPos pos, boolean recursiveForDoubleChests) {
-		List<ItemStack> filter = new ArrayList();
+		List<ItemStack> filter = new ArrayList<>();
 
 		if(recursiveForDoubleChests) {
 			TileEntity tileEntity = supertile.getWorld().getTileEntity(pos);

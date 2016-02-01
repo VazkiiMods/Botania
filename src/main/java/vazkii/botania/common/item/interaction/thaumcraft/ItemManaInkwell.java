@@ -41,7 +41,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, USES));
 		list.add(new ItemStack(item));
 	}

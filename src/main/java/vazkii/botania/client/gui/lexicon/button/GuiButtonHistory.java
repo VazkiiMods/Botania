@@ -34,7 +34,7 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		tooltip.add(StatCollector.translateToLocal("botaniamisc.historyLong"));
 		tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.historyDesc"));
 

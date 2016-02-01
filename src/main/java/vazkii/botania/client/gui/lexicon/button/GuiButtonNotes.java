@@ -39,7 +39,7 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 130 : 120, 191, 10, 11);
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		if(GuiLexicon.notesEnabled)
 			tooltip.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.hideNotes"));
 		else {

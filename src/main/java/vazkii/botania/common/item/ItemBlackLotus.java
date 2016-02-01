@@ -36,7 +36,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -82,7 +82,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		list.add(StatCollector.translateToLocal("botaniamisc.lotusDesc"));
 	}
 

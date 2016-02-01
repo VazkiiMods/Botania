@@ -88,11 +88,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	public List<ItemStack> getFilter() {
-		List<ItemStack> filter = new ArrayList();
-
-		final int[] orientationToDir = new int[] {
-				3, 4, 2, 5
-		};
+		List<ItemStack> filter = new ArrayList<>();
 
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));

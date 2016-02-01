@@ -20,7 +20,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 
 public class GuiLexiconHistory extends GuiLexiconIndex {
 
-	public static List<LexiconEntry> history = new ArrayList();
+	public static List<LexiconEntry> history = new ArrayList<>();
 
 	public GuiLexiconHistory() {
 		super(null);

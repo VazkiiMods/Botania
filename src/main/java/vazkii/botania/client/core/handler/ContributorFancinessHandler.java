@@ -86,7 +86,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	}
 
 	public static void load(Properties props) {
-		flowerMap = new HashMap();
+		flowerMap = new HashMap<>();
 		for(String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 

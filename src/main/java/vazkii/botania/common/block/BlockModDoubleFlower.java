@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.properties.PropertyEnum;
@@ -189,7 +190,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return new ArrayList();
+		return ImmutableList.of();
 	}
 
 	@Override
@@ -198,7 +199,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
+	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		for(int i = 0; i < COUNT; ++i)
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
 	}

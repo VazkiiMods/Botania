@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -28,7 +28,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.block.tile.TileFakeAir;
-import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockFakeAir extends BlockModContainer {
@@ -114,7 +113,7 @@ public class BlockFakeAir extends BlockModContainer {
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return new ArrayList(); // Empty List
+		return ImmutableList.of();
 	}
 
 	@Override

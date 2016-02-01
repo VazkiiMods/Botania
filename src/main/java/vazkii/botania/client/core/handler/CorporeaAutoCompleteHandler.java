@@ -11,12 +11,12 @@
 package vazkii.botania.client.core.handler;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
@@ -134,10 +134,10 @@ public class CorporeaAutoCompleteHandler {
 		originalString = inputField.getText();
 	}
 
-	private ArrayList<CompletionData> getNames(String prefix) {
+	private List<CompletionData> getNames(String prefix) {
 		String s = prefix.trim();
 		if(s.isEmpty())
-			return new ArrayList();
+			return ImmutableList.of();
 				
 		TreeSet<CompletionData> result = new TreeSet<>();
 		String[] words = s.split(" ");

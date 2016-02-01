@@ -64,7 +64,7 @@ public final class TooltipAdditionDisplayHandler {
 					try {
 						tooltip = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
 					} catch(Exception e) {
-						tooltip = new ArrayList();
+						tooltip = new ArrayList<>();
 					}
 					int width = 0;
 					for(String s : tooltip)

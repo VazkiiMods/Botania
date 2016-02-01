@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 
 public class TileForestEye extends TileMod {

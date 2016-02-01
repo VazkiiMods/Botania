@@ -99,7 +99,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	}
 	
 	@Override
-	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(ClientProxy.jingleTheBells) {
 			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.santaweaveInfo"), list);
 			addStringToTooltip("", list);

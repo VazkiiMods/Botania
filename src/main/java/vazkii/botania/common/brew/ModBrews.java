@@ -12,7 +12,6 @@ package vazkii.botania.common.brew;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 

@@ -52,11 +52,11 @@ public final class ModRuneRecipes {
 		recipeWaterRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 2, 0), costTier1, LibOreDict.MANA_POWDER, LibOreDict.MANA_STEEL, new ItemStack(Items.dye, 1, 15), new ItemStack(Items.reeds), new ItemStack(Items.fishing_rod));
 		recipeFireRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 2, 1), costTier1, LibOreDict.MANA_POWDER, LibOreDict.MANA_STEEL, new ItemStack(Items.netherbrick), new ItemStack(Items.gunpowder), new ItemStack(Items.nether_wart));
 
-		recipesEarthRune = new ArrayList();
+		recipesEarthRune = new ArrayList<>();
 		recipesEarthRune.add(BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 2, 2), costTier1, LibOreDict.MANA_POWDER, LibOreDict.MANA_STEEL, "stone", new ItemStack(Blocks.coal_block), new ItemStack(Blocks.brown_mushroom)));
 		recipesEarthRune.add(BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 2, 2), costTier1, LibOreDict.MANA_POWDER, LibOreDict.MANA_STEEL, "stone", new ItemStack(Blocks.coal_block), new ItemStack(Blocks.red_mushroom)));
 
-		recipesAirRune = new ArrayList();
+		recipesAirRune = new ArrayList<>();
 		for(int i = 0; i < 16; i++)
 			recipesAirRune.add(BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 2, 3), costTier1, LibOreDict.MANA_POWDER, LibOreDict.MANA_STEEL, new ItemStack(Blocks.carpet, 1, i), new ItemStack(Items.feather), new ItemStack(Items.string)));
 
@@ -64,7 +64,7 @@ public final class ModRuneRecipes {
 		recipeSummerRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 5), costTier2, LibOreDict.RUNE[2], LibOreDict.RUNE[3], new ItemStack(Block.getBlockFromName("sand")), new ItemStack(Block.getBlockFromName("sand")), new ItemStack(Items.slime_ball), new ItemStack(Items.melon));
 		recipeAutumnRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 6), costTier2, LibOreDict.RUNE[1], LibOreDict.RUNE[3], "treeLeaves", "treeLeaves", "treeLeaves", new ItemStack(Items.spider_eye));
 
-		recipesWinterRune = new ArrayList();
+		recipesWinterRune = new ArrayList<>();
 		for(int i = 0; i < 16; i++)
 			recipesWinterRune.add(BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 7), costTier2, LibOreDict.RUNE[0], LibOreDict.RUNE[2], new ItemStack(Blocks.snow), new ItemStack(Blocks.snow), new ItemStack(Blocks.wool, 1, i), new ItemStack(Items.cake)));
 

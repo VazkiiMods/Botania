@@ -48,8 +48,8 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	}
 
 	public List<BlockPos> getCoordsToPut(BlockPos pos) {
-		List<BlockPos> possibleCoords = new ArrayList();
-		List<BlockPos> selectedCoords = new ArrayList();
+		List<BlockPos> possibleCoords = new ArrayList<>();
+		List<BlockPos> selectedCoords = new ArrayList<>();
 		int range = 4;
 		int rangeY = 4;
 

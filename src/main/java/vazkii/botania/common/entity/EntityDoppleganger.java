@@ -42,7 +42,6 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -70,8 +69,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
-import vazkii.botania.common.lib.LibObfuscation;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -104,16 +101,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		new BlockPos(-4, 1, -4)
 	};
 
-	private static final List<String> CHEATY_BLOCKS = Arrays.asList(new String[] {
-			"OpenBlocks:beartrap",
-			"ThaumicTinkerer:magnet"
-	});
+	private static final List<String> CHEATY_BLOCKS = Arrays.asList("OpenBlocks:beartrap",
+			"ThaumicTinkerer:magnet");
 
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
 	boolean anyWithArmor = false;
 
-	List<String> playersWhoAttacked = new ArrayList();
+	List<String> playersWhoAttacked = new ArrayList<>();
 
 	private static boolean isPlayingMusic = false;
 
@@ -578,7 +573,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				if(player.inventory.armorInventory[0] != null || player.inventory.armorInventory[1] != null || player.inventory.armorInventory[2] != null || player.inventory.armorInventory[3] != null)
 					anyWithArmor = true;
 
-				List<PotionEffect> remove = new ArrayList();
+				List<PotionEffect> remove = new ArrayList<>();
 				Collection<PotionEffect> active = player.getActivePotionEffects();
 				for(PotionEffect effect : active)
 					if(effect.getDuration() < 200 && effect.getIsAmbient() && !GameData.getPotionRegistry().getObjectById(effect.getPotionID()).isBadEffect())

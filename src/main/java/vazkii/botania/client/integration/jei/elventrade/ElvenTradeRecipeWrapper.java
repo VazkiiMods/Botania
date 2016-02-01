@@ -24,6 +24,7 @@ public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 	private final List input;
 	private final ItemStack output;
 
+	@SuppressWarnings("unchecked")
 	public ElvenTradeRecipeWrapper(RecipeElvenTrade recipe) {
 		ImmutableList.Builder builder = ImmutableList.builder();
 		for(Object o : recipe.getInputs()) {

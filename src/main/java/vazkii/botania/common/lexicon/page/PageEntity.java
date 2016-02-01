@@ -39,7 +39,7 @@ public class PageEntity extends LexiconPage{
 		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
 		this.size = size;
 		try {
-			entityConstructor = EntityClass.getConstructor(new Class[] {World.class});
+			entityConstructor = EntityClass.getConstructor(World.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

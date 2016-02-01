@@ -82,13 +82,13 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown())
 			addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
 		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
 	}
 
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		BaubleType type = getBaubleType(par1ItemStack);
 		addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
 

@@ -70,7 +70,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			BlockData filter = getUnderlyingBlock();
 
 			boolean scanned = false;
-			List<BlockPos> validPositions = new ArrayList();
+			List<BlockPos> validPositions = new ArrayList<>();
 
 			int rangePlace = getRange();
 			int rangePlaceY = getRangeY();

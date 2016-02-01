@@ -34,8 +34,8 @@ public class FXWisp extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-	public static Queue<FXWisp> queuedRenders = new ArrayDeque();
-	public static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque();
+	public static Queue<FXWisp> queuedRenders = new ArrayDeque<>();
+	public static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
 
 	// Queue values
 	float f;

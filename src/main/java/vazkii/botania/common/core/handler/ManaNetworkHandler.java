@@ -30,8 +30,8 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	public WeakHashMap<World, List<TileSignature>> manaPools = new WeakHashMap();
-	public WeakHashMap<World, List<TileSignature>> manaCollectors = new WeakHashMap();
+	public WeakHashMap<World, List<TileSignature>> manaPools = new WeakHashMap<>();
+	public WeakHashMap<World, List<TileSignature>> manaCollectors = new WeakHashMap<>();
 
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
@@ -124,7 +124,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		List<TileSignature> tiles;
 		if(!map.containsKey(world))
-			map.put(world, new ArrayList());
+			map.put(world, new ArrayList<>());
 
 		tiles = map.get(world);
 
@@ -144,7 +144,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	private List<TileSignature> getAllInWorld(Map<World, List<TileSignature>> map, World world) {
 		if(!map.containsKey(world))
-			return new ArrayList();
+			return new ArrayList<>();
 
 		return map.get(world);
 	}

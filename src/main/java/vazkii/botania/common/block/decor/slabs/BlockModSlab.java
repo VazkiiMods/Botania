@@ -26,7 +26,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	String name;
 	protected final boolean doubleSlab;
-	public static final PropertyEnum DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
+	public static final PropertyEnum<DummyEnum> DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
 
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(mat);

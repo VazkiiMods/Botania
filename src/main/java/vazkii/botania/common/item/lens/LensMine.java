@@ -58,7 +58,7 @@ public class LensMine extends Lens {
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
-			List<ItemStack> items = new ArrayList();
+			List<ItemStack> items = new ArrayList<>();
 
 			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
 

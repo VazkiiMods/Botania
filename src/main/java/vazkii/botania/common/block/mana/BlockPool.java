@@ -110,7 +110,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> drops = new ArrayList();
+		ArrayList<ItemStack> drops = new ArrayList<>();
 
 		if(!lastFragile)
 			drops.add(new ItemStack(this, 1, state.getBlock().getMetaFromState(state)));
@@ -119,7 +119,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
+	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		par3.add(new ItemStack(par1, 1, 0));
 		par3.add(new ItemStack(par1, 1, 2));
 		par3.add(new ItemStack(par1, 1, 3));

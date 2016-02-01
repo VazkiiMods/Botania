@@ -108,7 +108,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		int yStart = yCenter + range;
 
-		List<CoordsWithBlock> blocks = new ArrayList();
+		List<CoordsWithBlock> blocks = new ArrayList<>();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++) {
@@ -124,7 +124,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					for(int id : ids)
 						if(validBlocks.contains(OreDictionary.getOreName(id))) {
 							boolean hasAir = false;
-							List<BlockPos> airBlocks = new ArrayList();
+							List<BlockPos> airBlocks = new ArrayList<>();
 
 							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 								BlockPos pos_ = pos.offset(dir);

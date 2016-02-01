@@ -12,18 +12,15 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class TileEnderEye extends TileMod {

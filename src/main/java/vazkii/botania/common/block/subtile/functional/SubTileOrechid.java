@@ -68,7 +68,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public ItemStack getOreToPut() {
-		Collection<WeightedRandom.Item> values = new ArrayList();
+		Collection<WeightedRandom.Item> values = new ArrayList<>();
 		Map<String, Integer> map = getOreMap();
 		for(String s : map.keySet())
 			values.add(new StringRandomItem(map.get(s), s));
@@ -98,7 +98,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public BlockPos getCoordsToPut() {
-		List<BlockPos> possibleCoords = new ArrayList();
+		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		Block source = getSourceBlock();
 		for(int i = -RANGE; i < RANGE + 1; i++)

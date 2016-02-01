@@ -36,7 +36,7 @@ public class GuiButtonAchievement extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 191, 11, 11);
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("botaniamisc.achievements"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;

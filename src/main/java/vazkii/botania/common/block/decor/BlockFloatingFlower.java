@@ -183,7 +183,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
+	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < 16; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}

@@ -21,7 +21,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
@@ -177,7 +176,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	public void saveLastRecipe() {
-		lastRecipe = new ArrayList();
+		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = getStackInSlot(i);
 			if(stack == null)

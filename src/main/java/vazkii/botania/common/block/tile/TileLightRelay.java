@@ -21,7 +21,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -109,7 +108,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 	
 	public BlockPos getEndpoint() {
-		List<TileLightRelay> pointsPassed = new ArrayList();
+		List<TileLightRelay> pointsPassed = new ArrayList<>();
 		TileLightRelay relay = this;
 		BlockPos lastCoords = null;
 

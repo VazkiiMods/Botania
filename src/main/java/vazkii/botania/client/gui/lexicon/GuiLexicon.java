@@ -71,7 +71,7 @@ public class GuiLexicon extends GuiScreen {
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
-	public static HashMap<String, String> notes = new HashMap();
+	public static HashMap<String, String> notes = new HashMap<>();
 
 	private static final String TAG_TYPE = "type";
 
@@ -80,11 +80,11 @@ public class GuiLexicon extends GuiScreen {
 	public static final int BOOKMARK_START = 1337;
 	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
-	public static List<GuiLexicon> bookmarks = new ArrayList();
-	public static List<String> bookmarkKeys = new ArrayList();
+	public static List<GuiLexicon> bookmarks = new ArrayList<>();
+	public static List<String> bookmarkKeys = new ArrayList<>();
 	boolean bookmarksNeedPopulation = false;
 
-	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
+	public static Queue<LexiconEntry> tutorial = new ArrayDeque<>();
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
@@ -131,7 +131,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void onInitGui() {
-		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
+		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
 		lastTime = ClientTickHandler.ticksInGame;
@@ -486,7 +486,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	void populateBookmarks() {
-		List remove = new ArrayList();
+		List<GuiButton> remove = new ArrayList<>();
 		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons)
 			if(button.id >= BOOKMARK_START)

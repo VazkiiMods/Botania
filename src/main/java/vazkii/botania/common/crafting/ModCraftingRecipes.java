@@ -1631,7 +1631,7 @@ public final class ModCraftingRecipes {
 			});
 
 			for(int i = 0; i < count; i++) {
-				List<Object> recipe = new ArrayList();
+				List<Object> recipe = new ArrayList<>();
 				for(int j = 0; j < 3; j++) {
 					String s = "";
 					for(int k = 0; k < 3; k++)
@@ -1785,8 +1785,8 @@ public final class ModCraftingRecipes {
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 
 		// 1.8 Stone Recipes
-		recipe18StoneBrick = new ArrayList();
-		recipe18StoneChisel = new ArrayList();
+		recipe18StoneBrick = new ArrayList<>();
+		recipe18StoneChisel = new ArrayList<>();
 		for(int i = 0; i < 4; i++) {
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8),
 					"SS", "SS",

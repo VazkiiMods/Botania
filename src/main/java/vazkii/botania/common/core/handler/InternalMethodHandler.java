@@ -104,12 +104,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
-		return new PagePetalRecipe(key, recipes);
+		return new PagePetalRecipe<>(key, recipes);
 	}
 
 	@Override
 	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
-		return new PagePetalRecipe(key, recipe);
+		return new PagePetalRecipe<>(key, recipe);
 	}
 
 	@Override

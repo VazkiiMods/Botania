@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -36,7 +37,7 @@ public class GuiButtonViewOnline extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 41 : 30, 200, 11, 11);
 
-		List<String> tooltip = Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.viewOnline"));
+		List<String> tooltip = Collections.singletonList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.viewOnline"));
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);

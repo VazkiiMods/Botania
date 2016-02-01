@@ -74,14 +74,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
-	List<String> alreadyCollidedAt = new ArrayList();
+	List<String> alreadyCollidedAt = new ArrayList<>();
 
 	boolean fullManaLastTick = true;
 
 	UUID shooterIdentity = null;
 	int _ticksExisted = 0;
 	boolean scanBeam = false;
-	public List<PositionProperties> propsList = new ArrayList();
+	public List<PositionProperties> propsList = new ArrayList<>();
 
 	public EntityManaBurst(World world) {
 		super(world);

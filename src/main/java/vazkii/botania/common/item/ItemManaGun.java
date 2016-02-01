@@ -180,7 +180,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
 			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);

@@ -102,7 +102,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 3; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -119,7 +119,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		else if(!world.isRemote) {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
-			List<EntityLiving> shearables = new ArrayList();
+			List<EntityLiving> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(this, 1, 1);
 
 			for(EntityLiving entity : entities) {

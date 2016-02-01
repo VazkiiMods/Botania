@@ -28,7 +28,7 @@ public class RecipeBrew {
 	public RecipeBrew(Brew brew, Object... inputs) {
 		this.brew = brew;
 
-		List<Object> inputsToSet = new ArrayList();
+		List<Object> inputsToSet = new ArrayList<>();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
@@ -39,7 +39,7 @@ public class RecipeBrew {
 	}
 
 	public boolean matches(IInventory inv) {
-		List<Object> inputsMissing = new ArrayList(inputs);
+		List<Object> inputsMissing = new ArrayList<>(inputs);
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -92,7 +92,7 @@ public class RecipeBrew {
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList(inputs);
+		return new ArrayList<>(inputs);
 	}
 
 	public Brew getBrew() {

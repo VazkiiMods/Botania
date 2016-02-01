@@ -19,7 +19,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
 public class TileSpiritShrine extends TileMod {

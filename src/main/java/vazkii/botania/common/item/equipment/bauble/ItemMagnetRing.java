@@ -18,6 +18,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import vazkii.botania.api.BotaniaAPI;
@@ -39,9 +40,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 
-	private static final List<String> BLACKLIST = Arrays.asList(new String[] {
-			"appliedenergistics2:item.ItemCrystalSeed",
-	});
+	private static final List<ResourceLocation> BLACKLIST = Arrays.asList(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
 
 	int range;
 

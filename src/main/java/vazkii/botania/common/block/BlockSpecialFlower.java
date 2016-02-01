@@ -203,7 +203,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
@@ -237,7 +237,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {

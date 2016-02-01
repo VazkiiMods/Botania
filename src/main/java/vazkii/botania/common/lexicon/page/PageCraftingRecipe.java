@@ -12,6 +12,7 @@ package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -54,7 +55,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	}
 
 	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
-		this(unlocalizedName, Arrays.asList(recipe));
+		this(unlocalizedName, Collections.singletonList(recipe));
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.shapeless")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(StatCollector.translateToLocal("botaniamisc.shapeless")));
 
 			iconY += 20;
 		}
@@ -101,7 +102,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.oredict")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(StatCollector.translateToLocal("botaniamisc.oredict")));
 		}
 		GlStateManager.disableBlend();
 	}

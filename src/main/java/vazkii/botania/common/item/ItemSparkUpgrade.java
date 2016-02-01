@@ -27,7 +27,7 @@ public class ItemSparkUpgrade extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < VARIANTS; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

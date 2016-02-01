@@ -18,7 +18,6 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;

@@ -26,7 +26,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibPotionNames;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
@@ -358,8 +357,8 @@ public final class ConfigHandler {
 		private int lastBuild;
 		private int currentBuild;
 
-		private Map<String, List<AdaptableValue>> adaptableValues = new HashMap();
-		private List<String> changes = new ArrayList();
+		private Map<String, List<AdaptableValue>> adaptableValues = new HashMap<>();
+		private List<String> changes = new ArrayList<>();
 
 		public ConfigAdaptor(boolean enabled) {
 			this.enabled = enabled;
@@ -408,7 +407,7 @@ public final class ConfigHandler {
 
 			AdaptableValue<T> adapt = new AdaptableValue<>(version, val);
 			if(!adaptableValues.containsKey(key)) {
-				ArrayList list = new ArrayList();
+				ArrayList<AdaptableValue> list = new ArrayList<>();
 				adaptableValues.put(key, list);
 			}
 

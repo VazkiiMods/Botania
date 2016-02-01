@@ -36,8 +36,8 @@ public class FXSparkle extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	public static Queue<FXSparkle> queuedRenders = new ArrayDeque();
-	public static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque();
+	public static Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
+	public static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
 
 	// Queue values
 	float f;

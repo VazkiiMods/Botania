@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.ITickable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 

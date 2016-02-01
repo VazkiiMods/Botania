@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;

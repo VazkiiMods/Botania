@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -43,6 +44,6 @@ public class GuiButtonShare extends GuiButtonLexicon {
 	}
 
 	public List<String> getTooltip() {
-		return Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.clickToShare"));
+		return Collections.singletonList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.clickToShare"));
 	}
 }

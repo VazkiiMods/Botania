@@ -45,7 +45,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, EntityLivingBase attacker) {
 		if(!(entity instanceof EntityPlayer) && entity != null) {
 			double range = 8;
-			final List<EntityLivingBase> alreadyTargetedEntities = new ArrayList();
+			final List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 

@@ -12,6 +12,7 @@ package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -63,7 +64,7 @@ public class PageRecipe extends LexiconPage {
 
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-			List<String> parsedTooltip = new ArrayList();
+			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
 			for(String s : tooltipData) {
@@ -79,7 +80,7 @@ public class PageRecipe extends LexiconPage {
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
 

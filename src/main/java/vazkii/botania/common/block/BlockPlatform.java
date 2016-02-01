@@ -106,13 +106,13 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
+	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
 		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);

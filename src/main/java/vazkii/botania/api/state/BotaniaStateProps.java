@@ -14,7 +14,6 @@ import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;

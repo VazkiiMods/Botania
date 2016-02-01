@@ -60,6 +60,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	public void drawAnimations(Minecraft minecraft) {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof BreweryRecipeWrapper))

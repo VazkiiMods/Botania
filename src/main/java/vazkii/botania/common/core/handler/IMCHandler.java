@@ -1,7 +1,5 @@
 package vazkii.botania.common.core.handler;
 
-import java.util.Iterator;
-
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.lib.LibMisc;
 

@@ -91,7 +91,7 @@ public class PageTerrasteel extends PageRecipe {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(new ItemStack(ModItems.manaResource, 1, 4));
 		return list;
 	}

@@ -62,14 +62,14 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, (i + 1) * 5 - 1));
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		list.add(String.format(StatCollector.translateToLocal("botaniamisc.shardLevel"), StatCollector.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 

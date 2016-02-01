@@ -86,6 +86,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		tess.draw();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof ElvenTradeRecipeWrapper))

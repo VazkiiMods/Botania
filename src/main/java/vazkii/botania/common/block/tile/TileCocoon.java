@@ -22,7 +22,6 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 
 public class TileCocoon extends TileMod {
 

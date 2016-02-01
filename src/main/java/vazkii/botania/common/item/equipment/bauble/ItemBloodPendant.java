@@ -57,7 +57,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
@@ -86,7 +86,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public void addHiddenTooltip(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addHiddenTooltip(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		super.addHiddenTooltip(stack, player, list, adv);
 
 		Brew brew = getBrew(stack);

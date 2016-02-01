@@ -77,7 +77,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item));
 		ItemStack creative = new ItemStack(item);
 		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -88,13 +88,13 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
 			String edition = EnumChatFormatting.GOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
 			if(!edition.isEmpty())
 				par3List.add(edition);
 
-			List<KnowledgeType> typesKnown = new ArrayList();
+			List<KnowledgeType> typesKnown = new ArrayList<>();
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
 				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
 				if(isKnowledgeUnlocked(par1ItemStack, type))

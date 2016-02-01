@@ -49,7 +49,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 		}
 
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		tooltip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal(challenge.unlocalizedName));
 
 		int tooltipY = (tooltip.size() - 1) * 10;

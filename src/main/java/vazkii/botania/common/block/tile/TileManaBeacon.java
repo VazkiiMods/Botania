@@ -10,11 +10,9 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.ITickable;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 
 public class TileManaBeacon extends TileMod {
 

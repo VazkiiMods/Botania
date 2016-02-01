@@ -28,6 +28,7 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 	private final ItemStack output;
 	private final int manaUsage;
 
+	@SuppressWarnings("unchecked")
 	public RunicAltarRecipeWrapper(RecipeRuneAltar recipe) {
 		ImmutableList.Builder builder = ImmutableList.builder();
 		for(Object o : recipe.getInputs()) {

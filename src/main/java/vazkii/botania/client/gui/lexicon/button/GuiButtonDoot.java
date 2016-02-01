@@ -44,7 +44,7 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 		GlStateManager.disableLighting();
 
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		tooltip.add(EnumChatFormatting.LIGHT_PURPLE + "Happy Birthday Vazkii!");
 		tooltip.add(EnumChatFormatting.GRAY + "doot doot");
 

@@ -61,7 +61,7 @@ public class Block18StoneWall extends BlockModWall {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
+	public void getSubBlocks(Item item, CreativeTabs tabs, List<ItemStack> list) {
 		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

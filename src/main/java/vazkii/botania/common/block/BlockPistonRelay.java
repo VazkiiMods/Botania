@@ -49,12 +49,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
-	public static Map<String, String> playerPositions = new HashMap();
-	public static Map<String, String> mappedPositions = new HashMap();
+	public static Map<String, String> playerPositions = new HashMap<>();
+	public static Map<String, String> mappedPositions = new HashMap<>();
 
-	static List<String> removeThese = new ArrayList();
-	static List<String> checkedCoords = new ArrayList();
-	static Map<String, Integer> coordsToCheck = new HashMap();
+	static List<String> removeThese = new ArrayList<>();
+	static List<String> checkedCoords = new ArrayList<>();
+	static Map<String, Integer> coordsToCheck = new HashMap<>();
 
 	public BlockPistonRelay() {
 		super(Material.gourd);
@@ -199,7 +199,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	@SubscribeEvent
 	public void tickEnd(TickEvent event) {
 		if(event.type == Type.SERVER && event.phase == Phase.END) {
-			List<String> coordsToCheckCopy = new ArrayList(coordsToCheck.keySet());
+			List<String> coordsToCheckCopy = new ArrayList<>(coordsToCheck.keySet());
 			for(String s : coordsToCheckCopy) {
 				decrCoords(s);
 				if(checkedCoords.contains(s))
@@ -262,7 +262,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		// ConcurrentModificationException failsafe
-		ArrayList<String> remove = new ArrayList(removeThese);
+		ArrayList<String> remove = new ArrayList<>(removeThese);
 		for(String s : remove) {
 			coordsToCheck.remove(s);
 			if(checkedCoords.contains(s))

@@ -56,7 +56,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	LexiconEntry currentEntry;
 	float infoTime;
 
-	List<LexiconEntry> entriesToDisplay = new ArrayList();
+	List<LexiconEntry> entriesToDisplay = new ArrayList<>();
 
 	public GuiLexiconIndex() {
 		parent = new GuiLexicon();

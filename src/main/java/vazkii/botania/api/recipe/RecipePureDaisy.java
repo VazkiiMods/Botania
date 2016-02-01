@@ -24,7 +24,7 @@ import vazkii.botania.api.subtile.SubTileEntity;
 
 public class RecipePureDaisy {
 
-	private static final Map<String, List<ItemStack>> oreMap = new HashMap();
+	private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
 	Object input;
 	IBlockState outputState;

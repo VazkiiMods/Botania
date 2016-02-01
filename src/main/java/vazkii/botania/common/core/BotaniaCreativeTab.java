@@ -28,7 +28,7 @@ import vazkii.botania.common.lib.LibMisc;
 public final class BotaniaCreativeTab extends CreativeTabs {
 
 	public static BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	List list;
+	List<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
@@ -52,7 +52,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllReleventItems(List list) {
+	public void displayAllReleventItems(List<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);

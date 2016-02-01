@@ -72,10 +72,10 @@ public final class BotaniaAPI {
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
+	public static Map<String, Brew> brewMap = new LinkedHashMap<>();
 	
-	public static List<String> disposableBlocks = new ArrayList<String>();
-	public static List<String> semiDisposableBlocks = new ArrayList<String>();
+	public static List<String> disposableBlocks = new ArrayList<>();
+	public static List<String> semiDisposableBlocks = new ArrayList<>();
 
 	public static List<RecipePetals> petalRecipes = new ArrayList<>();
 	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
@@ -87,18 +87,18 @@ public final class BotaniaAPI {
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
-	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
+	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet<>();
 	public static Map<String, String> subTileMods = new HashMap<>();
 	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
 
 	public static Map<String, Integer> oreWeights = new HashMap<>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<>();
-	public static Map<Item, Block> seeds = new HashMap();
+	public static Map<Item, Block> seeds = new HashMap<>();
 
 	public static Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static Set<String> magnetBlacklist = new LinkedHashSet<>();
-	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
+	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18);
@@ -328,7 +328,7 @@ public final class BotaniaAPI {
 	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
 	 * Pass in the class for the Entity, e.g. EntityCow.class
 	 */
-	public static void blacklistEntityFromGravityRod(Class entity) {
+	public static void blacklistEntityFromGravityRod(Class<? extends Entity> entity) {
 		gravityRodBlacklist.add(entity);
 	}
 	
@@ -646,7 +646,7 @@ public final class BotaniaAPI {
 	 */
 	public static List<IRecipe> getLatestAddedRecipes(int x) {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		List<IRecipe> newList = new ArrayList();
+		List<IRecipe> newList = new ArrayList<>();
 		for(int i = x - 1; i >= 0; i--)
 			newList.add(list.get(list.size() - 1 - i));
 

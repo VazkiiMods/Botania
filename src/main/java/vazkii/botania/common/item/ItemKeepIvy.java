@@ -47,7 +47,7 @@ public class ItemKeepIvy extends ItemMod {
 
 	@SubscribeEvent
 	public void onPlayerDrops(PlayerDropsEvent event) {
-		List<EntityItem> keeps = new ArrayList();
+		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.drops) {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))

@@ -71,7 +71,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
+	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
 		if(par7Entity != null && !(par7Entity instanceof IManaBurst))
 			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
 	}

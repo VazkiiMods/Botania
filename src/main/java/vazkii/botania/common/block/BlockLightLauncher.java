@@ -90,7 +90,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	}
 
 	public void pickUpEntities(World world, BlockPos pos) {
-		List<TileLightRelay> relays = new ArrayList();
+		List<TileLightRelay> relays = new ArrayList<>();
 		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof TileLightRelay) {
@@ -102,11 +102,11 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 		if(!relays.isEmpty()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos, pos.add(1, 1, 1));
-			List entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+			List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 			entities.addAll(world.getEntitiesWithinAABB(EntityItem.class, aabb));
 
 			if(!entities.isEmpty()) {
-				for(Entity entity : ((List<Entity>) entities)) {
+				for(Entity entity : entities) {
 					TileLightRelay relay = relays.get(world.rand.nextInt(relays.size()));
 					relay.mountEntity(entity);
 				}

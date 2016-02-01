@@ -29,7 +29,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -68,7 +67,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	int mana = 0;
 
 	public ItemStack itemToEnchant = null;
-	List<EnchantmentData> enchants = new ArrayList();
+	List<EnchantmentData> enchants = new ArrayList<>();
 
 	private static final BlockPos[] OBSIDIAN_LOCATIONS = {
 		new BlockPos(0, -1, 0),

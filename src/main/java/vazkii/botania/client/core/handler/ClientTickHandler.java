@@ -78,7 +78,7 @@ public class ClientTickHandler {
 				if(player != null) {
 					ItemStack stack = player.getCurrentEquippedItem();
 					if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-						List<TileSignature> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
+						List<TileSignature> list = new ArrayList<>(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
 						for(TileSignature sig : list) {
 							if(!sig.remoteWorld)
 								continue;

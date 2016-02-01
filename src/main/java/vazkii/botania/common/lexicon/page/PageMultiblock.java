@@ -103,7 +103,7 @@ public class PageMultiblock extends LexiconPage {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0F, 0F, 200F);
 		if(mx >= x && mx < x + 16 && my >= y && my < y + 16) {
-			List<String> mats = new ArrayList();
+			List<String> mats = new ArrayList<>();
 			mats.add(StatCollector.translateToLocal("botaniamisc.materialsRequired"));
 			for(ItemStack stack : mb.materials) {
 				String size = "" + stack.stackSize;

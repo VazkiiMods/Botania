@@ -19,7 +19,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -77,7 +76,7 @@ public class TileAlfPortal extends TileMod {
 	private static final String TAG_STACK = "portalStack";
 	private static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
-	List<ItemStack> stacksIn = new ArrayList();
+	List<ItemStack> stacksIn = new ArrayList<>();
 
 	public int ticksOpen = 0;
 	int ticksSinceLastItem = 0;
@@ -289,7 +288,8 @@ public class TileAlfPortal extends TileMod {
 		return checkMultipleConverters(baseConverter) || checkMultipleConverters(CONVERTER_Z_SWAP, baseConverter);
 	}
 
-	private boolean checkMultipleConverters(Function<BlockPos, BlockPos>... converters) {
+	@SafeVarargs
+	private final boolean checkMultipleConverters(Function<BlockPos, BlockPos>... converters) {
 		if(!check2DArray(AIR_POSITIONS, Blocks.air.getDefaultState(), true, converters))
 			return false;
 		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT), false, converters))
@@ -305,7 +305,8 @@ public class TileAlfPortal extends TileMod {
 		return true;
 	}
 
-	private void lightPylons(Function<BlockPos, BlockPos>... converters) {
+	@SafeVarargs
+	private final void lightPylons(Function<BlockPos, BlockPos>... converters) {
 		if(ticksOpen < 50)
 			return;
 

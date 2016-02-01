@@ -10,9 +10,9 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +100,7 @@ public class BlockManaFlame extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return new ArrayList();
+		return ImmutableList.of();
 	}
 
 	@Override

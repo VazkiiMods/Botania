@@ -13,7 +13,6 @@ package vazkii.botania.client.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -34,7 +33,6 @@ import vazkii.botania.api.state.enums.PylonVariant;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 public class ModelPylon implements IPylonModel {
 

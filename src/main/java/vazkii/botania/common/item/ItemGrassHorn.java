@@ -46,7 +46,7 @@ public class ItemGrassHorn extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -90,7 +90,7 @@ public class ItemGrassHorn extends ItemMod {
 		Random rand = new Random(srcPos.hashCode());
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
-		List<BlockPos> coords = new ArrayList();
+		List<BlockPos> coords = new ArrayList<>();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
@@ -106,7 +106,7 @@ public class ItemGrassHorn extends ItemMod {
 		int count = Math.min(coords.size(), 32 + stackDmg * 16);
 		for(int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
-			List<ItemStack> items = new ArrayList();
+			List<ItemStack> items = new ArrayList<>();
 			IBlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
 			items.addAll(block.getDrops(world, currCoords, state, 0));

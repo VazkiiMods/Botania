@@ -36,7 +36,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < 3; i++)
 			tooltip.add((i == 0 ? EnumChatFormatting.RED : EnumChatFormatting.GRAY) + StatCollector.translateToLocal("botaniamisc.lexiconOptions" + i));
 

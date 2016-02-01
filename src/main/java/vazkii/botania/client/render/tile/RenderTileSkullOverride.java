@@ -10,12 +10,9 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +23,6 @@ import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 
 public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 

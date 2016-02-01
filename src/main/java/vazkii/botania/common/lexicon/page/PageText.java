@@ -57,11 +57,11 @@ public class PageText extends LexiconPage {
 		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
-		List<List<String>> lines = new ArrayList();
+		List<List<String>> lines = new ArrayList<>();
 
 		String controlCodes = "";
 		for(String s : textEntries) {
-			List<String> words = new ArrayList();
+			List<String> words = new ArrayList<>();
 			String lineStr = "";
 			String[] tokens = s.split(" ");
 			for(String token : tokens) {
@@ -73,7 +73,7 @@ public class PageText extends LexiconPage {
 				if(font.getStringWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
-					words = new ArrayList();
+					words = new ArrayList<>();
 				}
 
 				words.add(controlCodes + token);
@@ -81,7 +81,7 @@ public class PageText extends LexiconPage {
 
 			if(!lineStr.isEmpty())
 				lines.add(words);
-			lines.add(new ArrayList());
+			lines.add(new ArrayList<>());
 		}
 
 		int i = 0;

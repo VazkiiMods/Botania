@@ -70,7 +70,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
+	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
@@ -159,7 +159,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		// If the mapping for this dimension doesn't exist, create it.
 		int dim = world.provider.getDimensionId();
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+			blockSwappers.put(dim, new HashSet<>());
 
 		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
@@ -250,8 +250,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			this.range = range;
 			this.treatLeavesSpecial = leaves;
 			
-			this.candidateQueue = new PriorityQueue<SwapCandidate>();
-			this.completedCoords = new HashSet<BlockPos>();
+			this.candidateQueue = new PriorityQueue<>();
+			this.completedCoords = new HashSet<>();
 			
 			// Add the origin to our candidate queue with the original range
 			candidateQueue.offer(new SwapCandidate(this.origin, this.range));
@@ -325,7 +325,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 		
 		public List<BlockPos> adjacent(BlockPos original) {
-			List<BlockPos> coords = new ArrayList<BlockPos>();
+			List<BlockPos> coords = new ArrayList<>();
 			// Visit all the surrounding blocks in the provided radius.
 			// Gotta love these nested loops, right?
 			for(int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++)

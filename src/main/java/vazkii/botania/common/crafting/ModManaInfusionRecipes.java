@@ -44,17 +44,17 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion sugarCaneRecipe;
 
 	public static void init() {
-		manasteelRecipes = new ArrayList();
+		manasteelRecipes = new ArrayList<>();
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000));
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 27000));
 
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Items.ender_pearl), 6000);
 
-		manaDiamondRecipes = new ArrayList();
+		manaDiamondRecipes = new ArrayList<>();
 		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000));
 		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 3), new ItemStack(Blocks.diamond_block), 90000));
 
-		manaPowderRecipes = new ArrayList();
+		manaPowderRecipes = new ArrayList<>();
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.gunpowder), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.redstone), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 23), new ItemStack(Items.glowstone_dust), 500));
@@ -67,7 +67,7 @@ public final class ModManaInfusionRecipes {
 		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.tallgrass, 1, 1), 2500);
 		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 1), new ItemStack(Blocks.deadbush), 2500);
 
-		mycelSeedsRecipes = new ArrayList();
+		mycelSeedsRecipes = new ArrayList<>();
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.red_mushroom), 6500));
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.brown_mushroom), 6500));
 

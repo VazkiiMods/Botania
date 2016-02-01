@@ -1,8 +1,5 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

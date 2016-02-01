@@ -26,12 +26,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -121,7 +118,7 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {

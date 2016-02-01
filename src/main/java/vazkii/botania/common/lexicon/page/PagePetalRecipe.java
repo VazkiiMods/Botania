@@ -12,6 +12,7 @@ package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -51,7 +52,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	}
 
 	public PagePetalRecipe(String unlocalizedName, T recipe) {
-		this(unlocalizedName, Arrays.asList(recipe));
+		this(unlocalizedName, Collections.singletonList(recipe));
 	}
 
 	@Override
@@ -133,7 +134,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		for(T r : recipes)
 			list.add(r.getOutput());
 

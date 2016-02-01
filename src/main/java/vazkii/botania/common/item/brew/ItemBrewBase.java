@@ -106,7 +106,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack stack = new ItemStack(item);
 			setBrew(stack, s);
@@ -135,7 +135,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
