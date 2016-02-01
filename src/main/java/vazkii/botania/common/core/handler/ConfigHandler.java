@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.Botania;
@@ -36,7 +36,6 @@ public final class ConfigHandler {
 	public static Configuration config;
 	public static ConfigAdaptor adaptor;
 
-	private static final String CATEGORY_POTIONS = "potions";
 
 	public static final int hardcorePassiveGeneration = 72000;
 
@@ -99,23 +98,13 @@ public final class ConfigHandler {
 	public static double flowerTallChance = 0.05;
 	public static int mushroomQuantity = 40;
 
-	private static boolean verifiedPotionArray = false;
-	private static int potionArrayLimit = 0; // todo 1.8 potion things should be unneeded thanks to potion registry
-
-	public static int potionIDSoulCross = 91;
-	public static int potionIDFeatherfeet = 92;
-	public static int potionIDEmptiness = 93;
-	public static int potionIDBloodthirst = 94;
-	public static int potionIDAllure = 95;
-	public static int potionIDClear = 96;
-
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
 
 		config.load();
 		load();
 
-		FMLCommonHandler.instance().bus().register(new ChangeListener());
+		MinecraftForge.EVENT_BUS.register(new ChangeListener());
 	}
 
 	public static void load() {
@@ -281,13 +270,6 @@ public final class ConfigHandler {
 		desc = "The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
 
-//		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross); todo 1.8 should be unneeded thanks to potion registry
-//		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
-//		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
-//		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
-//		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
-//		potionIDClear = loadPropPotionId(LibPotionNames.CLEAR, potionIDClear);
-
 		if(config.hasChanged())
 			config.save();
 	}
@@ -327,28 +309,6 @@ public final class ConfigHandler {
 			adaptor.adaptPropertyBool(prop, prop.getBoolean(default_));
 
 		return prop.getBoolean(default_);
-	}
-
-	public static int loadPropPotionId(String propName, int default_) {
-		if(!verifiedPotionArray)
-			verifyPotionArray();
-
-		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
-		int val = prop.getInt(default_);
-		if(val > potionArrayLimit) {
-			val = default_;
-			prop.set(default_);
-		}
-
-		return val;
-	}
-
-	private static void verifyPotionArray() {
-		if(Loader.isModLoaded("DragonAPI"))
-			potionArrayLimit = Potion.potionTypes.length;
-		else potionArrayLimit = 127;
-
-		verifiedPotionArray = true;
 	}
 
 	public static class ConfigAdaptor {

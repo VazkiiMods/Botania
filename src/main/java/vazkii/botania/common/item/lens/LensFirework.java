@@ -61,7 +61,7 @@ public class LensFirework extends Lens {
 		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
 
 		NBTTagCompound fireworks = new NBTTagCompound();
-		fireworks.setInteger("Flight", (int) Math.random() * 3 + 2);
+		fireworks.setInteger("Flight", (int) (Math.random() * 3 + 2)); // todo 1.8 this bugged in 1.7 to always be 0 (cast before multiplication). is that intended now?
 
 		NBTTagList explosions = new NBTTagList();
 		explosions.appendTag(explosion);

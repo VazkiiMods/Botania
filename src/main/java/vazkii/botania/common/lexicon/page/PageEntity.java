@@ -104,7 +104,7 @@ public class PageEntity extends LexiconPage{
 	public void prepDummy() {
 		if(dummyEntity == null || dummyEntity.isDead) {
 			try {
-				dummyEntity = (Entity) entityConstructor.newInstance(new Object[] {Minecraft.getMinecraft().theWorld});
+				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().theWorld);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

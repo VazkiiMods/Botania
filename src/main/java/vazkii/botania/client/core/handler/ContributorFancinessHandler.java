@@ -171,6 +171,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.popMatrix();
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void renderFlower(EntityPlayer player, ItemStack flower) {
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(player);

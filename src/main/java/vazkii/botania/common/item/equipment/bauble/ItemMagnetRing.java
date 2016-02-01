@@ -130,7 +130,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	public static void addItemToBlackList(String item) {
-		BLACKLIST.add(item);
+		BLACKLIST.add(new ResourceLocation(item));
 	}
 
 	@Override

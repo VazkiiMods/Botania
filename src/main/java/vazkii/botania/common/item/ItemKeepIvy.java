@@ -42,7 +42,6 @@ public class ItemKeepIvy extends ItemMod {
 		GameRegistry.addRecipe(new KeepIvyRecipe());
 		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);
-		FMLCommonHandler.instance().bus().register(this);
 	}
 
 	@SubscribeEvent

@@ -309,6 +309,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.scale(f, f, f);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void renderIcon(int i) {
 		GlStateManager.pushMatrix();
 		renderStack.setItemDamage(i);

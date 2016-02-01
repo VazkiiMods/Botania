@@ -28,6 +28,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 
 	private static final Map<EnumFacing, Integer> ROTATIONS = ImmutableMap.of(EnumFacing.NORTH, 180, EnumFacing.SOUTH, 0, EnumFacing.WEST, 270, EnumFacing.EAST, 90);
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
 		if (plate != null && plate.getWorld() != null && !plate.getWorld().isBlockLoaded(plate.getPos(), false)) {

@@ -99,6 +99,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void renderManaTablet(EntityPlayer player) {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
