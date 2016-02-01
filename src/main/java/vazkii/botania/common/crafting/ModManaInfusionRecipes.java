@@ -75,7 +75,7 @@ public final class ModManaInfusionRecipes {
 
 		if(Botania.thaumcraftLoaded) {
 			Item inkwell = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemInkwell");
-			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
+			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell, 1, ModItems.manaInkwell.getMaxDamage()), new ItemStack(inkwell), 35000);
 		}
 
 		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.glass), 150);
