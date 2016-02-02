@@ -424,7 +424,7 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
 		for(int i = 0; i < 7; i++)
-			OreDictionary.registerOre(LibOreDict.QUARTZ[i],new ItemStack(quartz,1,i));
+			OreDictionary.registerOre(LibOreDict.QUARTZ[i], new ItemStack(quartz, 1, i));
 
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
 		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaResource, 1, 0));

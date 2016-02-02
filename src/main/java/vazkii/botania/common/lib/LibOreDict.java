@@ -92,6 +92,7 @@ public final class LibOreDict {
 	};
 
 	public static final String[] QUARTZ = new String[] {
-		"quartzDark","quartzMana","quartzBlaze","quartzLavender","quartzRed","quartzElven","quartzSunny"
+		"quartzDark", "quartzMana", "quartzBlaze", 
+		"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
 	};
 }
