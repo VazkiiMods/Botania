@@ -10,6 +10,9 @@ I will EXACTLY match Vazkii/upstream design wise so NEVER ask me for balance or 
 
 Please report all 1.8 bugs to MY REPOSITORY, NOT VAZKII'S.
 
+These non-CurseForge builds can be openly used in modpacks of any kind, in accordance with the requirements of the license of this mod.
+
+
 ![](https://github.com/Vazkii/Botania/blob/master/web/img/logo.png)  
 Welcome to the Botania repository.  
 
