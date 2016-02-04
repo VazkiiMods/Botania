@@ -2844,13 +2844,13 @@ botania.page.cocoon2=New World, Perfect World
 # -- MANASTORM CHARGE
 botania.entry.manaBomb=Manastorm Charge
 botania.tagline.manaBomb=Manastorm Charge go BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM
-botania.page.manaBomb0=Putting together some &1TNT&0 and a &1Gaia Spirit&0 creates a &1Manastorm Charge&0, a type of explosive, per say. Ignited with a &1Mana Burst&0, the charge will create an unstable &1Manastorm Epicenter&0, which will, over time, spawn supercharged &1Mana Bursts&0, that explode on contact with other blocks.<br>Needless to say, only a maniac would unleash such a force near anything they care about.
+botania.page.manaBomb0=Putting together some &1TNT&0 and a &1Gaia Spirit&0 creates a &1Manastorm Charge&0, a type of explosive, per se. Ignited with a &1Mana Burst&0, the charge will create an unstable &1Manastorm Epicenter&0, which will, over time, spawn supercharged &1Mana Bursts&0, that explode on contact with other blocks.<br>Needless to say, only a maniac would unleash such a force near anything they care about.
 botania.page.manaBomb1=Prepare to face the mighty...
 
 # -- TERU TERU BOZU
 botania.entry.teruTeruBozu=Teru Teru Bozu
 botania.tagline.teruTeruBozu=Weather control and cuteness overload
-botania.page.teruTeruBozu0=&1Teru Teru Bozu&0 are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that &1Rain&0 or &1Snowstorms&0 will last for. During bad weather, right clicking one with a &1Sunflower&0 or tossing said flower at it will have sun come back. Attaching a &1Redstone Comparator&0 to one of these allows for it to detect bad weather.
+botania.page.teruTeruBozu0=&1Teru Teru Bozu&0 are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that &1Rain&0 or &1Snowstorms&0 will last. During bad weather, right clicking one with a &1Sunflower&0 or tossing said flower at it will have the sun come back. Attaching a &1Redstone Comparator&0 to one of these allows for it to detect bad weather.
 botania.page.teruTeruBozu1=Too spoopy
 
 # -- LIVINGWOOD AVATAR
@@ -2870,9 +2870,9 @@ botania.page.felPumpkin1=Nerfing warlocks again
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster
 botania.tagline.manaBlaster=Portable Mana Spreader, with lenses!
-botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
+botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at anything that can receive mana.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
-botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.<br>If the shooter has a &1Haste&0 effect present on their person, the speed at which they can fire the blaster also increases. 
+botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster. To attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.<br>If the shooter has a &1Haste&0 effect present on their person, the speed at which they can fire the blaster also increases. 
 botania.page.manaBlaster3=We need more dakka
 
 # -- PASTURE SEEDS
@@ -2888,7 +2888,7 @@ botania.page.grassSeeds5=The alternate &1Pasture Seeds&0
 # -- ROD OF THE LANDS
 botania.entry.dirtRod=Rod of the Lands
 botania.tagline.dirtRod=A rod to create dirt
-botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.<br>For the same &4Mana&0 cost, this item can provide &1Dirt&0 to the &1Rod of the Shifting Crust&0.
+botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simple tool; by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.<br>For the same &4Mana&0 cost, this item can provide &1Dirt&0 to the &1Rod of the Shifting Crust&0.
 botania.page.dirtRod1=The Dirty Stick
 
 # -- TERRA FIRMA ROD
@@ -2902,7 +2902,7 @@ botania.page.terraformRod3=Quite a justicar
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=Manasteel Equipment
 botania.tagline.manaGear=Iron-tier equipment that repairs itself with Mana
-botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
+botania.page.manaGear0=&1Manasteel&0, like other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
 botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from the user's inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.<br>A detail to keep in mind is that &1Shears&0 made of mana materials will trigger tripwire, unlike iron ones.
 botania.page.manaGear1=The &1Manasteel Pickaxe&0
 botania.page.manaGear2=The &1Manasteel Shovel&0
@@ -2925,7 +2925,7 @@ botania.page.grassHorn3=Modifying to break &1Snow&0
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=Terrasteel Armor
 botania.tagline.terrasteelArmor=Diamond-tier armor with Manasteel properties
-botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0.
+botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much like its &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more like &1Diamond&0 instead of &1Iron&0.
 botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
 botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
 botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
@@ -2940,11 +2940,11 @@ botania.page.terraSword1=No Broken Hero Sword
 # -- TERRA SHATTERER
 botania.entry.terraPick=Terra Shatterer
 botania.tagline.terraPick=Upgradable pickaxe with large area of effect powers
-botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for its creation.<br>The tool functions very much like a &1Mana Tablet&0 by which it can amass &4Mana&0 by being tossed on a &1Mana Pool&0, it can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
-botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines its &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0. &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
+botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for its creation.<br>The tool functions very much like a &1Mana Tablet&0, in that it can amass &4Mana&0 by being tossed on a &1Mana Pool&0. It can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
+botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines its &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0, with &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
 botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change its speed, but instead, it increases the power of its &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
 botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger through the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from its storage passively, even if not being used to mine.
-botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
+botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in that it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
 botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW
 
 # -- ROD OF THE SEAS
