@@ -11,6 +11,7 @@
 package vazkii.botania.api.wiki;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
@@ -53,7 +54,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 		if(block == null)
 			return null;
 
-		ItemStack stack = block.getPickBlock(pos, world, bPos, null);
+		ItemStack stack = block.getPickBlock(pos, world, bPos, Minecraft.getMinecraft().thePlayer);
 
 		if(stack == null || stack.getItem() == null)
 			stack = new ItemStack(block, 1, block.getDamageValue(world, bPos));
