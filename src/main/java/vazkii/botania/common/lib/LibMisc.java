@@ -19,7 +19,7 @@ public final class LibMisc {
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:Baubles";
+	public static final String DEPENDENCIES = "required-after:Baubles;after:Thaumcraft";
 	public static final String MC_VERSIONS = "[1.8.8,1.8.9]";
 
 	// Network Contants

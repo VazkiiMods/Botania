@@ -71,7 +71,7 @@ public class TileMod extends TileEntity implements ITickable {
 			else {
 				try {
 					updateEntity();
-				} catch (Exception e) { // todo 1.8 remove this abhorration after I figure out what's going on.
+				} catch (NullPointerException e) { // todo 1.8 remove this abhorration after I figure out what's going on.
 					e.printStackTrace();
 					FMLLog.severe("[Botania]: CLIENT TICK FAILED");
 					FMLLog.severe("[Botania]: World: %s, Pos: %s, TE: %s", worldObj, pos, this);
