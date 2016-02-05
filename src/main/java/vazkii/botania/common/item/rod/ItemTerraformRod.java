@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
@@ -120,6 +121,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					BlockPos pos = new BlockPos(xCenter + i, yStart + k, zCenter + j);
 					IBlockState state = par2World.getBlockState(pos);
 
+					if (Item.getItemFromBlock(state.getBlock()) == null)
+						break;
 					int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 					for(int id : ids)
 						if(validBlocks.contains(OreDictionary.getOreName(id))) {
