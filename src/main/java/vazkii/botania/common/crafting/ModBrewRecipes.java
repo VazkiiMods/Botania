@@ -72,10 +72,11 @@ public class ModBrewRecipes {
 	}
 
 	public static void initTC() {
-		Item resource = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "salis_mundus"));
+		Item salisMundus = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "salis_mundus"));
 		Item bathSalts = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "bath_salts"));
+		Item amber = Item.itemRegistry.getObject(new ResourceLocation("thaumcraft", "amber"));
 
-		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.nether_wart), new ItemStack(resource, 1, 14), new ItemStack(bathSalts), new ItemStack(resource, 1, 6));
+		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.nether_wart), new ItemStack(salisMundus), new ItemStack(bathSalts), new ItemStack(amber));
 	}
 
 
