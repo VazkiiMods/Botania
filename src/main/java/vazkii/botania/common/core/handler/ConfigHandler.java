@@ -189,8 +189,9 @@ public final class ConfigHandler {
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
 
-		desc = "Set this to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
-		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
+// 		todo - this has been split into a separate respack for now
+// 		desc = "Set this to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
+//		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 
 		desc = "Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);
