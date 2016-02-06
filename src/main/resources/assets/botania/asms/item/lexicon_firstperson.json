@@ -1,0 +1,15 @@
+{
+  "parameters": {},
+  "clips": {
+    "closed": "botania:block/lexicon_firstperson@closed",
+    "open": "botania:block/lexicon_firstperson@open"
+  },
+  "states": [ "closed", "open", "opening", "closing" ],
+  "transitions": {
+    "closed": "opening",
+    "opening": "open",
+    "open": "closing",
+    "closing": "closed"
+  },
+  "start_state": "closed"
+}

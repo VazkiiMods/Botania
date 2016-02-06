@@ -26,6 +26,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.model.LexiconModelDispatcher;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.PylonItemModel;
 import vazkii.botania.common.block.ModBlocks;
@@ -106,6 +107,9 @@ public class MiscellaneousIcons {
 
         // Platforms
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
+
+        // Lexicon
+        evt.modelRegistry.putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModelDispatcher());
     }
 
     @SubscribeEvent
