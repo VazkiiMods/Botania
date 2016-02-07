@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
@@ -44,7 +45,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	private static final int COST_PER = 55;
 
-	static final List<String> validBlocks = Arrays.asList(new String[] {
+	private static final List<String> validBlocks = ImmutableList.of(
 			"stone",
 			"dirt",
 			"grass",
@@ -55,19 +56,19 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			"mycelium",
 			"podzol",
 			"sandstone",
-
-			// Mod support
 			"blockDiorite",
 			"stoneDiorite",
 			"blockGranite",
 			"stoneGranite",
 			"blockAndesite",
 			"stoneAndesite",
+
+			// Mod support
 			"marble",
 			"blockMarble",
 			"limestone",
 			"blockLimestone"
-	});
+	);
 
 	public ItemTerraformRod() {
 		super();
@@ -104,7 +105,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		int yCenter = (int) par3EntityPlayer.posY;
 		int zCenter = (int) par3EntityPlayer.posZ;
 
-		if(yCenter < 62) // Not below sea level
+		if(yCenter < par2World.getSeaLevel()) // Not below sea level
 			return;
 
 		int yStart = yCenter + range;

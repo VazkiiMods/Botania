@@ -52,6 +52,11 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return newStack.getItem() != this;
+	}
+
+	@Override
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
 		if(!(par3Entity instanceof EntityPlayer))
 			return;

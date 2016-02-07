@@ -270,7 +270,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack before, ItemStack after, boolean slotChanged) {
-		return isEnabled(before) != isEnabled(after);
+		return after.getItem() != this || isEnabled(before) != isEnabled(after);
 	}
 
 }

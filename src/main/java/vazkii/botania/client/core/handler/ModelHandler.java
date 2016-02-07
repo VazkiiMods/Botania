@@ -517,7 +517,6 @@ public final class ModelHandler {
         registerItemModel(fireRod);
         registerItemModel(rainbowRod);
         registerItemModel(skyDirtRod);
-        registerItemModel(tornadoRod);
         registerItemModel(terraformRod);
         registerItemModel(diviningRod);
         registerItemModel(gravityRod);
