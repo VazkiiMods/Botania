@@ -1,0 +1,77 @@
+{
+  "joints": {
+    "spine": { "1": [ 1.0 ] },
+    "left_side": { "0": [ 1.0 ], "3": [ 1.0 ] },
+    "right_side": { "2": [ 1.0 ], "6": [ 1.0 ] },
+    "left_flip": { "4": [ 1.0 ] },
+    "right_flip": { "5": [ 1.0 ] }
+  },
+  "clips": {
+    "closed": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    },
+    "open": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    },
+    "opening": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    },
+    "closing": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    },
+    "flip_left": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    },
+    "flip_right": {
+      "loop": false,
+      "joint_clips": {
+        "spine": [],
+        "left_side": [],
+        "right_side": [],
+        "left_flip": [],
+        "right_flip": []
+      },
+      "events": {}
+    }
+  }
+}

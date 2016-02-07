@@ -1,18 +1,25 @@
 package vazkii.botania.client.model;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.client.model.animation.Animation;
+import net.minecraftforge.client.model.animation.Event;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import org.apache.commons.lang3.tuple.Pair;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.vecmath.Matrix4f;
 import java.util.List;
@@ -20,10 +27,11 @@ import java.util.List;
 /**
  * This class handles choosing between the lexicon's default model and the special first person one
  */
-public class LexiconModelDispatcher implements IPerspectiveAwareModel {
+public class LexiconModel implements IPerspectiveAwareModel {
 
 	private IFlexibleBakedModel normalModel;
 	private IFlexibleBakedModel specialModel;
+	private IAnimationStateMachine asm;
 
 	private IFlexibleBakedModel getNormalModel() {
 		if (normalModel == null) {
@@ -36,9 +44,13 @@ public class LexiconModelDispatcher implements IPerspectiveAwareModel {
 
 	private IFlexibleBakedModel getSpecialModel() {
 		if (specialModel == null) {
-			specialModel = new IFlexibleBakedModel.Wrapper(new LexiconAnimatedModel(Minecraft.getMinecraft()
+			specialModel = new IFlexibleBakedModel.Wrapper(Minecraft.getMinecraft()
 					.getRenderItem().getItemModelMesher().getModelManager()
-					.getModel(new ModelResourceLocation("botania:lexicon_firstperson", "inventory"))), Attributes.DEFAULT_BAKED_FORMAT);
+					.getModel(new ModelResourceLocation("botania:lexicon_firstperson", "inventory")), Attributes.DEFAULT_BAKED_FORMAT);
+		}
+
+		if (asm == null) {
+			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/item/lexicon_firstperson.json"), ImmutableMap.of());
 		}
 		return specialModel;
 	}
@@ -46,8 +58,13 @@ public class LexiconModelDispatcher implements IPerspectiveAwareModel {
 	@SuppressWarnings("deprecation")
 	@Override
 	public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-		if (cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON) {
-			return Pair.of(getSpecialModel(), new TRSRTransformation(getSpecialModel().getItemCameraTransforms().getTransform(cameraTransformType)).getMatrix());
+		if (ConfigHandler.lexicon3dModel && cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON) {
+			IFlexibleBakedModel model = getSpecialModel();
+			float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 20F;
+
+			Pair<IModelState, Iterable<Event>> animate = asm.apply(time);
+			return Pair.of(model, new TRSRTransformation(model.getItemCameraTransforms().getTransform(cameraTransformType)).getMatrix());
+
 		} else {
 			return Pair.of(getNormalModel(), new TRSRTransformation(getNormalModel().getItemCameraTransforms().getTransform(cameraTransformType)).getMatrix());
 		}
