@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei;
 
 import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.IRecipeRegistry;
@@ -32,11 +33,6 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
 public class JEIBotaniaPlugin implements IModPlugin {
 
 	private IJeiHelpers jeiHelpers;
-
-	@Override
-	public boolean isModLoaded() {
-		return true;
-	}
 
 	@Override
 	public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
@@ -77,6 +73,10 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
+	}
+
+	@Override
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 	}
 
 }

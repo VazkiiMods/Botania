@@ -70,8 +70,7 @@ dependencies {
     //compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
     //compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
     //compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
-
-    deobfCompile "mezz.jei:jei_1.8.9:2.13.7.64"
+    deobfCompile "mezz.jei:jei_1.8.9:2.25.7.145"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

@@ -21,6 +21,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ManaPoolRecipeWrapper implements IRecipeWrapper {
@@ -71,6 +72,10 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+	}
+
+	@Override
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		GlStateManager.enableAlpha();
 		HUDHandler.renderManaBar(28, 50, 0x0000FF, 0.75F, mana, TilePool.MAX_MANA / 10);
 		GlStateManager.disableAlpha();
@@ -78,6 +83,17 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+	}
+
+	@Nullable
+	@Override
+	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+		return ImmutableList.of();
+	}
+
+	@Override
+	public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
+		return false;
 	}
 
 }

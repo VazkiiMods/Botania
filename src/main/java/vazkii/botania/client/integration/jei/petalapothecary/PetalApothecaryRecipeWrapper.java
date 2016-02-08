@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipePetals;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class PetalApothecaryRecipeWrapper implements IRecipeWrapper {
@@ -63,7 +64,21 @@ public class PetalApothecaryRecipeWrapper implements IRecipeWrapper {
 	}
 
 	@Override
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+	}
+
+	@Override
 	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+	}
+
+	@Override
+	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+		return ImmutableList.of();
+	}
+
+	@Override
+	public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
+		return false;
 	}
 
 }

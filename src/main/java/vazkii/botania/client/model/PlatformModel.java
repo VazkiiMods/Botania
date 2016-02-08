@@ -22,6 +22,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class PlatformModel implements ISmartBlockModel {
 
 	@Override
 	public IBakedModel handleBlockState(IBlockState state) {
+		if(state.getBlock() != ModBlocks.platform)
+			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+
 		EnumWorldBlockLayer layer = MinecraftForgeClient.getRenderLayer();
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
 
