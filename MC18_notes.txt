@@ -13,6 +13,7 @@ Anyways, vanilla removed it from their method so we follow suit.
 * Removed icon methods from SubTileSignature
 
 -- Other --
+* Lang entries to be updated in non-english: Corporea funnel new numbers. Moving of prismarine entry.
 * Most things left untouched to make patches from upstream easier
 * Most uses of chunkcoordinates directly convert blockpos (THANK YOU VAZKII FOR USING THEM). Remove creation of extra instances
 since BlockPos'es are immutable and thus can be reused everywhere.
