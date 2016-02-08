@@ -2870,7 +2870,7 @@ botania.page.felPumpkin1=Nerfing warlocks again
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster
 botania.tagline.manaBlaster=Portable Mana Spreader, with lenses!
-botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at anything that can receive mana.
+botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst wherever one is looking.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster. To attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.<br>If the shooter has a &1Haste&0 effect present on their person, the speed at which they can fire the blaster also increases. 
 botania.page.manaBlaster3=We need more dakka
