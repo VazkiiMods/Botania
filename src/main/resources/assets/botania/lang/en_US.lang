@@ -2620,7 +2620,7 @@ botania.page.dandelifeon9=Creating &1Cellular Blocks&0
 # -- MANA PYLON
 botania.entry.pylon=Mana Pylon
 botania.tagline.pylon=Enchantment booster
-botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
+botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjacent to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
 botania.page.pylon1=&oYou must construct additional pylons!&r
 
 # -- MANA ENCHANTING
