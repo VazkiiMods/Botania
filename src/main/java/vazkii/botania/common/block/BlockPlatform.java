@@ -53,12 +53,15 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		setUnlocalizedName(LibBlockNames.PLATFORM);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.HELD_STATE, null)
+				.withProperty(BotaniaStateProps.HELD_WORLD, null)
+				.withProperty(BotaniaStateProps.HELD_POS, null)
 				.withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
 	}
 
 	@Override
 	public BlockState createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, }, new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE });
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, },
+				new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE, BotaniaStateProps.HELD_WORLD, BotaniaStateProps.HELD_POS });
 	}
 
 	@Override
@@ -76,11 +79,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 
 	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
+				.withProperty(BotaniaStateProps.HELD_POS, pos);
+
 		if (world.getTileEntity(pos) instanceof TileCamo) {
 			TileCamo tile = ((TileCamo) world.getTileEntity(pos));
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
 		} else {
-			return ((IExtendedBlockState) state);
+			return state;
 		}
 	}
 

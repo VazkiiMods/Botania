@@ -16,7 +16,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.*;
 
@@ -35,6 +37,12 @@ public class BotaniaStateProps {
 
 	// The property for platform held blockstate id
 	public static final PropertyObject<IBlockState> HELD_STATE = new PropertyObject<>("held_state", IBlockState.class);
+
+	// The property for platform world object
+	public static final PropertyObject<IBlockAccess> HELD_WORLD = new PropertyObject<>("held_world", IBlockAccess.class);
+
+	// The proeprty for platform world pos
+	public static final PropertyObject<BlockPos> HELD_POS = new PropertyObject<>("held_pos", BlockPos.class);
 
 	/** Common properties to all blocks to use **/
 
