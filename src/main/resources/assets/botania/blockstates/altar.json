@@ -205,7 +205,7 @@
         "kelkbase2top": "botania:model/altar/mossy/kelkBase2_top",
         "kelkbase2bottom": "botania:model/altar/mossy/kelkBase2_bottom",
         "kelkwall": "botania:model/altar/mossy/kelkWall",
-        "particle": "minecraft:blocks/cobblestone"
+        "particle": "minecraft:blocks/cobblestone_mossy"
       }}
     }
   }

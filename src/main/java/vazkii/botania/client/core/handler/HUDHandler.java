@@ -363,10 +363,10 @@ public final class HUDHandler {
 			profiler.startSection("wikiLookup");
 			if(!block.isAir(mc.theWorld, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);
-				String url = provider.getWikiURL(mc.theWorld, pos);
+				String url = provider.getWikiURL(mc.theWorld, pos, mc.thePlayer);
 				if(url != null && !url.isEmpty()) {
-					String name = provider.getBlockName(mc.theWorld, pos);
-					String wikiName = provider.getWikiName(mc.theWorld, pos);
+					String name = provider.getBlockName(mc.theWorld, pos, mc.thePlayer);
+					String wikiName = provider.getWikiName(mc.theWorld, pos, mc.thePlayer);
 					drawStr = name + " @ " + EnumChatFormatting.AQUA + wikiName;
 					draw = true;
 				}

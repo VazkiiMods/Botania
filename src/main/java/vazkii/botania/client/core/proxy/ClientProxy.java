@@ -339,7 +339,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
-		String url = wiki.getWikiURL(world, pos);
+		String url = wiki.getWikiURL(world, pos, Minecraft.getMinecraft().thePlayer);
 		if(url != null && !url.isEmpty()) {
 			try {
 				Desktop.getDesktop().browse(new URI(url));
