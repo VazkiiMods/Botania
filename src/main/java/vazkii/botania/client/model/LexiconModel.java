@@ -88,7 +88,7 @@ public class LexiconModel implements IPerspectiveAwareModel {
 	public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
 		initModels();
 		if (ConfigHandler.lexicon3dModel && cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON) {
-			System.out.println("m8");
+			//System.out.println("m8");
 			float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 20F;
 
 			Pair<IModelState, Iterable<Event>> animate = asm.apply(time);
