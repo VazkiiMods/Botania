@@ -42,7 +42,7 @@ import java.util.UUID;
 public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	private static final UUID speedBoostUuid = UUID.fromString("c5f17cca-c89f-4f12-81da-8f04b1f27679");
-	private static final AttributeModifier speedBoost = new AttributeModifier(speedBoostUuid, "Trodden dirt speed boost", 0.7, 2).setSaved(false);
+	private static final AttributeModifier speedBoost = new AttributeModifier(speedBoostUuid, "Trodden dirt speed boost", 0.55, 2).setSaved(false);
 
 	public BlockDirtPath() {
 		super(Material.ground);
