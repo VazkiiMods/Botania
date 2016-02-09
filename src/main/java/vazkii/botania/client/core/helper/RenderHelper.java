@@ -172,14 +172,14 @@ public final class RenderHelper {
 			tessellator.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
-			int r = (color & 0xFF0000) >> 16;
-			int g = (color & 0xFF00) >> 8;
-			int b = (color & 0xFF);
-			tessellator.getWorldRenderer().pos(0, 0, 0).color(r, g, b, 255F * (1F - f2)).endVertex();
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).color(0, 0, 0, 0).endVertex();
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			float r = ((color & 0xFF0000) >> 16) / 255F;
+			float g = ((color & 0xFF00) >> 8) / 255F;
+			float b = (color & 0xFF) / 255F;
+			tessellator.getWorldRenderer().pos(0, 0, 0).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
 			tessellator.draw();
 		}
 
