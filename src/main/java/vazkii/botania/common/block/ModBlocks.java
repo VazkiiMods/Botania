@@ -170,6 +170,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.integration.multipart.MultipartHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
@@ -515,10 +516,7 @@ public final class ModBlocks {
 
 	public static void registerMultiparts() {
 		if(Loader.isModLoaded("ForgeMultipart")) {
-			try {
-				Class clazz = Class.forName("vazkii.botania.common.integration.multipart.MultipartHandler");
-				clazz.newInstance();
-			} catch(Throwable e) {}
+			MultipartHandler.initMultiparts();
 		}
 	}
 
