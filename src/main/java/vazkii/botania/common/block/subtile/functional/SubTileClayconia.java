@@ -26,16 +26,19 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileClayconia extends SubTileFunctional {
 
+	private static final int COST = 80;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
+	
+	private static final int RANGE_MINI = 2;
+	private static final int RANGE_Y_MINI = 1;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(!supertile.getWorldObj().isRemote && ticksExisted % 5 == 0) {
-			int manaCost = 80;
-			if(mana >= manaCost) {
+			if(mana >= COST) {
 				ChunkCoordinates coords = getCoordsToPut();
 				if(coords != null) {
 					supertile.getWorldObj().setBlockToAir(coords.posX, coords.posY, coords.posZ);
@@ -43,7 +46,7 @@ public class SubTileClayconia extends SubTileFunctional {
 						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Block.getBlockFromName("sand")));
 					EntityItem item = new EntityItem(supertile.getWorldObj(), coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, new ItemStack(Items.clay_ball));
 					supertile.getWorldObj().spawnEntityInWorld(item);
-					mana -= manaCost;
+					mana -= COST;
 				}
 			}
 		}
@@ -52,9 +55,12 @@ public class SubTileClayconia extends SubTileFunctional {
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
 
-		for(int i = -RANGE; i < RANGE + 1; i++)
-			for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
-				for(int k = -RANGE; k < RANGE + 1; k++) {
+		int range = getRange();
+		int rangeY = getRangeY();
+		
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -rangeY; j < rangeY + 1; j++)
+				for(int k = -range; k < range + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
@@ -70,9 +76,17 @@ public class SubTileClayconia extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
 
+	public int getRange() {
+		return RANGE;
+	}
+
+	public int getRangeY() {
+		return RANGE_Y;
+	}
+	
 	@Override
 	public int getColor() {
 		return 0x7B8792;
@@ -88,4 +102,8 @@ public class SubTileClayconia extends SubTileFunctional {
 		return LexiconData.clayconia;
 	}
 
+	public static class Mini extends SubTileClayconia {
+		@Override public int getRange() { return RANGE_MINI; }
+		@Override public int getRangeY() { return RANGE_Y_MINI; }
+	}
 }
