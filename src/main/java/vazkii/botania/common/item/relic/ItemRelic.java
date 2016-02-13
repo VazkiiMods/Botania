@@ -11,17 +11,20 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.UsernameCache;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -30,7 +33,9 @@ import vazkii.botania.common.item.ModItems;
 
 public class ItemRelic extends ItemMod implements IRelic {
 
+	@Deprecated
 	private static final String TAG_SOULBIND = "soulbind";
+	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
 	Achievement achievement;
 
@@ -87,12 +92,24 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public static String getSoulbindUsernameS(ItemStack stack) {
+		if(hasUUIDS(stack))
+			return UsernameCache.getLastKnownUsername(getSoulbindUUIDS(stack));
 		return ItemNBTHelper.getString(stack, TAG_SOULBIND, "");
+	}
+
+	//TODO: Better name?
+	public static UUID getSoulbindUUIDS(ItemStack stack) {
+		if(hasUUIDS(stack))
+			return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
+		return null;
 	}
 
 	public static void updateRelic(ItemStack stack, EntityPlayer player) {
 		if(stack == null || !(stack.getItem() instanceof IRelic))
 			return;
+
+		if(!hasUUIDS(stack) && isRightPlayer(player.getCommandSenderName(), stack))
+			bindToPlayer(player, stack);
 
 		String soulbind = getSoulbindUsernameS(stack);
 		if(soulbind.isEmpty()) {
@@ -106,14 +123,22 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
-		bindToUsernameS(player.getCommandSenderName(), stack);
+		bindToUUIDS(player.getUniqueID(), stack);
 	}
 
+	@Deprecated
 	public static void bindToUsernameS(String username, ItemStack stack) {
 		ItemNBTHelper.setString(stack, TAG_SOULBIND, username);
 	}
 
+	//TODO: Better name?
+	public static void bindToUUIDS(UUID uuid, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
+	}
+
 	public static boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
+		if(hasUUIDS(stack))
+			return isRightPlayer(player.getUniqueID(), stack);
 		return isRightPlayer(player.getCommandSenderName(), stack);
 	}
 
@@ -121,11 +146,40 @@ public class ItemRelic extends ItemMod implements IRelic {
 		return getSoulbindUsernameS(stack).equals(player);
 	}
 
+	public static boolean isRightPlayer(UUID uuid, ItemStack stack) {
+		return getSoulbindUUIDS(stack).equals(uuid);
+	}
+
 	public static DamageSource damageSource() {
 		return new DamageSource("botania-relic");
 	}
 
+	//TODO: Better name?
+	public static boolean hasUUIDS(ItemStack stack) {
+		return ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID);
+	}
+
+	public static UUID usernameToUUID(String username) {
+		return getPlayerByName(username).getUniqueID();
+	}
+
+	public static EntityPlayer getPlayerByName(String username) {
+		if(username.isEmpty())
+			return null;
+
+		List<EntityPlayer> playerList = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+		for(int i = 0; i < playerList.size(); i++) {
+
+			EntityPlayer player = playerList.get(i);
+			if(player.getCommandSenderName().equals(username))
+				return player;
+		}
+
+		return null;
+	}
+
 	@Override
+	@Deprecated
 	public void bindToUsername(String playerName, ItemStack stack) {
 		bindToUsernameS(playerName, stack);
 	}
@@ -133,6 +187,21 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@Override
 	public String getSoulbindUsername(ItemStack stack) {
 		return getSoulbindUsernameS(stack);
+	}
+
+	@Override
+	public void bindToUUID(UUID uuid, ItemStack stack) {
+		bindToUUIDS(uuid, stack);
+	}
+
+	@Override
+	public UUID getSoulbindUUID(ItemStack stack) {
+		return getSoulbindUUIDS(stack);
+	}
+
+	@Override
+	public boolean hasUUID(ItemStack stack) {
+		return hasUUIDS(stack);
 	}
 
 	@Override
