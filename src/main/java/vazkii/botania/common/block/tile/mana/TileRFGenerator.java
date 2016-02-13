@@ -14,12 +14,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModAPIManager;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyReceiver;
-import net.minecraftforge.fml.common.Optional;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -31,11 +32,10 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	private static final int MAX_MANA = 1280 * CONVERSION_RATE;
 
 	private static final String TAG_MANA = "mana";
-
 	int mana = 0;
 
 	// Thanks to skyboy for help with this cuz I'm a noob with RF
-	private EnumMap<EnumFacing, IEnergyReceiver> receiverCache;
+	private EnumMap<EnumFacing, IEnergyReceiver> receiverCache = new EnumMap<>(EnumFacing.class);
 	private boolean deadCache;
 
 	@Override
@@ -43,12 +43,11 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	public void validate() {
 		super.validate();
 		deadCache = true;
-		receiverCache = null;
 	}
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote && Loader.isModLoaded("CoFHAPI|energy")) {
+		if(!worldObj.isRemote && Botania.rfApiLoaded) {
 			if(deadCache)
 				reCache();
 
@@ -60,19 +59,17 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	protected final int transmitEnergy(int energy) {
-		if(receiverCache != null)
-			for(Map.Entry<EnumFacing, IEnergyReceiver> e : receiverCache.entrySet()) {
-				// todo 1.8 this iteration was in explicit reverse order. was there a reason?
-				IEnergyReceiver tile = e.getValue();
-				if(tile == null)
-					continue;
+		// TODO: Share energy amoung receivers ?
+		for(Map.Entry<EnumFacing, IEnergyReceiver> e : receiverCache.entrySet()) {
+			IEnergyReceiver tile = e.getValue();
+			if (tile == null)
+				continue;
 
-				if(tile.receiveEnergy(e.getKey(), energy, true) > 0)
-					energy -= tile.receiveEnergy(e.getKey(), energy, false);
+			energy -= tile.receiveEnergy(e.getKey().getOpposite(), energy, false);
 
-				if(energy <= 0)
-					return 0;
-			}
+			if (energy <= 0)
+				return 0;
+		}
 
 		return energy;
 	}
@@ -90,28 +87,17 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	public void onNeighborTileChange(BlockPos pos) {
 		TileEntity tile = worldObj.getTileEntity(pos);
 
-		if(pos.getX() < getPos().getX())
-			addCache(tile, EnumFacing.EAST);
-		else if(pos.getX() > getPos().getX())
-			addCache(tile, EnumFacing.WEST);
-		else if(pos.getZ() < getPos().getZ())
-			addCache(tile, EnumFacing.SOUTH);
-		else if(pos.getZ() > getPos().getZ())
-			addCache(tile, EnumFacing.NORTH);
-		else if(pos.getY() < getPos().getY())
-			addCache(tile, EnumFacing.UP);
-		else if(pos.getY() > getPos().getY())
-			addCache(tile, EnumFacing.DOWN);
+		BlockPos q = getPos();
+		EnumFacing side = EnumFacing.getFacingFromVector(pos.getX() - q.getX(), pos.getY() - q.getY(), pos.getZ() - q.getZ());
+
+		addCache(tile, side);
 	}
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	private void addCache(TileEntity tile, EnumFacing side) {
-		if(receiverCache != null)
-			receiverCache.remove(side);
+		receiverCache.remove(side);
 
-		if(tile instanceof IEnergyReceiver && ((IEnergyReceiver)tile).canConnectEnergy(side)) {
-			if(receiverCache == null)
-				receiverCache = new EnumMap<>(EnumFacing.class);
+		if(tile instanceof IEnergyReceiver) {
 			receiverCache.put(side, (IEnergyReceiver)tile);
 		}
 	}
