@@ -1,6 +1,6 @@
 {
   "parameters": {
-    "world_to_cycle": [ "/", 10 ]
+    "world_to_cycle": [ "/", 4 ]
   },
   "clips": {
     "moving": [ "apply", "botania:block/crystalcube_cube@moving", "#world_to_cycle" ]
