@@ -52,6 +52,7 @@ public class Botania {
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
+	public static boolean rfApiLoaded = false;
 
 	public static ILightHelper lightHelper;
 
@@ -70,6 +71,7 @@ public class Botania {
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
+		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
 
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
