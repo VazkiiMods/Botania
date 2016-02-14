@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import java.util.UUID;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -45,22 +47,37 @@ public class AesirRingRecipe implements IRecipe {
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
 		String soulbind = null;
+		UUID soulbindUUID = null;
+		boolean hasUUID = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
 				if(stack.getItem() instanceof IRelic) {
-					String bind = ((IRelic) stack.getItem()).getSoulbindUsername(stack);
-					if(soulbind == null)
-						soulbind = bind;
-					else if(!soulbind.equals(bind))
-						return null;
+					if(((IRelic) stack.getItem()).hasUUID(stack)) {
+						hasUUID = true;
+						UUID bindUUID = ((IRelic) stack.getItem()).getSoulbindUUID(stack);
+						if(soulbindUUID == null)
+							soulbindUUID = bindUUID;
+						else if(!soulbindUUID.equals(bindUUID))
+							return null;
+					}
+					else {
+						String bind = ((IRelic) stack.getItem()).getSoulbindUsername(stack);
+						if(soulbind == null)
+							soulbind = bind;
+						else if(!soulbind.equals(bind))
+							return null;
+					}
 				} else return null;
 			}
 		}
 
 		ItemStack stack = new ItemStack(ModItems.aesirRing);
-		((IRelic) ModItems.aesirRing).bindToUsername(soulbind, stack);
+		if(hasUUID)
+			((IRelic) ModItems.aesirRing).bindToUUID(soulbindUUID, stack);
+		else
+			((IRelic) ModItems.aesirRing).bindToUsername(soulbind, stack);
 		return stack;
 	}
 
