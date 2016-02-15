@@ -13,8 +13,9 @@ package vazkii.botania.api.internal;
 /**
  * A Callback for when a shader is called. Used to define shader uniforms.
  */
-public abstract class ShaderCallback {
+@FunctionalInterface
+public interface ShaderCallback {
 
-	public abstract void call(int shader);
+	void call(int shader);
 
 }

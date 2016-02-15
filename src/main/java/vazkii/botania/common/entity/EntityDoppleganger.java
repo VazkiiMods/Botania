@@ -904,21 +904,16 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@SideOnly(Side.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
 		if(shaderCallback == null)
-			shaderCallback = new ShaderCallback() {
-
-			@Override
-			public void call(int shader) {
-				int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "hpFract");
+			shaderCallback = shader1 -> {
+				int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader1, "grainIntensity");
+				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader1, "hpFract");
 
 				float time = getInvulTime();
 				float grainIntensity = time > 20 ? 1F : Math.max(isHardMode() ? 0.5F : 0F, time / 20F);
 
 				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
 				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
-			}
-
-		};
+			};
 
 		return background ? null : shaderCallback;
 	}

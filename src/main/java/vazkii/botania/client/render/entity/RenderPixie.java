@@ -27,19 +27,15 @@ import vazkii.botania.common.entity.EntityPixie;
 
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
-	ShaderCallback callback = new ShaderCallback() {
+	ShaderCallback callback = shader -> {
+        // Frag Uniforms
+        int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+        ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
 
-		@Override
-		public void call(int shader) {
-			// Frag Uniforms
-			int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-			ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
-
-			// Vert Uniforms
-			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
-		}
-	};
+        // Vert Uniforms
+        int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+        ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
+    };
 
 	public RenderPixie(RenderManager renderManager) {
 		super(renderManager, new ModelPixie(), 0.25F);

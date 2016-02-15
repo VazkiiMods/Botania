@@ -31,33 +31,25 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	public static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
 	public static float disfiguration = DEFAULT_DISFIGURATION;
 
-	public static ShaderCallback callback = new ShaderCallback() {
+	public static ShaderCallback callback = shader -> {
+        // Frag Uniforms
+        int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+        ARBShaderObjects.glUniform1fARB(disfigurationUniform, disfiguration);
 
-		@Override
-		public void call(int shader) {
-			// Frag Uniforms
-			int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-			ARBShaderObjects.glUniform1fARB(disfigurationUniform, disfiguration);
+        // Vert Uniforms
+        int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+        ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
+    };
 
-			// Vert Uniforms
-			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
-		}
-	};
+	public static ShaderCallback defaultCallback = shader -> {
+        // Frag Uniforms
+        int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+        ARBShaderObjects.glUniform1fARB(disfigurationUniform, DEFAULT_DISFIGURATION);
 
-	public static ShaderCallback defaultCallback = new ShaderCallback() {
-
-		@Override
-		public void call(int shader) {
-			// Frag Uniforms
-			int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-			ARBShaderObjects.glUniform1fARB(disfigurationUniform, DEFAULT_DISFIGURATION);
-
-			// Vert Uniforms
-			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, DEFAULT_GRAIN_INTENSITY);
-		}
-	};
+        // Vert Uniforms
+        int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+        ARBShaderObjects.glUniform1fARB(grainIntensityUniform, DEFAULT_GRAIN_INTENSITY);
+    };
 
 	public RenderDoppleganger(RenderManager renderManager) {
 		super(renderManager, new ModelPlayer(0.0F, false), 0F);

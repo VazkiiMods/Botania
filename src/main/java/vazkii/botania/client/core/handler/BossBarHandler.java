@@ -90,7 +90,7 @@ public final class BossBarHandler {
 			ShaderHelper.releaseShader();
 	}
 
-	static class BarCallback extends ShaderCallback {
+	static class BarCallback implements ShaderCallback {
 		int x, y;
 		ShaderCallback callback;
 
