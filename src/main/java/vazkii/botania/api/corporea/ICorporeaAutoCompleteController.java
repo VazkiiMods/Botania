@@ -21,7 +21,6 @@ public interface ICorporeaAutoCompleteController {
 	/**
 	 * Return true if auto completion should be enabled.
 	 */
-	@SideOnly(Side.CLIENT)
 	public boolean shouldAutoComplete();
 
 }

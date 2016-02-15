@@ -33,7 +33,6 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 * You can use BotaniaAPI.internalMethodHandler.getDefaultBossBarTexture() to get
 	 * the one used by botania bosses.
 	 */
-	@SideOnly(Side.CLIENT)
 	public ResourceLocation getBossBarTexture();
 
 	/**
@@ -41,7 +40,6 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 * boss bar texture. This is for the background, not the bar that shows
 	 * the HP.
 	 */
-	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarTextureRect();
 
 	/**
@@ -50,7 +48,6 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 * HP the boss has. The width of the rectangle will be multiplied by the
 	 * faction of the boss's current HP by max HP.
 	 */
-	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarHPTextureRect();
 
 	/**

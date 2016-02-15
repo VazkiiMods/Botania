@@ -106,16 +106,12 @@ public interface IInternalMethodHandler {
 	@SideOnly(Side.CLIENT)
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
 
-	@SideOnly(Side.CLIENT)
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
 
-	@SideOnly(Side.CLIENT)
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 
-	@SideOnly(Side.CLIENT)
 	public ResourceLocation getDefaultBossBarTexture();
 
-	@SideOnly(Side.CLIENT)
 	public void setBossStatus(IBotaniaBoss status);
 
 	public boolean isBuildcraftPipe(TileEntity tile);

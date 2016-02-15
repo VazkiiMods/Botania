@@ -32,7 +32,6 @@ public interface IBaubleRender {
 	 * rendering. Will not be called if the item is a ICosmeticAttachable and
 	 * has a cosmetic bauble attached to it.
 	 */
-	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks);
 
 	/**

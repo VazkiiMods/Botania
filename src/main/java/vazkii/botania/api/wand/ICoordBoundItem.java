@@ -12,7 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public interface ICoordBoundItem {
 
-	@SideOnly(Side.CLIENT)
 	public BlockPos getBinding(ItemStack stack);
 
 }

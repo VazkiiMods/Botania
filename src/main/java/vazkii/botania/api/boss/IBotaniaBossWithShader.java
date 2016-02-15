@@ -30,13 +30,11 @@ public interface IBotaniaBossWithShader extends IBotaniaBoss {
 	 * @param background True if rendering the background of the boss bar,
 	 * false if rendering the bar itself that shows the HP.
 	 */
-	@SideOnly(Side.CLIENT)
 	public int getBossBarShaderProgram(boolean background);
 
 	/**
 	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
 	 */
-	@SideOnly(Side.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
 
 }

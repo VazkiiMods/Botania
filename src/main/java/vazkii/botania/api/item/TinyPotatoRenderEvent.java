@@ -18,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * Why would you ever want this ._.
  */
-@SideOnly(Side.CLIENT)
 public class TinyPotatoRenderEvent extends Event {
 
 	public final TileEntity tile;

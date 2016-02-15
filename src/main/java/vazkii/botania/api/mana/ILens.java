@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public interface ILens extends ILensEffect {
 
-	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack);
 
 	/**

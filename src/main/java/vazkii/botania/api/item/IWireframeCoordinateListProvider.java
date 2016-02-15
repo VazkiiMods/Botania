@@ -29,7 +29,6 @@ public interface IWireframeCoordinateListProvider {
 	 * Returns a list of BlockPos for the wireframes to draw.
 	 * Can be null.
 	 */
-	@SideOnly(Side.CLIENT)
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 
 }
