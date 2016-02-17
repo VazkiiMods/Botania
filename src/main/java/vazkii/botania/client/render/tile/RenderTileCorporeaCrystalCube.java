@@ -143,7 +143,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	// Copied from AnimationTESR
 	protected static BlockRendererDispatcher blockRenderer;
 
-	protected static final LoadingCache<Pair<IExtendedBlockState, IModelState>, IBakedModel> modelCache = CacheBuilder.newBuilder().maximumSize(10).expireAfterWrite(100, TimeUnit.MILLISECONDS).build(new CacheLoader<Pair<IExtendedBlockState, IModelState>, IBakedModel>()
+	// Botania - expanded size to 15 to hold all states, expanded expire time to 1 sec for performance
+	protected static final LoadingCache<Pair<IExtendedBlockState, IModelState>, IBakedModel> modelCache = CacheBuilder.newBuilder().maximumSize(15).expireAfterWrite(1000, TimeUnit.MILLISECONDS).build(new CacheLoader<Pair<IExtendedBlockState, IModelState>, IBakedModel>()
 	{
 		public IBakedModel load(Pair<IExtendedBlockState, IModelState> key) throws Exception
 		{
