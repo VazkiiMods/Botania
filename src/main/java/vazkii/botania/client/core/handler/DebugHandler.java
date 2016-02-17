@@ -47,7 +47,7 @@ public final class DebugHandler {
 			event.left.add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
 			event.left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
-			if (Minecraft.getMinecraft().isIntegratedServerRunning()) {
+			if (Minecraft.getMinecraft().isSingleplayer()) {
 				UUID id = Minecraft.getMinecraft().thePlayer.getUniqueID();
 				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
 				if (ent != null) {
