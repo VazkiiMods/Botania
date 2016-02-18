@@ -90,4 +90,9 @@ public final class LibOreDict {
 		"stoneAndesiteBricks", "stoneBasaltBricks", "stoneDioriteBricks", "stoneGraniteBricks",
 		"stoneAndesiteChiseled", "stoneBasaltChiseled", "stoneDioriteChiseled", "stoneGraniteChiseled"
 	};
+
+	public static final String[] QUARTZ = new String[] {
+		"quartzDark", "quartzMana", "quartzBlaze", 
+		"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
+	};
 }

@@ -25,50 +25,48 @@ import codechicken.microblock.MicroMaterialRegistry;
 public class MultipartHandler {
 
 	public MultipartHandler() {
-		registerAllMultiparts(ModBlocks.livingrock);
-		registerAllMultiparts(ModBlocks.livingwood);
-		registerAllMultiparts(ModBlocks.storage);
-		registerAllMultiparts(ModBlocks.dreamwood);
-		registerAllMultiparts(ModBlocks.livingrock);
-		registerAllMultiparts(ModBlocks.prismarine);
-		registerAllMultiparts(ModBlocks.seaLamp);
-		registerAllMultiparts(ModBlocks.reedBlock);
-		registerAllMultiparts(ModBlocks.thatch);
-		registerAllMultiparts(ModBlocks.customBrick);
-		registerAllMultiparts(ModBlocks.elfGlass);
-		registerAllMultiparts(ModBlocks.manaGlass);
-		registerAllMultiparts(ModBlocks.endStoneBrick);
-		registerAllMultiparts(ModBlocks.blazeBlock);
-		registerAllMultiparts(ModBlocks.livingrock);
-		registerAllMultiparts(ModBlocks.bifrostPerm);
-		registerAllMultiparts(ModBlocks.shimmerrock);
-		registerAllMultiparts(ModBlocks.shimmerwoodPlanks);
+		registerMultiparts(ModBlocks.livingrock, 0, 4);
+		registerMultiparts(ModBlocks.livingwood, 0, 5);
+		registerMultiparts(ModBlocks.storage, 0, 4);
+		registerMultiparts(ModBlocks.dreamwood, 0, 4);
+		registerMultiparts(ModBlocks.prismarine, 0, 2);
+		registerMultiparts(ModBlocks.seaLamp);
+		registerMultiparts(ModBlocks.reedBlock);
+		registerMultiparts(ModBlocks.thatch);
+		registerMultiparts(ModBlocks.customBrick, 0, 15);
+		registerMultiparts(ModBlocks.elfGlass);
+		registerMultiparts(ModBlocks.manaGlass);
+		registerMultiparts(ModBlocks.endStoneBrick, 0, 3);
+		registerMultiparts(ModBlocks.blazeBlock);
+		registerMultiparts(ModBlocks.bifrostPerm);
+		registerMultiparts(ModBlocks.shimmerrock);
+		registerMultiparts(ModBlocks.shimmerwoodPlanks);
 
-		registerAllMultiparts(ModFluffBlocks.darkQuartz);
-		registerAllMultiparts(ModFluffBlocks.manaQuartz);
-		registerAllMultiparts(ModFluffBlocks.blazeQuartz);
-		registerAllMultiparts(ModFluffBlocks.lavenderQuartz);
-		registerAllMultiparts(ModFluffBlocks.redQuartz);
-		registerAllMultiparts(ModFluffBlocks.elfQuartz);
-		registerAllMultiparts(ModFluffBlocks.sunnyQuartz);
-		registerAllMultiparts(ModFluffBlocks.biomeStoneA);
-		registerAllMultiparts(ModFluffBlocks.biomeStoneB);
-		registerAllMultiparts(ModFluffBlocks.stone);
-		registerAllMultiparts(ModFluffBlocks.pavement);
+		registerMultiparts(ModFluffBlocks.darkQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.manaQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.blazeQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.lavenderQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.redQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.elfQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.sunnyQuartz, 0, 2);
+		registerMultiparts(ModFluffBlocks.biomeStoneA, 0, 15);
+		registerMultiparts(ModFluffBlocks.biomeStoneB, 0, 15);
+		registerMultiparts(ModFluffBlocks.stone, 0, 15);
+		registerMultiparts(ModFluffBlocks.pavement, 0, 5);
 	}
 
-	private static void registerAllMultiparts(Block block) {
-		List<ItemStack> stacks = new ArrayList();
-		Item item = Item.getItemFromBlock(block);
-		block.getSubBlocks(item, block.getCreativeTabToDisplayOn(), stacks);
-
-		for(ItemStack stack : stacks)
-			if(stack.getItem() == item)
-				registerMultipart(block, stack.getItemDamage());
+	private static void registerMultiparts(Block block) {
+		registerMultiparts(block, 0);
 	}
 
-	private static void registerMultipart(Block block, int meta) {
+	private static void registerMultiparts(Block block, int meta) {
 		MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
+	}
+
+	private static void registerMultiparts(Block block, int metamin, int metamax) {
+		for (int i = metamin; i <= metamax; i++) {
+			registerMultiparts(block, i);
+		}
 	}
 
 }*/

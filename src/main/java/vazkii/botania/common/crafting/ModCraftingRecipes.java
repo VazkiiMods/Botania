@@ -1392,7 +1392,7 @@ public final class ModCraftingRecipes {
 		// Wing Recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), "gemQuartz"));
 		for(int i = 0; i < 7; i++)
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(ModItems.quartz, 1, i));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), LibOreDict.QUARTZ[i]));
 		recipesWings = BotaniaAPI.getLatestAddedRecipes(8);
 
 		// Mana Fluxfield Recipe
@@ -2313,9 +2313,9 @@ public final class ModCraftingRecipes {
 	}
 
 	private static IRecipe addQuartzRecipes(int meta, Item req, Block block, Block stairs, Block slab) {
-		GameRegistry.addRecipe(new ItemStack(block),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(block),
 				"QQ", "QQ",
-				'Q', new ItemStack(ModItems.quartz, 1, meta));
+				'Q', LibOreDict.QUARTZ[meta]));
 		GameRegistry.addRecipe(new ItemStack(block, 2, 2),
 				"Q", "Q",
 				'Q', block);
