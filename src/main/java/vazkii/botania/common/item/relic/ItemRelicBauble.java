@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
@@ -27,6 +28,9 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	Achievement achievement;
+	private ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff. If we had traits this would mixed in.
+		@Override public Item setUnlocalizedName(String ignored) { return this; } // Don't register to the game
+	};
 
 	public ItemRelicBauble(String name) {
 		super(name);
@@ -35,7 +39,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public void onUpdate(ItemStack p_77663_1_, World p_77663_2_, Entity p_77663_3_, int p_77663_4_, boolean p_77663_5_) {
 		if(p_77663_3_ instanceof EntityPlayer)
-			ItemRelic.updateRelic(p_77663_1_, (EntityPlayer) p_77663_3_);
+			dummy.updateRelic(p_77663_1_, (EntityPlayer) p_77663_3_);
 	}
 
 	@Override
@@ -43,16 +47,16 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		super.onWornTick(stack, player);
 		if(player instanceof EntityPlayer) {
 			EntityPlayer ePlayer = (EntityPlayer) player;
-			ItemRelic.updateRelic(stack, ePlayer);
-			if(ItemRelic.isRightPlayer(ePlayer, stack))
+			dummy.updateRelic(stack, ePlayer);
+			if(dummy.isRightPlayer(ePlayer, stack))
 				onValidPlayerWornTick(stack, ePlayer);
 		}
 	}
 
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		ItemRelic.addBindInfo(par3List, par1ItemStack, par2EntityPlayer);
+		dummy.addBindInfo(par3List, par1ItemStack, par2EntityPlayer);
 	}
 
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
@@ -61,32 +65,32 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Override
 	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
-		return player instanceof EntityPlayer && ItemRelic.isRightPlayer((EntityPlayer) player, stack);
+		return player instanceof EntityPlayer && dummy.isRightPlayer(((EntityPlayer) player), stack);
 	}
 
 	@Override
 	public void bindToUsername(String playerName, ItemStack stack) {
-		ItemRelic.bindToUsernameS(playerName, stack);
+		dummy.bindToUsername(playerName, stack);
 	}
 
 	@Override
 	public String getSoulbindUsername(ItemStack stack) {
-		return ItemRelic.getSoulbindUsernameS(stack);
+		return dummy.getSoulbindUsername(stack);
 	}
 
 	@Override
 	public void bindToUUID(UUID uuid, ItemStack stack) {
-		ItemRelic.bindToUUIDS(uuid, stack);
+		dummy.bindToUUID(uuid, stack);
 	}
 
 	@Override
 	public UUID getSoulbindUUID(ItemStack stack) {
-		return ItemRelic.getSoulbindUUIDS(stack);
+		return dummy.getSoulbindUUID(stack);
 	}
 
 	@Override
 	public boolean hasUUID(ItemStack stack) {
-		return ItemRelic.hasUUIDS(stack);
+		return dummy.hasUUID(stack);
 	}
 
 	@Override

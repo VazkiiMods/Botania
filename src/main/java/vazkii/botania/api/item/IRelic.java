@@ -28,8 +28,10 @@ public interface IRelic {
 	public void bindToUsername(String playerName, ItemStack stack);
 
 	/**
-	 * Gets the username of the person this relic is bound to.
+	 * Gets the username of the person this relic is bound to, or the empty String if the username field is empty.
+	 * You should not use this to determine if a relic is bound, use UUIDs instead.
 	 */
+	@Deprecated
 	public String getSoulbindUsername(ItemStack stack);
 
 	/**
@@ -38,12 +40,12 @@ public interface IRelic {
 	public void bindToUUID(UUID uuid, ItemStack stack);
 
 	/**
-	 * Gets the UUID of the person this relic is bound to.
+	 * Gets the UUID of the person this relic is bound to, or null if a well-formed UUID could not be found
 	 */
 	public UUID getSoulbindUUID(ItemStack stack);
 
 	/**
-	 * Checks if the relic is using UUIDs.
+	 * Checks if the relic contains a well-formed UUID.
 	 */
 	public boolean hasUUID(ItemStack stack);
 

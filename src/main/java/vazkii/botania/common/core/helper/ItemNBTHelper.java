@@ -88,6 +88,10 @@ public final class ItemNBTHelper {
 		getNBT(stack).setTag(tag, list);
 	}
 
+	public static void removeEntry(ItemStack stack, String tag) {
+		getNBT(stack).removeTag(tag);
+	}
+
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {

@@ -448,7 +448,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
 					if(ConfigHandler.relicsEnabled) {
 						ItemStack dice = new ItemStack(ModItems.dice);
-						ItemRelic.bindToUUIDS(playersWhoAttacked.get(pl), dice);
+						((ItemRelic) ModItems.dice).bindToUUID(playersWhoAttacked.get(pl), dice);
 						entityDropItem(dice, 1F);
 					}
 

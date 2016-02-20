@@ -16,10 +16,8 @@ import java.util.UUID;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
@@ -34,8 +32,7 @@ import vazkii.botania.common.item.ModItems;
 
 public class ItemRelic extends ItemMod implements IRelic {
 
-	@Deprecated
-	private static final String TAG_SOULBIND = "soulbind";
+	private static final String TAG_SOULBIND_NAME = "soulbind";
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
 	Achievement achievement;
@@ -46,25 +43,24 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	@Override
-	public void onUpdate(ItemStack p_77663_1_, World p_77663_2_, Entity p_77663_3_, int p_77663_4_, boolean p_77663_5_) {
-		if(p_77663_3_ instanceof EntityPlayer)
-			updateRelic(p_77663_1_, (EntityPlayer) p_77663_3_);
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		if(!world.isRemote && entity instanceof EntityPlayer)
+			updateRelic(stack, (EntityPlayer) entity);
 	}
 
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
+	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
 		addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
 	}
 
-	public static void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
+	public void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String bind = getSoulbindUsernameS(stack);
-			if(bind.isEmpty())
+			if(!hasUUID(stack)) {
 				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.relicUnbound"), list);
-			else {
-				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), bind), list);
-				if(!isRightPlayer(player, stack))
-					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), bind), list);
+			} else {
+				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
+				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
+					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)
@@ -92,115 +88,84 @@ public class ItemRelic extends ItemMod implements IRelic {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
-	public static String getSoulbindUsernameS(ItemStack stack) {
-		if(hasUUIDS(stack))
-			return UsernameCache.getLastKnownUsername(getSoulbindUUIDS(stack));
-		return ItemNBTHelper.getString(stack, TAG_SOULBIND, "");
-	}
-
-	//TODO: Better name?
-	public static UUID getSoulbindUUIDS(ItemStack stack) {
-		if(hasUUIDS(stack))
-			return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
-		return null;
-	}
-
-	public static void updateRelic(ItemStack stack, EntityPlayer player) {
+	public void updateRelic(ItemStack stack, EntityPlayer player) {
 		if(stack == null || !(stack.getItem() instanceof IRelic))
 			return;
 
-		if(!hasUUIDS(stack) && isRightPlayer(player.getName(), stack))
-			bindToPlayer(player, stack);
+		boolean rightPlayer = true;
+		if(hasUUID(stack)) {
+			// Sync to username todo is this worth 'optimizing'?
+			if (UsernameCache.containsUUID(getSoulbindUUID(stack))) {
+				bindToUsername(UsernameCache.getLastKnownUsername(getSoulbindUUID(stack)), stack);
+			} else {
+				bindToUsername("", stack);
+			}
 
-		String soulbind = getSoulbindUsernameS(stack);
-		if(soulbind.isEmpty()) {
-			player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
-			bindToPlayer(player, stack);
-			soulbind = getSoulbindUsernameS(stack);
+			// UUID trumps username
+			rightPlayer = getSoulbindUUID(stack).equals(player.getUniqueID());
+		} else {
+			if ("".equals(getSoulbindUsername(stack))) {
+				// New user
+				bindToUUID(player.getUniqueID(), stack);
+				player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
+			} else {
+				if (player.getName().equals(getSoulbindUsername(stack))) {
+					// Old relic, correct owner, convert to UUID
+					bindToUUID(player.getUniqueID(), stack);
+				} else {
+					// Old relic, wrong owner, damage
+					rightPlayer = false;
+				}
+			}
 		}
 
-		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
+		if(!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
 			player.attackEntityFrom(damageSource(), 2);
 	}
 
-	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
-		bindToUUIDS(player.getUniqueID(), stack);
-	}
-
-	@Deprecated
-	public static void bindToUsernameS(String username, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND, username);
-	}
-
-	//TODO: Better name?
-	public static void bindToUUIDS(UUID uuid, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
-	}
-
-	public static boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
-		if(hasUUIDS(stack))
-			return isRightPlayer(player.getUniqueID(), stack);
-		return isRightPlayer(player.getName(), stack);
-	}
-
-	public static boolean isRightPlayer(String player, ItemStack stack) {
-		return getSoulbindUsernameS(stack).equals(player);
-	}
-
-	public static boolean isRightPlayer(UUID uuid, ItemStack stack) {
-		return getSoulbindUUIDS(stack) != null && getSoulbindUUIDS(stack).equals(uuid);
+	public boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
+		if (hasUUID(stack)) {
+			return getSoulbindUUID(stack).equals(player.getUniqueID());
+		} else {
+			return getSoulbindUsername(stack).equals(player.getName());
+		}
 	}
 
 	public static DamageSource damageSource() {
 		return new DamageSource("botania-relic");
 	}
 
-	//TODO: Better name?
-	public static boolean hasUUIDS(ItemStack stack) {
-		return ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID);
+	@Override
+	public void bindToUsername(String playerName, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOULBIND_NAME, playerName);
 	}
 
-	public static UUID usernameToUUID(String username) {
-		return getPlayerByName(username) == null ? null : getPlayerByName(username).getUniqueID();
+	@Override
+	public String getSoulbindUsername(ItemStack stack) {
+		return ItemNBTHelper.getString(stack, TAG_SOULBIND_NAME, "");
 	}
 
-	public static EntityPlayer getPlayerByName(String username) {
-		if(username.isEmpty())
-			return null;
+	@Override
+	public void bindToUUID(UUID uuid, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
+	}
 
-		List<EntityPlayerMP> playerList = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
-		for (EntityPlayerMP player : playerList) {
-			if (player.getName().equals(username))
-				return player;
+	@Override
+	public UUID getSoulbindUUID(ItemStack stack) {
+		if(ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
+			try {
+				return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
+			} catch (IllegalArgumentException ex) { // Bad UUID in tag
+				ItemNBTHelper.removeEntry(stack, TAG_SOULBIND_UUID);
+			}
 		}
 
 		return null;
 	}
 
 	@Override
-	@Deprecated
-	public void bindToUsername(String playerName, ItemStack stack) {
-		bindToUsernameS(playerName, stack);
-	}
-
-	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return getSoulbindUsernameS(stack);
-	}
-
-	@Override
-	public void bindToUUID(UUID uuid, ItemStack stack) {
-		bindToUUIDS(uuid, stack);
-	}
-
-	@Override
-	public UUID getSoulbindUUID(ItemStack stack) {
-		return getSoulbindUUIDS(stack);
-	}
-
-	@Override
 	public boolean hasUUID(ItemStack stack) {
-		return hasUUIDS(stack);
+		return getSoulbindUUID(stack) != null;
 	}
 
 	@Override
