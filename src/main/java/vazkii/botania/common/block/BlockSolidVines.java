@@ -41,6 +41,15 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
 		setBlockBoundsBasedOnState(w, pos);
+		
+		if(state.getValue(EAST)) {
+			return new AxisAlignedBB(pos.add(maxX, minY, minZ), pos.add(maxX, maxY, maxZ));
+		}
+		
+		if(state.getValue(SOUTH)) {
+			return new AxisAlignedBB(pos.add(minX, minY, maxZ), pos.add(maxX, maxY, maxZ));
+		}
+		
 		return new AxisAlignedBB(pos.add(minX, minY, minZ), pos.add(maxX, maxY, maxZ));
 	}
 
