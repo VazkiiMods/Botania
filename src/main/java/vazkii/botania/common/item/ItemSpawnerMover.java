@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -28,6 +26,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemSpawnerMover extends ItemMod {
 
@@ -106,45 +106,43 @@ public class ItemSpawnerMover extends ItemMod {
 				return true;
 			} else return false;
 		} else {
-			if(getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, pos, side, xOffset, yOffset, zOffset))
-				return true;
-			return false;
+			return getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, pos, side, xOffset, yOffset, zOffset);
 		}
 	}
 
+	// Adapted from ItemBlock.onItemUse
 	private boolean placeBlock(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xOffset, float yOffset, float zOffset) {
-		Block block = world.getBlockState(pos).getBlock();
+		IBlockState iblockstate = world.getBlockState(pos);
+		Block block = iblockstate.getBlock();
 
-		if(block == Blocks.snow_layer)
-			side = EnumFacing.UP;
-		else if(block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && !block.isReplaceable(world, pos)) {
+		if(!block.isReplaceable(world, pos)) {
 			pos = pos.offset(side);
 		}
 
-		if(itemstack.stackSize == 0)
+		if(itemstack.stackSize == 0) {
 			return false;
-		else if(!player.canPlayerEdit(pos, side, itemstack))
+		} else if(!player.canPlayerEdit(pos, side, itemstack)) {
 			return false;
-		else if(pos.getY() == 255 && block.getMaterial().isSolid())
-			return false;
-		else if(world.canBlockBePlaced(Blocks.mob_spawner, pos, false, side, player, itemstack)) {
-			IBlockState state = block.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, 0, player);
+		} else if(world.canBlockBePlaced(Blocks.mob_spawner, pos, false, side, null, itemstack)) {
+			int meta = this.getMetadata(itemstack.getMetadata());
+			IBlockState iblockstate1 = Blocks.mob_spawner.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
-			if(placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, state)) {
-				world.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, block.stepSound.getStepSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F);
+			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
+				world.playSoundEffect((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F), (double) ((float) pos.getZ() + 0.5F), Blocks.mob_spawner.stepSound.getPlaceSound(), (Blocks.mob_spawner.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.mob_spawner.stepSound.getFrequency() * 0.8F);
+				--itemstack.stackSize;
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
 				for(int i = 0; i < 100; i++)
 					Botania.proxy.sparkleFX(world, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
-
-				--itemstack.stackSize;
 			}
 
 			return true;
+		} else {
+			return false;
 		}
-		else return false;
 	}
 
+	// Adapted from ItemBlock.placeBlockAt
 	private boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState state) {
 		if (!world.setBlockState(pos, state, 3))
 			return false;
