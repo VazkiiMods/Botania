@@ -48,6 +48,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.util.concurrent.TimeUnit;
@@ -65,7 +66,10 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			if(entity == null)
                 entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
-			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entity, ClientTickHandler.ticksInGame, LibObfuscation.AGE);
+			try {
+				BotaniaMethodHandles.SETITEMAGE.invokeExact(entity, ClientTickHandler.ticksInGame);
+			} catch (Throwable ignored) {}
+
 			stack = cube.getRequestTarget();
 			entity.setEntityItemStack(stack);
 		}

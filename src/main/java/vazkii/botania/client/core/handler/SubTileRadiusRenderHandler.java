@@ -31,6 +31,7 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -84,21 +85,19 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
-	private double getRenderPosX() { // todo 1.8
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
-	}
-
-	private double getRenderPosY() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
-	}
-
-	private double getRenderPosZ() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
-	}
-
 	public void renderRectangle(AxisAlignedBB aabb) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(aabb.minX - getRenderPosX(), aabb.minY - getRenderPosY(), aabb.minZ - getRenderPosZ());
+		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
@@ -132,11 +131,21 @@ public final class SubTileRadiusRenderHandler {
 	}
 
 	public void renderCircle(BlockPos center, double radius) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
 		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
-		GlStateManager.translate(x - getRenderPosX(), y - getRenderPosY(), z - getRenderPosZ());
+		GlStateManager.translate(x - renderPosX, y - renderPosY, z - renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);

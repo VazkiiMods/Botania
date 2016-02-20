@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -46,7 +47,14 @@ public class SubTilePollidisiac extends SubTileFunctional {
 				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
 				if(animal.getGrowingAge() == 0 && love <= 0) {
 					for(EntityItem item : items) {
-						if(((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) < (60 + slowdown) || item.isDead)
+						int age;
+						try {
+							age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+						} catch (Throwable t) {
+							continue;
+						}
+
+						if(age < (60 + slowdown) || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();

@@ -24,6 +24,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.relauncher.Side;
@@ -57,7 +58,14 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int slowdown = getSlowdownFactor();
 			
 			for(EntityItem item : items) {
-				if(((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				int age;
+				try {
+					age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+				} catch (Throwable t) {
+					continue;
+				}
+
+				if(age < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();

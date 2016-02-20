@@ -22,6 +22,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -35,12 +36,12 @@ public class EntityThrownItem extends EntityItem {
 			double p_i1710_4_, double p_i1710_6_, EntityItem item) {
 		super(p_i1710_1_, p_i1710_2_, p_i1710_4_, p_i1710_6_, item.getEntityItem());
 
-		ObfuscationReflectionHelper.setPrivateValue(
-				EntityItem.class,
-				this,
-				ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.PICKUP_DELAY),
-				LibObfuscation.PICKUP_DELAY
-		);
+		int pickupDelay = 0;
+		try {
+			pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(item);
+		} catch (Throwable ignored) {}
+
+		item.setPickupDelay(pickupDelay);
 		motionX = item.motionX;
 		motionY = item.motionY;
 		motionZ = item.motionZ;
@@ -70,7 +71,12 @@ public class EntityThrownItem extends EntityItem {
 			{
 				Entity entity1 = (Entity)list.get(j);
 
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || ((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, LibObfuscation.PICKUP_DELAY)) == 0))
+				int pickupDelay;
+				try {
+					pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(this);
+				} catch (Throwable ignored) { continue; }
+
+				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0))
 				{
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);

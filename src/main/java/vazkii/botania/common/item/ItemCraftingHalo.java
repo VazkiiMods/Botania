@@ -46,6 +46,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -391,23 +392,21 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			render(stack, player, event.partialTicks);
 	}
 
-	private double getRenderPosX() { // todo 1.8
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
-	}
-
-	private double getRenderPosY() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
-	}
-
-	private double getRenderPosZ() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
-	}
-
 	@SideOnly(Side.CLIENT)
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
 		// todo 1.8.8 Tessellator.renderingWorldRenderer = false;
+
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
@@ -418,7 +417,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
 		double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
 
-		GlStateManager.translate(posX - getRenderPosX(), posY - getRenderPosY() + player.getDefaultEyeHeight(), posZ - getRenderPosZ());
+		GlStateManager.translate(posX - renderPosX, posY - renderPosY + player.getDefaultEyeHeight(), posZ - renderPosZ);
 
 
 		float base = getRotationBase(stack);

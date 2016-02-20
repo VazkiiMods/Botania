@@ -60,7 +60,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
 		EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, drop);
-		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entityitem, 10, LibObfuscation.PICKUP_DELAY);
+		entityitem.setPickupDelay(10);
 		event.drops.add(entityitem);
 	}
 

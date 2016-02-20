@@ -36,6 +36,7 @@ import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lib.LibObfuscation;
 
 public final class BoundTileRenderer {
@@ -98,21 +99,19 @@ public final class BoundTileRenderer {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
 
-	private double getRenderPosX() { // todo 1.8
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
-	}
-
-	private double getRenderPosY() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
-	}
-
-	private double getRenderPosZ() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
-	}
-
 	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(pos.getX() - getRenderPosX(), pos.getY() - getRenderPosY(), pos.getZ() - getRenderPosZ() + 1);
+		GlStateManager.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 

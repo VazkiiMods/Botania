@@ -69,7 +69,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 
 			EntityItem item = new EntityItem(worldObj, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, new ItemStack(ModBlocks.livingrock));
-			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, 40, LibObfuscation.PICKUP_DELAY);
+			item.setPickupDelay(40);
 			item.motionX = item.motionY = item.motionZ = 0;
 			if(!worldObj.isRemote)
 				worldObj.spawnEntityInWorld(item);

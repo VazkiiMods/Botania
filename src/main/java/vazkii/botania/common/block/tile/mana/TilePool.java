@@ -58,6 +58,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -150,7 +151,11 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				item.setDead();
 		}
 
-		int age = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE);
+		int age;
+		try {
+			age = ((int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item));
+		} catch (Throwable throwable) { return false; }
+
 		if(age > 100 && age < 130 || !catalystsRegistered)
 			return false;
 
@@ -167,7 +172,9 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, outputItem, 105, LibObfuscation.AGE);
+						try {
+							BotaniaMethodHandles.SETITEMAGE.invokeExact(outputItem, 105);
+						} catch (Throwable ignored) {}
 						worldObj.spawnEntityInWorld(outputItem);
 					}
 

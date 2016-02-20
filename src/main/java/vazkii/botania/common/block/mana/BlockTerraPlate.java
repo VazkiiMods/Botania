@@ -58,7 +58,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 			ItemStack target = stack.copy();
 			target.stackSize = 1;
 			EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
-			ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, item, 40, LibObfuscation.PICKUP_DELAY);
+			item.setPickupDelay(40);
 			item.motionX = item.motionY = item.motionZ = 0;
 			if(!worldObj.isRemote)
 				worldObj.spawnEntityInWorld(item);

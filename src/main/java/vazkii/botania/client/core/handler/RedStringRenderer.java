@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -68,25 +69,23 @@ public final class RedStringRenderer {
 			sizeAlpha += 0.1F;
 	}
 
-	private static double getRenderPosX() { // todo 1.8
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSX);
-	}
-
-	private static double getRenderPosY() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSY);
-	}
-
-	private static double getRenderPosZ() {
-		return ObfuscationReflectionHelper.getPrivateValue(RenderManager.class, Minecraft.getMinecraft().getRenderManager(), LibObfuscation.RENDERPOSZ);
-	}
-
 	private static void renderTile(TileRedString tile) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
 		EnumFacing dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(tile.getPos().getX() + 0.5 - getRenderPosX(), tile.getPos().getY() + 0.5 - getRenderPosY(), tile.getPos().getZ() + 0.5 - getRenderPosZ());
+			GlStateManager.translate(tile.getPos().getX() + 0.5 - renderPosX, tile.getPos().getY() + 0.5 - renderPosY, tile.getPos().getZ() + 0.5 - renderPosZ);
 			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
 			Vector3 vecNorm = vecOrig.copy().normalize();
 			Vector3 vecMag = vecNorm.copy().multiply(0.025);

@@ -108,7 +108,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
 
 					EntityItem entityitem = new EntityItem(player.worldObj, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
-					ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, entityitem, 10, LibObfuscation.PICKUP_DELAY);
+					entityitem.setPickupDelay(10);
 					player.worldObj.spawnEntityInWorld(entityitem);
 				}
 

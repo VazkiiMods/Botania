@@ -31,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -54,7 +55,15 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() == wool && !item.isDead && ((Integer) ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, item, LibObfuscation.AGE)) >= slowdown) {
+
+			int age;
+			try {
+				age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+			} catch (Throwable t) {
+				continue;
+			}
+
+			if(stack != null && stack.getItem() == wool && !item.isDead && age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					if(!remote) {

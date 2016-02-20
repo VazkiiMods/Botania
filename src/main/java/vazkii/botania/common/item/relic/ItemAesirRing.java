@@ -31,6 +31,7 @@ import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -69,18 +70,17 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 					entity.motionX = event.entityItem.motionX;
 					entity.motionY = event.entityItem.motionY;
 					entity.motionZ = event.entityItem.motionZ;
-					ObfuscationReflectionHelper.setPrivateValue(
-						EntityItem.class,
-						entity,
-						ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, event.entityItem, LibObfuscation.AGE),
-						LibObfuscation.AGE
-					);
-					ObfuscationReflectionHelper.setPrivateValue(
-							EntityItem.class,
-							entity,
-							ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, event.entityItem, LibObfuscation.PICKUP_DELAY),
-							LibObfuscation.PICKUP_DELAY
-					);
+
+					try {
+						BotaniaMethodHandles.SETITEMAGE.invokeExact(entity, BotaniaMethodHandles.GETITEMAGE.invokeExact(entity));
+					} catch (Throwable ignored) {}
+
+					int pickupDelay = 0;
+					try {
+						pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(event.entityItem);
+					} catch (Throwable ignored) {}
+					entity.setPickupDelay(pickupDelay);
+
 					entity.worldObj.spawnEntityInWorld(entity);
 				}
 			}
