@@ -25,7 +25,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,7 +32,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -58,7 +56,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 			int age;
 			try {
-				age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+				age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
 			} catch (Throwable t) {
 				continue;
 			}

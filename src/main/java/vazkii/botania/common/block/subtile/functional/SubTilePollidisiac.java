@@ -16,7 +16,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -49,7 +48,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 					for(EntityItem item : items) {
 						int age;
 						try {
-							age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+							age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
 						} catch (Throwable t) {
 							continue;
 						}

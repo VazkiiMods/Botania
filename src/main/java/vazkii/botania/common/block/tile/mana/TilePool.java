@@ -34,7 +34,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -65,7 +64,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -153,7 +151,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		int age;
 		try {
-			age = ((int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item));
+			age = ((int) BotaniaMethodHandles.itemAge_getter.invokeExact(item));
 		} catch (Throwable throwable) { return false; }
 
 		if(age > 100 && age < 130 || !catalystsRegistered)
@@ -173,7 +171,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 						try {
-							BotaniaMethodHandles.SETITEMAGE.invokeExact(outputItem, 105);
+							BotaniaMethodHandles.itemAge_setter.invokeExact(outputItem, 105);
 						} catch (Throwable ignored) {}
 						worldObj.spawnEntityInWorld(outputItem);
 					}

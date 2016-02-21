@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 23, 2014, 5:32:11 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -26,21 +26,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.WeightedRandom;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.lib.LibObfuscation;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 
 	int mana = 0;
-
-	private static final Method isActivated = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
-	private static final Field spawnDelay = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.SPAWN_DELAY);
-	private static final Field mobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.MOB_ROTATION);
-	private static final Field prevMobRotation = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.PREV_MOB_ROTATION);
-	private static final Method spawnNewEntity = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.SPAWN_NEW_ENTITY, Entity.class, boolean.class);
-	private static final Method getEntityNameToSpawn = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.GET_ENTITY_TO_SPAWN);
 
 	@Override
 	public void updateEntity() {
@@ -51,26 +43,26 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 			try {
 				// Directly drawn from MobSpawnerBaseLogic, with inverted isActivated check and mana consumption
-				if(!((Boolean) isActivated.invoke(logic))) {
+				if(!((boolean) BotaniaMethodHandles.isActivated.invokeExact(logic))) {
                     if(!worldObj.isRemote)
                         mana -= 6;
 
                     if(logic.getSpawnerWorld().isRemote) {
-						int delay = spawnDelay.getInt(logic);
+						int delay = ((int) BotaniaMethodHandles.spawnDelay_getter.invokeExact(logic));
                         if(delay > 0)
-							spawnDelay.setInt(logic, delay - 1);
+							BotaniaMethodHandles.spawnDelay_setter.invokeExact(logic, delay - 1);
 
                         if(Math.random() > 0.5)
                             Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
-						prevMobRotation.set(logic, logic.getMobRotation());
-                        mobRotation.set(logic, (logic.getMobRotation() + 1000.0F / (spawnDelay.getInt(logic) + 200.0F)) % 360.0D);
+						BotaniaMethodHandles.prevMobRotation_setter.invokeExact(logic, logic.getMobRotation());
+                        BotaniaMethodHandles.mobRotation_setter.invokeExact(logic, (logic.getMobRotation() + 1000.0F / (((int) BotaniaMethodHandles.spawnDelay_getter.invokeExact(logic)) + 200.0F)) % 360.0D);
                     } else {
-						if(spawnDelay.getInt(logic) == -1)
+						if(((int) BotaniaMethodHandles.spawnDelay_getter.invokeExact(logic)) == -1)
 							resetTimer(logic);
-						int delay = spawnDelay.getInt(logic);
+						int delay = ((int) BotaniaMethodHandles.spawnDelay_getter.invokeExact(logic));
 						if(delay > 0) {
-							spawnDelay.setInt(logic, delay - 1);
+							BotaniaMethodHandles.spawnDelay_setter.invokeExact(logic, delay - 1);
 							return;
 						}
 
@@ -79,12 +71,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 						boolean flag = false;
 
-						int spawnCount = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_COUNT);
-						int spawnRange = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.SPAWN_RANGE);
-						int maxNearbyEntities = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_NEARBY_ENTITIES);
+						int spawnCount = ((int) BotaniaMethodHandles.spawnCount_getter.invokeExact(logic));
+						int spawnRange = ((int) BotaniaMethodHandles.spawnRange_getter.invokeExact(logic));
+						int maxNearbyEntities = ((int) BotaniaMethodHandles.maxNearbyEntities_getter.invokeExact(logic));
 
 						for(int i = 0; i < spawnCount; ++i) {
-							Entity entity = EntityList.createEntityByName(((String) getEntityNameToSpawn.invoke(logic)), logic.getSpawnerWorld());
+							Entity entity = EntityList.createEntityByName(((String) BotaniaMethodHandles.getEntityNameToSpawn.invokeExact(logic)), logic.getSpawnerWorld());
 
 							if (entity == null)
 								return;
@@ -103,7 +95,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 							entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
 							if(entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
-								spawnNewEntity.invoke(logic, entity, true);
+								BotaniaMethodHandles.spawnNewEntity.invokeExact(logic, entity, true);
 								this.getWorld().playAuxSFX(2004, logic.getSpawnerPosition(), 0);
 
 								if(entityliving != null) {
@@ -120,23 +112,23 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 
                 }
-			} catch (IllegalAccessException | InvocationTargetException e) {
-				e.printStackTrace();
+			} catch (Throwable t) {
+				t.printStackTrace();
 			}
 		}
 	}
 
 	// Direct copy of MobSpawnerBaseLogic.resetTimer()
-	private void resetTimer(MobSpawnerBaseLogic logic) throws IllegalAccessException {
-		int maxSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_SPAWN_DELAY);
-		int minSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MIN_SPAWN_DELAY);
-		List potentialEntitySpawns = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.POTENTIAL_ENTITY_SPAWNS);
+	private void resetTimer(MobSpawnerBaseLogic logic) throws Throwable {
+		int maxSpawnDelay = ((int) BotaniaMethodHandles.maxSpawnDelay_getter.invokeExact(logic));
+		int minSpawnDelay = ((int) BotaniaMethodHandles.minSpawnDelay_getter.invokeExact(logic));
+		List potentialEntitySpawns = ((List) BotaniaMethodHandles.potentialSpawns_getter.invokeExact(logic));
 
 		if(maxSpawnDelay <= minSpawnDelay)
-			spawnDelay.set(logic, minSpawnDelay);
+			BotaniaMethodHandles.spawnDelay_setter.invokeExact(logic, minSpawnDelay);
 		else {
 			int i = maxSpawnDelay - minSpawnDelay;
-			spawnDelay.set(logic, minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i));
+			BotaniaMethodHandles.spawnDelay_setter.invokeExact(logic, minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i));
 		}
 
 		if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)

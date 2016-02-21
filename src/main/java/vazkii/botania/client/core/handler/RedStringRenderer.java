@@ -17,20 +17,17 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public final class RedStringRenderer {
 
@@ -73,9 +70,9 @@ public final class RedStringRenderer {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {
-			renderPosX = (double) BotaniaMethodHandles.GETRENDERPOSX.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) BotaniaMethodHandles.GETRENDERPOSY.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) BotaniaMethodHandles.GETRENDERPOSZ.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosX = (double) BotaniaMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) BotaniaMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) BotaniaMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
 		} catch (Throwable t) {
 			return;
 		}

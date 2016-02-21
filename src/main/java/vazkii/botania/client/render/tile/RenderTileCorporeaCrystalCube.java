@@ -40,7 +40,6 @@ import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.client.model.animation.Event;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 
@@ -49,7 +48,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.core.handler.BotaniaMethodHandles;
-import vazkii.botania.common.lib.LibObfuscation;
 
 import java.util.concurrent.TimeUnit;
 
@@ -67,7 +65,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
                 entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
 			try {
-				BotaniaMethodHandles.SETITEMAGE.invokeExact(entity, ClientTickHandler.ticksInGame);
+				BotaniaMethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
 			} catch (Throwable ignored) {}
 
 			stack = cube.getRequestTarget();

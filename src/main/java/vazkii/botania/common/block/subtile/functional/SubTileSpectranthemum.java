@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -29,7 +28,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
 
@@ -60,7 +58,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			for(EntityItem item : items) {
 				int age;
 				try {
-					age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+					age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
 				} catch (Throwable t) {
 					continue;
 				}

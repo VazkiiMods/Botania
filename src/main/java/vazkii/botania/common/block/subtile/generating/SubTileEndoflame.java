@@ -19,14 +19,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -51,7 +49,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 					for(EntityItem item : items) {
 						int age;
 						try {
-							age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+							age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
 						} catch (Throwable t) {
 							continue;
 						}

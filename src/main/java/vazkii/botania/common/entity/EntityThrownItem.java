@@ -21,10 +21,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class EntityThrownItem extends EntityItem {
 
@@ -38,7 +36,7 @@ public class EntityThrownItem extends EntityItem {
 
 		int pickupDelay = 0;
 		try {
-			pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(item);
+			pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(item);
 		} catch (Throwable ignored) {}
 
 		item.setPickupDelay(pickupDelay);
@@ -73,7 +71,7 @@ public class EntityThrownItem extends EntityItem {
 
 				int pickupDelay;
 				try {
-					pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(this);
+					pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(this);
 				} catch (Throwable ignored) { continue; }
 
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0))

@@ -25,7 +25,6 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
@@ -43,7 +42,6 @@ import com.google.common.collect.Multimap;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
 
@@ -73,12 +71,12 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 					entity.motionZ = event.entityItem.motionZ;
 
 					try {
-						BotaniaMethodHandles.SETITEMAGE.invokeExact(entity, BotaniaMethodHandles.GETITEMAGE.invokeExact(entity));
+						BotaniaMethodHandles.itemAge_setter.invokeExact(entity, BotaniaMethodHandles.itemAge_getter.invokeExact(entity));
 					} catch (Throwable ignored) {}
 
 					int pickupDelay = 0;
 					try {
-						pickupDelay = (int) BotaniaMethodHandles.GETPICKUPDELAY.invokeExact(event.entityItem);
+						pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(event.entityItem);
 					} catch (Throwable ignored) {}
 					entity.setPickupDelay(pickupDelay);
 

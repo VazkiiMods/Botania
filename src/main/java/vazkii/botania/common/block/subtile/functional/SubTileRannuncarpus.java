@@ -31,7 +31,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
@@ -83,7 +82,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			for(EntityItem item : items) {
 				int age;
 				try {
-					age = (int) BotaniaMethodHandles.GETITEMAGE.invokeExact(item);
+					age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
 				} catch (Throwable t) {
 					continue;
 				}
