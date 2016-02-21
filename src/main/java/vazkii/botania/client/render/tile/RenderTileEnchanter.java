@@ -27,7 +27,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
 
@@ -49,7 +49,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 				item = new EntityItem(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
 
 			try {
-				BotaniaMethodHandles.itemAge_setter.invokeExact(item, ClientTickHandler.ticksInGame);
+				MethodHandles.itemAge_setter.invokeExact(item, ClientTickHandler.ticksInGame);
 			} catch (Throwable ignored) {}
 
 			item.setEntityItemStack(enchanter.itemToEnchant);

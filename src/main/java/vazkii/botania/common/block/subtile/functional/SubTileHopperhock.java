@@ -39,7 +39,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -75,7 +75,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		for(EntityItem item : items) {
 			int age;
 			try {
-				age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
+				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
 			} catch (Throwable t) {
 				continue;
 			}

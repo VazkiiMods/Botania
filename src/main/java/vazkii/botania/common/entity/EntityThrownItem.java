@@ -21,7 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class EntityThrownItem extends EntityItem {
@@ -36,7 +36,7 @@ public class EntityThrownItem extends EntityItem {
 
 		int pickupDelay = 0;
 		try {
-			pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(item);
+			pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(item);
 		} catch (Throwable ignored) {}
 
 		item.setPickupDelay(pickupDelay);
@@ -71,7 +71,7 @@ public class EntityThrownItem extends EntityItem {
 
 				int pickupDelay;
 				try {
-					pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(this);
+					pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(this);
 				} catch (Throwable ignored) { continue; }
 
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0))

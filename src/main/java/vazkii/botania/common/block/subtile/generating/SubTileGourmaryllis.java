@@ -23,7 +23,7 @@ import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileGourmaryllis extends SubTileGenerating {
@@ -58,7 +58,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 			int age;
 			try {
-				age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
+				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
 			} catch (Throwable t) {
 				continue;
 			}

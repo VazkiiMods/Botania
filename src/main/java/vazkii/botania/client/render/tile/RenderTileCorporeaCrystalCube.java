@@ -47,7 +47,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +65,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
                 entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
 			try {
-				BotaniaMethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
+				MethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
 			} catch (Throwable ignored) {}
 
 			stack = cube.getRequestTarget();

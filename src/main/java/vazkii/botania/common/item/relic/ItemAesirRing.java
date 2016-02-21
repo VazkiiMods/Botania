@@ -31,7 +31,7 @@ import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -71,12 +71,12 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 					entity.motionZ = event.entityItem.motionZ;
 
 					try {
-						BotaniaMethodHandles.itemAge_setter.invokeExact(entity, BotaniaMethodHandles.itemAge_getter.invokeExact(entity));
+						MethodHandles.itemAge_setter.invokeExact(entity, MethodHandles.itemAge_getter.invokeExact(entity));
 					} catch (Throwable ignored) {}
 
 					int pickupDelay = 0;
 					try {
-						pickupDelay = (int) BotaniaMethodHandles.pickupDelay_getter.invokeExact(event.entityItem);
+						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.entityItem);
 					} catch (Throwable ignored) {}
 					entity.setPickupDelay(pickupDelay);
 

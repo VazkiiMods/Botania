@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileOpenCrate extends TileSimpleInventory {
@@ -72,7 +72,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 		if(redstone) {
 			try {
-				BotaniaMethodHandles.itemAge_setter.invokeExact(item, -200);
+				MethodHandles.itemAge_setter.invokeExact(item, -200);
 			} catch (Throwable ignored) {}
 		}
 

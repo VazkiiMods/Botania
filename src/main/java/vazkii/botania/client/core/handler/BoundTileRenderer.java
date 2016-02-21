@@ -34,7 +34,6 @@ import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
 
 public final class BoundTileRenderer {
 
@@ -100,9 +99,9 @@ public final class BoundTileRenderer {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {
-			renderPosX = (double) BotaniaMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) BotaniaMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) BotaniaMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
 		} catch (Throwable t) {
 			return;
 		}

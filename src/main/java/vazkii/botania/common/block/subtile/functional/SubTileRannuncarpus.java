@@ -40,7 +40,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -82,7 +82,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			for(EntityItem item : items) {
 				int age;
 				try {
-					age = (int) BotaniaMethodHandles.itemAge_getter.invokeExact(item);
+					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
 				} catch (Throwable t) {
 					continue;
 				}

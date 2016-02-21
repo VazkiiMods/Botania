@@ -57,7 +57,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.handler.BotaniaMethodHandles;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
@@ -151,7 +151,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		int age;
 		try {
-			age = ((int) BotaniaMethodHandles.itemAge_getter.invokeExact(item));
+			age = ((int) MethodHandles.itemAge_getter.invokeExact(item));
 		} catch (Throwable throwable) { return false; }
 
 		if(age > 100 && age < 130 || !catalystsRegistered)
@@ -171,7 +171,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 						try {
-							BotaniaMethodHandles.itemAge_setter.invokeExact(outputItem, 105);
+							MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
 						} catch (Throwable ignored) {}
 						worldObj.spawnEntityInWorld(outputItem);
 					}
