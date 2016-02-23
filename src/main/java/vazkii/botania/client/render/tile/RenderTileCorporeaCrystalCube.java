@@ -53,7 +53,6 @@ import java.util.concurrent.TimeUnit;
 
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CRYSTAL_CUBE);
 	ModelCrystalCube model = new ModelCrystalCube();
 	EntityItem entity = null;
 
@@ -82,11 +81,9 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2);
-		//mc.renderEngine.bindTexture(texture);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
-		//model.renderBase();
-		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
+		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
 		if(stack != null) {
 			GlStateManager.pushMatrix();
 			float s = stack.getItem() instanceof ItemBlock ? 0.7F : 0.5F;
@@ -95,11 +92,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
 			((Render) mc.getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
 			GlStateManager.popMatrix();
-			//mc.renderEngine.bindTexture(texture);
 		}
 
-		//GlStateManager.color(1F, 1F, 1F, 0.4F);
-		//model.renderCube();
 		GlStateManager.color(1F, 1F, 1F);
 
 		if(stack != null) {
@@ -145,8 +139,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	// Copied from AnimationTESR
 	protected static BlockRendererDispatcher blockRenderer;
 
-	// Botania - expanded size to 15 to hold all states, expanded expire time to 1 sec for performance
-	protected static final LoadingCache<Pair<IExtendedBlockState, IModelState>, IBakedModel> modelCache = CacheBuilder.newBuilder().maximumSize(15).expireAfterWrite(1000, TimeUnit.MILLISECONDS).build(new CacheLoader<Pair<IExtendedBlockState, IModelState>, IBakedModel>()
+	// Botania - expanded size to 15 to hold all states
+	protected static final LoadingCache<Pair<IExtendedBlockState, IModelState>, IBakedModel> modelCache = CacheBuilder.newBuilder().maximumSize(15).expireAfterWrite(100, TimeUnit.MILLISECONDS).build(new CacheLoader<Pair<IExtendedBlockState, IModelState>, IBakedModel>()
 	{
 		public IBakedModel load(Pair<IExtendedBlockState, IModelState> key) throws Exception
 		{
