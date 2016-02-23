@@ -88,15 +88,6 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
-        // BlockSpecialFlower
-        // Ignore all vanilla rules, redirect all blockstates to blockstates/specialFlower.json#normal
-        evt.modelManager.getBlockModelShapes().registerBlockWithStateMapper(ModBlocks.specialFlower, new DefaultStateMapper() {
-            @Override
-            public ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return new ModelResourceLocation("botania:specialFlower");
-            }
-        });
-
         // Floating flowers
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
