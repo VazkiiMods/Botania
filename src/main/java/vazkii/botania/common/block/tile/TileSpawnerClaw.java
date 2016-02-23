@@ -91,8 +91,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 							EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
 							entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
-							if(entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
-								MethodHandles.spawnNewEntity.invokeExact(logic, entity, true);
+							if(entityliving == null || entityliving.getCanSpawnHere()) {
+								// Must accept return value so methodhandle dynamically binds correctly
+								Entity e = ((Entity) MethodHandles.spawnNewEntity.invokeExact(logic, entity, true));
 								this.getWorld().playAuxSFX(2004, logic.getSpawnerPosition(), 0);
 
 								if(entityliving != null) {

@@ -19,6 +19,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 import org.lwjgl.BufferUtils;
@@ -165,14 +166,15 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void dumpAtlas(ArrowLooseEvent evt) {
-        if (!evt.entityPlayer.worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")))
+        if (!evt.entityPlayer.worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+                || !evt.entityPlayer.isSneaking())
             return;
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
         int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
         int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
 
-        System.out.printf("Atlas is %d wide by %d tall%n", width, height);
+        FMLLog.info("[Botania]: Dumped atlas %d wide by %d tall%n", width, height);
 
         int pixels = width * height;
         
@@ -202,7 +204,7 @@ public class MiscellaneousIcons {
         try {
             ImageIO.write(bufferedimage, "png", result);
         } catch (IOException e) {
-            e.printStackTrace();
+            FMLLog.warning("[Botania]: Failed to dump debug atlas");
         }
     }
 
