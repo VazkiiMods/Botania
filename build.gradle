@@ -35,8 +35,8 @@ group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-con
 archivesBaseName = config.mod_name
 
 minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    version = "${config.forge_version}-${config.mc_version}"
+    runDir = "eclipse"
 
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
@@ -60,10 +60,10 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.109:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
-    compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
+    compile "codechicken:ForgeMultipart:1.7.10-1.2.0.345:dev"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
