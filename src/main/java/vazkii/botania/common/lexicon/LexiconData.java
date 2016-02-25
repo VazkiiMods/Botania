@@ -13,6 +13,7 @@ package vazkii.botania.common.lexicon;
 import java.util.ArrayList;
 import java.util.List;
 
+import baubles.common.Config;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -536,8 +537,10 @@ public final class LexiconData {
 		solegnolia.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.solegnoliaRecipe));
 
 		// GENERATING FLOWERS ENTRIES
-		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
-		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		if(ConfigHandler.hardcorePassiveGeneration > 0) {
+			generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
+			generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		}
 
 		passiveGen = new BLexiconEntry(LibLexicon.GFLOWER_PASSIVE_GENERATION, categoryGenerationFlowers);
 		passiveGen.setPriority().setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(Blocks.deadbush));
