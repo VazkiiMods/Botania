@@ -79,14 +79,16 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
-						float speed = beltItem.getSpeed(belt);
-						player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
-						beltItem.onMovedTick(belt, player);
+					if(player.worldObj.isRemote) {
+						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+                            float speed = beltItem.getSpeed(belt);
+                            player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
+                            beltItem.onMovedTick(belt, player);
 
-						if(player.ticksExisted % COST_INTERVAL == 0)
-							ManaItemHandler.requestManaExact(belt, player, COST, true);
-					} else beltItem.onNotMovingTick(belt, player);
+                            if(player.ticksExisted % COST_INTERVAL == 0)
+                                ManaItemHandler.requestManaExact(belt, player, COST, true);
+                        } else beltItem.onNotMovingTick(belt, player);
+					}
 
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
