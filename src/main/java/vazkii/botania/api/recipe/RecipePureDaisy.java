@@ -25,11 +25,16 @@ import vazkii.botania.api.subtile.SubTileEntity;
 
 public class RecipePureDaisy {
 
+	public static final int DEFAULT_TIME = 150;
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
 	private final Object input;
 	private final IBlockState outputState;
 	private final int time;
+
+	public RecipePureDaisy(Object input, IBlockState state) {
+		this(input, state, DEFAULT_TIME);
+	}
 
 	public RecipePureDaisy(Object input, IBlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
@@ -38,7 +43,6 @@ public class RecipePureDaisy {
 		this.time = time;
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
-
 	}
 
 	/**
