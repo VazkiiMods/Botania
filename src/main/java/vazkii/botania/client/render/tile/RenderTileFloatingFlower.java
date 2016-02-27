@@ -45,12 +45,10 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
-		GlStateManager.translate(0.5F, 0F, 0.5F);
-		// todo 1.8.8 fix spin
+		GlStateManager.translate(0.5F, 0, 0.5F);
 		GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
-		GlStateManager.translate(-0.5F, 0F, -0.5F);
+		GlStateManager.translate(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
 
-		GlStateManager.translate(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
 		GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
