@@ -37,10 +37,9 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		}
 
 		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-		IFloatingFlower flower = (IFloatingFlower) tile;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2 + 1);
+		GlStateManager.translate(d0, d1, d2);
 
 		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
@@ -48,16 +47,13 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		GlStateManager.translate(0.5F, 0F, 0.5F);
 		// todo 1.8.8 fix spin
-		//GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
+		GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
 		GlStateManager.translate(-0.5F, 0F, -0.5F);
 
-		if(tile.getWorld() != null) {
-			GlStateManager.translate(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
-			GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
-		}
+		GlStateManager.translate(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
+		GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		GlStateManager.pushMatrix();
 
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
@@ -65,7 +61,6 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		brd.getBlockModelRenderer().renderModelBrightness(ibakedmodel, state, 1.0F, true);
 
-		GlStateManager.popMatrix();
 		GlStateManager.popMatrix();
 
 	}
