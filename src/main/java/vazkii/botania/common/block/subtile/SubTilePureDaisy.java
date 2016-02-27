@@ -29,9 +29,6 @@ public class SubTilePureDaisy extends SubTileEntity {
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 
-	private static final int TOTAL_TIME = 1200;
-	private static final int TIME_PER = TOTAL_TIME / 8;
-
 	private static final BlockPos[] POSITIONS = {
 			new BlockPos(-1, 0, -1 ),
 			new BlockPos(-1, 0, 0 ),
@@ -44,7 +41,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	};
 
 	int positionAt = 0;
-	int[] ticksRemaining = new int[] { TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER };
+	int[] ticksRemaining = { -1, -1, -1, -1, -1, -1, -1, -1};
 
 	@Override
 	public void onUpdate() {
@@ -68,12 +65,14 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 
 			if(recipe != null) {
-				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
+				if (ticksRemaining[positionAt] == -1)
+					ticksRemaining[positionAt] = recipe.getTime();
+				ticksRemaining[positionAt]--;
 
 				Botania.proxy.sparkleFX(supertile.getWorld(), coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 				if(ticksRemaining[positionAt] <= 0) {
-					ticksRemaining[positionAt] = TIME_PER;
+					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
 						for(int i = 0; i < 25; i++) {
@@ -87,7 +86,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 							supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
-			} else ticksRemaining[positionAt] = TIME_PER;
+			} else ticksRemaining[positionAt] = -1;
 		}
 	}
 

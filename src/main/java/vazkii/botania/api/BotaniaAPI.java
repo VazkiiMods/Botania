@@ -413,13 +413,24 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Registers a Pure Daisy Recipe.
+	 * Registers a Pure Daisy Recipe with the default time of 150 ticks per block
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
 	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
 	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState) {
-		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState);
+		return registerPureDaisyRecipe(input, outputState, 150);
+	}
+
+	/**
+	 * Registers a Pure Daisy Recipe.
+	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
+	 * @param outputState The blockstate to be placed upon recipe completion.
+	 * @param time The amount of time in ticks to complete this recipe
+	 * @return The recipe created.
+	 */
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState, int time) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState, time);
 		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}

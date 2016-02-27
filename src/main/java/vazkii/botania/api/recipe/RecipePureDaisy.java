@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -26,15 +27,18 @@ public class RecipePureDaisy {
 
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap<>();
 
-	Object input;
-	IBlockState outputState;
+	private final Object input;
+	private final IBlockState outputState;
+	private final int time;
 
-	public RecipePureDaisy(Object input, IBlockState state) {
+	public RecipePureDaisy(Object input, IBlockState state, int time) {
+		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.input = input;
 		this.outputState = state;
-
+		this.time = time;
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
+
 	}
 
 	/**
@@ -90,6 +94,10 @@ public class RecipePureDaisy {
 
 	public IBlockState getOutputState() {
 		return outputState;
+	}
+
+	public int getTime() {
+		return time;
 	}
 
 }
