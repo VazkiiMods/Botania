@@ -19,147 +19,39 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileRedStringContainer extends TileRedString implements ISidedInventory {
+import java.util.Arrays;
+
+public class TileRedStringContainer extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
 		TileEntity tile = worldObj.getTileEntity(pos);
-		if(tile != null && tile instanceof IInventory) {
-			IInventory inv = (IInventory) tile;
-			if(inv instanceof ISidedInventory) {
-				ISidedInventory sidedInv = (ISidedInventory) inv;
-				for(EnumFacing e : EnumFacing.VALUES)
-					if(sidedInv.getSlotsForFace(e).length != 0)
-						return true;
-				return false;
-			}
-			
+		return tile != null
+				&& Arrays.stream(EnumFacing.VALUES)
+				.anyMatch(e -> tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e));
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				&& getTileAtBinding() != null
+				&& getTileAtBinding().hasCapability(cap, side))
 			return true;
-		}
-		
-		return false;
+		return super.hasCapability(cap, side);
 	}
 
 	@Override
-	public int getSizeInventory() {
-		IInventory inv = getInventory();
-		return inv != null ? inv.getSizeInventory() : 0;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot) {
-		IInventory inv = getInventory();
-		return inv != null ? inv.getStackInSlot(slot) : null;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int slot, int count) {
-		IInventory inv = getInventory();
-		return inv != null ? inv.decrStackSize(slot, count) : null;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int slot) {
-		IInventory inv = getInventory();
-		return inv != null ? inv.removeStackFromSlot(slot) : null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack) {
-		IInventory inv = getInventory();
-		if(inv != null)
-			inv.setInventorySlotContents(slot, stack);
-	}
-
-	@Override
-	public String getName() {
-		IInventory inv = getInventory();
-		return inv != null ? inv.getName() : LibBlockNames.RED_STRING_CONTAINER;
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		IInventory inv = getInventory();
-		return inv != null ? inv.hasCustomName() : false;
-	}
-
-	@Override
-	public IChatComponent getDisplayName() {
-		IInventory inv = getInventory();
-		return inv != null ? inv.getDisplayName() : new ChatComponentText(getName());
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		IInventory inv = getInventory();
-		return inv != null ? inv.getInventoryStackLimit() : 0;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		IInventory inv = getInventory();
-		return inv != null ? inv.isUseableByPlayer(player) : false;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-		IInventory inv = getInventory();
-		if(inv != null)
-			inv.openInventory(player);
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-		IInventory inv = getInventory();
-		if(inv != null)
-			inv.closeInventory(player);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		IInventory inv = getInventory();
-		return inv != null ? inv.isItemValidForSlot(slot, stack) : false;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		IInventory inv = getInventory();
-		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).getSlotsForFace(side) : inv instanceof IInventory ? InventoryHelper.buildSlotsForLinearInventory(inv) : new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
-		IInventory inv = getInventory();
-		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canInsertItem(slot, stack, side) : true;
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
-		IInventory inv = getInventory();
-		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canExtractItem(slot, stack, side) : true;
+	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				&& getTileAtBinding() != null
+				&& getTileAtBinding().hasCapability(cap, side))
+			return getTileAtBinding().getCapability(cap, side);
+		return super.getCapability(cap, side);
 	}
 
 	@Override
@@ -168,14 +60,6 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 		TileEntity tile = getTileAtBinding();
 		if(tile != null)
 			tile.markDirty();
-	}
-
-	IInventory getInventory() {
-		TileEntity tile = getTileAtBinding();
-		if(tile == null || !(tile instanceof IInventory))
-			return null;
-
-		return InventoryHelper.getInventory((IInventory) tile);
 	}
 
 }
