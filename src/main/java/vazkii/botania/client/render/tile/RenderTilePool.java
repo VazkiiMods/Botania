@@ -45,9 +45,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 	@Override
 	public void renderTileEntityAt(TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
-		if (pool != null && pool.getWorld() != null && !pool.getWorld().isBlockLoaded(pool.getPos(), false)) {
+		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
+				|| pool.getWorld().getBlockState(pool.getPos()).getBlock() != ModBlocks.pool))
 			return;
-		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

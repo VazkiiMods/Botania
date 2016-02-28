@@ -27,6 +27,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
 
 public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
@@ -40,9 +41,10 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 
 	@Override
 	public void renderTileEntityAt(TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
-		if (avatar != null && avatar.getWorld() != null && !avatar.getWorld().isBlockLoaded(avatar.getPos(), false)) {
-			return;
-		}
+		if (avatar != null)
+			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
+					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
+				return;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();

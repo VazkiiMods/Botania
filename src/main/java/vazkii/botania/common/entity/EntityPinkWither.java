@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -37,7 +35,6 @@ public class EntityPinkWither extends EntityWither {
 			}
 		}
 
-
 		Iterator<EntityAITasks.EntityAITaskEntry> targetTaskIter = this.targetTasks.taskEntries.iterator();
 		while (targetTaskIter.hasNext()) {
 			EntityAITasks.EntityAITaskEntry entry = targetTaskIter.next();
@@ -62,13 +59,9 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	public void setAttackTarget(EntityLivingBase p_70624_1_) {
-		// NO-OP
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity p_70652_1_) {
-		return false;
+	public void updateAITasks() {
+		if(this.ticksExisted % 20 == 0)
+			this.heal(1.0F);
 	}
 
 	@Override

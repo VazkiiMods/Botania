@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPump;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePump;
 
 public class RenderTilePump extends TileEntitySpecialRenderer<TilePump> {
@@ -32,9 +33,9 @@ public class RenderTilePump extends TileEntitySpecialRenderer<TilePump> {
 
 	@Override
 	public void renderTileEntityAt(TilePump pump, double d0, double d1, double d2, float f, int digProgress) {
-		if (pump != null && pump.getWorld() != null && !pump.getWorld().isBlockLoaded(pump.getPos(), false)) {
+		if(!pump.getWorld().isBlockLoaded(pump.getPos(), false)
+				|| pump.getWorld().getBlockState(pump.getPos()).getBlock() != ModBlocks.pump)
 			return;
-		}
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
@@ -42,12 +43,12 @@ public class RenderTilePump extends TileEntitySpecialRenderer<TilePump> {
 		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		EnumFacing facing = pump != null && pump.getWorld() != null ? pump.getWorld().getBlockState(pump.getPos()).getValue(BotaniaStateProps.CARDINALS) : EnumFacing.SOUTH;
+		EnumFacing facing = pump.getWorld() != null ? pump.getWorld().getBlockState(pump.getPos()).getValue(BotaniaStateProps.CARDINALS) : EnumFacing.SOUTH;
 
 		GlStateManager.translate(0.5F, 0.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getIndex() - 2), 0)], 0F, 1F, 0F);
-		model.render(Math.max(0F, Math.min(8F, pump == null ? 8 : pump.innerRingPos + pump.moving * f)));
+		model.render(Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * f)));
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
