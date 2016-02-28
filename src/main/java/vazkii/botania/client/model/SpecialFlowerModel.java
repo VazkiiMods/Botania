@@ -51,7 +51,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class SpecialFlowerModel implements IModelCustomData {
+public class SpecialFlowerModel implements IModelCustomData<SpecialFlowerModel> {
 
 	// SpecialFlowerModel for when there are no blockModels registered for a subtile
 	public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<String>, ModelResourceLocation>of(), ImmutableMap.<Optional<String>, ModelResourceLocation>of());

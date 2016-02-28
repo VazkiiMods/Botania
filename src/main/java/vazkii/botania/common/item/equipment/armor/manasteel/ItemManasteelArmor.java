@@ -114,18 +114,20 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot, ModelBiped original) {
 		if(ConfigHandler.enableArmorModels) {
 			armorSlot--; // 1.8: mojang is dumb and made armorSlot 1-4 instead of 0-3.
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
 			if(model == null)
 				model = provideArmorModelForSlot(itemStack, armorSlot);
 
-			if(model != null)
+			if(model != null) {
+				model.setModelAttributes(original);
 				return model;
+			}
 		}
 
-		return super.getArmorModel(entityLiving, itemStack, armorSlot);
+		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
 	@SideOnly(Side.CLIENT)
