@@ -12,9 +12,9 @@ package vazkii.botania.common.integration.corporea;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
