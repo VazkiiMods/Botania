@@ -51,12 +51,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public int getDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return 1000 - (int) (mana / getMaxMana(stack) * 1000);
-	}
-
-	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
@@ -78,7 +72,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
-		stack.setItemDamage(getDamage(stack));
 	}
 
 	@Override
@@ -109,6 +102,18 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	@Override
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		// For mana rings, always show the durability bar.
+		return true;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		// As in ItemManaTablet, forge seems to have their durability swapped, hence the 1.0 -
+		return 1.0 - getManaFractionForDisplay(stack);
 	}
 
 }
