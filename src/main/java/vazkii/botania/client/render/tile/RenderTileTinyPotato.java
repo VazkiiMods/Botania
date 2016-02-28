@@ -36,6 +36,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -48,9 +49,9 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 	@Override
 	public void renderTileEntityAt(TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
-		if (potato != null && potato.getWorld() != null && !potato.getWorld().isBlockLoaded(potato.getPos(), false)) {
+		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
+				|| potato.getWorld().getBlockState(potato.getPos()).getBlock() != ModBlocks.tinyPotato)
 			return;
-		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();

@@ -23,25 +23,22 @@ import net.minecraft.tileentity.TileEntity;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.FloatingFlowerModel;
-import vazkii.botania.client.model.ModelMiniIsland;
-import vazkii.botania.api.item.IFloatingFlower;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
-	private static final ModelMiniIsland model = new ModelMiniIsland();
-
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
-		if (tile != null && tile.getWorld() != null && !tile.getWorld().isBlockLoaded(tile.getPos(), false)) {
-			return;
-		}
+		if (tile != null)
+			if (!tile.getWorld().isBlockLoaded(tile.getPos(), false))
+				return;
+
 
 		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2);
 
-		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
+		double worldTime = (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 

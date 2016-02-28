@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import java.util.Map;
@@ -31,9 +32,9 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 	@SuppressWarnings("deprecation")
 	@Override
 	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
-		if (plate != null && plate.getWorld() != null && !plate.getWorld().isBlockLoaded(plate.getPos(), false)) {
+		if(!plate.getWorld().isBlockLoaded(plate.getPos(), false)
+				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
 			return;
-		}
 		
 		EnumFacing facing = plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS);
 

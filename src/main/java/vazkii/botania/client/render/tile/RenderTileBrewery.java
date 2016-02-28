@@ -28,7 +28,6 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
 	ModelBrewery model = new ModelBrewery();
 	public TileBrewery brewery;
-	public static boolean rotate = true;
 
 	@Override
 	public void renderTileEntityAt(TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
@@ -43,8 +42,6 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 		GlStateManager.translate(0.5F, -1.5F, -0.5F);
 
 		double time = ClientTickHandler.ticksInGame + f;
-		if(!rotate)
-			time = -1;
 
 		model.render(this, time);
 		GlStateManager.enableRescaleNormal();

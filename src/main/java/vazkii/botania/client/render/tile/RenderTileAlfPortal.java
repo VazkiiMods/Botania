@@ -24,15 +24,16 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal> {
 
 	@Override
 	public void renderTileEntityAt(TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
-		if (portal != null && portal.getWorld() != null && !portal.getWorld().isBlockLoaded(portal.getPos(), false)) {
+		if (!portal.getWorld().isBlockLoaded(portal.getPos(), false)
+				|| portal.getWorld().getBlockState(portal.getPos()).getBlock() != ModBlocks.alfPortal)
 			return;
-		}
 
 		AlfPortalState state = portal.getWorld().getBlockState(portal.getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
 

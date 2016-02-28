@@ -30,6 +30,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
@@ -46,9 +47,9 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 
 	@Override
 	public void renderTileEntityAt(TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
-		if (spreader != null && spreader.getWorld() != null && !spreader.getWorld().isBlockLoaded(spreader.getPos(), false)) {
+		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
+				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;
-		}
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();

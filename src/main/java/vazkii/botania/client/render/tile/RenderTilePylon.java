@@ -51,9 +51,9 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 	@Override
 	public void renderTileEntityAt(TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
-		if (pylon != null && pylon.getWorld() != null && !pylon.getWorld().isBlockLoaded(pylon.getPos(), false)) {
+		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false)
+				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
 			return;
-		}
 		
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();

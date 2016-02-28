@@ -28,42 +28,22 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAltar;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 
 public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
-	private static final ResourceLocation[] textures = new ResourceLocation[] {
-		new ResourceLocation(LibResources.MODEL_ALTAR),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 0)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 1)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 2)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 3)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 4)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 5)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 6)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 7))
-	};
-
-	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
-
-	ModelAltar model = new ModelAltar();
-	public static int forceMeta = -1;
-
 	@Override
 	public void renderTileEntityAt(TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
-		if (altar != null && altar.getWorld() != null && !altar.getWorld().isBlockLoaded(altar.getPos(), false)) {
+		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false)
+				|| altar.getWorld().getBlockState(altar.getPos()).getBlock() != ModBlocks.altar)
 			return;
-		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-//		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
 
 		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
-		GlStateManager.scale(1F, -1F, -1F);
-//		model.render();
-		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 
 		boolean water = altar.hasWater();
@@ -151,8 +131,6 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
-
-		forceMeta = -1;
 	}
 
 	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
