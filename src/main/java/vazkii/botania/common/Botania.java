@@ -53,6 +53,7 @@ public class Botania {
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
 	public static boolean rfApiLoaded = false;
+	public static boolean storageDrawersLoaded = false;
 
 	public static ILightHelper lightHelper;
 
@@ -73,6 +74,8 @@ public class Botania {
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
 
+		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
+		
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
 		proxy.preInit(event);

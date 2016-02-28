@@ -1,3 +1,25 @@
+r1.8 249
+*<i>The "LEAVE ME THE #%!& ALONE" update! Powered by the community's Pull Requests and TheWhiteWolves' help. Also the last "official" update. Unless it breaks awfully. In that case there'll be another to fix this one. Hopefully not.</i>
+*Added back the config for passive flower decay. <i>I don't care any more. You broke me, you win. Have your config back.</i>
+*Added corporea support for Storage Drawers and the DSU API (used by JABBA too, and the TE Caches, I think) (Vindex)
+*Added Petite Clayconia. (TheWhiteWolves)
+*Added quartz variants to the ore dictionary. (nekosune)
+*Changed how Pasture Seeds grow. I don't even know how they changed but apparently they did. (Michael Brenan)
+*Fixed accessories not rendering in the proper position. (Michael Brenan)
+*Fixed Botania axes not breaking pumpkins and other things of the sort faster. (TheWhiteWolves)
+*Fixed items that shouldn't be able to go in the Petal Apothecary being able to. (yrsegal)
+*Fixed Mana Tablets losing durability in a storage drawer. (Michael Brenan)
+*Fixed multiparts not working on servers. (yrsegal)
+*Fixed the marimorphosis having an inccorect vertical range. (Pikadude)
+*Fixed the Planestrider's Sash not resetting properly sometimes. (Michael Brenan)
+*Made the Terra Truncator better. Not sure how but I guess the algorithm is better now. (Michael Brenan)
+*Newly created Botanurgist's Inkwells will show the durability bar. (Rasheeq)
+*Slabs and snow now prevent placement by the Rod of the Shifting Crust. (Michael Brenan)
+*The Rod of the Shaded Mesa can no longer move some entities it shouldn't, like the Enderdragon, or Wither. (TheWhiteWolves)
+*(Internal) Baubles can now provide blocks for the rod of the Shifting Crust. (yrsegal).
+*[API] Added a blacklist for the Rod of the Shaded Mesa. (TheWhiteWolves)
+*[API] Disposable blocks are now in the API (TheWhiteWolves)
+*[API] Floating island types can be registered by addons. (yrsegal)
 r1.8 248
 *Botania panes now have light. (Lazersmoke)
 *Botania's backported 1.8 stones now support the ore dictionary for variant recipes. (Lazersmoke)

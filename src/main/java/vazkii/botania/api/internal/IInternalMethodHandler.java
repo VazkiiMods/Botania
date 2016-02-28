@@ -26,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
+import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -123,5 +124,10 @@ public interface IInternalMethodHandler {
 	public boolean isBotaniaFlower(World world, BlockPos pos);
 
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
+
+	/**
+	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.
+	 */
+	List<IWrappedInventory> wrapInventory(List<IInventory> inventories);
 
 }

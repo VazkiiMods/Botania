@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.core.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -29,6 +30,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.boss.IBotaniaBoss;
+import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -46,6 +50,9 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
+import vazkii.botania.common.integration.corporea.WrappedDeepStorage;
+import vazkii.botania.common.integration.corporea.WrappedIInventory;
+import vazkii.botania.common.integration.corporea.WrappedStorageDrawers;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -253,5 +260,29 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
 		if(player instanceof EntityPlayerMP)
 			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+	}
+	
+
+	@Override
+	public List<IWrappedInventory> wrapInventory(List<IInventory> inventories) {
+		ArrayList<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		for(IInventory inv : inventories) {
+			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
+			IWrappedInventory wrapped = null;
+			// try StorageDrawers integration
+			if(Botania.storageDrawersLoaded) {
+				wrapped = WrappedStorageDrawers.wrap(inv, spark);
+			}
+			// try DeepStorageUnit
+			if(wrapped == null) {
+				wrapped = WrappedDeepStorage.wrap(inv, spark);
+			}
+			// last chance - this will always work
+			if(wrapped == null) {
+				wrapped = WrappedIInventory.wrap(inv, spark);
+			}
+			arrayList.add(wrapped);
+		}
+		return arrayList;
 	}
 }

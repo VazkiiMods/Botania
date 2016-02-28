@@ -61,6 +61,7 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -523,7 +524,8 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.manaIntro);
 		tutorial.add(LexiconData.pool);
 		tutorial.add(LexiconData.spreader);
-		tutorial.add(LexiconData.generatingIntro);
+		if(ConfigHandler.hardcorePassiveGeneration > 0)
+			tutorial.add(LexiconData.generatingIntro);
 		tutorial.add(LexiconData.passiveGen);
 		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.functionalIntro);

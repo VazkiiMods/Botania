@@ -37,7 +37,7 @@ public final class ConfigHandler {
 	public static ConfigAdaptor adaptor;
 
 
-	public static final int hardcorePassiveGeneration = 72000;
+	public static int hardcorePassiveGeneration = 72000;
 
 	public static boolean useAdaptativeConfig = true;
 
@@ -250,6 +250,9 @@ public final class ConfigHandler {
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
+		desc = "The amount of time it takes a Passive flower to decay and turn into a dead bush. Defaults to 72000, 60 minutes. Setting this to -1 disables the feature altogether.";
+		hardcorePassiveGeneration = loadPropInt("passiveDecay.time", desc, hardcorePassiveGeneration);
+		
 		desc = "The density of each Botania flower patch generated, defaults to 2, the lower the number, the less each patch will have.";
 		adaptor.addMappingInt(0, "worldgen.flower.density", 16);
 		adaptor.addMappingInt(238, "worldgen.flower.density", 2);

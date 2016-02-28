@@ -28,6 +28,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.BotaniaAPI;
 
 public final class CorporeaHelper {
 
@@ -126,22 +127,15 @@ public final class CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
-		Map<IInventory, Integer> countMap = new HashMap<>();
-
-		for(IInventory inv : inventories) {
-			int count = 0;
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
-				if(!isValidSlot(inv, i))
-					continue;
-
-				ItemStack stackAt = inv.getStackInSlot(i);
-				if(stacksMatch(stack, stackAt, checkNBT))
-					count += stackAt.stackSize;
+	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack,List<IInventory> inventories, boolean checkNBT) {
+		Map<IInventory, Integer> countMap = new HashMap<IInventory, Integer>();
+		List<IWrappedInventory> wrappedInventories = BotaniaAPI.internalHandler.wrapInventory(inventories);
+		for (IWrappedInventory inv : wrappedInventories) {
+			CorporeaRequest request = new CorporeaRequest(stack, checkNBT, -1);
+			inv.countItems(request);
+			if (request.foundItems > 0) {
+				countMap.put(inv.getWrappedObject(), request.foundItems);
 			}
-
-			if(count > 0)
-				countMap.put(inv, count);
 		}
 
 		return countMap;
@@ -170,6 +164,9 @@ public final class CorporeaHelper {
 	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
 	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
 	 * equals or matches (case a regex is passed in) the matcher string.
+	 * <br><br>
+	 * When requesting counting of items, individual stacks may exceed maxStackSize for
+	 * purposes of counting huge amounts.
 	 */
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
@@ -178,53 +175,30 @@ public final class CorporeaHelper {
 			return stacks;
 
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
-		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
-		lastRequestMatches = 0;
-		lastRequestExtractions = 0;
+		List<IWrappedInventory> inventoriesW = BotaniaAPI.internalHandler.wrapInventory(inventories);
+		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<ICorporeaInterceptor, ICorporeaSpark>();
 
-		int count = itemCount;
-		for(IInventory inv : inventories) {
-			boolean removedAny = false;
-			ICorporeaSpark invSpark = getSparkForInventory(inv);
+		CorporeaRequest request = new CorporeaRequest(matcher, checkNBT, itemCount);
+		for(IWrappedInventory inv : inventoriesW) {
+			ICorporeaSpark invSpark = inv.getSpark();
 
-			if(inv instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) inv;
+			Object originalInventory = inv.getWrappedObject();
+			if(originalInventory instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory;
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
 
-			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
-				if(!isValidSlot(inv, i))
-					continue;
-
-				ItemStack stackAt = inv.getStackInSlot(i);
-				if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
-					int rem = Math.min(stackAt.stackSize, count == -1 ? stackAt.stackSize : count);
-
-					if(rem > 0) {
-						ItemStack copy = stackAt.copy();
-						if(rem < copy.stackSize)
-							copy.stackSize = rem;
-						stacks.add(copy);
-					}
-
-					lastRequestMatches += stackAt.stackSize;
-					lastRequestExtractions += rem;
-					if(doit && rem > 0) {
-						inv.decrStackSize(i, rem);
-						removedAny = true;
-						if(invSpark != null)
-							invSpark.onItemExtracted(stackAt);
-					}
-					if(count != -1)
-						count -= rem;
-				}
+			if(doit) {
+				stacks.addAll(inv.extractItems(request));
+			} else {
+				stacks.addAll(inv.countItems(request));
 			}
-
-			if(removedAny)
-				inv.markDirty();
 		}
+
+		lastRequestMatches = request.foundItems;
+		lastRequestExtractions = request.extractedItems;
 
 		for(ICorporeaInterceptor interceptor : interceptors.keySet())
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
