@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.stream.IntStream;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -33,6 +34,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -41,6 +44,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.core.helper.InventoryHelper2;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -84,8 +88,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				continue;
 
 			ItemStack stack = item.getEntityItem();
-
-			IInventory invToPutItemIn = null;
+			IItemHandler invToPutItemIn = null;
 			EnumFacing sideToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
@@ -93,11 +96,14 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
 
-				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), pos_);
+				IItemHandler inv = InventoryHelper2.getInventory(supertile.getWorld(), pos_, dir);
 				if(inv != null) {
-					List<ItemStack> filter = getFilterForInventory(inv, pos_, true);
+					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
-					int availablePut = supertile.getWorld().isRemote ? 1 : InventoryHelper.testInventoryInsertion(inv, stack, dir);
+
+					ItemStack simulate = ItemHandlerHelper.insertItem(inv, stack.copy(), true);
+					int availablePut = supertile.getWorld().isRemote ? 1 : stack.stackSize - (simulate == null ? 0 : simulate.stackSize);
+
 					canAccept &= availablePut > 0;
 
 					if(canAccept) {
@@ -124,9 +130,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 						particled.add(item);
 					}
 				} else {
-					InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.splitStack(amountToPutIn), sideToPutItemIn, -1);
+					ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
 					item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
-					invToPutItemIn.markDirty();
 					if(item.getEntityItem().stackSize == 0)
 						item.setDead();
 					pulledAny = true;
@@ -174,7 +179,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		}
 	}
 
-	public List<ItemStack> getFilterForInventory(IInventory inv, BlockPos pos, boolean recursiveForDoubleChests) {
+	public List<ItemStack> getFilterForInventory(BlockPos pos, boolean recursiveForDoubleChests) {
 		List<ItemStack> filter = new ArrayList<>();
 
 		if(recursiveForDoubleChests) {
@@ -184,7 +189,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			if(tileEntity instanceof TileEntityChest)
 				for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
 					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
-						filter.addAll(getFilterForInventory((IInventory) supertile.getWorld().getTileEntity(pos.offset(dir)), pos.offset(dir), false));
+						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
 		}
