@@ -34,7 +34,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 
 		int items = 0;
 		for(int i = 0; i < altar.getSizeInventory(); i++)
-			if(altar.getStackInSlot(i) == null)
+			if(altar.getItemHandler().getStackInSlot(i) == null)
 				break;
 			else items++;
 		float[] angles = new float[altar.getSizeInventory()];
@@ -54,7 +54,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 			GlStateManager.translate(2.25F, 0F, 0.5F);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.translate(0D, 0.15 * Math.sin((time + i * 10) / 5D), 0F);
-			ItemStack stack = altar.getStackInSlot(i);
+			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);

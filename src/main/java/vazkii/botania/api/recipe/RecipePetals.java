@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipePetals {
@@ -35,10 +36,10 @@ public class RecipePetals {
 		this.inputs = inputsToSet;
 	}
 
-	public boolean matches(IInventory inv) {
+	public boolean matches(IItemHandler inv) {
 		List<Object> inputsMissing = new ArrayList<>(inputs);
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == null)
 				break;

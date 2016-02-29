@@ -78,7 +78,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float xs, float ys, float zs) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
-		ItemStack hgStack = hourglass.getStackInSlot(0);
+		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
@@ -90,7 +90,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 		}
 
 		if(hgStack == null && TileHourglass.getStackItemTime(stack) > 0) {
-			hourglass.setInventorySlotContents(0, stack.copy());
+			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
 			hourglass.markDirty();
 			stack.stackSize = 0;
 			return true;
@@ -98,7 +98,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 			ItemStack copy = hgStack.copy();
 			if(!player.inventory.addItemStackToInventory(copy))
 				player.dropPlayerItemWithRandomChoice(copy, false);
-			hourglass.setInventorySlotContents(0, null);
+			hourglass.getItemHandler().setStackInSlot(0, null);
 			hourglass.markDirty();
 			return true;
 		}
@@ -133,7 +133,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

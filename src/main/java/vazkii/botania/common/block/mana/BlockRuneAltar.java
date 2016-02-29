@@ -67,12 +67,12 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 		if(par5EntityPlayer.isSneaking()) {
 			if(altar.manaToGet == 0)
 				for(int i = altar.getSizeInventory() - 1; i >= 0; i--) {
-					ItemStack stackAt = altar.getStackInSlot(i);
+					ItemStack stackAt = altar.getItemHandler().getStackInSlot(i);
 					if(stackAt != null) {
 						ItemStack copy = stackAt.copy();
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
-						altar.setInventorySlotContents(i, null);
+						altar.getItemHandler().setStackInSlot(i, null);
 						par1World.updateComparatorOutputLevel(pos, this);
 						break;
 					}
@@ -90,7 +90,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

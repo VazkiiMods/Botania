@@ -74,12 +74,12 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 		if(par5EntityPlayer.isSneaking()) {
 			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
 				for(int i = brew.getSizeInventory() - 1; i >= 0; i--) {
-					ItemStack stackAt = brew.getStackInSlot(i);
+					ItemStack stackAt = brew.getItemHandler().getStackInSlot(i);
 					if(stackAt != null) {
 						ItemStack copy = stackAt.copy();
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
-						brew.setInventorySlotContents(i, null);
+						brew.getItemHandler().setStackInSlot(i, null);
 						par1World.updateComparatorOutputLevel(pos, this);
 						break;
 					}
@@ -98,7 +98,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

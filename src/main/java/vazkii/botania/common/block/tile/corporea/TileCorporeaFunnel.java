@@ -19,6 +19,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -67,18 +68,13 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
 	public int getSizeInventory() {
 		return 1;
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_FUNNEL;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override

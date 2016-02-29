@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
@@ -77,13 +78,20 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
 
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i != 9 && !isLocked(i);
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(slot != 9 && !isLocked(slot))
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 	public boolean isLocked(int slot) {
@@ -100,7 +108,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		int newSignal = 0;
 		for(; newSignal < 9; newSignal++) // dis for loop be derpy
-			if(!isLocked(newSignal) && getStackInSlot(newSignal) == null)
+			if(!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal) == null)
 				break;
 
 		if(newSignal != signal) {
@@ -120,7 +128,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			}
 		}, 3, 3);
 		for(int i = 0; i < 9; i++) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 
 			if(stack == null || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
@@ -131,15 +139,15 @@ public class TileCraftCrate extends TileOpenCrate {
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		for(IRecipe recipe : recipes)
 			if(recipe.matches(craft, worldObj)) {
-				setInventorySlotContents(9, recipe.getCraftingResult(craft));
+				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
 				for(int i = 0; i < 9; i++) {
-					ItemStack stack = getStackInSlot(i);
+					ItemStack stack = itemHandler.getStackInSlot(i);
 					if(stack == null)
 						continue;
 
 					ItemStack container = stack.getItem().getContainerItem(stack);
-					setInventorySlotContents(i, container);
+					itemHandler.setStackInSlot(i, container);
 				}
 				return true;
 			}
@@ -149,7 +157,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	boolean isFull() {
 		for(int i = 0; i < 9; i++)
-			if(!isLocked(i) && getStackInSlot(i) == null)
+			if(!isLocked(i) && itemHandler.getStackInSlot(i) == null)
 				return false;
 
 		return true;
@@ -157,10 +165,10 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	void ejectAll() {
 		for(int i = 0; i < getSizeInventory(); ++i) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(stack != null)
 				eject(stack, false);
-			setInventorySlotContents(i, null);
+			itemHandler.setStackInSlot(i, null);
 			markDirty();
 		}
 	}

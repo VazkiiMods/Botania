@@ -32,6 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.StatCollector;
 
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -46,7 +47,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
+public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 
@@ -102,7 +103,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent && ((IFlowerComponent) stack.getItem()).canFit(stack, this)) {
-			if(getStackInSlot(getSizeInventory() - 1) != null)
+			if(itemHandler.getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 
 			if(!worldObj.isRemote) {
@@ -111,10 +112,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 					item.setDead();
 
 				for(int i = 0; i < getSizeInventory(); i++)
-					if(getStackInSlot(i) == null) {
+					if(itemHandler.getStackInSlot(i) == null) {
 						ItemStack stackToPut = stack.copy();
 						stackToPut.stackSize = 1;
-						setInventorySlotContents(i, stackToPut);
+						itemHandler.setStackInSlot(i, stackToPut);
 						didChange = true;
 						worldObj.playSoundAtEntity(item, "game.neutral.swim.splash", 0.1F, 1F);
 						break;
@@ -122,12 +123,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			}
 		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
-				if(recipe.matches(this)) {
+				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();
 
 					if(!worldObj.isRemote) {
 						for(int i = 0; i < getSizeInventory(); i++)
-							setInventorySlotContents(i, null);
+							itemHandler.setStackInSlot(i, null);
 
 						stack.stackSize--;
 						if(stack.stackSize == 0)
@@ -155,7 +156,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(stack == null)
 				break;
 			lastRecipe.add(stack.copy());
@@ -164,12 +165,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	public void trySetLastRecipe(EntityPlayer player) {
-		tryToSetLastRecipe(player, this, lastRecipe);
+		tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if(!isEmpty())
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
-	public static void tryToSetLastRecipe(EntityPlayer player, IInventory inv, List<ItemStack> lastRecipe) {
+	public static void tryToSetLastRecipe(EntityPlayer player, IItemHandlerModifiable inv, List<ItemStack> lastRecipe) {
 		if(lastRecipe == null || lastRecipe.isEmpty() || player.worldObj.isRemote)
 			return;
 
@@ -188,7 +189,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 					ItemStack stackToPut = pstack.copy();
 					stackToPut.stackSize = 1;
-					inv.setInventorySlotContents(index, stackToPut);
+					inv.setStackInSlot(index, stackToPut);
 					didAny = true;
 					index++;
 					break;
@@ -218,7 +219,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 	public boolean isEmpty() {
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) != null)
+			if(itemHandler.getStackInSlot(i) != null)
 				return false;
 
 		return true;
@@ -236,7 +237,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
-			ItemStack stackAt = getStackInSlot(i);
+			ItemStack stackAt = itemHandler.getStackInSlot(i);
 			if(stackAt == null)
 				break;
 
@@ -282,38 +283,18 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.ALTAR;
-	}
-
-	@Override
 	public int getSizeInventory() {
 		return 16;
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing var1) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, EnumFacing j) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, EnumFacing j) {
-		return false;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, false) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
+		};
 	}
 
 	@Override
@@ -344,7 +325,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		int radius = 24;
 		int amt = 0;
 		for(int i = 0; i < getSizeInventory(); i++) {
-			if(getStackInSlot(i) == null)
+			if(itemHandler.getStackInSlot(i) == null)
 				break;
 			amt++;
 		}
@@ -353,7 +334,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			float anglePer = 360F / amt;
 
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes)
-				if(recipe.matches(this)) {
+				if(recipe.matches(itemHandler)) {
 					GL11.glColor4f(1F, 1F, 1F, 1F);
 					mc.renderEngine.bindTexture(HUDHandler.manaBar);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, 0, 8, 22, 15);
@@ -372,7 +353,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 				GL11.glTranslated(xPos, yPos, 0);
-				mc.getRenderItem().renderItemIntoGUI(getStackInSlot(i), 0, 0);
+				mc.getRenderItem().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
 				GL11.glTranslated(-xPos, -yPos, 0);
 
 				angle += anglePer;

@@ -23,6 +23,7 @@ import net.minecraftforge.client.model.animation.TimeValues;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -143,13 +144,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_CRYSTAL_CUBE;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override

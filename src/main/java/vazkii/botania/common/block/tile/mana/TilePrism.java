@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -23,10 +24,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TilePrism extends TileSimpleInventory implements IManaCollisionGhost, ISidedInventory {
+public class TilePrism extends TileSimpleInventory implements IManaCollisionGhost {
 
 	public void onBurstCollision(IManaBurst burst) {
-		ItemStack lens = getStackInSlot(0);
+		ItemStack lens = itemHandler.getStackInSlot(0);
 		boolean active = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		boolean valid = lens != null && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
@@ -62,23 +63,15 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.PRISM;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing p_94128_1_) {
-		return new int[] { 0 };
-	}
-
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, EnumFacing p_102007_3_) {
-		return p_102007_2_.getItem() instanceof ILens;
-	}
-
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, EnumFacing p_102008_3_) {
-		return true;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(stack != null && stack.getItem() instanceof ILens)
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 }

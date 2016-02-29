@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -29,18 +30,13 @@ import vazkii.botania.common.lib.LibMisc;
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override
 	public int getSizeInventory() {
 		return 1;
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_INTERCEPTOR;
 	}
 
 	@Override

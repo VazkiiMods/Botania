@@ -26,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -42,7 +43,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
@@ -83,11 +84,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		boolean did = false;
 
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) == null) {
+			if(itemHandler.getStackInSlot(i) == null) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.stackSize = 1;
-				setInventorySlotContents(i, stackToAdd);
+				itemHandler.setStackInSlot(i, stackToAdd);
 
 				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.stackSize--;
@@ -161,7 +162,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				this.manaToGet = currentRecipe.getManaUsage();
 			else {
 				for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-					if(recipe.matches(this)) {
+					if(recipe.matches(itemHandler)) {
 						this.manaToGet = recipe.getManaUsage();
 						break getMana;
 					}
@@ -178,7 +179,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(stack == null)
 				break;
 			lastRecipe.add(stack.copy());
@@ -187,14 +188,14 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	public void trySetLastRecipe(EntityPlayer player) {
-		TileAltar.tryToSetLastRecipe(player, this, lastRecipe);
+		TileAltar.tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if(!isEmpty())
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	public boolean hasValidRecipe() {
 		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-			if(recipe.matches(this))
+			if(recipe.matches(itemHandler))
 				return true;
 
 		return false;
@@ -206,7 +207,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		if(currentRecipe != null)
 			recipe = currentRecipe;
 		else for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
-			if(recipe_.matches(this)) {
+			if(recipe_.matches(itemHandler)) {
 				recipe = recipe_;
 				break;
 			}
@@ -235,14 +236,14 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				saveLastRecipe();
 				if(!worldObj.isRemote) {
 					for(int i = 0; i < getSizeInventory(); i++) {
-						ItemStack stack = getStackInSlot(i);
+						ItemStack stack = itemHandler.getStackInSlot(i);
 						if(stack != null) {
 							if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
 								EntityItem outputItem = new EntityItem(worldObj, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 								worldObj.spawnEntityInWorld(outputItem);
 							}
 
-							setInventorySlotContents(i, null);
+							itemHandler.setStackInSlot(i, null);
 						}
 					}
 
@@ -269,7 +270,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	public boolean isEmpty() {
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) != null)
+			if(itemHandler.getStackInSlot(i) != null)
 				return false;
 
 		return true;
@@ -301,17 +302,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		return INFINITE_EXTENT_AABB;
 	}
 
-	@Override
-	public String getName() {
-		return LibBlockNames.RUNE_ALTAR;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
+	/*@Override todo 1.8
 	public int[] getSlotsForFace(EnumFacing var1) {
 		int accessibleSlot = -1;
 		for(int i = 0; i < getSizeInventory(); i++)
@@ -319,16 +310,16 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				accessibleSlot = i;
 
 		return accessibleSlot == -1 ? new int[0] : new int[] { accessibleSlot };
-	}
+	}*/
 
 	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, EnumFacing j) {
-		return true;
-	}
-
-	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, EnumFacing j) {
-		return mana == 0;
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, false) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
+		};
 	}
 
 	@Override
@@ -359,7 +350,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		int radius = 24;
 		int amt = 0;
 		for(int i = 0; i < getSizeInventory(); i++) {
-			if(getStackInSlot(i) == null)
+			if(itemHandler.getStackInSlot(i) == null)
 				break;
 			amt++;
 		}
@@ -367,7 +358,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		if(amt > 0) {
 			float anglePer = 360F / amt;
 			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-				if(recipe.matches(this)) {
+				if(recipe.matches(itemHandler)) {
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -399,7 +390,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 				GL11.glTranslated(xPos, yPos, 0);
-				mc.getRenderItem().renderItemIntoGUI(getStackInSlot(i), 0, 0);
+				mc.getRenderItem().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
 				GL11.glTranslated(-xPos, -yPos, 0);
 
 				angle += anglePer;

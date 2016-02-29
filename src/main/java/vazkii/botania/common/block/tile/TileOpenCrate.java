@@ -34,11 +34,6 @@ public class TileOpenCrate extends TileSimpleInventory {
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.OPEN_CRATE;
-	}
-
-	@Override
 	public void updateEntity() {
 		if (worldObj.isRemote)
 			return;
@@ -53,7 +48,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 		if(canEject()) {
-			ItemStack stack = getStackInSlot(0);
+			ItemStack stack = itemHandler.getStackInSlot(0);
 			if(stack != null)
 				eject(stack, redstone);
 		}
@@ -77,7 +72,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 
-		setInventorySlotContents(0, null);
+		itemHandler.setStackInSlot(0, null);
 		worldObj.spawnEntityInWorld(item);
 	}
 

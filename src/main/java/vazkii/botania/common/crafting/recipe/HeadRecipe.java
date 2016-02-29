@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -26,11 +27,11 @@ public class HeadRecipe extends RecipeRuneAltar {
 	}
 
 	@Override
-	public boolean matches(IInventory inv) {
+	public boolean matches(IItemHandler inv) {
 		boolean matches = super.matches(inv);
 
 		if(matches) {
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
+			for(int i = 0; i < inv.getSlots(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if(stack == null)
 					break;

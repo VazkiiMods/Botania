@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
@@ -42,7 +43,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IInventory apothecary) {
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
 		return true;
 	}
 

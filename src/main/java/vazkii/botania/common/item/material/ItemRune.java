@@ -19,6 +19,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -49,7 +50,7 @@ public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchiev
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IInventory apothecary) {
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
 		return true;
 	}
 

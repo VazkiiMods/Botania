@@ -145,12 +145,12 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
 		if(par5EntityPlayer.isSneaking()) {
 			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
-				ItemStack stackAt = tile.getStackInSlot(i);
+				ItemStack stackAt = tile.getItemHandler().getStackInSlot(i);
 				if(stackAt != null) {
 					ItemStack copy = stackAt.copy();
 					if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
 						par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
-					tile.setInventorySlotContents(i, null);
+					tile.getItemHandler().setStackInSlot(i, null);
 					par1World.updateComparatorOutputLevel(pos, this);
 					break;
 				}
@@ -269,7 +269,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

@@ -10,19 +10,19 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.Arrays;
-
-public abstract class TileSimpleInventory extends TileMod implements IInventory {
+public abstract class TileSimpleInventory extends TileMod {
 
 	ItemStack[] inventorySlots = new ItemStack[getSizeInventory()];
+	protected IItemHandlerModifiable itemHandler = createItemHandler();
 
 	@Override
 	public void readCustomNBT(NBTTagCompound par1NBTTagCompound) {
@@ -34,6 +34,7 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 			if (var5 >= 0 && var5 < inventorySlots.length)
 				inventorySlots[var5] = ItemStack.loadItemStackFromNBT(var4);
 		}
+		itemHandler = createItemHandler();
 	}
 
 	@Override
@@ -50,93 +51,72 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 		par1NBTTagCompound.setTag("Items", var2);
 	}
 
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventorySlots[i];
+	public abstract int getSizeInventory();
+
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, true);
+	}
+
+	public IItemHandlerModifiable getItemHandler() {
+		return itemHandler;
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (inventorySlots[i] != null) {
-			ItemStack stackAt;
+	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+		return cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(cap, side);
+	}
 
-			if (inventorySlots[i].stackSize <= j) {
-				stackAt = inventorySlots[i];
-				inventorySlots[i] = null;
-				return stackAt;
-			} else {
-				stackAt = inventorySlots[i].splitStack(j);
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return (T) itemHandler;
+		return super.getCapability(cap, side);
+	}
 
-				if (inventorySlots[i].stackSize == 0)
-					inventorySlots[i] = null;
+	/* Extension of ItemStackHandler that uses our own slot array, allows for control of writing,
+	   allows control over stack limits, and allows for itemstack-slot validation */
+	protected static class SimpleItemStackHandler extends ItemStackHandler {
 
-				return stackAt;
-			}
+		private final boolean allowWrite;
+		private final TileSimpleInventory tile;
+
+		public SimpleItemStackHandler(TileSimpleInventory inv, boolean allowWrite) {
+			super(0);
+			// Overwrite with our array
+			this.stacks = inv.inventorySlots;
+			this.allowWrite = allowWrite;
+			this.tile = inv;
 		}
 
-		return null;
-	}
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			if(allowWrite) {
+				ItemStack ret = super.insertItem(slot, stack, simulate);
+				if(!simulate)
+					tile.markDirty();
+				return ret;
+			} else return stack;
+		}
 
-	@Override
-	public ItemStack removeStackFromSlot(int i) {
-		return getStackInSlot(i);
-	}
+		@Override
+		public ItemStack extractItem(int slot, int amount, boolean simulate) {
+			if(allowWrite) {
+				ItemStack ret = super.extractItem(slot, amount, simulate);
+				if(!simulate)
+					tile.markDirty();
+				return ret;
+			} else return null;
+		}
 
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventorySlots[i] = itemstack;
-	}
+		// Override since our tile handles serialization itself
 
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
+		@Override
+		public NBTTagCompound serializeNBT() { return new NBTTagCompound(); }
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return worldObj.getTileEntity(getPos()) != this ? false : entityplayer.getDistanceSq(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-		// NO-OP
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-		// NO-OP
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		Arrays.fill(inventorySlots, null);
-	}
-
-	@Override
-	public IChatComponent getDisplayName() {
-		return new ChatComponentText(getName());
+		@Override
+		public void deserializeNBT(NBTTagCompound nbt) {
+			onLoad();
+		}
 	}
 }

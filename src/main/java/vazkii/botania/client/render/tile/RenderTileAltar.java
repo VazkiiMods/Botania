@@ -26,8 +26,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelAltar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 
@@ -57,7 +55,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 			if(water) {
 				int petals = 0;
 				for(int i = 0; i < altar.getSizeInventory(); i++)
-					if(altar.getStackInSlot(i) != null)
+					if(altar.getItemHandler().getStackInSlot(i) != null)
 						petals++;
 					else break;
 
@@ -97,7 +95,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 						GlStateManager.color(1F, 1F, 1F, 1F);
 
-						ItemStack stack = altar.getStackInSlot(i);
+						ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 						Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 						GlStateManager.popMatrix();

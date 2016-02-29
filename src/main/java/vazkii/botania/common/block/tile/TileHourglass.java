@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
 
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -67,7 +68,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	public int getTotalTime() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack == null)
 			return 0;
 
@@ -85,7 +86,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	public int getColor() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack == null)
 			return 0;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.sand))
@@ -96,11 +97,15 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		if(itemstack == null)
-			return false;
-		Item item = itemstack.getItem();
-		return item == Item.getItemFromBlock(Blocks.sand) || item == Item.getItemFromBlock(Blocks.soul_sand);
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.sand) || stack.getItem() == Item.getItemFromBlock(Blocks.soul_sand)))
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 	@Override
@@ -143,7 +148,7 @@ public class TileHourglass extends TileSimpleInventory {
 		int x = res.getScaledWidth() / 2 + 10;
 		int y = res.getScaledHeight() / 2 - 10;
 
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack != null) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
@@ -165,11 +170,6 @@ public class TileHourglass extends TileSimpleInventory {
 				mc.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.HOURGLASS;
 	}
 
 }

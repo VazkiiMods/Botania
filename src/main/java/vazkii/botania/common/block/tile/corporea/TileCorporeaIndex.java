@@ -195,11 +195,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_INDEX;
-	}
-
-	@Override
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof String))
 			return;

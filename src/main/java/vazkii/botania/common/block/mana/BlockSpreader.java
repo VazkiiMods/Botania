@@ -151,7 +151,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 			return false;
 
 		TileSpreader spreader = (TileSpreader) tile;
-		ItemStack lens = spreader.getStackInSlot(0);
+		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.wool);
@@ -164,13 +164,13 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 			if (!par5EntityPlayer.capabilities.isCreativeMode)
 				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 
-			spreader.setInventorySlotContents(0, heldItem.copy());
+			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
 		} else if(lens != null && !wool) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
 				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
-			spreader.setInventorySlotContents(0, null);
+			spreader.getItemHandler().setStackInSlot(0, null);
 			spreader.markDirty();
 		}
 
@@ -200,7 +200,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
-				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getStackInSlot(j1);
+				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getItemHandler().getStackInSlot(j1);
 
 				if(itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

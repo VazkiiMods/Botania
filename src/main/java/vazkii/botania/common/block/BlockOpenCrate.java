@@ -134,7 +134,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;
@@ -208,7 +208,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 					Gui.drawRect(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
-					ItemStack item = craft.getStackInSlot(index);
+					ItemStack item = craft.getItemHandler().getStackInSlot(index);
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					GlStateManager.enableRescaleNormal();
 					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);

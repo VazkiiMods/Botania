@@ -29,6 +29,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IManaBurst;
@@ -57,6 +58,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IRedirectable, ITickable {
@@ -234,7 +236,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(shouldShoot && receiver != null && receiver instanceof IKeyLocked)
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
 
-		ItemStack lens = getStackInSlot(0);
+		ItemStack lens = itemHandler.getStackInSlot(0);
 		ILensControl control = getLensController(lens);
 		if(control != null) {
 			if(isredstone) {
@@ -452,7 +454,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void checkForReceiver() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		ILensControl control = getLensController(stack);
 		if(control != null && !control.allowBurstShooting(stack, this, false))
 			return;
@@ -480,7 +482,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
-		ItemStack lens = getStackInSlot(0);
+		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(lens != null && lens.getItem() instanceof ILensEffect)
 			((ILensEffect) lens.getItem()).apply(lens, props);
 
@@ -547,7 +549,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 
-		ItemStack lens = getStackInSlot(0);
+		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(lens != null) {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -607,18 +609,20 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.SPREADER;
-	}
+	protected IItemHandlerModifiable createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
 
-	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return itemstack.getItem() instanceof ILens;
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(stack != null && stack.getItem() instanceof ILens)
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 	@Override

@@ -104,7 +104,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 			return false;
 
 		TilePrism prism = (TilePrism) tile;
-		ItemStack lens = prism.getStackInSlot(0);
+		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 
@@ -112,14 +112,14 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 			if(!par5EntityPlayer.capabilities.isCreativeMode)
 				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 
-			prism.setInventorySlotContents(0, heldItem.copy());
+			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
 			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
 		} else if(lens != null) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
 				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
-			prism.setInventorySlotContents(0, null);
+			prism.getItemHandler().setStackInSlot(0, null);
 			prism.markDirty();
 			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
@@ -150,7 +150,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

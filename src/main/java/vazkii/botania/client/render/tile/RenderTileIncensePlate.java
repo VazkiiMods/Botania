@@ -44,7 +44,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.rotate(ROTATIONS.get(facing), 0F, 1F, 0F);
 
-		ItemStack stack = plate.getStackInSlot(0);
+		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.4F;
