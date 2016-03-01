@@ -107,7 +107,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if(!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || GameData.getPotionRegistry().getObjectById(brew.getPotionEffects(stack).get(0).getPotionID()).isInstant())
+		if(!brew.canInfuseIncense() || brew.getPotionEffectsShim(stack).size() != 1 || brew.getPotionEffectsShim(stack).get(0).potion.isInstant())
 			return null;
 
 		ItemStack brewStack = new ItemStack(this);

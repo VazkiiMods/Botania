@@ -117,12 +117,19 @@ public class Brew {
 	}
 
 	/**
-	 * Gets the list of potion effects for the ItemStack passed in.
+	 * Get the PotionEffectShim's that this brew has.
+     */
+	public List<PotionEffectShim> getPotionEffectsShim(ItemStack stack) {
+		return effects;
+	}
+
+	/**
+	 * Gets the list of vanilla PotionEffects for the ItemStack passed in.
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
-		return effects.stream().map(PotionEffectShim::toVanilla).collect(Collectors.toList());
+		return getPotionEffectsShim(stack).stream().map(PotionEffectShim::toVanilla).collect(Collectors.toList());
 	}
 
 }
