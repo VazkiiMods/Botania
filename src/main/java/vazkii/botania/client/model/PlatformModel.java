@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -146,7 +147,7 @@ public class PlatformModel implements ISmartBlockModel {
 			if(state.getBlock() instanceof BlockCamo) {
 				state = ((TileCamo) compose.getTileEntity(pos)).camoState;
 			}
-			return state;
+			return state == null ? Blocks.air.getDefaultState() : state;
 		}
 
 		@Override
