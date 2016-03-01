@@ -1793,9 +1793,9 @@ public final class ModCraftingRecipes {
 					'S', LibOreDict.STONE_18_VARIANTS[i]);
 			recipe18StoneBrick.add(BotaniaAPI.getLatestAddedRecipe());
 
-			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12),
-					"S", "S",
-					'S', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 1, 0));
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 12),
+					"SS", "SS",
+					'S', new ItemStack(ModFluffBlocks.stone, 1, i + 8));
 			recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
 		}
 
@@ -2202,7 +2202,7 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 8; i++) {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
 			GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.biomeStoneB, 4, i), "SS", "SS", 'S', new ItemStack(ModFluffBlocks.biomeStoneA, 1, i));
-			GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.biomeStoneB, 1, i + 8), "S", "S", 'S', new ItemStack(ModFluffBlocks.biomeStoneSlabs[i + 16]));
+			GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.biomeStoneB, 4, i + 8), "SS", "SS", 'S', new ItemStack(ModFluffBlocks.biomeStoneB, 1, i));
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneA, i, ModFluffBlocks.biomeStoneStairs[i], ModFluffBlocks.biomeStoneSlabs[i]);
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneStairs[i + 8], ModFluffBlocks.biomeStoneSlabs[i + 8]);
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
