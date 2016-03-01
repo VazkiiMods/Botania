@@ -12,11 +12,12 @@ package vazkii.botania.common.brew;
 
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fml.common.registry.GameData;
+import vazkii.botania.api.brew.PotionEffectShim;
 
 public class BrewModPotion extends BrewMod {
 
-	public BrewModPotion(String key, int cost, PotionEffect... effects) {
-		super(key, GameData.getPotionRegistry().getObjectById(effects[0].getPotionID()).getLiquidColor(), cost, effects);
+	public BrewModPotion(String key, int cost, PotionEffectShim... effects) {
+		super(key, effects[0].potion.getLiquidColor(), cost, effects);
 	}
 
 }

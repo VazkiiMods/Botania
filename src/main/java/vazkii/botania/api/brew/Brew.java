@@ -13,7 +13,9 @@ package vazkii.botania.api.brew;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
@@ -22,11 +24,11 @@ import net.minecraft.potion.PotionEffect;
  */
 public class Brew {
 
-	String key;
-	String name;
-	int color;
-	int cost;
-	List<PotionEffect> effects;
+	private final String key;
+	private final String name;
+	private final int color;
+	private final int cost;
+	private final List<PotionEffectShim> effects;
 	boolean canInfuseBloodPendant = true;
 	boolean canInfuseIncense = true;
 
@@ -37,12 +39,12 @@ public class Brew {
 	 * @param cost The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(String key, String name, int color, int cost, PotionEffect... effects) {
+	public Brew(String key, String name, int color, int cost, PotionEffectShim... effects) {
 		this.key = key;
 		this.name = name;
 		this.color = color;
 		this.cost = cost;
-		this.effects = new ArrayList<>(Arrays.asList(effects));
+		this.effects = ImmutableList.copyOf(effects);
 	}
 
 	/**
@@ -120,7 +122,7 @@ public class Brew {
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
-		return effects;
+		return effects.stream().map(PotionEffectShim::toVanilla).collect(Collectors.toList());
 	}
 
 }

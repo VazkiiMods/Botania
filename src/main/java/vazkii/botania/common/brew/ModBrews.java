@@ -13,6 +13,7 @@ package vazkii.botania.common.brew;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.brew.PotionEffectShim;
 import vazkii.botania.common.lib.LibBrewNames;
 
 public class ModBrews {
@@ -42,27 +43,27 @@ public class ModBrews {
 	public static Brew warpWard;
 
 	public static void init() {
-		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 4000, new PotionEffect(Potion.moveSpeed.id, 1800, 1));
-		strength = new BrewMod(LibBrewNames.STRENGTH, 0xEE3F3F, 4000, new PotionEffect(Potion.damageBoost.id, 1800, 1));
-		haste = new BrewMod(LibBrewNames.HASTE, 0xF4A432, 4000, new PotionEffect(Potion.digSpeed.id, 1800, 1));
-		healing = new BrewMod(LibBrewNames.HEALING, 0xFF5ECC, 6000, new PotionEffect(Potion.heal.id, 1, 1));
-		jumpBoost = new BrewMod(LibBrewNames.JUMP_BOOST, 0x32F46D, 4000, new PotionEffect(Potion.jump.id, 1800, 1));
-		regen = new BrewMod(LibBrewNames.REGEN, 0xFD6488, 7000, new PotionEffect(Potion.regeneration.id, 500, 1));
-		regenWeak = new BrewMod(LibBrewNames.REGEN_WEAK, 0xFD6488, 9000, new PotionEffect(Potion.regeneration.id, 2400, 0));
-		resistance = new BrewMod(LibBrewNames.RESISTANCE, 0xB44E17, 4000, new PotionEffect(Potion.resistance.id, 1800, 1));
-		fireResistance = new BrewMod(LibBrewNames.FIRE_RESISTANCE, 0xF86900, 4000, new PotionEffect(Potion.fireResistance.id, 9600, 0));
-		waterBreathing = new BrewMod(LibBrewNames.WATER_BREATHING, 0x84A7CF, 4000, new PotionEffect(Potion.waterBreathing.id, 9600, 0));
-		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 8000, new PotionEffect(Potion.invisibility.id, 9600, 0));
-		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(Potion.nightVision.id, 9600, 0));
-		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.absorption.id, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
+		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 4000, new PotionEffectShim(Potion.moveSpeed, 1800, 1));
+		strength = new BrewMod(LibBrewNames.STRENGTH, 0xEE3F3F, 4000, new PotionEffectShim(Potion.damageBoost, 1800, 1));
+		haste = new BrewMod(LibBrewNames.HASTE, 0xF4A432, 4000, new PotionEffectShim(Potion.digSpeed, 1800, 1));
+		healing = new BrewMod(LibBrewNames.HEALING, 0xFF5ECC, 6000, new PotionEffectShim(Potion.heal, 1, 1));
+		jumpBoost = new BrewMod(LibBrewNames.JUMP_BOOST, 0x32F46D, 4000, new PotionEffectShim(Potion.jump, 1800, 1));
+		regen = new BrewMod(LibBrewNames.REGEN, 0xFD6488, 7000, new PotionEffectShim(Potion.regeneration, 500, 1));
+		regenWeak = new BrewMod(LibBrewNames.REGEN_WEAK, 0xFD6488, 9000, new PotionEffectShim(Potion.regeneration, 2400, 0));
+		resistance = new BrewMod(LibBrewNames.RESISTANCE, 0xB44E17, 4000, new PotionEffectShim(Potion.resistance, 1800, 1));
+		fireResistance = new BrewMod(LibBrewNames.FIRE_RESISTANCE, 0xF86900, 4000, new PotionEffectShim(Potion.fireResistance, 9600, 0));
+		waterBreathing = new BrewMod(LibBrewNames.WATER_BREATHING, 0x84A7CF, 4000, new PotionEffectShim(Potion.waterBreathing, 9600, 0));
+		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 8000, new PotionEffectShim(Potion.invisibility, 9600, 0));
+		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffectShim(Potion.nightVision, 9600, 0));
+		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffectShim(Potion.absorption, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
-		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(Potion.damageBoost.id, 1800, 3), new PotionEffect(Potion.moveSpeed.id, 1800, 2), new PotionEffect(Potion.weakness.id, 3600, 2), new PotionEffect(Potion.hunger.id, 200, 2));
-		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));
-		featherfeet = new BrewModPotion(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet.id, 1800, 0));
-		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness.id, 7200, 0));
-		bloodthirst = new BrewModPotion(LibBrewNames.BLOODTHIRST, 20000, new PotionEffect(ModPotions.bloodthrst.id, 7200, 0));
-		allure = new BrewModPotion(LibBrewNames.ALLURE, 2000, new PotionEffect(ModPotions.allure.id, 4800, 0));
-		clear = new BrewModPotion(LibBrewNames.CLEAR, 4000, new PotionEffect(ModPotions.clear.id, 0, 0));
+		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffectShim(Potion.damageBoost, 1800, 3), new PotionEffectShim(Potion.moveSpeed, 1800, 2), new PotionEffectShim(Potion.weakness, 3600, 2), new PotionEffectShim(Potion.hunger, 200, 2));
+		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffectShim(ModPotions.soulCross, 1800, 0));
+		featherfeet = new BrewModPotion(LibBrewNames.FEATHER_FEET, 7000, new PotionEffectShim(ModPotions.featherfeet, 1800, 0));
+		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffectShim(ModPotions.emptiness, 7200, 0));
+		bloodthirst = new BrewModPotion(LibBrewNames.BLOODTHIRST, 20000, new PotionEffectShim(ModPotions.bloodthrst, 7200, 0));
+		allure = new BrewModPotion(LibBrewNames.ALLURE, 2000, new PotionEffectShim(ModPotions.allure, 4800, 0));
+		clear = new BrewModPotion(LibBrewNames.CLEAR, 4000, new PotionEffectShim(ModPotions.clear, 0, 0));
 	}
 
 	public static void initTC() {
@@ -70,6 +71,6 @@ public class ModBrews {
 		// thaumcraft 5 is registering its potions under the Minecraft namespace
 
 		if(warpWardPotion != null)
-			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new PotionEffect(warpWardPotion.id, 12000, 0)).setNotBloodPendantInfusable();
+			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new PotionEffectShim(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();
 	}
 }
