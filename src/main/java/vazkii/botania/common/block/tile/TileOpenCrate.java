@@ -29,15 +29,15 @@ public class TileOpenCrate extends TileSimpleInventory {
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
 			return true;
-		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)
-			return true;
-		return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
-	}
+			if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
+				return true;
+			return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
+		}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
+		@Override
+		public int getSizeInventory() {
+			return 1;
+		}
 
 	@Override
 	public String getName() {

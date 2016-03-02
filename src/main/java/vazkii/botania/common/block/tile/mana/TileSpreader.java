@@ -145,7 +145,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
 			return true;
-		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)
+		if(oldState.getBlock() != ModBlocks.spreader || newState.getBlock() != ModBlocks.spreader)
 			return true;
 		return oldState.getValue(BotaniaStateProps.SPREADER_VARIANT) != newState.getValue(BotaniaStateProps.SPREADER_VARIANT);
 	}
