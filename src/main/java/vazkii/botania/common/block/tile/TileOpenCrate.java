@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -25,7 +27,11 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return true;
+		if(oldState.getBlock() != newState.getBlock())
+			return true;
+		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)
+			return true;
+		return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
 	}
 
 	@Override

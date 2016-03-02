@@ -106,7 +106,11 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return true;
+		if(oldState.getBlock() != newState.getBlock())
+			return true;
+		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)
+			return true;
+		return oldState.getValue(BotaniaStateProps.POOL_VARIANT) != newState.getValue(BotaniaStateProps.POOL_VARIANT);
 	}
 
 	@Override
