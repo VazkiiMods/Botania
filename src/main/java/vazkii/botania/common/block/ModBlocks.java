@@ -48,6 +48,7 @@ import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.block.decor.BlockUnstable;
+import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
@@ -416,6 +417,7 @@ public final class ModBlocks {
 			BlockDispenser.dispenseBehaviorRegistry.putObject(seed, new BehaviourSeeds(BotaniaAPI.seeds.get(seed)));
 		BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.twigWand, new BehaviourWand());
 		BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
 	}
 
 	private static void initTileEntities() {
