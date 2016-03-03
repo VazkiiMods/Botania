@@ -64,7 +64,6 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	public void onBlockAdded(World p_149726_1_, BlockPos pos, IBlockState state) {
 		super.onBlockAdded(p_149726_1_, pos, state);
 
-		System.out.println("Added?");
 		if(!p_149726_1_.isRemote && p_149726_1_.getBlockState(pos.down()).getBlock() == Blocks.iron_bars && p_149726_1_.getBlockState(pos.down(2)).getBlock() == Blocks.iron_bars) {
 			p_149726_1_.setBlockState(pos, Blocks.air.getDefaultState(), 2);
 			p_149726_1_.setBlockState(pos.down(), Blocks.air.getDefaultState(), 2);
