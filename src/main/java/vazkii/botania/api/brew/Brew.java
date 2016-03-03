@@ -129,7 +129,10 @@ public class Brew {
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
-		return getPotionEffectsShim(stack).stream().map(PotionEffectShim::toVanilla).collect(Collectors.toList());
+		List<PotionEffect> ret = new ArrayList<>();
+		for(PotionEffectShim s : getPotionEffectsShim(stack))
+			ret.add(s.toVanilla());
+		return ret;
 	}
 
 }

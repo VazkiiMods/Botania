@@ -13,6 +13,9 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
+import javax.annotation.Nullable;
+import java.util.Objects;
+
 // Generic base class for unlisted properties
 public class PropertyObject<T> implements IUnlistedProperty<T> {
 
@@ -29,7 +32,12 @@ public class PropertyObject<T> implements IUnlistedProperty<T> {
 	}
 
 	public PropertyObject(String name, Class<T> clazz) {
-		this(name, clazz, Predicates.alwaysTrue(), Object::toString);
+		this(name, clazz, Predicates.<T>alwaysTrue(), new Function<T, String>() {
+			@Override
+			public String apply(T input) {
+				return Objects.toString(input);
+			}
+		});
 	}
 
 	@Override
