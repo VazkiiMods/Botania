@@ -61,7 +61,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 	@Override
 	public EnumMinecartType getMinecartType() {
-		return EnumMinecartType.RIDEABLE; // todo 1.8
+		return EnumMinecartType.RIDEABLE;
+	}
+
+	@Override
+	public boolean canBeRidden() {
+		return false;
 	}
 
 	@Override
