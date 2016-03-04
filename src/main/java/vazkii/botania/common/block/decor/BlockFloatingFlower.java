@@ -44,8 +44,8 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -61,7 +61,7 @@ import java.util.List;
 import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockFloatingFlower extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
+public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfusionStabiliser {
 
 	public BlockFloatingFlower() {
 		this(LibBlockNames.MINI_ISLAND);
@@ -232,7 +232,12 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileFloatingFlower();
 	}
 

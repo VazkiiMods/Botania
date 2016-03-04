@@ -74,7 +74,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public TileCorporeaBase createNewTileEntity(World world, int meta) {
+	public TileCorporeaBase createTileEntity(World world, IBlockState state) {
 		return new TileCorporeaInterceptor();
 	}
 

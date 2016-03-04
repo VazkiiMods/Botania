@@ -45,7 +45,7 @@ public class BlockMod extends Block {
 		return super.setLightLevel(p_149715_1_);
 	}
 
-	boolean registerInCreative() {
+	protected boolean registerInCreative() {
 		return true;
 	}
 

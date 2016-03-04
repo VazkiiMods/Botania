@@ -49,7 +49,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockOpenCrate extends BlockModContainer implements ILexiconable, IWandable, IWandHUD {
+public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable, IWandHUD {
 
 	Random random;
 
@@ -167,8 +167,13 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return meta == 0 ? new TileOpenCrate() : new TileCraftCrate();
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
+		return state.getValue(BotaniaStateProps.CRATE_VARIANT) == CrateVariant.OPEN ? new TileOpenCrate() : new TileCraftCrate();
 	}
 
 	@Override

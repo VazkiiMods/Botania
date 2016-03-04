@@ -26,7 +26,7 @@ import vazkii.botania.common.block.tile.TileCamo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockCamo extends BlockModContainer<TileCamo> {
+public abstract class BlockCamo extends BlockMod {
 
 	protected BlockCamo(Material par2Material) {
 		super(par2Material);
@@ -100,6 +100,11 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 				return state.getBlock() instanceof BlockCamo ? 0xFFFFFF : state.getBlock().getRenderColor(state);
 		}
 		return 0xFFFFFF;
+	}
+
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
 }

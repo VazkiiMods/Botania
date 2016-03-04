@@ -29,7 +29,7 @@ import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCocoon extends BlockModContainer implements ILexiconable {
+public class BlockCocoon extends BlockMod implements ILexiconable {
 
 	protected BlockCocoon() {
 		super(Material.cloth);
@@ -81,7 +81,12 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileCocoon();
 	}
 

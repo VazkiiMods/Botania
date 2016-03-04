@@ -45,7 +45,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	public TileRedString createTileEntity(World world, IBlockState meta) {
 		return new TileRedStringFertilizer();
 	}
 }

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -36,7 +37,7 @@ public class BlockRedStringComparator extends BlockRedString {
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	public TileRedString createTileEntity(World world, IBlockState state) {
 		return new TileRedStringComparator();
 	}
 

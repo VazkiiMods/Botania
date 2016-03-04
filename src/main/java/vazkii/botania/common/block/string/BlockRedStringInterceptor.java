@@ -86,7 +86,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	public TileRedString createTileEntity(World world, IBlockState state) {
 		return new TileRedStringInterceptor();
 	}
 

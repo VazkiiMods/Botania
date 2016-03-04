@@ -28,7 +28,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCacophonium extends BlockModContainer {
+public class BlockCacophonium extends BlockMod {
 
 	protected BlockCacophonium() {
 		super(Material.wood);
@@ -98,7 +98,12 @@ public class BlockCacophonium extends BlockModContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileCacophonium();
 	}
 

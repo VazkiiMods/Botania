@@ -30,7 +30,7 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockIncensePlate extends BlockModContainer implements ILexiconable {
+public class BlockIncensePlate extends BlockMod implements ILexiconable {
 
 	protected BlockIncensePlate() {
 		super(Material.wood);
@@ -136,7 +136,12 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileIncensePlate();
 	}
 

@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockPylon extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
+public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabiliser {
 
 	public BlockPylon() {
 		super(Material.iron);
@@ -117,7 +117,12 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TilePylon();
 	}
 

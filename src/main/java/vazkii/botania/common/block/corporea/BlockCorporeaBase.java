@@ -24,11 +24,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 
-public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBase> implements ICraftAchievement {
+public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchievement {
 
 	Random random;
 
@@ -80,6 +79,11 @@ public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBa
 	@Override
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return ModAchievements.corporeaCraft;
+	}
+
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
 }

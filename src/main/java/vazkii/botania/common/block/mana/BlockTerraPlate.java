@@ -24,14 +24,14 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
+public class BlockTerraPlate extends BlockMod implements ILexiconable {
 
 	public BlockTerraPlate() {
 		super(Material.iron);
@@ -85,7 +85,12 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileTerraPlate();
 	}
 

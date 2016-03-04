@@ -41,7 +41,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockHourglass extends BlockModContainer implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
+public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
 
 	Random random;
 
@@ -181,7 +181,12 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileHourglass();
 	}
 

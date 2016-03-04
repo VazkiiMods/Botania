@@ -38,7 +38,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockLightRelay extends BlockModContainer implements IWandable, ILexiconable {
+public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
 
 	protected BlockLightRelay() {
 		super(Material.glass);
@@ -150,7 +150,12 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileLightRelay();
 	}
 

@@ -22,12 +22,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public abstract class BlockRedString extends BlockModContainer<TileRedString> implements ILexiconable {
+public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	public BlockRedString(String name) {
 		super(Material.rock);
@@ -56,6 +56,11 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.getFront(meta));
+	}
+
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
 	@Override

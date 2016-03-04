@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -25,7 +26,7 @@ public class BlockRedStringRelay extends BlockRedString {
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	public TileRedString createTileEntity(World world, IBlockState state) {
 		return new TileRedStringRelay();
 	}
 

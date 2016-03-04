@@ -27,7 +27,7 @@ import vazkii.botania.common.block.tile.TileEnderEye;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnderEye extends BlockModContainer implements ILexiconable {
+public class BlockEnderEye extends BlockMod implements ILexiconable {
 
 	protected BlockEnderEye() {
 		super(Material.iron);
@@ -64,7 +64,12 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileEnderEye();
 	}
 

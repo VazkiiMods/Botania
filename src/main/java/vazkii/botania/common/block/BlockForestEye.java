@@ -11,6 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,7 +23,7 @@ import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockForestEye extends BlockModContainer implements ILexiconable {
+public class BlockForestEye extends BlockMod implements ILexiconable {
 
 	public BlockForestEye() {
 		super(Material.iron);
@@ -55,7 +56,12 @@ public class BlockForestEye extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileForestEye();
 	}
 
