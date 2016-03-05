@@ -10,13 +10,14 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
+import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockPistonMoving;
@@ -49,12 +50,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
-	public static Map<String, String> playerPositions = new HashMap<>();
-	public static Map<String, String> mappedPositions = new HashMap<>();
+	public static final Map<String, DimWithPos> playerPositions = new HashMap<>();
+	public static final Map<DimWithPos, DimWithPos> mappedPositions = new HashMap<>();
 
-	static List<String> removeThese = new ArrayList<>();
-	static List<String> checkedCoords = new ArrayList<>();
-	static Map<String, Integer> coordsToCheck = new HashMap<>();
+	private static final Set<DimWithPos> removeThese = new HashSet<>();
+	private static final Set<DimWithPos> checkedCoords = new HashSet<>();
+	private static final TObjectIntHashMap<DimWithPos> coordsToCheck = new TObjectIntHashMap<>(10, 0.5F, -1);
 
 	public BlockPistonRelay() {
 		super(Material.gourd);
@@ -81,47 +82,32 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		mapCoords(par1World.provider.getDimensionId(), pos, 2);
 	}
 
-	public static String getCoordsAsString(int world, BlockPos pos) {
-		return world + ":" + pos.getX() + ":" + pos.getY() + ":" + pos.getZ();
-	}
-
 	static void mapCoords(int world, BlockPos pos, int time) {
-		String coords = getCoordsAsString(world, pos);
-		coordsToCheck.put(coords, time);
+		coordsToCheck.put(new DimWithPos(world, pos), time);
 	}
 
-	static void decrCoords(String key) {
+	static void decrCoords(DimWithPos key) {
 		int time = getTimeInCoords(key);
 
 		if(time <= 0)
 			removeThese.add(key);
-		else coordsToCheck.put(key, time - 1);
+		else coordsToCheck.adjustValue(key, -1);
 	}
 
-	static int getTimeInCoords(String key) {
+	static int getTimeInCoords(DimWithPos key) {
 		return coordsToCheck.get(key);
 	}
 
-	static Block getBlockAt(String key) {
-		MinecraftServer server = MinecraftServer.getServer();
-		if(server == null)
-			return Blocks.air;
-
-		String[] tokens = key.split(":");
-		int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-		World world = server.worldServerForDimension(worldId);
-		return world.getBlockState(new BlockPos(x, y, z)).getBlock();
+	static Block getBlockAt(DimWithPos key) {
+		IBlockState state = getStateAt(key);
+		return state == null ? null : state.getBlock();
 	}
 
-	static IBlockState getStateAt(String key) {
+	static IBlockState getStateAt(DimWithPos key) {
 		MinecraftServer server = MinecraftServer.getServer();
 		if(server == null)
 			return null;
-
-		String[] tokens = key.split(":");
-		int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-		World world = server.worldServerForDimension(worldId);
-		return world.getBlockState(new BlockPos(x, y, z));
+		return server.worldServerForDimension(key.dim).getBlockState(key.blockPos);
 	}
 
 	@Override
@@ -130,7 +116,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return false;
 
 		if(!player.isSneaking()) {
-			playerPositions.put(player.getName(), getCoordsAsString(world.provider.getDimensionId(), pos));
+			playerPositions.put(player.getName(), new DimWithPos(world.provider.getDimensionId(), pos));
 			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
@@ -170,15 +156,15 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				if(tag instanceof NBTTagString) {
 					String value = ((NBTTagString) tag).getString();
 
-					mappedPositions.put(key, value);
+					mappedPositions.put(DimWithPos.fromString(key), DimWithPos.fromString(value));
 				}
 			}
 		}
 
 		@Override
 		public void writeToNBT(NBTTagCompound nbttagcompound) {
-			for(String s : mappedPositions.keySet())
-				nbttagcompound.setString(s, mappedPositions.get(s));
+			for(DimWithPos s : mappedPositions.keySet())
+				nbttagcompound.setString(s.toString(), mappedPositions.get(s).toString());
 		}
 
 		public static WorldData get(World world) {
@@ -199,8 +185,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	@SubscribeEvent
 	public void tickEnd(TickEvent event) {
 		if(event.type == Type.SERVER && event.phase == Phase.END) {
-			List<String> coordsToCheckCopy = new ArrayList<>(coordsToCheck.keySet());
-			for(String s : coordsToCheckCopy) {
+			for(DimWithPos s : coordsToCheck.keySet()) {
 				decrCoords(s);
 				if(checkedCoords.contains(s))
 					continue;
@@ -214,12 +199,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					MinecraftServer server = MinecraftServer.getServer();
 
 					if(server != null && getTimeInCoords(s) == 0) {
-						String newPos;
+						DimWithPos newPos;
 
 						{
-							String[] tokens = s.split(":");
-							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-							BlockPos pos = new BlockPos(x, y, z);
+							int worldId = s.dim, x = s.blockPos.getX(), y = s.blockPos.getY(), z = s.blockPos.getZ();
+							BlockPos pos = s.blockPos;
 							World world = server.worldServerForDimension(worldId);
 							if(world.isAirBlock(pos.offset(dir)))
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
@@ -228,14 +212,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.spawnEntityInWorld(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
 							}
 							checkedCoords.add(s);
-							newPos = getCoordsAsString(world.provider.getDimensionId(), pos.offset(dir));
+							newPos = new DimWithPos(world.provider.getDimensionId(), pos.offset(dir));
 						}
 
 						if(mappedPositions.containsKey(s)) {
-							String pos = mappedPositions.get(s);
-							String[] tokens = pos.split(":");
-							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-							BlockPos pos2 = new BlockPos(x, y, z);
+							DimWithPos pos = mappedPositions.get(s);
+							int worldId = pos.dim;
+							BlockPos pos2 = pos.blockPos;
 							World world = server.worldServerForDimension(worldId);
 
 							IBlockState srcState = world.getBlockState(pos2);
@@ -247,7 +230,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(pos2, Blocks.air.getDefaultState());
 									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);
-									mappedPositions.put(s, getCoordsAsString(world.provider.getDimensionId(), pos2.offset(dir)));
+									mappedPositions.put(s, new DimWithPos(world.provider.getDimensionId(), pos2.offset(dir)));
 								}
 							}
 
@@ -261,9 +244,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			}
 		}
 
-		// ConcurrentModificationException failsafe
-		ArrayList<String> remove = new ArrayList<>(removeThese);
-		for(String s : remove) {
+		for(DimWithPos s : removeThese) {
 			coordsToCheck.remove(s);
 			if(checkedCoords.contains(s))
 				checkedCoords.remove(s);
@@ -281,4 +262,38 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pistonRelay;
 	}
+
+	public static class DimWithPos {
+		public final int dim;
+		public final BlockPos blockPos;
+
+		public DimWithPos(int dim, BlockPos pos) {
+			this.dim = dim;
+			this.blockPos = pos;
+		}
+
+		@Override
+		public int hashCode() {
+			return 31 * dim ^ blockPos.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			return o instanceof DimWithPos
+					&& dim == ((DimWithPos) o).dim
+					&& blockPos.equals(((DimWithPos) o).blockPos);
+		}
+
+		@Override
+		public String toString() {
+			return dim + ":" + blockPos.getX() + ":" + blockPos.getY() + ":" + blockPos.getZ();
+		}
+
+		public static DimWithPos fromString(String s) {
+			String[] split = s.split(":");
+			return new DimWithPos(Integer.parseInt(split[0]), new BlockPos(Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])));
+		}
+
+	}
+
 }

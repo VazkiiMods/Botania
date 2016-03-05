@@ -130,8 +130,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 			return wanded;
 		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getName()) && !par3World.isRemote) {
-			String bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getName());
-			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.getDimensionId(), pos);
+			BlockPistonRelay.DimWithPos bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getName());
+			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimensionId(), pos);
 
 			BlockPistonRelay.playerPositions.remove(par2EntityPlayer.getName());
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
