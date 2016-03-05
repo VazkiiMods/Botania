@@ -39,7 +39,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	boolean registerInCreative() {
+	protected boolean registerInCreative() {
 		return false;
 	}
 
