@@ -33,12 +33,22 @@ public class PotionEmptiness extends PotionMod {
 	@SubscribeEvent
 	public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Result.ALLOW && event.entityLiving instanceof IMob) {
-			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
-			for(EntityPlayer player : players)
-				if(hasEffect(player)) {
+			AxisAlignedBB aabb = new AxisAlignedBB(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE);
+			for(EntityPlayer player : event.world.playerEntities) {
+				if(hasEffect(player) && player.getEntityBoundingBox().intersectsWith(aabb)) {
 					event.setResult(Result.DENY);
 					return;
 				}
+			}
+
+// TODO 1.8 report to forge? world.getEntitiesWithinAABB is hell slow in 1.8+
+//			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
+//			for(EntityPlayer player : players)
+//				if(hasEffect(player)) {
+//					event.setResult(Result.DENY);
+//					return;
+//				}
+
 		}
 	}
 
