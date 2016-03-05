@@ -14,23 +14,18 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileIncensePlate extends TileSimpleInventory  {
 
@@ -127,7 +122,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	}
 
 	@Override
-	protected IItemHandlerModifiable createItemHandler() {
+	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {

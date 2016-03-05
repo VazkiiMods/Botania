@@ -19,12 +19,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
@@ -73,7 +71,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	protected IItemHandlerModifiable createItemHandler() {
+	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, false);
 	}
 

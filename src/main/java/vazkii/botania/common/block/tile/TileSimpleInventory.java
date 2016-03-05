@@ -12,7 +12,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -21,39 +20,22 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public abstract class TileSimpleInventory extends TileMod {
 
-	ItemStack[] inventorySlots = new ItemStack[getSizeInventory()];
-	protected IItemHandlerModifiable itemHandler = createItemHandler();
+	protected SimpleItemStackHandler itemHandler = createItemHandler();
 
 	@Override
 	public void readCustomNBT(NBTTagCompound par1NBTTagCompound) {
-		NBTTagList var2 = par1NBTTagCompound.getTagList("Items", 10);
-		inventorySlots = new ItemStack[getSizeInventory()];
-		for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-			NBTTagCompound var4 = var2.getCompoundTagAt(var3);
-			byte var5 = var4.getByte("Slot");
-			if (var5 >= 0 && var5 < inventorySlots.length)
-				inventorySlots[var5] = ItemStack.loadItemStackFromNBT(var4);
-		}
 		itemHandler = createItemHandler();
+		itemHandler.deserializeNBT(par1NBTTagCompound);
 	}
 
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1NBTTagCompound) {
-		NBTTagList var2 = new NBTTagList();
-		for (int var3 = 0; var3 < inventorySlots.length; ++var3) {
-			if (inventorySlots[var3] != null) {
-				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte("Slot", (byte)var3);
-				inventorySlots[var3].writeToNBT(var4);
-				var2.appendTag(var4);
-			}
-		}
-		par1NBTTagCompound.setTag("Items", var2);
+		par1NBTTagCompound.merge(itemHandler.serializeNBT());
 	}
 
 	public abstract int getSizeInventory();
 
-	protected IItemHandlerModifiable createItemHandler() {
+	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true);
 	}
 
@@ -82,9 +64,7 @@ public abstract class TileSimpleInventory extends TileMod {
 		private final TileSimpleInventory tile;
 
 		public SimpleItemStackHandler(TileSimpleInventory inv, boolean allowWrite) {
-			super(0);
-			// Overwrite with our array
-			this.stacks = inv.inventorySlots;
+			super(inv.getSizeInventory());
 			this.allowWrite = allowWrite;
 			this.tile = inv;
 		}
@@ -106,16 +86,6 @@ public abstract class TileSimpleInventory extends TileMod {
 		@Override
 		public void onContentsChanged(int slot) {
 			tile.markDirty();
-		}
-
-		// Override since our tile handles serialization itself
-
-		@Override
-		public NBTTagCompound serializeNBT() { return new NBTTagCompound(); }
-
-		@Override
-		public void deserializeNBT(NBTTagCompound nbt) {
-			onLoad();
 		}
 	}
 }

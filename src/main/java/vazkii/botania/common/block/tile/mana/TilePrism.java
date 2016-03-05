@@ -11,10 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -22,7 +19,6 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class TilePrism extends TileSimpleInventory implements IManaCollisionGhost {
 
@@ -63,7 +59,7 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 	}
 
 	@Override
-	protected IItemHandlerModifiable createItemHandler() {
+	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {

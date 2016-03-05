@@ -21,10 +21,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
 
-import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileHourglass extends TileSimpleInventory {
 
@@ -97,7 +95,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	@Override
-	protected IItemHandlerModifiable createItemHandler() {
+	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
