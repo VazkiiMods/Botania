@@ -6,14 +6,14 @@
   },
   "variants": {
     "variant": {
-      "default": { "textures": { "all": "botania:model/poolCopy" } },
-      "diluted": { "textures": { "all": "botania:model/dilutedPoolCopy" } },
-      "creative": { "textures": { "all": "botania:model/infinitePoolCopy" } },
-      "fabulous": { "textures": { "all": "botania:model/poolCopy" } }
+      "default": { "textures": { "all": "botania:model/pool" } },
+      "diluted": { "textures": { "all": "botania:model/dilutedPool" } },
+      "creative": { "textures": { "all": "botania:model/infinitePool" } },
+      "fabulous": { "textures": { "all": "botania:model/pool" } }
     },
     "inventory_creative": [{
       "model": "botania:pool_filled",
-      "textures": { "all": "botania:model/infinitePoolCopy", "liquid": "botania:blocks/manaWater" }
+      "textures": { "all": "botania:model/infinitePool", "liquid": "botania:blocks/manaWater" }
     }]
   }
 }
