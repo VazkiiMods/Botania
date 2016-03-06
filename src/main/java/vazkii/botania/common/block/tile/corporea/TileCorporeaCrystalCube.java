@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.client.model.animation.IAnimationProvider;
-import net.minecraftforge.client.model.animation.TimeValues;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,7 +26,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, IAnimationProvider {
 
@@ -143,13 +141,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_CRYSTAL_CUBE;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override

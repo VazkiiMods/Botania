@@ -14,13 +14,11 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -28,9 +26,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
-import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileIncensePlate extends TileSimpleInventory implements ISidedInventory {
+public class TileIncensePlate extends TileSimpleInventory  {
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
@@ -43,7 +40,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 
 	@Override
 	public void updateEntity() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack != null && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
 			PotionEffect effect = brew.getPotionEffects(stack).get(0);
@@ -74,7 +71,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 					Botania.proxy.wispFX(worldObj, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.2F, 0.2F, 0.2F, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
-				setInventorySlotContents(0, null);
+				itemHandler.setStackInSlot(0, null);
 				burning = false;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
@@ -92,7 +89,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	}
 
 	public void ignite() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack == null || burning)
 			return;
 
@@ -104,11 +101,6 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	@Override
 	public int getSizeInventory() {
 		return 1;
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.INCENSE_PLATE;
 	}
 
 	@Override
@@ -125,24 +117,25 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 		burning = par1nbtTagCompound.getBoolean(TAG_BURNING);
 	}
 
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(itemstack) != BotaniaAPI.fallbackBrew;
+	public boolean acceptsItem(ItemStack stack) {
+		return stack != null && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaAPI.fallbackBrew;
 	}
 
 	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0 };
-	}
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(acceptsItem(stack))
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
 
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
-		return isItemValidForSlot(slot, stack);
-	}
-
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, EnumFacing p_102008_3_) {
-		return false;
+			@Override
+			public ItemStack extractItem(int slot, int amount, boolean simulate) {
+				return null;
+			}
+		};
 	}
 
 	@Override

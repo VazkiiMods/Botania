@@ -63,14 +63,14 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack stack = player.getCurrentEquippedItem();
-		ItemStack plateStack = plate.getStackInSlot(0);
+		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
 		boolean did = false;
 
 		if(world.isRemote)
 			return true;
 
-		if(plateStack == null && plate.isItemValidForSlot(0, stack)) {
-			plate.setInventorySlotContents(0, stack.copy());
+		if(plateStack == null && plate.acceptsItem(stack)) {
+			plate.getItemHandler().setStackInSlot(0, stack.copy());
 			stack.stackSize--;
 			did = true;
 		} else if(plateStack != null && !plate.burning) {
@@ -82,7 +82,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 				ItemStack addStack = plateStack.copy();
 				if(!player.inventory.addItemStackToInventory(addStack))
 					player.dropPlayerItemWithRandomChoice(addStack, false);
-				plate.setInventorySlotContents(0, null);
+				plate.getItemHandler().setStackInSlot(0, null);
 
 				did = true;
 			}

@@ -17,11 +17,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -32,10 +30,9 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibBlockNames;
 
 // This is mostly copypasta from TileRuneAltar
-public class TileBrewery extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 
@@ -45,17 +42,17 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public int signal = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || getStackInSlot(0) == null != stack.getItem() instanceof IBrewContainer)
+		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0) == null != stack.getItem() instanceof IBrewContainer)
 			return false;
 
 		boolean did = false;
 
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) == null) {
+			if(itemHandler.getStackInSlot(i) == null) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.stackSize = 1;
-				setInventorySlotContents(i, stackToAdd);
+				itemHandler.setStackInSlot(i, stackToAdd);
 
 				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.stackSize--;
@@ -69,7 +66,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		if(did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				if(recipe.matches(this) && recipe.getOutput(getStackInSlot(0)) != null) {
+				if(recipe.matches(itemHandler) && recipe.getOutput(itemHandler.getStackInSlot(0)) != null) {
 					this.recipe = recipe;
 					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
@@ -82,7 +79,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public void updateEntity() {
 		if(mana > 0 && recipe == null) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				if(recipe.matches(this)) {
+				if(recipe.matches(itemHandler)) {
 					this.recipe = recipe;
 					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
@@ -105,14 +102,14 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		}
 
 		if(recipe != null) {
-			if(!recipe.matches(this)) {
+			if(!recipe.matches(itemHandler)) {
 				recipe = null;
 				worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
 			}
 
 			if(recipe != null) {
 				if(mana != manaLastTick) {
-					Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
+					Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
 					float r = color.getRed() / 255F;
 					float g = color.getGreen() / 255F;
 					float b = color.getBlue() / 255F;
@@ -127,13 +124,13 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 					int mana = getManaCost();
 					recieveMana(-mana);
 					if(!worldObj.isRemote) {
-						ItemStack output = recipe.getOutput(getStackInSlot(0));
+						ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
 						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
 					}
 
 					for(int i = 0; i < getSizeInventory(); i++)
-						setInventorySlotContents(i, null);
+						itemHandler.setStackInSlot(i, null);
 
 					craftingFanciness();
 				}
@@ -153,7 +150,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	}
 
 	public int getManaCost() {
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(recipe == null || stack == null || !(stack.getItem() instanceof IBrewContainer))
 			return 0;
 		IBrewContainer container = (IBrewContainer) stack.getItem();
@@ -163,7 +160,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public void craftingFanciness() {
 		worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:potionCreate", 1F, 1.5F + (float) Math.random() * 0.25F);
 		for(int i = 0; i < 25; i++) {
-			Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
+			Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
 			float r = color.getRed() / 255F;
 			float g = color.getGreen() / 255F;
 			float b = color.getBlue() / 255F;
@@ -197,17 +194,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		return INFINITE_EXTENT_AABB;
 	}
 
-	@Override
-	public String getName() {
-		return LibBlockNames.RUNE_ALTAR;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
+	/*@Override todo 1.8
 	public int[] getSlotsForFace(EnumFacing var1) {
 		int accessibleSlot = -1;
 		for(int i = 0; i < getSizeInventory(); i++)
@@ -215,16 +202,16 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 				accessibleSlot = i;
 
 		return accessibleSlot == -1 ? new int[0] : new int[] { accessibleSlot };
-	}
+	}*/
 
 	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, EnumFacing j) {
-		return true;
-	}
-
-	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, EnumFacing j) {
-		return mana == 0;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
+		};
 	}
 
 	@Override
@@ -256,7 +243,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			if(recipe == null)
 				return;
 
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(getStackInSlot(0)));
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(itemHandler.getStackInSlot(0)));
 		}
 	}
 

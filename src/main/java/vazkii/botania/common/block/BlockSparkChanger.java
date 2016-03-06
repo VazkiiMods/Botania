@@ -94,17 +94,17 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
-		ItemStack cstack = changer.getStackInSlot(0);
+		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
 		ItemStack pstack = player.getCurrentEquippedItem();
 		if(cstack != null) {
-			changer.setInventorySlotContents(0, null);
+			changer.getItemHandler().setStackInSlot(0, null);
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			if(!player.inventory.addItemStackToInventory(cstack))
 				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
 		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
-			changer.setInventorySlotContents(0, pstack.copy().splitStack(1));
+			changer.getItemHandler().setStackInSlot(0, pstack.copy().splitStack(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
@@ -124,7 +124,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;
@@ -164,7 +164,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public int getComparatorInputOverride(World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
-		ItemStack stack = changer.getStackInSlot(0);
+		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
 		if(stack == null)
 			return 0;
 		return stack.getItemDamage() + 1;

@@ -23,7 +23,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
@@ -67,18 +66,13 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
 	public int getSizeInventory() {
 		return 1;
 	}
 
 	@Override
-	public String getName() {
-		return LibBlockNames.CORPOREA_FUNNEL;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override

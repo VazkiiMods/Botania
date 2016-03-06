@@ -44,7 +44,7 @@ public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchiev
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

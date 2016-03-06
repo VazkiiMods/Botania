@@ -30,7 +30,7 @@ public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 		GlStateManager.translate(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
 
-		ItemStack stack = prism.getStackInSlot(0);
+		ItemStack stack = prism.getItemHandler().getStackInSlot(0);
 
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

@@ -47,7 +47,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass
 		float x = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;
 		float y = 0.55F + (float) (Math.sin(time * 0.04F) + 1F) * 0.05F;
 		float z = 0.5F + (float) Math.sin(time * 0.05F) * 0.025F;
-		ItemStack stack = hasWorld ? hourglass.getStackInSlot(0) : null;
+		ItemStack stack = hasWorld ? hourglass.getItemHandler().getStackInSlot(0) : null;
 
 		float fract1 = stack == null ? 0 : hourglass.timeFraction;
 		float fract2 = stack == null ? 0 : 1F - hourglass.timeFraction;

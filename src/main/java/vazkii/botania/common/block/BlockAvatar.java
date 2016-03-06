@@ -69,17 +69,17 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
-		ItemStack stackOnAvatar = avatar.getStackInSlot(0);
+		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
 		ItemStack stackOnPlayer = player.getCurrentEquippedItem();
 		if(stackOnAvatar != null) {
 			ItemStack copyStack = stackOnAvatar.copy();
-			avatar.setInventorySlotContents(0, null);
+			avatar.getItemHandler().setStackInSlot(0, null);
 			if(!player.inventory.addItemStackToInventory(copyStack))
 				player.dropPlayerItemWithRandomChoice(copyStack, true);
 			return true;
 		} else if(stackOnPlayer != null && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
 			ItemStack copyStack = stackOnPlayer.copy();
-			avatar.setInventorySlotContents(0, copyStack);
+			avatar.getItemHandler().setStackInSlot(0, copyStack);
 			stackOnPlayer.stackSize--;
 			return true;
 		}
@@ -110,7 +110,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
 				if (itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

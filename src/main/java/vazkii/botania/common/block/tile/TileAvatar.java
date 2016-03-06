@@ -10,15 +10,14 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISidedInventory {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	private static final int MAX_MANA = 6400;
 
@@ -41,7 +40,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 			}
 		}
 
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack != null && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
@@ -73,33 +72,13 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() instanceof IAvatarTile;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing p_94128_1_) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, EnumFacing p_102007_3_) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, EnumFacing p_102008_3_) {
-		return false;
-	}
-
-	@Override
-	public String getName() {
-		return LibBlockNames.AVATAR;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
+		};
 	}
 
 	@Override
@@ -114,12 +93,17 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return getStackInSlot(0) != null;
+		return itemHandler.getStackInSlot(0) != null;
 	}
 
 	@Override
 	public int getCurrentMana() {
 		return mana;
+	}
+
+	@Override
+	public IItemHandler getInventory() {
+		return getItemHandler();
 	}
 
 	@Override

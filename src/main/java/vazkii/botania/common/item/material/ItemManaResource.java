@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.Botania;
@@ -138,7 +139,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IInventory apothecary) {
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
 		int meta = stack.getItemDamage();
 		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
 	}

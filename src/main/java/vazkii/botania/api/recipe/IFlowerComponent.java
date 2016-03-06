@@ -10,15 +10,15 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.item.IPetalApothecary;
 
 /**
  * Have an Item implement this to allow it to be used in the Petal Apothecary.
  */
 public interface IFlowerComponent {
 
-	public boolean canFit(ItemStack stack, IInventory apothecary);
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary);
 
 	public int getParticleColor(ItemStack stack);
 
