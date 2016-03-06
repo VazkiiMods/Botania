@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockStainedGlass;
@@ -38,6 +39,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -299,14 +301,14 @@ public final class BotaniaAPI {
 		return fallbackBrew;
 	}
 
-	/*
+	/**
 	 * Registers a Block as disposable using its Ore Dictionary Name.
 	 */
 	public static void registerDisposableBlock(String oreDictName) {
 		disposableBlocks.add(oreDictName);
 	}
 	
-	/*
+	/**
 	 * Registers a Block as semi disposable using its Ore Dictionary Name.
 	 * This means it will not be trashed when sneaking.
 	 */
@@ -317,14 +319,13 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a paintableBlock and returns it.
 	 * You must also provide the PropertyEnum that this block uses to express its color
-	 * The component type of the property must be EnumDyeColor
 	 */
 	public static Block registerPaintableBlock(Block paintable, PropertyEnum<EnumDyeColor> colorProp){
 		paintableBlocks.put(paintable, colorProp);
 		return paintable;
 	}
 
-	/*
+	/**
 	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
 	 * Pass in the class for the Entity, e.g. EntityCow.class
 	 */
@@ -332,7 +333,7 @@ public final class BotaniaAPI {
 		gravityRodBlacklist.add(entity);
 	}
 	
-	/*
+	/**
 	 * Checks if the provided Entity is contained in the Blacklist.
 	 * Pass in the class for the Entity, e.g. entity.getClass()
 	 */
@@ -407,6 +408,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16);
 		RecipePetals recipe = new RecipePetals(output, inputs);
 		petalRecipes.add(recipe);
 		return recipe;
@@ -445,6 +447,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16);
 		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
 		runeAltarRecipes.add(recipe);
 		return recipe;
@@ -458,6 +461,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Object input, int mana) {
+		Preconditions.checkArgument(mana <= 1000000);
 		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
 		manaInfusionRecipes.add(recipe);
 		return recipe;
@@ -503,6 +507,7 @@ public final class BotaniaAPI {
 	 * @inputs The items used in the recipe, no more than 6.
 	 */
 	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 6);
 		RecipeBrew recipe = new RecipeBrew(brew, inputs);
 		brewRecipes.add(recipe);
 		return recipe;
@@ -510,9 +515,10 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
-	 * If you call this after PostInit you're a failiure and we are very disappointed in you.
+	 * Call this in preInit, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
+		Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
@@ -667,7 +673,7 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Wiki provider for a mod so it uses that instead of the fallback
-	 * FTB wiki. Make sure to call this on PostInit only!
+	 * FTB wiki.
 	 */
 	public static void registerModWiki(String mod, IWikiProvider provider) {
 		WikiHooks.registerModWiki(mod, provider);

@@ -21,8 +21,8 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class SimpleWikiProvider implements IWikiProvider {
 
-	final String name, urlBase, replacement;
-	final boolean lowercase;
+	private final String name, urlBase, replacement;
+	private final boolean lowercase;
 
 	public SimpleWikiProvider(String name, String urlBase) {
 		this(name, urlBase, "%20");

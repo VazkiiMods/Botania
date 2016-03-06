@@ -28,7 +28,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
  */
 public class BasicSignature extends SubTileSignature {
 
-	final String name;
+	private final String name;
 
 	public BasicSignature(String name) {
 		this.name = name;

@@ -13,6 +13,7 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -20,20 +21,20 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipePetals {
 
-	ItemStack output;
-	List<Object> inputs;
+	private final ItemStack output;
+	private final ImmutableList<Object> inputs;
 
 	public RecipePetals(ItemStack output, Object... inputs) {
 		this.output = output;
 
-		List<Object> inputsToSet = new ArrayList<>();
+		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
 			else throw new IllegalArgumentException("Invalid input");
 		}
 
-		this.inputs = inputsToSet;
+		this.inputs = inputsToSet.build();
 	}
 
 	public boolean matches(IItemHandler inv) {
@@ -87,7 +88,7 @@ public class RecipePetals {
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList<>(inputs);
+		return inputs;
 	}
 
 	public ItemStack getOutput() {

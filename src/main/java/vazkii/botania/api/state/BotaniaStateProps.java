@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
  */
-public class BotaniaStateProps {
+public final class BotaniaStateProps {
 
 	/** Unlisted properties **/
 

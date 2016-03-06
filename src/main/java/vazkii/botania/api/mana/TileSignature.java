@@ -12,4 +12,16 @@ public class TileSignature {
 		this.remoteWorld = remoteWorld;
 	}
 
+	@Override
+	public int hashCode() {
+		return Boolean.hashCode(remoteWorld) ^ tile.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof TileSignature
+				&& tile == ((TileSignature) o).tile
+				&& remoteWorld == ((TileSignature) o).remoteWorld;
+	}
+
 }

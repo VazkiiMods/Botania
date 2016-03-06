@@ -19,7 +19,7 @@ import net.minecraft.util.BlockPos;
  */
 public class RadiusDescriptor {
 
-	final BlockPos subtileCoords;
+	private final BlockPos subtileCoords;
 
 	public RadiusDescriptor(BlockPos subtileCoords) {
 		this.subtileCoords = subtileCoords;

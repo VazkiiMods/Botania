@@ -17,9 +17,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeManaInfusion {
 
-	ItemStack output;
-	Object input;
-	int mana;
+	private final ItemStack output;
+	private final Object input;
+	private final int mana;
 	boolean isAlchemy = false;
 	boolean isConjuration = false;
 

@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -77,9 +78,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		}
 
 		boolean first = worldObj.isRemote && !firstTick;
-		int upgrade = getUpgrade();
+		SparkUpgradeType upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
-		if(first || upgrade == 2 || upgrade == 3)
+		if(first || upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 
 		if(first)
@@ -88,9 +89,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		Collection<ISparkEntity> transfers = getTransfers();
 
 
-		if(upgrade != 0) {
+		if(upgrade != SparkUpgradeType.NONE) {
 			switch(upgrade) {
-			case 1 : { // Dispersive
+			case DISPERSIVE : {
 				List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
 
 				Map<EntityPlayer, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
@@ -141,14 +142,14 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 				break;
 			}
-			case 2 : { // Dominant
+			case DOMINANT : {
 				List<ISparkEntity> validSparks = new ArrayList<>();
 				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
-					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
+					SparkUpgradeType upgrade_ = spark.getUpgrade();
+					if(upgrade_ == SparkUpgradeType.NONE && spark.getAttachedTile() instanceof IManaPool)
 						validSparks.add(spark);
 				}
 				if(validSparks.size() > 0)
@@ -156,13 +157,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 				break;
 			}
-			case 3 : { // Recessive
+			case RECESSIVE : { // Recessive
 				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
-					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ != 2 && upgrade_ != 3 && upgrade_ != 4)
+					SparkUpgradeType upgrade_ = spark.getUpgrade();
+					if(upgrade_ != SparkUpgradeType.DOMINANT && upgrade_ != SparkUpgradeType.RECESSIVE && upgrade_ != SparkUpgradeType.ISOLATED)
 						transfers.add(spark);
 				}
 				break;
@@ -252,13 +253,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public boolean interactFirst(EntityPlayer player) {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null) {
-			int upgrade = getUpgrade();
+			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
-					if(upgrade > 0) {
+					if(upgrade != SparkUpgradeType.NONE) {
 						if(!worldObj.isRemote)
-							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
-						setUpgrade(0);
+							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
+						setUpgrade(SparkUpgradeType.NONE);
 
 						transfers.clear();
 						removeTransferants = 2;
@@ -272,9 +273,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						particleBeam(this, (Entity) spark);
 					return true;
 				}
-			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == 0) {
+			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == SparkUpgradeType.NONE) {
 				int newUpgrade = stack.getItemDamage() + 1;
-				setUpgrade(newUpgrade);
+				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
 				stack.stackSize--;
 				if(player.worldObj.isRemote)
 					player.swingItem();
@@ -297,13 +298,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
-		setUpgrade(cmp.getInteger(TAG_UPGRADE));
+		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
 		dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_UPGRADE, getUpgrade());
+		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
 		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY));
 	}
 
@@ -311,10 +312,10 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public void setDead() {
 		super.setDead();
 		if(!worldObj.isRemote) {
-			int upgrade = getUpgrade();
+			SparkUpgradeType upgrade = getUpgrade();
 			entityDropItem(new ItemStack(ModItems.spark), 0F);
-			if(upgrade > 0)
-				entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
+			if(upgrade !=  SparkUpgradeType.NONE)
+				entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
 		}
 	}
 
@@ -335,14 +336,16 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public Collection<ISparkEntity> getTransfers() {
 		Collection<ISparkEntity> removals = new ArrayList<>();
 
-		for(ISparkEntity e : transfers) {
-			ISparkEntity spark = e;
-			int upgr = getUpgrade();
-			int supgr = spark.getUpgrade();
+		for(ISparkEntity spark : transfers) {
+			SparkUpgradeType upgr = getUpgrade();
+			SparkUpgradeType supgr = spark.getUpgrade();
 			ISparkAttachable atile = spark.getAttachedTile();
 
-			if(!(spark != this && !spark.areIncomingTransfersDone() && atile != null && !atile.isFull() && (upgr == 0 && supgr == 2 || upgr == 3 && (supgr == 0 || supgr == 1) || !(atile instanceof IManaPool))))
-				removals.add(e);
+			if(!(spark != this
+					&& !spark.areIncomingTransfersDone()
+					&& atile != null && !atile.isFull()
+					&& (upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT || upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE) || !(atile instanceof IManaPool))))
+				removals.add(spark);
 		}
 
 		if(!removals.isEmpty())
@@ -363,13 +366,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public int getUpgrade() {
-		return dataWatcher.getWatchableObjectInt(28);
+	public SparkUpgradeType getUpgrade() {
+		return SparkUpgradeType.values()[dataWatcher.getWatchableObjectInt(28)];
 	}
 
 	@Override
-	public void setUpgrade(int upgrade) {
-		dataWatcher.updateObject(28, upgrade);
+	public void setUpgrade(SparkUpgradeType upgrade) {
+		dataWatcher.updateObject(28, upgrade.ordinal());
 	}
 
 	@Override

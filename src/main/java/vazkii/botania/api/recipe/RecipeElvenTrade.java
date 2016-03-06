@@ -3,25 +3,26 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeElvenTrade {
 
-	ItemStack output;
-	List<Object> inputs;
+	private final ItemStack output;
+	private final ImmutableList<Object> inputs;
 
 	public RecipeElvenTrade(ItemStack output, Object... inputs) {
 		this.output = output;
 
-		List<Object> inputsToSet = new ArrayList<>();
+		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
 			else throw new IllegalArgumentException("Invalid input");
 		}
 
-		this.inputs = inputsToSet;
+		this.inputs = inputsToSet.build();
 	}
 
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
@@ -84,7 +85,7 @@ public class RecipeElvenTrade {
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList<>(inputs);
+		return inputs;
 	}
 
 	public ItemStack getOutput() {
