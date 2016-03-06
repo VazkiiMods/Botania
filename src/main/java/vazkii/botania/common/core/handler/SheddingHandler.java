@@ -122,16 +122,16 @@ public final class SheddingHandler {
 		metadata = config.get("Shedding", key + ".metadata", metadata).getInt();
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
-		if(itemName != null && !itemName.isEmpty() && rate != -1)
+		if(itemName != null && Item.itemRegistry.getObject(new ResourceLocation(itemName)) != null && rate != -1)
 			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
 	}
 
 	public static class ShedPattern {
 
-		Class EntityClass;
-		ItemStack itemStack;
-		int rate;
-		int lexiconSize;
+		private final Class EntityClass;
+		private final ItemStack itemStack;
+		private final int rate;
+		private final int lexiconSize;
 
 		public ShedPattern(Class EntityClass, ItemStack itemStack, int rate, int lexiconSize) {
 			this.EntityClass = EntityClass;
