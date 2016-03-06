@@ -3742,17 +3742,6 @@ botania.page.shinyFlowers3=Combining any color of &1Floating Flower&0 with any f
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
 botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
 
-# -- PRISMARINE
-botania.entry.prismarine=Prismarine
-botania.tagline.prismarine=UFO Commander, we are the future
-botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
-botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
-botania.page.prismarine2=Creating &1Prismarine Shards&0
-botania.page.prismarine3=Crafting &1Prismarine&0
-botania.page.prismarine4=Crafting &1Prismarine Bricks&0
-botania.page.prismarine5=Crafting &1Dark Prismarine&0
-botania.page.prismarine6=Crafting the &1Sea Lantern&0
-
 # -- NATURAL SHEDDING
 botania.entry.shedding=Natural Shedding
 botania.tagline.shedding=Things dropping other things
@@ -3807,7 +3796,7 @@ botania.page.phantomInk1=Who you gonna call?
 # -- STONE ALCHEMY
 botania.entry.stoneAlchemy=Stone Alchemy
 botania.tagline.stoneAlchemy=Create new stone types
-botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cyle.<br>Similarly to &1Prismarine&0, some scholars admit that this technique came from the future. Stairs and slabs can be made from the rough and brick variants of these.
+botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cycle.<br> Stairs and slabs can be made from the rough and brick variants of these.
 botania.page.stoneAlchemy1=Creating the stones
 botania.page.stoneAlchemy2=Brickage
 botania.page.stoneAlchemy3=Chiseling
@@ -3862,7 +3851,7 @@ botania.page.bcIntegration0=Recent advances in piping technology have allowed &1
 # -- BANNER ADDITIONS
 botania.entry.banners=Banner Additions
 botania.tagline.banners=Lots of new banner patterns
-botania.page.banners0=In the presence of the &1Banners&0 from the future, &1Botania&0 adds &415&0 new icons to them, which can be mixed and matched with the original patterns and icons.<br>The following items can be used alongside a dye in the crafting grid to add an icon to a &1Banner&0: &1All Iron Tools&0, &1Spark Augments&0, &1Raw Fish&0, &1Livingwood and Dreamwood Twigs&0, &1Lexica Botania&0, &1Terrasteel&0 and the &1Tiny Potato&0.
+botania.page.banners0=&1Botania&0 adds &415&0 new icons to banners, which can be mixed and matched with the original patterns and icons.<br>The following items can be used alongside a dye in the crafting grid to add an icon to a &1Banner&0: &1All Iron Tools&0, &1Spark Augments&0, &1Raw Fish&0, &1Livingwood and Dreamwood Twigs&0, &1Lexica Botania&0, &1Terrasteel&0 and the &1Tiny Potato&0.
 botania.page.banners1=Showcase of the various banners
 
 # -- PREVNTING DECAY
