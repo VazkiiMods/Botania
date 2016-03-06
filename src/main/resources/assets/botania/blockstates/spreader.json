@@ -2,36 +2,41 @@
   "forge_marker": 1,
   "defaults": {
     "model": "botania:spreader",
-    "transform": "forge:default-block"
+    "transform": {
+      "thirdperson": {
+        "translation": [ 0, 0.09375, -0.171875],
+        "rotation": [{"x": 10}, {"y": -45}, {"z": 170}]
+      }
+    }
   },
   "variants": {
     "variant": {
       "mana": {
         "textures": {
-          "all": "botania:placeholder",
-          "side": "botania:placeholder",
-          "inside": "botania:placeholder"
+          "inside": "botania:model/spreader_item/mana_inside",
+          "side": "botania:model/spreader_item/mana_side",
+          "material": "botania:blocks/livingwood0"
         }
       },
       "redstone": {
         "textures": {
-          "all": "botania:placeholder",
-          "side": "botania:placeholder",
-          "inside": "botania:placeholder"
+          "inside": "botania:model/spreader_item/redstone_inside",
+          "side": "botania:model/spreader_item/redstone_side",
+          "material": "botania:model/spreader_item/redstone_material"
         }
       },
       "elven": {
         "textures": {
-          "all": "botania:placeholder",
-          "side": "botania:placeholder",
-          "inside": "botania:placeholder"
+          "inside": "botania:model/spreader_item/elven_inside",
+          "side": "botania:model/spreader_item/elven_side",
+          "material": "botania:blocks/dreamwood0"
         }
       },
       "gaia": {
         "textures": {
-          "all": "botania:placeholder",
-          "side": "botania:placeholder",
-          "inside": "botania:placeholder"
+          "inside": "botania:model/spreader_item/gaia_inside",
+          "side": "botania:model/spreader_item/gaia_side",
+          "material": "botania:blocks/dreamwood0"
         }
       }
     }

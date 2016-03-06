@@ -27,10 +27,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
-import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.PylonItemModel;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -99,9 +97,6 @@ public class MiscellaneousIcons {
 
         // Platforms
         evt.modelRegistry.putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
-
-        // Lexicon
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModel());
     }
 
     @SubscribeEvent

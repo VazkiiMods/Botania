@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -41,6 +44,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
@@ -179,6 +183,17 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public int getRenderType() {
 		return 2;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(IBlockState state) {
+		if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
+			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+		} else {
+			return 16777215;
+		}
 	}
 
 	@Override

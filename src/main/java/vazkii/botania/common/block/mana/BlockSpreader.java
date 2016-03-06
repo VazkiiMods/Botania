@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -33,6 +34,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -41,9 +44,11 @@ import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -87,7 +92,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
 
@@ -137,6 +142,15 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	@Override
 	public boolean isFullCube() {
 		return false;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getRenderColor(IBlockState state) {
+		if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
+			return super.getRenderColor(state);
+		float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+		return Color.getHSBColor((time * 5) % 360 / 360F, 0.4F, 0.9F).hashCode();
 	}
 
 	@Override

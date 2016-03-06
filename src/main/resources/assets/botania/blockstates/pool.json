@@ -2,7 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "model": "botania:pool_tinted",
-    "transform": "forge:default-block"
+    "transform": {
+      "thirdperson": {
+        "translation": [ 0, 0.09375, -0.171875],
+        "rotation": [{"x": 10}, {"y": -45}, {"z": 0}]
+      }
+    }
   },
   "variants": {
     "variant": {
