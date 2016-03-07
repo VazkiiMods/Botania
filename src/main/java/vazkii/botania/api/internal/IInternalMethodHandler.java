@@ -27,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -128,6 +129,6 @@ public interface IInternalMethodHandler {
 	/**
 	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.
 	 */
-	List<IWrappedInventory> wrapInventory(List<IInventory> inventories);
+	List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories);
 
 }

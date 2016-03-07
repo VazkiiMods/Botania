@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.lib.LibItemNames;
@@ -41,7 +42,7 @@ public class ItemCorporeaSpark extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile instanceof IInventory && !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
+		if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) && !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
 			stack.stackSize--;
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);

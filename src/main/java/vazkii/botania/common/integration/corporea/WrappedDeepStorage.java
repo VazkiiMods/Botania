@@ -12,7 +12,9 @@ package vazkii.botania.common.integration.corporea;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.inventory.IInventory;
@@ -21,6 +23,7 @@ import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -31,16 +34,16 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	private static boolean checkedInterface = false;
 	private static boolean deepStoragePresent = false;
 
-	private IDeepStorageUnit inv;
+	private final IDeepStorageUnit invRaw;
 
 	private WrappedDeepStorage(IDeepStorageUnit inv, ICorporeaSpark spark) {
-		this.inv = inv;
+		this.invRaw = inv;
 		this.spark = spark;
 	}
 
 	@Override
-	public IInventory getWrappedObject() {
-		return (IInventory) inv;
+	public InvWithLocation getWrappedObject() {
+		return new InvWithLocation(new InvWrapper(((IInventory) invRaw)), spark.getSparkInventory().world, spark.getSparkInventory().pos);
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		boolean removedAny = false;
 
-		ItemStack prototype = inv.getStoredItemType();
+		ItemStack prototype = invRaw.getStoredItemType();
 		if(prototype == null) {
 			// for the case of barrel without contents set
 			return stacks;
@@ -85,7 +88,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 			request.extractedItems += rem;
 
 			if(doit && rem > 0) {
-				decreaseStoredCount(inv, rem);
+				decreaseStoredCount(invRaw, rem);
 
 				removedAny = true;
 				if(spark != null)
@@ -109,11 +112,10 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	 *
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
-	public static IWrappedInventory wrap(IInventory inv, ICorporeaSpark spark) {
-		if(!isDeepStorageNeeded()) {
-			return null;
-		}
-		return inv instanceof IDeepStorageUnit ? new WrappedDeepStorage((IDeepStorageUnit) inv, spark) : null;
+	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
+		if(isDeepStorageNeeded() && inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).inv instanceof IDeepStorageUnit) {
+			return new WrappedDeepStorage(((IDeepStorageUnit) ((InvWrapper) inv.handler).inv), spark);
+		} else return null;
 	}
 
 	/**

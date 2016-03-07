@@ -33,6 +33,7 @@ import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -264,9 +265,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	
 
 	@Override
-	public List<IWrappedInventory> wrapInventory(List<IInventory> inventories) {
-		ArrayList<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
-		for(IInventory inv : inventories) {
+	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
+		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		for(InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
 			// try StorageDrawers integration

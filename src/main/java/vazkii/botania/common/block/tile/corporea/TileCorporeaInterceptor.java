@@ -22,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -38,12 +39,12 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<IInventory> inventories, boolean doit) {
+	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
 		// NO-OP
 	}
 
 	@Override
-	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<IInventory> inventories, boolean doit) {
+	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for(ItemStack stack : filter)
 			if(requestMatches(request, stack)) {
@@ -55,7 +56,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					worldObj.scheduleUpdate(getPos(), getBlockType(), 2);
 
-					TileEntity requestor = (TileEntity) source.getSparkInventory();
+					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
 					for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 						TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 						if(tile != null && tile instanceof TileCorporeaRetainer)

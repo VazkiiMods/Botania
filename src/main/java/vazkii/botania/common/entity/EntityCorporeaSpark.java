@@ -25,7 +25,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.core.helper.InventoryHelper2;
 import vazkii.botania.common.item.ModItems;
 
 public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
@@ -72,7 +74,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		IInventory inv = getSparkInventory();
+		InvWithLocation inv = getSparkInventory();
 		if(inv == null) {
 			if(!worldObj.isRemote)
 				setDead();
@@ -183,11 +185,11 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	public IInventory getSparkInventory() {
+	public InvWithLocation getSparkInventory() {
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY - 1);
 		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper.getInventory(worldObj, new BlockPos(x, y, z));
+		return InventoryHelper2.getInventory(worldObj, new BlockPos(x, y, z), null);
 	}
 
 	@Override

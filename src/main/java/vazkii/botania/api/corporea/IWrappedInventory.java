@@ -24,7 +24,7 @@ public interface IWrappedInventory {
 	/**
 	 * Break encapsulation and exposes original inventory.
 	 */
-	IInventory getWrappedObject();
+	InvWithLocation getWrappedObject();
 
 	/**
 	 * Counts items in the inventory matching the request

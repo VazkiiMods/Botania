@@ -38,6 +38,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -96,12 +97,12 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
 
-				IItemHandler inv = InventoryHelper2.getInventory(supertile.getWorld(), pos_, dir);
+				InvWithLocation inv = InventoryHelper2.getInventory(supertile.getWorld(), pos_, dir);
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = ItemHandlerHelper.insertItem(inv, stack.copy(), true);
+					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
 					int availablePut = supertile.getWorld().isRemote ? 1 : stack.stackSize - (simulate == null ? 0 : simulate.stackSize);
 
 					canAccept &= availablePut > 0;
@@ -113,7 +114,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 							if(priorityInv && !priority)
 								break setInv;
 
-							invToPutItemIn = inv;
+							invToPutItemIn = inv.handler;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
 							amountToPutIn = availablePut;

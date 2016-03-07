@@ -17,6 +17,7 @@ import net.minecraft.util.BlockPos;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TileCorporeaRetainer extends TileMod {
@@ -60,9 +61,9 @@ public class TileCorporeaRetainer extends TileMod {
 
 		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestPos);
 		if(spark != null) {
-			IInventory inv = spark.getSparkInventory();
-			if(inv != null && inv instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv;
+			InvWithLocation inv = spark.getSparkInventory();
+			if(inv != null && inv.world.getTileEntity(inv.pos) instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
 				pendingRequest = false;
 				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());

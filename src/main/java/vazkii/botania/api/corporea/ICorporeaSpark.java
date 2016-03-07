@@ -12,7 +12,6 @@ package vazkii.botania.api.corporea;
 
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -38,7 +37,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
-	public IInventory getSparkInventory();
+	public InvWithLocation getSparkInventory();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list

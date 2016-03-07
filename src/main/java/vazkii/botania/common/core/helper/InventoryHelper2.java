@@ -14,28 +14,30 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import vazkii.botania.api.corporea.InvWithLocation;
 
 public final class InventoryHelper2 {
     
-    public static IItemHandler getInventory(World world, BlockPos pos, EnumFacing side) {
+    public static InvWithLocation getInventory(World world, BlockPos pos, EnumFacing side) {
         TileEntity te = world.getTileEntity(pos);
 
         if(te == null)
             return null;
-
+        IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
+                te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
         if(te instanceof TileEntityChest) {
             Block chestBlock = world.getBlockState(pos).getBlock();
             if(world.getBlockState(pos.west()).getBlock() == chestBlock)
-                return new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) world.getTileEntity(pos.west()), (ILockableContainer) te));
+                ret = new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) world.getTileEntity(pos.west()), (ILockableContainer) te));
             if(world.getBlockState(pos.east()).getBlock() == chestBlock)
-                return new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) te, (ILockableContainer) world.getTileEntity(pos.east())));
+                ret = new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) te, (ILockableContainer) world.getTileEntity(pos.east())));
             if(world.getBlockState(pos.north()).getBlock() == chestBlock)
-                return new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) world.getTileEntity(pos.north()), (ILockableContainer) te));
+                ret = new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) world.getTileEntity(pos.north()), (ILockableContainer) te));
             if(world.getBlockState(pos.south()).getBlock() == chestBlock)
-                return new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) te, (ILockableContainer) world.getTileEntity(pos.south())));
+                ret = new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) te, (ILockableContainer) world.getTileEntity(pos.south())));
         }
-        return te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
-                te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
+
+        return ret == null ? null : new InvWithLocation(ret, world, pos);
     }
     
     private InventoryHelper2() {}
