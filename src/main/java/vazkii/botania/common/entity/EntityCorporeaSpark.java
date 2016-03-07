@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -190,7 +191,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY - 1);
 		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper2.getInventory(worldObj, new BlockPos(x, y, z), null);
+		return InventoryHelper2.getInventory(worldObj, new BlockPos(x, y, z), EnumFacing.UP);
 	}
 
 	@Override
