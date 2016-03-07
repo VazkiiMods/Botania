@@ -25,6 +25,8 @@ public final class InventoryHelper2 {
             return null;
         IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
                 te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
+        if(ret == null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
+            ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         if(te instanceof TileEntityChest) {
             Block chestBlock = world.getBlockState(pos).getBlock();
             if(world.getBlockState(pos.west()).getBlock() == chestBlock)
