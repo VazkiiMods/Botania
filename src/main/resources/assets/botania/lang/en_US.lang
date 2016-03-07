@@ -3282,8 +3282,8 @@ botania.page.corporea3=&1Corporea Sparks&0 have a view of the inventory directly
 botania.page.corporea4=It's to note that the &1Master Corporea Spark&0, while being part of the network, can not have the items in its inventory extracted from.<br>Futhermore, no requests for items in the network are ever done passively. Corporea does not have the ability to add new items to the network, those should be inserted physically through &1Hoppers&0 or other methods.
 botania.page.corporea5=Similarly to normal &1Sparks&0, &1Corporea Sparks&0 have a method of augmentation, that being the ability to color them. While in the world, there's an icon floating around the spark that shows which color it has, this can be changed by right clicking on the spark with a piece of &1Floral Powder&0. These colors define networks. A spark may only be in the same network as another spark if the two have the same color. 
 botania.page.corporea6=The ability to color sparks allows for multiple different &4Corporea Networks&0 to be together in a close area, without interfering with each other.<br>Viewing the network and removing the spark works exactly the same as a normal spark. Lastly, having two &1Master Corporea Sparks&0 of the same color nearby, while possible, is a bad idea and will cause conflicts and odd behaviour.
-botania.page.corporea7=Creating &1Corporea Sparks&0
-botania.page.corporea8=And &1Master Corporea Sparks&0
+botania.page.corporea7=A spark of ingenuity
+botania.page.corporea8=Love-coloured
 
 # -- CORPOREA INDEX
 botania.entry.corporeaIndex=Corporea Index
