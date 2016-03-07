@@ -18,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -230,13 +231,13 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		return dataWatcher.getWatchableObjectInt(28) == 1;
 	}
 
-	public void setNetwork(int network) {
-		dataWatcher.updateObject(29, network);
+	public void setNetwork(EnumDyeColor network) {
+		dataWatcher.updateObject(29, network.getMetadata());
 	}
 
 	@Override
-	public int getNetwork() {
-		return dataWatcher.getWatchableObjectInt(29);
+	public EnumDyeColor getNetwork() {
+		return EnumDyeColor.byMetadata(dataWatcher.getWatchableObjectInt(29));
 	}
 
 	public int getItemDisplayTicks() {
@@ -273,8 +274,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				}
 			} else if(stack.getItem() == ModItems.dye) {
 				int color = stack.getItemDamage();
-				if(color != getNetwork()) {
-					setNetwork(color);
+				if(color != getNetwork().getMetadata()) {
+					setNetwork(EnumDyeColor.byMetadata(color));
 
 					if(master != null)
 						restartNetwork();
@@ -303,14 +304,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
-		setNetwork(cmp.getInteger(TAG_NETWORK));
+		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
 		dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
-		cmp.setInteger(TAG_NETWORK, getNetwork());
+		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
 		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY));
 	}
 

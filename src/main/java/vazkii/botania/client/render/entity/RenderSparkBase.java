@@ -80,19 +80,19 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GlStateManager.popMatrix();
 	}
 
-	public TextureAtlasSprite getBaseIcon(T entity) {
+	protected TextureAtlasSprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
 	}
 
-	public void colorSpinningIcon(T entity, float a) {
+	protected void colorSpinningIcon(T entity, float a) {
 		// NO-OP
 	}
 
-	public TextureAtlasSprite getSpinningIcon(T entity) {
+	protected TextureAtlasSprite getSpinningIcon(T entity) {
 		return null;
 	}
 
-	public void renderCallback(T entity, float pticks) {
+	protected void renderCallback(T entity, float pticks) {
 		// NO-OP
 	}
 

@@ -32,12 +32,11 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int network = Math.min(15, entity.getNetwork());
-		int hex = EnumDyeColor.byMetadata(network).getMapColor().colorValue;
+		int hex = entity.getNetwork().getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = (hex & 0xFF);
-		GlStateManager.color(r, g, b, a);
+		GlStateManager.color(r / 255F, g / 255F, b / 255F, a);
 	}
 
 	@Override
