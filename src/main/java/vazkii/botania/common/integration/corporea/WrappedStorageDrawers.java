@@ -112,8 +112,8 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
 	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
-		if(inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).inv instanceof IDrawerGroup) {
-			return new WrappedStorageDrawers((IDrawerGroup) ((InvWrapper) inv.handler).inv, spark);
+		if(inv.world.getTileEntity(inv.pos) instanceof IDrawerGroup) {
+			return new WrappedStorageDrawers((IDrawerGroup) inv.world.getTileEntity(inv.pos), spark);
 		} else return null;
 	}
 }
