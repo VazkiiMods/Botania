@@ -18,6 +18,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
@@ -70,7 +71,7 @@ public class TileCocoon extends TileMod {
 						break;
 					}
 				} else {
-					int entityType = worldObj.rand.nextInt(4);
+					int entityType = worldObj.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
 						entity = new EntitySheep(worldObj);
@@ -85,6 +86,9 @@ public class TileCocoon extends TileMod {
 						break;
 					case 3:
 						entity = new EntityChicken(worldObj);
+						break;
+					case 4:
+						entity = new EntityRabbit(worldObj);
 						break;
 					}
 				}
