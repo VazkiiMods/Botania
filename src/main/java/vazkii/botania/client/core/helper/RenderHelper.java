@@ -156,7 +156,7 @@ public final class RenderHelper {
 		GlStateManager.disableTexture2D();
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(770, 1);
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		GlStateManager.disableAlpha();
 		GlStateManager.enableCull();
 		GlStateManager.depthMask(false);
@@ -176,10 +176,10 @@ public final class RenderHelper {
 			float g = ((color & 0xFF00) >> 8) / 255F;
 			float b = (color & 0xFF) / 255F;
 			tessellator.getWorldRenderer().pos(0, 0, 0).color(r, g, b, 1F - f2).endVertex();
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
-			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
-			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).color(r, g, b, 1F - f2).endVertex();
-			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(r, g, b, 1F - f2).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(0, f3, 1F * f4).color(0, 0, 0, 0).endVertex();
+			tessellator.getWorldRenderer().pos(-0.866D * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex();
 			tessellator.draw();
 		}
 
