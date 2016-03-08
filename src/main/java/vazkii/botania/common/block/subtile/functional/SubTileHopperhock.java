@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.stream.IntStream;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -24,7 +23,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +42,6 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.InventoryHelper2;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -97,7 +94,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
 
-				InvWithLocation inv = InventoryHelper2.getInventory(supertile.getWorld(), pos_, dir);
+				InvWithLocation inv = InventoryHelper2.getInventoryWithLocation(supertile.getWorld(), pos_, dir);
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);

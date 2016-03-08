@@ -16,9 +16,18 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.corporea.InvWithLocation;
 
+import java.util.Iterator;
+
 public final class InventoryHelper2 {
-    
-    public static InvWithLocation getInventory(World world, BlockPos pos, EnumFacing side) {
+
+    public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, EnumFacing side) {
+        IItemHandler ret = getInventory(world, pos, side);
+        if(ret == null)
+            return null;
+        else return new InvWithLocation(ret, world, pos);
+    }
+
+    public static IItemHandler getInventory(World world, BlockPos pos, EnumFacing side) {
         TileEntity te = world.getTileEntity(pos);
 
         if(te == null)
@@ -39,7 +48,23 @@ public final class InventoryHelper2 {
                 ret = new InvWrapper(new InventoryLargeChest("Large chest", (ILockableContainer) te, (ILockableContainer) world.getTileEntity(pos.south())));
         }
 
-        return ret == null ? null : new InvWithLocation(ret, world, pos);
+        return ret;
+    }
+
+    public static Iterable<ItemStack> toIterable(IItemHandler itemHandler) {
+        return () -> new Iterator<ItemStack>() {
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < itemHandler.getSlots();
+            }
+
+            @Override
+            public ItemStack next() {
+                return itemHandler.getStackInSlot(index++);
+            }
+        };
     }
     
     private InventoryHelper2() {}

@@ -25,6 +25,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -97,6 +99,8 @@ public interface IInternalMethodHandler {
 	public int getPassiveFlowerDecay();
 
 	public IInventory getBaublesInventory(EntityPlayer player);
+
+	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player);
 
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side);
 

@@ -15,14 +15,17 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.core.helper.InventoryHelper2;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
@@ -80,20 +83,36 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		if(!(request instanceof ItemStack))
 			return;
 
-		IInventory inv = InventoryHelper.getInventory(worldObj, getPos().down());
-		if(inv == null || inv instanceof TileCorporeaFunnel)
-			inv = InventoryHelper.getInventory(worldObj, getPos().down(2));
+		IItemHandler inv = getInv();
 
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack reqStack : stacks) {
-			if(inv != null && !(inv instanceof TileCorporeaFunnel) && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, EnumFacing.UP))
-				InventoryHelper.insertItemIntoInventory(inv, reqStack);
+			if(inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true) == null)
+				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
 			else {
 				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				worldObj.spawnEntityInWorld(item);
 			}
 		}
+	}
+
+	private IItemHandler getInv() {
+		TileEntity te = worldObj.getTileEntity(pos.down());
+		IItemHandler ret = InventoryHelper2.getInventory(worldObj, pos.down(), EnumFacing.UP);
+		if(ret == null)
+			ret = InventoryHelper2.getInventory(worldObj, pos.down(), null);
+		if(ret != null && !(te instanceof TileCorporeaFunnel))
+			return ret;
+
+		te = worldObj.getTileEntity(pos.down(2));
+		ret = InventoryHelper2.getInventory(worldObj, pos.down(2), EnumFacing.UP);
+		if(ret == null)
+			ret = InventoryHelper2.getInventory(worldObj, pos.down(2), null);
+		if(ret != null && !(te instanceof TileCorporeaFunnel))
+			return ret;
+
+		return null;
 	}
 
 }

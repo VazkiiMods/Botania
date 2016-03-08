@@ -23,6 +23,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -94,9 +98,17 @@ public class ItemFlowerBag extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && tile instanceof IInventory) {
+		if(tile != null) {
 			if(!world.isRemote) {
-				IInventory inv = (IInventory) tile;
+				IItemHandler inv = null;
+				if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
+					inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				else if(tile instanceof IInventory)
+					inv = new InvWrapper(((IInventory) tile));
+
+				if(inv == null)
+					return true;
+
 				ItemStack[] stacks = loadStacks(stack);
 				ItemStack[] newStacks = new ItemStack[stacks.length];
 				boolean putAny = false;
@@ -104,14 +116,10 @@ public class ItemFlowerBag extends ItemMod {
 				int i = 0;
 				for(ItemStack petal : stacks) {
 					if(petal != null) {
-						int count = InventoryHelper.testInventoryInsertion(inv, petal, side);
-						InventoryHelper.insertItemIntoInventory(inv, petal, side, -1);
-
-						ItemStack newPetal = petal.copy();
-						if(newPetal.stackSize == 0)
-							newPetal = null;
-
-						newStacks[i] = newPetal;
+						newStacks[i] = ItemHandlerHelper.insertItemStacked(inv, petal, false);
+						int count = petal.stackSize;
+						if(newStacks[i] != null)
+							count = petal.stackSize - newStacks[i].stackSize;
 						putAny |= count > 0;
 					}
 
@@ -119,9 +127,8 @@ public class ItemFlowerBag extends ItemMod {
 				}
 
 				setStacks(stack, newStacks);
-				if(putAny && inv instanceof TileEntityChest) {
-					inv = InventoryHelper.getInventory(inv);
-					player.displayGUIChest(inv);
+				if(putAny && tile instanceof TileEntityChest) {
+					player.displayGUIChest(((TileEntityChest) tile));
 				}
 			}
 

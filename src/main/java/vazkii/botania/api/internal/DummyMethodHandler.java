@@ -26,6 +26,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -176,6 +178,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
+		return null;
+	}
+
+	@Override
+	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
 		return null;
 	}
 

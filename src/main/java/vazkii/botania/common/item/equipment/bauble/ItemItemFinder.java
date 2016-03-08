@@ -31,8 +31,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.village.MerchantRecipe;
 
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.PlayerInvWrapper;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -112,8 +117,10 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
-
-				if(e instanceof EntityItem) {
+				if(e.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+					if(scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), pstack))
+						positionsBuilder.append(e.getEntityId()).append(";");
+				} else if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
 					ItemStack istack = item.getEntityItem();
 					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
@@ -121,20 +128,20 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
-					if(scanInventory(inv, pstack))
+					if(scanInventory(new InvWrapper(inv), pstack))
 						positionsBuilder.append(e.getEntityId()).append(";");
 
 				} else if(e instanceof EntityHorse) {
 					EntityHorse horse = (EntityHorse) e;
 					AnimalChest chest = ReflectionHelper.getPrivateValue(EntityHorse.class, horse, LibObfuscation.HORSE_CHEST);
-					if(scanInventory(chest, pstack))
+					if(scanInventory(new InvWrapper(chest), pstack))
 						positionsBuilder.append(horse.getEntityId()).append(";");
 
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
-					InventoryPlayer inv = player_.inventory;
-					InventoryBaubles binv = PlayerHandler.getPlayerBaubles(player_);
-					if(scanInventory(inv, pstack) || scanInventory(binv, pstack))
+					IItemHandler playerInv = new PlayerInvWrapper(player_.inventory);
+					IItemHandler binv = new InvWrapper(PlayerHandler.getPlayerBaubles(player_));
+					if(scanInventory(playerInv, pstack) || scanInventory(binv, pstack))
 						positionsBuilder.append(player_.getEntityId()).append(";");
 
 				} else if(e instanceof EntityVillager) {
@@ -161,10 +168,21 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 						for(int k = -range; k < range + 1; k++) {
 							BlockPos pos_ = pos.add(i, j, k);
 							TileEntity tile = player.worldObj.getTileEntity(pos_);
-							if(tile != null && tile instanceof IInventory) {
-								IInventory inv = (IInventory) tile;
-								if(scanInventory(inv, pstack))
-									positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
+							if(tile != null) {
+								boolean foundCap = false;
+								for(EnumFacing e : EnumFacing.VALUES) {
+									if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e)
+											&& scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
+										positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
+										foundCap = true;
+										break;
+									}
+								}
+								if(!foundCap && tile instanceof IInventory) {
+									IInventory inv = (IInventory) tile;
+									if(scanInventory(new InvWrapper(inv), pstack))
+										positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
+								}
 							}
 						}
 			}
@@ -182,11 +200,11 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	boolean scanInventory(IInventory inv, ItemStack pstack) {
+	boolean scanInventory(IItemHandler inv, ItemStack pstack) {
 		if(pstack == null)
 			return false;
 
-		for(int l = 0; l < inv.getSizeInventory(); l++) {
+		for(int l = 0; l < inv.getSlots(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
 			if(istack != null && equalStacks(istack, pstack))
 				return true;
