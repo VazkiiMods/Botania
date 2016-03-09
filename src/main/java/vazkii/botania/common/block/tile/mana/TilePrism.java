@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -68,6 +69,12 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 				else return stack;
 			}
 		};
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 }
