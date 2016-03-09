@@ -35,9 +35,6 @@ public class TileTurntable extends TileMod {
 
 	@Override
 	public void updateEntity() {
-		if (worldObj.isRemote)
-			return;
-
 		boolean redstone = false;
 
 		for(EnumFacing dir : EnumFacing.VALUES) {
@@ -53,7 +50,8 @@ public class TileTurntable extends TileMod {
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
-				spreader.checkForReceiver();
+				if(!worldObj.isRemote)
+					spreader.checkForReceiver();
 			}
 		}
 	}
