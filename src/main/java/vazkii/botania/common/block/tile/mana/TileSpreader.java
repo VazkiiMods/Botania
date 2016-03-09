@@ -464,7 +464,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
 
-		if(receiver != null && receiver instanceof IManaReceiver)
+		if(receiver != null
+				&& receiver instanceof IManaReceiver
+				&& receiver.hasWorldObj()
+				&& receiver.getWorld().isBlockLoaded(receiver.getPos(), !receiver.getWorld().isRemote))
 			this.receiver = (IManaReceiver) receiver;
 		else this.receiver = null;
 		lastTentativeBurst = fakeBurst.propsList;
