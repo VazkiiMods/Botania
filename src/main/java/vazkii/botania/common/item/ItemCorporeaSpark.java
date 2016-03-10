@@ -42,7 +42,7 @@ public class ItemCorporeaSpark extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
-		if((tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
+		if(tile != null && (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
 			&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
 			stack.stackSize--;
 			if(!world.isRemote) {
