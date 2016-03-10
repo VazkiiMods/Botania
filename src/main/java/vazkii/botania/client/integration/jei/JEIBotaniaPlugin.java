@@ -48,18 +48,18 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCategories(
 				new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
 				new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
+				new RunicAltarRecipeCategory(jeiHelpers.getGuiHelper()), // Runic must come before petals. See williewillus/Botania#172
 				new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper()),
 				new ElvenTradeRecipeCategory(jeiHelpers.getGuiHelper()),
-				new RunicAltarRecipeCategory(jeiHelpers.getGuiHelper()),
 				new ManaPoolRecipeCategory(jeiHelpers.getGuiHelper())
 		);
 
 		registry.addRecipeHandlers(
 				new BreweryRecipeHandler(),
 				new PureDaisyRecipeHandler(),
+				new RunicAltarRecipeHandler(), // Runic must come before petals. See williewillus/Botania#172
 				new PetalApothecaryRecipeHandler(),
 				new ElvenTradeRecipeHandler(),
-				new RunicAltarRecipeHandler(),
 				new ManaPoolRecipeHandler()
 		);
 
