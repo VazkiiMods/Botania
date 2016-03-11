@@ -62,9 +62,11 @@ public final class MultiblockRenderHandler {
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.thePlayer != null && mc.objectMouseOver != null && (!mc.thePlayer.isSneaking() || anchor != null)) {
-			mc.thePlayer.getCurrentEquippedItem();
-			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
+		if(mc.thePlayer != null && mc.objectMouseOver != null) {
+			if( (!mc.thePlayer.isSneaking() || anchor != null)) {
+				mc.thePlayer.getCurrentEquippedItem();
+				renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
+			}
 		}
 	}
 
