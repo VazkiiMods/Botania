@@ -17,6 +17,7 @@ buildscript {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = "chickenbones"
         url = "http://chickenbones.net/maven/"
@@ -53,9 +54,6 @@ minecraft {
 }
 
 //This here is for SCP
-repositories {
-    mavenCentral()
-}
 configurations {
     sshAntTask
 }
@@ -101,7 +99,7 @@ processResources {
  */
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-	archiveName = "${baseName} ${version}-deobf.${extension}"
+	archiveName = "${baseName}.${version}-deobf.${extension}"
 }
 
 artifacts {
@@ -216,21 +214,22 @@ def parseConfig(File config) {
 
 jar {
     //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
+    archiveName = "${baseName}.${version}.${extension}"
 }
 
 curseforge {
     apiKey = priv.cfkey
     project {
-        id = "225643"
+        id = "241973"
         changelog = """
-		    See http://botaniamod.net/changelog.php#${version}
+		    See https://github.com/williewillus/Botania/releases/tag/${version}
         """
-        releaseType = "release"
+        releaseType = "beta"
         relations {
             requiredLibrary 'baubles'
         }
     }
 }
 
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
+//defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
+defaultTasks 'clean', 'build', 'incrementBuildNumber', 'curse'
