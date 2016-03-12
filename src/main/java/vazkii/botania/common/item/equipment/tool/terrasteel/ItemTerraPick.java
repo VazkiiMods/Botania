@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
@@ -160,13 +161,16 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(ItemTemperanceStone.hasTemperanceActive(player) && level > 2)
 			level = 2;
 
-		int range = Math.max(0, level - 1);
+		int range = level - 1;
 		int rangeY = Math.max(1, range);
 
 		if(range == 0 && level != 1)
 			return;
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, new BlockPos(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0), new BlockPos(doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1), null, MATERIALS, silk, fortune, isTipped(stack));
+		BlockPos beginDiff = new BlockPos(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
+		BlockPos endDiff = new BlockPos(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
+
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, null, MATERIALS, silk, fortune, isTipped(stack));
 		if(origLevel == 5)
 			player.addStat(ModAchievements.rankSSPick, 1);
 	}
