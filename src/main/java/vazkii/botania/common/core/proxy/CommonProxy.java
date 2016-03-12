@@ -219,7 +219,7 @@ public class CommonProxy {
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandDownloadLatest());
+		// todo 1.8 - we don't have a file server yet. event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
