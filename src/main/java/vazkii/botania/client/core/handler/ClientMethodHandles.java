@@ -2,6 +2,7 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.base.Throwables;
 import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -18,7 +19,8 @@ public final class ClientMethodHandles {
             renderPosX_getter, renderPosY_getter, renderPosZ_getter, // RenderManager
             farPlaneDistance_getter,
             hurtCameraEffect, setupViewBobbing, getFOVModifier,
-            enableLightmap, disableLightmap; // EntityRenderer
+            enableLightmap, disableLightmap, // EntityRenderer
+            prevEquippedProgress_getter, equippedProgress_getter; // ItemRenderer
 
     static {
         try {
@@ -57,6 +59,14 @@ public final class ClientMethodHandles {
             m = ReflectionHelper.findMethod(EntityRenderer.class, null, LibObfuscation.GET_FOV_MODIFIER, float.class, boolean.class);
             m.setAccessible(true);
             getFOVModifier = MethodHandles.publicLookup().unreflect(m);
+
+            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.PREV_EQUIPPED_PROGRESS);
+            f.setAccessible(true);
+            prevEquippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.EQUIPPED_PROGRESS);
+            f.setAccessible(true);
+            equippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
         } catch (IllegalAccessException e) {
             FMLLog.severe("[Botania]: Couldn't initialize client methodhandles! Things will be broken!");
             throw Throwables.propagate(e);

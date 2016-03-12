@@ -106,4 +106,8 @@ public final class LibObfuscation {
 	public static final String[] DISABLE_LIGHTMAP = { "disableLightmap", "func_175072_h", "h" };
 	public static final String[] GET_FOV_MODIFIER = { "getFOVModifier", "func_78481_a", "a" };
 
+	// ItemRenderer
+	public static final String[] PREV_EQUIPPED_PROGRESS = { "prevEquippedProgress", "field_78451_d", "f" };
+	public static final String[] EQUIPPED_PROGRESS = { "equippedProgress", "field_78454_c", "e" };
+
 }
