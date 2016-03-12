@@ -82,12 +82,12 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	@SubscribeEvent // todo temporary nag, remove when merging back into master
+	@SubscribeEvent
 	public void nagUnofficial(PlayerEvent.PlayerLoggedInEvent evt) {
 		EntityPlayer player = evt.player;
 
 		IChatComponent message = new ChatComponentTranslation("botaniamisc.unofficial.nag");
-		message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED).setUnderlined(true));
+		message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
 
 		IChatComponent message2 = new ChatComponentTranslation("botaniamisc.unofficial.report");
 		message2.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW));
