@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.util.glu.Project;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 
@@ -32,7 +33,7 @@ public class RenderLexicon {
     @SubscribeEvent
     public void renderItem(RenderHandEvent evt) {
         Minecraft mc = Minecraft.getMinecraft();
-        if(mc.gameSettings.thirdPersonView != 0 || mc.thePlayer.getHeldItem() == null || mc.thePlayer.getHeldItem().getItem() != ModItems.lexicon)
+        if(!ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || mc.thePlayer.getHeldItem() == null || mc.thePlayer.getHeldItem().getItem() != ModItems.lexicon)
             return;
         evt.setCanceled(true);
 
@@ -94,8 +95,6 @@ public class RenderLexicon {
             FMLLog.warning("[Botania]: Failed to render lexicon");
             throwable.printStackTrace();
         }
-
-
     }
 
     private void renderItemInFirstPerson() throws Throwable {
@@ -191,7 +190,7 @@ public class RenderLexicon {
         GlStateManager.popMatrix();
     }
 
-    // ItemRenderer.func_178101_a
+    // Copy - ItemRenderer.func_178101_a
     private void func_178101_a(float angle, float p_178101_2_) {
         GlStateManager.pushMatrix();
         GlStateManager.rotate(angle, 1.0F, 0.0F, 0.0F);
@@ -226,7 +225,7 @@ public class RenderLexicon {
 
     // Copy with modification - ItemRenderer.transformFirstPersonItem
     private void transformFirstPersonItem(float equipProgress, float swingProgress) {
-        GlStateManager.translate(1F, -1F, -0.71999997F); // Botania - x(0.56) -> 1; y(-0.52) -> -1
+        GlStateManager.translate(1.2F, -1F, -0.71999997F); // Botania - x(0.56) -> 1; y(-0.52) -> -1
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F); // Botania - 45 -> 90
         GlStateManager.rotate(-20, 0, 0, 1); // Botania - added

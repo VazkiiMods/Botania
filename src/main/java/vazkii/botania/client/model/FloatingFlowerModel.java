@@ -137,7 +137,7 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
 			// Enhance!
 			CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
-			FMLLog.info("[Botania]: Cached floating flower model for islandtpye %s and flowertype %s", islandType, identifier);
+			FMLLog.info("[Botania]: Cached floating flower model for islandtype %s and flowertype %s", islandType, identifier);
 			CACHE.put(islandType, identifier, model);
 			return model;
 		}

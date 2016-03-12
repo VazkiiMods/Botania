@@ -472,6 +472,7 @@ public final class ModelHandler {
         registerItemModel(pestleAndMortar);
         registerItemModel(blackLotus);
         registerItemModel(blackLotus, 1);
+        ModelLoader.registerItemVariants(lexicon, new ModelResourceLocation("botania:lexicon_default", "inventory"));
         registerItemModel(lexicon);
 
         registerItemModel(manasteelHelm);
