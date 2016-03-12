@@ -108,7 +108,7 @@ artifacts {
 /**
  * Increments the buildnumber in your config file, and saves it
  */
-task incrementBuildNumber(dependsOn: 'reobf') << {
+task incrementBuildNumber(dependsOn: 'reobfJar') << {
     config.build_number = (config.build_number.toString().toInteger()) + 1
     configFile.withWriter {
         config.toProperties().store(it, "")
@@ -214,7 +214,7 @@ def parseConfig(File config) {
 
 jar {
     //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName}.${version}.${extension}"
+    archiveName = "${baseName}-unofficial.${version}.${extension}"
 }
 
 curseforge {
@@ -225,6 +225,8 @@ curseforge {
 		    See https://github.com/williewillus/Botania/releases/tag/${version}
         """
         releaseType = "beta"
+        addGameVersion '1.8.9'
+        addGameVersion 'Java 8'
         relations {
             requiredLibrary 'baubles'
         }
@@ -232,4 +234,4 @@ curseforge {
 }
 
 //defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
-defaultTasks 'clean', 'build', 'incrementBuildNumber', 'curse'
+defaultTasks 'clean', 'build', 'incrementBuildNumber', 'curseforge'
