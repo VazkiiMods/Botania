@@ -98,4 +98,12 @@ public final class LibObfuscation {
 	public static final String[] GL_SKY_LIST = new String[] { "glSkyList", "field_72771_w", "q" };
 	public static final String[] GL_SKY_LIST2 = new String[] { "glSkyList2", "field_72781_x", "r" };
 
+	// EntityRenderer
+	public static final String[] FAR_PLANE_DISTANCE = { "farPlaneDistance", "field_78530_s", "k" };
+	public static final String[] HURT_CAMERA_EFFECT = { "hurtCameraEffect", "func_78482_e", "d" };
+	public static final String[] SETUP_VIEW_BOBBING = { "setupViewBobbing", "func_78475_f", "e" };
+	public static final String[] ENABLE_LIGHTMAP = { "enableLightmap", "func_180436_i", "i" };
+	public static final String[] DISABLE_LIGHTMAP = { "disableLightmap", "func_175072_h", "h" };
+	public static final String[] GET_FOV_MODIFIER = { "getFOVModifier", "func_78481_a", "a" };
+
 }

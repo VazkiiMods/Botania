@@ -57,6 +57,7 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.RenderLexicon;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -200,7 +201,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
-		MinecraftForge.EVENT_BUS.register(new CorporeaAutoCompleteHandler());
+		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
 		
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(new AdaptorNotifier());
