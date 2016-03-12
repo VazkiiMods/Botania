@@ -139,7 +139,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
-					IItemHandler playerInv = new PlayerInvWrapper(player_.inventory);
+					IItemHandler playerInv = new InvWrapper(player_.inventory);
 					IItemHandler binv = new InvWrapper(PlayerHandler.getPlayerBaubles(player_));
 					if(scanInventory(playerInv, pstack) || scanInventory(binv, pstack))
 						positionsBuilder.append(player_.getEntityId()).append(";");
