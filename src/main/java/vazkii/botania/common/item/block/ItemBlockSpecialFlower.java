@@ -40,6 +40,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	public ItemBlockSpecialFlower(Block block1) {
 		super(block1);
+		setHasSubtypes(true);
 	}
 
 	@Override

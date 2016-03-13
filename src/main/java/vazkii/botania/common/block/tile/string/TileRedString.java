@@ -42,7 +42,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 				continue;
 
 			if(acceptBlock(pos_)) {
-				setBinding(new BlockPos(pos_));
+				setBinding(pos_);
 				if(currBinding == null || !currBinding.equals(pos_))
 					onBound(pos_);
 				break;
