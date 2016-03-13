@@ -16,11 +16,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.profiler.Profiler;
 
-import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.Project;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public final class ParticleRenderDispatcher {
 
@@ -33,19 +29,9 @@ public final class ParticleRenderDispatcher {
 	// Called from LightningHandler.onRenderWorldLast since that was
 	// already registered. /shrug
 	public static void dispatch() {
-		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tessellator = Tessellator.getInstance();
 
-		float fovModifier, farPlane;
-
-		try {
-			fovModifier = ((float) ClientMethodHandles.getFOVModifier.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks, true));
-			farPlane = ((float) ClientMethodHandles.farPlaneDistance_getter.invokeExact(mc.entityRenderer));
-		} catch (Throwable t) {
-			return;
-		}
-
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GlStateManager.depthMask(false);
@@ -54,24 +40,11 @@ public final class ParticleRenderDispatcher {
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		GlStateManager.disableLighting();
 
-		GlStateManager.matrixMode(GL11.GL_PROJECTION);
-		GlStateManager.loadIdentity();
-		Project.gluPerspective(fovModifier, mc.displayWidth / mc.displayHeight, 0.05F, farPlane * 12); // Extend far plane so starfield and beacons work at lower render dists
-
-		GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-		GlStateManager.pushMatrix();
-
 		profiler.startSection("sparkle");
 		FXSparkle.dispatchQueuedRenders(tessellator);
 		profiler.endStartSection("wisp");
 		FXWisp.dispatchQueuedRenders(tessellator);
 		profiler.endSection();
-
-		GlStateManager.popMatrix();
-
-		GlStateManager.matrixMode(GL11.GL_PROJECTION);
-		GlStateManager.loadIdentity();
-		Project.gluPerspective(fovModifier, mc.displayWidth / mc.displayHeight, 0.05F, farPlane * MathHelper.SQRT_2);
 
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 		GlStateManager.disableBlend();
