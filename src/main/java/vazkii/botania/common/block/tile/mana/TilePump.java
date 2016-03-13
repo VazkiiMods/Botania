@@ -84,8 +84,9 @@ public class TilePump extends TileMod implements IAnimationProvider {
 				moving = 0F;
 			}
 		}
-		move.setValue(innerRingPos / 8 * 0.5F); // rescale to 0 - 0.5 for json animation
 
+		if(worldObj.isRemote)
+			move.setValue(innerRingPos / 8 * 0.5F); // rescale to 0 - 0.5 for json animation
 
 		if(!hasCartOnTop)
 			comparator = 0;
