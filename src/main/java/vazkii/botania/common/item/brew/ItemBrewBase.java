@@ -91,10 +91,13 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 			int swigs = getSwigsLeft(stack);
 			if(!player.capabilities.isCreativeMode) {
 				if(swigs == 1) {
-					ItemStack copy = baseItem.copy();
-					if(!player.inventory.addItemStackToInventory(copy))
+					if(!player.inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
-					return null;
+					else {
+						ItemStack copy = stack.copy();
+						copy.stackSize = 0;
+						return copy;
+					}
 				}
 
 
