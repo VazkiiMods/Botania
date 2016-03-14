@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "forge:forgebucket",
+    "custom": {
+      "fluid": "water",
+      "flipGas": false
+    },
+    "textures": {
+      "base": "botania:items/waterBowl_base",
+      "fluid": "botania:items/waterBowl_fluid",
+      "cover": "botania:items/waterBowl_cover"
+    },
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "inventory": [{}]
+  }
+}
