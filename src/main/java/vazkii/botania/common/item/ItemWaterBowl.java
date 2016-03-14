@@ -10,13 +10,41 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemWaterBowl extends ItemMod {
+public class ItemWaterBowl extends ItemMod implements IFluidContainerItem {
+
+	private static final FluidStack STACK = new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME);
 
 	public ItemWaterBowl() {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.WATER_BOWL);
 	}
 
+	// Needed for rendering water dynamic model
+
+	@Override
+	public FluidStack getFluid(ItemStack container) {
+		return STACK;
+	}
+
+	@Override
+	public int getCapacity(ItemStack container) {
+		return 0;
+	}
+
+	@Override
+	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
+		return null;
+	}
 }
