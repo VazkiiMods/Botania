@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.block.decor.biomestone;
 
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
@@ -24,8 +24,8 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.BIOMESTONE_VARIANT);
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.BIOMESTONE_VARIANT);
 	}
 
 	@Override

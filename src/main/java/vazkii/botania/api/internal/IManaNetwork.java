@@ -13,7 +13,7 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
 

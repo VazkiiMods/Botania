@@ -15,9 +15,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -55,7 +55,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 					continue;
 
 				if(living.hurtTime == 0) {
-					onImpact(new MovingObjectPosition(living));
+					onImpact(new RayTraceResult(living));
 					return;
 				}
 			}
@@ -66,7 +66,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition pos) {
+	protected void onImpact(RayTraceResult pos) {
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && thrower != null && pos.entityHit != thrower && !pos.entityHit.isDead) {
 			if(thrower instanceof EntityPlayer)

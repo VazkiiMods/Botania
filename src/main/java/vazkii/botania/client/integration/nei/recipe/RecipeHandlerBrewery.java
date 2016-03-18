@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -78,7 +78,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("botania.nei.brewery");
+		return I18n.translateToLocal("botania.nei.brewery");
 	}
 
 	@Override

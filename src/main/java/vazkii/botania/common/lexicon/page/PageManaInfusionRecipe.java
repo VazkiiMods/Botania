@@ -22,9 +22,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -90,7 +90,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
+		String manaUsage = I18n.translateToLocal("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 105, 0x66000000);
 
 		int ratio = 10;
@@ -102,8 +102,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / ratio);
 
-		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
-		String dropString = StatCollector.translateToLocal("botaniamisc.drop") + " " + EnumChatFormatting.BOLD + "(?)";
+		String ratioString = String.format(I18n.translateToLocal("botaniamisc.ratio"), ratio);
+		String dropString = I18n.translateToLocal("botaniamisc.drop") + " " + TextFormatting.BOLD + "(?)";
 
 		boolean hoveringOverDrop = false;
 
@@ -132,8 +132,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		if(hoveringOverDrop) {
 			String key = RenderHelper.getKeyDisplayString("key.drop");
-			String tip0 = StatCollector.translateToLocal("botaniamisc.dropTip0").replaceAll("%key%", EnumChatFormatting.GREEN + key + EnumChatFormatting.WHITE);
-			String tip1 = StatCollector.translateToLocal("botaniamisc.dropTip1").replaceAll("%key%", EnumChatFormatting.GREEN + key + EnumChatFormatting.WHITE);
+			String tip0 = I18n.translateToLocal("botaniamisc.dropTip0").replaceAll("%key%", TextFormatting.GREEN + key + TextFormatting.WHITE);
+			String tip1 = I18n.translateToLocal("botaniamisc.dropTip1").replaceAll("%key%", TextFormatting.GREEN + key + TextFormatting.WHITE);
 			RenderHelper.renderTooltip(mx, my, Arrays.asList(tip0, tip1));
 		}
 	}

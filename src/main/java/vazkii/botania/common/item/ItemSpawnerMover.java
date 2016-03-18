@@ -18,9 +18,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
@@ -75,7 +75,7 @@ public class ItemSpawnerMover extends ItemMod {
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> infoList, boolean advancedTooltips) {
 		String id = getEntityId(stack);
 		if (id != null)
-			infoList.add(StatCollector.translateToLocal("entity." + id + ".name"));
+			infoList.add(I18n.translateToLocal("entity." + id + ".name"));
 	}
 
 	@Override

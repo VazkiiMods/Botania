@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -29,9 +29,9 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, false) && !par3World.provider.doesWaterVaporize()) {
 
 			// Adapted from bucket code
-			MovingObjectPosition mop = getMovingObjectPositionFromPlayer(par3World, par2EntityPlayer, false);
+			RayTraceResult mop = getRayTraceResultFromPlayer(par3World, par2EntityPlayer, false);
 
-			if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+			if (mop != null && mop.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
 				BlockPos hitPos = mop.getBlockPos();
 				if(!par3World.isBlockModifiable(par2EntityPlayer, hitPos))
 					return false;

@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -31,7 +31,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
-		localizedName = StatCollector.translateToLocal("botania.nei.manaPool");
+		localizedName = I18n.translateToLocal("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
 				0, 0, 64, 46);
 	}

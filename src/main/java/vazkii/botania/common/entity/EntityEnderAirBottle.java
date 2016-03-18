@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class EntityEnderAirBottle extends EntityThrowable {
@@ -33,7 +33,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition pos) {
+	protected void onImpact(RayTraceResult pos) {
 		if(pos.entityHit == null && !worldObj.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
 			worldObj.playAuxSFX(2002, new BlockPos((int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ)), 8);
@@ -55,7 +55,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 
 		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
 			Block block = worldObj.getBlockState(pos).getBlock();
-			if(block != null && block.isReplaceableOreGen(worldObj, pos, BlockHelper.forBlock(Blocks.stone)))
+			if(block != null && block.isReplaceableOreGen(worldObj, pos, BlockStateMatcher.forBlock(Blocks.stone)))
 				possibleCoords.add(pos);
 		}
 

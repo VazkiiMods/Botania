@@ -15,8 +15,8 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -41,9 +41,9 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 
 		List<String> tooltip = new ArrayList<>();
 		if(GuiLexicon.notesEnabled)
-			tooltip.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.hideNotes"));
+			tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("botaniamisc.hideNotes"));
 		else {
-			tooltip.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.showNotes"));
+			tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("botaniamisc.showNotes"));
 			if(parent.note != null && !parent.note.isEmpty())
 				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow("!", xPosition + 10, yPosition, 0xFF0000);
 		}

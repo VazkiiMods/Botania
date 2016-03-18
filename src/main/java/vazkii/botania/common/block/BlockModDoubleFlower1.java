@@ -1,7 +1,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
@@ -19,8 +19,8 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
     }
 
     @Override
-    public BlockState createBlockState() {
-        return new BlockState(this, field_181084_N, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
+    public BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, field_181084_N, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
     }
 
     @Override

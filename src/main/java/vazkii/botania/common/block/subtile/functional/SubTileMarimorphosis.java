@@ -15,10 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -99,7 +99,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
 					Block block = supertile.getWorld().getBlockState(pos).getBlock();
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockHelper.forBlock(Blocks.stone)))
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.stone)))
 						possibleCoords.add(pos);
 				}
 

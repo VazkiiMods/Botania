@@ -43,7 +43,7 @@ minecraft {
     version = "${config.mc_version}-${config.forge_version}"
     runDir = "eclipse/assets"
 
-    mappings = "snapshot_20151229"
+    mappings = "snapshot_20160318"
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number

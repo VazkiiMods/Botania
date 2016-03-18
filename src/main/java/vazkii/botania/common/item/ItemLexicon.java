@@ -22,6 +22,12 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -67,7 +73,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 						return true;
 					}
 				} else if(par3World.isRemote) {
-					MovingObjectPosition mop = new MovingObjectPosition(new Vec3(par8, par9, par10), side, pos);
+					RayTraceResult mop = new RayTraceResult(new Vec3d(par8, par9, par10), side, pos);
 					return Botania.proxy.openWikiPage(par3World, block, mop);
 				}
 			}
@@ -90,7 +96,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String edition = EnumChatFormatting.GOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
+			String edition = TextFormatting.GOLD + String.format(I18n.translateToLocal("botaniamisc.edition"), getEdition());
 			if(!edition.isEmpty())
 				par3List.add(edition);
 
@@ -102,12 +108,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(String.format(StatCollector.translateToLocal(format), typesKnown.size()), par3List);
+			addStringToTooltip(String.format(I18n.translateToLocal(format), typesKnown.size()), par3List);
 
 			for(KnowledgeType type : typesKnown)
-				addStringToTooltip(" \u2022 " + StatCollector.translateToLocal(type.getUnlocalizedName()), par3List);
+				addStringToTooltip(" \u2022 " + I18n.translateToLocal(type.getUnlocalizedName()), par3List);
 
-		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+		} else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), par3List);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {
@@ -117,7 +123,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	public static String getEdition() {
 		String version = LibMisc.BUILD;
 		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
-		return build == 0 ? StatCollector.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
+		return build == 0 ? I18n.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
 	}
 
 	@Override
@@ -127,7 +133,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
 

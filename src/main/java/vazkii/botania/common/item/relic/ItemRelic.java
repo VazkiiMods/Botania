@@ -20,8 +20,8 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
 import vazkii.botania.api.BotaniaAPI;
@@ -56,23 +56,23 @@ public class ItemRelic extends ItemMod implements IRelic {
 	public void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
-				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.relicUnbound"), list);
+				addStringToTooltip(I18n.translateToLocal("botaniamisc.relicUnbound"), list);
 			} else {
-				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
+				addStringToTooltip(String.format(I18n.translateToLocal("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
 				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
-					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
+					addStringToTooltip(String.format(I18n.translateToLocal("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)
-				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.dropIkea"), list);
+				addStringToTooltip(I18n.translateToLocal("botaniamisc.dropIkea"), list);
 
 			if(stack.getItem() == ModItems.dice) {
 				addStringToTooltip("", list);
 				String name = stack.getUnlocalizedName() + ".poem";
 				for(int i = 0; i < 4; i++)
-					addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+					addStringToTooltip(TextFormatting.ITALIC + I18n.translateToLocal(name + i), list);
 			}
-		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
+		} else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
 
 	public boolean shouldDamageWrongPlayer() {

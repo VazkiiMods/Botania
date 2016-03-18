@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -85,10 +85,10 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			if(key == 'o' && format.length() > 3)
 				key = format.charAt(1);
 
-			for(EnumChatFormatting ecf : EnumChatFormatting.class.getEnumConstants())
+			for(TextFormatting ecf : TextFormatting.class.getEnumConstants())
 				if(ecf.toString().indexOf(ecf.toString().length() - 1) == key) {
 					if(ecf.ordinal() > 15)
-						ecf = EnumChatFormatting.BLACK;
+						ecf = TextFormatting.BLACK;
 					color = LibMisc.CONTROL_CODE_COLORS[ecf.ordinal()];
 					break;
 				}

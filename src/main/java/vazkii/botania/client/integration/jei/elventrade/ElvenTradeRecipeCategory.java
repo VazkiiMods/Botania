@@ -16,13 +16,13 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
@@ -36,7 +36,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	private final IDrawable overlay;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
-		localizedName = StatCollector.translateToLocal("botania.nei.elvenTrade");
+		localizedName = I18n.translateToLocal("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elvenTradeOverlay.png"), 0, 15, 140, 90);
 	}
@@ -73,7 +73,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
-		WorldRenderer wr = tess.getWorldRenderer();
+		VertexBuffer wr = tess.getBuffer();
 		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		int startX = 22;
 		int startY = 25;

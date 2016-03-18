@@ -16,10 +16,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
@@ -53,10 +53,10 @@ public class EntityThrownItem extends EntityItem {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		Vec3 vec3 = new Vec3(posX, posY, posZ);
-		Vec3 vec31 = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
+		Vec3d vec3 = new Vec3d(posX, posY, posZ);
+		Vec3d vec31 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 
-		MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3, vec31);
+		RayTraceResult RayTraceResult = worldObj.rayTraceBlocks(vec3, vec31);
 
 
 		if (!worldObj.isRemote)
@@ -78,11 +78,11 @@ public class EntityThrownItem extends EntityItem {
 				{
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
-					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
+					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
-					if (movingobjectposition1 != null)
+					if (RayTraceResult1 != null)
 					{
-						double d1 = vec3.distanceTo(movingobjectposition1.hitVec);
+						double d1 = vec3.distanceTo(RayTraceResult1.hitVec);
 
 						if (d1 < d0 || d0 == 0.0D)
 						{
@@ -95,20 +95,20 @@ public class EntityThrownItem extends EntityItem {
 
 			if (entity != null)
 			{
-				movingobjectposition = new MovingObjectPosition(entity);
+				RayTraceResult = new RayTraceResult(entity);
 			}
 		}
 
-		if (movingobjectposition != null)
+		if (RayTraceResult != null)
 		{
-			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlockState(movingobjectposition.getBlockPos()).getBlock() == Blocks.portal)
+			if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK && worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				setPortal(movingobjectposition.getBlockPos());
+				setPortal(RayTraceResult.getBlockPos());
 			}
 			else
 			{
-				if (movingobjectposition.entityHit != null) {
-					movingobjectposition.entityHit.attackEntityFrom(DamageSource.magic, 2.0F);
+				if (RayTraceResult.entityHit != null) {
+					RayTraceResult.entityHit.attackEntityFrom(DamageSource.magic, 2.0F);
 					if (!worldObj.isRemote) {
 						Entity item = getEntityItem().getItem().createEntity(worldObj, this, getEntityItem());
 						if (item == null) {

@@ -22,8 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -105,7 +105,7 @@ public class ItemSignalFlare extends ItemMod {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
-		par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.flareColor"), StatCollector.translateToLocal("botania.color" + storedColor)));
+		par3List.add(String.format(I18n.translateToLocal("botaniamisc.flareColor"), I18n.translateToLocal("botania.color" + storedColor)));
 	}
 
 	public static ItemStack forColor(int color) {

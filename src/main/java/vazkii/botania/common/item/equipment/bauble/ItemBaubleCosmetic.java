@@ -16,19 +16,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
@@ -70,7 +70,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		addStringToTooltip(StatCollector.translateToLocal("botaniamisc.cosmeticBauble"), par3List);
+		addStringToTooltip(I18n.translateToLocal("botaniamisc.cosmeticBauble"), par3List);
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
 	}
 
@@ -348,7 +348,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param
 	private void renderModel(IBakedModel model, ItemStack stack, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		VertexBuffer worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
 
 		for (EnumFacing enumfacing : EnumFacing.values())
@@ -361,7 +361,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	// Copy of RenderItem.renderQuads
-	private void renderQuads(WorldRenderer renderer, List<BakedQuad> quads, int color, ItemStack stack)
+	private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color, ItemStack stack)
 	{
 		boolean flag = color == -1 && stack != null;
 		int i = 0;

@@ -21,8 +21,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -88,7 +88,7 @@ public class RecipeHandlerLexicaBotania extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("botania.nei.lexica");
+		return I18n.translateToLocal("botania.nei.lexica");
 	}
 
 	@Override
@@ -113,26 +113,26 @@ public class RecipeHandlerLexicaBotania extends TemplateRecipeHandler {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		CachedLexicaBotaniaRecipe recipeObj = ((CachedLexicaBotaniaRecipe) arecipes.get(recipe));
 
-		String s = EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal(recipeObj.entry.getUnlocalizedName());
+		String s = TextFormatting.UNDERLINE + I18n.translateToLocal(recipeObj.entry.getUnlocalizedName());
 		font.drawString(s, 82 - font.getStringWidth(s) / 2, 30, 4210752);
 		
 		KnowledgeType type = recipeObj.entry.getKnowledgeType();
-		s = type.color + StatCollector.translateToLocal(type.getUnlocalizedName()).replaceAll("\\&.", "");
+		s = type.color + I18n.translateToLocal(type.getUnlocalizedName()).replaceAll("\\&.", "");
 		font.drawString(s, 82 - font.getStringWidth(s) / 2, 42, 4210752);
 		
-		s = "\"" + StatCollector.translateToLocal(recipeObj.entry.getTagline()) + "\"";
+		s = "\"" + I18n.translateToLocal(recipeObj.entry.getTagline()) + "\"";
 		PageText.renderText(5, 42, 160, 200, s);
 		
 		String key = LexiconRecipeMappings.stackToString(recipeObj.item.item);
 		String quickInfo = "botania.nei.quickInfo:" + key;
-		String quickInfoLocal = StatCollector.translateToLocal(quickInfo);
+		String quickInfoLocal = I18n.translateToLocal(quickInfo);
 		
 		if(GuiScreen.isShiftKeyDown() && GuiScreen.isCtrlKeyDown() && Minecraft.getMinecraft().gameSettings.advancedItemTooltips)
 			s = "name: " + key;
 		else if(quickInfo.equals(quickInfoLocal))
-			s = StatCollector.translateToLocal("botania.nei.lexicaNoInfo");
+			s = I18n.translateToLocal("botania.nei.lexicaNoInfo");
 		else {
-			s = StatCollector.translateToLocal("botania.nei.lexicaSeparator");
+			s = I18n.translateToLocal("botania.nei.lexicaSeparator");
 			font.drawString(s, 82 - font.getStringWidth(s) / 2, 80, 4210752);
 			s = quickInfoLocal;
 		}

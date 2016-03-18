@@ -80,11 +80,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		String rankFormat = StatCollector.translateToLocal("botaniamisc.toolRank");
-		String rank = StatCollector.translateToLocal("botania.rank" + getLevel(par1ItemStack));
+		String rankFormat = I18n.translateToLocal("botaniamisc.toolRank");
+		String rank = I18n.translateToLocal("botania.rank" + getLevel(par1ItemStack));
 		par3List.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));
 		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-			par3List.add(EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.getALife"));
+			par3List.add(TextFormatting.RED + I18n.translateToLocal("botaniamisc.getALife"));
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
 		if(!player.worldObj.isRemote && raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);

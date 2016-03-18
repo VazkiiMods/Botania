@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.ModItems;
@@ -45,8 +45,8 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(EnumChatFormatting.LIGHT_PURPLE + "Happy Birthday Vazkii!");
-		tooltip.add(EnumChatFormatting.GRAY + "doot doot");
+		tooltip.add(TextFormatting.LIGHT_PURPLE + "Happy Birthday Vazkii!");
+		tooltip.add(TextFormatting.GRAY + "doot doot");
 
 		if(k == 2)
 			RenderHelper.renderTooltip(xPosition - 100, yPosition + 36, tooltip);

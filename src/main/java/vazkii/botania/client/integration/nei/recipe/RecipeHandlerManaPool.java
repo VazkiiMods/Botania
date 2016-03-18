@@ -9,7 +9,7 @@ import java.util.List;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -91,7 +91,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("botania.nei.manaPool");
+		return I18n.translateToLocal("botania.nei.manaPool");
 	}
 
 	@Override

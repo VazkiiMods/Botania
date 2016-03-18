@@ -183,7 +183,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		int meta = getBlockMeta(par1ItemStack);
 		ItemStack stack = new ItemStack(block, 1, meta);
 
-		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + EnumChatFormatting.GREEN + stack.getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + TextFormatting.GREEN + stack.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	@Override
@@ -228,12 +228,12 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		Block block = getBlock(par1ItemStack);
 		if(block != null && block != Blocks.air) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(count + " " + StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			par3List.add(count + " " + I18n.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.translateToLocal("botaniamisc.active"), par3List);
+		else addStringToTooltip(I18n.translateToLocal("botaniamisc.inactive"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

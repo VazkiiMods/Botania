@@ -17,8 +17,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -40,7 +40,7 @@ public class TileEnderEye extends TileMod {
 			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
 				continue;
 
-			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 			if(pos != null && pos.getBlockPos() != null && pos.getBlockPos().equals(getPos())) {
 				looking = true;
 				break;

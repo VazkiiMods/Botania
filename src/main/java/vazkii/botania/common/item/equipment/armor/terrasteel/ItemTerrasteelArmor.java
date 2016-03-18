@@ -18,7 +18,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
@@ -95,14 +95,14 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.terrasteel.name");
+		return I18n.translateToLocal("botania.armorset.terrasteel.name");
 	}
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc0"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc1"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc2"), list);
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc0"), list);
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc1"), list);
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc2"), list);
 	}
 
 }

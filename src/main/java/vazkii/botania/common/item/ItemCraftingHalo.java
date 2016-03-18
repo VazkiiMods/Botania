@@ -167,7 +167,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(!particles)
 			return;
 
-		Vec3 lookVec3 = player.getLookVec();
+		Vec3d lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
 		float m = 0.1F;
 		for(int i = 0; i < 4; i++)
@@ -393,7 +393,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
-		// todo 1.8.8 Tessellator.renderingWorldRenderer = false;
+		// todo 1.8.8 Tessellator.renderingVertexBuffer = false;
 
 		double renderPosX, renderPosY, renderPosZ;
 
@@ -481,20 +481,20 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			GlStateManager.disableCull();
 			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 			mc.renderEngine.bindTexture(item.getGlowResource());
-			tess.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			tess.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < segAngles; i++) {
 				float ang = i + seg * segAngles + shift;
 				double xp = Math.cos(ang * Math.PI / 180F) * s;
 				double zp = Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.getWorldRenderer().pos(xp * m, y, zp * m).tex(u, v).endVertex();
-				tess.getWorldRenderer().pos(xp, y0, zp).tex(u, 0).endVertex();
+				tess.getBuffer().pos(xp * m, y, zp * m).tex(u, v).endVertex();
+				tess.getBuffer().pos(xp, y0, zp).tex(u, 0).endVertex();
 
 				xp = Math.cos((ang + 1) * Math.PI / 180F) * s;
 				zp = Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.getWorldRenderer().pos(xp, y0, zp).tex(0, 0).endVertex();
-				tess.getWorldRenderer().pos(xp * m, y, zp * m).tex(0, v).endVertex();
+				tess.getBuffer().pos(xp, y0, zp).tex(0, 0).endVertex();
+				tess.getBuffer().pos(xp * m, y, zp * m).tex(0, v).endVertex();
 			}
 			y0 = 0;
 			tess.draw();
@@ -532,7 +532,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			mc.fontRendererObj.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
-			String label = StatCollector.translateToLocal("botaniamisc.unsetRecipe");
+			String label = I18n.translateToLocal("botaniamisc.unsetRecipe");
 			boolean setRecipe = false;
 
 			if(recipe[9] == null)
@@ -581,7 +581,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		int yoff = 110;
 		if(setRecipe && !canCraft(player, recipe, getFakeInv(player))) {
-			String warning = EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.cantCraft");
+			String warning = TextFormatting.RED + I18n.translateToLocal("botaniamisc.cantCraft");
 			mc.fontRendererObj.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}

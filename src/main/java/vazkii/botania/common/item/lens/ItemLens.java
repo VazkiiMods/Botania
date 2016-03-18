@@ -20,8 +20,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
@@ -164,12 +164,12 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
-			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
+			par3List.add(String.format(I18n.translateToLocal("botaniamisc.color"), I18n.translateToLocal("botania.color" + storedColor)));
 	}
 
 
 	public String getItemShortTermName(ItemStack stack) {
-		return StatCollector.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
+		return I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens == null)
 			return super.getItemStackDisplayName(stack);
-		return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
+		return String.format(I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 
 		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);

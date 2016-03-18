@@ -22,10 +22,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import org.lwjgl.opengl.GL11;
 
@@ -87,7 +87,7 @@ public class PageMultiblock extends LexiconPage {
 
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
-		String s = EnumChatFormatting.BOLD + StatCollector.translateToLocal(getUnlocalizedName());
+		String s = TextFormatting.BOLD + I18n.translateToLocal(getUnlocalizedName());
 		font.setUnicodeFlag(true);
 		font.drawString(s, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(s) / 2, gui.getTop() + 16, 0x000000);
 		font.setUnicodeFlag(unicode);
@@ -104,12 +104,12 @@ public class PageMultiblock extends LexiconPage {
 		GlStateManager.translate(0F, 0F, 200F);
 		if(mx >= x && mx < x + 16 && my >= y && my < y + 16) {
 			List<String> mats = new ArrayList<>();
-			mats.add(StatCollector.translateToLocal("botaniamisc.materialsRequired"));
+			mats.add(I18n.translateToLocal("botaniamisc.materialsRequired"));
 			for(ItemStack stack : mb.materials) {
 				String size = "" + stack.stackSize;
 				if(size.length() < 2)
 					size = "0" + size;
-				mats.add(" " + EnumChatFormatting.AQUA + size + " " + EnumChatFormatting.GRAY + stack.getDisplayName());
+				mats.add(" " + TextFormatting.AQUA + size + " " + TextFormatting.GRAY + stack.getDisplayName());
 			}
 
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, mats);
@@ -124,7 +124,7 @@ public class PageMultiblock extends LexiconPage {
 	}
 
 	String getButtonStr() {
-		return StatCollector.translateToLocal(MultiblockRenderHandler.currentMultiblock == set ? "botaniamisc.unvisualize" : "botaniamisc.visualize");
+		return I18n.translateToLocal(MultiblockRenderHandler.currentMultiblock == set ? "botaniamisc.unvisualize" : "botaniamisc.visualize");
 	}
 
 	@Override

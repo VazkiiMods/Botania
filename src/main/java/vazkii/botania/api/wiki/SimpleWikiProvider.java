@@ -13,8 +13,8 @@ package vazkii.botania.api.wiki;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -47,7 +47,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getBlockName(World world, MovingObjectPosition pos, EntityPlayer player) {
+	public String getBlockName(World world, RayTraceResult pos, EntityPlayer player) {
 		BlockPos bPos = pos.getBlockPos();
 
 		Block block = world.getBlockState(bPos).getBlock();
@@ -70,7 +70,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiURL(World world, MovingObjectPosition pos, EntityPlayer player) {
+	public String getWikiURL(World world, RayTraceResult pos, EntityPlayer player) {
 		String name = getBlockName(world, pos, player);
 		if(name == null)
 			return null;
@@ -83,7 +83,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiName(World world, MovingObjectPosition pos, EntityPlayer player) {
+	public String getWikiName(World world, RayTraceResult pos, EntityPlayer player) {
 		return name;
 	}
 

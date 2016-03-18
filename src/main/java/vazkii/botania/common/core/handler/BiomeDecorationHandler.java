@@ -11,7 +11,7 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.api.item.IFlowerlessBiome;

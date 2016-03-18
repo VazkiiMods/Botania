@@ -16,7 +16,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -45,7 +45,7 @@ public class GuiButtonBack extends GuiButtonLexicon {
 	}
 
 	public List<String> getTooltip() {
-		return Collections.singletonList(StatCollector.translateToLocal("botaniamisc.back"));
+		return Collections.singletonList(I18n.translateToLocal("botaniamisc.back"));
 	}
 
 }

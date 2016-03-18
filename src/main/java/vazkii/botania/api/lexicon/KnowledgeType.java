@@ -1,14 +1,14 @@
 package vazkii.botania.api.lexicon;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 public class KnowledgeType {
 
 	public final String id;
-	public final EnumChatFormatting color;
+	public final TextFormatting color;
 	public final boolean autoUnlock;
 
-	public KnowledgeType(String id, EnumChatFormatting color, boolean autoUnlock) {
+	public KnowledgeType(String id, TextFormatting color, boolean autoUnlock) {
 		this.id = id;
 		this.color = color;
 		this.autoUnlock = autoUnlock;

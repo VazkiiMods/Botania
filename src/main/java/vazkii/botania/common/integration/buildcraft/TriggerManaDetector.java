@@ -3,8 +3,8 @@ package vazkii.botania.common.integration.buildcraft;
 import com.google.common.base.Predicates;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,7 +31,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 
 	@Override
 	public String getDescription() {
-		return StatCollector.translateToLocal(LibTriggerNames.TRIGGER_MANA_DETECTOR);
+		return I18n.translateToLocal(LibTriggerNames.TRIGGER_MANA_DETECTOR);
 	}
 
 	@Override

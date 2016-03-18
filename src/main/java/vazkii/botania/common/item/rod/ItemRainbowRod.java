@@ -173,7 +173,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 					int ex = px + i - diff;
 					int ez = pz + j - diff;
 
-					if(!axis.isVecInside(new Vec3(ex + 0.5, py + 1, ez + 0.5)))
+					if(!axis.isVecInside(new Vec3d(ex + 0.5, py + 1, ez + 0.5)))
 						continue;
 					BlockPos pos = new BlockPos(ex, py, ez);
 					Block block = world.getBlockState(pos).getBlock();

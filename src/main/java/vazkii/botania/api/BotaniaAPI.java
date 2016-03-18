@@ -37,7 +37,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.oredict.OreDictionary;
@@ -114,7 +114,7 @@ public final class BotaniaAPI {
 
 	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18);
 
-	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
+	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
 	public static KnowledgeType basicKnowledge;
 	public static KnowledgeType elvenKnowledge;
@@ -139,9 +139,9 @@ public final class BotaniaAPI {
 	static {
 		registerSubTile("", DummySubTile.class);
 
-		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
-		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
-		relicKnowledge = registerKnowledgeType("relic", EnumChatFormatting.DARK_PURPLE, false);
+		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
+		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
+		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -277,7 +277,7 @@ public final class BotaniaAPI {
 	 * @param id The ID for this knowledge type.
 	 * @param color The color to display this knowledge type as.
 	 */
-	public static KnowledgeType registerKnowledgeType(String id, EnumChatFormatting color, boolean autoUnlock) {
+	public static KnowledgeType registerKnowledgeType(String id, TextFormatting color, boolean autoUnlock) {
 		KnowledgeType type = new KnowledgeType(id, color, autoUnlock);
 		knowledgeTypes.put(id, type);
 		return type;

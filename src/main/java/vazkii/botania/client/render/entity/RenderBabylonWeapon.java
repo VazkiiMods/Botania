@@ -91,11 +91,11 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 
 		GlStateManager.rotate(charge * 9F + (weapon.ticksExisted + par9) * 0.5F + rand.nextFloat() * 360F, 0F, 1F, 0F);
 
-		tes.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tes.getWorldRenderer().pos(-1, 0, -1).tex(0, 0).endVertex();
-		tes.getWorldRenderer().pos(-1, 0, 1).tex(0, 1).endVertex();
-		tes.getWorldRenderer().pos(1, 0, 1).tex(1, 1).endVertex();
-		tes.getWorldRenderer().pos(1, 0, -1).tex(1, 0).endVertex();
+		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tes.getBuffer().pos(-1, 0, -1).tex(0, 0).endVertex();
+		tes.getBuffer().pos(-1, 0, 1).tex(0, 1).endVertex();
+		tes.getBuffer().pos(1, 0, 1).tex(1, 1).endVertex();
+		tes.getBuffer().pos(1, 0, -1).tex(1, 0).endVertex();
 		tes.draw();
 
 		ShaderHelper.releaseShader();

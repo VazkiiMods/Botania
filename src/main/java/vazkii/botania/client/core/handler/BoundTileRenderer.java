@@ -21,8 +21,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -45,7 +45,7 @@ public final class BoundTileRenderer {
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		// todo 1.8 Tessellator.renderingWorldRenderer = false;
+		// todo 1.8 Tessellator.renderingVertexBuffer = false;
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -151,42 +151,42 @@ public final class BoundTileRenderer {
 		double ay = aabb.maxY;
 		double az = aabb.maxZ;
 
-		tessellator.getWorldRenderer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
-		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
 
-		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
 
-		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
-		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
-		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
-		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
-		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, iy, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ix, iy, az).endVertex();
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ix, ay, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ix, ay, az).endVertex();
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ax, iy, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ax, iy, az).endVertex();
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
 
-		tessellator.getWorldRenderer().pos(ax, ay, iz).endVertex();
-		tessellator.getWorldRenderer().pos(ax, ay, az).endVertex();
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
 		tessellator.draw();
 	}

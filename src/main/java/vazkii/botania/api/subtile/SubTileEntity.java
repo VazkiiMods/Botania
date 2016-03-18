@@ -15,13 +15,13 @@ import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -182,14 +182,14 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, net.minecraft.util.BlockPos, net.minecraft.util.EnumFacing)
+	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, net.minecraft.util.math.BlockPos, net.minecraft.util.EnumFacing)
 	 */
 	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
 	/**
-	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, net.minecraft.util.BlockPos, net.minecraft.util.EnumFacing)
+	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, net.minecraft.util.math.BlockPos, net.minecraft.util.EnumFacing)
 	 */
 	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;

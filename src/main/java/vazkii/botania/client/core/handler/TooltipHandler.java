@@ -12,7 +12,7 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -25,15 +25,15 @@ public final class TooltipHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onTooltipEvent(ItemTooltipEvent event) {
 		if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.dirt) && event.itemStack.getItemDamage() == 1) {
-			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt0"));
-			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt1"));
+			event.toolTip.add(I18n.translateToLocal("botaniamisc.coarseDirt0"));
+			event.toolTip.add(I18n.translateToLocal("botaniamisc.coarseDirt1"));
 		} else if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.entityPlayer.capabilities.isCreativeMode)
-			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.spawnerTip"));
+			event.toolTip.add(I18n.translateToLocal("botaniamisc.spawnerTip"));
 
 		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
-			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasIvy"));
+			event.toolTip.add(I18n.translateToLocal("botaniamisc.hasIvy"));
 		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemKeepIvy.TAG_KEEP, false))
-			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasKeepIvy"));
+			event.toolTip.add(I18n.translateToLocal("botaniamisc.hasKeepIvy"));
 	}
 
 }

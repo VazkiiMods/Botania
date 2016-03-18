@@ -11,7 +11,7 @@
 package vazkii.botania.api.item;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 /**

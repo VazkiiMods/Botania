@@ -15,7 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
@@ -352,7 +352,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.scale(1F, -1F, -1F);
 
-		MovingObjectPosition pos = mc.objectMouseOver;
+		RayTraceResult pos = mc.objectMouseOver;
 		if (!name.isEmpty() && pos != null && pos.getBlockPos() != null && potato.getPos().equals(pos.getBlockPos())) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0F, -0.6F, 0F);
@@ -367,7 +367,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			GlStateManager.enableBlend();
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			Tessellator tessellator = Tessellator.getInstance();
-			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+			VertexBuffer worldrenderer = tessellator.getBuffer();
 			GlStateManager.disableTexture2D();
 			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			int i = mc.fontRendererObj.getStringWidth(potato.name) / 2;

@@ -31,9 +31,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
@@ -247,7 +247,7 @@ public class GuiLexicon extends GuiScreen {
 				GlStateManager.disableBlend();
 				GlStateManager.popMatrix();
 
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "IT SAYS MANUAL"));
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(TextFormatting.GOLD + "#goldfishchris", TextFormatting.AQUA + "IT SAYS MANUAL"));
 			}
 		}
 
@@ -282,7 +282,7 @@ public class GuiLexicon extends GuiScreen {
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
 
-		fontRendererObj.drawString(StatCollector.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		fontRendererObj.drawString(I18n.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
@@ -337,9 +337,9 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
+		fontRendererObj.drawString(String.format(I18n.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
 
-		String s = EnumChatFormatting.BOLD + categoryHighlight;
+		String s = TextFormatting.BOLD + categoryHighlight;
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
 
 		fontRendererObj.setUnicodeFlag(unicode);
@@ -478,9 +478,9 @@ public class GuiLexicon extends GuiScreen {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
-				button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
+				button.displayString = I18n.translateToLocal(category.getUnlocalizedName());
 			else {
-				button.displayString = StatCollector.translateToLocal("botaniamisc.lexiconIndex");
+				button.displayString = I18n.translateToLocal("botaniamisc.lexiconIndex");
 				break;
 			}
 		}
@@ -508,9 +508,9 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		if(isMainPage())
-			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));
+			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.translateToLocal("botaniamisc.history"), this));
 		else if(isChallenge())
-			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.info"), this));
+			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.translateToLocal("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {

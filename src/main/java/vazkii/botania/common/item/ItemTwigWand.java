@@ -213,7 +213,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer p, List<String> list, boolean adv) {
-		list.add(StatCollector.translateToLocal(getModeString(stack)));
+		list.add(I18n.translateToLocal(getModeString(stack)));
 	}
 
 	@Override
@@ -268,8 +268,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(bound.getY() != -1)
 			return bound;
 
-		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
-		if(pos != null && pos.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
+		if(pos != null && pos.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
 			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof ITileBound) {
 				BlockPos coords = ((ITileBound) tile).getBinding();

@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
@@ -48,7 +48,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
 				player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 6));
-				player.addChatMessage(new ChatComponentTranslation("botaniamisc.savedByLaurel"));
+				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
 				player.worldObj.playSoundAtEntity(player, "botania:goldenLaurel", 1F, 0.3F);
 				PlayerHandler.getPlayerBaubles(player).setInventorySlotContents(0, null);
 			}

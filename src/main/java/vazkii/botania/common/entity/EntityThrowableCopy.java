@@ -189,15 +189,15 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 			++this.ticksInAir;
 		}
 
-		Vec3 vec3 = new Vec3(this.posX, this.posY, this.posZ);
-		Vec3 vec31 = new Vec3(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(vec3, vec31);
-		vec3 = new Vec3(this.posX, this.posY, this.posZ);
-		vec31 = new Vec3(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		Vec3d vec3 = new Vec3d(this.posX, this.posY, this.posZ);
+		Vec3d vec31 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		RayTraceResult RayTraceResult = this.worldObj.rayTraceBlocks(vec3, vec31);
+		vec3 = new Vec3d(this.posX, this.posY, this.posZ);
+		vec31 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
-		if (movingobjectposition != null)
+		if (RayTraceResult != null)
 		{
-			vec31 = new Vec3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+			vec31 = new Vec3d(RayTraceResult.hitVec.xCoord, RayTraceResult.hitVec.yCoord, RayTraceResult.hitVec.zCoord);
 		}
 
 		if (!this.worldObj.isRemote)
@@ -215,11 +215,11 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 				{
 					float f = 0.3F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand((double)f, (double)f, (double)f);
-					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
+					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
-					if (movingobjectposition1 != null)
+					if (RayTraceResult1 != null)
 					{
-						double d1 = vec3.squareDistanceTo(movingobjectposition1.hitVec);
+						double d1 = vec3.squareDistanceTo(RayTraceResult1.hitVec);
 
 						if (d1 < d0 || d0 == 0.0D)
 						{
@@ -232,19 +232,19 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 			if (entity != null)
 			{
-				movingobjectposition = new MovingObjectPosition(entity);
+				RayTraceResult = new RayTraceResult(entity);
 			}
 		}
 
-		if (movingobjectposition != null)
+		if (RayTraceResult != null)
 		{
-			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.worldObj.getBlockState(movingobjectposition.getBlockPos()).getBlock() == Blocks.portal)
+			if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK && this.worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				this.setPortal(movingobjectposition.getBlockPos());
+				this.setPortal(RayTraceResult.getBlockPos());
 			}
 			else
 			{
-				this.onImpact(movingobjectposition);
+				this.onImpact(RayTraceResult);
 			}
 		}
 
@@ -308,7 +308,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
-	protected abstract void onImpact(MovingObjectPosition p_70184_1_);
+	protected abstract void onImpact(RayTraceResult p_70184_1_);
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.

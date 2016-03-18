@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 import org.lwjgl.opengl.GL11;
@@ -43,7 +43,7 @@ public final class RedStringRenderer {
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
 
-			// todo 1.8 Tessellator.renderingWorldRenderer = false;
+			// todo 1.8 Tessellator.renderingVertexBuffer = false;
 			TileRedString tile;
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);
@@ -91,7 +91,7 @@ public final class RedStringRenderer {
 
 			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glLineWidth(1F);
-			tessellator.getWorldRenderer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+			tessellator.getBuffer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
 
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getPos().hashCode()).nextInt(10000);
 			double add = vecMag.mag();
@@ -118,7 +118,7 @@ public final class RedStringRenderer {
 		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetY()) - 1) + rand * randMul;
 		double z = zpos + (dir.getFrontOffsetY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getFrontOffsetZ()) - 1) + rand * randMul;
 
-		tess.getWorldRenderer().pos(x, y, z).endVertex();
+		tess.getBuffer().pos(x, y, z).endVertex();
 	}
 
 }

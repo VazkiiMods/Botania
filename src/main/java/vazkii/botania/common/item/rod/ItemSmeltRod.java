@@ -20,7 +20,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -64,7 +64,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
-		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
 
 		if(pos != null && pos.getBlockPos() != null) {
 			IBlockState state = p.worldObj.getBlockState(pos.getBlockPos());
@@ -130,15 +130,15 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	}
 
 	static class SmeltData {
-		public MovingObjectPosition pos;
+		public RayTraceResult pos;
 		public int progress;
 
-		public SmeltData(MovingObjectPosition pos, int progress) {
+		public SmeltData(RayTraceResult pos, int progress) {
 			this.pos = pos;
 			this.progress = progress;
 		}
 
-		public boolean equalPos(MovingObjectPosition pos) {
+		public boolean equalPos(RayTraceResult pos) {
 			return pos.getBlockPos().equals(this.pos.getBlockPos());
 		}
 	}

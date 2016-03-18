@@ -24,9 +24,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -377,11 +380,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				writeCustomNBT(nbttagcompound);
 				nbttagcompound.setInteger(TAG_KNOWN_MANA, mana);
 				if(player instanceof EntityPlayerMP)
-					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(pos, -999, nbttagcompound));
+					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 			}
 			worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
 		} else {
-			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
+			RayTraceResult pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
 				double x = pos.hitVec.xCoord - getPos().getX() - 0.5;
 				double y = pos.hitVec.yCoord - getPos().getY() - 0.5;
@@ -525,7 +528,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return null;
 	}
 
-	public static MovingObjectPosition raytraceFromEntity(World world, Entity player, boolean par3, double range) {
+	public static RayTraceResult raytraceFromEntity(World world, Entity player, boolean par3, double range) {
 		float f = 1.0F;
 		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
 		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
@@ -534,7 +537,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if (!world.isRemote && player instanceof EntityPlayer)
 			d1 += 1.62D;
 		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-		Vec3 vec3 = new Vec3(d0, d1, d2);
+		Vec3d vec3 = new Vec3d(d0, d1, d2);
 		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
 		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
 		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
@@ -544,12 +547,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		double d3 = range;
 		if (player instanceof EntityPlayerMP)
 			d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
-		Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
+		Vec3d vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
 		return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = I18n.translateToLocal(new ItemStack(ModBlocks.spreader, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 

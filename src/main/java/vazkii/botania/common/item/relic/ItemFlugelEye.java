@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -302,7 +302,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
-		Tessellator.renderingWorldRenderer = false;
+		Tessellator.renderingVertexBuffer = false;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
@@ -398,22 +398,22 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		MultiversePosition pos = getWarpPoint(stack, slot);
 
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		String s = StatCollector.translateToLocal("botania.sign" + slot);
+		String s = I18n.translateToLocal("botania.sign" + slot);
 		font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 55, 0xFFD409);
 
 		if(pos.isValid()) {
 			int dist = (int) vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(pos.x, pos.y, pos.z, player.posX, player.posY - 1.6, player.posZ);
 
-			s = dist == 1 ? StatCollector.translateToLocal("botaniamisc.blockAway") : String.format(StatCollector.translateToLocal("botaniamisc.blocksAway"), dist);
+			s = dist == 1 ? I18n.translateToLocal("botaniamisc.blockAway") : String.format(I18n.translateToLocal("botaniamisc.blocksAway"), dist);
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 40, 0x9999FF);
-			s = StatCollector.translateToLocal("botaniamisc.clickToTeleport");
+			s = I18n.translateToLocal("botaniamisc.clickToTeleport");
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
-			s = StatCollector.translateToLocal("botaniamisc.clickToRemoveWarp");
+			s = I18n.translateToLocal("botaniamisc.clickToRemoveWarp");
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 20, 0xFFFFFF);
 		} else {
-			s = StatCollector.translateToLocal("botaniamisc.unboundWarp");
+			s = I18n.translateToLocal("botaniamisc.unboundWarp");
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 40, 0xFFFFFF);
-			s = StatCollector.translateToLocal("botaniamisc.clickToAddWarp");
+			s = I18n.translateToLocal("botaniamisc.clickToAddWarp");
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
 		}
 	}

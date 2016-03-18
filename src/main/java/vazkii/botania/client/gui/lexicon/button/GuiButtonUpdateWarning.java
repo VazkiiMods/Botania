@@ -15,8 +15,8 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
@@ -46,7 +46,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		List<String> tooltip = new ArrayList<>();
 		String version = PersistentVariableHelper.lastBotaniaVersion;
 		for(int i = 0; i < 6; i++) {
-			tooltip.add(EnumChatFormatting.GRAY + String.format(StatCollector.translateToLocal("botaniamisc.changes" + i), version).replaceAll("&", "\u00a7"));
+			tooltip.add(TextFormatting.GRAY + String.format(I18n.translateToLocal("botaniamisc.changes" + i), version).replaceAll("&", "\u00a7"));
 			if(i == 3)
 				tooltip.add("");
 		}

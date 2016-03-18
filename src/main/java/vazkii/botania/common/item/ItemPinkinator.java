@@ -15,9 +15,9 @@ import java.util.List;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
@@ -56,7 +56,7 @@ public class ItemPinkinator extends ItemMod {
 
 	@Override
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
-		p_77624_3_.add(StatCollector.translateToLocal("botaniamisc.pinkinatorDesc"));
+		p_77624_3_.add(I18n.translateToLocal("botaniamisc.pinkinatorDesc"));
 	}
 
 }

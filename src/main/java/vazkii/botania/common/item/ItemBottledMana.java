@@ -198,7 +198,7 @@ public class ItemBottledMana extends ItemMod {
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("botaniamisc.bottleTooltip"));
+		par3List.add(I18n.translateToLocal("botaniamisc.bottleTooltip"));
 	}
 
 	@Override

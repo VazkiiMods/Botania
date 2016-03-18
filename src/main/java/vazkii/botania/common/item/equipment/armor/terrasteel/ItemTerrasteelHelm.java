@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -86,7 +86,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for(int i = 0; i < 6; i++)
 			if(hasAncientWill(stack, i))
-				addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + i + ".desc"), list);
+				addStringToTooltip(I18n.translateToLocal("botania.armorset.will" + i + ".desc"), list);
 	}
 
 	public static boolean hasAnyWill(ItemStack stack) {

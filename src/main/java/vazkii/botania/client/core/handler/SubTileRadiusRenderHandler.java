@@ -18,9 +18,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -38,7 +38,7 @@ public final class SubTileRadiusRenderHandler {
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		MovingObjectPosition pos = mc.objectMouseOver;
+		RayTraceResult pos = mc.objectMouseOver;
 
 		if(!Botania.proxy.isClientPlayerWearingMonocle() || pos == null || pos.entityHit != null)
 			return;
@@ -69,7 +69,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		// todo 1.8 Tessellator.renderingWorldRenderer = false;
+		// todo 1.8 Tessellator.renderingVertexBuffer = false;
 
 		if(descriptor.isCircle())
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
@@ -104,22 +104,22 @@ public final class SubTileRadiusRenderHandler {
 		double z = aabb.maxZ - aabb.minZ - f;
 
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-		tessellator.getWorldRenderer().pos(x, f, f).endVertex();
-		tessellator.getWorldRenderer().pos(f, f, f).endVertex();
-		tessellator.getWorldRenderer().pos(f, f, z).endVertex();
-		tessellator.getWorldRenderer().pos(x, f, z).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(x, f, f).endVertex();
+		tessellator.getBuffer().pos(f, f, f).endVertex();
+		tessellator.getBuffer().pos(f, f, z).endVertex();
+		tessellator.getBuffer().pos(x, f, z).endVertex();
 		tessellator.draw();
 
 		x += f;
 		z += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-		tessellator.getWorldRenderer().pos(x, f1, 0).endVertex();
-		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
-		tessellator.getWorldRenderer().pos(0, f1, z).endVertex();
-		tessellator.getWorldRenderer().pos(x, f1, z).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(x, f1, 0).endVertex();
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
+		tessellator.getBuffer().pos(0, f1, z).endVertex();
+		tessellator.getBuffer().pos(x, f1, z).endVertex();
 		tessellator.draw();
 
 		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
@@ -155,29 +155,29 @@ public final class SubTileRadiusRenderHandler {
 
 		radius -= f;
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
-		tessellator.getWorldRenderer().pos(0, f, 0).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(0, f, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.getWorldRenderer().pos(xp, f, zp).endVertex();
+			tessellator.getBuffer().pos(xp, f, zp).endVertex();
 		}
-		tessellator.getWorldRenderer().pos(0, f, 0).endVertex();
+		tessellator.getBuffer().pos(0, f, 0).endVertex();
 		tessellator.draw();
 
 		radius += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
-		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
+		tessellator.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.getWorldRenderer().pos(xp, f1, zp).endVertex();
+			tessellator.getBuffer().pos(xp, f1, zp).endVertex();
 		}
-		tessellator.getWorldRenderer().pos(0, f1, 0).endVertex();
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		tessellator.draw();
 		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 		GlStateManager.popMatrix();

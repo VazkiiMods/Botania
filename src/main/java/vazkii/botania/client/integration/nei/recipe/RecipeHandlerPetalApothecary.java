@@ -8,7 +8,7 @@ import java.util.List;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -69,7 +69,7 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("botania.nei.petalApothecary");
+		return I18n.translateToLocal("botania.nei.petalApothecary");
 	}
 
 	public String getRecipeID() {

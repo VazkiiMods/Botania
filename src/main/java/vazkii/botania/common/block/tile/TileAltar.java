@@ -25,9 +25,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
@@ -356,9 +356,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			}
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0 && hasWater) {
-			String s = StatCollector.translateToLocal("botaniamisc.altarRefill0");
+			String s = I18n.translateToLocal("botaniamisc.altarRefill0");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
-			s = StatCollector.translateToLocal("botaniamisc.altarRefill1");
+			s = I18n.translateToLocal("botaniamisc.altarRefill1");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}

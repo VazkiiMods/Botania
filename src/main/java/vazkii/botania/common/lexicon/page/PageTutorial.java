@@ -15,10 +15,10 @@ import java.net.URI;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,9 +37,9 @@ public class PageTutorial extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialText"));
+		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.translateToLocal("botaniamisc.tutorialText"));
 		if(VIDEO_ENABLED)
-			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialVideo"));
+			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.translateToLocal("botaniamisc.tutorialVideo"));
 
 		gui.getButtonList().add(buttonText);
 		if(VIDEO_ENABLED)
@@ -67,7 +67,7 @@ public class PageTutorial extends PageText {
 		if(button == buttonText) {
 			GuiLexicon.startTutorial();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiLexicon());
-			Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
+			Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new ChatStyle().setColor(TextFormatting.GREEN)));
 		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));

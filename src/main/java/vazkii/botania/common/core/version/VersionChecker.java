@@ -12,11 +12,11 @@ package vazkii.botania.common.core.version;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -47,10 +47,10 @@ public final class VersionChecker {
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
 				int clientBuild = LibMisc.BUILD.contains("GRADLE") ? Integer.MIN_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {
-					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
-					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
+					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setChatStyle(new ChatStyle().setColor(TextFormatting.LIGHT_PURPLE)));
+					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
 
-					IChatComponent component = IChatComponent.Serializer.jsonToComponent(StatCollector.translateToLocal("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));
+					ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.translateToLocal("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));
 					player.addChatComponentMessage(component);
 				}
 			}

@@ -15,7 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 
 public class TileCamo extends TileMod {
 
@@ -41,7 +41,7 @@ public class TileCamo extends TileMod {
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(manager, packet);
 		worldObj.markBlockRangeForRenderUpdate(pos, pos);
 	}

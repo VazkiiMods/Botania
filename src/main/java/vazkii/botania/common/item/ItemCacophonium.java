@@ -24,9 +24,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -109,9 +109,9 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(isDOIT(stack))
-			list.add(StatCollector.translateToLocal("botaniamisc.justDoIt"));
+			list.add(I18n.translateToLocal("botaniamisc.justDoIt"));
 		else if(ItemNBTHelper.getBoolean(stack, TAG_HAS_SOUND, false))
-			list.add(StatCollector.translateToLocal(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
+			list.add(I18n.translateToLocal(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
 	@Override

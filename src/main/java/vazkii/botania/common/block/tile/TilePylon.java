@@ -15,7 +15,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.PylonVariant;

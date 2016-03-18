@@ -12,8 +12,8 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityAmbientCreature;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityFlyingCreature extends EntityAmbientCreature {

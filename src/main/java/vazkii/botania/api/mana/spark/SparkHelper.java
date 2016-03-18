@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public final class SparkHelper {

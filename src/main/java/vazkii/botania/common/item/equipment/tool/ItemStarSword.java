@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -45,7 +45,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
 			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
-				MovingObjectPosition pos = ToolCommons.raytraceFromEntity(par2World, par3Entity, true, 48);
+				RayTraceResult pos = ToolCommons.raytraceFromEntity(par2World, par3Entity, true, 48);
 				if(pos != null && pos.getBlockPos() != null) {
 					Vector3 posVec = new Vector3(pos.getBlockPos().getX(), pos.getBlockPos().getY(), pos.getBlockPos().getZ());
 					Vector3 motVec = new Vector3((Math.random() - 0.5) * 18, 24, (Math.random() - 0.5) * 18);

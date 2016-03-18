@@ -99,7 +99,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			f8 = f7 + (float)ActiveRenderInfo.getPosition().yCoord;
 			GlStateManager.translate((float)ActiveRenderInfo.getPosition().xCoord * f4 / f8, (float)ActiveRenderInfo.getPosition().zCoord * f4 / f8, -f1);
 			Tessellator tessellator = Tessellator.getInstance();
-			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+			VertexBuffer worldrenderer = tessellator.getBuffer();
 			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			float f11 = (field_147527_e.nextFloat() * 0.5F + 0.1F) * f6;
 			float f12 = (field_147527_e.nextFloat() * 0.5F + 0.4F) * f6;

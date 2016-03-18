@@ -13,11 +13,11 @@ package vazkii.botania.common;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -86,15 +86,15 @@ public class Botania {
 	public void nagUnofficial(PlayerEvent.PlayerLoggedInEvent evt) {
 		EntityPlayer player = evt.player;
 
-		IChatComponent message = new ChatComponentTranslation("botaniamisc.unofficial.nag");
-		message.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
+		ITextComponent message = new TextComponentTranslation("botaniamisc.unofficial.nag");
+		message.setChatStyle(new ChatStyle().setColor(TextFormatting.RED));
 
-		IChatComponent message2 = new ChatComponentTranslation("botaniamisc.unofficial.report");
-		message2.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW));
+		ITextComponent message2 = new TextComponentTranslation("botaniamisc.unofficial.report");
+		message2.setChatStyle(new ChatStyle().setColor(TextFormatting.YELLOW));
 
-		IChatComponent url = new ChatComponentText("https://github.com/williewillus/Botania/issues");
+		ITextComponent url = new TextComponentString("https://github.com/williewillus/Botania/issues");
 		url.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/williewillus/Botania/issues"));
-		url.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("CLICK")));
+		url.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("CLICK")));
 
 		player.addChatComponentMessage(message);
 

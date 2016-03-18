@@ -15,7 +15,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -54,7 +54,7 @@ public class PageText extends LexiconPage {
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
+		String text = I18n.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
 		List<List<String>> lines = new ArrayList<>();

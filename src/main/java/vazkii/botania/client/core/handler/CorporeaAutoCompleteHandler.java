@@ -23,7 +23,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 
 import org.lwjgl.input.Keyboard;
 
@@ -129,7 +129,7 @@ public class CorporeaAutoCompleteHandler {
 				stringbuilder.append(", ");
 		}
 
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
+		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
 		isAutoCompleted = true;
 		originalString = inputField.getText();
 	}

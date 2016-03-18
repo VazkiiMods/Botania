@@ -11,7 +11,7 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {

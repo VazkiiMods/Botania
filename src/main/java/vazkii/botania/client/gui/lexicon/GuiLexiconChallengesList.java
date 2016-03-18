@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.EnumChallengeLevel;
 import vazkii.botania.client.challenge.ModChallenges;
@@ -30,13 +30,13 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
 	public GuiLexiconChallengesList() {
 		parent = new GuiLexicon();
-		title = StatCollector.translateToLocal("botaniamisc.challenges");
+		title = I18n.translateToLocal("botaniamisc.challenges");
 	}
 
 	@Override
 	public void onInitGui() {
 		super.onInitGui();
-		title = StatCollector.translateToLocal("botaniamisc.challenges");
+		title = I18n.translateToLocal("botaniamisc.challenges");
 
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 
@@ -67,7 +67,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 				if(c.complete)
 					complete++;
 
-			fontRendererObj.drawString(EnumChatFormatting.BOLD + StatCollector.translateToLocal(level.getName()) + EnumChatFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
+			fontRendererObj.drawString(TextFormatting.BOLD + I18n.translateToLocal(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
 		}
 		fontRendererObj.setUnicodeFlag(unicode);
 	}

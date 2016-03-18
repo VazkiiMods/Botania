@@ -134,13 +134,13 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
 		TextureAtlasSprite par3Icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(loc.toString());
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		//if(brightness != -1)
-			//tessellator.getWorldRenderer().putBrightness4(brightness, brightness, brightness, brightness);
-		tessellator.getWorldRenderer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
-		tessellator.getWorldRenderer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
-		tessellator.getWorldRenderer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();
-		tessellator.getWorldRenderer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).endVertex();
+			//tessellator.getBuffer().putBrightness4(brightness, brightness, brightness, brightness);
+		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();
+		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).endVertex();
 		tessellator.draw();
 	}
 

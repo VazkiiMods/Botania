@@ -29,9 +29,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.model.animation.AnimationTESR;
@@ -338,7 +338,7 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
 		String url = wiki.getWikiURL(world, pos, Minecraft.getMinecraft().thePlayer);
 		if(url != null && !url.isEmpty()) {

@@ -22,9 +22,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -178,7 +178,7 @@ public class CommonProxy {
 	}
 
 	private int countWords(String s) {
-		String s1 = StatCollector.translateToLocal(s);
+		String s1 = I18n.translateToLocal(s);
 		return s1.split(" ").length;
 	}
 
@@ -259,7 +259,7 @@ public class CommonProxy {
 			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach));
 	}
 
-	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
 		return false;
 	}
 

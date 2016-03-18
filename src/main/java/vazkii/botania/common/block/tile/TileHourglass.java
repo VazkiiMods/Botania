@@ -18,7 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.StringUtils;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -165,7 +165,7 @@ public class TileHourglass extends TileSimpleInventory {
 			if(!move)
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			if(!status.isEmpty())
-				mc.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRendererObj.drawStringWithShadow(I18n.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
 	}

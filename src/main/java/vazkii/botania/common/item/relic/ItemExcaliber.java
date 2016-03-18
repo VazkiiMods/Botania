@@ -115,7 +115,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		return dead;
 	}
 

@@ -13,10 +13,10 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 import net.minecraft.block.Block;
@@ -65,8 +65,8 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.CRATE_VARIANT, BotaniaStateProps.CRATE_PATTERN);
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.CRATE_VARIANT, BotaniaStateProps.CRATE_PATTERN);
 	}
 
 	@Override

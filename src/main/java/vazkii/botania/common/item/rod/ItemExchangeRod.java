@@ -24,10 +24,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -349,7 +349,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + TextFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	public static String getBlockName(ItemStack stack) {
@@ -394,7 +394,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 
-		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
+		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
 		if(pos != null && pos.getBlockPos() != null) {
 			BlockPos bPos = pos.getBlockPos();
 			Block targetBlock = null;

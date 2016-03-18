@@ -24,9 +24,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -84,7 +84,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		BlockPos originCoords = getOriginPos(lokiRing);
-		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
+		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cursorCount = cursors.size();
 
@@ -171,7 +171,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		if(getLokiRing(player) != stack)
 			return null;
 
-		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
+		RayTraceResult lookPos = Minecraft.getMinecraft().objectMouseOver;
 
 		if(lookPos != null && lookPos.getBlockPos() != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);

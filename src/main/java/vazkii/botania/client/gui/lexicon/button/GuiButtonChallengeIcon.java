@@ -16,8 +16,8 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.challenge.Challenge;
 
@@ -50,7 +50,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal(challenge.unlocalizedName));
+		tooltip.add(TextFormatting.AQUA + I18n.translateToLocal(challenge.unlocalizedName));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

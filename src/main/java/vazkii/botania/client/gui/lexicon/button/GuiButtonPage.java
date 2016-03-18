@@ -15,7 +15,7 @@ import java.util.Collections;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -40,7 +40,7 @@ public class GuiButtonPage extends GuiButtonLexicon {
 			drawTexturedModalRect(xPosition, yPosition, k == 2 ? 18 : 0, right ? 180 : 190, 18, 10);
 
 			if(k == 2)
-				RenderHelper.renderTooltip(par2, par3, Collections.singletonList(StatCollector.translateToLocal(right ? "botaniamisc.nextPage" : "botaniamisc.prevPage")));
+				RenderHelper.renderTooltip(par2, par3, Collections.singletonList(I18n.translateToLocal(right ? "botaniamisc.nextPage" : "botaniamisc.prevPage")));
 		}
 	}
 

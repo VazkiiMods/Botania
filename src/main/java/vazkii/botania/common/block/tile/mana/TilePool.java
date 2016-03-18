@@ -26,12 +26,12 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
@@ -351,7 +351,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			writeCustomNBT(nbttagcompound);
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			if(player instanceof EntityPlayerMP)
-				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(pos, -999, nbttagcompound));
+				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 		}
 
 		worldObj.playSoundAtEntity(player, "botania:ding", 0.11F, 1F);
@@ -359,7 +359,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		ItemStack pool = new ItemStack(ModBlocks.pool, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT).ordinal());
-		String name = StatCollector.translateToLocal(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = I18n.translateToLocal(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 

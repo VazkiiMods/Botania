@@ -70,7 +70,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
-		list.add(String.format(StatCollector.translateToLocal("botaniamisc.shardLevel"), StatCollector.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
+		list.add(String.format(I18n.translateToLocal("botaniamisc.shardLevel"), I18n.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		return false;
 	}
 
@@ -209,7 +209,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			entity.motionZ = 0;
 
 			final int spawnTicks = 2;
-			final int placeTicks = net.minecraft.util.MathHelper.floor_double(targetDistance / speed);
+			final int placeTicks = net.minecraft.util.math.MathHelper.floor_double(targetDistance / speed);
 
 			ItemStack lens = burst.getSourceLens();
 
@@ -221,9 +221,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				if(y != -1)
 					spawnBurst(entity.worldObj, new BlockPos(x, y, z), lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
-				int x = net.minecraft.util.MathHelper.floor_double(entity.posX);
+				int x = net.minecraft.util.math.MathHelper.floor_double(entity.posX);
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
-				int z = net.minecraft.util.MathHelper.floor_double(entity.posZ);
+				int z = net.minecraft.util.math.MathHelper.floor_double(entity.posZ);
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.worldObj.isAirBlock(pos)) {

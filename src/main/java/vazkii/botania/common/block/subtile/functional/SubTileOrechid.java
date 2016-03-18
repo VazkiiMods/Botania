@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
@@ -106,7 +106,7 @@ public class SubTileOrechid extends SubTileFunctional {
 				for(int k = -RANGE; k < RANGE + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
 					Block block = supertile.getWorld().getBlockState(pos).getBlock();
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockHelper.forBlock(source)))
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
 						possibleCoords.add(pos);
 				}
 

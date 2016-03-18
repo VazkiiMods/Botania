@@ -24,10 +24,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.ServerChatEvent;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -268,7 +268,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
+						event.player.addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(TextFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)
 							event.player.addStat(ModAchievements.superCorporeaRequest, 1);
 					}

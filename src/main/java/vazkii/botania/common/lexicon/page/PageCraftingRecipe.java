@@ -24,7 +24,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -90,7 +90,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Collections.singletonList(StatCollector.translateToLocal("botaniamisc.shapeless")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.translateToLocal("botaniamisc.shapeless")));
 
 			iconY += 20;
 		}
@@ -102,7 +102,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Collections.singletonList(StatCollector.translateToLocal("botaniamisc.oredict")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.translateToLocal("botaniamisc.oredict")));
 		}
 		GlStateManager.disableBlend();
 	}

@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -110,7 +110,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		String stopStr = StatCollector.translateToLocal("botaniamisc.shiftToStopSpin");
+		String stopStr = I18n.translateToLocal("botaniamisc.shiftToStopSpin");
 		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
 		font.setUnicodeFlag(unicode);
 

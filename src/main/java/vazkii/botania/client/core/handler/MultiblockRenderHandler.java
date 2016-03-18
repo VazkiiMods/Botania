@@ -15,7 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -108,7 +108,7 @@ public final class MultiblockRenderHandler {
 		}
 	}
 
-	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
+	private void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
 		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimensionId()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
@@ -132,7 +132,7 @@ public final class MultiblockRenderHandler {
 			
 			if(!didAny) {
 				setMultiblock(null);
-				player.addChatComponentMessage(new ChatComponentTranslation("botaniamisc.structureComplete").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
+				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setChatStyle(new ChatStyle().setColor(TextFormatting.GREEN)));
 			}
 		}
 	}

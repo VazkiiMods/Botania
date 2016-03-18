@@ -14,8 +14,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.translation.I18n;
 
 public class CommandShare extends CommandBase {
 
@@ -31,12 +31,12 @@ public class CommandShare extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		String json = StatCollector.translateToLocal("botaniamisc.shareMsg");
+		String json = I18n.translateToLocal("botaniamisc.shareMsg");
 		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);
-		json = json.replaceAll("%entryname%", StatCollector.translateToLocal(args[0]));
+		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
-		IChatComponent component = IChatComponent.Serializer.jsonToComponent(json);
+		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
 		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
 	}
 

@@ -3,7 +3,7 @@ package vazkii.botania.common.integration.buildcraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -44,7 +44,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 
 	@Override
 	public String getDescription() {
-		return StatCollector.translateToLocal(LibTriggerNames.TRIGGER_MANA_PREFIX + WordUtils.capitalizeFully(state.name()));
+		return I18n.translateToLocal(LibTriggerNames.TRIGGER_MANA_PREFIX + WordUtils.capitalizeFully(state.name()));
 	}
 
 	@Override

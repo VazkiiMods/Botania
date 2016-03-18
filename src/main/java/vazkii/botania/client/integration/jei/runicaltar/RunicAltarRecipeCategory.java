@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -32,7 +32,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = StatCollector.translateToLocal("botania.nei.runicAltar");
+		localizedName = I18n.translateToLocal("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
 				0, 0, 150, 110);
 	}

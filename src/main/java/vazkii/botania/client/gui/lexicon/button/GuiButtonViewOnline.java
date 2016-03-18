@@ -16,8 +16,8 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -37,7 +37,7 @@ public class GuiButtonViewOnline extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 41 : 30, 200, 11, 11);
 
-		List<String> tooltip = Collections.singletonList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.viewOnline"));
+		List<String> tooltip = Collections.singletonList(TextFormatting.AQUA + I18n.translateToLocal("botaniamisc.viewOnline"));
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);

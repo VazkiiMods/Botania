@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -95,13 +95,13 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 
 	@Override
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.manaweave.name");
+		return I18n.translateToLocal("botania.armorset.manaweave.name");
 	}
 	
 	@Override
 	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(ClientProxy.jingleTheBells) {
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.santaweaveInfo"), list);
+			addStringToTooltip(I18n.translateToLocal("botaniamisc.santaweaveInfo"), list);
 			addStringToTooltip("", list);
 		}
 		
@@ -110,8 +110,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc0"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc1"), list);	
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.manaweave.desc0"), list);
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.manaweave.desc1"), list);
 	}
 
 	@Override

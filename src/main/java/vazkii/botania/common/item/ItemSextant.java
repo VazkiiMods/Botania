@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -99,7 +99,7 @@ public class ItemSextant extends ItemMod {
 		Botania.proxy.removeSextantMultiblock();
 
 		if(!par3EntityPlayer.isSneaking()) {
-			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(par2World, par3EntityPlayer, false, 128);
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(par2World, par3EntityPlayer, false, 128);
 			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
 				if(!par2World.isRemote) {
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
@@ -128,8 +128,8 @@ public class ItemSextant extends ItemMod {
 		double mul = diffVec.y / lookVec.y;
 		lookVec.multiply(mul).add(centerVec);
 
-		lookVec.x = net.minecraft.util.MathHelper.floor_double(lookVec.x);
-		lookVec.z = net.minecraft.util.MathHelper.floor_double(lookVec.z);
+		lookVec.x = net.minecraft.util.math.MathHelper.floor_double(lookVec.x);
+		lookVec.z = net.minecraft.util.math.MathHelper.floor_double(lookVec.z);
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}

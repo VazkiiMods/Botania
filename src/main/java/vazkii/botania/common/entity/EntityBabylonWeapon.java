@@ -16,9 +16,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
@@ -105,7 +105,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				motionZ = 0;
 			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook = null;
-				MovingObjectPosition lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
+				RayTraceResult lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 				if(lookat == null)
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
 				else playerLook = new Vector3(lookat.getBlockPos().getX() + 0.5, lookat.getBlockPos().getY() + 0.5, lookat.getBlockPos().getZ() + 0.5);
@@ -131,7 +131,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 						if(player != null)
 							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 20);
 						else living.attackEntityFrom(DamageSource.generic, 20);
-						onImpact(new MovingObjectPosition(living));
+						onImpact(new RayTraceResult(living));
 						return;
 					}
 				}
@@ -152,7 +152,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition pos) {
+	protected void onImpact(RayTraceResult pos) {
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit == null || pos.entityHit != thrower) {
 			worldObj.createExplosion(this, posX, posY, posZ, 3F, false);

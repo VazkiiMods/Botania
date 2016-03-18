@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
 
 import org.lwjgl.opengl.GL11;
@@ -82,7 +82,7 @@ public class TileTurntable extends TileMod {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
-		String speed = EnumChatFormatting.BOLD + "";
+		String speed = TextFormatting.BOLD + "";
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
 

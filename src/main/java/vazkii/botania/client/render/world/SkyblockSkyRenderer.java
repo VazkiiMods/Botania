@@ -19,9 +19,9 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
 
 import org.lwjgl.opengl.GL11;
@@ -57,7 +57,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		int starGLCallList = ReflectionHelper.getPrivateValue(RenderGlobal.class, mc.renderGlobal, LibObfuscation.STAR_GL_CALL_LIST);
 
 		GlStateManager.disableTexture2D();
-		Vec3 vec3 = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
+		Vec3d vec3 = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
 		float f1 = (float)vec3.xCoord;
 		float f2 = (float)vec3.yCoord;
 		float f3 = (float)vec3.zCoord;
@@ -100,15 +100,15 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			f8 = afloat[2];
 			float f11;
 
-			tessellator1.getWorldRenderer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
-			tessellator1.getWorldRenderer().pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex();
+			tessellator1.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+			tessellator1.getBuffer().pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex();
 			byte b0 = 16;
 
 			for(int j = 0; j <= b0; ++j) {
 				f11 = (float)j * (float)Math.PI * 2.0F / (float)b0;
 				float f12 = MathHelper.sin(f11);
 				float f13 = MathHelper.cos(f11);
-				tessellator1.getWorldRenderer().pos((double)(f12 * 120.0F), (double)(f13 * 120.0F), (double)(-f13 * 40.0F * afloat[3])).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+				tessellator1.getBuffer().pos((double)(f12 * 120.0F), (double)(f13 * 120.0F), (double)(-f13 * 40.0F * afloat[3])).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 			}
 
 			tessellator1.draw();
@@ -194,7 +194,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
 			GlStateManager.rotate((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
 
-			tessellator1.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			tessellator1.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < angles; i++) {
 				int j = i;
 				if(i % 2 == 0)
@@ -207,11 +207,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 				float ut = ang * uPer;
 				if(i % 2 == 0) {
-					tessellator1.getWorldRenderer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
-					tessellator1.getWorldRenderer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
+					tessellator1.getBuffer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
+					tessellator1.getBuffer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
 				} else {
-					tessellator1.getWorldRenderer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
-					tessellator1.getWorldRenderer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
+					tessellator1.getBuffer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
+					tessellator1.getBuffer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
 				}
 
 			}
@@ -253,7 +253,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.rotate(angle1, 0F, 1F, 0F);
 		GlStateManager.rotate(angle2, 0F, 0F, 1F);
 
-		tessellator1.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator1.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		for(int i = 0; i < angles; i++) {
 			int j = i;
 			if(i % 2 == 0)
@@ -266,11 +266,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 			float ut = ang * uPer;
 			if(i % 2 == 0) {
-				tessellator1.getWorldRenderer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
-				tessellator1.getWorldRenderer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
+				tessellator1.getBuffer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
+				tessellator1.getBuffer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
 			} else {
-				tessellator1.getWorldRenderer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
-				tessellator1.getWorldRenderer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
+				tessellator1.getBuffer().pos(xp, yo + y0, zp).tex(ut, 0).endVertex();
+				tessellator1.getBuffer().pos(xp, yo + y0 + y, zp).tex(ut, 1F).endVertex();
 			}
 
 		}
@@ -297,11 +297,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float f15 = (float)(i1 + 0) / 2.0F;
 		float f16 = (float)(l + 1) / 4.0F;
 		float f17 = (float)(i1 + 1) / 2.0F;
-		tessellator1.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tessellator1.getWorldRenderer().pos((double)(-f10), -100.0D, (double)f10).tex((double)f16, (double)f17).endVertex();
-		tessellator1.getWorldRenderer().pos((double)f10, -100.0D, (double)f10).tex((double)f14, (double)f17).endVertex();
-		tessellator1.getWorldRenderer().pos((double)f10, -100.0D, (double)(-f10)).tex((double)f14, (double)f15).endVertex();
-		tessellator1.getWorldRenderer().pos((double)(-f10), -100.0D, (double)(-f10)).tex((double)f16, (double)f15).endVertex();
+		tessellator1.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator1.getBuffer().pos((double)(-f10), -100.0D, (double)f10).tex((double)f16, (double)f17).endVertex();
+		tessellator1.getBuffer().pos((double)f10, -100.0D, (double)f10).tex((double)f14, (double)f17).endVertex();
+		tessellator1.getBuffer().pos((double)f10, -100.0D, (double)(-f10)).tex((double)f14, (double)f15).endVertex();
+		tessellator1.getBuffer().pos((double)(-f10), -100.0D, (double)(-f10)).tex((double)f16, (double)f15).endVertex();
 		tessellator1.draw();
 
 		// === Stars
@@ -358,11 +358,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	}
 
 	private void drawObject(Tessellator tess, float f10) {
-		tess.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tess.getWorldRenderer().pos((double)(-f10), 100.0D, (double)(-f10)).tex(0.0D, 0.0D).endVertex();
-		tess.getWorldRenderer().pos((double)(f10), 100.0D, (double)(-f10)).tex(1.0D, 0.0D).endVertex();
-		tess.getWorldRenderer().pos((double)(f10), 100.0D, (double)(f10)).tex(1.0D, 1.0D).endVertex();
-		tess.getWorldRenderer().pos((double)(-f10), 100.0D, (double)(f10)).tex(0.0D, 1.0D).endVertex();
+		tess.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tess.getBuffer().pos((double)(-f10), 100.0D, (double)(-f10)).tex(0.0D, 0.0D).endVertex();
+		tess.getBuffer().pos((double)(f10), 100.0D, (double)(-f10)).tex(1.0D, 0.0D).endVertex();
+		tess.getBuffer().pos((double)(f10), 100.0D, (double)(f10)).tex(1.0D, 1.0D).endVertex();
+		tess.getBuffer().pos((double)(-f10), 100.0D, (double)(f10)).tex(0.0D, 1.0D).endVertex();
 		tess.draw();
 	}
 

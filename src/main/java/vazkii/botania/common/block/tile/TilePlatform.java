@@ -12,7 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 

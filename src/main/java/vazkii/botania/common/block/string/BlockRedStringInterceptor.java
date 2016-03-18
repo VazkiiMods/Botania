@@ -12,9 +12,9 @@ package vazkii.botania.common.block.string;
 
 import java.util.Random;
 
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -36,8 +36,8 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
 	}
 
 	@Override

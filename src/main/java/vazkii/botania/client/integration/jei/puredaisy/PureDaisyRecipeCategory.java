@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -32,7 +32,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
-		localizedName = StatCollector.translateToLocal("botania.nei.pureDaisy");
+		localizedName = I18n.translateToLocal("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
 				0, 0, 64, 46);
 	}

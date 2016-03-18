@@ -13,7 +13,7 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
@@ -33,7 +33,7 @@ import java.util.UUID;
 
 public final class DebugHandler {
 
-	private static final String PREFIX = EnumChatFormatting.GREEN + "[Botania] " + EnumChatFormatting.RESET;
+	private static final String PREFIX = TextFormatting.GREEN + "[Botania] " + TextFormatting.RESET;
 
 	@SubscribeEvent
 	public void onDrawDebugText(RenderGameOverlayEvent.Text event) {

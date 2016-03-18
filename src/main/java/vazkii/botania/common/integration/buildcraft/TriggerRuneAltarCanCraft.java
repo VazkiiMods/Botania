@@ -3,7 +3,7 @@ package vazkii.botania.common.integration.buildcraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -28,7 +28,7 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 
 	@Override
 	public String getDescription() {
-		return StatCollector.translateToLocal(LibTriggerNames.TRIGGER_RUNE_ALTAR_CAN_CRAFT);
+		return I18n.translateToLocal(LibTriggerNames.TRIGGER_RUNE_ALTAR_CAN_CRAFT);
 	}
 
 	@Override

@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 public class TileRedStringComparator extends TileRedString {

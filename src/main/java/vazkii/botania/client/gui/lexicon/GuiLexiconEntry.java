@@ -19,10 +19,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import org.lwjgl.input.Mouse;
 
@@ -68,9 +68,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			return;
 		}
 
-		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
+		title = I18n.translateToLocal(entry.getUnlocalizedName());
 		if(entry instanceof IAddonEntry)
-			subtitle = StatCollector.translateToLocal(((IAddonEntry) entry).getSubtitle());
+			subtitle = I18n.translateToLocal(((IAddonEntry) entry).getSubtitle());
 		else subtitle = null;
 	}
 
@@ -116,7 +116,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	String getTitle() {
-		return String.format("%s " + EnumChatFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
+		return String.format("%s " + TextFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
 	}
 
 	@Override
@@ -214,7 +214,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				tutorial.poll();
 				positionTutorialArrow();
 				if(tutorial.isEmpty()) {
-					mc.thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+					mc.thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
 					hasTutorialArrow = false;
 				}
 			}

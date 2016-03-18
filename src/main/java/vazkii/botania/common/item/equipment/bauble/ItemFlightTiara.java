@@ -36,7 +36,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
@@ -105,7 +105,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		par3List.add(StatCollector.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
+		par3List.add(I18n.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
 	@Override
@@ -474,11 +474,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
-		tes.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tes.getWorldRenderer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
-		tes.getWorldRenderer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();
-		tes.getWorldRenderer().pos(0.75, 0, 0.75).tex(1, 1).endVertex();
-		tes.getWorldRenderer().pos(0.75, 0, -0.75).tex(1, 0).endVertex();
+		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tes.getBuffer().pos(-0.75, 0, -0.75).tex(0, 0).endVertex();
+		tes.getBuffer().pos(-0.75, 0, 0.75).tex(0, 1).endVertex();
+		tes.getBuffer().pos(0.75, 0, 0.75).tex(1, 1).endVertex();
+		tes.getBuffer().pos(0.75, 0, -0.75).tex(1, 0).endVertex();
 		tes.draw();
 		ShaderHelper.releaseShader();
 

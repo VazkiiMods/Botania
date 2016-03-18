@@ -15,8 +15,8 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -68,7 +68,7 @@ public class BasicSignature extends SubTileSignature {
 
 	@Override
 	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(getType()));
+		tooltip.add(TextFormatting.BLUE + I18n.translateToLocal(getType()));
 	}
 
 	private String unlocalizedName(String end) {

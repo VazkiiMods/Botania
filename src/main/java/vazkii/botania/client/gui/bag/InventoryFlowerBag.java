@@ -13,8 +13,8 @@ package vazkii.botania.client.gui.bag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.ITextComponent;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -162,8 +162,8 @@ public class InventoryFlowerBag implements IInventory {
 	}
 
 	@Override
-	public IChatComponent getDisplayName() {
-		return new ChatComponentText(getName());
+	public ITextComponent getDisplayName() {
+		return new TextComponentString(getName());
 	}
 
 	@Override

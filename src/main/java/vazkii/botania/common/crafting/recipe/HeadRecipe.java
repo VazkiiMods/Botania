@@ -13,7 +13,7 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -38,7 +38,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 				if(stack.getItem() == Items.name_tag) {
 					name = stack.getDisplayName();
-					if(name.equals(StatCollector.translateToLocal("item.nameTag.name")))
+					if(name.equals(I18n.translateToLocal("item.nameTag.name")))
 						return false;
 				}
 			}

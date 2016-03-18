@@ -13,9 +13,9 @@ package vazkii.botania.common.item;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -28,18 +28,18 @@ public class ItemOpenBucket extends ItemMod {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(par2World, par3EntityPlayer, true);
+		RayTraceResult RayTraceResult = getRayTraceResultFromPlayer(par2World, par3EntityPlayer, true);
 
-		if(movingobjectposition == null)
+		if(RayTraceResult == null)
 			return par1ItemStack;
 		else {
-			if(movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				BlockPos pos = movingobjectposition.getBlockPos();
+			if(RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+				BlockPos pos = RayTraceResult.getBlockPos();
 
 				if(!par2World.isBlockModifiable(par3EntityPlayer, pos))
 					return par1ItemStack;
 
-				if(!par3EntityPlayer.canPlayerEdit(pos, movingobjectposition.sideHit, par1ItemStack))
+				if(!par3EntityPlayer.canPlayerEdit(pos, RayTraceResult.sideHit, par1ItemStack))
 					return par1ItemStack;
 
 				Material material = par2World.getBlockState(pos).getBlock().getMaterial();

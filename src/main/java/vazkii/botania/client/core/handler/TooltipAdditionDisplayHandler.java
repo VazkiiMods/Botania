@@ -24,8 +24,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -159,7 +159,7 @@ public final class TooltipAdditionDisplayHandler {
 							GlStateManager.scale(0.5F, 0.5F, 1F);
 							boolean mac = Minecraft.isRunningOnMac;
 
-							mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+							mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
 							GlStateManager.scale(2F, 2F, 1F);
 
 
@@ -187,13 +187,13 @@ public final class TooltipAdditionDisplayHandler {
 			Gui.drawRect(mouseX + offx + i, mouseY - offy - height, mouseX + offx + i + 1, mouseY - offy, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
 		Gui.drawRect(mouseX + offx + rainbowWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);
 
-		String rank = StatCollector.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
+		String rank = I18n.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
-			rank = StatCollector.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
+			rank = I18n.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
 		}
 

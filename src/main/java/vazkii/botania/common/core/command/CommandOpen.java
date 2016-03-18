@@ -14,9 +14,9 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.item.ItemLexicon;
 
 public class CommandOpen extends CommandBase {
@@ -39,7 +39,7 @@ public class CommandOpen extends CommandBase {
 			if(stack != null && stack.getItem() instanceof ItemLexicon) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
-			} else sender.addChatMessage(new ChatComponentTranslation("botaniamisc.noLexicon").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
 		}
 	}
 

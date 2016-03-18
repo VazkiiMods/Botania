@@ -22,8 +22,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import org.lwjgl.input.Mouse;
 
@@ -69,7 +69,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	public void setTitle() {
-		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
+		title = I18n.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return true;
 		
 		search = search.toLowerCase();
-		if(StatCollector.translateToLocal(e.getUnlocalizedName()).toLowerCase().contains(search))
+		if(I18n.translateToLocal(e.getUnlocalizedName()).toLowerCase().contains(search))
 			return true;
 		
 		for(ItemStack stack : e.getDisplayedRecipes()) {
@@ -157,7 +157,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null) {
-				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
+				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? TextFormatting.ITALIC : "") + I18n.translateToLocal(entry.getUnlocalizedName());
 				button.displayStack = entry.getIcon();
 				if(entry == tutEntry)
 					tutPage = page;
@@ -188,14 +188,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			if(entriesToDisplay.size() == 1) {
 				boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 				mc.fontRendererObj.setUnicodeFlag(true);
-				String s = StatCollector.translateToLocal("botaniamisc.enterToView");
+				String s = I18n.translateToLocal("botaniamisc.enterToView");
 				mc.fontRendererObj.drawString(s, left + guiWidth / 2 - mc.fontRendererObj.getStringWidth(s) / 2, top + 30, 0x666666);
 				mc.fontRendererObj.setUnicodeFlag(unicode);
 			}
 		} else {
 			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 			mc.fontRendererObj.setUnicodeFlag(true);
-			String s = StatCollector.translateToLocal("botaniamisc.typeToSearch");
+			String s = I18n.translateToLocal("botaniamisc.typeToSearch");
 			mc.fontRendererObj.drawString(s, left + 120 - mc.fontRendererObj.getStringWidth(s), top + guiHeight - 18, 0x666666);
 			mc.fontRendererObj.setUnicodeFlag(unicode);
 		}
@@ -216,7 +216,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 				mc.fontRendererObj.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GlStateManager.scale(0.5F, 0.5F, 1F);
-				mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
@@ -226,7 +226,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 			int x = currentButton.xPosition;
 			int y = currentButton.yPosition;
-			String s = StatCollector.translateToLocal(currentEntry.getTagline());
+			String s = I18n.translateToLocal(currentEntry.getTagline());
 			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 			mc.fontRendererObj.setUnicodeFlag(true);
 			int width = mc.fontRendererObj.getStringWidth(s);

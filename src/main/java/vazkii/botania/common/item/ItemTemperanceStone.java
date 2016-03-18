@@ -15,7 +15,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,8 +42,8 @@ public class ItemTemperanceStone extends ItemMod {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.translateToLocal("botaniamisc.active"), par3List);
+		else addStringToTooltip(I18n.translateToLocal("botaniamisc.inactive"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

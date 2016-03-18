@@ -11,7 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -34,7 +34,7 @@ public final class IconHelper {
 	 * Adapted from ItemRenderer.renderItemIn2D, 1.7.10
 	 */
 	public static void renderIconIn3D(Tessellator tess, float p_78439_1_, float p_78439_2_, float p_78439_3_, float p_78439_4_, int width, int height, float thickness) {
-        WorldRenderer wr = tess.getWorldRenderer();
+        VertexBuffer wr = tess.getBuffer();
         wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
         wr.pos(0.0D, 0.0D, 0.0D).tex(p_78439_1_, p_78439_4_).normal(0, 0, 1).endVertex();
         wr.pos(1.0D, 0.0D, 0.0D).tex(p_78439_3_, p_78439_4_).normal(0, 0, 1).endVertex();

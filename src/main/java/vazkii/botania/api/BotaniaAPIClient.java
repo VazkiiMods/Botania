@@ -10,7 +10,7 @@ package vazkii.botania.api;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.relauncher.Side;

@@ -14,13 +14,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -41,7 +41,7 @@ public class PlatformModel implements ISmartBlockModel {
 		if(state.getBlock() != ModBlocks.platform)
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 
-		EnumWorldBlockLayer layer = MinecraftForgeClient.getRenderLayer();
+		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
 		IBlockAccess heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
 		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);
@@ -51,7 +51,7 @@ public class PlatformModel implements ISmartBlockModel {
 		}
 
 		Minecraft mc = Minecraft.getMinecraft();
-		if(heldState == null && layer == EnumWorldBlockLayer.SOLID) {
+		if(heldState == null && layer == BlockRenderLayer.SOLID) {
 			// No camo
 			ModelResourceLocation path = new ModelResourceLocation("botania:platform", "variant=" + state.getValue(BotaniaStateProps.PLATFORM_VARIANT).getName());
 			return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path);

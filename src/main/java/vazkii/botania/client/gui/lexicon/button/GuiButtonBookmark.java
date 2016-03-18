@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -26,11 +26,11 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 
 		List<String> tooltip = new ArrayList<>();
 		if(displayString.equals("+"))
-			tooltip.add(StatCollector.translateToLocal("botaniamisc.clickToAdd"));
+			tooltip.add(I18n.translateToLocal("botaniamisc.clickToAdd"));
 		else {
-			tooltip.add(String.format(StatCollector.translateToLocal("botaniamisc.bookmark"), id - GuiLexicon.BOOKMARK_START + 1));
-			tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToSee"));
-			tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.shiftToRemove"));
+			tooltip.add(String.format(I18n.translateToLocal("botaniamisc.bookmark"), id - GuiLexicon.BOOKMARK_START + 1));
+			tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.clickToSee"));
+			tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.shiftToRemove"));
 		}
 
 		int tooltipY = (tooltip.size() + 1) * 5;

@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import org.lwjgl.opengl.GL11;
 
@@ -61,7 +61,7 @@ public final class ItemsRemainingRenderHandler {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 
-			String text = EnumChatFormatting.GREEN + stack.getDisplayName();
+			String text = TextFormatting.GREEN + stack.getDisplayName();
 			if(count >= 0) {
 				int max = stack.getMaxStackSize();
 				int stacks = count / max;
@@ -69,7 +69,7 @@ public final class ItemsRemainingRenderHandler {
 
 				if(stacks == 0)
 					text = "" + count;
-				else text = count + " (" + EnumChatFormatting.AQUA + stacks + EnumChatFormatting.RESET + "*" + EnumChatFormatting.GRAY + max + EnumChatFormatting.RESET + "+" + EnumChatFormatting.YELLOW + rem + EnumChatFormatting.RESET + ")";
+				else text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
 			} else if(count == -1)
 				text = "\u221E";
 

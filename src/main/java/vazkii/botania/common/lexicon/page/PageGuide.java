@@ -14,7 +14,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 public class PageGuide extends PageText {
@@ -27,7 +27,7 @@ public class PageGuide extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, StatCollector.translateToLocal("botaniamisc.playVideo"));
+		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, I18n.translateToLocal("botaniamisc.playVideo"));
 		gui.getButtonList().add(button);
 	}
 

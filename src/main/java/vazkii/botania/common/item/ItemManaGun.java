@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -183,7 +183,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+			addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), par3List);
 			return;
 		}
 
@@ -196,13 +196,13 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		if(clip) {
 			int pos = getClipPos(par1ItemStack);
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasClip"), par3List);
+			addStringToTooltip(I18n.translateToLocal("botaniamisc.hasClip"), par3List);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
 				String name = "";
-				EnumChatFormatting formatting = i == pos ? EnumChatFormatting.GREEN : EnumChatFormatting.GRAY;
+				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
 				if(lensAt == null)
-					name = StatCollector.translateToLocal("botaniamisc.clipEmpty");
+					name = I18n.translateToLocal("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
 				addStringToTooltip(formatting + " - " + name, par3List);
 			}
@@ -216,7 +216,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + EnumChatFormatting.GREEN + lens.getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	public static boolean hasClip(ItemStack stack) {

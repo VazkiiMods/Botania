@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
@@ -72,13 +72,13 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 
 	@Override
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.elementium.name");
+		return I18n.translateToLocal("botania.armorset.elementium.name");
 	}
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.elementium.desc"), list);
+		addStringToTooltip(I18n.translateToLocal("botania.armorset.elementium.desc"), list);
 	}
 
 }

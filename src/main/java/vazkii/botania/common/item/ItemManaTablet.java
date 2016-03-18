@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
@@ -78,7 +78,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(isStackCreative(par1ItemStack))
-			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
+			par3List.add(I18n.translateToLocal("botaniamisc.creative"));
 	}
 
 	@Override

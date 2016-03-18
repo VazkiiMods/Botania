@@ -21,9 +21,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -62,7 +62,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		boolean ender = event.world.provider.getDimensionId() == 1;
 
 		if(rightEvent && correctStack && ender) {
-			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
 			if(pos == null) {
 				if (event.entityPlayer.worldObj.isRemote) {
 					event.entityPlayer.swingItem();

@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
 import vazkii.botania.common.block.ModBlocks;
 
 public class BlockAlfglassPane extends BlockModPane {
@@ -20,7 +20,7 @@ public class BlockAlfglassPane extends BlockModPane {
 	}
 
 	@Override
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.TRANSLUCENT;
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 }

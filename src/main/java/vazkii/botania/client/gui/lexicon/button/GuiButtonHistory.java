@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -35,8 +35,8 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(StatCollector.translateToLocal("botaniamisc.historyLong"));
-		tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.historyDesc"));
+		tooltip.add(I18n.translateToLocal("botaniamisc.historyLong"));
+		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.historyDesc"));
 
 		int tooltipY = (tooltip.size() + 1) * 5;
 		if(k == 2)

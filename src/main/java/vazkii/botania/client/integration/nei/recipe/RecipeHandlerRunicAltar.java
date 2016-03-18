@@ -4,7 +4,7 @@ package vazkii.botania.client.integration.nei.recipe;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -31,7 +31,7 @@ public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 
 	@Override
 	public String getRecipeName() {
-		return StatCollector.translateToLocal("botania.nei.runicAltar");
+		return I18n.translateToLocal("botania.nei.runicAltar");
 	}
 
 	@Override

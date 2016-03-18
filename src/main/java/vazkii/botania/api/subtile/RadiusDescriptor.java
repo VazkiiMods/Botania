@@ -10,8 +10,8 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be

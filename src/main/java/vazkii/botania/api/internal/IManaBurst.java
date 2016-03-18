@@ -13,7 +13,7 @@ package vazkii.botania.api.internal;
 import java.util.UUID;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * Interface for the Mana Burst entity. This can safely be casted to EntityThrowable.

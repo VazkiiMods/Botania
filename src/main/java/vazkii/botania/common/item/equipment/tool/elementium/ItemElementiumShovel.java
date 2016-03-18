@@ -6,8 +6,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -29,7 +29,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
 			return false;
 
-		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
+		RayTraceResult block = ToolCommons.raytraceFromEntity(world, player, true, 10);
 		if (block == null)
 			return false;
 

@@ -14,8 +14,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
@@ -49,7 +49,7 @@ public class CommandSkyblockSpread extends CommandBase {
 		if(maxrange > maxAllowed)
 			throw new CommandException("botaniamisc.skyblockRangeTooHigh");
 		if(maxrange < minAllowed)
-			throw new CommandException(StatCollector.translateToLocal("botaniamisc.skyblockRangeTooLow"));
+			throw new CommandException(I18n.translateToLocal("botaniamisc.skyblockRangeTooLow"));
 
 		EntityPlayer player = getPlayer(sender, args[0]);
 		if(player != null) {

@@ -29,6 +29,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -149,12 +154,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(throwableShake > 0)
 			--throwableShake;
 
-		Vec3 vec3 = new Vector3(posX, posY, posZ).toVec3D();
-		Vec3 vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
-		MovingObjectPosition movingobjectposition = clip(vec3, vec31);
+		Vec3d vec3 = new Vector3(posX, posY, posZ).toVec3D();
+		Vec3d vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
+		RayTraceResult RayTraceResult = clip(vec3, vec31);
 
-		if(movingobjectposition != null)
-			vec31 = new Vector3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord).toVec3D();
+		if(RayTraceResult != null)
+			vec31 = new Vector3(RayTraceResult.hitVec.xCoord, RayTraceResult.hitVec.yCoord, RayTraceResult.hitVec.zCoord).toVec3D();
 
 		if(!worldObj.isRemote) {
 			Entity entity = null;
@@ -168,10 +173,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				if(entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
 					float f = 0.3F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
-					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
+					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
-					if(movingobjectposition1 != null) {
-						double d1 = vec3.distanceTo(movingobjectposition1.hitVec);
+					if(RayTraceResult1 != null) {
+						double d1 = vec3.distanceTo(RayTraceResult1.hitVec);
 
 						if (d1 < d0 || d0 == 0.0D) {
 							entity = entity1;
@@ -182,11 +187,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			}
 
 			if(entity != null)
-				movingobjectposition = new MovingObjectPosition(entity);
+				RayTraceResult = new RayTraceResult(entity);
 		}
 
-		if(movingobjectposition != null)
-			onImpact(movingobjectposition);
+		if(RayTraceResult != null)
+			onImpact(RayTraceResult);
 
 		posX += motionX;
 		posY += motionY;
@@ -213,7 +218,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setPosition(posX, posY, posZ);
 	}
 
-	public MovingObjectPosition clip(Vec3 par1Vec3, Vec3 par2Vec3) {
+	public RayTraceResult clip(Vec3d par1Vec3, Vec3d par2Vec3) {
 		boolean par3 = false;
 		boolean par4 = false;
 		if (!Double.isNaN(par1Vec3.xCoord) && !Double.isNaN(par1Vec3.yCoord) && !Double.isNaN(par1Vec3.zCoord)) {
@@ -229,10 +234,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				Block block = state.getBlock();
 
 				if (block != null && (!par4 || block == null || block.getCollisionBoundingBox(worldObj, pos, state) != null) && block != Blocks.air && block.canCollideCheck(state, par3)) {
-					MovingObjectPosition movingobjectposition = block.collisionRayTrace(worldObj, pos, par1Vec3, par2Vec3);
+					RayTraceResult RayTraceResult = block.collisionRayTrace(worldObj, pos, par1Vec3, par2Vec3);
 
-					if (movingobjectposition != null)
-						return movingobjectposition;
+					if (RayTraceResult != null)
+						return RayTraceResult;
 				}
 
 				int k1 = 200;
@@ -292,23 +297,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 							b0 = 4;
 						else b0 = 5;
 
-						par1Vec3 = new Vec3(d0, par1Vec3.yCoord + (d7 * d3), par1Vec3.zCoord + (d8 * d3));
+						par1Vec3 = new Vec3d(d0, par1Vec3.yCoord + (d7 * d3), par1Vec3.zCoord + (d8 * d3));
 					} else if (d4 < d5) {
 						if (j > i1)
 							b0 = 0;
 						else b0 = 1;
 
-						par1Vec3 = new Vec3(par1Vec3.xCoord + (d6 * d4), d1, par1Vec3.zCoord + (d8 * d4));
+						par1Vec3 = new Vec3d(par1Vec3.xCoord + (d6 * d4), d1, par1Vec3.zCoord + (d8 * d4));
 					} else {
 						if (k > j1)
 							b0 = 2;
 						else b0 = 3;
 
-						par1Vec3 = new Vec3(par1Vec3.xCoord + (d6 * d5), par1Vec3.yCoord + (d7 * d5), d2);
+						par1Vec3 = new Vec3d(par1Vec3.xCoord + (d6 * d5), par1Vec3.yCoord + (d7 * d5), d2);
 					}
 
-					Vec3 vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
-					vec32 = new Vec3(MathHelper.floor_double(par1Vec3.xCoord), vec32.yCoord, vec32.zCoord);
+					Vec3d vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
+					vec32 = new Vec3d(MathHelper.floor_double(par1Vec3.xCoord), vec32.yCoord, vec32.zCoord);
 					l = ((int) vec32.xCoord);
 
 					if (b0 == 5) {
@@ -316,7 +321,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 						vec32 = vec32.addVector(1, 0, 0);
 					}
 
-					vec32 = new Vec3(vec32.xCoord, MathHelper.floor_double(par1Vec3.yCoord), vec32.zCoord);
+					vec32 = new Vec3d(vec32.xCoord, MathHelper.floor_double(par1Vec3.yCoord), vec32.zCoord);
 					i1 = ((int) vec32.yCoord);
 
 					if (b0 == 1) {
@@ -324,7 +329,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 						vec32 = vec32.addVector(0, 1, 0);
 					}
 
-					vec32 = new Vec3(par1Vec3.xCoord, vec32.yCoord, MathHelper.floor_double(vec32.zCoord));
+					vec32 = new Vec3d(par1Vec3.xCoord, vec32.yCoord, MathHelper.floor_double(vec32.zCoord));
 					j1 = ((int) vec32.zCoord);
 
 					if (b0 == 3) {
@@ -337,10 +342,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					Block block1 = state1.getBlock();
 
 					if ((!par4 || block1 == null || block1.getCollisionBoundingBox(worldObj, pos1, state) != null) && block1 != Blocks.air && block1.canCollideCheck(state, par3)) {
-						MovingObjectPosition movingobjectposition1 = block1.collisionRayTrace(worldObj, pos1, par1Vec3, par2Vec3);
+						RayTraceResult RayTraceResult1 = block1.collisionRayTrace(worldObj, pos1, par1Vec3, par2Vec3);
 
-						if (movingobjectposition1 != null)
-							return movingobjectposition1;
+						if (RayTraceResult1 != null)
+							return RayTraceResult1;
 					}
 				}
 
@@ -571,13 +576,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition movingobjectposition) {
+	protected void onImpact(RayTraceResult RayTraceResult) {
 		boolean collided = false;
 		boolean dead = false;
 
-		if(movingobjectposition.entityHit == null) {
-			TileEntity tile = worldObj.getTileEntity(movingobjectposition.getBlockPos());
-			Block block = worldObj.getBlockState(movingobjectposition.getBlockPos()).getBlock();
+		if(RayTraceResult.entityHit == null) {
+			TileEntity tile = worldObj.getTileEntity(RayTraceResult.getBlockPos());
+			Block block = worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock();
 
 			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
@@ -594,7 +599,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 
 				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.getBlockPos());
+					((IManaTrigger) block).onBurstCollision(this, worldObj, RayTraceResult.getBlockPos());
 
 				boolean ghost = tile instanceof IManaCollisionGhost;
 				dead = !ghost;
@@ -607,10 +612,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)
-			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+			dead = lens.collideBurst(this, RayTraceResult, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
-		if(collided && !hasAlreadyCollidedAt(movingobjectposition.getBlockPos()))
-			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.getBlockPos()));
+		if(collided && !hasAlreadyCollidedAt(RayTraceResult.getBlockPos()))
+			alreadyCollidedAt.add(getCollisionLocString(RayTraceResult.getBlockPos()));
 
 		if(dead && !isDead) {
 			if(!fake) {

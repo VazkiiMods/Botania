@@ -20,8 +20,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -80,10 +80,10 @@ public final class SkyblockWorldEvents {
 					}
 				}
 			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.world.isRemote) {
-				MovingObjectPosition movingobjectposition = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
-				if(movingobjectposition != null) {
-					if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-						if(event.world.getBlockState(movingobjectposition.getBlockPos()).getBlock().getMaterial() == Material.water) {
+				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
+				if(RayTraceResult != null) {
+					if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+						if(event.world.getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)

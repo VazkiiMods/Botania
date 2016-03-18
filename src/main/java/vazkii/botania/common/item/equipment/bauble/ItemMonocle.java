@@ -25,8 +25,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.math.RayTraceResult;
 
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
@@ -64,7 +64,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
-		MovingObjectPosition pos = mc.objectMouseOver;
+		RayTraceResult pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
 		IBlockState state = player.worldObj.getBlockState(pos.getBlockPos());
@@ -76,7 +76,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		if(block == Blocks.redstone_wire) {
 			dispStack = new ItemStack(Items.redstone);
-			text = EnumChatFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
+			text = TextFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
 		} else if(block == Blocks.unpowered_repeater || block == Blocks.powered_repeater) {
 			dispStack = new ItemStack(Items.repeater);
 			text = "" + state.getValue(BlockRedstoneRepeater.DELAY);

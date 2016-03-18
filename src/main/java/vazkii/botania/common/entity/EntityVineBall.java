@@ -17,9 +17,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -40,7 +40,7 @@ public class EntityVineBall extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition var1) {
+	protected void onImpact(RayTraceResult var1) {
 		if(var1 != null) {
 			EnumFacing dir = var1.sideHit;
 
