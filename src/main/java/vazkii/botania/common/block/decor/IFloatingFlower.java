@@ -61,6 +61,10 @@ public interface IFloatingFlower {
 			return res;
 		}
 
+		public int getColor() {
+			return 0xFFFFFF;
+		}
+
 		public String toString() {
 			return this.typeName;
 		}
