@@ -15,7 +15,9 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -62,7 +64,7 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(worldObj.rand.nextInt(20) == 0)
-			worldObj.playSoundAtEntity(this, "fire.fire", 1F, 1F);
+			worldObj.playSound(null, posX, posY, posZ, SoundEvents.block_fire_ambient, SoundCategory.BLOCKS, 1F, 1F);
 
 		if(worldObj.isRemote)
 			return;

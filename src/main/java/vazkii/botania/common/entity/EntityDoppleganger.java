@@ -38,10 +38,16 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -65,6 +71,7 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -81,16 +88,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
-	public static final int SPAWN_TICKS = 160;
+	private static final int SPAWN_TICKS = 160;
 	private static final float RANGE = 12F;
 	private static final float MAX_HP = 800F;
 
-	public static final int MOB_SPAWN_START_TICKS = 20;
-	public static final int MOB_SPAWN_END_TICKS = 80;
-	public static final int MOB_SPAWN_BASE_TICKS = 800;
-	public static final int MOB_SPAWN_TICKS = MOB_SPAWN_BASE_TICKS + MOB_SPAWN_START_TICKS + MOB_SPAWN_END_TICKS;
-	public static final int MOB_SPAWN_WAVES = 10;
-	public static final int MOB_SPAWN_WAVE_TIME = MOB_SPAWN_BASE_TICKS / MOB_SPAWN_WAVES;
+	private static final int MOB_SPAWN_START_TICKS = 20;
+	private static final int MOB_SPAWN_END_TICKS = 80;
+	private static final int MOB_SPAWN_BASE_TICKS = 800;
+	private static final int MOB_SPAWN_TICKS = MOB_SPAWN_BASE_TICKS + MOB_SPAWN_START_TICKS + MOB_SPAWN_END_TICKS;
+	private static final int MOB_SPAWN_WAVES = 10;
+	private static final int MOB_SPAWN_WAVE_TIME = MOB_SPAWN_BASE_TICKS / MOB_SPAWN_WAVES;
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
@@ -100,6 +107,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
+
+	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> DATA_MOB_SPAWN_TICKS = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> TP_DELAY = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> AGGRO = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> HARD_MODE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<BlockPos> SOURCE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BLOCK_POS);
 
 	private static final BlockPos[] PYLON_LOCATIONS = {
 		new BlockPos(4, 1, 4),
@@ -203,9 +218,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					playerCount++;
 
 			e.setPlayerCount(playerCount);
-			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).setBaseValue(MAX_HP * playerCount);
+			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 
-			par3World.playSoundAtEntity(e, "mob.enderdragon.growl", 10F, 0.1F);
+			e.playSound(SoundEvents.entity_enderdragon_growl, 10F, 0.1F);
 			par3World.spawnEntityInWorld(e);
 			return true;
 		}
@@ -227,7 +242,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				yCheck: {
 					for(int k = heightCheck + heightMin + 1; k >= -heightCheck; k--) {
 						BlockPos pos = startPos.add(i, k, j);
-						boolean isAir = world.getBlockState(pos).getBlock().getCollisionBoundingBox(world, pos, world.getBlockState(pos)) == null;
+						boolean isAir = world.getBlockState(pos).getCollisionBoundingBox(world, pos) == null;
 						if(isAir)
 							air++;
 						else {
@@ -246,84 +261,72 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return true;
 	}
 
-//	@Override todo 1.8 new AI
-//	protected boolean isAIEnabled() {
-//		return true;
-//	}
-
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(20, 0); // Invul Time
-		dataWatcher.addObject(21, (byte) 0); // Aggro
-		dataWatcher.addObject(22, 0); // TP Delay
-		dataWatcher.addObject(23, 0); // Source X
-		dataWatcher.addObject(24, 0); // Source Y
-		dataWatcher.addObject(25, 0); // Source Z
-		dataWatcher.addObject(26, 0); // Ticks spawning mobs
-		dataWatcher.addObject(27, (byte) 0); // Hard Mode
-		dataWatcher.addObject(28, 0); // Player count
+		dataWatcher.register(INVUL_TIME, 0);
+		dataWatcher.register(AGGRO, false);
+		dataWatcher.register(TP_DELAY, 0);
+		dataWatcher.register(SOURCE, BlockPos.ORIGIN);
+		dataWatcher.register(DATA_MOB_SPAWN_TICKS, 0);
+		dataWatcher.register(HARD_MODE, false);
+		dataWatcher.register(PLAYER_COUNT, 0);
 	}
 
 	public int getInvulTime() {
-		return dataWatcher.getWatchableObjectInt(20);
+		return dataWatcher.get(INVUL_TIME);
 	}
 
 	public boolean isAggored() {
-		return dataWatcher.getWatchableObjectByte(21) == 1;
+		return dataWatcher.get(AGGRO);
 	}
 
 	public int getTPDelay() {
-		return dataWatcher.getWatchableObjectInt(22);
+		return dataWatcher.get(TP_DELAY);
 	}
 
 	public BlockPos getSource() {
-		int x = dataWatcher.getWatchableObjectInt(23);
-		int y = dataWatcher.getWatchableObjectInt(24);
-		int z = dataWatcher.getWatchableObjectInt(25);
-		return new BlockPos(x, y, z);
+		return dataWatcher.get(SOURCE);
 	}
 
 	public int getMobSpawnTicks() {
-		return dataWatcher.getWatchableObjectInt(26);
+		return dataWatcher.get(DATA_MOB_SPAWN_TICKS);
 	}
 
 	public boolean isHardMode() {
-		return dataWatcher.getWatchableObjectByte(27) == 1;
+		return dataWatcher.get(HARD_MODE);
 	}
 
 	public int getPlayerCount() {
-		return dataWatcher.getWatchableObjectInt(28);
+		return dataWatcher.get(PLAYER_COUNT);
 	}
 
 	public void setInvulTime(int time) {
-		dataWatcher.updateObject(20, time);
+		dataWatcher.set(INVUL_TIME, time);
 	}
 
 	public void setAggroed(boolean aggored) {
-		dataWatcher.updateObject(21, (byte) (aggored ? 1 : 0));
+		dataWatcher.set(AGGRO, aggored);
 	}
 
 	public void setTPDelay(int delay) {
-		dataWatcher.updateObject(22, delay);
+		dataWatcher.set(TP_DELAY, delay);
 	}
 
 	public void setSource(BlockPos pos) {
-		dataWatcher.updateObject(23, pos.getX());
-		dataWatcher.updateObject(24, pos.getY());
-		dataWatcher.updateObject(25, pos.getZ());
+		dataWatcher.set(SOURCE, pos);
 	}
 
 	public void setMobSpawnTicks(int ticks) {
-		dataWatcher.updateObject(26, ticks);
+		dataWatcher.set(DATA_MOB_SPAWN_TICKS, ticks);
 	}
 
 	public void setHardMode(boolean hardMode) {
-		dataWatcher.updateObject(27, (byte) (hardMode ? 1 : 0));
+		dataWatcher.set(HARD_MODE, hardMode);
 	}
 
 	public void setPlayerCount(int count) {
-		dataWatcher.updateObject(28, count);
+		dataWatcher.set(PLAYER_COUNT, count);
 	}
 
 	@Override
@@ -373,7 +376,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			boolean crit = false;
 			if(e instanceof EntityPlayer) {
 				EntityPlayer p = (EntityPlayer) e;
-				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(Potion.blindness) && p.ridingEntity == null;
+				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(MobEffects.blindness) && !p.isRiding();
 			}
 
 			int cap = crit ? 60 : 40;
@@ -418,23 +421,23 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onDeath(DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
-		EntityLivingBase entitylivingbase = func_94060_bK();
+		EntityLivingBase entitylivingbase = getAttackingEntity();
 		if(entitylivingbase instanceof EntityPlayer) {
 			((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
 			if(!anyWithArmor)
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
 
-		worldObj.playSoundAtEntity(this, "random.explode", 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+		this.playSound(SoundEvents.entity_generic_explode, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.4);
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(MAX_HP);
-		getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.0);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
+		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
 	}
 
 	@Override
@@ -504,19 +507,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public List<EntityPlayer> getPlayersAround() {
 		BlockPos source = getSource();
 		float range = 15F;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
-		return players;
+		return worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 	}
 
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		if(ridingEntity != null) {
-			if(ridingEntity.riddenByEntity != null)
-				ridingEntity.riddenByEntity = null;
-			ridingEntity = null;
-		}
+		if(!getPassengers().isEmpty())
+			this.dismountRidingEntity();
 
 		boolean peaceful = worldObj.getDifficulty() == EnumDifficulty.PEACEFUL;
 		if(!worldObj.isRemote && peaceful)
@@ -584,7 +583,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				List<PotionEffect> remove = new ArrayList<>();
 				Collection<PotionEffect> active = player.getActivePotionEffects();
 				for(PotionEffect effect : active)
-					if(effect.getDuration() < 200 && effect.getIsAmbient() && !GameData.getPotionRegistry().getObjectById(effect.getPotionID()).isBadEffect())
+					if(effect.getDuration() < 200 && effect.getIsAmbient() && !effect.getPotion().isBadEffect())
 						remove.add(effect);
 
 				active.removeAll(remove);
@@ -675,10 +674,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								}
 								case 1 : {
 									entity = new EntitySkeleton(worldObj);
-									entity.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.bow));
 									if(worldObj.rand.nextInt(8) == 0) {
 										((EntitySkeleton) entity).setSkeletonType(1);
-										entity.setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
+										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
 									}
 									break;
 								}
@@ -767,7 +766,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			EntityMagicMissile missile = new EntityMagicMissile(this, true);
 			missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 			if(missile.getTarget()) {
-				worldObj.playSoundAtEntity(this, "botania:missile", 0.6F, 0.8F + (float) Math.random() * 0.2F);
+				this.playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				worldObj.spawnEntityInWorld(missile);
 			}
 		}
@@ -802,9 +801,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			boolean flag1 = false;
 
 			while(!flag1 && pos.getY() > 0) {
-				Block block = worldObj.getBlockState(pos.down()).getBlock();
+				IBlockState state = worldObj.getBlockState(pos.down());
+				Block block = state.getBlock();
 
-				if(block.getMaterial().blocksMovement())
+				if(block.getMaterial(state).blocksMovement())
 					flag1 = true;
 				else {
 					--posY;
@@ -815,7 +815,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(flag1) {
 				setPosition(posX, posY, posZ);
 
-				if(worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox()))
+				if(worldObj.getCubes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox()))
 					flag = true;
 
 				// Prevent out of bounds teleporting
@@ -842,8 +842,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				worldObj.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f1, f2);
 			}
 
-			worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
-			playSound("mob.endermen.portal", 1.0F, 1.0F);
+			playSound(SoundEvents.entity_endermen_teleport, 1.0F, 1.0F);
 			return true;
 		}
 	}

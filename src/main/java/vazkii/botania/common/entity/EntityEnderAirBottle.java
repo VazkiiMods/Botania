@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -54,8 +55,9 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		int rangeY = 4;
 
 		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
-			Block block = worldObj.getBlockState(pos).getBlock();
-			if(block != null && block.isReplaceableOreGen(worldObj, pos, BlockStateMatcher.forBlock(Blocks.stone)))
+			IBlockState state = worldObj.getBlockState(pos);
+			Block block = state.getBlock();
+			if(block != null && block.isReplaceableOreGen(state, worldObj, pos, BlockStateMatcher.forBlock(Blocks.stone)))
 				possibleCoords.add(pos);
 		}
 

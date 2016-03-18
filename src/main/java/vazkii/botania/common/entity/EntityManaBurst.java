@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -27,8 +28,10 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -74,15 +77,19 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_SHOOTER_UUID_MOST = "shooterUUIDMost";
 	private static final String TAG_SHOOTER_UUID_LEAST = "shooterUUIDLeast";
 
+	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> START_MANA = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> MIN_MANA_LOSS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
+	private static final DataParameter<Float> MANA_LOSS_PER_TICK = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
+	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
+	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
+	private static final DataParameter<Optional<ItemStack>> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
+
+
 	boolean fake = false;
-
-	final int dataWatcherEntries = 10;
-	final int dataWatcherStart = 32 - dataWatcherEntries;
-
 	List<String> alreadyCollidedAt = new ArrayList<>();
-
 	boolean fullManaLastTick = true;
-
 	UUID shooterIdentity = null;
 	int _ticksExisted = 0;
 	boolean scanBeam = false;
@@ -91,16 +98,19 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public EntityManaBurst(World world) {
 		super(world);
 		setSize(0F, 0F);
-		for(int i = 0; i < dataWatcherEntries; i++) {
-			int j = dataWatcherStart + i;
-			if(i == 4 || i == 5)
-				dataWatcher.addObject(j, 0F);
-			else if(i == 9)
-				dataWatcher.addObject(j, new ItemStack(Blocks.stone, 0, 0));
-			else dataWatcher.addObject(j, 0);
+	}
 
-			dataWatcher.setObjectWatched(j);
-		}
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataWatcher.register(COLOR, 0);
+		dataWatcher.register(MANA, 0);
+		dataWatcher.register(START_MANA, 0);
+		dataWatcher.register(MIN_MANA_LOSS, 0);
+		dataWatcher.register(MANA_LOSS_PER_TICK, 0F);
+		dataWatcher.register(GRAVITY, 0F);
+		dataWatcher.register(SOURCE_COORDS, BlockPos.ORIGIN);
+		dataWatcher.register(SOURCE_LENS, Optional.absent());
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
@@ -118,7 +128,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float f = 0.4F;
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = MathHelper.sin((rotationPitch + getInaccuracy()) / 180.0F * (float) Math.PI) * f / 2D;
+		double my = MathHelper.sin((rotationPitch) / 180.0F * (float) Math.PI) * f / 2D;
 		setMotion(mx, my, mz);
 	}
 
@@ -136,7 +146,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float f = 0.4F;
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = MathHelper.sin((rotationPitch + getInaccuracy()) / 180.0F * (float) Math.PI) * f / 2D;
+		double my = MathHelper.sin((rotationPitch) / 180.0F * (float) Math.PI) * f / 2D;
 		setMotion(mx, my, mz);
 	}
 
@@ -233,8 +243,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				IBlockState state = worldObj.getBlockState(pos);
 				Block block = state.getBlock();
 
-				if (block != null && (!par4 || block == null || block.getCollisionBoundingBox(worldObj, pos, state) != null) && block != Blocks.air && block.canCollideCheck(state, par3)) {
-					RayTraceResult RayTraceResult = block.collisionRayTrace(worldObj, pos, par1Vec3, par2Vec3);
+				if (block != null && (!par4 || block == null || state.getCollisionBoundingBox(worldObj, pos) != null) && block != Blocks.air && block.canCollideCheck(state, par3)) {
+					RayTraceResult RayTraceResult = state.collisionRayTrace(worldObj, pos, par1Vec3, par2Vec3);
 
 					if (RayTraceResult != null)
 						return RayTraceResult;
@@ -341,8 +351,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					IBlockState state1 = worldObj.getBlockState(pos1);
 					Block block1 = state1.getBlock();
 
-					if ((!par4 || block1 == null || block1.getCollisionBoundingBox(worldObj, pos1, state) != null) && block1 != Blocks.air && block1.canCollideCheck(state, par3)) {
-						RayTraceResult RayTraceResult1 = block1.collisionRayTrace(worldObj, pos1, par1Vec3, par2Vec3);
+					if ((!par4 || block1 == null || block1.getCollisionBoundingBox(state1, worldObj, pos1) != null) && block1 != Blocks.air && block1.canCollideCheck(state, par3)) {
+						RayTraceResult RayTraceResult1 = block1.collisionRayTrace(state1, worldObj, pos1, par1Vec3, par2Vec3);
 
 						if (RayTraceResult1 != null)
 							return RayTraceResult1;
@@ -685,90 +695,85 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public int getColor() {
-		return dataWatcher.getWatchableObjectInt(dataWatcherStart);
+		return dataWatcher.get(COLOR);
 	}
 
 	@Override
 	public void setColor(int color) {
-		dataWatcher.updateObject(dataWatcherStart, color);
+		dataWatcher.set(COLOR, color);
 	}
 
 	@Override
 	public int getMana() {
-		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 1);
+		return dataWatcher.get(MANA);
 	}
 
 	@Override
 	public void setMana(int mana) {
-		dataWatcher.updateObject(dataWatcherStart + 1, mana);
+		dataWatcher.set(MANA, mana);
 	}
 
 	@Override
 	public int getStartingMana() {
-		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 2);
+		return dataWatcher.get(START_MANA);
 	}
 
 	@Override
 	public void setStartingMana(int mana) {
-		dataWatcher.updateObject(dataWatcherStart + 2, mana);
+		dataWatcher.set(START_MANA, mana);
 	}
 
 	@Override
 	public int getMinManaLoss() {
-		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 3);
+		return dataWatcher.get(MIN_MANA_LOSS);
 	}
 
 	@Override
 	public void setMinManaLoss(int minManaLoss) {
-		dataWatcher.updateObject(dataWatcherStart + 3, minManaLoss);
+		dataWatcher.set(MIN_MANA_LOSS, minManaLoss);
 	}
 
 	@Override
 	public float getManaLossPerTick() {
-		return dataWatcher.getWatchableObjectFloat(dataWatcherStart + 4);
+		return dataWatcher.get(MANA_LOSS_PER_TICK);
 	}
 
 	@Override
 	public void setManaLossPerTick(float mana) {
-		dataWatcher.updateObject(dataWatcherStart + 4, mana);
+		dataWatcher.set(MANA_LOSS_PER_TICK, mana);
 	}
 
 	@Override
 	public float getGravity() {
-		return dataWatcher.getWatchableObjectFloat(dataWatcherStart + 5);
+		return dataWatcher.get(GRAVITY);
 	}
 
 	@Override
 	public void setGravity(float gravity) {
-		dataWatcher.updateObject(dataWatcherStart + 5, gravity);
+		dataWatcher.set(GRAVITY, gravity);
 	}
-
-	final int coordsStart = dataWatcherStart + 6;
 
 	@Override
 	public BlockPos getBurstSourceBlockPos() {
-		int x = dataWatcher.getWatchableObjectInt(coordsStart);
-		int y = dataWatcher.getWatchableObjectInt(coordsStart + 1);
-		int z = dataWatcher.getWatchableObjectInt(coordsStart + 2);
-
-		return new BlockPos(x, y, z);
+		return dataWatcher.get(SOURCE_COORDS);
 	}
 
 	@Override
 	public void setBurstSourceCoords(BlockPos pos) {
-		dataWatcher.updateObject(coordsStart, pos.getX());
-		dataWatcher.updateObject(coordsStart + 1, pos.getY());
-		dataWatcher.updateObject(coordsStart + 2, pos.getZ());
+		dataWatcher.set(SOURCE_COORDS, pos);
 	}
 
 	@Override
 	public ItemStack getSourceLens() {
-		return dataWatcher.getWatchableObjectItemStack(dataWatcherStart + 9);
+		Optional<ItemStack> stack = dataWatcher.get(SOURCE_LENS);
+		if(!stack.isPresent())
+			return new ItemStack(Blocks.stone, 0, 0); // todo 1.9 refact later
+		else return stack.get();
 	}
 
 	@Override
 	public void setSourceLens(ItemStack lens) {
-		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(Blocks.stone, 0, 0) : lens);
+		dataWatcher.set(SOURCE_LENS, lens == null ? Optional.absent() : Optional.of(lens));
 	}
 
 	@Override
@@ -787,8 +792,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		return null;
 	}
-
-	final int motionStart = dataWatcherStart + 10;
 
 	@Override
 	public void setMotion(double x, double y, double z) {

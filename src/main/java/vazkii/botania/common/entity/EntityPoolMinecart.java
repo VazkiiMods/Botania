@@ -16,6 +16,9 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -34,6 +37,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
+	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
 
 	public EntityPoolMinecart(World p_i1712_1_) {
 		super(p_i1712_1_);
@@ -46,7 +50,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(16, 0);
+		dataWatcher.register(MANA, 0);
 	}
 
 	@Override
@@ -153,11 +157,11 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	public int getMana() {
-		return dataWatcher.getWatchableObjectInt(16);
+		return dataWatcher.get(MANA);
 	}
 
 	public void setMana(int mana) {
-		dataWatcher.updateObject(16, mana);
+		dataWatcher.set(MANA, mana);
 	}
 
 }

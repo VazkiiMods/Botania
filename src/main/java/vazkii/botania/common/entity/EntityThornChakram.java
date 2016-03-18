@@ -17,8 +17,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -32,6 +36,8 @@ import vazkii.botania.common.item.ModItems;
 
 public class EntityThornChakram extends EntityThrowable {
 
+	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
 	private static final int MAX_BOUNCES = 16;
 	boolean bounced = false;
 	private ItemStack stack;
@@ -47,11 +53,9 @@ public class EntityThornChakram extends EntityThrowable {
 
 	@Override
 	protected void entityInit() {
-		dataWatcher.addObject(30, 0);
-		dataWatcher.addObject(31, (byte) 0);
-
-		dataWatcher.setObjectWatched(30);
-		dataWatcher.setObjectWatched(31);
+		super.entityInit();
+		dataWatcher.register(BOUNCES, 0);
+		dataWatcher.register(FLARE, false);
 	}
 
 	@Override
@@ -128,7 +132,7 @@ public class EntityThornChakram extends EntityThrowable {
 			if(fire)
 				pos.entityHit.setFire(5);
 			else if(worldObj.rand.nextInt(3) == 0)
-				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
+				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.poison, 60, 0));
 		} else if (pos.getBlockPos() != null) {
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
@@ -151,19 +155,19 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	public int getTimesBounced() {
-		return dataWatcher.getWatchableObjectInt(30);
+		return dataWatcher.get(BOUNCES);
 	}
 
 	public void setTimesBounced(int times) {
-		dataWatcher.updateObject(30, times);
+		dataWatcher.set(BOUNCES, times);
 	}
 
 	public boolean isFire() {
-		return dataWatcher.getWatchableObjectByte(31) != 0;
+		return dataWatcher.get(FLARE);
 	}
 
 	public void setFire(boolean fire) {
-		dataWatcher.updateObject(31, (byte) (fire ? 1 : 0));
+		dataWatcher.set(FLARE, fire);
 	}
 
 	@Override

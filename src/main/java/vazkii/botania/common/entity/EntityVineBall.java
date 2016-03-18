@@ -17,6 +17,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
@@ -27,16 +30,23 @@ import java.util.Map;
 
 public class EntityVineBall extends EntityThrowable {
 
+	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
+	private final boolean gravity;
+
 	public EntityVineBall(World par1World) {
 		super(par1World);
-		dataWatcher.addObject(30, 0F);
-		dataWatcher.setObjectWatched(30);
+		gravity = false;
 	}
 
 	public EntityVineBall(EntityPlayer player, boolean gravity) {
 		super(player.worldObj, player);
-		dataWatcher.addObject(30, gravity ? 0.03F : 0F);
-		dataWatcher.setObjectWatched(30);
+		this.gravity = gravity;
+	}
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataWatcher.register(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
 	@Override
@@ -50,11 +60,12 @@ public class EntityVineBall extends EntityThrowable {
 			if(dir != null && dir.getAxis() != EnumFacing.Axis.Y) {
 				BlockPos pos = var1.getBlockPos().offset(dir);
 				while(pos.getY() > 0) {
-					Block block = worldObj.getBlockState(pos).getBlock();
-					if(block.isAir(worldObj, pos)) {
-						IBlockState state = ModBlocks.solidVines.getDefaultState().withProperty(propMap.get(dir.getOpposite()), true);
-						worldObj.setBlockState(pos, state, 1 | 2);
-						worldObj.playAuxSFX(2001, pos, Block.getStateId(state));
+					IBlockState state = worldObj.getBlockState(pos);
+					Block block = state.getBlock();
+					if(block.isAir(state, worldObj, pos)) {
+						IBlockState stateSet = ModBlocks.solidVines.getDefaultState().withProperty(propMap.get(dir.getOpposite()), true);
+						worldObj.setBlockState(pos, stateSet, 1 | 2);
+						worldObj.playAuxSFX(2001, pos, Block.getStateId(stateSet));
 						pos = pos.down();
 					} else break;
 				}
@@ -67,7 +78,7 @@ public class EntityVineBall extends EntityThrowable {
 
 	@Override
 	protected float getGravityVelocity() {
-		return dataWatcher.getWatchableObjectFloat(30);
+		return dataWatcher.get(GRAVITY);
 	}
 
 }

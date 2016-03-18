@@ -16,6 +16,8 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -65,9 +67,9 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	protected boolean interact(EntityPlayer player) {
+	protected boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
 		if(!player.isSneaking()) {
-			player.mountEntity(this);
+			player.startRiding(this);
 			return true;
 		}
 		return false;

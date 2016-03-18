@@ -16,11 +16,18 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import scala.tools.nsc.backend.icode.TypeKinds;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -35,6 +42,13 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	private static final String TAG_DELAY = "delay";
 	private static final String TAG_ROTATION = "rotation";
 
+	private static final DataParameter<Boolean> CHARGING = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> VARIETY = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> CHARGE_TICKS = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> LIVE_TICKS = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> DELAY = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.VARINT);
+	private static final DataParameter<Float> ROTATION = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.FLOAT);
+
 	public EntityBabylonWeapon(World world) {
 		super(world);
 	}
@@ -45,21 +59,15 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	protected void entityInit() {
+		super.entityInit();
 		setSize(0F, 0F);
 
-		dataWatcher.addObject(20, (byte) 0);
-		dataWatcher.addObject(21, 0);
-		dataWatcher.addObject(22, 0);
-		dataWatcher.addObject(23, 0);
-		dataWatcher.addObject(24, 0);
-		dataWatcher.addObject(25, 0F);
-
-		dataWatcher.setObjectWatched(20);
-		dataWatcher.setObjectWatched(21);
-		dataWatcher.setObjectWatched(22);
-		dataWatcher.setObjectWatched(23);
-		dataWatcher.setObjectWatched(24);
-		dataWatcher.setObjectWatched(25);
+		dataWatcher.register(CHARGING, false);
+		dataWatcher.register(VARIETY, 0);
+		dataWatcher.register(CHARGE_TICKS, 0);
+		dataWatcher.register(LIVE_TICKS, 0);
+		dataWatcher.register(DELAY, 0);
+		dataWatcher.register(ROTATION, 0F);
 	}
 
 	@Override
@@ -72,8 +80,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		EntityPlayer player = (EntityPlayer) thrower;
 		boolean charging = isCharging();
 		if(!worldObj.isRemote) {
-			ItemStack stack = player == null ? null : player.getCurrentEquippedItem();
-			boolean newCharging = stack != null && stack.getItem() == ModItems.kingKey && ItemKingKey.isCharging(stack);
+			ItemStack stack = player == null ? null : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			boolean newCharging = stack != null && ItemKingKey.isCharging(stack);
 			if(charging != newCharging) {
 				setCharging(newCharging);
 				charging = newCharging;
@@ -97,7 +105,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			setChargeTicks(chargeTime + 1);
 
 			if(worldObj.rand.nextInt(20) == 0)
-				worldObj.playSoundAtEntity(this, "botania:babylonSpawn", 0.1F, 1F + worldObj.rand.nextFloat() * 3F);
+				worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + worldObj.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
 				motionX = 0;
@@ -116,7 +124,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				x = motionVec.x;
 				y = motionVec.y;
 				z = motionVec.z;
-				worldObj.playSoundAtEntity(this, "botania:babylonAttack", 2F, 0.1F + worldObj.rand.nextFloat() * 3F);
+				worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + worldObj.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
 
@@ -183,51 +191,51 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	public boolean isCharging() {
-		return dataWatcher.getWatchableObjectByte(20) == 1;
+		return dataWatcher.get(CHARGING);
 	}
 
 	public void setCharging(boolean charging) {
-		dataWatcher.updateObject(20, (byte) (charging ? 1 : 0));
+		dataWatcher.set(CHARGING, charging);
 	}
 
 	public int getVariety() {
-		return dataWatcher.getWatchableObjectInt(21);
+		return dataWatcher.get(VARIETY);
 	}
 
 	public void setVariety(int var) {
-		dataWatcher.updateObject(21, var);
+		dataWatcher.set(VARIETY, var);
 	}
 
 	public int getChargeTicks() {
-		return dataWatcher.getWatchableObjectInt(22);
+		return dataWatcher.get(CHARGE_TICKS);
 	}
 
 	public void setChargeTicks(int ticks) {
-		dataWatcher.updateObject(22, ticks);
+		dataWatcher.set(CHARGE_TICKS, ticks);
 	}
 
 	public int getLiveTicks() {
-		return dataWatcher.getWatchableObjectInt(23);
+		return dataWatcher.get(LIVE_TICKS);
 	}
 
 	public void setLiveTicks(int ticks) {
-		dataWatcher.updateObject(23, ticks);
+		dataWatcher.set(LIVE_TICKS, ticks);
 	}
 
 	public int getDelay() {
-		return dataWatcher.getWatchableObjectInt(24);
+		return dataWatcher.get(DELAY);
 	}
 
 	public void setDelay(int delay) {
-		dataWatcher.updateObject(24, delay);
+		dataWatcher.set(DELAY, delay);
 	}
 
 	public float getRotation() {
-		return dataWatcher.getWatchableObjectFloat(25);
+		return dataWatcher.get(ROTATION);
 	}
 
 	public void setRotation(float rot) {
-		dataWatcher.updateObject(25, rot);
+		dataWatcher.set(ROTATION, rot);
 	}
 
 }
