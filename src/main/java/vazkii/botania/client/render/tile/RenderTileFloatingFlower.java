@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.*;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
@@ -52,11 +53,14 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		}
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(flower.getIslandType().getResource());
+		Color color = new Color(flower.getIslandType().getColor());
+		GL11.glColor3f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0.5F, 1.4F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
 		model.render();
 		GL11.glPopMatrix();
+		GL11.glColor3f(1f, 1f, 1f);
 
 		ItemStack stack = flower.getDisplayStack();
 		IIcon icon = stack.getIconIndex();
