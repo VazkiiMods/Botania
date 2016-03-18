@@ -14,6 +14,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -31,9 +34,9 @@ public class ItemBaubleBox extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, 0, 0, 0);
-		return stack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 

@@ -20,10 +20,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
@@ -69,7 +72,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState wstate = par3World.getBlockState(pos);
 
 		if(par2EntityPlayer.isSneaking()) {
@@ -79,10 +82,10 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					Item item = Item.getItemFromBlock(wstate.getBlock());
 
 					boolean set = setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
-					par2EntityPlayer.setCurrentItemOrArmor(0, par1ItemStack);
+					par2EntityPlayer.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
 
 					displayRemainderCounter(par2EntityPlayer, par1ItemStack);
-					return set;
+					return EnumActionResult.SUCCESS;
 				}
 			}
 		} else if(canExchange(par1ItemStack) && !ItemNBTHelper.getBoolean(par1ItemStack, TAG_SWAPPING, false)) {
@@ -96,17 +99,17 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Z, pos.getZ());
 				setTargetBlock(par1ItemStack, wstate.getBlock(), wstate.getBlock().getMetaFromState(wstate));
 				if(par3World.isRemote)
-					par2EntityPlayer.swingItem();
+					par2EntityPlayer.swingArm(hand);
 			}
 		}
 
-		return false;
+		return EnumActionResult.SUCCESS;
 	}
 
 	@SubscribeEvent
 	public void onLeftClick(PlayerInteractEvent event) {
 		if(event.action == Action.LEFT_CLICK_BLOCK) {
-			ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+			ItemStack stack = event.entityPlayer.getHeldItemMainhand();
 			if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, false)) {
 				if(exchange(event.world, event.entityPlayer, event.pos, stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
 					ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, true);
@@ -189,15 +192,15 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					// Check to see if the block is visible on any side:
 					for(EnumFacing dir : EnumFacing.VALUES) {
 						BlockPos adjPos = pos_.offset(dir);
-						Block adjBlock = world.getBlockState(adjPos).getBlock();
-						
+						IBlockState adjState = world.getBlockState(adjPos);
+
 						// If the side of the adjacent block facing this block is
 						// _not_ solid, then this block is considered "visible"
 						// and should be replaced.
 						
 						// If there is a rendering-specific way to check for this,
 						// that should be placed in preference to this.
-						if(!adjBlock.isSideSolid(world, adjPos, dir.getOpposite())) {
+						if(!adjState.isSideSolid(world, adjPos, dir.getOpposite())) {
 							coordsList.add(pos_);
 							break;
 						}
@@ -216,7 +219,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(placeStack != null) {
 			IBlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
-			if(!blockAt.isAir(world, pos) && blockAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
+			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
 					if(!player.capabilities.isCreativeMode) {
 						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
@@ -387,7 +390,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	@Override
 	@SideOnly(Side.CLIENT)
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
-		ItemStack holding = player.getCurrentEquippedItem();
+		ItemStack holding = player.getHeldItemMainhand();
 		if(holding != stack || !canExchange(stack))
 			return null;
 

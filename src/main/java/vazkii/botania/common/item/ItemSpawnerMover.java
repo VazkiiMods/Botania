@@ -18,6 +18,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
@@ -86,7 +89,7 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+	public EnumActionResult onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
 		if(getEntityId(itemstack) == null) {
 			if(world.getBlockState(pos).getBlock().equals(Blocks.mob_spawner)) {
 				TileEntity te = world.getTileEntity(pos);
@@ -103,10 +106,10 @@ public class ItemSpawnerMover extends ItemMod {
 					float blue = (float) Math.random();
 					Botania.proxy.wispFX(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.1F + 0.05F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
 				}
-				return true;
-			} else return false;
+				return EnumActionResult.SUCCESS;
+			} else return EnumActionResult.PASS;
 		} else {
-			return getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, pos, side, xOffset, yOffset, zOffset);
+			return getDelay(itemstack) <= 0 && placeBlock(itemstack, player, world, pos, side, xOffset, yOffset, zOffset) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 		}
 	}
 
@@ -128,7 +131,7 @@ public class ItemSpawnerMover extends ItemMod {
 			IBlockState iblockstate1 = Blocks.mob_spawner.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
-				world.playSoundEffect((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F), (double) ((float) pos.getZ() + 0.5F), Blocks.mob_spawner.stepSound.getPlaceSound(), (Blocks.mob_spawner.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.mob_spawner.stepSound.getFrequency() * 0.8F);
+				world.playSound(null, pos, Blocks.mob_spawner.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.mob_spawner.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.mob_spawner.getSoundType().getPitch() * 0.8F);
 				--itemstack.stackSize;
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);

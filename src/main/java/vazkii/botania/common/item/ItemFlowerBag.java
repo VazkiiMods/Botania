@@ -18,6 +18,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -90,13 +93,13 @@ public class ItemFlowerBag extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, 0, 0, 0);
-		return stack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null) {
 			if(!world.isRemote) {
@@ -107,7 +110,7 @@ public class ItemFlowerBag extends ItemMod {
 					inv = new InvWrapper(((IInventory) tile));
 
 				if(inv == null)
-					return true;
+					return EnumActionResult.SUCCESS;
 
 				ItemStack[] stacks = loadStacks(stack);
 				ItemStack[] newStacks = new ItemStack[stacks.length];
@@ -132,9 +135,9 @@ public class ItemFlowerBag extends ItemMod {
 				}
 			}
 
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	public static ItemStack[] loadStacks(ItemStack stack) {

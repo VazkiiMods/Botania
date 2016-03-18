@@ -16,12 +16,18 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -48,15 +54,15 @@ public class ItemSignalFlare extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 0) {
 			if(par2World.isRemote)
-				par3EntityPlayer.swingItem();
+				par3EntityPlayer.swingArm(hand);
 			else {
 				EntitySignalFlare flare = new EntitySignalFlare(par2World);
 				flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
 				flare.setColor(getColor(par1ItemStack));
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.entity_generic_explode, SoundCategory.PLAYERS, 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				par2World.spawnEntityInWorld(flare);
 
@@ -65,7 +71,7 @@ public class ItemSignalFlare extends ItemMod {
 				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
 				for(EntityLivingBase entity : entities)
 					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled())) {
-						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
+						entity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 50, 5));
 						stunned++;
 					}
 
@@ -73,9 +79,10 @@ public class ItemSignalFlare extends ItemMod {
 					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
 			}
 			par1ItemStack.damageItem(200, par3EntityPlayer);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override

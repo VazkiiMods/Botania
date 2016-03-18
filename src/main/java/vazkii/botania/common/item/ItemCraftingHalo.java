@@ -32,6 +32,11 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,6 +53,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -82,7 +88,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
@@ -94,7 +100,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			else tryCraft(player, stack, segment, true, getFakeInv(player), true);
 		}
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	public static IInventory getFakeInv(EntityPlayer player) {
@@ -384,8 +390,8 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		ItemStack stack = player.getCurrentEquippedItem();
-		if(stack != null && stack.getItem() instanceof ItemCraftingHalo)
+		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
+		if(stack != null)
 			render(stack, player, event.partialTicks);
 	}
 

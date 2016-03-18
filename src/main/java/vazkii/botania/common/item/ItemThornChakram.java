@@ -13,10 +13,15 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -43,21 +48,21 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)  {
-		--p_77659_1_.stackSize;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)  {
+		--stack.stackSize;
 
-		p_77659_2_.playSoundAtEntity(p_77659_3_, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-		if(!p_77659_2_.isRemote) {
-			ItemStack stack = p_77659_1_.copy();
+		if(!world.isRemote) {
+			ItemStack copy = stack.copy();
 			stack.stackSize = 1;
-			EntityThornChakram c = new EntityThornChakram(p_77659_2_, p_77659_3_, stack);
-			c.setFire(p_77659_1_.getItemDamage() != 0);
-			p_77659_2_.spawnEntityInWorld(c);
+			EntityThornChakram c = new EntityThornChakram(world, player, copy);
+			c.setFire(stack.getItemDamage() != 0);
+			world.spawnEntityInWorld(c);
 		}
 
 
-		return p_77659_1_;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override

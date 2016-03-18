@@ -11,7 +11,11 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -59,18 +63,19 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		if(getMaxItemUseDuration(stack) - count < 10)
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		if(getMaxItemUseDuration(stack) - count < 10
+				|| !(living instanceof EntityPlayer))
 			return;
 
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		if(y != -1) {
-			World world = player.worldObj;
+			World world = living.worldObj;
 			Vector3 source = new Vector3(x, y, z);
 
-			double radius = calculateRadius(stack, player);
+			double radius = calculateRadius(stack, ((EntityPlayer) living));
 
 			if(count % 10 == 0)
 				for(int i = 0; i < 360; i++) {
@@ -83,8 +88,10 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int time) {
-		double radius = calculateRadius(stack, player);
+	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase living, int time) {
+		if(!(living instanceof EntityPlayer)) return;
+
+		double radius = calculateRadius(stack, ((EntityPlayer) living));
 		if(radius > 1) {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
@@ -95,7 +102,7 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
 		if(!par3EntityPlayer.isSneaking()) {
@@ -108,10 +115,10 @@ public class ItemSextant extends ItemMod {
 				}
 			} else ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, -1);
 
-			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+			par3EntityPlayer.setActiveHand(hand);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	public static double calculateRadius(ItemStack stack, EntityPlayer player) {
@@ -136,7 +143,7 @@ public class ItemSextant extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
-		ItemStack onUse = player.getItemInUse();
+		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
 		if(onUse == stack && stack.getItem().getMaxItemUseDuration(stack) - time >= 10) {

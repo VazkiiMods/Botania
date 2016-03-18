@@ -50,6 +50,9 @@ public final class BotaniaSoundEvents {
     public static final SoundEvent unholyCloak = getRegisteredSoundEvent("botania:unholyCloak");
     public static final SoundEvent way = getRegisteredSoundEvent("botania:way");
 
+    public static final SoundEvent gaiaMusic1 = getRegisteredSoundEvent("botania:music.gaia1");
+    public static final SoundEvent gaiaMusic2 = getRegisteredSoundEvent("botania:music.gaia2");
+
     private static SoundEvent getRegisteredSoundEvent(String name) {
         return SoundEvent.soundEventRegistry.getObject(new ResourceLocation(name));
     }

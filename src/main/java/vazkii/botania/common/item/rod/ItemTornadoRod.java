@@ -18,6 +18,10 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -26,6 +30,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModPotions;
@@ -54,7 +59,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean holding) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
-			player.getCurrentEquippedItem();
 			boolean damaged = par1ItemStack.getItemDamage() > 0;
 
 			if(damaged && !isFlying(par1ItemStack))
@@ -63,13 +67,13 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			int max = FALL_MULTIPLIER * FLY_TIME;
 			if(par1ItemStack.getItemDamage() >= max) {
 				setFlying(par1ItemStack, false);
-				player.stopUsingItem();
+				player.resetActiveHand();
 			} else if(isFlying(par1ItemStack)) {
 				if(holding) {
 					player.fallDistance = 0F;
 					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player) ? 1.6 : 1.25;
 
-					player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
+					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
 						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
@@ -85,22 +89,18 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		int meta = par1ItemStack.getItemDamage();
 		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, false)) {
-			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+			par3EntityPlayer.setActiveHand(hand);
 			if(meta == 0) {
-				setFlying(par1ItemStack, true);
 				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, true);
+				setFlying(par1ItemStack, true);
 			}
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
-	}
-
-	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override
@@ -148,8 +148,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 							Botania.proxy.wispFX(p.worldObj, p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 
 					if(!world.isRemote) {
-						p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
-						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet.id, 100, 0));
+						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);
 					}
 				}

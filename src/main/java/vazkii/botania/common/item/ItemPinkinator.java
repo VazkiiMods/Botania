@@ -14,7 +14,11 @@ import java.util.List;
 
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.translation.I18n;
@@ -32,7 +36,7 @@ public class ItemPinkinator extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		int range = 16;
 		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
@@ -42,16 +46,16 @@ public class ItemPinkinator extends ItemMod {
 					EntityPinkWither pink = new EntityPinkWither(world);
 					pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
 					world.spawnEntityInWorld(pink);
-					world.playSoundAtEntity(wither, "random.explode", 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+					pink.playSound(SoundEvents.entity_generic_explode, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}
 				player.addStat(ModAchievements.pinkinator, 1);
 
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
 				stack.stackSize--;
-				return stack;
+				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 11:04:12 PM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -19,12 +19,18 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -54,18 +60,19 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(getBlock(par1ItemStack) != Blocks.air && par3EntityPlayer.isSneaking()) {
 			int dmg = par1ItemStack.getItemDamage();
 			par1ItemStack.setItemDamage(~dmg & 1);
-			par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.3F, 0.1F);
+			par3EntityPlayer.playSound(SoundEvents.entity_experience_orb_pickup, 0.3F, 0.1F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
 		boolean set = setBlock(par1ItemStack, state.getBlock(), state.getBlock().getMetaFromState(state));
 
@@ -109,15 +116,15 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
 						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
 
-						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, pos, side, par8, par9, par10);
+						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
 						set = true;
 					}
 				}
 			}
 		}
 
-		par2EntityPlayer.setCurrentItemOrArmor(0, par1ItemStack);
-		return set;
+		par2EntityPlayer.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
+		return set ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 	}
 
 	@Override

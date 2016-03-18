@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item.record;
 
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemRecordGaia1 extends ItemModRecord {
 
 	public ItemRecordGaia1() {
-		super("gaia1", LibItemNames.RECORD_GAIA1);
+		super("gaia1", BotaniaSoundEvents.gaiaMusic1, LibItemNames.RECORD_GAIA1);
 	}
 
 }

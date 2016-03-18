@@ -17,9 +17,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -77,14 +81,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 
 		EntityPlayer player = (EntityPlayer) par3Entity;
-		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
+		PotionEffect haste = player.getActivePotionEffect(MobEffects.digSpeed);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote)
+		if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote)
 			leftClick(player);
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
@@ -134,7 +138,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 			if(item != null) {
 				if(BotaniaAPI.isEntityBlacklistedFromGravityRod(item.getClass()))
-					return stack;
+					return ActionResult.newResult(EnumActionResult.FAIL, stack);
 				
 				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
 					if(item instanceof EntityItem)
@@ -143,8 +147,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					if(item instanceof EntityLivingBase) {
 						EntityLivingBase targetEntity = (EntityLivingBase)item;
 						targetEntity.fallDistance = 0.0F;
-						if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
-							targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true, true));
+						if(targetEntity.getActivePotionEffect(MobEffects.moveSlowdown) == null)
+							targetEntity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 2, 3, true, true));
 					}
 
 					Vector3 target3 = Vector3.fromEntityCenter(player);
@@ -169,12 +173,12 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
 					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 				}
-			}
 
-			if(item != null)
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
+				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			}
 		}
-		return stack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
@@ -195,7 +199,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	}
 
 	public static void leftClick(EntityPlayer player) {
-		ItemStack stack = player.getHeldItem();
+		ItemStack stack = player.getHeldItemMainhand();
 		if(stack != null && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);

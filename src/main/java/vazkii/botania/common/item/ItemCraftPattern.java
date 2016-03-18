@@ -17,6 +17,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -32,14 +34,15 @@ public class ItemCraftPattern extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && tile instanceof TileCraftCrate && !world.isRemote) {
+		if(tile != null && tile instanceof TileCraftCrate) {
 			TileCraftCrate crate = (TileCraftCrate) tile;
 			crate.pattern = stack.getItemDamage();
-			world.markBlockForUpdate(pos);
+			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 8);
+			return EnumActionResult.SUCCESS;
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override

@@ -27,6 +27,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -76,7 +78,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
 
 		if((state.getBlock() == Blocks.dirt && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.grass && par1ItemStack.getItemDamage() != 0)) {
@@ -149,9 +151,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			}
 
 			par1ItemStack.stackSize--;
+			return EnumActionResult.SUCCESS;
 		}
 
-		return true;
+		return EnumActionResult.PASS;
 	}
 
 	@SubscribeEvent
@@ -327,8 +330,6 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			IBlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 
-			Block aboveBlock = world.getBlockState(pos.up()).getBlock();
-
 			// Valid blocks to spread to are either dirt or grass, and do not
 			// have blocks which block grass growth.
 
@@ -338,7 +339,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 			return (block == Blocks.dirt || block == Blocks.grass)
 				&& (block != Blocks.dirt || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
-				&& (aboveBlock.getLightOpacity(world, pos.up()) <= 1);
+				&& (world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1);
 		}
 	}
 

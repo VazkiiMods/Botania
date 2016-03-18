@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.network.datasync.DataParameter;
@@ -38,8 +39,8 @@ public class EntityVineBall extends EntityThrowable {
 		gravity = false;
 	}
 
-	public EntityVineBall(EntityPlayer player, boolean gravity) {
-		super(player.worldObj, player);
+	public EntityVineBall(EntityLivingBase thrower, boolean gravity) {
+		super(thrower.worldObj, thrower);
 		this.gravity = gravity;
 	}
 

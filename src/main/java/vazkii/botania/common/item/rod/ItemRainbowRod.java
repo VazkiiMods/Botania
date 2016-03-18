@@ -18,12 +18,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -48,7 +53,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(!par2World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
@@ -67,14 +72,14 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
 			BlockPos playerPos = new BlockPos((int) x, (int) y, (int) z);
-			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlockState(playerPos).getBlock().isAir(par2World, playerPos) || par2World.getBlockState(playerPos).getBlock() == place) {
+			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlockState(playerPos).getBlock().isAir(par2World.getBlockState(playerPos), par2World, playerPos) || par2World.getBlockState(playerPos).getBlock() == place) {
 				if(y >= 256 || y <= 0)
 					break;
 
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++) {
 						BlockPos pos_ = new BlockPos((int) x + i, (int) y, (int) z + j);
-						if(par2World.getBlockState(pos_).getBlock().isAir(par2World, pos_) || par2World.getBlockState(pos_).getBlock() == place) {
+						if(par2World.getBlockState(pos_).getBlock().isAir(par2World.getBlockState(pos_), par2World, pos_) || par2World.getBlockState(pos_).getBlock() == place) {
 							par2World.setBlockState(pos_, place.getDefaultState());
 							TileBifrost tile = (TileBifrost) par2World.getTileEntity(pos_);
 							if(tile != null) {
@@ -97,13 +102,13 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			}
 
 			if(count > 0) {
-				par2World.playSoundAtEntity(par3EntityPlayer, "botania:bifrostRod", 0.5F, 0.25F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false);
 				par1ItemStack.setItemDamage(TIME);
 			}
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
@@ -177,7 +182,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 						continue;
 					BlockPos pos = new BlockPos(ex, py, ez);
 					Block block = world.getBlockState(pos).getBlock();
-					if(block.isAir(world, pos)) {
+					if(block.isAir(world.getBlockState(pos), world, pos)) {
 						world.setBlockState(pos, ModBlocks.bifrost.getDefaultState());
 						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
 						tileBifrost.ticks = 10;

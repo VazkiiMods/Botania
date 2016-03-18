@@ -14,6 +14,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -31,7 +34,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
@@ -45,7 +48,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.dirt);
-				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), EnumFacing.DOWN, 0F, 0F, 0F);
+				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), hand, EnumFacing.DOWN, 0F, 0F, 0F);
 
 				if(stackToPlace.stackSize == 0) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
@@ -55,9 +58,9 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			}
 		}
 		if(world.isRemote)
-			player.swingItem();
+			player.swingArm(hand);
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 }

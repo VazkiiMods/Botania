@@ -22,6 +22,7 @@ import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -78,7 +79,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 
 			Botania.proxy.wispFX(item.worldObj, item.posX, tile.getPos().getY() + 0.5F, item.posZ, r, g, b, s, mx, my, mz);
 		}
-		item.worldObj.playSoundAtEntity(item, "botania:blackLotus", 0.5F, t2 ? 0.1F : 1F);
+		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 
 	@Override

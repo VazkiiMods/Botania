@@ -14,6 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -28,7 +31,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);
 		ItemStack blockStack = new ItemStack(state.getBlock());
 		int[] ids = OreDictionary.getOreIDs(blockStack);
@@ -39,10 +42,10 @@ public class ItemOvergrowthSeed extends ItemMod {
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
 				stack.stackSize--;
 
-				return true;
+				return EnumActionResult.SUCCESS;
 			}
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 }

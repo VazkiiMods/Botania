@@ -15,15 +15,18 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.HorseArmorType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.common.lib.LibItemNames;
@@ -44,19 +47,19 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, EntityLivingBase par3EntityLivingBase) {
+	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, EntityLivingBase par3EntityLivingBase, EnumHand hand) {
 		if(par3EntityLivingBase instanceof EntityHorse) {
 			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
-			if(horse.getHorseType() != 3 && horse.getHorseType() != 4 && horse.isTame()) {
-				horse.setHorseType(3 + par1ItemStack.getItemDamage());
-				BaseAttributeMap attributes = horse.getAttributeMap();
-				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.movementSpeed);
-				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.maxHealth);
+			if(horse.getType() != HorseArmorType.ZOMBIE && horse.getType() != HorseArmorType.SKELETON && horse.isTame()) {
+				horse.setType(par1ItemStack.getItemDamage() == 0 ? HorseArmorType.ZOMBIE : HorseArmorType.SKELETON);
+				AbstractAttributeMap attributes = horse.getAttributeMap();
+				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
+				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
 				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
 				movementSpeed.applyModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), 0));
 				IAttributeInstance jumpHeight = attributes.getAttributeInstance(ReflectionHelper.<IAttribute, EntityHorse>getPrivateValue(EntityHorse.class, null, LibObfuscation.HORSE_JUMP_STRENGTH));
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
-				par2EntityPlayer.worldObj.playSound(par3EntityLivingBase.posX + 0.5D, par3EntityLivingBase.posY + 0.5D, par3EntityLivingBase.posZ + 0.5D, "mob.zombie.remedy", 1.0F + par3EntityLivingBase.worldObj.rand.nextFloat(), par3EntityLivingBase.worldObj.rand.nextFloat() * 0.7F + 1.3F, false);
+				par3EntityLivingBase.playSound(SoundEvents.entity_zombie_villager_cure, 1.0F + par3EntityLivingBase.worldObj.rand.nextFloat(), par3EntityLivingBase.worldObj.rand.nextFloat() * 0.7F + 1.3F);
 
 				par1ItemStack.stackSize--;
 				return true;
@@ -68,12 +71,12 @@ public class ItemVirus extends ItemMod {
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
 		EntityLivingBase entity = event.entityLiving;
-		if(entity.ridingEntity != null && entity.ridingEntity instanceof EntityLivingBase)
-			entity = (EntityLivingBase) entity.ridingEntity;
+		if(entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase)
+			entity = (EntityLivingBase) entity.getRidingEntity();
 
 		if(entity instanceof EntityHorse && event.source == DamageSource.fall) {
 			EntityHorse horse = (EntityHorse) entity;
-			if((horse.getHorseType() == 3 || horse.getHorseType() == 4) && horse.isTame())
+			if((horse.getType() == HorseArmorType.ZOMBIE || horse.getType() == HorseArmorType.SKELETON) && horse.isTame())
 				event.setCanceled(true);
 		}
 	}

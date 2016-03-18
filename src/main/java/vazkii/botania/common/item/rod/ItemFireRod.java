@@ -12,8 +12,12 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -42,7 +46,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(!par3World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
@@ -50,10 +54,10 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 			par1ItemStack.setItemDamage(COOLDOWN);
 			ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
-			par3World.playSoundAtEntity(player, "mob.blaze.breathe", 1F, 1F);
+			par3World.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_blaze_ambient, SoundCategory.PLAYERS, 1F, 1F);
 		}
 
-		return true;
+		return EnumActionResult.SUCCESS;
 	}
 
 	@Override

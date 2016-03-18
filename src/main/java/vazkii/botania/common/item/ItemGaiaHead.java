@@ -18,6 +18,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
@@ -33,82 +35,62 @@ public class ItemGaiaHead extends ItemMod {
 
 	// Copied from vanila skull itemBlock. Relevant edits are indicated.
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
-		if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos) && side != EnumFacing.DOWN)
-		{
-			side = EnumFacing.UP;
-			pos = pos.down();
-		}
-		if (side == EnumFacing.DOWN)
-		{
-			return false;
-		}
-		else
-		{
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (facing == EnumFacing.DOWN) {
+			return EnumActionResult.FAIL;
+		} else {
+			if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos)) {
+				facing = EnumFacing.UP;
+				pos = pos.down();
+			}
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
 			boolean flag = block.isReplaceable(worldIn, pos);
 
-			if (!flag)
-			{
-				if (!worldIn.isSideSolid(pos, side, true))
-				{
-					return false;
+			if (!flag) {
+				if (!worldIn.getBlockState(pos).getMaterial().isSolid() && !worldIn.isSideSolid(pos, facing, true)) {
+					return EnumActionResult.FAIL;
 				}
 
-				pos = pos.offset(side);
+				pos = pos.offset(facing);
 			}
 
-			if (!playerIn.canPlayerEdit(pos, side, stack))
-			{
-				return false;
-			}
-			else if (!Blocks.skull.canPlaceBlockAt(worldIn, pos))
-			{
-				return false;
-			}
-			else
-			{
-				if (!worldIn.isRemote)
-				{
-					if (!Blocks.skull.canPlaceBlockOnSide(worldIn, pos, side)) return false;
-					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().withProperty(BlockSkull.FACING, side), 3); // Botania: skull -> gaia Head
+			if (playerIn.canPlayerEdit(pos, facing, stack) && Blocks.skull.canPlaceBlockAt(worldIn, pos)) {
+				if (worldIn.isRemote) {
+					return EnumActionResult.SUCCESS;
+				} else {
+					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().withProperty(BlockSkull.FACING, facing), 11); // Botania - skull -> gaia head
 					int i = 0;
 
-					if (side == EnumFacing.UP)
-					{
-						i = MathHelper.floor_double((double)(playerIn.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+					if (facing == EnumFacing.UP) {
+						i = MathHelper.floor_double((double) (playerIn.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
 					}
 
 					TileEntity tileentity = worldIn.getTileEntity(pos);
 
-					if (tileentity instanceof TileEntitySkull)
-					{
-						TileEntitySkull tileentityskull = (TileEntitySkull)tileentity;
+					if (tileentity instanceof TileEntitySkull) {
+						TileEntitySkull tileentityskull = (TileEntitySkull) tileentity;
 
-						if (stack.getMetadata() == 3) // Botania: Don't retrieve skins
+						if (stack.getMetadata() == 3) // Botania - do not retrieve skins
 						{
-//							GameProfile gameprofile = null;
-//
-//							if (stack.hasTagCompound())
-//							{
-//								NBTTagCompound nbttagcompound = stack.getTagCompound();
-//
-//								if (nbttagcompound.hasKey("SkullOwner", 10))
-//								{
-//									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-//								}
-//								else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0)
-//								{
-//									gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
-//								}
-//							}
-//
-//							tileentityskull.setPlayerProfile(gameprofile);
-						}
-						else
-						{
+							/*GameProfile gameprofile = null;
+
+							if (stack.hasTagCompound())
+							{
+								NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+								if (nbttagcompound.hasKey("SkullOwner", 10))
+								{
+									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
+								}
+								else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isEmpty())
+								{
+									gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+								}
+							}
+
+							tileentityskull.setPlayerProfile(gameprofile);*/
+						} else {
 							tileentityskull.setType(stack.getMetadata());
 						}
 
@@ -117,12 +99,11 @@ public class ItemGaiaHead extends ItemMod {
 					}
 
 					--stack.stackSize;
+					return EnumActionResult.SUCCESS;
 				}
-
-				return true;
+			} else {
+				return EnumActionResult.FAIL;
 			}
-
 		}
 	}
-
 }

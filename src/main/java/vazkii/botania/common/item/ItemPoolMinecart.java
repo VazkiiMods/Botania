@@ -17,6 +17,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -38,7 +40,7 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, BlockPos pos, EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+	public EnumActionResult onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, BlockPos pos, EnumHand hand, EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		if(BlockRailBase.isRailBlock(p_77648_3_.getBlockState(pos))) {
 			if(!p_77648_3_.isRemote) {
 				EntityMinecart entityminecart = new EntityPoolMinecart(p_77648_3_, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
@@ -50,10 +52,10 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 			}
 
 			--p_77648_1_.stackSize;
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,8 +63,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entity) {
-		if(usesMana(stack) && block.getBlockHardness(world, pos) != 0F)
+	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entity) {
+		if(usesMana(stack) && state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;

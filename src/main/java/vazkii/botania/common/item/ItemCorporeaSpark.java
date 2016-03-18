@@ -18,6 +18,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -40,7 +42,7 @@ public class ItemCorporeaSpark extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
 			&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
@@ -51,11 +53,11 @@ public class ItemCorporeaSpark extends ItemMod {
 					spark.setMaster(true);
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 				world.spawnEntityInWorld(spark);
-				world.markBlockForUpdate(pos);
+				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0);
 			}
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override

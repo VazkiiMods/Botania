@@ -13,7 +13,12 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -34,21 +39,22 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
 			player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
-			world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 1F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
-		return stack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer iplayer, EntityLivingBase entity) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer iplayer, EntityLivingBase entity, EnumHand hand) {
 		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
 			iplayer.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, true);
-			iplayer.worldObj.playSoundAtEntity(iplayer, "mob.endermen.portal", 1F, 1F);
+			entity.playSound(SoundEvents.entity_endermen_teleport, 1F, 1F);
 			return true;
 		}
 

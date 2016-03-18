@@ -17,10 +17,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -68,9 +72,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		int effCd = COOLDOWN;
-		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(Potion.digSpeed);
+		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(MobEffects.digSpeed);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
@@ -78,7 +82,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			rotatePos(par1ItemStack);
 			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(par2World.isRemote)
-				par3EntityPlayer.swingItem();
+				par3EntityPlayer.swingArm(hand);
 			ItemStack lens = getLens(par1ItemStack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			par1ItemStack.setItemDamage(effCd);
@@ -92,7 +96,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 						par3EntityPlayer.addStat(ModAchievements.desuGun, 1);
 					par2World.spawnEntityInWorld(burst);
 				} else {
-					par3EntityPlayer.swingItem();
+					par3EntityPlayer.swingArm(hand);
 					par3EntityPlayer.motionX -= burst.motionX * 0.1;
 					par3EntityPlayer.motionY -= burst.motionY * 0.3;
 					par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
@@ -102,7 +106,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN

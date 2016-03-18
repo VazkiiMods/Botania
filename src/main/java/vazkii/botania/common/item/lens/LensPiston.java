@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
@@ -31,7 +32,7 @@ public class LensPiston extends Lens {
 				IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
 				TileEntity tile = entity.worldObj.getTileEntity(pos.getBlockPos());
 
-				if(state.getBlock().getMobilityFlag() == 0 && state.getBlock() != Blocks.obsidian && state.getBlock().getBlockHardness(entity.worldObj, pos_) >= 0 && tile == null) {
+				if(state.getMobilityFlag() == EnumPushReaction.NORMAL && state.getBlock() != Blocks.obsidian && state.getBlockHardness(entity.worldObj, pos_) >= 0 && tile == null) {
 					entity.worldObj.destroyBlock(pos.getBlockPos(), false);
 					entity.worldObj.setBlockState(pos_, state, 1 | 2);
 				}

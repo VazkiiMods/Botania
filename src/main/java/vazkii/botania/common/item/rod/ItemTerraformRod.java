@@ -18,13 +18,19 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -87,15 +93,15 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		if(count != getMaxItemUseDuration(stack) && count % 10 == 0)
-			terraform(stack, player.worldObj, player);
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
+			terraform(stack, living.worldObj, ((EntityPlayer) living));
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+		par3EntityPlayer.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
@@ -133,7 +139,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
 								BlockPos pos_ = pos.offset(dir);
 								Block block_ = par2World.getBlockState(pos_).getBlock();
-								if(block_.isAir(par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
+								if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
 									airBlocks.add(pos_);
 									hasAir = true;
 								}
@@ -162,7 +168,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					par2World.playSoundAtEntity(par3EntityPlayer, "step.sand", 1F, 0.4F);
+					par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_sand_step, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
 					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}

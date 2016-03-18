@@ -13,6 +13,8 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -34,7 +36,7 @@ public class ItemObedienceStick extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tileAt = world.getTileEntity(pos);
 		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
 			boolean pool = tileAt instanceof IManaPool;
@@ -60,9 +62,11 @@ public class ItemObedienceStick extends ItemMod {
 					}
 
 			if(player.worldObj.isRemote)
-				player.swingItem();
+				player.swingArm(hand);
+			return EnumActionResult.SUCCESS;
 		}
-		return false;
+
+		return EnumActionResult.PASS;
 	}
 
 	public static abstract class Actuator {

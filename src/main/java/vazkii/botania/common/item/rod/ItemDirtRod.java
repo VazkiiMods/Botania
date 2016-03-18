@@ -17,6 +17,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -45,27 +47,30 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
-		return place(par1ItemStack, par2EntityPlayer, par3World, pos, side, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		return place(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static boolean place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
+	public static EnumActionResult place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
 		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, false)) {
 			int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
-				stackToPlace.onItemUse(par2EntityPlayer, par3World, pos, side, par8, par9, par10);
+				stackToPlace.onItemUse(par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
 
 				if(stackToPlace.stackSize == 0) {
 					ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(par3World, pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), r, g, b, 1F, 5);
+					return EnumActionResult.SUCCESS;
 				}
 			}
+
+			return EnumActionResult.FAIL;
 		}
 
-		return true;
+		return EnumActionResult.PASS;
 	}
 
 	@Override

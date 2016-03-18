@@ -13,6 +13,8 @@ package vazkii.botania.common.item.material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -29,17 +31,16 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		ItemStack stackToPlace = new ItemStack(ModBlocks.buriedPetals, 1, par1ItemStack.getItemDamage());
-		stackToPlace.onItemUse(par2EntityPlayer, par3World, pos, side, par8, par9, par10);
+		stackToPlace.onItemUse(par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
 
 		if(stackToPlace.stackSize == 0) {
 			if(!par2EntityPlayer.capabilities.isCreativeMode)
 				par1ItemStack.stackSize--;
-
-			return true;
 		}
-		return false;
+
+		return EnumActionResult.SUCCESS;
 	}
 
 	@Override

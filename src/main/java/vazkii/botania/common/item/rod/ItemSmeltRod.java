@@ -15,11 +15,17 @@ import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -54,13 +60,16 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+		par3EntityPlayer.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer p, int time) {
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int time) {
+		if(!(living instanceof EntityPlayer)) return;
+		EntityPlayer p = ((EntityPlayer) living);
+
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
@@ -84,8 +93,8 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						if(data.progress <= 0) {
 							if(!p.worldObj.isRemote) {
 								p.worldObj.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
-								p.worldObj.playSoundAtEntity(p, "fire.ignite", 0.6F, 1F);
-								p.worldObj.playSoundAtEntity(p, "fire.fire", 1F, 1F);
+								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.item_flintandsteel_use, SoundCategory.PLAYERS, 0.6F, 1F);
+								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.block_fire_ambient, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -113,7 +122,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)
-						p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
+						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.block_fire_ambient, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

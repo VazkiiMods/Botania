@@ -15,6 +15,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -33,7 +35,7 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
@@ -46,10 +48,10 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 					attach.attachSpark(spark);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
-				return true;
+				return EnumActionResult.SUCCESS;
 			}
 		}
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override

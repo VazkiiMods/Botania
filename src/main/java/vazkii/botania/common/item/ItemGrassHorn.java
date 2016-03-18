@@ -19,12 +19,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IGrassHornExcempt;
@@ -71,18 +77,18 @@ public class ItemGrassHorn extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+		par3EntityPlayer.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
+	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
 		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
 			breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
 
 		if(!player.worldObj.isRemote)
-			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 0.001F);
 	}
 
 	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
@@ -97,7 +103,7 @@ public class ItemGrassHorn extends ItemMod {
 				for(int k = -rangeY; k < rangeY + 1; k++) {
 					BlockPos pos = srcPos.add(i, k, j);
 					Block block = world.getBlockState(pos).getBlock();
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, pos)) || stackDmg == 1 && block.isLeaves(world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
+					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, pos)) || stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
 						coords.add(pos);
 				}
 

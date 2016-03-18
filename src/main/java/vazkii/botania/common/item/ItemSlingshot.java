@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
@@ -25,21 +29,21 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4) {
+	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityLivingBase living, int par4) {
 		int j = getMaxItemUseDuration(par1ItemStack) - par4;
 
-		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall)) {
+		if(!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || ((EntityPlayer) living).inventory.hasItem(ModItems.vineBall)) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
 			if(f < 1F)
 				return;
 
-			if(!par3EntityPlayer.capabilities.isCreativeMode)
-				par3EntityPlayer.inventory.consumeInventoryItem(ModItems.vineBall);
+			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode)
+				((EntityPlayer) living).inventory.consumeInventoryItem(ModItems.vineBall);
 
 			if(!par2World.isRemote) {
-				EntityVineBall ball = new EntityVineBall(par3EntityPlayer, false);
+				EntityVineBall ball = new EntityVineBall(living, false);
 				ball.motionX *= 1.6;
 				ball.motionY *= 1.6;
 				ball.motionZ *= 1.6;
@@ -49,7 +53,7 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
 		return par1ItemStack;
 	}
 
@@ -64,11 +68,13 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall))
-			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall)) {
+			par3EntityPlayer.setActiveHand(hand);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 }

@@ -11,10 +11,12 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -26,7 +28,7 @@ public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
-		setPotionEffect(Potion.saturation.id, 1,  0, 1F);
+		setPotionEffect(new PotionEffect(MobEffects.saturation, 1, 0), 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 	}

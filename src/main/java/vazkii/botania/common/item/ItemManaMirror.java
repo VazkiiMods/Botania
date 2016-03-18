@@ -17,12 +17,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -83,17 +88,17 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
 			TileEntity tile = par3World.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(par1ItemStack, tile);
-				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
-				return true;
+				par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+				return EnumActionResult.SUCCESS;
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	/*public int getMana(ItemStack stack) {
@@ -157,7 +162,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	public IManaPool getManaPool(ItemStack stack) {
-		MinecraftServer server = MinecraftServer.getServer();
+		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
 			return fallbackPool;
 

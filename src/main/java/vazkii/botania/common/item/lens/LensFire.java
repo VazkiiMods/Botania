@@ -41,7 +41,7 @@ public class LensFire extends Lens {
 				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.getBlockPos());
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			} else if(blockAt_.isAir(entity.worldObj, pos_))
+			} else if(blockAt_.isAir(entity.worldObj.getBlockState(pos_), entity.worldObj, pos_))
 				entity.worldObj.setBlockState(pos_, Blocks.fire.getDefaultState());
 		}
 

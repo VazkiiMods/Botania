@@ -13,8 +13,13 @@ package vazkii.botania.common.item;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
@@ -30,12 +35,11 @@ public class ItemTemperanceStone extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int dmg = par1ItemStack.getItemDamage();
-		par1ItemStack.setItemDamage(~dmg & 1);
-		par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.3F, 0.1F);
-
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		int dmg = stack.getItemDamage();
+		stack.setItemDamage(~dmg & 1);
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_experience_orb_pickup, SoundCategory.NEUTRAL, 0.3F, 0.1F);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override

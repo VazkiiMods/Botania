@@ -24,6 +24,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
@@ -49,7 +55,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
 			String sound = null;
@@ -71,7 +77,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, stack.copy());
 
 					if(player.worldObj.isRemote)
-						player.swingItem();
+						player.swingArm(hand);
 
 					return true;
 				}
@@ -84,7 +90,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		boolean can = isDOIT(stack);
 		if(!can) {
 			String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
@@ -99,11 +105,11 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
 				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
 				stack.stackSize--;
-				return true;
+				return EnumActionResult.SUCCESS;
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
@@ -125,14 +131,14 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(ItemNBTHelper.getBoolean(par1ItemStack, TAG_HAS_SOUND, false) || isDOIT(par1ItemStack))
-			par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
-		return par1ItemStack;
+			par3EntityPlayer.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
 			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, 0.9F);
 	}
@@ -146,8 +152,8 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		if(doit)
 			sound = "botania:doit";
 
-		if(sound != null && !sound.isEmpty())
-			world.playSoundEffect(x, y, z, sound, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+		if(sound != null && !sound.isEmpty() && SoundEvent.soundEventRegistry.containsKey(new ResourceLocation(sound)))
+			world.playSound(null, x, y, z, SoundEvent.soundEventRegistry.getObject(new ResourceLocation(sound)), SoundCategory.NEUTRAL, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
