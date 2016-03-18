@@ -68,7 +68,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	public abstract BlockSlab getSingleBlock();
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(getSingleBlock());
 	}
 
@@ -107,7 +107,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	@Override
-	public final Object getVariant(ItemStack stack) {
+	public final Comparable<?> getTypeForItem(ItemStack stack) {
 		return DummyEnum.SINGLETON;
 	}
 

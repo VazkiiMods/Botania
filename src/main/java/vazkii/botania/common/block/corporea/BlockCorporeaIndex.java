@@ -17,6 +17,7 @@ import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
@@ -52,8 +53,8 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType() {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	}
 
 	@Override
-	public boolean addLandingEffects(net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
+	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
 	{
 		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
 		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);

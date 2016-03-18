@@ -26,6 +26,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -82,8 +83,8 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType() {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
@@ -117,7 +118,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean addLandingEffects(net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
+	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
 		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
 		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
 		if (d0 > 2.5D) {

@@ -80,7 +80,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
+	public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN;
 	}
 
@@ -118,9 +118,9 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
 		if(event.world.isRemote || event.phase != TickEvent.Phase.END)
 			return;
-		for(EntityPlayerMP player : event.world.getPlayers(EntityPlayerMP.class, p -> p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).hasModifier(speedBoost))) {
+		for(EntityPlayerMP player : event.world.getPlayers(EntityPlayerMP.class, p -> p.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).hasModifier(speedBoost))) {
 			if (event.world.getBlockState(new BlockPos(player).down()).getBlock() != this) {
-				player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(speedBoost);
+				player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(speedBoost);
 			}
 		} // todo 1.8 there's probably a better way to do this.
 	}
