@@ -79,7 +79,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@Override
 	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
-		mapCoords(par1World.provider.getDimensionId(), pos, 2);
+		mapCoords(par1World.provider.getDimension(), pos, 2);
 	}
 
 	static void mapCoords(int world, BlockPos pos, int time) {
@@ -116,7 +116,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return false;
 
 		if(!player.isSneaking()) {
-			playerPositions.put(player.getName(), new DimWithPos(world.provider.getDimensionId(), pos));
+			playerPositions.put(player.getName(), new DimWithPos(world.provider.getDimension(), pos));
 			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
@@ -212,7 +212,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.spawnEntityInWorld(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
 							}
 							checkedCoords.add(s);
-							newPos = new DimWithPos(world.provider.getDimensionId(), pos.offset(dir));
+							newPos = new DimWithPos(world.provider.getDimension(), pos.offset(dir));
 						}
 
 						if(mappedPositions.containsKey(s)) {
@@ -230,7 +230,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(pos2, Blocks.air.getDefaultState());
 									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);
-									mappedPositions.put(s, new DimWithPos(world.provider.getDimensionId(), pos2.offset(dir)));
+									mappedPositions.put(s, new DimWithPos(world.provider.getDimension(), pos2.offset(dir)));
 								}
 							}
 

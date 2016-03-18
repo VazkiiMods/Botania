@@ -101,7 +101,7 @@ public class EntityThrownItem extends EntityItem {
 
 		if (RayTraceResult != null)
 		{
-			if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK && worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
+			if (RayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK && worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
 			{
 				setPortal(RayTraceResult.getBlockPos());
 			}

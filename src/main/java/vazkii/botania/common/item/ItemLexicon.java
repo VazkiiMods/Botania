@@ -133,7 +133,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setChatStyle(new Style().setColor(TextFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
 

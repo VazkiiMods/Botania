@@ -59,7 +59,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR;
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
-		boolean ender = event.world.provider.getDimensionId() == 1;
+		boolean ender = event.world.provider.getDimension() == 1;
 
 		if(rightEvent && correctStack && ender) {
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);

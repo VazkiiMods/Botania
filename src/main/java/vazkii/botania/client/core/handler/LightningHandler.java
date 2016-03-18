@@ -420,7 +420,7 @@ public class LightningHandler {
 			if(mop == null)
 				return prevresistance;
 
-			if(mop.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+			if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 				Block block = world.getBlockState(mop.getBlockPos()).getBlock();
 
 				if(world.isAirBlock(mop.getBlockPos()))

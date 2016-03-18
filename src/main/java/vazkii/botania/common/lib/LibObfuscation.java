@@ -45,7 +45,7 @@ public final class LibObfuscation {
 	// Entity
 	public static final String[] IS_IMMUNE_TO_FIRE = new String[] { "isImmuneToFire", "field_70178_ae", "ab" };
 
-	// ItemReed
+	// ItemBlockSpecial
 	public static final String[] REED_ITEM = new String[] { "block", "field_150935_a", "a" };
 
 	// EntityAnimal

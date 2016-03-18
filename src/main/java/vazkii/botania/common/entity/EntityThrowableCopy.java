@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
@@ -238,7 +239,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (RayTraceResult != null)
 		{
-			if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK && this.worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
+			if (RayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK && this.worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.portal)
 			{
 				this.setPortal(RayTraceResult.getBlockPos());
 			}

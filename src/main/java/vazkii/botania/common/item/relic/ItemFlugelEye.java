@@ -52,7 +52,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
-				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimensionId());
+				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
 				world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 5F);
 			}
 		}
@@ -83,7 +83,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, player.posX, player.posY, player.posZ) * 10);
 
-		if(y > -1 && dim == world.provider.getDimensionId() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
+		if(y > -1 && dim == world.provider.getDimension() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
 			if(player instanceof EntityPlayerMP && !world.isRemote)
 				((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);

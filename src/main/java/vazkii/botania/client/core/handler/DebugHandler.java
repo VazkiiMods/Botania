@@ -52,7 +52,7 @@ public final class DebugHandler {
 				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
 				if (ent != null) {
 					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).worldObj;
-					event.left.add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimensionId(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+					event.left.add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
 

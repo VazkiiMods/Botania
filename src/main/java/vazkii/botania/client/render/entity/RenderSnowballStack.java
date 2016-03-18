@@ -9,7 +9,7 @@
 package vazkii.botania.client.render.entity;
 
 import com.google.common.base.Function;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
@@ -27,7 +27,7 @@ public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
     }
 
     @Override
-    public ItemStack func_177082_d(T entity) {
+    public ItemStack getPotion(T entity) {
         return stackGetter.apply(entity);
     }
 

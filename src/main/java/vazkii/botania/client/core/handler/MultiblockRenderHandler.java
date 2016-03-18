@@ -19,6 +19,11 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -87,7 +92,7 @@ public final class MultiblockRenderHandler {
 
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.theWorld != null)
-			dimension = mc.theWorld.provider.getDimensionId();
+			dimension = mc.theWorld.provider.getDimension();
 	}
 
 	@SubscribeEvent
@@ -109,7 +114,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
-		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimensionId()) {
+		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimension()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
 			GlStateManager.pushMatrix();
@@ -132,7 +137,7 @@ public final class MultiblockRenderHandler {
 			
 			if(!didAny) {
 				setMultiblock(null);
-				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setChatStyle(new ChatStyle().setColor(TextFormatting.GREEN)));
+				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setChatStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 		}
 	}

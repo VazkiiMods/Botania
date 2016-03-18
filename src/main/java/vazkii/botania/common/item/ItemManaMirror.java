@@ -142,7 +142,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
 		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
 		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
-		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.getDimensionId());
+		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.getDimension());
 	}
 
 	public BlockPos getPoolCoords(ItemStack stack) {
@@ -168,7 +168,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		int dim = getDimension(stack);
 		World world = null;
 		for(World w : server.worldServers)
-			if(w.provider.getDimensionId() == dim) {
+			if(w.provider.getDimension() == dim) {
 				world = w;
 				break;
 			}

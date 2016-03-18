@@ -31,7 +31,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 			// Adapted from bucket code
 			RayTraceResult mop = getRayTraceResultFromPlayer(par3World, par2EntityPlayer, false);
 
-			if (mop != null && mop.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+			if (mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos hitPos = mop.getBlockPos();
 				if(!par3World.isBlockModifiable(par2EntityPlayer, hitPos))
 					return false;

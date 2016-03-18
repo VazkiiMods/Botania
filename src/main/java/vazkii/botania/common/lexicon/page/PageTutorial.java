@@ -16,7 +16,7 @@ import java.net.URI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -67,7 +67,7 @@ public class PageTutorial extends PageText {
 		if(button == buttonText) {
 			GuiLexicon.startTutorial();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiLexicon());
-			Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new ChatStyle().setColor(TextFormatting.GREEN)));
+			Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new Style().setColor(TextFormatting.GREEN)));
 		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));

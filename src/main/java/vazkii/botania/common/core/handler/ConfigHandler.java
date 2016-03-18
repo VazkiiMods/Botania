@@ -19,7 +19,7 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -395,9 +395,9 @@ public final class ConfigHandler {
 			if(changes.size() == 0)
 				return;
 
-			player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.adaptativeConfigChanges").setChatStyle(new ChatStyle().setColor(TextFormatting.GOLD)));
+			player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.adaptativeConfigChanges").setChatStyle(new Style().setColor(TextFormatting.GOLD)));
 			for(String change : changes)
-				player.addChatMessage(new TextComponentString(change).setChatStyle(new ChatStyle().setColor(TextFormatting.LIGHT_PURPLE)));
+				player.addChatMessage(new TextComponentString(change).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 		}
 
 		public void addMappingInt(int version, String key, int val) {

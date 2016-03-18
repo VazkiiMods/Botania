@@ -24,7 +24,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemRedstone;
-import net.minecraft.item.ItemReed;
+import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -92,7 +92,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 				ItemStack stack = item.getEntityItem();
 				Item stackItem = stack.getItem();
-				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
+				if(stackItem instanceof ItemBlock || stackItem instanceof ItemBlockSpecial || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
 							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
@@ -116,8 +116,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
 						if(stackItem instanceof ItemBlock)
 							blockToPlace = ((ItemBlock) stackItem).block;
-						else if(stackItem instanceof ItemReed)
-							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
+						else if(stackItem instanceof ItemBlockSpecial)
+							blockToPlace = ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM);
 						else if(stackItem instanceof ItemRedstone)
 							blockToPlace = Blocks.redstone_wire;
 

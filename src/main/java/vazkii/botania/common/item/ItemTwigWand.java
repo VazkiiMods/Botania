@@ -25,6 +25,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -131,7 +134,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			return wanded;
 		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getName()) && !par3World.isRemote) {
 			BlockPistonRelay.DimWithPos bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getName());
-			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimensionId(), pos);
+			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimension(), pos);
 
 			BlockPistonRelay.playerPositions.remove(par2EntityPlayer.getName());
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
@@ -269,7 +272,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			return bound;
 
 		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
-		if(pos != null && pos.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+		if(pos != null && pos.typeOfHit == RayTraceResult.Type.BLOCK) {
 			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof ITileBound) {
 				BlockPos coords = ((ITileBound) tile).getBinding();

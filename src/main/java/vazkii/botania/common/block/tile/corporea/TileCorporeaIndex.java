@@ -26,7 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.ServerChatEvent;
 
@@ -209,7 +209,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return player.worldObj.provider.getDimensionId() == index.worldObj.provider.getDimensionId() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
+		return player.worldObj.provider.getDimension() == index.worldObj.provider.getDimension() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -268,7 +268,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.player.addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(TextFormatting.LIGHT_PURPLE)));
+						event.player.addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)
 							event.player.addStat(ModAchievements.superCorporeaRequest, 1);
 					}

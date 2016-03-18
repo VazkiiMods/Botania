@@ -54,7 +54,7 @@ public final class SkyblockWorldEvents {
 				World world = player.worldObj;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
-					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.bedrock && world.provider.getDimensionId() == 0)
+					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.bedrock && world.provider.getDimension() == 0)
 						spawnPlayer(player, coords, false);
 				}
 
@@ -82,7 +82,7 @@ public final class SkyblockWorldEvents {
 			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.world.isRemote) {
 				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
 				if(RayTraceResult != null) {
-					if (RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+					if (RayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
 						if(event.world.getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 
@@ -127,7 +127,7 @@ public final class SkyblockWorldEvents {
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnChunk(pos, true, player.worldObj.provider.getDimensionId());
+				pmp.setSpawnChunk(pos, true, player.worldObj.provider.getDimension());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 

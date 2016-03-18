@@ -60,8 +60,8 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public EnumMinecartType getMinecartType() {
-		return EnumMinecartType.RIDEABLE;
+	public EntityMinecart.Type getType() {
+		return Type.RIDEABLE;
 	}
 
 	@Override

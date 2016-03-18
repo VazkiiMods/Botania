@@ -12,8 +12,9 @@ package vazkii.botania.common.core.command;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.version.ThreadDownloadMod;
 import vazkii.botania.common.core.version.VersionChecker;
@@ -33,15 +34,15 @@ public class CommandDownloadLatest extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender var1, String[] var2) {
+	public void execute(MinecraftServer server, ICommandSender var1, String[] var2) {
 		if(!ENABLED)
-			var1.addChatMessage(new TextComponentTranslation("botania.versioning.disabled").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+			var1.addChatMessage(new TextComponentTranslation("botania.versioning.disabled").setChatStyle(new Style().setColor(TextFormatting.RED)));
 
 		else if(var2.length == 1)
 			if(VersionChecker.downloadedFile)
-				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadedAlready").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadedAlready").setChatStyle(new Style().setColor(TextFormatting.RED)));
 			else if(VersionChecker.startedDownload)
-				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadingAlready").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadingAlready").setChatStyle(new Style().setColor(TextFormatting.RED)));
 			else new ThreadDownloadMod("Botania " + var2[0] + ".jar");
 	}
 

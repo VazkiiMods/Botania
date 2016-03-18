@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -30,7 +30,7 @@ public class EntityPinkWither extends EntityWither {
 		Iterator<EntityAITasks.EntityAITaskEntry> taskIter = this.tasks.taskEntries.iterator();
 		while (taskIter.hasNext()) {
 			EntityAITasks.EntityAITaskEntry entry = taskIter.next();
-			if (entry.action instanceof EntityAIArrowAttack) {
+			if (entry.action instanceof EntityAIAttackRanged) {
 				taskIter.remove(); // Remove firing wither skulls
 			}
 		}

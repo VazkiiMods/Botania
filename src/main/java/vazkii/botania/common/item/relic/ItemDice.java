@@ -19,7 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IRelic;
@@ -69,12 +69,12 @@ public class ItemDice extends ItemRelic {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			if(hasRelicAlready(player, relic)) {
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setChatStyle(new ChatStyle().setColor(TextFormatting.DARK_GREEN)));
+				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.stackSize--;
 				return stack;
 			}
 
-			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setChatStyle(new ChatStyle().setColor(TextFormatting.DARK_GREEN)));
+			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 			return relicStacks[relic].copy();
 		}
 

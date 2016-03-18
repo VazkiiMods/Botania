@@ -30,14 +30,14 @@ public class CommandShare extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		String json = I18n.translateToLocal("botaniamisc.shareMsg");
 		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);
 		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
 		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
-		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
+		server.getPlayerList().sendChatMsg(component);
 	}
 
 
@@ -47,7 +47,7 @@ public class CommandShare extends CommandBase {
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-		return p_71519_1_ instanceof EntityPlayer;
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return sender instanceof EntityPlayer;
 	}
 }

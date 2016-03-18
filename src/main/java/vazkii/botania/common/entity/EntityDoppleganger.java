@@ -47,7 +47,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -145,7 +149,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(par3World.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {
 				if(!par3World.isRemote)
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 
@@ -156,7 +160,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				Block blockat = state.getBlock();
 				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
 					if(!par3World.isRemote)
-						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new Style().setColor(TextFormatting.RED)));
 					return false;
 				}
 			}
@@ -175,7 +179,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				}
 
 				if(!par3World.isRemote)
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setChatStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 

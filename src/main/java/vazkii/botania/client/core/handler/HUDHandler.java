@@ -101,8 +101,8 @@ public final class HUDHandler {
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {
-				Block block = pos.typeOfHit == RayTraceResult.MovingObjectType.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()).getBlock() : null;
-				TileEntity tile = pos.typeOfHit == RayTraceResult.MovingObjectType.BLOCK ? mc.theWorld.getTileEntity(pos.getBlockPos()) : null;
+				Block block = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()).getBlock() : null;
+				TileEntity tile = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getTileEntity(pos.getBlockPos()) : null;
 
 				if(equippedStack != null) {
 					if(pos != null && equippedStack.getItem() == ModItems.twigWand) {

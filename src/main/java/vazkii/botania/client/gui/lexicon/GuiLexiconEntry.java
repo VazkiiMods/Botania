@@ -20,7 +20,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 
@@ -214,7 +214,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				tutorial.poll();
 				positionTutorialArrow();
 				if(tutorial.isEmpty()) {
-					mc.thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new ChatStyle().setColor(TextFormatting.RED)));
+					mc.thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new Style().setColor(TextFormatting.RED)));
 					hasTutorialArrow = false;
 				}
 			}

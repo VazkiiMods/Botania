@@ -33,7 +33,7 @@ public class ItemOpenBucket extends ItemMod {
 		if(RayTraceResult == null)
 			return par1ItemStack;
 		else {
-			if(RayTraceResult.typeOfHit == RayTraceResult.MovingObjectType.BLOCK) {
+			if(RayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos pos = RayTraceResult.getBlockPos();
 
 				if(!par2World.isBlockModifiable(par3EntityPlayer, pos))

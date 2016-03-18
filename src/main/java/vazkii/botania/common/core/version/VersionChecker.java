@@ -13,7 +13,7 @@ package vazkii.botania.common.core.version;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.translation.I18n;
@@ -47,7 +47,7 @@ public final class VersionChecker {
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
 				int clientBuild = LibMisc.BUILD.contains("GRADLE") ? Integer.MIN_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {
-					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setChatStyle(new ChatStyle().setColor(TextFormatting.LIGHT_PURPLE)));
+					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
 
 					ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.translateToLocal("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));

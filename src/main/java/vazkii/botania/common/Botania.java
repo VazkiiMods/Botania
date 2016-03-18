@@ -15,7 +15,7 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.ChatStyle;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -87,14 +87,14 @@ public class Botania {
 		EntityPlayer player = evt.player;
 
 		ITextComponent message = new TextComponentTranslation("botaniamisc.unofficial.nag");
-		message.setChatStyle(new ChatStyle().setColor(TextFormatting.RED));
+		message.setChatStyle(new Style().setColor(TextFormatting.RED));
 
 		ITextComponent message2 = new TextComponentTranslation("botaniamisc.unofficial.report");
-		message2.setChatStyle(new ChatStyle().setColor(TextFormatting.YELLOW));
+		message2.setChatStyle(new Style().setColor(TextFormatting.YELLOW));
 
 		ITextComponent url = new TextComponentString("https://github.com/williewillus/Botania/issues");
-		url.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/williewillus/Botania/issues"));
-		url.getChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("CLICK")));
+		url.getStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/williewillus/Botania/issues"));
+		url.getStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("CLICK")));
 
 		player.addChatComponentMessage(message);
 

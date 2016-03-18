@@ -161,7 +161,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			return;
 
 		if(event.phase == Phase.END) {
-			int dim = event.world.provider.getDimensionId();
+			int dim = event.world.provider.getDimension();
 			if(blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
@@ -197,7 +197,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			return swapper;
 
 		// If a set for the dimension doesn't exist, create it.
-		int dim = world.provider.getDimensionId();
+		int dim = world.provider.getDimension();
 		if(!blockSwappers.containsKey(dim))
 			blockSwappers.put(dim, new HashSet<>());
 
