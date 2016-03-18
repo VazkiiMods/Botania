@@ -194,11 +194,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public int colorMultiplier(IBlockAccess blockAccess, BlockPos pos, int pass) {
-		return 16777215;
-	}
-
-	@Override
 	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
 		for(int i = 0; i < COUNT; ++i)
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));

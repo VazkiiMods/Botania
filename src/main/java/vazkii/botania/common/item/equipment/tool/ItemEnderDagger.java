@@ -21,10 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemEnderDagger extends ItemManasteelSword {
+public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
 
 	public ItemEnderDagger() {
 		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);

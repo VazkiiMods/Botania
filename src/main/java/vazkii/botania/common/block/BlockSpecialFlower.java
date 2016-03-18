@@ -287,17 +287,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public int getRenderColor(IBlockState state) {
-		return state.getValue(BotaniaStateProps.COLOR)
-				.getMapColor().colorValue;
-	}
-
-	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
-		return getRenderColor(world.getBlockState(pos));
-	}
-
-	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.dye) {

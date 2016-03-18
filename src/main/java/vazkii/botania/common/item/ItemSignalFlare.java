@@ -36,7 +36,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSignalFlare extends ItemMod {
+public class ItemSignalFlare extends ItemMod implements IColorable {
 
 	private static final String TAG_COLOR = "color";
 

@@ -37,6 +37,7 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -48,7 +49,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
+public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker, IColorable {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";

@@ -36,6 +36,7 @@ import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -43,7 +44,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement, IColorable {
 
 	final int types = 24;
 

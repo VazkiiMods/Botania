@@ -33,9 +33,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 
-public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement {
+public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement, IColorable {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";

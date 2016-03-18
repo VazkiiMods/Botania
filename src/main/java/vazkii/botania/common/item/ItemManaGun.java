@@ -47,7 +47,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemManaGun extends ItemMod implements IManaUsingItem {
+public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";

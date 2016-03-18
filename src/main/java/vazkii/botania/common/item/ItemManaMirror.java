@@ -33,7 +33,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
+public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay, IColorable {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";

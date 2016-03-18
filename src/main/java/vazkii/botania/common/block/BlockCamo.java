@@ -90,19 +90,6 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int colorMultiplier(IBlockAccess par1World, BlockPos pos, int pass) {
-		TileEntity tile = par1World.getTileEntity(pos);
-		if(tile instanceof TileCamo) {
-			TileCamo camo = (TileCamo) tile;
-			IBlockState state = camo.camoState;
-			if(state != null)
-				return state.getBlock() instanceof BlockCamo ? 0xFFFFFF : state.getBlock().getRenderColor(state);
-		}
-		return 0xFFFFFF;
-	}
-
-	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}

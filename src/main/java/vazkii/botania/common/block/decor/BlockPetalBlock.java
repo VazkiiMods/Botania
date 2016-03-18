@@ -79,16 +79,6 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderColor(IBlockState state) {
-		return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
-	}
-
-	@Override
-	public int colorMultiplier(IBlockAccess world, BlockPos pos, int pass) {
-		return getRenderColor(world.getBlockState(pos));
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}

@@ -99,16 +99,6 @@ public class BlockManaBeacon extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderColor(IBlockState state) {
-		return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
-	}
-
-	@Override
-	public int colorMultiplier(IBlockAccess par1iBlockAccess, BlockPos pos, int pass) {
-		return getRenderColor(par1iBlockAccess.getBlockState(pos));
-	}
-
-	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.unstableBlocks;
 	}

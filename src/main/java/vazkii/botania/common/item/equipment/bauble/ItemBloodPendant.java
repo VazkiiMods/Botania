@@ -44,10 +44,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender {
+public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender, IColorable {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 

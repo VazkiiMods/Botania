@@ -17,7 +17,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class Item16Colors extends ItemMod {
+public class Item16Colors extends ItemMod implements IColorable {
 
 	public Item16Colors(String name) {
 		super();

@@ -26,7 +26,7 @@ import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
+public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay, IColorable {
 
 	private static final int MAX_MANA = 500000;
 

@@ -35,11 +35,12 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
+import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
+public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt, IColorable {
 
 	public static final int SUBTYPES = 22;
 

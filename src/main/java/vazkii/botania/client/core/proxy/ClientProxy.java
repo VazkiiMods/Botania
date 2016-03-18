@@ -48,6 +48,7 @@ import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
@@ -180,6 +181,7 @@ public class ClientProxy extends CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 		ModelHandler.registerModels();
+		ColorHandler.init();
 		initRenderers();
 	}
 
