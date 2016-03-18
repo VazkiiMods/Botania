@@ -23,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
@@ -30,6 +31,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 /**
  * The basic class for a Generating Flower.
@@ -99,8 +101,9 @@ public class SubTileGenerating extends SubTileEntity {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				supertile.getWorld().playAuxSFX(2001, supertile.getPos(), Block.getIdFromBlock(supertile.getBlockType()));
-				if(supertile.getWorld().getBlockState(supertile.getPos().down()).getBlock().isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.UP))
+				IBlockState state = supertile.getWorld().getBlockState(supertile.getPos());
+				supertile.getWorld().playAuxSFX(2001, supertile.getPos(), Block.getStateId(state));
+				if(supertile.getWorld().getBlockState(supertile.getPos().down()).isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.UP))
 					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.deadbush.getDefaultState());
 				else supertile.getWorld().setBlockToAir(supertile.getPos());
 			}
@@ -219,7 +222,7 @@ public class SubTileGenerating extends SubTileEntity {
 			sync();
 
 		knownMana = mana;
-		player.worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
+		player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}
