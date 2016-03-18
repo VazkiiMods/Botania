@@ -52,7 +52,7 @@ public class FXWisp extends EntityFX {
 		particleBlue = blue;
 		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
-		motionX = motionY = motionZ = 0;
+		xSpeed = ySpeed = zSpeed = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
 		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
@@ -148,15 +148,15 @@ public class FXWisp extends EntityFX {
 		prevPosZ = posZ;
 
 		if (particleAge++ >= particleMaxAge)
-			setDead();
+			setExpired();
 
-		motionY -= 0.04D * particleGravity;
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
-		motionX *= 0.98000001907348633D;
-		motionY *= 0.98000001907348633D;
-		motionZ *= 0.98000001907348633D;
+		ySpeed -= 0.04D * particleGravity;
+		posX += xSpeed;
+		posY += ySpeed;
+		posZ += zSpeed;
+		xSpeed *= 0.98000001907348633D;
+		ySpeed *= 0.98000001907348633D;
+		zSpeed *= 0.98000001907348633D;
 	}
 
 	public void setGravity(float value) {

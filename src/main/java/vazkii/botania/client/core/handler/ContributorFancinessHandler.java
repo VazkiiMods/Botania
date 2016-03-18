@@ -180,7 +180,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.translate(0, 0, 1.22);
 		GlStateManager.rotate(90, 0, 0, 1);
 		ShaderHelper.useShader(ShaderHelper.gold);
-		Minecraft.getMinecraft().getRenderItem().renderItemModelForEntity(flower, player, ItemCameraTransforms.TransformType.THIRD_PERSON);
+		Minecraft.getMinecraft().getRenderItem().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false); // todo 1.9
 		ShaderHelper.releaseShader();
 		GlStateManager.popMatrix();
 	}

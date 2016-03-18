@@ -25,6 +25,7 @@ import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
@@ -58,7 +59,7 @@ public final class RedStringRenderer {
 
 	public static void tick() {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		boolean hasWand = player != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.twigWand;
+		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;
 		else if(sizeAlpha < 1F &&hasWand)

@@ -99,19 +99,19 @@ public class MiscellaneousIcons {
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
         // Floating flowers
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
 
         // Pylon item model
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:pylon", "inventory"), new PylonItemModel());
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:pylon", "inventory"), new PylonItemModel());
 
         // Platforms
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
 
         // Lexicon
-        evt.modelRegistry.putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModel());
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModel());
     }
 
     @SubscribeEvent

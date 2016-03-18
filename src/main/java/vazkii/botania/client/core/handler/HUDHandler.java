@@ -14,6 +14,7 @@ import java.awt.Color;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -57,6 +58,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -94,29 +96,31 @@ public final class HUDHandler {
 	public void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
-		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
+		ItemStack main = mc.thePlayer.getHeldItemMainhand();
+		ItemStack offhand = mc.thePlayer.getHeldItemOffhand();
 
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {
-				Block block = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()).getBlock() : null;
+				IBlockState state = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()) : null;
+				Block block = state == null ? null : state.getBlock();
 				TileEntity tile = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getTileEntity(pos.getBlockPos()) : null;
 
-				if(equippedStack != null) {
-					if(pos != null && equippedStack.getItem() == ModItems.twigWand) {
-						renderWandModeDisplay(event.resolution);
+				if(PlayerHelper.hasAnyHeldItem(mc.thePlayer)) {
+					if(pos != null && PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.twigWand)) {
+						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand), event.resolution);
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.getBlockPos());
 							profiler.endSection();
 						}
-					} else if(block != null && equippedStack.getItem() instanceof ILexicon)
-						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
-					if(tile != null && tile instanceof TilePool)
-						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
+					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.thePlayer, ILexicon.class))
+						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.thePlayer, ILexicon.class), state, pos, event.resolution);
+					if(tile != null && tile instanceof TilePool && mc.thePlayer.getHeldItemMainhand() != null)
+						renderPoolRecipeHUD(event.resolution, (TilePool) tile, mc.thePlayer.getHeldItemMainhand());
 				}
 				if(tile != null && tile instanceof TileAltar)
 					((TileAltar) tile).renderHUD(mc, event.resolution);
@@ -140,15 +144,15 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() instanceof ItemCraftingHalo) {
+			if(main != null && main.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo");
-				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, main);
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
+			if(main != null && main.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
-				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				ItemSextant.renderHUD(event.resolution, mc.thePlayer, main);
 				profiler.endSection();
 			}
 
@@ -215,7 +219,7 @@ public final class HUDHandler {
 		}
 	}
 
-	private void renderWandModeDisplay(ScaledResolution res) {
+	private void renderWandModeDisplay(ItemStack stack, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
@@ -225,7 +229,7 @@ public final class HUDHandler {
 		if(ticks > 0) {
 			int alpha = Math.min(255, (int) (ticks * 256.0F / 10.0F));
 			int color = 0x00CC00 + (alpha << 24);
-			String disp = I18n.translateToLocal(ItemTwigWand.getModeString(mc.thePlayer.getCurrentEquippedItem()));
+			String disp = I18n.translateToLocal(ItemTwigWand.getModeString(stack));
 
 			int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(disp) / 2;
 			int y = res.getScaledHeight() - 70;
@@ -332,8 +336,9 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private void drawLexiconHUD(ItemStack stack, Block block, RayTraceResult pos, ScaledResolution res) {
+	private void drawLexiconHUD(ItemStack stack, IBlockState state, RayTraceResult pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
+		Block block = state.getBlock();
 		Profiler profiler = mc.mcProfiler;
 
 		profiler.startSection("lexicon");
@@ -348,7 +353,7 @@ public final class HUDHandler {
 		int sy = res.getScaledHeight() / 2 + 2;
 
 		if(block instanceof ILexiconable) {
-			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.getBlockPos(), mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
+			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.getBlockPos(), mc.thePlayer, stack);
 			if(entry != null) {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					font = mc.standardGalacticFontRenderer;
@@ -361,7 +366,7 @@ public final class HUDHandler {
 
 		if(!draw && pos.entityHit == null) {
 			profiler.startSection("wikiLookup");
-			if(!block.isAir(mc.theWorld, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
+			if(!block.isAir(state, mc.theWorld, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);
 				String url = provider.getWikiURL(mc.theWorld, pos, mc.thePlayer);
 				if(url != null && !url.isEmpty()) {

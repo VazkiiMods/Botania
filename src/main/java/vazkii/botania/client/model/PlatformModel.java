@@ -13,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -25,7 +26,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockCamo;
@@ -34,12 +34,12 @@ import vazkii.botania.common.block.tile.TileCamo;
 
 import java.util.List;
 
-public class PlatformModel implements ISmartBlockModel {
+public class PlatformModel implements IBakedModel {
 
 	@Override
-	public IBakedModel handleBlockState(IBlockState state) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 		if(state.getBlock() != ModBlocks.platform)
-			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
@@ -47,14 +47,14 @@ public class PlatformModel implements ISmartBlockModel {
 		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);
 
 		if (heldWorld == null || heldPos == null) {
-			return this;
+			return ImmutableList.of();
 		}
 
 		Minecraft mc = Minecraft.getMinecraft();
 		if(heldState == null && layer == BlockRenderLayer.SOLID) {
 			// No camo
 			ModelResourceLocation path = new ModelResourceLocation("botania:platform", "variant=" + state.getValue(BotaniaStateProps.PLATFORM_VARIANT).getName());
-			return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path);
+			return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path).getQuads(state, side, rand);
 		} else if(heldState != null) {
 			if(heldState.getBlock().canRenderInLayer(layer)) {
 				IBlockState actual = heldState.getBlock().getActualState(heldState, new FakeBlockAccess(heldWorld), heldPos);
@@ -62,27 +62,13 @@ public class PlatformModel implements ISmartBlockModel {
 				// Steal camo's model
 				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModelForState(actual);
 
-				if(model instanceof ISmartBlockModel) {
-					// Their model can be smart too
-					IBlockState extended = heldState.getBlock().getExtendedState(actual, new FakeBlockAccess(heldWorld), heldPos);
-					model = ((ISmartBlockModel) model).handleBlockState(extended);
-				}
-
-				return model;
+				// Their model can be smart too
+				IBlockState extended = heldState.getBlock().getExtendedState(actual, new FakeBlockAccess(heldWorld), heldPos);
+				return model.getQuads(extended, side, rand);
 			}
 		}
 
-		return this; // This smart model has no quads as seen below, so nothing actually renders
-	}
-
-	@Override
-	public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public List<BakedQuad> getGeneralQuads() {
-		return ImmutableList.of();
+		return ImmutableList.of(); // Nothing renders
 	}
 
 	@Override
@@ -108,6 +94,11 @@ public class PlatformModel implements ISmartBlockModel {
 	@Override
 	public ItemCameraTransforms getItemCameraTransforms() {
 		return ItemCameraTransforms.DEFAULT;
+	}
+
+	@Override
+	public ItemOverrideList getOverrides() {
+		return ItemOverrideList.NONE;
 	}
 
 	private static class FakeBlockAccess implements IBlockAccess {

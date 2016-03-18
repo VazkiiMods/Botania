@@ -10,13 +10,10 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
@@ -25,11 +22,12 @@ import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+import vazkii.botania.common.item.ModItems;
 
 public class ClientTickHandler {
 
@@ -76,10 +74,8 @@ public class ClientTickHandler {
 
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				if(player != null) {
-					ItemStack stack = player.getCurrentEquippedItem();
-					if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-						List<TileSignature> list = new ArrayList<>(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
-						for(TileSignature sig : list) {
+					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
+						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld))) {
 							if(!sig.remoteWorld)
 								continue;
 

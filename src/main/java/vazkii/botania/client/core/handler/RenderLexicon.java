@@ -21,6 +21,7 @@ import org.lwjgl.util.glu.Project;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 
@@ -33,7 +34,7 @@ public class RenderLexicon {
     @SubscribeEvent
     public void renderItem(RenderHandEvent evt) {
         Minecraft mc = Minecraft.getMinecraft();
-        if(!ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || mc.thePlayer.getHeldItem() == null || mc.thePlayer.getHeldItem().getItem() != ModItems.lexicon)
+        if(!ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || !PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.lexicon))
             return;
         evt.setCanceled(true);
 

@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -48,10 +49,16 @@ public final class BoundTileRenderer {
 		// todo 1.8 Tessellator.renderingVertexBuffer = false;
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		ItemStack stack = player.getCurrentEquippedItem();
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
+		
+		if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
+			if(coords != null)
+				renderBlockOutlineAt(coords, color);
+		}
+
+		if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
 		}
@@ -112,14 +119,15 @@ public final class BoundTileRenderer {
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
-		Block block = world.getBlockState(pos).getBlock();
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 		drawWireframe : {
 			if(block != null) {
 				AxisAlignedBB axis;
 
 				if(block instanceof IWireframeAABBProvider)
 					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-				else axis = block.getSelectedBoundingBox(world, pos);
+				else axis = state.getSelectedBoundingBox(world, pos);
 
 				if(axis == null)
 					break drawWireframe;
