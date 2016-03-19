@@ -239,9 +239,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
-			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);
+			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
 			if(!nearbyIndexes.isEmpty()) {
-				String msg = event.message.toLowerCase().trim();
+				String msg = event.getMessage().toLowerCase().trim();
 				for(TileCorporeaIndex index : nearbyIndexes) {
 					if(index.worldObj.isRemote)
 						continue;
@@ -261,16 +261,16 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						}
 
 						if(name.equals("this")) {
-							ItemStack stack = event.player.getCurrentEquippedItem();
+							ItemStack stack = event.getPlayer().getHeldItemMainhand();
 							if(stack != null)
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.player.addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+						event.getPlayer().addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)
-							event.player.addStat(ModAchievements.superCorporeaRequest, 1);
+							event.getPlayer().addStat(ModAchievements.superCorporeaRequest, 1);
 					}
 				}
 

@@ -53,7 +53,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, bindPos);
 		worldObj.spawnEntityInWorld(mover);
-		e.mountEntity(mover);
+		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
 			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 			if(e instanceof EntityPlayer)
@@ -206,7 +206,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		public void onUpdate() {
 			super.onUpdate();
 
-			if(riddenByEntity == null && !worldObj.isRemote) {
+			if(getPassengers().isEmpty() && !worldObj.isRemote) {
 				setDead();
 				return;
 			}

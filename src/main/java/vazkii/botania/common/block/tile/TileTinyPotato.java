@@ -11,6 +11,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 
 public class TileTinyPotato extends TileMod {
@@ -25,7 +27,7 @@ public class TileTinyPotato extends TileMod {
 		jump();
 		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
 			nextDoIt = 40;
-			worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:doit", 1F, 1F);
+			worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
 		}
 	}
 

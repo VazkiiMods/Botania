@@ -22,9 +22,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.translation.I18n;
@@ -37,6 +39,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -113,7 +116,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 						stackToPut.stackSize = 1;
 						itemHandler.setStackInSlot(i, stackToPut);
 						didChange = true;
-						worldObj.playSoundAtEntity(item, "game.neutral.swim.splash", 0.1F, 1F);
+						worldObj.playSound(null, pos, SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
 						break;
 					}
 			}
@@ -195,7 +198,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if(didAny) {
 			if(inv instanceof TileAltar)
-				player.worldObj.playSoundAtEntity(player, "game.neutral.swim.splash", 0.1F, 1F);
+				player.worldObj.playSound(null, ((TileAltar) inv).getPos(), SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP mp = (EntityPlayerMP) player;
 				mp.inventoryContainer.detectAndSendChanges();
@@ -204,7 +207,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:altarCraft", 1F, 1F);
+		worldObj.playSound(null, pos, BotaniaSoundEvents.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
@@ -243,7 +246,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				float green = color.getGreen() / 255F;
 				float blue = color.getBlue() / 255F;
 				if(Math.random() >= 0.75F)
-					worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "game.neutral.swim.splash", 0.1F, 10F);
+					worldObj.playSound(null, pos, SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
 				Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}

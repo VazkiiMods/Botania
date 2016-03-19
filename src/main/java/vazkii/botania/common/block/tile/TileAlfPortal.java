@@ -358,7 +358,7 @@ public class TileAlfPortal extends TileMod {
 		IBlockState stateat = worldObj.getBlockState(pos_);
 		Block blockat = stateat.getBlock();
 
-		if(state.getBlock() == Blocks.air ? blockat.isAir(worldObj, pos_) : blockat == state.getBlock()) {
+		if(state.getBlock() == Blocks.air ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock()) {
 			return onlyCheckBlock || stateat == state;
 		}
 

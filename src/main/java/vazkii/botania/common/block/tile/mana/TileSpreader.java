@@ -29,7 +29,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -48,6 +51,7 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IRedirectable;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandBindable;
@@ -382,7 +386,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(player instanceof EntityPlayerMP)
 					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 			}
-			worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
+			worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
 			RayTraceResult pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
@@ -437,7 +441,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						worldObj.spawnEntityInWorld(burst);
 						burst.ping();
 						if(!ConfigHandler.silentSpreaders)
-							worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:spreaderFire", 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							worldObj.playSound(null, pos, BotaniaSoundEvents.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
 				}
 			}
@@ -546,7 +550,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		float f8 = f3 * f5;
 		double d3 = range;
 		if (player instanceof EntityPlayerMP)
-			d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
+			d3 = ((EntityPlayerMP) player).interactionManager.getBlockReachDistance();
 		Vec3d vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
 		return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
 	}
@@ -672,7 +676,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		Vector3 thisVec = Vector3.fromTileEntityCenter(this);
 		Vector3 blockVec = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
-		AxisAlignedBB axis = player.worldObj.getBlockState(pos).getBlock().getCollisionBoundingBox(player.worldObj, pos, player.worldObj.getBlockState(pos));
+		AxisAlignedBB axis = player.worldObj.getBlockState(pos).getCollisionBoundingBox(player.worldObj, pos);
 		if(axis == null)
 			axis = new AxisAlignedBB(pos, pos.add(1, 1, 1));
 

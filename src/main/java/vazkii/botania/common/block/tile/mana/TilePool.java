@@ -27,6 +27,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -48,6 +49,7 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -193,7 +195,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	public void craftingFanciness() {
 		if(soundTicks == 0) {
-			worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:manaPoolCraft", 0.4F, 4F);
+			worldObj.playSound(null, pos, BotaniaSoundEvents.manaPoolCraft, SoundCategory.BLOCKS, 0.4F, 4F);
 			soundTicks = 6;
 		}
 
@@ -354,7 +356,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 		}
 
-		worldObj.playSoundAtEntity(player, "botania:ding", 0.11F, 1F);
+		worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

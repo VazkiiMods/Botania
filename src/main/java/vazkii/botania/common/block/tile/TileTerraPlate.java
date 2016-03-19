@@ -19,6 +19,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -28,6 +29,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -94,7 +96,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						if(otherItem != item)
 							otherItem.setDead();
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
-					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
+					worldObj.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);

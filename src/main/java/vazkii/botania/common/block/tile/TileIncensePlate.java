@@ -14,10 +14,13 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPI;
@@ -49,16 +52,16 @@ public class TileIncensePlate extends TileSimpleInventory  {
 				if(!worldObj.isRemote) {
 					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for(EntityPlayer player : players) {
-						PotionEffect currentEffect = player.getActivePotionEffect(GameData.getPotionRegistry().getObjectById(effect.getPotionID()));
-						boolean nightVision = effect.getPotionID() == Potion.nightVision.getId();
+						PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
+						boolean nightVision = effect.getPotion() == MobEffects.nightVision;
 						if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-							PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
+							PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 							player.addPotionEffect(applyEffect);
 						}
 					}
 
 					if(worldObj.rand.nextInt(20) == 0)
-						worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5, "fire.fire", 0.1F, 1F);
+						worldObj.playSound(null, pos, SoundEvents.block_fire_ambient, SoundCategory.BLOCKS, 0.1F, 1);
 				} else {
 					double x = pos.getX() + 0.5;
 					double y = pos.getY() + 0.5;

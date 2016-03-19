@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 
@@ -23,12 +24,11 @@ public class TileRedStringComparator extends TileRedString {
 		super.updateEntity();
 		BlockPos binding = getBinding();
 		EnumFacing dir = getOrientation();
-		Block block = getBlockAtBinding();
+		IBlockState state = getStateAtBinding();
 		int origVal = comparatorValue;
 
-		if(block.hasComparatorInputOverride()) {
-			int val = block.getComparatorInputOverride(worldObj, binding);
-			comparatorValue = val;
+		if(state.hasComparatorInputOverride()) {
+			comparatorValue = state.getComparatorInputOverride(worldObj, binding);
 		} else comparatorValue = 0;
 
 		if(origVal != comparatorValue)
@@ -41,8 +41,7 @@ public class TileRedStringComparator extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		Block block = worldObj.getBlockState(pos).getBlock();
-		return block.hasComparatorInputOverride();
+		return worldObj.getBlockState(pos).hasComparatorInputOverride();
 	}
 
 }

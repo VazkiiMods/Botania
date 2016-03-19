@@ -15,6 +15,9 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -68,8 +71,8 @@ public class TileRedStringInterceptor extends TileRedString {
 		interceptors.removeAll(remove);
 		if(did) {
 			if(world.isRemote)
-				player.swingItem();
-			else world.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "random.click", 0.3F, 0.6F);
+				player.swingArm(EnumHand.MAIN_HAND); // todo 1.9
+			else world.playSound(null, pos, SoundEvents.block_dispenser_dispense, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 	}
 

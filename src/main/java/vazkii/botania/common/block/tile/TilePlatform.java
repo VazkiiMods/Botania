@@ -53,7 +53,7 @@ public class TilePlatform extends TileCamo implements IManaCollisionGhost {
 
 	void swap(TilePlatform tile, boolean empty) {
 		tile.camoState = empty ? null : camoState;
-		worldObj.markBlockForUpdate(tile.getPos());
+		worldObj.notifyBlockUpdate(tile.getPos(), worldObj.getBlockState(tile.getPos()), worldObj.getBlockState(tile.getPos()), 8);
 	}
 
 }

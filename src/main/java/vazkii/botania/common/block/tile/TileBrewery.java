@@ -17,8 +17,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -26,6 +28,7 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
@@ -158,7 +161,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:potionCreate", 1F, 1.5F + (float) Math.random() * 0.25F);
+		worldObj.playSound(null, pos, BotaniaSoundEvents.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
 		for(int i = 0; i < 25; i++) {
 			Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
 			float r = color.getRed() / 255F;

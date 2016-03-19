@@ -30,8 +30,6 @@ public class TilePylon extends TileEntity implements ITickable {
 	BlockPos centerPos;
 	int ticks = 0;
 
-
-
 	@Override
 	public void update() {
 		++ticks;

@@ -17,7 +17,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
@@ -56,7 +58,7 @@ public class TileBellows extends TileMod {
 
 		if(movePos < max && active && moving >= 0F) {
 			if(moving == 0F)
-				worldObj.playSoundEffect(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, "botania:bellows", 0.1F, 3F);
+				worldObj.playSound(null, pos, BotaniaSoundEvents.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
 
 			if(tile instanceof TileEntityFurnace) {
 				TileEntityFurnace furnace = (TileEntityFurnace) tile;

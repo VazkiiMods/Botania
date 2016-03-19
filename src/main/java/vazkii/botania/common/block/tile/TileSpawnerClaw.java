@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.WeightedRandom;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -130,7 +131,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 		}
 
 		if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)
-			logic.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
+			logic.func_184993_a((WeightedSpawnerEntity)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
 
 		logic.func_98267_a(1);
 	}

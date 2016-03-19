@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
@@ -36,7 +37,7 @@ public class TileEnderEye extends TileMod {
 
 		boolean looking = false;
 		for(EntityPlayer player : players) {
-			ItemStack helm = player.getCurrentArmor(3);
+			ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
 				continue;
 

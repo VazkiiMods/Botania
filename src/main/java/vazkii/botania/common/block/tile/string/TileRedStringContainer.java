@@ -10,19 +10,11 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Arrays;
 

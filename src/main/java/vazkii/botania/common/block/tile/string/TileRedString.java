@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -83,9 +84,13 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		return binding == null ? null : worldObj.getTileEntity(binding);
 	}
 
-	public Block getBlockAtBinding() {
+	public IBlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? Blocks.air : worldObj.getBlockState(binding).getBlock();
+		return binding == null ? Blocks.air.getDefaultState() : worldObj.getBlockState(binding);
+	}
+
+	public Block getBlockAtBinding() {
+		return getStateAtBinding().getBlock();
 	}
 
 	@Override

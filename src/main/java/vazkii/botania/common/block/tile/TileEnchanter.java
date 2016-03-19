@@ -20,6 +20,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -30,6 +31,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -43,6 +46,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
@@ -121,7 +125,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 					if(enchants != null && enchants.tagCount() > 0) {
 						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
-						if(isEnchantmentValid(id)) {
+						if(isEnchantmentValid(Enchantment.getEnchantmentByID(id))) {
 							advanceStage();
 							return;
 						}
@@ -151,7 +155,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				float blue = (float) Math.random();
 				Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 			}
-			worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:enchanterBlock", 0.5F, 10F);
+			worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterBlock, SoundCategory.BLOCKS, 0.5F, 10F);
 		}
 
 		switch(stage) {
@@ -170,9 +174,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
-								if(!hasEnchantAlready(enchantId) && isEnchantmentValid(enchantId)) {
-									this.enchants.add(new EnchantmentData(enchantId, enchantLvl));
-									worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 1F, 1F);
+								Enchantment ench = Enchantment.getEnchantmentByID(enchantId);
+								if(!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
+									this.enchants.add(new EnchantmentData(ench, enchantLvl));
+									worldObj.playSound(null, pos, BotaniaSoundEvents.ding, SoundCategory.BLOCKS, 1F, 1F);
 									addedEnch = true;
 									break;
 								}
@@ -201,8 +206,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			if(manaRequired == -1) {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
-					Enchantment ench = Enchantment.getEnchantmentById(data.enchant);
-					manaRequired += (int) (5000F * ((15 - Math.min(15, ench.getWeight())) * 1.05F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+					manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantmentobj.getWeight().getWeight())) * 1.05F) * ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F) * (0.9F + enchants.size() * 0.05F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
@@ -229,8 +233,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		case 3 : { // Enchant
 			if(stageTicks >= 100) {
 				for(EnchantmentData data : enchants)
-					if(EnchantmentHelper.getEnchantmentLevel(data.enchant, itemToEnchant) == 0)
-						itemToEnchant.addEnchantment(Enchantment.getEnchantmentById(data.enchant), data.level);
+					if(EnchantmentHelper.getEnchantmentLevel(data.enchantmentobj, itemToEnchant) == 0)
+						itemToEnchant.addEnchantment(data.enchantmentobj, data.enchantmentLevel);
 
 				enchants.clear();
 				manaRequired = -1;
@@ -268,7 +272,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:enchanterEnchant", 1F, 1F);
+		worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
@@ -321,7 +325,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		String enchStr = "";
 		for(EnchantmentData data : enchants)
-			enchStr = enchStr + data.enchant + ":" + data.level + ",";
+			enchStr = enchStr + Enchantment.enchantmentRegistry.getNameForObject(data.enchantmentobj) + ":" + data.enchantmentLevel + ",";
 		cmp.setString(TAG_ENCHANTS, enchStr.isEmpty() ? enchStr : enchStr.substring(0, enchStr.length() - 1));
 	}
 
@@ -342,28 +346,29 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			String[] enchTokens = enchStr.split(",");
 			for(String token : enchTokens) {
 				String[] entryTokens = token.split(":");
-				int id = Integer.parseInt(entryTokens[0]);
+				Enchantment ench = Enchantment.getEnchantmentByLocation(entryTokens[0]);
+				if(ench == null)
+					ench = Enchantment.getEnchantmentByID(Integer.parseInt(entryTokens[0]));
 				int lvl = Integer.parseInt(entryTokens[1]);
-				enchants.add(new EnchantmentData(id, lvl));
+				enchants.add(new EnchantmentData(ench, lvl));
 			}
 		}
 	}
 
-	private boolean hasEnchantAlready(int enchant) {
+	private boolean hasEnchantAlready(Enchantment enchant) {
 		for(EnchantmentData data : enchants)
-			if(data.enchant == enchant)
+			if(data.enchantmentobj == enchant)
 				return true;
 
 		return false;
 	}
 
-	public boolean isEnchantmentValid(short id) {
-		Enchantment ench = Enchantment.getEnchantmentById(id);
+	public boolean isEnchantmentValid(Enchantment ench) {
 		if(!ench.canApply(itemToEnchant) || !ench.type.canEnchantItem(itemToEnchant.getItem()))
 			return false;
 
 		for(EnchantmentData data : enchants) {
-			Enchantment otherEnch = Enchantment.getEnchantmentById(data.enchant);
+			Enchantment otherEnch = data.enchantmentobj;
 			if(!otherEnch.canApplyTogether(ench) || !ench.canApplyTogether(otherEnch))
 				return false;
 		}
@@ -424,16 +429,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			int y = res.getScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
-		}
-	}
-
-	private static class EnchantmentData {
-
-		public int enchant, level;
-
-		public EnchantmentData(int enchant, int level) {
-			this.enchant = enchant;
-			this.level = level;
 		}
 	}
 
