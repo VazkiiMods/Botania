@@ -12,6 +12,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -40,19 +41,14 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered1(IBlockAccess world, BlockPos pos, EnumFacing side) {
-		Block block = world.getBlockState(pos).getBlock();
-
-		return block == this ? false : super.shouldSideBeRendered(world, pos, side);
-	}
-
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(world, pos, side.getOpposite());
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block == this ? false : super.shouldSideBeRendered(state, world, pos, side);
 	}
 
 	@Override

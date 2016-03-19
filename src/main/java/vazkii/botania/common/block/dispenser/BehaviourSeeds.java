@@ -33,7 +33,7 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 		BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
 		World world = par1IBlockSource.getWorld();
 
-		if(world.getBlockState(pos).getBlock().isAir(world, pos) && block.canPlaceBlockAt(world, pos)) {
+		if(world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos) && block.canPlaceBlockAt(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
 			par2ItemStack.stackSize--;
 			return par2ItemStack;

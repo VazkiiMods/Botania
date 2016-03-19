@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor.panes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -43,7 +44,7 @@ public class BlockModPane extends BlockPane {
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 

@@ -50,7 +50,7 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 

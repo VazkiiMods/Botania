@@ -79,7 +79,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(getSingleBlock());
 	}
 

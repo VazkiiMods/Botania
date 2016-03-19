@@ -103,7 +103,7 @@ public class BlockPavement extends BlockMod {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 

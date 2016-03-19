@@ -87,7 +87,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 

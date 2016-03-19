@@ -73,7 +73,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(IBlockAccess world, BlockPos pos) {
+	public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return true;
 	}
 

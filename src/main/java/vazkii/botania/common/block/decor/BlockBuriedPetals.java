@@ -15,6 +15,7 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -36,7 +37,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
@@ -65,7 +66,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	}
 
 	@Override
-	public int getRenderType() {
-		return -1;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.INVISIBLE;
 	}
 }

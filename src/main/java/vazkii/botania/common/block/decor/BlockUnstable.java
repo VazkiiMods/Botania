@@ -85,17 +85,17 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
 		int color = getRenderColor(state);
 		int colorBright = new Color(color).brighter().getRGB();
 		int colorDark = new Color(color).darker().getRGB();

@@ -27,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -83,7 +84,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public EnumBlockRenderType getRenderType() {
+	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
@@ -153,7 +154,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
@@ -173,7 +174,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -195,18 +196,17 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getCurrentEquippedItem();
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(stack != null) {
 			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
 			IslandType type = null;

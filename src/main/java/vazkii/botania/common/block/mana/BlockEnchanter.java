@@ -95,7 +95,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 

@@ -33,7 +33,7 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	public static boolean isValidBlock(Block block) {
-		return block.isOpaqueCube() || block.getRenderType() == 3;
+		return block.isOpaqueCube(IBlockState state) || block.getRenderType() == 3;
 	}
 
 	@Override
@@ -80,12 +80,12 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 

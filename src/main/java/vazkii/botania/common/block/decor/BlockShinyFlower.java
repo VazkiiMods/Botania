@@ -37,7 +37,7 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 

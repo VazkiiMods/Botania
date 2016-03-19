@@ -64,7 +64,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, Entity entity) {
 		if(!world.isRemote && entity instanceof EntityPlayerMP) {
 			EntityLivingBase living = ((EntityLivingBase) entity);
-			IAttributeInstance attr = living.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			IAttributeInstance attr = living.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 			if(!attr.hasModifier(speedBoost)) {
 				attr.applyModifier(speedBoost);
 			}
@@ -90,22 +90,22 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
 		return new AxisAlignedBB(pos, pos.add(1, 1, 1));
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 

@@ -83,10 +83,11 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World p_149718_1_, BlockPos pos) {
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		if(pos.getY() >= 0 && pos.getY() < 256) {
-			Block block = p_149718_1_.getBlockState(pos.down()).getBlock();
-			return block == Blocks.mycelium || block == Blocks.dirt && p_149718_1_.getBlockState(pos.down()).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(p_149718_1_, pos.down(), EnumFacing.UP, this);
+			IBlockState state = world.getBlockState(pos.down());
+			Block block = state.getBlock();
+			return block == Blocks.mycelium || block == Blocks.dirt && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
 		}
 
 		return false;
@@ -112,7 +113,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
@@ -122,7 +123,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

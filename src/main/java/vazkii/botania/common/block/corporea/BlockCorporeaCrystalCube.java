@@ -19,6 +19,7 @@ import net.minecraft.client.particle.EntityDiggingFX;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -81,9 +82,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
-		ItemStack stack = player.getCurrentEquippedItem();
-
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		if(stack != null) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.setRequestTarget(stack);
@@ -93,12 +92,12 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
@@ -113,12 +112,12 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).compValue;
 	}
 
