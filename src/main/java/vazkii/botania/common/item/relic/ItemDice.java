@@ -15,9 +15,14 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
@@ -48,7 +53,7 @@ public class ItemDice extends ItemRelic {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(isRightPlayer(player, stack) && !player.worldObj.isRemote) {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
 			int side = SIDES_FOR_MOON_PHASES[moonPhase];
@@ -66,19 +71,19 @@ public class ItemDice extends ItemRelic {
 				relic = possible.get(world.rand.nextInt(possible.size()));
 			}
 
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			if(hasRelicAlready(player, relic)) {
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.stackSize--;
-				return stack;
+				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 
 			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
-			return relicStacks[relic].copy();
+			return ActionResult.newResult(EnumActionResult.SUCCESS, relicStacks[relic].copy());
 		}
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.FAIL, stack);
 	}
 
 	@Override

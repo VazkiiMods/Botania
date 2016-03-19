@@ -18,10 +18,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
@@ -45,7 +47,7 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.ammount);
 				}
 
-			player.worldObj.playSoundAtEntity(player, "botania:unholyCloak", 1F, 1F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 90; i++) {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;

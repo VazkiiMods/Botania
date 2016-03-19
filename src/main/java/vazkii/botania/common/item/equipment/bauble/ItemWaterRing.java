@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -50,9 +51,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			if(changeZ)
 				player.motionZ = motionZ;
 
-			PotionEffect effect = player.getActivePotionEffect(Potion.nightVision);
+			PotionEffect effect = player.getActivePotionEffect(MobEffects.nightVision);
 			if(effect == null) {
-				PotionEffect neweffect = new PotionEffect(Potion.nightVision.id, Integer.MAX_VALUE, -42, true, true);
+				PotionEffect neweffect = new PotionEffect(MobEffects.nightVision, Integer.MAX_VALUE, -42, true, true);
 				player.addPotionEffect(neweffect);
 			}
 
@@ -66,9 +67,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(Potion.nightVision);
+		PotionEffect effect = player.getActivePotionEffect(MobEffects.nightVision);
 		if(effect != null && effect.getAmplifier() == -42)
-			player.removePotionEffect(Potion.nightVision.id);
+			player.removePotionEffect(MobEffects.nightVision);
 	}
 
 	@Override

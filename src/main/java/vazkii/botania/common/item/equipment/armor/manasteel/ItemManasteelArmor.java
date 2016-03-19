@@ -17,6 +17,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -50,13 +51,13 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	protected ModelBiped[] models = null;
-	public int type;
+	public EntityEquipmentSlot type;
 
-	public ItemManasteelArmor(int type, String name) {
+	public ItemManasteelArmor(EntityEquipmentSlot type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
 
-	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
+	public ItemManasteelArmor(EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super(mat, 0, type);
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);

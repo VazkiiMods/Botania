@@ -15,14 +15,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -47,9 +51,9 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			if(amulet != null && amulet.getItem() == this) {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
-				player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 6));
+				player.addPotionEffect(new PotionEffect(MobEffects.resistance, 300, 6));
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
-				player.worldObj.playSoundAtEntity(player, "botania:goldenLaurel", 1F, 0.3F);
+				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
 				PlayerHandler.getPlayerBaubles(player).setInventorySlotContents(0, null);
 			}
 		}
@@ -64,7 +68,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getCurrentArmor(3) != null;
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.rotate(-90F, 0F, 1F, 0F);
@@ -73,7 +77,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			if(armor) {
 				GlStateManager.scale(1.1F, 1.1F, 1.1F);
 			}
-			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this), ItemCameraTransforms.TransformType.THIRD_PERSON);
+			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
 		}
 	}
 }

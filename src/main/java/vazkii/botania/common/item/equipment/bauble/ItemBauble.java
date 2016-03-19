@@ -18,11 +18,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -51,9 +56,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
-			return par1ItemStack;
+			return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack);
 
 		if(canEquip(par1ItemStack, par3EntityPlayer)) {
 			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
@@ -69,7 +74,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 						if(stackInSlot != null) {
 							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
-							return stackInSlot.copy();
+							return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
 						}
 						break;
 					}
@@ -77,7 +82,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			}
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override
@@ -131,7 +136,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
 			if(!player.worldObj.isRemote)
-				player.worldObj.playSoundAtEntity(player, "botania:equipBauble", 0.1F, 1.3F);
+				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
 			if(player instanceof EntityPlayer)
 				((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);

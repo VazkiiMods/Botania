@@ -18,6 +18,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -47,7 +49,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	public ItemTerrasteelHelm(String name) {
-		super(0, name);
+		super(EntityEquipmentSlot.HEAD, name);
 	}
 
 	@Override
@@ -122,7 +124,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		if(attacker instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {
-				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null;
+				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.blindness) && !player.isRiding();
 				ItemStack stack = player.inventory.armorItemInSlot(3);
 				if(crit && stack != null && stack.getItem() instanceof ItemTerrasteelHelm) {
 					boolean ahrim = hasAncientWill(stack, 0);
@@ -133,17 +135,17 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 					boolean karil = hasAncientWill(stack, 5);
 
 					if(ahrim)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 1));
+						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.weakness, 20, 1));
 					if(dharok)
 						event.ammount *= 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
 					if(guthan)
 						player.heal(event.ammount * 0.25F);
 					if(torag)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60, 1));
+						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 60, 1));
 					if(verac)
 						event.source.setDamageBypassesArmor();
 					if(karil)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.wither.id, 60, 1));
+						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.wither, 60, 1));
 				}
 			}
 		}

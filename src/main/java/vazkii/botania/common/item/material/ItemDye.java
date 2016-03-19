@@ -20,6 +20,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -34,14 +36,14 @@ public class ItemDye extends Item16Colors {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		Block block = par3World.getBlockState(pos).getBlock();
 		EnumDyeColor color = EnumDyeColor.byMetadata(par1ItemStack.getItemDamage());
 		if(block == Blocks.wool && color != par3World.getBlockState(pos).getValue(BlockColored.COLOR)
 				|| block == Blocks.carpet && color != par3World.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
 			par3World.setBlockState(pos, par3World.getBlockState(pos).withProperty(block == Blocks.wool ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
 			par1ItemStack.stackSize--;
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 
 		TileEntity tile = par3World.getTileEntity(pos);
@@ -50,15 +52,15 @@ public class ItemDye extends Item16Colors {
 			if(color != dyable.getColor()) {
 				dyable.setColor(color);
 				par1ItemStack.stackSize--;
-				return true;
+				return EnumActionResult.SUCCESS;
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack p_111207_1_, EntityPlayer p_111207_2_, EntityLivingBase p_111207_3_) {
+	public boolean itemInteractionForEntity(ItemStack p_111207_1_, EntityPlayer p_111207_2_, EntityLivingBase p_111207_3_, EnumHand hand) {
 		if(p_111207_3_ instanceof EntitySheep) {
 			EntitySheep entitysheep = (EntitySheep)p_111207_3_;
 			EnumDyeColor i = EnumDyeColor.byMetadata(p_111207_1_.getItemDamage());

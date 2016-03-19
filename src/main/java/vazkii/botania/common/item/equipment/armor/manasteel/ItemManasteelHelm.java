@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.common.lib.LibItemNames;
@@ -22,7 +23,7 @@ public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscou
 	}
 
 	public ItemManasteelHelm(String name) {
-		super(0, name);
+		super(EntityEquipmentSlot.HEAD, name);
 	}
 
 	@Override

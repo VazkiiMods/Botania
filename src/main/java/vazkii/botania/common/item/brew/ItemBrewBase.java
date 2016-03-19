@@ -14,14 +14,20 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -70,29 +76,28 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		p_77659_3_.setItemInUse(p_77659_1_, getMaxItemUseDuration(p_77659_1_));
-		return p_77659_1_;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_, EnumHand hand) {
+		p_77659_3_.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, p_77659_1_);
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase living) {
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
-				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true, true);
-				Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
-				if(potion.isInstant())
-					potion.affectEntity(player, player, player, newEffect.getAmplifier(), 1F);
-				else player.addPotionEffect(newEffect);
+				PotionEffect newEffect = new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier(), true, true);
+				if(effect.getPotion().isInstant())
+					effect.getPotion().affectEntity(living, living, living, newEffect.getAmplifier(), 1F);
+				else living.addPotionEffect(newEffect);
 			}
 
 			if(world.rand.nextBoolean())
-				world.playSoundAtEntity(player, "random.burp", 1F, 1F);
+				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 1F, 1F);
 
 			int swigs = getSwigsLeft(stack);
-			if(!player.capabilities.isCreativeMode) {
+			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode) {
 				if(swigs == 1) {
-					if(!player.inventory.addItemStackToInventory(baseItem.copy()))
+					if(!((EntityPlayer) living).inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
 					else {
 						ItemStack copy = stack.copy();
@@ -142,9 +147,8 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
-			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
-			TextFormatting format = potion.isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			list.add(format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(effect) + ")"));
+			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			list.add(format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(effect, 1F) + ")"));
 		}
 	}
 

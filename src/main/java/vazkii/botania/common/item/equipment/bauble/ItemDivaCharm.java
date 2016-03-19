@@ -22,7 +22,9 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -30,6 +32,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.lib.LibItemNames;
@@ -68,7 +71,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 								event.entityLiving.isDead = false;
 
 							ManaItemHandler.requestManaExact(amulet, player, cost, true);
-							player.worldObj.playSoundAtEntity(player, "botania:divaCharm", 1F, 1F);
+							player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
 
 							double x = event.entityLiving.posX;
 							double y = event.entityLiving.posY;
@@ -97,13 +100,13 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getCurrentArmor(3) != null;
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 			GlStateManager.rotate(90, 0, 0, 1);
 			GlStateManager.translate(1.475F, armor ? -0.57F : -0.5F, 0.53F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.THIRD_PERSON);
+			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
 		}
 	}
 

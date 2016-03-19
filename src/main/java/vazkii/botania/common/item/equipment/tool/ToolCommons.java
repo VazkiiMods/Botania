@@ -18,6 +18,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -52,7 +53,7 @@ public final class ToolCommons {
 	 * Pos is the actual block coordinate, posStart and posEnd are deltas from pos
      */
 	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos posStart, BlockPos posEnd, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
-		float blockHardness = block == null ? 1F : block.getBlockHardness(world, pos);
+		float blockHardness = block == null ? 1F : block.getBlockHardness(world.getBlockState(pos), world, pos);
 
 		for (BlockPos iterPos : BlockPos.getAllInBox(pos.add(posStart), pos.add(posEnd))) {
 			if (iterPos.equals(pos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
@@ -83,8 +84,8 @@ public final class ToolCommons {
 		if(block != null && blk != block)
 			return;
 
-		Material mat = world.getBlockState(pos).getBlock().getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(world, pos) && blk.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
+		Material mat = world.getBlockState(pos).getMaterial();
+		if(!world.isRemote && blk != null && !blk.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
 			if(!blk.canHarvestBlock(player.worldObj, pos, player) || !isRightMaterial(mat, materialsListing)) {
 				return;
 			}
@@ -93,11 +94,11 @@ public final class ToolCommons {
 				IBlockState localState = world.getBlockState(pos);
 				blk.onBlockHarvested(world, pos, localState, player);
 
-				if(blk.removedByPlayer(world, pos, player, true)) {
+				if(blk.removedByPlayer(state, world, pos, player, true)) {
 					blk.onBlockDestroyedByPlayer(world, pos, state);
 
 					if(!dispose || !ItemElementiumPick.isDisposable(blk))
-						blk.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+						blk.harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
 				}
 
 				damageItem(stack, 1, player, 80);
@@ -130,7 +131,7 @@ public final class ToolCommons {
 		if(item == ModItems.terraPick)
 			modifier = ItemTerraPick.getLevel(stack);
 
-		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
+		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantments.efficiency, stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 

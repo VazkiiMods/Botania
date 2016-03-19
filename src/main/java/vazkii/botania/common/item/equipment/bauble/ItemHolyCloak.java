@@ -15,12 +15,15 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -79,7 +82,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.source.isMagicDamage()) {
 			event.setCanceled(true);
-			player.worldObj.playSoundAtEntity(player, "botania:holyCloak", 1F, 1F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
 				double x = player.posX + Math.random() * player.width * 2 - player.width;
 				double y = player.posY + Math.random() * player.height;
@@ -129,7 +132,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getCurrentArmor(2) != null;
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 0.1F;

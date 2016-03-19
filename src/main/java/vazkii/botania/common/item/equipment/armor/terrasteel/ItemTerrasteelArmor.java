@@ -17,6 +17,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
@@ -33,7 +34,7 @@ import com.google.common.collect.Multimap;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteelArmor(int type, String name) {
+	public ItemTerrasteelArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
@@ -55,10 +56,10 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(ItemStack stack) {
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = HashMultimap.create();
 		UUID uuid = new UUID(getUnlocalizedName().hashCode(), 0);
-		multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type) / 20, 0));
+		multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type) / 20, 0));
 		return multimap;
 	}
 

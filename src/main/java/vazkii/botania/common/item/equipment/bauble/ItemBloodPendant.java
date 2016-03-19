@@ -22,6 +22,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -98,8 +100,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.translateToLocal("botaniamisc.brewOf"), I18n.translateToLocal(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
-			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
-			TextFormatting format = potion.isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
 			addStringToTooltip(" " + format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))), list);
 		}
 	}
@@ -118,10 +119,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
 			if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				PotionEffect currentEffect = player.getActivePotionEffect(GameData.getPotionRegistry().getObjectById(effect.getPotionID()));
-				boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
+				PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
+				boolean nightVision = effect.getPotion() == MobEffects.nightVision;
 				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
+					PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 					player.addPotionEffect(applyEffect);
 				}
 
@@ -147,8 +148,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		FMLControlledNamespacedRegistry<Potion> potionRegistry = GameData.getPotionRegistry();
-		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || potionRegistry.getObjectById(brew.getPotionEffects(stack).get(0).getPotionID()).isInstant())
+		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant())
 			return null;
 
 		ItemStack brewStack = new ItemStack(this);
@@ -171,7 +171,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getCurrentArmor(2) != null;
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);

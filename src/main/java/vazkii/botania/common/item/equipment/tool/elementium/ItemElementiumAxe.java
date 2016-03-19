@@ -10,6 +10,7 @@ import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,10 +38,10 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	@SubscribeEvent
 	public void onEntityDrops(LivingDropsEvent event) {
 		if(event.recentlyHit && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
-			ItemStack weapon = ((EntityPlayer) event.source.getEntity()).getCurrentEquippedItem();
+			ItemStack weapon = ((EntityPlayer) event.source.getEntity()).getHeldItemMainhand();
 			if(weapon != null && weapon.getItem() == this) {
 				Random rand = event.entity.worldObj.rand;
-				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, weapon);
+				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, weapon);
 
 				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
 					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));

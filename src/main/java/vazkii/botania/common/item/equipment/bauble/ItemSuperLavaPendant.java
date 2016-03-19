@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.item.IBaubleRender;
@@ -58,7 +59,7 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getCurrentArmor(2) != null;
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.36F, -0.24F, armor ? 0.2F : 0.15F);
 			GlStateManager.rotate(-45F, 0F, 0F, 1F);

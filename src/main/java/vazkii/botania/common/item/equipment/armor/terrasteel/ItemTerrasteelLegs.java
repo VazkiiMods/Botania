@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerrasteelLegs extends ItemTerrasteelArmor {
 
 	public ItemTerrasteelLegs() {
-		super(2, LibItemNames.TERRASTEEL_LEGS);
+		super(EntityEquipmentSlot.LEGS, LibItemNames.TERRASTEEL_LEGS);
 	}
 
 }

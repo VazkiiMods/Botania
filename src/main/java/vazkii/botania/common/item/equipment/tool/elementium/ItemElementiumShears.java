@@ -7,10 +7,15 @@ import com.google.common.base.Predicates;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,24 +41,24 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		if(player.worldObj.isRemote)
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		if(living.worldObj.isRemote)
 			return;
 
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List sheep = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range), Predicates.instanceOf(IShearable.class));
+			List sheep = living.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
 				for(IShearable target : ((List<IShearable>) sheep)) {
 					Entity entity = (Entity) target;
 					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
-						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
+						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, stack));
 
 						Random rand = new Random();
 						for(ItemStack drop : drops) {
@@ -63,7 +68,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 						}
 
-						ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
 						break;
 					}
 				}

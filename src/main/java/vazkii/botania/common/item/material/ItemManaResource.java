@@ -17,10 +17,15 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
@@ -81,40 +86,41 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 					if(stack.stackSize == 0)
 						event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
 
-					event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+					event.world.playSound(null, event.pos, SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.5F, 1F);
 				}
 			}
 		}
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
-			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14);
+			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, pos, par2EntityPlayer)) {
 			if(!par3World.isRemote)
 				par3World.playAuxSFX(2005, pos, 0);
 
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 
-		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, pos, side, par8, par9, par10);
+		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 15) {
 			if(!par2EntityPlayer.capabilities.isCreativeMode)
 				--par1ItemStack.stackSize;
 
-			par3World.playSoundAtEntity(par2EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
 			if(!par3World.isRemote)
 				par3World.spawnEntityInWorld(new EntityEnderAirBottle(par3World, par2EntityPlayer));
-			else par2EntityPlayer.swingItem();
+			else par2EntityPlayer.swingArm(hand);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override

@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManasteelLegs extends ItemManasteelArmor {
 
 	public ItemManasteelLegs() {
-		super(2, LibItemNames.MANASTEEL_LEGS);
+		super(EntityEquipmentSlot.LEGS, LibItemNames.MANASTEEL_LEGS);
 	}
 
 }

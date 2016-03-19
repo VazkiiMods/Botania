@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item.relic;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -37,16 +41,20 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		if(p_77659_3_.canEat(false) && isRightPlayer(p_77659_3_, p_77659_1_))
-			p_77659_3_.setItemInUse(p_77659_1_, getMaxItemUseDuration(p_77659_1_));
-		return p_77659_1_;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_, EnumHand hand) {
+		if(p_77659_3_.canEat(false) && isRightPlayer(p_77659_3_, p_77659_1_)) {
+			p_77659_3_.setActiveHand(hand);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, p_77659_1_);
+		}
+		return ActionResult.newResult(EnumActionResult.PASS, p_77659_1_);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		super.onUsingTick(stack, player, count);
-
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		super.onUsingTick(stack, living, count);
+		if(!(living instanceof EntityPlayer))
+			return;
+		EntityPlayer player = ((EntityPlayer) living);
 		if(ManaItemHandler.requestManaExact(stack, player, 500, true)) {
 			if(count % 5 == 0)
 				player.getFoodStats().addStats(1, 1F);

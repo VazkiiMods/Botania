@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,7 @@ public class ItemSwapRing extends ItemBauble {
 			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
-		ItemStack currentStack = player.getCurrentEquippedItem();
+		ItemStack currentStack = player.getHeldItemMainhand();
 		if(currentStack == null || !(currentStack.getItem() instanceof ISortableTool))
 			return;
 
@@ -44,17 +45,15 @@ public class ItemSwapRing extends ItemBauble {
 		ToolType typeToFind = null;
 
 		if(player.isSwingInProgress && pos != null && pos.getBlockPos() != null) {
-			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
 
-			if(block != null) {
-				Material mat = block.getMaterial();
-				if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))
-					typeToFind = ToolType.PICK;
-				else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsShovel))
-					typeToFind = ToolType.SHOVEL;
-				else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsAxe))
-					typeToFind = ToolType.AXE;
-			}
+			Material mat = state.getMaterial();
+			if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))
+				typeToFind = ToolType.PICK;
+			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsShovel))
+				typeToFind = ToolType.SHOVEL;
+			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsAxe))
+				typeToFind = ToolType.AXE;
 		}
 
 		if(typeToFind == null)

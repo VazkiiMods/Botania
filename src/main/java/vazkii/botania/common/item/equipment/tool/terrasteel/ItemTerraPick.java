@@ -34,6 +34,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
@@ -93,22 +94,23 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
 
 		if(level != 0) {
 			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
 			if(!par2World.isRemote)
-				par2World.playSoundAtEntity(par3EntityPlayer, "botania:terraPickMode", 0.5F, 0.4F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float sx, float sy, float sz) {
-		return player.isSneaking() && super.onItemUse(stack, player, world, pos, side, sx, sy, sz);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
+		return player.isSneaking() ? super.onItemUse(stack, player, world, pos, hand, side, sx, sy, sz)
+				: EnumActionResult.PASS;
 	}
 
 	@Override
@@ -147,7 +149,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return;
 
 		World world = player.worldObj;
-		Material mat = world.getBlockState(pos).getBlock().getMaterial();
+		Material mat = world.getBlockState(pos).getMaterial();
 		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
 			return;
 

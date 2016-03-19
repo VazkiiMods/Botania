@@ -313,7 +313,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void renderIcon(int i) {
 		GlStateManager.pushMatrix();
 		renderStack.setItemDamage(i);
-		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON);
+		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
 		GlStateManager.popMatrix();
 	}
 
@@ -331,12 +331,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
-		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.THIRD_PERSON);
+		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false); // todo 1.9
 
 		GlStateManager.translate(-0.5F, -0.1F, -0.4F);
 		this.renderModel(model, renderStack, 0xFF00004C);
 
-		GlStateManager.cullFace(1029);
+		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
 		GlStateManager.popMatrix();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();

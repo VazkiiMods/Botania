@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -36,10 +37,10 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 			if(!hasMana)
 				onUnequipped(stack, player);
 			else {
-				if(player.getActivePotionEffect(Potion.digSpeed) != null)
-					player.removePotionEffect(Potion.digSpeed.id);
+				if(player.getActivePotionEffect(MobEffects.digSpeed) != null)
+					player.removePotionEffect(MobEffects.digSpeed);
 
-				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, Integer.MAX_VALUE, 1, true, true));
+				player.addPotionEffect(new PotionEffect(MobEffects.digSpeed, Integer.MAX_VALUE, 1, true, true));
 			}
 
 			if(player.swingProgress == 0.25F)
@@ -49,9 +50,9 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(Potion.digSpeed);
+		PotionEffect effect = player.getActivePotionEffect(MobEffects.digSpeed);
 		if(effect != null && effect.getAmplifier() == 1)
-			player.removePotionEffect(Potion.digSpeed.id);
+			player.removePotionEffect(MobEffects.digSpeed);
 	}
 
 	@Override

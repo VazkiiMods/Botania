@@ -81,10 +81,9 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 
 		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.translateToLocal("botaniamisc.brewOf"), I18n.translateToLocal(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
-			Potion potion = GameData.getPotionRegistry().getObjectById(effect.getPotionID());
-			TextFormatting format = potion.isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			PotionEffect longEffect = new PotionEffect(effect.getPotionID(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
-			addStringToTooltip(" " + format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(longEffect) + ")"), list);
+			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			PotionEffect longEffect = new PotionEffect(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
+			addStringToTooltip(" " + format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(longEffect, 1F) + ")"), list);
 		}
 	}
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -32,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
 	
-	public ItemManaweaveArmor(int type, String name) {
+	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 	}
 

@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaweaveLegs extends ItemManaweaveArmor {
 
 	public ItemManaweaveLegs() {
-		super(2, LibItemNames.MANAWEAVE_LEGS);
+		super(EntityEquipmentSlot.LEGS, LibItemNames.MANAWEAVE_LEGS);
 	}
 
 }

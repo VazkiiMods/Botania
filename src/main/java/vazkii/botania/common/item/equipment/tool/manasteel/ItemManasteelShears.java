@@ -20,10 +20,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -63,14 +65,14 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
+	public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(entity.worldObj.isRemote)
 			return false;
 
 		if(entity instanceof IShearable) {
 			IShearable target = (IShearable)entity;
 			if(target.isShearable(itemstack, entity.worldObj, new BlockPos(entity))) {
-				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack));
 
 				Random rand = new Random();
 				for(ItemStack stack : drops) {
@@ -98,7 +100,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 		if(block instanceof IShearable) {
 			IShearable target = (IShearable)block;
 			if(target.isShearable(itemstack, player.worldObj, pos)) {
-				List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+				List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack));
 				Random rand = new Random();
 
 				for(ItemStack stack : drops) {
@@ -113,7 +115,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
-				player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+				player.addStat(StatList.getBlockStats(block), 1);
 			}
 		}
 

@@ -23,6 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -289,8 +290,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						cand.coordinates, 
 						origin, 
 						null, ToolCommons.materialsAxe,
-						EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, truncator) > 0, 
-						EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, truncator), 
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, truncator) > 0,
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, truncator),
 						0F, false, treatLeavesSpecial);
 				
 				remainingSwaps--;
@@ -303,7 +304,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 					Block block = world.getBlockState(adj).getBlock();
 					
 					boolean isWood = block.isWood(world, adj);
-					boolean isLeaf = block.isLeaves(world, adj);
+					boolean isLeaf = block.isLeaves(world.getBlockState(adj), world, adj);
 					
 					// If it's not wood or a leaf, we aren't interested.
 					if(!isWood && !isLeaf)

@@ -11,10 +11,16 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -38,10 +44,10 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	private static final String TAG_DIMENSION = "dim";
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(player.isSneaking()) {
 			if(world.isRemote) {
-				player.swingItem();
+				player.swingArm(hand);
 				for(int i = 0; i < 10; i++) {
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
@@ -53,29 +59,33 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
 				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
-				world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 5F);
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 5F);
 			}
 		}
 
-		return true;
+		return EnumActionResult.SUCCESS;
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		float x = (float) (player.posX - Math.random() * player.width);
-		float y = (float) (player.posY - 1.6 + Math.random());
-		float z = (float) (player.posZ - Math.random() * player.width);
-		Botania.proxy.wispFX(player.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		float x = (float) (living.posX - Math.random() * living.width);
+		float y = (float) (living.posY - 1.6 + Math.random());
+		float z = (float) (living.posZ - Math.random() * living.width);
+		Botania.proxy.wispFX(living.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+		par3EntityPlayer.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase living) {
+		if(!(living instanceof EntityPlayer))
+			return stack;
+
+		EntityPlayer player = ((EntityPlayer) living);
 		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
@@ -101,7 +111,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			Botania.proxy.wispFX(entity.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
 		}
 		if(!entity.worldObj.isRemote)
-			entity.worldObj.playSoundAtEntity(entity, "mob.endermen.portal", 1F, 1F);
+			entity.worldObj.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override
