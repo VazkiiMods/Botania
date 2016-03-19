@@ -22,6 +22,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -40,12 +42,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(5.0/16, 5.0/16, 5.0/16, 11.0/16, 11.0/16, 11.0/16);
+
 	protected BlockLightRelay() {
 		super(Material.glass);
 		float f = 5F / 16F;
-		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -103,13 +111,13 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World p_149668_1_, BlockPos pos, IBlockState state) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World p_149668_1_, BlockPos pos) {
 		return null;
 	}
 
@@ -124,12 +132,12 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing s) {
+	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing s) {
 		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR
 				&& state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
@@ -145,8 +153,8 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override

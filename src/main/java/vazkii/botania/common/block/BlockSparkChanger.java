@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +22,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -36,17 +39,22 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
+
+	private final Random random = new Random();
 
 	public BlockSparkChanger() {
 		super(Material.rock);
-		setBlockBounds(0F, 0F, 0F, 1F, 3F / 16F, 1F);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.SPARK_CHANGER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true));
-		random = new Random();
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -92,10 +100,9 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack pstack, EnumFacing s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
-		ItemStack pstack = player.getCurrentEquippedItem();
 		if(cstack != null) {
 			changer.getItemHandler().setStackInSlot(0, null);
 			world.updateComparatorOutputLevel(pos, this);
@@ -157,12 +164,12 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
 		if(stack == null)

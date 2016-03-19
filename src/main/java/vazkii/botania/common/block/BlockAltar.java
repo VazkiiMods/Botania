@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -26,6 +27,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.BlockRenderLayer;
@@ -53,22 +56,24 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.125, 0.125, 0.875, 20.0/16, 0.875);
+
+	private final Random random = new Random();
 
 	protected BlockAltar() {
 		super(Material.rock);
 		setHardness(3.5F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.ALTAR);
-
-		float f = 1F / 16F * 2F;
-		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
-
-		random = new Random();
 
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT)
 		);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -134,14 +139,13 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		return (tile != null && tile.hasLava) ? 15 : 0;
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing par6, float par7, float par8, float par9) {
-		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
 		TileAltar tile = (TileAltar) par1World.getTileEntity(pos);
 		if(par5EntityPlayer.isSneaking()) {
 			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
@@ -307,12 +311,12 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
 		TileAltar altar = (TileAltar) par1World.getTileEntity(pos);
 		return altar.hasWater ? 15 : 0;
 	}

@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -22,6 +23,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.EnumFacing;
@@ -43,21 +47,21 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.15, 0.75);
+
+	private final Random random = new Random();
 
 	protected BlockHourglass() {
 		super(Material.iron);
 		setUnlocalizedName(LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
-		setStepSound(soundTypeMetal);
-
-		float f = 1F / 16F;
-		float w = 8F * f;
-		float d = (1F - w) / 2;
-		setBlockBounds(d, 0F, d, 1F - d, 1.15F, 1F - d);
-
-		random = new Random();
+		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -76,10 +80,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float xs, float ys, float zs) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
-		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
@@ -107,12 +110,12 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
@@ -176,8 +179,8 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override

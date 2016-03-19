@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -48,8 +49,8 @@ public class SubTileBubbell extends SubTileFunctional {
 				for(int j = -range; j < range + 1; j++)
 					for(int k = -range; k < range + 1; k++)
 						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							Block block = supertile.getWorld().getBlockState(supertile.getPos().add(i, j, k)).getBlock();
-							if(block.getMaterial() == Material.water) {
+							IBlockState state = supertile.getWorld().getBlockState(supertile.getPos().add(i, j, k));
+							if(state.getMaterial() == Material.water) {
 								supertile.getWorld().setBlockState(supertile.getPos().add(i, j, k), ModBlocks.fakeAir.getDefaultState(), 2);
 								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(supertile.getPos().add(i, j, k));
 								air.setFlower(supertile);

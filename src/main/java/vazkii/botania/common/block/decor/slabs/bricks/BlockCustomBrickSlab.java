@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +34,7 @@ public class BlockCustomBrickSlab extends BlockLivingSlab {
 		super(full, ModBlocks.customBrick.getDefaultState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, variant));
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override

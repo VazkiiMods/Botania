@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
@@ -33,11 +34,11 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		if(mana == 0) {
 			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityTNTPrimed tnt : tnts) {
-				if(tnt.fuse == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getBlock().getMaterial().isLiquid()) {
+				if(tnt.getFuse() == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					if(!supertile.getWorld().isRemote) {
+						tnt.playSound(SoundEvents.entity_generic_explode, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 						tnt.setDead();
 						mana += getMaxMana();
-						supertile.getWorld().playSoundEffect(tnt.posX, tnt.posY, tnt.posZ, "random.explode", 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 						sync();
 					}
 

@@ -17,11 +17,13 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileGaiaHead;
@@ -45,9 +47,8 @@ public class BlockGaiaHead extends BlockSkull {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getItem(World p_149694_1_, BlockPos pos) {
-		return ModItems.gaiaHead;
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(ModItems.gaiaHead);
 	}
 
     @Override
@@ -70,11 +71,6 @@ public class BlockGaiaHead extends BlockSkull {
     public Item getItemDropped(IBlockState p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return ModItems.gaiaHead;
     }
-
-	@Override
-	public int getDamageValue(World p_149643_1_, BlockPos pos)  {
-		return 0;
-	}
 
 	@Override
 	public int damageDropped(IBlockState state) {

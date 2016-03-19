@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +37,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(Block.soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(name);
 	}
 

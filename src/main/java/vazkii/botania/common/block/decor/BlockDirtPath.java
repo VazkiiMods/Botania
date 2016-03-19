@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -46,10 +47,9 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	public BlockDirtPath() {
 		super(Material.ground);
-		setBlockBounds(0F, 0F, 0F, 1F, 15F / 16F, 1F);
 		setLightOpacity(255);
 		setHardness(0.6F);
-		setStepSound(soundTypeGravel);
+		setSoundType(SoundType.GROUND);
 		setUnlocalizedName(LibBlockNames.DIRT_PATH);
 		useNeighborBrightness = true;
 		MinecraftForge.EVENT_BUS.register(this);
@@ -72,21 +72,17 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos) {
-		Block blockAbove = world.getBlockState(pos.up()).getBlock();
-		if(!blockAbove.isAir(world, pos.up()))
-			setBlockBounds(0F, 0F, 0F, 1F, 1, 1F);
-		else setBlockBounds(0F, 0F, 0F, 1F, 15F / 16F, 1F);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		IBlockState stateAbove = world.getBlockState(pos.up());
+		Block blockAbove = stateAbove.getBlock();
+		if(!blockAbove.isAir(stateAbove, world, pos.up()))
+			return FULL_BLOCK_AABB;
+		else return new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
 	}
 
 	@Override
 	public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN;
-	}
-
-	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
-		setBlockBoundsBasedOnState(world, pos);
 	}
 
 	@Override

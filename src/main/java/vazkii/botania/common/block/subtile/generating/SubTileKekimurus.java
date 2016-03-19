@@ -13,6 +13,8 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -43,7 +45,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 							else supertile.getWorld().setBlockState(pos, state.withProperty(BlockCake.BITES, nextSlicesEaten), 1 | 2);
 
 							supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state.withProperty(BlockCake.BITES, nextSlicesEaten)));
-							supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
+							supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.entity_generic_eat, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;

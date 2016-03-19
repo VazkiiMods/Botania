@@ -10,14 +10,17 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -29,14 +32,20 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockStarfield extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
+
 	public BlockStarfield() {
 		super(Material.iron);
 		setHardness(5F);
 		setResistance(2000F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 		setUnlocalizedName(LibBlockNames.STARFIELD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
-		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

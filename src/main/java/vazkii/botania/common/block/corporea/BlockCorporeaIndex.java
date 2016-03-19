@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.EntityDiggingFX;
@@ -39,7 +40,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	public BlockCorporeaIndex() {
 		super(Material.iron, LibBlockNames.CORPOREA_INDEX);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 	}
 
 	@Override

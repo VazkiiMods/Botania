@@ -10,33 +10,25 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.EntityDiggingFX;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.StorageVariant;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -44,12 +36,12 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
+
 	public BlockCorporeaCrystalCube() {
 		super(Material.iron, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
-		float f = (1F - 10F / 16F) / 2F;
-		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
+		setSoundType(SoundType.METAL);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState()).withProperty(Properties.AnimationProperty, null).withProperty(Properties.StaticProperty, true));
 	}
 
@@ -79,6 +71,11 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.doRequest(player.isSneaking());
 		}
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import java.util.List;
 
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
@@ -46,7 +47,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 					int mana = 820 * mul;
 					if(!slime.worldObj.isRemote) {
 						slime.setDead();
-						slime.worldObj.playSoundAtEntity(slime, "mob.slime." + (size > 1 ? "big" : "small"), 1F, 0.02F);
+						slime.playSound(size > 1 ? SoundEvents.entity_slime_squish : SoundEvents.entity_small_slime_squish, 1, 0.02F);
 						this.mana = Math.min(getMaxMana(), this.mana + mana);
 						sync();
 					}

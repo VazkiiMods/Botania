@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +31,7 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 	public BlockSeaLamp() {
 		super(Material.glass);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		setUnlocalizedName(LibBlockNames.SEA_LAMP);
 	}
@@ -38,7 +40,7 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return coloredLight == -1 ? (coloredLight = ColoredLightHelper.makeRGBLightValue(85, 136, 125, originalLight)) : coloredLight;
 	}
 

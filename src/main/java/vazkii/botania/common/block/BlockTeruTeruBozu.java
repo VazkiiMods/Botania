@@ -19,8 +19,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -30,11 +34,17 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.01, 0.25, 0.75, 0.99, 0.75);
+
 	public BlockTeruTeruBozu() {
 		super(Material.cloth);
 		setUnlocalizedName(LibBlockNames.TERU_TERU_BOZU);
 		float f = 0.25F;
-		setBlockBounds(f, 0.01F, f, 1F - f, 0.99F, 1F - f);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -51,8 +61,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
-		ItemStack stack = player.getCurrentEquippedItem();
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		if(stack != null && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
 			if(!player.capabilities.isCreativeMode)
 				stack.stackSize--;
@@ -87,12 +96,12 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return world.isRaining() ? 15 : 0;
 	}
 
@@ -107,8 +116,8 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override

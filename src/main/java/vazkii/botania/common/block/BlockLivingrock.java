@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -38,7 +39,7 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.LIVING_ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.DEFAULT));
 	}
@@ -84,8 +85,8 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(state));
 	}
 
 	@Override

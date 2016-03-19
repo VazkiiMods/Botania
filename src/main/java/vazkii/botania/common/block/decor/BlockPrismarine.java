@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -41,7 +42,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.PRISMARINE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PRISMARINE_VARIANT, PrismarineVariant.PRISMARINE));
 	}

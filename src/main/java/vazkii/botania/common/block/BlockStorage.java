@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -38,7 +39,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		super(Material.iron);
 		setHardness(3F);
 		setResistance(10F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 		setUnlocalizedName(LibBlockNames.STORAGE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL));
 	}

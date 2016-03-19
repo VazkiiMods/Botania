@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +36,7 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	public BlockManaGlass(String name) {
 		super(Material.glass);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		setUnlocalizedName(name);
 	}

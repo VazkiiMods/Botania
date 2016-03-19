@@ -17,7 +17,7 @@ import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
@@ -70,8 +70,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 					if(entry.action instanceof EntityAINearestAttackableTarget) {
 						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action, (EntityLiving) newTarget);
 						did = true;
-					} else if(entry.action instanceof EntityAIAttackOnCollide) {
-						messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
+					} else if(entry.action instanceof EntityAIAttackMelee) {
+						messWithAttackOnCollideAI((EntityAIAttackMelee) entry.action);
 						did = true;
 					}
 
@@ -89,8 +89,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, target, LibObfuscation.TARGET_ENTITY);
 	}
 
-	private static void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
-		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
+	private static void messWithAttackOnCollideAI(EntityAIAttackMelee aiEntry) {
+		ReflectionHelper.setPrivateValue(EntityAIAttackMelee.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
 	}
 
 	@Override

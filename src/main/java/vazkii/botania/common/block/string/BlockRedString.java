@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -33,7 +34,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(name);
 	}
 
@@ -44,7 +45,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(par1World, pos, par5EntityLivingBase);
+		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
 		par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
 	}
 

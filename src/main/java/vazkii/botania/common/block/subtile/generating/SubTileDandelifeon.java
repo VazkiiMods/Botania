@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -159,7 +160,8 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 	void setBlockForGeneration(BlockPos pos, int gen, int prevGen) {
 		World world = supertile.getWorld();
-		Block blockAt = world.getBlockState(pos).getBlock();
+		IBlockState stateAt = world.getBlockState(pos);
+		Block blockAt = stateAt.getBlock();
 		TileEntity tile = world.getTileEntity(pos);
 		if(gen == -2) {
 			int val = prevGen * MANA_PER_GEN;
@@ -169,7 +171,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			if(gen < 0 || gen > MAX_GENERATIONS)
 				world.setBlockToAir(pos);
 			else ((TileCell) tile).setGeneration(supertile, gen);
-		} else if(gen >= 0 && blockAt.isAir(supertile.getWorld(), pos)) {
+		} else if(gen >= 0 && blockAt.isAir(stateAt, supertile.getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
 			tile = world.getTileEntity(pos);
 			((TileCell) tile).setGeneration(supertile, gen);

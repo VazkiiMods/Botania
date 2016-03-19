@@ -98,9 +98,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
 								for(int l = -rangePlace; l < rangePlace + 1; l++) {
 									BlockPos pos_ = pos.add(i, j, l);
-									Block blockAbove = supertile.getWorld().getBlockState(pos_.up()).getBlock();
+									IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
+									Block blockAbove = stateAbove.getBlock();
 
-									if(filter.equals(supertile.getWorld(), pos_) && (blockAbove.isAir(supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
+									if(filter.equals(supertile.getWorld(), pos_) && (blockAbove.isAir(stateAbove, supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
 										validPositions.add(pos_.up());
 								}
 

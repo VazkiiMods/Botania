@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.slabs;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +27,7 @@ public class BlockEndStoneSlab extends BlockLivingSlab {
 		super(full, ModBlocks.endStoneBrick.getDefaultState());
 		setHardness(1.5F);
 		setResistance(10F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override

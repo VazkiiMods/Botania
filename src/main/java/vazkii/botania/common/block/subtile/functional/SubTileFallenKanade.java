@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -34,8 +35,8 @@ public class SubTileFallenKanade extends SubTileFunctional {
 		if(!supertile.getWorld().isRemote && supertile.getWorld().provider.getDimension() != 1) {
 			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {
-				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost ) {
-					player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 60, 2));
+				if(player.getActivePotionEffect(MobEffects.regeneration) == null && mana >= cost ) {
+					player.addPotionEffect(new PotionEffect(MobEffects.regeneration, 60, 2));
 					mana -= cost;
 				}
 			}

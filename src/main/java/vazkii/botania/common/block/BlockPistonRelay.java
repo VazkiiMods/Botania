@@ -21,6 +21,8 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockPistonMoving;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -32,14 +34,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -62,7 +67,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
 		setHardness(2F);
 		setResistance(10F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -104,7 +109,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	static IBlockState getStateAt(DimWithPos key) {
-		MinecraftServer server = MinecraftServer.getServer();
+		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
 			return null;
 		return server.worldServerForDimension(key.dim).getBlockState(key.blockPos);
@@ -117,7 +122,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		if(!player.isSneaking()) {
 			playerPositions.put(player.getName(), new DimWithPos(world.provider.getDimension(), pos));
-			world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:ding", 0.5F, 1F);
+			world.playSound(null, pos, BotaniaSoundEvents.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
 			world.setBlockToAir(pos);
@@ -196,7 +201,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					boolean sticky = BlockPistonExtension.EnumPistonType.STICKY == state.getValue(BlockPistonMoving.TYPE);
 					EnumFacing dir = state.getValue(BlockPistonMoving.FACING);
 
-					MinecraftServer server = MinecraftServer.getServer();
+					MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 
 					if(server != null && getTimeInCoords(s) == 0) {
 						DimWithPos newPos;
@@ -223,10 +228,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 							IBlockState srcState = world.getBlockState(pos2);
 							TileEntity tile = world.getTileEntity(pos2);
-							Material mat = srcState.getBlock().getMaterial();
+							Material mat = srcState.getMaterial();
 
-							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && srcState.getBlock().getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(world, pos2)) {
-								Material destMat = world.getBlockState(pos2.offset(dir)).getBlock().getMaterial();
+							if(!sticky && tile == null && mat.getMobilityFlag() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(srcState, world, pos2)) {
+								Material destMat = world.getBlockState(pos2.offset(dir)).getMaterial();
 								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(pos2, Blocks.air.getDefaultState());
 									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);

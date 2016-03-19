@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -41,12 +42,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockTinyPotato extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.375, 0.625);
+
 	public BlockTinyPotato() {
 		super(Material.cloth);
 		setHardness(0.25F);
 		setUnlocalizedName(LibBlockNames.TINY_POTATO);
 		float f = 1F / 16F * 6F;
-		setBlockBounds(f, 0, f, 1F - f, f, 1F - f);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH)
 		);
@@ -84,6 +86,11 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Override
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockTinyPotato.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
@@ -100,7 +107,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact();
 			par5EntityPlayer.addStat(ModAchievements.tinyPotatoPet, 1);
-			par1World.spawnParticle(EnumParticleTypes.HEART, pos.getX() + minX + Math.random() * (maxX - minX), pos.getY() + maxY, pos.getZ() + minZ + Math.random() * (maxZ - minZ), 0, 0 ,0);
+			par1World.spawnParticle(EnumParticleTypes.HEART, pos.getX() + AABB.minX + Math.random() * (AABB.maxX - AABB.minX), pos.getY() + AABB.maxY, pos.getZ() + AABB.minZ + Math.random() * (AABB.maxZ - AABB.minZ), 0, 0 ,0);
 		}
 		return true;
 	}

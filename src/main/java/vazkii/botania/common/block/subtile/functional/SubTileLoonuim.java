@@ -14,7 +14,9 @@ import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ChestGenHooks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -29,12 +31,12 @@ public class SubTileLoonuim extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
+		if(!supertile.getWorld().isRemote && redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
 			Random rand = supertile.getWorld().rand;
 
 			ItemStack stack;
 			do {
-				stack = ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
+				stack = supertile.getWorld().getLootTableManager().getLootTableFromLocation(new ResourceLocation("minecraft", "chests/simple_dungeon")).generateLootForPools(rand, new LootContext.Builder(((WorldServer) supertile.getWorld())).build()).get(0);
 			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
@@ -43,8 +45,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.motionY = 0;
 			entity.motionZ = 0;
 
-			if(!supertile.getWorld().isRemote)
-				supertile.getWorld().spawnEntityInWorld(entity);
+			supertile.getWorld().spawnEntityInWorld(entity);
 
 			mana -= COST;
 			sync();

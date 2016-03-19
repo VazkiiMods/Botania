@@ -36,7 +36,7 @@ public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverla
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(2000F);
-		setStepSound(Block.soundTypeStone);
+		setSoundType(Block.SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.MANA_VOID);
 	}
 

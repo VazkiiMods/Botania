@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +37,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 		setLightOpacity(0);
 		setHardness(0.3F);
 		setLightLevel(1F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setTickRandomly(true);
 	}
 
@@ -45,19 +46,14 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		Block block = p_149646_1_.getBlockState(pos).getBlock();
-
-		return block == this ? false : super.shouldSideBeRendered(p_149646_1_, pos, side);
+	@Override
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block != this && super.shouldSideBeRendered(state, world, pos, side);
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite());
-	}
-
-	@Override
-	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random rand) {
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if(rand.nextBoolean())
 			Botania.proxy.sparkleFX(world, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
 					storedMana = val * val * 64;
 					cooldown = val * 10;
-					supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
+					item.playSound(SoundEvents.entity_generic_eat, 0.2F, 0.5F + (float) Math.random() * 0.5F);
 					sync();
 					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 				}

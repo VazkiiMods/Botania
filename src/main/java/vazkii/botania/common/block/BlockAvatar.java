@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +22,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -41,11 +45,23 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	protected BlockAvatar() {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.AVATAR);
-		setBlockBounds(EnumFacing.Axis.Z);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 		random = new Random();
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		float f = 1F / 16F;
+		float w = f * 9;
+		float l = f * 6;
+		float ws = (1F - w) / 2;
+		float ls = (1F - l) / 2;
+
+		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.Z)
+			setBlockBounds(ws, 0F, ls, 1F - ws, 1F + f, 1F - ls);
+		else setBlockBounds(ls, 0F, ws, 1F - ls, 1F + f, 1F - ws);
 	}
 
 	@Override
@@ -67,10 +83,9 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stackOnPlayer, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
-		ItemStack stackOnPlayer = player.getCurrentEquippedItem();
 		if(stackOnAvatar != null) {
 			ItemStack copyStack = stackOnAvatar.copy();
 			avatar.getItemHandler().setStackInSlot(0, null);
@@ -85,23 +100,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		}
 
 		return false;
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
-		setBlockBounds(w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS).getAxis());
-	}
-
-	public void setBlockBounds(EnumFacing.Axis horiz) {
-		float f = 1F / 16F;
-		float w = f * 9;
-		float l = f * 6;
-		float ws = (1F - w) / 2;
-		float ls = (1F - l) / 2;
-
-		if(horiz == EnumFacing.Axis.Z)
-			setBlockBounds(ws, 0F, ls, 1F - ws, 1F + f, 1F - ls);
-		else setBlockBounds(ls, 0F, ws, 1F - ls, 1F + f, 1F - ws);
 	}
 
 	@Override
@@ -158,8 +156,8 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override

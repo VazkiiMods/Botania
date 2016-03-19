@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -98,8 +99,8 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			for(int j = -rangeY; j < rangeY; j++)
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
-					Block block = supertile.getWorld().getBlockState(pos).getBlock();
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.stone)))
+					IBlockState state = supertile.getWorld().getBlockState(pos);
+					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.stone)))
 						possibleCoords.add(pos);
 				}
 

@@ -21,6 +21,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
@@ -32,16 +33,22 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockFakeAir extends BlockMod {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
+
 	public BlockFakeAir() {
 		super(Material.air);
 		setUnlocalizedName(LibBlockNames.FAKE_AIR);
-		setBlockBounds(0, 0, 0, 0, 0, 0);
 		setTickRandomly(true);
 	}
 
 	@Override
-	public int getRenderType() {
-		return -1;
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.INVISIBLE;
 	}
 
 	@Override
@@ -82,7 +89,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public boolean isBlockNormalCube() {
+	public boolean isBlockNormalCube(IBlockState state) {
 		return false;
 	}
 
@@ -92,7 +99,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public boolean canEntityDestroy(IBlockAccess world, BlockPos pos, Entity e) {
+	public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity e) {
 		return false;
 	}
 
@@ -102,7 +109,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(IBlockAccess world, BlockPos pos) {
+	public boolean canBeReplacedByLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return true;
 	}
 
@@ -117,12 +124,12 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World par1World, BlockPos pos, IBlockState state) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World par1World, BlockPos pos) {
 		return null;
 	}
 
 	@Override
-	public boolean isAir(IBlockAccess world, BlockPos pos) {
+	public boolean isAir(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return true;
 	}
 

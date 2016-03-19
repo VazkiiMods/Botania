@@ -12,7 +12,7 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
     public BlockModDoubleFlower1() {
         super(false);
         setDefaultState(blockState.getBaseState()
-                .withProperty(field_181084_N, EnumFacing.SOUTH)
+                .withProperty(FACING, EnumFacing.SOUTH)
                 .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
                 .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
                 .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE));
@@ -20,7 +20,7 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
 
     @Override
     public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, field_181084_N, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
+        return new BlockStateContainer(this, FACING, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
     }
 
     @Override

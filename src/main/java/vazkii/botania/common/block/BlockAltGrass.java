@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -45,7 +46,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	public BlockAltGrass() {
 		super(Material.grass);
 		setHardness(0.6F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setUnlocalizedName(LibBlockNames.ALT_GRASS);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
 		setTickRandomly(true);
@@ -109,37 +110,37 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
     }
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
 		EnumPlantType type = plantable.getPlantType(world, pos.down());
 		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
 	}
 
 	@Override
-	public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random r) {
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random r) {
 		if (state.getBlock() != this)
 			return;
 		AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 		switch(variant) {
-		case DRY: // Dry
+		case DRY:
 			break;
-		case GOLDEN: // Golden
+		case GOLDEN:
 			break;
-		case VIVID: // Vivid
+		case VIVID:
 			break; 
-		case SCORCHED: // Scorched
+		case SCORCHED:
 			if(r.nextInt(80) == 0)
 	        	world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
-		case INFUSED: // Infused
+		case INFUSED:
 			if(r.nextInt(100) == 0)
 				Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
 			break; 
-		case MUTATED: // Mutated
+		case MUTATED:
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)
 					Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);

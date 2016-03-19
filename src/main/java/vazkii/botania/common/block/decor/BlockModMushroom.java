@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockMushroom;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +25,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -46,14 +48,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 	public int originalLight;
 
 	public BlockModMushroom() {
 		setUnlocalizedName(LibBlockNames.MUSHROOM);
 		setLightLevel(0.2F);
 		setHardness(0F);
-		setStepSound(soundTypeGrass);
-		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
+		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
@@ -75,6 +77,11 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

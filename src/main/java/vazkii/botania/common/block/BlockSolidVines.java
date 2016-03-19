@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -34,7 +35,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	public BlockSolidVines() {
 		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setCreativeTab(null);
 	}
 
@@ -70,7 +71,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(Blocks.vine);
 	}
 

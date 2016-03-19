@@ -11,6 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -33,7 +34,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	public BlockManaBomb() {
 		super(Material.wood);
 		setHardness(12.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.MANA_BOMB);
 	}
 

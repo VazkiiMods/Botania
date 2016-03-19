@@ -13,12 +13,16 @@ package vazkii.botania.common.block;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -31,15 +35,19 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCocoon extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 0.125, 0.875, 0.125);
+
 	protected BlockCocoon() {
 		super(Material.cloth);
 		setHardness(3.0F);
 		setResistance(50.0F);
-		setStepSound(soundTypeCloth);
+		setSoundType(SoundType.CLOTH);
 		setUnlocalizedName(LibBlockNames.COCOON);
-		float f = 3F / 16F;
-		float f1 = 14F / 16F;
-		setBlockBounds(f, 0F, f, 1F - f, f1, 1F - f);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -53,14 +61,13 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getRenderType() {
-		return 2;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack item, EnumFacing s, float xs, float ys, float zs) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
-		ItemStack item = player.getCurrentEquippedItem();
 		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.emerald) {
 			if(!player.capabilities.isCreativeMode)
 				item.stackSize--;

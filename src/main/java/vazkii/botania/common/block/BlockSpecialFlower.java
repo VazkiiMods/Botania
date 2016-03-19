@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -32,6 +33,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -64,7 +67,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	static {
-		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(new String[] {
+		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(
 				// Misc
 				LibBlockNames.SUBTILE_PUREDAISY,
 				LibBlockNames.SUBTILE_MANASTAR,
@@ -110,22 +113,27 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				LibBlockNames.SUBTILE_VINCULOTUS,
 				LibBlockNames.SUBTILE_SPECTRANTHEMUM,
 				LibBlockNames.SUBTILE_BUBBELL,
-				LibBlockNames.SUBTILE_SOLEGNOLIA
-		}));
+				LibBlockNames.SUBTILE_SOLEGNOLIA));
 	}
+
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	protected BlockSpecialFlower() {
 		super();
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -159,35 +167,35 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		int currentLight = world.getTileEntity(pos) == null ? -1 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 		if(currentLight == -1)
 			currentLight = 0;
-		return LightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), currentLight);
+		return LightHelper.getPackedColor(state.getValue(BotaniaStateProps.COLOR), currentLight);
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TileSpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
 	}
 
 	@Override
-	public int getWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return ((TileSpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
 	}
 
 	@Override
-	public int getStrongPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
-		return getWeakPower(world, pos, state, side);
+	public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return getWeakPower(state, world, pos, side);
 	}
 
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 
@@ -217,14 +225,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
 	}
 
 	@Override
-	protected boolean canPlaceBlockOn(Block block) {
-		return super.canPlaceBlockOn(block) || block == ModBlocks.redStringRelay || block == Blocks.mycelium;
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
+		return super.canPlaceBlockAt(world, pos) || world.getBlockState(pos.down()).getBlock() == ModBlocks.redStringRelay || world.getBlockState(pos.down()).getBlock() == Blocks.mycelium;
 	}
 
 	@Override
@@ -287,8 +295,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getCurrentEquippedItem();
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(stack != null && stack.getItem() == ModItems.dye) {
 			EnumDyeColor newColor = EnumDyeColor.byMetadata(stack.getItemDamage());
 			EnumDyeColor oldColor = state.getValue(BotaniaStateProps.COLOR);
@@ -296,7 +303,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				world.setBlockState(pos, state.withProperty(BotaniaStateProps.COLOR, newColor), 1 | 2);
 		}
 
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
 	@Override
@@ -305,7 +312,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean addLandingEffects(net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
+	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
 		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
 		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
 		if (d0 > 2.5D) {

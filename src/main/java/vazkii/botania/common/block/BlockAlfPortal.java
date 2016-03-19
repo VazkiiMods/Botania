@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +36,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	public BlockAlfPortal() {
 		super(Material.wood);
 		setHardness(10F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.ALF_PORTAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}
@@ -82,8 +83,8 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == this && world.getBlockState(pos).getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;
 	}
 
 }

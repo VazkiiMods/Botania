@@ -49,7 +49,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setLightLevel(1.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 		random = new Random();

@@ -34,7 +34,7 @@ public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILe
 	public BlockTurntable() {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.TURNTABLE);
 	}
 

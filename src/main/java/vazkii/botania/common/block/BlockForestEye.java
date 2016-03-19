@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -25,13 +28,19 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockForestEye extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
+
 	public BlockForestEye() {
 		super(Material.iron);
 		setHardness(5.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeMetal);
-		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
+		setSoundType(SoundType.METAL);
 		setUnlocalizedName(LibBlockNames.FOREST_EYE);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -45,12 +54,12 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
 		TileForestEye eye = (TileForestEye) par1World.getTileEntity(pos);
 		return Math.min(15, Math.max(0, eye.entities - 1));
 	}

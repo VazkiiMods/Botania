@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -38,13 +39,19 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
+
 	public BlockLightLauncher() {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.LIGHT_LAUNCHER);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

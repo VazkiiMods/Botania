@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class BlockThatch extends BlockMod implements ILexiconable {
 	public BlockThatch() {
 		super(Material.grass);
 		setHardness(1.0F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setUnlocalizedName(LibBlockNames.THATCH);
 	}
 

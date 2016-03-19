@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class BlockShimmerwoodPlanks  extends BlockMod implements ILexiconable {
 	public BlockShimmerwoodPlanks() {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.SHIMMERWOOD_PLANKS);
 	}
 

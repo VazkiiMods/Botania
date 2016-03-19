@@ -17,9 +17,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
@@ -65,7 +67,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 								if(!supertile.getWorld().isRemote) {
 									stack.stackSize--;
-									supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:endoflame", 0.2F, 1F);
+									supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
 
 									if(stack.stackSize == 0)
 										item.setDead();

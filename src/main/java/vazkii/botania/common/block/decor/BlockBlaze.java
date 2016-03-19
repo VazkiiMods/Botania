@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -33,7 +34,7 @@ public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 		super(Material.iron);
 		setHardness(3F);
 		setResistance(10F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 		setLightLevel(1F);
 		setUnlocalizedName(LibBlockNames.BLAZE_BLOCK);
 		GameRegistry.registerFuelHandler(this);

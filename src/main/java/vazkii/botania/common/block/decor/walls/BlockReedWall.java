@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
+import net.minecraft.block.SoundType;
 import vazkii.botania.common.block.ModBlocks;
 
 public class BlockReedWall extends BlockModWall {
@@ -17,7 +18,7 @@ public class BlockReedWall extends BlockModWall {
 	public BlockReedWall() {
 		super(ModBlocks.reedBlock, 0);
 		setHardness(1.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 	}
 
 }

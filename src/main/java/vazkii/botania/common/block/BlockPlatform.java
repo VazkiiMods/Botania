@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -50,7 +51,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		super(Material.wood);
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setStepSound(Block.soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.PLATFORM);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.HELD_STATE, null)
@@ -119,16 +120,16 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World par1World, BlockPos pos, IBlockState state, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
+	public void addCollisionBoxToList(IBlockState state, World par1World, BlockPos pos, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
 		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
-			super.addCollisionBoxesToList(par1World, pos, state, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxToList(state, par1World, pos, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override
-	public float getBlockHardness(World par1World, BlockPos pos) {
+	public float getBlockHardness(IBlockState state, World par1World, BlockPos pos) {
 		PlatformVariant variant = par1World.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(par1World, pos);
+		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, par1World, pos);
 	}
 
 	@Override

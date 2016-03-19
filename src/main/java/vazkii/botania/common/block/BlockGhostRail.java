@@ -68,12 +68,10 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
 	@SubscribeEvent
 	public void onMinecartUpdate(MinecartUpdateEvent event) {
-		int x = MathHelper.floor_double(event.entity.posX);
-		int y = MathHelper.floor_double(event.entity.posY);
-		int z = MathHelper.floor_double(event.entity.posZ);
 		BlockPos entPos = new BlockPos(event.entity);
-		Block block = event.entity.worldObj.getBlockState(entPos).getBlock();
-		boolean air = block.isAir(event.entity.worldObj, entPos);
+		IBlockState state = event.entity.worldObj.getBlockState(entPos);
+		Block block = state.getBlock();
+		boolean air = block.isAir(state, event.entity.worldObj, entPos);
 		int floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(block == this)
@@ -86,8 +84,9 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(floatTicks > 0) {
-			Block blockBelow = event.entity.worldObj.getBlockState(entPos.down()).getBlock();
-			boolean airBelow = blockBelow.isAir(event.entity.worldObj, entPos.down());
+			IBlockState stateBelow = event.entity.worldObj.getBlockState(entPos.down());
+			Block blockBelow = stateBelow.getBlock();
+			boolean airBelow = blockBelow.isAir(stateBelow, event.entity.worldObj, entPos.down());
 			if(air && airBelow || !air && !airBelow)
 				event.entity.noClip = true;
 			event.entity.motionY = 0.2;

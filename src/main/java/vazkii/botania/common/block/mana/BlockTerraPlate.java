@@ -38,7 +38,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 		setBlockBounds(0F, 0F, 0F, 1F, 3F / 16F, 1F);
 		setHardness(3F);
 		setResistance(10F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 
 		setUnlocalizedName(LibBlockNames.TERRA_PLATE);
 

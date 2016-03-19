@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -39,7 +40,7 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.END_STONE_BRICK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.END_STONE_BRICKS));
 	}

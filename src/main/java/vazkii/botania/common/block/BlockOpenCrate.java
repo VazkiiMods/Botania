@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -56,7 +57,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	public BlockOpenCrate() {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.OPEN_CRATE);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
@@ -118,12 +119,12 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
 		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(pos);
 		return crate.getSignal();
 	}

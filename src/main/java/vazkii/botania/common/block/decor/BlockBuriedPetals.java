@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -29,10 +30,16 @@ import net.minecraftforge.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.1, 1);
+
 	public BlockBuriedPetals() {
 		super(LibBlockNames.BURIED_PETALS);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.1F, 1F);
 		setLightLevel(0.25F);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

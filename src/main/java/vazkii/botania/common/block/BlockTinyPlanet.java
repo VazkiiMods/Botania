@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -25,14 +28,20 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTinyPlanet extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
+
 	protected BlockTinyPlanet() {
 		super(Material.rock);
 		setHardness(20F);
 		setResistance(100F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		float size = 3F / 16F;
-		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
 		setUnlocalizedName(LibBlockNames.TINY_PLANET);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

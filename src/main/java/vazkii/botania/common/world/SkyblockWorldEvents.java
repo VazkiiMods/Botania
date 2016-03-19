@@ -82,7 +82,7 @@ public final class SkyblockWorldEvents {
 			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.world.isRemote) {
 				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
 				if(RayTraceResult != null) {
-					if (RayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
+					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
 						if(event.world.getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 

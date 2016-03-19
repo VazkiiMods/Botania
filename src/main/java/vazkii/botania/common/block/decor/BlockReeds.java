@@ -12,6 +12,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +36,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 	public BlockReeds() {
 		super(Material.wood);
 		setHardness(1.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.REED_BLOCK);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.AXIS_FACING, EnumFacing.Axis.Y));

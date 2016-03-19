@@ -47,7 +47,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	public BlockPrism() {
 		super(Material.glass);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		setUnlocalizedName(LibBlockNames.PRISM);
 		float f = 0.25F;

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +25,7 @@ public class BlockPrismarineWall extends BlockModWall {
 		super(ModBlocks.prismarine, 0);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override

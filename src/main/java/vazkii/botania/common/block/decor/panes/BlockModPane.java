@@ -12,6 +12,7 @@ package vazkii.botania.common.block.decor.panes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +33,7 @@ public class BlockModPane extends BlockPane {
 		setUnlocalizedName(source.getUnlocalizedName().replaceAll("tile.", "") + "Pane");
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		useNeighborBrightness = true;
 	}

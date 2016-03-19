@@ -20,8 +20,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -65,13 +67,13 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 					Material search = getMaterialToSearchFor();
 					PropertyInteger prop = supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockLiquid ? BlockLiquid.LEVEL : supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockFluidBase ? BlockFluidBase.LEVEL : null;
-					if(supertile.getWorld().getBlockState(pos).getBlock().getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && (prop == null || supertile.getWorld().getBlockState(pos).getValue(prop) == 0)) {
+					if(supertile.getWorld().getBlockState(pos).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && (prop == null || supertile.getWorld().getBlockState(pos).getValue(prop) == 0)) {
 						if(search != Material.water)
 							supertile.getWorld().setBlockToAir(pos);
 						else {
 							int waterAround = 0;
 							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
-								if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock().getMaterial() == search)
+								if(supertile.getWorld().getBlockState(pos.offset(dir)).getMaterial() == search)
 									waterAround++;
 
 							if(waterAround < 2)
@@ -112,7 +114,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void playSound() {
-		supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "random.drink", 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.entity_generic_drink, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {
@@ -179,7 +181,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getIntRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
 		return rain ? 1 : 2;
 	}
 

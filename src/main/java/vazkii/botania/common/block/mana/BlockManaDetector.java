@@ -40,7 +40,7 @@ public class BlockManaDetector extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(Block.soundTypeStone);
+		setSoundType(Block.SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.MANA_DETECTOR);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}

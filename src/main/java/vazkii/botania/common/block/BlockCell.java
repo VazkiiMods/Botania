@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +33,7 @@ public class BlockCell extends BlockMod implements ILexiconable {
 	public BlockCell() {
 		super(Material.gourd);
 		setUnlocalizedName(LibBlockNames.CELL_BLOCK);
-		setStepSound(soundTypeCloth);
+		setSoundType(SoundType.CLOTH);
 	}
 
 	@Override

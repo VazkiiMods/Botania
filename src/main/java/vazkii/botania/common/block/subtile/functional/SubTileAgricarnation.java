@@ -16,9 +16,12 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -50,7 +53,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					supertile.getWorld().scheduleUpdate(pos, block, 1);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playAuxSFX(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
-					supertile.getWorld().playSoundEffect(x, y, z, "botania:agricarnation", 0.01F, 0.5F + (float) Math.random() * 0.5F);
+					supertile.getWorld().playSound(null, x, y, z, BotaniaSoundEvents.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}
@@ -64,11 +67,12 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	}
 
 	boolean isPlant(BlockPos pos) {
-		Block block = supertile.getWorld().getBlockState(pos).getBlock();
+		IBlockState state = supertile.getWorld().getBlockState(pos);
+		Block block = state.getBlock();
 		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
 			return false;
 
-		Material mat = block.getMaterial();
+		Material mat = state.getMaterial();
 		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).canGrow(supertile.getWorld(), pos, supertile.getWorld().getBlockState(pos), supertile.getWorld().isRemote);
 	}
 

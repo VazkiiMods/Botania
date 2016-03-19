@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -38,8 +39,8 @@ public class SubTileHyacidus extends SubTileFunctional {
 
 		List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityLivingBase entity : entities) {
-			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(Potion.poison) == null && mana >= cost && !entity.worldObj.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
-				entity.addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
+			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.poison) == null && mana >= cost && !entity.worldObj.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
+				entity.addPotionEffect(new PotionEffect(MobEffects.poison, 60, 0));
 				mana -= cost;
 			}
 		}

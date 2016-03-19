@@ -41,7 +41,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 		setBlockBounds(0F, 0F, 0F, 1F, 0.75F, 1F);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
 
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);

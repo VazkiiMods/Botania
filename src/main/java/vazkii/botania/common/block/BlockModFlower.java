@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,6 +27,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,9 +46,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable {
 
-	public int originalLight;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
-	public static final String ALT_DIR = "alt";
+	public int originalLight;
 
 	protected BlockModFlower() {
 		this(LibBlockNames.FLOWER);
@@ -56,11 +58,15 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		super();
 		setUnlocalizedName(name);
 		setHardness(0F);
-		setStepSound(soundTypeGrass);
-		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
+		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -119,7 +125,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

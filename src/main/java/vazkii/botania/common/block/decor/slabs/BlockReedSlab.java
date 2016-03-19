@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.slabs;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,7 @@ public class BlockReedSlab extends BlockLivingSlab {
 	public BlockReedSlab(boolean full) {
 		super(full, ModBlocks.reedBlock.getDefaultState());
 		setHardness(1.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 	}
 
 	@Override

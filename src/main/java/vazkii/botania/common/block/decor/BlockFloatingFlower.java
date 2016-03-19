@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -28,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -65,6 +67,8 @@ import java.util.Random;
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfusionStabiliser {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
+
 	public BlockFloatingFlower() {
 		this(LibBlockNames.MINI_ISLAND);
 	}
@@ -73,14 +77,17 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		super(Material.ground);
 		setUnlocalizedName(name);
 		setHardness(0.5F);
-		setStepSound(soundTypeGravel);
+		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
 
-		float f = 0.1F;
-		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.ISLAND_TYPE, IslandType.GRASS)
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

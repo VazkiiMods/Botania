@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,7 +35,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	public BlockEnchantedSoil() {
 		super(Material.grass);
 		setHardness(0.6F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setUnlocalizedName(LibBlockNames.ENCHANTED_SOIL);
 	}
 
@@ -49,7 +50,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 

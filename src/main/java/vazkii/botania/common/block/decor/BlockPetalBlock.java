@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -38,7 +39,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	public BlockPetalBlock() {
 		super(Material.plants);
 		setHardness(0.4F);
-		setStepSound(soundTypeGrass);
+		setSoundType(SoundType.PLANT);
 		setUnlocalizedName(LibBlockNames.PETAL_BLOCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}

@@ -11,20 +11,22 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
@@ -58,7 +60,7 @@ public class SubTileOrechid extends SubTileFunctional {
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playAuxSFX(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorld().playSoundEffect(supertile.getPos().getX(), supertile.getPos().getY(), supertile.getPos().getZ(), "botania:orechid", 2F, 1F);
+					supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -68,7 +70,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public ItemStack getOreToPut() {
-		Collection<WeightedRandom.Item> values = new ArrayList<>();
+		List<WeightedRandom.Item> values = new ArrayList<>();
 		Map<String, Integer> map = getOreMap();
 		for(String s : map.keySet())
 			values.add(new StringRandomItem(map.get(s), s));
@@ -105,8 +107,8 @@ public class SubTileOrechid extends SubTileFunctional {
 			for(int j = -RANGE_Y; j < RANGE_Y; j++)
 				for(int k = -RANGE; k < RANGE + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
-					Block block = supertile.getWorld().getBlockState(pos).getBlock();
-					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
+					IBlockState state = supertile.getWorld().getBlockState(pos);
+					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
 						possibleCoords.add(pos);
 				}
 

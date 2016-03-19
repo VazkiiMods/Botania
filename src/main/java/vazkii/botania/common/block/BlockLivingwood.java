@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -42,7 +43,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	public BlockLivingwood(String name) {
 		super(Material.wood);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(name);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT));
 	}
@@ -92,13 +93,13 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(state));
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.GLIMMERING ? 12 : 0;
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.GLIMMERING ? 12 : 0;
 	}
 
 	@Override
@@ -108,8 +109,8 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean canSustainLeaves(IBlockAccess world, BlockPos pos) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.DEFAULT;
+	public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.DEFAULT;
 	}
 
 }

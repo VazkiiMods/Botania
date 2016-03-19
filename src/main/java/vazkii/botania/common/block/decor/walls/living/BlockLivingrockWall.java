@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor.walls.living;
 
+import net.minecraft.block.SoundType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
 
@@ -19,7 +20,7 @@ public class BlockLivingrockWall extends BlockModWall {
 		super(ModBlocks.livingrock, 0);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 }

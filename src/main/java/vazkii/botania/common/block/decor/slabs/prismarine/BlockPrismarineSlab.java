@@ -1,6 +1,7 @@
 package vazkii.botania.common.block.decor.slabs.prismarine;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +24,7 @@ public class BlockPrismarineSlab extends BlockLivingSlab {
 		super(full, ModBlocks.prismarine.getDefaultState().withProperty(BotaniaStateProps.PRISMARINE_VARIANT, variant));
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override

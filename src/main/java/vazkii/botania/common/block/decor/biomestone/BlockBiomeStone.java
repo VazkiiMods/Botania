@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor.biomestone;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,7 +36,7 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 		setUnlocalizedName(name);
 	}
 
@@ -62,7 +63,7 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 

@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -55,11 +56,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	public BlockModDoubleFlower(boolean second) {
 		this.second = second;
 		this.setHardness(0.0F);
-		this.setStepSound(soundTypeGrass);
+		this.setSoundType(SoundType.PLANT);
 		offset = second ? 8 : 0;
 		setUnlocalizedName(LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1));
 		setHardness(0F);
-		setStepSound(soundTypeGrass);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
@@ -101,8 +101,8 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void harvestBlock(World p_149636_1_, EntityPlayer p_149636_2_, BlockPos pos, IBlockState state, TileEntity te) {
-		if(p_149636_1_.isRemote || p_149636_2_.getCurrentEquippedItem() == null || p_149636_2_.getCurrentEquippedItem().getItem() != Items.shears || state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.LOWER)
+	public void harvestBlock(World p_149636_1_, EntityPlayer p_149636_2_, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
+		if(p_149636_1_.isRemote || stack == null || stack.getItem() != Items.shears || state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.LOWER)
 			harvestBlockCopy(p_149636_1_, p_149636_2_, pos, state);
 	}
 
@@ -200,7 +200,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void randomDisplayTick(World par1World, BlockPos pos, IBlockState state, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
 		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -227,12 +227,11 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 			}
 		}
 
-		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(field_181084_N, EnumFacing.SOUTH);
+		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(FACING, EnumFacing.SOUTH);
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		IBlockState state = world.getBlockState(pos);
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		state = state.getBlock().getActualState(state, world, pos);
 		PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
 		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getValue(prop).ordinal() - (second ? 8 : 0));

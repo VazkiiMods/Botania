@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -36,7 +38,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		super(Material.wood);
 		setUnlocalizedName(LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		setBlockBounds(EnumFacing.Axis.Z);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
@@ -60,9 +62,8 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
-		ItemStack stack = player.getCurrentEquippedItem();
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
 		boolean did = false;
 
@@ -100,18 +101,13 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TileIncensePlate) world.getTileEntity(pos)).comparatorOutput;
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
-		setBlockBounds(w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS).getAxis());
 	}
 
 	public void setBlockBounds(EnumFacing.Axis axis) {

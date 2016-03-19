@@ -12,6 +12,7 @@ package vazkii.botania.common.block.corporea;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -34,7 +35,7 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	public BlockCorporeaInterceptor() {
 		super(Material.iron, LibBlockNames.CORPOREA_INTERCEPTOR);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 

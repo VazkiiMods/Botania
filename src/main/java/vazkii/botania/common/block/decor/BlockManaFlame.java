@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,13 +40,19 @@ import net.minecraftforge.fml.common.Optional;
 
 public class BlockManaFlame extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
+
 	public BlockManaFlame() {
 		super(Material.cloth);
 		setUnlocalizedName(LibBlockNames.MANA_FLAME);
 		float f = 0.25F;
-		setStepSound(soundTypeCloth);
-		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
+		setSoundType(SoundType.CLOTH);
 		setLightLevel(1F);
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -55,7 +62,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return ((TileManaFlame) world.getTileEntity(pos)).getLightColor();
 	}
 
@@ -87,7 +94,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.sapling) && !player.inventory.hasItem(ModItems.lexicon)) {
+			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.sapling) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if(!world.isRemote)
 					stack.stackSize--;
 				if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon)))

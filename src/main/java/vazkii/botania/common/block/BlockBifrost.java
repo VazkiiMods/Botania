@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +41,7 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 		setLightOpacity(0);
 		setLightLevel(1F);
 		setBlockUnbreakable();
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -55,19 +56,14 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack getPickBlock(RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(ModItems.rainbowRod);
 	}
 
-	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		Block block = p_149646_1_.getBlockState(pos).getBlock();
-
-		return block == this ? false : super.shouldSideBeRendered(p_149646_1_, pos, side);
-	}
-
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing side) {
-		return shouldSideBeRendered1(p_149646_1_, pos, side.getOpposite());
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block != this && super.shouldSideBeRendered(state, world, pos, side);
 	}
 
 	@Override

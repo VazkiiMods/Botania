@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -35,7 +36,7 @@ public class SubTileMedumone extends SubTileFunctional {
 
 			for(EntityLivingBase entity : entities)
 				if(!(entity instanceof EntityPlayer)) {
-					entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 100));
+					entity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 2, 100));
 					mana--;
 					if(mana == 0)
 						return;

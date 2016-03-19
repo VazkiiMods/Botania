@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +32,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 	public BlockCorporeaFunnel() {
 		super(Material.iron, LibBlockNames.CORPOREA_FUNNEL);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 

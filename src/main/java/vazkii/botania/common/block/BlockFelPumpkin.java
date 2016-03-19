@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -40,7 +41,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		super(Material.gourd);
 		setUnlocalizedName(LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
-		setStepSound(soundTypeWood);
+		setSoundType(SoundType.WOOD);
 		MinecraftForge.EVENT_BUS.register(this);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
