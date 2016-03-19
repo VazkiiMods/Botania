@@ -49,7 +49,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		double time = ClientTickHandler.ticksInGame + par9;
 		time += new Random(par1Entity.getEntityId()).nextInt();
 
-		float a = 0.1F + (1 - par1Entity.getDataWatcher().getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY)) * 0.8F;
+		float a = 0.1F + (1 - par1Entity.getDataManager().get(EntitySpark.INVSIBILITY)) * 0.8F;
 
 		GlStateManager.color(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
 

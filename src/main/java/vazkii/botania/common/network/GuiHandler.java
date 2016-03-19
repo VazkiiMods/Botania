@@ -42,8 +42,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
 		case LibGuiIDs.LEXICON :
-			GuiLexicon lex = GuiLexicon.currentOpenLexicon;
-			return lex;
+			return GuiLexicon.currentOpenLexicon;
 		case LibGuiIDs.CRAFTING_HALO :
 			return new GuiCraftingHalo(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :

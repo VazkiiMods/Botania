@@ -47,6 +47,8 @@ public class FXSparkle extends EntityFX {
 	float f4;
 	float f5;
 
+	public boolean noClip = false;
+
 	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 
@@ -55,7 +57,7 @@ public class FXSparkle extends EntityFX {
 		particleBlue = blue;
 		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
-		motionX = motionY = motionZ = 0;
+		xSpeed = ySpeed = zSpeed = 0;
 		particleScale *= size;
 		particleMaxAge = 3 * m;
 		multiplier = m;
@@ -135,30 +137,30 @@ public class FXSparkle extends EntityFX {
 		prevPosZ = posZ;
 
 		if (particleAge++ >= particleMaxAge)
-			setDead();
+			setExpired();
 
-		motionY -= 0.04D * particleGravity;
+		ySpeed -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
 			pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
 
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
+		posX += xSpeed;
+		posY += ySpeed;
+		posZ += zSpeed;
 
 		if (slowdown) {
-			motionX *= 0.908000001907348633D;
-			motionY *= 0.908000001907348633D;
-			motionZ *= 0.908000001907348633D;
+			xSpeed *= 0.908000001907348633D;
+			ySpeed *= 0.908000001907348633D;
+			zSpeed *= 0.908000001907348633D;
 
 			if (onGround) {
-				motionX *= 0.69999998807907104D;
-				motionZ *= 0.69999998807907104D;
+				xSpeed *= 0.69999998807907104D;
+				zSpeed *= 0.69999998807907104D;
 			}
 		}
 
 		if(fake && particleAge > 1)
-			setDead();
+			setExpired();
 	}
 
 	public void setGravity(float value) {
@@ -218,33 +220,33 @@ public class FXSparkle extends EntityFX {
 			float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
 			if (var22 == 0) {
-				motionX = -var25;
-				motionY=motionZ=var26;
+				xSpeed = -var25;
+				ySpeed=zSpeed=var26;
 			}
 
 			if (var22 == 1) {
-				motionX = var25;
-				motionY=motionZ=var26;
+				xSpeed = var25;
+				ySpeed=zSpeed=var26;
 			}
 
 			if (var22 == 2) {
-				motionY = -var25;
-				motionX=motionZ=var26;
+				ySpeed = -var25;
+				xSpeed=zSpeed=var26;
 			}
 
 			if (var22 == 3) {
-				motionY = var25;
-				motionX=motionZ=var26;
+				ySpeed = var25;
+				xSpeed=zSpeed=var26;
 			}
 
 			if (var22 == 4) {
-				motionZ = -var25;
-				motionY=motionX=var26;
+				zSpeed = -var25;
+				ySpeed=xSpeed=var26;
 			}
 
 			if (var22 == 5) {
-				motionZ = var25;
-				motionY=motionX=var26;
+				zSpeed = var25;
+				ySpeed=xSpeed=var26;
 			}
 
 			return true;

@@ -12,7 +12,6 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWither;
-import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
@@ -20,8 +19,6 @@ import vazkii.botania.client.lib.LibResources;
 public class RenderPinkWither extends RenderWither {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
-
-	int idk = -1;
 
 	public RenderPinkWither(RenderManager p_i46130_1_) {
 		super(p_i46130_1_);

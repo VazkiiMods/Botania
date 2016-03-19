@@ -29,6 +29,7 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,8 +45,8 @@ public final class SubTileRadiusRenderHandler {
 			return;
 		BlockPos bPos = pos.getBlockPos();
 
-		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
-		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
+		ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand);
+		if(stackHeld != null && ItemTwigWand.getBindMode(stackHeld)) {
 			BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
 			if(coords.getY() != -1) {
 				bPos = coords;

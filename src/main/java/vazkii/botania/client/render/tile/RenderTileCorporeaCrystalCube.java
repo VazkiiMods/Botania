@@ -10,9 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -30,12 +27,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ResourceLocation;
 
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.client.model.animation.Event;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -139,25 +134,6 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	// Copied from AnimationTESR
 	protected static BlockRendererDispatcher blockRenderer;
 
-	// Botania - expanded size to 15 to hold all states
-	protected static final LoadingCache<Pair<IExtendedBlockState, IModelState>, IBakedModel> modelCache = CacheBuilder.newBuilder().maximumSize(15).expireAfterWrite(100, TimeUnit.MILLISECONDS).build(new CacheLoader<Pair<IExtendedBlockState, IModelState>, IBakedModel>()
-	{
-		public IBakedModel load(Pair<IExtendedBlockState, IModelState> key) throws Exception
-		{
-			IBakedModel model = blockRenderer.getBlockModelShapes().getModelForState(key.getLeft().getClean());
-			if(model instanceof ISmartBlockModel)
-			{
-				model = ((ISmartBlockModel)model).handleBlockState(key.getLeft().withProperty(Properties.AnimationProperty, key.getRight()));
-			}
-			return model;
-		}
-	});
-
-	private static IBakedModel getModel(IExtendedBlockState state, IModelState modelState)
-	{
-		return modelCache.getUnchecked(Pair.of(state, modelState));
-	}
-
 	private void renderAnimatedModel(TileCorporeaCrystalCube te, double x, double y, double z, float partialTick) {
 		// From FastTESR.renderTileEntityAt
 		Tessellator tessellator = Tessellator.getInstance();
@@ -197,11 +173,12 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 				Pair<IModelState, Iterable<Event>> pair = te.asm().apply(time);
 				// handleEvents(te, time, pair.getRight());
 
-				IBakedModel model = getModel(exState, pair.getLeft());
+				IBakedModel model = blockRenderer.getBlockModelShapes().getModelForState(exState.getClean());
+				exState = exState.withProperty(Properties.AnimationProperty, pair.getLeft());
 
 				worldRenderer.setTranslation(x - pos.getX(), y - pos.getY(), z - pos.getZ());
 
-				blockRenderer.getBlockModelRenderer().renderModel(world, model, state, pos, worldRenderer, false);
+				blockRenderer.getBlockModelRenderer().renderModel(world, model, exState, pos, worldRenderer, false);
 			}
 		}
 		// End inline AnimationTESR.renderTileEntityFast

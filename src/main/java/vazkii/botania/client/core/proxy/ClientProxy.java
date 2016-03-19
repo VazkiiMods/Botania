@@ -458,10 +458,7 @@ public class ClientProxy extends CommonProxy {
 			return;
 
 		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
-		wisp.motionX = motionx;
-		wisp.motionY = motiony;
-		wisp.motionZ = motionz;
-
+		wisp.setSpeed(motionx, motiony, motionz);
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 

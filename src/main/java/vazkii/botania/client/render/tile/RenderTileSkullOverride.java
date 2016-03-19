@@ -74,6 +74,6 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 
 			ShaderHelper.releaseShader();
 			GlStateManager.popMatrix();
-		} else super.renderSkull(par1, par2, par3, par4, par5, par6, gameProfile, digProgress);
+		} else super.renderSkull(par1, par2, par3, par4, par5, par6, gameProfile, digProgress, 0); // todo 1.9 last parameter
 	}
 }

@@ -59,7 +59,6 @@ public class FXWisp extends EntityFX {
 		this.depthTest = depthTest;
 
 		moteHalfLife = particleMaxAge / 2;
-		noClip = true;
 		setSize(0.01F, 0.01F);
 		Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
 
@@ -161,6 +160,12 @@ public class FXWisp extends EntityFX {
 
 	public void setGravity(float value) {
 		particleGravity = value;
+	}
+
+	public void setSpeed(float mx, float my, float mz) {
+		xSpeed = mx;
+		ySpeed = my;
+		zSpeed = mz;
 	}
 
 	boolean depthTest = true;

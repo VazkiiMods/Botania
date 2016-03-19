@@ -10,8 +10,11 @@
  */
 package vazkii.botania.common.world;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
 
@@ -36,7 +39,7 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public int getSpawnFuzz() {
+	public int getSpawnFuzz(WorldServer world, MinecraftServer server) {
 		return 2;
 	}
 
@@ -46,7 +49,7 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 	
 	@Override
-	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
+	public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
 		return new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
 	}
 	
