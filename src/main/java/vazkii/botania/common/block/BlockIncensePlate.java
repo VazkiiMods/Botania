@@ -20,6 +20,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -34,12 +35,14 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockIncensePlate extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.375, 0, 0.125, 0.625, 1/16.0, 0.875);
+	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.125, 0, 0.375, 0.875, 1/16.0, 0.625);
+
 	protected BlockIncensePlate() {
 		super(Material.wood);
 		setUnlocalizedName(LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setBlockBounds(EnumFacing.Axis.Z);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
@@ -110,15 +113,13 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		return ((TileIncensePlate) world.getTileEntity(pos)).comparatorOutput;
 	}
 
-	public void setBlockBounds(EnumFacing.Axis axis) {
-		float f = 1F / 16F;
-		float w = 12 * f;
-		float l = 4 * f;
-		float xs = (1F - w) / 2;
-		float zs = (1F - l) / 2;
-		if(axis == EnumFacing.Axis.Z)
-			setBlockBounds(xs, 0F, zs, 1F - xs, f, 1f - zs);
-		else setBlockBounds(zs, 0F, xs, 1F - zs, f, 1f - xs);
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
+			return X_AABB;
+		} else {
+			return Z_AABB;
+		}
 	}
 
 	@Override

@@ -185,14 +185,14 @@ public class SubTileHopperhock extends SubTileFunctional {
 			Block chest = supertile.getWorld().getBlockState(pos).getBlock();
 
 			if(tileEntity instanceof TileEntityChest)
-				for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
+				for(EnumFacing dir : EnumFacing.HORIZONTALS)
 					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
 						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
 		}
 
-		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1));
 			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {

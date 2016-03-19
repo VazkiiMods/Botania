@@ -22,7 +22,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	@SubscribeEvent
 	public void onHarvestDrops(HarvestDropsEvent event) {
 		if(event.harvester != null) {
-			ItemStack stack = event.harvester.getCurrentEquippedItem();
+			ItemStack stack = event.harvester.getHeldItemMainhand();
 			if(stack != null && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
 				for(int i = 0; i < event.drops.size(); i++) {
 					ItemStack drop = event.drops.get(i);

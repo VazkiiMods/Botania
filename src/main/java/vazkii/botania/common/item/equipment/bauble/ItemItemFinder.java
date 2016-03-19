@@ -108,9 +108,20 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	public void tickServer(ItemStack stack, EntityPlayer player) {
-		ItemStack pstack = player.getCurrentEquippedItem();
 		StringBuilder positionsBuilder = new StringBuilder();
 
+		scanForStack(player.getHeldItemMainhand(), player, positionsBuilder);
+		scanForStack(player.getHeldItemOffhand(), player, positionsBuilder);
+
+		String current = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
+		String positions = positionsBuilder.toString();
+		if(!current.equals(positions)) {
+			ItemNBTHelper.setString(stack, TAG_POSITIONS, positions);
+			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
+		}
+	}
+
+	private void scanForStack(ItemStack pstack, EntityPlayer player, StringBuilder positionsBuilder) {
 		if(pstack != null || player.isSneaking()) {
 			int range = 24;
 
@@ -155,7 +166,10 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof EntityLivingBase) {
 					EntityLivingBase living = (EntityLivingBase) e;
-					ItemStack estack = living.getEquipmentInSlot(0);
+					ItemStack estack = living.getHeldItemMainhand();
+					if(pstack != null && estack != null && equalStacks(estack, pstack))
+						positionsBuilder.append(living.getEntityId()).append(";");
+					estack = living.getHeldItemOffhand();
 					if(pstack != null && estack != null && equalStacks(estack, pstack))
 						positionsBuilder.append(living.getEntityId()).append(";");
 				}
@@ -188,20 +202,13 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 						}
 			}
 		}
-
-		String current = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
-		String positions = positionsBuilder.toString();
-		if(!current.equals(positions)) {
-			ItemNBTHelper.setString(stack, TAG_POSITIONS, positions);
-			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
-		}
 	}
 
-	boolean equalStacks(ItemStack stack1, ItemStack stack2) {
+	private boolean equalStacks(ItemStack stack1, ItemStack stack2) {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	boolean scanInventory(IItemHandler inv, ItemStack pstack) {
+	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
 		if(pstack == null)
 			return false;
 

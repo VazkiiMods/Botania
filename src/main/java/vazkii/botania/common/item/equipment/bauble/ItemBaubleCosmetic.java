@@ -353,10 +353,10 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 		for (EnumFacing enumfacing : EnumFacing.values())
 		{
-			this.renderQuads(worldrenderer, model.getFaceQuads(enumfacing), color, stack);
+			this.renderQuads(worldrenderer, model.getQuads(null, enumfacing, 0), color, stack);
 		}
 
-		this.renderQuads(worldrenderer, model.getGeneralQuads(), color, stack);
+		this.renderQuads(worldrenderer, model.getQuads(null, null, 0), color, stack);
 		tessellator.draw();
 	}
 
@@ -368,12 +368,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 		for (int j = quads.size(); i < j; ++i)
 		{
-			BakedQuad bakedquad = (BakedQuad)quads.get(i);
+			BakedQuad bakedquad = quads.get(i);
 			int k = color;
 
 			if (flag && bakedquad.hasTintIndex())
 			{
-				k = stack.getItem().getColorFromItemStack(stack, bakedquad.getTintIndex());
+				k = Minecraft.getMinecraft().getItemColors().getColorFromItemstack(stack, bakedquad.getTintIndex());
 
 				if (EntityRenderer.anaglyphEnable)
 				{

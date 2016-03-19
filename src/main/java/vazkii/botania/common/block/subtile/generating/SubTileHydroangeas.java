@@ -72,7 +72,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 							supertile.getWorld().setBlockToAir(pos);
 						else {
 							int waterAround = 0;
-							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS)
+							for(EnumFacing dir : EnumFacing.HORIZONTALS)
 								if(supertile.getWorld().getBlockState(pos.offset(dir)).getMaterial() == search)
 									waterAround++;
 

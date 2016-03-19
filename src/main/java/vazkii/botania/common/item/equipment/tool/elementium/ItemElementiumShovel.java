@@ -5,6 +5,7 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -25,7 +26,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
 		World world = player.worldObj;
-		Material mat = world.getBlockState(pos).getBlock().getMaterial();
+		Material mat = world.getBlockState(pos).getMaterial();
 		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
 			return false;
 
@@ -33,8 +34,8 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (block == null)
 			return false;
 
-		int fortune = EnchantmentHelper.getFortuneModifier(player);
-		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0;
 
 		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof BlockFalling)

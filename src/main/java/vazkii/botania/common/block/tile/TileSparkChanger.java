@@ -32,7 +32,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 
 		ItemStack changeStack = itemHandler.getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
-		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 			if(tile != null && tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;

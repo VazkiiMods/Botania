@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -24,11 +25,14 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.internal.IManaBurst;
@@ -46,15 +50,19 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 0, 3/16.0, 13/16.0, 14/16.0, 13/16.0);
+
 	public BlockForestDrum() {
 		super(Material.wood);
-		float f = 1F / 16F;
-		setBlockBounds(f * 3, 0F, f * 3, 1F - f * 3, 1F - f * 2, 1F - f * 3);
-
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.FOREST_DRUM);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -164,7 +172,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 		if(!world.isRemote)
 			for(int i = 0; i < 10; i++)
-				world.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "note.bd", 1F, 1F);
+				world.playSound(null, pos, SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 1F);
 		else world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 
 	}

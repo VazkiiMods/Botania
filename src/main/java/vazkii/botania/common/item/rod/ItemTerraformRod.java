@@ -136,7 +136,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 							boolean hasAir = false;
 							List<BlockPos> airBlocks = new ArrayList<>();
 
-							for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+							for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 								BlockPos pos_ = pos.offset(dir);
 								Block block_ = par2World.getBlockState(pos_).getBlock();
 								if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {

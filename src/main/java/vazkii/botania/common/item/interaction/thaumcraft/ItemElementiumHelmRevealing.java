@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.items.IGoggles;
 import thaumcraft.api.items.IRevealer;
@@ -40,7 +41,7 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
 		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : LibResources.MODEL_ELEMENTIUM_2;
 	}
 

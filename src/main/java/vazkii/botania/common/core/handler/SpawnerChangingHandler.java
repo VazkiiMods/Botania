@@ -23,7 +23,7 @@ public final class SpawnerChangingHandler {
 
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
-		if(event.entityPlayer == null || event.entityPlayer.capabilities == null || event.world == null)
+		/*if(event.entityPlayer == null || event.entityPlayer.capabilities == null || event.world == null) todo 1.9
 			return; // Cauldron breaks stuff
 
 		if(event.entityPlayer.capabilities.isCreativeMode && !event.world.isRemote && event.action == Action.RIGHT_CLICK_BLOCK && !event.entityPlayer.isSneaking()) {
@@ -37,7 +37,7 @@ public final class SpawnerChangingHandler {
 					event.setCanceled(true);
 				}
 			}
-		}
+		}*/
 	}
 
 }

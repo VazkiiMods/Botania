@@ -59,6 +59,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.BossInfo;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -894,6 +895,16 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		mc.fontRendererObj.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
 		mc.fontRendererObj.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
+	}
+
+	@Override
+	public BossInfo getBossInfo() {
+		return null; // todo 1.9
+	}
+
+	@Override
+	public EntityLivingBase getEntity() {
+		return this;
 	}
 
 	@Override

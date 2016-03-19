@@ -28,7 +28,7 @@ public class SubTileManastar extends SubTileEntity {
 		super.onUpdate();
 
 		int mana = 0;
-		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().offset(dir));
 			if(tile instanceof IManaPool)
 				mana += ((IManaPool) tile).getCurrentMana();

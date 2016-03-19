@@ -13,6 +13,8 @@ package vazkii.botania.client.core.proxy;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -276,13 +278,17 @@ public class ClientProxy extends CommonProxy {
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		RenderPlayer render;
 
-		render = skinMap.get("default");
-		render.addLayer(new ContributorFancinessHandler());
-		render.addLayer(new BaubleRenderHandler());
+		try { // todo 1.9 get Forge to AT this back -.-
+			Method m = ReflectionHelper.findMethod(RenderPlayer.class, null, LibObfuscation.ADD_LAYER);
 
-		render = skinMap.get("slim");
-		render.addLayer(new ContributorFancinessHandler());
-		render.addLayer(new BaubleRenderHandler());
+			render = skinMap.get("default");
+			m.invoke(render, new ContributorFancinessHandler());
+			m.invoke(render, new BaubleRenderHandler());
+
+			render = skinMap.get("slim");
+			m.invoke(render, new ContributorFancinessHandler());
+			m.invoke(render, new BaubleRenderHandler());
+		} catch (ReflectiveOperationException ignored) {}
 	}
 
 	@Override

@@ -66,10 +66,6 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-	}
-
-	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		GlStateManager.enableAlpha();
 		HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, manaUsage, TilePool.MAX_MANA / 10);

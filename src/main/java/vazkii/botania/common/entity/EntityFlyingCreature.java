@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -28,7 +29,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 	}
 
 	@Override
-	protected void updateFallState(double y, boolean onGround, Block block, BlockPos pos) {
+	protected void updateFallState(double y, boolean onGround, IBlockState state, BlockPos pos) {
 		// NO-OP
 	}
 

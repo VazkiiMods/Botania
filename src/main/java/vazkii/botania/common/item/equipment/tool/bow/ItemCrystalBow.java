@@ -10,17 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -43,40 +38,16 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	boolean canFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
-		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, p_77615_1_);
-		return ManaItemHandler.requestManaExactForTool(p_77615_1_, p_77615_3_, ARROW_COST / (infinity + 1), false);
+	boolean canFire(ItemStack stack, EntityPlayer player) {
+		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack);
+		return ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
 	}
 
 	@Override
-	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
+	void onFire(ItemStack stack, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		arrow.canBePickedUp = EntityArrow.PickupStatus.CREATIVE_ONLY;
-		ManaItemHandler.requestManaExactForTool(p_77615_1_, p_77615_3_, ARROW_COST / (infinity ? 2 : 1), false);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		String name = GameData.getItemRegistry().getNameForObject(this).toString();
-
-		if (useRemaining == 0) {
-			return new ModelResourceLocation(name, "inventory");
-		}
-
-		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
-
-		if(j >= 18)
-			return new ModelResourceLocation(name + "_pulling_5", "inventory");
-		if(j >= 15)
-			return new ModelResourceLocation(name + "_pulling_4", "inventory");
-		if(j >= 12)
-			return new ModelResourceLocation(name + "_pulling_3", "inventory");
-		if(j > 9)
-			return new ModelResourceLocation(name + "_pulling_2", "inventory");
-		if(j > 6)
-			return new ModelResourceLocation(name + "_pulling_1", "inventory");
-
-		return new ModelResourceLocation(name, "inventory");
+		if(living instanceof EntityPlayer)
+			ManaItemHandler.requestManaExactForTool(stack, ((EntityPlayer) living), ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 }

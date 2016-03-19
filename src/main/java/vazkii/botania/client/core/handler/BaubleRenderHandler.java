@@ -17,6 +17,8 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -37,7 +39,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
 	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(Potion.invisibility) != null)
+		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.invisibility) != null)
 			return;
 
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
@@ -108,7 +110,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				GlStateManager.pushMatrix();
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				Helper.rotateIfSneaking(player);
-				boolean armor = player.getCurrentArmor(1) != null;
+				boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null;
 				GlStateManager.rotate(90, 0, 1, 0);
 				GlStateManager.rotate(90, 1, 0, 0);
 
@@ -124,7 +126,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON);
+				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
 				GlStateManager.popMatrix();
 
 				if(renderedOne)

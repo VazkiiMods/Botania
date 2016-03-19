@@ -18,6 +18,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -156,8 +157,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(world.isAirBlock(pos))
 			return;
 
-		int fortune = EnchantmentHelper.getFortuneModifier(player);
-		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0;
 		boolean thor = ItemThorRing.getThorRing(player) != null;
 		boolean doX = thor || side.getFrontOffsetX() == 0;
 		boolean doY = thor || side.getFrontOffsetY() == 0;

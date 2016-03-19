@@ -88,7 +88,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			BlockPos posP = pos.offset(dir);
 			Block block = worldObj.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {

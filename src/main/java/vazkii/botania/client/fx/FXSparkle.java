@@ -153,10 +153,10 @@ public class FXSparkle extends EntityFX {
 			ySpeed *= 0.908000001907348633D;
 			zSpeed *= 0.908000001907348633D;
 
-			if (onGround) {
+			/*if (onGround) { todo 1.9
 				xSpeed *= 0.69999998807907104D;
 				zSpeed *= 0.69999998807907104D;
-			}
+			}*/
 		}
 
 		if(fake && particleAge > 1)

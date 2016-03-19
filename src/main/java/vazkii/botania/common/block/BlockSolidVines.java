@@ -32,6 +32,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockSolidVines extends BlockVine implements ILexiconable {
 
+	protected static final AxisAlignedBB LADDER_EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB LADDER_WEST_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB LADDER_SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
+	protected static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
+
 	public BlockSolidVines() {
 		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
@@ -40,18 +45,18 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
-		setBlockBoundsBasedOnState(w, pos);
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
+		AxisAlignedBB bounds = getBoundingBox(state, world, pos);
 		
 		if(state.getValue(EAST)) {
-			return new AxisAlignedBB(pos.add(maxX, minY, minZ), pos.add(maxX, maxY, maxZ));
+			return new AxisAlignedBB(pos.add(bounds.maxX, bounds.minY, bounds.minZ), pos.add(bounds.maxX, bounds.maxY, bounds.maxZ));
 		}
 		
 		if(state.getValue(SOUTH)) {
-			return new AxisAlignedBB(pos.add(minX, minY, maxZ), pos.add(maxX, maxY, maxZ));
+			return new AxisAlignedBB(pos.add(bounds.minX, bounds.minY, bounds.maxZ), pos.add(bounds.maxX, bounds.maxY, bounds.maxZ));
 		}
 		
-		return new AxisAlignedBB(pos.add(minX, minY, minZ), pos.add(maxX, maxY, maxZ));
+		return new AxisAlignedBB(pos.add(bounds.minX, bounds.minY, bounds.minZ), pos.add(bounds.maxX, bounds.maxY, bounds.maxZ));
 	}
 
 	@Override

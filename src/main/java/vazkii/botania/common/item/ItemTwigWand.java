@@ -78,7 +78,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 					setBoundTile(par1ItemStack, UNBOUND_POS);
 				}
 
-				return true;
+				return EnumActionResult.SUCCESS;
 			} else setBoundTile(par1ItemStack, UNBOUND_POS);
 		} else if(par2EntityPlayer.isSneaking()) {
 			block.rotateBlock(par3World, pos, side);
@@ -132,7 +132,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 					par2EntityPlayer.swingArm(hand);
 			}
 
-			return wanded;
+			return wanded ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getName()) && !par3World.isRemote) {
 			BlockPistonRelay.DimWithPos bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getName());
 			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimension(), pos);
@@ -142,9 +142,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
 
 			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+			return EnumActionResult.SUCCESS;
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {

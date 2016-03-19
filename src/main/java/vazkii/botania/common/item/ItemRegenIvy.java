@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -33,7 +34,7 @@ public class ItemRegenIvy extends ItemMod {
 		setUnlocalizedName(LibItemNames.REGEN_IVY);
 		GameRegistry.addRecipe(new RegenIvyRecipe());
 		RecipeSorter.register("botania:regenIvy", RegenIvyRecipe.class, Category.SHAPELESS, "");
-		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)

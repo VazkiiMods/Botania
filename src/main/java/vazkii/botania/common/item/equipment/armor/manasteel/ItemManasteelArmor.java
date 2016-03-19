@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
@@ -50,7 +52,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	protected ModelBiped[] models = null;
+	protected Map<EntityEquipmentSlot, ModelBiped> models = null;
 	public EntityEquipmentSlot type;
 
 	public ItemManasteelArmor(EntityEquipmentSlot type, String name) {
@@ -105,19 +107,18 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	@Override
-	public final String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+	public final String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot, ModelBiped original) {
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped original) {
 		if(ConfigHandler.enableArmorModels) {
-			armorSlot--; // 1.8: mojang is dumb and made armorSlot 1-4 instead of 0-3.
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
 			if(model == null)
 				model = provideArmorModelForSlot(itemStack, armorSlot);
@@ -132,17 +133,17 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
+	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, EntityEquipmentSlot slot) {
 		if(models == null)
-			models = new ModelBiped[4];
+			models = new EnumMap<>(EntityEquipmentSlot.class);
 
-		return models[slot];
+		return models.get(slot);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
-		models[slot] = new ModelArmorManasteel(slot);
-		return models[slot];
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
+		models.put(slot, new ModelArmorManasteel(slot));
+		return models.get(slot);
 	}
 
 	@Override

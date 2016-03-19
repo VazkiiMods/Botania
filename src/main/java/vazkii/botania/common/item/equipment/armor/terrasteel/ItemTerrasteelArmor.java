@@ -40,14 +40,14 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
-		models[slot] = new ModelArmorTerrasteel(slot);
-		return models[slot];
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
+		models.put(slot, new ModelArmorTerrasteel(slot));
+		return models.get(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == EntityEquipmentSlot.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
 
 	@Override

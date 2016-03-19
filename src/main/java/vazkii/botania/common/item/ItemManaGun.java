@@ -18,6 +18,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -25,6 +26,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -34,6 +36,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -80,7 +83,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
-			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+			par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(par2World.isRemote)
 				par3EntityPlayer.swingArm(hand);
 			ItemStack lens = getLens(par1ItemStack);
@@ -90,7 +93,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
 			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
 				if(!par2World.isRemote) {
-					par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
+					par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					par3EntityPlayer.addStat(ModAchievements.manaBlasterShoot, 1);
 					if(isSugoiKawaiiDesuNe(par1ItemStack))
 						par3EntityPlayer.addStat(ModAchievements.desuGun, 1);
@@ -103,7 +106,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 				}
 				par1ItemStack.setItemDamage(effCd);
 			} else if(!par2World.isRemote)
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

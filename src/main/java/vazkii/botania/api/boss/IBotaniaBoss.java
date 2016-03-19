@@ -13,8 +13,9 @@ package vazkii.botania.api.boss;
 import java.awt.Rectangle;
 
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.BossInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Alternatively, you can check if botania is loaded and use the vanilla one
  * if that's not the case.
  */
-public interface IBotaniaBoss extends IBossDisplayData {
+public interface IBotaniaBoss {
 
 	/**
 	 * The ResourceLocation to bind for this boss's boss bar.
@@ -56,4 +57,8 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 */
 	@SideOnly(Side.CLIENT)
 	public void bossBarRenderCallback(ScaledResolution res, int x, int y);
+
+	public BossInfo getBossInfo();
+
+	public EntityLivingBase getEntity();
 }

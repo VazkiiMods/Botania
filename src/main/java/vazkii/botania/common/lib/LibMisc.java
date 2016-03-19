@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.util.EnumFacing;
-
 public final class LibMisc {
 
 	// Mod Constants
@@ -20,7 +18,7 @@ public final class LibMisc {
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:Baubles;after:Thaumcraft";
-	public static final String MC_VERSIONS = "[1.8.8,1.8.9]";
+	public static final String MC_VERSIONS = "[1.9]";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
@@ -32,8 +30,6 @@ public final class LibMisc {
 
 	// IMC Keys
 	public static final String BLACKLIST_ITEM = "blackListItem";
-
-	public static final EnumFacing[] CARDINAL_DIRECTIONS = EnumFacing.HORIZONTALS;
 
 	public static final int[] CONTROL_CODE_COLORS = new int[] {
 		0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,

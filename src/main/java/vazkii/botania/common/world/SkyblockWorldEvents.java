@@ -66,7 +66,7 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.world)) {
+		/*if(WorldTypeSkyblock.isWorldSkyblock(event.world)) { todo 1.9
 			ItemStack equipped = event.entityPlayer.getCurrentEquippedItem();
 			if(event.action == Action.RIGHT_CLICK_BLOCK && equipped == null && event.entityPlayer.isSneaking()) {
 				Block block = event.world.getBlockState(event.pos).getBlock();
@@ -93,7 +93,7 @@ public final class SkyblockWorldEvents {
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	@SubscribeEvent

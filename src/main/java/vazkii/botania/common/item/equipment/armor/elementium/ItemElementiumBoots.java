@@ -1,12 +1,13 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumBoots extends ItemElementiumArmor {
 
 	public ItemElementiumBoots() {
-		super(3, LibItemNames.ELEMENTIUM_BOOTS);
+		super(EntityEquipmentSlot.FEET, LibItemNames.ELEMENTIUM_BOOTS);
 	}
 
 	@Override

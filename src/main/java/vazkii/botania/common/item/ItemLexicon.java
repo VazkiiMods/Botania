@@ -25,6 +25,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -35,10 +36,12 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -58,7 +61,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking()) {
 			Block block = par3World.getBlockState(pos).getBlock();
 
@@ -70,16 +73,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 						Botania.proxy.setLexiconStack(par1ItemStack);
 
 						openBook(par2EntityPlayer, par1ItemStack, par3World, false);
-						return true;
+						return EnumActionResult.SUCCESS;
 					}
 				} else if(par3World.isRemote) {
 					RayTraceResult mop = new RayTraceResult(new Vec3d(par8, par9, par10), side, pos);
-					return Botania.proxy.openWikiPage(par3World, block, mop);
+					return Botania.proxy.openWikiPage(par3World, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 				}
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
@@ -127,7 +130,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		String force = getForcedPage(par1ItemStack);
 		if(force != null && !force.isEmpty()) {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
@@ -140,7 +143,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		openBook(par3EntityPlayer, par1ItemStack, par2World, skipSound);
 		skipSound = false;
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	public static void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
@@ -151,7 +154,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(!l.isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && l.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
 			for(ItemStack rstack : ItemDice.relicStacks) {
 				Item item = rstack.getItem();
-				if(player.inventory.hasItem(item)) {
+				if(PlayerHelper.hasItem(player, s -> s != null && s.getItem() == item)) {
 					l.unlockKnowledge(stack, BotaniaAPI.relicKnowledge);
 					break;
 				}
@@ -161,7 +164,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		player.addStat(ModAchievements.lexiconUse, 1);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
 		if(!world.isRemote && !skipSound)
-			world.playSoundAtEntity(player, "botania:lexiconOpen", 0.5F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
 	}
 
 	@Override
@@ -170,7 +173,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
 			if(ticks == 1)
-				onItemRightClick(stack, world, (EntityPlayer) entity);
+				onItemRightClick(stack, world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
 
 			setQueueTicks(stack, ticks - 1);
 		}

@@ -13,7 +13,6 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
-import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.JEIPlugin;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
@@ -35,16 +34,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	private IJeiHelpers jeiHelpers;
 
 	@Override
-	public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-		this.jeiHelpers = jeiHelpers;
-	}
-
-	@Override
-	public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
-	}
-
-	@Override
 	public void register(IModRegistry registry) {
+		jeiHelpers = registry.getJeiHelpers();
+
 		registry.addRecipeCategories(
 				new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
 				new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
@@ -72,11 +64,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
-	}
-
-	@Override
-	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-	}
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {}
 
 }

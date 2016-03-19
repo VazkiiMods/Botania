@@ -21,6 +21,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -107,11 +108,12 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	// This is how I get around encapsulation
+	// todo 1.9 is this necessary?
 	public void harvestBlockCopy(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state) {
-		player.triggerAchievement(StatList.mineBlockStatArray[getIdFromBlock(this)]);
+		player.addStat(StatList.getBlockStats(this));
 		player.addExhaustion(0.025F);
 
-		if (this.canSilkHarvest(worldIn, pos, worldIn.getBlockState(pos), player) && EnchantmentHelper.getSilkTouchModifier(player))
+		if (this.canSilkHarvest(worldIn, pos, worldIn.getBlockState(pos), player) && EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0)
 		{
 			java.util.ArrayList<ItemStack> items = new java.util.ArrayList<>();
 			ItemStack itemstack = this.createStackedBlock(state);
@@ -130,7 +132,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		else
 		{
 			harvesters.set(player);
-			int i = EnchantmentHelper.getFortuneModifier(player);
+			int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
 			this.dropBlockAsItem(worldIn, pos, state, i);
 			harvesters.set(null);
 		}

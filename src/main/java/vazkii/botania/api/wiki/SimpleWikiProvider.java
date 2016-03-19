@@ -11,6 +11,7 @@
 package vazkii.botania.api.wiki;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -49,15 +50,12 @@ public class SimpleWikiProvider implements IWikiProvider {
 	@Override
 	public String getBlockName(World world, RayTraceResult pos, EntityPlayer player) {
 		BlockPos bPos = pos.getBlockPos();
+		IBlockState state = world.getBlockState(bPos);
 
-		Block block = world.getBlockState(bPos).getBlock();
-		if(block == null)
-			return null;
-
-		ItemStack stack = block.getPickBlock(pos, world, bPos, player);
+		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
 		if(stack == null || stack.getItem() == null)
-			stack = new ItemStack(block, 1, block.getDamageValue(world, bPos));
+			stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 
 		if(stack.getItem() == null)
 			return null;

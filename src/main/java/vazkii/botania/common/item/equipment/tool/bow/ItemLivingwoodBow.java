@@ -10,34 +10,42 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.function.Predicate;
 
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() instanceof ItemArrow;
 	public static final int MANA_PER_DAMAGE = 40;
 
 	public ItemLivingwoodBow() {
@@ -45,11 +53,11 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 
 	public ItemLivingwoodBow(String name) {
-		super();
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 		setMaxDamage(500);
 		setFull3D();
+		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F);
 	}
 
 	@Override
@@ -64,30 +72,36 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
-		MinecraftForge.EVENT_BUS.post(event);
-		if(event.isCanceled())
-			return event.result;
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		// Copy from superclass with our own check
+		boolean flag = canFire(stack, player);
+		ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(stack, world, player, hand, flag);
+		if (ret != null) return ret;
 
-		if(canFire(p_77659_1_, p_77659_2_, p_77659_3_, 0))
-			p_77659_3_.setItemInUse(p_77659_1_, getMaxItemUseDuration(p_77659_1_));
-
-		return p_77659_1_;
+		if (!player.capabilities.isCreativeMode)
+		{
+			return !flag ? new ActionResult<>(EnumActionResult.FAIL, stack) : new ActionResult<>(EnumActionResult.PASS, stack);
+		}
+		else
+		{
+			player.setActiveHand(hand);
+			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		}
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
-		int j = (int) ((getMaxItemUseDuration(p_77615_1_) - p_77615_4_) * chargeVelocityMultiplier());
+	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase shooter, int useTicks) {
+		int j = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier());
 
-		ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
-		MinecraftForge.EVENT_BUS.post(event);
-		if(event.isCanceled())
-			return;
-		j = event.charge;
+		if(shooter instanceof EntityPlayer) {
+			ArrowLooseEvent event = new ArrowLooseEvent(((EntityPlayer) shooter), stack, world, j, true);
+			if(MinecraftForge.EVENT_BUS.post(event))
+				return;
+			j = event.getCharge();
+		}
 
-		boolean flag = canFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_);
-		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+		boolean flag = !(shooter instanceof EntityPlayer) || canFire(stack, ((EntityPlayer) shooter));
+		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0;
 
 		if(flag) {
 			float f = j / 20.0F;
@@ -99,31 +113,32 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 			if(f > 1.0F)
 				f = 1.0F;
 
-			EntityArrow entityarrow = makeArrow(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, f);
+			ItemStack ammo = shooter instanceof EntityPlayer ? PlayerHelper.getAmmo(((EntityPlayer) shooter), AMMO_FUNC) : new ItemStack(Items.arrow);
+			EntityArrow entityarrow = ((ItemArrow) (ammo == null ? Items.arrow : ammo.getItem())).createArrow(world, ammo, shooter);
 
 			if(f == 1.0F)
 				entityarrow.setIsCritical(true);
 
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
+			int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.power, stack);
 
 			if(k > 0)
 				entityarrow.setDamage(entityarrow.getDamage() + k * 0.5D + 0.5D);
 
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+			int l = EnchantmentHelper.getEnchantmentLevel(Enchantments.punch, stack);
 
 			if(l > 0)
 				entityarrow.setKnockbackStrength(l);
 
-			if(EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.flame, stack) > 0)
 				entityarrow.setFire(100);
 
-			ToolCommons.damageItem(p_77615_1_, 1, p_77615_3_, MANA_PER_DAMAGE);
-			p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+			ToolCommons.damageItem(stack, 1, shooter, MANA_PER_DAMAGE);
+			world.playSound(null, shooter.posX, shooter.posY, shooter.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-			onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, infinity, entityarrow);
+			onFire(stack, shooter, infinity, entityarrow);
 
-			if(!p_77615_2_.isRemote)
-				p_77615_2_.spawnEntityInWorld(entityarrow);
+			if(!world.isRemote)
+				world.spawnEntityInWorld(entityarrow);
 		}
 	}
 
@@ -135,18 +150,15 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		return true;
 	}
 
-	EntityArrow makeArrow(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, float f) {
-		return new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
+	boolean canFire(ItemStack stack, EntityPlayer player) {
+		return player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0 || PlayerHelper.hasAmmo(player, AMMO_FUNC);
 	}
 
-	boolean canFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
-		return p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0 || p_77615_3_.inventory.hasItem(Items.arrow);
-	}
-
-	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
+	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(infinity)
-			arrow.canBePickedUp = 2;
-		else p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+			arrow.canBePickedUp = EntityArrow.PickupStatus.CREATIVE_ONLY;
+		else if(living instanceof EntityPlayer)
+			PlayerHelper.consumeAmmo(((EntityPlayer) living), AMMO_FUNC);
 	}
 
 	@Override
@@ -163,27 +175,6 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		String name = GameData.getItemRegistry().getNameForObject(this).toString();
-
-		if (useRemaining == 0) {
-			return new ModelResourceLocation(name, "inventory");
-		}
-
-		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
-
-		if(j >= 18)
-			return new ModelResourceLocation(name + "_pulling_3", "inventory");
-		if(j > 13)
-			return new ModelResourceLocation(name + "_pulling_2", "inventory");
-		if(j > 0)
-			return new ModelResourceLocation(name + "_pulling_1", "inventory");
-
-		return new ModelResourceLocation(name, "inventory");
 	}
 
 }

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -46,7 +47,7 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
 		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : LibResources.MODEL_MANASTEEL_2;
 	}
 

@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -77,16 +78,16 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(!par3World.isRemote && pos.getY() < 160 && !par3World.provider.doesWaterVaporize()) {
-			par3World.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
+			par3World.playSound(null, pos, BotaniaSoundEvents.laputaStart, SoundCategory.BLOCKS, 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F);
 			spawnBurstFirst(par3World, pos, par1ItemStack);
 			par1ItemStack.stackSize--;
 			if(par1ItemStack.getItemDamage() == 19)
 				par2EntityPlayer.addStat(ModAchievements.l20ShardUse, 1);
 		}
 
-		return true;
+		return EnumActionResult.SUCCESS;
 	}
 
 	public void spawnBurstFirst(World world, BlockPos pos, ItemStack lens) {
@@ -122,10 +123,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
 						if(inRange(pos_, pos, range, heightscale, pointy)) {
-							Block block = world.getBlockState(pos_).getBlock();
-							if(!block.isAir(world, pos_) && !block.isReplaceable(world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && block.getBlockHardness(world, pos_) != -1) {
+							IBlockState state = world.getBlockState(pos_);
+							Block block = state.getBlock();
+							if(!block.isAir(state, world, pos_) && !block.isReplaceable(world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
 								int id = Block.getIdFromBlock(block);
-								IBlockState state = world.getBlockState(pos_);
 								TileEntity tile = world.getTileEntity(pos_);
 
 								if(tile != null) {
@@ -244,7 +245,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.hasKey("id"))
-						tile = TileEntity.createAndLoadEntity(tilecmp);
+						tile = TileEntity.createTileEntity(null, tilecmp);
 
 					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
 					entity.worldObj.playAuxSFX(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));

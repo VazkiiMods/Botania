@@ -110,4 +110,7 @@ public final class LibObfuscation {
 	public static final String[] PREV_EQUIPPED_PROGRESS = { "prevEquippedProgress", "field_78451_d", "f" };
 	public static final String[] EQUIPPED_PROGRESS = { "equippedProgress", "field_78454_c", "e" };
 
+	// RenderPlayer
+	public static final String[] ADD_LAYER = { "addLayer", "", "" };
+
 }

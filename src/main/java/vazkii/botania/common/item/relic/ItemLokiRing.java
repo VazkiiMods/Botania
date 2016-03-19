@@ -15,12 +15,14 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -67,7 +69,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		EntityPlayer player = event.entityPlayer;
+		/*EntityPlayer player = event.entityPlayer; todo 1.9
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)
 			return;
@@ -132,7 +134,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
@@ -143,15 +145,15 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 		World world = player.worldObj;
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, stack) > 0;
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
 
 		for(int i = 0; i < cursors.size(); i++) {
 			BlockPos coords = cursors.get(i);
-			Block block = world.getBlockState(coords).getBlock();
+			IBlockState state = world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, coords, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, coords, pos, block, new Material[] { block.getMaterial() }, silk, fortune, block.getBlockHardness(world, coords), dispose);
+			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, coords, pos, state.getBlock(), new Material[] { state.getMaterial() }, silk, fortune, state.getBlockHardness(world, coords), dispose);
 		}
 	}
 

@@ -48,13 +48,13 @@ public final class BossBarHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		Rectangle bgRect = currentBoss.getBossBarTextureRect();
 		Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
-		String name = currentBoss.getDisplayName().getFormattedText();
+		String name = currentBoss.getEntity().getDisplayName().getFormattedText();
 		int c = res.getScaledWidth() / 2;
 		int x = c - bgRect.width / 2;
 		int y = 20;
 		int xf = x + (bgRect.width - fgRect.width) / 2;
 		int yf = y + (bgRect.height - fgRect.height) / 2;
-		int fw = (int) ((double) fgRect.width * (currentBoss.getHealth() / currentBoss.getMaxHealth()));
+		int fw = (int) ((double) fgRect.width * (currentBoss.getEntity().getHealth() / currentBoss.getEntity().getMaxHealth()));
 		int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
 
 		GlStateManager.color(1F, 1F, 1F, 1F);

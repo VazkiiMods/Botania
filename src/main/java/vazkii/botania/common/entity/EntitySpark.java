@@ -49,7 +49,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
-	private static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
+	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());

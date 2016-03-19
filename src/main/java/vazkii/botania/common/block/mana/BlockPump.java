@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -18,6 +19,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -35,13 +37,15 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockPump extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0, 0, 0.25, 1, 0.5, 0.75);
+	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
+
 	public BlockPump() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.PUMP);
-		setBlockBounds(EnumFacing.Axis.X);
 		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true).withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
@@ -74,16 +78,11 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
-		EnumFacing facing = w.getBlockState(pos).getValue(BotaniaStateProps.CARDINALS);
-		setBlockBounds(facing.getAxis());
-	}
-
-	public void setBlockBounds(EnumFacing.Axis axis) {
-		if (axis == EnumFacing.Axis.X) {
-			setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F);
-		} else if (axis == EnumFacing.Axis.Z) {
-			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
+			return X_AABB;
+		} else {
+			return Z_AABB;
 		}
 	}
 
@@ -98,12 +97,12 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TilePump) world.getTileEntity(pos)).comparator;
 	}
 

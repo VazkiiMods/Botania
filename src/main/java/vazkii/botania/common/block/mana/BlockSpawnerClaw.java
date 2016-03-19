@@ -20,7 +20,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -31,14 +33,17 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 1/16.0, 0.875);
+
 	public BlockSpawnerClaw() {
 		super(Material.iron);
 		setHardness(3.0F);
 		setUnlocalizedName(LibBlockNames.SPAWNER_CLAW);
+	}
 
-		float f = 1F / 8F;
-		float f1 = 1F / 16F;
-		setBlockBounds(f, 0F, f, 1F - f, f1, 1F - f);
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override

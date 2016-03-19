@@ -22,6 +22,9 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
@@ -34,6 +37,8 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 public class EntityMagicMissile extends EntityThrowable {
 
 	private static final String TAG_TIME = "time";
+	private static final DataParameter<Boolean> EVIL = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> TARGET = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.VARINT);
 
 	double lockX, lockY = -1, lockZ;
 	int time = 0;
@@ -51,24 +56,24 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	@Override
 	protected void entityInit() {
-		dataWatcher.addObject(25, (byte) 0);
-		dataWatcher.addObject(26, 0);
+		dataWatcher.register(EVIL, false);
+		dataWatcher.register(TARGET, 0);
 	}
 
 	public void setEvil(boolean evil) {
-		dataWatcher.updateObject(25, (byte) (evil ? 1 : 0));
+		dataWatcher.set(EVIL, evil);
 	}
 
 	public boolean isEvil() {
-		return dataWatcher.getWatchableObjectByte(25) == 1;
+		return dataWatcher.get(EVIL);
 	}
 
 	public void setTarget(EntityLivingBase e) {
-		dataWatcher.updateObject(26, e == null ? -1 : e.getEntityId());
+		dataWatcher.set(TARGET, e == null ? -1 : e.getEntityId());
 	}
 
 	public EntityLivingBase getTargetEntity() {
-		int id = dataWatcher.getWatchableObjectInt(26);
+		int id = dataWatcher.get(TARGET);
 		Entity e = worldObj.getEntityByID(id);
 		if(e != null && e instanceof EntityLivingBase)
 			return (EntityLivingBase) e;

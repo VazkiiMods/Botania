@@ -18,10 +18,15 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
 
+import java.util.function.Predicate;
+
 public class ItemSlingshot extends ItemMod {
+
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 
 	public ItemSlingshot() {
 		setMaxStackSize(1);
@@ -32,7 +37,7 @@ public class ItemSlingshot extends ItemMod {
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityLivingBase living, int par4) {
 		int j = getMaxItemUseDuration(par1ItemStack) - par4;
 
-		if(!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || ((EntityPlayer) living).inventory.hasItem(ModItems.vineBall)) {
+		if(!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || PlayerHelper.hasAmmo(((EntityPlayer) living), AMMO_FUNC)) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -40,7 +45,7 @@ public class ItemSlingshot extends ItemMod {
 				return;
 
 			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode)
-				((EntityPlayer) living).inventory.consumeInventoryItem(ModItems.vineBall);
+				PlayerHelper.consumeAmmo(((EntityPlayer) living), AMMO_FUNC);
 
 			if(!par2World.isRemote) {
 				EntityVineBall ball = new EntityVineBall(living, false);
@@ -69,7 +74,7 @@ public class ItemSlingshot extends ItemMod {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall)) {
+		if(par3EntityPlayer.capabilities.isCreativeMode || PlayerHelper.hasAmmo(par3EntityPlayer, AMMO_FUNC)) {
 			par3EntityPlayer.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}

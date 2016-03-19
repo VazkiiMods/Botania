@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 /** This class is used whenever stacks needs to be stored as keys. */
@@ -80,7 +81,7 @@ public final class StackKey {
             }
         }
         if (fluidStack != null) {
-            if (fluidStack.getFluid().getID() != k.fluidStack.getFluid().getID() || fluidStack.amount != k.fluidStack.amount || !objectsEqual(
+            if (fluidStack.getFluid() != k.fluidStack.getFluid() || fluidStack.amount != k.fluidStack.amount || !objectsEqual(
                     fluidStack.tag, k.fluidStack.tag)) {
                 return false;
             }
@@ -98,7 +99,7 @@ public final class StackKey {
         }
         result = 31 * result + 7;
         if (fluidStack != null) {
-            result = 31 * result + fluidStack.getFluid().getID();
+            result = 31 * result + FluidRegistry.getFluidID(fluidStack.getFluid());
             result = 31 * result + fluidStack.amount;
             result = 31 * result + objectHashCode(fluidStack.tag);
         }

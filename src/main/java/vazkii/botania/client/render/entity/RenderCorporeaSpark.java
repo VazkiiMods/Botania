@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.EnumDyeColor;
 
 
+import net.minecraft.network.datasync.DataParameter;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 
@@ -23,6 +24,10 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	public RenderCorporeaSpark(RenderManager p_i46185_1_) {
 		super(p_i46185_1_);
+	}
+
+	protected DataParameter<Integer> getInvisibilityParam() {
+		return EntityCorporeaSpark.INVISIBILITY;
 	}
 
 	@Override

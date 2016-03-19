@@ -14,29 +14,31 @@ import java.util.Random;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntitySpark;
 
-public class RenderSparkBase<T extends Entity> extends RenderEntity {
+public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
 	public RenderSparkBase(RenderManager p_i46185_1_) {
 		super(p_i46185_1_);
 	}
 
 	@Override
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-		T tEntity = (T) par1Entity;
+	public void doRender(T tEntity, double par2, double par4, double par6, float par8, float par9) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
 		GlStateManager.pushMatrix();
@@ -47,15 +49,15 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
 
 		double time = ClientTickHandler.ticksInGame + par9;
-		time += new Random(par1Entity.getEntityId()).nextInt();
+		time += new Random(tEntity.getEntityId()).nextInt();
 
-		float a = 0.1F + (1 - par1Entity.getDataManager().get(EntitySpark.INVSIBILITY)) * 0.8F;
+		float a = 0.1F + (1 - tEntity.getDataManager().get(getInvisibilityParam())) * 0.8F;
 
 		GlStateManager.color(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		GlStateManager.scale(scale, scale, scale);
-		bindEntityTexture(par1Entity);
+		bindEntityTexture(tEntity);
 		Tessellator tessellator = Tessellator.getInstance();
 
 		GlStateManager.pushMatrix();
@@ -79,6 +81,8 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();
 	}
+
+	protected abstract DataParameter<Integer> getInvisibilityParam();
 
 	protected TextureAtlasSprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;

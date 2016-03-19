@@ -249,7 +249,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 					int bellowCount = 0;
 					if(outputting)
-						for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+						for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 							TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 							if(tile != null && tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
 								bellowCount++;

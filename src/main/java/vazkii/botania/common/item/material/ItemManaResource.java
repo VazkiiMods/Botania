@@ -62,7 +62,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR;
+		/*boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR; todo 1.9
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
 		boolean ender = event.world.provider.getDimension() == 1;
@@ -89,7 +89,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 					event.world.playSound(null, event.pos, SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.5F, 1F);
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override

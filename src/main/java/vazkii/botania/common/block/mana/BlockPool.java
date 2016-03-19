@@ -153,20 +153,20 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		}
 	}
 
+	private static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0, 0, 0, 1, 1/16.0, 1);
+	private static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0, 0, 15/16.0, 1, 0.5, 1);
+	private static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0, 0, 0, 1, 0.7, 1/16.0);
+	private static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0, 0, 0, 1/16.0, 0.5, 1);
+	private static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(15/16.0, 0, 0, 1, 0.5, 1);
+
+
 	@Override
-	public void addCollisionBoxesToList(World p_149743_1_, BlockPos pos, IBlockState state, AxisAlignedBB p_149743_5_, List<AxisAlignedBB> p_149743_6_, Entity p_149743_7_) {
-		float f = 1F / 16F;
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, f, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, f);
-		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 0.5F, 1.0F);
-		super.addCollisionBoxesToList(p_149743_1_, pos, state, p_149743_5_, p_149743_6_, p_149743_7_);
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void addCollisionBoxToList(IBlockState state, World p_149743_1_, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> boxes, Entity entity) {
+		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
+		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
+		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
+		addCollisionBoxToList(pos, entityBox, boxes, WEST_AABB);
+		addCollisionBoxToList(pos, entityBox, boxes, EAST_AABB);
 	}
 
 	@Override

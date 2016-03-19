@@ -40,7 +40,10 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAvatar extends BlockMod implements ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(.3125, 0, .21875, 1-.3125, 17/16.0, 1-.21875);
+	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(.21875, 0, .3125, 1-.21875, 17/16.0, 1-.3125);
+
+	private final Random random = new Random();
 
 	protected BlockAvatar() {
 		super(Material.wood);
@@ -48,20 +51,13 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		setSoundType(SoundType.WOOD);
 		setUnlocalizedName(LibBlockNames.AVATAR);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
-		random = new Random();
 	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		float f = 1F / 16F;
-		float w = f * 9;
-		float l = f * 6;
-		float ws = (1F - w) / 2;
-		float ls = (1F - l) / 2;
-
-		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.Z)
-			setBlockBounds(ws, 0F, ls, 1F - ws, 1F + f, 1F - ls);
-		else setBlockBounds(ls, 0F, ws, 1F - ls, 1F + f, 1F - ws);
+		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X)
+			return X_AABB;
+		else return Z_AABB;
 	}
 
 	@Override

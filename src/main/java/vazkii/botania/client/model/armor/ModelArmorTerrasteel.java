@@ -15,8 +15,10 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHandSide;
 
 public class ModelArmorTerrasteel extends ModelBiped {
 
@@ -54,9 +56,9 @@ public class ModelArmorTerrasteel extends ModelBiped {
 	public ModelRenderer bootL2;
 	public ModelRenderer bootLbranch;
 
-	int slot;
+	private final EntityEquipmentSlot slot;
 
-	public ModelArmorTerrasteel(int slot) {
+	public ModelArmorTerrasteel(EntityEquipmentSlot slot) {
 		this.slot = slot;
 
 		textureWidth = 64;
@@ -232,21 +234,21 @@ public class ModelArmorTerrasteel extends ModelBiped {
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		helm.showModel = slot == 3; // 1.8: now reversed. yay mojang.
-		body.showModel = slot == 2;
-		armr.showModel = slot == 2;
-		armL.showModel = slot == 2;
-		legR.showModel = slot == 1;
-		legL.showModel = slot == 1;
-		bootL.showModel = slot == 0;
-		bootR.showModel = slot == 0;
+		helm.showModel = slot == EntityEquipmentSlot.HEAD;
+		body.showModel = slot == EntityEquipmentSlot.CHEST;
+		armr.showModel = slot == EntityEquipmentSlot.CHEST;
+		armL.showModel = slot == EntityEquipmentSlot.CHEST;
+		legR.showModel = slot == EntityEquipmentSlot.LEGS;
+		legL.showModel = slot == EntityEquipmentSlot.LEGS;
+		bootL.showModel = slot == EntityEquipmentSlot.FEET;
+		bootR.showModel = slot == EntityEquipmentSlot.FEET;
 		bipedHeadwear.showModel = false;
 
 		bipedHead = helm;
 		bipedBody = body;
 		bipedRightArm = armr;
 		bipedLeftArm = armL;
-		if(slot == 1) {
+		if(slot == EntityEquipmentSlot.LEGS) {
 			bipedRightLeg = legR;
 			bipedLeftLeg = legL;
 		} else {
@@ -260,23 +262,46 @@ public class ModelArmorTerrasteel extends ModelBiped {
 
 	public void prepareForRender(Entity entity) {
 		EntityLivingBase living = (EntityLivingBase) entity;
-		isSneak = living != null ? living.isSneaking() : false;
-		isChild = living != null ? living.isChild() : false;
-		if(living != null && living instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) living;
+		isSneak = living != null && living.isSneaking();
+		isChild = living != null && living.isChild();
+		if(living != null) {
+			ModelBiped.ArmPose mainPose = ArmPose.EMPTY;
+			ModelBiped.ArmPose offPose = ArmPose.EMPTY;
 
-			ItemStack itemstack = player.inventory.getCurrentItem();
-			heldItemRight = itemstack != null ? 1 : 0;
+			// Copy from RenderPlayer.setModelVisibilities
+			if(living.getHeldItemMainhand() != null) {
+				mainPose = ArmPose.ITEM;
+				if (living.getItemInUseCount() > 0) {
+					EnumAction enumaction = living.getHeldItemMainhand().getItemUseAction();
 
-			aimedBow = false;
-			if (itemstack != null && player.getItemInUseCount() > 0) {
-				EnumAction enumaction = itemstack.getItemUseAction();
-
-				if (enumaction == EnumAction.BLOCK)
-					heldItemRight = 3;
-				else if (enumaction == EnumAction.BOW)
-					aimedBow = true;
+					if (enumaction == EnumAction.BLOCK) {
+						mainPose = ModelBiped.ArmPose.BLOCK;
+					} else if (enumaction == EnumAction.BOW) {
+						mainPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+					}
+				}
 			}
+
+			if (living.getHeldItemOffhand() != null) {
+				offPose = ModelBiped.ArmPose.ITEM;
+
+				if (living.getItemInUseCount() > 0) {
+					EnumAction enumaction1 = living.getHeldItemOffhand().getItemUseAction();
+
+					if (enumaction1 == EnumAction.BLOCK) {
+						offPose = ModelBiped.ArmPose.BLOCK;
+					}
+				}
+			}
+
+			if(living.getPrimaryHand() == EnumHandSide.RIGHT) {
+				rightArmPose = mainPose;
+				leftArmPose = offPose;
+			} else {
+				rightArmPose = offPose;
+				leftArmPose = mainPose;
+			}
+			// End copy RenderPlayer.setModelVisibilities
 		}
 	}
 
