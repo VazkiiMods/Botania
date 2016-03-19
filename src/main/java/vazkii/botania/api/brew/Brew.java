@@ -28,7 +28,7 @@ public class Brew {
 	private final String name;
 	private final int color;
 	private final int cost;
-	private final List<PotionEffectShim> effects;
+	private final List<PotionEffect> effects;
 	boolean canInfuseBloodPendant = true;
 	boolean canInfuseIncense = true;
 
@@ -39,7 +39,7 @@ public class Brew {
 	 * @param cost The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(String key, String name, int color, int cost, PotionEffectShim... effects) {
+	public Brew(String key, String name, int color, int cost, PotionEffect... effects) {
 		this.key = key;
 		this.name = name;
 		this.color = color;
@@ -117,22 +117,12 @@ public class Brew {
 	}
 
 	/**
-	 * Get the PotionEffectShim's that this brew has.
-     */
-	public List<PotionEffectShim> getPotionEffectsShim(ItemStack stack) {
-		return effects;
-	}
-
-	/**
 	 * Gets the list of vanilla PotionEffects for the ItemStack passed in.
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
-		List<PotionEffect> ret = new ArrayList<>();
-		for(PotionEffectShim s : getPotionEffectsShim(stack))
-			ret.add(s.toVanilla());
-		return ret;
+		return effects;
 	}
 
 }

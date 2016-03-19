@@ -14,6 +14,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.lib.LibResources;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,7 +25,8 @@ public class PotionMod extends Potion {
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
 
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
-		super(new ResourceLocation("botania", name), badEffect, color);
+		super(badEffect, color);
+		// todo 1.9 register
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}
