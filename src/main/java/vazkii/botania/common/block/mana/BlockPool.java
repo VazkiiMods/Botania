@@ -186,17 +186,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state) {
-		if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
-			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
-		} else {
-			return 16777215;
-		}
-	}
-
-	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}

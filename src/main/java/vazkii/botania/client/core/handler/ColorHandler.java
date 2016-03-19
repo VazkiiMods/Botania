@@ -15,11 +15,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ModItems;
+
+import java.awt.*;
 
 public final class ColorHandler {
 
@@ -35,6 +39,36 @@ public final class ColorHandler {
                     }
                 },
                 ModBlocks.specialFlower, ModBlocks.manaBeacon, ModBlocks.petalBlock, ModBlocks.unstableBlock);
+
+        // Pool
+        blocks.registerBlockColorHandler(
+                new IBlockColor() {
+                    @Override
+                    public int colorMultiplier(IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                        if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
+                            float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+                            return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+                        } else {
+                            return 16777215;
+                        }
+                    }
+                },
+                ModBlocks.pool
+        );
+
+        // Spreader
+        blocks.registerBlockColorHandler(
+                new IBlockColor() {
+                    @Override
+                    public int colorMultiplier(IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                        if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
+                            return 0xFFFFFF;
+                        float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+                        return Color.getHSBColor((time * 5) % 360 / 360F, 0.4F, 0.9F).hashCode();
+                    }
+                },
+                ModBlocks.spreader
+        );
 
         // Platforms
         blocks.registerBlockColorHandler(
@@ -66,7 +100,8 @@ public final class ColorHandler {
             }
         }, ModItems.dye, ModItems.petal, ModItems.manaGun, ModItems.manaMirror, ModItems.manaTablet, ModItems.signalFlare,
                 ModItems.spellCloth, ModItems.brewFlask, ModItems.brewVial, ModItems.incenseStick, ModItems.bloodPendant, ModItems.enderDagger,
-                ModItems.terraPick, ModItems.lens, Item.getItemFromBlock(ModBlocks.manaBeacon), Item.getItemFromBlock(ModBlocks.petalBlock), Item.getItemFromBlock(ModBlocks.unstableBlock));
+                ModItems.terraPick, ModItems.lens, Item.getItemFromBlock(ModBlocks.manaBeacon), Item.getItemFromBlock(ModBlocks.petalBlock),
+                Item.getItemFromBlock(ModBlocks.unstableBlock), Item.getItemFromBlock(ModBlocks.pool), Item.getItemFromBlock(ModBlocks.spreader));
     }
 
     private ColorHandler() {}

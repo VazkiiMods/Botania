@@ -145,15 +145,6 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderColor(IBlockState state) {
-		if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
-			return super.getRenderColor(state);
-		float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-		return Color.getHSBColor((time * 5) % 360 / 360F, 0.4F, 0.9F).hashCode();
-	}
-
-	@Override
 	public int getRenderType() {
 		return 2;
 	}
