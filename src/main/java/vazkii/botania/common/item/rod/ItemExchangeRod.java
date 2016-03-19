@@ -78,7 +78,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(par2EntityPlayer.isSneaking()) {
 			TileEntity tile = par3World.getTileEntity(pos);
 			if(tile == null) {
-				if(BlockCamo.isValidBlock(wstate.getBlock())) {
+				if(BlockCamo.isValidBlock(wstate)) {
 					Item item = Item.getItemFromBlock(wstate.getBlock());
 
 					boolean set = setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));

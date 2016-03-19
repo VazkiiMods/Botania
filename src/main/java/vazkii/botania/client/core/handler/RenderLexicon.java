@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.math.MathHelper;
@@ -158,8 +160,9 @@ public class RenderLexicon {
             String title = ModItems.lexicon.getItemStackDisplayName(null);
             String origTitle = title;
 
-            if(Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() != null)
-                title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
+            ItemStack stack = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, Item.class);
+            if(stack != null)
+                title = stack.getDisplayName();
             if(title.equals(origTitle) && bevo)
                 title = I18n.translateToLocal("item.botania:lexicon.bevo");
             if(title.equals(origTitle) && saice)

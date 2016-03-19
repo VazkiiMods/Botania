@@ -2,12 +2,14 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -21,7 +23,7 @@ public class PixieHandler {
 	public void onDamageTaken(LivingHurtEvent event) {
 		if(!event.entityLiving.worldObj.isRemote && event.entityLiving instanceof EntityPlayer && event.source.getEntity() != null && event.source.getEntity() instanceof EntityLivingBase) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			ItemStack stack = player.getCurrentEquippedItem();
+			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
 
 			float chance = getChance(stack);
 			for (ItemStack element : player.inventory.armorInventory)
@@ -36,11 +38,11 @@ public class PixieHandler {
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
 
 				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					int[] potions = new int[] {
-							Potion.blindness.id,
-							Potion.wither.id,
-							Potion.moveSlowdown.id,
-							Potion.weakness.id
+					Potion[] potions = {
+							MobEffects.blindness,
+							MobEffects.wither,
+							MobEffects.moveSlowdown,
+							MobEffects.weakness
 					};
 					pixie.setApplyPotionEffect(new PotionEffect(potions[event.entity.worldObj.rand.nextInt(potions.length)], 40, 0));
 				}
@@ -58,12 +60,7 @@ public class PixieHandler {
 	float getChance(ItemStack stack) {
 		if(stack == null)
 			return 0F;
-
-		Item item = stack.getItem();
-		if(item instanceof IPixieSpawner)
-			return ((IPixieSpawner) item).getPixieChance(stack);
-
-		return 0F;
+		else return ((IPixieSpawner) stack.getItem()).getPixieChance(stack);
 	}
 
 }

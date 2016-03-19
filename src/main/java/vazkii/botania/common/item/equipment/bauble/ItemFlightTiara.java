@@ -36,6 +36,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -46,6 +47,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -175,7 +177,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.motionX += look.x;
 					p.motionZ += look.z;
-					p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
+					p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 				} else if(cooldown > 0) {
 					if(maxCd - cooldown < 2)
@@ -312,7 +314,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		if(armor != null && armor.getItem() == this) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItem(ModItems.flugelEye)) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;

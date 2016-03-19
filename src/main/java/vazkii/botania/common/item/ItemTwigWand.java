@@ -30,6 +30,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
@@ -61,7 +62,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		Block block = par3World.getBlockState(pos).getBlock();
 		BlockPos boundTile = getBoundTile(par1ItemStack);
 
@@ -82,7 +83,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		} else if(par2EntityPlayer.isSneaking()) {
 			block.rotateBlock(par3World, pos, side);
 			if(par3World.isRemote)
-				par2EntityPlayer.swingItem();
+				par2EntityPlayer.swingArm(hand);
 		}
 
 		if(block == Blocks.lapis_block && ConfigHandler.enchanterEnabled) {
@@ -95,7 +96,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			if(axis != null && !par3World.isRemote) {
 				par3World.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
 				par2EntityPlayer.addStat(ModAchievements.enchanterMake, 1);
-				par3World.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:enchanterBlock", 0.5F, 0.6F);
+				par3World.playSound(null, pos, BotaniaSoundEvents.enchanterBlock, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -121,14 +122,14 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				else setBoundTile(par1ItemStack, pos);
 
 				if(par3World.isRemote)
-					par2EntityPlayer.swingItem();
-				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 0.1F, 1F);
+					par2EntityPlayer.swingArm(hand);
+				par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 
 				wanded = true;
 			} else {
 				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, pos, side);
 				if(wanded && par3World.isRemote)
-					par2EntityPlayer.swingItem();
+					par2EntityPlayer.swingArm(hand);
 			}
 
 			return wanded;
@@ -140,7 +141,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
 
-			par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
+			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
 		}
 
 		return false;
@@ -180,13 +181,13 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(!world.isRemote && player.isSneaking()) {
 			setBindMode(stack, !getBindMode(stack));
-			world.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 		}
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override

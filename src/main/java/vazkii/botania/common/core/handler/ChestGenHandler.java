@@ -12,12 +12,12 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
 import vazkii.botania.common.item.ModItems;
 
 public final class ChestGenHandler {
 
 	public static void init() {
+		/* todo loot tables
 		String c = ChestGenHooks.BONUS_CHEST;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.lexicon), 1, 1, 7));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 1));
@@ -48,7 +48,7 @@ public final class ChestGenHandler {
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.overgrowthSeed), 1, 1, 2));
 
 		c = ChestGenHooks.VILLAGE_BLACKSMITH;
-		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 6));
+		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 6));*/
 	}
 
 }

@@ -102,7 +102,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 }

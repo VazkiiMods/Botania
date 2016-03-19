@@ -11,20 +11,21 @@ package vazkii.botania.client.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.Attributes;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
@@ -38,37 +39,38 @@ import javax.vecmath.Vector3f;
 import java.io.IOException;
 import java.util.List;
 
-public class PylonItemModel implements ISmartItemModel {
+public class PylonItemModel implements IBakedModel {
 
 	private IBakedModel mana;
 	private IBakedModel natura;
 	private IBakedModel gaia;
 	private boolean cached = false;
+	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+		@Override
+		public IBakedModel handleItemState(IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
+			if(!cached) {
+				cacheModels();
+			}
 
-	@Override
-	public IBakedModel handleItemState(ItemStack stack) {
-		if(!cached) {
-			cacheModels();
+			switch(stack.getItemDamage()) {
+				case 2:
+					return gaia;
+				case 1:
+					return natura;
+				case 0:
+					return mana;
+				default:
+					return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			}
 		}
-
-		switch(stack.getItemDamage()) {
-			case 2:
-				return gaia;
-			case 1:
-				return natura;
-			case 0:
-				return mana;
-			default:
-				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-		}
-	}
+	};
 
 	private void cacheModels() {
 		// Load the OBJ
 		OBJModel model = null;
 		try {
 			model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
-		} catch(IOException e) {
+		} catch(Exception e) {
 			FMLLog.log(Level.ERROR, "[Botania]: Error loading pylon item model, substituting missing model");
 			mana = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 			natura = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
@@ -98,102 +100,47 @@ public class PylonItemModel implements ISmartItemModel {
 		cached = true;
 	}
 
-	@Override
-	public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-		return ImmutableList.of();
-	}
+	@Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) { return ImmutableList.of(); }
+	@Override public boolean isAmbientOcclusion() { return false; }
+	@Override public boolean isGui3d() { return true; }
+	@Override public boolean isBuiltInRenderer() { return false; }
+	@Override public TextureAtlasSprite getParticleTexture() { return null; }
+	@Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
 	@Override
-	public List<BakedQuad> getGeneralQuads() {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public boolean isAmbientOcclusion() {
-		return false;
-	}
-
-	@Override
-	public boolean isGui3d() {
-		return true;
-	}
-
-	@Override
-	public boolean isBuiltInRenderer() {
-		return false;
-	}
-
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return null;
-	}
-
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
+	public ItemOverrideList getOverrides() {
+		return itemHandler;
 	}
 
 	// Wrapper to transform the model before rendering it, so it looks right in the inventory
 	private class PerspectiveWrapper implements IPerspectiveAwareModel {
 
-		private final IFlexibleBakedModel parent;
+		private final IBakedModel parent;
 
 		public PerspectiveWrapper(IBakedModel pylonModel) {
-			this.parent = new IFlexibleBakedModel.Wrapper(pylonModel, Attributes.DEFAULT_BAKED_FORMAT);
+			this.parent = pylonModel;
 		}
 
 		@Override
-		public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
 			switch(cameraTransformType) {
-				case FIRST_PERSON:
-					return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, 0, 0.4F), null, new Vector3f(0.75F, 0.75F, 0.75F), null).getMatrix());
+				// todo 1.9 case FIRST_PERSON:
+				//	return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, 0, 0.4F), null, new Vector3f(0.75F, 0.75F, 0.75F), null).getMatrix());
 				case GUI:
 					return ImmutablePair.of(parent, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0.5F, 0.1F, 0), null, null, null)).getMatrix());
-				case THIRD_PERSON:
-					return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, -0.2F, 0.5F), null, null, null).getMatrix());
+				// case THIRD_PERSON:
+				//	return ImmutablePair.of(parent, new TRSRTransformation(new Vector3f(0, -0.2F, 0.5F), null, null, null).getMatrix());
 				default:
 					return ImmutablePair.of(parent, TRSRTransformation.identity().getMatrix());
 			}
 		}
 
-		@Override
-		public VertexFormat getFormat() {
-			return Attributes.DEFAULT_BAKED_FORMAT;
-		}
-
-		@Override
-		public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-			return parent.getFaceQuads(p_177551_1_);
-		}
-
-		@Override
-		public List<BakedQuad> getGeneralQuads() {
-			return parent.getGeneralQuads();
-		}
-
-		@Override
-		public boolean isAmbientOcclusion() {
-			return parent.isAmbientOcclusion();
-		}
-
-		@Override
-		public boolean isGui3d() {
-			return parent.isGui3d();
-		}
-
-		@Override
-		public boolean isBuiltInRenderer() {
-			return parent.isBuiltInRenderer();
-		}
-
-		@Override
-		public TextureAtlasSprite getParticleTexture() {
-			return parent.getParticleTexture();
-		}
-
-		@Override
-		public ItemCameraTransforms getItemCameraTransforms() {
-			return parent.getItemCameraTransforms();
-		}
+		@Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) { return parent.getQuads(state, face, rand); }
+		@Override public boolean isAmbientOcclusion() { return parent.isAmbientOcclusion(); }
+		@Override public boolean isGui3d() { return parent.isGui3d(); }
+		@Override public boolean isBuiltInRenderer() { return parent.isBuiltInRenderer(); }
+		@Override public TextureAtlasSprite getParticleTexture() { return parent.getParticleTexture(); }
+		@Override public ItemCameraTransforms getItemCameraTransforms() { return parent.getItemCameraTransforms(); }
+		@Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 	}
 }

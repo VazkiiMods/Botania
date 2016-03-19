@@ -12,6 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -19,8 +20,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -34,19 +38,22 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.75, 1);
+
+	private final Random random = new Random();
 
 	public BlockRuneAltar() {
 		super(Material.rock);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.75F, 1F);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
-
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
+	}
 
-		random = new Random();
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -60,9 +67,8 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
 		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
-		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 
 		if(par5EntityPlayer.isSneaking()) {
 			if(altar.manaToGet == 0)
@@ -133,12 +139,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, BlockPos pos) {
+	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
 		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
 		return altar.signal;
 	}

@@ -21,12 +21,16 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
@@ -48,14 +52,14 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	int ticksElapsed = 0;
 
 	public void mountEntity(Entity e) {
-		if(e.ridingEntity != null || worldObj.isRemote || bindPos.getY() == -1 || !isValidBinding())
+		if(e.isRiding() || worldObj.isRemote || bindPos.getY() == -1 || !isValidBinding())
 			return;
 
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, bindPos);
 		worldObj.spawnEntityInWorld(mover);
 		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
-			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(BotaniaSoundEvents.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
 			if(e instanceof EntityPlayer)
 				((EntityPlayer) e).addStat(ModAchievements.luminizerRide, 1);
 		}
@@ -178,6 +182,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
+		private static final DataParameter<BlockPos> EXIT_POS = EntityDataManager.createKey(EntityPlayerMover.class, DataSerializers.BLOCK_POS);
+
 
 		public EntityPlayerMover(World world) {
 			super(world);
@@ -193,13 +199,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		protected void entityInit() {
 			setSize(0F, 0F);
 			noClip = true;
-
-			dataWatcher.addObject(20, 0);
-			dataWatcher.addObject(21, 0);
-			dataWatcher.addObject(22, 0);
-			dataWatcher.setObjectWatched(20);
-			dataWatcher.setObjectWatched(21);
-			dataWatcher.setObjectWatched(22);
+			dataWatcher.register(EXIT_POS, BlockPos.ORIGIN);
 		}
 
 		@Override
@@ -211,9 +211,9 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				return;
 			}
 
-			boolean isItem = riddenByEntity instanceof EntityItem;
+			boolean isItem = getRidingEntity() instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.05F, (float) Math.random() * 0.3F + 0.7F);
+				playSound(BotaniaSoundEvents.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
 			BlockPos pos = new BlockPos(this);
 			BlockPos exitPos = getExitPos();
@@ -283,17 +283,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		public BlockPos getExitPos() {
-			return new BlockPos(
-				dataWatcher.getWatchableObjectInt(20),
-				dataWatcher.getWatchableObjectInt(21),
-				dataWatcher.getWatchableObjectInt(22)
-			);
+			return dataWatcher.get(EXIT_POS);
 		}
 
 		public void setExit(BlockPos pos) {
-			dataWatcher.updateObject(20, pos.getX());
-			dataWatcher.updateObject(21, pos.getY());
-			dataWatcher.updateObject(22, pos.getZ());
+			dataWatcher.set(EXIT_POS, pos);
 		}
 
 	}

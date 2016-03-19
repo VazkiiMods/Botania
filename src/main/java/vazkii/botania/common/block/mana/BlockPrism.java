@@ -13,6 +13,7 @@ package vazkii.botania.common.block.mana;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -21,10 +22,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,7 +45,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
+
+	private final Random random = new Random();
 
 	public BlockPrism() {
 		super(Material.glass);
@@ -51,12 +56,15 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 		setLightLevel(1.0F);
 		setUnlocalizedName(LibBlockNames.PRISM);
 		float f = 0.25F;
-		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.POWERED, false)
 				.withProperty(BotaniaStateProps.HAS_LENS, false)
 		);
-		random = new Random();
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
@@ -83,7 +91,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World p_149668_1_, BlockPos pos, IBlockState state) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
 		return null;
 	}
 
@@ -98,14 +106,13 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing side, float par7, float par8, float par9) {
 		TileEntity tile = par1World.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
 
 		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
-		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 
 		if(lens == null && isHeldItemLens) {

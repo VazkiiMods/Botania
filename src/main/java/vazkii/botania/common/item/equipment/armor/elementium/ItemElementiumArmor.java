@@ -2,6 +2,7 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 
 import java.util.List;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
@@ -18,7 +19,7 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
-	public ItemElementiumArmor(int type, String name) {
+	public ItemElementiumArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.elementiumArmorMaterial);
 	}
 

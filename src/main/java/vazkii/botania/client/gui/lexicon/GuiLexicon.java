@@ -43,6 +43,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -576,7 +577,7 @@ public class GuiLexicon extends GuiScreen {
 		if(par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("botania:way")));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.way, 1.0F));
 				konamiIndex = 0;
 			}
 		} else konamiIndex = 0;

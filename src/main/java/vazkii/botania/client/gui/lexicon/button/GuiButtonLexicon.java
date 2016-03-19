@@ -14,6 +14,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 public class GuiButtonLexicon extends GuiButton {
 
@@ -23,7 +24,7 @@ public class GuiButtonLexicon extends GuiButton {
 
 	@Override
 	public void playPressSound(SoundHandler p_146113_1_)  {
-		p_146113_1_.playSound(PositionedSoundRecord.create(new ResourceLocation("botania:lexiconPage"), 1.0F));
+		p_146113_1_.playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.lexiconPage, 1.0F));
 	}
 
 }

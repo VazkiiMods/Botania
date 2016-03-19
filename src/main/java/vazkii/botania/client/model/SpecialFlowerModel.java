@@ -19,15 +19,18 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelCustomData;
@@ -36,6 +39,7 @@ import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.FMLLog;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
@@ -145,7 +149,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		}
 	}
 
-	public static class SpecialFlowerBakedModel implements IPerspectiveAwareModel, ISmartBlockModel, ISmartItemModel {
+	public static class SpecialFlowerBakedModel implements IPerspectiveAwareModel {
 
 		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 		private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
@@ -217,36 +221,47 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 		private ImmutableList<BakedQuad> buildQuads(Optional<EnumFacing> side) {
 			ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+
 			for(IBakedModel model : bakedBlockModels.values()) {
-				if(side.isPresent()) {
-					builder.addAll(model.getFaceQuads(side.get()));
-				} else {
-					builder.addAll(model.getGeneralQuads());
-				}
+				builder.addAll(model.getQuads(null, side.orNull(), 0));
 			}
 
 			for(IBakedModel model : bakedItemModels.values()) {
-				if(side.isPresent()) {
-					builder.addAll(model.getFaceQuads(side.get()));
-				} else {
-					builder.addAll(model.getGeneralQuads());
-				}
+				builder.addAll(model.getQuads(null, side.orNull(), 0));
 			}
 
 			return builder.build();
 		}
 
 		@Override
-		public List<BakedQuad> getFaceQuads(EnumFacing side) {
+		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
+			if(state.getBlock() != ModBlocks.specialFlower)
+				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 			refreshBakedModels();
-			return quads.get(Optional.of(side));
+			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
+			IBakedModel ret = bakedBlockModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
+			if(ret == null)
+				ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			return ret.getQuads(state, face, rand);
 		}
 
 		@Override
-		public List<BakedQuad> getGeneralQuads() {
-			refreshBakedModels();
-			return quads.get(Optional.<EnumFacing>absent());
+		public ItemOverrideList getOverrides() {
+			return itemHandler;
 		}
+
+		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+			@Override
+			public IBakedModel handleItemState(IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
+				refreshBakedModels();
+				IBakedModel item = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
+				if(item == null) {
+					item = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
+				}
+
+				return item == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : item;
+			}
+		};
 
 		@Override
 		public boolean isAmbientOcclusion() {
@@ -278,34 +293,8 @@ public class SpecialFlowerModel implements IModelCustomData {
 		}
 
 		@Override
-		public IBakedModel handleBlockState(IBlockState state) {
-			if(state.getBlock() != ModBlocks.specialFlower)
-				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-			refreshBakedModels();
-			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
-			IBakedModel ret = bakedBlockModels.get(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-			return ret == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : ret;
-		}
-
-		@Override
-		public VertexFormat getFormat() {
-			return vertexFormat;
-		}
-
-		@Override
-		public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
 			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
-		}
-
-		@Override
-		public IBakedModel handleItemState(ItemStack stack) {
-			refreshBakedModels();
-			IBakedModel item = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
-			if(item == null) {
-				item = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
-			}
-
-			return item == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : item;
 		}
 	}
 

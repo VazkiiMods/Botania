@@ -11,25 +11,28 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 
 public class EntitySignalFlare extends Entity {
 
 	private static final String COLOR_TAG = "color";
+	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 
 	public EntitySignalFlare(World par1World) {
 		super(par1World);
 		setSize(0F, 0F);
-		dataWatcher.addObject(30, 0);
-		dataWatcher.setObjectWatched(30);
 	}
 
 	@Override
 	protected void entityInit() {
-		// NO-OP
+		dataWatcher.register(COLOR, 0);
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class EntitySignalFlare extends Entity {
 
 		if(!isDead) {
 			if(ticksExisted % 10 == 0)
-				playSound("creeper.primed", 1F, 1F);
+				playSound(SoundEvents.entity_creeper_primed, 1F, 1F);
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {
@@ -71,11 +74,11 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	public void setColor(int color) {
-		dataWatcher.updateObject(30, color);
+		dataWatcher.set(COLOR, color);
 	}
 
 	public int getColor() {
-		return dataWatcher.getWatchableObjectInt(30);
+		return dataWatcher.get(COLOR);
 	}
 
 }

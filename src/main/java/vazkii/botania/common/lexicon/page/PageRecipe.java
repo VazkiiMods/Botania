@@ -35,6 +35,7 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.core.helper.PlayerHelper;
 
 public class PageRecipe extends LexiconPage {
 
@@ -160,9 +161,9 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
+			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, ILexicon.class);
 
-			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
+			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
 
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {

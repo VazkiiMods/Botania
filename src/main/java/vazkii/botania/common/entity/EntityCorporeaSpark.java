@@ -13,13 +13,19 @@ package vazkii.botania.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -38,12 +44,18 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final String TAG_NETWORK = "network";
 	private static final String TAG_INVIS = "invis";
 
-	ICorporeaSpark master;
-	List<ICorporeaSpark> connections = new ArrayList<>();
-	List<ICorporeaSpark> connectionsClient = new ArrayList<>();
-	List<ICorporeaSpark> relatives = new ArrayList<>();
-	boolean firstUpdateClient = true;
-	boolean firstUpdateServer = true;
+	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
+	private static final DataParameter<Optional<ItemStack>> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
+
+	private ICorporeaSpark master;
+	private List<ICorporeaSpark> connections = new ArrayList<>();
+	private List<ICorporeaSpark> connectionsClient = new ArrayList<>();
+	private List<ICorporeaSpark> relatives = new ArrayList<>();
+	private boolean firstUpdateClient = true;
+	private boolean firstUpdateServer = true;
 
 	public EntityCorporeaSpark(World world) {
 		super(world);
@@ -53,17 +65,11 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataWatcher.addObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, 0);
-		dataWatcher.addObject(28, 0);
-		dataWatcher.addObject(29, 0);
-		dataWatcher.addObject(30, 0);
-		dataWatcher.addObject(31, new ItemStack(Blocks.stone, 0, 0));
-
-		dataWatcher.setObjectWatched(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
-		dataWatcher.setObjectWatched(28);
-		dataWatcher.setObjectWatched(29);
-		dataWatcher.setObjectWatched(30);
-		dataWatcher.setObjectWatched(31);
+		dataWatcher.register(INVISIBILITY, 0);
+		dataWatcher.register(MASTER, false);
+		dataWatcher.register(NETWORK, 0);
+		dataWatcher.register(ITEM_DISPLAY_TICKS, 0);
+		dataWatcher.register(DISPLAY_STACK, Optional.absent());
 	}
 
 	@Override
@@ -222,42 +228,41 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public void setMaster(boolean master) {
-		dataWatcher.updateObject(28, master ? 1 : 0);
+		dataWatcher.set(MASTER, master);
 	}
 
 	@Override
 	public boolean isMaster() {
-		return dataWatcher.getWatchableObjectInt(28) == 1;
+		return dataWatcher.get(MASTER);
 	}
 
 	public void setNetwork(EnumDyeColor network) {
-		dataWatcher.updateObject(29, network.getMetadata());
+		dataWatcher.set(NETWORK, network.getMetadata());
 	}
 
 	@Override
 	public EnumDyeColor getNetwork() {
-		return EnumDyeColor.byMetadata(dataWatcher.getWatchableObjectInt(29));
+		return EnumDyeColor.byMetadata(dataWatcher.get(NETWORK));
 	}
 
 	public int getItemDisplayTicks() {
-		return dataWatcher.getWatchableObjectInt(30);
+		return dataWatcher.get(ITEM_DISPLAY_TICKS);
 	}
 
 	public void setItemDisplayTicks(int ticks) {
-		dataWatcher.updateObject(30, ticks);
+		dataWatcher.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
-	public ItemStack getDisplayedItem() {
-		return dataWatcher.getWatchableObjectItemStack(31);
+	public Optional<ItemStack> getDisplayedItem() {
+		return dataWatcher.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataWatcher.updateObject(31, stack);
+		dataWatcher.set(DISPLAY_STACK, Optional.fromNullable(stack));
 	}
 
 	@Override
-	public boolean interactFirst(EntityPlayer player) {
-		ItemStack stack = player.getCurrentEquippedItem();
+	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
 		if(stack != null) {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
@@ -265,7 +270,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 					if(isMaster())
 						restartNetwork();
 					if(player.worldObj.isRemote)
-						player.swingItem();
+						player.swingArm(hand);
 					return true;
 				} else {
 					displayRelatives(new ArrayList<>(), master);
@@ -282,7 +287,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 					stack.stackSize--;
 					if(player.worldObj.isRemote)
-						player.swingItem();
+						player.swingArm(hand);
 				}
 			}
 		}
@@ -292,8 +297,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	public boolean doPhantomInk(ItemStack stack) {
 		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
-			dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			int invis = dataWatcher.get(INVISIBILITY);
+			dataWatcher.set(INVISIBILITY, ~invis & 1);
 			return true;
 		}
 
@@ -304,14 +309,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
-		dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
+		dataWatcher.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
 		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
-		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY));
+		cmp.setInteger(TAG_INVIS, dataWatcher.get(INVISIBILITY));
 	}
 
 }

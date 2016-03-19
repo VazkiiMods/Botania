@@ -52,7 +52,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllReleventItems(List<ItemStack> list) {
+	public void displayAllRelevantItems(List<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);

@@ -25,7 +25,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -45,7 +49,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
-	public static final int INVISIBILITY_DATA_WATCHER_KEY = 27;
+	private static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -60,10 +65,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataWatcher.addObject(INVISIBILITY_DATA_WATCHER_KEY, 0);
-		dataWatcher.addObject(28, 0);
-		dataWatcher.setObjectWatched(INVISIBILITY_DATA_WATCHER_KEY);
-		dataWatcher.setObjectWatched(28);
+		dataWatcher.register(INVISIBILITY, 0);
+		dataWatcher.register(UPGRADE, 0);
 	}
 
 	@Override
@@ -250,8 +253,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public boolean interactFirst(EntityPlayer player) {
-		ItemStack stack = player.getCurrentEquippedItem();
+	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
 		if(stack != null) {
 			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
@@ -265,7 +267,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						removeTransferants = 2;
 					} else setDead();
 					if(player.worldObj.isRemote)
-						player.swingItem();
+						player.swingArm(hand);
 					return true;
 				} else {
 					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
@@ -278,7 +280,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
 				stack.stackSize--;
 				if(player.worldObj.isRemote)
-					player.swingItem();
+					player.swingArm(hand);
 				return true;
 			}
 		}
@@ -288,8 +290,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	public boolean doPhantomInk(ItemStack stack) {
 		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY);
-			dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
+			int invis = dataWatcher.get(INVISIBILITY);
+			dataWatcher.set(INVISIBILITY, ~invis & 1);
 			return true;
 		}
 
@@ -299,13 +301,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
-		dataWatcher.updateObject(INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
+		dataWatcher.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(INVISIBILITY_DATA_WATCHER_KEY));
+		cmp.setInteger(TAG_INVIS, dataWatcher.get(INVISIBILITY));
 	}
 
 	@Override
@@ -367,12 +369,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	public SparkUpgradeType getUpgrade() {
-		return SparkUpgradeType.values()[dataWatcher.getWatchableObjectInt(28)];
+		return SparkUpgradeType.values()[dataWatcher.get(UPGRADE)];
 	}
 
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
-		dataWatcher.updateObject(28, upgrade.ordinal());
+		dataWatcher.set(UPGRADE, upgrade.ordinal());
 	}
 
 	@Override

@@ -13,6 +13,7 @@ package vazkii.botania.common.core.helper;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
@@ -71,7 +72,7 @@ public class Vector3
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.posX, e.posY - /*e.yOffset todo 1.8 */ 0 + e.height / 2, e.posZ);
+		return new Vector3(e.posX, e.posY - e.getYOffset() + e.height / 2, e.posZ);
 	}
 
 	public static Vector3 fromTileEntity(TileEntity e) {
@@ -253,12 +254,10 @@ public class Vector3
 		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Vector3f vector3f() {
 		return new Vector3f((float)x, (float)y, (float)z);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Vector4f vector4f() {
 		return new Vector4f((float)x, (float)y, (float)z, 1);
 	}
@@ -304,5 +303,10 @@ public class Vector3
 
 		Vector3 v = (Vector3)o;
 		return x == v.x && y == v.y && z == v.z;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y, z);
 	}
 }

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,11 +33,6 @@ public class BlockDistributor extends BlockMod implements ILexiconable {
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
 		setUnlocalizedName(LibBlockNames.DISTRIBUTOR);
-	}
-
-	@Override
-	public int getRenderType() {
-		return 3;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -25,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.EnumFacing;
@@ -100,9 +102,8 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
 		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
-		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 

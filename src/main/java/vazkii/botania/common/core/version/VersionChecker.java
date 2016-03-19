@@ -17,6 +17,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +37,7 @@ public final class VersionChecker {
 
 	public void init() {
 		new ThreadVersionChecker();
-		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent

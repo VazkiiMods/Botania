@@ -256,7 +256,7 @@ public class CommonProxy {
 
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		if(entity instanceof EntityPlayerMP)
-			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach));
+			((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).interactionManager.getBlockReachDistance() + reach));
 	}
 
 	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
@@ -276,7 +276,7 @@ public class CommonProxy {
 	}
 
 	public long getWorldElapsedTicks() {
-		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
+		return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0].getTotalWorldTime();
 	}
 
 	public void setSparkleFXNoClip(boolean noclip) {

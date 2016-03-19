@@ -19,6 +19,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 
 public class CommandOpen extends CommandBase {
@@ -37,8 +38,8 @@ public class CommandOpen extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
-			ItemStack stack = player.getCurrentEquippedItem();
-			if(stack != null && stack.getItem() instanceof ItemLexicon) {
+			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
+			if(stack != null) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
 			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setChatStyle(new Style().setColor(TextFormatting.RED)));

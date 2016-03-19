@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -75,9 +76,9 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		}
 
 		if (pos.getBlockPos() != null) {
-			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-			if(ConfigHandler.blockBreakParticles && !block.isAir(worldObj, pos.getBlockPos()))
-                worldObj.playAuxSFX(2001, pos.getBlockPos(), Block.getStateId(worldObj.getBlockState(pos.getBlockPos())));
+			IBlockState state = worldObj.getBlockState(pos.getBlockPos());
+			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, worldObj, pos.getBlockPos()))
+                worldObj.playAuxSFX(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
 		setDead();

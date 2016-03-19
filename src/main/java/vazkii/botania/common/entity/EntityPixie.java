@@ -13,6 +13,9 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -20,9 +23,11 @@ import vazkii.botania.common.Botania;
 
 public class EntityPixie extends EntityFlyingCreature {
 
-	EntityLivingBase summoner = null;
-	float damage = 0;
-	PotionEffect effect = null;
+	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
+
+	private EntityLivingBase summoner = null;
+	private float damage = 0;
+	private PotionEffect effect = null;
 
 	public EntityPixie(World world) {
 		super(world);
@@ -32,21 +37,21 @@ public class EntityPixie extends EntityFlyingCreature {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(20, 0);
+		dataWatcher.register(TYPE, 0);
 	}
 
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0);
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2.0);
 	}
 
 	public void setType(int type) {
-		dataWatcher.updateObject(20, type);
+		dataWatcher.set(TYPE, type);
 	}
 
 	public int getType() {
-		return dataWatcher.getWatchableObjectInt(20);
+		return dataWatcher.get(TYPE);
 	}
 
 	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {

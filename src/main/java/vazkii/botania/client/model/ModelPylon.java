@@ -18,12 +18,13 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
@@ -31,21 +32,20 @@ import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ModelPylon implements IPylonModel {
 
 	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
-	private IFlexibleBakedModel manaCrystal;
-	private IFlexibleBakedModel manaRingsAndPanes;
-	private IFlexibleBakedModel manaGems;
-	private IFlexibleBakedModel naturaCrystal;
-	private IFlexibleBakedModel naturaRingsAndPanes;
-	private IFlexibleBakedModel naturaGems;
-	private IFlexibleBakedModel gaiaCrystal;
-	private IFlexibleBakedModel gaiaRingsAndPanes;
-	private IFlexibleBakedModel gaiaGems;
+	private IBakedModel manaCrystal;
+	private IBakedModel manaRingsAndPanes;
+	private IBakedModel manaGems;
+	private IBakedModel naturaCrystal;
+	private IBakedModel naturaRingsAndPanes;
+	private IBakedModel naturaGems;
+	private IBakedModel gaiaCrystal;
+	private IBakedModel gaiaRingsAndPanes;
+	private IBakedModel gaiaGems;
 
 	public ModelPylon() {
 		try {
@@ -74,7 +74,7 @@ public class ModelPylon implements IPylonModel {
 			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
 			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-		} catch(IOException e) {
+		} catch(Exception e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
 	}
@@ -128,16 +128,16 @@ public class ModelPylon implements IPylonModel {
 		GlStateManager.enableLighting();
 	}
 
-	private void renderModel(IFlexibleBakedModel model) {
+	private void renderModel(IBakedModel model) {
 		renderModel(model, -1);
 	}
 
-	private void renderModel(IFlexibleBakedModel model, int color) {
+	private void renderModel(IBakedModel model, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer worldrenderer = tessellator.getBuffer();
-		worldrenderer.begin(GL11.GL_QUADS, model.getFormat());
+		worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
-		this.renderQuads(worldrenderer, model.getGeneralQuads(), color);
+		this.renderQuads(worldrenderer, model.getQuads(null, null, 0), color);
 		tessellator.draw();
 	}
 

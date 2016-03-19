@@ -16,6 +16,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverride;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -23,8 +25,10 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
@@ -43,7 +47,7 @@ import javax.vecmath.Vector4f;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, IResourceManagerReloadListener {
+public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadListener {
 
 	public static final FloatingFlowerModel INSTANCE = new FloatingFlowerModel();
 	private static final String MUNDANE_PREFIX = "botania:shimmeringFlower_";
@@ -81,26 +85,9 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 	}
 
 	@Override
-	public IBakedModel handleItemState(ItemStack stack) {
-		// Items always have GRASS island
-		IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
-		String identifier;
-
-		if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
-			// Magic flower
-			identifier = ItemBlockFloatingSpecialFlower.getType(stack);
-		} else {
-			// Mundane flower
-			identifier = MUNDANE_PREFIX + stack.getItemDamage();
-		}
-
-		return getModel(islandType, identifier);
-	}
-
-	@Override
-	public IBakedModel handleBlockState(IBlockState state) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 		if(state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
-			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 		IExtendedBlockState realState = ((IExtendedBlockState) state);
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
 		String identifier;
@@ -113,7 +100,7 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 			identifier = MUNDANE_PREFIX + state.getValue(BotaniaStateProps.COLOR).getMetadata();
 		}
 
-		return getModel(islandType, identifier);
+		return getModel(islandType, identifier).getQuads(state, face, rand);
 	}
 
 	// Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
@@ -141,41 +128,16 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 		}
 	}
 
-	// Dummy results
 	@Override
-	public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-		return ImmutableList.of();
+	public ItemOverrideList getOverrides() {
+		return ItemHandler.INSTANCE;
 	}
 
-	@Override
-	public List<BakedQuad> getGeneralQuads() {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public boolean isAmbientOcclusion() {
-		return false;
-	}
-
-	@Override
-	public boolean isGui3d() {
-		return true;
-	}
-
-	@Override
-	public boolean isBuiltInRenderer() {
-		return false;
-	}
-
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return null;
-	}
-
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
-	}
+	@Override public boolean isAmbientOcclusion() { return false; }
+	@Override public boolean isGui3d() { return true; }
+	@Override public boolean isBuiltInRenderer() { return false; }
+	@Override public TextureAtlasSprite getParticleTexture() { return null; }
+	@Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
 	private static class CompositeBakedModel implements IBakedModel {
 
@@ -190,18 +152,18 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
 
 			// Add flower quads, scaled and translated
-			for(BakedQuad quad : flower.getGeneralQuads()) {
+			for(BakedQuad quad : flower.getQuads(null, null, 0)) {
 				genBuilder.add(transform(quad, transform));
 			}
 
 			for(EnumFacing e : EnumFacing.VALUES) {
-				genBuilder.addAll(flower.getFaceQuads(e).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+				genBuilder.addAll(flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
 			}
 
 			// Add island quads
-			genBuilder.addAll(island.getGeneralQuads());
+			genBuilder.addAll(island.getQuads(null, null, 0));
 			for(EnumFacing e : EnumFacing.VALUES) {
-				genBuilder.addAll(island.getFaceQuads(e));
+				genBuilder.addAll(island.getQuads(null, e, 0));
 			}
 
 			genQuads = genBuilder.build();
@@ -209,13 +171,8 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 
 		// Forward all to flower model
 		@Override
-		public List<BakedQuad> getGeneralQuads() {
+		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			return genQuads;
-		}
-
-		@Override
-		public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-			return ImmutableList.of();
 		}
 
 		@Override
@@ -241,6 +198,30 @@ public class FloatingFlowerModel implements ISmartItemModel, ISmartBlockModel, I
 		@Override
 		public ItemCameraTransforms getItemCameraTransforms() {
 			return base.getItemCameraTransforms();
+		}
+
+		@Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
+	}
+
+	private static class ItemHandler extends ItemOverrideList {
+		private static final ItemHandler INSTANCE = new ItemHandler();
+		private ItemHandler() { super(ImmutableList.of()); }
+
+		@Override
+		public IBakedModel handleItemState(IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
+			// Items always have GRASS island
+			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
+			String identifier;
+
+			if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
+				// Magic flower
+				identifier = ItemBlockFloatingSpecialFlower.getType(stack);
+			} else {
+				// Mundane flower
+				identifier = MUNDANE_PREFIX + stack.getItemDamage();
+			}
+
+			return FloatingFlowerModel.INSTANCE.getModel(islandType, identifier);
 		}
 	}
 
