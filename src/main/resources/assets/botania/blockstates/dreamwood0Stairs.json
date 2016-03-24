@@ -48,19 +48,6 @@
     "facing=west,half=top,shape=inner_left":  { "model": "minecraft:inner_stairs", "x": 180, "y": 270, "uvlock": true },
     "facing=south,half=top,shape=inner_left": { "model": "minecraft:inner_stairs", "x": 180, "y": 180, "uvlock": true },
     "facing=north,half=top,shape=inner_left": { "model": "minecraft:inner_stairs", "x": 180, "uvlock": true },
-    "inventory": [{
-      "model": "minecraft:stairs",
-      "uvlock": true,
-      "transform": {
-        "thirdperson": {
-          "rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
-          "translation": [ 0, 0.09375, -0.171875 ],
-          "scale": [ 0.375, 0.375, 0.375 ]
-        },
-        "gui": {
-          "rotation": { "y": 180 }
-        }
-      }
-    }]
+    "inventory": [{ "model": "minecraft:stairs" }]
   }
 }
