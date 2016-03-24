@@ -19,8 +19,8 @@ public final class ClientMethodHandles {
             renderPosX_getter, renderPosY_getter, renderPosZ_getter, // RenderManager
             farPlaneDistance_getter,
             hurtCameraEffect, setupViewBobbing, getFOVModifier,
-            enableLightmap, disableLightmap, // EntityRenderer
-            prevEquippedProgress_getter, equippedProgress_getter; // ItemRenderer
+            enableLightmap, disableLightmap; // EntityRenderer
+            //prevEquippedProgress_getter, equippedProgress_getter; // ItemRenderer
 
     static {
         try {
@@ -60,15 +60,16 @@ public final class ClientMethodHandles {
             m.setAccessible(true);
             getFOVModifier = MethodHandles.publicLookup().unreflect(m);
 
-            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.PREV_EQUIPPED_PROGRESS);
-            f.setAccessible(true);
-            prevEquippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
-
-            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.EQUIPPED_PROGRESS);
-            f.setAccessible(true);
-            equippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
+//            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.PREV_EQUIPPED_PROGRESS);
+//            f.setAccessible(true);
+//            prevEquippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
+//
+//            f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.EQUIPPED_PROGRESS);
+//            f.setAccessible(true);
+//            equippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
         } catch (IllegalAccessException e) {
             FMLLog.severe("[Botania]: Couldn't initialize client methodhandles! Things will be broken!");
+            e.printStackTrace();
             throw Throwables.propagate(e);
         }
     }

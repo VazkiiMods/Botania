@@ -36,7 +36,7 @@ public class RenderLexicon {
     @SubscribeEvent
     public void renderItem(RenderHandEvent evt) {
         Minecraft mc = Minecraft.getMinecraft();
-        if(!ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || !PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.lexicon))
+        if(true || !ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || !PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.lexicon))
             return;
         evt.setCanceled(true);
 
@@ -102,8 +102,8 @@ public class RenderLexicon {
 
     private void renderItemInFirstPerson() throws Throwable {
         // Cherry picked from ItemRenderer.renderItemInFirstPerson
-        float prevEquippedProgress = ((float) ClientMethodHandles.prevEquippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
-        float equippedProgress = ((float) ClientMethodHandles.equippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
+        float prevEquippedProgress = 0;//((float) ClientMethodHandles.prevEquippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
+        float equippedProgress = 0;//((float) ClientMethodHandles.equippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
         float f = 1.0F - (prevEquippedProgress + (equippedProgress - prevEquippedProgress) * ClientTickHandler.partialTicks);
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         float f1 = player.getSwingProgress(ClientTickHandler.partialTicks);

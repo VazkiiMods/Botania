@@ -408,6 +408,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
 			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
 		} catch (Throwable t) {
+			t.printStackTrace();
 			return;
 		}
 

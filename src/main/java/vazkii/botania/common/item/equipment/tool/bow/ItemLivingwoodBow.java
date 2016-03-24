@@ -18,6 +18,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
@@ -57,7 +58,20 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		setUnlocalizedName(name);
 		setMaxDamage(500);
 		setFull3D();
-		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F);
+		addPropertyOverride(new ResourceLocation("minecraft:pull"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				if (entityIn == null)
+				{
+					return 0.0F;
+				}
+				else
+				{
+					ItemStack itemstack = entityIn.getActiveItemStack();
+					return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
+				}
+			}
+		});
 	}
 
 	@Override
