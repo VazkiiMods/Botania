@@ -17,10 +17,12 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -59,6 +61,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	public ItemTwigWand() {
 		super(LibItemNames.TWIG_WAND);
 		setMaxStackSize(1);
+		addPropertyOverride(new ResourceLocation("botania", "bindmode"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				return getBindMode(stack) ? 1 : 0;
+			}
+		});
 	}
 
 	@Override

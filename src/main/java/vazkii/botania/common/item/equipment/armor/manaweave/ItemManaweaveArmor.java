@@ -13,12 +13,16 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -35,6 +39,12 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	
 	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
+		addPropertyOverride(new ResourceLocation("botania", "holiday"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				return ClientProxy.jingleTheBells ? 1 : 0;
+			}
+		});
 	}
 
 	@Override

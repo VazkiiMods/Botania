@@ -233,14 +233,6 @@ public final class ModelHandler {
                     ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory")
                     : new ModelResourceLocation("botania:tornadoRod", "inventory")));
 
-        ModelLoader.registerItemVariants(twigWand,
-                new ModelResourceLocation("botania:twigWand", "inventory"),
-                new ModelResourceLocation("botania:twigWand_bind", "inventory"));
-        ModelLoader.setCustomMeshDefinition(twigWand, MesherWrapper.of(stack -> {
-            String path = "botania:twigWand";
-            return new ModelResourceLocation(path + (ItemTwigWand.getBindMode(stack) ? "_bind" : ""), "inventory");
-        }));
-
         ModelLoader.registerItemVariants(manaCookie,
                 new ModelResourceLocation("botania:manaCookie", "inventory"),
                 new ModelResourceLocation("botania:totalBiscuit", "inventory"));
@@ -248,42 +240,6 @@ public final class ModelHandler {
                 stack.getDisplayName().toLowerCase().equals("totalbiscuit")
                     ? new ModelResourceLocation("botania:totalBiscuit", "inventory")
                     : new ModelResourceLocation("botania:manaCookie", "inventory")));
-
-        ModelLoader.registerItemVariants(manaweaveBoots,
-                new ModelResourceLocation("botania:manaweaveBoots", "inventory"),
-                new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory"));
-
-        ModelLoader.setCustomMeshDefinition(manaweaveBoots, MesherWrapper.of(stack ->
-                ClientProxy.jingleTheBells
-                    ? new ModelResourceLocation("botania:manaweaveBootsHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveBoots", "inventory")));
-
-        ModelLoader.registerItemVariants(manaweaveChest,
-                new ModelResourceLocation("botania:manaweaveChest", "inventory"),
-                new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory"));
-
-        ModelLoader.setCustomMeshDefinition(manaweaveChest, MesherWrapper.of(stack ->
-                ClientProxy.jingleTheBells
-                    ? new ModelResourceLocation("botania:manaweaveChestHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveChest", "inventory")));
-
-        ModelLoader.registerItemVariants(manaweaveHelm,
-                new ModelResourceLocation("botania:manaweaveHelm", "inventory"),
-                new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory"));
-
-        ModelLoader.setCustomMeshDefinition(manaweaveHelm, MesherWrapper.of(stack ->
-                ClientProxy.jingleTheBells
-                    ? new ModelResourceLocation("botania:manaweaveHelmHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveHelm", "inventory")));
-
-        ModelLoader.registerItemVariants(manaweaveLegs,
-                new ModelResourceLocation("botania:manaweaveLegs", "inventory"),
-                new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory"));
-
-        ModelLoader.setCustomMeshDefinition(manaweaveLegs, MesherWrapper.of(stack ->
-                ClientProxy.jingleTheBells
-                    ? new ModelResourceLocation("botania:manaweaveLegsHoliday", "inventory")
-                    : new ModelResourceLocation("botania:manaweaveLegs", "inventory")));
 
         ModelLoader.registerItemVariants(manasteelSword,
                 new ModelResourceLocation("botania:manasteelSword", "inventory"),
@@ -469,6 +425,7 @@ public final class ModelHandler {
     }
 
     private static void registerStandardItems() {
+        registerItemModel(twigWand);
         registerItemModel(pestleAndMortar);
         registerItemModel(blackLotus);
         registerItemModel(blackLotus, 1);
@@ -485,6 +442,11 @@ public final class ModelHandler {
         registerItemModel(manasteelShovel);
         registerItemModel(manasteelAxe);
         registerItemModel(manasteelShears);
+
+        registerItemModel(manaweaveHelm);
+        registerItemModel(manaweaveChest);
+        registerItemModel(manaweaveLegs);
+        registerItemModel(manaweaveBoots);
 
         registerItemModel(elementiumHelm);
         registerItemModel(elementiumHelmRevealing);
