@@ -87,6 +87,9 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
+
+        System.out.println(evt.getModelRegistry().getObject(new ModelResourceLocation("botania:daybloom", "normal")));
+
         // Floating flowers
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);

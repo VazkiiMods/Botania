@@ -85,7 +85,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		// "Bake" the SpecialFlowerModel (in reality, just create another wrapper for all the delegate blockModels)
-		return new SpecialFlowerBakedModel(blockModels, itemModels, format, IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+		return new SpecialFlowerBakedModel(blockModels, itemModels, IPerspectiveAwareModel.MapWrapper.getTransforms(state));
 	}
 
 	@Override
@@ -154,24 +154,20 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 		private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
 		private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
-		private final VertexFormat vertexFormat;
 
 		private IBakedModel baseModel;
 		private ImmutableMap<String, IBakedModel> bakedBlockModels;
 		private ImmutableMap<String, IBakedModel> bakedItemModels;
-		private ImmutableMap<Optional<EnumFacing>, ImmutableList<BakedQuad>> quads;
 
 		public SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
-									   ImmutableMap<Optional<String>, ModelResourceLocation> itemModels,
-									   VertexFormat format, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
+									   ImmutableMap<Optional<String>, ModelResourceLocation> itemModels, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
 			this.blockModels = blockModels;
 			this.itemModels = itemModels;
-			this.vertexFormat = format;
 			this.transforms = cameraTransforms;
 		}
 
 		private void refreshBakedModels() {
-			if(baseModel == null) {
+			//if(baseModel == null) {
 				// If not done already, steal all the real baked models and cache them
 				ModelManager manager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
 				baseModel = getBlockModel(manager, Optional.<String>absent());
@@ -193,14 +189,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 				}
 
 				bakedItemModels = builder2.build();
-
-				ImmutableMap.Builder<Optional<EnumFacing>, ImmutableList<BakedQuad>> quadBuilder = ImmutableMap.builder();
-				quadBuilder.put(Optional.<EnumFacing>absent(), buildQuads(Optional.<EnumFacing>absent()));
-				for(EnumFacing side : EnumFacing.values()) {
-					quadBuilder.put(Optional.of(side), buildQuads(Optional.of(side)));
-				}
-				quads = quadBuilder.build();
-			}
+			//}
 		}
 
 		private IBakedModel getBlockModel(ModelManager manager, Optional<String> opt) {
@@ -217,20 +206,6 @@ public class SpecialFlowerModel implements IModelCustomData {
 				loc = new ModelResourceLocation("builtin/missing", "missing");
 			}
 			return manager.getModel(loc);
-		}
-
-		private ImmutableList<BakedQuad> buildQuads(Optional<EnumFacing> side) {
-			ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-
-			for(IBakedModel model : bakedBlockModels.values()) {
-				builder.addAll(model.getQuads(null, side.orNull(), 0));
-			}
-
-			for(IBakedModel model : bakedItemModels.values()) {
-				builder.addAll(model.getQuads(null, side.orNull(), 0));
-			}
-
-			return builder.build();
 		}
 
 		@Override
