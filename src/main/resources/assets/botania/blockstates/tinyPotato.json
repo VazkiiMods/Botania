@@ -14,12 +14,6 @@
       "west": { "y": 270 },
       "east": { "y": 90 }
     },
-    "inventory": [{
-      "transform": {
-        "firstperson": {
-          "translation": [ 0, 0.25, 0 ]
-        }
-      }
-    }]
+    "inventory": [{}]
   }
 }

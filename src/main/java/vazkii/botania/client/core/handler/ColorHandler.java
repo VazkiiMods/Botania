@@ -98,7 +98,7 @@ public final class ColorHandler {
                     return 0xFFFFFF;
                 }
             }
-        }, ModItems.dye, ModItems.petal, ModItems.manaGun, ModItems.manaMirror, ModItems.manaTablet, ModItems.signalFlare,
+        }, ModItems.twigWand, ModItems.dye, ModItems.petal, ModItems.manaGun, ModItems.manaMirror, ModItems.manaTablet, ModItems.signalFlare,
                 ModItems.spellCloth, ModItems.brewFlask, ModItems.brewVial, ModItems.incenseStick, ModItems.bloodPendant, ModItems.enderDagger,
                 ModItems.terraPick, ModItems.lens, Item.getItemFromBlock(ModBlocks.manaBeacon), Item.getItemFromBlock(ModBlocks.petalBlock),
                 Item.getItemFromBlock(ModBlocks.unstableBlock), Item.getItemFromBlock(ModBlocks.pool), Item.getItemFromBlock(ModBlocks.spreader));

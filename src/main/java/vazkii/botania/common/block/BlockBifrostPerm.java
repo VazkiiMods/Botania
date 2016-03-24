@@ -48,8 +48,10 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		Block block = world.getBlockState(pos).getBlock();
-		return block != this && super.shouldSideBeRendered(state, world, pos, side);
+		if (world.getBlockState(pos.offset(side)).getBlock() == this) {
+			return false;
+		}
+		return super.shouldSideBeRendered(state, world, pos, side);
 	}
 
 	@Override

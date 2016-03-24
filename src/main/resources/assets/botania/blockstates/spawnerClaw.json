@@ -9,20 +9,6 @@
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{
-      "transform": {
-        "firstperson": {
-          "translation": [ 0, 0.25, 0 ]
-        },
-        "gui": {
-          "translation": [ 0, 0.25, 0 ]
-        },
-        "thirdperson": {
-          "translation": [ 0, 0.09375, -0.171875 ],
-          "rotation": [{ "x": 10 }, { "y": -45 }, { "z": 170 }],
-          "scale": [ 0.375, 0.375, 0.375 ]
-        }
-      }
-    }]
+    "inventory": [{}]
   }
 }

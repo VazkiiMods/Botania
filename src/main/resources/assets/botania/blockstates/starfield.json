@@ -14,12 +14,6 @@
       "true": {},
       "false": {}
     },
-    "inventory": [{
-      "transform": {
-        "firstperson": {
-          "translation": [ 0, 0.125, 0 ]
-        }
-      }
-    }]
+    "inventory": [{}]
   }
 }
