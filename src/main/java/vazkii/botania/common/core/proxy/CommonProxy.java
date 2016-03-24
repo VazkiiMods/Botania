@@ -21,7 +21,6 @@ import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
@@ -44,7 +43,6 @@ import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -56,6 +54,7 @@ import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.handler.SheddingHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.handler.SpawnerChangingHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModBrewRecipes;
@@ -103,6 +102,7 @@ public class CommonProxy {
 
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
+		ModSounds.init();
 		ModBlocks.init();
 		ModItems.init();
 		ModEntities.init();

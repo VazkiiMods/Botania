@@ -105,4 +105,7 @@ public final class LibObfuscation {
 	public static final String[] PREV_EQUIPPED_PROGRESS = { "prevEquippedProgress", "field_78451_d", "f" };
 	public static final String[] EQUIPPED_PROGRESS = { "equippedProgress", "field_78454_c", "e" };
 
+	// SoundEvent
+	public static final String[] REGISTER_SOUND = { "registerSound", "func_187502_a", "a" };
+
 }
