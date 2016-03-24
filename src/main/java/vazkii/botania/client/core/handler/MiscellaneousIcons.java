@@ -87,6 +87,7 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
+        FMLLog.info("The baked model for botania:jadedAmaranthus#normal is: " + evt.getModelRegistry().getObject(new ModelResourceLocation("botania:jadedAmaranthus", "normal")));
         // Floating flowers todo 1.9
         /*evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);

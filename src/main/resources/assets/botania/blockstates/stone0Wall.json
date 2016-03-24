@@ -6,15 +6,15 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "east=false,north=true,south=true,up=false,variant=andesite,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=basalt,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=diorite,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=granite,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,fswall_variant=andesite,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,fswall_variant=basalt,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,fswall_variant=diorite,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,fswall_variant=granite,west=false": { "model": null },
 
-    "east=true,north=false,south=false,up=false,variant=andesite,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=basalt,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=diorite,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=granite,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,fswall_variant=andesite,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,fswall_variant=basalt,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,fswall_variant=diorite,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,fswall_variant=granite,west=true": { "model": null },
 
     "north": {
       "true": { "submodel": "botania:wall_connect" },
@@ -36,7 +36,7 @@
       "true": {},
       "false": {}
     },
-    "variant": {
+    "fswall_variant": {
       "andesite": { "textures": { "wall": "botania:blocks/stone0" } },
       "basalt": { "textures": { "wall": "botania:blocks/stone1" } },
       "diorite": { "textures": { "wall": "botania:blocks/stone2" } },

@@ -74,6 +74,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		// Force island models to be loaded and baked. See FloatingFlowerModel.
 		builder.addAll(BotaniaAPIClient.getRegisteredIslandTypeModels().values());
 
+		FMLLog.info("Collected special flower dependencies: %s", builder.build());
 		return builder.build();
 	}
 

@@ -48,7 +48,7 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = world.getBlockState(pos.offset(side)).getBlock();
 		return block == this ? false : super.shouldSideBeRendered(state, world, pos, side);
 	}
 

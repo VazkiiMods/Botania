@@ -6,23 +6,23 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "east=false,north=true,south=true,up=false,variant=forest_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=plains_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=mountain_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=fungal_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=swamp_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=desert_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=taiga_cobble,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,variant=mesa_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=forest_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=plains_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=mountain_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=fungal_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=swamp_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=desert_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=taiga_cobble,west=false": { "model": null },
+    "east=false,north=true,south=true,up=false,bswall_variant=mesa_cobble,west=false": { "model": null },
 
-    "east=true,north=false,south=false,up=false,variant=forest_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=plains_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=mountain_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=fungal_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=swamp_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=desert_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=taiga_cobble,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,variant=mesa_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=forest_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=plains_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=mountain_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=fungal_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=swamp_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=desert_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=taiga_cobble,west=true": { "model": null },
+    "east=true,north=false,south=false,up=false,bswall_variant=mesa_cobble,west=true": { "model": null },
 
     "north": {
       "true": { "submodel": "botania:wall_connect" },
@@ -44,7 +44,7 @@
       "true": {},
       "false": {}
     },
-    "variant": {
+    "bswall_variant": {
       "forest_cobble": { "textures": { "wall": "botania:blocks/biomeStone8" } },
       "plains_cobble": { "textures": { "wall": "botania:blocks/biomeStone9" } },
       "mountain_cobble": { "textures": { "wall": "botania:blocks/biomeStone10" } },
