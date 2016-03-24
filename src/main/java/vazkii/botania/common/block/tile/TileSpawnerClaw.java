@@ -16,12 +16,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.MethodHandles;
@@ -72,32 +76,47 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 						int spawnCount = ((int) MethodHandles.spawnCount_getter.invokeExact(logic));
 						int spawnRange = ((int) MethodHandles.spawnRange_getter.invokeExact(logic));
 						int maxNearbyEntities = ((int) MethodHandles.maxNearbyEntities_getter.invokeExact(logic));
+						WeightedSpawnerEntity randomEntity = ((WeightedSpawnerEntity) MethodHandles.randomEntity_getter.invokeExact(logic));
 
+						BlockPos blockpos = logic.getSpawnerPosition();
 						for(int i = 0; i < spawnCount; ++i) {
-							Entity entity = EntityList.createEntityByName(((String) MethodHandles.getEntityNameToSpawn.invokeExact(logic)), logic.getSpawnerWorld());
+							NBTTagCompound nbttagcompound = randomEntity.getNbt();
+							NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
+							World world = logic.getSpawnerWorld();
+							int j = nbttaglist.tagCount();
+							double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)spawnRange + 0.5D;
+							double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double)(blockpos.getY() + world.rand.nextInt(3) - 1);
+							double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double)blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)spawnRange + 0.5D;
+							Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
 
 							if (entity == null)
-								return;
-
-							int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.getSpawnerPosition(), logic.getSpawnerPosition().add(1, 1, 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
-
-							if (j >= maxNearbyEntities) {
-								resetTimer(logic);
+							{
 								return;
 							}
 
-							double d2 = logic.getSpawnerPosition().getX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-							double d3 = logic.getSpawnerPosition().getY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
-							double d4 = logic.getSpawnerPosition().getZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), (double)(blockpos.getX() + 1), (double)(blockpos.getY() + 1), (double)(blockpos.getZ() + 1))).expandXyz((double)spawnRange)).size();
+
+							if (k >= maxNearbyEntities)
+							{
+								this.resetTimer(logic);
+								return;
+							}
+
 							EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
-							entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
+							entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
 
-							if(entityliving == null || entityliving.getCanSpawnHere()) {
-								// Must accept return value so methodhandle dynamically binds correctly
-								Entity e = ((Entity) MethodHandles.spawnNewEntity.invokeExact(logic, entity, true));
-								this.getWorld().playAuxSFX(2004, logic.getSpawnerPosition(), 0);
+							if (entityliving == null || entityliving.getCanSpawnHere())
+							{
+								if (randomEntity.getNbt().getSize() == 1 && randomEntity.getNbt().hasKey("id", 8) && entity instanceof EntityLiving)
+								{
+									((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
+								}
 
-								if(entityliving != null) {
+								AnvilChunkLoader.spawnEntity(entity, world);
+								world.playAuxSFX(2004, blockpos, 0);
+
+								if (entityliving != null)
+								{
 									entityliving.spawnExplosionParticle();
 								}
 

@@ -23,7 +23,7 @@ public final class MethodHandles {
             spawnRange_getter, spawnCount_getter, maxNearbyEntities_getter,
             maxSpawnDelay_getter, minSpawnDelay_getter,
             spawnDelay_getter, spawnDelay_setter, prevMobRotation_setter, mobRotation_setter, potentialSpawns_getter,
-            getEntityNameToSpawn, isActivated, spawnNewEntity; // MobSpawnerBaseLogic
+            randomEntity_getter, isActivated; // MobSpawnerBaseLogic
 
     static {
         try {
@@ -76,19 +76,16 @@ public final class MethodHandles {
             f.setAccessible(true);
             potentialSpawns_getter = publicLookup().unreflectGetter(f);
 
+            f = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.RANDOM_ENTITY);
+            f.setAccessible(true);
+            randomEntity_getter = publicLookup().unreflectGetter(f);
+
             Method m = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
             m.setAccessible(true);
             isActivated = publicLookup().unreflect(m);
-
-            m = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.SPAWN_NEW_ENTITY, Entity.class, boolean.class);
-            m.setAccessible(true);
-            spawnNewEntity = publicLookup().unreflect(m);
-
-            m = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.GET_ENTITY_TO_SPAWN);
-            m.setAccessible(true);
-            getEntityNameToSpawn = publicLookup().unreflect(m);
         } catch (Throwable t) {
             FMLLog.severe("[Botania]: Couldn't initialize methodhandles! Things will be broken!");
+            t.printStackTrace();
             throw Throwables.propagate(t);
         }
     }
