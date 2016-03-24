@@ -1,5 +1,6 @@
 package vazkii.botania.common.block.decor.slabs;
 
+import java.util.Locale;
 import java.util.Random;
 
 import net.minecraft.block.BlockSlab;
@@ -120,7 +121,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		SINGLETON {
 			@Override
 			public String getName() {
-				return name();
+				return name().toLowerCase(Locale.ROOT);
 			}
 		}
 	}

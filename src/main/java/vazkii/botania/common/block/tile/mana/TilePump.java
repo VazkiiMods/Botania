@@ -16,15 +16,14 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.client.model.animation.IAnimationProvider;
-import net.minecraftforge.client.model.animation.TimeValues;
+import net.minecraftforge.common.animation.TimeValues;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod implements IAnimationProvider {
+public class TilePump extends TileMod {
 
 	private static final String TAG_ACTIVE = "active";
 
@@ -39,15 +38,15 @@ public class TilePump extends TileMod implements IAnimationProvider {
 	int lastComparator = 0;
 
 	private final TimeValues.VariableValue move;
-	private final IAnimationStateMachine asm;
+	//private final IAnimationStateMachine asm;
 
 	public TilePump() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			move = new TimeValues.VariableValue(0);
-			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
+			move = new TimeValues.VariableValue(0); //todo 1.9
+			//asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
 		} else {
 			move = null;
-			asm = null;
+			//asm = null;
 		}
 	}
 
@@ -114,7 +113,7 @@ public class TilePump extends TileMod implements IAnimationProvider {
 		active = cmp.getBoolean(TAG_ACTIVE);
 		if(worldObj != null && worldObj.isRemote)
 			if(prevActive != active)
-				asm.transition(active ? "moving" : "default");
+				;//asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {
@@ -126,8 +125,8 @@ public class TilePump extends TileMod implements IAnimationProvider {
 		}
 	}
 
-	@Override
-	public IAnimationStateMachine asm() {
-		return asm;
-	}
+//	@Override
+//	public IAnimationStateMachine asm() {
+//		return asm;
+//	}
 }

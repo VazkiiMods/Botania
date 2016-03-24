@@ -76,7 +76,7 @@ public final class BotaniaStateProps {
 	public static final PropertyEnum<FutureStoneVariant> FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
 
 	// Block18StoneWall
-	public static final PropertyEnum<FutureStoneVariant> FUTURESTONEWALL_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class, new Predicate<FutureStoneVariant>() {
+	public static final PropertyEnum<FutureStoneVariant> FUTURESTONEWALL_VARIANT = PropertyEnum.create("fswall_variant", FutureStoneVariant.class, new Predicate<FutureStoneVariant>() {
 		@Override
 		public boolean apply(FutureStoneVariant variant) {
 			// Just the four kinds (no polished, chiseled, etc.)
@@ -100,7 +100,7 @@ public final class BotaniaStateProps {
 	public static final PropertyEnum<BiomeBrickVariant> BIOMEBRICK_VARIANT = PropertyEnum.create("variant", BiomeBrickVariant.class);
 
 	// BlockBiomeStoneWall
-	public static final PropertyEnum<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
+	public static final PropertyEnum<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = PropertyEnum.create("bswall_variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
 		@Override
 		public boolean apply(BiomeStoneVariant input) {
 			return input.getName().contains("cobble");
@@ -132,7 +132,7 @@ public final class BotaniaStateProps {
 	public static final PropertyEnum<LivingRockVariant> LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
 
 	// BlockModDoubleFlower (white to gray)
-	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override
 		public boolean apply(EnumDyeColor input) {
 			return input.ordinal() >= 0 && input.ordinal() <= 7;
@@ -140,7 +140,7 @@ public final class BotaniaStateProps {
 	});
 
 	// (silver to black)
-	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override
 		public boolean apply(EnumDyeColor input) {
 			return input.ordinal() >= 8 && input.ordinal() <= 15;

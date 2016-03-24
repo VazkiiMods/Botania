@@ -137,7 +137,7 @@ public final class ModelHandler {
     // todo reorganize, alphabetize
     public static void registerModels() {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
-        OBJLoader.instance.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
+        OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
         ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(FloatingFlowerModel.INSTANCE);
 
         /** Subtile block models **/
@@ -814,19 +814,19 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
 
-        item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
-        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1.getAllowedValues()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower1).toString();
-            String variant = "inventory_" + color.getName();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, variant));
-        }
-
-        item = Item.getItemFromBlock(ModBlocks.doubleFlower2);
-        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower2).toString();
-            String variant = "inventory_" + color.getName();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(name, variant));
-        }
+//        item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
+//        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1.getAllowedValues()) {
+//            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower1).toString();
+//            String variant = "inventory_" + color.getName();
+//            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, variant));
+//        }
+//
+//        item = Item.getItemFromBlock(ModBlocks.doubleFlower2);
+//        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
+//            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower2).toString();
+//            String variant = "inventory_" + color.getName();
+//            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(name, variant));
+//        }
     }
 
     private static void registerPavement() {

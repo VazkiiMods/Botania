@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -21,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +41,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortableTool {
+public class ItemManasteelAxe extends ItemTool implements IManaUsingItem, ISortableTool {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
@@ -49,9 +52,15 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	}
 
 	public ItemManasteelAxe(ToolMaterial mat, String name) {
-		super(mat);
+		super(mat, ImmutableSet.of());
+		// todo attack speed and set
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
+	}
+
+	@Override
+	public Set<String> getToolClasses(ItemStack stack) {
+		return ImmutableSet.of("axe");
 	}
 
 	@Override

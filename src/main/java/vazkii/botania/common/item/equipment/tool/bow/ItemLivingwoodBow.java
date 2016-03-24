@@ -113,8 +113,10 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 			if(f > 1.0F)
 				f = 1.0F;
 
-			ItemStack ammo = shooter instanceof EntityPlayer ? PlayerHelper.getAmmo(((EntityPlayer) shooter), AMMO_FUNC) : new ItemStack(Items.arrow);
-			EntityArrow entityarrow = ((ItemArrow) (ammo == null ? Items.arrow : ammo.getItem())).createArrow(world, ammo, shooter);
+			ItemStack ammo = shooter instanceof EntityPlayer ? PlayerHelper.getAmmo(((EntityPlayer) shooter), AMMO_FUNC) : null;
+			if(ammo == null)
+				ammo = new ItemStack(Items.arrow);
+			EntityArrow entityarrow = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, shooter);
 
 			if(f == 1.0F)
 				entityarrow.setIsCritical(true);

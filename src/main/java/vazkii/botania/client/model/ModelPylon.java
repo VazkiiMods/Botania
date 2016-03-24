@@ -50,7 +50,7 @@ public class ModelPylon implements IPylonModel {
 	public ModelPylon() {
 		try {
 			// Load the OBJ
-			OBJModel model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
+			OBJModel model = ((OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
 
 			// Apply the texture and flip the v's of the model
 			IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));

@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.FMLLog;
@@ -69,7 +69,7 @@ public class PylonItemModel implements IBakedModel {
 		// Load the OBJ
 		OBJModel model = null;
 		try {
-			model = ((OBJModel) OBJLoader.instance.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
+			model = ((OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
 		} catch(Exception e) {
 			FMLLog.log(Level.ERROR, "[Botania]: Error loading pylon item model, substituting missing model");
 			mana = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();

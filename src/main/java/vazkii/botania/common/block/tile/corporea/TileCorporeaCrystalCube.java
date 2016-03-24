@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.client.model.animation.IAnimationProvider;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,7 +26,7 @@ import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, IAnimationProvider {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
@@ -39,13 +38,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	int ticks = 0;
 	public int compValue = 0;
 
-	private final IAnimationStateMachine asm;
+	//private final IAnimationStateMachine asm;
 
 	public TileCorporeaCrystalCube() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
+			//asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
 		} else {
-			asm = null;
+			//asm = null;
 		}
 	}
 
@@ -166,9 +165,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			onUpdateCount();
 		}
 	}
-
+/* todo 1.9
 	@Override
 	public IAnimationStateMachine asm() {
 		return asm;
-	}
+	}*/
 }

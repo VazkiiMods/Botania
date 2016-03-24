@@ -183,14 +183,13 @@ public class ClientProxy extends CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 		ModelHandler.registerModels();
-		ColorHandler.init();
 		initRenderers();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-
+		ColorHandler.init();
 		initAuxiliaryRender();
 
 		ModChallenges.init();
@@ -277,18 +276,13 @@ public class ClientProxy extends CommonProxy {
 	private void initAuxiliaryRender() {
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		RenderPlayer render;
+		render = skinMap.get("default");
+		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new BaubleRenderHandler());
 
-		try { // todo 1.9 get Forge to AT this back -.-
-			Method m = ReflectionHelper.findMethod(RenderPlayer.class, null, LibObfuscation.ADD_LAYER);
-
-			render = skinMap.get("default");
-			m.invoke(render, new ContributorFancinessHandler());
-			m.invoke(render, new BaubleRenderHandler());
-
-			render = skinMap.get("slim");
-			m.invoke(render, new ContributorFancinessHandler());
-			m.invoke(render, new BaubleRenderHandler());
-		} catch (ReflectiveOperationException ignored) {}
+		render = skinMap.get("slim");
+		render.addLayer(new ContributorFancinessHandler());
+		render.addLayer(new BaubleRenderHandler());
 	}
 
 	@Override

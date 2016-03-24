@@ -30,9 +30,9 @@ import net.minecraft.util.math.BlockPos;
 
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.client.model.animation.Event;
+import net.minecraftforge.common.animation.Event;
+import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
 import org.apache.commons.lang3.tuple.Pair;
@@ -170,7 +170,9 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			if(exState.getUnlistedNames().contains(Properties.AnimationProperty))
 			{
 				float time = Animation.getWorldTime(getWorld(), partialTick);
-				Pair<IModelState, Iterable<Event>> pair = te.asm().apply(time);
+				// todo 1.9
+				if (true) return;
+				Pair<IModelState, Iterable<Event>> pair = null;
 				// handleEvents(te, time, pair.getRight());
 
 				IBakedModel model = blockRenderer.getBlockModelShapes().getModelForState(exState.getClean());
