@@ -1,5 +1,5 @@
 {
-    "parent": "botania:item/standard_tool",
+    "parent": "minecraft:item/handheld",
     "textures": 
     {
         "layer0": "botania:items/manasteelSword"

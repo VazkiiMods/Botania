@@ -87,14 +87,11 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
-
-        System.out.println(evt.getModelRegistry().getObject(new ModelResourceLocation("botania:daybloom", "normal")));
-
-        // Floating flowers
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
+        // Floating flowers todo 1.9
+        /*evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);*/
 
         // Pylon item model
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:pylon", "inventory"), new PylonItemModel());
