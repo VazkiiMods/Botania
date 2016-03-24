@@ -26,7 +26,7 @@ public class PotionMod extends Potion {
 
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(badEffect, color);
-		// todo 1.9 register
+		GameData.getPotionRegistry().register(-1, new ResourceLocation("botania", name), this);
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}
