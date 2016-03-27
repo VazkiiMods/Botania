@@ -14,6 +14,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -126,8 +127,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 			if(f > 1.0F)
 				f = 1.0F;
 
-			ItemStack ammo = shooter instanceof EntityPlayer ? PlayerHelper.getAmmo(((EntityPlayer) shooter), AMMO_FUNC) : null;
-			if(ammo == null)
+			ItemStack ammo = shooter instanceof EntityPlayer ? getAmmo(((EntityPlayer) shooter)) : null;
+			if(ammo == null || !(ammo.getItem() instanceof ItemArrow))
 				ammo = new ItemStack(Items.arrow);
 			EntityArrow entityarrow = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, shooter);
 			entityarrow.func_184547_a(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, f * 3.0F, 1.0F);
@@ -173,8 +174,9 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(infinity)
 			arrow.canBePickedUp = EntityArrow.PickupStatus.CREATIVE_ONLY;
-		else if(living instanceof EntityPlayer)
-			PlayerHelper.consumeAmmo(((EntityPlayer) living), AMMO_FUNC);
+		else if(living instanceof EntityPlayerMP)
+			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
+				PlayerHelper.consumeAmmo(((EntityPlayerMP) living), AMMO_FUNC);
 	}
 
 	@Override
@@ -191,6 +193,10 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	protected ItemStack getAmmo(EntityPlayer player) {
+		return PlayerHelper.getAmmo(player, AMMO_FUNC);
 	}
 
 }
