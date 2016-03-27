@@ -17,8 +17,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -74,6 +76,18 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
 		GameRegistry.addRecipe(new TerraPickTippingRecipe());
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, Category.SHAPELESS, "");
+		addPropertyOverride(new ResourceLocation("botania", "tipped"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+				return isTipped(itemStack) ? 1 : 0;
+			}
+		});
+		addPropertyOverride(new ResourceLocation("botania", "enabled"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+				return isEnabled(itemStack) ? 1 : 0;
+			}
+		});
 	}
 
 	@Override

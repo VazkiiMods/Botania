@@ -198,27 +198,6 @@ public final class ModelHandler {
                     ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
                     : new ModelResourceLocation("botania:infiniteFruit", "inventory")));
 
-        registerItemModel(magnetRing);
-        registerItemModel(magnetRingGreater);
-
-        ModelLoader.registerItemVariants(manaGun,
-                new ModelResourceLocation("botania:manaGun", "inventory"),
-                new ModelResourceLocation("botania:manaGunClip", "inventory"),
-                new ModelResourceLocation("botania:desuGun", "inventory"),
-                new ModelResourceLocation("botania:desuGunClip", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manaGun, MesherWrapper.of(stack -> {
-            String name = ((ItemManaGun) manaGun).isSugoiKawaiiDesuNe(stack) ? "botania:desuGun" : "botania:manaGun";
-            return new ModelResourceLocation(name + (ItemManaGun.hasClip(stack) ? "Clip" : ""), "inventory");
-        }));
-
-        ModelLoader.registerItemVariants(tornadoRod,
-                new ModelResourceLocation("botania:tornadoRod", "inventory"),
-                new ModelResourceLocation("botania:tornadoRod_flying", "inventory"));
-        ModelLoader.setCustomMeshDefinition(tornadoRod, MesherWrapper.of(stack ->
-                ((ItemTornadoRod) ModItems.tornadoRod).isFlying(stack)
-                    ? new ModelResourceLocation("botania:tornadoRod_flying", "inventory")
-                    : new ModelResourceLocation("botania:tornadoRod", "inventory")));
-
         ModelLoader.registerItemVariants(manaCookie,
                 new ModelResourceLocation("botania:manaCookie", "inventory"),
                 new ModelResourceLocation("botania:totalBiscuit", "inventory"));
@@ -226,25 +205,6 @@ public final class ModelHandler {
                 stack.getDisplayName().toLowerCase().equals("totalbiscuit")
                     ? new ModelResourceLocation("botania:totalBiscuit", "inventory")
                     : new ModelResourceLocation("botania:manaCookie", "inventory")));
-
-        registerItemModel(manasteelSword);
-        registerItemModel(spawnerMover);
-
-        ModelLoader.registerItemVariants(terraPick,
-                new ModelResourceLocation("botania:terraPick", "inventory"),
-                new ModelResourceLocation("botania:terraPickEnabled", "inventory"),
-                new ModelResourceLocation("botania:terraPickTipped", "inventory"),
-                new ModelResourceLocation("botania:terraPickTippedEnabled", "inventory"));
-        ModelLoader.setCustomMeshDefinition(terraPick, MesherWrapper.of(stack -> {
-            String name = "botania:terraPick";
-            if (ItemTerraPick.isTipped(stack)) {
-                name += "Tipped";
-            }
-            if (ItemTerraPick.isEnabled(stack)) {
-                name += "Enabled";
-            }
-            return new ModelResourceLocation(name, "inventory");
-        }));
     }
 
     private static void registerSubtiles() {
@@ -401,6 +361,14 @@ public final class ModelHandler {
     }
 
     private static void registerStandardItems() {
+        registerItemModel(manasteelSword);
+        registerItemModel(spawnerMover);
+        registerItemModel(terraPick);
+        registerItemModel(magnetRing);
+        registerItemModel(magnetRingGreater);
+        registerItemModel(manaGun);
+        registerItemModel(tornadoRod);
+
         registerItemModel(twigWand);
         registerItemModel(pestleAndMortar);
         registerItemModel(blackLotus);

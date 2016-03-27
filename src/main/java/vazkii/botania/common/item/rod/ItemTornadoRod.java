@@ -13,8 +13,10 @@ package vazkii.botania.common.item.rod;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
@@ -53,6 +55,12 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		setMaxDamage(MAX_DAMAGE);
 		setUnlocalizedName(LibItemNames.TORNADO_ROD);
 		setMaxStackSize(1);
+		addPropertyOverride(new ResourceLocation("botania", "flying"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+				return isFlying(itemStack) ? 1 : 0;
+			}
+		});
 	}
 
 	@Override
