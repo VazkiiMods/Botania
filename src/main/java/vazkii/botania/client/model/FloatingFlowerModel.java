@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.model;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.block.model.MultipartBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
@@ -29,6 +31,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
@@ -110,14 +114,22 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		if(CACHE.contains(islandType, identifier)) {
 			return CACHE.get(islandType, identifier);
 		} else {
-			IBakedModel islandModel = modelManager.getModel(BotaniaAPIClient.getRegisteredIslandTypeModels().get(islandType));
+			IBakedModel islandModel;
+			try {
+				islandModel = ModelLoaderRegistry.getModel(BotaniaAPIClient.getRegisteredIslandTypeModels().get(islandType)).bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+			} catch (Exception e) {
+				islandModel = modelManager.getMissingModel();
+			}
+
 			IBakedModel flowerModel;
 
 			if(identifier.startsWith(MUNDANE_PREFIX)) {
 				int meta = Integer.parseInt(identifier.substring(identifier.indexOf(MUNDANE_PREFIX) + MUNDANE_PREFIX.length()));
 				flowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(ModBlocks.shinyFlower, 1, meta));
 			} else {
-				flowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(ItemBlockSpecialFlower.ofType(identifier));
+				ItemStack stack = ItemBlockSpecialFlower.ofType(identifier);
+				IBakedModel specialFlowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+				flowerModel = specialFlowerModel.getOverrides().handleItemState(specialFlowerModel, stack, null, null);
 			}
 
 			// Enhance!
