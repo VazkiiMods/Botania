@@ -80,12 +80,12 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
-		if(event.type == ElementType.HEALTH) {
+		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
 			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
 			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(event.resolution, mc.thePlayer, amulet);
+				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, amulet);
 				profiler.endSection();
 			}
 			profiler.endSection();
@@ -99,7 +99,7 @@ public final class HUDHandler {
 		ItemStack main = mc.thePlayer.getHeldItemMainhand();
 		ItemStack offhand = mc.thePlayer.getHeldItemOffhand();
 
-		if(event.type == ElementType.ALL) {
+		if(event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			RayTraceResult pos = mc.objectMouseOver;
 
@@ -110,61 +110,61 @@ public final class HUDHandler {
 
 				if(PlayerHelper.hasAnyHeldItem(mc.thePlayer)) {
 					if(pos != null && PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.twigWand)) {
-						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand), event.resolution);
+						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand), event.getResolution());
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
-							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.getBlockPos());
+							((IWandHUD) block).renderHUD(mc, event.getResolution(), mc.theWorld, pos.getBlockPos());
 							profiler.endSection();
 						}
 					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.thePlayer, ILexicon.class))
-						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.thePlayer, ILexicon.class), state, pos, event.resolution);
+						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.thePlayer, ILexicon.class), state, pos, event.getResolution());
 					if(tile != null && tile instanceof TilePool && mc.thePlayer.getHeldItemMainhand() != null)
-						renderPoolRecipeHUD(event.resolution, (TilePool) tile, mc.thePlayer.getHeldItemMainhand());
+						renderPoolRecipeHUD(event.getResolution(), (TilePool) tile, mc.thePlayer.getHeldItemMainhand());
 				}
 				if(tile != null && tile instanceof TileAltar)
-					((TileAltar) tile).renderHUD(mc, event.resolution);
+					((TileAltar) tile).renderHUD(mc, event.getResolution());
 				else if(tile != null && tile instanceof TileRuneAltar)
-					((TileRuneAltar) tile).renderHUD(mc, event.resolution);
+					((TileRuneAltar) tile).renderHUD(mc, event.getResolution());
 
 				if(tile != null && tile instanceof TileCorporeaCrystalCube)
-					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
+					renderCrystalCubeHUD(event.getResolution(), (TileCorporeaCrystalCube) tile);
 			}
 
 			if(!TileCorporeaIndex.getInputHandler().getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
 				profiler.startSection("nearIndex");
-				renderNearIndexDisplay(event.resolution);
+				renderNearIndexDisplay(event.getResolution());
 				profiler.endSection();
 			}
 
 			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
 				profiler.startSection("multiblockRightClick");
 				String s = I18n.translateToLocal("botaniamisc.rightClickToAnchor");
-				mc.fontRendererObj.drawStringWithShadow(s, event.resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, event.resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
+				mc.fontRendererObj.drawStringWithShadow(s, event.getResolution().getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, event.getResolution().getScaledHeight() / 2 - 30, 0xFFFFFF);
 				profiler.endSection();
 			}
 
 			if(main != null && main.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo");
-				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, main);
+				ItemCraftingHalo.renderHUD(event.getResolution(), mc.thePlayer, main);
 				profiler.endSection();
 			}
 
 			if(main != null && main.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
-				ItemSextant.renderHUD(event.resolution, mc.thePlayer, main);
+				ItemSextant.renderHUD(event.getResolution(), mc.thePlayer, main);
 				profiler.endSection();
 			}
 
 			/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
 				profiler.startSection("flugelEye");
-				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				ItemFlugelEye.renderHUD(event.getResolution(), mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}*/
 
 			if(Botania.proxy.isClientPlayerWearingMonocle()) {
 				profiler.startSection("monocle");
-				ItemMonocle.renderHUD(event.resolution, mc.thePlayer);
+				ItemMonocle.renderHUD(event.getResolution(), mc.thePlayer);
 				profiler.endSection();
 			}
 
@@ -206,12 +206,12 @@ public final class HUDHandler {
 			}
 
 			if(anyRequest)
-				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
+				renderManaInvBar(event.getResolution(), creative, totalMana, totalMaxMana);
 
 			profiler.endStartSection("bossBar");
-			BossBarHandler.render(event.resolution);
+			BossBarHandler.render(event.getResolution());
 			profiler.endStartSection("itemsRemaining");
-			ItemsRemainingRenderHandler.render(event.resolution, event.partialTicks);
+			ItemsRemainingRenderHandler.render(event.getResolution(), event.getPartialTicks());
 			profiler.endSection();
 			profiler.endSection();
 

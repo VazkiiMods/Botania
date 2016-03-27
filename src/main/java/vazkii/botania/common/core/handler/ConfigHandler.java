@@ -287,7 +287,7 @@ public final class ConfigHandler {
 
 	public static int loadPropInt(String propName, String desc, int default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
-		prop.comment = desc;
+		prop.setComment(desc);
 
 		if(adaptor != null)
 			adaptor.adaptPropertyInt(prop, prop.getInt(default_));
@@ -297,7 +297,7 @@ public final class ConfigHandler {
 
 	public static double loadPropDouble(String propName, String desc, double default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
-		prop.comment = desc;
+		prop.setComment(desc);
 
 		if(adaptor != null)
 			adaptor.adaptPropertyDouble(prop, prop.getDouble(default_));
@@ -307,7 +307,7 @@ public final class ConfigHandler {
 
 	public static boolean loadPropBool(String propName, String desc, boolean default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
-		prop.comment = desc;
+		prop.setComment(desc);
 
 		if(adaptor != null)
 			adaptor.adaptPropertyBool(prop, prop.getBoolean(default_));
@@ -444,7 +444,7 @@ public final class ConfigHandler {
 
 		@SubscribeEvent
 		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-			if(eventArgs.modID.equals(LibMisc.MOD_ID))
+			if(eventArgs.getModID().equals(LibMisc.MOD_ID))
 				load();
 		}
 

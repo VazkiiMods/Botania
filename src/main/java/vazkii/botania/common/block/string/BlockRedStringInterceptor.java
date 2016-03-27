@@ -61,8 +61,8 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
-		if(event.action == Action.RIGHT_CLICK_BLOCK)
-			TileRedStringInterceptor.onInteract(event.entityPlayer, event.world, event.pos);
+		if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
+			TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos());
 	}
 
 	@Override

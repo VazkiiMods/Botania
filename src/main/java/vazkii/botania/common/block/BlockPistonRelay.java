@@ -135,12 +135,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
-		WorldData.get(event.world);
+		WorldData.get(event.getWorld());
 	}
 
 	@SubscribeEvent
 	public void onWorldUnload(WorldEvent.Unload event) {
-		WorldData.get(event.world).markDirty();
+		WorldData.get(event.getWorld()).markDirty();
 	}
 
 	public static class WorldData extends WorldSavedData {

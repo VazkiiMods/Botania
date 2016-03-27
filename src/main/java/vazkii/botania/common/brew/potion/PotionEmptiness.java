@@ -32,9 +32,9 @@ public class PotionEmptiness extends PotionMod {
 
 	@SubscribeEvent
 	public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if(event.getResult() != Result.ALLOW && event.entityLiving instanceof IMob) {
-			AxisAlignedBB aabb = new AxisAlignedBB(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE);
-			for(EntityPlayer player : event.world.playerEntities) {
+		if(event.getResult() != Result.ALLOW && event.getEntityLiving() instanceof IMob) {
+			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
+			for(EntityPlayer player : event.getWorld().playerEntities) {
 				if(hasEffect(player) && player.getEntityBoundingBox().intersectsWith(aabb)) {
 					event.setResult(Result.DENY);
 					return;

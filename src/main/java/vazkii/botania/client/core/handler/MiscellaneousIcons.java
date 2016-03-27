@@ -106,59 +106,59 @@ public class MiscellaneousIcons {
 
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre evt) {
-        alfPortalTex = IconHelper.forName(evt.map, "alfheimPortalInside", "blocks");
-        lightRelayWorldIcon = IconHelper.forName(evt.map, "lightRelay1", "blocks");
-        lightRelayWorldIconRed = IconHelper.forName(evt.map, "lightRelay3", "blocks");
-        alchemyCatalystOverlay = IconHelper.forName(evt.map, "alchemyCatalyst3", "blocks");
-        enchanterOverlay = IconHelper.forName(evt.map, "enchanterOverlay", "blocks");
-        manaVoidOverlay = IconHelper.forName(evt.map, "manaVoid1", "blocks");
-        manaWater = IconHelper.forName(evt.map, "manaWater", "blocks");
-        terraPlateOverlay = IconHelper.forName(evt.map, "terraPlateOverlay", "blocks");
-        corporeaWorldIcon = IconHelper.forName(evt.map, "corporeaSpark1", "items");
-        corporeaWorldIconMaster = IconHelper.forName(evt.map, "corporeaSpark3", "items");
-        corporeaIconStar = IconHelper.forName(evt.map, "corporeaSparkStar", "items");
-        sparkWorldIcon = IconHelper.forName(evt.map, "spark1", "items");
+        alfPortalTex = IconHelper.forName(evt.getMap(), "alfheimPortalInside", "blocks");
+        lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "lightRelay1", "blocks");
+        lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "lightRelay3", "blocks");
+        alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemyCatalyst3", "blocks");
+        enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanterOverlay", "blocks");
+        manaVoidOverlay = IconHelper.forName(evt.getMap(), "manaVoid1", "blocks");
+        manaWater = IconHelper.forName(evt.getMap(), "manaWater", "blocks");
+        terraPlateOverlay = IconHelper.forName(evt.getMap(), "terraPlateOverlay", "blocks");
+        corporeaWorldIcon = IconHelper.forName(evt.getMap(), "corporeaSpark1", "items");
+        corporeaWorldIconMaster = IconHelper.forName(evt.getMap(), "corporeaSpark3", "items");
+        corporeaIconStar = IconHelper.forName(evt.getMap(), "corporeaSparkStar", "items");
+        sparkWorldIcon = IconHelper.forName(evt.getMap(), "spark1", "items");
 
         sparkUpgradeIcons = new TextureAtlasSprite[ItemSparkUpgrade.VARIANTS];
         for(int i = 0; i < ItemSparkUpgrade.VARIANTS; i++) {
-            sparkUpgradeIcons[i] = IconHelper.forName(evt.map, "sparkUpgradeL" + i, "items");
+            sparkUpgradeIcons[i] = IconHelper.forName(evt.getMap(), "sparkUpgradeL" + i, "items");
         }
 
-        tailIcon = IconHelper.forName(evt.map, "tail", "items");
-        phiFlowerIcon = IconHelper.forName(evt.map, "phiFlower", "items");
-        goldfishIcon = IconHelper.forName(evt.map, "goldfish", "items");
-        nerfBatIcon = IconHelper.forName(evt.map, "nerfBat", "items");
+        tailIcon = IconHelper.forName(evt.getMap(), "tail", "items");
+        phiFlowerIcon = IconHelper.forName(evt.getMap(), "phiFlower", "items");
+        goldfishIcon = IconHelper.forName(evt.getMap(), "goldfish", "items");
+        nerfBatIcon = IconHelper.forName(evt.getMap(), "nerfBat", "items");
 
         kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
         for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-            kingKeyWeaponIcons[i] = IconHelper.forName(evt.map, "gateWeapon" + i, "items");
+            kingKeyWeaponIcons[i] = IconHelper.forName(evt.getMap(), "gateWeapon" + i, "items");
 
-        manaDetectorIcon = IconHelper.forName(evt.map, "triggers/manaDetector", "items");
-        runeAltarTriggerIcon = IconHelper.forName(evt.map, "triggers/runeAltarCanCraft", "items");
+        manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
+        runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");
 
         for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-            manaLevelTriggerIcons.put(s, IconHelper.forName(evt.map, "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
+            manaLevelTriggerIcons.put(s, IconHelper.forName(evt.getMap(), "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
         }
 
         tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
         for (int i = 0; i < tiaraWingIcons.length; i++) {
-            tiaraWingIcons[i] = IconHelper.forName(evt.map, "flightTiara" + (i + 1), "items");
+            tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "flightTiara" + (i + 1), "items");
         }
 
-        terrasteelHelmWillIcon = IconHelper.forName(evt.map, "willFlame", "items");
+        terrasteelHelmWillIcon = IconHelper.forName(evt.getMap(), "willFlame", "items");
 
-        bloodPendantChain = IconHelper.forName(evt.map, "bloodPendant2", "items");
-        bloodPendantGem = IconHelper.forName(evt.map, "bloodPendant3", "items");
-        snowflakePendantGem = IconHelper.forName(evt.map, "icePendantGem", "items");
-        itemFinderGem = IconHelper.forName(evt.map, "itemFinderGem", "items");
-        pyroclastGem = IconHelper.forName(evt.map, "lavaPendantGem", "items");
-        crimsonGem = IconHelper.forName(evt.map, "superLavaPendantGem", "items");
+        bloodPendantChain = IconHelper.forName(evt.getMap(), "bloodPendant2", "items");
+        bloodPendantGem = IconHelper.forName(evt.getMap(), "bloodPendant3", "items");
+        snowflakePendantGem = IconHelper.forName(evt.getMap(), "icePendantGem", "items");
+        itemFinderGem = IconHelper.forName(evt.getMap(), "itemFinderGem", "items");
+        pyroclastGem = IconHelper.forName(evt.getMap(), "lavaPendantGem", "items");
+        crimsonGem = IconHelper.forName(evt.getMap(), "superLavaPendantGem", "items");
     }
 
     @SubscribeEvent
     public void dumpAtlas(ArrowLooseEvent evt) {
-        if (!evt.entityPlayer.worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
-                || !evt.entityPlayer.isSneaking())
+        if (!evt.getEntityPlayer().worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+                || !evt.getEntityPlayer().isSneaking())
             return;
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 

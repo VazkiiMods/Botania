@@ -70,8 +70,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			String s = playerStr(player);
 
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
@@ -119,8 +119,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 
 			if(belt != null && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {

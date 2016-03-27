@@ -13,13 +13,16 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -40,6 +43,12 @@ public class ItemSpawnerMover extends ItemMod {
 	public ItemSpawnerMover() {
 		setUnlocalizedName(LibItemNames.SPAWNER_MOVER);
 		setMaxStackSize(1);
+		addPropertyOverride(new ResourceLocation("botania", "full"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				return hasData(stack) ? 1 : 0;
+			}
+		});
 	}
 
 	public static NBTTagCompound getSpawnerTag(ItemStack stack) {

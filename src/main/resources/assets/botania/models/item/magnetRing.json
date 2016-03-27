@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/spawnerMover0"
+    "layer0": "botania:items/magnetRing1"
   },
   "overrides": [{
     "predicate": {
-      "botania:full": 1
+      "botania:on": 1
     },
-    "model": "botania:item/spawnerMoverFull"
+    "model": "botania:item/magnetRingOn"
   }]
 }

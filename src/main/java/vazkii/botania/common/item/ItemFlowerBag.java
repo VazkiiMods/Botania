@@ -51,17 +51,17 @@ public class ItemFlowerBag extends ItemMod {
 
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
-		ItemStack stack = event.item.getEntityItem();
+		ItemStack stack = event.getItem().getEntityItem();
 		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && stack.stackSize > 0) {
 			int color = stack.getItemDamage();
 			if(color > 15)
 				return;
 
-			for(int i = 0; i < event.entityPlayer.inventory.getSizeInventory(); i++) {
-				if(i == event.entityPlayer.inventory.currentItem)
+			for(int i = 0; i < event.getEntityPlayer().inventory.getSizeInventory(); i++) {
+				if(i == event.getEntityPlayer().inventory.currentItem)
 					continue; // prevent item deletion
 
-				ItemStack invStack = event.entityPlayer.inventory.getStackInSlot(i);
+				ItemStack invStack = event.getEntityPlayer().inventory.getStackInSlot(i);
 				if(invStack != null && invStack.getItem() == this) {
 					ItemStack[] bagInv = loadStacks(invStack);
 					ItemStack stackAt = bagInv[color];

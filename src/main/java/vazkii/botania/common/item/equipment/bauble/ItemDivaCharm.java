@@ -53,32 +53,32 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@SubscribeEvent
 	public void onEntityDamaged(LivingHurtEvent event) {
-		if(event.source.getEntity() instanceof EntityPlayer && event.entityLiving instanceof EntityLiving && !event.entityLiving.worldObj.isRemote && Math.random() < 0.6F) {
-			EntityPlayer player = (EntityPlayer) event.source.getEntity();
+		if(event.getSource().getEntity() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().worldObj.isRemote && Math.random() < 0.6F) {
+			EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 			ItemStack amulet = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
 			if(amulet != null && amulet.getItem() == this) {
 				final int cost = 250;
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 					final int range = 20;
 
-					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.entity.posX - range, event.entity.posY - range, event.entity.posZ - range, event.entity.posX + range, event.entity.posY + range, event.entity.posZ + range), Predicates.instanceOf(IMob.class));
+					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
-						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.entityLiving, ((List<IMob>) mobs))) {
-							if(event.entityLiving instanceof EntityCreeper)
-								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.entityLiving, 2, LibObfuscation.TIME_SINCE_IGNITED);
-							event.entityLiving.heal(event.entityLiving.getMaxHealth());
-							if(event.entityLiving.isDead)
-								event.entityLiving.isDead = false;
+						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), ((List<IMob>) mobs))) {
+							if(event.getEntityLiving() instanceof EntityCreeper)
+								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.getEntityLiving(), 2, LibObfuscation.TIME_SINCE_IGNITED);
+							event.getEntityLiving().heal(event.getEntityLiving().getMaxHealth());
+							if(event.getEntityLiving().isDead)
+								event.getEntityLiving().isDead = false;
 
 							ManaItemHandler.requestManaExact(amulet, player, cost, true);
 							player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
 
-							double x = event.entityLiving.posX;
-							double y = event.entityLiving.posY;
-							double z = event.entityLiving.posZ;
+							double x = event.getEntityLiving().posX;
+							double y = event.getEntityLiving().posY;
+							double z = event.getEntityLiving().posZ;
 
 							for(int i = 0; i < 50; i++)
-								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * event.entityLiving.height, z + Math.random() * event.entityLiving.width, 1F, 1F, 0.25F, 1F, 3);
+								Botania.proxy.sparkleFX(event.getEntityLiving().worldObj, x + Math.random() * event.getEntityLiving().width, y + Math.random() * event.getEntityLiving().height, z + Math.random() * event.getEntityLiving().width, 1F, 1F, 0.25F, 1F, 3);
 						}
 					}
 				}

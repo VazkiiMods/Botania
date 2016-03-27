@@ -55,8 +55,8 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@SubscribeEvent
 	public void onPlayerDamage(LivingHurtEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 			ItemStack belt = baubles.getStackInSlot(3);
 			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
@@ -80,7 +80,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
-		if(!event.source.isMagicDamage()) {
+		if(!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
 			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {

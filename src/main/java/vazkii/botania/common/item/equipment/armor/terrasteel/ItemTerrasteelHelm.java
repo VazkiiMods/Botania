@@ -120,7 +120,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	@SubscribeEvent
 	public void onEntityAttacked(LivingHurtEvent event) {
-		Entity attacker = event.source.getEntity();
+		Entity attacker = event.getSource().getEntity();
 		if(attacker instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {
@@ -135,17 +135,17 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 					boolean karil = hasAncientWill(stack, 5);
 
 					if(ahrim)
-						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.weakness, 20, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.weakness, 20, 1));
 					if(dharok)
-						event.ammount *= 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
+						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
 					if(guthan)
-						player.heal(event.ammount * 0.25F);
+						player.heal(event.getAmount() * 0.25F);
 					if(torag)
-						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 60, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 60, 1));
 					if(verac)
-						event.source.setDamageBypassesArmor();
+						event.getSource().setDamageBypassesArmor();
 					if(karil)
-						event.entityLiving.addPotionEffect(new PotionEffect(MobEffects.wither, 60, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.wither, 60, 1));
 				}
 			}
 		}

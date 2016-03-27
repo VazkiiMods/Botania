@@ -68,7 +68,7 @@ public class LightningHandler {
 		RedStringRenderer.renderAll();
 		profiler.endStartSection("lightning");
 
-		float frame = event.partialTicks;
+		float frame = event.getPartialTicks();
 		Entity entity = Minecraft.getMinecraft().thePlayer;
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 

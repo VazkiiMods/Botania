@@ -90,8 +90,8 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 		@SubscribeEvent
 		public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-			if(event.entityLiving instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.entityLiving.worldObj, MathHelper.floor_double(event.x), MathHelper.floor_double(event.z)))
-				event.entityLiving.getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
+			if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.getEntityLiving().worldObj, MathHelper.floor_double(event.getX()), MathHelper.floor_double(event.getZ())))
+				event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
 		}
 
 		public static boolean isSlimeChunk(World world, int x, int z) {

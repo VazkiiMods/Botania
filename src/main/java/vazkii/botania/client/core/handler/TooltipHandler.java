@@ -24,16 +24,16 @@ public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onTooltipEvent(ItemTooltipEvent event) {
-		if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.dirt) && event.itemStack.getItemDamage() == 1) {
-			event.toolTip.add(I18n.translateToLocal("botaniamisc.coarseDirt0"));
-			event.toolTip.add(I18n.translateToLocal("botaniamisc.coarseDirt1"));
-		} else if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.entityPlayer.capabilities.isCreativeMode)
-			event.toolTip.add(I18n.translateToLocal("botaniamisc.spawnerTip"));
+		if(event.getItemStack().getItem() == Item.getItemFromBlock(Blocks.dirt) && event.getItemStack().getItemDamage() == 1) {
+			event.getToolTip().add(I18n.translateToLocal("botaniamisc.coarseDirt0"));
+			event.getToolTip().add(I18n.translateToLocal("botaniamisc.coarseDirt1"));
+		} else if(event.getItemStack().getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.getEntityPlayer().capabilities.isCreativeMode)
+			event.getToolTip().add(I18n.translateToLocal("botaniamisc.spawnerTip"));
 
-		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
-			event.toolTip.add(I18n.translateToLocal("botaniamisc.hasIvy"));
-		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemKeepIvy.TAG_KEEP, false))
-			event.toolTip.add(I18n.translateToLocal("botaniamisc.hasKeepIvy"));
+		if(ItemNBTHelper.detectNBT(event.getItemStack()) && ItemNBTHelper.getBoolean(event.getItemStack(), ItemRegenIvy.TAG_REGEN, false))
+			event.getToolTip().add(I18n.translateToLocal("botaniamisc.hasIvy"));
+		if(ItemNBTHelper.detectNBT(event.getItemStack()) && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
+			event.getToolTip().add(I18n.translateToLocal("botaniamisc.hasKeepIvy"));
 	}
 
 }

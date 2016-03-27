@@ -165,7 +165,6 @@ public final class ModelHandler {
         registerTESRItems();
         registerManaResources();
         registerRunes();
-        registerBows();
         registerLens();
         registerBrews();
 
@@ -199,21 +198,8 @@ public final class ModelHandler {
                     ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
                     : new ModelResourceLocation("botania:infiniteFruit", "inventory")));
 
-        ModelLoader.registerItemVariants(magnetRing,
-                new ModelResourceLocation("botania:magnetRingOn", "inventory"),
-                new ModelResourceLocation("botania:magnetRingOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRing, MesherWrapper.of(stack ->
-                ItemMagnetRing.getCooldown(stack) <= 0
-                    ? new ModelResourceLocation("botania:magnetRingOn", "inventory")
-                    : new ModelResourceLocation("botania:magnetRingOff", "inventory")));
-
-        ModelLoader.registerItemVariants(magnetRingGreater,
-                new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory"),
-                new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory"));
-        ModelLoader.setCustomMeshDefinition(magnetRingGreater, MesherWrapper.of(stack ->
-                ItemMagnetRing.getCooldown(stack) <= 0
-                    ? new ModelResourceLocation("botania:magnetRingGreaterOn", "inventory")
-                    : new ModelResourceLocation("botania:magnetRingGreaterOff", "inventory")));
+        registerItemModel(magnetRing);
+        registerItemModel(magnetRingGreater);
 
         ModelLoader.registerItemVariants(manaGun,
                 new ModelResourceLocation("botania:manaGun", "inventory"),
@@ -241,18 +227,8 @@ public final class ModelHandler {
                     ? new ModelResourceLocation("botania:totalBiscuit", "inventory")
                     : new ModelResourceLocation("botania:manaCookie", "inventory")));
 
-        ModelLoader.registerItemVariants(manasteelSword,
-                new ModelResourceLocation("botania:manasteelSword", "inventory"),
-                new ModelResourceLocation("botania:elucidator", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manasteelSword, MesherWrapper.of(stack ->
-                "the elucidator".equals(stack.getDisplayName().toLowerCase().trim())
-                    ? new ModelResourceLocation("botania:elucidator", "inventory")
-                    : new ModelResourceLocation("botania:manasteelSword", "inventory")));
-
-        ModelLoader.registerItemVariants(spawnerMover,
-                new ModelResourceLocation("botania:spawnerMover", "inventory"),
-                new ModelResourceLocation("botania:spawnerMoverFull", "inventory"));
-        ModelLoader.setCustomMeshDefinition(spawnerMover, MesherWrapper.of(stack -> new ModelResourceLocation("botania:spawnerMover" + (ItemSpawnerMover.hasData(stack) ? "Full" : ""), "inventory")));
+        registerItemModel(manasteelSword);
+        registerItemModel(spawnerMover);
 
         ModelLoader.registerItemVariants(terraPick,
                 new ModelResourceLocation("botania:terraPick", "inventory"),
@@ -469,6 +445,8 @@ public final class ModelHandler {
 
         registerItemModel(starSword);
         registerItemModel(thunderSword);
+        registerItemModel(crystalBow);
+        registerItemModel(livingwoodBow);
         registerItemModel(glassPick);
 
         registerItemModel(flowerBag);
@@ -594,9 +572,6 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.hourglass); // todo json maybe?
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
-        registerItemModel(ModBlocks.pump); // todo await animation api
-        //ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pump), 0, TilePump.class);
-
         registerItemModel(ModBlocks.teruTeruBozu);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
     }
@@ -614,22 +589,6 @@ public final class ModelHandler {
         for (int i = 0; i < variantNames.size(); i++) {
             ModelLoader.setCustomModelResourceLocation(rune, i, new ModelResourceLocation("botania:rune_" + variantNames.get(i), "inventory"));
         }
-    }
-
-    private static void registerBows() {
-        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow", "inventory"));
-        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_1", "inventory"));
-        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_2", "inventory"));
-        ModelLoader.registerItemVariants(livingwoodBow, new ModelResourceLocation("botania:livingwoodBow_pulling_3", "inventory"));
-        registerItemModel(livingwoodBow);
-
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow", "inventory"));
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_1", "inventory"));
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_2", "inventory"));
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_3", "inventory"));
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_4", "inventory"));
-        ModelLoader.registerItemVariants(crystalBow, new ModelResourceLocation("botania:crystalBow_pulling_5", "inventory"));
-        registerItemModel(crystalBow);
     }
 
     private static void registerLens() {

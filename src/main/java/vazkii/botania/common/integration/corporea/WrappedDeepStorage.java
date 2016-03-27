@@ -113,8 +113,8 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
 	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
-		if(isDeepStorageNeeded() && inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).inv instanceof IDeepStorageUnit) {
-			return new WrappedDeepStorage(((IDeepStorageUnit) ((InvWrapper) inv.handler).inv), spark);
+		if(isDeepStorageNeeded() && inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).getInv() instanceof IDeepStorageUnit) {
+			return new WrappedDeepStorage(((IDeepStorageUnit) ((InvWrapper) inv.handler).getInv()), spark);
 		} else return null;
 	}
 

@@ -68,33 +68,33 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
 	@SubscribeEvent
 	public void onMinecartUpdate(MinecartUpdateEvent event) {
-		BlockPos entPos = new BlockPos(event.entity);
-		IBlockState state = event.entity.worldObj.getBlockState(entPos);
+		BlockPos entPos = new BlockPos(event.getEntity());
+		IBlockState state = event.getEntity().worldObj.getBlockState(entPos);
 		Block block = state.getBlock();
-		boolean air = block.isAir(state, event.entity.worldObj, entPos);
-		int floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
+		boolean air = block.isAir(state, event.getEntity().worldObj, entPos);
+		int floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(block == this)
-			event.entity.getEntityData().setInteger(TAG_FLOAT_TICKS, 20);
+			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 20);
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
-			event.entity.getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
+			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
 			if(floatTicks > 0)
-				event.entity.worldObj.playAuxSFX(2003, entPos, 0);
+				event.getEntity().worldObj.playAuxSFX(2003, entPos, 0);
 		}
-		floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
+		floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(floatTicks > 0) {
-			IBlockState stateBelow = event.entity.worldObj.getBlockState(entPos.down());
+			IBlockState stateBelow = event.getEntity().worldObj.getBlockState(entPos.down());
 			Block blockBelow = stateBelow.getBlock();
-			boolean airBelow = blockBelow.isAir(stateBelow, event.entity.worldObj, entPos.down());
+			boolean airBelow = blockBelow.isAir(stateBelow, event.getEntity().worldObj, entPos.down());
 			if(air && airBelow || !air && !airBelow)
-				event.entity.noClip = true;
-			event.entity.motionY = 0.2;
-			event.entity.motionX *= 1.4;
-			event.entity.motionZ *= 1.4;
-			event.entity.getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
-			event.entity.worldObj.playAuxSFX(2000, entPos, 0);
-		} else event.entity.noClip = false;
+				event.getEntity().noClip = true;
+			event.getEntity().motionY = 0.2;
+			event.getEntity().motionX *= 1.4;
+			event.getEntity().motionZ *= 1.4;
+			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
+			event.getEntity().worldObj.playAuxSFX(2000, entPos, 0);
+		} else event.getEntity().noClip = false;
 	}
 
 	@Override

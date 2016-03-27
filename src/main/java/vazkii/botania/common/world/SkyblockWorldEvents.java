@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
@@ -43,8 +43,8 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer && !event.entity.worldObj.isRemote) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().worldObj.isRemote) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			NBTTagCompound data = player.getEntityData();
 			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
@@ -66,24 +66,24 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		/*if(WorldTypeSkyblock.isWorldSkyblock(event.world)) { todo 1.9
+		/*if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) { todo 1.9
 			ItemStack equipped = event.entityPlayer.getCurrentEquippedItem();
 			if(event.action == Action.RIGHT_CLICK_BLOCK && equipped == null && event.entityPlayer.isSneaking()) {
-				Block block = event.world.getBlockState(event.pos).getBlock();
+				Block block = event.getWorld().getBlockState(event.pos).getBlock();
 				if(block == Blocks.grass || block == Blocks.dirt) {
-					if(event.world.isRemote)
+					if(event.getWorld().isRemote)
 						event.entityPlayer.swingItem();
 					else {
-						event.world.playSoundEffect(event.pos.getX() + 0.5, event.pos.getY() + 0.5, event.pos.getZ() + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getFrequency() + (float) (Math.random() * 0.2 - 0.1));
+						event.getWorld().playSoundEffect(event.pos.getX() + 0.5, event.pos.getY() + 0.5, event.pos.getZ() + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getFrequency() + (float) (Math.random() * 0.2 - 0.1));
 						if(Math.random() < 0.8)
 							event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
 				}
-			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.world.isRemote) {
-				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, true, 4.5F);
+			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.getWorld().isRemote) {
+				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.entityPlayer, true, 4.5F);
 				if(RayTraceResult != null) {
 					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-						if(event.world.getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
+						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
@@ -97,18 +97,18 @@ public final class SkyblockWorldEvents {
 	}
 
 	@SubscribeEvent
-	public void onDrops(HarvestDropsEvent event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.world) && event.state.getBlock() == Blocks.tallgrass) {
+	public void onDrops(BlockEvent.HarvestDropsEvent event) {
+		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.tallgrass) {
 			ItemStack stackToRemove = null;
-			for(ItemStack stack : event.drops)
-				if(stack.getItem() == Items.wheat_seeds && event.world.rand.nextInt(4) == 0) {
+			for(ItemStack stack : event.getDrops())
+				if(stack.getItem() == Items.wheat_seeds && event.getWorld().rand.nextInt(4) == 0) {
 					stackToRemove = stack;
 					break;
 				}
 
 			if(stackToRemove != null) {
-				event.drops.remove(stackToRemove);
-				event.drops.add(new ItemStack(event.world.rand.nextBoolean() ? Items.pumpkin_seeds : Items.melon_seeds));
+				event.getDrops().remove(stackToRemove);
+				event.getDrops().add(new ItemStack(event.getWorld().rand.nextBoolean() ? Items.pumpkin_seeds : Items.melon_seeds));
 			}
 		}
 	}

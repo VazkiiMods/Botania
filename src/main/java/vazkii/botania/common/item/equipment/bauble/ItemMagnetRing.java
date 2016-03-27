@@ -15,10 +15,12 @@ import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import vazkii.botania.api.BotaniaAPI;
@@ -52,16 +54,22 @@ public class ItemMagnetRing extends ItemBauble {
 	public ItemMagnetRing(String name, int range) {
 		super(name);
 		this.range = range;
+		addPropertyOverride(new ResourceLocation("botania", "on"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				return ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+			}
+		});
 	}
 
 	@SubscribeEvent
 	public void onTossItem(ItemTossEvent event) {
-		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.player);
+		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.getPlayer());
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack != null && stack.getItem() instanceof ItemMagnetRing) {
 				setCooldown(stack, 100);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.player, i);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.getPlayer(), i);
 			}
 		}
 	}

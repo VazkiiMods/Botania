@@ -42,14 +42,14 @@ public final class SheddingHandler {
 
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
-		if(event.entity.worldObj.isRemote)
+		if(event.getEntityLiving().worldObj.isRemote)
 			return;
 
-		ShedPattern pattern = getShedPattern(event.entity);
+		ShedPattern pattern = getShedPattern(event.getEntityLiving());
 
 		if(pattern != null) {
-			if(event.entity.worldObj.rand.nextInt(pattern.getRate()) == 0)
-				event.entity.entityDropItem(pattern.getItemStack(), 0.0F);
+			if(event.getEntityLiving().worldObj.rand.nextInt(pattern.getRate()) == 0)
+				event.getEntityLiving().entityDropItem(pattern.getItemStack(), 0.0F);
 		}
 	}
 
@@ -116,7 +116,7 @@ public final class SheddingHandler {
 		}
 
 		Property prop = config.get("Shedding", key + ".item", itemName);
-		prop.comment = "Configuration of Shedding for "+key;
+		prop.setComment("Configuration of Shedding for "+key);
 		itemName = prop.getString();
 		rate = config.get("Shedding", key + ".rate", rate).getInt();
 		metadata = config.get("Shedding", key + ".metadata", metadata).getInt();

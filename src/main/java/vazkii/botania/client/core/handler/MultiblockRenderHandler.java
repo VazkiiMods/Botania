@@ -105,9 +105,9 @@ public final class MultiblockRenderHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
-			anchor = event.pos;
-			angle = event.entityPlayer.getHorizontalFacing();
+		if(currentMultiblock != null && anchor == null && event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer) {
+			anchor = event.getPos();
+			angle = event.getEntityPlayer().getHorizontalFacing();
 			event.setCanceled(true);
 		}
 	}

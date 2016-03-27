@@ -70,11 +70,11 @@ public class ItemVirus extends ItemMod {
 
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
-		EntityLivingBase entity = event.entityLiving;
+		EntityLivingBase entity = event.getEntityLiving();
 		if(entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase)
 			entity = (EntityLivingBase) entity.getRidingEntity();
 
-		if(entity instanceof EntityHorse && event.source == DamageSource.fall) {
+		if(entity instanceof EntityHorse && event.getSource() == DamageSource.fall) {
 			EntityHorse horse = (EntityHorse) entity;
 			if((horse.getType() == HorseArmorType.ZOMBIE || horse.getType() == HorseArmorType.SKELETON) && horse.isTame())
 				event.setCanceled(true);

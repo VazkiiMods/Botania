@@ -15,9 +15,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -42,6 +44,12 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
+		addPropertyOverride(new ResourceLocation("botania", "elucidator"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+				return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0;
+			}
+		});
 	}
 
 	@Override

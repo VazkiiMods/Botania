@@ -210,8 +210,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack tiara = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
@@ -222,9 +222,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						if(!player.worldObj.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
 						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
-							double x = event.entityLiving.posX - 0.5;
-							double y = event.entityLiving.posY - 0.5;
-							double z = event.entityLiving.posZ - 0.5;
+							double x = event.getEntityLiving().posX - 0.5;
+							double y = event.getEntityLiving().posY - 0.5;
+							double z = event.getEntityLiving().posZ - 0.5;
 
 							player.getGameProfile().getName();
 							float r = 1F;
@@ -280,7 +280,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 							}
 
 							for(int i = 0; i < 2; i++)
-								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, r, g, b, 2F * (float) Math.random(), 20);
+								Botania.proxy.sparkleFX(event.getEntityLiving().worldObj, x + Math.random() * event.getEntityLiving().width, y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().width, r, g, b, 2F * (float) Math.random(), 20);
 						}
 					}
 				} else {

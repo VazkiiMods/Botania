@@ -57,7 +57,6 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 		setMaxDamage(500);
-		setFull3D();
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), new IItemPropertyGetter() {
 			@Override
 			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {

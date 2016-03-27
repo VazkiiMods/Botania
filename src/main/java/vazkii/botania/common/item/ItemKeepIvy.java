@@ -47,14 +47,14 @@ public class ItemKeepIvy extends ItemMod {
 	@SubscribeEvent
 	public void onPlayerDrops(PlayerDropsEvent event) {
 		List<EntityItem> keeps = new ArrayList<>();
-		for(EntityItem item : event.drops) {
+		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
 		if(keeps.size() > 0) {
-			event.drops.removeAll(keeps);
+			event.getDrops().removeAll(keeps);
 
 
 			NBTTagCompound cmp = new NBTTagCompound();
@@ -69,7 +69,7 @@ public class ItemKeepIvy extends ItemMod {
 				i++;
 			}
 
-			NBTTagCompound data = event.entityPlayer.getEntityData();
+			NBTTagCompound data = event.getEntityPlayer().getEntityData();
 			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 

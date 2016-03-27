@@ -108,11 +108,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@SubscribeEvent
 	public void onLeftClick(PlayerInteractEvent event) {
-		if(event.action == Action.LEFT_CLICK_BLOCK) {
-			ItemStack stack = event.entityPlayer.getHeldItemMainhand();
-			if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, false)) {
-				if(exchange(event.world, event.entityPlayer, event.pos, stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
-					ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, true);
+		if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
+			ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
+			if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
+				if(exchange(event.getWorld(), event.getEntityPlayer(), event.getPos(), stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
+					ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, true);
 			}
 		}
 	}

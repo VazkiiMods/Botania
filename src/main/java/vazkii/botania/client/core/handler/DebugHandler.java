@@ -39,40 +39,40 @@ public final class DebugHandler {
 	public void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getMinecraft().theWorld;
 		if(Minecraft.getMinecraft().gameSettings.showDebugInfo) {
-			event.left.add(null);
+			event.getLeft().add(null);
 			String version = LibMisc.VERSION;
 			if(version.contains("GRADLE"))
 				version = "N/A";
 
-			event.left.add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
-			event.left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
+			event.getLeft().add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
+			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getMinecraft().isSingleplayer()) {
 				UUID id = Minecraft.getMinecraft().thePlayer.getUniqueID();
 				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
 				if (ent != null) {
 					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).worldObj;
-					event.left.add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
 
 			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
-				event.left.add(PREFIX + "Config Context");
-				event.left.add("  shaders.enabled: " + ConfigHandler.useShaders);
-				event.left.add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
+				event.getLeft().add(PREFIX + "Config Context");
+				event.getLeft().add("  shaders.enabled: " + ConfigHandler.useShaders);
+				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
 
 				ContextCapabilities caps = GLContext.getCapabilities();
-				event.left.add(PREFIX + "OpenGL Context");
-				event.left.add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
-				event.left.add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
-				event.left.add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
-				event.left.add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBFragmentShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
-				event.left.add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
-				event.left.add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
-				event.left.add("  OpenGL13: " + caps.OpenGL13);
+				event.getLeft().add(PREFIX + "OpenGL Context");
+				event.getLeft().add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
+				event.getLeft().add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
+				event.getLeft().add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
+				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBFragmentShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
+				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
+				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
+				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
 			} else if(Minecraft.isRunningOnMac)
-				event.left.add(PREFIX + "SHIFT+CMD for context");
-			else event.left.add(PREFIX + "SHIFT+CTRL for context");
+				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
+			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
 		}
 	}
 

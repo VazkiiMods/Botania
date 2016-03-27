@@ -26,11 +26,11 @@ public class PotionSoulCross extends PotionMod {
 
 	@SubscribeEvent
 	public void onEntityKill(LivingDeathEvent event) {
-		Entity e = event.source.getEntity();
+		Entity e = event.getSource().getEntity();
 		if(e != null && e instanceof EntityLivingBase) {
 			EntityLivingBase living = (EntityLivingBase) e;
 			if(hasEffect(living))
-				living.heal(event.entityLiving.getMaxHealth() / 20);
+				living.heal(event.getEntityLiving().getMaxHealth() / 20);
 		}
 	}
 

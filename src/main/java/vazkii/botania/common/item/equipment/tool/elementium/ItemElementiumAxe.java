@@ -37,32 +37,32 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	@SubscribeEvent
 	public void onEntityDrops(LivingDropsEvent event) {
-		if(event.recentlyHit && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
-			ItemStack weapon = ((EntityPlayer) event.source.getEntity()).getHeldItemMainhand();
+		if(event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
+			ItemStack weapon = ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand();
 			if(weapon != null && weapon.getItem() == this) {
-				Random rand = event.entity.worldObj.rand;
+				Random rand = event.getEntityLiving().worldObj.rand;
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, weapon);
 
-				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));
-				else if(event.entityLiving instanceof EntityZombie && !(event.entityLiving instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
+				if(event.getEntityLiving() instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
+					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.getEntityLiving()).getSkeletonType()));
+				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 2));
-				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
+				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
-				else if(event.entityLiving instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
+				else if(event.getEntityLiving() instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
 					ItemStack stack = new ItemStack(Items.skull, 1, 3);
-					ItemNBTHelper.setString(stack, "SkullOwner", event.entityLiving.getName());
+					ItemNBTHelper.setString(stack, "SkullOwner", event.getEntityLiving().getName());
 					addDrop(event, stack);
-				} else if(event.entityLiving instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
+				} else if(event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
 					addDrop(event, new ItemStack(ModItems.gaiaHead));
 			}
 		}
 	}
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
-		EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, drop);
+		EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
 		entityitem.setPickupDelay(10);
-		event.drops.add(entityitem);
+		event.getDrops().add(entityitem);
 	}
 
 }

@@ -21,8 +21,8 @@ public class PixieHandler {
 
 	@SubscribeEvent
 	public void onDamageTaken(LivingHurtEvent event) {
-		if(!event.entityLiving.worldObj.isRemote && event.entityLiving instanceof EntityPlayer && event.source.getEntity() != null && event.source.getEntity() instanceof EntityLivingBase) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
 
 			float chance = getChance(stack);
@@ -44,14 +44,14 @@ public class PixieHandler {
 							MobEffects.moveSlowdown,
 							MobEffects.weakness
 					};
-					pixie.setApplyPotionEffect(new PotionEffect(potions[event.entity.worldObj.rand.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new PotionEffect(potions[event.getEntityLiving().worldObj.rand.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
 				if(stack != null && stack.getItem() == ModItems.elementiumSword)
 					dmg += 2;
 
-				pixie.setProps((EntityLivingBase) event.source.getEntity(), player, 0, dmg);
+				pixie.setProps((EntityLivingBase) event.getSource().getEntity(), player, 0, dmg);
 				player.worldObj.spawnEntityInWorld(pixie);
 			}
 		}

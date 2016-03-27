@@ -27,7 +27,7 @@ public class PotionAllure extends PotionMod {
 
 	@SubscribeEvent
 	public void onEntityUpdate(LivingUpdateEvent event) {
-		EntityLivingBase e = event.entityLiving;
+		EntityLivingBase e = event.getEntityLiving();
 		if(e instanceof EntityPlayer && hasEffect(e)) {
 			EntityFishHook hook = ((EntityPlayer) e).fishEntity;
 			if(hook != null)

@@ -79,7 +79,6 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public ItemCraftingHalo() {
 		this(LibItemNames.CRAFTING_HALO);
 		MinecraftForge.EVENT_BUS.register(this);
-		FMLCommonHandler.instance().bus().register(this);
 	}
 
 	public ItemCraftingHalo(String name) {
@@ -392,7 +391,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if(stack != null)
-			render(stack, player, event.partialTicks);
+			render(stack, player, event.getPartialTicks());
 	}
 
 	@SideOnly(Side.CLIENT)

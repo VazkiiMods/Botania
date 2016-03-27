@@ -51,7 +51,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 
 	public static final FloatingFlowerModel INSTANCE = new FloatingFlowerModel();
 	private static final String MUNDANE_PREFIX = "botania:shimmeringFlower_";
-	private static Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
+	private static final Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);

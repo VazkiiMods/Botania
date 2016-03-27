@@ -74,35 +74,35 @@ public class SubTileVinculotus extends SubTileFunctional {
 
 		@SubscribeEvent
 		public void onEndermanTeleport(EnderTeleportEvent event) {
-			if(event.entity.worldObj.isRemote)
+			if(event.getEntityLiving().worldObj.isRemote)
 				return;
 
 			int cost = 50;
 
-			if(event.entity instanceof EntityEnderman) {
+			if(event.getEntityLiving() instanceof EntityEnderman) {
 				List<SubTileVinculotus> possibleFlowers = new ArrayList<>();
 				for(SubTileVinculotus flower : existingFlowers) {
-					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.entity.worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
+					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
 						continue;
 
 					double x = flower.supertile.getPos().getX() + 0.5;
 					double y = flower.supertile.getPos().getY() + 1.5;
 					double z = flower.supertile.getPos().getZ() + 0.5;
 
-					if(MathHelper.pointDistanceSpace(x, y, z, event.targetX, event.targetY, event.targetZ) < RANGE)
+					if(MathHelper.pointDistanceSpace(x, y, z, event.getTargetX(), event.getTargetY(), event.getTargetZ()) < RANGE)
 						possibleFlowers.add(flower);
 				}
 
 				if(!possibleFlowers.isEmpty()) {
-					SubTileVinculotus flower = possibleFlowers.get(event.entity.worldObj.rand.nextInt(possibleFlowers.size()));
+					SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().worldObj.rand.nextInt(possibleFlowers.size()));
 
 					double x = flower.supertile.getPos().getX() + 0.5;
 					double y = flower.supertile.getPos().getY() + 1.5;
 					double z = flower.supertile.getPos().getZ() + 0.5;
 
-					event.targetX = x + Math.random() * 3 - 1;
-					event.targetY = y;
-					event.targetZ = z + Math.random() * 3 - 1;
+					event.setTargetX(x + Math.random() * 3 - 1);
+					event.setTargetY(y);
+					event.setTargetZ(z + Math.random() * 3 - 1);
 					flower.mana -= cost;
 					flower.sync();
 				}

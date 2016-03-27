@@ -86,10 +86,10 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	@SubscribeEvent
 	public void onDrops(LivingDropsEvent event) {
-		if(event.entity instanceof EntityBlaze && event.entity.getEntityData().getBoolean(TAG_FEL_SPAWNED))
-			if(event.drops.isEmpty())
-				event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, new ItemStack(Items.blaze_powder, 6)));
-			else for(EntityItem item : event.drops) {
+		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))
+			if(event.getDrops().isEmpty())
+				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.blaze_powder, 6)));
+			else for(EntityItem item : event.getDrops()) {
 				ItemStack stack = item.getEntityItem();
 				if(stack.getItem() == Items.blaze_rod)
 					item.setEntityItemStack(new ItemStack(Items.blaze_powder, stack.stackSize * 10));
