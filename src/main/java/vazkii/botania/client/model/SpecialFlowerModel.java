@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -34,6 +35,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelCustomData;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -168,15 +172,14 @@ public class SpecialFlowerModel implements IModelCustomData {
 		}
 
 		private void refreshBakedModels() {
-			//if(baseModel == null) {
-				// If not done already, steal all the real baked models and cache them
-				ModelManager manager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
-				baseModel = getBlockModel(manager, Optional.<String>absent());
+			if(baseModel == null) {
+				// If not done already, bake and cache all models
+				baseModel = getBlockModel(Optional.<String>absent());
 
 				ImmutableMap.Builder<String, IBakedModel> builder = ImmutableMap.builder();
 				for(Map.Entry<Optional<String>, ModelResourceLocation> e : blockModels.entrySet()) {
 					if(e.getKey().isPresent()) {
-						builder.put(e.getKey().get(), getBlockModel(manager, e.getKey()));
+						builder.put(e.getKey().get(), getBlockModel(e.getKey()));
 					}
 				}
 
@@ -185,28 +188,30 @@ public class SpecialFlowerModel implements IModelCustomData {
 				ImmutableMap.Builder<String, IBakedModel> builder2 = ImmutableMap.builder();
 				for(Map.Entry<Optional<String>, ModelResourceLocation> e : itemModels.entrySet()) {
 					if(e.getKey().isPresent()) {
-						builder2.put(e.getKey().get(), getItemModel(manager, e.getKey()));
+						builder2.put(e.getKey().get(), getItemModel(e.getKey()));
 					}
 				}
 
 				bakedItemModels = builder2.build();
-			//}
+			}
 		}
 
-		private IBakedModel getBlockModel(ModelManager manager, Optional<String> opt) {
+		private IBakedModel getBlockModel(Optional<String> opt) {
 			ModelResourceLocation loc = blockModels.get(opt);
 			if(loc == null) {
 				loc = new ModelResourceLocation("builtin/missing", "missing");
 			}
-			return manager.getModel(loc);
+			IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
+			return model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
 		}
 
-		private IBakedModel getItemModel(ModelManager manager, Optional<String> opt) {
+		private IBakedModel getItemModel(Optional<String> opt) {
 			ModelResourceLocation loc = itemModels.get(opt);
 			if(loc == null) {
 				loc = new ModelResourceLocation("builtin/missing", "missing");
 			}
-			return manager.getModel(loc);
+			IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
+			return model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
 		}
 
 		@Override
@@ -265,7 +270,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 		@Override
 		public ItemCameraTransforms getItemCameraTransforms() {
-			return ItemCameraTransforms.DEFAULT;
+			return baseModel.getItemCameraTransforms();
 		}
 
 		@Override
