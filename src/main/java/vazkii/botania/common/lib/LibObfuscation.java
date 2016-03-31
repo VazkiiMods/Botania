@@ -69,9 +69,7 @@ public final class LibObfuscation {
 	public static final String[] SPAWN_DELAY = new String[] { "spawnDelay", "field_98286_b", "a" };
 	public static final String[] PREV_MOB_ROTATION = new String[] { "prevMobRotation", "field_98284_d", "e" };
 	public static final String[] MOB_ROTATION = new String[] { "mobRotation", "field_98287_c", "d" };
-	public static final String[] GET_ENTITY_TO_SPAWN = new String[] { "getEntityNameToSpawn", "func_98276_e", "g" };
 	public static final String[] RANDOM_ENTITY = new String[] { "randomEntity", "field_98282_f", "c" };
-	public static final String[] SPAWN_NEW_ENTITY = new String[] { "spawnNewEntity", "func_180613_a", "a" }; // todo 1.9
 
 	// GuiIngame
 	public static final String[] REMAINING_HIGHLIGHT_TICKS = new String[] { "remainingHighlightTicks", "field_92017_k", "q" };

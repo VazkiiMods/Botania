@@ -298,16 +298,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		return INFINITE_EXTENT_AABB;
 	}
 
-	/*@Override todo 1.8
-	public int[] getSlotsForFace(EnumFacing var1) {
-		int accessibleSlot = -1;
-		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) != null)
-				accessibleSlot = i;
-
-		return accessibleSlot == -1 ? new int[0] : new int[] { accessibleSlot };
-	}*/
-
 	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, false) {

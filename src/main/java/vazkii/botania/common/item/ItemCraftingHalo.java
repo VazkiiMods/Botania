@@ -110,11 +110,19 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
+		if (!(entity instanceof EntityLivingBase))
+			return;
+		EntityLivingBase living = ((EntityLivingBase) entity);
+
 		boolean eqLastTick = wasEquipped(stack);
+
+		if (!equipped && living.getHeldItemOffhand() == stack)
+			equipped = true;
+
 		if(eqLastTick != equipped)
 			setEquipped(stack, equipped);
 
-		if(!equipped && entity instanceof EntityLivingBase) {
+		if(!equipped) {
 			int angles = 360;
 			int segAngles = angles / SEGMENTS;
 			float shift = segAngles / 2;
@@ -398,7 +406,6 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
-		// todo 1.8.8 Tessellator.renderingVertexBuffer = false;
 
 		double renderPosX, renderPosY, renderPosZ;
 
@@ -451,19 +458,20 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			ItemStack slotStack = getItemForSlot(stack, seg);
 			if(slotStack != null) {
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				float scale = seg == 0 ? 0.75F : 0.6F;
+				GlStateManager.scale(scale, scale, scale);
+				GlStateManager.rotate(180F, 0F, 1F, 0F);
+				GlStateManager.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
 				if(slotStack.getItem() instanceof ItemBlock) {
-					float scale = seg == 0 ? 0.75F : 0.6F;
-					GlStateManager.scale(scale, scale, scale);
-					GlStateManager.rotate(180F, 0F, 1F, 0F);
-					GlStateManager.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 					GlStateManager.translate(0, -0.5, 0.5F); // todo 1.8 refine
 
-					IBlockState state = ((ItemBlock) slotStack.getItem()).block.getStateFromMeta(slotStack.getItemDamage());
+					IBlockState state = ((ItemBlock) slotStack.getItem()).block.getStateFromMeta(slotStack.getItem().getMetadata(slotStack.getMetadata()));
 					Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(state, 1.0F);
 				} else {
-					GlStateManager.scale(0.75F, 0.75F, 0.75F);
-					GlStateManager.rotate(90F, 0F, 1F, 0F);
+
+					//GlStateManager.translate(0, -0.5, 0.5F); // todo 1.8 refine
+					GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
 					Minecraft.getMinecraft().getRenderItem().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI);
 				}
 			}

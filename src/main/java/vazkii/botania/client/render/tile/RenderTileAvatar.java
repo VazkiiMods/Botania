@@ -75,8 +75,9 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.6F;
 			GlStateManager.scale(s, s, s);
-			GlStateManager.translate(-0.5F, 2.125F, 0F); // todo 1.8 tweak held item render
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
+			GlStateManager.translate(-0.5F, 2F, -0.25F);
+			GlStateManager.rotate(-70, 1, 0, 0);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
 			GlStateManager.popMatrix();
 
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();

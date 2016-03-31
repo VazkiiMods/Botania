@@ -14,6 +14,7 @@ import java.util.Random;
 
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -62,7 +63,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
-			TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos());
+			TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos(), EnumHand.MAIN_HAND); // todo 1.9
 	}
 
 	@Override

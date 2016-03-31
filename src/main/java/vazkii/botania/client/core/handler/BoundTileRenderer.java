@@ -46,8 +46,6 @@ public final class BoundTileRenderer {
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		// todo 1.8 Tessellator.renderingVertexBuffer = false;
-
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		

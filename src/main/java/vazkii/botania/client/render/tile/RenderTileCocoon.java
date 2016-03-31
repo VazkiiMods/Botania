@@ -47,7 +47,7 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 		GlStateManager.translate(d0, d1, d2 + 1);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GlStateManager.translate(0.5F, 0, 0F);
-		GlStateManager.rotate(rot, 1F, 0F, 0F); // todo 1.8 fixme looks a little weird compared to 1.7
+		GlStateManager.rotate(rot, 1F, 0F, 0F);
 		GlStateManager.translate(-0.5F, 0, 0F);
 		IBlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);

@@ -41,7 +41,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		return !tileEntityInvalid && worldObj.getTileEntity(pos) == this;
 	}
 
-	public static void onInteract(EntityPlayer player, World world, BlockPos pos) {
+	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
 		boolean did = false;
 
@@ -71,7 +71,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		interceptors.removeAll(remove);
 		if(did) {
 			if(world.isRemote)
-				player.swingArm(EnumHand.MAIN_HAND); // todo 1.9
+				player.swingArm(hand);
 			else world.playSound(null, pos, SoundEvents.block_dispenser_dispense, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 	}
