@@ -70,7 +70,6 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		// todo 1.8 Tessellator.renderingVertexBuffer = false;
 
 		if(descriptor.isCircle())
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());

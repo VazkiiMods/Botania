@@ -44,7 +44,6 @@ public final class RedStringRenderer {
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
 
-			// todo 1.8 Tessellator.renderingVertexBuffer = false;
 			TileRedString tile;
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);

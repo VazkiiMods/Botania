@@ -334,7 +334,6 @@ public final class ModelHandler {
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.pylon), PylonVariant.values().length);
 
         // Item models which all use the same base model and recolored by render layer
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.manaBeacon), EnumDyeColor.values().length);
@@ -342,6 +341,7 @@ public final class ModelHandler {
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
 
         // Blocks which share models with their item, and have only one variant to switch over
+        registerVariantsDefaulted(ModBlocks.pylon, PylonVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");

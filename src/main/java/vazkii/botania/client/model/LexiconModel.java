@@ -25,8 +25,8 @@ public class LexiconModel implements IPerspectiveAwareModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
         IBakedModel original = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path);
-        if(cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND && ConfigHandler.lexicon3dModel) // todo 1.9 handedness
-            return Pair.of(this, null);
+        /*if(cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND && ConfigHandler.lexicon3dModel)
+            return Pair.of(this, null); todo 1.9 */
         return ((IPerspectiveAwareModel) original).handlePerspective(cameraTransformType);
     }
 
