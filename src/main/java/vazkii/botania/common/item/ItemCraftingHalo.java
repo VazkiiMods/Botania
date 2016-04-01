@@ -464,13 +464,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				GlStateManager.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
 				if(slotStack.getItem() instanceof ItemBlock) {
-					GlStateManager.translate(0, -0.5, 0.5F); // todo 1.8 refine
-
+					GlStateManager.translate(0, -0.5, 0.5F);
 					IBlockState state = ((ItemBlock) slotStack.getItem()).block.getStateFromMeta(slotStack.getItem().getMetadata(slotStack.getMetadata()));
 					Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(state, 1.0F);
 				} else {
 
-					//GlStateManager.translate(0, -0.5, 0.5F); // todo 1.8 refine
 					GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
 					Minecraft.getMinecraft().getRenderItem().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI);
 				}
