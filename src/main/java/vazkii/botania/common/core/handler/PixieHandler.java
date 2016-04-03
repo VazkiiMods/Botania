@@ -58,7 +58,7 @@ public class PixieHandler {
 	}
 
 	float getChance(ItemStack stack) {
-		if(stack == null)
+		if(stack == null || !(stack.getItem() instanceof IPixieSpawner))
 			return 0F;
 		else return ((IPixieSpawner) stack.getItem()).getPixieChance(stack);
 	}

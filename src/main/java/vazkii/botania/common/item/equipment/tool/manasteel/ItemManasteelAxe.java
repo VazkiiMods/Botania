@@ -53,9 +53,10 @@ public class ItemManasteelAxe extends ItemTool implements IManaUsingItem, ISorta
 
 	public ItemManasteelAxe(ToolMaterial mat, String name) {
 		super(mat, ImmutableSet.of());
-		// todo attack speed and set
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
+		this.damageVsEntity = 8f;
+		this.attackSpeed = -3.1f;
 	}
 
 	@Override
