@@ -76,6 +76,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
 		MinecraftForge.EVENT_BUS.register(this);
+		this.attackSpeed = -3f;
 	}
 
 	public boolean shouldBreak(EntityPlayer player) {
