@@ -38,7 +38,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 	Achievement achievement;
 
 	public ItemRelic(String name) {
-		setUnlocalizedName(name);
+		super(name);
 		setMaxStackSize(1);
 	}
 

@@ -27,7 +27,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemOvergrowthSeed extends ItemMod {
 
 	public ItemOvergrowthSeed() {
-		setUnlocalizedName(LibItemNames.OVERGROWTH_SEED);
+		super(LibItemNames.OVERGROWTH_SEED);
 	}
 
 	@Override

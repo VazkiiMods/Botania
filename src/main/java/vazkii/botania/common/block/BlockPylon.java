@@ -46,10 +46,9 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 21.0/16, 0.875);
 
 	public BlockPylon() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.PYLON);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.PYLON);
 		setLightLevel(0.5F);
 
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA));
@@ -79,14 +78,8 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

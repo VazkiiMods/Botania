@@ -36,13 +36,13 @@ public class CommandDownloadLatest extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender var1, String[] var2) {
 		if(!ENABLED)
-			var1.addChatMessage(new TextComponentTranslation("botania.versioning.disabled").setChatStyle(new Style().setColor(TextFormatting.RED)));
+			var1.addChatMessage(new TextComponentTranslation("botania.versioning.disabled").setStyle(new Style().setColor(TextFormatting.RED)));
 
 		else if(var2.length == 1)
 			if(VersionChecker.downloadedFile)
-				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadedAlready").setChatStyle(new Style().setColor(TextFormatting.RED)));
+				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadedAlready").setStyle(new Style().setColor(TextFormatting.RED)));
 			else if(VersionChecker.startedDownload)
-				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadingAlready").setChatStyle(new Style().setColor(TextFormatting.RED)));
+				var1.addChatMessage(new TextComponentTranslation("botania.versioning.downloadingAlready").setStyle(new Style().setColor(TextFormatting.RED)));
 			else new ThreadDownloadMod("Botania " + var2[0] + ".jar");
 	}
 

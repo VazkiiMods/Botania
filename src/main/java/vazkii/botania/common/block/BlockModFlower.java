@@ -27,6 +27,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -43,6 +44,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable {
 
@@ -55,13 +57,18 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	protected BlockModFlower(String name) {
-		super();
 		setUnlocalizedName(name);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		registerItemForm();
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
+	}
+
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override
@@ -105,12 +112,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

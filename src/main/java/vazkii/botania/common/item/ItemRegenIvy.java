@@ -31,7 +31,7 @@ public class ItemRegenIvy extends ItemMod {
 	private static final int MANA_PER_DAMAGE = 200;
 
 	public ItemRegenIvy() {
-		setUnlocalizedName(LibItemNames.REGEN_IVY);
+		super(LibItemNames.REGEN_IVY);
 		GameRegistry.addRecipe(new RegenIvyRecipe());
 		RecipeSorter.register("botania:regenIvy", RegenIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);

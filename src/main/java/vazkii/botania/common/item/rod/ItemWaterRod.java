@@ -21,9 +21,8 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 	public static final int COST = 75;
 
 	public ItemWaterRod() {
-		super();
+		super(LibItemNames.WATER_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.WATER_ROD);
 	}
 
 	@Override

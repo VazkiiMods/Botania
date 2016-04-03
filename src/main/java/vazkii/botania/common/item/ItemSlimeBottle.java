@@ -20,7 +20,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemSlimeBottle extends ItemMod {
 
 	public ItemSlimeBottle() {
-		setUnlocalizedName(LibItemNames.SLIME_BOTTLE);
+		super(LibItemNames.SLIME_BOTTLE);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 	}

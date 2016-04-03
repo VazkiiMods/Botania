@@ -45,7 +45,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	public static Map<EntityPlayer, SmeltData> playerData = new WeakHashMap<>();
 
 	public ItemSmeltRod() {
-		setUnlocalizedName(LibItemNames.SMELT_ROD);
+		super(LibItemNames.SMELT_ROD);
 		setMaxStackSize(1);
 	}
 

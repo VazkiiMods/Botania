@@ -82,7 +82,7 @@ public class ThreadDownloadMod extends Thread {
 				f.renameTo(f1);
 
 			if(Minecraft.getMinecraft().thePlayer != null)
-				Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new Style().setColor(TextFormatting.GREEN)));
+				Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
@@ -101,6 +101,6 @@ public class ThreadDownloadMod extends Thread {
 
 	private void sendError() {
 		if(Minecraft.getMinecraft().thePlayer != null)
-			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new TextComponentTranslation("botania.versioning.error").setChatStyle(new Style().setColor(TextFormatting.RED)));
+			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new TextComponentTranslation("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
 	}
 }

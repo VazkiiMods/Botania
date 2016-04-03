@@ -42,12 +42,10 @@ public class BlockManaBeacon extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
 
 	public BlockManaBeacon() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.MANA_BEACON);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.METAL);
-		float size = 3F / 16F;
-		setUnlocalizedName(LibBlockNames.MANA_BEACON);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
@@ -81,14 +79,8 @@ public class BlockManaBeacon extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
 	}
 
 	@Override

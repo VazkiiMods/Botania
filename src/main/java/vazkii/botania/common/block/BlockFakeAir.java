@@ -36,8 +36,7 @@ public class BlockFakeAir extends BlockMod {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
 	public BlockFakeAir() {
-		super(Material.air);
-		setUnlocalizedName(LibBlockNames.FAKE_AIR);
+		super(Material.air, LibBlockNames.FAKE_AIR);
 		setTickRandomly(true);
 	}
 
@@ -52,15 +51,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, null, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
+	public void registerItemForm() {}
 
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {

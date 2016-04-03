@@ -55,10 +55,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	Random random;
 
 	public BlockOpenCrate() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.OPEN_CRATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.OPEN_CRATE);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
 				.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
@@ -96,14 +95,8 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

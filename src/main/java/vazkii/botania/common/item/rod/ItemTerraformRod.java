@@ -77,9 +77,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	);
 
 	public ItemTerraformRod() {
-		super();
+		super(LibItemNames.TERRAFORM_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.TERRAFORM_ROD);
 	}
 
 	@Override

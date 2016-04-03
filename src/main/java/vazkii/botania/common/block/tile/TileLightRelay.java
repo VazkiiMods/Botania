@@ -199,7 +199,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		protected void entityInit() {
 			setSize(0F, 0F);
 			noClip = true;
-			dataWatcher.register(EXIT_POS, BlockPos.ORIGIN);
+			dataManager.register(EXIT_POS, BlockPos.ORIGIN);
 		}
 
 		@Override
@@ -283,11 +283,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		public BlockPos getExitPos() {
-			return dataWatcher.get(EXIT_POS);
+			return dataManager.get(EXIT_POS);
 		}
 
 		public void setExit(BlockPos pos) {
-			dataWatcher.set(EXIT_POS, pos);
+			dataManager.set(EXIT_POS, pos);
 		}
 
 	}

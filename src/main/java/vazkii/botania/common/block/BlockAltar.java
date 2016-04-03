@@ -61,11 +61,9 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	protected BlockAltar() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.ALTAR);
 		setHardness(3.5F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.ALTAR);
-
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT)
 		);
@@ -113,14 +111,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

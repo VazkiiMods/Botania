@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -44,6 +45,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor {
@@ -63,13 +65,8 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		super(mat, 0, type);
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

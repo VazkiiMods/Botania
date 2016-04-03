@@ -41,10 +41,9 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	public BlockLivingwood(String name) {
-		super(Material.wood);
+		super(Material.wood, name);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(name);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT));
 	}
 
@@ -67,23 +66,13 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		register(par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

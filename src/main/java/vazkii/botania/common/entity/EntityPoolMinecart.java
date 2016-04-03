@@ -50,7 +50,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(MANA, 0);
+		dataManager.register(MANA, 0);
 	}
 
 	@Override
@@ -157,11 +157,11 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	public int getMana() {
-		return dataWatcher.get(MANA);
+		return dataManager.get(MANA);
 	}
 
 	public void setMana(int mana) {
-		dataWatcher.set(MANA, mana);
+		dataManager.set(MANA, mana);
 	}
 
 }

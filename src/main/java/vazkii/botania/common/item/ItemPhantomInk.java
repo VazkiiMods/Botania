@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemPhantomInk extends ItemMod {
 
 	public ItemPhantomInk() {
-		setUnlocalizedName(LibItemNames.PHANTOM_INK);
+		super(LibItemNames.PHANTOM_INK);
 		GameRegistry.addRecipe(new PhantomInkRecipe());
 		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, Category.SHAPELESS, "");
 	}

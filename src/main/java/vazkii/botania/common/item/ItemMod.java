@@ -12,21 +12,23 @@ package vazkii.botania.common.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
-public class ItemMod extends Item {
+public abstract class ItemMod extends Item {
 
-	public ItemMod() {
-		super();
+	public ItemMod(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		if(shouldRegister())
+			GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setUnlocalizedName(name);
 	}
 
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	protected boolean shouldRegister() {
+		return true;
 	}
 
 	@Override

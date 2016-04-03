@@ -268,7 +268,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.getPlayer().addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+						event.getPlayer().addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)
 							event.getPlayer().addStat(ModAchievements.superCorporeaRequest, 1);
 					}

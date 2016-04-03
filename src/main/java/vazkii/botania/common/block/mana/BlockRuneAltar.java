@@ -43,11 +43,10 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	private final Random random = new Random();
 
 	public BlockRuneAltar() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.RUNE_ALTAR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 

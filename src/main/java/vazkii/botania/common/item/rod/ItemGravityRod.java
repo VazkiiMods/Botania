@@ -51,8 +51,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	private static final String TAG_DIST = "dist";
 
 	public ItemGravityRod() {
+		super(LibItemNames.GRAVITY_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.GRAVITY_ROD);
 	}
 
 	@Override

@@ -37,11 +37,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
 	public BlockEndStoneBrick() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.END_STONE_BRICK);
 		setHardness(1.5F);
 		setResistance(10F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.END_STONE_BRICK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.END_STONE_BRICKS));
 	}
 
@@ -70,19 +69,13 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

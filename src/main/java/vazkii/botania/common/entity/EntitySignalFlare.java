@@ -32,7 +32,7 @@ public class EntitySignalFlare extends Entity {
 
 	@Override
 	protected void entityInit() {
-		dataWatcher.register(COLOR, 0);
+		dataManager.register(COLOR, 0);
 	}
 
 	@Override
@@ -74,11 +74,11 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	public void setColor(int color) {
-		dataWatcher.set(COLOR, color);
+		dataManager.set(COLOR, color);
 	}
 
 	public int getColor() {
-		return dataWatcher.get(COLOR);
+		return dataManager.get(COLOR);
 	}
 
 }

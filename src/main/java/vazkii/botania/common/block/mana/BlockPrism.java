@@ -50,12 +50,10 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	private final Random random = new Random();
 
 	public BlockPrism() {
-		super(Material.glass);
+		super(Material.glass, LibBlockNames.PRISM);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setUnlocalizedName(LibBlockNames.PRISM);
-		float f = 0.25F;
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.POWERED, false)
 				.withProperty(BotaniaStateProps.HAS_LENS, false)

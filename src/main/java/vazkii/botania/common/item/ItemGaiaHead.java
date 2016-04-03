@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemGaiaHead extends ItemMod {
 
 	public ItemGaiaHead() {
-		setUnlocalizedName(LibItemNames.GAIA_HEAD);
+		super(LibItemNames.GAIA_HEAD);
 	}
 
 	// Copied from vanila skull itemBlock. Relevant edits are indicated.

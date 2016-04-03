@@ -29,7 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemTemperanceStone extends ItemMod {
 
 	public ItemTemperanceStone() {
-		setUnlocalizedName(LibItemNames.TEMPERANCE_STONE);
+		super(LibItemNames.TEMPERANCE_STONE);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 	}

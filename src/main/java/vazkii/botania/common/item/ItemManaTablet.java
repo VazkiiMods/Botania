@@ -35,10 +35,9 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	private static final String TAG_ONE_USE = "oneUse";
 
 	public ItemManaTablet() {
-		super();
+		super(LibItemNames.MANA_TABLET);
 		setMaxStackSize(1);
 		setMaxDamage(1000);
-		setUnlocalizedName(LibItemNames.MANA_TABLET);
 		setNoRepair();
 	}
 

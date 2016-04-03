@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemCorporeaSpark extends ItemMod {
 
 	public ItemCorporeaSpark() {
-		setUnlocalizedName(LibItemNames.CORPOREA_SPARK);
+		super(LibItemNames.CORPOREA_SPARK);
 		setHasSubtypes(true);
 	}
 

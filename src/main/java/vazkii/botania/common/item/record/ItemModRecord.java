@@ -19,6 +19,7 @@ import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemModRecord extends ItemRecord {
 
@@ -27,14 +28,9 @@ public class ItemModRecord extends ItemRecord {
 	public ItemModRecord(String record, SoundEvent sound, String name) {
 		super("botania:" + record, sound);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		file = "botania:music." + record;
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -38,6 +39,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, ISortableTool {
 
@@ -50,13 +52,8 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 	public ItemManasteelShovel(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

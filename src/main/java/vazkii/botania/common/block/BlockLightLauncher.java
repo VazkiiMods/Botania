@@ -42,10 +42,9 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
 
 	public BlockLightLauncher() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.LIGHT_LAUNCHER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.LIGHT_LAUNCHER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
@@ -96,7 +95,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
-	public void pickUpEntities(World world, BlockPos pos) {
+	private void pickUpEntities(World world, BlockPos pos) {
 		List<TileLightRelay> relays = new ArrayList<>();
 		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));

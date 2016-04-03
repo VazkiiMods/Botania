@@ -48,7 +48,7 @@ public class ItemSextant extends ItemMod {
 	private static final String TAG_SOURCE_Z = "sourceZ";
 
 	public ItemSextant() {
-		setUnlocalizedName(LibItemNames.SEXTANT);
+		super(LibItemNames.SEXTANT);
 		setMaxStackSize(1);
 	}
 

@@ -24,7 +24,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemVineBall extends ItemMod {
 
 	public ItemVineBall() {
-		setUnlocalizedName(LibItemNames.VINE_BALL);
+		super(LibItemNames.VINE_BALL);
 	}
 
 	@Override

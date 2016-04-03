@@ -947,7 +947,7 @@ public final class ModelHandler {
     }
 
     private static void registerItemModel(Item i,int meta) {
-        ResourceLocation loc = GameData.getItemRegistry().getNameForObject(i);
+        ResourceLocation loc = i.getRegistryName();
         ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "inventory"));
     }
 

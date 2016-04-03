@@ -16,10 +16,9 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemPestleAndMortar extends ItemMod {
 
 	public ItemPestleAndMortar() {
-		super();
+		super(LibItemNames.PESTLE_AND_MORTAR);
 		setMaxStackSize(1);
 		setContainerItem(this);
-		setUnlocalizedName(LibItemNames.PESTLE_AND_MORTAR);
 	}
 
 }

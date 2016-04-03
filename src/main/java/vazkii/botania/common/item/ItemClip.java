@@ -15,8 +15,8 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemClip extends ItemMod {
 
 	public ItemClip() {
+		super(LibItemNames.CLIP);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.CLIP);
 	}
 
 }

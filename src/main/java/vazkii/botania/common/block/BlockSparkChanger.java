@@ -44,11 +44,10 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	public BlockSparkChanger() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.SPARK_CHANGER);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.SPARK_CHANGER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true));
 	}
 

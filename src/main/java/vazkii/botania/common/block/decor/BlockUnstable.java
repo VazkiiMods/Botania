@@ -47,11 +47,10 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockUnstable() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.UNSTABLE_BLOCK);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.UNSTABLE_BLOCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
@@ -85,14 +84,8 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
 	}
 
 	@Override

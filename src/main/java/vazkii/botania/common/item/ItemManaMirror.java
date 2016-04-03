@@ -46,10 +46,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	private static final DummyPool fallbackPool = new DummyPool();
 
 	public ItemManaMirror() {
-		super();
+		super(LibItemNames.MANA_MIRROR);
 		setMaxStackSize(1);
 		setMaxDamage(1000);
-		setUnlocalizedName(LibItemNames.MANA_MIRROR);
 		setNoRepair();
 	}
 

@@ -36,8 +36,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockBifrost extends BlockMod implements ILexiconable {
 
 	public BlockBifrost() {
-		super(Material.glass);
-		setUnlocalizedName(LibBlockNames.BIFROST);
+		super(Material.glass, LibBlockNames.BIFROST);
 		setLightOpacity(0);
 		setLightLevel(1F);
 		setBlockUnbreakable();

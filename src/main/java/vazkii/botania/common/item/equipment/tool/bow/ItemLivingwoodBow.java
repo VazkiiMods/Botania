@@ -42,6 +42,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Predicate;
 
@@ -56,6 +57,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 
 	public ItemLivingwoodBow(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		setMaxDamage(500);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), new IItemPropertyGetter() {
@@ -72,12 +74,6 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 				}
 			}
 		});
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

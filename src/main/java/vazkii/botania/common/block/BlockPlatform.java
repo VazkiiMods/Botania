@@ -48,11 +48,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
 
 	public BlockPlatform() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.PLATFORM);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.PLATFORM);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
 				.withProperty(BotaniaStateProps.HELD_STATE, null)
 				.withProperty(BotaniaStateProps.HELD_WORLD, null)
@@ -97,10 +96,6 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		return true;
 	}
 
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
@@ -108,9 +103,8 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

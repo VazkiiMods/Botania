@@ -20,6 +20,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,15 +29,19 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public abstract class BlockModWall extends BlockWall implements ILexiconable {
 
-	Block block;
+	private final Block block;
 
 	public BlockModWall(Block block, int meta) {
 		super(block);
 		this.block = block;
-		setUnlocalizedName(block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall");
+		// For backward compat don't kill me
+		String name = block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall";
+		register(name);
+		setUnlocalizedName(name);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(UP, false)
 				.withProperty(NORTH, false)
@@ -77,14 +82,9 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 		return true;
 	}
 
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		register(par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
 	public void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, name);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 
 	@Override

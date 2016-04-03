@@ -28,15 +28,14 @@ import net.minecraftforge.fml.common.Optional;
 
 public class BlockSeaLamp extends BlockMod implements ILexiconable {
 
+	private int coloredLight = -1;
+
 	public BlockSeaLamp() {
-		super(Material.glass);
+		super(Material.glass, LibBlockNames.SEA_LAMP);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setUnlocalizedName(LibBlockNames.SEA_LAMP);
 	}
-
-	int coloredLight = -1;
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")

@@ -33,10 +33,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
 	public BlockEnchantedSoil() {
-		super(Material.grass);
+		super(Material.grass, LibBlockNames.ENCHANTED_SOIL);
 		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
-		setUnlocalizedName(LibBlockNames.ENCHANTED_SOIL);
 	}
 
 	@Override

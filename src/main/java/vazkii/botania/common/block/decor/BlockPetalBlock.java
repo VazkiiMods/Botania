@@ -37,10 +37,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	public BlockPetalBlock() {
-		super(Material.plants);
+		super(Material.plants, LibBlockNames.PETAL_BLOCK);
 		setHardness(0.4F);
 		setSoundType(SoundType.PLANT);
-		setUnlocalizedName(LibBlockNames.PETAL_BLOCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
@@ -69,14 +68,8 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
 	}
 
 	@Override

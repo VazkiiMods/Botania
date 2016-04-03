@@ -33,10 +33,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILexiconable {
 
 	public BlockTurntable() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.TURNTABLE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.TURNTABLE);
 	}
 
 	@Override

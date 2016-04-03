@@ -44,7 +44,7 @@ public class ItemBottledMana extends ItemMod {
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana() {
-		setUnlocalizedName(LibItemNames.MANA_BOTTLE);
+		super(LibItemNames.MANA_BOTTLE);
 		setMaxStackSize(1);
 		setMaxDamage(6);
 	}

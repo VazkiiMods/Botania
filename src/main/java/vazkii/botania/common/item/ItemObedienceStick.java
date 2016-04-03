@@ -31,8 +31,8 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemObedienceStick extends ItemMod {
 
 	public ItemObedienceStick() {
+		super(LibItemNames.OBEDIENCE_STICK);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.OBEDIENCE_STICK);
 	}
 
 	@Override

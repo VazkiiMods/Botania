@@ -39,12 +39,9 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0, 0.1875, 1-0.1875, 10.0 / 16, 1-0.1875);
 
 	public BlockBellows() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.BELLOWS);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.BELLOWS);
-
-		float f = (1F - 10 / 16F) / 2F;
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 

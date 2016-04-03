@@ -28,8 +28,8 @@ public class ItemVial extends ItemMod implements IBrewContainer {
 	}
 
 	public ItemVial(String name) {
+		super(name);
 		setHasSubtypes(true);
-		setUnlocalizedName(name);
 	}
 
 	@Override

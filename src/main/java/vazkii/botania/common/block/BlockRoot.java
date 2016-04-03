@@ -29,10 +29,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockRoot extends BlockMod implements ILexiconable {
 
 	public BlockRoot() {
-		super(Material.plants);
+		super(Material.plants, LibBlockNames.ROOT);
 		setHardness(1.2F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.ROOT);
 	}
 
 

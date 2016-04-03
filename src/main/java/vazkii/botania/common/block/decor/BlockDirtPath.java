@@ -46,11 +46,10 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	private static final AttributeModifier speedBoost = new AttributeModifier(speedBoostUuid, "Trodden dirt speed boost", 0.55, 2).setSaved(false);
 
 	public BlockDirtPath() {
-		super(Material.ground);
+		super(Material.ground, LibBlockNames.DIRT_PATH);
 		setLightOpacity(255);
 		setHardness(0.6F);
 		setSoundType(SoundType.GROUND);
-		setUnlocalizedName(LibBlockNames.DIRT_PATH);
 		useNeighborBrightness = true;
 		MinecraftForge.EVENT_BUS.register(this);
 	}

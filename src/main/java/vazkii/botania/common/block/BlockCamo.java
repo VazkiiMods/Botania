@@ -30,8 +30,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockCamo extends BlockMod {
 
-	protected BlockCamo(Material par2Material) {
-		super(par2Material);
+	protected BlockCamo(Material par2Material, String name) {
+		super(par2Material, name);
 	}
 
 	public static boolean isValidBlock(IBlockState state) {

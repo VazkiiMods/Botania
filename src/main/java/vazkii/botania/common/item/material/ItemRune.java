@@ -29,9 +29,8 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchievement {
 
 	public ItemRune() {
-		super();
+		super(LibItemNames.RUNE);
 		setHasSubtypes(true);
-		setUnlocalizedName(LibItemNames.RUNE);
 	}
 
 	@Override

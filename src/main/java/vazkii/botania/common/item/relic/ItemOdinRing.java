@@ -35,9 +35,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemOdinRing extends ItemRelicBauble {
 
-	public static List<String> damageNegations = new ArrayList<>();
+	private static List<String> damageNegations = new ArrayList<>();
 
-	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	private Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);

@@ -28,8 +28,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	Achievement achievement;
-	private ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff. If we had traits this would mixed in.
-		@Override public Item setUnlocalizedName(String ignored) { return this; } // Don't register to the game
+	private ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
+		@Override
+		protected boolean shouldRegister() {
+			return false;
+		}
 	};
 
 	public ItemRelicBauble(String name) {

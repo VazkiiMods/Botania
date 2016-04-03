@@ -17,12 +17,14 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManaCookie extends ItemFood {
 
@@ -30,6 +32,7 @@ public class ItemManaCookie extends ItemFood {
 		super(0, 0.1F, false);
 		setPotionEffect(new PotionEffect(MobEffects.saturation, 1, 0), 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 	}
 
@@ -37,12 +40,6 @@ public class ItemManaCookie extends ItemFood {
 	protected void onFoodEaten(ItemStack p_77849_1_, World p_77849_2_, EntityPlayer p_77849_3_) {
 		super.onFoodEaten(p_77849_1_, p_77849_2_, p_77849_3_);
 		p_77849_3_.addStat(ModAchievements.manaCookieEat, 1);
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

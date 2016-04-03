@@ -31,6 +31,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
@@ -43,6 +44,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	public ItemManasteelSword(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		addPropertyOverride(new ResourceLocation("botania", "elucidator"), new IItemPropertyGetter() {
 			@Override
@@ -50,12 +52,6 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 				return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0;
 			}
 		});
-	}
-
-	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

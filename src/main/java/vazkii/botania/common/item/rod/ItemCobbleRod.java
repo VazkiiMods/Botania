@@ -30,8 +30,8 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 	static final int COST = 150;
 
 	public ItemCobbleRod() {
+		super(LibItemNames.COBBLE_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.COBBLE_ROD);
 	}
 
 	@Override

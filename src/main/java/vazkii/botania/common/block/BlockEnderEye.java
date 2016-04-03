@@ -31,11 +31,10 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnderEye extends BlockMod implements ILexiconable {
 
 	protected BlockEnderEye() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.ENDER_EYE_BLOCK);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.ENDER_EYE_BLOCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 

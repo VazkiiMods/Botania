@@ -34,6 +34,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -63,6 +64,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
@@ -120,6 +122,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	protected BlockSpecialFlower() {
 		super();
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
+		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
 		setSoundType(SoundType.PLANT);
@@ -202,12 +206,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

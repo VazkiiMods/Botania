@@ -44,7 +44,7 @@ public class ItemFlowerBag extends ItemMod {
 	private static final String TAG_SLOT = "Slot";
 
 	public ItemFlowerBag() {
-		setUnlocalizedName(LibItemNames.FLOWER_BAG);
+		super(LibItemNames.FLOWER_BAG);
 		setMaxStackSize(1);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

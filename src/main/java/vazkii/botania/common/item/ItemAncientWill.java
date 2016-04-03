@@ -28,7 +28,7 @@ public class ItemAncientWill extends ItemMod {
 	private static final int SUBTYPES = 6;
 
 	public ItemAncientWill() {
-		setUnlocalizedName(LibItemNames.ANCIENT_WILL);
+		super(LibItemNames.ANCIENT_WILL);
 		setHasSubtypes(true);
 		setMaxStackSize(1);
 

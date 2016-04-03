@@ -42,11 +42,10 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	private static final String TAG_COLOR = "color";
 
 	public ItemSignalFlare() {
-		super();
+		super(LibItemNames.SIGNAL_FLARE);
 		setMaxStackSize(1);
 		setNoRepair();
 		setMaxDamage(200);
-		setUnlocalizedName(LibItemNames.SIGNAL_FLARE);
 	}
 
 	@Override

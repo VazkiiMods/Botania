@@ -44,17 +44,15 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
-	Random random;
+	private final Random random = new Random();
 
 	public BlockEnchanter() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.ENCHANTER);
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setLightLevel(1.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.ENCHANTER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
-		random = new Random();
 	}
 
 	@Override

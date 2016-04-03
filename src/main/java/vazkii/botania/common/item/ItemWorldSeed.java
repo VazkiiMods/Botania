@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemWorldSeed extends ItemMod {
 
 	public ItemWorldSeed() {
-		setUnlocalizedName(LibItemNames.WORLD_SEED);
+		super(LibItemNames.WORLD_SEED);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class ItemWorldSeed extends ItemMod {
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.getCubes(player, player.getEntityBoundingBox()).isEmpty())
+			while(!world.getCollisionBoxes(player, player.getEntityBoundingBox()).isEmpty())
 				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 1F);

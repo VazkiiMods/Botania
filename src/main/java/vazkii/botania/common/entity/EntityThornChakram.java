@@ -54,8 +54,8 @@ public class EntityThornChakram extends EntityThrowable {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(BOUNCES, 0);
-		dataWatcher.register(FLARE, false);
+		dataManager.register(BOUNCES, 0);
+		dataManager.register(FLARE, false);
 	}
 
 	@Override
@@ -155,19 +155,19 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	public int getTimesBounced() {
-		return dataWatcher.get(BOUNCES);
+		return dataManager.get(BOUNCES);
 	}
 
 	public void setTimesBounced(int times) {
-		dataWatcher.set(BOUNCES, times);
+		dataManager.set(BOUNCES, times);
 	}
 
 	public boolean isFire() {
-		return dataWatcher.get(FLARE);
+		return dataManager.get(FLARE);
 	}
 
 	public void setFire(boolean fire) {
-		dataWatcher.set(FLARE, fire);
+		dataManager.set(FLARE, fire);
 	}
 
 	@Override

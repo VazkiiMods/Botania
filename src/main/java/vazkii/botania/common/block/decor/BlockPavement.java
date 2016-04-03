@@ -36,11 +36,10 @@ public class BlockPavement extends BlockMod {
 	public static final int TYPES = 6;
 
 	public BlockPavement() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.PAVEMENT);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.PAVEMENT);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, EnumDyeColor.WHITE));
 	}
 
@@ -82,19 +81,13 @@ public class BlockPavement extends BlockMod {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

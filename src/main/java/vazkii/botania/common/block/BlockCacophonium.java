@@ -31,8 +31,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCacophonium extends BlockMod {
 
 	protected BlockCacophonium() {
-		super(Material.wood);
-		setUnlocalizedName(LibBlockNames.CACOPHONIUM);
+		super(Material.wood, LibBlockNames.CACOPHONIUM);
 		setHardness(0.8F);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}

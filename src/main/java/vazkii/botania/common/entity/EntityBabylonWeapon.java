@@ -62,12 +62,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		super.entityInit();
 		setSize(0F, 0F);
 
-		dataWatcher.register(CHARGING, false);
-		dataWatcher.register(VARIETY, 0);
-		dataWatcher.register(CHARGE_TICKS, 0);
-		dataWatcher.register(LIVE_TICKS, 0);
-		dataWatcher.register(DELAY, 0);
-		dataWatcher.register(ROTATION, 0F);
+		dataManager.register(CHARGING, false);
+		dataManager.register(VARIETY, 0);
+		dataManager.register(CHARGE_TICKS, 0);
+		dataManager.register(LIVE_TICKS, 0);
+		dataManager.register(DELAY, 0);
+		dataManager.register(ROTATION, 0F);
 	}
 
 	@Override
@@ -191,51 +191,51 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	public boolean isCharging() {
-		return dataWatcher.get(CHARGING);
+		return dataManager.get(CHARGING);
 	}
 
 	public void setCharging(boolean charging) {
-		dataWatcher.set(CHARGING, charging);
+		dataManager.set(CHARGING, charging);
 	}
 
 	public int getVariety() {
-		return dataWatcher.get(VARIETY);
+		return dataManager.get(VARIETY);
 	}
 
 	public void setVariety(int var) {
-		dataWatcher.set(VARIETY, var);
+		dataManager.set(VARIETY, var);
 	}
 
 	public int getChargeTicks() {
-		return dataWatcher.get(CHARGE_TICKS);
+		return dataManager.get(CHARGE_TICKS);
 	}
 
 	public void setChargeTicks(int ticks) {
-		dataWatcher.set(CHARGE_TICKS, ticks);
+		dataManager.set(CHARGE_TICKS, ticks);
 	}
 
 	public int getLiveTicks() {
-		return dataWatcher.get(LIVE_TICKS);
+		return dataManager.get(LIVE_TICKS);
 	}
 
 	public void setLiveTicks(int ticks) {
-		dataWatcher.set(LIVE_TICKS, ticks);
+		dataManager.set(LIVE_TICKS, ticks);
 	}
 
 	public int getDelay() {
-		return dataWatcher.get(DELAY);
+		return dataManager.get(DELAY);
 	}
 
 	public void setDelay(int delay) {
-		dataWatcher.set(DELAY, delay);
+		dataManager.set(DELAY, delay);
 	}
 
 	public float getRotation() {
-		return dataWatcher.get(ROTATION);
+		return dataManager.get(ROTATION);
 	}
 
 	public void setRotation(float rot) {
-		dataWatcher.set(ROTATION, rot);
+		dataManager.set(ROTATION, rot);
 	}
 
 }

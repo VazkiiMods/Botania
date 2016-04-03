@@ -19,6 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -30,6 +31,7 @@ import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 
@@ -37,6 +39,8 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 		super(Material.wood);
 		setHardness(1.0F);
 		setSoundType(SoundType.WOOD);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.REED_BLOCK));
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.REED_BLOCK);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.AXIS_FACING, EnumFacing.Axis.Y));
@@ -72,12 +76,6 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		return getStateFromMeta(meta).withProperty(BotaniaStateProps.AXIS_FACING, facing.getAxis());
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

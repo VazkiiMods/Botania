@@ -45,9 +45,8 @@ public class ItemGrassHorn extends ItemMod {
 	private static final int SUBTYPES = 3;
 
 	public ItemGrassHorn() {
-		super();
+		super(LibItemNames.GRASS_HORN);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.GRASS_HORN);
 		setHasSubtypes(true);
 	}
 

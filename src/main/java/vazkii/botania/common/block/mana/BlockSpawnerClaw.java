@@ -36,9 +36,8 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 1/16.0, 0.875);
 
 	public BlockSpawnerClaw() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.SPAWNER_CLAW);
 		setHardness(3.0F);
-		setUnlocalizedName(LibBlockNames.SPAWNER_CLAW);
 	}
 
 	@Override

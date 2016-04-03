@@ -17,8 +17,8 @@ public class BlockDreamwood extends BlockLivingwood {
 	}
 
 	@Override
-	void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockDreamwood.class, name);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockDreamwood(this), getRegistryName());
 	}
 
 	@Override

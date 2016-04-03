@@ -18,6 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -32,6 +33,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
@@ -40,8 +42,10 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	public BlockGhostRail() {
 		super(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		MinecraftForge.EVENT_BUS.register(this);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
+		MinecraftForge.EVENT_BUS.register(this);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 	}
 
@@ -58,12 +62,6 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.byMetadata(meta));
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@SubscribeEvent

@@ -47,7 +47,7 @@ public class EntityVineBall extends EntityThrowable {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(GRAVITY, gravity ? 0.03F : 0F);
+		dataManager.register(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class EntityVineBall extends EntityThrowable {
 
 	@Override
 	protected float getGravityVelocity() {
-		return dataWatcher.get(GRAVITY);
+		return dataManager.get(GRAVITY);
 	}
 
 }

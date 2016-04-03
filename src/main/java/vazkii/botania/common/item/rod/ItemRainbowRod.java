@@ -47,8 +47,8 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final int TIME = 600;
 
 	public ItemRainbowRod() {
+		super(LibItemNames.RAINBOW_ROD);
 		setMaxDamage(TIME);
-		setUnlocalizedName(LibItemNames.RAINBOW_ROD);
 		setMaxStackSize(1);
 	}
 

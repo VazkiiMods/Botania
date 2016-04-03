@@ -35,11 +35,10 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
 
 	public BlockStarfield() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.STARFIELD);
 		setHardness(5F);
 		setResistance(2000F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.STARFIELD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 

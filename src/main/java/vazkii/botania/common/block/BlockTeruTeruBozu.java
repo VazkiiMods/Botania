@@ -37,9 +37,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.01, 0.25, 0.75, 0.99, 0.75);
 
 	public BlockTeruTeruBozu() {
-		super(Material.cloth);
-		setUnlocalizedName(LibBlockNames.TERU_TERU_BOZU);
-		float f = 0.25F;
+		super(Material.cloth, LibBlockNames.TERU_TERU_BOZU);
 	}
 
 	@Override
@@ -70,15 +68,15 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	public boolean isSunflower(ItemStack stack) {
+	private boolean isSunflower(ItemStack stack) {
 		return stack.getItem() == Item.getItemFromBlock(Blocks.double_plant) && stack.getItemDamage() == 0;
 	}
 
-	public boolean isBlueOrchid(ItemStack stack) {
+	private boolean isBlueOrchid(ItemStack stack) {
 		return stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 1;
 	}
 
-	public boolean removeRain(World world) {
+	private boolean removeRain(World world) {
 		if(world.isRaining()) {
 			world.getWorldInfo().setRaining(false);
 			return true;
@@ -86,7 +84,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	public boolean startRain(World world) {
+	private boolean startRain(World world) {
 		if(!world.isRaining()) {
 			if(world.rand.nextInt(10) == 0)
 				world.getWorldInfo().setRaining(true);

@@ -25,8 +25,8 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemOpenBucket extends ItemMod {
 
 	public ItemOpenBucket() {
+		super(LibItemNames.OPEN_BUCKET);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.OPEN_BUCKET);
 	}
 
 	@Override

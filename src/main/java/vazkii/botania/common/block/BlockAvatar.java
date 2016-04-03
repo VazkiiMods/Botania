@@ -46,10 +46,9 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	protected BlockAvatar() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.AVATAR);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.AVATAR);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 

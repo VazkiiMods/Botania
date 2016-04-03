@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemPinkinator extends ItemMod {
 
 	public ItemPinkinator() {
-		setUnlocalizedName(LibItemNames.PINKINATOR);
+		super(LibItemNames.PINKINATOR);
 		setMaxStackSize(1);
 		setFull3D();
 	}

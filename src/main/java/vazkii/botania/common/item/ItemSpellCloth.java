@@ -24,10 +24,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemSpellCloth extends ItemMod implements IColorable {
 
 	public ItemSpellCloth() {
+		super(LibItemNames.SPELL_CLOTH);
 		setMaxDamage(35);
 		setMaxStackSize(1);
 		setNoRepair();
-		setUnlocalizedName(LibItemNames.SPELL_CLOTH);
 
 		GameRegistry.addRecipe(new SpellClothRecipe());
 		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, Category.SHAPELESS, "");

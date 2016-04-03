@@ -60,8 +60,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	private static final int SUBTYPES = 9;
 
 	public ItemGrassSeeds() {
-		super();
-		setUnlocalizedName(LibItemNames.GRASS_SEEDS);
+		super(LibItemNames.GRASS_SEEDS);
 		setHasSubtypes(true);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

@@ -134,8 +134,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
 	public ItemLens() {
-		super();
-		setUnlocalizedName(LibItemNames.LENS);
+		super(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 

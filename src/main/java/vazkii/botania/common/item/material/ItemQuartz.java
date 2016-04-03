@@ -25,7 +25,7 @@ public class ItemQuartz extends ItemMod implements IElvenItem {
 	private static final int SUBTYPES = 7;
 
 	public ItemQuartz() {
-		setUnlocalizedName(LibItemNames.QUARTZ);
+		super(LibItemNames.QUARTZ);
 		setHasSubtypes(true);
 	}
 

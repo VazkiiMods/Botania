@@ -41,9 +41,8 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	}
 
 	public ItemDirtRod(String name) {
-		super();
+		super(name);
 		setMaxStackSize(1);
-		setUnlocalizedName(name);
 	}
 
 	@Override

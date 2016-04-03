@@ -38,11 +38,10 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 0.125, 0.875, 0.125);
 
 	protected BlockCocoon() {
-		super(Material.cloth);
+		super(Material.cloth, LibBlockNames.COCOON);
 		setHardness(3.0F);
 		setResistance(50.0F);
 		setSoundType(SoundType.CLOTH);
-		setUnlocalizedName(LibBlockNames.COCOON);
 	}
 
 	@Override

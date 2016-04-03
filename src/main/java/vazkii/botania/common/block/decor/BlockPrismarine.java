@@ -39,11 +39,10 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	private static final int TYPES = 3;
 
 	public BlockPrismarine() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.PRISMARINE);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.PRISMARINE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PRISMARINE_VARIANT, PrismarineVariant.PRISMARINE));
 	}
 
@@ -66,19 +65,13 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

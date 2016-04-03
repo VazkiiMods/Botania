@@ -136,7 +136,7 @@ public final class MultiblockRenderHandler {
 			
 			if(!didAny) {
 				setMultiblock(null);
-				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setChatStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 		}
 	}

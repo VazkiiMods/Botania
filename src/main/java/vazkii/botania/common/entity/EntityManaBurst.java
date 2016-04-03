@@ -103,14 +103,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(COLOR, 0);
-		dataWatcher.register(MANA, 0);
-		dataWatcher.register(START_MANA, 0);
-		dataWatcher.register(MIN_MANA_LOSS, 0);
-		dataWatcher.register(MANA_LOSS_PER_TICK, 0F);
-		dataWatcher.register(GRAVITY, 0F);
-		dataWatcher.register(SOURCE_COORDS, BlockPos.ORIGIN);
-		dataWatcher.register(SOURCE_LENS, Optional.absent());
+		dataManager.register(COLOR, 0);
+		dataManager.register(MANA, 0);
+		dataManager.register(START_MANA, 0);
+		dataManager.register(MIN_MANA_LOSS, 0);
+		dataManager.register(MANA_LOSS_PER_TICK, 0F);
+		dataManager.register(GRAVITY, 0F);
+		dataManager.register(SOURCE_COORDS, BlockPos.ORIGIN);
+		dataManager.register(SOURCE_LENS, Optional.absent());
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
@@ -695,77 +695,77 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public int getColor() {
-		return dataWatcher.get(COLOR);
+		return dataManager.get(COLOR);
 	}
 
 	@Override
 	public void setColor(int color) {
-		dataWatcher.set(COLOR, color);
+		dataManager.set(COLOR, color);
 	}
 
 	@Override
 	public int getMana() {
-		return dataWatcher.get(MANA);
+		return dataManager.get(MANA);
 	}
 
 	@Override
 	public void setMana(int mana) {
-		dataWatcher.set(MANA, mana);
+		dataManager.set(MANA, mana);
 	}
 
 	@Override
 	public int getStartingMana() {
-		return dataWatcher.get(START_MANA);
+		return dataManager.get(START_MANA);
 	}
 
 	@Override
 	public void setStartingMana(int mana) {
-		dataWatcher.set(START_MANA, mana);
+		dataManager.set(START_MANA, mana);
 	}
 
 	@Override
 	public int getMinManaLoss() {
-		return dataWatcher.get(MIN_MANA_LOSS);
+		return dataManager.get(MIN_MANA_LOSS);
 	}
 
 	@Override
 	public void setMinManaLoss(int minManaLoss) {
-		dataWatcher.set(MIN_MANA_LOSS, minManaLoss);
+		dataManager.set(MIN_MANA_LOSS, minManaLoss);
 	}
 
 	@Override
 	public float getManaLossPerTick() {
-		return dataWatcher.get(MANA_LOSS_PER_TICK);
+		return dataManager.get(MANA_LOSS_PER_TICK);
 	}
 
 	@Override
 	public void setManaLossPerTick(float mana) {
-		dataWatcher.set(MANA_LOSS_PER_TICK, mana);
+		dataManager.set(MANA_LOSS_PER_TICK, mana);
 	}
 
 	@Override
 	public float getGravity() {
-		return dataWatcher.get(GRAVITY);
+		return dataManager.get(GRAVITY);
 	}
 
 	@Override
 	public void setGravity(float gravity) {
-		dataWatcher.set(GRAVITY, gravity);
+		dataManager.set(GRAVITY, gravity);
 	}
 
 	@Override
 	public BlockPos getBurstSourceBlockPos() {
-		return dataWatcher.get(SOURCE_COORDS);
+		return dataManager.get(SOURCE_COORDS);
 	}
 
 	@Override
 	public void setBurstSourceCoords(BlockPos pos) {
-		dataWatcher.set(SOURCE_COORDS, pos);
+		dataManager.set(SOURCE_COORDS, pos);
 	}
 
 	@Override
 	public ItemStack getSourceLens() {
-		Optional<ItemStack> stack = dataWatcher.get(SOURCE_LENS);
+		Optional<ItemStack> stack = dataManager.get(SOURCE_LENS);
 		if(!stack.isPresent())
 			return new ItemStack(Blocks.stone, 0, 0); // todo 1.9 refact later
 		else return stack.get();
@@ -773,7 +773,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void setSourceLens(ItemStack lens) {
-		dataWatcher.set(SOURCE_LENS, lens == null ? Optional.absent() : Optional.of(lens));
+		dataManager.set(SOURCE_LENS, lens == null ? Optional.absent() : Optional.of(lens));
 	}
 
 	@Override

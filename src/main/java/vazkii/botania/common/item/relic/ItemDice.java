@@ -74,12 +74,12 @@ public class ItemDice extends ItemRelic {
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			if(hasRelicAlready(player, relic)) {
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.stackSize--;
 				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 
-			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setChatStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 			return ActionResult.newResult(EnumActionResult.SUCCESS, relicStacks[relic].copy());
 		}
 

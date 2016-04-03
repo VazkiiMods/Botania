@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.lib.LibResources;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 public class PotionMod extends Potion {
 
@@ -26,7 +27,7 @@ public class PotionMod extends Potion {
 
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(badEffect, color);
-		GameData.getPotionRegistry().register(-1, new ResourceLocation("botania", name), this);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}

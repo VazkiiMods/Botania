@@ -15,6 +15,7 @@ import net.minecraft.block.BlockPane;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -22,26 +23,25 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockModPane extends BlockPane {
 
-	Block source;
+	private final Block source;
 
 	public BlockModPane(Block source) {
 		super(Material.glass, false);
 		this.source = source;
-		setUnlocalizedName(source.getUnlocalizedName().replaceAll("tile.", "") + "Pane");
+		// Backward compat don't kill me
+		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		useNeighborBrightness = true;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class ItemKeepIvy extends ItemMod {
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
 
 	public ItemKeepIvy() {
-		setUnlocalizedName(LibItemNames.KEEP_IVY);
+		super(LibItemNames.KEEP_IVY);
 		GameRegistry.addRecipe(new KeepIvyRecipe());
 		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);

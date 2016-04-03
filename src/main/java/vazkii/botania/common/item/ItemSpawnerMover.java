@@ -41,7 +41,7 @@ public class ItemSpawnerMover extends ItemMod {
 	private static final String TAG_PLACE_DELAY = "placeDelay";
 
 	public ItemSpawnerMover() {
-		setUnlocalizedName(LibItemNames.SPAWNER_MOVER);
+		super(LibItemNames.SPAWNER_MOVER);
 		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("botania", "full"), new IItemPropertyGetter() {
 			@Override

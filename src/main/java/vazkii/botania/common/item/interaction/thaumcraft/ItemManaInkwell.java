@@ -34,7 +34,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	private static final String TAG_MANA = "mana";
 
 	public ItemManaInkwell() {
-		setUnlocalizedName(LibItemNames.MANA_INKWELL);
+		super(LibItemNames.MANA_INKWELL);
 		setMaxDamage(USES);
 		setMaxStackSize(1);
 		setNoRepair();

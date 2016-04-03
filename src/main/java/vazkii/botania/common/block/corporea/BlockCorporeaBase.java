@@ -29,13 +29,10 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchievement {
 
-	Random random;
+	private final Random random = new Random();
 
 	public BlockCorporeaBase(Material material, String name) {
-		super(material);
-		setUnlocalizedName(name);
-
-		random = new Random();
+		super(material, name);
 	}
 
 	@Override

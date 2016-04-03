@@ -34,11 +34,10 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 	}
 
 	public BlockAlchemyCatalyst(String name) {
-		super(Material.rock);
+		super(Material.rock, name);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(name);
 	}
 
 	@Override

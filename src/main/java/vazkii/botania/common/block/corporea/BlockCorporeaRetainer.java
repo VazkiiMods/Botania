@@ -35,10 +35,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICraftAchievement {
 
 	public BlockCorporeaRetainer() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.CORPOREA_RETAINER);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.CORPOREA_RETAINER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 

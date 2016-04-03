@@ -165,7 +165,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(par3World.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {
 				if(!par3World.isRemote)
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new Style().setColor(TextFormatting.RED)));
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 
@@ -176,7 +176,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				Block blockat = state.getBlock();
 				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
 					if(!par3World.isRemote)
-						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new Style().setColor(TextFormatting.RED)));
+						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 					return false;
 				}
 			}
@@ -195,7 +195,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				}
 
 				if(!par3World.isRemote)
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setChatStyle(new Style().setColor(TextFormatting.RED)));
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 
@@ -265,69 +265,69 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(INVUL_TIME, 0);
-		dataWatcher.register(AGGRO, false);
-		dataWatcher.register(TP_DELAY, 0);
-		dataWatcher.register(SOURCE, BlockPos.ORIGIN);
-		dataWatcher.register(DATA_MOB_SPAWN_TICKS, 0);
-		dataWatcher.register(HARD_MODE, false);
-		dataWatcher.register(PLAYER_COUNT, 0);
+		dataManager.register(INVUL_TIME, 0);
+		dataManager.register(AGGRO, false);
+		dataManager.register(TP_DELAY, 0);
+		dataManager.register(SOURCE, BlockPos.ORIGIN);
+		dataManager.register(DATA_MOB_SPAWN_TICKS, 0);
+		dataManager.register(HARD_MODE, false);
+		dataManager.register(PLAYER_COUNT, 0);
 	}
 
 	public int getInvulTime() {
-		return dataWatcher.get(INVUL_TIME);
+		return dataManager.get(INVUL_TIME);
 	}
 
 	public boolean isAggored() {
-		return dataWatcher.get(AGGRO);
+		return dataManager.get(AGGRO);
 	}
 
 	public int getTPDelay() {
-		return dataWatcher.get(TP_DELAY);
+		return dataManager.get(TP_DELAY);
 	}
 
 	public BlockPos getSource() {
-		return dataWatcher.get(SOURCE);
+		return dataManager.get(SOURCE);
 	}
 
 	public int getMobSpawnTicks() {
-		return dataWatcher.get(DATA_MOB_SPAWN_TICKS);
+		return dataManager.get(DATA_MOB_SPAWN_TICKS);
 	}
 
 	public boolean isHardMode() {
-		return dataWatcher.get(HARD_MODE);
+		return dataManager.get(HARD_MODE);
 	}
 
 	public int getPlayerCount() {
-		return dataWatcher.get(PLAYER_COUNT);
+		return dataManager.get(PLAYER_COUNT);
 	}
 
 	public void setInvulTime(int time) {
-		dataWatcher.set(INVUL_TIME, time);
+		dataManager.set(INVUL_TIME, time);
 	}
 
 	public void setAggroed(boolean aggored) {
-		dataWatcher.set(AGGRO, aggored);
+		dataManager.set(AGGRO, aggored);
 	}
 
 	public void setTPDelay(int delay) {
-		dataWatcher.set(TP_DELAY, delay);
+		dataManager.set(TP_DELAY, delay);
 	}
 
 	public void setSource(BlockPos pos) {
-		dataWatcher.set(SOURCE, pos);
+		dataManager.set(SOURCE, pos);
 	}
 
 	public void setMobSpawnTicks(int ticks) {
-		dataWatcher.set(DATA_MOB_SPAWN_TICKS, ticks);
+		dataManager.set(DATA_MOB_SPAWN_TICKS, ticks);
 	}
 
 	public void setHardMode(boolean hardMode) {
-		dataWatcher.set(HARD_MODE, hardMode);
+		dataManager.set(HARD_MODE, hardMode);
 	}
 
 	public void setPlayerCount(int count) {
-		dataWatcher.set(PLAYER_COUNT, count);
+		dataManager.set(PLAYER_COUNT, count);
 	}
 
 	@Override
@@ -816,7 +816,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(flag1) {
 				setPosition(posX, posY, posZ);
 
-				if(worldObj.getCubes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox()))
+				if(worldObj.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox()))
 					flag = true;
 
 				// Prevent out of bounds teleporting

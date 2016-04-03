@@ -37,7 +37,7 @@ public class EntityPixie extends EntityFlyingCreature {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.register(TYPE, 0);
+		dataManager.register(TYPE, 0);
 	}
 
 	@Override
@@ -47,11 +47,11 @@ public class EntityPixie extends EntityFlyingCreature {
 	}
 
 	public void setType(int type) {
-		dataWatcher.set(TYPE, type);
+		dataManager.set(TYPE, type);
 	}
 
 	public int getType() {
-		return dataWatcher.get(TYPE);
+		return dataManager.get(TYPE);
 	}
 
 	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {

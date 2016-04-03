@@ -56,24 +56,24 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	@Override
 	protected void entityInit() {
-		dataWatcher.register(EVIL, false);
-		dataWatcher.register(TARGET, 0);
+		dataManager.register(EVIL, false);
+		dataManager.register(TARGET, 0);
 	}
 
 	public void setEvil(boolean evil) {
-		dataWatcher.set(EVIL, evil);
+		dataManager.set(EVIL, evil);
 	}
 
 	public boolean isEvil() {
-		return dataWatcher.get(EVIL);
+		return dataManager.get(EVIL);
 	}
 
 	public void setTarget(EntityLivingBase e) {
-		dataWatcher.set(TARGET, e == null ? -1 : e.getEntityId());
+		dataManager.set(TARGET, e == null ? -1 : e.getEntityId());
 	}
 
 	public EntityLivingBase getTargetEntity() {
-		int id = dataWatcher.get(TARGET);
+		int id = dataManager.get(TARGET);
 		Entity e = worldObj.getEntityByID(id);
 		if(e != null && e instanceof EntityLivingBase)
 			return (EntityLivingBase) e;

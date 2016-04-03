@@ -56,17 +56,14 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
 
-	boolean lastFragile = false;
+	private boolean lastFragile = false;
 
 	public BlockPool() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.POOL);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.POOL);
-
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT));
-
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
@@ -94,14 +91,8 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockPool.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockPool(this), getRegistryName());
 	}
 
 	@Override

@@ -25,10 +25,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockShimmerwoodPlanks  extends BlockMod implements ILexiconable {
 
 	public BlockShimmerwoodPlanks() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.SHIMMERWOOD_PLANKS);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.SHIMMERWOOD_PLANKS);
 	}
 
 	@Override

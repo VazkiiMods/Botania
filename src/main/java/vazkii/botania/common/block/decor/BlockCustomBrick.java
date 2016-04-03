@@ -37,11 +37,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	public BlockCustomBrick() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.CUSTOM_BRICK);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.CUSTOM_BRICK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK));
 	}
 
@@ -64,19 +63,13 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

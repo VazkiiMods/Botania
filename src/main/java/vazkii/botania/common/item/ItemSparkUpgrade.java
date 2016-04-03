@@ -22,7 +22,7 @@ public class ItemSparkUpgrade extends ItemMod {
 	public static final int VARIANTS = 4;
 
 	public ItemSparkUpgrade() {
-		setUnlocalizedName(LibItemNames.SPARK_UPGRADE);
+		super(LibItemNames.SPARK_UPGRADE);
 		setHasSubtypes(true);
 	}
 

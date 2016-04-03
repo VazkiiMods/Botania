@@ -65,8 +65,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataWatcher.register(INVISIBILITY, 0);
-		dataWatcher.register(UPGRADE, 0);
+		dataManager.register(INVISIBILITY, 0);
+		dataManager.register(UPGRADE, 0);
 	}
 
 	@Override
@@ -290,8 +290,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	public boolean doPhantomInk(ItemStack stack) {
 		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataWatcher.get(INVISIBILITY);
-			dataWatcher.set(INVISIBILITY, ~invis & 1);
+			int invis = dataManager.get(INVISIBILITY);
+			dataManager.set(INVISIBILITY, ~invis & 1);
 			return true;
 		}
 
@@ -301,13 +301,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
-		dataWatcher.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
+		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInteger(TAG_INVIS, dataWatcher.get(INVISIBILITY));
+		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
 	}
 
 	@Override
@@ -369,12 +369,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	public SparkUpgradeType getUpgrade() {
-		return SparkUpgradeType.values()[dataWatcher.get(UPGRADE)];
+		return SparkUpgradeType.values()[dataManager.get(UPGRADE)];
 	}
 
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
-		dataWatcher.set(UPGRADE, upgrade.ordinal());
+		dataManager.set(UPGRADE, upgrade.ordinal());
 	}
 
 	@Override

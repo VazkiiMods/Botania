@@ -43,8 +43,8 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	static final int COST = 3000;
 
 	public ItemDiviningRod() {
+		super(LibItemNames.DIVINING_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.DIVINING_ROD);
 	}
 
 	@Override

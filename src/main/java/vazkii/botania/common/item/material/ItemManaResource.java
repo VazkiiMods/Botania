@@ -54,8 +54,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	final int types = 24;
 
 	public ItemManaResource() {
-		super();
-		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
+		super(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

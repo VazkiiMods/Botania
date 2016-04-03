@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 
 	public ItemThornChakram() {
-		setUnlocalizedName(LibItemNames.THORN_CHAKRAM);
+		super(LibItemNames.THORN_CHAKRAM);
 		setMaxStackSize(6);
 		setHasSubtypes(true);
 	}

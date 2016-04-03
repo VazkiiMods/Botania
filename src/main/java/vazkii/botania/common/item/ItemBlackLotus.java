@@ -32,7 +32,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	private static final int MANA_PER_T2 = 100000;
 
 	public ItemBlackLotus() {
-		setUnlocalizedName(LibItemNames.BLACK_LOTUS);
+		super(LibItemNames.BLACK_LOTUS);
 		setHasSubtypes(true);
 	}
 

@@ -39,8 +39,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.125, 0, 0.375, 0.875, 1/16.0, 0.625);
 
 	protected BlockIncensePlate() {
-		super(Material.wood);
-		setUnlocalizedName(LibBlockNames.INCENSE_PLATE);
+		super(Material.wood, LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));

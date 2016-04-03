@@ -42,7 +42,7 @@ public class CommandOpen extends CommandBase {
 			if(stack != null) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
-			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setChatStyle(new Style().setColor(TextFormatting.RED)));
+			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
 		}
 	}
 

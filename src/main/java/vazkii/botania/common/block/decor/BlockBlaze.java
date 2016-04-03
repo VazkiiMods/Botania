@@ -31,12 +31,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 
 	public BlockBlaze() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.BLAZE_BLOCK);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
 		setLightLevel(1F);
-		setUnlocalizedName(LibBlockNames.BLAZE_BLOCK);
 		GameRegistry.registerFuelHandler(this);
 	}
 

@@ -50,9 +50,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	public ItemBauble(String name) {
-		super();
+		super(name);
 		setMaxStackSize(1);
-		setUnlocalizedName(name);
 	}
 
 	@Override

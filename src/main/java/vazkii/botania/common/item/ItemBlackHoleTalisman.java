@@ -51,7 +51,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public ItemBlackHoleTalisman() {
-		setUnlocalizedName(LibItemNames.BLACK_HOLE_TALISMAN);
+		super(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 

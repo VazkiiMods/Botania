@@ -53,10 +53,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 0, 3/16.0, 13/16.0, 14/16.0, 13/16.0);
 
 	public BlockForestDrum() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.FOREST_DRUM);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.FOREST_DRUM);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
 	}
 
@@ -84,14 +83,8 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

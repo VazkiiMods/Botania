@@ -36,11 +36,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockStorage extends BlockMod implements ILexiconable {
 
 	public BlockStorage() {
-		super(Material.iron);
+		super(Material.iron, LibBlockNames.STORAGE);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName(LibBlockNames.STORAGE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL));
 	}
 
@@ -69,19 +68,13 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockStorage.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockStorage(this), getRegistryName());
 	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
 	}
 
 	@Override

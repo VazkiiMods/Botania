@@ -36,11 +36,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockLivingrock extends BlockMod implements ILexiconable {
 
 	public BlockLivingrock() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.LIVING_ROCK);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.LIVING_ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.DEFAULT));
 	}
 
@@ -63,19 +62,13 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
 
 	public ItemSpark() {
-		setUnlocalizedName(LibItemNames.SPARK);
+		super(LibItemNames.SPARK);
 	}
 
 	@Override

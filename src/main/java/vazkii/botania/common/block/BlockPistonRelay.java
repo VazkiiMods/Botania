@@ -63,8 +63,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	private static final TObjectIntHashMap<DimWithPos> coordsToCheck = new TObjectIntHashMap<>(10, 0.5F, -1);
 
 	public BlockPistonRelay() {
-		super(Material.gourd);
-		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
+		super(Material.gourd, LibBlockNames.PISTON_RELAY);
 		setHardness(2F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);

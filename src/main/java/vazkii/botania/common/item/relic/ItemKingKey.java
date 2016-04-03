@@ -88,7 +88,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			weapon.rotationYaw = living.rotationYaw;
 			weapon.setVariety(rand.nextInt(WEAPON_TYPES));
 			weapon.setDelay(spawned);
-			weapon.setRotation(MathHelper.wrapAngleTo180_float(-living.rotationYaw + 180));
+			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
 
 			living.worldObj.spawnEntityInWorld(weapon);
 			weapon.playSound(BotaniaSoundEvents.babylonSpawn, 1F, 1F + living.worldObj.rand.nextFloat() * 3F);

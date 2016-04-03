@@ -74,8 +74,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	public BlockFloatingFlower(String name) {
-		super(Material.ground);
-		setUnlocalizedName(name);
+		super(Material.ground, name);
 		setHardness(0.5F);
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
@@ -166,18 +165,8 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		register(par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	protected void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

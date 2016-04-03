@@ -54,15 +54,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
-	Random random;
+	private final Random random = new Random();
 
 	public BlockSpreader() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.SPREADER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.SPREADER);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
-		random = new Random();
 	}
 
 	@Override
@@ -84,14 +82,8 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetaNameAndColor.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
 	}
 
 	@Override

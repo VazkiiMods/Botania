@@ -40,7 +40,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	private static final int COOLDOWN = 1200;
 
 	public ItemFireRod() {
-		setUnlocalizedName(LibItemNames.FIRE_ROD);
+		super(LibItemNames.FIRE_ROD);
 		setMaxStackSize(1);
 		setMaxDamage(COOLDOWN);
 	}

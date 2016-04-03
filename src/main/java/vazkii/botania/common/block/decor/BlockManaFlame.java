@@ -43,9 +43,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockManaFlame() {
-		super(Material.cloth);
-		setUnlocalizedName(LibBlockNames.MANA_FLAME);
-		float f = 0.25F;
+		super(Material.cloth, LibBlockNames.MANA_FLAME);
 		setSoundType(SoundType.CLOTH);
 		setLightLevel(1F);
 	}

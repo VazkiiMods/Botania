@@ -45,9 +45,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(5.0/16, 5.0/16, 5.0/16, 11.0/16, 11.0/16, 11.0/16);
 
 	protected BlockLightRelay() {
-		super(Material.glass);
-		float f = 5F / 16F;
-		setUnlocalizedName(LibBlockNames.LIGHT_RELAY);
+		super(Material.glass, LibBlockNames.LIGHT_RELAY);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
@@ -80,13 +78,8 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		register(par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override
@@ -98,11 +91,6 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@Override
 	public int damageDropped(IBlockState state) {
 		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT ? 0 : 1;
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
 	}
 
 	@Override

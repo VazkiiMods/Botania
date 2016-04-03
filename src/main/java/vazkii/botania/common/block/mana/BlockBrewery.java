@@ -47,9 +47,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	private final Random random = new Random();
 
 	public BlockBrewery() {
-		super(Material.rock);
-		float f = 6F / 16F;
-		setUnlocalizedName(LibBlockNames.BREWERY);
+		super(Material.rock, LibBlockNames.BREWERY);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

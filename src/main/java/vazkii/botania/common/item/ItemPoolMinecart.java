@@ -35,8 +35,8 @@ import net.minecraftforge.fml.common.Optional;
 public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMinecartItem {
 
 	public ItemPoolMinecart() {
+		super(LibItemNames.POOL_MINECART);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.POOL_MINECART);
 	}
 
 	@Override

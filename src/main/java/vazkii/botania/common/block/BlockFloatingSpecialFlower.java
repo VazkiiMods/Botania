@@ -192,8 +192,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	protected void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockFloatingSpecialFlower.class, name);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockFloatingSpecialFlower(this), getRegistryName());
 	}
 
 	@Override

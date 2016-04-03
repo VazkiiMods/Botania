@@ -33,11 +33,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
 	public BlockBiomeStone(String name) {
-		super(Material.rock);
+		super(Material.rock, name);
 		setHardness(1.5F);
 		setResistance(10F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(name);
 	}
 
 	@Override
@@ -47,19 +46,13 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

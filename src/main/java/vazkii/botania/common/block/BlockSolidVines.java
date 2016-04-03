@@ -19,6 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -29,6 +30,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockSolidVines extends BlockVine implements ILexiconable {
 
@@ -38,6 +40,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	protected static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
 
 	public BlockSolidVines() {
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
 		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
 		setSoundType(SoundType.PLANT);
@@ -62,12 +65,6 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	@Override
 	public void updateTick(World p_149674_1_, BlockPos pos, IBlockState state, Random p_149674_5_) {
 		// NO-OP
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, null, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

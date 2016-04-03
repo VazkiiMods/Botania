@@ -30,11 +30,10 @@ import net.minecraftforge.fml.common.Optional;
 public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
 	public BlockRFGenerator() {
-		super(Material.rock);
+		super(Material.rock, LibBlockNames.RF_GENERATOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibBlockNames.RF_GENERATOR);
 	}
 
 	@Override

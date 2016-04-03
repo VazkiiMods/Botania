@@ -29,8 +29,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemFertilizer extends ItemMod {
 
 	public ItemFertilizer() {
-		super();
-		setUnlocalizedName(LibItemNames.FERTILIZER);
+		super(LibItemNames.FERTILIZER);
 	}
 
 	@Override

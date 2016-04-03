@@ -45,7 +45,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
 
-	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemAesirRing() {
 		super(LibItemNames.AESIR_RING);
@@ -121,7 +121,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 	}
 
 
-	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 

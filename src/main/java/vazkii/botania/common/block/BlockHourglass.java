@@ -52,8 +52,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	private final Random random = new Random();
 
 	protected BlockHourglass() {
-		super(Material.iron);
-		setUnlocalizedName(LibBlockNames.HOURGLASS);
+		super(Material.iron, LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));

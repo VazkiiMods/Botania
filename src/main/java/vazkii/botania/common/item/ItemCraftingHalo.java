@@ -82,7 +82,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	}
 
 	public ItemCraftingHalo(String name) {
-		setUnlocalizedName(name);
+		super(name);
 		setMaxStackSize(1);
 	}
 
@@ -264,7 +264,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	// Screw the way minecraft handles rotation
 	// Really...
 	private static float getCheckingAngle(EntityLivingBase player, float base) {
-		float yaw = MathHelper.wrapAngleTo180_float(player.rotationYaw) + 90F;
+		float yaw = MathHelper.wrapDegrees(player.rotationYaw) + 90F;
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
 		float shift = segAngles / 2;

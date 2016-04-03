@@ -52,8 +52,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final String TAG_FLYING = "flying";
 
 	public ItemTornadoRod() {
+		super(LibItemNames.TORNADO_ROD);
 		setMaxDamage(MAX_DAMAGE);
-		setUnlocalizedName(LibItemNames.TORNADO_ROD);
 		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("botania", "flying"), new IItemPropertyGetter() {
 			@Override

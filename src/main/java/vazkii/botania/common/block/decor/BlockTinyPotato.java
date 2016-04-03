@@ -45,10 +45,8 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.375, 0.625);
 
 	public BlockTinyPotato() {
-		super(Material.cloth);
+		super(Material.cloth, LibBlockNames.TINY_POTATO);
 		setHardness(0.25F);
-		setUnlocalizedName(LibBlockNames.TINY_POTATO);
-		float f = 1F / 16F * 6F;
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH)
 		);
@@ -91,16 +89,9 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockTinyPotato.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockTinyPotato(this), getRegistryName());
 	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
-
 	@Override
 	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = par1World.getTileEntity(pos);

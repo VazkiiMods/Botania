@@ -32,10 +32,9 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable, ICraftAchievement {
 
 	public BlockManaBomb() {
-		super(Material.wood);
+		super(Material.wood, LibBlockNames.MANA_BOMB);
 		setHardness(12.0F);
 		setSoundType(SoundType.WOOD);
-		setUnlocalizedName(LibBlockNames.MANA_BOMB);
 	}
 
 	@Override

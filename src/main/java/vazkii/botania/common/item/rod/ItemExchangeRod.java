@@ -66,8 +66,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	private static final String TAG_EXTRA_RANGE = "extraRange";
 
 	public ItemExchangeRod() {
+		super(LibItemNames.EXCHANGE_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.EXCHANGE_ROD);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

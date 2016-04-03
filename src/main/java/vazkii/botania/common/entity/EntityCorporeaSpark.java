@@ -65,11 +65,11 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataWatcher.register(INVISIBILITY, 0);
-		dataWatcher.register(MASTER, false);
-		dataWatcher.register(NETWORK, 0);
-		dataWatcher.register(ITEM_DISPLAY_TICKS, 0);
-		dataWatcher.register(DISPLAY_STACK, Optional.absent());
+		dataManager.register(INVISIBILITY, 0);
+		dataManager.register(MASTER, false);
+		dataManager.register(NETWORK, 0);
+		dataManager.register(ITEM_DISPLAY_TICKS, 0);
+		dataManager.register(DISPLAY_STACK, Optional.absent());
 	}
 
 	@Override
@@ -228,37 +228,37 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public void setMaster(boolean master) {
-		dataWatcher.set(MASTER, master);
+		dataManager.set(MASTER, master);
 	}
 
 	@Override
 	public boolean isMaster() {
-		return dataWatcher.get(MASTER);
+		return dataManager.get(MASTER);
 	}
 
 	public void setNetwork(EnumDyeColor network) {
-		dataWatcher.set(NETWORK, network.getMetadata());
+		dataManager.set(NETWORK, network.getMetadata());
 	}
 
 	@Override
 	public EnumDyeColor getNetwork() {
-		return EnumDyeColor.byMetadata(dataWatcher.get(NETWORK));
+		return EnumDyeColor.byMetadata(dataManager.get(NETWORK));
 	}
 
 	public int getItemDisplayTicks() {
-		return dataWatcher.get(ITEM_DISPLAY_TICKS);
+		return dataManager.get(ITEM_DISPLAY_TICKS);
 	}
 
 	public void setItemDisplayTicks(int ticks) {
-		dataWatcher.set(ITEM_DISPLAY_TICKS, ticks);
+		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
 	public Optional<ItemStack> getDisplayedItem() {
-		return dataWatcher.get(DISPLAY_STACK);
+		return dataManager.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataWatcher.set(DISPLAY_STACK, Optional.fromNullable(stack));
+		dataManager.set(DISPLAY_STACK, Optional.fromNullable(stack));
 	}
 
 	@Override
@@ -297,8 +297,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	public boolean doPhantomInk(ItemStack stack) {
 		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataWatcher.get(INVISIBILITY);
-			dataWatcher.set(INVISIBILITY, ~invis & 1);
+			int invis = dataManager.get(INVISIBILITY);
+			dataManager.set(INVISIBILITY, ~invis & 1);
 			return true;
 		}
 
@@ -309,14 +309,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
-		dataWatcher.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
+		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
 		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
-		cmp.setInteger(TAG_INVIS, dataWatcher.get(INVISIBILITY));
+		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
 	}
 
 }

@@ -31,11 +31,10 @@ import vazkii.botania.common.lexicon.LexiconData;
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	public BlockRedString(String name) {
-		super(Material.rock);
+		super(Material.rock, name);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(name);
 	}
 
 	@Override

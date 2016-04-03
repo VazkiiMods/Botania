@@ -12,31 +12,29 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockMod extends Block {
 
-	public int originalLight;
+	protected int originalLight;
 
-	public BlockMod(Material par2Material) {
+	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
+		setUnlocalizedName(name);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		registerItemForm();
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		if(shouldRegisterInNameSet())
-			GameRegistry.registerBlock(this, this instanceof IElvenItem ? ItemBlockElven.class : ItemBlockMod.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	protected boolean shouldRegisterInNameSet() {
-		return true;
+	public void registerItemForm() {
+		GameRegistry.register(this instanceof IElvenItem ? new ItemBlockElven(this) : new ItemBlockMod(this), getRegistryName());
 	}
 
 	@Override

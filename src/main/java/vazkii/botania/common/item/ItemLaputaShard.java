@@ -61,7 +61,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final int BASE_OFFSET = 42;
 
 	public ItemLaputaShard() {
-		setUnlocalizedName(LibItemNames.LAPUTA_SHARD);
+		super(LibItemNames.LAPUTA_SHARD);
 		setHasSubtypes(true);
 	}
 

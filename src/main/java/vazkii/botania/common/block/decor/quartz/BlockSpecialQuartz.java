@@ -41,11 +41,10 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	public final String type;
 
 	public BlockSpecialQuartz(String type) {
-		super(Material.rock);
+		super(Material.rock, "quartzType" + type);
 		this.type = type;
 		setHardness(0.8F);
 		setResistance(10F);
-		setUnlocalizedName("quartzType" + type);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL));
 	}
 
@@ -68,14 +67,8 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockSpecialQuartz.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockSpecialQuartz(this), getRegistryName());
 	}
 
 	public String[] getNames() {

@@ -44,10 +44,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	public BlockAltGrass() {
-		super(Material.grass);
+		super(Material.grass, LibBlockNames.ALT_GRASS);
 		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
-		setUnlocalizedName(LibBlockNames.ALT_GRASS);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
 		setTickRandomly(true);
 	}
@@ -73,14 +72,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override

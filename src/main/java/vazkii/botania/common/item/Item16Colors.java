@@ -20,9 +20,8 @@ import net.minecraft.item.ItemStack;
 public class Item16Colors extends ItemMod implements IColorable {
 
 	public Item16Colors(String name) {
-		super();
+		super(name);
 		setHasSubtypes(true);
-		setUnlocalizedName(name);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
@@ -43,6 +44,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		this.setHardness(0.0F);
 		this.setSoundType(SoundType.PLANT);
 		offset = second ? 8 : 0;
-		setUnlocalizedName(LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1));
+		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+		setUnlocalizedName(name);
 		setHardness(0F);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
@@ -73,13 +78,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@Override
 	public abstract IBlockState getStateFromMeta(int meta);
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		if(!par1Str.equals("doublePlant"))
-			GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {

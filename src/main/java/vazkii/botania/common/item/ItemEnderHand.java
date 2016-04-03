@@ -34,8 +34,8 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	private static final int COST_OTHER = 5000;
 
 	public ItemEnderHand() {
+		super(LibItemNames.ENDER_HAND);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.ENDER_HAND);
 	}
 
 	@Override

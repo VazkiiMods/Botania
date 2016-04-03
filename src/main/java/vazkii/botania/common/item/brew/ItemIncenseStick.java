@@ -38,7 +38,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	public static final int TIME_MULTIPLIER = 60;
 
 	public ItemIncenseStick() {
-		setUnlocalizedName(LibItemNames.INCENSE_STICK);
+		super(LibItemNames.INCENSE_STICK);
 		setMaxStackSize(1);
 	}
 

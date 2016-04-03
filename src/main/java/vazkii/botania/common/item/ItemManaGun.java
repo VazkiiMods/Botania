@@ -63,11 +63,10 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	private static final int COOLDOWN = 30;
 
 	public ItemManaGun() {
-		super();
+		super(LibItemNames.MANA_GUN);
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
-		setUnlocalizedName(LibItemNames.MANA_GUN);
 
 		GameRegistry.addRecipe(new ManaGunLensRecipe());
 		GameRegistry.addRecipe(new ManaGunRemoveLensRecipe());

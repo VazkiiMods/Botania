@@ -34,11 +34,10 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	public BlockManaGlass(String name) {
-		super(Material.glass);
+		super(Material.glass, name);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setUnlocalizedName(name);
 	}
 
 	@Override

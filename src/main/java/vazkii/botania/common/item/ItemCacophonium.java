@@ -50,8 +50,8 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	private static final String TAG_HAS_SOUND = "hasSound";
 
 	public ItemCacophonium() {
+		super(LibItemNames.CACOPHONIUM);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.CACOPHONIUM);
 	}
 
 	@Override

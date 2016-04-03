@@ -22,8 +22,8 @@ public class ItemWaterBowl extends ItemMod implements IFluidContainerItem {
 	private static final FluidStack STACK = new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME);
 
 	public ItemWaterBowl() {
+		super(LibItemNames.WATER_BOWL);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.WATER_BOWL);
 	}
 
 	// Needed for rendering water dynamic model

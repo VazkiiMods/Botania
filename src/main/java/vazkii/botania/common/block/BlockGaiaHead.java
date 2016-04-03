@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.math.RayTraceResult;
@@ -32,18 +33,14 @@ import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockGaiaHead extends BlockSkull {
 
 	public BlockGaiaHead() {
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GAIA_HEAD));
 		setUnlocalizedName(LibBlockNames.GAIA_HEAD);
 		setHardness(1.0F);
-	}
-
-	@Override
-	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, null, par1Str);
-		return super.setUnlocalizedName(par1Str);
 	}
 
 	@Override

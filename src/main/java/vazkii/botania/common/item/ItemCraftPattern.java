@@ -28,8 +28,8 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemCraftPattern extends ItemMod {
 
 	public ItemCraftPattern() {
+		super(LibItemNames.CRAFT_PATTERN);
 		setHasSubtypes(true);
-		setUnlocalizedName(LibItemNames.CRAFT_PATTERN);
 		setMaxStackSize(1);
 	}
 

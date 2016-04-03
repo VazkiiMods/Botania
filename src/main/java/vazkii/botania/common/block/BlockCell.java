@@ -31,8 +31,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCell extends BlockMod implements ILexiconable {
 
 	public BlockCell() {
-		super(Material.gourd);
-		setUnlocalizedName(LibBlockNames.CELL_BLOCK);
+		super(Material.gourd, LibBlockNames.CELL_BLOCK);
 		setSoundType(SoundType.CLOTH);
 	}
 

@@ -41,7 +41,7 @@ public class ItemVirus extends ItemMod {
 	private static final int SUBTYPES = 2;
 
 	public ItemVirus() {
-		setUnlocalizedName(LibItemNames.VIRUS);
+		super(LibItemNames.VIRUS);
 		setHasSubtypes(true);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

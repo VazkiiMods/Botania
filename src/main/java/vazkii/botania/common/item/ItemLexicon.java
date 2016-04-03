@@ -55,9 +55,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	boolean skipSound = false;
 
 	public ItemLexicon() {
-		super();
+		super(LibItemNames.LEXICON);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.LEXICON);
 	}
 
 	@Override
@@ -136,7 +135,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setChatStyle(new Style().setColor(TextFormatting.RED)));
+			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
 

@@ -38,8 +38,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
 	public BlockFelPumpkin() {
-		super(Material.gourd);
-		setUnlocalizedName(LibBlockNames.FEL_PUMPKIN);
+		super(Material.gourd, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
 		MinecraftForge.EVENT_BUS.register(this);
