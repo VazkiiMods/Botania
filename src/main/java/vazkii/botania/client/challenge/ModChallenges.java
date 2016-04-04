@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -25,8 +26,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public final class ModChallenges {
 
-	public static final EnumMap<EnumChallengeLevel, List<Challenge>> challenges = new EnumMap<>(EnumChallengeLevel.class);
-	public static final HashMap<String, Challenge> challengeLookup = new HashMap<>();
+	public static final Map<EnumChallengeLevel, List<Challenge>> challenges = new EnumMap<>(EnumChallengeLevel.class);
+	public static final Map<String, Challenge> challengeLookup = new HashMap<>();
 
 	public static void init() {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants())
@@ -56,7 +57,7 @@ public final class ModChallenges {
 		addChallenge(EnumChallengeLevel.LUNATIC, "runeCrafter", new ItemStack(ModItems.rune));
 	}
 
-	public static void addChallenge(EnumChallengeLevel level, String name, ItemStack icon) {
+	private static void addChallenge(EnumChallengeLevel level, String name, ItemStack icon) {
 		Challenge c = new Challenge("botania.challenge." + name, icon, level);
 		challenges.get(level).add(c);
 		challengeLookup.put(c.unlocalizedName, c);

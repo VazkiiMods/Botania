@@ -81,7 +81,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
-	public void renderRectangle(AxisAlignedBB aabb) {
+	private void renderRectangle(AxisAlignedBB aabb) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {
@@ -126,7 +126,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
-	public void renderCircle(BlockPos center, double radius) {
+	private void renderCircle(BlockPos center, double radius) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {

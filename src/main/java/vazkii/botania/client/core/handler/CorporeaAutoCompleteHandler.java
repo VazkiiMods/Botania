@@ -36,10 +36,10 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class CorporeaAutoCompleteHandler {
 
-	boolean isAutoCompleted = false;
-	String originalString = "";
-	List<CompletionData> completions = new ArrayList<>();
-	int position;
+	private boolean isAutoCompleted = false;
+	private String originalString = "";
+	private List<CompletionData> completions = new ArrayList<>();
+	private int position;
 
 	static TreeSet<String> itemNames = new TreeSet<>(String::compareToIgnoreCase);
 

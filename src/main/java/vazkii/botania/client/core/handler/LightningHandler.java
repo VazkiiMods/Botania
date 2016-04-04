@@ -49,10 +49,6 @@ public class LightningHandler {
 	private static final ResourceLocation outsideResource = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 
-	static double interpPosX;
-	static double interpPosY;
-	static double interpPosZ;
-
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
 		Entity renderEntity = Minecraft.getMinecraft().getRenderViewEntity();
 		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
@@ -72,9 +68,9 @@ public class LightningHandler {
 		Entity entity = Minecraft.getMinecraft().thePlayer;
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 
-		interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
-		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
-		interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
+		double interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
+		double interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
+		double interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(-interpPosX, -interpPosY, -interpPosZ);
@@ -222,23 +218,14 @@ public class LightningHandler {
 			Vector3 offsetvec;
 		}
 
-		public class SegmentSorter implements Comparator<Segment> {
+		private static final Comparator<Segment> SEGMENT_SORTER = (o1, o2) -> {
+			int comp = Integer.valueOf(o1.splitno).compareTo(o2.splitno);
+			if(comp == 0)
+				return Integer.valueOf(o1.segmentno).compareTo(o2.segmentno);
+			else return comp;
+		};
 
-			@Override
-			public int compare(Segment o1, Segment o2) {
-				int comp = Integer.valueOf(o1.splitno).compareTo(o2.splitno);
-				if(comp == 0)
-					return Integer.valueOf(o1.segmentno).compareTo(o2.segmentno);
-				else return comp;
-			}
-		}
-
-		public class SegmentLightSorter implements Comparator<Segment> {
-			@Override
-			public int compare(Segment o1, Segment o2) {
-				return Float.compare(o2.light, o1.light);
-			}
-		}
+		private static final Comparator<Segment> SEGMENT_LIGHT_SORTER = (o1, o2) -> Float.compare(o2.light, o1.light);
 
 		public class Segment {
 			public Segment(BoltPoint start, BoltPoint end, float light, int segmentnumber, int splitnumber) {
@@ -433,7 +420,7 @@ public class LightningHandler {
 		private void calculateCollisionAndDiffs() {
 			HashMap<Integer, Integer> lastactivesegment = new HashMap<>();
 
-			Collections.sort(segments, new SegmentSorter());
+			Collections.sort(segments, SEGMENT_SORTER);
 
 			int lastsplitcalc = 0;
 			int lastactiveseg = 0;// unterminated
@@ -477,7 +464,7 @@ public class LightningHandler {
 
 			calculateCollisionAndDiffs();
 
-			Collections.sort(segments, new SegmentLightSorter());
+			Collections.sort(segments, SEGMENT_LIGHT_SORTER);
 
 			boltlist.add(this);
 		}

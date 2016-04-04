@@ -22,11 +22,16 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -61,18 +66,12 @@ public final class BoundTileRenderer {
 				renderBlockOutlineAt(coords, color);
 		}
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		IItemHandlerModifiable mainInv = ((IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP));
+		IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
+		IItemHandler joined = baublesInv != null ? new CombinedInvWrapper(mainInv, baublesInv) : mainInv;
 
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
-
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+		for(int i = 0; i < joined.getSlots(); i++) {
+			ItemStack stackInSlot = joined.getStackInSlot(i);
 
 			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();

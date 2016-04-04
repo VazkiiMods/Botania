@@ -18,9 +18,8 @@ public class TileManaFlame extends TileMod {
 
 	private static final String TAG_COLOR = "color";
 
-	int color = 0x20FF20;
-
-	int lightColor = -1;
+	private int color = 0x20FF20;
+	private int lightColor = -1;
 
 	public void setColor(int color) {
 		this.color = color;

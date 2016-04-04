@@ -163,8 +163,6 @@ public class CommonProxy {
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 
-		registerNEIStuff();
-
 		int words = 0;
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			for(LexiconPage page : entry.pages) {
@@ -224,10 +222,6 @@ public class CommonProxy {
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
 			event.registerServerCommand(new CommandSkyblockSpread());
-	}
-
-	public void registerNEIStuff() {
-		// NO-OP
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {

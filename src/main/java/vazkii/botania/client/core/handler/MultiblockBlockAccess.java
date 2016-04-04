@@ -27,10 +27,10 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
  */
 public class MultiblockBlockAccess implements IBlockAccess {
 
-	protected IBlockAccess originalBlockAccess;
-	protected boolean hasBlockAccess = false;
+	private IBlockAccess originalBlockAccess;
+	private boolean hasBlockAccess = false;
+	private BlockPos anchorPos;
 	protected Multiblock multiblock;
-	protected BlockPos anchorPos;
 
 	@Override
 	public IBlockState getBlockState(BlockPos pos) {
@@ -88,9 +88,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Override
 	public boolean extendedLevelsInChunkCache() {
-		if(hasBlockAccess)
-			return originalBlockAccess.extendedLevelsInChunkCache();
-		return false;
+		return hasBlockAccess && originalBlockAccess.extendedLevelsInChunkCache();
 	}
 
 	@Override
@@ -113,8 +111,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	/**
 	 * Returns the multiblock component for the coordinates, adjusted based on the anchor
 	 */
-	protected MultiblockComponent getComponent(BlockPos pos) {
-		MultiblockComponent comp = multiblock.getComponentForLocation(pos.add(new BlockPos(-anchorPos.getX(), -anchorPos.getY(), -anchorPos.getZ())));
-		return comp;
+	private MultiblockComponent getComponent(BlockPos pos) {
+		return multiblock.getComponentForLocation(pos.add(new BlockPos(-anchorPos.getX(), -anchorPos.getY(), -anchorPos.getZ())));
 	}
 }

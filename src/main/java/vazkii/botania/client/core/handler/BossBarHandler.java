@@ -33,7 +33,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 public final class BossBarHandler {
 
 	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
-	static IBotaniaBoss currentBoss;
+	private static IBotaniaBoss currentBoss;
 
 	private static final BarCallback barUniformCallback = new BarCallback();
 
@@ -73,7 +73,7 @@ public final class BossBarHandler {
 			currentBoss = null;
 	}
 
-	public static void drawBar(int x, int y, int u, int v, int w, int h, boolean bg) {
+	private static void drawBar(int x, int y, int u, int v, int w, int h, boolean bg) {
 		boolean useShader = currentBoss instanceof IBotaniaBossWithShader;
 		if(useShader) {
 			IBotaniaBossWithShader shader = (IBotaniaBossWithShader) currentBoss;
@@ -90,7 +90,7 @@ public final class BossBarHandler {
 			ShaderHelper.releaseShader();
 	}
 
-	static class BarCallback implements ShaderCallback {
+	private static class BarCallback implements ShaderCallback {
 		int x, y;
 		ShaderCallback callback;
 

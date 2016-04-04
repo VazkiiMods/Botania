@@ -41,14 +41,13 @@ import vazkii.botania.common.block.ModBlocks;
 
 public final class MultiblockRenderHandler {
 
-	public static boolean rendering = false;
-
 	private static MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
+	private static int dimension;
 
+	public static boolean rendering = false;
 	public static MultiblockSet currentMultiblock;
 	public static BlockPos anchor;
 	public static EnumFacing angle;
-	public static int dimension;
 
 	static {
 		// todo 1.8.8 temporary shim, because cannot renderBlockBrightness directly, see MinecraftForge issue 2353

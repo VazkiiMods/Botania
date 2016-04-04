@@ -36,16 +36,16 @@ public class FXSparkle extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	public static Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
-	public static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
+	private static Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
+	private static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
 
 	// Queue values
-	float f;
-	float f1;
-	float f2;
-	float f3;
-	float f4;
-	float f5;
+	private float f;
+	private float f1;
+	private float f2;
+	private float f3;
+	private float f4;
+	private float f5;
 
 	public boolean noClip = false;
 
@@ -167,7 +167,7 @@ public class FXSparkle extends EntityFX {
 		particleGravity = value;
 	}
 
-	protected boolean pushOutOfBlocks(double par1, double par3, double par5) {
+	private boolean pushOutOfBlocks(double par1, double par3, double par5) {
 		int var7 = MathHelper.floor_double(par1);
 		int var8 = MathHelper.floor_double(par3);
 		int var9 = MathHelper.floor_double(par5);
@@ -255,8 +255,8 @@ public class FXSparkle extends EntityFX {
 
 	public boolean corrupt = false;
 	public boolean fake = false;
-	public int multiplier = 2;
-	public boolean shrink = true;
+	private int multiplier = 2;
+	private boolean shrink = true;
 	public int particle = 16;
 	public boolean tinkle = false;
 	public boolean slowdown = true;

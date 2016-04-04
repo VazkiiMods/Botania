@@ -128,24 +128,23 @@ public final class PersistentVariableHelper {
 		cacheFile = f;
 	}
 
-	public static File getCacheFile() throws IOException {
+	private static File getCacheFile() throws IOException {
 		if(!cacheFile.exists())
 			cacheFile.createNewFile();
 
 		return cacheFile;
 	}
 
-	public static NBTTagCompound getCacheCompound() throws IOException {
+	private static NBTTagCompound getCacheCompound() throws IOException {
 		return getCacheCompound(getCacheFile());
 	}
 
-	public static NBTTagCompound getCacheCompound(File cache) throws IOException {
+	private static NBTTagCompound getCacheCompound(File cache) throws IOException {
 		if(cache == null)
 			throw new RuntimeException("No cache file!");
 
 		try {
-			NBTTagCompound cmp = CompressedStreamTools.readCompressed(new FileInputStream(cache));
-			return cmp;
+			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
 		} catch(IOException e) {
 			NBTTagCompound cmp = new NBTTagCompound();
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
@@ -153,7 +152,7 @@ public final class PersistentVariableHelper {
 		}
 	}
 
-	public static void injectNBTToFile(NBTTagCompound cmp, File f) {
+	private static void injectNBTToFile(NBTTagCompound cmp, File f) {
 		try {
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
 		} catch(IOException e) {

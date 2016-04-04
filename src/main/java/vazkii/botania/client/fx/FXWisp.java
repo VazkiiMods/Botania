@@ -34,16 +34,16 @@ public class FXWisp extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-	public static Queue<FXWisp> queuedRenders = new ArrayDeque<>();
-	public static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
+	private static Queue<FXWisp> queuedRenders = new ArrayDeque<>();
+	private static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
 
 	// Queue values
-	float f;
-	float f1;
-	float f2;
-	float f3;
-	float f4;
-	float f5;
+	private float f;
+	private float f1;
+	private float f2;
+	private float f3;
+	private float f4;
+	private float f5;
 
 	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
@@ -108,8 +108,7 @@ public class FXWisp extends EntityFX {
 			ParticleRenderDispatcher.wispFxCount++;
 		else ParticleRenderDispatcher.depthIgnoringWispFxCount++;
 
-		float agescale = 0;
-		agescale = (float)particleAge / (float) moteHalfLife;
+		float agescale = (float)particleAge / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;
 
@@ -168,10 +167,10 @@ public class FXWisp extends EntityFX {
 		zSpeed = mz;
 	}
 
-	boolean depthTest = true;
+	private boolean depthTest = true;
 	public boolean distanceLimit = true;
-	float moteParticleScale;
-	int moteHalfLife;
+	private float moteParticleScale;
+	private int moteHalfLife;
 	public boolean tinkle = false;
 	public int blendmode = 1;
 }

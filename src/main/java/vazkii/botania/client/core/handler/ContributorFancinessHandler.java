@@ -42,7 +42,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
-	private static boolean phi = true;
+	private static final boolean phi = true;
 
 	@Override
 	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -185,7 +185,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.popMatrix();
 	}
 
-	public static class ThreadContributorListLoader extends Thread {
+	private static class ThreadContributorListLoader extends Thread {
 
 		public ThreadContributorListLoader() {
 			setName("Botania Contributor Fanciness Thread");

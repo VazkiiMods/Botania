@@ -286,12 +286,6 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	@Optional.Method(modid = "NotEnoughItems")
-	public void registerNEIStuff() {
-		// todo 1.8.8 restore when nei updates  NEIGuiHooks.init();
-	}
-
-	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
