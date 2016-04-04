@@ -43,9 +43,9 @@ public class TileManaFlame extends TileMod {
 			double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
 
 			if (luminance < v) {
-				r += (float) (Math.random() - 0.5) * 0.25;
-				g += (float) (Math.random() - 0.5) * 0.25;
-				b += (float) (Math.random() - 0.5) * 0.25;
+				r += (float) Math.random() * 0.125F;
+				g += (float) Math.random() * 0.125F;
+				b += (float) Math.random() * 0.125F;
 			}
 
 			float w = 0.15F;

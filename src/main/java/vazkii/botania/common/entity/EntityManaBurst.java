@@ -560,9 +560,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 				do {
 					if (luminance < 0.1) {
-						r = or + ((float) Math.random() - 0.5F) * 0.25F;
-						g = og + ((float) Math.random() - 0.5F) * 0.25F;
-						b = ob + ((float) Math.random() - 0.5F) * 0.25F;
+						r = or + (float) Math.random() * 0.125F;
+						g = og + (float) Math.random() * 0.125F;
+						b = ob + (float) Math.random() * 0.125F;
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
