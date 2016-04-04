@@ -37,9 +37,17 @@ public class TileManaFlame extends TileMod {
 		if(worldObj.isRemote && Math.random() < c) {
 			float v = 0.1F;
 
-			float r = (float) (color >> 16 & 0xFF) / 0xFF + (float) (Math.random() - 0.5) * v;
-			float g = (float) (color >> 8 & 0xFF) / 0xFF + (float) (Math.random() - 0.5) * v;
-			float b = (float) (color & 0xFF) / 0xFF + (float) (Math.random() - 0.5) * v;
+			float r = (float) (color >> 16 & 0xFF) / 0xFF;
+			float g = (float) (color >> 8 & 0xFF) / 0xFF;
+			float b = (float) (color & 0xFF) / 0xFF;
+
+			double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
+
+			if (luminance < v) {
+				r += (float) (Math.random() - 0.5) * 0.25;
+				g += (float) (Math.random() - 0.5) * 0.25;
+				b += (float) (Math.random() - 0.5) * 0.25;
+			}
 
 			float w = 0.15F;
 			float h = 0.05F;
