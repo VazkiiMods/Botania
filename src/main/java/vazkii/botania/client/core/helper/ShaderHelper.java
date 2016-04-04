@@ -13,6 +13,7 @@ package vazkii.botania.client.core.helper;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.renderer.OpenGlHelper;
 
@@ -155,7 +156,7 @@ public final class ShaderHelper {
 			return "";
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
-			return reader.lines().reduce("", (s1, s2) -> s1 + "\n" + s2);
+			return reader.lines().collect(Collectors.joining("\n"));
 		}
 	}
 

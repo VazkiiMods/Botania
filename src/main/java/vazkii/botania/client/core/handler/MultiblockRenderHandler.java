@@ -13,14 +13,21 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -38,6 +45,8 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.List;
 
 public final class MultiblockRenderHandler {
 
@@ -193,10 +202,70 @@ public final class MultiblockRenderHandler {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1); // todo 1.8 bandaid for things rendering one block off...why?
 			GlStateManager.color(1, 1, 1, alpha);
-			brd.renderBlockBrightness(state, 0.5F); // todo 1.8 check brightness
+			renderModelBrightness(brd.getModelForState(state), state, 1, true, alpha); // todo 1.9 make this a shader so we don't have to copypasta 3 methods?
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableDepth();
 		GlStateManager.popMatrix();
+	}
+
+	// Copy of BlockModelRenderer.renderModelBrightness + alpha arg
+	private static void renderModelBrightness(IBakedModel model, IBlockState p_178266_2_, float brightness, boolean p_178266_4_, float alpha)
+	{
+		GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+		int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(p_178266_2_, null, null, 0);
+
+		if (EntityRenderer.anaglyphEnable)
+		{
+			i = TextureUtil.anaglyphColor(i);
+		}
+
+		float f = (float)(i >> 16 & 255) / 255.0F;
+		float f1 = (float)(i >> 8 & 255) / 255.0F;
+		float f2 = (float)(i & 255) / 255.0F;
+
+		if (!p_178266_4_)
+		{
+			GlStateManager.color(brightness, brightness, brightness, 1.0F);
+		}
+
+		renderModelBrightnessColor(p_178266_2_, model, brightness, f, f1, f2, alpha);
+	}
+
+	// Copy of BlockModelRenderer.renderModelBrightnessColor + alpha arg
+	private static void renderModelBrightnessColor(IBlockState p_187495_1_, IBakedModel p_187495_2_, float p_187495_3_, float p_187495_4_, float p_187495_5_, float p_187495_6_, float alpha) {
+		for (EnumFacing enumfacing : EnumFacing.values())
+		{
+			renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(p_187495_1_, enumfacing, 0L), alpha);
+		}
+
+		renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(p_187495_1_, (EnumFacing)null, 0L), alpha);
+	}
+
+	// Copy of BlockModelRenderer.renderModelBrightnessColorQuads + alpha arg
+	private static void renderModelBrightnessColorQuads(float brightness, float red, float green, float blue, List<BakedQuad> listQuads, float alpha)
+	{
+		Tessellator tessellator = Tessellator.getInstance();
+		VertexBuffer vertexbuffer = tessellator.getBuffer();
+		int i = 0;
+
+		for (int j = listQuads.size(); i < j; ++i)
+		{
+			BakedQuad bakedquad = (BakedQuad)listQuads.get(i);
+			vertexbuffer.begin(7, DefaultVertexFormats.ITEM);
+			vertexbuffer.addVertexData(bakedquad.getVertexData());
+
+			// Botania - alpha
+			int a = ((int) (255 * alpha));
+			int r = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? red : 1)));
+			int g = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? green : 1)));
+			int b = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? blue : 1)));
+			int argb = a << 24 | r << 16 | g << 8 | b;
+			vertexbuffer.putColor4(argb);
+
+			Vec3i vec3i = bakedquad.getFace().getDirectionVec();
+			vertexbuffer.putNormal((float)vec3i.getX(), (float)vec3i.getY(), (float)vec3i.getZ());
+			tessellator.draw();
+		}
 	}
 }
