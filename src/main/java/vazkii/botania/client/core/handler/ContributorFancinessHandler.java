@@ -42,7 +42,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
-	private static final boolean phi = true;
+	public static final boolean phi = false;
 
 	@Override
 	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -120,7 +120,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		if(player.motionY < 0)
 			GlStateManager.rotate((float) player.motionY * 20F, 1F, 0F, 0F);
 
-		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.05F) * 2F;
+		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.1F) * 2F;
 		GlStateManager.rotate(r, 0F, 0F, 1F);
 		float s = 0.9F;
 		GlStateManager.scale(s, s, s);
@@ -176,9 +176,10 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(player);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		GlStateManager.rotate(-90, 1, 0, 0);
-		GlStateManager.translate(0, 0, 1.22);
-		GlStateManager.rotate(90, 0, 0, 1);
+		GlStateManager.rotate(180, 0, 0, 1);
+		GlStateManager.translate(0, -0.85, 0);
+		GlStateManager.rotate(-90, 0, 1, 0);
+		GlStateManager.scale(0.5, 0.5, 0.5);
 		ShaderHelper.useShader(ShaderHelper.gold);
 		Minecraft.getMinecraft().getRenderItem().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false); // todo 1.9
 		ShaderHelper.releaseShader();
