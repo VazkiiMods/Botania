@@ -1,39 +1,28 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "minecraft:wall_post",
     "uvlock": true,
     "transform": "forge:default-block"
   },
   "variants": {
-    "east=false,north=true,south=true,up=false,fswall_variant=andesite,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,fswall_variant=basalt,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,fswall_variant=diorite,west=false": { "model": null },
-    "east=false,north=true,south=true,up=false,fswall_variant=granite,west=false": { "model": null },
-
-    "east=true,north=false,south=false,up=false,fswall_variant=andesite,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,fswall_variant=basalt,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,fswall_variant=diorite,west=true": { "model": null },
-    "east=true,north=false,south=false,up=false,fswall_variant=granite,west=true": { "model": null },
-
     "north": {
-      "true": { "submodel": "botania:wall_connect" },
+      "true": { "submodel": "minecraft:wall_side" },
       "false": {}
     },
     "south": {
-      "true": { "submodel": "botania:wall_connect", "y": 180 },
+      "true": { "submodel": "minecraft:wall_side", "y": 180 },
       "false": {}
     },
     "west": {
-      "true": { "submodel": "botania:wall_connect", "y": 270 },
+      "true": { "submodel": "minecraft:wall_side", "y": 270 },
       "false": {}
     },
     "east": {
-      "true": { "submodel": "botania:wall_connect", "y": 90 },
+      "true": { "submodel": "minecraft:wall_side", "y": 90 },
       "false": {}
     },
     "up": {
-      "true": {},
+      "true": { "submodel": "minecraft:wall_post" },
       "false": {}
     },
     "fswall_variant": {
@@ -44,19 +33,19 @@
     },
     "inventory_andesite": [{
       "textures": { "wall": "botania:blocks/stone0" },
-      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+      "model": "minecraft:wall_inventory"
     }],
     "inventory_basalt": [{
       "textures": { "wall": "botania:blocks/stone1" },
-      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+      "model": "minecraft:wall_inventory"
     }],
     "inventory_diorite": [{
       "textures": { "wall": "botania:blocks/stone2" },
-      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+      "model": "minecraft:wall_inventory"
     }],
     "inventory_granite": [{
       "textures": { "wall": "botania:blocks/stone3" },
-      "submodel": { "north": { "model": "botania:wall_connect" }, "south": { "model": "botania:wall_connect", "y": 180 }}
+      "model": "minecraft:wall_inventory"
     }]
   }
 }

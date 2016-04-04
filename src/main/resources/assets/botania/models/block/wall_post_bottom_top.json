@@ -1,19 +1,20 @@
 {
+  "__comment": "Copy of minecraft:wall_post with separate top and bottom textures",
   "textures": {
     "particle": "#side"
   },
   "elements": [
-    {   "from": [ 4, 0, 4 ],
+    {
+      "from": [ 4, 0, 4 ],
       "to": [ 12, 16, 12 ],
       "faces": {
-        "down":  { "uv": [ 4, 4, 12, 12 ], "texture": "#bottom", "cullface": "down" },
-        "up":    { "uv": [ 4, 4, 12, 12 ], "texture": "#top", "cullface": "up"   },
-        "north": { "uv": [ 4, 0, 12, 16 ], "texture": "#side" },
-        "south": { "uv": [ 4, 0, 12, 16 ], "texture": "#side" },
-        "west":  { "uv": [ 4, 0, 12, 16 ], "texture": "#side" },
-        "east":  { "uv": [ 4, 0, 12, 16 ], "texture": "#side" }
-      },
-      "__comment": "Center post"
+        "down":  { "texture": "#bottom", "cullface": "down" },
+        "up":    { "texture": "#top", "cullface": "up"   },
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side" },
+        "east":  { "texture": "#side" }
+      }
     }
   ]
 }
