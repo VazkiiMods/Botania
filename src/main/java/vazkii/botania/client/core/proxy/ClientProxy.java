@@ -69,7 +69,6 @@ import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
-// todo 1.8.8 restore when nei updates import vazkii.botania.client.integration.nei.NEIGuiHooks;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;

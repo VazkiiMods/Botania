@@ -95,45 +95,13 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-		return true;
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return false;
 	}
 
 	@Override
-	public void harvestBlock(World p_149636_1_, EntityPlayer p_149636_2_, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-		if(p_149636_1_.isRemote || stack == null || stack.getItem() != Items.shears || state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.LOWER)
-			harvestBlockCopy(p_149636_1_, p_149636_2_, pos, state);
-	}
-
-	// This is how I get around encapsulation
-	// todo 1.9 is this necessary?
-	public void harvestBlockCopy(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state) {
-		player.addStat(StatList.getBlockStats(this));
-		player.addExhaustion(0.025F);
-
-		if (this.canSilkHarvest(worldIn, pos, worldIn.getBlockState(pos), player) && EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0)
-		{
-			java.util.ArrayList<ItemStack> items = new java.util.ArrayList<>();
-			ItemStack itemstack = this.createStackedBlock(state);
-
-			if (itemstack != null)
-			{
-				items.add(itemstack);
-			}
-
-			net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, worldIn.getBlockState(pos), 0, 1.0f, true, player);
-			for (ItemStack stack : items)
-			{
-				spawnAsEntity(worldIn, pos, stack);
-			}
-		}
-		else
-		{
-			harvesters.set(player);
-			int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
-			this.dropBlockAsItem(worldIn, pos, state, i);
-			harvesters.set(null);
-		}
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+		return true;
 	}
 
 	@Override
@@ -162,7 +130,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 			}
 		} else if(player.capabilities.isCreativeMode && world.getBlockState(pos.up()).getBlock() == this)
 			world.setBlockState(pos.up(), Blocks.air.getDefaultState(), 2);
-
+		player.addStat(StatList.getBlockStats(this));
 		//super.onBlockHarvested(p_149681_1_, p_149681_2_, p_149681_3_, p_149681_4_, p_149681_5_, p_149681_6_);
 	}
 

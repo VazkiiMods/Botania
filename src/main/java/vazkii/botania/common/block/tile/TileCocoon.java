@@ -23,6 +23,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 public class TileCocoon extends TileMod {
 
@@ -53,7 +54,7 @@ public class TileCocoon extends TileMod {
 
 			if(Math.random() < villagerChance) {
 				EntityVillager villager = new EntityVillager(worldObj);
-				// todo 1.8 village registry incomplete. VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
+				VillagerRegistry.setRandomProfession(villager, worldObj.rand);
 				entity = villager;
 			} else {
 				float specialChance = 0.05F;

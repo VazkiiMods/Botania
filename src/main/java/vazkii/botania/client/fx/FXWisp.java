@@ -84,7 +84,7 @@ public class FXWisp extends EntityFX {
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		if(!queuedRenders.isEmpty()) {
-			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 			for(FXWisp wisp : queuedRenders)
 				wisp.renderQueued(tessellator, true);
 			tessellator.draw();
@@ -92,7 +92,7 @@ public class FXWisp extends EntityFX {
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
 			GlStateManager.disableDepth();
-			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
@@ -118,11 +118,13 @@ public class FXWisp extends EntityFX {
 		float f11 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
 		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
 		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
-		// todo 1.8.8 setbrightness call?
-		tessellator.getBuffer().pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10).tex(0, 1).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		tessellator.getBuffer().pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10).tex(1, 1).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		tessellator.getBuffer().pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10).tex(1, 0).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
-		tessellator.getBuffer().pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10).tex(0, 0).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		int combined = 15 << 20 | 15 << 4;
+		int k3 = combined >> 16 & 0xFFFF;
+		int l3 = combined & 0xFFFF;
+		tessellator.getBuffer().pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10).tex(0, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10).tex(1, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10).tex(1, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10).tex(0, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
 	}
 
 	@Override

@@ -60,6 +60,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.BossInfo;
+import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -127,13 +128,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private static final List<String> CHEATY_BLOCKS = Arrays.asList("OpenBlocks:beartrap",
 			"ThaumicTinkerer:magnet");
 
-	boolean spawnLandmines = false;
-	boolean spawnPixies = false;
-	boolean anyWithArmor = false;
+	private boolean spawnLandmines = false;
+	private boolean spawnPixies = false;
+	private boolean anyWithArmor = false;
 
-	List<UUID> playersWhoAttacked = new ArrayList<>();
+	private List<UUID> playersWhoAttacked = new ArrayList<>();
 
 	private static boolean isPlayingMusic = false;
+
+	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
 
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
@@ -505,7 +508,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		super.setDead();
 	}
 
-	public List<EntityPlayer> getPlayersAround() {
+	private List<EntityPlayer> getPlayersAround() {
 		BlockPos source = getSource();
 		float range = 15F;
 		return worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
@@ -762,7 +765,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		}
 	}
 
-	void spawnMissile() {
+	private void spawnMissile() {
 		if(!worldObj.isRemote) {
 			EntityMagicMissile missile = new EntityMagicMissile(this, true);
 			missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
@@ -773,7 +776,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		}
 	}
 
-	public static boolean isCheatyBlock(World world, BlockPos pos) {
+	private static boolean isCheatyBlock(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
 		String name = Block.blockRegistry.getNameForObject(block).toString();
 		return CHEATY_BLOCKS.contains(name);
@@ -781,14 +784,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	// EntityEnderman code below ============================================================================
 
-	protected boolean teleportRandomly() {
+	private boolean teleportRandomly() {
 		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
 		double d1 = posY + (rand.nextInt(64) - 32);
 		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
 		return teleportTo(d0, d1, d2);
 	}
 
-	protected boolean teleportTo(double par1, double par3, double par5) {
+	private boolean teleportTo(double par1, double par3, double par5) {
 		double d3 = posX;
 		double d4 = posY;
 		double d5 = posZ;
@@ -899,7 +902,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	public BossInfo getBossInfo() {
-		return null; // todo 1.9
+		return bossInfo;
 	}
 
 	@Override
@@ -934,7 +937,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return background ? null : shaderCallback;
 	}
 
-	public static class BeaconComponent extends MultiblockComponent {
+	private static class BeaconComponent extends MultiblockComponent {
 
 		public BeaconComponent(BlockPos relPos) {
 			super(relPos, Blocks.iron_block.getDefaultState());
@@ -947,7 +950,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	}
 
-	public static class BeaconBeamComponent extends MultiblockComponent {
+	private static class BeaconBeamComponent extends MultiblockComponent {
 
 		public BeaconBeamComponent(BlockPos relPos) {
 			super(relPos, Blocks.beacon.getDefaultState());
