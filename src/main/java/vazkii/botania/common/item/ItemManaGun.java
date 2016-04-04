@@ -103,6 +103,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 			ItemStack lens = getLens(par1ItemStack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			par1ItemStack.setItemDamage(effCd);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		} else if(par1ItemStack.getItemDamage() == 0) {
 			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
 			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
@@ -121,9 +122,10 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 				par1ItemStack.setItemDamage(effCd);
 			} else if(!par2World.isRemote)
 				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -140,7 +142,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-	public boolean isSugoiKawaiiDesuNe(ItemStack stack) {
+	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
 		return stack.getDisplayName().equalsIgnoreCase("desu gun");
 	}
 
@@ -169,7 +171,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		return getLens(itemStack);
 	}
 
-	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
+	private EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		int maxMana = 120;
@@ -279,8 +281,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
-			ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-			return lens;
+			return ItemStack.loadItemStackFromNBT(cmp);
 		}
 		return null;
 	}
