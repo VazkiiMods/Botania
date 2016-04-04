@@ -34,13 +34,13 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	private static final ResourceLocation fallbackResource = new ResourceLocation(LibResources.CATEGORY_INDEX);
 	private static final ResourceLocation stencilResource = new ResourceLocation(LibResources.GUI_STENCIL);
 
-	static boolean boundStencil = false;
+	private static boolean boundStencil = false;
 
 	GuiLexicon gui;
-	LexiconCategory category;
-	ResourceLocation resource = null;
-	float ticksHovered = 0F;
-	float time = 12F;
+	private LexiconCategory category;
+	private ResourceLocation resource = null;
+	private float ticksHovered = 0F;
+	private float time = 12F;
 
 	private ShaderCallback shaderCallback = shader -> {
 		TextureManager r = Minecraft.getMinecraft().renderEngine;
@@ -125,7 +125,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			gui.categoryHighlight = I18n.translateToLocal(getTooltipText());
 	}
 
-	String getTooltipText() {
+	private String getTooltipText() {
 		if(category == null)
 			return "botaniamisc.lexiconIndex";
 		return category.getUnlocalizedName();

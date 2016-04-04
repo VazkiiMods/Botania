@@ -25,7 +25,7 @@ public interface IMultiblockRenderHook {
 
 	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap<>();
 
-	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha);
+	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp);
 
 	public boolean needsTranslate(IBlockState state);
 

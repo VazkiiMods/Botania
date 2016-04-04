@@ -37,13 +37,16 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
+import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
@@ -62,7 +65,7 @@ public final class MultiblockRenderHandler {
 		// todo 1.8.8 temporary shim, because cannot renderBlockBrightness directly, see MinecraftForge issue 2353
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, new IMultiblockRenderHook() {
 			@Override
-			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha) {
+			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
 				// Steal itemstack model since it has the proper group visibilities configured
 				ItemStack stack = new ItemStack(ModBlocks.pylon, 1, state.getBlock().getMetaFromState(state));
 				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
@@ -80,7 +83,7 @@ public final class MultiblockRenderHandler {
 		// TODO also a temporary shim for same reason as above
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.pool, new IMultiblockRenderHook() {
 			@Override
-			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp, float alpha) {
+			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
 				GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 				IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(ModBlocks.pool.getDefaultState());
 				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, ModBlocks.pool.getDefaultState(), 1.0F, false);
@@ -135,9 +138,18 @@ public final class MultiblockRenderHandler {
 
 			blockAccess.update(player.worldObj, mb, anchorPos);
 
-			for(MultiblockComponent comp : mb.getComponents())
+			ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
+				int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
+				ARBShaderObjects.glUniform1fARB(alpha, 0.4F);
+			});
+
+			for(MultiblockComponent comp : mb.getComponents()) {
 				if(renderComponentInWorld(player.worldObj, mb, comp, anchorPos))
 					didAny = true;
+			}
+
+			ShaderHelper.releaseShader();
+
 			rendering = false;
 			GL11.glPopAttrib();
 			GlStateManager.popMatrix();
@@ -168,7 +180,7 @@ public final class MultiblockRenderHandler {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(-renderPosX, -renderPosY, -renderPosZ);
 		GlStateManager.disableDepth();
-		doRenderComponent(mb, comp, pos_, 0.4F);
+		doRenderComponent(mb, comp, pos_);
 		GlStateManager.popMatrix();
 		return true;
 	}
@@ -178,11 +190,11 @@ public final class MultiblockRenderHandler {
 		blockAccess.update(null, mb, mb.offPos);
 		for(MultiblockComponent comp : mb.getComponents()) {
 			BlockPos pos = comp.getRelativePosition();
-			doRenderComponent(mb, comp, pos.add(mb.offPos), 1);
+			doRenderComponent(mb, comp, pos.add(mb.offPos));
 		}
 	}
 
-	private static void doRenderComponent(Multiblock mb, MultiblockComponent comp, BlockPos pos, float alpha) {
+	private static void doRenderComponent(Multiblock mb, MultiblockComponent comp, BlockPos pos) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -191,81 +203,21 @@ public final class MultiblockRenderHandler {
 		if(state == null)
 			return;
 		if(IMultiblockRenderHook.renderHooks.containsKey(state.getBlock())) {
-			GlStateManager.color(1F, 1F, 1F, alpha);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			IMultiblockRenderHook renderHook = IMultiblockRenderHook.renderHooks.get(state.getBlock());
 			if(renderHook.needsTranslate(state)) {
 				GlStateManager.translate(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			}
-			renderHook.renderBlockForMultiblock(blockAccess, mb, state, comp, alpha);
+			renderHook.renderBlockForMultiblock(blockAccess, mb, state, comp);
 		}
 		else {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1); // todo 1.8 bandaid for things rendering one block off...why?
-			GlStateManager.color(1, 1, 1, alpha);
-			renderModelBrightness(brd.getModelForState(state), state, 1, true, alpha); // todo 1.9 make this a shader so we don't have to copypasta 3 methods?
+			GlStateManager.color(1, 1, 1, 1);
+			brd.renderBlockBrightness(state, 1.0F);
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableDepth();
 		GlStateManager.popMatrix();
-	}
-
-	// Copy of BlockModelRenderer.renderModelBrightness + alpha arg
-	private static void renderModelBrightness(IBakedModel model, IBlockState p_178266_2_, float brightness, boolean p_178266_4_, float alpha)
-	{
-		GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-		int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(p_178266_2_, null, null, 0);
-
-		if (EntityRenderer.anaglyphEnable)
-		{
-			i = TextureUtil.anaglyphColor(i);
-		}
-
-		float f = (float)(i >> 16 & 255) / 255.0F;
-		float f1 = (float)(i >> 8 & 255) / 255.0F;
-		float f2 = (float)(i & 255) / 255.0F;
-
-		if (!p_178266_4_)
-		{
-			GlStateManager.color(brightness, brightness, brightness, 1.0F);
-		}
-
-		renderModelBrightnessColor(p_178266_2_, model, brightness, f, f1, f2, alpha);
-	}
-
-	// Copy of BlockModelRenderer.renderModelBrightnessColor + alpha arg
-	private static void renderModelBrightnessColor(IBlockState p_187495_1_, IBakedModel p_187495_2_, float p_187495_3_, float p_187495_4_, float p_187495_5_, float p_187495_6_, float alpha) {
-		for (EnumFacing enumfacing : EnumFacing.values())
-		{
-			renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(p_187495_1_, enumfacing, 0L), alpha);
-		}
-
-		renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(p_187495_1_, (EnumFacing)null, 0L), alpha);
-	}
-
-	// Copy of BlockModelRenderer.renderModelBrightnessColorQuads + alpha arg
-	private static void renderModelBrightnessColorQuads(float brightness, float red, float green, float blue, List<BakedQuad> listQuads, float alpha)
-	{
-		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer vertexbuffer = tessellator.getBuffer();
-		int i = 0;
-
-		for (int j = listQuads.size(); i < j; ++i)
-		{
-			BakedQuad bakedquad = (BakedQuad)listQuads.get(i);
-			vertexbuffer.begin(7, DefaultVertexFormats.ITEM);
-			vertexbuffer.addVertexData(bakedquad.getVertexData());
-
-			// Botania - alpha
-			int a = ((int) (255 * alpha));
-			int r = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? red : 1)));
-			int g = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? green : 1)));
-			int b = ((int) (255 * brightness * (bakedquad.hasTintIndex() ? blue : 1)));
-			int argb = a << 24 | r << 16 | g << 8 | b;
-			vertexbuffer.putColor4(argb);
-
-			Vec3i vec3i = bakedquad.getFace().getDirectionVec();
-			vertexbuffer.putNormal((float)vec3i.getX(), (float)vec3i.getY(), (float)vec3i.getZ());
-			tessellator.draw();
-		}
 	}
 }

@@ -44,6 +44,7 @@ public final class ShaderHelper {
 	public static int filmGrain = 0;
 	public static int gold = 0;
 	public static int categoryButton = 0;
+	public static int alpha = 0;
 
 	public static void initShaders() {
 		if(!useShaders())
@@ -59,6 +60,7 @@ public final class ShaderHelper {
 		filmGrain = createProgram(null, LibResources.SHADER_FILM_GRAIN_FRAG);
 		gold = createProgram(null, LibResources.SHADER_GOLD_FRAG);
 		categoryButton = createProgram(null, LibResources.SHADER_CATEGORY_BUTTON_FRAG);
+		alpha = createProgram(LibResources.SHADER_ALPHA_VERT, LibResources.SHADER_ALPHA_FRAG);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {
