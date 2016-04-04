@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 
@@ -20,6 +22,7 @@ public class DLexiconEntry extends BLexiconEntry {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
 		return !PersistentVariableHelper.dog;
 	}

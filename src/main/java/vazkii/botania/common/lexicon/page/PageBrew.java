@@ -42,6 +42,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		int width = gui.getWidth() - 30;
 		int height = gui.getHeight();
