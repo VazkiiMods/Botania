@@ -26,6 +26,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -33,11 +34,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 public abstract class BlockModWall extends BlockWall implements ILexiconable {
 
-	private final Block block;
-
 	public BlockModWall(Block block, int meta) {
 		super(block);
-		this.block = block;
 		// For backward compat don't kill me
 		String name = block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall";
 		register(name);
@@ -50,6 +48,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 				.withProperty(EAST, false)
 				.withProperty(VARIANT, EnumType.NORMAL)
 		);
+		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
 	@Override
