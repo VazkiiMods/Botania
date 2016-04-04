@@ -1,28 +1,29 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "model": "minecraft:pane_post",
     "textures": {
       "edge": "botania:blocks/bifrostPermPane",
       "pane": "botania:blocks/bifrost"
     }
   },
   "variants": {
-    "east=false,north=false,south=false,west=false": { "model": "minecraft:pane_nsew" },
-    "east=false,north=true,south=false,west=false": { "model": "minecraft:pane_n" },
-    "east=true,north=false,south=false,west=false": { "model": "minecraft:pane_n", "y": 90 },
-    "east=false,north=false,south=true,west=false": { "model": "minecraft:pane_n", "y": 180 },
-    "east=false,north=false,south=false,west=true": { "model": "minecraft:pane_n", "y": 270 },
-    "east=true,north=true,south=false,west=false": { "model": "minecraft:pane_ne" },
-    "east=true,north=false,south=true,west=false": { "model": "minecraft:pane_ne", "y": 90 },
-    "east=false,north=false,south=true,west=true": { "model": "minecraft:pane_ne", "y": 180 },
-    "east=false,north=true,south=false,west=true": { "model": "minecraft:pane_ne", "y": 270 },
-    "east=false,north=true,south=true,west=false": { "model": "botania:pane_ns_fixed" },
-    "east=true,north=false,south=false,west=true": { "model": "botania:pane_ns_fixed", "y": 90 },
-    "east=true,north=true,south=true,west=false": { "model": "minecraft:pane_nse" },
-    "east=true,north=false,south=true,west=true": { "model": "minecraft:pane_nse", "y": 90 },
-    "east=false,north=true,south=true,west=true": { "model": "minecraft:pane_nse", "y": 180 },
-    "east=true,north=true,south=false,west=true": { "model": "minecraft:pane_nse", "y": 270 },
-    "east=true,north=true,south=true,west=true": { "model": "minecraft:pane_nsew" },
+    "north": {
+      "true": { "submodel": { "nside": { "model": "minecraft:pane_side" } } },
+      "false": { "submodel": { "nside": { "model": "minecraft:pane_noside" } } }
+    },
+    "south": {
+      "true": { "submodel": { "sside": { "model": "minecraft:pane_side_alt" } } },
+      "false": { "submodel": { "sside": { "model": "minecraft:pane_noside_alt", "y": 90 } } }
+    },
+    "west": {
+      "true": { "submodel": { "wside": { "model": "minecraft:pane_side_alt", "y": 90 } } },
+      "false": { "submodel": { "wside": { "model": "minecraft:pane_noside", "y": 270 } } }
+    },
+    "east": {
+      "true": { "submodel": { "eside": { "model": "minecraft:pane_side", "y": 90 } } },
+      "false": { "submodel": { "eside": { "model": "minecraft:pane_noside_alt" } } }
+    },
     "inventory": [{
       "transform": "forge:default-item",
       "model": "builtin/generated",
