@@ -10,13 +10,13 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
+
+import java.util.List;
 
 public class DummyManaNetwork implements IManaNetwork {
 

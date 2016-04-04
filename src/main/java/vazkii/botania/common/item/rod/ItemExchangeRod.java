@@ -13,6 +13,7 @@ package vazkii.botania.common.item.rod;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -392,7 +393,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		ItemStack holding = player.getHeldItemMainhand();
 		if(holding != stack || !canExchange(stack))
-			return null;
+			return ImmutableList.of();
 
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
@@ -423,7 +424,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			}
 
 		}
-		return null;
+		return ImmutableList.of();
 	}
 
 }

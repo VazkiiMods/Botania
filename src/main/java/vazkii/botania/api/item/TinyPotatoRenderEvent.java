@@ -12,8 +12,6 @@ package vazkii.botania.api.item;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Why would you ever want this ._.

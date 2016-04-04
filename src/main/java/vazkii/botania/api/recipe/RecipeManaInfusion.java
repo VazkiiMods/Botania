@@ -10,10 +10,10 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 public class RecipeManaInfusion {
 

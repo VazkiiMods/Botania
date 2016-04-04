@@ -11,8 +11,6 @@
 package vazkii.botania.api.boss;
 
 import vazkii.botania.api.internal.ShaderCallback;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * A Botania boss whose HP bar makes use of shaders. Shaders

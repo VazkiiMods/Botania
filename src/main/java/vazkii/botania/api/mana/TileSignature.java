@@ -14,7 +14,7 @@ public class TileSignature {
 
 	@Override
 	public int hashCode() {
-		return Boolean.hashCode(remoteWorld) ^ tile.hashCode();
+		return Boolean.hashCode(remoteWorld) ^ System.identityHashCode(tile);
 	}
 
 	@Override

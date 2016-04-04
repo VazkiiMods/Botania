@@ -11,6 +11,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
+
 import java.util.HashMap;
 
 public interface IFloatingFlower {
@@ -35,6 +36,8 @@ public interface IFloatingFlower {
 		public static final IslandType INFUSED = new IslandType("INFUSED");
 		public static final IslandType MUTATED = new IslandType("MUTATED");
 
+		private final String typeName;
+
 		/**
 		 * Instantiates and registers a new floating flower island type
 		 * Note that you need to register the model for this island type, see BotaniaAPIClient
@@ -45,8 +48,6 @@ public interface IFloatingFlower {
 			this.typeName = name;
 			registry.put(name, this);
 		}
-
-		public final String typeName;
 
 		public static IslandType ofType(String typeStr) {
 			IslandType type = registry.get(typeStr);

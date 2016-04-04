@@ -10,13 +10,11 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * An item that implements this will allow for various wireframes to be drawn
@@ -27,7 +25,7 @@ public interface IWireframeCoordinateListProvider {
 
 	/**
 	 * Returns a list of BlockPos for the wireframes to draw.
-	 * Can be null.
+	 * Will not be null.
 	 */
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 

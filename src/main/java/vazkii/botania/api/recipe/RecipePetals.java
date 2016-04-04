@@ -10,14 +10,13 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipePetals {
 
@@ -83,7 +82,7 @@ public class RecipePetals {
 		return inputsMissing.isEmpty();
 	}
 
-	boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
+	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
 		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
 	}
 

@@ -13,6 +13,7 @@ package vazkii.botania.common.item.relic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -171,7 +172,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	@SideOnly(Side.CLIENT)
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		if(getLokiRing(player) != stack)
-			return null;
+			return ImmutableList.of();
 
 		RayTraceResult lookPos = Minecraft.getMinecraft().objectMouseOver;
 
@@ -190,7 +191,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			return list;
 		}
 
-		return null;
+		return ImmutableList.of();
 	}
 
 	@Override

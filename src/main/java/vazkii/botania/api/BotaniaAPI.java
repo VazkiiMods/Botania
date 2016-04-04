@@ -10,22 +10,16 @@
  */
 package vazkii.botania.api;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.common.base.Preconditions;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -40,6 +34,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
@@ -63,59 +58,62 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-
-import net.minecraftforge.fml.common.Loader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class BotaniaAPI {
 
-	private static List<LexiconCategory> categories = new ArrayList<>();
-	private static List<LexiconEntry> allEntries = new ArrayList<>();
+	private static final List<LexiconCategory> categories = new ArrayList<>();
+	private static final List<LexiconEntry> allEntries = new ArrayList<>();
 
-	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
+	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<>();
+	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 	
-	public static List<String> disposableBlocks = new ArrayList<>();
-	public static List<String> semiDisposableBlocks = new ArrayList<>();
+	public static final List<String> disposableBlocks = new ArrayList<>();
+	public static final List<String> semiDisposableBlocks = new ArrayList<>();
 
-	public static List<RecipePetals> petalRecipes = new ArrayList<>();
-	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
-	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<>();
-	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
-	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
-	public static List<RecipeBrew> brewRecipes = new ArrayList<>();
-	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
+	public static final List<RecipePetals> petalRecipes = new ArrayList<>();
+	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
+	public static final List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<>();
+	public static final List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
+	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
+	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
+	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
-	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
-	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
-	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet<>();
-	public static Map<String, String> subTileMods = new HashMap<>();
-	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
+	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
+	public static final Set<String> subtilesForCreativeMenu = new LinkedHashSet<>();
+	public static final Map<String, String> subTileMods = new HashMap<>();
+	public static final BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
 
-	public static Map<String, Integer> oreWeights = new HashMap<>();
-	public static Map<String, Integer> oreWeightsNether = new HashMap<>();
-	public static Map<Item, Block> seeds = new HashMap<>();
+	public static final Map<String, Integer> oreWeights = new HashMap<>();
+	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
+	public static final Map<Item, Block> seeds = new HashMap<>();
 
-	public static Set<Item> looniumBlacklist = new LinkedHashSet<>();
-	public static Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
-	public static Set<String> magnetBlacklist = new LinkedHashSet<>();
-	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
+	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
+	public static final Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
+	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
+	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 
-	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
-	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
+	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
-	public static ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
-	public static ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
+	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.item_armor_equip_iron);
-	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
+	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.item_armor_equip_iron);
+	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.item_armor_equip_iron);
 
-	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
+	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
 	public static KnowledgeType basicKnowledge;
 	public static KnowledgeType elvenKnowledge;

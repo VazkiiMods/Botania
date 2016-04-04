@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 /**
  * An interface for systems which may control if the item auto complete system should be active
  */

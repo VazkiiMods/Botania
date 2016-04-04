@@ -13,7 +13,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 // Generic base class for unlisted properties

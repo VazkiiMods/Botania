@@ -10,15 +10,15 @@
  */
 package vazkii.botania.api.lexicon;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.BotaniaAPI;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
-import vazkii.botania.api.BotaniaAPI;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 

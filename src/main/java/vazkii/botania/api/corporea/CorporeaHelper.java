@@ -9,26 +9,24 @@
  * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.BotaniaAPI;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
-
-import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.Entity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import vazkii.botania.api.BotaniaAPI;
 
 public final class CorporeaHelper {
 
@@ -38,9 +36,7 @@ public final class CorporeaHelper {
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 
-	public static final String[] WILDCARD_STRINGS = new String[] {
-		"...", "~", "+", "?" , "*"
-	};
+	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" , "*" };
 
 	/**
 	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V

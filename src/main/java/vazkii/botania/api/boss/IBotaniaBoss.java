@@ -10,14 +10,14 @@
  */
 package vazkii.botania.api.boss;
 
-import java.awt.Rectangle;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.BossInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.awt.*;
 
 /**
  * An extension of IBossDisplayData. This counts as a botania boss and as a normal

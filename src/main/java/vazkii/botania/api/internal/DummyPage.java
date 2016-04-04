@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.internal;
 
-import vazkii.botania.api.lexicon.LexiconPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.lexicon.LexiconPage;
 
 /**
  * A dummy page. It does absolutely nothing and is only

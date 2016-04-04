@@ -35,7 +35,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 	private static final String TAG_SOULBIND_NAME = "soulbind";
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
-	Achievement achievement;
+	private Achievement achievement;
 
 	public ItemRelic(String name) {
 		super(name);

@@ -10,13 +10,13 @@
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.api.internal.IGuiLexiconEntry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
+
+import java.util.List;
 
 public abstract class LexiconPage {
 

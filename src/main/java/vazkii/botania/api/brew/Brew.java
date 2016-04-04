@@ -10,14 +10,11 @@
  */
 package vazkii.botania.api.brew;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+
+import java.util.List;
 
 /**
  * The class for a Brew definition, each one is a singleton.
@@ -29,8 +26,8 @@ public class Brew {
 	private final int color;
 	private final int cost;
 	private final List<PotionEffect> effects;
-	boolean canInfuseBloodPendant = true;
-	boolean canInfuseIncense = true;
+	private boolean canInfuseBloodPendant = true;
+	private boolean canInfuseIncense = true;
 
 	/**
 	 * @param name The unlocalized name of this potion.
