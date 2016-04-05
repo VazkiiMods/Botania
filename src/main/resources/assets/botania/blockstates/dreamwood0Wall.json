@@ -1,9 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "model": "botania:dummy",
     "uvlock": true,
     "transform": "forge:default-block",
-    "textures": { "wall": "botania:blocks/dreamwood0" }
+    "textures": { "particle": "#wall", "wall": "botania:blocks/dreamwood0" }
   },
   "variants": {
     "north": {

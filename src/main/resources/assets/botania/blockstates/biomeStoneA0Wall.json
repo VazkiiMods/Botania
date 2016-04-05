@@ -1,6 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "model": "botania:dummy",
+    "textures": {
+      "particle": "#wall"
+    },
     "uvlock": true,
     "transform": "forge:default-block"
   },
