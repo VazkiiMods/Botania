@@ -28,11 +28,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
@@ -43,7 +41,6 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -60,35 +57,32 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		/*boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR; todo 1.9
-		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+		ItemStack stack = event.getItemStack();
 		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
-		boolean ender = event.world.provider.getDimension() == 1;
+		boolean ender = event.getWorld().provider.getDimension() == 1;
 
-		if(rightEvent && correctStack && ender) {
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
-			if(pos == null) {
-				if (event.entityPlayer.worldObj.isRemote) {
-					event.entityPlayer.swingItem();
+		if(correctStack && ender) {
+			if (event.getWorld().isRemote) {
+				event.getEntityPlayer().swingArm(event.getHand());
+			} else {
+				ItemStack stack1 = new ItemStack(this, 1, 15);
+				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
+
+				if(!event.getEntityPlayer().inventory.addItemStackToInventory(stack1)) {
+					event.getEntityPlayer().dropPlayerItemWithRandomChoice(stack1, true);
 				} else {
-					ItemStack stack1 = new ItemStack(this, 1, 15);
-					event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
-
-					if(!event.entityPlayer.inventory.addItemStackToInventory(stack1)) {
-						event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
-					} else {
-						event.entityPlayer.openContainer.detectAndSendChanges();
-					}
-
-					stack.stackSize--;
-					if(stack.stackSize == 0)
-						event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
-
-					event.world.playSound(null, event.pos, SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.5F, 1F);
+					event.getEntityPlayer().openContainer.detectAndSendChanges();
 				}
+
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, null);
+
+				event.getWorld().playSound(null, event.getPos(), SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.5F, 1F);
+				event.setCanceled(true);
 			}
-		}*/
+		}
 	}
 
 	@Override

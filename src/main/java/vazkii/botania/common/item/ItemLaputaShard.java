@@ -137,7 +137,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								world.playAuxSFX(2001, pos_, Block.getStateId(state));
 
 								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
-								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, GameData.getBlockRegistry().getNameForObject(block).toString());
+								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block).toString());
 								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)

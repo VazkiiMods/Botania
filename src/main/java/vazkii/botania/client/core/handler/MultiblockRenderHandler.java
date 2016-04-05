@@ -35,12 +35,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -48,8 +46,6 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
-
-import java.util.List;
 
 public final class MultiblockRenderHandler {
 
@@ -115,8 +111,8 @@ public final class MultiblockRenderHandler {
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(currentMultiblock != null && anchor == null && event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer) {
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+		if(currentMultiblock != null && anchor == null && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer) {
 			anchor = event.getPos();
 			angle = event.getEntityPlayer().getHorizontalFacing();
 			event.setCanceled(true);

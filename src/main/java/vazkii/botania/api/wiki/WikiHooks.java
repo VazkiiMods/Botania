@@ -24,7 +24,7 @@ public class WikiHooks {
 	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
 
 	public static IWikiProvider getWikiFor(Block block) {
-		ResourceLocation mod = GameData.getBlockRegistry().getNameForObject(block);
+		ResourceLocation mod = Block.blockRegistry.getNameForObject(block);
 		return getWikiFor(mod == null ? "" : mod.getResourceDomain().toLowerCase());
 	}
 

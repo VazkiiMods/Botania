@@ -21,7 +21,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
@@ -61,9 +60,8 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@SubscribeEvent
-	public void onInteract(PlayerInteractEvent event) {
-		if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
-			TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos(), EnumHand.MAIN_HAND); // todo 1.9
+	public void onInteract(PlayerInteractEvent.RightClickBlock event) {
+		TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos(), event.getHand());
 	}
 
 	@Override

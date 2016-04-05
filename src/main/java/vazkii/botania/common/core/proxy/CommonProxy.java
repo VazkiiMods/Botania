@@ -55,7 +55,6 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.handler.SpawnerChangingHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
@@ -137,7 +136,6 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
 		MinecraftForge.EVENT_BUS.register(new PixieHandler());
 		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
-		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 

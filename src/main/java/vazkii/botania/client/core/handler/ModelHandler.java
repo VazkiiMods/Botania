@@ -685,7 +685,7 @@ public final class ModelHandler {
     private static void registerMushrooms() {
         Item item = Item.getItemFromBlock(ModBlocks.mushroom);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.mushroom).toString();
+            String name = Block.blockRegistry.getNameForObject(ModBlocks.mushroom).toString();
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
     }
@@ -693,26 +693,26 @@ public final class ModelHandler {
     private static void registerFlowers() {
         Item item = Item.getItemFromBlock(ModBlocks.flower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.flower).toString();
+            String name = Block.blockRegistry.getNameForObject(ModBlocks.flower).toString();
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
 
         item = Item.getItemFromBlock(ModBlocks.shinyFlower);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.shinyFlower).toString();
+            String name = Block.blockRegistry.getNameForObject(ModBlocks.shinyFlower).toString();
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
         }
 
         item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
         for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1.getAllowedValues()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower1).toString();
+            String name = Block.blockRegistry.getNameForObject(ModBlocks.doubleFlower1).toString();
             String variant = "inventory_" + color.getName();
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, variant));
         }
 
         item = Item.getItemFromBlock(ModBlocks.doubleFlower2);
         for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
-            String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.doubleFlower2).toString();
+            String name = Block.blockRegistry.getNameForObject(ModBlocks.doubleFlower2).toString();
             String variant = "inventory_" + color.getName();
             ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(name, variant));
         }
@@ -720,7 +720,7 @@ public final class ModelHandler {
 
     private static void registerPavement() {
         Item item = Item.getItemFromBlock(ModFluffBlocks.pavement);
-        String name = GameData.getBlockRegistry().getNameForObject(ModFluffBlocks.pavement).toString();
+        String name = Block.blockRegistry.getNameForObject(ModFluffBlocks.pavement).toString();
 
         for (EnumDyeColor e : BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues()) {
             String variant = "color=" + e.getName();
@@ -870,7 +870,7 @@ public final class ModelHandler {
 
     private static void registerAltars() {
         Item item = Item.getItemFromBlock(ModBlocks.altar);
-        String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.altar).toString();
+        String name = Block.blockRegistry.getNameForObject(ModBlocks.altar).toString();
         for (int i = 0; i < AltarVariant.values().length - 1; i++) { // Off by one on purpose to exclude MOSSY
             String variantName = "variant=" + AltarVariant.values()[i].getName();
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, variantName));
@@ -882,7 +882,7 @@ public final class ModelHandler {
             if (b == null) // Dark quartz disabled
                 continue;
             Item item = Item.getItemFromBlock(b);
-            String name = GameData.getBlockRegistry().getNameForObject(b).toString();
+            String name = Block.blockRegistry.getNameForObject(b).toString();
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "variant=normal"));
             ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, "variant=chiseled"));
             ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, "variant=pillar_y"));
@@ -891,7 +891,7 @@ public final class ModelHandler {
 
     private static void registerLuminizers() {
         Item item = Item.getItemFromBlock(ModBlocks.lightRelay);
-        String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.lightRelay).toString();
+        String name = Block.blockRegistry.getNameForObject(ModBlocks.lightRelay).toString();
         for (LuminizerVariant v : LuminizerVariant.values()) {
             ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
         }
@@ -899,7 +899,7 @@ public final class ModelHandler {
 
     private static void registerPools() {
         Item item = Item.getItemFromBlock(ModBlocks.pool);
-        String name = GameData.getBlockRegistry().getNameForObject(ModBlocks.pool).toString();
+        String name = Block.blockRegistry.getNameForObject(ModBlocks.pool).toString();
         for (PoolVariant v : PoolVariant.values()) {
             if (v == PoolVariant.CREATIVE) {
                 // Special case to have mana water layer
@@ -913,7 +913,7 @@ public final class ModelHandler {
     private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String variantHeader) {
         Item item = Item.getItemFromBlock(b);
         for (T e : enumclazz.getEnumConstants()) {
-            String baseName = GameData.getBlockRegistry().getNameForObject(b).toString();
+            String baseName = Block.blockRegistry.getNameForObject(b).toString();
             String variantName = variantHeader + "=" + e.getName();
             ModelLoader.setCustomModelResourceLocation(item, e.ordinal(), new ModelResourceLocation(baseName, variantName));
         }
@@ -923,7 +923,7 @@ public final class ModelHandler {
      * Registers all metas of the given item to models/item/registryname.json
      */
     private static void registerItemModelAllMeta(Item item, int range) {
-        String loc = GameData.getItemRegistry().getNameForObject(item).toString();
+        String loc = Item.itemRegistry.getNameForObject(item).toString();
         for(int i = 0; i < range; i++) {
             ModelLoader.registerItemVariants(item, new ModelResourceLocation(loc, "inventory"));
             ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(loc, "inventory"));

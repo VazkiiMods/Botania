@@ -13,6 +13,8 @@ package vazkii.botania.common.item.relic;
 import java.util.ArrayList;
 import java.util.List;
 
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -33,7 +35,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -45,8 +46,6 @@ import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -69,8 +68,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		/*EntityPlayer player = event.entityPlayer; todo 1.9
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)
 			return;
@@ -85,7 +84,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			}
 		}
 
-		ItemStack heldItemStack = player.getCurrentEquippedItem();
+		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
 		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
@@ -93,7 +92,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
-		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
+		if(heldItemStack == null && player.isSneaking()) {
 			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
 				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
@@ -123,19 +122,19 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				}
 				}
 			}
-		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
+		} else if(heldItemStack != null && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
 				if(!player.worldObj.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, pos, lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
+					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
 						return;
 					}
 				}
 			}
-		}*/
+		}
 	}
 
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {

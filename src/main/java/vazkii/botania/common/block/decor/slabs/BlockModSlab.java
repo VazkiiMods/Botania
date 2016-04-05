@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.RayTraceResult;
@@ -22,6 +23,7 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.lib.LibMisc;
 
 public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
@@ -89,7 +91,9 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	public void register() {
-		GameRegistry.registerBlock(this, isDouble() ? null : ItemBlockModSlab.class, name);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		if (!isDouble())
+			GameRegistry.register(new ItemBlockModSlab(this), new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 
 	@Override

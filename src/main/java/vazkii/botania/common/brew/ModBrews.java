@@ -69,7 +69,7 @@ public class ModBrews {
 	}
 
 	public static void initTC() {
-		Potion warpWardPotion = GameData.getPotionRegistry().getObject(new ResourceLocation("minecraft:warp_ward"));
+		Potion warpWardPotion = Potion.potionRegistry.getObject(new ResourceLocation("minecraft:warp_ward"));
 		// thaumcraft 5 is registering its potions under the Minecraft namespace
 
 		if(warpWardPotion != null)

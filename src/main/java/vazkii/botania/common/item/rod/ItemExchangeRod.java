@@ -35,7 +35,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -108,13 +107,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	@SubscribeEvent
-	public void onLeftClick(PlayerInteractEvent event) {
-		if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
-			if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
-				if(exchange(event.getWorld(), event.getEntityPlayer(), event.getPos(), stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
-					ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, true);
-			}
+	public void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+		ItemStack stack = event.getItemStack();
+		if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
+			if(exchange(event.getWorld(), event.getEntityPlayer(), event.getPos(), stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
+				ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, true);
 		}
 	}
 

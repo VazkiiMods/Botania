@@ -20,18 +20,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public final class SkyblockWorldEvents {
 
@@ -65,35 +65,35 @@ public final class SkyblockWorldEvents {
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		/*if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) { todo 1.9
-			ItemStack equipped = event.entityPlayer.getCurrentEquippedItem();
-			if(event.action == Action.RIGHT_CLICK_BLOCK && equipped == null && event.entityPlayer.isSneaking()) {
-				Block block = event.getWorld().getBlockState(event.pos).getBlock();
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) {
+			ItemStack equipped = event.getItemStack();
+			if(equipped == null && event.getEntityPlayer().isSneaking()) {
+				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
 				if(block == Blocks.grass || block == Blocks.dirt) {
 					if(event.getWorld().isRemote)
-						event.entityPlayer.swingItem();
+						event.getEntityPlayer().swingArm(event.getHand());
 					else {
-						event.getWorld().playSoundEffect(event.pos.getX() + 0.5, event.pos.getY() + 0.5, event.pos.getZ() + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getFrequency() + (float) (Math.random() * 0.2 - 0.1));
+						event.getWorld().playSound(null, event.getPos(), block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, block.getSoundType().getVolume() * 0.4F, block.getSoundType().getPitch() + (float) (Math.random() * 0.2 - 0.1));
 						if(Math.random() < 0.8)
-							event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
+							event.getEntityPlayer().dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
 				}
-			} else if(equipped != null && equipped.getItem() == Items.bowl && event.action == Action.RIGHT_CLICK_BLOCK && !event.getWorld().isRemote) {
-				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.entityPlayer, true, 4.5F);
+			} else if(equipped != null && equipped.getItem() == Items.bowl && !event.getWorld().isRemote) {
+				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
 				if(RayTraceResult != null) {
 					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getBlock().getMaterial() == Material.water) {
+						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getMaterial() == Material.water) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
-								event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, new ItemStack(ModItems.waterBowl));
-							else event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.waterBowl), false);
+								event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, new ItemStack(ModItems.waterBowl));
+							else event.getEntityPlayer().dropPlayerItemWithRandomChoice(new ItemStack(ModItems.waterBowl), false);
 						}
 					}
 				}
 			}
-		}*/
+		}
 	}
 
 	@SubscribeEvent
