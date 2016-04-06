@@ -208,7 +208,7 @@ public final class MultiblockRenderHandler {
 		}
 		else {
 			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1); // todo 1.8 bandaid for things rendering one block off...why?
+			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1);
 			GlStateManager.color(1, 1, 1, 1);
 			brd.renderBlockBrightness(state, 1.0F);
 		}

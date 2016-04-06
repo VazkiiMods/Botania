@@ -112,12 +112,14 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				Helper.rotateIfSneaking(player);
 				boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null;
 				GlStateManager.rotate(90, 0, 1, 0);
-				GlStateManager.rotate(90, 1, 0, 0);
+				GlStateManager.rotate(180, 0, 0, 1);
+				GlStateManager.translate(0, -0.6, 0);
+				GlStateManager.scale(0.55, 0.55, 0.55);
 
 				if (renderedOne)
-					GlStateManager.translate(0F, armor ? 0.20F : 0.18F, -0.25F);
+					GlStateManager.translate(0F, 0F, armor ? 0.55F : 0.5F);
 				else
-					GlStateManager.translate(0F, armor ? -0.39F : -0.35F, -0.25F);
+					GlStateManager.translate(0F, 0F, armor ? -0.55F : -0.5F);
 
 				GlStateManager.scale(0.75F, 0.75F, 0.75F);
 
@@ -126,7 +128,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
+				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE); // todo 1.9
 				GlStateManager.popMatrix();
 
 				if(renderedOne)
