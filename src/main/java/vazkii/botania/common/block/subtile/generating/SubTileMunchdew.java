@@ -62,7 +62,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 					for(int j = 0; j < RANGE_Y; j++)
 						for(int k = -RANGE; k < RANGE + 1; k++) {
 							BlockPos pos_ = pos.add(i, j, k);
-							if(supertile.getWorld().getBlockState(pos).getMaterial()== Material.leaves) {
+							if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.leaves) {
 								boolean exposed = false;
 								for(EnumFacing dir : EnumFacing.VALUES) {
 									IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
