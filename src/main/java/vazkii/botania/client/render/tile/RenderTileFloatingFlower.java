@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.*;
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;

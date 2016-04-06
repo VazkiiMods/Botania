@@ -54,7 +54,6 @@ public interface IFloatingFlower {
 			return type == null ? GRASS : type;
 		}
 
-		@Override
 		public String toString() {
 			return this.typeName;
 		}
