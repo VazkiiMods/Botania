@@ -10,8 +10,10 @@ package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,7 +33,7 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 	private final int mana;
 
 	public ManaPoolRecipeWrapper(RecipeManaInfusion recipe) {
-		ImmutableList.Builder builder = ImmutableList.builder();
+		ImmutableList.Builder<Object> builder = ImmutableList.builder();
 
 		if(recipe.getInput() instanceof ItemStack) {
 			builder.add(recipe.getInput());
@@ -39,10 +41,11 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 			builder.add(OreDictionary.getOres(((String) recipe.getInput())));
 		}
 
-		if(recipe.isAlchemy()) {
-			builder.add(new ItemStack(ModBlocks.alchemyCatalyst));
-		} else if(recipe.isConjuration()) {
-			builder.add(new ItemStack(ModBlocks.conjurationCatalyst));
+		if(recipe.getCatalyst() != null) {
+			Block block = recipe.getCatalyst().getBlock();
+			if (Item.getItemFromBlock(block) != null) {
+				builder.add(new ItemStack(block, 1, block.getMetaFromState(recipe.getCatalyst())));
+			}
 		}
 
 		input = builder.build();

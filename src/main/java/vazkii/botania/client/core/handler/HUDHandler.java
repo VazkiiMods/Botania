@@ -278,7 +278,7 @@ public final class HUDHandler {
 		profiler.startSection("poolRecipe");
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack)) {
-				if((!recipe.isAlchemy() || tile.alchemy) && (!recipe.isConjuration() || tile.conjuration)) {
+				if(recipe.getCatalyst() == null || tile.getWorld().getBlockState(tile.getPos().down()).equals(recipe.getCatalyst())) {
 					int x = res.getScaledWidth() / 2 - 11;
 					int y = res.getScaledHeight() / 2 + 10;
 

@@ -84,9 +84,6 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	private static final String TAG_OUTPUT_KEY = "outputKey";
 
 	boolean outputting = false;
-	public boolean alchemy = false;
-	public boolean conjuration = false;
-	boolean catalystsRegistered = false;
 
 	public EnumDyeColor color = EnumDyeColor.WHITE;
 	int mana;
@@ -160,11 +157,11 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			age = ((int) MethodHandles.itemAge_getter.invokeExact(item));
 		} catch (Throwable throwable) { return false; }
 
-		if(age > 100 && age < 130 || !catalystsRegistered)
+		if(age > 100 && age < 130)
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration)) {
+			if(recipe.matches(stack) && (recipe.getCatalyst() == null || worldObj.getBlockState(pos.down()).equals(recipe.getCatalyst()))) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
@@ -231,10 +228,6 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			sendPacket = false;
 		}
-
-		alchemy = worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.alchemyCatalyst;
-		conjuration = worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.conjurationCatalyst;
-		catalystsRegistered = true;
 
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 		for(EntityItem item : items) {
