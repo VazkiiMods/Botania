@@ -50,6 +50,7 @@ public class MiscellaneousIcons {
         lightRelayWorldIcon,
         lightRelayWorldIconRed,
         alchemyCatalystOverlay,
+        conjurationCatalystOverlay,
         enchanterOverlay,
         manaVoidOverlay,
         manaWater,
@@ -105,6 +106,7 @@ public class MiscellaneousIcons {
         lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "lightRelay1", "blocks");
         lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "lightRelay3", "blocks");
         alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemyCatalyst3", "blocks");
+        conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjurationCatalyst3", "blocks");
         enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanterOverlay", "blocks");
         manaVoidOverlay = IconHelper.forName(evt.getMap(), "manaVoid1", "blocks");
         manaWater = IconHelper.forName(evt.getMap(), "manaWater", "blocks");

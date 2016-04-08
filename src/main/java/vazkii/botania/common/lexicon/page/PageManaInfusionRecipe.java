@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -83,10 +84,12 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
 
-		if(recipe.isAlchemy())
-			renderItemAtGridPos(gui, 1, 2, new ItemStack(ModBlocks.alchemyCatalyst), false);
-		else if(recipe.isConjuration())
-			renderItemAtGridPos(gui, 1, 2, new ItemStack(ModBlocks.conjurationCatalyst), false);
+		if(recipe.getCatalyst() != null) {
+			Block block = recipe.getCatalyst().getBlock();
+			if (Item.getItemFromBlock(block) != null) {
+				renderItemAtGridPos(gui, 1, 2, new ItemStack(block, 1, block.getMetaFromState(recipe.getCatalyst())), false);
+			}
+		}
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

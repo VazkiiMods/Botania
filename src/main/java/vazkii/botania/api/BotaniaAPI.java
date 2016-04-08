@@ -473,7 +473,7 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setAlchemy(true);
+		recipe.setCatalyst(RecipeManaInfusion.alchemyState);
 		return recipe;
 	}
 
@@ -484,7 +484,7 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setConjuration(true);
+		recipe.setCatalyst(RecipeManaInfusion.conjurationState);
 		return recipe;
 	}
 
@@ -503,7 +503,7 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Brew Recipe (for the Botanical Brewery).
 	 * @param brew The brew in to be set in this recipe.
-	 * @inputs The items used in the recipe, no more than 6.
+	 * @param inputs The items used in the recipe, no more than 6.
 	 */
 	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
 		Preconditions.checkArgument(inputs.length <= 6);
