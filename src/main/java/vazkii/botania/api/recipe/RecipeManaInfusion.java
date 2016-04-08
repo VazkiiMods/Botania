@@ -78,17 +78,12 @@ public class RecipeManaInfusion {
 		return mana;
 	}
 
-
-
 	/**
 	 * @deprecated Use {@link RecipeManaInfusion#setCatalyst(IBlockState)} instead
 	 */
 	@Deprecated
 	public void setAlchemy(boolean alchemy) {
-		if (alchemy)
-			catalystState = alchemyState;
-		else
-			catalystState = null;
+		catalystState = alchemy ? alchemyState : null;
 	}
 
 	/**
@@ -96,7 +91,7 @@ public class RecipeManaInfusion {
 	 */
 	@Deprecated
 	public boolean isAlchemy() {
-		return catalystState != null && catalystState.equals(alchemyState);
+		return catalystState == alchemyState;
 	}
 
 	/**
@@ -104,10 +99,7 @@ public class RecipeManaInfusion {
 	 */
 	@Deprecated
 	public void setConjuration(boolean conjuration) {
-		if (conjuration)
-			catalystState = conjurationState;
-		else
-			catalystState = null;
+		catalystState = conjuration ? conjurationState : null;
 	}
 
 	/**
@@ -115,7 +107,7 @@ public class RecipeManaInfusion {
 	 */
 	@Deprecated
 	public boolean isConjuration() {
-		return catalystState != null && catalystState.equals(conjurationState);
+		return catalystState == conjurationState;
 	}
 }
 

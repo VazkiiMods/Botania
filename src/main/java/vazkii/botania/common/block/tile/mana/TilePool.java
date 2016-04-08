@@ -161,7 +161,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (recipe.getCatalyst() == null || worldObj.getBlockState(pos.down()).equals(recipe.getCatalyst()))) {
+			if(recipe.matches(stack) && (recipe.getCatalyst() == null || worldObj.getBlockState(pos.down()) == recipe.getCatalyst())) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
