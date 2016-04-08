@@ -17,7 +17,7 @@ public class RecipeMiniFlower extends RecipeManaInfusion {
 
 	public RecipeMiniFlower(String flower, String mini, int mana) {
 		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), BotaniaAPI.internalHandler.getSubTileAsStack(mini), mana);
-		setAlchemy(true);
+		setCatalyst(RecipeManaInfusion.alchemyState);
 	}
 
 	@Override

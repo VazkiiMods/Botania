@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
@@ -408,6 +409,9 @@ public final class ModBlocks {
 
 		BotaniaAPI.registerPaintableBlock(unstableBlock, BotaniaStateProps.COLOR);
 		BotaniaAPI.registerPaintableBlock(manaBeacon, BotaniaStateProps.COLOR);
+
+		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
+		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 
 		initTileEntities();
 	}
