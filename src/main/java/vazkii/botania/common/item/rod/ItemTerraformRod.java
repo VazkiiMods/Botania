@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
@@ -27,12 +23,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IBlockProvider;
@@ -45,7 +37,9 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
 
@@ -107,7 +101,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
 
 		int xCenter = (int) par3EntityPlayer.posX;
-		int yCenter = (int) par3EntityPlayer.posY;
+		int yCenter = (int) par3EntityPlayer.posY - 1;
 		int zCenter = (int) par3EntityPlayer.posZ;
 
 		if(yCenter < par2World.getSeaLevel()) // Not below sea level
@@ -127,7 +121,11 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					BlockPos pos = new BlockPos(xCenter + i, yStart + k, zCenter + j);
 					IBlockState state = par2World.getBlockState(pos);
 
-					if (Item.getItemFromBlock(state.getBlock()) == null)
+					--k;
+
+					if(state.getBlock() == Blocks.air)
+						continue;
+					else if(Item.getItemFromBlock(state.getBlock()) == null)
 						break;
 					int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 					for(int id : ids)
@@ -154,7 +152,6 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 							}
 							break;
 						}
-					--k;
 				}
 			}
 
