@@ -104,56 +104,43 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		int yCenter = (int) par3EntityPlayer.posY - 1;
 		int zCenter = (int) par3EntityPlayer.posZ;
 
-		if(yCenter < par2World.getSeaLevel()) // Not below sea level
-			return;
+		BlockPos startCenter = new BlockPos(par3EntityPlayer).down();
 
-		int yStart = yCenter + range;
+		if(startCenter.getY() < par2World.getSeaLevel()) // Not below sea level
+			return;
 
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++) {
-				int k = 0;
-				while(true) {
-					if(yStart + k < 0)
-						break;
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
+			IBlockState state = par2World.getBlockState(pos);
+			if(state.getBlock() == Blocks.air)
+				continue;
+			else if(Item.getItemFromBlock(state.getBlock()) == null)
+				continue;
+			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
+			for(int id : ids)
+				if(validBlocks.contains(OreDictionary.getOreName(id))) {
+					List<BlockPos> airBlocks = new ArrayList<>();
 
-					BlockPos pos = new BlockPos(xCenter + i, yStart + k, zCenter + j);
-					IBlockState state = par2World.getBlockState(pos);
-
-					--k;
-
-					if(state.getBlock() == Blocks.air)
-						continue;
-					else if(Item.getItemFromBlock(state.getBlock()) == null)
-						break;
-					int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
-					for(int id : ids)
-						if(validBlocks.contains(OreDictionary.getOreName(id))) {
-							boolean hasAir = false;
-							List<BlockPos> airBlocks = new ArrayList<>();
-
-							for(EnumFacing dir : EnumFacing.HORIZONTALS) {
-								BlockPos pos_ = pos.offset(dir);
-								Block block_ = par2World.getBlockState(pos_).getBlock();
-								if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
-									airBlocks.add(pos_);
-									hasAir = true;
-								}
-							}
-
-							if(hasAir) {
-								if(pos.getY() > yCenter)
-									blocks.add(new CoordsWithBlock(pos, Blocks.air));
-								else for(BlockPos coords : airBlocks) {
-									if(par2World.getBlockState(coords.down()).getBlock() != Blocks.air)
-										blocks.add(new CoordsWithBlock(coords, Blocks.dirt));
-								}
-							}
-							break;
+					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+						BlockPos pos_ = pos.offset(dir);
+						Block block_ = par2World.getBlockState(pos_).getBlock();
+						if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
+							airBlocks.add(pos_);
 						}
+					}
+
+					if(!airBlocks.isEmpty()) {
+						if(pos.getY() > yCenter)
+							blocks.add(new CoordsWithBlock(pos, Blocks.air));
+						else for(BlockPos coords : airBlocks) {
+							if(par2World.getBlockState(coords.down()).getBlock() != Blocks.air)
+								blocks.add(new CoordsWithBlock(coords, Blocks.dirt));
+						}
+					}
+					break;
 				}
-			}
+		}
 
 		int cost = COST_PER * blocks.size();
 
@@ -164,7 +151,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_sand_step, SoundCategory.BLOCKS, 1F, 0.4F);
+					par2World.playSound(par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_sand_step, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
 					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
@@ -176,11 +163,11 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		return true;
 	}
 
-	class CoordsWithBlock extends BlockPos {
+	private class CoordsWithBlock extends BlockPos {
 
-		final Block block;
+		private final Block block;
 
-		public CoordsWithBlock(BlockPos pos, Block block) {
+		private CoordsWithBlock(BlockPos pos, Block block) {
 			super(pos.getX(), pos.getY(), pos.getZ());
 			this.block = block;
 		}
