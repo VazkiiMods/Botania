@@ -309,6 +309,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.manaVoid);
         registerItemModel(ModBlocks.prism);
         registerItemModel(ModBlocks.pistonRelay);
+        registerItemModel(ModBlocks.pump);
         registerItemModel(ModBlocks.redStringComparator);
         registerItemModel(ModBlocks.redStringContainer);
         registerItemModel(ModBlocks.redStringDispenser);

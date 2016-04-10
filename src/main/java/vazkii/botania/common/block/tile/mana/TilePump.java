@@ -15,8 +15,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.common.animation.TimeValues;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,19 +38,32 @@ public class TilePump extends TileMod {
 
 	public int comparator;
 	public boolean hasRedstone = false;
-	int lastComparator = 0;
+	private int lastComparator = 0;
 
 	private final TimeValues.VariableValue move;
-	//private final IAnimationStateMachine asm;
+	private final IAnimationStateMachine asm;
 
 	public TilePump() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			move = new TimeValues.VariableValue(0); //todo 1.9
-			//asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
+			move = new TimeValues.VariableValue(0);
+			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/pump.json"), ImmutableMap.of("move", move));
 		} else {
 			move = null;
-			//asm = null;
+			asm = null;
 		}
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+		if (cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
+			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
+		}
+		return super.getCapability(cap, side);
 	}
 
 	@Override
