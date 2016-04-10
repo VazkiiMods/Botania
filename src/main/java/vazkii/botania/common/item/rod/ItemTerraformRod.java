@@ -97,12 +97,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
-	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	private void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
-
-		int xCenter = (int) par3EntityPlayer.posX;
-		int yCenter = (int) par3EntityPlayer.posY - 1;
-		int zCenter = (int) par3EntityPlayer.posZ;
 
 		BlockPos startCenter = new BlockPos(par3EntityPlayer).down();
 
@@ -131,7 +127,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					}
 
 					if(!airBlocks.isEmpty()) {
-						if(pos.getY() > yCenter)
+						if(pos.getY() > startCenter.getY())
 							blocks.add(new CoordsWithBlock(pos, Blocks.air));
 						else for(BlockPos coords : airBlocks) {
 							if(par2World.getBlockState(coords.down()).getBlock() != Blocks.air)
@@ -153,7 +149,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 				for(int i = 0; i < 10; i++)
 					par2World.playSound(par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_sand_step, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
-					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
+					Botania.proxy.sparkleFX(par2World, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
 		}
 	}
