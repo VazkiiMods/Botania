@@ -15,8 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -47,6 +50,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLexicon;
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
+	public static List<IRecipe> recipesDyesVanilla;
 	public static List<IRecipe> recipesPetalBlocks;
 	public static IRecipe recipePestleAndMortar;
 	public static List<IRecipe> recipesTwigWand;
@@ -347,6 +351,23 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 16; i++)
 			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR);
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
+
+		// Vanilla flowers + mortar and pestle to dye
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.YELLOW.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.yellow_flower, 1, BlockFlower.EnumFlowerType.DANDELION.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.RED.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.POPPY.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.LIGHT_BLUE.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.BLUE_ORCHID.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.MAGENTA.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.ALLIUM.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.SILVER.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.HOUSTONIA.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.RED.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.RED_TULIP.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.ORANGE.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.ORANGE_TULIP.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.SILVER.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.WHITE_TULIP.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.PINK.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.PINK_TULIP.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, EnumDyeColor.SILVER.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 2, EnumDyeColor.YELLOW.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.double_plant, 1, BlockDoublePlant.EnumPlantType.SUNFLOWER.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 2, EnumDyeColor.MAGENTA.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.double_plant, 1, BlockDoublePlant.EnumPlantType.SYRINGA.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 2, EnumDyeColor.RED.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.double_plant, 1, BlockDoublePlant.EnumPlantType.ROSE.getMeta()));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 2, EnumDyeColor.PINK.getMetadata()), new ItemStack(ModItems.pestleAndMortar), new ItemStack(Blocks.double_plant, 1, BlockDoublePlant.EnumPlantType.PAEONIA.getMeta()));
+		recipesDyesVanilla = BotaniaAPI.getLatestAddedRecipes(14);
 
 		// Petal Block Recipes
 		for(int i = 0; i < 16; i++)
