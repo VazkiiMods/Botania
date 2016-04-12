@@ -28,6 +28,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -113,6 +114,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemSpawnerMover;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -158,7 +160,6 @@ public final class ModelHandler {
         registerAltars();
         registerQuartzBlocks();
         registerLuminizers();
-        registerPools();
 
         /** Normal Items **/
         registerStandardItems();
@@ -171,6 +172,24 @@ public final class ModelHandler {
         /** Special Item Meshers **/
         // Cannot use lambdas directly yet because FG/SS can't reobfuscate them, need a dummy wrapper
         // See https://github.com/MinecraftForge/ForgeGradle/issues/314.
+
+        ModelLoader.registerItemVariants(Item.getItemFromBlock(ModBlocks.pool),
+                new ModelResourceLocation("botania:pool", "variant=default"),
+                new ModelResourceLocation("botania:pool", "variant=diluted"),
+                new ModelResourceLocation("botania:pool", "variant=creative"),
+                new ModelResourceLocation("botania:pool", "variant=fabulous"),
+                new ModelResourceLocation("botania:pool", "default_full"),
+                new ModelResourceLocation("botania:pool", "diluted_full"),
+                new ModelResourceLocation("botania:pool", "creative_full"),
+                new ModelResourceLocation("botania:pool", "fabulous_full"));
+        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(ModBlocks.pool), MesherWrapper.of(stack -> {
+            int meta = stack.getMetadata();
+            if (meta < 0 || meta > 3)
+                meta = 0;
+            PoolVariant v = PoolVariant.values()[meta];
+            boolean renderFull = v == PoolVariant.CREATIVE || (stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull"));
+            return new ModelResourceLocation("botania:pool", renderFull ? v.getName() + "_full" : "variant=" + v.getName());
+        }));
 
         ModelLoader.registerItemVariants(elementiumShears,
                 new ModelResourceLocation("botania:elementiumShears", "inventory"),
@@ -895,19 +914,6 @@ public final class ModelHandler {
         String name = Block.blockRegistry.getNameForObject(ModBlocks.lightRelay).toString();
         for (LuminizerVariant v : LuminizerVariant.values()) {
             ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
-        }
-    }
-
-    private static void registerPools() {
-        Item item = Item.getItemFromBlock(ModBlocks.pool);
-        String name = Block.blockRegistry.getNameForObject(ModBlocks.pool).toString();
-        for (PoolVariant v : PoolVariant.values()) {
-            if (v == PoolVariant.CREATIVE) {
-                // Special case to have mana water layer
-                ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "inventory_creative"));
-            } else {
-                ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "variant=" + v.getName()));
-            }
         }
     }
 

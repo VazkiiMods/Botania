@@ -11,9 +11,21 @@
       "creative": { "textures": { "all": "botania:model/infinitePool" } },
       "fabulous": { "textures": { "all": "botania:model/pool" } }
     },
-    "inventory_creative": [{
+    "default_full": [{
+      "model": "botania:pool_filled",
+      "textures": { "all": "botania:model/pool", "liquid": "botania:blocks/manaWater" }
+    }],
+    "diluted_full": [{
+      "model": "botania:pool_filled",
+      "textures": { "all": "botania:model/dilutedPool", "liquid": "botania:blocks/manaWater" }
+    }],
+    "creative_full": [{
       "model": "botania:pool_filled",
       "textures": { "all": "botania:model/infinitePool", "liquid": "botania:blocks/manaWater" }
+    }],
+    "fabulous_full": [{
+      "model": "botania:pool_filled",
+      "textures": { "all": "botania:model/pool", "liquid": "botania:blocks/manaWater" }
     }]
   }
 }

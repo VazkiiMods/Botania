@@ -42,18 +42,22 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class PageManaInfusionRecipe extends PageRecipe {
 
 	private static final ResourceLocation manaInfusionOverlay = new ResourceLocation(LibResources.GUI_MANA_INFUSION_OVERLAY);
 
-	List<RecipeManaInfusion> recipes;
-	int ticksElapsed = 0;
-	int recipeAt = 0;
+	private List<RecipeManaInfusion> recipes;
+	private int ticksElapsed = 0;
+	private int recipeAt = 0;
+	private final ItemStack renderStack;
 
 	public PageManaInfusionRecipe(String unlocalizedName, List<RecipeManaInfusion> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
+		renderStack = new ItemStack(ModBlocks.pool, 1, 0);
+		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 	}
 
 	public PageManaInfusionRecipe(String unlocalizedName, RecipeManaInfusion recipe) {
@@ -79,8 +83,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
 
-		RenderTilePool.forceMana = true;
-		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool, 1, recipe.getOutput().getItem() == Item.getItemFromBlock(ModBlocks.pool) ? 2 : 0), false);
+		renderStack.setItemDamage(recipe.getOutput().getItem() == Item.getItemFromBlock(ModBlocks.pool) ? 2 : 0);
+		renderItemAtGridPos(gui, 2, 1, renderStack, false);
 
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
 
