@@ -12,6 +12,9 @@ package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
+	// EntityHorse
+	public static final String[] INIT_HORSE_CHEST = { "initHorseChest", "func_110226_cD", "dJ" };
+
 	// RenderManager
 	public static final String[] RENDERPOSX = { "renderPosX", "field_78725_b", "o" };
 	public static final String[] RENDERPOSY = { "renderPosY", "field_78726_c", "p" };

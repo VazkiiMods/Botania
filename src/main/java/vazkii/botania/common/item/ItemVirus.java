@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.item;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +24,7 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.HorseArmorType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +32,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -51,8 +57,25 @@ public class ItemVirus extends ItemMod {
 		if(par3EntityLivingBase instanceof EntityHorse) {
 			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
 			if(horse.getType() != HorseArmorType.ZOMBIE && horse.getType() != HorseArmorType.SKELETON && horse.isTame()) {
-				horse.dropChestItems();
+				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				ItemStack saddle = inv.getStackInSlot(0);
+
+				for (int i = 1; i < inv.getSlots(); i++)
+					if(inv.getStackInSlot(i) != null)
+						horse.entityDropItem(inv.getStackInSlot(i), 0);
+				horse.entityDropItem(new ItemStack(Blocks.chest), 0);
+
 				horse.setType(par1ItemStack.getItemDamage() == 0 ? HorseArmorType.ZOMBIE : HorseArmorType.SKELETON);
+
+				// Reinit the horse chest to the right new size
+				Method m = ReflectionHelper.findMethod(EntityHorse.class, horse, LibObfuscation.INIT_HORSE_CHEST);
+				try {
+					m.invoke(horse);
+				} catch (IllegalAccessException | InvocationTargetException ignored) {}
+
+				// Put the saddle back
+				horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).insertItem(0, saddle, false);
+
 				AbstractAttributeMap attributes = horse.getAttributeMap();
 				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
 				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
