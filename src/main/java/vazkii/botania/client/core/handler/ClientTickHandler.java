@@ -76,10 +76,10 @@ public class ClientTickHandler {
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
 						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld))) {
-							if(!sig.remoteWorld)
+							if(!sig.isRemote())
 								continue;
 
-							TileEntity tile = sig.tile;
+							TileEntity tile = sig.getTile();
 							if(tile instanceof IManaCollector)
 								((IManaCollector) tile).onClientDisplayTick();
 						}

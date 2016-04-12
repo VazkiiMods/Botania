@@ -4,12 +4,20 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileSignature {
 
-	public final TileEntity tile;
-	public final boolean remoteWorld;
+	private final TileEntity tile;
+	private final boolean remoteWorld;
 
 	public TileSignature(TileEntity tile, boolean remoteWorld) {
 		this.tile = tile;
 		this.remoteWorld = remoteWorld;
+	}
+
+	public TileEntity getTile() {
+		return tile;
+	}
+
+	public boolean isRemote() {
+		return remoteWorld;
 	}
 
 	@Override

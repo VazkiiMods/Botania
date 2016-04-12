@@ -11,11 +11,13 @@
 package vazkii.botania.common.core.handler;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.function.BinaryOperator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -77,27 +79,13 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized TileEntity getClosest(Set<TileSignature> tiles, BlockPos pos, boolean remoteCheck, int limit) {
-		float closest = Float.MAX_VALUE;
-		TileEntity closestTile = null;
-
-		for(TileSignature sig : tiles) {
-			if(sig.remoteWorld != remoteCheck)
-				continue;
-
-			TileEntity tile = sig.tile;
-			if(tile.isInvalid())
-				continue;
-			float distance = MathHelper.pointDistanceSpace(tile.getPos(), pos);
-			if(distance > limit)
-				continue;
-
-			if(distance < closest) {
-				closest = distance;
-				closestTile = tile;
-			}
-		}
-
-		return closestTile;
+		return tiles.stream()
+				.filter(ts -> ts.isRemote() == remoteCheck)
+				.map(TileSignature::getTile)
+				.filter(t -> !t.isInvalid())
+				.filter(t -> t.getPos().distanceSq(pos) <= limit * limit)
+				.reduce(BinaryOperator.minBy(Comparator.comparing(t -> t.getPos().distanceSq(pos), Double::compare)))
+				.orElse(null);
 	}
 
 	private synchronized void remove(Map<World, Set<TileSignature>> map, TileEntity tile) {
@@ -111,11 +99,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	private synchronized void add(Map<World, Set<TileSignature>> map, TileEntity tile) {
 		World world = tile.getWorld();
-
-		Set<TileSignature> tiles;
-		if(!map.containsKey(world))
-			map.put(world, new HashSet<>());
-
+		map.putIfAbsent(world, new HashSet<>());
 		map.get(world).add(new TileSignature(tile, tile.getWorld().isRemote));
 	}
 
@@ -130,11 +114,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private Set<TileSignature> getAllInWorld(Map<World, Set<TileSignature>> map, World world) {
-		if(!map.containsKey(world))
-			return new HashSet<>();
-
-		return map.get(world);
+		return map.getOrDefault(world, new HashSet<>());
 	}
-
 
 }
