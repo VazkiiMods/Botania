@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public final class AdaptorNotifier {
 
-	boolean triedToWarnPlayer;
+	private boolean triedToWarnPlayer;
 
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {

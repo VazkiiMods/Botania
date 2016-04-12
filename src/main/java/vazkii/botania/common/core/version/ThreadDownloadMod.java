@@ -28,14 +28,14 @@ import net.minecraft.util.text.translation.I18n;
 
 public class ThreadDownloadMod extends Thread {
 
-	String fileName;
+	private String fileName;
 
-	byte[] buffer = new byte[10240];
+	private byte[] buffer = new byte[10240];
 
-	int totalBytesDownloaded;
-	int bytesJustDownloaded;
+	private int totalBytesDownloaded;
+	private int bytesJustDownloaded;
 
-	InputStream webReader;
+	private InputStream webReader;
 
 	public ThreadDownloadMod(String fileName) {
 		setName("Botania Download File Thread");

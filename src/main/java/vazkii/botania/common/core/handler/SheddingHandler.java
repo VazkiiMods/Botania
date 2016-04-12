@@ -38,8 +38,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public final class SheddingHandler {
 
-	public static final List<ShedPattern> patterns = new ArrayList<>();
-	public static final List<ShedPattern> defaultPatterns = new ArrayList<>();
+	private static final List<ShedPattern> patterns = new ArrayList<>();
+	private static final List<ShedPattern> defaultPatterns = new ArrayList<>();
 
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
@@ -54,7 +54,7 @@ public final class SheddingHandler {
 		}
 	}
 
-	public static ShedPattern getShedPattern(Entity entity) {
+	private static ShedPattern getShedPattern(Entity entity) {
 		for(ShedPattern pattern : patterns)
 			if(pattern.EntityClass.isInstance(entity))
 				return pattern;
@@ -103,7 +103,7 @@ public final class SheddingHandler {
 		}
 	}
 
-	public static void loadFromConfig(Configuration config, String key, ShedPattern defaultPattern) {
+	private static void loadFromConfig(Configuration config, String key, ShedPattern defaultPattern) {
 		String itemName = "";
 		int metadata = 0;
 		int rate = -1;
@@ -127,7 +127,7 @@ public final class SheddingHandler {
 			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
 	}
 
-	public static class ShedPattern {
+	private static class ShedPattern {
 
 		private final Class EntityClass;
 		private final ItemStack itemStack;

@@ -41,6 +41,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientMethodHandles;
@@ -208,9 +209,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 					if(container == stackAt)
 						consume = false;
 					else {
-						InventoryHelper.insertItemIntoInventory(inv, container);
-						if(container.stackSize != 0 && player != null)
-							player.dropPlayerItemWithRandomChoice(container, false);
+						ItemHandlerHelper.giveItemToPlayer(player, container);
 					}
 				}
 

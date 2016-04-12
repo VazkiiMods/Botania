@@ -23,27 +23,6 @@ public final class CommonTickHandler {
 	@SubscribeEvent
 	public void onTick(WorldTickEvent event) {
 		if(event.phase == Phase.END) {
-			/*List<Entity> entities = new ArrayList(event.world.loadedEntityList);
-			for(Entity entity : entities)
-				if(entity instanceof EntityItem)
-					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);*/
-
-			CorporeaHelper.clearCache();
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onTick(ClientTickEvent event) {
-		if(event.phase == Phase.END) {
-			/*World world = Minecraft.getMinecraft().theWorld;
-			if(world != null) {
-				List<Entity> entities = new ArrayList(world.loadedEntityList);
-				for(Entity entity : entities)
-					if(entity instanceof EntityItem)
-						TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
-			}*/
-
 			CorporeaHelper.clearCache();
 		}
 	}

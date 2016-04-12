@@ -42,9 +42,8 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
-import vazkii.botania.common.core.helper.InventoryHelper2;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -94,7 +93,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
 
-				InvWithLocation inv = InventoryHelper2.getInventoryWithLocation(supertile.getWorld(), pos_, dir);
+				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir);
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);

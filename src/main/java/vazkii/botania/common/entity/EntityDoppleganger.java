@@ -49,7 +49,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.*;
@@ -65,7 +64,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
-import net.minecraftforge.fml.common.registry.GameData;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import vazkii.botania.api.boss.IBotaniaBossWithShader;
@@ -281,7 +279,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return dataManager.get(INVUL_TIME);
 	}
 
-	public boolean isAggored() {
+	public boolean isAggroed() {
 		return dataManager.get(AGGRO);
 	}
 
@@ -337,7 +335,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_INVUL_TIME, getInvulTime());
-		par1nbtTagCompound.setBoolean(TAG_AGGRO, isAggored());
+		par1nbtTagCompound.setBoolean(TAG_AGGRO, isAggroed());
 		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, getMobSpawnTicks());
 
 		BlockPos source = getSource();
@@ -376,7 +374,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(!playersWhoAttacked.contains(player.getUniqueID()))
 				playersWhoAttacked.add(player.getUniqueID());
 
-			float dmg = par2;
 			boolean crit = false;
 			if(e instanceof EntityPlayer) {
 				EntityPlayer p = (EntityPlayer) e;
@@ -384,7 +381,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 
 			int cap = crit ? 60 : 40;
-			return super.attackEntityFrom(par1DamageSource, Math.min(cap, dmg) * (isHardMode() ? 0.6F : 1F));
+			return super.attackEntityFrom(par1DamageSource, Math.min(cap, par2) * (isHardMode() ? 0.6F : 1F));
 		}
 		return false;
 	}
@@ -415,7 +412,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				motionY = 0.5;
 				motionZ = -motionVector.z;
 				setTPDelay(4);
-				spawnPixies = isAggored();
+				spawnPixies = isAggroed();
 			}
 
 			setAggroed(true);
@@ -651,7 +648,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 			motionY = 0;
 		} else {
-			if(isAggored()) {
+			if(isAggroed()) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if(dying && mobTicks > 0) {
 					motionX = 0;

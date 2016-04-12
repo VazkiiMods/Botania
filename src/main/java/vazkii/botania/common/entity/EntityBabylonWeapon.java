@@ -112,7 +112,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				motionY = 0;
 				motionZ = 0;
 			} else if (liveTime == delay && player != null) {
-				Vector3 playerLook = null;
+				Vector3 playerLook;
 				RayTraceResult lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 				if(lookat == null)
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));

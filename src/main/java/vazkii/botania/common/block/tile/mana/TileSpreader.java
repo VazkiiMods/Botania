@@ -225,7 +225,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
 				for(IManaBurst burst : ((List<IManaBurst>) bursts))
-					if(burst != null && identity.equals(burst.getShooterUIID())) {
+					if(burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;
 					}
@@ -777,7 +777,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return identity;
 	}
 
-	public UUID getIdentifierUnsafe() {
+	private UUID getIdentifierUnsafe() {
 		return identity;
 	}
 

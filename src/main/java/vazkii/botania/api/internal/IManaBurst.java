@@ -20,54 +20,54 @@ import java.util.UUID;
  */
 public interface IManaBurst {
 
-	public boolean isFake();
+	boolean isFake();
 
-	public void setMotion(double x, double y, double z);
+	void setMotion(double x, double y, double z);
 
-	public int getColor();
+	int getColor();
 
-	public void setColor(int color);
+	void setColor(int color);
 
-	public int getMana();
+	int getMana();
 
-	public void setMana(int mana);
+	void setMana(int mana);
 
-	public int getStartingMana();
+	int getStartingMana();
 
-	public void setStartingMana(int mana);
+	void setStartingMana(int mana);
 
-	public int getMinManaLoss();
+	int getMinManaLoss();
 
-	public void setMinManaLoss(int minManaLoss);
+	void setMinManaLoss(int minManaLoss);
 
-	public float getManaLossPerTick();
+	float getManaLossPerTick();
 
-	public void setManaLossPerTick(float mana);
+	void setManaLossPerTick(float mana);
 
-	public float getGravity();
+	float getGravity();
 
-	public void setGravity(float gravity);
+	void setGravity(float gravity);
 
-	public BlockPos getBurstSourceBlockPos();
+	BlockPos getBurstSourceBlockPos();
 
-	public void setBurstSourceCoords(BlockPos pos);
+	void setBurstSourceCoords(BlockPos pos);
 
-	public ItemStack getSourceLens();
+	ItemStack getSourceLens();
 
-	public void setSourceLens(ItemStack lens);
+	void setSourceLens(ItemStack lens);
 
-	public boolean hasAlreadyCollidedAt(BlockPos pos);
+	boolean hasAlreadyCollidedAt(BlockPos pos);
 
-	public void setCollidedAt(BlockPos pos);
+	void setCollidedAt(BlockPos pos);
 
-	public int getTicksExisted();
+	int getTicksExisted();
 
-	public void setFake(boolean fake);
+	void setFake(boolean fake);
 
-	public void setShooterUUID(UUID uuid);
+	void setShooterUUID(UUID uuid);
 
-	public UUID getShooterUIID();
+	UUID getShooterUUID();
 
-	public void ping();
+	void ping();
 
 }

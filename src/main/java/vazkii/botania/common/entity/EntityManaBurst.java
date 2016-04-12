@@ -12,8 +12,11 @@ package vazkii.botania.common.entity;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.base.Optional;
@@ -86,9 +89,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
 	private static final DataParameter<Optional<ItemStack>> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
 
-
+	float accumulatedManaLoss = 0;
 	boolean fake = false;
-	List<String> alreadyCollidedAt = new ArrayList<>();
+	Set<BlockPos> alreadyCollidedAt = new HashSet<>();
 	boolean fullManaLastTick = true;
 	UUID shooterIdentity = null;
 	int _ticksExisted = 0;
@@ -150,225 +153,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(mx, my, mz);
 	}
 
-	float accumulatedManaLoss = 0;
-
-	private int ticksInAir;
-
-	// Hacked code copied from super.onUpdate, to use Vector3 rather than the world vector pool
-	public void superUpdate() {
-		lastTickPosX = posX;
-		lastTickPosY = posY;
-		lastTickPosZ = posZ;
-		onEntityUpdate();
-
-		if(throwableShake > 0)
-			--throwableShake;
-
-		Vec3d vec3 = new Vector3(posX, posY, posZ).toVec3D();
-		Vec3d vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
-		RayTraceResult RayTraceResult = clip(vec3, vec31);
-
-		if(RayTraceResult != null)
-			vec31 = new Vector3(RayTraceResult.hitVec.xCoord, RayTraceResult.hitVec.yCoord, RayTraceResult.hitVec.zCoord).toVec3D();
-
-		if(!worldObj.isRemote) {
-			Entity entity = null;
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
-			double d0 = 0.0D;
-			EntityLivingBase entitylivingbase = getThrower();
-
-			for(int j = 0; j < list.size(); ++j) {
-				Entity entity1 = (Entity) list.get(j);
-
-				if(entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
-					float f = 0.3F;
-					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
-					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
-
-					if(RayTraceResult1 != null) {
-						double d1 = vec3.distanceTo(RayTraceResult1.hitVec);
-
-						if (d1 < d0 || d0 == 0.0D) {
-							entity = entity1;
-							d0 = d1;
-						}
-					}
-				}
-			}
-
-			if(entity != null)
-				RayTraceResult = new RayTraceResult(entity);
-		}
-
-		if(RayTraceResult != null)
-			onImpact(RayTraceResult);
-
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
-		float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float)(Math.atan2(motionX, motionZ) * 180.0D / Math.PI);
-
-		for(rotationPitch = (float)(Math.atan2(motionY, f1) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F);
-
-		while(rotationPitch - prevRotationPitch >= 180.0F)
-			prevRotationPitch += 360.0F;
-
-		while(rotationYaw - prevRotationYaw < -180.0F)
-			prevRotationYaw -= 360.0F;
-
-		while(rotationYaw - prevRotationYaw >= 180.0F)
-			prevRotationYaw += 360.0F;
-
-		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-		float f3 = getGravityVelocity();
-
-		motionY -= f3;
-		setPosition(posX, posY, posZ);
-	}
-
-	public RayTraceResult clip(Vec3d par1Vec3, Vec3d par2Vec3) {
-		boolean par3 = false;
-		boolean par4 = false;
-		if (!Double.isNaN(par1Vec3.xCoord) && !Double.isNaN(par1Vec3.yCoord) && !Double.isNaN(par1Vec3.zCoord)) {
-			if (!Double.isNaN(par2Vec3.xCoord) && !Double.isNaN(par2Vec3.yCoord) && !Double.isNaN(par2Vec3.zCoord)) {
-				int i = MathHelper.floor_double(par2Vec3.xCoord);
-				int j = MathHelper.floor_double(par2Vec3.yCoord);
-				int k = MathHelper.floor_double(par2Vec3.zCoord);
-				int l = MathHelper.floor_double(par1Vec3.xCoord);
-				int i1 = MathHelper.floor_double(par1Vec3.yCoord);
-				int j1 = MathHelper.floor_double(par1Vec3.zCoord);
-				BlockPos pos = new BlockPos(l, i1, j1);
-				IBlockState state = worldObj.getBlockState(pos);
-				Block block = state.getBlock();
-
-				if (block != null && (!par4 || block == null || state.getCollisionBoundingBox(worldObj, pos) != null) && block != Blocks.air && block.canCollideCheck(state, par3)) {
-					RayTraceResult RayTraceResult = state.collisionRayTrace(worldObj, pos, par1Vec3, par2Vec3);
-
-					if (RayTraceResult != null)
-						return RayTraceResult;
-				}
-
-				int k1 = 200;
-
-				while (k1-- >= 0) {
-					if (Double.isNaN(par1Vec3.xCoord) || Double.isNaN(par1Vec3.yCoord) || Double.isNaN(par1Vec3.zCoord))
-						return null;
-
-					if (l == i && i1 == j && j1 == k)
-						return null;
-
-					boolean flag2 = true;
-					boolean flag3 = true;
-					boolean flag4 = true;
-					double d0 = 999.0D;
-					double d1 = 999.0D;
-					double d2 = 999.0D;
-
-					if (i > l)
-						d0 = l + 1.0D;
-					else if (i < l)
-						d0 = l + 0.0D;
-					else flag2 = false;
-
-					if (j > i1)
-						d1 = i1 + 1.0D;
-					else if (j < i1)
-						d1 = i1 + 0.0D;
-					else flag3 = false;
-
-					if (k > j1)
-						d2 = j1 + 1.0D;
-					else if (k < j1)
-						d2 = j1 + 0.0D;
-					else flag4 = false;
-
-					double d3 = 999.0D;
-					double d4 = 999.0D;
-					double d5 = 999.0D;
-					double d6 = par2Vec3.xCoord - par1Vec3.xCoord;
-					double d7 = par2Vec3.yCoord - par1Vec3.yCoord;
-					double d8 = par2Vec3.zCoord - par1Vec3.zCoord;
-
-					if (flag2)
-						d3 = (d0 - par1Vec3.xCoord) / d6;
-
-					if (flag3)
-						d4 = (d1 - par1Vec3.yCoord) / d7;
-
-					if (flag4)
-						d5 = (d2 - par1Vec3.zCoord) / d8;
-
-					byte b0;
-
-					if (d3 < d4 && d3 < d5) {
-						if (i > l)
-							b0 = 4;
-						else b0 = 5;
-
-						par1Vec3 = new Vec3d(d0, par1Vec3.yCoord + (d7 * d3), par1Vec3.zCoord + (d8 * d3));
-					} else if (d4 < d5) {
-						if (j > i1)
-							b0 = 0;
-						else b0 = 1;
-
-						par1Vec3 = new Vec3d(par1Vec3.xCoord + (d6 * d4), d1, par1Vec3.zCoord + (d8 * d4));
-					} else {
-						if (k > j1)
-							b0 = 2;
-						else b0 = 3;
-
-						par1Vec3 = new Vec3d(par1Vec3.xCoord + (d6 * d5), par1Vec3.yCoord + (d7 * d5), d2);
-					}
-
-					Vec3d vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
-					vec32 = new Vec3d(MathHelper.floor_double(par1Vec3.xCoord), vec32.yCoord, vec32.zCoord);
-					l = ((int) vec32.xCoord);
-
-					if (b0 == 5) {
-						--l;
-						vec32 = vec32.addVector(1, 0, 0);
-					}
-
-					vec32 = new Vec3d(vec32.xCoord, MathHelper.floor_double(par1Vec3.yCoord), vec32.zCoord);
-					i1 = ((int) vec32.yCoord);
-
-					if (b0 == 1) {
-						--i1;
-						vec32 = vec32.addVector(0, 1, 0);
-					}
-
-					vec32 = new Vec3d(par1Vec3.xCoord, vec32.yCoord, MathHelper.floor_double(vec32.zCoord));
-					j1 = ((int) vec32.zCoord);
-
-					if (b0 == 3) {
-						--j1;
-						vec32 = vec32.addVector(0, 0, 1);
-					}
-
-					BlockPos pos1 = new BlockPos(l, i1, j1);
-					IBlockState state1 = worldObj.getBlockState(pos1);
-					Block block1 = state1.getBlock();
-
-					if ((!par4 || block1 == null || block1.getCollisionBoundingBox(state1, worldObj, pos1) != null) && block1 != Blocks.air && block1.canCollideCheck(state, par3)) {
-						RayTraceResult RayTraceResult1 = block1.collisionRayTrace(state1, worldObj, pos1, par1Vec3, par2Vec3);
-
-						if (RayTraceResult1 != null)
-							return RayTraceResult1;
-					}
-				}
-
-				return null;
-			}
-			else return null;
-		} else return null;
-	}
-
 	@Override
 	public void onUpdate() {
 		setTicksExisted(getTicksExisted() + 1);
-		superUpdate();
+		super.onUpdate();
+		// superUpdate(); todo 1.9 removed a ton of what appears to just be copied superclass code
+		// todo 1.9 if shit breaks revert this :P
 
 		if(!fake && !isDead)
 			ping();
@@ -418,8 +208,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return false;
 	}
 
-	public TileEntity collidedTile = null;
-	public boolean noParticles = false;
+	private TileEntity collidedTile = null;
+	private boolean noParticles = false;
 
 	public TileEntity getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
@@ -459,7 +249,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
 
-		UUID identity = getShooterUIID();
+		UUID identity = getShooterUUID();
 		boolean hasShooter = identity != null;
 		par1nbtTagCompound.setBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if(hasShooter) {
@@ -501,7 +291,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(hasShooter) {
 			long most = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_MOST);
 			long least = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_LEAST);
-			UUID identity = getShooterUIID();
+			UUID identity = getShooterUUID();
 			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
 				shooterIdentity = new UUID(most, least);
 		}
@@ -629,7 +419,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			dead = lens.collideBurst(this, RayTraceResult, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
 		if(collided && !hasAlreadyCollidedAt(RayTraceResult.getBlockPos()))
-			alreadyCollidedAt.add(getCollisionLocString(RayTraceResult.getBlockPos()));
+			alreadyCollidedAt.add(RayTraceResult.getBlockPos());
 
 		if(dead && !isDead) {
 			if(!fake) {
@@ -652,7 +442,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	protected void onRecieverImpact(IManaReceiver tile, BlockPos pos) {
+	private void onRecieverImpact(IManaReceiver tile, BlockPos pos) {
 		int mana = getMana();
 		if(tile instanceof IManaCollector)
 			mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
@@ -674,7 +464,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		} else setDeathTicksForFakeParticle();
 	}
 
-	public TileEntity getShooter() {
+	private TileEntity getShooter() {
 		return worldObj.getTileEntity(getBurstSourceBlockPos());
 	}
 
@@ -789,7 +579,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		_ticksExisted = ticks;
 	}
 
-	public ILensEffect getLensInstance() {
+	private ILensEffect getLensInstance() {
 		ItemStack lens = getSourceLens();
 		if(lens != null && lens.getItem() instanceof ILensEffect)
 			return (ILensEffect) lens.getItem();
@@ -806,17 +596,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public boolean hasAlreadyCollidedAt(BlockPos pos) {
-		return alreadyCollidedAt.contains(getCollisionLocString(pos));
+		return alreadyCollidedAt.contains(pos);
 	}
 
 	@Override
 	public void setCollidedAt(BlockPos pos) {
 		if(!hasAlreadyCollidedAt(pos))
-			alreadyCollidedAt.add(getCollisionLocString(pos));
-	}
-
-	private String getCollisionLocString(BlockPos pos) {
-		return pos.getX() + ":" + pos.getY() + ":" + pos.getZ();
+			alreadyCollidedAt.add(pos.toImmutable());
 	}
 
 	@Override
@@ -825,7 +611,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	public UUID getShooterUIID() {
+	public UUID getShooterUUID() {
 		return shooterIdentity;
 	}
 
@@ -833,20 +619,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void ping() {
 		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IPingable)
-			((IPingable) tile).pingback(this, getShooterUIID());
+			((IPingable) tile).pingback(this, getShooterUUID());
 	}
 
-	public boolean shouldDoFakeParticles() {
-		if(ConfigHandler.staticWandBeam)
+	protected boolean shouldDoFakeParticles() {
+		if (ConfigHandler.staticWandBeam)
 			return true;
 
 		TileEntity tile = getShooter();
-		if(tile != null && tile instanceof IManaSpreader)
-			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((IManaSpreader) tile).getBurstParticleTick() - getTicksExisted()) < 4;
-		return false;
+		return tile != null
+				&& tile instanceof IManaSpreader
+				&& (getMana() != getStartingMana() && fullManaLastTick
+					|| Math.abs(((IManaSpreader) tile).getBurstParticleTick() - getTicksExisted()) < 4);
 	}
 
-	public void incrementFakeParticleTick() {
+	private void incrementFakeParticleTick() {
 		TileEntity tile = getShooter();
 		if(tile != null && tile instanceof IManaSpreader) {
 			IManaSpreader spreader = (IManaSpreader) tile;
@@ -856,7 +643,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	public void setDeathTicksForFakeParticle() {
+	private void setDeathTicksForFakeParticle() {
 		BlockPos coords = getBurstSourceBlockPos();
 		TileEntity tile = worldObj.getTileEntity(coords);
 		if(tile != null && tile instanceof IManaSpreader)
@@ -889,6 +676,18 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			}
 
 			return world.getBlockState(coords) == this.state;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(coords, state);
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			return o instanceof PositionProperties
+					&& ((PositionProperties) o).state == state
+					&& ((PositionProperties) o).coords.equals(coords);
 		}
 	}
 

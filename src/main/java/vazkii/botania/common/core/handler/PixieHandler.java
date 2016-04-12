@@ -19,6 +19,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PixieHandler {
 
+	private static final Potion[] potions = {
+			MobEffects.blindness,
+			MobEffects.wither,
+			MobEffects.moveSlowdown,
+			MobEffects.weakness
+	};
+
 	@SubscribeEvent
 	public void onDamageTaken(LivingHurtEvent event) {
 		if(!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
@@ -38,12 +45,6 @@ public class PixieHandler {
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
 
 				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					Potion[] potions = {
-							MobEffects.blindness,
-							MobEffects.wither,
-							MobEffects.moveSlowdown,
-							MobEffects.weakness
-					};
 					pixie.setApplyPotionEffect(new PotionEffect(potions[event.getEntityLiving().worldObj.rand.nextInt(potions.length)], 40, 0));
 				}
 
@@ -57,7 +58,7 @@ public class PixieHandler {
 		}
 	}
 
-	float getChance(ItemStack stack) {
+	private float getChance(ItemStack stack) {
 		if(stack == null || !(stack.getItem() instanceof IPixieSpawner))
 			return 0F;
 		else return ((IPixieSpawner) stack.getItem()).getPixieChance(stack);
