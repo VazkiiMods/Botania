@@ -60,7 +60,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
+	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
 		overlay.draw(minecraft, 0, 4);
@@ -69,7 +69,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawAnimations(Minecraft minecraft) {
+	public void drawAnimations(@Nonnull Minecraft minecraft) {
 		minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();

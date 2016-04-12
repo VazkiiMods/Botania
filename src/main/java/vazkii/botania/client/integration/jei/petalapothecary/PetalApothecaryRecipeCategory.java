@@ -57,7 +57,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
+	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
 		overlay.draw(minecraft);
@@ -66,9 +66,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawAnimations(Minecraft minecraft) {
+	public void drawAnimations(@Nonnull Minecraft minecraft) {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof PetalApothecaryRecipeWrapper))

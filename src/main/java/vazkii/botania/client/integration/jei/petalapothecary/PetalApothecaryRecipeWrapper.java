@@ -26,7 +26,7 @@ public class PetalApothecaryRecipeWrapper implements IRecipeWrapper {
 	private final ItemStack output;
 
 	public PetalApothecaryRecipeWrapper(RecipePetals recipe) {
-		ImmutableList.Builder builder = ImmutableList.builder();
+		ImmutableList.Builder<Object> builder = ImmutableList.builder();
 		for(Object o : recipe.getInputs()) {
 			if(o instanceof ItemStack) {
 				builder.add(o);
