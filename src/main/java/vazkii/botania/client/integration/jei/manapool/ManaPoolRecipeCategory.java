@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -28,12 +29,14 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
+	private final ItemStack renderStack = new ItemStack(ModBlocks.pool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.translateToLocal("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
 				0, 0, 64, 46);
+		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 	}
 
 	@Nonnull
@@ -92,7 +95,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 		}
 
 		recipeLayout.getItemStacks().init(index, true, 70, 12);
-		recipeLayout.getItemStacks().set(index, new ItemStack(ModBlocks.pool, 1, 0));
+		recipeLayout.getItemStacks().set(index, renderStack);
 		index++;
 
 		recipeLayout.getItemStacks().init(index, false, 99, 12);

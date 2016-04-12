@@ -27,11 +27,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class BlockModPane extends BlockPane {
 
-	private final Block source;
-
 	public BlockModPane(Block source) {
 		super(Material.glass, false);
-		this.source = source;
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
@@ -44,10 +41,10 @@ public class BlockModPane extends BlockPane {
 		useNeighborBrightness = true;
 	}
 
-	@Override
+	/*@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
 		return false;
-	}
+	}*/
 
 	@Override
 	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {

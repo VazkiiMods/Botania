@@ -43,6 +43,6 @@ public final class ModBanners {
 	public static void addPattern(Class<? extends Enum<?>> clazz, String name, String id, ItemStack craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
-		EnumHelper.addEnum(clazz, name.toUpperCase(), new Class[] { String.class, String.class, ItemStack.class }, new Object[] { name, id, craftingItem });
+		EnumHelper.addEnum(clazz, name.toUpperCase(), new Class[] { String.class, String.class, ItemStack.class }, name, id, craftingItem);
 	}
 }

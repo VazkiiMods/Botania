@@ -58,7 +58,7 @@ import java.util.Map;
 public class SpecialFlowerModel implements IModelCustomData {
 
 	// SpecialFlowerModel for when there are no blockModels registered for a subtile
-	public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.<Optional<String>, ModelResourceLocation>of(), ImmutableMap.<Optional<String>, ModelResourceLocation>of());
+	public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.of(), ImmutableMap.of());
 
 	private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
 	private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
@@ -105,7 +105,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 		for(String key : customData.keySet()) {
 			if("base".equals(key)) {
-				blockBuilder.put(Optional.<String>absent(), getLocation(customData.get(key)));
+				blockBuilder.put(Optional.absent(), getLocation(customData.get(key)));
 			}
 		}
 
@@ -173,7 +173,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private void refreshBakedModels() {
 			if(baseModel == null) {
 				// If not done already, bake and cache all models
-				baseModel = getBlockModel(Optional.<String>absent());
+				baseModel = getBlockModel(Optional.absent());
 
 				ImmutableMap.Builder<String, IBakedModel> builder = ImmutableMap.builder();
 				for(Map.Entry<Optional<String>, ModelResourceLocation> e : blockModels.entrySet()) {

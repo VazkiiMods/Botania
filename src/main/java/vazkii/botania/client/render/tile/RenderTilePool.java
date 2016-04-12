@@ -78,7 +78,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
 		int red = (color & 0xFF0000) >> 16;
 		int green = (color & 0xFF00) >> 8;
-		int blue = (color & 0xFF) >> 0;
+		int blue = (color & 0xFF);
 		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);

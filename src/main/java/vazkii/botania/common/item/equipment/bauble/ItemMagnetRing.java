@@ -44,7 +44,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private static final List<ResourceLocation> BLACKLIST = Arrays.asList(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
 
-	int range;
+	final int range;
 
 	public ItemMagnetRing() {
 		this(LibItemNames.MAGNET_RING, 6);

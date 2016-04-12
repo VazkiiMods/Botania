@@ -371,8 +371,7 @@ public final class ConfigHandler {
 
 			AdaptableValue<T> adapt = new AdaptableValue<>(version, val);
 			if(!adaptableValues.containsKey(key)) {
-				ArrayList<AdaptableValue> list = new ArrayList<>();
-				adaptableValues.put(key, list);
+				adaptableValues.put(key, new ArrayList<>());
 			}
 
 			List<AdaptableValue> list = adaptableValues.get(key);
@@ -401,27 +400,27 @@ public final class ConfigHandler {
 		}
 
 		public void addMappingInt(int version, String key, int val) {
-			this.<Integer>addMapping(version, key, val);
+			this.addMapping(version, key, val);
 		}
 
 		public void addMappingDouble(int version, String key, double val) {
-			this.<Double>addMapping(version, key, val);
+			this.addMapping(version, key, val);
 		}
 
 		public void addMappingBool(int version, String key, boolean val) {
-			this.<Boolean>addMapping(version, key, val);
+			this.addMapping(version, key, val);
 		}
 
 		public void adaptPropertyInt(Property prop, int val) {
-			this.<Integer>adaptProperty(prop, val);
+			this.adaptProperty(prop, val);
 		}
 
 		public void adaptPropertyDouble(Property prop, double val) {
-			this.<Double>adaptProperty(prop, val);
+			this.adaptProperty(prop, val);
 		}
 
 		public void adaptPropertyBool(Property prop, boolean val) {
-			this.<Boolean>adaptProperty(prop, val);
+			this.adaptProperty(prop, val);
 		}
 
 		public static class AdaptableValue<T> {

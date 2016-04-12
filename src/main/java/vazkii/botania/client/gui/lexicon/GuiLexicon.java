@@ -13,6 +13,8 @@ package vazkii.botania.client.gui.lexicon;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -181,7 +183,9 @@ public class GuiLexicon extends GuiScreen {
 				button.visible = false;
 			}
 
-			if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.NOVEMBER && Calendar.getInstance().get(Calendar.DATE) == 22)
+			LocalDateTime now = LocalDateTime.now();
+
+			if(now.getMonth() == Month.NOVEMBER && now.getDayOfMonth() == 22)
 				buttonList.add(new GuiButtonDoot(-99, left + 100, top + 12));
 		}
 

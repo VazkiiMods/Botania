@@ -25,9 +25,7 @@ import vazkii.botania.common.lib.LibOreDict;
 
 public class LensDyeingRecipe implements IRecipe {
 
-	private static final List<String> DYES = Arrays.asList(new String[] {
-			"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL
-	});
+	private static final List<String> DYES = Arrays.asList("dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL);
 
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
