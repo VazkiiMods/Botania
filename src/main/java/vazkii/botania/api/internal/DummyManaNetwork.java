@@ -11,12 +11,14 @@
 package vazkii.botania.api.internal;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
 
 import java.util.List;
+import java.util.Set;
 
 public class DummyManaNetwork implements IManaNetwork {
 
@@ -38,13 +40,13 @@ public class DummyManaNetwork implements IManaNetwork {
 	}
 
 	@Override
-	public List<TileSignature> getAllCollectorsInWorld(World world) {
-		return ImmutableList.of();
+	public Set<TileSignature> getAllCollectorsInWorld(World world) {
+		return ImmutableSet.of();
 	}
 
 	@Override
-	public List<TileSignature> getAllPoolsInWorld(World world) {
-		return ImmutableList.of();
+	public Set<TileSignature> getAllPoolsInWorld(World world) {
+		return ImmutableSet.of();
 	}
 
 }
