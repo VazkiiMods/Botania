@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
@@ -73,7 +74,7 @@ public class GuiLexicon extends GuiScreen {
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
-	public static HashMap<String, String> notes = new HashMap<>();
+	public static final Map<String, String> notes = new HashMap<>();
 
 	private static final String TAG_TYPE = "type";
 
@@ -82,11 +83,11 @@ public class GuiLexicon extends GuiScreen {
 	public static final int BOOKMARK_START = 1337;
 	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
-	public static List<GuiLexicon> bookmarks = new ArrayList<>();
-	public static List<String> bookmarkKeys = new ArrayList<>();
-	boolean bookmarksNeedPopulation = false;
+	public static final List<GuiLexicon> bookmarks = new ArrayList<>();
+	public static final List<String> bookmarkKeys = new ArrayList<>();
+	private boolean bookmarksNeedPopulation = false;
 
-	public static Queue<LexiconEntry> tutorial = new ArrayDeque<>();
+	public static final Queue<LexiconEntry> tutorial = new ArrayDeque<>();
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);

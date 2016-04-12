@@ -315,7 +315,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			long least = cmp.getLong(TAG_UUID_LEAST);
 			UUID identity = getIdentifierUnsafe();
 			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
-				identity = new UUID(most, least);
+				this.identity = new UUID(most, least);
 		} else getIdentifier();
 
 		mana = cmp.getInteger(TAG_MANA);

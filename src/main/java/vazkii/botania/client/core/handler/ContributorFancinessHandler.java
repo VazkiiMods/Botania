@@ -10,7 +10,9 @@
  */
 package vazkii.botania.client.core.handler;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -199,11 +201,12 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 			try {
 				URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties");
 				Properties props = new Properties();
-				props.load(new InputStreamReader(url.openStream()));
-				load(props);
-			} catch(Exception e) {
+				try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
+					props.load(reader);
+					load(props);
+				}
+			} catch (IOException e) {
 				FMLLog.info("[Botania] Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
-				e.printStackTrace();
 			}
 			VersionChecker.doneChecking = true;
 		}

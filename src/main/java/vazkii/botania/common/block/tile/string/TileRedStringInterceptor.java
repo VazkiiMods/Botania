@@ -11,7 +11,9 @@
 package vazkii.botania.common.block.tile.string;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,12 +26,12 @@ import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileRedStringInterceptor extends TileRedString {
 
-	public static List<TileRedStringInterceptor> interceptors = new ArrayList<>();
+	private static final ThreadLocal<Set<TileRedStringInterceptor>> interceptors = ThreadLocal.withInitial(HashSet::new);;
 
 	@Override
 	public void updateEntity() {
-		if(!interceptors.contains(this))
-			interceptors.add(this);
+		super.updateEntity();
+		interceptors.get().add(this);
 	}
 
 	@Override
@@ -37,19 +39,17 @@ public class TileRedStringInterceptor extends TileRedString {
 		return worldObj.getTileEntity(pos) != null;
 	}
 
-	public boolean removeFromList() {
-		return !tileEntityInvalid && worldObj.getTileEntity(pos) == this;
+	private boolean saneState() {
+		return !isInvalid() && worldObj.getTileEntity(pos) == this;
 	}
 
 	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
 		boolean did = false;
 
-		// CMEs are amazing
-		List<TileRedStringInterceptor> interceptorsCopy = new ArrayList<>(interceptors);
-		
-		for(TileRedStringInterceptor inter : interceptorsCopy) {
-			if(!inter.removeFromList()) {
+
+		for(TileRedStringInterceptor inter : interceptors.get()) {
+			if(!inter.saneState()) {
 				remove.add(inter);
 				continue;
 			}
@@ -68,7 +68,7 @@ public class TileRedStringInterceptor extends TileRedString {
 			}
 		}
 
-		interceptors.removeAll(remove);
+		interceptors.get().removeAll(remove);
 		if(did) {
 			if(world.isRemote)
 				player.swingArm(hand);

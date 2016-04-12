@@ -115,11 +115,11 @@ public final class BotaniaAPI {
 
 	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
-	public static KnowledgeType basicKnowledge;
-	public static KnowledgeType elvenKnowledge;
+	public static final KnowledgeType basicKnowledge;
+	public static final KnowledgeType elvenKnowledge;
 
 	// This is here for completeness sake, but you shouldn't use it
-	public static KnowledgeType relicKnowledge;
+	public static final KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -133,7 +133,7 @@ public final class BotaniaAPI {
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 
-	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
+	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
 		registerSubTile("", DummySubTile.class);

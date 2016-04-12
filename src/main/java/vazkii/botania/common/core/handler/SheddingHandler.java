@@ -11,6 +11,7 @@
 package vazkii.botania.common.core.handler;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import net.minecraft.entity.Entity;
@@ -37,8 +38,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public final class SheddingHandler {
 
-	public static ArrayList<ShedPattern> patterns = new ArrayList<>();
-	public static ArrayList<ShedPattern> defaultPatterns = new ArrayList<>();
+	public static final List<ShedPattern> patterns = new ArrayList<>();
+	public static final List<ShedPattern> defaultPatterns = new ArrayList<>();
 
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {

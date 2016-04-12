@@ -12,9 +12,11 @@ package vazkii.botania.common.core.version;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import net.minecraft.client.Minecraft;
@@ -58,7 +60,7 @@ public class ThreadDownloadMod extends Thread {
 
 			try {
 				url.openStream().close(); // Add to DL Counter
-			} catch(IOException e) { }
+			} catch(IOException ignored) {}
 
 			url = new URL(base + "files/" + file);
 			webReader = url.openStream();
@@ -87,15 +89,9 @@ public class ThreadDownloadMod extends Thread {
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
 
-			finalize();
-		} catch(Throwable e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			sendError();
-			try {
-				finalize();
-			} catch(Throwable e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 

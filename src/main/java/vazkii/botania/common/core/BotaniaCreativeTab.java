@@ -27,7 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
 
-	public static BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
+	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
 	List<ItemStack> list;
 
 	public BotaniaCreativeTab() {

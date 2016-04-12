@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -385,6 +386,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				
 				SwapCandidate cand = (SwapCandidate) other;
 				return coordinates.equals(cand.coordinates) && range == cand.range;
+			}
+
+			@Override
+			public int hashCode() {
+				return Objects.hash(coordinates, range);
 			}
 		}
 	}

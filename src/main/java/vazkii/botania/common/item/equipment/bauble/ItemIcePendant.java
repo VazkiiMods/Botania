@@ -39,7 +39,7 @@ import baubles.api.BaubleType;
 
 public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 
-	public static Map<String, List<IceRemover>> playerIceBlocks = new HashMap<>();
+	public static final Map<String, List<IceRemover>> playerIceBlocks = new HashMap<>();
 
 	public ItemIcePendant() {
 		super(LibItemNames.ICE_PENDANT);
@@ -121,7 +121,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 		}
 	}
 
-	class IceRemover {
+	private static class IceRemover {
 
 		int time = 30;
 		final BlockPos coords;

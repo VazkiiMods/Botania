@@ -194,7 +194,7 @@ public class LightningHandler {
 		private World world;
 		private Entity source;
 
-		public static ConcurrentLinkedQueue<LightningBolt> boltlist = new ConcurrentLinkedQueue<>();
+		public static final ConcurrentLinkedQueue<LightningBolt> boltlist = new ConcurrentLinkedQueue<>();
 
 		public float speed = 1.5F;
 		public static final int fadetime = 20;
@@ -205,7 +205,7 @@ public class LightningHandler {
 		public int colorOuter;
 		public int colorInner;
 
-		public class BoltPoint {
+		public static class BoltPoint {
 
 			public BoltPoint(Vector3 basepoint, Vector3 offsetvec) {
 				point = basepoint.copy().add(offsetvec);

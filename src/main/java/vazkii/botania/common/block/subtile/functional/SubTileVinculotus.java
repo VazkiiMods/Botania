@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class SubTileVinculotus extends SubTileFunctional {
 
-	public static Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static boolean registered = false;
 	private static final int RANGE = 64;
 

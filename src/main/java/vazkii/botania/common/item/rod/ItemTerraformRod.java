@@ -159,7 +159,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		return true;
 	}
 
-	private class CoordsWithBlock extends BlockPos {
+	private static class CoordsWithBlock extends BlockPos {
 
 		private final Block block;
 

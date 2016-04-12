@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.google.common.base.Predicates;
 import net.minecraft.block.state.IBlockState;
@@ -323,9 +324,9 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			itemToEnchant.writeToNBT(itemCmp);
 		cmp.setTag(TAG_ITEM, itemCmp);
 
-		String enchStr = "";
-		for(EnchantmentData data : enchants)
-			enchStr = enchStr + Enchantment.enchantmentRegistry.getNameForObject(data.enchantmentobj) + ":" + data.enchantmentLevel + ",";
+		String enchStr = enchants.stream()
+							.map(e -> Enchantment.enchantmentRegistry.getNameForObject(e.enchantmentobj) + ":" + e.enchantmentLevel)
+							.collect(Collectors.joining(","));
 		cmp.setString(TAG_ENCHANTS, enchStr.isEmpty() ? enchStr : enchStr.substring(0, enchStr.length() - 1));
 	}
 
