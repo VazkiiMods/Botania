@@ -141,12 +141,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			}
 
 			return wanded ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getName()) && !par3World.isRemote) {
-			BlockPistonRelay.DimWithPos bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getName());
+		} else if(((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.containsKey(par2EntityPlayer.getUniqueID()) && !par3World.isRemote) {
+			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.get(par2EntityPlayer.getUniqueID());
 			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimension(), pos);
 
-			BlockPistonRelay.playerPositions.remove(par2EntityPlayer.getName());
-			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
+			((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.remove(par2EntityPlayer.getUniqueID());
+			((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
 
 			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);

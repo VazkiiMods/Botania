@@ -28,7 +28,7 @@ public class LensWarp extends Lens {
 
 		Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 		if(block == ModBlocks.pistonRelay) {
-			BlockPistonRelay.DimWithPos key = BlockPistonRelay.mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.worldObj.provider.getDimension(), pos.getBlockPos()));
+			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.worldObj.provider.getDimension(), pos.getBlockPos()));
 			if(key != null) {
 				if(key.dim == entity.worldObj.provider.getDimension()) {
 					entity.setPosition(key.blockPos.getX() + 0.5, key.blockPos.getY() + 0.5, key.blockPos.getZ() + 0.5);
