@@ -75,7 +75,6 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
-//import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin; todo 1.8
 //import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.item.ModItems;

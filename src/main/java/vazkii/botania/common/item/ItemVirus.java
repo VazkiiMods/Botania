@@ -51,6 +51,7 @@ public class ItemVirus extends ItemMod {
 		if(par3EntityLivingBase instanceof EntityHorse) {
 			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
 			if(horse.getType() != HorseArmorType.ZOMBIE && horse.getType() != HorseArmorType.SKELETON && horse.isTame()) {
+				horse.dropChestItems();
 				horse.setType(par1ItemStack.getItemDamage() == 0 ? HorseArmorType.ZOMBIE : HorseArmorType.SKELETON);
 				AbstractAttributeMap attributes = horse.getAttributeMap();
 				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
