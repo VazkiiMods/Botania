@@ -56,7 +56,7 @@ public class PlatformModel implements IBakedModel {
 			ModelResourceLocation path = new ModelResourceLocation("botania:platform", "variant=" + state.getValue(BotaniaStateProps.PLATFORM_VARIANT).getName());
 			return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path).getQuads(state, side, rand);
 		} else if(heldState != null) {
-			if(heldState.getBlock().canRenderInLayer(layer)) {
+			if(heldState.getBlock().canRenderInLayer(heldState, layer)) {
 				IBlockState actual = heldState.getBlock().getActualState(heldState, new FakeBlockAccess(heldWorld), heldPos);
 
 				// Steal camo's model

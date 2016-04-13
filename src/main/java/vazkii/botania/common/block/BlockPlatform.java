@@ -92,7 +92,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public boolean canRenderInLayer(BlockRenderLayer layer) {
+	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
 		return true;
 	}
 
