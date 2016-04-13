@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
+import java.util.UUID;
 
 /**
  * An extension of IBossDisplayData. This counts as a botania boss and as a normal
@@ -52,13 +53,18 @@ public interface IBotaniaBoss {
 	public Rectangle getBossBarHPTextureRect();
 
 	/**
-	 * A callback for when this boss's boss bar renders, you can do aditional rendering
+	 * A callback for when this boss's boss bar renders, you can do additional rendering
 	 * here if needed.
 	 */
 	@SideOnly(Side.CLIENT)
 	public void bossBarRenderCallback(ScaledResolution res, int x, int y);
 
-	public BossInfo getBossInfo();
+	/**
+	 * Get the UUID of the {@link BossInfo} instance tracking this boss
+	 * @return The uuid. Note that this is NOT the entity's UUID!
+	 * todo 1.9 is this needed?
+     */
+	public UUID getBossInfoUuid();
 
 	public EntityLivingBase getEntity();
 }

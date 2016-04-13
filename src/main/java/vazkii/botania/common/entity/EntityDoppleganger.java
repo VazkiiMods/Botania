@@ -134,7 +134,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	private static boolean isPlayingMusic = false;
 
-	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setDarkenSky(true);
+	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setCreateFog(true);
 
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
@@ -515,6 +515,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
+		bossInfo.setPercent(getHealth() / getMaxHealth());
+
 		if(!getPassengers().isEmpty())
 			this.dismountRidingEntity();
 
@@ -549,7 +551,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		BlockPos source = getSource();
 		boolean hard = isHardMode();
-		float range = RANGE + 3F;
+		float range;
 		List<EntityPlayer> players = getPlayersAround();
 		int playerCount = getPlayerCount();
 
@@ -898,8 +900,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@Override
-	public BossInfo getBossInfo() {
-		return bossInfo;
+	public UUID getBossInfoUuid() {
+		return bossInfo.getUniqueId();
 	}
 
 	@Override
