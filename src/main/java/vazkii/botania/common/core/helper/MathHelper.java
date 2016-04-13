@@ -21,7 +21,7 @@ public final class MathHelper {
 	}
 
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {
-		return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
+		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}
 
 	// Backwards compatibility

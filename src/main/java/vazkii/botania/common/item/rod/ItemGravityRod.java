@@ -33,6 +33,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
@@ -168,7 +169,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						Botania.proxy.wispFX(world, item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
 					}
 					
-					setEntityMotionFromVector(item, target3, 0.3333333F);
+					MathHelper.setEntityMotionFromVector(item, target3, 0.3333333F);
 
 					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
 					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
@@ -179,18 +180,6 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			}
 		}
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
-	}
-
-	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
-		Vector3 entityVector = Vector3.fromEntityCenter(entity);
-		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
-
-		if(finalVector.mag() > 1)
-			finalVector.normalize();
-
-		entity.motionX = finalVector.x * modifier;
-		entity.motionY = finalVector.y * modifier;
-		entity.motionZ = finalVector.z * modifier;
 	}
 
 	@Override
