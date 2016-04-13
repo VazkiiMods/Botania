@@ -29,11 +29,7 @@ public final class LibObfuscation {
 
 	// EntityAINearestAttackableTarget
 	public static final String[] TARGET_CLASS = new String[] { "targetClass", "field_75307_b", "a" };
-	public static final String[] TARGET_ENTITY = new String[] { "targetEntity", "field_75309_a", "d" };
 	public static final String[] TARGET_ENTITY_SELECTOR = new String[] { "targetEntitySelector", "field_82643_g", "c" };
-
-	// EntityAIAttackMelee todo 1.9
-	public static final String[] CLASS_TARGET = new String[] { "classTarget", "field_75444_h", "g" };
 
 	// EntityAIAvoidEntity
 	public static final String[] TARGET_ENTITY_CLASS = new String[] { "classToAvoid", "field_181064_i", "i" };
@@ -106,8 +102,5 @@ public final class LibObfuscation {
 	// ItemRenderer todo 1.9 dual wielding
 	public static final String[] PREV_EQUIPPED_PROGRESS = { "prevEquippedProgress", "field_78451_d", "f" };
 	public static final String[] EQUIPPED_PROGRESS = { "equippedProgress", "field_78454_c", "e" };
-
-	// SoundEvent
-	public static final String[] REGISTER_SOUND = { "registerSound", "func_187502_a", "a" };
 
 }
