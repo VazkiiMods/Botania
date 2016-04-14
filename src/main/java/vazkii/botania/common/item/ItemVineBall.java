@@ -34,8 +34,11 @@ public class ItemVineBall extends ItemMod {
 
 		par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-		if(!par2World.isRemote)
-			par2World.spawnEntityInWorld(new EntityVineBall(par3EntityPlayer, true));
+		if(!par2World.isRemote) {
+			EntityVineBall ball = new EntityVineBall(par3EntityPlayer, true);
+			ball.setHeadingFromThrower(par3EntityPlayer, par3EntityPlayer.rotationPitch, par3EntityPlayer.rotationYaw, 0.0F, 1.5F, 1.0F);
+			par2World.spawnEntityInWorld(ball);
+		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
