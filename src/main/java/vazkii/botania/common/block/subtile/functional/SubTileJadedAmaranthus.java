@@ -41,16 +41,18 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 				supertile.getPos().getY() + RANGE,
 				supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
 			);
+			
+			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				IBlockState stateAbove = supertile.getWorld().getBlockState(pos.up());
+				IBlockState stateAbove = supertile.getWorld().getBlockState(up);
 				Block blockAbove = stateAbove.getBlock();
-				if((supertile.getWorld().isAirBlock(pos.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos.up())) && stateAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), pos.up())) {
+				if((supertile.getWorld().isAirBlock(up) || blockAbove.isReplaceable(supertile.getWorld(), up)) && stateAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), up)) {
 					EnumDyeColor color = EnumDyeColor.byMetadata(supertile.getWorld().rand.nextInt(16));
 					IBlockState state = ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, pos.up(), Block.getStateId(state));
-					supertile.getWorld().setBlockState(pos.up(), state, 1 | 2);
+						supertile.getWorld().playAuxSFX(2001, up, Block.getStateId(state));
+					supertile.getWorld().setBlockState(up, state, 1 | 2);
 					mana -= COST;
 					sync();
 
