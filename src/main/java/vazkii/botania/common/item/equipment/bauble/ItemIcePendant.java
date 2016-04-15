@@ -10,26 +10,17 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.enchantment.EnchantmentFrostWalker;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -38,8 +29,6 @@ import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
 public class ItemIcePendant extends ItemBauble implements IBaubleRender {
-
-	public static final Map<String, List<IceRemover>> playerIceBlocks = new HashMap<>();
 
 	public ItemIcePendant() {
 		super(LibItemNames.ICE_PENDANT);
@@ -53,52 +42,12 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
-
-		if(entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-
-			if(!player.worldObj.isRemote)
-				tickIceRemovers(player);
-
-			if(!player.isSneaking() && !player.isInsideOfMaterial(Material.water) && !player.worldObj.isRemote) {
-				int x = MathHelper.floor_double(player.posX);
-				int y = MathHelper.floor_double(player.posY - (player.isInWater() ? 0 : 1));
-				int z = MathHelper.floor_double(player.posZ);
-
-				int range = 3;
-				for(int i = -range; i < range + 1; i++)
-					for(int j = -range; j < range + 1; j++) {
-						int x1 = x + i;
-						int z1 = z + j;
-
-						addIceBlock(player, new BlockPos(x1, y, z1));
-					}
-			}
+		if(!entity.worldObj.isRemote) {
+			boolean lastOnGround = entity.onGround;
+			entity.onGround = true;
+			EnchantmentFrostWalker.freezeNearby(entity, entity.worldObj, new BlockPos(entity), 8);
+			entity.onGround = lastOnGround;
 		}
-	}
-
-	private void addIceBlock(EntityPlayer player, BlockPos coords) {
-		String user = player.getName();
-		if(!playerIceBlocks.containsKey(user))
-			playerIceBlocks.put(user, new ArrayList<>());
-
-		List<IceRemover> ice = playerIceBlocks.get(user);
-		if(player.worldObj.getBlockState(coords).getBlock() == Blocks.water && player.worldObj.getBlockState(coords).getValue(BlockLiquid.LEVEL) == 0) {
-			player.worldObj.setBlockState(coords, Blocks.ice.getDefaultState());
-
-			if(!player.worldObj.isRemote)
-				ice.add(new IceRemover(coords));
-		}
-	}
-
-	private void tickIceRemovers(EntityPlayer player) {
-		String user = player.getName();
-		if(!playerIceBlocks.containsKey(user))
-			return;
-
-		List<IceRemover> removers = playerIceBlocks.get(user);
-		for(IceRemover ice : new ArrayList<>(removers))
-			ice.tick(player.worldObj, removers);
 	}
 
 	@Override
@@ -121,22 +70,4 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 		}
 	}
 
-	private static class IceRemover {
-
-		int time = 30;
-		final BlockPos coords;
-
-		public IceRemover(BlockPos coords) {
-			this.coords = coords;
-		}
-
-		public void tick(World world, List<IceRemover> list) {
-			if(world.getBlockState(coords).getBlock() == Blocks.ice) {
-				if(time-- == 0)
-					world.setBlockState(coords, Blocks.water.getDefaultState(), 1 | 2);
-				else return;
-				list.remove(this);
-			}
-		}
-	}
 }
