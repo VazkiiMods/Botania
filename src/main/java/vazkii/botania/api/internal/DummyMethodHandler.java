@@ -201,11 +201,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void setBossStatus(IBotaniaBoss status) {
-		// NO-OP
-	}
-
-	@Override
 	public boolean isBuildcraftPipe(TileEntity tile) {
 		return false;
 	}

@@ -206,8 +206,6 @@ public final class HUDHandler {
 			if(anyRequest)
 				renderManaInvBar(event.getResolution(), creative, totalMana, totalMaxMana);
 
-			profiler.endStartSection("bossBar");
-			BossBarHandler.render(event.getResolution());
 			profiler.endStartSection("itemsRemaining");
 			ItemsRemainingRenderHandler.render(event.getResolution(), event.getPartialTicks());
 			profiler.endSection();

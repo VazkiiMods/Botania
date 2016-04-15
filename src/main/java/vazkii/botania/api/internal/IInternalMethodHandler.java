@@ -117,8 +117,6 @@ public interface IInternalMethodHandler {
 
 	public ResourceLocation getDefaultBossBarTexture();
 
-	public void setBossStatus(IBotaniaBoss status);
-
 	public boolean isBuildcraftPipe(TileEntity tile);
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);

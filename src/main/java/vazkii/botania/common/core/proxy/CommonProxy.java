@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Level;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -318,6 +319,14 @@ public class CommonProxy {
 	}
 
 	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		// NO-OP
+	}
+
+	public void addBoss(IBotaniaBoss boss) {
+		// NO-OP
+	}
+
+	public void removeBoss(IBotaniaBoss boss) {
 		// NO-OP
 	}
 

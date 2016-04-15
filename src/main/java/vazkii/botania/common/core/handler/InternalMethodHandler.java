@@ -224,11 +224,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public void setBossStatus(IBotaniaBoss status) {
-		BossBarHandler.setCurrentBoss(status);
-	}
-
-	@Override
 	public boolean shouldForceCheck() {
 		return ConfigHandler.flowerForceCheck;
 	}

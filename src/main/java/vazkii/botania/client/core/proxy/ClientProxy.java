@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -44,6 +45,7 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
+import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -201,6 +203,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
+		MinecraftForge.EVENT_BUS.register(new BossBarHandler());
 		
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(new AdaptorNotifier());
@@ -471,6 +474,16 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
+	}
+
+	@Override
+	public void addBoss(IBotaniaBoss boss) {
+		BossBarHandler.bosses.add(boss);
+	}
+
+	@Override
+	public void removeBoss(IBotaniaBoss boss) {
+		BossBarHandler.bosses.remove(boss);
 	}
 }
 

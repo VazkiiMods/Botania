@@ -55,8 +55,6 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
 	@Override
 	public void doRender(EntityDoppleganger dopple, double par2, double par4, double par6, float par8, float par9) {
-		BossBarHandler.setCurrentBoss(dopple);
-
 		int invulTime = dopple.getInvulTime();
 		if(invulTime > 0) {
 			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;

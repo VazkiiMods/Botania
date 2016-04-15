@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -28,6 +29,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -115,6 +117,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private static final DataParameter<Boolean> AGGRO = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HARD_MODE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<BlockPos> SOURCE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BLOCK_POS);
+	private static final DataParameter<Optional<UUID>> BOSSINFO_ID = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	private static final BlockPos[] PYLON_LOCATIONS = {
 		new BlockPos(4, 1, 4),
@@ -144,6 +147,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, Float.MAX_VALUE));
 		isImmuneToFire = true;
 		experienceValue = 825;
+		Botania.proxy.addBoss(this);
 	}
 
 	public static MultiblockSet makeMultiblockSet() {
@@ -273,6 +277,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		dataManager.register(DATA_MOB_SPAWN_TICKS, 0);
 		dataManager.register(HARD_MODE, false);
 		dataManager.register(PLAYER_COUNT, 0);
+		dataManager.register(BOSSINFO_ID, Optional.absent());
 	}
 
 	public int getInvulTime() {
@@ -499,6 +504,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	public void setDead() {
+		Botania.proxy.removeBoss(this);
 		BlockPos source = getSource();
 		Botania.proxy.playRecordClientSided(worldObj, source, null);
 		isPlayingMusic = false;
@@ -515,7 +521,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		bossInfo.setPercent(getHealth() / getMaxHealth());
+		if (!worldObj.isRemote) {
+			dataManager.set(BOSSINFO_ID, Optional.of(bossInfo.getUniqueId()));
+			bossInfo.setPercent(getHealth() / getMaxHealth());
+		}
 
 		if(!getPassengers().isEmpty())
 			this.dismountRidingEntity();
@@ -764,6 +773,20 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		}
 	}
 
+	@Override
+	public void setBossVisibleTo(EntityPlayerMP player)
+	{
+		super.setBossVisibleTo(player);
+		this.bossInfo.addPlayer(player);
+	}
+
+	@Override
+	public void setBossNonVisibleTo(EntityPlayerMP player)
+	{
+		super.setBossNonVisibleTo(player);
+		this.bossInfo.removePlayer(player);
+	}
+
 	private void spawnMissile() {
 		if(!worldObj.isRemote) {
 			EntityMagicMissile missile = new EntityMagicMissile(this, true);
@@ -879,7 +902,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void bossBarRenderCallback(ScaledResolution res, int x, int y) {
+	public int bossBarRenderCallback(ScaledResolution res, int x, int y) {
 		GlStateManager.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;
@@ -897,16 +920,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		mc.fontRendererObj.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
 		mc.fontRendererObj.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
+
+		return 5;
 	}
 
 	@Override
 	public UUID getBossInfoUuid() {
-		return bossInfo.getUniqueId();
-	}
-
-	@Override
-	public EntityLivingBase getEntity() {
-		return this;
+		return dataManager.get(BOSSINFO_ID).or(new UUID(0, 0));
 	}
 
 	@Override
