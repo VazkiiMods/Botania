@@ -108,10 +108,10 @@ public final class BotaniaAPI {
 	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
 	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.item_armor_equip_iron);
+	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.item_armor_equip_diamond);
 	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.item_armor_equip_leather);
 
 	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
