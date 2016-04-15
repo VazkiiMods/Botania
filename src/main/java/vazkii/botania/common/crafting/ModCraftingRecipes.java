@@ -38,6 +38,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -714,39 +715,39 @@ public final class ModCraftingRecipes {
 		recipeGrassHorn = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terrasteel Armor Recipes
-		addOreDictRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
+		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelmRevealing));
-		addOreDictRecipe(new ItemStack(ModItems.terrasteelHelm),
+				'A', new ItemStack(ModItems.manasteelHelmRevealing)));
+		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelm),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelm));
+				'A', new ItemStack(ModItems.manasteelHelm)));
 		recipeTerrasteelHelm = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModItems.terrasteelChest),
+		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelChest),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[5],
-				'A', new ItemStack(ModItems.manasteelChest));
+				'A', new ItemStack(ModItems.manasteelChest)));
 		recipeTerrasteelChest = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModItems.terrasteelLegs),
+		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelLegs),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[6],
-				'A', new ItemStack(ModItems.manasteelLegs));
+				'A', new ItemStack(ModItems.manasteelLegs)));
 		recipeTerrasteelLegs = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModItems.terrasteelBoots),
+		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelBoots),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[7],
-				'A', new ItemStack(ModItems.manasteelBoots));
+				'A', new ItemStack(ModItems.manasteelBoots)));
 		recipeTerrasteelBoots = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terra Blade Recipe
