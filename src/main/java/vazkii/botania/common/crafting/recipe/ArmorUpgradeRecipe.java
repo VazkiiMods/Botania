@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -29,14 +30,11 @@ public class ArmorUpgradeRecipe extends ShapedOreRecipe {
         for (int i = 0; i < var1.getSizeInventory(); i++) {
             ItemStack stack = var1.getStackInSlot(i);
             if (stack != null && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
-                NBTTagList list = ItemNBTHelper.getList(stack, "ench", 10, true);
-                if (list != null) {
-                    ItemNBTHelper.setList(out, "ench", list);
-                    return out;
-                }
+                EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
                 byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
                 if (runicHardening != 0)
                     ItemNBTHelper.setByte(out, "RS.HARDEN", runicHardening);
+                break;
             }
         }
         return out;
