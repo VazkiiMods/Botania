@@ -65,11 +65,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par2World.isRemote)
 			return;

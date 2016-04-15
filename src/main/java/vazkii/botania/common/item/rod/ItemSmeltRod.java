@@ -129,11 +129,6 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}

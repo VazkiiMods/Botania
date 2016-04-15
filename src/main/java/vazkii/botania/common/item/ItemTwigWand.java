@@ -200,11 +200,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par2 == 0 || par2 == 3)
 			return 0xFFFFFF;

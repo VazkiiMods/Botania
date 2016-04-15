@@ -67,11 +67,6 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}

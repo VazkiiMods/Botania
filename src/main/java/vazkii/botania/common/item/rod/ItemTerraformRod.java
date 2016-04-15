@@ -154,11 +154,6 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		}
 	}
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
 	private static class CoordsWithBlock extends BlockPos {
 
 		private final Block block;

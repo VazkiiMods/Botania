@@ -53,11 +53,6 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}

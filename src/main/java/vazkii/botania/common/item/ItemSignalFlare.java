@@ -49,11 +49,6 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 0) {
 			if(par2World.isRemote)

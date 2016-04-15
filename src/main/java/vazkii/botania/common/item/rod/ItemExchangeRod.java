@@ -331,11 +331,6 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
