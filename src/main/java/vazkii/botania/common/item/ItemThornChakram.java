@@ -58,6 +58,7 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 			ItemStack copy = stack.copy();
 			stack.stackSize = 1;
 			EntityThornChakram c = new EntityThornChakram(world, player, copy);
+			c.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			c.setFire(stack.getItemDamage() != 0);
 			world.spawnEntityInWorld(c);
 		}
