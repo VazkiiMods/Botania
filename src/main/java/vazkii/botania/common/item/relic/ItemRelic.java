@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-import java.util.UUID;
-
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +26,9 @@ import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.List;
+import java.util.UUID;
 
 public class ItemRelic extends ItemMod implements IRelic {
 

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.authlib.GameProfile;
 import mods.railcraft.api.core.items.IMinecartItem;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
@@ -18,18 +19,15 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
-
-import com.mojang.authlib.GameProfile;
-
-import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(modid = "Railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
 public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMinecartItem {

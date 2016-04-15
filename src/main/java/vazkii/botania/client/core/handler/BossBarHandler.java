@@ -10,18 +10,14 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Rectangle;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.boss.IBotaniaBossWithShader;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -29,6 +25,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.MathHelper;
+
+import java.awt.*;
 
 public final class BossBarHandler {
 

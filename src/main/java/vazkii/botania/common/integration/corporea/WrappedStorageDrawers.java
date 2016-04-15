@@ -9,21 +9,18 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawer;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.

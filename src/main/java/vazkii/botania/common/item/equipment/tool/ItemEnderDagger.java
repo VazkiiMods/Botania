@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import java.awt.Color;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -24,6 +22,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.awt.*;
 
 public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
 

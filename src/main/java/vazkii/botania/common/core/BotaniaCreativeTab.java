@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -24,6 +22,8 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
 

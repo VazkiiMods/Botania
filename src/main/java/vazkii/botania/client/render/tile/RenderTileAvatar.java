@@ -19,9 +19,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;

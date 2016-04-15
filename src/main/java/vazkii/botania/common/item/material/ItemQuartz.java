@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,6 +17,8 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemQuartz extends ItemMod implements IElvenItem {
 

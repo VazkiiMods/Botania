@@ -10,14 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
@@ -33,6 +29,9 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.awt.*;
+import java.util.List;
 
 // This is mostly copypasta from TileRuneAltar
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver {

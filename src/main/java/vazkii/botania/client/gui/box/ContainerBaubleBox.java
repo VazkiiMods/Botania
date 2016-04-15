@@ -10,6 +10,11 @@
  */
 package vazkii.botania.client.gui.box;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.container.SlotBauble;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -17,11 +22,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.container.SlotBauble;
-import baubles.common.lib.PlayerHandler;
 
 public class ContainerBaubleBox extends Container {
 

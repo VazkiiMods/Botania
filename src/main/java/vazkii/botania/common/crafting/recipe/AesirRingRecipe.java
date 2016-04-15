@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import java.util.UUID;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -19,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.UUID;
 
 public class AesirRingRecipe implements IRecipe {
 

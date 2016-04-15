@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -23,6 +20,9 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ModManaInfusionRecipes {
 

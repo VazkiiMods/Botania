@@ -10,19 +10,19 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.awt.Desktop;
-import java.net.URI;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import java.awt.*;
+import java.net.URI;
 
 public class PageTutorial extends PageText {
 

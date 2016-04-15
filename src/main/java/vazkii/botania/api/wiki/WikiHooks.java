@@ -12,7 +12,6 @@ package vazkii.botania.api.wiki;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -10,10 +10,10 @@
  */
 package vazkii.botania.client.gui.box;
 
+import baubles.api.IBauble;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaItem;
-import baubles.api.IBauble;
 
 public class SlotAnyBauble extends Slot {
 

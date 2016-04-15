@@ -10,6 +10,27 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import net.minecraft.block.Block;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.common.item.ItemTemperanceStone;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
+import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.lib.LibItemNames;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,28 +40,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
-
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.common.item.ItemTemperanceStone;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.lib.LibItemNames;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
 public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
 	

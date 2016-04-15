@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +23,8 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 

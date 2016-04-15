@@ -14,9 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.lib.LibResources;
 

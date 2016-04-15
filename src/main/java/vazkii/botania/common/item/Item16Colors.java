@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 public class Item16Colors extends ItemMod implements IColorable {
 

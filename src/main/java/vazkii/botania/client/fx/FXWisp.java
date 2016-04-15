@@ -10,9 +10,6 @@
  */
 package vazkii.botania.client.fx;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -23,14 +20,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class FXWisp extends EntityFX {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -22,6 +20,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileTangleberrie extends SubTileFunctional {
 

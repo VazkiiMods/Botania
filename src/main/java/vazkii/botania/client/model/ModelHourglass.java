@@ -10,13 +10,12 @@
  */
 package vazkii.botania.client.model;
 
-import java.awt.Color;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 public class ModelHourglass extends ModelBase {
 

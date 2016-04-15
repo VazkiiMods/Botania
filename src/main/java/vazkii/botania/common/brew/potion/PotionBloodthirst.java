@@ -10,17 +10,15 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import java.util.List;
-
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.lib.LibPotionNames;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.lib.LibPotionNames;
 
 public class PotionBloodthirst extends PotionMod {
 

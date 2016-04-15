@@ -10,11 +10,9 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -23,6 +21,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
+
+import java.util.Random;
 
 public class TilePylon extends TileEntity implements ITickable {
 

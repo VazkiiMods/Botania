@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -23,9 +19,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -34,7 +30,10 @@ import vazkii.botania.api.subtile.signature.PassiveFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @PassiveFlower
 public class SubTileHydroangeas extends SubTilePassiveGenerating {

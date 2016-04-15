@@ -17,7 +17,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ElvenTradeRecipeWrapper implements IRecipeWrapper {

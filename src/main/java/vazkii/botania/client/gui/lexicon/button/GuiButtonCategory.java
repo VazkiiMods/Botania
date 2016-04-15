@@ -16,11 +16,9 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;

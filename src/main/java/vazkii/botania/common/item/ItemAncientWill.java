@@ -10,18 +10,18 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.List;
 
 public class ItemAncientWill extends ItemMod {
 

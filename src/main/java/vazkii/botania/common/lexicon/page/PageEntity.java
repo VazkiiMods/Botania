@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.lang.reflect.Constructor;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -20,11 +18,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.lexicon.LexiconPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
+
+import java.lang.reflect.Constructor;
 
 public class PageEntity extends LexiconPage{
 

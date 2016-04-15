@@ -13,9 +13,9 @@ package vazkii.botania.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.lib.LibMisc;
 
 public abstract class ItemMod extends Item {

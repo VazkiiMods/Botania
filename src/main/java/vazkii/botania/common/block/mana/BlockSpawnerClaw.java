@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,6 +28,8 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.List;
 
 public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 

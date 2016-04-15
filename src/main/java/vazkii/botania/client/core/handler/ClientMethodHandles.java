@@ -2,7 +2,6 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.base.Throwables;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;

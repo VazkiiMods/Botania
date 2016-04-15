@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.profiler.Profiler;
-
 import org.lwjgl.opengl.GL11;
 
 public final class ParticleRenderDispatcher {

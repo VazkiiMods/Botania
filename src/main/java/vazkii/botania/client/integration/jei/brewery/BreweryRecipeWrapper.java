@@ -18,7 +18,6 @@ import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BreweryRecipeWrapper implements IRecipeWrapper {

@@ -17,9 +17,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemGlassPick extends ItemManasteelPick {
 

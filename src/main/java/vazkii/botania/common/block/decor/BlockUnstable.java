@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -29,6 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -40,7 +36,10 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.awt.*;
+import java.util.List;
+import java.util.Random;
 
 public class BlockUnstable extends BlockMod implements ILexiconable {
 

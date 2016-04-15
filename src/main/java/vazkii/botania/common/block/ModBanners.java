@@ -14,7 +14,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraftforge.common.util.EnumHelper;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
 public final class ModBanners {

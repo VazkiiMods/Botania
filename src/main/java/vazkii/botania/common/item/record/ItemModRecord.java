@@ -10,15 +10,13 @@
  */
 package vazkii.botania.common.item.record;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.lib.LibMisc;
 
 public class ItemModRecord extends ItemRecord {

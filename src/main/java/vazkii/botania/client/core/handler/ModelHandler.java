@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -17,30 +16,22 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.state.enums.PlatformVariant;
-import vazkii.botania.api.state.enums.SpreaderVariant;
-import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.AltarVariant;
@@ -54,12 +45,14 @@ import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
-import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
@@ -114,25 +107,18 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemManaGun;
-import vazkii.botania.common.item.ItemSpawnerMover;
-import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
-import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.item.ModItems.*;
-
 import java.util.List;
 import java.util.Locale;
+
+import static vazkii.botania.common.item.ModItems.*;
 
 public final class ModelHandler {
 

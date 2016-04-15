@@ -10,19 +10,17 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.model.ModelSkullOverride;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.common.block.tile.TileGaiaHead;
-
-import com.mojang.authlib.GameProfile;
 
 public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 

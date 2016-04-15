@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.BlockStateContainer;
@@ -24,13 +22,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
 
 public abstract class BlockModWall extends BlockWall implements ILexiconable {
 

@@ -11,7 +11,6 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.IItemHandler;

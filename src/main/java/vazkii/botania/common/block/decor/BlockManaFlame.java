@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,12 +20,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
@@ -36,7 +35,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-import net.minecraftforge.fml.common.Optional;
+
+import java.util.List;
 
 public class BlockManaFlame extends BlockMod implements ILexiconable {
 

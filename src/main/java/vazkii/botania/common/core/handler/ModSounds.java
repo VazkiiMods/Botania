@@ -2,13 +2,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import vazkii.botania.common.lib.LibObfuscation;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public final class ModSounds {
 

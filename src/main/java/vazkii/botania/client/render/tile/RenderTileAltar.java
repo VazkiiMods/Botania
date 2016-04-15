@@ -20,11 +20,9 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;

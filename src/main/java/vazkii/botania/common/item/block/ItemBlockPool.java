@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.item.block;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
+
+import java.util.List;
 
 public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
 

@@ -10,16 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-
 import vazkii.botania.client.challenge.Challenge;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 

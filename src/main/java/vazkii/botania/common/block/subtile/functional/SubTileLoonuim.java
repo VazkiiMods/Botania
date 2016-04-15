@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.Random;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -22,6 +20,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Random;
 
 public class SubTileLoonuim extends SubTileFunctional {
 

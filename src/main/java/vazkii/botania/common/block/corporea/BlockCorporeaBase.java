@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -26,6 +24,8 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+
+import java.util.Random;
 
 public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchievement {
 

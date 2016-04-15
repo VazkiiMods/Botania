@@ -10,9 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.base.Function;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -42,7 +40,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 
-import com.google.common.base.Function;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileAlfPortal extends TileMod {
 

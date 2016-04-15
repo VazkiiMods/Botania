@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
@@ -22,9 +20,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemTemperanceStone extends ItemMod {
 

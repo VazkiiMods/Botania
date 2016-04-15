@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
@@ -26,14 +21,12 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.translation.I18n;
-
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -45,6 +38,11 @@ import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 

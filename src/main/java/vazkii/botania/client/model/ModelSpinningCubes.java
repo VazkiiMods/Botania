@@ -14,9 +14,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ModelSpinningCubes extends ModelBase {

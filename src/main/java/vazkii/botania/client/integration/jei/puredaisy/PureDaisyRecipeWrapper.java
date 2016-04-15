@@ -19,7 +19,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class PureDaisyRecipeWrapper implements IRecipeWrapper {

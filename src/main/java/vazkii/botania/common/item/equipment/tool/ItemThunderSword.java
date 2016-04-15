@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
@@ -26,8 +22,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -36,6 +32,10 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class ItemThunderSword extends ItemManasteelSword implements ICraftAchievement {
 

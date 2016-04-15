@@ -14,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;

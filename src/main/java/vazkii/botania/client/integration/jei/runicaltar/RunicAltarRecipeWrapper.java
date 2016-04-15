@@ -20,7 +20,6 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class RunicAltarRecipeWrapper implements IRecipeWrapper {

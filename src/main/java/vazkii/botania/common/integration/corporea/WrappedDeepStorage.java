@@ -9,21 +9,19 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.apache.logging.log4j.Level;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
@@ -28,6 +24,10 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SubTileMarimorphosis extends SubTileFunctional {
 

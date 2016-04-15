@@ -1,7 +1,6 @@
 package vazkii.botania.common.core.handler;
 
 import com.google.common.base.Throwables;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraftforge.fml.common.FMLLog;

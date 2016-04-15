@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.block;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +18,9 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ItemBlockTinyPotato extends ItemBlockMod {
 

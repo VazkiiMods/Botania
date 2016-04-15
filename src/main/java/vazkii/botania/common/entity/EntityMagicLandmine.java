@@ -10,20 +10,19 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+
+import java.util.List;
 
 public class EntityMagicLandmine extends Entity {
 

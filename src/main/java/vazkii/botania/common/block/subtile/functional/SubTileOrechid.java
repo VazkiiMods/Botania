@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
@@ -21,8 +17,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -32,6 +28,10 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SubTileOrechid extends SubTileFunctional {
 

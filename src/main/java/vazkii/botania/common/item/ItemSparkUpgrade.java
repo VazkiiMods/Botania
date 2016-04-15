@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemSparkUpgrade extends ItemMod {
 

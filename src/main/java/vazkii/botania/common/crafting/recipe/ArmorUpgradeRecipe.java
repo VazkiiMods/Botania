@@ -14,7 +14,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 

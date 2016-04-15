@@ -13,7 +13,6 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 public class GuiButtonLexicon extends GuiButton {

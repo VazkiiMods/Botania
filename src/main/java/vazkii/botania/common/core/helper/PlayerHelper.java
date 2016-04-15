@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
 public final class PlayerHelper {
 

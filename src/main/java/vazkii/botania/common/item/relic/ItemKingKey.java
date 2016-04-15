@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.Random;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -28,6 +26,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.Random;
 
 public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 

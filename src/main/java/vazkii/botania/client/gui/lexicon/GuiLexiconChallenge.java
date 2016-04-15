@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;

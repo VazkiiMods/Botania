@@ -10,23 +10,18 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -39,7 +34,9 @@ import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 

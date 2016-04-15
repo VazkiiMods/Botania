@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.world;
 
-import java.awt.Color;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,11 +25,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import java.awt.*;
 
 public final class SkyblockWorldEvents {
 

@@ -10,8 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
+import baubles.api.BaubleType;
 import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,14 +22,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
+
+import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 

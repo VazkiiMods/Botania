@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.Block;
+import baubles.api.BaubleType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,7 +21,6 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.item.ISortableTool.ToolType;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
 public class ItemSwapRing extends ItemBauble {
 

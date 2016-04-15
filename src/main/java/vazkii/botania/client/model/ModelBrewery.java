@@ -12,9 +12,7 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
 import net.minecraft.client.renderer.GlStateManager;
-
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends ModelBase {

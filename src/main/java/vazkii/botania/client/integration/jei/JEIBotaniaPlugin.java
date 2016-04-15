@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;

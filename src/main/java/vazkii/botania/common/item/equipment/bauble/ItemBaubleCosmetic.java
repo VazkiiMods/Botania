@@ -10,36 +10,34 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
+import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.List;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 

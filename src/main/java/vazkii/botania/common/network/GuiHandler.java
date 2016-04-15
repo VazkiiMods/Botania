@@ -12,6 +12,7 @@ package vazkii.botania.common.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
@@ -20,7 +21,6 @@ import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.lib.LibGuiIDs;
-import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 

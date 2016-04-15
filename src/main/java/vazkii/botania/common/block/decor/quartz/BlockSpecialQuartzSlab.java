@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.decor.quartz;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -26,6 +24,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Random;
 
 public class BlockSpecialQuartzSlab extends BlockModSlab {
 

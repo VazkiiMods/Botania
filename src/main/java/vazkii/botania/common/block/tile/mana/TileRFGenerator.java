@@ -10,17 +10,16 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import cofh.api.energy.IEnergyConnection;
+import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.ModAPIManager;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
-import cofh.api.energy.IEnergyConnection;
-import cofh.api.energy.IEnergyReceiver;
 
 import java.util.EnumMap;
 import java.util.Map;

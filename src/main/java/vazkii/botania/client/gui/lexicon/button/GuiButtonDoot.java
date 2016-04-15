@@ -10,18 +10,17 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Ssssshhhhhhh
 // I should've done this last year

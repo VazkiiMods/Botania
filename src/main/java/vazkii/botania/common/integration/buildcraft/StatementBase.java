@@ -1,8 +1,8 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

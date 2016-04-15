@@ -13,8 +13,8 @@ package vazkii.botania.client.gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.stats.StatFileWriter;
-import vazkii.botania.common.achievement.ModAchievements;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.common.achievement.ModAchievements;
 
 public class GuiAchievementsHacky extends GuiAchievements {
 

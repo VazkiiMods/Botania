@@ -10,17 +10,17 @@
  */
 package vazkii.botania.common.block.string;
 
-import java.util.Random;
-
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.Random;
 
 public class BlockRedStringFertilizer extends BlockRedString implements IGrowable {
 

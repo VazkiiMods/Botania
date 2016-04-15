@@ -10,12 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
@@ -24,15 +18,19 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
-
-import org.lwjgl.input.Keyboard;
-
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.lwjgl.input.Keyboard;
+import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class CorporeaAutoCompleteHandler {
 

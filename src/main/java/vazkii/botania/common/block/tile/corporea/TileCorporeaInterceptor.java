@@ -10,21 +10,19 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
 

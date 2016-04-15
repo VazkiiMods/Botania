@@ -1,5 +1,8 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerInternal;
 import com.google.common.base.Predicates;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
@@ -12,9 +15,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibTriggerNames;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerInternal;
 
 public class TriggerManaDetector extends StatementBase implements ITriggerInternal {
 

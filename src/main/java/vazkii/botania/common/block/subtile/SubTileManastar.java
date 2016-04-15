@@ -17,7 +17,6 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends SubTileEntity {
 

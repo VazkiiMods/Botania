@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
-
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
 public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkChanger> {

@@ -10,21 +10,17 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import java.util.List;
-
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+
+import java.util.List;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 

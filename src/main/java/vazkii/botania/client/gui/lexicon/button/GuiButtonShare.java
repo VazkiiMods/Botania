@@ -10,17 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import java.util.Collections;
+import java.util.List;
 
 public class GuiButtonShare extends GuiButtonLexicon {
 

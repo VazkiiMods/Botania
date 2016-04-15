@@ -13,10 +13,10 @@ package vazkii.botania.common.lexicon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.stats.Achievement;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.LexiconCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.LexiconCategory;
 
 public class RLexiconEntry  extends BLexiconEntry {
 

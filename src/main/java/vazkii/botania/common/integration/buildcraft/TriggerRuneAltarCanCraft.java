@@ -1,5 +1,8 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerExternal;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -9,9 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.lib.LibTriggerNames;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerExternal;
 
 public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerExternal {
 

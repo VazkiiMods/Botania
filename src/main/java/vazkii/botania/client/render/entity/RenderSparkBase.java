@@ -10,12 +10,9 @@
  */
 package vazkii.botania.client.render.entity;
 
-import java.util.Random;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -23,13 +20,11 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.entity.EntitySpark;
+
+import java.util.Random;
 
 public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 

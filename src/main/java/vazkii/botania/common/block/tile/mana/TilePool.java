@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import java.awt.Color;
-import java.util.List;
-
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -27,16 +24,14 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
-
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IDyablePool;
@@ -59,13 +54,15 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.awt.*;
+import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 

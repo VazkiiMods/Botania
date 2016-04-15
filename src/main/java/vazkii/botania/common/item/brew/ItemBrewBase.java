@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -31,7 +28,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameData;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -41,6 +37,9 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
+
+import java.awt.*;
+import java.util.List;
 
 public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement, IColorable {
 

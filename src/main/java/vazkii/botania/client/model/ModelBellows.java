@@ -12,7 +12,6 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
 import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelBellows extends ModelBase {

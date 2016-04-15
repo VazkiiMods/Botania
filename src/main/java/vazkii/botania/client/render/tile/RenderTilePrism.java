@@ -16,11 +16,11 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
-
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-//import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+
+//import vazkii.botania.client.render.item.RenderLens;
 
 public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 

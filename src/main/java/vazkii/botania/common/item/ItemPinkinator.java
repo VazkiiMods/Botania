@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -19,13 +17,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemPinkinator extends ItemMod {
 

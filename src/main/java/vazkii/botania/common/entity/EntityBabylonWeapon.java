@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,12 +17,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import scala.tools.nsc.backend.icode.TypeKinds;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -32,6 +29,8 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
+
+import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
 

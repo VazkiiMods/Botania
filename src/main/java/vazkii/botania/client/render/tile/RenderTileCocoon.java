@@ -13,13 +13,11 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCocoon;
 import vazkii.botania.common.block.tile.TileCocoon;

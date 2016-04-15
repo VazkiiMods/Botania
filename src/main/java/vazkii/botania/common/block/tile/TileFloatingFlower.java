@@ -13,9 +13,9 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.api.item.IFloatingFlower;
 
 public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 

@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class TileRedStringFertilizer extends TileRedString {
 

@@ -10,23 +10,22 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemCorporeaSpark extends ItemMod {
 

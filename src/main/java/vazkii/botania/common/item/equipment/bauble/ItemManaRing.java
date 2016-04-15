@@ -10,8 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
+import baubles.api.BaubleType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +20,8 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
+
+import java.util.List;
 
 public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
 

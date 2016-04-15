@@ -10,20 +10,18 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelHourglass;
 import vazkii.botania.common.block.tile.TileHourglass;
+
+import java.util.Random;
 
 public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass> {
 

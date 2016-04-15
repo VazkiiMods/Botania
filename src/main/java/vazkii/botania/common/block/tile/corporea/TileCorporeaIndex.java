@@ -10,6 +10,27 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.text.WordUtils;
+import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
+import vazkii.botania.api.corporea.ICorporeaRequestor;
+import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.helper.MathHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -19,30 +40,6 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.event.ServerChatEvent;
-
-import org.apache.commons.lang3.text.WordUtils;
-
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
-import vazkii.botania.api.corporea.ICorporeaRequestor;
-import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 

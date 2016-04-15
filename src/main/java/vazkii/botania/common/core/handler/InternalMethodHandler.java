@@ -10,9 +10,10 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
+import buildcraft.api.transport.IPipeTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,11 +25,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -70,11 +71,9 @@ import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
-import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
-import buildcraft.api.transport.IPipeTile;
-import net.minecraftforge.fml.common.Optional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 

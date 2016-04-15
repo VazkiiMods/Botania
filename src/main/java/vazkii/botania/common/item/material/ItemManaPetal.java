@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
