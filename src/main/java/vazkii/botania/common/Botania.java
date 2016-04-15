@@ -131,8 +131,4 @@ public class Botania {
 		IMCHandler.processMessages(event.getMessages());
 	}
 
-	/*@EventHandler
-	public void missingMappings(FMLMissingMappingsEvent event) {
-		AliasHandler.onMissingMappings(event);
-	}*/
 }
