@@ -34,7 +34,7 @@ public class LensRedirect extends Lens {
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
 					Vector3 sourceVec = new Vector3(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-					AxisAlignedBB axis = entity.worldObj.getBlockState(coords).getCollisionBoundingBox(entity.worldObj, coords);
+					AxisAlignedBB axis = entity.worldObj.getBlockState(coords).getCollisionBoundingBox(entity.worldObj, coords).offset(coords);
 					if(axis == null)
 						axis = new AxisAlignedBB(coords, coords.add(1, 1, 1));
 
