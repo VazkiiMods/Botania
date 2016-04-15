@@ -71,7 +71,8 @@ public class LensPaint extends Lens {
 						EnumDyeColor placeColor = EnumDyeColor.byMetadata(storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor);
 						IBlockState stateThere = entity.worldObj.getBlockState(coords);
 
-						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor) {
+						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor
+								&& BotaniaAPI.paintableBlocks.get(block).getAllowedValues().contains(placeColor)) {
 							entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
 							int hex = placeColor.getMapColor().colorValue;
 							int r = (hex & 0xFF0000) >> 16;
