@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
@@ -34,6 +35,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import vazkii.botania.client.core.handler.DebugHandler;
+import vazkii.botania.common.core.Remapper;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -54,6 +57,7 @@ public class Botania {
 	public static boolean etFuturumLoaded = false;
 	public static boolean rfApiLoaded = false;
 	public static boolean storageDrawersLoaded = false;
+	public static boolean quarkLoaded = false;
 
 	public static ILightHelper lightHelper;
 
@@ -73,7 +77,7 @@ public class Botania {
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-
+		quarkLoaded = Loader.isModLoaded("Quark");
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 		
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
@@ -129,6 +133,11 @@ public class Botania {
 	@EventHandler
 	public void handleIMC(FMLInterModComms.IMCEvent event) {
 		IMCHandler.processMessages(event.getMessages());
+	}
+
+	@EventHandler
+	public void remap(FMLMissingMappingsEvent event) {
+		Remapper.process(event.getAll());
 	}
 
 }
