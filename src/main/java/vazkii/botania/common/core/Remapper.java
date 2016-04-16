@@ -24,11 +24,14 @@ public final class Remapper {
                 case "botania:seaLamp": m.remap(getBlock("minecraft:sea_lantern")); break;
                 case "botania:prismarine0Stairs": if (quark) m.remap(getBlock("quark:prismarine_stairs")); else m.warn(); break;
                 case "botania:prismarine0Slab": if (quark) m.remap(getBlock("quark:prismarine_slab")); else m.warn(); break;
+                case "botania:prismarine0SlabFull": if (quark) m.remap(getBlock("quark:prismarine_slab_double")); else m.warn(); break;
                 case "botania:prismarine0Wall": if (quark) m.remap(getBlock("quark:prismarine_rough_wall")); else m.warn(); break;
                 case "botania:prismarine1Stairs": if (quark) m.remap(getBlock("quark:prismarine_bricks_stairs")); else m.warn(); break;
                 case "botania:prismarine1Slab": if (quark) m.remap(getBlock("quark:prismarine_bricks_slab")); else m.warn(); break;
+                case "botania:prismarine1SlabFull": if (quark) m.remap(getBlock("quark:prismarine_bricks_slab_double")); else m.warn(); break;
                 case "botania:prismarine2Stairs": if (quark) m.remap(getBlock("quark:prismarine_dark_stairs")); else m.warn(); break;
                 case "botania:prismarine2Slab": if (quark) m.remap(getBlock("quark:prismarine_dark_slab")); else m.warn(); break;
+                case "botania:prismarine2SlabFull": if (quark) m.remap(getBlock("quark:prismarine_dark_slab_double")); else m.warn(); break;
 
                 //
             }
