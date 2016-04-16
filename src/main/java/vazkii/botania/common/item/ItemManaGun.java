@@ -50,6 +50,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
@@ -312,6 +313,16 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 			return lens;
 		}
 		return null;
+	}
+
+	public static List<ItemStack> getAllLens(ItemStack stack) {
+		List<ItemStack> ret = new ArrayList<>();
+
+		for (int i = 0; i < 6; i++) {
+			ret.add(getLensAtPos(stack, i));
+		}
+
+		return ret;
 	}
 
 	@Override
