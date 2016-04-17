@@ -325,6 +325,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.rfGenerator);
         registerItemModel(ModBlocks.root);
         registerItemModel(ModBlocks.runeAltar);
+        registerItemModel(ModBlocks.seaLamp);
         registerItemModel(ModBlocks.shimmerrock);
         registerItemModel(ModBlocks.shimmerwoodPlanks);
         registerItemModel(ModBlocks.sparkChanger);
@@ -358,6 +359,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.prismarine, PrismarineVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
         // todo 1.8 this is temporary until animation API is done, currnetly item model textures will not match true spreader texture
         registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
@@ -622,6 +624,7 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModFluffBlocks.dreamwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingrockWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
+        ModelLoader.setCustomStateMapper(ModFluffBlocks.prismarineWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.reedWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.stoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
 
@@ -639,7 +642,7 @@ public final class ModelHandler {
         }
 
         List<Block> otherSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodPlankSlab, ModFluffBlocks.livingrockSlab, ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.livingrockBrickSlab,
-                ModFluffBlocks.dreamwoodPlankSlab,
+                ModFluffBlocks.dreamwoodPlankSlab, ModFluffBlocks.prismarineSlab, ModFluffBlocks.prismarineBrickSlab, ModFluffBlocks.darkPrismarineSlab,
                 ModFluffBlocks.reedSlab, ModFluffBlocks.thatchSlab, ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
                 ModFluffBlocks.tileSlab, ModFluffBlocks.manaQuartzSlab, ModFluffBlocks.blazeQuartzSlab, ModFluffBlocks.darkQuartzSlab,
                 ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab, ModFluffBlocks.dirtPathSlab,
@@ -665,7 +668,7 @@ public final class ModelHandler {
         }
         
         List<Block> otherFullSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingwoodPlankSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
-                ModFluffBlocks.dreamwoodPlankSlabFull,
+                ModFluffBlocks.dreamwoodPlankSlabFull, ModFluffBlocks.prismarineSlabFull, ModFluffBlocks.prismarineBrickSlabFull, ModFluffBlocks.darkPrismarineSlabFull,
                 ModFluffBlocks.reedSlabFull, ModFluffBlocks.thatchSlabFull, ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
                 ModFluffBlocks.tileSlabFull, ModFluffBlocks.darkQuartzSlabFull, ModFluffBlocks.manaQuartzSlabFull, ModFluffBlocks.blazeQuartzSlabFull,
                 ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull, ModFluffBlocks.dirtPathSlabFull,
@@ -771,6 +774,7 @@ public final class ModelHandler {
         }
 
         registerItemModel(ModFluffBlocks.blazeQuartzStairs);
+        registerItemModel(ModFluffBlocks.darkPrismarineStairs);
         if (ConfigHandler.darkQuartzEnabled)
             registerItemModel(ModFluffBlocks.darkQuartzStairs);
         registerItemModel(ModFluffBlocks.dreamwoodStairs);
@@ -785,6 +789,8 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
         registerItemModel(ModFluffBlocks.manaQuartzStairs);
         registerItemModel(ModFluffBlocks.netherBrickStairs);
+        registerItemModel(ModFluffBlocks.prismarineStairs);
+        registerItemModel(ModFluffBlocks.prismarineBrickStairs);
         registerItemModel(ModFluffBlocks.redQuartzStairs);
         registerItemModel(ModFluffBlocks.reedStairs);
         registerItemModel(ModFluffBlocks.shimmerrockStairs);
@@ -825,6 +831,9 @@ public final class ModelHandler {
 
         registerItemModel(ModFluffBlocks.dreamwoodSlab);
         registerItemModel(ModFluffBlocks.dreamwoodPlankSlab);
+        registerItemModel(ModFluffBlocks.prismarineSlab);
+        registerItemModel(ModFluffBlocks.prismarineBrickSlab);
+        registerItemModel(ModFluffBlocks.darkPrismarineSlab);
         registerItemModel(ModFluffBlocks.dirtPathSlab);
         registerItemModel(ModFluffBlocks.shimmerrockSlab);
         registerItemModel(ModFluffBlocks.shimmerwoodPlankSlab);
@@ -855,6 +864,7 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.livingrockWall);
         registerItemModel(ModFluffBlocks.livingwoodWall);
         registerItemModel(ModFluffBlocks.dreamwoodWall);
+        registerItemModel(ModFluffBlocks.prismarineWall);
         registerItemModel(ModFluffBlocks.reedWall);
     }
 

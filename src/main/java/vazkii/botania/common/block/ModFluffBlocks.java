@@ -48,6 +48,9 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
 import vazkii.botania.common.block.decor.stairs.Block18StoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockEndStoneStairs;
@@ -67,8 +70,12 @@ import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStair
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerrockStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerwoodPlankStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
 import vazkii.botania.common.block.decor.walls.Block18StoneWall;
 import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
+import vazkii.botania.common.block.decor.walls.BlockPrismarineWall;
 import vazkii.botania.common.block.decor.walls.BlockReedWall;
 import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
@@ -102,6 +109,17 @@ public final class ModFluffBlocks {
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
+
+	public static Block prismarineStairs;
+	public static Block prismarineSlab;
+	public static Block prismarineSlabFull;
+	public static Block prismarineWall;
+	public static Block prismarineBrickStairs;
+	public static Block prismarineBrickSlab;
+	public static Block prismarineBrickSlabFull;
+	public static Block darkPrismarineStairs;
+	public static Block darkPrismarineSlab;
+	public static Block darkPrismarineSlabFull;
 
 	public static Block reedStairs;
 	public static Block reedSlab;
@@ -215,6 +233,17 @@ public final class ModFluffBlocks {
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
+
+		prismarineStairs = new BlockPrismarineStairs();
+		prismarineSlab = new BlockPrismarineSlab(false);
+		prismarineSlabFull = new BlockPrismarineSlab(true);
+		prismarineWall = new BlockPrismarineWall();
+		prismarineBrickStairs = new BlockPrismarineBrickStairs();
+		prismarineBrickSlab = new BlockPrismarineBrickSlab(false);
+		prismarineBrickSlabFull = new BlockPrismarineBrickSlab(true);
+		darkPrismarineStairs = new BlockDarkPrismarineStairs();
+		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
+		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
 
 		reedStairs = new BlockReedStairs();
 		reedSlab = new BlockReedSlab(false);
@@ -375,6 +404,13 @@ public final class ModFluffBlocks {
 		((BlockModSlab) reedSlabFull).register();
 		((BlockModSlab) thatchSlab).register();
 		((BlockModSlab) thatchSlabFull).register();
+
+		((BlockModSlab) prismarineSlab).register();
+		((BlockModSlab) prismarineSlabFull).register();
+		((BlockModSlab) prismarineBrickSlab).register();
+		((BlockModSlab) prismarineBrickSlabFull).register();
+		((BlockModSlab) darkPrismarineSlab).register();
+		((BlockModSlab) darkPrismarineSlabFull).register();
 
 		((BlockModSlab) netherBrickSlab).register();
 		((BlockModSlab) netherBrickSlabFull).register();

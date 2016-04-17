@@ -325,6 +325,12 @@ public final class ModCraftingRecipes {
 		// The future is now (botania -> vanilla recipes for future added items and blocks)
 		addShapelessOreDictRecipe(new ItemStack(Items.prismarine_shard), new ItemStack(ModItems.manaResource, 1, 10));
 
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 0), new ItemStack(ModBlocks.prismarine, 1, 0));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 1), new ItemStack(ModBlocks.prismarine, 1, 1));
+		addShapelessOreDictRecipe(new ItemStack(Blocks.prismarine, 1, 2), new ItemStack(ModBlocks.prismarine, 1, 2));
+
+		addShapelessOreDictRecipe(new ItemStack(Blocks.sea_lantern), new ItemStack(ModBlocks.seaLamp));
+
 		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 1), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.GRANITE.ordinal()));
 		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 2), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_GRANITE.ordinal()));
 		addShapelessOreDictRecipe(new ItemStack(Blocks.stone, 1, 3), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.DIORITE.ordinal()));
@@ -2175,6 +2181,12 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.livingrock, 1, ModFluffBlocks.livingrockBrickStairs, ModFluffBlocks.livingrockBrickSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModFluffBlocks.dreamwoodPlankStairs, ModFluffBlocks.dreamwoodPlankSlab);
+		addStairsAndSlabs(Blocks.prismarine, 0, ModFluffBlocks.prismarineStairs, ModFluffBlocks.prismarineSlab);
+		addStairsAndSlabs(Blocks.prismarine, 1, ModFluffBlocks.prismarineBrickStairs, ModFluffBlocks.prismarineBrickSlab);
+		addStairsAndSlabs(Blocks.prismarine, 2, ModFluffBlocks.darkPrismarineStairs, ModFluffBlocks.darkPrismarineSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineStairs, ModFluffBlocks.prismarineSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 1, ModFluffBlocks.prismarineBrickStairs, ModFluffBlocks.prismarineBrickSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 2, ModFluffBlocks.darkPrismarineStairs, ModFluffBlocks.darkPrismarineSlab);
 		addStairsAndSlabs(ModBlocks.reedBlock, 0, ModFluffBlocks.reedStairs, ModFluffBlocks.reedSlab);
 		addStairsAndSlabs(ModBlocks.thatch, 0, ModFluffBlocks.thatchStairs, ModFluffBlocks.thatchSlab);
 		addStairsAndSlabs(ModBlocks.customBrick, 0, ModFluffBlocks.netherBrickStairs, ModFluffBlocks.netherBrickSlab);
@@ -2190,6 +2202,8 @@ public final class ModCraftingRecipes {
 		addWall(ModBlocks.livingrock, 0, ModFluffBlocks.livingrockWall, 0);
 		addWall(ModBlocks.livingwood, 0, ModFluffBlocks.livingwoodWall, 0);
 		addWall(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodWall, 0);
+		addWall(Blocks.prismarine, 0, ModFluffBlocks.prismarineWall, 0);
+		addWall(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineWall, 0);
 		addWall(ModBlocks.reedBlock, 0, ModFluffBlocks.reedWall, 0);
 		for(int i = 0; i < 8; i++)
 			addWall(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneWall, i);

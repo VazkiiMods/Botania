@@ -10,11 +10,9 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -73,12 +71,6 @@ public final class DebugHandler {
 			} else if(Minecraft.isRunningOnMac)
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
 			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
-
-			RayTraceResult ray = Minecraft.getMinecraft().objectMouseOver;
-			if(ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK && ray.getBlockPos() != null) {
-				IBlockState state = world.getBlockState(ray.getBlockPos());
-				event.getRight().add("META: " + state.getBlock().getMetaFromState(state));
-			}
 		}
 	}
 
