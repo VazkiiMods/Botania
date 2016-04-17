@@ -20,14 +20,17 @@
     },
     {
       "__comment": "Black Lotuses",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.5 }
+      ],
       "rolls": 1,
       "entries": [
         {
           "type": "item",
           "name": "botania:blackLotus",
-          "weight": 15,
-          "quality": 5,
+          "weight": 3,
+          "quality": 1,
           "functions": [
             { "function": "set_count", "count": 1 },
             { "function": "set_data",  "data": 1 }
@@ -36,13 +39,12 @@
         {
           "type": "item",
           "name": "botania:blackLotus",
-          "weight": 35,
+          "weight": 7,
           "functions": [
             { "function": "set_count", "count": { "min": 1, "max": 3 } },
             { "function": "set_data", "data": 0 }
           ]
-        },
-        { "type": "empty", "weight": 50 }
+        }
       ]
     },
     {
@@ -141,7 +143,10 @@
     },
     {
       "__comment": "Music discs",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.44 }
+      ],
       "rolls": 1,
       "entries": [
         {
@@ -158,8 +163,7 @@
           "weight": 15,
           "type": "item",
           "name": "minecraft:record_wait"
-        },
-        { "type": "empty", "weight": 56 }
+        }
       ]
     },
     {
