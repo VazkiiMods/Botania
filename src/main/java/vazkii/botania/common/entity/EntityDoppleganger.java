@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
@@ -58,6 +59,9 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -79,12 +83,14 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -134,6 +140,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private boolean anyWithArmor = false;
 
 	private List<UUID> playersWhoAttacked = new ArrayList<>();
+	public EntityPlayer trueKiller = null;
 
 	private static boolean isPlayingMusic = false;
 
@@ -452,54 +459,39 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@Override
-	protected void dropFewItems(boolean par1, int par2) {
-		if(par1) {
-			for(int pl = 0; pl < playersWhoAttacked.size(); pl++) {
-				boolean hard = isHardMode();
-				entityDropItem(new ItemStack(ModItems.manaResource, pl == 0 ? hard ? 16 : 8 : hard ? 10 : 6, 5), 1F);
-				boolean droppedRecord = false;
+	public ResourceLocation getLootTable() {
+		return new ResourceLocation(LibMisc.MOD_ID, isHardMode() ? "gaia_guardian_2" : "gaia_guardian");
+	}
 
-				if(hard) {
-					entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
-					if(ConfigHandler.relicsEnabled) {
-						ItemStack dice = new ItemStack(ModItems.dice);
-						((ItemRelic) ModItems.dice).bindToUUID(playersWhoAttacked.get(pl), dice);
-						entityDropItem(dice, 1F);
-					}
-
-					if(Math.random() < 0.25)
-						entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
-					if(Math.random() < 0.5) {
-						boolean voidLotus = Math.random() < 0.3F;
-						entityDropItem(new ItemStack(ModItems.blackLotus, voidLotus ? 1 : rand.nextInt(3) + 1, voidLotus ? 1 : 0), 1F);
-					}
-					if(Math.random() < 0.9)
-						entityDropItem(new ItemStack(ModItems.manaResource, 16 + rand.nextInt(12)), 1F);
-					if(Math.random() < 0.7)
-						entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
-					if(Math.random() < 0.5)
-						entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
-
-					int runes = rand.nextInt(6) + 1;
-					for(int i = 0; i < runes; i++)
-						if(Math.random() < 0.3)
-							entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
-
-					if(Math.random() < 0.2)
-						entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
-					if(Math.random() < 0.3) {
-						int i = Item.getIdFromItem(Items.record_13);
-						int j = Item.getIdFromItem(Items.record_wait);
-						int k = i + rand.nextInt(j - i + 1);
-						entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
-						droppedRecord = true;
-					}
-				}
-
-				if(!droppedRecord && Math.random() < 0.2)
-					entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
-			}
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
+	{
+		// Save true killer, they get extra loot
+		if ("player".equals(source.getDamageType())
+				&& source.getEntity() instanceof EntityPlayer) {
+			this.trueKiller = ((EntityPlayer) source.getEntity());
 		}
+
+		// Drop equipment and clear it so multiple calls to super don't do it again
+		super.dropEquipment(wasRecentlyHit, lootingModifier);
+
+		for (EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
+			this.setItemStackToSlot(e, null);
+		}
+
+		// Generate loot table for every single attacking player
+		for (UUID u : playersWhoAttacked) {
+			EntityPlayer player = worldObj.getPlayerEntityByUUID(u);
+			if (player == null)
+				continue;
+
+			EntityPlayer saveLastAttacker = this.attackingPlayer;
+			attackingPlayer = player;
+			super.dropLoot(wasRecentlyHit, lootingModifier, DamageSource.causePlayerDamage(player));
+			attackingPlayer = saveLastAttacker;
+		}
+
+		trueKiller = null;
 	}
 
 	@Override

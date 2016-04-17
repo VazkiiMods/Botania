@@ -59,6 +59,7 @@ import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
+import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.handler.PixieHandler;
@@ -112,6 +113,7 @@ public class CommonProxy {
 		ModBanners.init();
 
 		ChestGenHandler.init();
+		LootHandler.init();
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
