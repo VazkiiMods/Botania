@@ -6,9 +6,8 @@ generator.botania-skyblock.info=Not recommended for botania newcomers
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
 
-# todo 1.8 remove when merging into master
-botaniamisc.unofficial.nag=WARNING !!!!! This port of Botania is UNOFFICIAL! Do NOT report bugs to Vazkii!!!
-botaniamisc.unofficial.report=Report issues to the porter HERE:
+botaniamisc.unofficial.warnRemove=[Botania] Warning: Some decorative blocks are being removed, please migrate to either the vanilla or Quark versions.
+botaniamisc.unofficial.report=[Botania] This port is unofficial! Report issues to the porter HERE:
 
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
