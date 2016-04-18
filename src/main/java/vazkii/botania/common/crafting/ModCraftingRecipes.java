@@ -28,13 +28,14 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.Level;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -741,10 +742,10 @@ public final class ModCraftingRecipes {
 		recipeTinyPlanet = BotaniaAPI.getLatestAddedRecipe();
 
 		// Mana Band Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaRing),
+		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
 				"TI ", "I I", " I ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
-				'I', LibOreDict.MANA_STEEL);
+				'I', LibOreDict.MANA_STEEL));
 		recipeManaRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Aura Band Recipe
@@ -755,7 +756,7 @@ public final class ModCraftingRecipes {
 		recipeAuraRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Mana Band Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing));
+		GameRegistry.addRecipe(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)));
 		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Aura Band Recipe
@@ -873,11 +874,11 @@ public final class ModCraftingRecipes {
 		recipeMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terra Shatterer Recipe
-		addOreDictRecipe(new ItemStack(ModItems.terraPick),
+		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
 				"ITI", "ILI", " L ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.TERRA_STEEL,
-				'L', LibOreDict.LIVINGWOOD_TWIG);
+				'L', LibOreDict.LIVINGWOOD_TWIG));
 		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
 
 		// Charm of the Diva Recipe
