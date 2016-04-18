@@ -87,9 +87,9 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(stack, world, player, hand, flag);
 		if (ret != null) return ret;
 
-		if (!player.capabilities.isCreativeMode)
+		if (!player.capabilities.isCreativeMode && !flag)
 		{
-			return !flag ? new ActionResult<>(EnumActionResult.FAIL, stack) : new ActionResult<>(EnumActionResult.PASS, stack);
+			return new ActionResult<>(EnumActionResult.FAIL, stack);
 		}
 		else
 		{
