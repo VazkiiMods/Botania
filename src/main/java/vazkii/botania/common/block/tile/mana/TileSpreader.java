@@ -449,16 +449,19 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public boolean isRedstone() {
-		return worldObj == null ? staticRedstone : worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT) == SpreaderVariant.REDSTONE;
+		updateContainingBlockInfo();
+		return worldObj == null ? staticRedstone : getBlockMetadata() == SpreaderVariant.REDSTONE.ordinal();
 	}
 
 	public boolean isDreamwood() {
-		SpreaderVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT);
-		return worldObj == null ? staticDreamwood : variant == SpreaderVariant.ELVEN || variant == SpreaderVariant.GAIA;
+		updateContainingBlockInfo();
+		int variant = getBlockMetadata();
+		return worldObj == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal() || variant == SpreaderVariant.GAIA.ordinal();
 	}
 
 	public boolean isULTRA_SPREADER() {
-		return worldObj == null ? staticUltra : worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT) == SpreaderVariant.GAIA;
+		updateContainingBlockInfo();
+		return worldObj == null ? staticUltra : getBlockMetadata() == SpreaderVariant.GAIA.ordinal();
 	}
 
 	public void checkForReceiver() {
