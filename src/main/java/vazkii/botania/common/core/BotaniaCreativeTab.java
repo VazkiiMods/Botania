@@ -303,25 +303,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
 
-		addBlock(ModBlocks.prismarine);
-		addBlock(ModBlocks.seaLamp);
-		addBlock(ModFluffBlocks.prismarineStairs);
-		addBlock(ModFluffBlocks.prismarineSlab);
-		addBlock(ModFluffBlocks.prismarineWall);
-		addBlock(ModFluffBlocks.prismarineBrickStairs);
-		addBlock(ModFluffBlocks.prismarineBrickSlab);
-		addBlock(ModFluffBlocks.darkPrismarineStairs);
-		addBlock(ModFluffBlocks.darkPrismarineSlab);
-
 		addBlock(ModBlocks.blazeBlock);
-
-		addBlock(ModBlocks.reedBlock);
-		addBlock(ModFluffBlocks.reedStairs);
-		addBlock(ModFluffBlocks.reedSlab);
-		addBlock(ModFluffBlocks.reedWall);
-		addBlock(ModBlocks.thatch);
-		addBlock(ModFluffBlocks.thatchStairs);
-		addBlock(ModFluffBlocks.thatchSlab);
 
 		addBlock(ModBlocks.customBrick);
 		addBlock(ModFluffBlocks.netherBrickStairs);

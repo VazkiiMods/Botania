@@ -34,8 +34,8 @@ public final class ModMigrationRecipes {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_slab")), new ItemStack(ModFluffBlocks.prismarineSlab));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_bricks_stairs")), new ItemStack(ModFluffBlocks.prismarineBrickStairs));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_bricks_slab")), new ItemStack(ModFluffBlocks.prismarineBrickSlab));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("dark_prismarine_stairs")), new ItemStack(ModFluffBlocks.darkPrismarineStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("dark_prismarine_slab")), new ItemStack(ModFluffBlocks.darkPrismarineSlab));
+            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_dark_stairs")), new ItemStack(ModFluffBlocks.darkPrismarineStairs));
+            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_dark_slab")), new ItemStack(ModFluffBlocks.darkPrismarineSlab));
         }
 
         // End stuff -> vanilla

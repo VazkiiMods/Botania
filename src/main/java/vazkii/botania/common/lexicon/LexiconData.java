@@ -1112,15 +1112,6 @@ public final class LexiconData {
 		corporeaInterceptor.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaInterceptor));
 
-		if (ConfigHandler.enderStuff19Enabled) {
-			endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
-			endStoneDecor.setLexiconPages(new PageText("0"),
-					new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks),
-					new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks),
-					new PageCraftingRecipe("3", ModCraftingRecipes.recipeEnderBricks),
-					new PageCraftingRecipe("4", ModCraftingRecipes.recipePillarEnderBricks));
-		}
-
 		spawnerMover = new ALexiconEntry(LibLexicon.ENDER_SPAWNER_MOVER, categoryEnder);
 		spawnerMover.setLexiconPages(new PageText("0"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpawnerMover));
@@ -1354,8 +1345,6 @@ public final class LexiconData {
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
 					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"),
-					new PageCraftingRecipe("17", ModCraftingRecipes.recipeReedBlock),
-					new PageCraftingRecipe("18", ModCraftingRecipes.recipeThatch),
 					new PageCraftingRecipe("19", ModCraftingRecipes.recipeRoofTile),
 					new PageCraftingRecipe("20", ModCraftingRecipes.recipeNetherBrick),
 					new PageCraftingRecipe("21", ModCraftingRecipes.recipeSoulBrick),
@@ -1376,8 +1365,6 @@ public final class LexiconData {
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
 					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"),
-					new PageCraftingRecipe("17", ModCraftingRecipes.recipeReedBlock),
-					new PageCraftingRecipe("18", ModCraftingRecipes.recipeThatch),
 					new PageCraftingRecipe("19", ModCraftingRecipes.recipeRoofTile),
 					new PageCraftingRecipe("20", ModCraftingRecipes.recipeNetherBrick),
 					new PageCraftingRecipe("21", ModCraftingRecipes.recipeSoulBrick),
@@ -1428,9 +1415,7 @@ public final class LexiconData {
 		if (ConfigHandler.stones18Enabled) {
 			stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
 			stoneAlchemy.setLexiconPages(new PageText("0"),
-					new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes),
-					new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StoneBrick),
-					new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneChisel));
+					new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes));
 		}
 
 		blazeBlock = new BLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
