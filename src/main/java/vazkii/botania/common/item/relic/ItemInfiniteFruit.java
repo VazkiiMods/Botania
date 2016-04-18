@@ -61,7 +61,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 			if(count == 5)
 				if(player.canEat(false))
-					ReflectionHelper.setPrivateValue(EntityPlayer.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
+					ReflectionHelper.setPrivateValue(EntityLivingBase.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
 		}
 	}
 
