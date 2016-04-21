@@ -27,6 +27,7 @@ public class PotionBloodthirst extends PotionMod {
 	public PotionBloodthirst() {
 		super(LibPotionNames.BLOODTHIRST, false, 0xC30000, 3);
 		MinecraftForge.EVENT_BUS.register(this);
+		setShowOnFirstRow();
 	}
 
 	@SubscribeEvent
