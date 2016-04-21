@@ -384,8 +384,8 @@ public final class HUDHandler {
 
 			mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), sx, sy);
 			GlStateManager.disableLighting();
-			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
-			font.drawStringWithShadow(secondLine, sx + 10, sy + 18, 0xFFAAAAAA);
+			font.drawStringWithShadow(drawStr, sx + 20, sy + 4, 0xFFFFFFFF);
+			font.drawStringWithShadow(secondLine, sx + 20, sy + 14, 0xFFAAAAAA);
 
 			if(!mc.thePlayer.isSneaking()) {
 				GlStateManager.scale(0.5F, 0.5F, 1F);
