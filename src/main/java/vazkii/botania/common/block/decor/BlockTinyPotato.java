@@ -110,9 +110,22 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onBlockHarvested(World par1World, BlockPos pos, IBlockState state, EntityPlayer par6EntityPlayer) {
-		if(!par6EntityPlayer.capabilities.isCreativeMode)
-			dropBlockAsItem(par1World, pos, state, 0);
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		if (willHarvest) {
+			// Copy of super.removedByPlayer but don't set to air yet
+			// This is so getDrops below will have a TE to work with
+			onBlockHarvested(world, pos, state, player);
+			return true;
+		} else {
+			return super.removedByPlayer(state, world, pos, player, willHarvest);
+		}
+	}
+
+	@Override
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
+		super.harvestBlock(world, player, pos, state, te, stack);
+		// Now delete the block and TE
+		world.setBlockToAir(pos);
 	}
 
 	@Override
