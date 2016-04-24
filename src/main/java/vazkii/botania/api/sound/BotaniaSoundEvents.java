@@ -22,7 +22,8 @@ public final class BotaniaSoundEvents {
     public static final SoundEvent divaCharm = getRegisteredSoundEvent("botania:divaCharm");
     public static final SoundEvent divinationRod = getRegisteredSoundEvent("botania:divinationRod");
     public static final SoundEvent doit = getRegisteredSoundEvent("botania:doit");
-    public static final SoundEvent enchanterBlock = getRegisteredSoundEvent("botania:enchanterBlock");
+    public static final SoundEvent enchanterFade = getRegisteredSoundEvent("botania:enchanterForm");
+    public static final SoundEvent enchanterForm = getRegisteredSoundEvent("botania:enchanterFade");
     public static final SoundEvent enchanterEnchant = getRegisteredSoundEvent("botania:enchanterEnchant");
     public static final SoundEvent endoflame = getRegisteredSoundEvent("botania:endoflame");
     public static final SoundEvent equipBauble = getRegisteredSoundEvent("botania:equipBauble");

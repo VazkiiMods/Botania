@@ -155,7 +155,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				float blue = (float) Math.random();
 				Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 			}
-			worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterBlock, SoundCategory.BLOCKS, 0.5F, 10F);
+			worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterFade, SoundCategory.BLOCKS, 0.5F, 10F);
 		}
 
 		switch(stage) {
