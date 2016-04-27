@@ -29,6 +29,9 @@ public class SubTileKekimurus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if (supertile.getWorld().isRemote)
+			return;
+
 		int mana = 1800;
 
 		if(getMaxMana() - this.mana >= mana && !supertile.getWorld().isRemote && ticksExisted % 80 == 0) {
@@ -40,11 +43,11 @@ public class SubTileKekimurus extends SubTileGenerating {
 						Block block = state.getBlock();
 						if(block instanceof BlockCake) {
 							int nextSlicesEaten = state.getValue(BlockCake.BITES) + 1;
-							if(nextSlicesEaten == 7)
+							if(nextSlicesEaten > 6)
 								supertile.getWorld().setBlockToAir(pos);
 							else supertile.getWorld().setBlockState(pos, state.withProperty(BlockCake.BITES, nextSlicesEaten), 1 | 2);
 
-							supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state.withProperty(BlockCake.BITES, nextSlicesEaten)));
+							supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state));
 							supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.entity_generic_eat, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
