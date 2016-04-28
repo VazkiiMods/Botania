@@ -10,10 +10,14 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -62,6 +66,17 @@ public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
+		}
+
+		return multimap;
 	}
 
 }

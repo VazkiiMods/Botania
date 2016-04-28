@@ -46,11 +46,11 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 			PotionEffect haste = player.getActivePotionEffect(MobEffects.digSpeed);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
+			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !par2World.isRemote) {
 				RayTraceResult pos = ToolCommons.raytraceFromEntity(par2World, par3Entity, true, 48);
 				if(pos != null && pos.getBlockPos() != null) {
 					Vector3 posVec = new Vector3(pos.getBlockPos().getX(), pos.getBlockPos().getY(), pos.getBlockPos().getZ());
-					Vector3 motVec = new Vector3((Math.random() - 0.5) * 18, 24, (Math.random() - 0.5) * 18);
+					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec.add(motVec);
 					motVec.normalize().negate().multiply(1.5);
 
@@ -60,6 +60,17 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 					star.motionY = motVec.y;
 					star.motionZ = motVec.z;
 					par2World.spawnEntityInWorld(star);
+
+					if (!par2World.isRaining()
+							&& Math.abs(par2World.getWorldTime() - 18000) < 1800
+							&& Math.random() < 0.125) {
+						EntityFallingStar bonusStar = new EntityFallingStar(par2World, player);
+						bonusStar.setPosition(posVec.x, posVec.y, posVec.z);
+						bonusStar.motionX = motVec.x + Math.random() - 0.5;
+						bonusStar.motionY = motVec.y + Math.random() - 0.5;
+						bonusStar.motionZ = motVec.z + Math.random() - 0.5;
+						par2World.spawnEntityInWorld(bonusStar);
+					}
 
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
 					par2World.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);

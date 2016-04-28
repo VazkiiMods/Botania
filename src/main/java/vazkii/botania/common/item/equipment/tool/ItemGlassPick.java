@@ -24,11 +24,12 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemGlassPick extends ItemManasteelPick {
 
 	private static final int MANA_PER_DAMAGE = 160;
-	private static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MANASTEEL_GLASS", 0, 125, 4.8F, 1F, 10);
+	private static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MANASTEEL_GLASS", 0, 125, 4.8F, 0F, 10);
 
 	public ItemGlassPick() {
 		super(MATERIAL, LibItemNames.GLASS_PICK);
 		MinecraftForge.EVENT_BUS.register(this);
+		attackSpeed = -1;
 	}
 
 	@SubscribeEvent
