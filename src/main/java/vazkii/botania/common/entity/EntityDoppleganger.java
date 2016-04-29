@@ -766,6 +766,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@Override
+	public boolean isNonBoss()
+	{
+		return false;
+	}
+
+	@Override
 	public void setBossVisibleTo(EntityPlayerMP player)
 	{
 		super.setBossVisibleTo(player);
