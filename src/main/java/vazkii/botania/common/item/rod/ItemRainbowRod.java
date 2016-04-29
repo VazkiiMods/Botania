@@ -57,7 +57,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(!par2World.isRemote && !par3EntityPlayer.getCooldownTracker().hasCooldown(this) && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
+		if(!par2World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
 

@@ -46,7 +46,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(!par3World.isRemote && !player.getCooldownTracker().hasCooldown(this) && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+		if(!par3World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			player.worldObj.spawnEntityInWorld(entity);
