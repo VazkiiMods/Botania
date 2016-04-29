@@ -43,12 +43,11 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 		super(LibItemNames.SIGNAL_FLARE);
 		setMaxStackSize(1);
 		setNoRepair();
-		setMaxDamage(200);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(par1ItemStack.getItemDamage() == 0) {
+		if(!par3EntityPlayer.getCooldownTracker().hasCooldown(this)) {
 			if(par2World.isRemote)
 				par3EntityPlayer.swingArm(hand);
 			else {
@@ -71,7 +70,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 				if(stunned >= 100)
 					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
 			}
-			par1ItemStack.damageItem(200, par3EntityPlayer);
+			par3EntityPlayer.getCooldownTracker().setCooldown(this, 200);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -80,8 +79,8 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isItemDamaged())
-			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+		if(par1ItemStack.getItemDamage() > 0)
+			par1ItemStack.setItemDamage(0);
 	}
 
 	@Override

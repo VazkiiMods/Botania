@@ -52,13 +52,12 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	public ItemRainbowRod() {
 		super(LibItemNames.RAINBOW_ROD);
-		setMaxDamage(TIME);
 		setMaxStackSize(1);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(!par2World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
+		if(!par2World.isRemote && !par3EntityPlayer.getCooldownTracker().hasCooldown(this) && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
 
@@ -108,7 +107,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			if(count > 0) {
 				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false);
-				par1ItemStack.setItemDamage(TIME);
+				par3EntityPlayer.getCooldownTracker().setCooldown(this, TIME);
 			}
 		}
 
@@ -127,8 +126,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isItemDamaged())
-			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+		// Kept for backward compat
+		if (par1ItemStack.getItemDamage() > 0)
+			par1ItemStack.setItemDamage(0);
 	}
 
 	@Override

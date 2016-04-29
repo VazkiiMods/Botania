@@ -42,17 +42,17 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	public ItemFireRod() {
 		super(LibItemNames.FIRE_ROD);
 		setMaxStackSize(1);
-		setMaxDamage(COOLDOWN);
 	}
 
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(!par3World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+		if(!par3World.isRemote && !player.getCooldownTracker().hasCooldown(this) && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			player.worldObj.spawnEntityInWorld(entity);
 
-			par1ItemStack.setItemDamage(COOLDOWN);
+			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player) ? COOLDOWN / 2 : COOLDOWN);
+
 			ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
 			par3World.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_blaze_ambient, SoundCategory.PLAYERS, 1F, 1F);
 		}
@@ -62,8 +62,9 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isItemDamaged() && par3Entity instanceof EntityPlayer)
-			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - (IManaProficiencyArmor.Helper.hasProficiency((EntityPlayer) par3Entity) ? 2 : 1));
+		// Keep for backward compat
+		if(par1ItemStack.getItemDamage() > 0)
+			par1ItemStack.setItemDamage(0);
 	}
 
 	@Override
