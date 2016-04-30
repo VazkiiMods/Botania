@@ -86,7 +86,7 @@ public class ItemGrassHorn extends ItemMod {
 			breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
 
 		if(!player.worldObj.isRemote)
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 0.001F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_bass, SoundCategory.BLOCKS, 1F, 0.001F);
 	}
 
 	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
