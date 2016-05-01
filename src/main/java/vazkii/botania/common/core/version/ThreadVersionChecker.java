@@ -19,7 +19,7 @@ import java.net.URL;
 
 public class ThreadVersionChecker extends Thread {
 
-	private static final String LINK = "https://raw.githubusercontent.com/williewillus/Botania/MC18/version/" + MinecraftForge.MC_VERSION + ".txt";
+	private static final String LINK = "https://raw.githubusercontent.com/williewillus/Botania/MC19/version/" + MinecraftForge.MC_VERSION + ".txt";
 
 	public ThreadVersionChecker() {
 		setName("Botania Version Checker Thread");
