@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -32,6 +33,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.common.animation.Event;
 import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
 import org.apache.commons.lang3.tuple.Pair;
@@ -43,8 +45,8 @@ import vazkii.botania.common.core.handler.MethodHandles;
 
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
-	ModelCrystalCube model = new ModelCrystalCube();
-	EntityItem entity = null;
+	private EntityItem entity = null;
+	private RenderEntityItem itemRenderer = null;
 
 	@Override
 	public void renderTileEntityAt(TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
@@ -52,6 +54,14 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		if (cube != null) {
 			if(entity == null)
                 entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
+
+			if(itemRenderer == null)
+				itemRenderer = new RenderEntityItem(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()) {
+					@Override
+					public boolean shouldBob() {
+						return false;
+					}
+				};
 
 			try {
 				MethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
@@ -80,7 +90,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			GlStateManager.translate(0F, 0.8F, 0F);
 			GlStateManager.scale(s, s, s);
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
-			((Render) mc.getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
+			itemRenderer.doRender(entity, 0, 0, 0, 1F, f);
 			GlStateManager.popMatrix();
 		}
 
@@ -127,7 +137,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	}
 
 	// Copied from AnimationTESR
-	protected static BlockRendererDispatcher blockRenderer;
+	private static BlockRendererDispatcher blockRenderer;
 
 	private void renderAnimatedModel(TileCorporeaCrystalCube te, double x, double y, double z, float partialTick) {
 		// From FastTESR.renderTileEntityAt
@@ -151,6 +161,10 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 
 		// Inlined AnimationTESR.renderTileEntityFast
+		if(!te.hasCapability(CapabilityAnimation.ANIMATION_CAPABILITY, null))
+		{
+			return;
+		}
 		if(blockRenderer == null) blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		BlockPos pos = te.getPos();
 		IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
@@ -165,9 +179,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			if(exState.getUnlistedNames().contains(Properties.AnimationProperty))
 			{
 				float time = Animation.getWorldTime(getWorld(), partialTick);
-				// todo 1.9
-				if (true) return;
-				Pair<IModelState, Iterable<Event>> pair = null;
+				Pair<IModelState, Iterable<Event>> pair = te.getCapability(CapabilityAnimation.ANIMATION_CAPABILITY, null).apply(time);
 				// handleEvents(te, time, pair.getRight());
 
 				IBakedModel model = blockRenderer.getBlockModelShapes().getModelForState(exState.getClean());

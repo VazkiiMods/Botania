@@ -10,9 +10,17 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.animation.Animation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.model.animation.CapabilityAnimation;
+import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -34,13 +42,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	int ticks = 0;
 	public int compValue = 0;
 
-	//private final IAnimationStateMachine asm;
+	private final IAnimationStateMachine asm;
 
 	public TileCorporeaCrystalCube() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			//asm = Animation.INSTANCE.load(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
+			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
 		} else {
-			//asm = null;
+			asm = null;
 		}
 	}
 
@@ -161,9 +169,17 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			onUpdateCount();
 		}
 	}
-/* todo 1.9
+
 	@Override
-	public IAnimationStateMachine asm() {
-		return asm;
-	}*/
+	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
+			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
+		} else return super.getCapability(cap, side);
+	}
+
 }
