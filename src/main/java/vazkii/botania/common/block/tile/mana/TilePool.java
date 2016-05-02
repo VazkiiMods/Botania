@@ -60,6 +60,8 @@ import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.awt.*;
 import java.util.List;
@@ -80,25 +82,25 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
 
-	boolean outputting = false;
+	private boolean outputting = false;
 
 	public EnumDyeColor color = EnumDyeColor.WHITE;
 	int mana;
-	int knownMana = -1;
+	private int knownMana = -1;
 
 	public int manaCap = -1;
-	int soundTicks = 0;
-	boolean canAccept = true;
-	boolean canSpare = true;
+	private int soundTicks = 0;
+	private boolean canAccept = true;
+	private boolean canSpare = true;
 	public boolean fragile = false;
-	public boolean isDoingTransfer = false;
-	public int ticksDoingTransfer = 0;
+	boolean isDoingTransfer = false;
+	int ticksDoingTransfer = 0;
 
-	String inputKey = "";
-	String outputKey = "";
+	private String inputKey = "";
+	private String outputKey = "";
 
-	int ticks = 0;
-	boolean sendPacket = false;
+	private int ticks = 0;
+	private boolean sendPacket = false;
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
@@ -135,7 +137,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead)
+		if(worldObj.isRemote || item.isDead)
 			return false;
 
 		boolean didChange = false;
@@ -163,18 +165,16 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
 
-					if(!worldObj.isRemote) {
-						stack.stackSize--;
-						if(stack.stackSize == 0)
-							item.setDead();
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						item.setDead();
 
-						ItemStack output = recipe.getOutput().copy();
-						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						try {
-							MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
-						} catch (Throwable ignored) {}
-						worldObj.spawnEntityInWorld(outputItem);
-					}
+					ItemStack output = recipe.getOutput().copy();
+					EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					try {
+						MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
+					} catch (Throwable ignored) {}
+					worldObj.spawnEntityInWorld(outputItem);
 
 					craftingFanciness();
 					didChange = true;
@@ -187,38 +187,37 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 		return didChange;
 	}
 
-	public void craftingFanciness() {
+	private void craftingFanciness() {
 		if(soundTicks == 0) {
 			worldObj.playSound(null, pos, BotaniaSoundEvents.manaPoolCraft, SoundCategory.BLOCKS, 0.4F, 4F);
 			soundTicks = 6;
 		}
 
-		for(int i = 0; i < 25; i++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-		}
+		PacketHandler.sendToNearby(worldObj, getPos(),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.POOL_CRAFT, pos.getX(), pos.getY(), pos.getZ()));
 	}
 
 	@Override
 	public void updateEntity() {
-		boolean wasDoingTransfer = isDoingTransfer;
-		isDoingTransfer = false;
 		if(manaCap == -1)
 			manaCap = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 
 		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isInvalid())
 			ManaNetworkEvent.addPool(this);
 
-		if(soundTicks > 0)
-			soundTicks--;
-
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+			return;
+		}
+
+		boolean wasDoingTransfer = isDoingTransfer;
+		isDoingTransfer = false;
+
+		if(soundTicks > 0) {
+			soundTicks--;
 		}
 
 		if(sendPacket && ticks % 10 == 0) {
@@ -252,8 +251,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 								didSomething = true;
 
 							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-							if(!worldObj.isRemote)
-								mana.addMana(stack, manaVal);
+							mana.addMana(stack, manaVal);
 							recieveMana(-manaVal);
 						}
 					} else {
@@ -262,17 +260,15 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 								didSomething = true;
 
 							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
-							if(!worldObj.isRemote)
-								mana.addMana(stack, -manaVal);
+							mana.addMana(stack, -manaVal);
 							recieveMana(manaVal);
 						}
 					}
 
 					if(didSomething) {
-						if(worldObj.isRemote && ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(20) == 0) {
-							Vector3 itemVec = Vector3.fromTileEntity(this).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-							Vector3 tileVec = Vector3.fromTileEntity(this).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-							LightningHandler.spawnLightningBolt(worldObj, outputting ? tileVec : itemVec, outputting ? itemVec : tileVec, 80, worldObj.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+						if(ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(20) == 0) {
+							PacketHandler.sendToNearby(worldObj, getPos(),
+									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.POOL_CHARGE, getPos().getX(), getPos().getY(), getPos().getZ(), outputting ? 1 : 0));
 						}
 						isDoingTransfer = outputting;
 					}

@@ -90,6 +90,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
+import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
@@ -102,6 +103,7 @@ public class CommonProxy {
 
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
+		PacketHandler.init();
 		ModSounds.init();
 		ModBlocks.init();
 		ModItems.init();

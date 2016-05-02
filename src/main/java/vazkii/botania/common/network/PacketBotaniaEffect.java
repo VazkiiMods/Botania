@@ -2,10 +2,16 @@ package vazkii.botania.common.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.Vector3;
 
 public class PacketBotaniaEffect implements IMessage {
 
@@ -14,7 +20,6 @@ public class PacketBotaniaEffect implements IMessage {
     private double y;
     private double z;
     private int[] args;
-
 
     public PacketBotaniaEffect() {}
 
@@ -54,9 +59,31 @@ public class PacketBotaniaEffect implements IMessage {
     public static class Handler implements IMessageHandler<PacketBotaniaEffect, IMessage> {
 
         @Override
-        public IMessage onMessage(PacketBotaniaEffect message, MessageContext ctx) {
+        public IMessage onMessage(final PacketBotaniaEffect message, final MessageContext ctx) {
             Minecraft.getMinecraft().addScheduledTask(() -> {
-
+                switch (message.type) {
+                    case POOL_CRAFT: {
+                        for(int i = 0; i < 25; i++) {
+                            float red = (float) Math.random();
+                            float green = (float) Math.random();
+                            float blue = (float) Math.random();
+                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2,
+                                    red, green, blue, (float) Math.random(), 10);
+                        }
+                        break;
+                    }
+                    case POOL_CHARGE: {
+                        if(ConfigHandler.chargingAnimationEnabled) {
+                            boolean outputting = message.args[0] == 1;
+                            BlockPos pos = new BlockPos(message.x, message.y, message.z);
+                            Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+                            Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+                            LightningHandler.spawnLightningBolt(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
+                                    outputting ? itemVec : tileVec, 80, Minecraft.getMinecraft().theWorld.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+                        }
+                        break;
+                    }
+                }
             });
 
             return null;
@@ -65,7 +92,8 @@ public class PacketBotaniaEffect implements IMessage {
     }
 
     public enum EffectType {
-        ;
+        POOL_CRAFT(0),
+        POOL_CHARGE(1);
 
         private final int argCount;
 
