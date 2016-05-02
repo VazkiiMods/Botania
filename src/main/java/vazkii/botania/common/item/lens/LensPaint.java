@@ -23,6 +23,8 @@ import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,13 +76,8 @@ public class LensPaint extends Lens {
 						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor
 								&& BotaniaAPI.paintableBlocks.get(block).getAllowedValues().contains(placeColor)) {
 							entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
-							int hex = placeColor.getMapColor().colorValue;
-							int r = (hex & 0xFF0000) >> 16;
-							int g = (hex & 0xFF00) >> 8;
-							int b = (hex & 0xFF);
-							for(int i = 0; i < 4; i++)
-								Botania.proxy.sparkleFX(entity.worldObj, coords.getX() + (float) Math.random(), coords.getY() + (float) Math.random(), coords.getZ() + (float) Math.random(), r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.3F, 5); // todo 1.8 noop right now due to serversiding
-
+							PacketHandler.sendToNearby(entity.worldObj, coords,
+									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getMetadata()));
 						}
 					}
 				}

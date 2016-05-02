@@ -2,7 +2,9 @@ package vazkii.botania.common.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -83,6 +85,20 @@ public class PacketBotaniaEffect implements IMessage {
                         }
                         break;
                     }
+                    case PAINT_LENS: {
+                        EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
+                        int hex = placeColor.getMapColor().colorValue;
+                        int r = (hex & 0xFF0000) >> 16;
+                        int g = (hex & 0xFF00) >> 8;
+                        int b = (hex & 0xFF);
+                        for(int i = 0; i < 10; i++) {
+                            BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[Minecraft.getMinecraft().theWorld.rand.nextInt(6)]);
+                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
+                                    pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
+                                    r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
+                        }
+                        break;
+                    }
                 }
             });
 
@@ -93,7 +109,8 @@ public class PacketBotaniaEffect implements IMessage {
 
     public enum EffectType {
         POOL_CRAFT(0),
-        POOL_CHARGE(1);
+        POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
+        PAINT_LENS(1);  // Arg: colour
 
         private final int argCount;
 

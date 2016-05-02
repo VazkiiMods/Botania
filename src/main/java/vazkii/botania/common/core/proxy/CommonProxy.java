@@ -94,8 +94,6 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-//import vazkii.botania.common.block.ModBanners;
-
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
