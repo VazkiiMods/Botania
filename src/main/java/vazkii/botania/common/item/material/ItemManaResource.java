@@ -87,7 +87,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
-			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+			return par3World.isRemote || EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, pos, par2EntityPlayer)) {
 			if(!par3World.isRemote)
 				par3World.playAuxSFX(2005, pos, 0);

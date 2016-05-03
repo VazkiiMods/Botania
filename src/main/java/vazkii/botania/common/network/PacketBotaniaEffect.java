@@ -3,7 +3,6 @@ package vazkii.botania.common.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -14,6 +13,7 @@ import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class PacketBotaniaEffect implements IMessage {
 
@@ -99,6 +99,19 @@ public class PacketBotaniaEffect implements IMessage {
                         }
                         break;
                     }
+                    case ARENA_INDICATOR: {
+                        for(int i = 0; i < 360; i += 8) {
+                            float r = 1F;
+                            float g = 0F;
+                            float b = 1F;
+                            float rad = i * (float) Math.PI / 180F;
+                            double x = message.x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
+                            double y = message.y + 0.5;
+                            double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
+
+                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, x, y, z, r, g, b, 5F, 120);
+                        }
+                    }
                 }
             });
 
@@ -110,7 +123,8 @@ public class PacketBotaniaEffect implements IMessage {
     public enum EffectType {
         POOL_CRAFT(0),
         POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
-        PAINT_LENS(1);  // Arg: colour
+        PAINT_LENS(1),  // Arg: colour
+        ARENA_INDICATOR(0);
 
         private final int argCount;
 
