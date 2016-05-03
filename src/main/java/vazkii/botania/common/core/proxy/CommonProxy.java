@@ -18,6 +18,7 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -239,6 +240,10 @@ public class CommonProxy {
 
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
+	}
+
+	public EntityPlayer getClientPlayer() {
+		return null;
 	}
 
 	public boolean isClientPlayerWearingMonocle() {

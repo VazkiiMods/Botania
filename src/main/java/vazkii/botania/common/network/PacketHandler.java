@@ -43,6 +43,10 @@ public final class PacketHandler {
         }
     }
 
+    public static void sendTo(EntityPlayerMP playerMP, IMessage toSend) {
+        HANDLER.sendTo(toSend, playerMP);
+    }
+
     private PacketHandler() {}
 
 }

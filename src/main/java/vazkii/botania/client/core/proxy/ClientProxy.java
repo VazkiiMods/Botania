@@ -306,6 +306,11 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public EntityPlayer getClientPlayer() {
+		return Minecraft.getMinecraft().thePlayer;
+	}
+
+	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().thePlayer);
 	}
