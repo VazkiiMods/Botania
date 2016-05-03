@@ -87,6 +87,8 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
 		return state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.GLIMMERING ? 12 : 0;
 	}
 

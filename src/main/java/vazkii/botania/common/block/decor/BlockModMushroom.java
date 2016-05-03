@@ -119,6 +119,9 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+
 		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 

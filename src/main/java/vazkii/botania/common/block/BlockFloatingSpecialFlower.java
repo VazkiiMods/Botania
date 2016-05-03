@@ -85,6 +85,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+
 		TileEntity tile = world.getTileEntity(pos);
 		int currentLight = tile instanceof TileSpecialFlower ? ((TileSpecialFlower) tile).getLightValue() : -1;
 		if(currentLight == -1)

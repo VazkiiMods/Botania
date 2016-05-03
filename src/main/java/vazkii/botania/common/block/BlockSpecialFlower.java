@@ -171,6 +171,9 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+
 		int currentLight = world.getTileEntity(pos) == null ? -1 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 		if(currentLight == -1)
 			currentLight = 0;

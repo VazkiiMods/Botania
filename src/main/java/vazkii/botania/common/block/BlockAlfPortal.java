@@ -83,6 +83,8 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
 		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;
 	}
 

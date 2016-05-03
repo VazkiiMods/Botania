@@ -131,6 +131,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		return (tile != null && tile.hasLava) ? 15 : 0;
 	}

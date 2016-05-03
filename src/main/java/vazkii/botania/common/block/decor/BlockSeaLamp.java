@@ -40,6 +40,9 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+
 		return coloredLight == -1 ? (coloredLight = ColoredLightHelper.makeRGBLightValue(85, 136, 125, originalLight)) : coloredLight;
 	}
 
