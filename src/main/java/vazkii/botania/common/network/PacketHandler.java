@@ -28,6 +28,9 @@ public final class PacketHandler {
             WorldServer ws = ((WorldServer) world);
             PlayerManager.PlayerInstance chunk = ws.getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
 
+            if(chunk == null)
+                return;
+
             for (EntityPlayer player : ws.playerEntities) {
                 EntityPlayerMP playerMP = ((EntityPlayerMP) player);
 
