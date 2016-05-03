@@ -32,7 +32,7 @@ public class TileHourglass extends TileSimpleInventory {
 	private static final String TAG_LOCK = "lock";
 	private static final String TAG_MOVE = "move";
 
-	int time = 0;
+	private int time = 0;
 	public float timeFraction = 0F;
 	public boolean flip = false;
 	public int flipTicks = 0;
@@ -51,6 +51,7 @@ public class TileHourglass extends TileSimpleInventory {
 				flipTicks = 4;
 				if (!worldObj.isRemote) {
 					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 					worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
 				}
 			}

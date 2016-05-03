@@ -10,24 +10,37 @@
  */
 package vazkii.botania.api.internal;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.server.management.PlayerManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import java.util.List;
 
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		World world = tile.getWorld();
-		List players = world.playerEntities;
-		for(Object player : players)
-			if(player instanceof EntityPlayerMP) {
-				EntityPlayerMP mp = (EntityPlayerMP) player;
-				if(pointDistancePlane(mp.posX, mp.posZ, tile.getPos().getX() + 0.5, tile.getPos().getZ() + 0.5) < 64)
-					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
+		if(tile.getWorld() instanceof WorldServer) {
+			WorldServer ws = ((WorldServer) tile.getWorld());
+			PlayerManager.PlayerInstance chunk = ws.getPlayerChunkMap().getEntry(tile.getPos().getX() >> 4, tile.getPos().getZ() >> 4);
+
+			if(chunk == null)
+				return;
+
+			for (EntityPlayer player : ws.playerEntities) {
+				EntityPlayerMP playerMP = ((EntityPlayerMP) player);
+
+				if (playerMP.getDistanceSq(tile.getPos()) < 64 * 64
+						&& chunk.containsPlayer(playerMP)) {
+					playerMP.playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
+				}
 			}
+
+		}
 	}
 
 	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
