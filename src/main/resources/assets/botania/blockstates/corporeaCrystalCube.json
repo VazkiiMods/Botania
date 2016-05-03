@@ -21,6 +21,7 @@
     },
     "inventory": [{
       "model": "botania:crystalcube_base",
+      "transform": "forge:default-block",
       "submodel": {
         "cube": {
           "model": "botania:crystalcube_cube",
