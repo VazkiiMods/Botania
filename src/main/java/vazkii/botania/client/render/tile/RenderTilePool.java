@@ -63,21 +63,18 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		boolean fab = pool == null ? forceVariant == PoolVariant.FABULOUS : pool.getWorld().getBlockState(pool.getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		int color;
+
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			if(pool != null)
 				time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
-			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
-		} else {
-			color = pool == null ? EnumDyeColor.WHITE.getMapColor().colorValue : pool.getColor().getMapColor().colorValue;
+			int color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+			IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
+			int red = (color & 0xFF0000) >> 16;
+			int green = (color & 0xFF00) >> 8;
+			int blue = (color & 0xFF);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 		}
-
-		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
-		int red = (color & 0xFF0000) >> 16;
-		int green = (color & 0xFF00) >> 8;
-		int blue = (color & 0xFF);
-		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.color(1, 1, 1, a);

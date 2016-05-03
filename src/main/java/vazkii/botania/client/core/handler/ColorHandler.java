@@ -55,7 +55,7 @@ public final class ColorHandler {
                             float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
                             return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
                         } else {
-                            return 16777215;
+                            return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                         }
                     }
                 },

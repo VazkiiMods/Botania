@@ -21,6 +21,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -62,13 +63,15 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT));
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Override
 	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT);
+		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT, BotaniaStateProps.COLOR);
 	}
 
 	@Override
@@ -82,6 +85,16 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.values()[meta]);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePool) {
+			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
+		} else {
+			return state.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
+		}
 	}
 
 	@Override
@@ -176,7 +189,9 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS)
+			return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		else return EnumBlockRenderType.MODEL;
 	}
 
 	@Override
