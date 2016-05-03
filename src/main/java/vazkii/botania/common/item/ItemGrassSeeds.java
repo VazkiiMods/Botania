@@ -270,7 +270,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		public boolean tick() {
 			++ticksExisted;
 			
-			// Go through all blocks in the specified ARENA_RANGE, and then
+			// Go through all blocks in the specified RANGE, and then
 			// try and spread around that block if it is our target block already
 			for(int i = -RANGE; i <= RANGE; i++) {
 				for(int j = -RANGE; j <= RANGE; j++) {
