@@ -16,16 +16,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelCocoon;
 import vazkii.botania.common.block.tile.TileCocoon;
 
 public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
-
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_COCOON);
-	ModelCocoon model = new ModelCocoon();
 
 	@Override
 	public void renderTileEntityAt(TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress) {
