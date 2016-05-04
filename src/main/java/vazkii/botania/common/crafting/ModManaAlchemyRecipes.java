@@ -133,7 +133,7 @@ public final class ModManaAlchemyRecipes {
 
 		if(ConfigHandler.stones18Enabled) {
 			stoneRecipes = new ArrayList<>();
-			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 5), "stone", 200)); // Stone->Andesite todo 1.8.8 might want to un-OD this?
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 5), "stone", 200)); // Stone->Andesite
 			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 3), new ItemStack(Blocks.stone, 1, 5), 200)); // Andesite->Diorite
 			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 1), new ItemStack(Blocks.stone, 1, 3), 200)); // Diorite->Granite
 			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stone, 1, 5), new ItemStack(Blocks.stone, 1, 1), 200)); // Granite->Andesite

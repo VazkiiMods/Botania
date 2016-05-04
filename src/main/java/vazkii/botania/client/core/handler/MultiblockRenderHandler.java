@@ -66,21 +66,6 @@ public final class MultiblockRenderHandler {
 				return true;
 			}
 		});
-
-		// TODO also a temporary shim for same reason as above
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.pool, new IMultiblockRenderHook() {
-			@Override
-			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
-				GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-				IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(ModBlocks.pool.getDefaultState());
-				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, ModBlocks.pool.getDefaultState(), 1.0F, false);
-			}
-
-			@Override
-			public boolean needsTranslate(IBlockState state) {
-				return true;
-			}
-		});
 	}
 
 	public static void setMultiblock(MultiblockSet set) {

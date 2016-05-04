@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -77,6 +78,12 @@ public class EntityPinkWither extends EntityWither {
 
 	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+		// NO-OP
+	}
+
+	@Override
+	public void setBossVisibleTo(EntityPlayerMP player)
+	{
 		// NO-OP
 	}
 

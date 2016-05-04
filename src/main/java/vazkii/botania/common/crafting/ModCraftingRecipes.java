@@ -1747,7 +1747,6 @@ public final class ModCraftingRecipes {
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 
 		// 1.8 Stone Chiseling
-		// todo remove when Quark adds these?
 		if (Botania.quarkLoaded) {
 			recipe18StoneChisel = new ArrayList<>();
 			ItemStack[] quarkBlocks = {
@@ -2223,7 +2222,7 @@ public final class ModCraftingRecipes {
 				'Q', od));
 		GameRegistry.addRecipe(new ItemStack(block, 1, meta),
 				"Q", "Q",
-				'Q', new ItemStack(slab)); // TODO this causes conflicts between the brick slab -> brick restoration recipe and the brick slab -> chiseled brick recipe
+				'Q', new ItemStack(slab));
 	}
 
 	private static void addWall(Block block, int blockMeta, Block wall, int wallMeta) {

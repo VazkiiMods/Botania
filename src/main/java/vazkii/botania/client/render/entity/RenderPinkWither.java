@@ -14,6 +14,9 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.lib.LibResources;
 
 public class RenderPinkWither extends RenderWither {
@@ -22,15 +25,6 @@ public class RenderPinkWither extends RenderWither {
 
 	public RenderPinkWither(RenderManager p_i46130_1_) {
 		super(p_i46130_1_);
-	}
-
-	@Override
-	public void doRender(EntityWither p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-		super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
-		/*if(BossStatus.bossName.equals(p_76986_1_.getDisplayName().getFormattedText())) { todo 1.9
-			BossStatus.statusBarTime = -1;
-			BossStatus.hasColorModifier = false;
-		}*/
 	}
 
 	@Override
