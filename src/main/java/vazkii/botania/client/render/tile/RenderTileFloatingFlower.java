@@ -14,6 +14,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -50,7 +52,8 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
-		brd.getBlockModelRenderer().renderModelBrightness(FloatingFlowerModel.INSTANCE, state, 1.0F, true);
+		IBakedModel model = brd.getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"));
+		brd.getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, true);
 
 		GlStateManager.popMatrix();
 

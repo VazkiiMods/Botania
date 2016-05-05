@@ -50,9 +50,8 @@ import java.util.stream.Collectors;
 
 public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadListener {
 
-	public static final FloatingFlowerModel INSTANCE = new FloatingFlowerModel();
 	private static final String MUNDANE_PREFIX = "botania:shimmeringFlower_";
-	private static final Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
+	private final Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);
@@ -139,7 +138,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 
 	@Override
 	public ItemOverrideList getOverrides() {
-		return ItemHandler.INSTANCE;
+		return itemHandler;
 	}
 
 	@Override public boolean isAmbientOcclusion() { return false; }
@@ -212,10 +211,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		@Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 	}
 
-	private static class ItemHandler extends ItemOverrideList {
-		private static final ItemHandler INSTANCE = new ItemHandler();
-		private ItemHandler() { super(ImmutableList.of()); }
-
+	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 		@Override
 		public IBakedModel handleItemState(IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
 			// Items always have GRASS island
@@ -230,8 +226,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 				identifier = MUNDANE_PREFIX + stack.getItemDamage();
 			}
 
-			return FloatingFlowerModel.INSTANCE.getModel(islandType, identifier);
+			return FloatingFlowerModel.this.getModel(islandType, identifier);
 		}
-	}
-
+	};
 }

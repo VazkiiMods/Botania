@@ -126,7 +126,6 @@ public final class ModelHandler {
     public static void registerModels() {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
-        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(FloatingFlowerModel.INSTANCE);
 
         /** Subtile block models **/
         registerSubtiles();

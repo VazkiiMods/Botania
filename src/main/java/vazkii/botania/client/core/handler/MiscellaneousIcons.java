@@ -86,10 +86,11 @@ public class MiscellaneousIcons {
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent evt) {
         // Floating flowers
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), FloatingFlowerModel.INSTANCE);
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), FloatingFlowerModel.INSTANCE);
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), FloatingFlowerModel.INSTANCE);
-        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), FloatingFlowerModel.INSTANCE);
+        FloatingFlowerModel model = new FloatingFlowerModel();
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), model);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), model);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), model);
+        evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), model);
 
         // Platforms
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
