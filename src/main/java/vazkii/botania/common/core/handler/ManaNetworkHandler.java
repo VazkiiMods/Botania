@@ -70,12 +70,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return isIn(tile, manaPools);
 	}
 
-	private synchronized boolean isIn(TileEntity tile, Map<World, Set<TileSignature>> map) {
+	private boolean isIn(TileEntity tile, Map<World, Set<TileSignature>> map) {
 		Set<TileSignature> set = map.get(tile.getWorld());
 		return set != null && set.contains(new TileSignature(tile, tile.getWorld().isRemote));
 	}
 
-	private synchronized TileEntity getClosest(Set<TileSignature> tiles, BlockPos pos, boolean remoteCheck, int limit) {
+	private TileEntity getClosest(Set<TileSignature> tiles, BlockPos pos, boolean remoteCheck, int limit) {
 		return tiles.stream()
 				.filter(ts -> ts.isRemote() == remoteCheck)
 				.map(TileSignature::getTile)
@@ -85,7 +85,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 				.orElse(null);
 	}
 
-	private synchronized void remove(Map<World, Set<TileSignature>> map, TileEntity tile) {
+	private void remove(Map<World, Set<TileSignature>> map, TileEntity tile) {
 		World world = tile.getWorld();
 
 		if(!map.containsKey(world))
@@ -94,7 +94,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		map.get(world).remove(new TileSignature(tile, tile.getWorld().isRemote));
 	}
 
-	private synchronized void add(Map<World, Set<TileSignature>> map, TileEntity tile) {
+	private void add(Map<World, Set<TileSignature>> map, TileEntity tile) {
 		World world = tile.getWorld();
 		map.putIfAbsent(world, new HashSet<>());
 		map.get(world).add(new TileSignature(tile, tile.getWorld().isRemote));
