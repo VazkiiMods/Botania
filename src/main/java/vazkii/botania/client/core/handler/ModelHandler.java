@@ -308,7 +308,6 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.lightLauncher);
         registerItemModel(ModBlocks.manaBomb);
         registerItemModel(ModBlocks.manaDetector);
-        registerItemModel(ModBlocks.manaFlame);
         registerItemModel(ModBlocks.manaGlass);
         registerItemModel(ModBlocks.manaVoid);
         registerItemModel(ModBlocks.prism);
