@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.BossInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.ShaderCallback;
 
 import java.awt.*;
 import java.util.UUID;
@@ -62,5 +63,21 @@ public interface IBotaniaBoss {
 	 * @return The uuid.
      */
 	public UUID getBossInfoUuid();
+
+	/**
+	 * The Shader Program to use for this boss's bar. Return 0 case
+	 * you don't want a shader to be used. You can use separate shaders
+	 * for the background and foreground.
+	 * @param background True if rendering the background of the boss bar,
+	 * false if rendering the bar itself that shows the HP.
+	 * @return OpenGL program ID of the shader to use
+	 */
+	public int getBossBarShaderProgram(boolean background);
+
+	/**
+	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
+	 * @return a ShaderCallback to use. If getBossBarShaderProgram returns an invalid shader the result of this method is ignored.
+	 */
+	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
 
 }

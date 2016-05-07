@@ -25,7 +25,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.item.IDyablePool;
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -47,10 +47,10 @@ public class ItemDye extends Item16Colors {
 		}
 
 		TileEntity tile = par3World.getTileEntity(pos);
-		if(tile instanceof IDyablePool) {
-			IDyablePool dyable = (IDyablePool) tile;
-			if(color != dyable.getColor()) {
-				dyable.setColor(color);
+		if(tile instanceof IManaPool) {
+			IManaPool pool = (IManaPool) tile;
+			if(color != pool.getColor()) {
+				pool.setColor(color);
 				par1ItemStack.stackSize--;
 				return EnumActionResult.SUCCESS;
 			}

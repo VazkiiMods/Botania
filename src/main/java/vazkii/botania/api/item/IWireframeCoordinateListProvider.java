@@ -29,4 +29,12 @@ public interface IWireframeCoordinateListProvider {
 	 */
 	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 
+	/**
+	 * Gets a wireframe to draw thicker than the rest.
+	 * This is useful to indicate the precedence of some position over the others.
+	 * @return The position of a single wireframe to draw thicker than all the others.
+	 */
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack);
+
+
 }

@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -227,6 +228,14 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		public boolean isOutputtingPower() {
 			return false;
 		}
+
+		@Override
+		public EnumDyeColor getColor() {
+			return EnumDyeColor.WHITE;
+		}
+
+		@Override
+		public void setColor(EnumDyeColor color) {}
 
 	}
 

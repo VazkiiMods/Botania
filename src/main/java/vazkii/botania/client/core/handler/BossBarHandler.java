@@ -11,23 +11,17 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.api.boss.IBotaniaBossWithShader;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.helper.MathHelper;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -75,13 +69,12 @@ public final class BossBarHandler {
 	}
 
 	private static void drawBar(IBotaniaBoss currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
-		boolean useShader = currentBoss instanceof IBotaniaBossWithShader;
-		if(useShader) {
-			IBotaniaBossWithShader shader = (IBotaniaBossWithShader) currentBoss;
-			int program = shader.getBossBarShaderProgram(bg);
-			ShaderCallback callback = program == 0 ? null : shader.getBossBarShaderCallback(bg, program);
-			barUniformCallback.set(u, v, callback);
+		int program = currentBoss.getBossBarShaderProgram(bg);
+		boolean useShader = program > 0;
 
+		if(useShader) {
+			ShaderCallback callback = currentBoss.getBossBarShaderCallback(bg, program);
+			barUniformCallback.set(u, v, callback);
 			ShaderHelper.useShader(program, barUniformCallback);
 		}
 

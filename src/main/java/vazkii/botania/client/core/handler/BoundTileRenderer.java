@@ -30,7 +30,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
@@ -77,11 +76,9 @@ public final class BoundTileRenderer {
 					for(BlockPos coords : coordsList)
 						renderBlockOutlineAt(coords, color);
 
-				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
-					BlockPos coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
-					if(coords != null && coords.getY() > -1)
-						renderBlockOutlineAt(coords, color, 5F);
-				}
+				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
+				if(coords != null && coords.getY() > -1)
+					renderBlockOutlineAt(coords, color, 5F);
 			}
 		}
 

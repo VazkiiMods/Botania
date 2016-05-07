@@ -17,7 +17,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IRedirectable;
+import vazkii.botania.api.mana.IDirectioned;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -28,9 +28,9 @@ public class LensRedirect extends Lens {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!entity.worldObj.isRemote && pos.entityHit == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 			TileEntity tile = entity.worldObj.getTileEntity(pos.getBlockPos());
-			if(tile != null && tile instanceof IRedirectable) {
+			if(tile != null && tile instanceof IDirectioned) {
 				if(!burst.isFake()) {
-					IRedirectable redir = (IRedirectable) tile;
+					IDirectioned redir = (IDirectioned) tile;
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
 					Vector3 sourceVec = new Vector3(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 

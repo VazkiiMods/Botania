@@ -29,7 +29,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -41,7 +40,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
+public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, ICraftAchievement {
 
 	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
@@ -101,7 +100,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 
 	@Override
 	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
-		return ((IExtendedWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
+		return ((IWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
 	}
 
 	@Override

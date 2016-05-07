@@ -61,7 +61,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
-import vazkii.botania.api.boss.IBotaniaBossWithShader;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -90,7 +90,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
+public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 	public static final float ARENA_RANGE = 12F;
 	private static final int SPAWN_TICKS = 160;
