@@ -27,6 +27,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -65,7 +66,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			return;
 
 		if(ticksExisted % 10 == 0) {
-			BlockData filter = getUnderlyingBlock();
+			IBlockState filter = getUnderlyingBlock();
 
 			boolean scanned = false;
 			List<BlockPos> validPositions = new ArrayList<>();
@@ -99,7 +100,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
 									Block blockAbove = stateAbove.getBlock();
 
-									if(filter.equals(supertile.getWorld(), pos_) && (blockAbove.isAir(stateAbove, supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
+									if(filter == supertile.getWorld().getBlockState(pos_) && (blockAbove.isAir(stateAbove, supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
 										validPositions.add(pos_.up());
 								}
 
@@ -110,21 +111,21 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					if(!validPositions.isEmpty() && !supertile.getWorld().isRemote) {
 						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
 
-						Block blockToPlace = null;
+						IBlockState stateToPlace = null;
 						if(stackItem instanceof IFlowerPlaceable)
-							blockToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
+							stateToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
 						if(stackItem instanceof ItemBlock)
-							blockToPlace = ((ItemBlock) stackItem).block;
+							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(stackItem.getMetadata(stack.getItemDamage()));
 						else if(stackItem instanceof ItemBlockSpecial)
-							blockToPlace = ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM);
+							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
-							blockToPlace = Blocks.redstone_wire;
+							stateToPlace = Blocks.redstone_wire.getDefaultState();
 
-						if(blockToPlace != null) {
-							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords)) {
-								supertile.getWorld().setBlockState(coords, blockToPlace.getStateFromMeta(stack.getItemDamage()), 1 | 2);
+						if(stateToPlace != null) {
+							if(stateToPlace.getBlock().canPlaceBlockAt(supertile.getWorld(), coords)) {
+								supertile.getWorld().setBlockState(coords, stateToPlace, 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
-									supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(blockToPlace.getStateFromMeta(stack.getItemDamage())));
+									supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(stateToPlace));
 								validPositions.remove(coords);
 
 								TileEntity tile = supertile.getWorld().getTileEntity(coords);
@@ -141,7 +142,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 								if(!supertile.getWorld().isRemote) {
 									stack.stackSize--;
-									if(stack.stackSize == 0)
+									if(stack.stackSize <= 0)
 										item.setDead();
 								}
 
@@ -156,8 +157,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		}
 	}
 
-	public BlockData getUnderlyingBlock() {
-		return new BlockData(supertile.getWorld(), supertile.getPos().down(supertile instanceof IFloatingFlower ? 1 : 2));
+	public IBlockState getUnderlyingBlock() {
+		return supertile.getWorld().getBlockState(supertile.getPos().down(supertile instanceof  IFloatingFlower ? 1 : 2));
 	}
 
 	@Override
@@ -169,8 +170,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
 
-		BlockData filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.state.getBlock()), 1, filter.state.getBlock().getMetaFromState(filter.state));
+		IBlockState filter = getUnderlyingBlock();
+		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.getBlock()), 1, filter.getBlock().getMetaFromState(filter));
 		int color = getColor();
 
 		GlStateManager.enableBlend();
@@ -222,24 +223,6 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public static class Mini extends SubTileRannuncarpus {
 		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
-	}
-
-	static class BlockData {
-
-		final IBlockState state;
-
-		public BlockData(World world, BlockPos pos) {
-			state = world.getBlockState(pos);
-		}
-
-		public boolean equals(BlockData data) {
-			return this.state == data.state;
-		}
-
-		public boolean equals(World world, BlockPos pos) {
-			return equals(new BlockData(world, pos));
-		}
-
 	}
 
 }
