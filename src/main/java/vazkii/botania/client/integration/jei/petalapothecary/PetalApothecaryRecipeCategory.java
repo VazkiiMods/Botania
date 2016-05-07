@@ -27,6 +27,7 @@ import java.util.Collection;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.petals";
 	private final IDrawableStatic background;
 	private final String localizedName;
 	private final IDrawableStatic overlay;
@@ -41,7 +42,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.petals";
+		return UID;
 	}
 
 	@Nonnull

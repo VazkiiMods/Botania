@@ -14,7 +14,10 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.state.enums.AltarVariant;
+import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeHandler;
@@ -28,6 +31,10 @@ import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
 import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeHandler;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;
 
@@ -62,6 +69,26 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(BotaniaAPI.elvenTradeRecipes);
 		registry.addRecipes(BotaniaAPI.runeAltarRecipes);
 		registry.addRecipes(BotaniaAPI.manaInfusionRecipes);
+
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.UID);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.UID);
+
+		for(PoolVariant v : PoolVariant.values()) {
+			registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.pool, 1, v.ordinal()), ManaPoolRecipeCategory.UID);
+		}
+
+		for(AltarVariant v : AltarVariant.values()) {
+			if(v == AltarVariant.MOSSY) continue;
+			registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.altar, 1, v.ordinal()), PetalApothecaryRecipeCategory.UID);
+		}
+
+		registry.addRecipeCategoryCraftingItem(ItemBlockSpecialFlower.ofType("puredaisy"), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCategoryCraftingItem(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), "puredaisy"), PureDaisyRecipeCategory.UID);
+
+
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 
 		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
 	}

@@ -25,6 +25,7 @@ import java.util.List;
 
 public class BreweryRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.brewery";
 	private final IDrawableStatic background;
 	private final String localizedName;
 
@@ -37,7 +38,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.brewery";
+		return UID;
 	}
 
 	@Nonnull

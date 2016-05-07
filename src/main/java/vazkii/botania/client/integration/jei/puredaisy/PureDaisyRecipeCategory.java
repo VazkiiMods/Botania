@@ -26,6 +26,7 @@ import java.util.Collection;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.pureDaisy";
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -40,7 +41,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.pureDaisy";
+		return UID;
 	}
 
 	@Nonnull

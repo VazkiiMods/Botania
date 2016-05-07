@@ -31,6 +31,7 @@ import java.util.Collection;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.elvenTrade";
 	private final String localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
@@ -44,7 +45,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.elvenTrade";
+		return UID;
 	}
 
 	@Nonnull

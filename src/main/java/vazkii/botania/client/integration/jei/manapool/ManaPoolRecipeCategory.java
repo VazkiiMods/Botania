@@ -26,6 +26,7 @@ import java.util.Collection;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.manaPool";
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -42,7 +43,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.manaPool";
+		return UID;
 	}
 
 	@Nonnull

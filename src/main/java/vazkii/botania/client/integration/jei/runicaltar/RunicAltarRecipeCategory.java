@@ -26,6 +26,7 @@ import java.util.Collection;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory {
 
+	public static final String UID = "botania.runicAltar";
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -40,7 +41,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 	@Nonnull
 	@Override
 	public String getUid() {
-		return "botania.runicAltar";
+		return UID;
 	}
 
 	@Nonnull
