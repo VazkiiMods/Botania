@@ -334,7 +334,8 @@ public final class LexiconData {
 						new PageCraftingRecipe("7", ModCraftingRecipes.recipeFertilizerPowder),
 						new PageCraftingRecipe("8", ModCraftingRecipes.recipeFerilizerDye), new PageText("10"),
 						new PageText("12"), new PageCraftingRecipe("11", ModCraftingRecipes.recipesPetalsDouble),
-						new PageCraftingRecipe("9", ModCraftingRecipes.recipesPetalBlocks))
+						new PageCraftingRecipe("9", ModCraftingRecipes.recipesPetalBlocks),
+						new PageCraftingRecipe("13", ModCraftingRecipes.recipesReversePetalBlocks))
 				.setIcon(new ItemStack(ModBlocks.flower, 1, 6));
 
 		apothecary = new BLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);

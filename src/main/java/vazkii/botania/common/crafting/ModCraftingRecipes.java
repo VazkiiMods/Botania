@@ -52,6 +52,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesDyes;
 	public static List<IRecipe> recipesDyesVanilla;
 	public static List<IRecipe> recipesPetalBlocks;
+	public static List<IRecipe> recipesReversePetalBlocks;
 	public static IRecipe recipePestleAndMortar;
 	public static List<IRecipe> recipesTwigWand;
 	public static List<IRecipe> recipesApothecary;
@@ -352,6 +353,11 @@ public final class ModCraftingRecipes {
 					"PPP", "PPP", "PPP", // PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
 					'P', LibOreDict.PETAL[i]);
 		recipesPetalBlocks = BotaniaAPI.getLatestAddedRecipes(16);
+
+		// Reverse Petal Block
+		for(int i = 0; i < 16; i++)
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.petal, 9, i), new ItemStack(ModBlocks.petalBlock, 1, i));
+		recipesReversePetalBlocks = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Pestle and Mortar Recipe
 		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar),
