@@ -35,7 +35,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(mana >= COST && !supertile.getWorld().isRemote && ticksExisted % 30 == 0) {
+		if(!supertile.getWorld().isRemote && ticksExisted % 30 == 0 && mana >= COST) {
 			BlockPos pos = new BlockPos(
 				supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
 				supertile.getPos().getY() + RANGE,
@@ -59,6 +59,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 					break;
 				}
 
+				up = pos;
 				pos = pos.down();
 			}
 		}
