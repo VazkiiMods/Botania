@@ -13,7 +13,9 @@ import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeHandler;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
@@ -60,6 +62,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(BotaniaAPI.elvenTradeRecipes);
 		registry.addRecipes(BotaniaAPI.runeAltarRecipes);
 		registry.addRecipes(BotaniaAPI.manaInfusionRecipes);
+
+		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
 	}
 
 	@Override
