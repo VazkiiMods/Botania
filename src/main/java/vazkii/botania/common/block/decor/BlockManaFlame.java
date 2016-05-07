@@ -126,4 +126,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		return LexiconData.lenses;
 	}
 
+	@Override
+	public void registerItemForm() {}
+
 }
