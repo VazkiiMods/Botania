@@ -34,7 +34,11 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 		if(!plate.getWorld().isBlockLoaded(plate.getPos(), false)
 				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
 			return;
-		
+
+		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
+		if(stack == null)
+			return;
+
 		EnumFacing facing = plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS);
 
 		GlStateManager.pushMatrix();
@@ -42,15 +46,11 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 		GlStateManager.translate(d0, d1, d2);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.rotate(ROTATIONS.get(facing), 0F, 1F, 0F);
-
-		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
-		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			float s = 0.4F;
-			GlStateManager.translate(-0.075F, -1.25F, 0F);
-			GlStateManager.scale(s, s, s);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-		}
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		float s = 0.6F;
+		GlStateManager.translate(-0.11F, -1.35F, 0F);
+		GlStateManager.scale(s, s, s);
+		Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
