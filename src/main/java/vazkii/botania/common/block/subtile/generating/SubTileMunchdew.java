@@ -98,7 +98,10 @@ public class SubTileMunchdew extends SubTileGenerating {
 		if(ateOnce) {
 			ticksWithoutEating++;
 			if(ticksWithoutEating >= 5)
+			{
 				cooldown = 1600;
+				ateOnce = false;
+			}
 		}
 	}
 
