@@ -1,0 +1,35 @@
+{
+  "__comment": "This table is injected into minecraft:chests/simple_dungeon",
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "name": "botania:manaResource",
+        "weight": 9,
+        "functions": [{ "function": "set_count", "count": { "min": 1, "max": 5 } }]
+      },
+      {
+        "type": "item",
+        "name": "botania:lexicon",
+        "weight": 6
+      },
+      {
+        "type": "item",
+        "name": "botania:manaBottle",
+        "weight": 5
+      },
+      {
+        "type": "item",
+        "name": "botania:blackLotus",
+        "weight": 6
+      },
+      {
+        "type": "item",
+        "name": "botania:overgrowthSeed",
+        "weight": 2
+      }
+    ]
+  }]
+}

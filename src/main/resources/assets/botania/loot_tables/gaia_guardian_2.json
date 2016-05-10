@@ -1,7 +1,7 @@
 {
   "pools": [
     {
-      "__comment": "Life essence",
+      "name": "life_essence",
       "conditions": [{ "condition": "killed_by_player" }],
       "rolls": 1,
       "entries": [{
@@ -19,7 +19,7 @@
       }]
     },
     {
-      "__comment": "Black Lotuses",
+      "name": "black_lotuses",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.5 }
@@ -28,6 +28,7 @@
       "entries": [
         {
           "type": "item",
+          "entryName": "superBlackLotus",
           "name": "botania:blackLotus",
           "weight": 3,
           "quality": 1,
@@ -38,6 +39,7 @@
         },
         {
           "type": "item",
+          "entryName": "normalBlackLotus",
           "name": "botania:blackLotus",
           "weight": 7,
           "functions": [
@@ -48,7 +50,7 @@
       ]
     },
     {
-      "__comment": "Ancient wills",
+      "name": "ancient_wills",
       "conditions": [{ "condition": "killed_by_player" }],
       "rolls": 1,
       "entries": [{
@@ -58,7 +60,7 @@
       }]
     },
     {
-      "__comment": "Overgrowth seeds",
+      "name": "overgrowth_seeds",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.25 }
@@ -71,7 +73,7 @@
       }]
     },
     {
-      "__comment": "Manasteel",
+      "name": "manasteel",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.9 }
@@ -84,7 +86,7 @@
       }]
     },
     {
-      "__comment": "Mana pearl",
+      "name": "mana_pearl",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.7 }
@@ -100,7 +102,7 @@
       }]
     },
     {
-      "__comment": "Mana diamond",
+      "name": "mana_diamond",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.5 }
@@ -116,7 +118,7 @@
       }]
     },
     {
-      "__comment": "Runes",
+      "name": "runes",
       "conditions": [{ "condition": "killed_by_player" }],
       "rolls": { "min": 1, "max": 6 },
       "entries": [{
@@ -130,7 +132,7 @@
       }]
     },
     {
-      "__comment": "Pinkinator",
+      "name": "pinkinator",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.2 }
@@ -142,7 +144,7 @@
       }]
     },
     {
-      "__comment": "Music discs",
+      "name": "music_discs",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "random_chance", "chance": 0.44 }
@@ -167,7 +169,7 @@
       ]
     },
     {
-      "__comment": "Relics",
+      "name": "relics",
       "conditions": [
         { "condition": "killed_by_player" },
         { "condition": "botania:enable_relics" }

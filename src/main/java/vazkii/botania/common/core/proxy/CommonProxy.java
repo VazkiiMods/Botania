@@ -56,7 +56,6 @@ import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
-import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
@@ -114,9 +113,6 @@ public class CommonProxy {
 		ModMultiblocks.init();
 		ModBanners.init();
 
-		ChestGenHandler.init();
-		LootHandler.init();
-
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
 	}
@@ -142,6 +138,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
+		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
