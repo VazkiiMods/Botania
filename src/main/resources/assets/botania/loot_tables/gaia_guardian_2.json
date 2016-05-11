@@ -29,6 +29,7 @@
         {
           "type": "item",
           "entryName": "superBlackLotus",
+          "EntryName": "superBlackLotus",
           "name": "botania:blackLotus",
           "weight": 3,
           "quality": 1,
@@ -39,6 +40,7 @@
         },
         {
           "type": "item",
+          "EntryName": "normalBlackLotus",
           "entryName": "normalBlackLotus",
           "name": "botania:blackLotus",
           "weight": 7,
