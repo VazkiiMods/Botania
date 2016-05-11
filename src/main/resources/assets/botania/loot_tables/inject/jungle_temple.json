@@ -1,5 +1,5 @@
 {
-  "__comment": "This table is injected into minecraft:chests/jungle_temple",
+  "__comment": "This table is injected as its own pool into minecraft:chests/jungle_temple",
   "pools": [{
     "name": "main",
     "rolls": 1,
@@ -7,12 +7,16 @@
       {
         "type": "item",
         "name": "botania:blackLotus",
-        "weight": 6
+        "weight": 25
       },
       {
         "type": "item",
         "name": "botania:overgrowthSeed",
-        "weight": 2
+        "weight": 5
+      },
+      {
+        "type": "empty",
+        "weight": 70
       }
     ]
   }]

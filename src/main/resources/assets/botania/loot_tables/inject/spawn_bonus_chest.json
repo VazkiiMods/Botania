@@ -1,5 +1,5 @@
 {
-  "__comment": "This table is injected into minecraft:chests/spawn_bonus_chest",
+  "__comment": "This table is injected as its own pool into minecraft:chests/spawn_bonus_chest",
   "pools": [{
     "name": "main",
     "rolls": 1,
@@ -7,12 +7,16 @@
       {
         "type": "item",
         "name": "botania:lexicon",
-        "weight": 7
+        "weight": 80
       },
       {
         "type": "item",
         "name": "botania:blackLotus",
-        "weight": 1
+        "weight": 10
+      },
+      {
+        "type": "empty",
+        "weight": 10
       }
     ]
   }]
