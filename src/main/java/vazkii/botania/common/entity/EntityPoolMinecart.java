@@ -23,14 +23,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
+
+import java.awt.*;
 
 public class EntityPoolMinecart extends EntityMinecart {
 
@@ -81,6 +85,21 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public int getDefaultDisplayTileOffset() {
 		return 8;
+	}
+
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+
+		if(worldObj.isRemote) {
+			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
+			Color color = TilePool.PARTICLE_COLOR;
+			double x = MathHelper.floor_double(posX);
+			double y = MathHelper.floor_double(posY);
+			double z = MathHelper.floor_double(posZ);
+			if(Math.random() > particleChance)
+				Botania.proxy.wispFX(worldObj, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+		}
 	}
 
 	@Override

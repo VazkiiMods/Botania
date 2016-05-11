@@ -128,7 +128,7 @@ public class TilePump extends TileMod {
 		active = cmp.getBoolean(TAG_ACTIVE);
 		if(worldObj != null && worldObj.isRemote)
 			if(prevActive != active)
-				;//asm.transition(active ? "moving" : "default");
+				asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {
@@ -139,9 +139,4 @@ public class TilePump extends TileMod {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 		}
 	}
-
-//	@Override
-//	public IAnimationStateMachine asm() {
-//		return asm;
-//	}
 }

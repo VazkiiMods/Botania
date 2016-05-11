@@ -66,6 +66,7 @@ import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
+	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
 
@@ -205,9 +206,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
-			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+				Botania.proxy.wispFX(worldObj, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 			return;
 		}
 
