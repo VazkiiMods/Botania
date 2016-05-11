@@ -1,6 +1,5 @@
 package vazkii.botania.common.network;
 
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.management.PlayerManager;
@@ -17,7 +16,7 @@ public final class PacketHandler {
     private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.MOD_ID);
 
     public static void init() {
-        HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
+        HANDLER.registerMessage(HandlerBotaniaEffect.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
     }
 
     /**

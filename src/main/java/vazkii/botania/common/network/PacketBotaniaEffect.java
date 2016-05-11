@@ -117,10 +117,9 @@ public class PacketBotaniaEffect implements IMessage {
 
             return null;
         }
-
     }
 
-    public enum EffectType {
+    private enum EffectType {
         POOL_CRAFT(0),
         POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
         PAINT_LENS(1),  // Arg: colour
@@ -131,7 +130,6 @@ public class PacketBotaniaEffect implements IMessage {
         EffectType(int argCount) {
             this.argCount = argCount;
         }
-
     }
 
 }

@@ -225,7 +225,7 @@ curseforge {
 		    See https://github.com/williewillus/Botania/releases/tag/${version}
         """
         releaseType = "beta"
-        addGameVersion '1.8.9'
+        addGameVersion '1.9'
         addGameVersion 'Java 8'
         relations {
             requiredLibrary 'baubles'

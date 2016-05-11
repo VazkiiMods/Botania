@@ -23,6 +23,7 @@ import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.network.EffectType;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -77,7 +78,7 @@ public class LensPaint extends Lens {
 								&& BotaniaAPI.paintableBlocks.get(block).getAllowedValues().contains(placeColor)) {
 							entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
 							PacketHandler.sendToNearby(entity.worldObj, coords,
-									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getMetadata()));
+									new PacketBotaniaEffect(EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getMetadata()));
 						}
 					}
 				}
