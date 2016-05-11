@@ -16,7 +16,7 @@ public final class PacketHandler {
     private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.MOD_ID);
 
     public static void init() {
-        HANDLER.registerMessage(HandlerBotaniaEffect.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
+        HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
     }
 
     /**

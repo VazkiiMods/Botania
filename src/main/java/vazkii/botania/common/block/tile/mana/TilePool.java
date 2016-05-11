@@ -55,10 +55,8 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.MethodHandles;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.EffectType;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -194,7 +192,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 
 		PacketHandler.sendToNearby(worldObj, getPos(),
-				new PacketBotaniaEffect(EffectType.POOL_CRAFT, pos.getX(), pos.getY(), pos.getZ()));
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.POOL_CRAFT, pos.getX(), pos.getY(), pos.getZ()));
 	}
 
 	@Override
@@ -267,7 +265,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 					if(didSomething) {
 						if(ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(20) == 0) {
 							PacketHandler.sendToNearby(worldObj, getPos(),
-									new PacketBotaniaEffect(EffectType.POOL_CHARGE, getPos().getX(), getPos().getY(), getPos().getZ(), outputting ? 1 : 0));
+									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.POOL_CHARGE, getPos().getX(), getPos().getY(), getPos().getZ(), outputting ? 1 : 0));
 						}
 						isDoingTransfer = outputting;
 					}

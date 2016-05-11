@@ -62,54 +62,58 @@ public class PacketBotaniaEffect implements IMessage {
 
         @Override
         public IMessage onMessage(final PacketBotaniaEffect message, final MessageContext ctx) {
-            Minecraft.getMinecraft().addScheduledTask(() -> {
-                switch (message.type) {
-                    case POOL_CRAFT: {
-                        for(int i = 0; i < 25; i++) {
-                            float red = (float) Math.random();
-                            float green = (float) Math.random();
-                            float blue = (float) Math.random();
-                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2,
-                                    red, green, blue, (float) Math.random(), 10);
+            Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+                // Use anon - lambda causes classloading issues
+                @Override
+                public void run() {
+                    switch (message.type) {
+                        case POOL_CRAFT: {
+                            for(int i = 0; i < 25; i++) {
+                                float red = (float) Math.random();
+                                float green = (float) Math.random();
+                                float blue = (float) Math.random();
+                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2,
+                                        red, green, blue, (float) Math.random(), 10);
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case POOL_CHARGE: {
-                        if(ConfigHandler.chargingAnimationEnabled) {
-                            boolean outputting = message.args[0] == 1;
-                            BlockPos pos = new BlockPos(message.x, message.y, message.z);
-                            Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-                            Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-                            LightningHandler.spawnLightningBolt(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
-                                    outputting ? itemVec : tileVec, 80, Minecraft.getMinecraft().theWorld.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+                        case POOL_CHARGE: {
+                            if(ConfigHandler.chargingAnimationEnabled) {
+                                boolean outputting = message.args[0] == 1;
+                                BlockPos pos = new BlockPos(message.x, message.y, message.z);
+                                Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+                                Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+                                LightningHandler.spawnLightningBolt(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
+                                        outputting ? itemVec : tileVec, 80, Minecraft.getMinecraft().theWorld.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case PAINT_LENS: {
-                        EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
-                        int hex = placeColor.getMapColor().colorValue;
-                        int r = (hex & 0xFF0000) >> 16;
-                        int g = (hex & 0xFF00) >> 8;
-                        int b = (hex & 0xFF);
-                        for(int i = 0; i < 10; i++) {
-                            BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[Minecraft.getMinecraft().theWorld.rand.nextInt(6)]);
-                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
-                                    pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
-                                    r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
+                        case PAINT_LENS: {
+                            EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
+                            int hex = placeColor.getMapColor().colorValue;
+                            int r = (hex & 0xFF0000) >> 16;
+                            int g = (hex & 0xFF00) >> 8;
+                            int b = (hex & 0xFF);
+                            for(int i = 0; i < 10; i++) {
+                                BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[Minecraft.getMinecraft().theWorld.rand.nextInt(6)]);
+                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
+                                        pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
+                                        r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case ARENA_INDICATOR: {
-                        for(int i = 0; i < 360; i += 8) {
-                            float r = 1F;
-                            float g = 0F;
-                            float b = 1F;
-                            float rad = i * (float) Math.PI / 180F;
-                            double x = message.x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
-                            double y = message.y + 0.5;
-                            double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
+                        case ARENA_INDICATOR: {
+                            for(int i = 0; i < 360; i += 8) {
+                                float r = 1F;
+                                float g = 0F;
+                                float b = 1F;
+                                float rad = i * (float) Math.PI / 180F;
+                                double x = message.x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
+                                double y = message.y + 0.5;
+                                double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
 
-                            Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, x, y, z, r, g, b, 5F, 120);
+                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, x, y, z, r, g, b, 5F, 120);
+                            }
                         }
                     }
                 }
@@ -119,7 +123,7 @@ public class PacketBotaniaEffect implements IMessage {
         }
     }
 
-    private enum EffectType {
+    public enum EffectType {
         POOL_CRAFT(0),
         POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
         PAINT_LENS(1),  // Arg: colour
