@@ -24,14 +24,16 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.WeakHashMap;
 
 public final class BossBarHandler {
 
 	// Only access on the client thread!
-	public static final Set<IBotaniaBoss> bosses = new HashSet<>();
+	public static final Set<IBotaniaBoss> bosses = Collections.newSetFromMap(new WeakHashMap<>());
 	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
