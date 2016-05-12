@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -21,12 +22,16 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import java.util.List;
 import java.util.Random;
 
 public class SubTileLoonuim extends SubTileFunctional {
 
 	private static final int COST = 35000;
 	private static final int RANGE = 3;
+	private static final String TAG_LOOT_TABLE = "lootTable";
+
+	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
 	@Override
 	public void onUpdate() {
@@ -36,7 +41,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 
 			ItemStack stack;
 			do {
-				stack = supertile.getWorld().getLootTableManager().getLootTableFromLocation(new ResourceLocation("minecraft", "chests/simple_dungeon")).generateLootForPools(rand, new LootContext.Builder(((WorldServer) supertile.getWorld())).build()).get(0);
+				List<ItemStack> stacks = supertile.getWorld().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder(((WorldServer) supertile.getWorld())).build());
+				if (stacks.isEmpty())
+					return;
+				else stack = stacks.get(0);
 			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
@@ -75,6 +83,19 @@ public class SubTileLoonuim extends SubTileFunctional {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
+	}
+
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		super.readFromPacketNBT(cmp);
+		if (cmp.hasKey(TAG_LOOT_TABLE))
+			lootTable = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
+	}
+
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		super.writeToPacketNBT(cmp);
+		cmp.setString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
 }
