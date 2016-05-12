@@ -37,6 +37,10 @@ public class SubTileTigerseye extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+
+		if(supertile.getWorld().isRemote)
+			return;
+
 		final int cost = 70;
 
 		boolean shouldAfffect = mana >= cost;

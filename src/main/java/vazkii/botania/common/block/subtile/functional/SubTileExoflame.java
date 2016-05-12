@@ -28,13 +28,16 @@ public class SubTileExoflame extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
+	private static final int COST = 300;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
 		boolean did = false;
-		int cost = 300;
 
 		fireFurnaces : {
 			for(int i = -RANGE; i < RANGE + 1; i++)
@@ -53,7 +56,7 @@ public class SubTileExoflame extends SubTileFunctional {
 										if(furnace.getField(0) == 0)
 											BlockFurnace.setState(true, supertile.getWorld(), pos);
 										furnace.setField(0, 200);
-										mana = Math.max(0, mana - cost);
+										mana = Math.max(0, mana - COST);
 									}
 									if(ticksExisted % 2 == 0)
 										furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
@@ -69,7 +72,7 @@ public class SubTileExoflame extends SubTileFunctional {
 								if(heatable.canSmelt() && mana > 2) {
 									if(heatable.getBurnTime() == 0) {
 										heatable.boostBurnTime();
-										mana = Math.max(0, mana - cost);
+										mana = Math.max(0, mana - COST);
 									}
 
 									if(ticksExisted % 2 == 0)

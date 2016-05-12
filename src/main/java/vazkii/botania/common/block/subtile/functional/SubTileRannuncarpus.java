@@ -62,7 +62,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(ticksExisted % 10 == 0) {
@@ -108,7 +108,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					}
 
 
-					if(!validPositions.isEmpty() && !supertile.getWorld().isRemote) {
+					if(!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
 
 						IBlockState stateToPlace = null;
@@ -140,11 +140,9 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(stackItem instanceof IFlowerPlaceable)
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
-								if(!supertile.getWorld().isRemote) {
-									stack.stackSize--;
-									if(stack.stackSize <= 0)
-										item.setDead();
-								}
+								stack.stackSize--;
+								if(stack.stackSize <= 0)
+									item.setDead();
 
 								if(mana > 1)
 									mana--;
@@ -176,7 +174,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(recieverStack != null && recieverStack.getItem() != null) {
+		if(recieverStack.getItem() != null) {
 			String stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;

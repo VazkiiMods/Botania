@@ -26,7 +26,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
-	public static final Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static boolean registered = false;
 
 	@Override
@@ -46,16 +46,12 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	}
 
 	public static boolean hasSolegnoliaAround(Entity e) {
-		for(SubTileSolegnolia flower : existingFlowers) {
-			if(flower.redstoneSignal > 0 || flower.supertile.getWorld() != e.worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
-				continue;
-
-			double range = flower.getRange();
-			if(MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, flower.supertile.getPos().getX() + 0.5, flower.supertile.getPos().getY() + 0.5, flower.supertile.getPos().getZ() + 0.5) <= range)
-				return true;
-		}
-
-		return false;
+		return existingFlowers.stream()
+				.filter(f -> f.redstoneSignal == 0)
+				.filter(f -> f.supertile.getWorld() != e.worldObj)
+				.filter(f -> f.supertile.getWorld().getTileEntity(f.supertile.getPos()) == f.supertile)
+				.filter(f -> f.supertile.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange())
+				.findAny().isPresent();
 	}
 
 	@Override

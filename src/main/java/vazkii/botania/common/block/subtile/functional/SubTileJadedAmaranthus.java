@@ -32,10 +32,10 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		if(!supertile.getWorld().isRemote && ticksExisted % 30 == 0 && mana >= COST) {
+		if(ticksExisted % 30 == 0 && mana >= COST) {
 			BlockPos pos = new BlockPos(
 				supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
 				supertile.getPos().getY() + RANGE,

@@ -30,8 +30,8 @@ public class SubTileDaffomill extends SubTileFunctional {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 
-	int windTicks = 0;
-	EnumFacing orientation = EnumFacing.NORTH;
+	private int windTicks = 0;
+	private EnumFacing orientation = EnumFacing.NORTH;
 
 	@Override
 	public void onUpdate() {
@@ -71,7 +71,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		}
 	}
 
-	AxisAlignedBB aabbForOrientation() {
+	private AxisAlignedBB aabbForOrientation() {
 		int x = supertile.getPos().getX();
 		int y = supertile.getPos().getY();
 		int z = supertile.getPos().getZ();

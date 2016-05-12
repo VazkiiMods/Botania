@@ -38,6 +38,12 @@ public class SubTileBubbell extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
+		if(ticksExisted % 200 == 0)
+			sync();
+
 		if(mana > COST_PER_TICK) {
 			mana -= COST_PER_TICK;
 
@@ -46,15 +52,17 @@ public class SubTileBubbell extends SubTileFunctional {
 
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++)
-					for(int k = -range; k < range + 1; k++)
+					for(int k = -range; k < range + 1; k++) {
+						BlockPos pos = supertile.getPos().add(i, j, k);
 						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							IBlockState state = supertile.getWorld().getBlockState(supertile.getPos().add(i, j, k));
+							IBlockState state = supertile.getWorld().getBlockState(pos);
 							if(state.getMaterial() == Material.water) {
-								supertile.getWorld().setBlockState(supertile.getPos().add(i, j, k), ModBlocks.fakeAir.getDefaultState(), 2);
-								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(supertile.getPos().add(i, j, k));
+								supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
+								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
 								air.setFlower(supertile);
 							}
 						}
+					}
 		}
 	}
 

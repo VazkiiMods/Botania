@@ -54,13 +54,13 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap<>());
 
-	int filterType = 0;
+	private int filterType = 0;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		boolean pulledAny = false;
@@ -97,7 +97,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
-					int availablePut = supertile.getWorld().isRemote ? 1 : stack.stackSize - (simulate == null ? 0 : simulate.stackSize);
+					int availablePut = stack.stackSize - (simulate == null ? 0 : simulate.stackSize); // todo this is broken for vanilla single chests. investigate?
 
 					canAccept &= availablePut > 0;
 
@@ -118,19 +118,15 @@ public class SubTileHopperhock extends SubTileFunctional {
 			}
 
 			if(invToPutItemIn != null && !item.isDead) {
-				boolean remote = supertile.getWorld().isRemote;
-				if(remote) {
-					if(!particled.contains(item)) {
-						SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-						particled.add(item);
-					}
-				} else {
-					ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
-					item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
-					if(item.getEntityItem().stackSize == 0)
-						item.setDead();
-					pulledAny = true;
+				if(!particled.contains(item)) {
+					SubTileSpectranthemum.spawnExplosionParticles(item, 3); // todo packet
+					particled.add(item);
 				}
+				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
+				item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
+				if(item.getEntityItem().stackSize == 0)
+					item.setDead();
+				pulledAny = true;
 			}
 		}
 

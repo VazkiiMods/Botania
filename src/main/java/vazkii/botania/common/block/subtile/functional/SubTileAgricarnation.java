@@ -36,6 +36,12 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
+		if(ticksExisted % 200 == 0)
+			sync();
+
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
 			int x = supertile.getPos().getX() + supertile.getWorld().rand.nextInt(range * 2 + 1) - range;
@@ -66,7 +72,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 		return true;
 	}
 
-	boolean isPlant(BlockPos pos) {
+	private boolean isPlant(BlockPos pos) {
 		IBlockState state = supertile.getWorld().getBlockState(pos);
 		Block block = state.getBlock();
 		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))

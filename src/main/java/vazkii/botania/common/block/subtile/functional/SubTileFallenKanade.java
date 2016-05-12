@@ -24,21 +24,24 @@ import java.util.List;
 public class SubTileFallenKanade extends SubTileFunctional {
 
 	private static final int RANGE = 2;
+	private static final int COST = 120;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		final int cost = 120;
-
 		if(!supertile.getWorld().isRemote && supertile.getWorld().provider.getDimension() != 1) {
+			boolean did = false;
 			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {
-				if(player.getActivePotionEffect(MobEffects.regeneration) == null && mana >= cost ) {
-					player.addPotionEffect(new PotionEffect(MobEffects.regeneration, 60, 2));
-					mana -= cost;
+				if(player.getActivePotionEffect(MobEffects.regeneration) == null && mana >= COST) {
+					player.addPotionEffect(new PotionEffect(MobEffects.regeneration, 60, 2, true, true));
+					mana -= COST;
+					did = true;
 				}
 			}
+			if(did)
+				sync();
 		}
 	}
 

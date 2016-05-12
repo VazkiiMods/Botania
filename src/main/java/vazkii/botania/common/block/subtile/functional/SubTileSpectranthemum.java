@@ -44,18 +44,18 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	private static final String TAG_TELEPORTED = "Botania_TPd";
 
-	BlockPos bindPos = new BlockPos(0, -1, 0);
+	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal == 0 && supertile.getWorld().isBlockLoaded(bindPos)) {
+		if(!supertile.getWorld().isRemote && redstoneSignal == 0 && supertile.getWorld().isBlockLoaded(bindPos)) {
 			BlockPos pos = supertile.getPos();
 
 			boolean did = false;
 
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			
 			for(EntityItem item : items) {
@@ -81,11 +81,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
-						spawnExplosionParticles(item, 10);
-						if(!supertile.getWorld().isRemote) {
-							mana -= cost;
-							did = true;
-						}
+						spawnExplosionParticles(item, 10); // todo packet
+						mana -= cost;
+						did = true;
 					}
 				}
 			}

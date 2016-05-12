@@ -46,11 +46,11 @@ public class SubTileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0 || !canOperate())
+		if(supertile.getWorld().isRemote && redstoneSignal > 0 || !canOperate())
 			return;
 
 		int cost = getCost();
-		if(!supertile.getWorld().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
+		if(mana >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
@@ -99,7 +99,7 @@ public class SubTileOrechid extends SubTileFunctional {
 		return getOreToPut();
 	}
 
-	public BlockPos getCoordsToPut() {
+	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		Block source = getSourceBlock();
