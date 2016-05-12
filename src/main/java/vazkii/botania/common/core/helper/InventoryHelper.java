@@ -107,13 +107,18 @@ public class InventoryHelper {
 
         if(te == null)
             return null;
-        IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
-                te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
-        if(te instanceof TileEntityChest)
-            ret = VanillaDoubleChestItemHandler.get(((TileEntityChest) te));
+
+		if(te instanceof TileEntityChest) {
+			IItemHandler doubleChest = VanillaDoubleChestItemHandler.get(((TileEntityChest) te));
+			if(doubleChest != VanillaDoubleChestItemHandler.NO_ADJACENT_CHESTS_INSTANCE)
+				return doubleChest;
+		}
+
+		IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
+				te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
+
         if(ret == null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
             ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
 
         return ret;
     }
