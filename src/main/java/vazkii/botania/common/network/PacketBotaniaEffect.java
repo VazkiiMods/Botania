@@ -2,8 +2,10 @@ package vazkii.botania.common.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -114,6 +116,21 @@ public class PacketBotaniaEffect implements IMessage {
 
                                 Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, x, y, z, r, g, b, 5F, 120);
                             }
+                            break;
+                        }
+                        case ITEM_SMOKE: {
+                            Entity item = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
+                            int p = message.args[1];
+
+                            for(int i = 0; i < p; i++) {
+                                double m = 0.01;
+                                double d0 = item.worldObj.rand.nextGaussian() * m;
+                                double d1 = item.worldObj.rand.nextGaussian() * m;
+                                double d2 = item.worldObj.rand.nextGaussian() * m;
+                                double d3 = 10.0D;
+                                item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3, message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+                            }
+                            break;
                         }
                     }
                 }
@@ -127,7 +144,8 @@ public class PacketBotaniaEffect implements IMessage {
         POOL_CRAFT(0),
         POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
         PAINT_LENS(1),  // Arg: colour
-        ARENA_INDICATOR(0);
+        ARENA_INDICATOR(0),
+        ITEM_SMOKE(2); // Arg: Entity ID, number of particles
 
         private final int argCount;
 

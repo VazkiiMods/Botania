@@ -29,6 +29,8 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
@@ -81,7 +83,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
-						spawnExplosionParticles(item, 10); // todo packet
+						spawnExplosionParticles(item, 10);
 						mana -= cost;
 						did = true;
 					}
@@ -93,15 +95,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		}
 	}
 
-	public static void spawnExplosionParticles(EntityItem item, int p) {
-		for(int i = 0; i < p; i++) {
-			double m = 0.01;
-			double d0 = item.worldObj.rand.nextGaussian() * m;
-			double d1 = item.worldObj.rand.nextGaussian() * m;
-			double d2 = item.worldObj.rand.nextGaussian() * m;
-			double d3 = 10.0D;
-			item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
-		}
+	static void spawnExplosionParticles(EntityItem item, int p) {
+		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
 	}
 
 	@Override
