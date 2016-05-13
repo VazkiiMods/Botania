@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
@@ -76,7 +77,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public ItemStack getStoneToPut(BlockPos coords) {
 		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords)));
 
-		List<Integer> values = new ArrayList<>();
+		TIntArrayList values = new TIntArrayList();
 		for(int i = 0; i < 8; i++) {
 			int times = 1;
 			if(types.contains(TYPES[i]))

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import gnu.trove.map.hash.TIntIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -175,7 +176,7 @@ public class LightningHandler {
 		public Vector3 start;
 		public Vector3 end;
 		BlockPos target;
-		HashMap<Integer, Integer> splitparents = new HashMap<>();
+		TIntIntHashMap splitparents = new TIntIntHashMap();
 
 		public double length;
 		public int numsegments0;
@@ -416,7 +417,7 @@ public class LightningHandler {
 		}
 
 		private void calculateCollisionAndDiffs() {
-			HashMap<Integer, Integer> lastactivesegment = new HashMap<>();
+			TIntIntHashMap lastactivesegment = new TIntIntHashMap();
 
 			Collections.sort(segments, SEGMENT_SORTER);
 

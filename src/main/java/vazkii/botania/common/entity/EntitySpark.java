@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import baubles.common.lib.PlayerHandler;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -97,7 +98,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			case DISPERSIVE : {
 				List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
 
-				Map<EntityPlayer, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
+				Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
 
 				ItemStack input = new ItemStack(ModItems.spark);
 				for(EntityPlayer player : players) {
@@ -112,11 +113,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 						IManaItem manaItem = (IManaItem) stack.getItem();
 						if(manaItem.canReceiveManaFromItem(stack, input)) {
-							Map<ItemStack, Integer> receivingStacks;
+							TObjectIntHashMap<ItemStack> receivingStacks;
 							boolean add = false;
 							if(!receivingPlayers.containsKey(player)) {
 								add = true;
-								receivingStacks = new HashMap<>();
+								receivingStacks = new TObjectIntHashMap<>();
 							} else receivingStacks = receivingPlayers.get(player);
 
 							int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
@@ -134,7 +135,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					Collections.shuffle(keys);
 					EntityPlayer player = keys.iterator().next();
 
-					Map<ItemStack, Integer> items = receivingPlayers.get(player);
+					TObjectIntHashMap<ItemStack> items = receivingPlayers.get(player);
 					ItemStack stack = items.keySet().iterator().next();
 					int cost = items.get(stack);
 					int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);

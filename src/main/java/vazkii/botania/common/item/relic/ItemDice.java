@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.relic;
 
+import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -33,9 +34,7 @@ import java.util.List;
 
 public class ItemDice extends ItemRelic {
 
-	private static final int[] SIDES_FOR_MOON_PHASES = new int[] {
-		-1, 0, 1, 2, -1, 2, 3, 4
-	};
+	private static final int[] SIDES_FOR_MOON_PHASES = { -1, 0, 1, 2, -1, 2, 3, 4 };
 
 	public static ItemStack[] relicStacks;
 
@@ -56,11 +55,10 @@ public class ItemDice extends ItemRelic {
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(isRightPlayer(player, stack) && !player.worldObj.isRemote) {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
-			int side = SIDES_FOR_MOON_PHASES[moonPhase];
-			int relic = side;
+			int relic = SIDES_FOR_MOON_PHASES[moonPhase];
 			if(hasRelicAlready(player, relic)) {
-				List<Integer> possible = new ArrayList<>();
-				List<Integer> alreadyHas = new ArrayList<>();
+				TIntArrayList possible = new TIntArrayList();
+				TIntArrayList alreadyHas = new TIntArrayList();
 				for(int i = 0; i < 6; i++)
 					if(hasRelicAlready(player, i))
 						alreadyHas.add(i);
@@ -91,7 +89,7 @@ public class ItemDice extends ItemRelic {
 		return false;
 	}
 
-	boolean hasRelicAlready(EntityPlayer player, int relic) {
+	private boolean hasRelicAlready(EntityPlayer player, int relic) {
 		if(relic < 0 || relic > 5 || !(player instanceof EntityPlayerMP))
 			return true;
 
