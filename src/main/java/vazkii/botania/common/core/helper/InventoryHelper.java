@@ -32,6 +32,10 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 //From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {
@@ -123,21 +127,35 @@ public class InventoryHelper {
         return ret;
     }
 
-	public static Iterable<ItemStack> toIterable(IItemHandler itemHandler) {
-        return () -> new Iterator<ItemStack>() {
-            int index = 0;
+	public static Iterable<ItemStack> asIterable(final IItemHandler itemHandler) {
+		return new Iterable<ItemStack>() {
+			@Override
+			public Iterator<ItemStack> iterator() {
+				return new Iterator<ItemStack>() {
+					int index = 0;
 
-            @Override
-            public boolean hasNext() {
-                return index < itemHandler.getSlots();
-            }
+					@Override
+					public boolean hasNext() {
+						return index < itemHandler.getSlots();
+					}
 
-            @Override
-            public ItemStack next() {
-                return itemHandler.getStackInSlot(index++);
-            }
-        };
+					@Override
+					public ItemStack next() {
+						return itemHandler.getStackInSlot(index++);
+					}
+				};
+			}
+
+			@Override
+			public Spliterator<ItemStack> spliterator() {
+				return Spliterators.spliterator(iterator(), itemHandler.getSlots(), Spliterator.ORDERED);
+			}
+		};
     }
+
+	public static Stream<ItemStack> streamNonnull(IItemHandler itemHandler) {
+		return StreamSupport.stream(asIterable(itemHandler).spliterator(), false).filter(s -> s != null);
+	}
 
 	public static class GenericInventory implements IInventory {
 

@@ -19,6 +19,8 @@ import net.minecraft.nbt.NBTTagList;
 
 public final class ItemNBTHelper {
 
+	private static final int[] EMPTY_INT_ARRAY = new int[0];
+
 	/** Checks if an ItemStack has a Tag Compound **/
 	public static boolean detectNBT(ItemStack stack) {
 		return stack.hasTagCompound();
@@ -61,6 +63,10 @@ public final class ItemNBTHelper {
 
 	public static void setInt(ItemStack stack, String tag, int i) {
 		getNBT(stack).setInteger(tag, i);
+	}
+
+	public static void setIntArray(ItemStack stack, String tag, int[] val) {
+		getNBT(stack).setIntArray(tag, val);
 	}
 
 	public static void setLong(ItemStack stack, String tag, long l) {
@@ -112,6 +118,10 @@ public final class ItemNBTHelper {
 
 	public static int getInt(ItemStack stack, String tag, int defaultExpected) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getInteger(tag) : defaultExpected;
+	}
+
+	public static int[] getIntArray(ItemStack stack, String tag) {
+		return verifyExistance(stack, tag) ? getNBT(stack).getIntArray(tag) : EMPTY_INT_ARRAY;
 	}
 
 	public static long getLong(ItemStack stack, String tag, long defaultExpected) {

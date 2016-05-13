@@ -14,6 +14,8 @@ import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TLongArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -29,11 +31,15 @@ import net.minecraft.inventory.AnimalChest;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.MerchantRecipe;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,11 +55,14 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
-	private static final String TAG_POSITIONS = "highlightPositions";
+	private static final String TAG_POSITIONS_OLD = "highlightPositions";
+	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
+	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
 
 	public ItemItemFinder() {
 		super(LibItemNames.ITEM_FINDER);
@@ -71,53 +80,54 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		else tickServer(stack, (EntityPlayer) player);
 	}
 
-	public void tickClient(ItemStack stack, EntityPlayer player) {
+	protected void tickClient(ItemStack stack, EntityPlayer player) {
 		if(!Botania.proxy.isTheClientPlayer(player))
 			return;
 
-		String pos = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
-		String[] tokens = pos.split(";");
+		long[] blocks = getBlockPositions(stack);
+		Botania.proxy.setWispFXDepthTest(false);
+		for(long l : blocks) {
+			BlockPos pos = BlockPos.fromLong(l);
+			float m = 0.02F;
+			Botania.proxy.wispFX(player.worldObj, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
+		}
 
-		for(String token : tokens) {
-			if(token.isEmpty())
-				continue;
-
-			if(token.contains(",")) {
-				String[] tokens_ = token.split(",");
-				int x = Integer.parseInt(tokens_[0]);
-				int y = Integer.parseInt(tokens_[1]);
-				int z = Integer.parseInt(tokens_[2]);
-				float m = 0.02F;
-				Botania.proxy.setWispFXDepthTest(false);
-				Botania.proxy.wispFX(player.worldObj, x + (float) Math.random(), y + (float) Math.random(), z + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
-			} else {
-				int id = Integer.parseInt(token);
-				Entity e = player.worldObj.getEntityByID(id);
-
-				if(e != null && Math.random() < 0.6) {
-					Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
-					Botania.proxy.wispFX(player.worldObj, e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
-				}
+		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
+		for(int i : entities) {
+			Entity e =  player.worldObj.getEntityByID(i);
+			if(e != null && Math.random() < 0.6) {
+				Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
+				Botania.proxy.wispFX(player.worldObj, e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
 			}
 		}
+
 		Botania.proxy.setWispFXDepthTest(true);
 	}
 
-	public void tickServer(ItemStack stack, EntityPlayer player) {
-		StringBuilder positionsBuilder = new StringBuilder();
+	protected void tickServer(ItemStack stack, EntityPlayer player) {
+		ItemNBTHelper.removeEntry(stack, TAG_POSITIONS_OLD);
 
-		scanForStack(player.getHeldItemMainhand(), player, positionsBuilder);
-		scanForStack(player.getHeldItemOffhand(), player, positionsBuilder);
+		TIntArrayList entPosBuilder = new TIntArrayList();
+		TLongArrayList blockPosBuilder = new TLongArrayList();
 
-		String current = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
-		String positions = positionsBuilder.toString();
-		if(!current.equals(positions)) {
-			ItemNBTHelper.setString(stack, TAG_POSITIONS, positions);
+		scanForStack(player.getHeldItemMainhand(), player, entPosBuilder, blockPosBuilder);
+		scanForStack(player.getHeldItemOffhand(), player, entPosBuilder, blockPosBuilder);
+
+		int[] currentEnts = entPosBuilder.toArray();
+		long[] currentBlocks = blockPosBuilder.toArray();
+
+		boolean entsEqual = Arrays.equals(currentEnts, ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS));
+		boolean blocksEqual = Arrays.equals(currentBlocks, getBlockPositions(stack));
+
+		if(!entsEqual)
+			ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, currentEnts);
+		if(!blocksEqual)
+			setBlockPositions(stack, currentBlocks);
+		if(!entsEqual || !blocksEqual)
 			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
-		}
 	}
 
-	private void scanForStack(ItemStack pstack, EntityPlayer player, StringBuilder positionsBuilder) {
+	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, TLongArrayList blockPosBuilder) {
 		if(pstack != null || player.isSneaking()) {
 			int range = 24;
 
@@ -125,77 +135,63 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
-				if(e.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+				if(e.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) && !(e instanceof EntityPlayer)) {
 					if(scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), pstack))
-						positionsBuilder.append(e.getEntityId()).append(";");
+						entIdBuilder.add(e.getEntityId());
+
 				} else if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
 					ItemStack istack = item.getEntityItem();
 					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
-						positionsBuilder.append(item.getEntityId()).append(";");
+						entIdBuilder.add(item.getEntityId());
 
 				} else if(e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
 					if(scanInventory(new InvWrapper(inv), pstack))
-						positionsBuilder.append(e.getEntityId()).append(";");
-
-				} else if(e instanceof EntityHorse) {
-					EntityHorse horse = (EntityHorse) e;
-					AnimalChest chest = ReflectionHelper.getPrivateValue(EntityHorse.class, horse, LibObfuscation.HORSE_CHEST);
-					if(scanInventory(new InvWrapper(chest), pstack))
-						positionsBuilder.append(horse.getEntityId()).append(";");
+						entIdBuilder.add(e.getEntityId());
 
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
-					IItemHandler playerInv = new InvWrapper(player_.inventory);
+					IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 					IItemHandler binv = new InvWrapper(PlayerHandler.getPlayerBaubles(player_));
-					if(scanInventory(playerInv, pstack) || scanInventory(binv, pstack))
-						positionsBuilder.append(player_.getEntityId()).append(";");
+					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
+						entIdBuilder.add(player_.getEntityId());
 
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
 					if(pstack != null && recipes != null)
 						for(MerchantRecipe recipe : recipes)
-							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
-								positionsBuilder.append(villager.getEntityId()).append(";");
+							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell()))) {
+								entIdBuilder.add(villager.getEntityId());
+								break;
+							}
 
-				} else if(e instanceof EntityLivingBase) {
-					EntityLivingBase living = (EntityLivingBase) e;
-					ItemStack estack = living.getHeldItemMainhand();
-					if(pstack != null && estack != null && equalStacks(estack, pstack))
-						positionsBuilder.append(living.getEntityId()).append(";");
-					estack = living.getHeldItemOffhand();
-					if(pstack != null && estack != null && equalStacks(estack, pstack))
-						positionsBuilder.append(living.getEntityId()).append(";");
 				}
 			}
 
 			if(pstack != null) {
 				range = 12;
 				BlockPos pos = new BlockPos(player);
-				for(int i = -range; i < range + 1; i++)
-					for(int j = -range; j < range + 1; j++)
-						for(int k = -range; k < range + 1; k++) {
-							BlockPos pos_ = pos.add(i, j, k);
-							TileEntity tile = player.worldObj.getTileEntity(pos_);
-							if(tile != null) {
-								boolean foundCap = false;
-								for(EnumFacing e : EnumFacing.VALUES) {
-									if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e)
-											&& scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-										positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
-										foundCap = true;
-										break;
-									}
-								}
-								if(!foundCap && tile instanceof IInventory) {
-									IInventory inv = (IInventory) tile;
-									if(scanInventory(new InvWrapper(inv), pstack))
-										positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
-								}
+				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
+					TileEntity tile = player.worldObj.getTileEntity(pos_);
+					if(tile != null) {
+						boolean foundCap = false;
+						for(EnumFacing e : EnumFacing.VALUES) {
+							if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e)
+									&& scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
+								blockPosBuilder.add(pos_.toLong());
+								foundCap = true;
+								break;
 							}
 						}
+						if(!foundCap && tile instanceof IInventory) {
+							IInventory inv = (IInventory) tile;
+							if(scanInventory(new InvWrapper(inv), pstack))
+								blockPosBuilder.add(pos_.toLong());
+						}
+					}
+				}
 			}
 		}
 	}
@@ -215,6 +211,22 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		}
 
 		return false;
+	}
+
+	private long[] getBlockPositions(ItemStack stack) {
+		NBTTagList list = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
+		long[] ret = new long[list.tagCount()];
+		for (int i = 0; i < list.tagCount(); i++) {
+			ret[i] = ((NBTTagLong) list.get(i)).getLong();
+		}
+		return ret;
+	}
+
+	private void setBlockPositions(ItemStack stack, long[] vals) {
+		NBTTagList list = new NBTTagList();
+		for(long l : vals)
+			list.appendTag(new NBTTagLong(l));
+		ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, list);
 	}
 
 	@Override
