@@ -51,7 +51,6 @@ public final class LibObfuscation {
 
 	// EntityHorse
 	public static final String[] HORSE_JUMP_STRENGTH = new String[] { "horseJumpStrength", "field_110271_bv", "bC" };
-	public static final String[] HORSE_CHEST = new String[] { "horseChest", "field_110296_bG", "bR" };
 
 	// PlayerControllerMP
 	public static final String[] NET_CLIENT_HANDLER = new String[] { "netClientHandler", "field_78774_b", "b" };

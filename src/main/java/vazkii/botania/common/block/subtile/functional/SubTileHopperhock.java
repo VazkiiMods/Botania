@@ -52,8 +52,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
 
-	private static Set<EntityItem> particled = Collections.newSetFromMap(new WeakHashMap<>());
-
 	private int filterType = 0;
 
 	@Override
@@ -97,7 +95,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
-					int availablePut = stack.stackSize - (simulate == null ? 0 : simulate.stackSize); // todo this is broken for vanilla single chests. investigate?
+					int availablePut = stack.stackSize - (simulate == null ? 0 : simulate.stackSize);
 
 					canAccept &= availablePut > 0;
 
@@ -118,10 +116,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			}
 
 			if(invToPutItemIn != null && !item.isDead) {
-				if(!particled.contains(item)) {
-					SubTileSpectranthemum.spawnExplosionParticles(item, 3); // todo packet
-					particled.add(item);
-				}
+				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
 				item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
 				if(item.getEntityItem().stackSize == 0)
