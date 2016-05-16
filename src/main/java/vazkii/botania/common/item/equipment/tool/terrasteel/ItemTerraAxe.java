@@ -13,10 +13,13 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -31,6 +34,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +53,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The number of blocks per tick which the Terra Truncator will
 	 * collect.
 	 */
-	public static final int BLOCK_SWAP_RATE = 10;
+	private static final int BLOCK_SWAP_RATE = 10;
 	
 	/**
 	 * The maximum radius (in blocks) which the Terra Truncator will go
@@ -61,7 +65,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The maximum number of leaf blocks which the Terra Truncator will chew/go
 	 * through once a leaf block is encountered.
 	 */
-	public static final int LEAF_BLOCK_RANGE = 3;
+	private static final int LEAF_BLOCK_RANGE = 3;
 	
 	/**
 	 * The amount of mana required to restore 1 point of damage.
@@ -78,9 +82,17 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
 		MinecraftForge.EVENT_BUS.register(this);
 		this.attackSpeed = -3f;
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), new IItemPropertyGetter() {
+			@Override
+			public float apply(ItemStack stack, World world, EntityLivingBase entity) {
+				if(entity instanceof EntityPlayer && !shouldBreak(((EntityPlayer) entity)))
+					return 0;
+				return 1;
+			}
+		});
 	}
 
-	public boolean shouldBreak(EntityPlayer player) {
+	private boolean shouldBreak(EntityPlayer player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
@@ -192,8 +204,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * for the next candidates for swapping. 1 is a good default.
 		 */
 		public static final int SINGLE_BLOCK_RADIUS = 1;
-		
-		
+
 		/**
 		 * The world the block swapper is doing the swapping in.
 		 */
@@ -355,12 +366,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			/**
 			 * The location of this swap candidate.
 			 */
-			public BlockPos coordinates;
+			public final BlockPos coordinates;
 			
 			/**
 			 * The remaining range of this swap candidate.
 			 */
-			public int range;
+			public final int range;
 			
 			/**
 			 * Constructs a new Swap Candidate with the provided
