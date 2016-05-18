@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -28,6 +29,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -74,7 +76,11 @@ public final class SkyblockWorldEvents {
 					if(event.getWorld().isRemote)
 						event.getEntityPlayer().swingArm(event.getHand());
 					else {
-						event.getWorld().playSound(null, event.getPos(), block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, block.getSoundType().getVolume() * 0.4F, block.getSoundType().getPitch() + (float) (Math.random() * 0.2 - 0.1));
+						try {
+							SoundEvent breakSound = (SoundEvent) MethodHandles.breakSound_getter.invokeExact(block.getSoundType());
+							event.getWorld().playSound(null, event.getPos(), breakSound, SoundCategory.BLOCKS, block.getSoundType().getVolume() * 0.4F, block.getSoundType().getPitch() + (float) (Math.random() * 0.2 - 0.1));
+						} catch (Throwable ignore) {}
+
 						if(Math.random() < 0.8)
 							event.getEntityPlayer().dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}

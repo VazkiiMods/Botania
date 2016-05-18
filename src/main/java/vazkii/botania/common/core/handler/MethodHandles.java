@@ -1,6 +1,7 @@
 package vazkii.botania.common.core.handler;
 
 import com.google.common.base.Throwables;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraftforge.fml.common.FMLLog;
@@ -22,7 +23,8 @@ public final class MethodHandles {
             spawnRange_getter, spawnCount_getter, maxNearbyEntities_getter,
             maxSpawnDelay_getter, minSpawnDelay_getter,
             spawnDelay_getter, spawnDelay_setter, prevMobRotation_setter, mobRotation_setter, potentialSpawns_getter,
-            randomEntity_getter, isActivated; // MobSpawnerBaseLogic
+            randomEntity_getter, isActivated, // MobSpawnerBaseLogic
+            breakSound_getter; // SoundType
 
     static {
         try {
@@ -78,6 +80,10 @@ public final class MethodHandles {
             f = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.RANDOM_ENTITY);
             f.setAccessible(true);
             randomEntity_getter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(SoundType.class, LibObfuscation.BREAK_SOUND);
+            f.setAccessible(true);
+            breakSound_getter = publicLookup().unreflectGetter(f);
 
             Method m = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
             m.setAccessible(true);
