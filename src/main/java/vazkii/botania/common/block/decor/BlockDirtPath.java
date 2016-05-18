@@ -44,6 +44,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	private static final UUID speedBoostUuid = UUID.fromString("c5f17cca-c89f-4f12-81da-8f04b1f27679");
 	private static final AttributeModifier speedBoost = new AttributeModifier(speedBoostUuid, "Trodden dirt speed boost", 0.55, 2).setSaved(false);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 15F/16F, 1);
 
 	public BlockDirtPath() {
 		super(Material.ground, LibBlockNames.DIRT_PATH);
@@ -76,7 +77,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 		Block blockAbove = stateAbove.getBlock();
 		if(!blockAbove.isAir(stateAbove, world, pos.up()))
 			return FULL_BLOCK_AABB;
-		else return new AxisAlignedBB(0F, 0F, 0F, 1F, 15F / 16F, 1F);
+		else return AABB;
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
-		return new AxisAlignedBB(pos, pos.add(1, 1, 1));
+		return FULL_BLOCK_AABB;
 	}
 
 	@Override
