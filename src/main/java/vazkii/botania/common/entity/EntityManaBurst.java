@@ -195,7 +195,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void setPositionAndRotation2(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_, boolean p_70056_10) {
+	public void setPositionAndRotationDirect(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_, boolean p_70056_10) {
 		setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
 		setRotation(p_70056_7_, p_70056_8_);
 	}
@@ -270,7 +270,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ItemStack stack = ItemStack.loadItemStackFromNBT(lensCmp);
 		if(stack != null)
 			setSourceLens(stack);
-		else setSourceLens(new ItemStack(Blocks.stone, 0, 0));
+		else setSourceLens(new ItemStack(Blocks.STONE, 0, 0));
 
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
@@ -558,7 +558,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public ItemStack getSourceLens() {
 		Optional<ItemStack> stack = dataManager.get(SOURCE_LENS);
 		if(!stack.isPresent())
-			return new ItemStack(Blocks.stone, 0, 0); // todo 1.9 refact later
+			return new ItemStack(Blocks.STONE, 0, 0); // todo 1.9 refact later
 		else return stack.get();
 	}
 

@@ -34,7 +34,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 
 	@SubscribeEvent
 	public void onBlockDrops(HarvestDropsEvent event) {
-		if(event.getHarvester() != null && event.getState() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == this && event.getState().getMaterial() == Material.glass && event.getState().getBlock().canSilkHarvest(event.getWorld(), event.getPos(), event.getState(), event.getHarvester()))
+		if(event.getHarvester() != null && event.getState() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == this && event.getState().getMaterial() == Material.GLASS && event.getState().getBlock().canSilkHarvest(event.getWorld(), event.getPos(), event.getState(), event.getHarvester()))
 			event.getDrops().add(new ItemStack(event.getState().getBlock(), 1, event.getState().getBlock().getMetaFromState(event.getState())));
 	}
 
@@ -45,7 +45,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.glass) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.GLASS) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 	@Override

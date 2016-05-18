@@ -18,8 +18,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -232,7 +232,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
-		return super.canPlaceBlockAt(world, pos) || world.getBlockState(pos.down()).getBlock() == ModBlocks.redStringRelay || world.getBlockState(pos.down()).getBlock() == Blocks.mycelium;
+		return super.canPlaceBlockAt(world, pos) || world.getBlockState(pos.down()).getBlock() == ModBlocks.redStringRelay || world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM;
 	}
 
 	@Override
@@ -274,8 +274,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean onBlockEventReceived(World par1World, BlockPos pos, IBlockState state, int par5, int par6) {
-		super.onBlockEventReceived(par1World, pos, state, par5, par6);
+	public boolean eventReceived(IBlockState state, World par1World, BlockPos pos, int par5, int par6) {
+		super.eventReceived(state, par1World, pos, par5, par6);
 		TileEntity tileentity = par1World.getTileEntity(pos);
 		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
 	}
@@ -336,23 +336,23 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.waterlily.getDefaultState()));
+		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.WATERLILY.getDefaultState()));
 		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer) {
+	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager effectRenderer) {
 		if (world.getBlockState(pos).getBlock() == this) {
 			int i = 4;
-			EntityDiggingFX.Factory factory = new EntityDiggingFX.Factory();
+			ParticleDigging.Factory factory = new ParticleDigging.Factory();
 			for (int j = 0; j < i; ++j) {
 				for (int k = 0; k < i; ++k) {
 					for (int l = 0; l < i; ++l) {
 						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
 						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
 						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.waterlily.getDefaultState())));
+						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.WATERLILY.getDefaultState())));
 					}
 				}
 			}

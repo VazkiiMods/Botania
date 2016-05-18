@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 
 	public BlockBlaze() {
-		super(Material.iron, LibBlockNames.BLAZE_BLOCK);
+		super(Material.IRON, LibBlockNames.BLAZE_BLOCK);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
@@ -46,7 +46,7 @@ public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 
 	@Override
 	public int getBurnTime(ItemStack fuel) {
-		return fuel.getItem() == Item.getItemFromBlock(this) ? TileEntityFurnace.getItemBurnTime(new ItemStack(Items.blaze_rod)) * (Botania.gardenOfGlassLoaded ? 5 : 10) : 0;
+		return fuel.getItem() == Item.getItemFromBlock(this) ? TileEntityFurnace.getItemBurnTime(new ItemStack(Items.BLAZE_ROD)) * (Botania.gardenOfGlassLoaded ? 5 : 10) : 0;
 	}
 
 }

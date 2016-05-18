@@ -94,7 +94,7 @@ public class PageMultiblock extends LexiconPage {
 		RenderHelper.enableGUIStandardItemLighting();
 		int x = gui.getLeft() + 15;
 		int y = gui.getTop() + 25;
-		Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(Blocks.stonebrick), x, y);
+		Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(Blocks.STONEBRICK), x, y);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 

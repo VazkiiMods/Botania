@@ -39,9 +39,9 @@ public class ItemDye extends Item16Colors {
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		Block block = par3World.getBlockState(pos).getBlock();
 		EnumDyeColor color = EnumDyeColor.byMetadata(par1ItemStack.getItemDamage());
-		if(block == Blocks.wool && color != par3World.getBlockState(pos).getValue(BlockColored.COLOR)
-				|| block == Blocks.carpet && color != par3World.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
-			par3World.setBlockState(pos, par3World.getBlockState(pos).withProperty(block == Blocks.wool ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
+		if(block == Blocks.WOOL && color != par3World.getBlockState(pos).getValue(BlockColored.COLOR)
+				|| block == Blocks.CARPET && color != par3World.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
+			par3World.setBlockState(pos, par3World.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
 			par1ItemStack.stackSize--;
 			return EnumActionResult.SUCCESS;
 		}

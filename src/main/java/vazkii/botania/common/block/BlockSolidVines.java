@@ -58,7 +58,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(Blocks.vine);
+		return new ItemStack(Blocks.VINE);
 	}
 
 	@Override

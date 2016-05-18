@@ -28,7 +28,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockDistributor extends BlockMod implements ILexiconable {
 
 	public BlockDistributor() {
-		super(Material.rock, LibBlockNames.DISTRIBUTOR);
+		super(Material.ROCK, LibBlockNames.DISTRIBUTOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

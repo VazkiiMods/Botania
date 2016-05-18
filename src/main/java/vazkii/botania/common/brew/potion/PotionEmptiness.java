@@ -26,7 +26,7 @@ public class PotionEmptiness extends PotionMod {
 	public PotionEmptiness() {
 		super(LibPotionNames.EMPTINESS, false, 0xFACFFF, 2);
 		MinecraftForge.EVENT_BUS.register(this);
-		setShowOnFirstRow();
+		setBeneficial();
 	}
 
 	@SubscribeEvent

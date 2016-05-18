@@ -102,9 +102,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				IBlockState state = supertile.getWorld().getBlockState(supertile.getPos());
-				supertile.getWorld().playAuxSFX(2001, supertile.getPos(), Block.getStateId(state));
+				supertile.getWorld().playEvent(2001, supertile.getPos(), Block.getStateId(state));
 				if(supertile.getWorld().getBlockState(supertile.getPos().down()).isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.UP))
-					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.deadbush.getDefaultState());
+					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.DEADBUSH.getDefaultState());
 				else supertile.getWorld().setBlockToAir(supertile.getPos());
 			}
 		}

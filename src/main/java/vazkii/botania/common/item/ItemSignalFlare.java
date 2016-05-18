@@ -55,7 +55,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 				EntitySignalFlare flare = new EntitySignalFlare(par2World);
 				flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
 				flare.setColor(getColor(par1ItemStack));
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.entity_generic_explode, SoundCategory.PLAYERS, 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				par2World.spawnEntityInWorld(flare);
 
@@ -64,7 +64,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
 				for(EntityLivingBase entity : entities)
 					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled())) {
-						entity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 50, 5));
+						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 						stunned++;
 					}
 

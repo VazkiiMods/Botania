@@ -46,7 +46,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 		GlStateManager.translate(d0, d1, d2);
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.rotate(ROTATIONS.get(facing), 0F, 1F, 0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		float s = 0.6F;
 		GlStateManager.translate(-0.11F, -1.35F, 0F);
 		GlStateManager.scale(s, s, s);

@@ -36,9 +36,9 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public final class ToolCommons {
 
-	public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
-	public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
-	public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood, Material.gourd };
+	public static Material[] materialsPick = new Material[]{ Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL };
+	public static Material[] materialsShovel = new Material[]{ Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
+	public static Material[] materialsAxe = new Material[]{ Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD };
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
@@ -104,7 +104,7 @@ public final class ToolCommons {
 			} else world.setBlockToAir(pos);
 
 			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
-				world.playAuxSFX(2001, pos, Block.getStateId(state));
+				world.playEvent(2001, pos, Block.getStateId(state));
 		}
 	}
 
@@ -130,7 +130,7 @@ public final class ToolCommons {
 		if(item == ModItems.terraPick)
 			modifier = ItemTerraPick.getLevel(stack);
 
-		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantments.efficiency, stack);
+		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 

@@ -101,7 +101,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 			GlStateManager.rotate(90, 0, 0, 1);
 			GlStateManager.translate(1.475F, armor ? -0.57F : -0.5F, 0.53F);

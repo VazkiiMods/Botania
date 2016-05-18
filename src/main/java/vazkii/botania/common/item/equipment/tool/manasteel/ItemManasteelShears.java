@@ -65,7 +65,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 		if(entity instanceof IShearable) {
 			IShearable target = (IShearable)entity;
 			if(target.isShearable(itemstack, entity.worldObj, new BlockPos(entity))) {
-				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack));
+				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
 
 				Random rand = new Random();
 				for(ItemStack stack : drops) {
@@ -93,7 +93,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 		if(block instanceof IShearable) {
 			IShearable target = (IShearable)block;
 			if(target.isShearable(itemstack, player.worldObj, pos)) {
-				List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack));
+				List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
 				Random rand = new Random();
 
 				for(ItemStack stack : drops) {

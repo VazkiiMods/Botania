@@ -52,7 +52,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 0, 3/16.0, 13/16.0, 14/16.0, 13/16.0);
 
 	public BlockForestDrum() {
-		super(Material.wood, LibBlockNames.FOREST_DRUM);
+		super(Material.WOOD, LibBlockNames.FOREST_DRUM);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
@@ -129,9 +129,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
 						ItemStack itemstack = item.getEntityItem();
-						if(itemstack != null && itemstack.getItem() == Items.bucket && !world.isRemote) {
+						if(itemstack != null && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
 							while(itemstack.stackSize > 0) {
-								EntityItem ent = entity.entityDropItem(new ItemStack(Items.milk_bucket), 1.0F);
+								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
 								ent.motionY += world.rand.nextFloat() * 0.05F;
 								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
 								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
@@ -164,7 +164,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 		if(!world.isRemote)
 			for(int i = 0; i < 10; i++)
-				world.playSound(null, pos, SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
 		else world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 
 	}

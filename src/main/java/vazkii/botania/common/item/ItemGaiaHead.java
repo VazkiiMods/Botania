@@ -55,7 +55,7 @@ public class ItemGaiaHead extends ItemMod {
 				pos = pos.offset(facing);
 			}
 
-			if (playerIn.canPlayerEdit(pos, facing, stack) && Blocks.skull.canPlaceBlockAt(worldIn, pos)) {
+			if (playerIn.canPlayerEdit(pos, facing, stack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
 				if (worldIn.isRemote) {
 					return EnumActionResult.SUCCESS;
 				} else {
@@ -95,7 +95,7 @@ public class ItemGaiaHead extends ItemMod {
 						}
 
 						tileentityskull.setSkullRotation(i);
-						Blocks.skull.checkWitherSpawn(worldIn, pos, tileentityskull);
+						Blocks.SKULL.checkWitherSpawn(worldIn, pos, tileentityskull);
 					}
 
 					--stack.stackSize;

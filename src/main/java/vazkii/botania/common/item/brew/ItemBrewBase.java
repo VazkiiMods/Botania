@@ -91,7 +91,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 			}
 
 			if(world.rand.nextBoolean())
-				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 
 			int swigs = getSwigsLeft(stack);
 			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode) {

@@ -94,7 +94,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 						GlStateManager.color(1F, 1F, 1F, 1F);
 
 						ItemStack stack = altar.getItemHandler().getStackInSlot(i);
-						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 						Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 						GlStateManager.popMatrix();
 					}
@@ -104,7 +104,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 			}
 
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Fluid fluid = lava ? FluidRegistry.LAVA : FluidRegistry.WATER;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;

@@ -81,7 +81,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 				GlStateManager.color(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			if(enchanter.stage == 3 || enchanter.stage == 4) {
 				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;

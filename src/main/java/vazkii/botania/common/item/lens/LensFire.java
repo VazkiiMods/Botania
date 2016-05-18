@@ -35,14 +35,14 @@ public class LensFire extends Lens {
 			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 			Block blockAt_ = entity.worldObj.getBlockState(pos_).getBlock();
 
-			if(blockAt == Blocks.portal)
-				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.air.getDefaultState());
+			if(blockAt == Blocks.PORTAL)
+				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());
 			else if(blockAt == ModBlocks.incensePlate) {
 				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.getBlockPos());
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 			} else if(blockAt_.isAir(entity.worldObj.getBlockState(pos_), entity.worldObj, pos_))
-				entity.worldObj.setBlockState(pos_, Blocks.fire.getDefaultState());
+				entity.worldObj.setBlockState(pos_, Blocks.FIRE.getDefaultState());
 		}
 
 		return dead;

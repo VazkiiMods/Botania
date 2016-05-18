@@ -16,8 +16,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +74,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	public BlockFloatingFlower(String name) {
-		super(Material.ground, name);
+		super(Material.GROUND, name);
 		setHardness(0.5F);
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
@@ -132,23 +132,23 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.dirt.getDefaultState()));
+		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.DIRT.getDefaultState()));
 		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, EffectRenderer effectRenderer) {
+	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager effectRenderer) {
 		if (world.getBlockState(pos).getBlock() == this) {
 			int i = 4;
-			EntityDiggingFX.Factory factory = new EntityDiggingFX.Factory();
+			ParticleDigging.Factory factory = new ParticleDigging.Factory();
 			for (int j = 0; j < i; ++j) {
 				for (int k = 0; k < i; ++k) {
 					for (int l = 0; l < i; ++l) {
 						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
 						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
 						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.dirt.getDefaultState())));
+						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.DIRT.getDefaultState())));
 					}
 				}
 			}
@@ -208,7 +208,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		if(stack != null) {
 			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
 			IslandType type = null;
-			if(stack.getItem() == Items.snowball)
+			if(stack.getItem() == Items.SNOWBALL)
 				type = IslandType.SNOW;
 			else if(stack.getItem() instanceof IFloatingFlowerVariant) {
 				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);

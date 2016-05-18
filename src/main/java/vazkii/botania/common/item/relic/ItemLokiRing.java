@@ -143,8 +143,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 		World world = player.worldObj;
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, stack) > 0;
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, stack);
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
 
 		for(int i = 0; i < cursors.size(); i++) {

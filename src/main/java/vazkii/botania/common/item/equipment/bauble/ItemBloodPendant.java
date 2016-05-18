@@ -115,7 +115,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			boolean doRand = cost < 1;
 			if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
 				PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-				boolean nightVision = effect.getPotion() == MobEffects.nightVision;
+				boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
 				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
 					PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 					player.addPotionEffect(applyEffect);
@@ -164,7 +164,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);

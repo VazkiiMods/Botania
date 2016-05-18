@@ -37,7 +37,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
 
 	public BlockTerraPlate() {
-		super(Material.iron, LibBlockNames.TERRA_PLATE);
+		super(Material.IRON, LibBlockNames.TERRA_PLATE);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);

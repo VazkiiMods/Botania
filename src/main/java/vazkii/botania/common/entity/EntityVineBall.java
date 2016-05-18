@@ -71,7 +71,7 @@ public class EntityVineBall extends EntityThrowable {
 						if(block.isAir(state, worldObj, pos)) {
 							IBlockState stateSet = ModBlocks.solidVines.getDefaultState().withProperty(propMap.get(dir.getOpposite()), true);
 							worldObj.setBlockState(pos, stateSet, 1 | 2);
-							worldObj.playAuxSFX(2001, pos, Block.getStateId(stateSet));
+							worldObj.playEvent(2001, pos, Block.getStateId(stateSet));
 							pos = pos.down();
 						} else break;
 					}

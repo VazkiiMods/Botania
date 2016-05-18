@@ -21,11 +21,11 @@ public final class ModPureDaisyRecipes {
 		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock.getDefaultState());
 		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood.getDefaultState());
 
-		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.cobblestone.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.sand.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.packed_ice.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.obsidian.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe(Blocks.water, Blocks.snow.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.COBBLESTONE.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.SAND.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.PACKED_ICE.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.OBSIDIAN.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.WATER, Blocks.SNOW.getDefaultState());
 	}
 
 }

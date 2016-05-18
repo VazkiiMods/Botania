@@ -95,7 +95,7 @@ public class ItemSextant extends ItemMod {
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 			if(y != -1)
-				Botania.proxy.setMultiblock(world, x, y, z, radius, Blocks.cobblestone);
+				Botania.proxy.setMultiblock(world, x, y, z, radius, Blocks.COBBLESTONE);
 		}
 	}
 

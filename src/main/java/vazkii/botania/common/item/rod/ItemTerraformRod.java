@@ -113,7 +113,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
 			IBlockState state = par2World.getBlockState(pos);
-			if(state.getBlock() == Blocks.air)
+			if(state.getBlock() == Blocks.AIR)
 				continue;
 			else if(Item.getItemFromBlock(state.getBlock()) == null)
 				continue;
@@ -125,17 +125,17 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 						BlockPos pos_ = pos.offset(dir);
 						Block block_ = par2World.getBlockState(pos_).getBlock();
-						if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
+						if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.DOUBLE_PLANT) {
 							airBlocks.add(pos_);
 						}
 					}
 
 					if(!airBlocks.isEmpty()) {
 						if(pos.getY() > startCenter.getY())
-							blocks.add(new CoordsWithBlock(pos, Blocks.air));
+							blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
 						else for(BlockPos coords : airBlocks) {
-							if(par2World.getBlockState(coords.down()).getBlock() != Blocks.air)
-								blocks.add(new CoordsWithBlock(coords, Blocks.dirt));
+							if(par2World.getBlockState(coords.down()).getBlock() != Blocks.AIR)
+								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
 						}
 					}
 					break;
@@ -151,7 +151,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					par2World.playSound(par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_sand_step, SoundCategory.BLOCKS, 1F, 0.4F);
+					par2World.playSound(par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
 					Botania.proxy.sparkleFX(par2World, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
@@ -176,14 +176,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return -1;
 		return 0;
 	}

@@ -69,7 +69,7 @@ public class ItemDice extends ItemRelic {
 				relic = possible.get(world.rand.nextInt(possible.size()));
 			}
 
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			if(hasRelicAlready(player, relic)) {
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));

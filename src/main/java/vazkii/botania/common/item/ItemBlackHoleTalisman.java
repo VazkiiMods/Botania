@@ -64,10 +64,10 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(getBlock(par1ItemStack) != Blocks.air && par3EntityPlayer.isSneaking()) {
+		if(getBlock(par1ItemStack) != Blocks.AIR && par3EntityPlayer.isSneaking()) {
 			int dmg = par1ItemStack.getItemDamage();
 			par1ItemStack.setItemDamage(~dmg & 1);
-			par3EntityPlayer.playSound(SoundEvents.entity_experience_orb_pickup, 0.3F, 0.1F);
+			par3EntityPlayer.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -133,7 +133,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@Override
 	public void onUpdate(ItemStack itemstack, World p_77663_2_, Entity entity, int p_77663_4_, boolean p_77663_5_) {
 		Block block = getBlock(itemstack);
-		if(!entity.worldObj.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.air && entity instanceof EntityPlayer) {
+		if(!entity.worldObj.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.AIR && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			int meta = getBlockMeta(itemstack);
 
@@ -219,8 +219,8 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(getBlock(stack) == Blocks.air || getBlockCount(stack) == 0) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block).toString());
+		if(getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0) {
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
 		}
@@ -236,7 +236,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		Block block = getBlock(par1ItemStack);
-		if(block != null && block != Blocks.air) {
+		if(block != null && block != Blocks.AIR) {
 			int count = getBlockCount(par1ItemStack);
 			par3List.add(count + " " + I18n.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}

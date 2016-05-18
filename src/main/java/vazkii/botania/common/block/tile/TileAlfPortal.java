@@ -235,8 +235,8 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound cmp) {
-		super.writeToNBT(cmp);
+	public NBTTagCompound writeToNBT(NBTTagCompound cmp) {
+		NBTTagCompound ret = super.writeToNBT(cmp);
 
 		cmp.setInteger(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
@@ -246,6 +246,8 @@ public class TileAlfPortal extends TileMod {
 			cmp.setTag(TAG_STACK + i, stackcmp);
 			i++;
 		}
+
+		return ret;
 	}
 
 	@Override
@@ -289,7 +291,7 @@ public class TileAlfPortal extends TileMod {
 
 	@SafeVarargs
 	private final boolean checkMultipleConverters(Function<BlockPos, BlockPos>... converters) {
-		if(!check2DArray(AIR_POSITIONS, Blocks.air.getDefaultState(), true, converters))
+		if(!check2DArray(AIR_POSITIONS, Blocks.AIR.getDefaultState(), true, converters))
 			return false;
 		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT), false, converters))
 			return false;
@@ -357,7 +359,7 @@ public class TileAlfPortal extends TileMod {
 		IBlockState stateat = worldObj.getBlockState(pos_);
 		Block blockat = stateat.getBlock();
 
-		if(state.getBlock() == Blocks.air ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock()) {
+		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock()) {
 			return onlyCheckBlock || stateat == state;
 		}
 

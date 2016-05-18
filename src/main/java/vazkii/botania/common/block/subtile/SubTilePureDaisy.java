@@ -83,7 +83,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 							Botania.proxy.wispFX(supertile.getWorld(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 						}
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(recipe.getOutputState()));
+							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
 			} else ticksRemaining[positionAt] = -1;

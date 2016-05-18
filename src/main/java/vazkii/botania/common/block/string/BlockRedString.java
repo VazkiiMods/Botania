@@ -30,7 +30,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	public BlockRedString(String name) {
-		super(Material.rock, name);
+		super(Material.ROCK, name);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

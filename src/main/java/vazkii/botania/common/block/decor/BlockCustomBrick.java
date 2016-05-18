@@ -36,7 +36,7 @@ import java.util.List;
 public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	public BlockCustomBrick() {
-		super(Material.rock, LibBlockNames.CUSTOM_BRICK);
+		super(Material.ROCK, LibBlockNames.CUSTOM_BRICK);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);

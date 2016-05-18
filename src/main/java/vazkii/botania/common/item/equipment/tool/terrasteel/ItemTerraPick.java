@@ -66,7 +66,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+	private static final Material[] MATERIALS = new Material[] { Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
 
 	public static final int[] LEVELS = new int[] {
 		0, 10000, 1000000, 10000000, 100000000, 1000000000
@@ -175,8 +175,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(world.isAirBlock(pos))
 			return;
 
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0;
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, player.getHeldItemMainhand());
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, player.getHeldItemMainhand()) > 0;
 		boolean thor = ItemThorRing.getThorRing(player) != null;
 		boolean doX = thor || side.getFrontOffsetX() == 0;
 		boolean doY = thor || side.getFrontOffsetY() == 0;

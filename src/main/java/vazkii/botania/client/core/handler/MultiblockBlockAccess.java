@@ -17,7 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
@@ -39,7 +39,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 			return comp.getBlockState();
 		if(hasBlockAccess)
 			return originalBlockAccess.getBlockState(pos);
-		return Blocks.air.getDefaultState();
+		return Blocks.AIR.getDefaultState();
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {
+	public Biome getBiomeGenForCoords(BlockPos pos) {
 		if(hasBlockAccess)
 			return originalBlockAccess.getBiomeGenForCoords(pos);
 		return null;

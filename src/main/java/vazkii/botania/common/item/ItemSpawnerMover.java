@@ -100,7 +100,7 @@ public class ItemSpawnerMover extends ItemMod {
 	@Override
 	public EnumActionResult onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
 		if(getEntityId(itemstack) == null) {
-			if(world.getBlockState(pos).getBlock().equals(Blocks.mob_spawner)) {
+			if(world.getBlockState(pos).getBlock().equals(Blocks.MOB_SPAWNER)) {
 				TileEntity te = world.getTileEntity(pos);
 				NBTTagCompound tag = new NBTTagCompound();
 				tag.setTag(TAG_SPAWNER, new NBTTagCompound());
@@ -135,12 +135,12 @@ public class ItemSpawnerMover extends ItemMod {
 			return false;
 		} else if(!player.canPlayerEdit(pos, side, itemstack)) {
 			return false;
-		} else if(world.canBlockBePlaced(Blocks.mob_spawner, pos, false, side, null, itemstack)) {
+		} else if(world.canBlockBePlaced(Blocks.MOB_SPAWNER, pos, false, side, null, itemstack)) {
 			int meta = this.getMetadata(itemstack.getMetadata());
-			IBlockState iblockstate1 = Blocks.mob_spawner.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
+			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
-				world.playSound(null, pos, Blocks.mob_spawner.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.mob_spawner.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.mob_spawner.getSoundType().getPitch() * 0.8F);
+				world.playSound(null, pos, Blocks.MOB_SPAWNER.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.MOB_SPAWNER.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.MOB_SPAWNER.getSoundType().getPitch() * 0.8F);
 				--itemstack.stackSize;
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
@@ -160,7 +160,7 @@ public class ItemSpawnerMover extends ItemMod {
 			return false;
 
 		Block block = world.getBlockState(pos).getBlock();
-		if(block.equals(Blocks.mob_spawner)) {
+		if(block.equals(Blocks.MOB_SPAWNER)) {
 			TileEntity te = world.getTileEntity(pos);
 			NBTTagCompound tag = stack.getTagCompound();
 			if (tag.hasKey(TAG_SPAWNER))

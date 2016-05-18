@@ -37,7 +37,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 		for(int i : ids) {
 			String name = OreDictionary.getOreName(i);
 			if(name.equals("grass")) {
-				world.playAuxSFX(2001, pos, Block.getStateId(state));
+				world.playEvent(2001, pos, Block.getStateId(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
 				stack.stackSize--;
 

@@ -119,13 +119,13 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						else if(stackItem instanceof ItemBlockSpecial)
 							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
-							stateToPlace = Blocks.redstone_wire.getDefaultState();
+							stateToPlace = Blocks.REDSTONE_WIRE.getDefaultState();
 
 						if(stateToPlace != null) {
 							if(stateToPlace.getBlock().canPlaceBlockAt(supertile.getWorld(), coords)) {
 								supertile.getWorld().setBlockState(coords, stateToPlace, 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
-									supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(stateToPlace));
+									supertile.getWorld().playEvent(2001, coords, Block.getStateId(stateToPlace));
 								validPositions.remove(coords);
 
 								TileEntity tile = supertile.getWorld().getTileEntity(coords);

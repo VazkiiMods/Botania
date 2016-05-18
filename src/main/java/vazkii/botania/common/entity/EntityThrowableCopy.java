@@ -262,7 +262,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (raytraceresult != null)
 		{
-			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && this.worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.portal)
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && this.worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
 			{
 				this.setPortal(raytraceresult.getBlockPos());
 			}
@@ -342,7 +342,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		compound.setInteger("xTile", this.xTile);
 		compound.setInteger("yTile", this.yTile);
 		compound.setInteger("zTile", this.zTile);
-		ResourceLocation resourcelocation = (ResourceLocation)Block.blockRegistry.getNameForObject(this.inTile);
+		ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(this.inTile);
 		compound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
 		compound.setByte("shake", (byte)this.throwableShake);
 		compound.setByte("inGround", (byte)(this.inGround ? 1 : 0));

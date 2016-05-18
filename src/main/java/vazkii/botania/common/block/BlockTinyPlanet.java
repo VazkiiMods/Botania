@@ -31,7 +31,7 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
 
 	protected BlockTinyPlanet() {
-		super(Material.rock, LibBlockNames.TINY_PLANET);
+		super(Material.ROCK, LibBlockNames.TINY_PLANET);
 		setHardness(20F);
 		setResistance(100F);
 		setSoundType(SoundType.STONE);

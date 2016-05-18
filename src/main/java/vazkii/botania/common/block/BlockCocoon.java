@@ -38,7 +38,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 0.125, 0.875, 0.125);
 
 	protected BlockCocoon() {
-		super(Material.cloth, LibBlockNames.COCOON);
+		super(Material.CLOTH, LibBlockNames.COCOON);
 		setHardness(3.0F);
 		setResistance(50.0F);
 		setSoundType(SoundType.CLOTH);
@@ -67,11 +67,11 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack item, EnumFacing s, float xs, float ys, float zs) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
-		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.emerald) {
+		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.EMERALD) {
 			if(!player.capabilities.isCreativeMode)
 				item.stackSize--;
 			cocoon.emeraldsGiven++;
-			world.playAuxSFX(2005, pos, 6 + world.rand.nextInt(4));
+			world.playEvent(2005, pos, 6 + world.rand.nextInt(4));
 		}
 		return false;
 	}

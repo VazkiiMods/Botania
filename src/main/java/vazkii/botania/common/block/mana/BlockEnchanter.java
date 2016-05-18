@@ -47,7 +47,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	private final Random random = new Random();
 
 	public BlockEnchanter() {
-		super(Material.rock, LibBlockNames.ENCHANTER);
+		super(Material.ROCK, LibBlockNames.ENCHANTER);
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setLightLevel(1.0F);
@@ -91,7 +91,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
-		return Item.getItemFromBlock(Blocks.lapis_block);
+		return Item.getItemFromBlock(Blocks.LAPIS_BLOCK);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
-		boolean stackEnchantable = stack != null && stack.getItem() != Items.book && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability(stack) > 0;
+		boolean stackEnchantable = stack != null && stack.getItem() != Items.BOOK && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability(stack) > 0;
 
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {

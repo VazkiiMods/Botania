@@ -47,7 +47,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 					int mana = 820 * mul;
 					if(!slime.worldObj.isRemote) {
 						slime.setDead();
-						slime.playSound(size > 1 ? SoundEvents.entity_slime_squish : SoundEvents.entity_small_slime_squish, 1, 0.02F);
+						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SMALL_SLIME_SQUISH, 1, 0.02F);
 						this.mana = Math.min(getMaxMana(), this.mana + mana);
 						sync();
 					}

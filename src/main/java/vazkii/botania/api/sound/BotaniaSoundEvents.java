@@ -55,7 +55,7 @@ public final class BotaniaSoundEvents {
     public static final SoundEvent gaiaMusic2 = getRegisteredSoundEvent("botania:music.gaia2");
 
     private static SoundEvent getRegisteredSoundEvent(String name) {
-        return SoundEvent.soundEventRegistry.getObject(new ResourceLocation(name));
+        return SoundEvent.REGISTRY.getObject(new ResourceLocation(name));
     }
 
     private BotaniaSoundEvents() {}

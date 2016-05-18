@@ -30,7 +30,7 @@ import java.util.Random;
 public class BlockRoot extends BlockMod implements ILexiconable {
 
 	public BlockRoot() {
-		super(Material.plants, LibBlockNames.ROOT);
+		super(Material.PLANTS, LibBlockNames.ROOT);
 		setHardness(1.2F);
 		setSoundType(SoundType.WOOD);
 	}

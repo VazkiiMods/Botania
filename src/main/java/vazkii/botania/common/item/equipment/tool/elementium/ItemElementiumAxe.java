@@ -38,16 +38,16 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 			ItemStack weapon = ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand();
 			if(weapon != null && weapon.getItem() == this) {
 				Random rand = event.getEntityLiving().worldObj.rand;
-				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, weapon);
+				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
 				if(event.getEntityLiving() instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.getEntityLiving()).getSkeletonType()));
+					addDrop(event, new ItemStack(Items.SKULL, 1, ((EntitySkeleton)event.getEntityLiving()).getSkeletonType()));
 				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
-					addDrop(event, new ItemStack(Items.skull, 1, 2));
+					addDrop(event, new ItemStack(Items.SKULL, 1, 2));
 				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
-					addDrop(event, new ItemStack(Items.skull, 1, 4));
+					addDrop(event, new ItemStack(Items.SKULL, 1, 4));
 				else if(event.getEntityLiving() instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
-					ItemStack stack = new ItemStack(Items.skull, 1, 3);
+					ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
 					ItemNBTHelper.setString(stack, "SkullOwner", event.getEntityLiving().getName());
 					addDrop(event, stack);
 				} else if(event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)

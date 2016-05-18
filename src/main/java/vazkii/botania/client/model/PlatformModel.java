@@ -24,7 +24,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -143,7 +143,7 @@ public class PlatformModel implements IBakedModel {
 			if(state.getBlock() instanceof BlockCamo) {
 				state = ((TileCamo) compose.getTileEntity(pos)).camoState;
 			}
-			return state == null ? Blocks.air.getDefaultState() : state;
+			return state == null ? Blocks.AIR.getDefaultState() : state;
 		}
 
 		@Override
@@ -152,7 +152,7 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		@Override
-		public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {
+		public Biome getBiomeGenForCoords(BlockPos pos) {
 			return compose.getBiomeGenForCoords(pos);
 		}
 

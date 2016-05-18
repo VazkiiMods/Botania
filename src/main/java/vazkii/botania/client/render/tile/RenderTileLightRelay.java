@@ -64,7 +64,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 		GlStateManager.rotate(((float) time), 0F, 0F, 1F);
 		GlStateManager.translate(0F, -off, 0F);
 
-		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		ShaderHelper.useShader(ShaderHelper.halo);
 		func_77026_a(tessellator, iicon);
 		ShaderHelper.releaseShader();

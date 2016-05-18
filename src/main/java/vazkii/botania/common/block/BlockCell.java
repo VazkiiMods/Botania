@@ -31,7 +31,7 @@ import java.util.List;
 public class BlockCell extends BlockMod implements ILexiconable {
 
 	public BlockCell() {
-		super(Material.gourd, LibBlockNames.CELL_BLOCK);
+		super(Material.GOURD, LibBlockNames.CELL_BLOCK);
 		setSoundType(SoundType.CLOTH);
 	}
 

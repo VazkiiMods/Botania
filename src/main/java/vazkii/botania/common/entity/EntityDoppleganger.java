@@ -214,7 +214,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			e.setPlayerCount(playerCount);
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 
-			e.playSound(SoundEvents.entity_enderdragon_growl, 10F, 0.1F);
+			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
 			world.spawnEntityInWorld(e);
 			return true;
 		}
@@ -370,7 +370,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			boolean crit = false;
 			if(e instanceof EntityPlayer) {
 				EntityPlayer p = (EntityPlayer) e;
-				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(MobEffects.blindness) && !p.isRiding();
+				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(MobEffects.BLINDNESS) && !p.isRiding();
 			}
 
 			int cap = crit ? 60 : 40;
@@ -422,7 +422,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
 
-		this.playSound(SoundEvents.entity_generic_explode, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+		this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
@@ -574,7 +574,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 						List<ItemStack> items = block.getDrops(worldObj, posp, worldObj.getBlockState(posp), 0);
 						for(ItemStack stack : items) {
 							if(ConfigHandler.blockBreakParticles)
-								worldObj.playAuxSFX(2001, posp, Block.getStateId(worldObj.getBlockState(posp)));
+								worldObj.playEvent(2001, posp, Block.getStateId(worldObj.getBlockState(posp)));
 							worldObj.spawnEntityInWorld(new EntityItem(worldObj, xp + 0.5, yp + 0.5, zp + 0.5, stack));
 						}
 						worldObj.setBlockToAir(posp);
@@ -660,10 +660,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 								}
 								case 1 : {
 									entity = new EntitySkeleton(worldObj);
-									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.bow));
+									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 									if(worldObj.rand.nextInt(8) == 0) {
 										((EntitySkeleton) entity).setSkeletonType(1);
-										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
+										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;
 								}
@@ -680,7 +680,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 								if(entity != null) {
 									if(!entity.isImmuneToFire())
-										entity.addPotionEffect(new PotionEffect(MobEffects.fireResistance, 30, 0));
+										entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 30, 0));
 									range = 6F;
 									entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 									worldObj.spawnEntityInWorld(entity);
@@ -756,16 +756,16 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	public void setBossVisibleTo(EntityPlayerMP player)
+	public void addTrackingPlayer(EntityPlayerMP player)
 	{
-		super.setBossVisibleTo(player);
+		super.addTrackingPlayer(player);
 		this.bossInfo.addPlayer(player);
 	}
 
 	@Override
-	public void setBossNonVisibleTo(EntityPlayerMP player)
+	public void removeTrackingPlayer(EntityPlayerMP player)
 	{
-		super.setBossNonVisibleTo(player);
+		super.removeTrackingPlayer(player);
 		this.bossInfo.removePlayer(player);
 	}
 
@@ -780,7 +780,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 	private static boolean isCheatyBlock(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
-		String name = Block.blockRegistry.getNameForObject(block).toString();
+		String name = Block.REGISTRY.getNameForObject(block).toString();
 		return CHEATY_BLOCKS.contains(name);
 	}
 
@@ -821,7 +821,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			if(flag1) {
 				setPosition(posX, posY, posZ);
 
-				if(worldObj.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.isAnyLiquid(getEntityBoundingBox()))
+				if(worldObj.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.containsAnyLiquid(getEntityBoundingBox()))
 					flag = true;
 
 				// Prevent out of bounds teleporting
@@ -848,7 +848,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 				worldObj.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f1, f2);
 			}
 
-			playSound(SoundEvents.entity_endermen_teleport, 1.0F, 1.0F);
+			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
 			return true;
 		}
 	}
@@ -888,8 +888,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		int py = y + 12;
 
 		Minecraft mc = Minecraft.getMinecraft();
-		ItemStack stack = new ItemStack(Items.skull, 1, 3);
-		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
+		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
 		mc.getRenderItem().renderItemIntoGUI(stack, px, py);
@@ -939,7 +939,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	private static class BeaconComponent extends MultiblockComponent {
 
 		public BeaconComponent(BlockPos relPos) {
-			super(relPos, Blocks.iron_block.getDefaultState());
+			super(relPos, Blocks.IRON_BLOCK.getDefaultState());
 		}
 
 		@Override
@@ -952,7 +952,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	private static class BeaconBeamComponent extends MultiblockComponent {
 
 		public BeaconBeamComponent(BlockPos relPos) {
-			super(relPos, Blocks.beacon.getDefaultState());
+			super(relPos, Blocks.BEACON.getDefaultState());
 		}
 
 		@Override

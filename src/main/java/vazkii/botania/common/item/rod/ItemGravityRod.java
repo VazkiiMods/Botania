@@ -79,7 +79,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 
 		EntityPlayer player = (EntityPlayer) par3Entity;
-		PotionEffect haste = player.getActivePotionEffect(MobEffects.digSpeed);
+		PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 		if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote)
 			leftClick(player);
@@ -145,8 +145,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					if(item instanceof EntityLivingBase) {
 						EntityLivingBase targetEntity = (EntityLivingBase)item;
 						targetEntity.fallDistance = 0.0F;
-						if(targetEntity.getActivePotionEffect(MobEffects.moveSlowdown) == null)
-							targetEntity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 2, 3, true, true));
+						if(targetEntity.getActivePotionEffect(MobEffects.SLOWNESS) == null)
+							targetEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 3, true, true));
 					}
 
 					Vector3 target3 = Vector3.fromEntityCenter(player);

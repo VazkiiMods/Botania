@@ -50,7 +50,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 		GlStateManager.color(1F, 1F, 1F, alpha);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		if(state == AlfPortalState.ON_X) {
 			GlStateManager.translate(1.25F, 0F, 1.75F);

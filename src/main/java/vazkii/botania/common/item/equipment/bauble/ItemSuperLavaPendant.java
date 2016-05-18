@@ -56,7 +56,7 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);

@@ -35,7 +35,7 @@ import java.util.List;
 public class BlockLivingrock extends BlockMod implements ILexiconable {
 
 	public BlockLivingrock() {
-		super(Material.rock, LibBlockNames.LIVING_ROCK);
+		super(Material.ROCK, LibBlockNames.LIVING_ROCK);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

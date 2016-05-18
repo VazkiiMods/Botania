@@ -60,7 +60,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	protected BlockAltar() {
-		super(Material.rock, LibBlockNames.ALTAR);
+		super(Material.ROCK, LibBlockNames.ALTAR);
 		setHardness(3.5F);
 		setSoundType(SoundType.STONE);
 		setDefaultState(blockState.getBaseState()
@@ -146,7 +146,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				if(stackAt != null) {
 					ItemStack copy = stackAt.copy();
 					if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
-						par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
+						par5EntityPlayer.dropItem(copy, false);
 					tile.getItemHandler().setStackInSlot(i, null);
 					par1World.updateComparatorOutputLevel(pos, this);
 					break;
@@ -168,7 +168,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				}
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.lava_bucket) {
+			} else if(stack != null && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!par5EntityPlayer.capabilities.isCreativeMode)
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
 
@@ -178,13 +178,13 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				par1World.checkLight(pos);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
-				ItemStack bucket = tile.hasLava ? new ItemStack(Items.lava_bucket) : new ItemStack(Items.water_bucket);
+			} else if(stack != null && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
+				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
 				if(stack.stackSize == 1)
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, bucket);
 				else {
 					if(!par5EntityPlayer.inventory.addItemStackToInventory(bucket))
-						par5EntityPlayer.dropPlayerItemWithRandomChoice(bucket, false);
+						par5EntityPlayer.dropItem(bucket, false);
 					stack.stackSize--;
 				}
 
@@ -234,7 +234,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	private ItemStack getContainer(ItemStack stack) {
 		if(stack.getItem() == ModItems.waterBowl)
-			return new ItemStack(Items.bowl);
+			return new ItemStack(Items.BOWL);
 
 		if (stack.getItem().hasContainerItem(stack))
 			return stack.getItem().getContainerItem(stack);

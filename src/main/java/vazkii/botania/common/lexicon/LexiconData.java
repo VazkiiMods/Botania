@@ -541,7 +541,7 @@ public final class LexiconData {
 
 		flowerSpeed = new BLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
 		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
-		flowerSpeed.setIcon(new ItemStack(Blocks.dirt, 1, 2));
+		flowerSpeed.setIcon(new ItemStack(Blocks.DIRT, 1, 2));
 
 		jadedAmaranthus = new BLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
 		jadedAmaranthus.setLexiconPages(new PageText("0"),
@@ -638,7 +638,7 @@ public final class LexiconData {
 
 		passiveGen = new BLexiconEntry(LibLexicon.GFLOWER_PASSIVE_GENERATION, categoryGenerationFlowers);
 		passiveGen.setPriority().setLexiconPages(new PageText("0"), new PageText("1"))
-				.setIcon(new ItemStack(Blocks.deadbush));
+				.setIcon(new ItemStack(Blocks.DEADBUSH));
 
 		primusLoci = new BLexiconEntry(LibLexicon.GFLOWER_PRIMUS_LOCI, categoryGenerationFlowers);
 		primusLoci.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
@@ -1261,7 +1261,7 @@ public final class LexiconData {
 				.setLexiconPages(new PageImage("0", LibResources.ENTRY_ELVEN_GARDE), new PageLoreText("1"),
 						new PageLoreText("2"), new PageLoreText("3"), new PageLoreText("4"), new PageLoreText("5"),
 						new PageLoreText("6"))
-				.setIcon(new ItemStack(Items.writable_book));
+				.setIcon(new ItemStack(Items.WRITABLE_BOOK));
 
 		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
 		elvenResources.setPriority()
@@ -1290,7 +1290,7 @@ public final class LexiconData {
 		elvenLore
 				.setLexiconPages(new PageText("0"), new PageLoreText("1"), new PageLoreText("2"), new PageLoreText("3"),
 						new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7"))
-				.setIcon(new ItemStack(Items.writable_book));
+				.setIcon(new ItemStack(Items.WRITABLE_BOOK));
 
 		if (ConfigHandler.relicsEnabled) {
 			relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
@@ -1372,7 +1372,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("22", ModCraftingRecipes.recipeSnowBrick));
 
 		dispenserTweaks = new BLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
-		dispenserTweaks.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Blocks.dispenser));
+		dispenserTweaks.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Blocks.DISPENSER));
 
 		shinyFlowers = new BLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageText("3"),
@@ -1421,7 +1421,7 @@ public final class LexiconData {
 
 		blazeBlock = new BLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
 		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));
-		LexiconRecipeMappings.map(new ItemStack(Blocks.obsidian), blazeBlock, 0);
+		LexiconRecipeMappings.map(new ItemStack(Blocks.OBSIDIAN), blazeBlock, 0);
 
 		challenges = new BLexiconEntry(LibLexicon.MISC_CHALLENGES, categoryMisc);
 		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority()
@@ -1435,18 +1435,18 @@ public final class LexiconData {
 		pavement.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesPavement));
 
 		preventingDecay = new DLexiconEntry(LibLexicon.MISC_PRENTING_DECAY, categoryMisc);
-		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Blocks.deadbush));
+		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Blocks.DEADBUSH));
 
 		if (Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
-			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));
+			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
 		}
 	}
 
 	public static void postInit() {
 		if (SheddingHandler.hasShedding()) {
 			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, BotaniaAPI.categoryMisc);
-			shedding.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Items.feather));
+			shedding.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Items.FEATHER));
 			SheddingHandler.addToLexicon();
 		}
 

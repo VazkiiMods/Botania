@@ -58,7 +58,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos relativePos : LAPIS_BLOCKS)
-			mb.addComponent(relativePos, Blocks.lapis_block.getDefaultState());
+			mb.addComponent(relativePos, Blocks.LAPIS_BLOCK.getDefaultState());
 		for(BlockPos relativePos : LIVINGROCK_BLOCKS)
 			mb.addComponent(relativePos, ModBlocks.livingrock.getDefaultState());
 
@@ -170,7 +170,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	boolean hasValidPlatform() {
-		return checkAll(LAPIS_BLOCKS, Blocks.lapis_block) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
+		return checkAll(LAPIS_BLOCKS, Blocks.LAPIS_BLOCK) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
 	}
 
 	boolean checkAll(BlockPos[] relPositions, Block block) {

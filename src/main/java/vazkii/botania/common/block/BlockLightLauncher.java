@@ -41,7 +41,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
 
 	public BlockLightLauncher() {
-		super(Material.wood, LibBlockNames.LIGHT_LAUNCHER);
+		super(Material.WOOD, LibBlockNames.LIGHT_LAUNCHER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
@@ -83,7 +83,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0|| world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

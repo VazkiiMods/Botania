@@ -86,7 +86,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 	public IBlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? Blocks.air.getDefaultState() : worldObj.getBlockState(binding);
+		return binding == null ? Blocks.AIR.getDefaultState() : worldObj.getBlockState(binding);
 	}
 
 	public Block getBlockAtBinding() {

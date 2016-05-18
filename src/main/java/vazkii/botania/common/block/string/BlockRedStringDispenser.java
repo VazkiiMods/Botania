@@ -53,7 +53,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

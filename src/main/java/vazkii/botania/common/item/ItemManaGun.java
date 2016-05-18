@@ -90,13 +90,13 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		int effCd = COOLDOWN;
-		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(MobEffects.digSpeed);
+		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(MobEffects.HASTE);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
 		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
-			par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+			par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(par2World.isRemote)
 				par3EntityPlayer.swingArm(hand);
 			ItemStack lens = getLens(par1ItemStack);
@@ -120,7 +120,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 				}
 				par1ItemStack.setItemDamage(effCd);
 			} else if(!par2World.isRemote)
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.block_lever_click, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 

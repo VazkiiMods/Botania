@@ -38,7 +38,7 @@ public class ItemTemperanceStone extends ItemMod {
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		int dmg = stack.getItemDamage();
 		stack.setItemDamage(~dmg & 1);
-		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_experience_orb_pickup, SoundCategory.NEUTRAL, 0.3F, 0.1F);
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 0.3F, 0.1F);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 

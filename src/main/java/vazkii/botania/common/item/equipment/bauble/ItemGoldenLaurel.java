@@ -49,7 +49,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			if(amulet != null && amulet.getItem() == this) {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
-				player.addPotionEffect(new PotionEffect(MobEffects.resistance, 300, 6));
+				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 6));
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
 				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
 				PlayerHandler.getPlayerBaubles(player).setInventorySlotContents(0, null);
@@ -68,7 +68,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotate(-90F, 0F, 1F, 0F);
 			GlStateManager.scale(2.2F, 2.2F, 2.2F); // TODO 1.8 could use further refinement
 			GlStateManager.translate(0, 0.425F, 0.425);

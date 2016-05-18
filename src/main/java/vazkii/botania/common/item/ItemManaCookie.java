@@ -28,7 +28,7 @@ public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
-		setPotionEffect(new PotionEffect(MobEffects.saturation, 1, 0), 1F);
+		setPotionEffect(new PotionEffect(MobEffects.SATURATION, 1, 0), 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);

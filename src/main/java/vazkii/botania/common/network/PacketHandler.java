@@ -2,7 +2,8 @@ package vazkii.botania.common.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.management.PlayerManager;
+import net.minecraft.server.management.PlayerChunkMap;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -25,7 +26,7 @@ public final class PacketHandler {
     public static void sendToNearby(World world, BlockPos pos, IMessage toSend) {
         if(world instanceof WorldServer) {
             WorldServer ws = ((WorldServer) world);
-            PlayerManager.PlayerInstance chunk = ws.getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
+            PlayerChunkMapEntry chunk = ws.getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
 
             if(chunk == null)
                 return;

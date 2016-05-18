@@ -22,7 +22,7 @@ public class PotionSoulCross extends PotionMod {
 	public PotionSoulCross() {
 		super(LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
 		MinecraftForge.EVENT_BUS.register(this);
-		setShowOnFirstRow();
+		setBeneficial();
 	}
 
 	@SubscribeEvent

@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+	public static Material[] materialsShovel = new Material[]{ Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
 
 	public ItemElementiumShovel() {
 		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SHOVEL);
@@ -34,8 +34,8 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (block == null)
 			return false;
 
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, player.getHeldItemMainhand());
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, player.getHeldItemMainhand()) > 0;
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, player.getHeldItemMainhand());
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, player.getHeldItemMainhand()) > 0;
 
 		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof BlockFalling)

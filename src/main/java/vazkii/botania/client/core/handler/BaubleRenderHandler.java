@@ -37,7 +37,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
 	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.invisibility) != null)
+		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
@@ -106,7 +106,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(stack != null && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				Helper.rotateIfSneaking(player);
 				boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null;
 				GlStateManager.rotate(90, 0, 1, 0);

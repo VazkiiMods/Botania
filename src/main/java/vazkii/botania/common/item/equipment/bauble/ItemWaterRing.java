@@ -31,7 +31,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
 
-		if(player.isInsideOfMaterial(Material.water)) {
+		if(player.isInsideOfMaterial(Material.WATER)) {
 			double motionX = player.motionX * 1.2;
 			double motionY = player.motionY * 1.2;
 			double motionZ = player.motionZ * 1.2;
@@ -50,9 +50,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			if(changeZ)
 				player.motionZ = motionZ;
 
-			PotionEffect effect = player.getActivePotionEffect(MobEffects.nightVision);
+			PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
 			if(effect == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.nightVision, Integer.MAX_VALUE, -42, true, true);
+				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, -42, true, true);
 				player.addPotionEffect(neweffect);
 			}
 
@@ -66,9 +66,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.nightVision);
+		PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
 		if(effect != null && effect.getAmplifier() == -42)
-			player.removePotionEffect(MobEffects.nightVision);
+			player.removePotionEffect(MobEffects.NIGHT_VISION);
 	}
 
 	@Override

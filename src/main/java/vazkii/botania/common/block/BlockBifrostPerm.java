@@ -31,7 +31,7 @@ import java.util.Random;
 public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	public BlockBifrostPerm() {
-		super(Material.glass, LibBlockNames.BIFROST_PERM);
+		super(Material.GLASS, LibBlockNames.BIFROST_PERM);
 		setLightOpacity(0);
 		setHardness(0.3F);
 		setLightLevel(1F);

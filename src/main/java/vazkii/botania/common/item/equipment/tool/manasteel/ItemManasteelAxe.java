@@ -96,7 +96,7 @@ public class ItemManasteelAxe extends ItemTool implements IManaUsingItem, ISorta
 				if(stackAt.stackSize == 0)
 					player.inventory.setInventorySlotContents(i, null);
 
-				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.sapling), SAPLING_PATTERN);
+				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
 				return did;
 			}
 		}

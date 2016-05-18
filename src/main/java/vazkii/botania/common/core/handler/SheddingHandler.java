@@ -72,20 +72,20 @@ public final class SheddingHandler {
 
 		int i = 1;
 		for(ShedPattern pattern : patterns) {
-			PageShedding page = new PageShedding(String.valueOf(i), EntityList.classToStringMapping.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
+			PageShedding page = new PageShedding(String.valueOf(i), EntityList.CLASS_TO_NAME.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
 			LexiconData.shedding.addPage(page);
 		}
 	}
 
 	public static void loadFromConfig(Configuration config) {
-		defaultPatterns.add(new ShedPattern(EntityChicken.class, new ItemStack(Items.feather), 26000, 20));
-		defaultPatterns.add(new ShedPattern(EntitySquid.class, new ItemStack(Items.dye), 18000, 20));
-		defaultPatterns.add(new ShedPattern(EntityVillager.class, new ItemStack(Items.emerald), 226000, 40));
-		defaultPatterns.add(new ShedPattern(EntitySpider.class, new ItemStack(Items.string), 12000, 40));
-		defaultPatterns.add(new ShedPattern(EntityBlaze.class, new ItemStack(Items.blaze_powder), 8000, 40));
-		defaultPatterns.add(new ShedPattern(EntityGhast.class, new ItemStack(Items.ghast_tear), 9001, 30));
-		defaultPatterns.add(new ShedPattern(EntitySkeleton.class, new ItemStack(Items.bone), 36000, 40));
-		defaultPatterns.add(new ShedPattern(EntitySlime.class, new ItemStack(Items.slime_ball), 21000, 40));
+		defaultPatterns.add(new ShedPattern(EntityChicken.class, new ItemStack(Items.FEATHER), 26000, 20));
+		defaultPatterns.add(new ShedPattern(EntitySquid.class, new ItemStack(Items.DYE), 18000, 20));
+		defaultPatterns.add(new ShedPattern(EntityVillager.class, new ItemStack(Items.EMERALD), 226000, 40));
+		defaultPatterns.add(new ShedPattern(EntitySpider.class, new ItemStack(Items.STRING), 12000, 40));
+		defaultPatterns.add(new ShedPattern(EntityBlaze.class, new ItemStack(Items.BLAZE_POWDER), 8000, 40));
+		defaultPatterns.add(new ShedPattern(EntityGhast.class, new ItemStack(Items.GHAST_TEAR), 9001, 30));
+		defaultPatterns.add(new ShedPattern(EntitySkeleton.class, new ItemStack(Items.BONE), 36000, 40));
+		defaultPatterns.add(new ShedPattern(EntitySlime.class, new ItemStack(Items.SLIME_BALL), 21000, 40));
 
 		ArrayList<String> defaultNames = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public final class SheddingHandler {
 			defaultNames.add(pattern.getEntityString());
 		}
 
-		for(Entry<String, Class<? extends Entity>> entry : EntityList.stringToClassMapping.entrySet()) {
+		for(Entry<String, Class<? extends Entity>> entry : EntityList.NAME_TO_CLASS.entrySet()) {
 			if(EntityLiving.class.isAssignableFrom(entry.getValue())) {
 				String name = entry.getKey();
 				if(!defaultNames.contains(name))
@@ -110,7 +110,7 @@ public final class SheddingHandler {
 		int lexiconSize = 40;
 
 		if(defaultPattern != null) {
-			itemName = Item.itemRegistry.getNameForObject(defaultPattern.getItemStack().getItem()).toString();
+			itemName = Item.REGISTRY.getNameForObject(defaultPattern.getItemStack().getItem()).toString();
 			metadata = defaultPattern.getItemStack().getItemDamage();
 			rate = defaultPattern.rate;
 			lexiconSize = defaultPattern.lexiconSize;
@@ -123,8 +123,8 @@ public final class SheddingHandler {
 		metadata = config.get("Shedding", key + ".metadata", metadata).getInt();
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
-		if(itemName != null && Item.itemRegistry.getObject(new ResourceLocation(itemName)) != null && rate != -1)
-			patterns.add(new ShedPattern(EntityList.stringToClassMapping.get(key), new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
+		if(itemName != null && Item.REGISTRY.getObject(new ResourceLocation(itemName)) != null && rate != -1)
+			patterns.add(new ShedPattern(EntityList.NAME_TO_CLASS.get(key), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
 	}
 
 	private static class ShedPattern {
@@ -149,7 +149,7 @@ public final class SheddingHandler {
 		}
 
 		public String getEntityString() {
-			return EntityList.classToStringMapping.get(EntityClass);
+			return EntityList.CLASS_TO_NAME.get(EntityClass);
 		}
 	}
 

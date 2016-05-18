@@ -64,7 +64,7 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(worldObj.rand.nextInt(20) == 0)
-			worldObj.playSound(null, posX, posY, posZ, SoundEvents.block_fire_ambient, SoundCategory.BLOCKS, 1F, 1F);
+			worldObj.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F);
 
 		if(worldObj.isRemote)
 			return;

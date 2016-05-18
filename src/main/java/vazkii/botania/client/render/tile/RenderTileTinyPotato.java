@@ -129,7 +129,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 		if (!name.isEmpty()) {
 			GlStateManager.pushMatrix();
-			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			ContributorFancinessHandler.firstStart();
 
@@ -201,17 +201,17 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(270F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1F, 0.4F);
-				renderItem(new ItemStack(Items.book));
+				renderItem(new ItemStack(Items.BOOK));
 
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				GlStateManager.scale(0.3F, 0.3F, 0.3F);
-				renderItem(new ItemStack(Blocks.iron_ore));
+				renderItem(new ItemStack(Blocks.IRON_ORE));
 			} else if (name.equals("profmobius")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(270F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -0.7F, 0.4F);
-				renderItem(new ItemStack(Items.bread));
+				renderItem(new ItemStack(Items.BREAD));
 			} else if (name.equals("martysgames") || name.equals("marty")) {
 				GlStateManager.scale(0.7F, 0.7F, 0.7F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -258,7 +258,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.1F, -0.6F, -0.325F);
-				renderItem(new ItemStack(Items.painting));
+				renderItem(new ItemStack(Items.PAINTING));
 			} else if (name.equals("jibril")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				GlStateManager.translate(0F, 0.7F, 0F);
@@ -267,16 +267,16 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			} else if (name.equals("nebris")) {
 				GlStateManager.scale(2F, 2F, 2F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				renderItem(new ItemStack(Blocks.glowstone));
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				renderItem(new ItemStack(Blocks.GLOWSTONE));
 			} else if (name.equals("ible")) {
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
 				GlStateManager.translate(-0.5F, 0F, -0.5F);
 				GlStateManager.rotate(180F, 1F, 1F, 0F);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				renderBlock(Blocks.portal);
+				renderBlock(Blocks.PORTAL);
 			} else if (name.equals("razz") || name.equals("razzleberryfox")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -289,19 +289,19 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -0.7F, 0.4F);
-				renderItem(new ItemStack(Items.cookie));
+				renderItem(new ItemStack(Items.COOKIE));
 			} else if (name.equals("sethbling")) {
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
 				GlStateManager.translate(-0.5F, 1.4F, -0.5F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				renderBlock(Blocks.command_block);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				renderBlock(Blocks.COMMAND_BLOCK);
 			} else if (name.equals("bdoubleo100") || name.equals("bdoubleo")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0.5F, -0.6F, 0.1F);
-				renderItem(new ItemStack(Items.stick));
+				renderItem(new ItemStack(Items.STICK));
 			} else if (name.equals("kingdaddydmac")) {
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -314,8 +314,8 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 				GlStateManager.scale(0.8F, 0.8F, 0.8F);
 				GlStateManager.translate(-1.7F, -1.2F, -0.1F);
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				renderBlock(Blocks.cake);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				renderBlock(Blocks.CAKE);
 			} else if (name.equals("sjin")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -327,12 +327,12 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, 0.05F, 0.1F);
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-				renderItem(new ItemStack(Blocks.sapling, 0, 0));
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				renderItem(new ItemStack(Blocks.SAPLING, 0, 0));
 			} else if (ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.get(name);
 				if (icon != null) {
-					mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+					mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.rotate(180F, 1F, 0F, 0F);
 					GlStateManager.rotate(180F, 0F, 1F, 0F);
 					GlStateManager.translate(0F, 0F, 0F);

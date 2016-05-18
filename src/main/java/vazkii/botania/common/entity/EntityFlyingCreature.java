@@ -36,13 +36,13 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 	@Override
 	public void moveEntityWithHeading(float par1, float par2) {
 		if(isInWater()) {
-			moveFlying(par1, par2, 0.02F);
+			moveRelative(par1, par2, 0.02F);
 			moveEntity(motionX, motionY, motionZ);
 			motionX *= 0.800000011920929D;
 			motionY *= 0.800000011920929D;
 			motionZ *= 0.800000011920929D;
 		} else if(isNotColliding()) {
-			moveFlying(par1, par2, 0.02F);
+			moveRelative(par1, par2, 0.02F);
 			moveEntity(motionX, motionY, motionZ);
 			motionX *= 0.5D;
 			motionY *= 0.5D;
@@ -57,7 +57,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 			}
 
 			float f3 = 0.16277136F / (f2 * f2 * f2);
-			moveFlying(par1, par2, onGround ? 0.1F * f3 : 0.02F);
+			moveRelative(par1, par2, onGround ? 0.1F * f3 : 0.02F);
 			f2 = 0.91F;
 
 			if (onGround) {

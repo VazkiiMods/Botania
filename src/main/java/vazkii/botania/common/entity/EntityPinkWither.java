@@ -82,7 +82,7 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	public void setBossVisibleTo(EntityPlayerMP player)
+	public void addTrackingPlayer(EntityPlayerMP player)
 	{
 		// NO-OP
 	}

@@ -76,9 +76,9 @@ public class TileHourglass extends TileSimpleInventory {
 	public static int getStackItemTime(ItemStack stack) {
 		if(stack == null)
 			return 0;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.sand))
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 200 : 20;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.soul_sand))
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 1200;
 		return 0;
 	}
@@ -87,9 +87,9 @@ public class TileHourglass extends TileSimpleInventory {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack == null)
 			return 0;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.sand))
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.soul_sand))
+		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 0x5A412f;
 		return 0;
 	}
@@ -99,7 +99,7 @@ public class TileHourglass extends TileSimpleInventory {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.sand) || stack.getItem() == Item.getItemFromBlock(Blocks.soul_sand)))
+				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)))
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

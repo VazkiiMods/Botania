@@ -111,7 +111,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 					//if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
 						// worldIn.destroyBlock(pos.down(), true);
 					//} else if (!world.isRemote) {
-					//	if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
+					//	if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
 					//		this.onHarvest(worldIn, pos, iblockstate, player);
 					//		world.setBlockToAir(pos.down());
 					//	} else {
@@ -125,7 +125,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 				}
 			}
 		} else if(player.capabilities.isCreativeMode && world.getBlockState(pos.up()).getBlock() == this)
-			world.setBlockState(pos.up(), Blocks.air.getDefaultState(), 2);
+			world.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2);
 		player.addStat(StatList.getBlockStats(this));
 		//super.onBlockHarvested(p_149681_1_, p_149681_2_, p_149681_3_, p_149681_4_, p_149681_5_, p_149681_6_);
 	}

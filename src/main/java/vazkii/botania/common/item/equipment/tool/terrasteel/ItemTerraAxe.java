@@ -303,8 +303,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						cand.coordinates, 
 						origin, 
 						null, ToolCommons.materialsAxe,
-						EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, truncator) > 0,
-						EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, truncator),
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, truncator) > 0,
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, truncator),
 						0F, false, treatLeavesSpecial);
 				
 				remainingSwaps--;

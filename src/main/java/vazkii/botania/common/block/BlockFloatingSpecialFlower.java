@@ -179,8 +179,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean onBlockEventReceived(World par1World, BlockPos pos, IBlockState state, int eventID, int value) {
-		super.onBlockEventReceived(par1World, pos, state, eventID, value);
+	public boolean eventReceived(IBlockState state, World par1World, BlockPos pos, int eventID, int value) {
+		super.eventReceived(state, par1World, pos, eventID, value);
 		TileEntity tileentity = par1World.getTileEntity(pos);
 		return tileentity != null ? tileentity.receiveClientEvent(eventID, value) : false;
 	}

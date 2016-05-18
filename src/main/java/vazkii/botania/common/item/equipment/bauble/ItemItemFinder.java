@@ -245,7 +245,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			float f3 = gemIcon.getMaxV();
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);

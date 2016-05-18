@@ -81,7 +81,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
 
-		if((state.getBlock() == Blocks.dirt && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.grass && par1ItemStack.getItemDamage() != 0)) {
+		if((state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0)) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(par3World, pos, meta);
@@ -212,15 +212,15 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	private static BlockSwapper swapperFromMeta(World world, BlockPos pos, int meta) {
 		switch(meta) {
-		case 1 : return new BlockSwapper(world, pos,  Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
-		case 2 : return new BlockSwapper(world, pos,  Blocks.mycelium.getDefaultState());
+		case 1 : return new BlockSwapper(world, pos,  Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
+		case 2 : return new BlockSwapper(world, pos,  Blocks.MYCELIUM.getDefaultState());
 		case 3 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
 		case 4 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.GOLDEN));
 		case 5 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.VIVID));
 		case 6 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.SCORCHED));
 		case 7 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.INFUSED));
 		case 8 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.MUTATED));
-		default : return new BlockSwapper(world, pos,  Blocks.grass.getDefaultState());
+		default : return new BlockSwapper(world, pos,  Blocks.GRASS.getDefaultState());
 		}
 	}
 
@@ -337,8 +337,8 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			// The major rule is that a block which reduces light
 			// levels by 2 or more blocks grass growth.
 
-			return (block == Blocks.dirt || block == Blocks.grass)
-				&& (block != Blocks.dirt || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
+			return (block == Blocks.DIRT || block == Blocks.GRASS)
+				&& (block != Blocks.DIRT || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
 				&& (world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1);
 		}
 	}

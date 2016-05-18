@@ -27,7 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class BlockModPane extends BlockPane {
 
 	public BlockModPane(Block source) {
-		super(Material.glass, false);
+		super(Material.GLASS, false);
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));

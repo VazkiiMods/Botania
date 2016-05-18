@@ -69,7 +69,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 								IBlockState state = supertile.getWorld().getBlockState(pos);
 								supertile.getWorld().setBlockToAir(pos);
 
-								supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state));
+								supertile.getWorld().playEvent(2001, pos, Block.getStateId(state));
 								this.mana += mana * mod;
 								sync();
 								return;

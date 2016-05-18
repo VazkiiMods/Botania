@@ -126,7 +126,7 @@ public final class ModPetalRecipes {
 		bubbellRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BUBBELL), cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);
 		solegnoliaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SOLEGNOLIA), brown, brown, red, blue, redstoneRoot);
 
-		ItemStack stack = new ItemStack(Items.skull, 1, 3);
+		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Object[] inputs = new Object[16];
 		Arrays.fill(inputs, pink);

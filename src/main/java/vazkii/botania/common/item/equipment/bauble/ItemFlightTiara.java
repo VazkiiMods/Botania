@@ -178,7 +178,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 				} else if(cooldown > 0) {
 					if(maxCd - cooldown < 2)
-						player.moveFlying(0F, 1F, 5F);
+						player.moveRelative(0F, 1F, 5F);
 					else if(maxCd - cooldown < 10)
 						player.setSprinting(false);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
@@ -333,7 +333,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 				boolean flying = player.capabilities.isFlying;
 
@@ -529,7 +529,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		GlStateManager.enableAlpha();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		mc.renderEngine.bindTexture(Gui.icons);
+		mc.renderEngine.bindTexture(Gui.ICONS);
 	}
 
 	@Override

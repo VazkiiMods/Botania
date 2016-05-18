@@ -101,7 +101,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 		if(can) {
 			Block block = world.getBlockState(pos).getBlock();
-			if(block == Blocks.noteblock) {
+			if(block == Blocks.NOTEBLOCK) {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
 				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
 				stack.stackSize--;
@@ -152,8 +152,8 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		if(doit)
 			sound = "botania:doit";
 
-		if(sound != null && !sound.isEmpty() && SoundEvent.soundEventRegistry.containsKey(new ResourceLocation(sound)))
-			world.playSound(null, x, y, z, SoundEvent.soundEventRegistry.getObject(new ResourceLocation(sound)), SoundCategory.NEUTRAL, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+		if(sound != null && !sound.isEmpty() && SoundEvent.REGISTRY.containsKey(new ResourceLocation(sound)))
+			world.playSound(null, x, y, z, SoundEvent.REGISTRY.getObject(new ResourceLocation(sound)), SoundCategory.NEUTRAL, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 
 	private static boolean isDOIT(ItemStack stack) {

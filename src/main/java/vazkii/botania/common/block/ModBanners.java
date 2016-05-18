@@ -31,12 +31,12 @@ public final class ModBanners {
 		addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgrade, 1, 2));
 		addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgrade, 1, 3));
 
-		addPattern(clazz, "fish", "fis", new ItemStack(Items.fish));
-		addPattern(clazz, "axe", "axe", new ItemStack(Items.iron_axe));
-		addPattern(clazz, "hoe", "hoe", new ItemStack(Items.iron_hoe));
-		addPattern(clazz, "pickaxe", "pik", new ItemStack(Items.iron_pickaxe));
-		addPattern(clazz, "shovel", "shv", new ItemStack(Items.iron_shovel));
-		addPattern(clazz, "sword", "srd", new ItemStack(Items.iron_sword));
+		addPattern(clazz, "fish", "fis", new ItemStack(Items.FISH));
+		addPattern(clazz, "axe", "axe", new ItemStack(Items.IRON_AXE));
+		addPattern(clazz, "hoe", "hoe", new ItemStack(Items.IRON_HOE));
+		addPattern(clazz, "pickaxe", "pik", new ItemStack(Items.IRON_PICKAXE));
+		addPattern(clazz, "shovel", "shv", new ItemStack(Items.IRON_SHOVEL));
+		addPattern(clazz, "sword", "srd", new ItemStack(Items.IRON_SWORD));
 	}
 
 	public static void addPattern(Class<? extends Enum<?>> clazz, String name, String id, ItemStack craftingItem) {

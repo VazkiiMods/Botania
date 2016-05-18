@@ -41,7 +41,7 @@ public class BlockManaBeacon extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
 
 	public BlockManaBeacon() {
-		super(Material.iron, LibBlockNames.MANA_BEACON);
+		super(Material.IRON, LibBlockNames.MANA_BEACON);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.METAL);

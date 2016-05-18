@@ -79,9 +79,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
 					if(player.worldObj.isRemote) {
-						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
                             float speed = beltItem.getSpeed(belt);
-                            player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
+                            player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
                             beltItem.onMovedTick(belt, player);
 
                             if(player.ticksExisted % COST_INTERVAL == 0)

@@ -11,8 +11,8 @@
 package vazkii.botania.client.fx;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibObfuscation;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXWisp extends EntityFX {
+public class FXWisp extends Particle {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
@@ -52,7 +52,7 @@ public class FXWisp extends EntityFX {
 		particleBlue = blue;
 		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
-		xSpeed = ySpeed = zSpeed = 0;
+		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
 		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
@@ -81,7 +81,7 @@ public class FXWisp extends EntityFX {
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(EffectRenderer.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(ParticleManager.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
 
 		if(!queuedRenders.isEmpty()) {
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
@@ -150,13 +150,13 @@ public class FXWisp extends EntityFX {
 		if (particleAge++ >= particleMaxAge)
 			setExpired();
 
-		ySpeed -= 0.04D * particleGravity;
-		posX += xSpeed;
-		posY += ySpeed;
-		posZ += zSpeed;
-		xSpeed *= 0.98000001907348633D;
-		ySpeed *= 0.98000001907348633D;
-		zSpeed *= 0.98000001907348633D;
+		motionY -= 0.04D * particleGravity;
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
+		motionX *= 0.98000001907348633D;
+		motionY *= 0.98000001907348633D;
+		motionZ *= 0.98000001907348633D;
 	}
 
 	public void setGravity(float value) {
@@ -164,9 +164,9 @@ public class FXWisp extends EntityFX {
 	}
 
 	public void setSpeed(float mx, float my, float mz) {
-		xSpeed = mx;
-		ySpeed = my;
-		zSpeed = mz;
+		motionX = mx;
+		motionY = my;
+		motionZ = mz;
 	}
 
 	private boolean depthTest = true;

@@ -40,7 +40,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	}
 
 	public BlockLivingwood(String name) {
-		super(Material.wood, name);
+		super(Material.WOOD, name);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT));

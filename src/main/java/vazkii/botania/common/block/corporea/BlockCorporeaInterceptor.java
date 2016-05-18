@@ -33,7 +33,7 @@ import java.util.Random;
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaInterceptor() {
-		super(Material.iron, LibBlockNames.CORPOREA_INTERCEPTOR);
+		super(Material.IRON, LibBlockNames.CORPOREA_INTERCEPTOR);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));

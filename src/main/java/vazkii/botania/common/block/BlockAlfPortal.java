@@ -34,7 +34,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable {
 
 	public BlockAlfPortal() {
-		super(Material.wood, LibBlockNames.ALF_PORTAL);
+		super(Material.WOOD, LibBlockNames.ALF_PORTAL);
 		setHardness(10F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));

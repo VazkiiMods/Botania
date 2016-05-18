@@ -86,7 +86,7 @@ public class ItemGrassHorn extends ItemMod {
 			breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
 
 		if(!player.worldObj.isRemote)
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.block_note_bass, SoundCategory.BLOCKS, 1F, 0.001F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 	}
 
 	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
@@ -101,7 +101,7 @@ public class ItemGrassHorn extends ItemMod {
 				for(int k = -rangeY; k < rangeY + 1; k++) {
 					BlockPos pos = srcPos.add(i, k, j);
 					Block block = world.getBlockState(pos).getBlock();
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) || stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
+					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) || stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos) || stackDmg == 2 && block == Blocks.SNOW_LAYER)
 						coords.add(pos);
 				}
 
@@ -120,7 +120,7 @@ public class ItemGrassHorn extends ItemMod {
 			else if(!world.isRemote) {
 				world.setBlockToAir(currCoords);
 				if(ConfigHandler.blockBreakParticles)
-					world.playAuxSFX(2001, currCoords, Block.getStateId(state));
+					world.playEvent(2001, currCoords, Block.getStateId(state));
 
 				for(ItemStack stack_ : items)
 					world.spawnEntityInWorld(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));

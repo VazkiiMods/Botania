@@ -53,7 +53,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			GlStateManager.rotate(90, 0, 0, 1); // todo 1.8 could use some further refinement
 			GlStateManager.translate(2.88F, armor ? -0.75F : -0.63F, 0.62F);
@@ -74,14 +74,14 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		ItemStack dispStack = null;
 		String text = "";
 
-		if(block == Blocks.redstone_wire) {
-			dispStack = new ItemStack(Items.redstone);
+		if(block == Blocks.REDSTONE_WIRE) {
+			dispStack = new ItemStack(Items.REDSTONE);
 			text = TextFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
-		} else if(block == Blocks.unpowered_repeater || block == Blocks.powered_repeater) {
-			dispStack = new ItemStack(Items.repeater);
+		} else if(block == Blocks.UNPOWERED_REPEATER || block == Blocks.POWERED_REPEATER) {
+			dispStack = new ItemStack(Items.REPEATER);
 			text = "" + state.getValue(BlockRedstoneRepeater.DELAY);
-		} else if(block == Blocks.unpowered_comparator || block == Blocks.powered_comparator) {
-			dispStack = new ItemStack(Items.comparator);
+		} else if(block == Blocks.UNPOWERED_COMPARATOR || block == Blocks.POWERED_COMPARATOR) {
+			dispStack = new ItemStack(Items.COMPARATOR);
 			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
 		}
 

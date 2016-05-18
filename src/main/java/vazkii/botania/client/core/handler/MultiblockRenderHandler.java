@@ -171,7 +171,7 @@ public final class MultiblockRenderHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		IBlockState state = comp.getBlockState();
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		if(state == null)
 			return;
 		if(IMultiblockRenderHook.renderHooks.containsKey(state.getBlock())) {

@@ -33,7 +33,7 @@ public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 		ItemStack stack = prism.getItemHandler().getStackInSlot(0);
 
 		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			if(stack.getItem() instanceof ILens) {
 				GlStateManager.pushMatrix();
 				GlStateManager.rotate(90F, 1F, 0F, 0F);

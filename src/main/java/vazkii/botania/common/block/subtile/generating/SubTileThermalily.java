@@ -41,7 +41,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public Material getMaterialToSearchFor() {
-		return Material.lava;
+		return Material.LAVA;
 	}
 
 	@Override

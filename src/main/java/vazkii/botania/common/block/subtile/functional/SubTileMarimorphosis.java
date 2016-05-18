@@ -65,7 +65,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
 
 					mana -= COST;
 					sync();
@@ -101,7 +101,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
 					IBlockState state = supertile.getWorld().getBlockState(pos);
-					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.stone)))
+					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.STONE)))
 						possibleCoords.add(pos);
 				}
 

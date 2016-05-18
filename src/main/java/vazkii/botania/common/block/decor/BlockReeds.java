@@ -35,7 +35,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 
 	public BlockReeds() {
-		super(Material.wood);
+		super(Material.WOOD);
 		setHardness(1.0F);
 		setSoundType(SoundType.WOOD);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.REED_BLOCK));

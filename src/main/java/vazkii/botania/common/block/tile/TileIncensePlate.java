@@ -51,7 +51,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for(EntityPlayer player : players) {
 						PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-						boolean nightVision = effect.getPotion() == MobEffects.nightVision;
+						boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
 						if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
 							PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 							player.addPotionEffect(applyEffect);
@@ -59,7 +59,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 					}
 
 					if(worldObj.rand.nextInt(20) == 0)
-						worldObj.playSound(null, pos, SoundEvents.block_fire_ambient, SoundCategory.BLOCKS, 0.1F, 1);
+						worldObj.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 0.1F, 1);
 				} else {
 					double x = pos.getX() + 0.5;
 					double y = pos.getY() + 0.5;

@@ -36,7 +36,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 			for(EntityTNTPrimed tnt : tnts) {
 				if(tnt.getFuse() == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					if(!supertile.getWorld().isRemote) {
-						tnt.playSound(SoundEvents.entity_generic_explode, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
+						tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 						tnt.setDead();
 						mana += getMaxMana();
 						sync();

@@ -137,10 +137,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 									world.setTileEntity(pos_, newTile);
 								}
 								world.setBlockToAir(pos_);
-								world.playAuxSFX(2001, pos_, Block.getStateId(state));
+								world.playEvent(2001, pos_, Block.getStateId(state));
 
 								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
-								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block).toString());
+								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)
@@ -234,7 +234,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.worldObj.isAirBlock(pos)) {
-					Block block = Blocks.air;
+					Block block = Blocks.AIR;
 					if (lens.hasTagCompound()) {
 						if (lens.getTagCompound().hasKey(TAG_BLOCK_NAME)) {
 							block = Block.getBlockFromName(ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, ""));
@@ -248,10 +248,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.hasKey("id"))
-						tile = TileEntity.createTileEntity(null, tilecmp);
+						tile = TileEntity.create(tilecmp);
 
 					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
-					entity.worldObj.playAuxSFX(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
+					entity.worldObj.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
 					if(tile != null) {
 						tile.setPos(pos);
 						entity.worldObj.setTileEntity(pos, tile);

@@ -110,7 +110,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		}
 
 		boolean flag = !(shooter instanceof EntityPlayer) || canFire(stack, ((EntityPlayer) shooter));
-		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0;
+		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
 
 		if(flag) {
 			float f = j / 20.0F;
@@ -124,28 +124,28 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 
 			ItemStack ammo = shooter instanceof EntityPlayer ? getAmmo(((EntityPlayer) shooter)) : null;
 			if(ammo == null || !(ammo.getItem() instanceof ItemArrow))
-				ammo = new ItemStack(Items.arrow);
+				ammo = new ItemStack(Items.ARROW);
 			EntityArrow entityarrow = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, shooter);
-			entityarrow.func_184547_a(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+			entityarrow.setAim(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
 			if(f == 1.0F)
 				entityarrow.setIsCritical(true);
 
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.power, stack);
+			int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 
 			if(k > 0)
 				entityarrow.setDamage(entityarrow.getDamage() + k * 0.5D + 0.5D);
 
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantments.punch, stack);
+			int l = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
 
 			if(l > 0)
 				entityarrow.setKnockbackStrength(l);
 
-			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.flame, stack) > 0)
+			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
 				entityarrow.setFire(100);
 
 			ToolCommons.damageItem(stack, 1, shooter, MANA_PER_DAMAGE);
-			world.playSound(null, shooter.posX, shooter.posY, shooter.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+			world.playSound(null, shooter.posX, shooter.posY, shooter.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
 			onFire(stack, shooter, infinity, entityarrow);
 
@@ -163,12 +163,12 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 
 	boolean canFire(ItemStack stack, EntityPlayer player) {
-		return player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.infinity, stack) > 0 || PlayerHelper.hasAmmo(player, AMMO_FUNC);
+		return player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0 || PlayerHelper.hasAmmo(player, AMMO_FUNC);
 	}
 
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(infinity)
-			arrow.canBePickedUp = EntityArrow.PickupStatus.CREATIVE_ONLY;
+			arrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 		else if(living instanceof EntityPlayerMP)
 			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
 				PlayerHelper.consumeAmmo(((EntityPlayerMP) living), AMMO_FUNC);

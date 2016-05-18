@@ -50,7 +50,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	private final Random random = new Random();
 
 	public BlockPrism() {
-		super(Material.glass, LibBlockNames.PRISM);
+		super(Material.GLASS, LibBlockNames.PRISM);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
@@ -123,7 +123,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 		} else if(lens != null) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
+				par5EntityPlayer.dropItem(add, false);
 			prism.getItemHandler().setStackInSlot(0, null);
 			prism.markDirty();
 			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
@@ -133,7 +133,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

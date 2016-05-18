@@ -11,8 +11,8 @@
 package vazkii.botania.client.fx;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -32,7 +32,7 @@ import vazkii.botania.common.lib.LibObfuscation;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class FXSparkle extends EntityFX {
+public class FXSparkle extends Particle {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
@@ -57,7 +57,7 @@ public class FXSparkle extends EntityFX {
 		particleBlue = blue;
 		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
 		particleGravity = 0;
-		xSpeed = ySpeed = zSpeed = 0;
+		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		particleMaxAge = 3 * m;
 		multiplier = m;
@@ -73,7 +73,7 @@ public class FXSparkle extends EntityFX {
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(EffectRenderer.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(ParticleManager.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		for(FXSparkle sparkle : queuedRenders)
@@ -139,23 +139,23 @@ public class FXSparkle extends EntityFX {
 		if (particleAge++ >= particleMaxAge)
 			setExpired();
 
-		ySpeed -= 0.04D * particleGravity;
+		motionY -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
 			pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
 
-		posX += xSpeed;
-		posY += ySpeed;
-		posZ += zSpeed;
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
 
 		if (slowdown) {
-			xSpeed *= 0.908000001907348633D;
-			ySpeed *= 0.908000001907348633D;
-			zSpeed *= 0.908000001907348633D;
+			motionX *= 0.908000001907348633D;
+			motionY *= 0.908000001907348633D;
+			motionZ *= 0.908000001907348633D;
 
 			if (isCollided) {
-				xSpeed *= 0.69999998807907104D;
-				zSpeed *= 0.69999998807907104D;
+				motionX *= 0.69999998807907104D;
+				motionZ *= 0.69999998807907104D;
 			}
 		}
 
@@ -220,33 +220,33 @@ public class FXSparkle extends EntityFX {
 			float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
 			if (var22 == 0) {
-				xSpeed = -var25;
-				ySpeed=zSpeed=var26;
+				motionX = -var25;
+				motionY=motionZ=var26;
 			}
 
 			if (var22 == 1) {
-				xSpeed = var25;
-				ySpeed=zSpeed=var26;
+				motionX = var25;
+				motionY=motionZ=var26;
 			}
 
 			if (var22 == 2) {
-				ySpeed = -var25;
-				xSpeed=zSpeed=var26;
+				motionY = -var25;
+				motionX=motionZ=var26;
 			}
 
 			if (var22 == 3) {
-				ySpeed = var25;
-				xSpeed=zSpeed=var26;
+				motionY = var25;
+				motionX=motionZ=var26;
 			}
 
 			if (var22 == 4) {
-				zSpeed = -var25;
-				ySpeed=xSpeed=var26;
+				motionZ = -var25;
+				motionY=motionX=var26;
 			}
 
 			if (var22 == 5) {
-				zSpeed = var25;
-				ySpeed=xSpeed=var26;
+				motionZ = var25;
+				motionY=motionX=var26;
 			}
 
 			return true;

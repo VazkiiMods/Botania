@@ -43,7 +43,7 @@ public class EntitySignalFlare extends Entity {
 
 		if(!isDead) {
 			if(ticksExisted % 10 == 0)
-				playSound(SoundEvents.entity_creeper_primed, 1F, 1F);
+				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1F, 1F);
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {

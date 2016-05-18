@@ -93,8 +93,8 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						if(data.progress <= 0) {
 							if(!p.worldObj.isRemote) {
 								p.worldObj.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
-								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.item_flintandsteel_use, SoundCategory.PLAYERS, 0.6F, 1F);
-								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.block_fire_ambient, SoundCategory.PLAYERS, 1F, 1F);
+								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -122,7 +122,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)
-						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.block_fire_ambient, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

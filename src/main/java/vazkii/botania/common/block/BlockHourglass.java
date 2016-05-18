@@ -52,7 +52,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	private final Random random = new Random();
 
 	protected BlockHourglass() {
-		super(Material.iron, LibBlockNames.HOURGLASS);
+		super(Material.IRON, LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
@@ -99,7 +99,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		} else if(hgStack != null) {
 			ItemStack copy = hgStack.copy();
 			if(!player.inventory.addItemStackToInventory(copy))
-				player.dropPlayerItemWithRandomChoice(copy, false);
+				player.dropItem(copy, false);
 			hourglass.getItemHandler().setStackInSlot(0, null);
 			hourglass.markDirty();
 			return true;

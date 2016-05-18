@@ -112,7 +112,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 								}
 
 								AnvilChunkLoader.spawnEntity(entity, world);
-								world.playAuxSFX(2004, blockpos, 0);
+								world.playEvent(2004, blockpos, 0);
 
 								if (entityliving != null)
 								{
@@ -149,9 +149,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 		}
 
 		if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)
-			logic.func_184993_a((WeightedSpawnerEntity)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
+			logic.setNextSpawnData((WeightedSpawnerEntity)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
 
-		logic.func_98267_a(1);
+		logic.broadcastEvent(1);
 	}
 
 	@Override

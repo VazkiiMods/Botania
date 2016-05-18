@@ -47,7 +47,7 @@ import java.util.List;
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
 
 	public BlockPlatform() {
-		super(Material.wood, LibBlockNames.PLATFORM);
+		super(Material.WOOD, LibBlockNames.PLATFORM);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.WOOD);

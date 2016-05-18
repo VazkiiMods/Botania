@@ -68,7 +68,7 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
-			} else if(Minecraft.isRunningOnMac)
+			} else if(Minecraft.IS_RUNNING_ON_MAC)
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
 			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
 		}

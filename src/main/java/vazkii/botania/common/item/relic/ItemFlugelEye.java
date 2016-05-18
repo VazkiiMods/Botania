@@ -59,7 +59,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
 				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
-				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 5F);
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 		}
 
@@ -96,7 +96,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		if(y > -1 && dim == world.provider.getDimension() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
 			if(player instanceof EntityPlayerMP && !world.isRemote)
-				((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
+				((EntityPlayerMP) player).connection.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
 			moveParticlesAndSound(player);
 		}
 
@@ -111,7 +111,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			Botania.proxy.wispFX(entity.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
 		}
 		if(!entity.worldObj.isRemote)
-			entity.worldObj.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 1F);
+			entity.worldObj.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override

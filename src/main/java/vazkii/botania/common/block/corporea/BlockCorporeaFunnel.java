@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaFunnel() {
-		super(Material.iron, LibBlockNames.CORPOREA_FUNNEL);
+		super(Material.IRON, LibBlockNames.CORPOREA_FUNNEL);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
@@ -52,7 +52,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

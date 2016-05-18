@@ -35,7 +35,7 @@ import java.util.List;
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	public BlockPetalBlock() {
-		super(Material.plants, LibBlockNames.PETAL_BLOCK);
+		super(Material.PLANTS, LibBlockNames.PETAL_BLOCK);
 		setHardness(0.4F);
 		setSoundType(SoundType.PLANT);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));

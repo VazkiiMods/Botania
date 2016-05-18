@@ -44,8 +44,8 @@ public class SubTileClayconia extends SubTileFunctional {
 				if(coords != null) {
 					supertile.getWorld().setBlockToAir(coords);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords, Block.getStateId(Blocks.sand.getDefaultState()));
-					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.clay_ball));
+						supertile.getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
+					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					supertile.getWorld().spawnEntityInWorld(item);
 					mana -= COST;
 				}
@@ -64,7 +64,7 @@ public class SubTileClayconia extends SubTileFunctional {
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = supertile.getPos().add(i, j, k);
 					Block block = supertile.getWorld().getBlockState(pos).getBlock();
-					if(block == Blocks.sand)
+					if(block == Blocks.SAND)
 						possibleCoords.add(pos);
 				}
 

@@ -39,7 +39,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
 
 	public BlockCorporeaCrystalCube() {
-		super(Material.iron, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
+		super(Material.IRON, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState()).withProperty(Properties.AnimationProperty, null).withProperty(Properties.StaticProperty, true));

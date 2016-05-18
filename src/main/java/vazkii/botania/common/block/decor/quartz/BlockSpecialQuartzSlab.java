@@ -32,7 +32,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 	Block source;
 
 	public BlockSpecialQuartzSlab(Block source, boolean par2) {
-		super(par2, Material.rock, "quartzSlab" + ((BlockSpecialQuartz) source).type + (par2 ? "Full" : "Half"));
+		super(par2, Material.ROCK, "quartzSlab" + ((BlockSpecialQuartz) source).type + (par2 ? "Full" : "Half"));
 		setHardness(0.8F);
 		setResistance(10F);
 		this.source = source;

@@ -25,7 +25,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockShimmerrock extends BlockMod implements ILexiconable {
 
 	public BlockShimmerrock() {
-		super(Material.rock, LibBlockNames.SHIMMERROCK);
+		super(Material.ROCK, LibBlockNames.SHIMMERROCK);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

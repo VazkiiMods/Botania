@@ -240,7 +240,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
+			ItemStack paper = new ItemStack(Items.PAPER, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
 			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, paper, 14, -28, "");

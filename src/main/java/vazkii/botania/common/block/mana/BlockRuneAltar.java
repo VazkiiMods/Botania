@@ -43,7 +43,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	private final Random random = new Random();
 
 	public BlockRuneAltar() {
-		super(Material.rock, LibBlockNames.RUNE_ALTAR);
+		super(Material.ROCK, LibBlockNames.RUNE_ALTAR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
@@ -76,7 +76,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 					if(stackAt != null) {
 						ItemStack copy = stackAt.copy();
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
-							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
+							par5EntityPlayer.dropItem(copy, false);
 						altar.getItemHandler().setStackInSlot(i, null);
 						par1World.updateComparatorOutputLevel(pos, this);
 						break;

@@ -61,7 +61,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 		boolean fab = pool == null ? forceVariant == PoolVariant.FABULOUS : pool.getWorld().getBlockState(pool.getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		int color = 0xFFFFFF;
 
 		if (fab) {

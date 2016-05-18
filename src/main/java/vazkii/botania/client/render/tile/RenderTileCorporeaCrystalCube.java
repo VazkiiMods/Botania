@@ -53,7 +53,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		ItemStack stack = null;
 		if (cube != null) {
 			if(entity == null)
-                entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
+                entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
 
 			if(itemRenderer == null)
 				itemRenderer = new RenderEntityItem(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()) {
@@ -143,7 +143,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		// From FastTESR.renderTileEntityAt
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer worldRenderer = tessellator.getBuffer();
-		this.bindTexture(TextureMap.locationBlocksTexture);
+		this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.enableBlend();

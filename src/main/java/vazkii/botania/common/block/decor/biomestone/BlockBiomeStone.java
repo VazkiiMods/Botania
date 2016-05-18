@@ -32,7 +32,7 @@ import java.util.List;
 public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
 	public BlockBiomeStone(String name) {
-		super(Material.rock, name);
+		super(Material.ROCK, name);
 		setHardness(1.5F);
 		setResistance(10F);
 		setSoundType(SoundType.STONE);

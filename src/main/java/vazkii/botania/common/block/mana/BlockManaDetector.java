@@ -37,7 +37,7 @@ import java.util.List;
 public class BlockManaDetector extends BlockMod implements ILexiconable {
 
 	public BlockManaDetector() {
-		super(Material.rock, LibBlockNames.MANA_DETECTOR);
+		super(Material.ROCK, LibBlockNames.MANA_DETECTOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

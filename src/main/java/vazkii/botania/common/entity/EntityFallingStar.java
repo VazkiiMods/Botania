@@ -81,7 +81,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (pos.getBlockPos() != null) {
 			IBlockState state = worldObj.getBlockState(pos.getBlockPos());
 			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, worldObj, pos.getBlockPos()))
-                worldObj.playAuxSFX(2001, pos.getBlockPos(), Block.getStateId(state));
+                worldObj.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
 		setDead();

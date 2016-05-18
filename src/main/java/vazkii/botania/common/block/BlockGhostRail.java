@@ -76,7 +76,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
 			if(floatTicks > 0)
-				event.getEntity().worldObj.playAuxSFX(2003, entPos, 0);
+				event.getEntity().worldObj.playEvent(2003, entPos, 0);
 		}
 		floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
@@ -90,7 +90,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 			event.getEntity().motionX *= 1.4;
 			event.getEntity().motionZ *= 1.4;
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
-			event.getEntity().worldObj.playAuxSFX(2000, entPos, 0);
+			event.getEntity().worldObj.playEvent(2000, entPos, 0);
 		} else event.getEntity().noClip = false;
 	}
 

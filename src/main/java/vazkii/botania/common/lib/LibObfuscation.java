@@ -24,7 +24,7 @@ public final class LibObfuscation {
 	public static final String[] AGE = { "age", "field_70292_b", "d" };
 	public static final String[] PICKUP_DELAY = { "delayBeforeCanPickup", "field_145804_b", "e" };
 
-	// EffectRenderer
+	// ParticleManager
 	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "field_110737_b", "b" };
 
 	// EntityAINearestAttackableTarget

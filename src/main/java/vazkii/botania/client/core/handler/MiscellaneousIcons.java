@@ -156,7 +156,7 @@ public class MiscellaneousIcons {
         if (!evt.getEntityPlayer().worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
                 || !evt.getEntityPlayer().isSneaking())
             return;
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
         int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
         int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);

@@ -27,7 +27,7 @@ public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 	}
 
 	@Override
-	protected void func_188319_a(EntityPoolMinecart poolCart, float p_147910_2_, IBlockState state) {
+	protected void renderCartContents(EntityPoolMinecart poolCart, float p_147910_2_, IBlockState state) {
 		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
 		TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TilePool.class).renderTileEntityAt(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);

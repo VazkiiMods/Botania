@@ -43,7 +43,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockManaFlame() {
-		super(Material.cloth, LibBlockNames.MANA_FLAME);
+		super(Material.CLOTH, LibBlockNames.MANA_FLAME);
 		setSoundType(SoundType.CLOTH);
 		setLightLevel(1F);
 	}
@@ -94,11 +94,11 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.sapling) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
+			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if(!world.isRemote)
 					stack.stackSize--;
 				if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon)))
-					player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.lexicon), false);
+					player.dropItem(new ItemStack(ModItems.lexicon), false);
 				return true;
 			}
 

@@ -30,7 +30,7 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkC
 		ItemStack stack = tileentity.getItemHandler().getStackInSlot(0);
 		if(stack != null) {
 			GlStateManager.pushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			float s = 0.6F;
 			GlStateManager.scale(s, s, s);
 			GlStateManager.rotate(180F, 0F, 1F, 0F);

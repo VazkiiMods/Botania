@@ -44,7 +44,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.375, 0.625);
 
 	public BlockTinyPotato() {
-		super(Material.cloth, LibBlockNames.TINY_POTATO);
+		super(Material.CLOTH, LibBlockNames.TINY_POTATO);
 		setHardness(0.25F);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH)

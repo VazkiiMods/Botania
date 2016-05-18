@@ -47,7 +47,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 15F/16F, 1);
 
 	public BlockDirtPath() {
-		super(Material.ground, LibBlockNames.DIRT_PATH);
+		super(Material.GROUND, LibBlockNames.DIRT_PATH);
 		setLightOpacity(255);
 		setHardness(0.6F);
 		setSoundType(SoundType.GROUND);
@@ -61,7 +61,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, Entity entity) {
+	public void onEntityWalk(World world, BlockPos pos, Entity entity) {
 		if(!world.isRemote && entity instanceof EntityPlayerMP) {
 			EntityLivingBase living = ((EntityLivingBase) entity);
 			IAttributeInstance attr = living.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);

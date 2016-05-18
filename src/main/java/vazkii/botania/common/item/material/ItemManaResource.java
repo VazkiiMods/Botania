@@ -58,7 +58,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
+		boolean correctStack = stack != null && stack.getItem() == Items.GLASS_BOTTLE;
 		boolean ender = event.getWorld().provider.getDimension() == 1;
 
 		if(correctStack && ender) {
@@ -69,7 +69,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
 				if(!event.getEntityPlayer().inventory.addItemStackToInventory(stack1)) {
-					event.getEntityPlayer().dropPlayerItemWithRandomChoice(stack1, true);
+					event.getEntityPlayer().dropItem(stack1, true);
 				} else {
 					event.getEntityPlayer().openContainer.detectAndSendChanges();
 				}
@@ -78,7 +78,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				if(stack.stackSize == 0)
 					event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, null);
 
-				event.getWorld().playSound(null, event.getPos(), SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.5F, 1F);
+				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 				event.setCanceled(true);
 			}
 		}
@@ -90,7 +90,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			return par3World.isRemote || EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, pos, par2EntityPlayer)) {
 			if(!par3World.isRemote)
-				par3World.playAuxSFX(2005, pos, 0);
+				par3World.playEvent(2005, pos, 0);
 
 			return EnumActionResult.SUCCESS;
 		}
@@ -104,7 +104,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			if(!par2EntityPlayer.capabilities.isCreativeMode)
 				--par1ItemStack.stackSize;
 
-			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
 			if(!par3World.isRemote) {
 				EntityEnderAirBottle b = new EntityEnderAirBottle(par3World, par2EntityPlayer);

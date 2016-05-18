@@ -38,8 +38,8 @@ public class SubTileHyacidus extends SubTileFunctional {
 
 		List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityLivingBase entity : entities) {
-			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.poison) == null && mana >= cost && !entity.worldObj.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
-				entity.addPotionEffect(new PotionEffect(MobEffects.poison, 60, 0));
+			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.POISON) == null && mana >= cost && !entity.worldObj.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
+				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 				mana -= cost;
 			}
 		}

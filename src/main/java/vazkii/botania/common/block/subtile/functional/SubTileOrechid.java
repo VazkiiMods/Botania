@@ -59,7 +59,7 @@ public class SubTileOrechid extends SubTileFunctional {
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
 					supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
@@ -126,7 +126,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public Block getSourceBlock() {
-		return Blocks.stone;
+		return Blocks.STONE;
 	}
 
 	public int getCost() {

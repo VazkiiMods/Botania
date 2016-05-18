@@ -39,7 +39,7 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 		if(BlockRailBase.isRailBlock(state))
 			d3 = 0.0D;
 		else {
-			if(state.getMaterial() != Material.air || !BlockRailBase.isRailBlock(world.getBlockState(pos.down())))
+			if(state.getMaterial() != Material.AIR || !BlockRailBase.isRailBlock(world.getBlockState(pos.down())))
 				return super.dispenseStack(p_82487_1_, p_82487_2_);
 
 			d3 = -1.0D;
@@ -57,7 +57,7 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 
 	@Override
 	protected void playDispenseSound(IBlockSource p_82485_1_) {
-		p_82485_1_.getWorld().playAuxSFX(1000, p_82485_1_.getBlockPos(), 0);
+		p_82485_1_.getWorld().playEvent(1000, p_82485_1_.getBlockPos(), 0);
 	}
 
 }

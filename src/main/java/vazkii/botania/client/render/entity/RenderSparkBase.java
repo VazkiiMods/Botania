@@ -97,7 +97,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return TextureMap.locationBlocksTexture;
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 
 	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {

@@ -47,7 +47,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		return place(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
+		return place(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
 	public static EnumActionResult place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
@@ -84,14 +84,14 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return -1;
 		return 0;
 	}

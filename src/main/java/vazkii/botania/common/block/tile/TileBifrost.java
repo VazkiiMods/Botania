@@ -30,9 +30,10 @@ public class TileBifrost extends TileMod {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_TICKS, ticks);
+	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
+		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
+		ret.setInteger(TAG_TICKS, ticks);
+		return ret;
 	}
 
 	@Override

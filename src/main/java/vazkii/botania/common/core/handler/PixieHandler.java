@@ -19,10 +19,10 @@ import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 public class PixieHandler {
 
 	private static final Potion[] potions = {
-			MobEffects.blindness,
-			MobEffects.wither,
-			MobEffects.moveSlowdown,
-			MobEffects.weakness
+			MobEffects.BLINDNESS,
+			MobEffects.WITHER,
+			MobEffects.SLOWNESS,
+			MobEffects.WEAKNESS
 	};
 
 	@SubscribeEvent

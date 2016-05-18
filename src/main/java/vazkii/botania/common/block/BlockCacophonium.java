@@ -31,7 +31,7 @@ import java.util.List;
 public class BlockCacophonium extends BlockMod {
 
 	protected BlockCacophonium() {
-		super(Material.wood, LibBlockNames.CACOPHONIUM);
+		super(Material.WOOD, LibBlockNames.CACOPHONIUM);
 		setHardness(0.8F);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
@@ -62,7 +62,7 @@ public class BlockCacophonium extends BlockMod {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
@@ -100,7 +100,7 @@ public class BlockCacophonium extends BlockMod {
 
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCacophonium) {
-			stacks.add(new ItemStack(Blocks.noteblock));
+			stacks.add(new ItemStack(Blocks.NOTEBLOCK));
 			ItemStack thingy = ((TileCacophonium) tile).stack;
 			if(thingy != null)
 				stacks.add(thingy.copy());

@@ -34,7 +34,7 @@ public final class ColorHandler {
         Map<RegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
 
         // Steal vine colorer
-        blocks.registerBlockColorHandler(map.get(Blocks.vine.delegate), ModBlocks.solidVines);
+        blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
 
         // 16 colors
         blocks.registerBlockColorHandler(

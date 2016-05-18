@@ -66,7 +66,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return false;
 
 		if(!isMossy && worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
-			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine)) {
+			if(stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
 				isMossy = true;
 				if (worldObj.isRemote) {
 					worldObj.markBlockRangeForRenderUpdate(getPos(), getPos());
@@ -81,14 +81,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		}
 
 		if(!hasWater() && !hasLava()) {
-			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
+			if(stack.getItem() == Items.WATER_BUCKET && !worldObj.isRemote) {
 				setWater(true);
 				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-				stack.setItem(Items.bucket);
-			} else if(stack.getItem() == Items.lava_bucket && !worldObj.isRemote) {
+				stack.setItem(Items.BUCKET);
+			} else if(stack.getItem() == Items.LAVA_BUCKET && !worldObj.isRemote) {
 				setLava(true);
 				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-				stack.setItem(Items.bucket);
+				stack.setItem(Items.BUCKET);
 			} else return false;
 		}
 
@@ -114,7 +114,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 						stackToPut.stackSize = 1;
 						itemHandler.setStackInSlot(i, stackToPut);
 						didChange = true;
-						worldObj.playSound(null, pos, SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
+						worldObj.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 						break;
 					}
 			}
@@ -196,7 +196,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if(didAny) {
 			if(inv instanceof TileAltar)
-				player.worldObj.playSound(null, ((TileAltar) inv).getPos(), SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
+				player.worldObj.playSound(null, ((TileAltar) inv).getPos(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP mp = (EntityPlayerMP) player;
 				mp.inventoryContainer.detectAndSendChanges();
@@ -244,7 +244,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				float green = color.getGreen() / 255F;
 				float blue = color.getBlue() / 255F;
 				if(Math.random() >= 0.75F)
-					worldObj.playSound(null, pos, SoundEvents.entity_generic_splash, SoundCategory.BLOCKS, 0.1F, 10F);
+					worldObj.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 				Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
@@ -340,7 +340,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					mc.getRenderItem().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
-					mc.getRenderItem().renderItemIntoGUI(new ItemStack(Items.wheat_seeds), xc + radius + 16, yc + 6);
+					mc.getRenderItem().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 					mc.fontRendererObj.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				}

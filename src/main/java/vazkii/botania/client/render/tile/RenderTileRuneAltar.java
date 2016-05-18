@@ -56,7 +56,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 				mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 

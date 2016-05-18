@@ -67,7 +67,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	private final TObjectIntHashMap<DimWithPos> coordsToCheck = new TObjectIntHashMap<>(10, 0.5F, -1);
 
 	public BlockPistonRelay() {
-		super(Material.gourd, LibBlockNames.PISTON_RELAY);
+		super(Material.GOURD, LibBlockNames.PISTON_RELAY);
 		setHardness(2F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
@@ -114,7 +114,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	private IBlockState getStateAt(DimWithPos key) {
 		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
-			return Blocks.air.getDefaultState();
+			return Blocks.AIR.getDefaultState();
 		return server.worldServerForDimension(key.dim).getBlockState(key.blockPos);
 	}
 
@@ -129,7 +129,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
 			world.setBlockToAir(pos);
-			world.playAuxSFX(2001, pos, Block.getStateId(getDefaultState()));
+			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
 		}
 
 		return true;
@@ -171,16 +171,17 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		@Override
-		public void writeToNBT(NBTTagCompound nbttagcompound) {
+		public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
 			for(DimWithPos s : ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.keySet())
 				nbttagcompound.setString(s.toString(), ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.get(s).toString());
+			return nbttagcompound;
 		}
 
 		public static WorldData get(World world) {
 			if(world.getMapStorage() == null)
 				return null;
 
-			WorldData data = (WorldData) world.getMapStorage().loadData(WorldData.class, ID);
+			WorldData data = (WorldData) world.getMapStorage().getOrLoadData(WorldData.class, ID);
 
 			if (data == null) {
 				data = new WorldData(ID);
@@ -200,7 +201,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					continue;
 
 				Block block = getBlockAt(s);
-				if(block == Blocks.piston_extension) {
+				if(block == Blocks.PISTON_EXTENSION) {
 					IBlockState state = getStateAt(s);
 					boolean sticky = BlockPistonExtension.EnumPistonType.STICKY == state.getValue(BlockPistonMoving.TYPE);
 					EnumFacing dir = state.getValue(BlockPistonMoving.FACING);
@@ -237,7 +238,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							if(!sticky && tile == null && mat.getMobilityFlag() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(srcState, world, pos2)) {
 								Material destMat = world.getBlockState(pos2.offset(dir)).getMaterial();
 								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
-									world.setBlockState(pos2, Blocks.air.getDefaultState());
+									world.setBlockState(pos2, Blocks.AIR.getDefaultState());
 									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);
 									mappedPositions.put(s, new DimWithPos(world.provider.getDimension(), pos2.offset(dir)));
 								}

@@ -58,7 +58,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					mana -= 5;
 					supertile.getWorld().scheduleUpdate(pos, block, 1);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playAuxSFX(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
+						supertile.getWorld().playEvent(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
 					supertile.getWorld().playSound(null, x, y, z, BotaniaSoundEvents.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
@@ -75,11 +75,11 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	private boolean isPlant(BlockPos pos) {
 		IBlockState state = supertile.getWorld().getBlockState(pos);
 		Block block = state.getBlock();
-		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
+		if(block == Blocks.GRASS || block == Blocks.LEAVES || block == Blocks.LEAVES2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
 			return false;
 
 		Material mat = state.getMaterial();
-		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).canGrow(supertile.getWorld(), pos, supertile.getWorld().getBlockState(pos), supertile.getWorld().isRemote);
+		return mat != null && (mat == Material.PLANTS || mat == Material.CACTUS || mat == Material.GRASS || mat == Material.LEAVES || mat == Material.GOURD) && block instanceof IGrowable && ((IGrowable) block).canGrow(supertile.getWorld(), pos, supertile.getWorld().getBlockState(pos), supertile.getWorld().isRemote);
 	}
 
 	@Override

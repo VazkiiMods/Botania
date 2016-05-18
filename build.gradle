@@ -43,7 +43,7 @@ minecraft {
     version = "${config.mc_version}-${config.forge_version}"
     runDir = "eclipse/assets"
 
-    mappings = "snapshot_20160402"
+    mappings = "snapshot_20160518"
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number
@@ -64,11 +64,7 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    //compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
-    //compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
-    //compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
-    //compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
-    deobfCompile "mezz.jei:jei_1.9:3.3.3.197"
+    deobfCompile "mezz.jei:jei_1.9.4:3.4.0.202"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

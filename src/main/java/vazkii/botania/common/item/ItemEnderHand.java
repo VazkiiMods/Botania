@@ -43,7 +43,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
 			player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_endermen_teleport, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
@@ -54,7 +54,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
 			iplayer.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, true);
-			entity.playSound(SoundEvents.entity_endermen_teleport, 1F, 1F);
+			entity.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
 			return true;
 		}
 

@@ -31,7 +31,7 @@ public class ItemOpenBucket extends ItemMod {
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		RayTraceResult RayTraceResult = getMovingObjectPositionFromPlayer(par2World, par3EntityPlayer, true);
+		RayTraceResult RayTraceResult = rayTrace(par2World, par3EntityPlayer, true);
 
 		if(RayTraceResult == null)
 			return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
@@ -48,7 +48,7 @@ public class ItemOpenBucket extends ItemMod {
 				Material material = par2World.getBlockState(pos).getMaterial();
 				int l = par2World.getBlockState(pos).getBlock().getMetaFromState(par2World.getBlockState(pos)); // hack to get meta so we don't have to know the level prop
 
-				if((material == Material.lava || material == Material.water) && l == 0) {
+				if((material == Material.LAVA || material == Material.WATER) && l == 0) {
 					par2World.setBlockToAir(pos);
 					
 					for(int x = 0; x < 5; x++)

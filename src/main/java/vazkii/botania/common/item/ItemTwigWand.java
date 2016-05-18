@@ -99,7 +99,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				par2EntityPlayer.swingArm(hand);
 		}
 
-		if(block == Blocks.lapis_block && ConfigHandler.enchanterEnabled) {
+		if(block == Blocks.LAPIS_BLOCK && ConfigHandler.enchanterEnabled) {
 			EnumFacing.Axis axis = null;
 			if(TileEnchanter.canEnchanterExist(par3World, pos, EnumFacing.Axis.X))
 				axis = EnumFacing.Axis.X;

@@ -27,7 +27,7 @@ public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
     }
 
     @Override
-    public ItemStack getPotion(T entity) {
+    public ItemStack getStackToRender(T entity) {
         return stackGetter.apply(entity);
     }
 

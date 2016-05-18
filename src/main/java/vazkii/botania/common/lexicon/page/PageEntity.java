@@ -35,7 +35,7 @@ public class PageEntity extends LexiconPage{
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
+		Class EntityClass = (Class) EntityList.NAME_TO_CLASS.get(entity);
 		this.size = size;
 		try {
 			entityConstructor = EntityClass.getConstructor(World.class);

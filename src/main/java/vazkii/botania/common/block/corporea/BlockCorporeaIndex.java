@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaIndex() {
-		super(Material.iron, LibBlockNames.CORPOREA_INDEX);
+		super(Material.IRON, LibBlockNames.CORPOREA_INDEX);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 	}
@@ -83,11 +83,11 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.EffectRenderer effectRenderer)
+	public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.ParticleManager effectRenderer)
 	{
 		if (world.getBlockState(pos).getBlock() == this) {
 			int i = 4;
-			EntityDiggingFX.Factory factory = new EntityDiggingFX.Factory();
+			ParticleDigging.Factory factory = new ParticleDigging.Factory();
 			for (int j = 0; j < i; ++j) {
 				for (int k = 0; k < i; ++k) {
 					for (int l = 0; l < i; ++l) {

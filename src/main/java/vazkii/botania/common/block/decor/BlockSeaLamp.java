@@ -31,7 +31,7 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 	private int coloredLight = -1;
 
 	public BlockSeaLamp() {
-		super(Material.glass, LibBlockNames.SEA_LAMP);
+		super(Material.GLASS, LibBlockNames.SEA_LAMP);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);

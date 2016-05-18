@@ -46,7 +46,7 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockUnstable() {
-		super(Material.iron, LibBlockNames.UNSTABLE_BLOCK);
+		super(Material.IRON, LibBlockNames.UNSTABLE_BLOCK);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.METAL);

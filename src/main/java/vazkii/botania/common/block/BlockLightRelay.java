@@ -44,7 +44,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(5.0/16, 5.0/16, 5.0/16, 11.0/16, 11.0/16, 11.0/16);
 
 	protected BlockLightRelay() {
-		super(Material.glass, LibBlockNames.LIGHT_RELAY);
+		super(Material.GLASS, LibBlockNames.LIGHT_RELAY);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
 	}
 

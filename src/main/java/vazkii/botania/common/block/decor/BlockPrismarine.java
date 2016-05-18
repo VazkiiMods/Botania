@@ -38,7 +38,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	private static final int TYPES = 3;
 
 	public BlockPrismarine() {
-		super(Material.rock, LibBlockNames.PRISMARINE);
+		super(Material.ROCK, LibBlockNames.PRISMARINE);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

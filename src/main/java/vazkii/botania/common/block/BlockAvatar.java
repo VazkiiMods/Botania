@@ -46,7 +46,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	protected BlockAvatar() {
-		super(Material.wood, LibBlockNames.AVATAR);
+		super(Material.WOOD, LibBlockNames.AVATAR);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
@@ -85,7 +85,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 			ItemStack copyStack = stackOnAvatar.copy();
 			avatar.getItemHandler().setStackInSlot(0, null);
 			if(!player.inventory.addItemStackToInventory(copyStack))
-				player.dropPlayerItemWithRandomChoice(copyStack, true);
+				player.dropItem(copyStack, true);
 			return true;
 		} else if(stackOnPlayer != null && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
 			ItemStack copyStack = stackOnPlayer.copy();

@@ -35,10 +35,10 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);
 
-		par1Minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		par1Minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), xPosition, yPosition);
-		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.fireworks), xPosition + 8, yPosition + 2);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.FIREWORKS), xPosition + 8, yPosition + 2);
 
 		GlStateManager.disableLighting();
 

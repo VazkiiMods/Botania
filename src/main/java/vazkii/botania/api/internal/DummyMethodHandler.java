@@ -122,7 +122,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
-		return new ItemStack(Blocks.stone, 0, 0);
+		return new ItemStack(Blocks.STONE, 0, 0);
 	}
 
 	@Override
@@ -162,7 +162,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
-		return new ItemStack(Blocks.stone, 0, 0);
+		return new ItemStack(Blocks.STONE, 0, 0);
 	}
 
 	@Override

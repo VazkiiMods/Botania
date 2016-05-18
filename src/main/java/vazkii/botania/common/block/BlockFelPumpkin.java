@@ -38,7 +38,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
 	public BlockFelPumpkin() {
-		super(Material.gourd, LibBlockNames.FEL_PUMPKIN);
+		super(Material.GOURD, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -64,17 +64,17 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	public void onBlockAdded(World p_149726_1_, BlockPos pos, IBlockState state) {
 		super.onBlockAdded(p_149726_1_, pos, state);
 
-		if(!p_149726_1_.isRemote && p_149726_1_.getBlockState(pos.down()).getBlock() == Blocks.iron_bars && p_149726_1_.getBlockState(pos.down(2)).getBlock() == Blocks.iron_bars) {
-			p_149726_1_.setBlockState(pos, Blocks.air.getDefaultState(), 2);
-			p_149726_1_.setBlockState(pos.down(), Blocks.air.getDefaultState(), 2);
-			p_149726_1_.setBlockState(pos.down(2), Blocks.air.getDefaultState(), 2);
+		if(!p_149726_1_.isRemote && p_149726_1_.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && p_149726_1_.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
+			p_149726_1_.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+			p_149726_1_.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 2);
+			p_149726_1_.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 2);
 			EntityBlaze blaze = new EntityBlaze(p_149726_1_);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
 			p_149726_1_.spawnEntityInWorld(blaze);
-			p_149726_1_.notifyNeighborsOfStateChange(pos, Blocks.air);
-			p_149726_1_.notifyNeighborsOfStateChange(pos.down(), Blocks.air);
-			p_149726_1_.notifyNeighborsOfStateChange(pos.down(2), Blocks.air);
+			p_149726_1_.notifyNeighborsOfStateChange(pos, Blocks.AIR);
+			p_149726_1_.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
+			p_149726_1_.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
 		}
 	}
 
@@ -87,11 +87,11 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	public void onDrops(LivingDropsEvent event) {
 		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))
 			if(event.getDrops().isEmpty())
-				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.blaze_powder, 6)));
+				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BLAZE_POWDER, 6)));
 			else for(EntityItem item : event.getDrops()) {
 				ItemStack stack = item.getEntityItem();
-				if(stack.getItem() == Items.blaze_rod)
-					item.setEntityItemStack(new ItemStack(Items.blaze_powder, stack.stackSize * 10));
+				if(stack.getItem() == Items.BLAZE_ROD)
+					item.setEntityItemStack(new ItemStack(Items.BLAZE_POWDER, stack.stackSize * 10));
 			}
 	}
 

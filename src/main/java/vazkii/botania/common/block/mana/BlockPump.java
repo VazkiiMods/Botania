@@ -41,7 +41,7 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
 
 	public BlockPump() {
-		super(Material.rock, LibBlockNames.PUMP);
+		super(Material.ROCK, LibBlockNames.PUMP);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

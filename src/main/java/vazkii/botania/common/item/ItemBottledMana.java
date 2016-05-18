@@ -59,7 +59,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 1 : { // Water
 			if(!living.worldObj.isRemote && !living.worldObj.provider.doesWaterVaporize())
-				living.worldObj.setBlockState(new BlockPos(living), Blocks.flowing_water.getDefaultState());
+				living.worldObj.setBlockState(new BlockPos(living), Blocks.FLOWING_WATER.getDefaultState());
 			break;
 		}
 		case 2 : { // Set on Fire
@@ -75,7 +75,7 @@ public class ItemBottledMana extends ItemMod {
 		case 4 : { // Mega Jump
 			if(!living.worldObj.provider.doesWaterVaporize()) {
 				if(!living.worldObj.isRemote)
-					living.addPotionEffect(new PotionEffect(MobEffects.resistance, 300, 5));
+					living.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 5));
 				living.motionY = 6;
 			}
 
@@ -88,7 +88,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 6 : { // Lots O' Hearts
 			if(!living.worldObj.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.absorption, 20 * 60 * 2, 9));
+				living.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
@@ -120,7 +120,7 @@ public class ItemBottledMana extends ItemMod {
 				if(!block.isAir(living.worldObj.getBlockState(new BlockPos(x, i, z)), living.worldObj, new BlockPos(x, i, z))) {
 					if(living instanceof EntityPlayerMP) {
 						EntityPlayerMP mp = (EntityPlayerMP) living;
-						mp.playerNetServerHandler.setPlayerLocation(living.posX, i + 1.6, living.posZ, living.rotationYaw, living.rotationPitch);
+						mp.connection.setPlayerLocation(living.posX, i + 1.6, living.posZ, living.rotationYaw, living.rotationPitch);
 					}
 					break;
 				}
@@ -130,12 +130,12 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 10 : { // HYPERSPEEEEEED
 			if(!living.worldObj.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.moveSpeed, 60, 200));
+				living.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
 			if(!living.worldObj.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.nightVision, 6000, 0));
+				living.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 6000, 0));
 			break;
 		}
 		case 12 : { // Flare
@@ -143,7 +143,7 @@ public class ItemBottledMana extends ItemMod {
 				EntitySignalFlare flare = new EntitySignalFlare(living.worldObj);
 				flare.setPosition(living.posX, living.posY, living.posZ);
 				flare.setColor(living.worldObj.rand.nextInt(16));
-				flare.playSound(SoundEvents.entity_generic_explode, 40F, (1.0F + (living.worldObj.rand.nextFloat() - living.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.worldObj.rand.nextFloat() - living.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				living.worldObj.spawnEntityInWorld(flare);
 
@@ -151,7 +151,7 @@ public class ItemBottledMana extends ItemMod {
 				List<EntityLivingBase> entities = living.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
 				for(EntityLivingBase entity : entities)
 					if(entity != living && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))
-						entity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 50, 5));
+						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 			}
 
 			break;
@@ -166,8 +166,8 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 14 : { // Nausea + Blindness :3
 			if(!living.worldObj.isRemote) {
-				living.addPotionEffect(new PotionEffect(MobEffects.confusion, 160, 3));
-				living.addPotionEffect(new PotionEffect(MobEffects.blindness, 160, 0));
+				living.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 160, 3));
+				living.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 160, 0));
 			}
 
 			break;
@@ -175,7 +175,7 @@ public class ItemBottledMana extends ItemMod {
 		case 15 : { // Drop own Head
 			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
 				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
-				ItemStack stack = new ItemStack(Items.skull, 1, 3);
+				ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
 				ItemNBTHelper.setString(stack, "SkullOwner", living.getName());
 				living.entityDropItem(stack, 0);
 			}
@@ -224,7 +224,7 @@ public class ItemBottledMana extends ItemMod {
 		randomSeed(par1ItemStack);
 
 		if(par1ItemStack.getItemDamage() == 6)
-			return new ItemStack(Items.glass_bottle);
+			return new ItemStack(Items.GLASS_BOTTLE);
 		return par1ItemStack;
 	}
 

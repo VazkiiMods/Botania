@@ -35,7 +35,7 @@ public class SubTileMedumone extends SubTileFunctional {
 
 			for(EntityLivingBase entity : entities)
 				if(!(entity instanceof EntityPlayer)) {
-					entity.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 2, 100));
+					entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 100));
 					mana--;
 					if(mana == 0)
 						return;

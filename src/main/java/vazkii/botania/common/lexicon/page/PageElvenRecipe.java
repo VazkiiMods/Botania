@@ -72,7 +72,7 @@ public class PageElvenRecipe extends PageRecipe {
 		}
 
 		TextureAtlasSprite portalIcon = MiscellaneousIcons.INSTANCE.alfPortalTex;
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 

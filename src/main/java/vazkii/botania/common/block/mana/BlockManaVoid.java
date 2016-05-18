@@ -33,7 +33,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
 	public BlockManaVoid() {
-		super(Material.rock, LibBlockNames.MANA_VOID);
+		super(Material.ROCK, LibBlockNames.MANA_VOID);
 		setHardness(2.0F);
 		setResistance(2000F);
 		setSoundType(SoundType.STONE);

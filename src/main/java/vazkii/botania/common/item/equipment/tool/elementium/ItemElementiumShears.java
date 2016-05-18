@@ -57,7 +57,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 				for(IShearable target : ((List<IShearable>) sheep)) {
 					Entity entity = (Entity) target;
 					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
-						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, stack));
+						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
 						Random rand = new Random();
 						for(ItemStack drop : drops) {

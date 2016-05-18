@@ -97,7 +97,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos o : OBSIDIAN_LOCATIONS)
-			mb.addComponent(o.up(), Blocks.obsidian.getDefaultState());
+			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
 		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
 			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState());
 			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
@@ -105,7 +105,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		for(BlockPos f : FLOWER_LOCATIONS)
 			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.flower));
 
-		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.lapis_block.getDefaultState());
+		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.LAPIS_BLOCK.getDefaultState());
 
 		return mb.makeSet();
 	}
@@ -120,8 +120,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		if(count > 0 && !worldObj.isRemote) {
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getEntityItem();
-				if(item.getItem() == Items.enchanted_book) {
-					NBTTagList enchants = Items.enchanted_book.getEnchantments(item);
+				if(item.getItem() == Items.ENCHANTED_BOOK) {
+					NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
 					if(enchants != null && enchants.tagCount() > 0) {
 						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
@@ -148,7 +148,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		if(!canEnchanterExist(worldObj, pos, axis)) {
 
-			worldObj.setBlockState(pos, Blocks.lapis_block.getDefaultState(), 1 | 2);
+			worldObj.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState(), 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				float red = (float) Math.random();
 				float green = (float) Math.random();
@@ -168,8 +168,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				if(count > 0 && !worldObj.isRemote) {
 					for(EntityItem entity : items) {
 						ItemStack item = entity.getEntityItem();
-						if(item.getItem() == Items.enchanted_book) {
-							NBTTagList enchants = Items.enchanted_book.getEnchantments(item);
+						if(item.getItem() == Items.ENCHANTED_BOOK) {
+							NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
 							if(enchants != null && enchants.tagCount() > 0) {
 								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
@@ -206,7 +206,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			if(manaRequired == -1) {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
-					manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantmentobj.getWeight().getWeight())) * 1.05F) * ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+					manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantmentobj.getRarity().getWeight())) * 1.05F) * ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F) * (0.9F + enchants.size() * 0.05F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
@@ -324,7 +324,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		cmp.setTag(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()
-							.map(e -> Enchantment.enchantmentRegistry.getNameForObject(e.enchantmentobj) + ":" + e.enchantmentLevel)
+							.map(e -> Enchantment.REGISTRY.getNameForObject(e.enchantmentobj) + ":" + e.enchantmentLevel)
 							.collect(Collectors.joining(","));
 		cmp.setString(TAG_ENCHANTS, enchStr.isEmpty() ? enchStr : enchStr.substring(0, enchStr.length() - 1));
 	}
@@ -378,7 +378,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	public static boolean canEnchanterExist(World world, BlockPos pos, EnumFacing.Axis axis) {
 		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
-			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.obsidian)
+			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.OBSIDIAN)
 				return false;
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))

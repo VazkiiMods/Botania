@@ -56,7 +56,7 @@ public final class SkyblockWorldEvents {
 				World world = player.worldObj;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
-					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.bedrock && world.provider.getDimension() == 0)
+					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world.provider.getDimension() == 0)
 						spawnPlayer(player, coords, false);
 				}
 
@@ -72,7 +72,7 @@ public final class SkyblockWorldEvents {
 			ItemStack equipped = event.getItemStack();
 			if(equipped == null && event.getEntityPlayer().isSneaking()) {
 				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-				if(block == Blocks.grass || block == Blocks.dirt) {
+				if(block == Blocks.GRASS || block == Blocks.DIRT) {
 					if(event.getWorld().isRemote)
 						event.getEntityPlayer().swingArm(event.getHand());
 					else {
@@ -82,19 +82,19 @@ public final class SkyblockWorldEvents {
 						} catch (Throwable ignore) {}
 
 						if(Math.random() < 0.8)
-							event.getEntityPlayer().dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
+							event.getEntityPlayer().dropItem(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
 				}
-			} else if(equipped != null && equipped.getItem() == Items.bowl && !event.getWorld().isRemote) {
+			} else if(equipped != null && equipped.getItem() == Items.BOWL && !event.getWorld().isRemote) {
 				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
 				if(RayTraceResult != null) {
 					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getMaterial() == Material.water) {
+						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getMaterial() == Material.WATER) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
 								event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, new ItemStack(ModItems.waterBowl));
-							else event.getEntityPlayer().dropPlayerItemWithRandomChoice(new ItemStack(ModItems.waterBowl), false);
+							else event.getEntityPlayer().dropItem(new ItemStack(ModItems.waterBowl), false);
 						}
 					}
 				}
@@ -104,17 +104,17 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.tallgrass) {
+		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.TALLGRASS) {
 			ItemStack stackToRemove = null;
 			for(ItemStack stack : event.getDrops())
-				if(stack.getItem() == Items.wheat_seeds && event.getWorld().rand.nextInt(4) == 0) {
+				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().rand.nextInt(4) == 0) {
 					stackToRemove = stack;
 					break;
 				}
 
 			if(stackToRemove != null) {
 				event.getDrops().remove(stackToRemove);
-				event.getDrops().add(new ItemStack(event.getWorld().rand.nextBoolean() ? Items.pumpkin_seeds : Items.melon_seeds));
+				event.getDrops().add(new ItemStack(event.getWorld().rand.nextBoolean() ? Items.PUMPKIN_SEEDS : Items.MELON_SEEDS));
 			}
 		}
 	}
@@ -159,8 +159,8 @@ public final class SkyblockWorldEvents {
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)
-					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.grass.getDefaultState() : Blocks.dirt.getDefaultState());
-		world.setBlockState(pos.add(-1, -2, 0), Blocks.flowing_water.getDefaultState());
+					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS.getDefaultState() : Blocks.DIRT.getDefaultState());
+		world.setBlockState(pos.add(-1, -2, 0), Blocks.FLOWING_WATER.getDefaultState());
 		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
 		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
 
@@ -180,7 +180,7 @@ public final class SkyblockWorldEvents {
 		for(int[] root : rootPositions)
 			world.setBlockState(pos.add(root[0], root[1], root[2]), ModBlocks.root.getDefaultState());
 
-		world.setBlockState(pos.down(4), Blocks.bedrock.getDefaultState());
+		world.setBlockState(pos.down(4), Blocks.BEDROCK.getDefaultState());
 	}
 
 }

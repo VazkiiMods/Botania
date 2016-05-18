@@ -44,7 +44,7 @@ import java.util.Random;
 public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	public BlockAltGrass() {
-		super(Material.grass, LibBlockNames.ALT_GRASS);
+		super(Material.GRASS, LibBlockNames.ALT_GRASS);
 		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
@@ -91,7 +91,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 				
 				world.getBlockState(pos1.up()).getBlock();
 
-				if(world.getBlockState(pos1).getBlock() == Blocks.dirt && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
+				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
 					world.setBlockState(pos1, this.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
 			}
 		}
@@ -99,7 +99,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Override
     public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
-        return Blocks.dirt.getItemDropped(state, p_149650_2_, p_149650_3_);
+        return Blocks.DIRT.getItemDropped(state, p_149650_2_, p_149650_3_);
     }
 
 	@Override

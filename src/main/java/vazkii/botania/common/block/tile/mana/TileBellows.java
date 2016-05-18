@@ -67,7 +67,7 @@ public class TileBellows extends TileMod {
 					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
 				}
 
-				if(furnace.hasWorldObj() && furnace.getBlockType() == Blocks.lit_furnace) {
+				if(furnace.hasWorldObj() && furnace.getBlockType() == Blocks.LIT_FURNACE) {
 					// Copypasta from BlockFurnace
 					EnumFacing enumfacing = worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
 					double d0 = (double)pos.getX() + 0.5D;

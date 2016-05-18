@@ -32,7 +32,7 @@ public class ItemVineBall extends ItemMod {
 		if(!par3EntityPlayer.capabilities.isCreativeMode)
 			--par1ItemStack.stackSize;
 
-		par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.entity_arrow_shoot, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
 		if(!par2World.isRemote) {
 			EntityVineBall ball = new EntityVineBall(par3EntityPlayer, true);

@@ -40,7 +40,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	public final String type;
 
 	public BlockSpecialQuartz(String type) {
-		super(Material.rock, "quartzType" + type);
+		super(Material.ROCK, "quartzType" + type);
 		this.type = type;
 		setHardness(0.8F);
 		setResistance(10F);

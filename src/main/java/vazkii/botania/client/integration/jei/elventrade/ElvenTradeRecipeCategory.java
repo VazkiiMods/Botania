@@ -71,7 +71,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 
 	@Override
 	public void drawAnimations(@Nonnull Minecraft minecraft) {
-		minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
 		VertexBuffer wr = tess.getBuffer();

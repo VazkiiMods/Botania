@@ -44,7 +44,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		super.onUpdate();
 
 		boolean remote = supertile.getWorld().isRemote;
-		Item wool = Item.getItemFromBlock(Blocks.wool);
+		Item wool = Item.getItemFromBlock(Blocks.WOOL);
 
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		int slowdown = getSlowdownFactor();
@@ -107,7 +107,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
 
-		ItemStack stack = new ItemStack(Blocks.wool, 1, nextColor);
+		ItemStack stack = new ItemStack(Blocks.WOOL, 1, nextColor);
 		int color = getColor();
 
 		GlStateManager.enableBlend();

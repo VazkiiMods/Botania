@@ -47,8 +47,8 @@ public class SubTileKekimurus extends SubTileGenerating {
 								supertile.getWorld().setBlockToAir(pos);
 							else supertile.getWorld().setBlockState(pos, state.withProperty(BlockCake.BITES, nextSlicesEaten), 1 | 2);
 
-							supertile.getWorld().playAuxSFX(2001, pos, Block.getStateId(state));
-							supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.entity_generic_eat, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+							supertile.getWorld().playEvent(2001, pos, Block.getStateId(state));
+							supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;

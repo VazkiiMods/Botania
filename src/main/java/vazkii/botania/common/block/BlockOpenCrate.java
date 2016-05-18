@@ -52,7 +52,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	Random random;
 
 	public BlockOpenCrate() {
-		super(Material.wood, LibBlockNames.OPEN_CRATE);
+		super(Material.WOOD, LibBlockNames.OPEN_CRATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState()

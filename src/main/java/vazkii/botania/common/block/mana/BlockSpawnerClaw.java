@@ -36,7 +36,7 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 1/16.0, 0.875);
 
 	public BlockSpawnerClaw() {
-		super(Material.iron, LibBlockNames.SPAWNER_CLAW);
+		super(Material.IRON, LibBlockNames.SPAWNER_CLAW);
 		setHardness(3.0F);
 	}
 
@@ -48,7 +48,7 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item));
-		list.add(new ItemStack(Blocks.mob_spawner));
+		list.add(new ItemStack(Blocks.MOB_SPAWNER));
 	}
 
 	@Override

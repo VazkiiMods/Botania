@@ -37,7 +37,7 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2 + 1);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.translate(0.5F, 0, 0F);
 		GlStateManager.rotate(rot, 1F, 0F, 0F);
 		GlStateManager.translate(-0.5F, 0, 0F);

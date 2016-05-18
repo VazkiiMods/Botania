@@ -47,7 +47,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	private final Random random = new Random();
 
 	public BlockBrewery() {
-		super(Material.rock, LibBlockNames.BREWERY);
+		super(Material.ROCK, LibBlockNames.BREWERY);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
@@ -85,7 +85,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 					if(stackAt != null) {
 						ItemStack copy = stackAt.copy();
 						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
-							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
+							par5EntityPlayer.dropItem(copy, false);
 						brew.getItemHandler().setStackInSlot(i, null);
 						par1World.updateComparatorOutputLevel(pos, this);
 						break;

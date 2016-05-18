@@ -35,7 +35,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICraftAchievement {
 
 	public BlockCorporeaRetainer() {
-		super(Material.iron, LibBlockNames.CORPOREA_RETAINER);
+		super(Material.IRON, LibBlockNames.CORPOREA_RETAINER);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
@@ -57,7 +57,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICr
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

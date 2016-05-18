@@ -45,7 +45,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 21.0/16, 0.875);
 
 	public BlockPylon() {
-		super(Material.iron, LibBlockNames.PYLON);
+		super(Material.IRON, LibBlockNames.PYLON);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setLightLevel(0.5F);

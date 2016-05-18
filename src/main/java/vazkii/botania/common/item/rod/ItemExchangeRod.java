@@ -225,7 +225,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 							world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);
 					}
-					world.playAuxSFX(2001, pos, Block.getStateId(state));
+					world.playEvent(2001, pos, Block.getStateId(state));
 					world.setBlockState(pos, state, 1 | 2);
 					state.getBlock().onBlockPlacedBy(world, pos, state, player, placeStack);
 				}
@@ -239,7 +239,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	public boolean canExchange(ItemStack stack) {
 		Block block = getBlock(stack);
-		return block != null && block != Blocks.air;
+		return block != null && block != Blocks.AIR;
 	}
 
 	public static ItemStack removeFromInventory(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta, boolean doit) {
@@ -336,7 +336,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block).toString());
+		ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 		ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 		return true;
 	}
@@ -362,7 +362,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	private boolean setTargetBlock(ItemStack stack, Block block, int meta) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Block.blockRegistry.getNameForObject(block).toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 		ItemNBTHelper.setInt(stack, TAG_TARGET_BLOCK_META, meta);
 		return true;
 	}

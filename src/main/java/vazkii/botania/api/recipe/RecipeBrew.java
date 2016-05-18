@@ -106,7 +106,7 @@ public class RecipeBrew {
 
 	public ItemStack getOutput(ItemStack stack) {
 		if(stack == null || !(stack.getItem() instanceof IBrewContainer))
-			return new ItemStack(Items.glass_bottle); // Fallback...
+			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 
 		return container.getItemForBrew(brew, stack);

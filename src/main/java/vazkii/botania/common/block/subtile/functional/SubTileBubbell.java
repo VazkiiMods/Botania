@@ -56,7 +56,7 @@ public class SubTileBubbell extends SubTileFunctional {
 						BlockPos pos = supertile.getPos().add(i, j, k);
 						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
 							IBlockState state = supertile.getWorld().getBlockState(pos);
-							if(state.getMaterial() == Material.water) {
+							if(state.getMaterial() == Material.WATER) {
 								supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
 								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
 								air.setFlower(supertile);

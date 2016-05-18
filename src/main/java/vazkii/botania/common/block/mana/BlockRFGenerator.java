@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
 	public BlockRFGenerator() {
-		super(Material.rock, LibBlockNames.RF_GENERATOR);
+		super(Material.ROCK, LibBlockNames.RF_GENERATOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

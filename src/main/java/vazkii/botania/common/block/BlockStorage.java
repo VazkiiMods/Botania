@@ -35,7 +35,7 @@ import java.util.List;
 public class BlockStorage extends BlockMod implements ILexiconable {
 
 	public BlockStorage() {
-		super(Material.iron, LibBlockNames.STORAGE);
+		super(Material.IRON, LibBlockNames.STORAGE);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);

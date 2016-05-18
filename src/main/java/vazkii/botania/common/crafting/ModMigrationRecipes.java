@@ -21,11 +21,11 @@ public final class ModMigrationRecipes {
         boolean quark = Botania.quarkLoaded;
 
         // Prismarine -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Items.prismarine_shard), new ItemStack(ModItems.manaResource, 1, 10));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.prismarine, 1, 0), new ItemStack(ModBlocks.prismarine, 1, 0));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.prismarine, 1, 1), new ItemStack(ModBlocks.prismarine, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.prismarine, 1, 2), new ItemStack(ModBlocks.prismarine, 1, 2));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.sea_lantern), new ItemStack(ModBlocks.seaLamp));
+        GameRegistry.addShapelessRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(ModItems.manaResource, 1, 10));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 0), new ItemStack(ModBlocks.prismarine, 1, 0));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 1), new ItemStack(ModBlocks.prismarine, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 2), new ItemStack(ModBlocks.prismarine, 1, 2));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.SEA_LANTERN), new ItemStack(ModBlocks.seaLamp));
 
         // Prismarine -> quark
         if (quark) {
@@ -39,11 +39,11 @@ public final class ModMigrationRecipes {
         }
 
         // End stuff -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.end_bricks), new ItemStack(ModBlocks.endStoneBrick));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.purpur_block), new ItemStack(ModBlocks.endStoneBrick, 1, 2));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.purpur_pillar), new ItemStack(ModBlocks.endStoneBrick, 1, 3));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.purpur_slab), new ItemStack(ModFluffBlocks.enderBrickSlab));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.purpur_stairs), new ItemStack(ModFluffBlocks.enderBrickStairs));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.END_BRICKS), new ItemStack(ModBlocks.endStoneBrick));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_BLOCK), new ItemStack(ModBlocks.endStoneBrick, 1, 2));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_PILLAR), new ItemStack(ModBlocks.endStoneBrick, 1, 3));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_SLAB), new ItemStack(ModFluffBlocks.enderBrickSlab));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_STAIRS), new ItemStack(ModFluffBlocks.enderBrickStairs));
 
         // End stuff -> quark
         if (quark) {
@@ -53,8 +53,8 @@ public final class ModMigrationRecipes {
         }
 
         // Andesite normal + polished -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 5), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.ANDESITE.ordinal()));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 6), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_ANDESITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 5), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.ANDESITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 6), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_ANDESITE.ordinal()));
 
         if (quark) {
             // Andesite rough stairs and slab
@@ -86,8 +86,8 @@ public final class ModMigrationRecipes {
         }
 
         // Diorite normal + polished -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 3), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.DIORITE.ordinal()));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 4), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_DIORITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 3), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.DIORITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 4), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_DIORITE.ordinal()));
 
         if (quark) {
             // Diorite rough stairs and slab
@@ -103,8 +103,8 @@ public final class ModMigrationRecipes {
         }
 
         // Granite normal + polished -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 1), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.GRANITE.ordinal()));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.stone, 1, 2), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_GRANITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 1), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.GRANITE.ordinal()));
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 2), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_GRANITE.ordinal()));
 
         if (quark) {
             // Granite rough stairs and slab
@@ -136,7 +136,7 @@ public final class ModMigrationRecipes {
     }
 
     private static Block findQuarkBlock(String name) {
-        return Block.blockRegistry.getObject(new ResourceLocation("Quark", name));
+        return Block.REGISTRY.getObject(new ResourceLocation("Quark", name));
     }
 
     private ModMigrationRecipes() {}

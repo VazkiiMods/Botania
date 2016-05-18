@@ -370,9 +370,9 @@ public class ClientProxy extends CommonProxy {
 	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(record == null)
-			world.playAuxSFXAtEntity(null, 1010, pos, 0);
+			world.playEvent(null, 1010, pos, 0);
 		else {
-			world.playAuxSFXAtEntity(null, 1010, pos, Item.getIdFromItem(record));
+			world.playEvent(null, 1010, pos, Item.getIdFromItem(record));
 			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
 		}
 	}

@@ -39,7 +39,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.125, 0, 0.375, 0.875, 1/16.0, 0.625);
 
 	protected BlockIncensePlate() {
-		super(Material.wood, LibBlockNames.INCENSE_PLATE);
+		super(Material.WOOD, LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
@@ -77,14 +77,14 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 			stack.stackSize--;
 			did = true;
 		} else if(plateStack != null && !plate.burning) {
-			if(stack != null && stack.getItem() == Items.flint_and_steel) {
+			if(stack != null && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
 				stack.damageItem(1, player);
 				did = true;
 			} else {
 				ItemStack addStack = plateStack.copy();
 				if(!player.inventory.addItemStackToInventory(addStack))
-					player.dropPlayerItemWithRandomChoice(addStack, false);
+					player.dropItem(addStack, false);
 				plate.getItemHandler().setStackInSlot(0, null);
 
 				did = true;

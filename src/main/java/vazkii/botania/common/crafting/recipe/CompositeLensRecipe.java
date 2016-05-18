@@ -35,7 +35,7 @@ public class CompositeLensRecipe implements IRecipe {
 					if(foundLens)
 						foundSecondLens = true;
 					else foundLens = true;
-				} else if(stack.getItem() == Items.slime_ball)
+				} else if(stack.getItem() == Items.SLIME_BALL)
 					foundSlimeball = true;
 				else return false; // Found an invalid item, breaking the recipe
 			}

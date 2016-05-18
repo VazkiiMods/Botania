@@ -45,7 +45,7 @@ public class CorporeaAutoCompleteHandler {
 
 	public static void updateItemList() {
 		itemNames.clear();
-		Iterator<Item> iterator = Item.itemRegistry.iterator();
+		Iterator<Item> iterator = Item.REGISTRY.iterator();
 		ArrayList<ItemStack> curList = new ArrayList<>();
 
 		while(iterator.hasNext()) {

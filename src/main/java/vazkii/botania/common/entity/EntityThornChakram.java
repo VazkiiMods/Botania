@@ -131,7 +131,7 @@ public class EntityThornChakram extends EntityThrowable {
 			if(fire)
 				pos.entityHit.setFire(5);
 			else if(worldObj.rand.nextInt(3) == 0)
-				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.poison, 60, 0));
+				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 		} else if (pos.getBlockPos() != null) {
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {

@@ -34,7 +34,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public Block getSourceBlock() {
-		return Blocks.netherrack;
+		return Blocks.NETHERRACK;
 	}
 
 	@Override

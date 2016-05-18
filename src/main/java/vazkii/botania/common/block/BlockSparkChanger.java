@@ -44,7 +44,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	private final Random random = new Random();
 
 	public BlockSparkChanger() {
-		super(Material.rock, LibBlockNames.SPARK_CHANGER);
+		super(Material.ROCK, LibBlockNames.SPARK_CHANGER);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
@@ -87,7 +87,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
@@ -107,7 +107,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			if(!player.inventory.addItemStackToInventory(cstack))
-				player.dropPlayerItemWithRandomChoice(cstack, false);
+				player.dropItem(cstack, false);
 			return true;
 		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.copy().splitStack(1));

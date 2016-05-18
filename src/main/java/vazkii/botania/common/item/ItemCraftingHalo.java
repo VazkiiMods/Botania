@@ -67,7 +67,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
-	private static final ItemStack craftingTable = new ItemStack(Blocks.crafting_table);
+	private static final ItemStack craftingTable = new ItemStack(Blocks.CRAFTING_TABLE);
 
 	public static final int SEGMENTS = 12;
 
@@ -176,7 +176,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	private static void doCraft(EntityPlayer player, ItemStack[] recipe, boolean particles) {
 		consumeRecipeIngredients(recipe, player.inventory, player);
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
-			player.dropPlayerItemWithRandomChoice(recipe[9], false);
+			player.dropItem(recipe[9], false);
 
 		if(!particles)
 			return;
@@ -456,7 +456,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 			ItemStack slotStack = getItemForSlot(stack, seg);
 			if(slotStack != null) {
-				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				float scale = seg == 0 ? 0.75F : 0.6F;
 				GlStateManager.scale(scale, scale, scale);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);

@@ -79,7 +79,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		if(type == RenderType.HEAD) {
 			Helper.translateToHeadLevel(player);
 			switch(stack.getItemDamage()) {
@@ -319,8 +319,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		renderStack.setItemDamage(14);
 
 		// Modified copy of RenderItem.renderItem(stack, transformtype)
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
 
 		IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(renderStack);
 
@@ -338,8 +338,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.popMatrix();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 		//
 	}
 

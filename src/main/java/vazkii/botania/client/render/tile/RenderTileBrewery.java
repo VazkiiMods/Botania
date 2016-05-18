@@ -51,7 +51,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 		if(stack != null) {
 			Minecraft mc = Minecraft.getMinecraft();
 			GlStateManager.pushMatrix();
-			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			float s = 0.25F;
 			GlStateManager.scale(s, s, s);

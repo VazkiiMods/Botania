@@ -25,7 +25,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockThatch extends BlockMod implements ILexiconable {
 
 	public BlockThatch() {
-		super(Material.grass, LibBlockNames.THATCH);
+		super(Material.GRASS, LibBlockNames.THATCH);
 		setHardness(1.0F);
 		setSoundType(SoundType.PLANT);
 	}

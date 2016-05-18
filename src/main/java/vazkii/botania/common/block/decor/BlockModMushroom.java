@@ -98,7 +98,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		if(pos.getY() >= 0 && pos.getY() < 256) {
 			IBlockState state = world.getBlockState(pos.down());
 			Block block = state.getBlock();
-			return block == Blocks.mycelium || block == Blocks.dirt && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
+			return block == Blocks.MYCELIUM || block == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
 		}
 
 		return false;

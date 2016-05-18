@@ -59,7 +59,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	private boolean lastFragile = false;
 
 	public BlockPool() {
-		super(Material.rock, LibBlockNames.POOL);
+		super(Material.ROCK, LibBlockNames.POOL);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

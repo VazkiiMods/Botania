@@ -56,7 +56,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	private final Random random = new Random();
 
 	public BlockSpreader() {
-		super(Material.wood, LibBlockNames.SPREADER);
+		super(Material.WOOD, LibBlockNames.SPREADER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
@@ -147,7 +147,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.wool);
+		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
 
 		if(heldItem != null)
 			if(heldItem.getItem() == ModItems.twigWand)
@@ -162,7 +162,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		} else if(lens != null && !wool) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
+				par5EntityPlayer.dropItem(add, false);
 			spreader.getItemHandler().setStackInSlot(0, null);
 			spreader.markDirty();
 		}
@@ -173,9 +173,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 			if(heldItem.stackSize == 0)
 				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
-			ItemStack pad = new ItemStack(Blocks.wool, 1, spreader.paddingColor);
+			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(pad))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(pad, false);
+				par5EntityPlayer.dropItem(pad, false);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}
@@ -193,7 +193,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
-				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getItemHandler().getStackInSlot(j1);
+				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.WOOL, 1, inv.paddingColor) : inv.getItemHandler().getStackInSlot(j1);
 
 				if(itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

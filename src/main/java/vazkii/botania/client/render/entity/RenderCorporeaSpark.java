@@ -70,7 +70,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		Item item = stack.getItem();
 		boolean block = item instanceof ItemBlock;
-		Minecraft.getMinecraft().renderEngine.bindTexture(block ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(block ? TextureMap.LOCATION_BLOCKS_TEXTURE : TextureMap.locationItemsTexture);
 		IIcon icon = block ? Block.getBlockFromItem(item).getBlockTextureFromSide(ForgeDirection.UP.ordinal()) : item.getIcon(stack, 0);
 
 		if(icon != null) {

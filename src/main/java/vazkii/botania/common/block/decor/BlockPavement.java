@@ -35,7 +35,7 @@ public class BlockPavement extends BlockMod {
 	public static final int TYPES = 6;
 
 	public BlockPavement() {
-		super(Material.rock, LibBlockNames.PAVEMENT);
+		super(Material.ROCK, LibBlockNames.PAVEMENT);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

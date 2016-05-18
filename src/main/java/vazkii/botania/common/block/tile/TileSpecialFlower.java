@@ -212,10 +212,10 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	@Override
 	public int getSlowdownFactor() {
 		Block below = worldObj.getBlockState(getPos().down()).getBlock();
-		if(below == Blocks.mycelium)
+		if(below == Blocks.MYCELIUM)
 			return SLOWDOWN_FACTOR_MYCEL;
 		
-		if(below == Blocks.dirt) {
+		if(below == Blocks.DIRT) {
 			BlockDirt.DirtType type = worldObj.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
 			if(type == BlockDirt.DirtType.PODZOL)
 				return SLOWDOWN_FACTOR_PODZOL;

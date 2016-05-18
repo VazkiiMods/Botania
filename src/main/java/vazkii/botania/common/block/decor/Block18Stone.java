@@ -36,7 +36,7 @@ import java.util.List;
 public class Block18Stone extends BlockMod implements ILexiconable {
 
 	public Block18Stone() {
-		super(Material.rock, LibBlockNames.STONE);
+		super(Material.ROCK, LibBlockNames.STONE);
 		setHardness(1.5F);
 		setResistance(10F);
 		setSoundType(SoundType.STONE);

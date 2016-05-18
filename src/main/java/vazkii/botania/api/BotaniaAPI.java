@@ -102,16 +102,16 @@ public final class BotaniaAPI {
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 
-	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
 	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
-	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.item_armor_equip_iron);
+	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
 	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.item_armor_equip_diamond);
+	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
 	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.item_armor_equip_leather);
+	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
 
 	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
@@ -211,12 +211,12 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite
 
-		addSeed(Items.wheat_seeds, Blocks.wheat);
-		addSeed(Items.potato, Blocks.potatoes);
-		addSeed(Items.carrot, Blocks.carrots);
-		addSeed(Items.nether_wart, Blocks.nether_wart);
-		addSeed(Items.pumpkin_seeds, Blocks.pumpkin_stem);
-		addSeed(Items.melon_seeds, Blocks.melon_stem);
+		addSeed(Items.WHEAT_SEEDS, Blocks.WHEAT);
+		addSeed(Items.POTATO, Blocks.POTATOES);
+		addSeed(Items.CARROT, Blocks.CARROTS);
+		addSeed(Items.NETHER_WART, Blocks.NETHER_WART);
+		addSeed(Items.PUMPKIN_SEEDS, Blocks.PUMPKIN_STEM);
+		addSeed(Items.MELON_SEEDS, Blocks.MELON_STEM);
 
 		registerModWiki("Minecraft", new SimpleWikiProvider("Minecraft Wiki", "http://minecraft.gamepedia.com/%s"));
 
@@ -246,11 +246,11 @@ public final class BotaniaAPI {
 		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
 		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
 
-		registerPaintableBlock(Blocks.stained_glass, BlockStainedGlass.COLOR);
-		registerPaintableBlock(Blocks.stained_glass_pane, BlockStainedGlassPane.COLOR);
-		registerPaintableBlock(Blocks.stained_hardened_clay, BlockColored.COLOR);
-		registerPaintableBlock(Blocks.wool, BlockColored.COLOR);
-		registerPaintableBlock(Blocks.carpet, BlockCarpet.COLOR);
+		registerPaintableBlock(Blocks.STAINED_GLASS, BlockStainedGlass.COLOR);
+		registerPaintableBlock(Blocks.STAINED_GLASS_PANE, BlockStainedGlassPane.COLOR);
+		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
 		
 		registerDisposableBlock("dirt"); // Vanilla
 		registerDisposableBlock("sand"); // Vanilla

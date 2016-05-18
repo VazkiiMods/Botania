@@ -48,7 +48,7 @@ public class SubTileExoflame extends SubTileFunctional {
 						TileEntity tile = supertile.getWorld().getTileEntity(pos);
 						Block block = supertile.getWorld().getBlockState(pos).getBlock();
 						if(tile != null) {
-							if(tile instanceof TileEntityFurnace && (block == Blocks.furnace || block == Blocks.lit_furnace)) {
+							if(tile instanceof TileEntityFurnace && (block == Blocks.FURNACE || block == Blocks.LIT_FURNACE)) {
 								TileEntityFurnace furnace = (TileEntityFurnace) tile;
 								boolean canSmelt = canFurnaceSmelt(furnace);
 								if(canSmelt && mana > 2) {

@@ -39,7 +39,7 @@ public class LensFirework extends Lens {
 	}
 
 	public ItemStack generateFirework(int color) {
-		ItemStack stack = new ItemStack(Items.fireworks);
+		ItemStack stack = new ItemStack(Items.FIREWORKS);
 		NBTTagCompound explosion = new NBTTagCompound();
 		explosion.setIntArray("Colors", new int[] { color });
 

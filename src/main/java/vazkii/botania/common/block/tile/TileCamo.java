@@ -27,7 +27,7 @@ public class TileCamo extends TileMod {
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		if(camoState != null) {
-			cmp.setString(TAG_CAMO, Block.blockRegistry.getNameForObject(camoState.getBlock()).toString());
+			cmp.setString(TAG_CAMO, Block.REGISTRY.getNameForObject(camoState.getBlock()).toString());
 			cmp.setInteger(TAG_CAMO_META, camoState.getBlock().getMetaFromState(camoState));
 		}
 	}

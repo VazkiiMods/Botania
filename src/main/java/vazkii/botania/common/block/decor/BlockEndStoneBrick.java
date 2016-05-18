@@ -36,7 +36,7 @@ import java.util.List;
 public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
 	public BlockEndStoneBrick() {
-		super(Material.rock, LibBlockNames.END_STONE_BRICK);
+		super(Material.ROCK, LibBlockNames.END_STONE_BRICK);
 		setHardness(1.5F);
 		setResistance(10F);
 		setSoundType(SoundType.STONE);

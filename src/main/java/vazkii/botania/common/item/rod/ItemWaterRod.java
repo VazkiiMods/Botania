@@ -29,7 +29,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, false) && !par3World.provider.doesWaterVaporize()) {
 			// Adapted from bucket code
-			RayTraceResult mop = getMovingObjectPositionFromPlayer(par3World, par2EntityPlayer, false);
+			RayTraceResult mop = rayTrace(par3World, par2EntityPlayer, false);
 
 			if (mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos hitPos = mop.getBlockPos();
@@ -38,7 +38,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 				BlockPos placePos = hitPos.offset(mop.sideHit);
 				if(par2EntityPlayer.canPlayerEdit(placePos, mop.sideHit, par1ItemStack)) {
 					if (ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, COST, true)
-							&& ((ItemBucket) Items.water_bucket).tryPlaceContainedLiquid(par2EntityPlayer, par3World, placePos)) {
+							&& ((ItemBucket) Items.WATER_BUCKET).tryPlaceContainedLiquid(par2EntityPlayer, par3World, placePos)) {
 						for(int i = 0; i < 6; i++)
 							Botania.proxy.sparkleFX(par3World, pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
 						return EnumActionResult.SUCCESS;

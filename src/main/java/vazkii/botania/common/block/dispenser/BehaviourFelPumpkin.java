@@ -21,8 +21,8 @@ public class BehaviourFelPumpkin extends BehaviorDefaultDispenseItem {
         BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
         Block blockpumpkin = ModBlocks.felPumpkin;
 
-        if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.iron_bars
-                && world.getBlockState(blockpos.down(2)).getBlock() == Blocks.iron_bars) // Botania - Check for iron bars
+        if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
+                && world.getBlockState(blockpos.down(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
         {
             if (!world.isRemote)
             {
@@ -44,11 +44,11 @@ public class BehaviourFelPumpkin extends BehaviorDefaultDispenseItem {
     {
         if (this.field_179241_b)
         {
-            source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
+            source.getWorld().playEvent(1000, source.getBlockPos(), 0);
         }
         else
         {
-            source.getWorld().playAuxSFX(1001, source.getBlockPos(), 0);
+            source.getWorld().playEvent(1001, source.getBlockPos(), 0);
         }
     }
 }

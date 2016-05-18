@@ -44,7 +44,7 @@ public class LensMine extends Lens {
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
 		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
 		
-		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.piston || block == Blocks.piston_extension || block == Blocks.piston_head))
+		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.PISTON_EXTENSION || block == Blocks.PISTON_HEAD))
 			return false;
 
 		int harvestLevel = ConfigHandler.harvestLevelBore;
@@ -66,7 +66,7 @@ public class LensMine extends Lens {
 				if(!burst.isFake() && !entity.worldObj.isRemote) {
 					world.setBlockToAir(pos_);
 					if(ConfigHandler.blockBreakParticles)
-						entity.worldObj.playAuxSFX(2001, pos_, Block.getStateId(state));
+						entity.worldObj.playEvent(2001, pos_, Block.getStateId(state));
 
 					boolean offBounds = coords.getY() < 0;
 					boolean doWarp = warp && !offBounds;

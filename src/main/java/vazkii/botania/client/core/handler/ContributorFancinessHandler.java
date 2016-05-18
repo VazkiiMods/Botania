@@ -111,7 +111,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		Helper.translateToHeadLevel(player);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.translate(0, 1.62, 0);
@@ -145,7 +145,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.rotate(180F, 1F, 0F, 0F);
 		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
 		GlStateManager.translate(-1F, -3.5F, 0.125F);
@@ -166,7 +166,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.scale(0.4F, 0.4F, 0.4F);
 		GlStateManager.translate(-0.5F, 1.6F, 0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
@@ -175,7 +175,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	private static void renderFlower(EntityPlayer player, ItemStack flower) {
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(player);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotate(180, 0, 0, 1);
 		GlStateManager.translate(0, -0.85, 0);
 		GlStateManager.rotate(-90, 0, 1, 0);

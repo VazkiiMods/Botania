@@ -67,7 +67,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 					Material search = getMaterialToSearchFor();
 					PropertyInteger prop = supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockLiquid ? BlockLiquid.LEVEL : supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockFluidBase ? BlockFluidBase.LEVEL : null;
 					if(supertile.getWorld().getBlockState(pos).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && (prop == null || supertile.getWorld().getBlockState(pos).getValue(prop) == 0)) {
-						if(search != Material.water)
+						if(search != Material.WATER)
 							supertile.getWorld().setBlockToAir(pos);
 						else {
 							int waterAround = 0;
@@ -105,7 +105,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public Material getMaterialToSearchFor() {
-		return Material.water;
+		return Material.WATER;
 	}
 
 	public Block getBlockToSearchBelow() {
@@ -113,7 +113,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void playSound() {
-		supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.entity_generic_drink, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_DRINK, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {

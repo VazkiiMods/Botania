@@ -48,7 +48,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());

@@ -31,7 +31,7 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockForestEye() {
-		super(Material.iron, LibBlockNames.FOREST_EYE);
+		super(Material.IRON, LibBlockNames.FOREST_EYE);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.METAL);

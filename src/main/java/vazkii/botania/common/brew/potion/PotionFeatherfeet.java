@@ -21,7 +21,7 @@ public class PotionFeatherfeet extends PotionMod {
 	public PotionFeatherfeet() {
 		super(LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
 		MinecraftForge.EVENT_BUS.register(this);
-		setShowOnFirstRow();
+		setBeneficial();
 	}
 
 	@SubscribeEvent

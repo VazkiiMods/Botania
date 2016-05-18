@@ -23,7 +23,7 @@ public class PotionAllure extends PotionMod {
 	public PotionAllure() {
 		super(LibPotionNames.ALLURE, false, 0x0034E4, 5);
 		MinecraftForge.EVENT_BUS.register(this);
-		setShowOnFirstRow();
+		setBeneficial();
 	}
 
 	@SubscribeEvent

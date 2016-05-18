@@ -71,7 +71,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 			if(ConfigHandler.oldPylonModel)
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
-			else Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			else Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			double worldTime = pylon.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 

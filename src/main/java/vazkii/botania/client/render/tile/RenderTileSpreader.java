@@ -87,7 +87,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			ILens lens = (ILens) stack.getItem();
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.0F, -1F, -0.4375F);
@@ -97,9 +97,9 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		}
 
 		if(spreader.paddingColor != -1) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			IBlockState carpet = Blocks.carpet.getDefaultState().withProperty(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
+			IBlockState carpet = Blocks.CARPET.getDefaultState().withProperty(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
 
 			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
