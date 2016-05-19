@@ -75,6 +75,9 @@ compileJava {
     targetCompatibility = 1.8
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
@@ -221,8 +224,7 @@ curseforge {
 		    See https://github.com/williewillus/Botania/releases/tag/${version}
         """
         releaseType = "beta"
-        addGameVersion '1.9'
-        addGameVersion 'Java 8'
+        addGameVersion '1.9.4'
         relations {
             requiredLibrary 'baubles'
         }
