@@ -91,10 +91,6 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 		if(par2 == 0)
 			return 0xFFFFFF;
 
-		int colorv = getColor(par1ItemStack);
-		if(colorv >= EnumDyeColor.values().length || colorv < 0)
-			return 0xFFFFFF;
-
 		return EnumDyeColor.byMetadata(getColor(par1ItemStack)).getMapColor().colorValue;
 	}
 

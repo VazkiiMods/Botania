@@ -27,9 +27,6 @@ public class Item16Colors extends ItemMod implements IColorable {
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par1ItemStack.getItemDamage() >= EnumDyeColor.values().length)
-			return 0xFFFFFF;
-
 		return EnumDyeColor.byMetadata(par1ItemStack.getItemDamage()).getMapColor().colorValue;
 	}
 

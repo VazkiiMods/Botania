@@ -37,10 +37,15 @@ public class TileMod extends TileEntity implements ITickable {
 		return ret;
 	}
 
+	@Nonnull
+	@Override
+	public final NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-
 		readCustomNBT(par1nbtTagCompound);
 	}
 
@@ -53,10 +58,8 @@ public class TileMod extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		writeCustomNBT(nbttagcompound);
-		return new SPacketUpdateTileEntity(pos, -999, nbttagcompound);
+	public final SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(pos, -999, getUpdateTag());
 	}
 
 	@Override
