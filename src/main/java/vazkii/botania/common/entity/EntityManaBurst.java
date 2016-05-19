@@ -377,15 +377,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult RayTraceResult) {
+	protected void onImpact(RayTraceResult rtr) {
 		boolean collided = false;
 		boolean dead = false;
 
-		if(RayTraceResult.entityHit == null) {
-			TileEntity tile = worldObj.getTileEntity(RayTraceResult.getBlockPos());
-			Block block = worldObj.getBlockState(RayTraceResult.getBlockPos()).getBlock();
+		if(rtr.entityHit == null) {
+			TileEntity tile = worldObj.getTileEntity(rtr.getBlockPos());
+			IBlockState state = worldObj.getBlockState(rtr.getBlockPos());
+			Block block = state.getBlock();
 
-			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
+			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, worldObj, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
@@ -400,9 +401,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 
 				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, worldObj, RayTraceResult.getBlockPos());
+					((IManaTrigger) block).onBurstCollision(this, worldObj, rtr.getBlockPos());
 
-				boolean ghost = tile instanceof IManaCollisionGhost;
+				boolean ghost = block instanceof IManaCollisionGhost;
 				dead = !ghost;
 				if(ghost)
 					return;
@@ -413,10 +414,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)
-			dead = lens.collideBurst(this, RayTraceResult, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+			dead = lens.collideBurst(this, rtr, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
-		if(collided && !hasAlreadyCollidedAt(RayTraceResult.getBlockPos()))
-			alreadyCollidedAt.add(RayTraceResult.getBlockPos());
+		if(collided && !hasAlreadyCollidedAt(rtr.getBlockPos()))
+			alreadyCollidedAt.add(rtr.getBlockPos());
 
 		if(dead && !isDead) {
 			if(!fake) {

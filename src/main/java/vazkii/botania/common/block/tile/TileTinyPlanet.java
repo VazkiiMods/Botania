@@ -13,16 +13,11 @@ package vazkii.botania.common.block.tile;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-public class TileTinyPlanet extends TileMod implements IManaCollisionGhost {
+public class TileTinyPlanet extends TileMod {
 
 	@Override
 	public void updateEntity() {
 		ItemTinyPlanet.applyEffect(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-	}
-
-	@Override
-	public boolean isGhost() {
-		return true;
 	}
 
 }

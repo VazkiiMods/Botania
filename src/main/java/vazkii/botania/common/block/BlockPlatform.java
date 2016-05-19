@@ -33,6 +33,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
@@ -44,7 +45,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.List;
 
-public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
+public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
 
 	public BlockPlatform() {
 		super(Material.WOOD, LibBlockNames.PLATFORM);
@@ -142,4 +143,8 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable 
 		return tile.onWanded(player);
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
 }

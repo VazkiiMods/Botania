@@ -22,11 +22,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockTinyPlanet extends BlockMod implements ILexiconable {
+public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaCollisionGhost {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
 
@@ -67,4 +68,8 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable {
 		return LexiconData.tinyPlanet;
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
 }

@@ -16,12 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 
-public class TilePlatform extends TileCamo implements IManaCollisionGhost {
-
-	@Override
-	public boolean isGhost() {
-		return true;
-	}
+public class TilePlatform extends TileCamo {
 
 	public boolean onWanded(EntityPlayer player) {
 		if(player != null) {

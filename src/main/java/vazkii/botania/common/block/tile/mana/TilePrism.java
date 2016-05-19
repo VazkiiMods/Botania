@@ -21,7 +21,7 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
-public class TilePrism extends TileSimpleInventory implements IManaCollisionGhost {
+public class TilePrism extends TileSimpleInventory {
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = itemHandler.getStackInSlot(0);
@@ -47,11 +47,6 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 				burst.setMotion(burstEntity.motionX * properties.motionModifier, burstEntity.motionY * properties.motionModifier,burstEntity.motionZ * properties.motionModifier);
 			}
 		}
-	}
-
-	@Override
-	public boolean isGhost() {
-		return true;
 	}
 
 	@Override

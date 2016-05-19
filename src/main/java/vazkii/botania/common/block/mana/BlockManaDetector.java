@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
@@ -34,7 +35,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.List;
 
-public class BlockManaDetector extends BlockMod implements ILexiconable {
+public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCollisionGhost {
 
 	public BlockManaDetector() {
 		super(Material.ROCK, LibBlockNames.MANA_DETECTOR);
@@ -90,4 +91,8 @@ public class BlockManaDetector extends BlockMod implements ILexiconable {
 		return LexiconData.manaDetector;
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
 }

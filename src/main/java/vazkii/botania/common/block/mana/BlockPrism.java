@@ -33,6 +33,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
@@ -43,7 +44,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Random;
 
-public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
+public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
 
@@ -209,4 +210,8 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable {
 		return LexiconData.prism;
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
 }

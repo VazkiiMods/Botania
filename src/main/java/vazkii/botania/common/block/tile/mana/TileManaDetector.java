@@ -19,7 +19,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileManaDetector extends TileMod implements IManaCollisionGhost {
+public class TileManaDetector extends TileMod {
 
 	@Override
 	public void updateEntity() {
@@ -31,11 +31,6 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 		if(expectedState)
 			for(int i = 0; i < 4; i++)
 				Botania.proxy.sparkleFX(getWorld(), pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
-	}
-
-	@Override
-	public boolean isGhost() {
-		return true;
 	}
 
 }
