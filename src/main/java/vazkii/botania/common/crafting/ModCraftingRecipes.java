@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.Level;
@@ -697,6 +698,7 @@ public final class ModCraftingRecipes {
 		recipeGrassHorn = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terrasteel Armor Recipes
+		RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
 		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
@@ -748,6 +750,7 @@ public final class ModCraftingRecipes {
 		recipeTinyPlanet = BotaniaAPI.getLatestAddedRecipe();
 
 		// Mana Band Recipe
+		RecipeSorter.register("botania:manaUpgrade", ManaUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
 		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
 				"TI ", "I I", " I ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
@@ -762,6 +765,7 @@ public final class ModCraftingRecipes {
 		recipeAuraRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Mana Band Recipe
+		RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)));
 		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
 
