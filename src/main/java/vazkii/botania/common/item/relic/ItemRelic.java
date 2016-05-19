@@ -27,6 +27,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
@@ -178,6 +179,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 		this.achievement = achievement;
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return BotaniaAPI.rarityRelic;

@@ -38,6 +38,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
@@ -57,7 +58,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("botania", "flying"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return isFlying(itemStack) ? 1 : 0;
 			}
 		});
@@ -96,8 +97,9 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		}
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		int meta = par1ItemStack.getItemDamage();
 		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, false)) {
 			par3EntityPlayer.setActiveHand(hand);
@@ -111,6 +113,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
@@ -161,7 +164,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
 		return newStack.getItem() != this || isFlying(oldStack) != isFlying(newStack);
 	}
 

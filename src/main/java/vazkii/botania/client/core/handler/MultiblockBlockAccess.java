@@ -21,6 +21,8 @@ import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
+import javax.annotation.Nonnull;
+
 /**
  * This class acts as a wrapper around a block access to
  * replace blocks with the blocks involved in the multiblock specified
@@ -32,8 +34,9 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	private BlockPos anchorPos;
 	protected Multiblock multiblock;
 
+	@Nonnull
 	@Override
-	public IBlockState getBlockState(BlockPos pos) {
+	public IBlockState getBlockState(@Nonnull BlockPos pos) {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getBlockState();
@@ -43,7 +46,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public TileEntity getTileEntity(BlockPos pos) {
+	public TileEntity getTileEntity(@Nonnull BlockPos pos) {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getTileEntity();
@@ -53,24 +56,25 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public int getCombinedLight(BlockPos pos, int p_72802_4_) {
+	public int getCombinedLight(@Nonnull BlockPos pos, int p_72802_4_) {
 		if(hasBlockAccess)
 			return originalBlockAccess.getCombinedLight(pos, p_72802_4_);
 		return 15728640;
 	}
 
 	@Override
-	public int getStrongPower(BlockPos pos, EnumFacing direction) {
+	public int getStrongPower(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
 		return 0;
 	}
 
+	@Nonnull
 	@Override
 	public WorldType getWorldType() {
 		return WorldType.DEFAULT;
 	}
 
 	@Override
-	public boolean isAirBlock(BlockPos pos) {
+	public boolean isAirBlock(@Nonnull BlockPos pos) {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return false;
@@ -79,8 +83,9 @@ public class MultiblockBlockAccess implements IBlockAccess {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public Biome getBiomeGenForCoords(BlockPos pos) {
+	public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
 		if(hasBlockAccess)
 			return originalBlockAccess.getBiomeGenForCoords(pos);
 		return null;
@@ -92,7 +97,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default) {
+	public boolean isSideSolid(@Nonnull BlockPos pos, @Nonnull EnumFacing side, boolean _default) {
 		if(hasBlockAccess)
 			return originalBlockAccess.isSideSolid(pos, side, _default);
 		return _default;

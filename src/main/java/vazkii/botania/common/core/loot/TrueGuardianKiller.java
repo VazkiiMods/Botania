@@ -9,12 +9,13 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class TrueGuardianKiller implements LootCondition {
 
     @Override
-    public boolean testCondition(Random rand, LootContext context) {
+    public boolean testCondition(@Nonnull Random rand, @Nonnull LootContext context) {
         return context.getLootedEntity() instanceof EntityDoppleganger
                 && context.getKillerPlayer() == ((EntityDoppleganger) context.getLootedEntity()).trueKiller;
     }
@@ -25,10 +26,11 @@ public class TrueGuardianKiller implements LootCondition {
         }
 
         @Override
-        public void serialize(JsonObject json, TrueGuardianKiller value, JsonSerializationContext context) {}
+        public void serialize(@Nonnull JsonObject json, @Nonnull TrueGuardianKiller value, @Nonnull JsonSerializationContext context) {}
 
+        @Nonnull
         @Override
-        public TrueGuardianKiller deserialize(JsonObject json, JsonDeserializationContext context) {
+        public TrueGuardianKiller deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
             return new TrueGuardianKiller();
         }
     }

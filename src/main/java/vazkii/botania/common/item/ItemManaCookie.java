@@ -24,6 +24,8 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
@@ -35,13 +37,14 @@ public class ItemManaCookie extends ItemFood {
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack p_77849_1_, World p_77849_2_, EntityPlayer p_77849_3_) {
+	protected void onFoodEaten(ItemStack p_77849_1_, World p_77849_2_, @Nonnull EntityPlayer p_77849_3_) {
 		super.onFoodEaten(p_77849_1_, p_77849_2_, p_77849_3_);
 		p_77849_3_.addStat(ModAchievements.manaCookieEat, 1);
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 

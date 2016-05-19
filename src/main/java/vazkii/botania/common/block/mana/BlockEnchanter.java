@@ -40,6 +40,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
@@ -55,6 +56,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ENCHANTER_DIRECTION);
@@ -69,6 +71,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		}
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, meta == 1 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
@@ -84,8 +87,9 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileEnchanter();
 	}
 
@@ -124,7 +128,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
 
 		ItemStack itemstack = enchanter.itemToEnchant;

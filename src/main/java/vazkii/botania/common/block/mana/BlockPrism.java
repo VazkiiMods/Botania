@@ -42,6 +42,7 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
@@ -61,11 +62,13 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
@@ -77,12 +80,14 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 				+ (state.getValue(BotaniaStateProps.HAS_LENS) ? 1 : 0);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, (meta & 8) > 0)
 				.withProperty(BotaniaStateProps.HAS_LENS, (meta & 1) > 0);
 	}
 
+	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
@@ -90,7 +95,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
 		return null;
 	}
 
@@ -147,7 +152,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntity tile = par1World.getTileEntity(pos);
 		if(!(tile instanceof TileSimpleInventory))
 			return;
@@ -193,8 +198,9 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePrism();
 	}
 

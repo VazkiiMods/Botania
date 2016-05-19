@@ -18,6 +18,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public abstract class ItemMod extends Item {
 
 	public ItemMod(String name) {
@@ -31,8 +33,9 @@ public abstract class ItemMod extends Item {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibResources.PREFIX_MOD);
 	}
 }

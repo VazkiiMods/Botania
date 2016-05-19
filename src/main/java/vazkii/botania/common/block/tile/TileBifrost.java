@@ -13,6 +13,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
+
 public class TileBifrost extends TileMod {
 
 	private static final String TAG_TICKS = "ticks";
@@ -29,6 +31,7 @@ public class TileBifrost extends TileMod {
 			Botania.proxy.sparkleFX(worldObj, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}
 
+	@Nonnull
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);

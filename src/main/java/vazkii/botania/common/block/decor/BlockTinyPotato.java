@@ -36,6 +36,7 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		);
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
@@ -68,6 +70,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing side = null;
@@ -82,6 +85,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, side);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -110,7 +114,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
 		if (willHarvest) {
 			// Copy of super.removedByPlayer but don't set to air yet
 			// This is so getDrops below will have a TE to work with
@@ -122,14 +126,15 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
+	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
 		super.harvestBlock(world, player, pos, state, te, stack);
 		// Now delete the block and TE
 		world.setBlockToAir(pos);
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList<>();
 		TileEntity tile = world.getTileEntity(pos);
 
@@ -154,6 +159,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -164,8 +170,9 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileTinyPotato();
 	}
 

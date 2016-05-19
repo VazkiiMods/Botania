@@ -34,6 +34,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
@@ -45,6 +47,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		setDefaultState(((IExtendedBlockState) blockState.getBaseState()).withProperty(Properties.AnimationProperty, null).withProperty(Properties.StaticProperty, true));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty } );
@@ -55,13 +58,15 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		return 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState();
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		return state.withProperty(Properties.StaticProperty, true);
 	}
 
@@ -73,6 +78,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		}
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -98,8 +104,9 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(World world, IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaCrystalCube();
 	}
 

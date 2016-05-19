@@ -22,6 +22,7 @@ import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.util.Random;
 
@@ -43,11 +44,13 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, HALF, getVariantProperty());
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (doubleSlab) {
@@ -70,8 +73,9 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	public abstract BlockSlab getSingleBlock();
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(getSingleBlock());
 	}
 
@@ -81,12 +85,12 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, int fortune, Random random) {
+	public int quantityDropped(IBlockState state, int fortune, @Nonnull Random random) {
 		return super.quantityDropped(state, fortune, random);
 	}
 
 	@Override
-	public ItemStack createStackedBlock(IBlockState par1) {
+	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
 	}
 
@@ -96,6 +100,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 			GameRegistry.register(new ItemBlockModSlab(this), new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(int i) {
 		return name;
@@ -106,13 +111,15 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		return doubleSlab;
 	}
 
+	@Nonnull
 	@Override
 	public final IProperty getVariantProperty() {
 		return DUMMY; // Vanilla expects us to store different kinds of slabs into one block ID. Except we don't. We need this dummy property and dummy value to satisfy it.
 	}
 
+	@Nonnull
 	@Override
-	public final Comparable<?> getTypeForItem(ItemStack stack) {
+	public final Comparable<?> getTypeForItem(@Nonnull ItemStack stack) {
 		return DummyEnum.SINGLETON;
 	}
 
@@ -123,6 +130,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	public enum DummyEnum implements IStringSerializable {
 		SINGLETON {
+			@Nonnull
 			@Override
 			public String getName() {
 				return name().toLowerCase(Locale.ROOT);

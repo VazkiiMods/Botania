@@ -22,6 +22,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
@@ -30,7 +31,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void renderTileEntityAt(TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
 		if(!plate.getWorld().isBlockLoaded(plate.getPos(), false)
 				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
 			return;

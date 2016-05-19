@@ -34,6 +34,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class EntityPoolMinecart extends EntityMinecart {
@@ -56,16 +57,19 @@ public class EntityPoolMinecart extends EntityMinecart {
 		dataManager.register(MANA, 0);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getDisplayTile() {
 		return ModBlocks.pool.getDefaultState();
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCartItem() {
 		return new ItemStack(ModItems.poolMinecart);
 	}
 
+	@Nonnull
 	@Override
 	public EntityMinecart.Type getType() {
 		return Type.RIDEABLE;
@@ -163,7 +167,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound p_70014_1_) {
 		super.writeEntityToNBT(p_70014_1_);
 		p_70014_1_.setInteger(TAG_MANA, getMana());
 	}

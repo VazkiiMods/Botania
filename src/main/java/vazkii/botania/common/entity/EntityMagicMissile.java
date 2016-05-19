@@ -32,6 +32,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityMagicMissile extends EntityThrowable {
@@ -185,7 +186,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult pos) {
+	protected void onImpact(@Nonnull RayTraceResult pos) {
 		switch (pos.typeOfHit) {
 			case BLOCK: {
 				Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();

@@ -22,6 +22,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
@@ -41,7 +42,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, USES));
 		list.add(new ItemStack(item));
 	}

@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityThrownItem extends EntityItem {
@@ -46,7 +47,7 @@ public class EntityThrownItem extends EntityItem {
 	}
 
 	@Override
-	public boolean isEntityInvulnerable(DamageSource source) {
+	public boolean isEntityInvulnerable(@Nonnull DamageSource source) {
 		return true;
 	}
 

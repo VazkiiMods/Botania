@@ -18,6 +18,8 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 
+import javax.annotation.Nonnull;
+
 public class EntityManaStorm extends Entity {
 
 	private static final String TAG_TIME = "time";
@@ -82,14 +84,14 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		liveTime = cmp.getInteger(TAG_TIME);
 		burstsFired = cmp.getInteger(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInteger(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME, liveTime);
 		cmp.setInteger(TAG_BURSTS_FIRED, burstsFired);
 		cmp.setInteger(TAG_DEATH_TIME, deathTime);

@@ -33,6 +33,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemSignalFlare extends ItemMod implements IColorable {
@@ -46,8 +47,9 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 		setMaxDamage(200);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 0) {
 			if(par2World.isRemote)
 				par3EntityPlayer.swingArm(hand);
@@ -97,7 +99,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColor(i));
 	}

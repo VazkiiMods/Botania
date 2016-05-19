@@ -48,6 +48,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import java.io.IOException;
 import java.util.Collection;
@@ -133,7 +134,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 	public enum Loader implements ICustomModelLoader {
 		INSTANCE {
 			@Override
-			public void onResourceManagerReload(IResourceManager resourceManager) {
+			public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
 			}
 
 			@Override
@@ -212,6 +213,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 			return model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
 		}
 
+		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			if(state.getBlock() != ModBlocks.specialFlower)
@@ -224,14 +226,16 @@ public class SpecialFlowerModel implements IModelCustomData {
 			return ret.getQuads(state, face, rand);
 		}
 
+		@Nonnull
 		@Override
 		public ItemOverrideList getOverrides() {
 			return itemHandler;
 		}
 
 		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+			@Nonnull
 			@Override
-			public IBakedModel handleItemState(IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
+			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase living) {
 				refreshBakedModels();
 				IBakedModel item = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
 				if(item == null) {
@@ -260,12 +264,14 @@ public class SpecialFlowerModel implements IModelCustomData {
 			return baseModel.isBuiltInRenderer();
 		}
 
+		@Nonnull
 		@Override
 		public TextureAtlasSprite getParticleTexture() {
 			refreshBakedModels();
 			return baseModel.getParticleTexture();
 		}
 
+		@Nonnull
 		@Override
 		public ItemCameraTransforms getItemCameraTransforms() {
 			return baseModel.getItemCameraTransforms();

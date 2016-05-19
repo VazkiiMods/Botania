@@ -44,6 +44,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -61,6 +62,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		random = new Random();
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CRATE_VARIANT, BotaniaStateProps.CRATE_PATTERN);
@@ -71,6 +73,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		return state.getValue(BotaniaStateProps.CRATE_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= CrateVariant.values().length) {
@@ -79,8 +82,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		return getDefaultState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.values()[meta]);
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		if (world.getTileEntity(pos) instanceof TileCraftCrate) {
 			TileCraftCrate tile = ((TileCraftCrate) world.getTileEntity(pos));
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
@@ -97,7 +101,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
@@ -120,7 +124,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
@@ -162,8 +166,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return state.getValue(BotaniaStateProps.CRATE_VARIANT) == CrateVariant.OPEN ? new TileOpenCrate() : new TileCraftCrate();
 	}
 

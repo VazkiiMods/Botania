@@ -31,6 +31,8 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable {
 
 	public BlockAlfPortal() {
@@ -40,11 +42,13 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ALFPORTAL_STATE);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > AlfPortalState.values().length) {
@@ -63,8 +67,9 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileAlfPortal();
 	}
 
@@ -82,7 +87,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;

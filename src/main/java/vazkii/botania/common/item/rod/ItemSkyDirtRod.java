@@ -27,14 +27,17 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemSkyDirtRod extends ItemDirtRod {
 
 	public ItemSkyDirtRod() {
 		super(LibItemNames.SKY_DIRT_ROD);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);

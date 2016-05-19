@@ -40,6 +40,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,6 +235,7 @@ public class TileAlfPortal extends TileMod {
 		ticksSinceLastItem = 0;
 	}
 
+	@Nonnull
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound cmp) {
 		NBTTagCompound ret = super.writeToNBT(cmp);
@@ -366,6 +368,7 @@ public class TileAlfPortal extends TileMod {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;

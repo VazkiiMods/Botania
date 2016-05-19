@@ -20,6 +20,8 @@ import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
+import javax.annotation.Nonnull;
+
 public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 
 	public RenderPoolMinecart(RenderManager p_i46155_1_) {
@@ -27,7 +29,7 @@ public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 	}
 
 	@Override
-	protected void renderCartContents(EntityPoolMinecart poolCart, float p_147910_2_, IBlockState state) {
+	protected void renderCartContents(EntityPoolMinecart poolCart, float p_147910_2_, @Nonnull IBlockState state) {
 		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
 		TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TilePool.class).renderTileEntityAt(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);

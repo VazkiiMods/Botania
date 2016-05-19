@@ -33,6 +33,7 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
@@ -47,6 +48,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.QUARTZ_VARIANT);
@@ -57,6 +59,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.QUARTZ_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= QuartzVariant.values().length) {
@@ -78,6 +81,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		};
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState onBlockPlaced(World par1World, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
 		if (meta == 2) { // Pillar quartz variant
@@ -104,13 +108,13 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack createStackedBlock(IBlockState state) {
+	public ItemStack createStackedBlock(@Nonnull IBlockState state) {
 		return new ItemStack(this, 1, damageDropped(state));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> par3List) {
 		par3List.add(new ItemStack(this, 1, 0));
 		par3List.add(new ItemStack(this, 1, 1));
 		par3List.add(new ItemStack(this, 1, 2));

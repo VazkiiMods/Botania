@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
@@ -105,6 +106,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		this.achievement = achievement;
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return BotaniaAPI.rarityRelic;

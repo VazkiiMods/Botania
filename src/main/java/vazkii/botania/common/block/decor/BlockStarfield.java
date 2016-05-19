@@ -30,6 +30,8 @@ import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockStarfield extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
@@ -42,16 +44,19 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -62,6 +67,7 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
@@ -82,8 +88,9 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileStarfield();
 	}
 

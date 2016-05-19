@@ -19,6 +19,7 @@ import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);
 

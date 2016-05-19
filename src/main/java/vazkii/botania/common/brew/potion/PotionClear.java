@@ -16,6 +16,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibPotionNames;
 
+import javax.annotation.Nonnull;
+
 public class PotionClear extends PotionMod {
 
 	public PotionClear() {
@@ -28,7 +30,7 @@ public class PotionClear extends PotionMod {
 	}
 
 	@Override
-	public void affectEntity(Entity e, Entity e1, EntityLivingBase e2, int t, double d) {
+	public void affectEntity(Entity e, Entity e1, @Nonnull EntityLivingBase e2, int t, double d) {
 		e2.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
 	}
 

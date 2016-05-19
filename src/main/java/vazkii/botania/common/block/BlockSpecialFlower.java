@@ -61,6 +61,7 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -134,18 +135,21 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { getTypeProperty(), BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID } );
 	}
 
+	@Nonnull
 	@Override
-	public IExtendedBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IExtendedBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
 			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
@@ -161,6 +165,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > 15) {
@@ -170,7 +175,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 
@@ -205,13 +210,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
+	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, @Nonnull List<ItemStack> par3List) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
@@ -219,13 +225,15 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		}
 	}
 
+	@Nonnull
 	@Override
 	public EnumFlowerColor getBlockType() {
 		return EnumFlowerColor.RED;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
 	}
@@ -241,7 +249,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
 		if (willHarvest) {
 			// Copy of super.removedByPlayer but don't set to air yet
 			// This is so getDrops below will have a TE to work with
@@ -253,14 +261,15 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
+	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
 		super.harvestBlock(world, player, pos, state, te, stack);
 		// Now delete the block and TE
 		world.setBlockToAir(pos);
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList<>();
 		TileEntity tile = world.getTileEntity(pos);
 
@@ -285,8 +294,9 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileSpecialFlower();
 	}
 

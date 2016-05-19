@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.tile.TileStarfield;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.nio.FloatBuffer;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 	private static final Random field_147527_e = new Random(31100L);
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
-	public void renderTileEntityAt(TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
+	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		float f = (float)this.rendererDispatcher.entityX;
 		float f1 = (float)this.rendererDispatcher.entityY;

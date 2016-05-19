@@ -44,6 +44,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,8 +63,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(getBlock(par1ItemStack) != Blocks.AIR && par3EntityPlayer.isSneaking()) {
 			int dmg = par1ItemStack.getItemDamage();
 			par1ItemStack.setItemDamage(~dmg & 1);
@@ -74,6 +76,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = par3World.getBlockState(pos);
@@ -187,8 +190,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		}
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
 		ItemStack stack = new ItemStack(block, 1, meta);
@@ -196,8 +200,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + TextFormatting.GREEN + stack.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
 			return null;

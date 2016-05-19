@@ -33,6 +33,8 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+
 public class EntityThornChakram extends EntityThrowable {
 
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
@@ -113,7 +115,7 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult pos) {
+	protected void onImpact(@Nonnull RayTraceResult pos) {
 		if(noClip)
 			return;
 

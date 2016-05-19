@@ -29,6 +29,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.VanillaDoubleChestItemHandler;
 import vazkii.botania.api.corporea.InvWithLocation;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -229,7 +230,7 @@ public class InventoryHelper {
 		}
 
 		@Override
-		public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		public boolean isItemValidForSlot(int i, @Nonnull ItemStack itemstack) {
 			return true;
 		}
 
@@ -248,7 +249,7 @@ public class InventoryHelper {
 		}
 
 		@Override
-		public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		public boolean isUseableByPlayer(@Nonnull EntityPlayer entityplayer) {
 			return true;
 		}
 
@@ -307,6 +308,7 @@ public class InventoryHelper {
 			return Arrays.asList(inventoryContents);
 		}
 
+		@Nonnull
 		@Override
 		public String getName() {
 			return null;
@@ -317,6 +319,7 @@ public class InventoryHelper {
 			return false;
 		}
 
+		@Nonnull
 		@Override
 		public ITextComponent getDisplayName() {
 			return new TextComponentString(getName());
@@ -326,9 +329,9 @@ public class InventoryHelper {
 		public void markDirty() { }
 
 		@Override
-		public void openInventory(EntityPlayer player) { }
+		public void openInventory(@Nonnull EntityPlayer player) { }
 
 		@Override
-		public void closeInventory(EntityPlayer player) { }
+		public void closeInventory(@Nonnull EntityPlayer player) { }
 	}
 }

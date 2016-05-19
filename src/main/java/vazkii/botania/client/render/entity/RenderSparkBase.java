@@ -24,6 +24,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
@@ -33,7 +34,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 	}
 
 	@Override
-	public void doRender(T tEntity, double par2, double par4, double par6, float par8, float par9) {
+	public void doRender(@Nonnull T tEntity, double par2, double par4, double par6, float par8, float par9) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
 		GlStateManager.pushMatrix();
@@ -95,8 +96,9 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		// NO-OP
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+	protected ResourceLocation getEntityTexture(@Nonnull Entity p_110775_1_) {
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

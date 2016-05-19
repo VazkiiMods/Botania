@@ -43,6 +43,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
@@ -58,11 +59,13 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -73,6 +76,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
@@ -130,7 +134,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
@@ -177,6 +181,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -187,8 +192,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileHourglass();
 	}
 

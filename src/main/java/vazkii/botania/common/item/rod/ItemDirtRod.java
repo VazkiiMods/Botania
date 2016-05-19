@@ -32,6 +32,8 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider {
 
 	static final int COST = 75;
@@ -45,6 +47,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		return place(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);

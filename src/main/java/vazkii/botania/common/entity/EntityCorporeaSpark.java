@@ -31,6 +31,7 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -304,14 +305,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
 		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
 		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
 		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));

@@ -54,6 +54,7 @@ import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -82,20 +83,20 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, Category.SHAPELESS, "");
 		addPropertyOverride(new ResourceLocation("botania", "tipped"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return isTipped(itemStack) ? 1 : 0;
 			}
 		});
 		addPropertyOverride(new ResourceLocation("botania", "enabled"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return isEnabled(itemStack) ? 1 : 0;
 			}
 		});
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int mana : CREATIVE_MANA) {
 			ItemStack stack = new ItemStack(item);
 			setMana(stack, mana);
@@ -112,8 +113,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			par3List.add(TextFormatting.RED + I18n.translateToLocal("botaniamisc.getALife"));
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
 
@@ -126,6 +128,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
 		return player.isSneaking() ? super.onItemUse(stack, player, world, pos, hand, side, sx, sy, sz)
@@ -289,7 +292,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
@@ -299,7 +302,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack before, ItemStack after, boolean slotChanged) {
+	public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
 		return after.getItem() != this || isEnabled(before) != isEnabled(after);
 	}
 

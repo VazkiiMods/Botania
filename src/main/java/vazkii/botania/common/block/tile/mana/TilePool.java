@@ -60,6 +60,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -101,7 +102,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private boolean sendPacket = false;
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
 			return true;
 		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)

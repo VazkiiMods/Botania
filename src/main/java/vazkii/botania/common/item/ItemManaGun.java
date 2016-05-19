@@ -49,6 +49,7 @@ import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -75,20 +76,21 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 		addPropertyOverride(new ResourceLocation("botania", "clip"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return hasClip(itemStack) ? 1 : 0;
 			}
 		});
 		addPropertyOverride(new ResourceLocation("botania", "desu"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
+			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return isSugoiKawaiiDesuNe(itemStack) ? 1 : 0;
 			}
 		});
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		int effCd = COOLDOWN;
 		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(MobEffects.HASTE);
 		if(effect != null)
@@ -165,8 +167,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		return getLens(stack) != null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return getLens(itemStack);
 	}
 
@@ -235,8 +238,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
 		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
 	}

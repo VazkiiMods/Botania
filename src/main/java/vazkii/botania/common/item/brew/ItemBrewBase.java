@@ -38,6 +38,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -69,19 +70,21 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 		return drinkSpeed;
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
 		return EnumAction.DRINK;
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_, EnumHand hand) {
 		p_77659_3_.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, p_77659_1_);
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
 				PotionEffect newEffect = new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier(), true, true);
@@ -114,7 +117,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack stack = new ItemStack(item);
 			setBrew(stack, s);
@@ -137,8 +140,9 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 		return r << 16 | g << 8 | b;
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		return String.format(I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name"), I18n.translateToLocal(getBrew(stack).getUnlocalizedName(stack)), TextFormatting.BOLD + "" + getSwigsLeft(stack) + TextFormatting.RESET);
 	}
 

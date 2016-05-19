@@ -40,6 +40,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
@@ -55,8 +56,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(!par2World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
@@ -114,8 +116,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return itemStack.copy();
 	}
 

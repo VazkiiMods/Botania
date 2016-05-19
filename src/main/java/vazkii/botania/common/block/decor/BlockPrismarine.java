@@ -31,6 +31,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockPrismarine extends BlockMod implements ILexiconable {
@@ -45,6 +46,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PRISMARINE_VARIANT, PrismarineVariant.PRISMARINE));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.PRISMARINE_VARIANT);
@@ -55,6 +57,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.PRISMARINE_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= PrismarineVariant.values().length) {
@@ -74,13 +77,14 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < TYPES; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 

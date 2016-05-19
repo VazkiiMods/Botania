@@ -44,6 +44,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -66,17 +67,19 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
+	@Nonnull
 	@Override
 	public abstract BlockStateContainer createBlockState();
 
 	@Override
 	public abstract int getMetaFromState(IBlockState state);
 
+	@Nonnull
 	@Override
 	public abstract IBlockState getStateFromMeta(int meta);
 
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
 		return null;
 	}
 
@@ -86,12 +89,12 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean fuckifiknow) {
+	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+	public boolean canHarvestBlock(IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player) {
 		return false;
 	}
 
@@ -101,7 +104,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, @Nonnull EntityPlayer player) {
 		if(state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			if(world.getBlockState(pos.down()).getBlock() == this) {
 				if (!player.capabilities.isCreativeMode) {
@@ -131,12 +134,13 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+	public boolean isShearable(ItemStack item, IBlockAccess world, @Nonnull BlockPos pos) {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, @Nonnull BlockPos pos, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<>();
 		IBlockState state = world.getBlockState(pos);
 		IBlockState stateBelow = world.getBlockState(pos.down());
@@ -152,17 +156,19 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		return ret;
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		return ImmutableList.of();
 	}
 
 	@Override
-	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(@Nonnull Item p_149666_1_, CreativeTabs p_149666_2_, @Nonnull List<ItemStack> p_149666_3_) {
 		for(int i = 0; i < COUNT; ++i)
 			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
 	}
 
+	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType()
@@ -189,8 +195,9 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		return LexiconData.flowers;
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+	public IBlockState getActualState(IBlockState state, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
 		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.down());
 
@@ -203,8 +210,9 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(FACING, EnumFacing.SOUTH);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		state = state.getBlock().getActualState(state, world, pos);
 		PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
 		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getValue(prop).ordinal() - (second ? 8 : 0));

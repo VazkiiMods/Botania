@@ -30,6 +30,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
@@ -41,6 +42,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
@@ -51,6 +53,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= EnumDyeColor.values().length) {
@@ -60,7 +63,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 16; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

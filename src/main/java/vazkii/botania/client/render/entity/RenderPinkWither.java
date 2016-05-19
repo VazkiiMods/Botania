@@ -19,6 +19,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.lib.LibResources;
 
+import javax.annotation.Nonnull;
+
 public class RenderPinkWither extends RenderWither {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
@@ -27,6 +29,7 @@ public class RenderPinkWither extends RenderWither {
 		super(p_i46130_1_);
 	}
 
+	@Nonnull
 	@Override
 	protected ResourceLocation getEntityTexture(EntityWither p_110775_1_) {
 		return resource;

@@ -26,6 +26,8 @@ import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockForestEye extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
@@ -37,6 +39,7 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 		setSoundType(SoundType.METAL);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -68,8 +71,9 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileForestEye();
 	}
 

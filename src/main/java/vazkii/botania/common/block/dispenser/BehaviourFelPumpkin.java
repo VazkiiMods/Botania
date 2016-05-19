@@ -10,10 +10,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 
+import javax.annotation.Nonnull;
+
 // Taken from vanilla pumpkin dispense behaviour
 public class BehaviourFelPumpkin extends BehaviorDefaultDispenseItem {
     private boolean field_179241_b = true;
 
+    @Nonnull
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
     {

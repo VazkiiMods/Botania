@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
  */
 package vazkii.botania.api;
@@ -32,6 +32,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
@@ -74,7 +75,7 @@ public final class BotaniaAPI {
 	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
-	
+
 	public static final List<String> disposableBlocks = new ArrayList<>();
 	public static final List<String> semiDisposableBlocks = new ArrayList<>();
 
@@ -102,16 +103,24 @@ public final class BotaniaAPI {
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 
-	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addEnum(ArmorMaterial.class, "MANASTEEL",
+			new Class[] { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class },
+			"manasteel", 16, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F); // todo 1.9.4 toughness
 	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
-	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addEnum(ArmorMaterial.class, "B_ELEMENTIUM",
+			new Class[] { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class },
+			"b_elementium", 18, new int[] { 2, 6, 5, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F); // todo 1.9.4 toughness
 	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
+	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addEnum(ArmorMaterial.class, "TERRASTEEL",
+			new Class[] { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class },
+			"terrasteel", 34, new int[] {3, 8, 6, 3}, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0F); // todo 1.9.4 toughness
 	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER);
+	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addEnum(ArmorMaterial.class, "MANAWEAVE",
+			new Class[] { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class },
+			"manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0F); // todo 1.9.4 toughness
 
 	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
@@ -251,7 +260,7 @@ public final class BotaniaAPI {
 		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
-		
+
 		registerDisposableBlock("dirt"); // Vanilla
 		registerDisposableBlock("sand"); // Vanilla
 		registerDisposableBlock("gravel"); // Vanilla
@@ -306,7 +315,7 @@ public final class BotaniaAPI {
 	public static void registerDisposableBlock(String oreDictName) {
 		disposableBlocks.add(oreDictName);
 	}
-	
+
 	/**
 	 * Registers a Block as semi disposable using its Ore Dictionary Name.
 	 * This means it will not be trashed when sneaking.
@@ -314,7 +323,7 @@ public final class BotaniaAPI {
 	public static void registerSemiDisposableBlock(String oreDictName) {
 		semiDisposableBlocks.add(oreDictName);
 	}
-	
+
 	/**
 	 * Registers a paintableBlock and returns it.
 	 * You must also provide the PropertyEnum that this block uses to express its color
@@ -331,7 +340,7 @@ public final class BotaniaAPI {
 	public static void blacklistEntityFromGravityRod(Class<? extends Entity> entity) {
 		gravityRodBlacklist.add(entity);
 	}
-	
+
 	/**
 	 * Checks if the provided Entity is contained in the Blacklist.
 	 * Pass in the class for the Entity, e.g. entity.getClass()
@@ -339,7 +348,7 @@ public final class BotaniaAPI {
 	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
 		return gravityRodBlacklist.contains(entity);
 	}
-	
+
 	/**
 	 * Blacklists an item from being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
@@ -361,11 +370,11 @@ public final class BotaniaAPI {
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
 		return isItemBlacklistedFromMagnet(stack, 0);
 	}
-	
+
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
 		if(recursion > 5)
 			return false;
-		
+
 		if(stack.getItemDamage() != Short.MAX_VALUE) {
 			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
 			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
@@ -388,7 +397,7 @@ public final class BotaniaAPI {
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
 		if(recursion >= 5)
 			return false;
-			
+
 		if(meta != Short.MAX_VALUE) {
 			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
 			if(general)

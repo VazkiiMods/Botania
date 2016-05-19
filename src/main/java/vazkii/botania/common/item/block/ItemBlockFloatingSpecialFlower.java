@@ -14,14 +14,17 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
+import javax.annotation.Nonnull;
+
 public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 
 	public ItemBlockFloatingSpecialFlower(Block block1) {
 		super(block1);
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		String flowerName = getUnlocalizedName(stack) + ".name";
 		return String.format(I18n.translateToLocal("botaniamisc.floatingPrefix"), I18n.translateToLocal(flowerName));
 	}

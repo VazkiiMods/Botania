@@ -30,6 +30,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
@@ -48,7 +49,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	public static boolean pink = false;
 
 	@Override
-	public void renderTileEntityAt(TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
 		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false)
 				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
 			return;

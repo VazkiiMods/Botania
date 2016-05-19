@@ -29,6 +29,8 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 @Optional.Interface(modid = "Railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
 public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMinecartItem {
 
@@ -37,6 +39,7 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, BlockPos pos, EnumHand hand, EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		if(BlockRailBase.isRailBlock(p_77648_3_.getBlockState(pos))) {

@@ -22,6 +22,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
 public class ItemSlingshot extends ItemMod {
@@ -58,7 +59,7 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
 		return par1ItemStack;
 	}
 
@@ -67,13 +68,15 @@ public class ItemSlingshot extends ItemMod {
 		return 72000;
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(par3EntityPlayer.capabilities.isCreativeMode || PlayerHelper.hasAmmo(par3EntityPlayer, AMMO_FUNC)) {
 			par3EntityPlayer.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

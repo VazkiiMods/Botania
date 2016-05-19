@@ -28,6 +28,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,13 +41,15 @@ public class BlockGaiaHead extends BlockSkull {
 		setHardness(1.0F);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(ModItems.gaiaHead);
 	}
 
-    @Override
-    public List<ItemStack> getDrops(IBlockAccess p_149749_1_, BlockPos pos, IBlockState state, int fortune) {
+    @Nonnull
+	@Override
+    public List<ItemStack> getDrops(@Nonnull IBlockAccess p_149749_1_, @Nonnull BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<>();
         
         if(!state.getValue(NODROP)) {
@@ -71,6 +74,7 @@ public class BlockGaiaHead extends BlockSkull {
 		return 0;
 	}
 
+	@Nonnull
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileGaiaHead();

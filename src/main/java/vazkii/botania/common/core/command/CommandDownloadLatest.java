@@ -19,22 +19,26 @@ import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.version.ThreadDownloadMod;
 import vazkii.botania.common.core.version.VersionChecker;
 
+import javax.annotation.Nonnull;
+
 public class CommandDownloadLatest extends CommandBase {
 
 	private static final boolean ENABLED = true;
 
+	@Nonnull
 	@Override
 	public String getCommandName() {
 		return "botania-download-latest";
 	}
 
+	@Nonnull
 	@Override
-	public String getCommandUsage(ICommandSender var1) {
+	public String getCommandUsage(@Nonnull ICommandSender var1) {
 		return "/botania-download-latest <version>";
 	}
 
 	@Override
-	public void execute(MinecraftServer server, ICommandSender var1, String[] var2) {
+	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender var1, @Nonnull String[] var2) {
 		if(!ENABLED)
 			var1.addChatMessage(new TextComponentTranslation("botania.versioning.disabled").setStyle(new Style().setColor(TextFormatting.RED)));
 

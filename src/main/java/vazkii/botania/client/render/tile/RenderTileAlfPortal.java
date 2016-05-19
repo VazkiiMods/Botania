@@ -25,10 +25,12 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal> {
 
 	@Override
-	public void renderTileEntityAt(TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress) {
 		if (!portal.getWorld().isBlockLoaded(portal.getPos(), false)
 				|| portal.getWorld().getBlockState(portal.getPos()).getBlock() != ModBlocks.alfPortal)
 			return;

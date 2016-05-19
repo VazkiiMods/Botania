@@ -26,6 +26,7 @@ import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -173,7 +174,7 @@ public class CorporeaAutoCompleteHandler {
 		}
 
 		@Override
-		public int compareTo(CompletionData arg0) {
+		public int compareTo(@Nonnull CompletionData arg0) {
 			return string.compareTo(arg0.string);
 		}
 	}

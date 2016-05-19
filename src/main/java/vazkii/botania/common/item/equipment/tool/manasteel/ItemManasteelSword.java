@@ -31,6 +31,8 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
@@ -46,26 +48,27 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 		setUnlocalizedName(name);
 		addPropertyOverride(new ResourceLocation("botania", "elucidator"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0;
 			}
 		});
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
 		if(usesMana(par1ItemStack))
 			ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entity) {
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
 		if(usesMana(stack) && state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
@@ -83,7 +86,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 

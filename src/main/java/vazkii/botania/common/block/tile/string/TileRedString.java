@@ -21,6 +21,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
+import javax.annotation.Nonnull;
+
 public abstract class TileRedString extends TileMod implements ITileBound {
 
 	private BlockPos binding;
@@ -61,6 +63,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		// NO-OP
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;

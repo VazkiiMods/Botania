@@ -50,6 +50,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -68,12 +69,13 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("botania", "bindmode"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				return getBindMode(stack) ? 1 : 0;
 			}
 		});
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		Block block = par3World.getBlockState(pos).getBlock();
@@ -194,8 +196,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			setBoundTile(par1ItemStack, UNBOUND_POS);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(!world.isRemote && player.isSneaking()) {
 			setBindMode(stack, !getBindMode(stack));
 			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
@@ -214,11 +217,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColors(i, i));
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack);
@@ -229,6 +233,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		list.add(I18n.translateToLocal(getModeString(stack)));
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.RARE;

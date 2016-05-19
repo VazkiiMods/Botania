@@ -27,12 +27,14 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.core.handler.MethodHandles;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
 
 	EntityItem item;
 
 	@Override
-	public void renderTileEntityAt(TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == 2)

@@ -19,6 +19,7 @@ import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 public class InventoryBaubleBox implements IInventory {
@@ -127,12 +128,12 @@ public class InventoryBaubleBox implements IInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+	public boolean isUseableByPlayer(@Nonnull EntityPlayer entityplayer) {
 		return isBaubleBox(getStack());
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int i, @Nonnull ItemStack itemstack) {
 		return isBaubleBox(getStack());
 	}
 
@@ -160,21 +161,23 @@ public class InventoryBaubleBox implements IInventory {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public ITextComponent getDisplayName() {
 		return new TextComponentString(getName());
 	}
 
 	@Override
-	public void openInventory(EntityPlayer player) {
+	public void openInventory(@Nonnull EntityPlayer player) {
 		// NO-OP
 	}
 
 	@Override
-	public void closeInventory(EntityPlayer player) {
+	public void closeInventory(@Nonnull EntityPlayer player) {
 		// NO-OP
 	}
 
+	@Nonnull
 	@Override
 	public String getName() {
 		return LibItemNames.BAUBLE_BOX;

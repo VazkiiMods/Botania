@@ -42,6 +42,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
@@ -69,7 +70,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, (i + 1) * 5 - 1));
@@ -80,6 +81,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		list.add(String.format(I18n.translateToLocal("botaniamisc.shardLevel"), I18n.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(!par3World.isRemote && pos.getY() < 160 && !par3World.provider.doesWaterVaporize()) {

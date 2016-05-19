@@ -33,6 +33,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
@@ -41,7 +42,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 		addPropertyOverride(new ResourceLocation("botania", "holiday"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				return ClientProxy.jingleTheBells ? 1 : 0;
 			}
 		});
@@ -59,6 +60,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		return ConfigHandler.enableArmorModels ? (ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW) : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
 	
+	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getUnlocalizedName(ItemStack p_77667_1_) {

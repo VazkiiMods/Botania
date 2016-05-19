@@ -22,6 +22,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemOpenBucket extends ItemMod {
 
 	public ItemOpenBucket() {
@@ -29,8 +31,9 @@ public class ItemOpenBucket extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		RayTraceResult RayTraceResult = rayTrace(par2World, par3EntityPlayer, true);
 
 		if(RayTraceResult == null)

@@ -30,6 +30,7 @@ import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class BlockModWall extends BlockWall implements ILexiconable {
@@ -51,6 +52,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return super.getActualState(state, world, pos).withProperty(VARIANT, EnumType.NORMAL);
@@ -61,6 +63,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST);
@@ -71,13 +74,14 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 		return 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState();
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return true;
 	}
 
@@ -87,7 +91,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
 		list.add(new ItemStack(item));
 	}
 

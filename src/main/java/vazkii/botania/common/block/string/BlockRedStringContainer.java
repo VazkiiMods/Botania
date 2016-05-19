@@ -18,6 +18,8 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockRedStringContainer extends BlockRedString {
 
 	public BlockRedStringContainer() {
@@ -25,8 +27,9 @@ public class BlockRedStringContainer extends BlockRedString {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
+	@Nonnull
 	@Override
-	public TileRedString createTileEntity(World world, IBlockState state) {
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileRedStringContainer();
 	}
 

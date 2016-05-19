@@ -6,6 +6,7 @@ import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft mc, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft mc, int par2, int par3) {
 		gui.drawBookmark(xPosition, yPosition, displayString, false);
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);

@@ -25,6 +25,7 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockSpecialQuartzSlab extends BlockModSlab {
@@ -78,8 +79,9 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 		return this;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(getSingleBlock());
 	}
 
@@ -89,7 +91,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 	}
 
 	@Override
-	public ItemStack createStackedBlock(IBlockState par1) {
+	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
 	}
 

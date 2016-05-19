@@ -12,6 +12,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BindUuid extends LootFunction {
@@ -20,8 +21,9 @@ public class BindUuid extends LootFunction {
         super(conditionsIn);
     }
 
+    @Nonnull
     @Override
-    public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
+    public ItemStack apply(@Nonnull ItemStack stack, @Nonnull Random rand, @Nonnull LootContext context) {
         if (context.getKillerPlayer() != null) {
             ((ItemRelic) ModItems.dice).bindToUUID(context.getKillerPlayer().getUniqueID(), stack);
         }
@@ -35,10 +37,11 @@ public class BindUuid extends LootFunction {
         }
 
         @Override
-        public void serialize(JsonObject object, BindUuid functionClazz, JsonSerializationContext serializationContext) {}
+        public void serialize(@Nonnull JsonObject object, @Nonnull BindUuid functionClazz, @Nonnull JsonSerializationContext serializationContext) {}
 
+        @Nonnull
         @Override
-        public BindUuid deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
+        public BindUuid deserialize(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull LootCondition[] conditionsIn) {
             return new BindUuid(conditionsIn);
         }
     }

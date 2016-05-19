@@ -48,6 +48,7 @@ import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking()) {
@@ -89,7 +91,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item));
 		ItemStack creative = new ItemStack(item);
 		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -132,8 +134,9 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		return build == 0 ? I18n.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		String force = getForcedPage(par1ItemStack);
 		if(force != null && !force.isEmpty()) {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
@@ -182,6 +185,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.UNCOMMON;

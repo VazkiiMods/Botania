@@ -33,6 +33,7 @@ import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCollisionGhost {
@@ -45,6 +46,7 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -55,6 +57,7 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
@@ -71,7 +74,7 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 	}
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World par1World, BlockPos pos, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> par6List, Entity par7Entity) {
 		if(par7Entity != null && !(par7Entity instanceof IManaBurst))
 			super.addCollisionBoxToList(state, par1World, pos, par5AxisAlignedBB, par6List, par7Entity);
 	}
@@ -81,8 +84,9 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileManaDetector();
 	}
 

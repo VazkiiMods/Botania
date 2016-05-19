@@ -34,6 +34,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -300,13 +301,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
 		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
 		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
 	}

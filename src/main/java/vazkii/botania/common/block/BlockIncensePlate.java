@@ -33,6 +33,8 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockIncensePlate extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.375, 0, 0.125, 0.625, 1/16.0, 0.875);
@@ -45,6 +47,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
@@ -55,6 +58,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta < 2 || meta > 5) {
@@ -112,6 +116,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		return ((TileIncensePlate) world.getTileEntity(pos)).comparatorOutput;
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
@@ -136,8 +141,9 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileIncensePlate();
 	}
 

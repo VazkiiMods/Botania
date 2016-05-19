@@ -27,6 +27,8 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockManaGlass extends BlockMod implements ILexiconable {
 
 	public BlockManaGlass() {
@@ -46,11 +48,12 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
 		Block block = world.getBlockState(pos.offset(side)).getBlock();
 		return block == this ? false : super.shouldSideBeRendered(state, world, pos, side);
 	}
 
+	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.TRANSLUCENT;

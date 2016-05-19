@@ -19,6 +19,8 @@ import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
 	private static final float[] ROTATIONS = new float[] {
@@ -29,7 +31,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 	private static final ModelBellows model = new ModelBellows();
 
 	@Override
-	public void renderTileEntityAt(TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
 		if (bellows != null)
 			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)

@@ -19,6 +19,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class ItemSpellCloth extends ItemMod implements IColorable {
@@ -44,8 +45,9 @@ public class ItemSpellCloth extends ItemMod implements IColorable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		ItemStack stack = itemStack.copy();
 		stack.setItemDamage(stack.getItemDamage() + 1);
 		return stack;

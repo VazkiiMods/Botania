@@ -17,6 +17,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.gui.SlotLocked;
 
+import javax.annotation.Nonnull;
+
 public class ContainerFlowerBag extends Container {
 
 	InventoryFlowerBag flowerBagInv;
@@ -48,7 +50,7 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
+	public boolean canInteractWith(@Nonnull EntityPlayer player) {
 		boolean can = flowerBagInv.isUseableByPlayer(player);
 		if(!can)
 			onContainerClosed(player);

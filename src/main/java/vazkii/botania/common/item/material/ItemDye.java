@@ -29,12 +29,15 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemDye extends Item16Colors {
 
 	public ItemDye() {
 		super(LibItemNames.DYE);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		Block block = par3World.getBlockState(pos).getBlock();

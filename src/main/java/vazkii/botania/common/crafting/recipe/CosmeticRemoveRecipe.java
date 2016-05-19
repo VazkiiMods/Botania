@@ -18,10 +18,12 @@ import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 
+import javax.annotation.Nonnull;
+
 public class CosmeticRemoveRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundAttachable = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -37,7 +39,7 @@ public class CosmeticRemoveRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack attachableItem = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -65,8 +67,9 @@ public class CosmeticRemoveRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

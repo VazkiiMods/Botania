@@ -13,12 +13,15 @@ package vazkii.botania.common.block.decor.panes;
 import net.minecraft.util.BlockRenderLayer;
 import vazkii.botania.common.block.ModBlocks;
 
+import javax.annotation.Nonnull;
+
 public class BlockBifrostPane extends BlockModPane {
 
 	public BlockBifrostPane() {
 		super(ModBlocks.bifrostPerm);
 	}
 
+	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.TRANSLUCENT;

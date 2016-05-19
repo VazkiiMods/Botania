@@ -29,6 +29,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
@@ -337,7 +338,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(@Nonnull NBTTagCompound compound)
 	{
 		compound.setInteger("xTile", this.xTile);
 		compound.setInteger("yTile", this.yTile);
@@ -358,7 +359,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(@Nonnull NBTTagCompound compound)
 	{
 		this.xTile = compound.getInteger("xTile");
 		this.yTile = compound.getInteger("yTile");

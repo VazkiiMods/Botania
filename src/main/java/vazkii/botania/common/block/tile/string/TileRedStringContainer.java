@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
@@ -29,7 +30,7 @@ public class TileRedStringContainer extends TileRedString {
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				&& getTileAtBinding() != null
 				&& getTileAtBinding().hasCapability(cap, side))
@@ -37,8 +38,9 @@ public class TileRedStringContainer extends TileRedString {
 		return super.hasCapability(cap, side);
 	}
 
+	@Nonnull
 	@Override
-	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				&& getTileAtBinding() != null
 				&& getTileAtBinding().hasCapability(cap, side))

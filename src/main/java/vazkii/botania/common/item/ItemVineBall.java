@@ -21,14 +21,17 @@ import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemVineBall extends ItemMod {
 
 	public ItemVineBall() {
 		super(LibItemNames.VINE_BALL);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(!par3EntityPlayer.capabilities.isCreativeMode)
 			--par1ItemStack.stackSize;
 

@@ -28,6 +28,8 @@ import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 
 	private static final float[] ROTATIONS = new float[] {
@@ -38,7 +40,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
 		if (avatar != null)
 			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
 					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)

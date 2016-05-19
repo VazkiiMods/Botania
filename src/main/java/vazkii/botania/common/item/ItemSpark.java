@@ -28,12 +28,15 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
 
 	public ItemSpark() {
 		super(LibItemNames.SPARK);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);

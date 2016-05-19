@@ -33,6 +33,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemSpawnerMover extends ItemMod {
@@ -45,7 +46,7 @@ public class ItemSpawnerMover extends ItemMod {
 		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation("botania", "full"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				return hasData(stack) ? 1 : 0;
 			}
 		});
@@ -97,6 +98,7 @@ public class ItemSpawnerMover extends ItemMod {
 			tag.setInteger(TAG_PLACE_DELAY, tag.getInteger(TAG_PLACE_DELAY) - 1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
 		if(getEntityId(itemstack) == null) {

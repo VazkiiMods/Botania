@@ -30,6 +30,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -45,7 +46,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	public static final boolean phi = false;
 
 	@Override
-	public void doRenderLayer(EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
+	public void doRenderLayer(@Nonnull EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
 		String name = player.getDisplayName().getUnformattedText();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;

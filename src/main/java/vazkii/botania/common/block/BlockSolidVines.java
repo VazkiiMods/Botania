@@ -29,6 +29,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockSolidVines extends BlockVine implements ILexiconable {
@@ -47,7 +48,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, BlockPos pos, IBlockState state, Random p_149674_5_) {
+	public void updateTick(World p_149674_1_, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random p_149674_5_) {
 		// NO-OP
 	}
 
@@ -56,8 +57,9 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(Blocks.VINE);
 	}
 

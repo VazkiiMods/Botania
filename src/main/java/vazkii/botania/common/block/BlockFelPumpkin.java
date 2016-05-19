@@ -33,6 +33,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
@@ -45,6 +47,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
@@ -55,6 +58,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.CARDINALS).getHorizontalIndex();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));

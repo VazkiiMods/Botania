@@ -48,6 +48,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +63,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.SPREADER_VARIANT);
@@ -72,6 +74,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		return state.getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > SpreaderVariant.values().length) {
@@ -86,7 +89,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
@@ -133,6 +136,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -184,7 +188,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntity tile = par1World.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return;
@@ -236,8 +240,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileSpreader();
 	}
 

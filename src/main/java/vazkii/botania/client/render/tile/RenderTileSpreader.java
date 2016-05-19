@@ -29,6 +29,7 @@ import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
 		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
 				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;

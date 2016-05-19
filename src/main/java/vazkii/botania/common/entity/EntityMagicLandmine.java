@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityMagicLandmine extends Entity {
@@ -78,11 +79,11 @@ public class EntityMagicLandmine extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound var1) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound var1) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
 	}
 
 }

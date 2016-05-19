@@ -21,20 +21,24 @@ import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 
+import javax.annotation.Nonnull;
+
 public class CommandOpen extends CommandBase {
 
+	@Nonnull
 	@Override
 	public String getCommandName() {
 		return "botania-open";
 	}
 
+	@Nonnull
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(@Nonnull ICommandSender p_71518_1_) {
 		return "<entry>";
 	}
 
 	@Override
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);

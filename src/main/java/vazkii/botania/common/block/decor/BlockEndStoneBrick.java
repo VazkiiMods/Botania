@@ -31,6 +31,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
@@ -43,6 +44,7 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENDBRICK_VARIANT, EndBrickVariant.END_STONE_BRICKS));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ENDBRICK_VARIANT);
@@ -53,6 +55,7 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.ENDBRICK_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= EndBrickVariant.values().length) {
@@ -62,7 +65,7 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < EndBrickVariant.values().length; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -77,8 +80,9 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 

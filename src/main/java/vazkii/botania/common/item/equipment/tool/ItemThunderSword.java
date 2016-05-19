@@ -33,6 +33,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,7 +47,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, EntityLivingBase attacker) {
+	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, @Nonnull EntityLivingBase attacker) {
 		if(!(entity instanceof EntityPlayer) && entity != null) {
 			double range = 8;
 			final List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
@@ -88,6 +89,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 		return ModAchievements.terrasteelWeaponCraft;
 	}
 
+	@Nonnull
 	@Override
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);

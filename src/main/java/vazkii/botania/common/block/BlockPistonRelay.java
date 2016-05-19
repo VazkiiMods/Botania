@@ -46,6 +46,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,7 +77,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, int fortune, Random random) {
+	public int quantityDropped(IBlockState state, int fortune, @Nonnull Random random) {
 		return 0;
 	}
 
@@ -86,7 +87,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		if(!par1World.isRemote)
 			mapCoords(par1World.provider.getDimension(), pos, 2);
 	}
@@ -156,7 +157,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		@Override
-		public void readFromNBT(NBTTagCompound nbttagcompound) {
+		public void readFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
 			((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.clear();
 
 			Collection<String> tags = nbttagcompound.getKeySet();
@@ -170,8 +171,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			}
 		}
 
+		@Nonnull
 		@Override
-		public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
+		public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound nbttagcompound) {
 			for(DimWithPos s : ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.keySet())
 				nbttagcompound.setString(s.toString(), ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.get(s).toString());
 			return nbttagcompound;

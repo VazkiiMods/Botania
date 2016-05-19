@@ -32,6 +32,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICraftAchievement {
 
 	public BlockCorporeaRetainer() {
@@ -41,6 +43,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICr
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -51,6 +54,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICr
 		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
@@ -83,8 +87,9 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICr
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaRetainer();
 	}
 

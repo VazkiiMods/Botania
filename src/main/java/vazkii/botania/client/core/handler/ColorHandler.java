@@ -24,6 +24,7 @@ import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
                         return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                     }
                 },
@@ -50,7 +51,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
                         if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
                             float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
                             return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
@@ -66,7 +67,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
                         if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
                             return 0xFFFFFF;
                         float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
@@ -80,7 +81,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
                         TileEntity tile = world.getTileEntity(pos);
                         if(tile instanceof TileCamo) {
                             TileCamo camo = (TileCamo) tile;
@@ -96,7 +97,7 @@ public final class ColorHandler {
 
         items.registerItemColorHandler(new IItemColor() {
             @Override
-            public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+            public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
                 Item item = stack.getItem();
                 if (item instanceof IColorable) {
                     return ((IColorable) item).getColorFromItemStack(stack, tintIndex);

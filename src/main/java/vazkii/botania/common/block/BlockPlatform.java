@@ -43,6 +43,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
@@ -59,6 +60,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 				.withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, },
@@ -70,6 +72,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > PlatformVariant.values().length) {
@@ -78,8 +81,9 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return getDefaultState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.values()[meta]);
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
 				.withProperty(BotaniaStateProps.HELD_POS, pos);
 
@@ -92,7 +96,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+	public boolean canRenderInLayer(IBlockState state, @Nonnull BlockRenderLayer layer) {
 		return true;
 	}
 
@@ -108,13 +112,13 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World par1World, BlockPos pos, AxisAlignedBB par5AxisAlignedBB, List<AxisAlignedBB> par6List, Entity par7Entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> par6List, Entity par7Entity) {
 		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxToList(state, par1World, pos, par5AxisAlignedBB, par6List, par7Entity);
@@ -126,8 +130,9 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, par1World, pos);
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePlatform();
 	}
 

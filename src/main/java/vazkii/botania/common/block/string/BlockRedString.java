@@ -27,6 +27,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import javax.annotation.Nonnull;
+
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	public BlockRedString(String name) {
@@ -36,6 +38,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 		setSoundType(SoundType.STONE);
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.FACING);
@@ -52,6 +55,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.FACING).getIndex();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.getFront(meta));

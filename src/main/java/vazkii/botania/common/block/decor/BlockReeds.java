@@ -32,6 +32,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 
 	public BlockReeds() {
@@ -45,6 +47,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.AXIS_FACING, EnumFacing.Axis.Y));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.AXIS_FACING);
@@ -60,6 +63,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing.Axis axis = null;
@@ -72,6 +76,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 		return getDefaultState().withProperty(BotaniaStateProps.AXIS_FACING, axis);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		return getStateFromMeta(meta).withProperty(BotaniaStateProps.AXIS_FACING, facing.getAxis());

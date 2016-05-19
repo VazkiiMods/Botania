@@ -41,6 +41,8 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
@@ -48,7 +50,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 	private static final ModelTinyPotato model = new ModelTinyPotato();
 
 	@Override
-	public void renderTileEntityAt(TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void renderTileEntityAt(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
 		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
 				|| potato.getWorld().getBlockState(potato.getPos()).getBlock() != ModBlocks.tinyPotato)
 			return;

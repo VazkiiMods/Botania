@@ -43,6 +43,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -71,11 +72,13 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, getTypeProperty(), BotaniaStateProps.COLOR);
@@ -86,6 +89,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= EnumDyeColor.values().length) {
@@ -94,11 +98,13 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		return state.withProperty(type, EnumFlowerType.POPPY);
 	}
 
+	@Nonnull
 	@Override
 	public EnumFlowerColor getBlockType() {
 		return EnumFlowerColor.RED;
@@ -109,11 +115,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, @Nonnull List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
+	@Nonnull
 	@Override
 	public Block setLightLevel(float p_149715_1_) {
 		originalLight = (int) (p_149715_1_ * 15);
@@ -147,17 +154,17 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	}
 
 	@Override
-	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean fuckifiknow) {
+	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
 		return world.isAirBlock(pos.up());
 	}
 
 	@Override
-	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		return canGrow(world, pos, state, false);
 	}
 
 	@Override
-	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
+	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		placeDoubleFlower(world, pos, state.getValue(BotaniaStateProps.COLOR), 1 | 2);
 	}
 

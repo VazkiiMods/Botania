@@ -17,6 +17,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderFlat;
 
+import javax.annotation.Nonnull;
+
 public class WorldTypeSkyblock extends WorldType {
 
 	public WorldTypeSkyblock() {
@@ -38,7 +40,7 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public int getSpawnFuzz(WorldServer world, MinecraftServer server) {
+	public int getSpawnFuzz(@Nonnull WorldServer world, MinecraftServer server) {
 		return 2;
 	}
 
@@ -47,8 +49,9 @@ public class WorldTypeSkyblock extends WorldType {
 		return 260f;
 	}
 	
+	@Nonnull
 	@Override
-	public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
+	public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions) {
 		return new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
 	}
 	

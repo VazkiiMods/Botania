@@ -28,6 +28,8 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemObedienceStick extends ItemMod {
 
 	public ItemObedienceStick() {
@@ -35,6 +37,7 @@ public class ItemObedienceStick extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tileAt = world.getTileEntity(pos);

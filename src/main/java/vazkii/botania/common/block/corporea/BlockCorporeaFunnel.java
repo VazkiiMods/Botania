@@ -27,6 +27,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaFunnel() {
@@ -36,6 +38,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -46,6 +49,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
@@ -63,8 +67,9 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
+	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(World world, IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaFunnel();
 	}
 

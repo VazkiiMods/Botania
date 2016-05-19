@@ -20,6 +20,8 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class BlockMod extends Block {
 
 	protected int originalLight;
@@ -37,6 +39,7 @@ public class BlockMod extends Block {
 		GameRegistry.register(this instanceof IElvenItem ? new ItemBlockElven(this) : new ItemBlockMod(this), getRegistryName());
 	}
 
+	@Nonnull
 	@Override
 	public Block setLightLevel(float p_149715_1_) {
 		originalLight = (int) (p_149715_1_ * 15);

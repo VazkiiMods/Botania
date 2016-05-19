@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class EntityVineBall extends EntityThrowable {
@@ -53,7 +54,7 @@ public class EntityVineBall extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult var1) {
+	protected void onImpact(@Nonnull RayTraceResult var1) {
 
 		if(worldObj.isRemote) {
 			for(int j = 0; j < 16; j++) {

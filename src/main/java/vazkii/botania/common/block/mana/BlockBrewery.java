@@ -38,6 +38,7 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
@@ -54,6 +55,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
@@ -64,11 +66,13 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -99,7 +103,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {
@@ -147,6 +151,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		return brew.signal;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -167,8 +172,9 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileBrewery();
 	}
 

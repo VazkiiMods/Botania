@@ -35,6 +35,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaIndex() {
@@ -53,13 +55,15 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
+	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(World world, IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaIndex();
 	}
 

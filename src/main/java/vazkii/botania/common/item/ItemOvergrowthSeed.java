@@ -23,12 +23,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemOvergrowthSeed extends ItemMod {
 
 	public ItemOvergrowthSeed() {
 		super(LibItemNames.OVERGROWTH_SEED);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);

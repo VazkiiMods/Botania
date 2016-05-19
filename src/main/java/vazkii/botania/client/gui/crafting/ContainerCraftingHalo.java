@@ -18,6 +18,8 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class ContainerCraftingHalo extends ContainerWorkbench {
 
 	public ContainerCraftingHalo(InventoryPlayer p_i1808_1_, World p_i1808_2_) {
@@ -58,7 +60,7 @@ public class ContainerCraftingHalo extends ContainerWorkbench {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_) {
+	public boolean canInteractWith(@Nonnull EntityPlayer p_75145_1_) {
 		return true;
 	}
 }

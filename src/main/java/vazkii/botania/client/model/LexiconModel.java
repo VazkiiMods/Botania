@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import java.util.List;
 
@@ -29,11 +30,15 @@ public class LexiconModel implements IPerspectiveAwareModel {
         return ((IPerspectiveAwareModel) original).handlePerspective(cameraTransformType);
     }
 
+    @Nonnull
     @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) { return ImmutableList.of(); }
     @Override public boolean isAmbientOcclusion() { return false; }
     @Override public boolean isGui3d() { return false; }
     @Override public boolean isBuiltInRenderer() { return false; }
+    @Nonnull
     @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:items/lexicon"); }
+    @Nonnull
     @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+    @Nonnull
     @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 }

@@ -24,6 +24,7 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockRedStringInterceptor extends BlockRedString {
@@ -34,6 +35,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
@@ -50,6 +52,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		return meta;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
@@ -83,8 +86,9 @@ public class BlockRedStringInterceptor extends BlockRedString {
 		return 2;
 	}
 
+	@Nonnull
 	@Override
-	public TileRedString createTileEntity(World world, IBlockState state) {
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileRedStringInterceptor();
 	}
 

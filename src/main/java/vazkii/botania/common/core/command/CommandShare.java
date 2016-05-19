@@ -17,20 +17,24 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.translation.I18n;
 
+import javax.annotation.Nonnull;
+
 public class CommandShare extends CommandBase {
 
+	@Nonnull
 	@Override
 	public String getCommandName() {
 		return "botania-share";
 	}
 
+	@Nonnull
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(@Nonnull ICommandSender p_71518_1_) {
 		return "<entry>";
 	}
 
 	@Override
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
 		String json = I18n.translateToLocal("botaniamisc.shareMsg");
 		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);

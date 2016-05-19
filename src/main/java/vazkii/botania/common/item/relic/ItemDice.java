@@ -29,6 +29,7 @@ import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +52,9 @@ public class ItemDice extends ItemRelic {
 		};
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(isRightPlayer(player, stack) && !player.worldObj.isRemote) {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
 			int relic = SIDES_FOR_MOON_PHASES[moonPhase];

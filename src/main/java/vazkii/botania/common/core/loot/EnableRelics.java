@@ -9,12 +9,13 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class EnableRelics implements LootCondition {
 
     @Override
-    public boolean testCondition(Random rand, LootContext context) {
+    public boolean testCondition(@Nonnull Random rand, @Nonnull LootContext context) {
         return ConfigHandler.relicsEnabled;
     }
 
@@ -24,10 +25,11 @@ public class EnableRelics implements LootCondition {
         }
 
         @Override
-        public void serialize(JsonObject json, EnableRelics value, JsonSerializationContext context) {}
+        public void serialize(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
 
+        @Nonnull
         @Override
-        public EnableRelics deserialize(JsonObject json, JsonDeserializationContext context) {
+        public EnableRelics deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
             return new EnableRelics();
         }
     }

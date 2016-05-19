@@ -28,12 +28,15 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	public ItemPetal() {
 		super(LibItemNames.PETAL);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		// Copy of ItemBlock.onItemUse

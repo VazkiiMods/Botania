@@ -64,6 +64,8 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
@@ -87,8 +89,9 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 

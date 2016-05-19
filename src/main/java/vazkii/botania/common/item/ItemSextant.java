@@ -36,6 +36,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ public class ItemSextant extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
@@ -99,8 +101,9 @@ public class ItemSextant extends ItemMod {
 		}
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
 		if(!par3EntityPlayer.isSneaking()) {

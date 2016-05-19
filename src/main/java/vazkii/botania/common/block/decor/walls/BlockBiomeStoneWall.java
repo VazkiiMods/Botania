@@ -28,6 +28,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockBiomeStoneWall extends BlockModWall {
@@ -39,6 +40,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.FOREST_COBBLE).withProperty(VARIANT, EnumType.NORMAL));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST, BotaniaStateProps.BIOMESTONEWALL_VARIANT);
@@ -49,6 +51,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		return state.getValue(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ordinal() - 8;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta < 0 || meta >= BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues().size()) {
@@ -64,7 +67,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
 		for(int i = 0; i < 8; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

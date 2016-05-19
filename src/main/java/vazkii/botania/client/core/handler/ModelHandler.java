@@ -116,6 +116,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Locale;
 
@@ -958,8 +959,9 @@ public final class ModelHandler {
 
         ModelResourceLocation getLocation(ItemStack stack);
 
+        @Nonnull
         @Override
-        default ModelResourceLocation getModelLocation(ItemStack stack) {
+        default ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
             return getLocation(stack);
         }
 

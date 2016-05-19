@@ -81,6 +81,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -359,7 +360,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
 		Entity e = par1DamageSource.getEntity();
 		if((par1DamageSource.damageType.equals("player") || e instanceof EntityPixie) && e != null && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
@@ -391,7 +392,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	protected void damageEntity(DamageSource par1DamageSource, float par2) {
+	protected void damageEntity(@Nonnull DamageSource par1DamageSource, float par2) {
 		super.damageEntity(par1DamageSource, par2);
 
 		Entity attacker = par1DamageSource.getEntity();
@@ -413,7 +414,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	public void onDeath(DamageSource p_70645_1_) {
+	public void onDeath(@Nonnull DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
 		EntityLivingBase entitylivingbase = getAttackingEntity();
 		if(entitylivingbase instanceof EntityPlayer) {
@@ -445,7 +446,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source)
 	{
 		// Save true killer, they get extra loot
 		if ("player".equals(source.getDamageType())

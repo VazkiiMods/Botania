@@ -20,6 +20,8 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
+
 public class EntitySignalFlare extends Entity {
 
 	private static final String COLOR_TAG = "color";
@@ -64,12 +66,12 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound nbttagcompound) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
 		setColor(nbttagcompound.getInteger(COLOR_TAG));
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound nbttagcompound) {
 		nbttagcompound.setInteger(COLOR_TAG, getColor());
 	}
 

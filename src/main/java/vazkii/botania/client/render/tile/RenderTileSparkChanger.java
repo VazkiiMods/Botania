@@ -18,10 +18,12 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkChanger> {
 
 	@Override
-	public void renderTileEntityAt(TileSparkChanger tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileSparkChanger tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(d0, d1, d2);
 		GlStateManager.rotate(90F, 1F, 0F, 0F);

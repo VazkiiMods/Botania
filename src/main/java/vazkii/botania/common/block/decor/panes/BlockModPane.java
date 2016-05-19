@@ -24,6 +24,8 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class BlockModPane extends BlockPane {
 
 	public BlockModPane(Block source) {
@@ -46,7 +48,7 @@ public class BlockModPane extends BlockPane {
 	}*/
 
 	@Override
-	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
+	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, @Nonnull EnumFacing dir) {
 		Block block = world.getBlockState(pos).getBlock();
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
 	}

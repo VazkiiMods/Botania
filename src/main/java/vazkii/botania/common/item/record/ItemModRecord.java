@@ -19,6 +19,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemModRecord extends ItemRecord {
 
 	private final String file;
@@ -31,11 +33,13 @@ public class ItemModRecord extends ItemRecord {
 		file = "botania:music." + record;
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibResources.PREFIX_MOD);
 	}
 
+	@Nonnull
 	@Override
 	public ResourceLocation getRecordResource(String name) {
 		return new ResourceLocation(file);

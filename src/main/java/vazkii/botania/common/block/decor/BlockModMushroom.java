@@ -44,6 +44,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -65,6 +66,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
@@ -75,6 +77,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= EnumDyeColor.values().length) {
@@ -83,13 +86,14 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, BlockPos pos, IBlockState state, Random p_149674_5_) {
+	public void updateTick(@Nonnull World p_149674_1_, @Nonnull BlockPos pos, IBlockState state, Random p_149674_5_) {
 		// NO-OP, to prevent spreading
 	}
 
@@ -105,11 +109,12 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
+	@Nonnull
 	@Override
 	public Block setLightLevel(float p_149715_1_) {
 		originalLight = (int) (p_149715_1_ * 15);
@@ -118,7 +123,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 

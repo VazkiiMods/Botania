@@ -21,6 +21,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.entity.EntityThornChakram;
 
+import javax.annotation.Nonnull;
+
 // Basically a bit of an extension of RenderSnowball
 public class RenderThornChakram extends Render<EntityThornChakram> {
 
@@ -29,7 +31,7 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 	}
 
 	@Override
-	public void doRender(EntityThornChakram c, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	public void doRender(@Nonnull EntityThornChakram c, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
 		boolean fire = c.isFire();
 		TextureAtlasSprite iicon = null;//ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
 
@@ -47,8 +49,9 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 		}
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityThornChakram p_110775_1_) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityThornChakram p_110775_1_) {
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

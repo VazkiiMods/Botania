@@ -20,15 +20,19 @@ import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
+import javax.annotation.Nonnull;
+
 public class CommandSkyblockSpread extends CommandBase {
 
+	@Nonnull
 	@Override
 	public String getCommandName() {
 		return "botania-skyblock-spread";
 	}
 
+	@Nonnull
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(@Nonnull ICommandSender p_71518_1_) {
 		return "<player> [<range>]";
 	}
 
@@ -38,7 +42,7 @@ public class CommandSkyblockSpread extends CommandBase {
 	}
 
 	@Override
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
 		int maxAllowed = 1000000;
 		int minAllowed = 250;
 		int minDist = 100;

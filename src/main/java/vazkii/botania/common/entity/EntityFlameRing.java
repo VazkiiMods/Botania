@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 
@@ -91,19 +92,19 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
 		return false;
 	}
 
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound var1) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {
 		// NO-OP
 	}
 
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound var1) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
 		// NO-OP
 	}
 }

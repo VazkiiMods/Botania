@@ -23,6 +23,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Iterator;
 
 public class EntityPinkWither extends EntityWither {
@@ -82,7 +83,7 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	public void addTrackingPlayer(EntityPlayerMP player)
+	public void addTrackingPlayer(@Nonnull EntityPlayerMP player)
 	{
 		// NO-OP
 	}

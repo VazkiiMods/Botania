@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemGlassPick extends ItemManasteelPick {
 
 	private static final int MANA_PER_DAMAGE = 160;
@@ -44,7 +46,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.GLASS) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 

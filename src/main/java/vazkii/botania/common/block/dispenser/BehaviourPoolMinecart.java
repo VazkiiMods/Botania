@@ -23,8 +23,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
+import javax.annotation.Nonnull;
+
 public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 
+	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource p_82487_1_, ItemStack p_82487_2_) {
 		EnumFacing enumfacing = BlockDispenser.getFacing(p_82487_1_.getBlockMetadata());

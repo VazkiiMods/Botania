@@ -31,6 +31,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Random;
 
@@ -41,7 +42,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 	public static int forceManaNumber = -1;
 
 	@Override
-	public void renderTileEntityAt(TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
 		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
 				|| pool.getWorld().getBlockState(pool.getPos()).getBlock() != ModBlocks.pool))
 			return;

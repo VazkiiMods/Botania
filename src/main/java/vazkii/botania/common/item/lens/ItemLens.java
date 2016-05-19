@@ -37,6 +37,7 @@ import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -145,7 +146,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
@@ -155,6 +156,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
@@ -172,8 +174,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens == null)
 			return super.getItemStackDisplayName(stack);

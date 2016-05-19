@@ -37,6 +37,7 @@ import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -211,14 +212,15 @@ public class ItemBottledMana extends ItemMod {
 		par3List.add(I18n.translateToLocal("botaniamisc.bottleTooltip"));
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		par3EntityPlayer.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
 		randomEffect(living, par1ItemStack);
 		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
 		randomSeed(par1ItemStack);
@@ -233,6 +235,7 @@ public class ItemBottledMana extends ItemMod {
 		return 20;
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.DRINK;

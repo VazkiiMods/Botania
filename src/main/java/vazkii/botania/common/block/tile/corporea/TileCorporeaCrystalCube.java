@@ -28,6 +28,7 @@ import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
@@ -171,12 +172,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
 		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
 	}
 
+	@Nonnull
 	@Override
-	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
 		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
 			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
 		} else return super.getCapability(cap, side);

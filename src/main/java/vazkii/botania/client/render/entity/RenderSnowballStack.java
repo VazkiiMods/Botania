@@ -16,6 +16,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 // Same as RenderSnowball, but ItemStack sensitive
 public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
 
@@ -26,6 +28,7 @@ public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
         this.stackGetter = stackGetter;
     }
 
+    @Nonnull
     @Override
     public ItemStack getStackToRender(T entity) {
         return stackGetter.apply(entity);

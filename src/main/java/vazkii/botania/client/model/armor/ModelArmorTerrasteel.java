@@ -18,6 +18,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.util.EnumHandSide;
 
+import javax.annotation.Nonnull;
+
 public class ModelArmorTerrasteel extends ModelBiped {
 
 	public ModelRenderer helm;
@@ -231,7 +233,7 @@ public class ModelArmorTerrasteel extends ModelBiped {
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void render(@Nonnull Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		helm.showModel = slot == EntityEquipmentSlot.HEAD;
 		body.showModel = slot == EntityEquipmentSlot.CHEST;
 		armr.showModel = slot == EntityEquipmentSlot.CHEST;

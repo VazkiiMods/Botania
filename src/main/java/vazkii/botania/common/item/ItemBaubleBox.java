@@ -23,6 +23,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemBaubleBox extends ItemMod {
 
 	private static final String TAG_ITEMS = "InvItems";
@@ -33,8 +35,9 @@ public class ItemBaubleBox extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, 0, 0, 0);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}

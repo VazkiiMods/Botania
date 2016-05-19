@@ -19,6 +19,8 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringComparator;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockRedStringComparator extends BlockRedString {
 
 	public BlockRedStringComparator() {
@@ -36,8 +38,9 @@ public class BlockRedStringComparator extends BlockRedString {
 		return ((TileRedStringComparator) world.getTileEntity(pos)).getComparatorValue();
 	}
 
+	@Nonnull
 	@Override
-	public TileRedString createTileEntity(World world, IBlockState state) {
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileRedStringComparator();
 	}
 

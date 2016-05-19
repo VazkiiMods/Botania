@@ -12,6 +12,7 @@ package vazkii.botania.api.lexicon;
 
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	}
 
 	@Override
-	public int compareTo(LexiconCategory category) {
+	public int compareTo(@Nonnull LexiconCategory category) {
 		return priority == category.priority ? sortingId - category.sortingId : category.priority - priority;
 	}
 }

@@ -30,6 +30,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
@@ -168,7 +169,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound cmp) {
+	public void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		super.writeEntityToNBT(cmp);
 		cmp.setBoolean(TAG_CHARGING, isCharging());
 		cmp.setInteger(TAG_VARIETY, getVariety());
@@ -179,7 +180,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound cmp) {
+	public void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		super.readEntityFromNBT(cmp);
 		setCharging(cmp.getBoolean(TAG_CHARGING));
 		setVariety(cmp.getInteger(TAG_VARIETY));

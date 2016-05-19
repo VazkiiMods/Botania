@@ -34,6 +34,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
@@ -47,8 +48,9 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer p, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer p, EnumHand hand) {
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
 				int range = IManaProficiencyArmor.Helper.hasProficiency(p) ? 20 : 15;

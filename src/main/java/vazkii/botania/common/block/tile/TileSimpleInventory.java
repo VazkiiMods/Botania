@@ -18,6 +18,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
+
 public abstract class TileSimpleInventory extends TileMod {
 
 	protected SimpleItemStackHandler itemHandler = createItemHandler();
@@ -44,13 +46,14 @@ public abstract class TileSimpleInventory extends TileMod {
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> cap, EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
 		return cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(cap, side);
 	}
 
+	@Nonnull
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T getCapability(Capability<T> cap, EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) itemHandler;
 		return super.getCapability(cap, side);

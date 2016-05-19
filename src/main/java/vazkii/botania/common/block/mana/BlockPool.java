@@ -49,6 +49,7 @@ import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT, BotaniaStateProps.COLOR);
@@ -79,6 +81,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return state.getValue(BotaniaStateProps.POOL_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > PoolVariant.values().length) {
@@ -87,8 +90,9 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.values()[meta]);
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TilePool) {
 			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
@@ -97,6 +101,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		}
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -113,14 +118,15 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TilePool pool = (TilePool) par1World.getTileEntity(pos);
 		lastFragile = pool.fragile;
 		super.breakBlock(par1World, pos, state);
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		ArrayList<ItemStack> drops = new ArrayList<>();
 
 		if(!lastFragile)
@@ -130,7 +136,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		par3.add(new ItemStack(par1, 1, 0));
 		par3.add(new ItemStack(par1, 1, 2));
 		par3.add(new ItemStack(par1, 1, 3));
@@ -142,8 +148,9 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePool();
 	}
 
@@ -164,7 +171,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, World p_149743_1_, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> boxes, Entity entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World p_149743_1_, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity) {
 		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
@@ -173,7 +180,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+	public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN;
 	}
 
@@ -187,6 +194,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS)

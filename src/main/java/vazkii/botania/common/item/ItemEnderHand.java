@@ -27,6 +27,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	private static final int COST_PROVIDE = 5;
@@ -38,8 +40,9 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
 			player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);

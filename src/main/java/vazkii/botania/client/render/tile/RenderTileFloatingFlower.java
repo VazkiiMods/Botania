@@ -22,12 +22,13 @@ import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.FloatingFlowerModel;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
 		if (tile != null)
 			if (!tile.getWorld().isBlockLoaded(tile.getPos(), false))
 				return;

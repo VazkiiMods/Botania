@@ -30,6 +30,7 @@ import vazkii.botania.common.item.block.ItemBlockStorage;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockStorage extends BlockMod implements ILexiconable {
@@ -42,6 +43,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.STORAGE_VARIANT);
@@ -52,6 +54,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.STORAGE_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= StorageVariant.values().length) {
@@ -61,7 +64,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < StorageVariant.values().length; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}

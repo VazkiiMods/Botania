@@ -22,6 +22,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TileCraftCrate extends TileOpenCrate {
@@ -122,7 +123,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		InventoryCrafting craft = new InventoryCrafting(new Container() {
 			@Override
-			public boolean canInteractWith(EntityPlayer p_75145_1_) {
+			public boolean canInteractWith(@Nonnull EntityPlayer p_75145_1_) {
 				return false;
 			}
 		}, 3, 3);

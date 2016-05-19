@@ -24,6 +24,8 @@ import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class GuiButtonInvisible extends GuiButtonLexicon {
 
 	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
@@ -48,7 +50,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
 		if(enableDog) {
 			dogPos += ClientTickHandler.delta * 10;
 			

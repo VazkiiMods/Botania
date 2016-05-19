@@ -25,6 +25,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchievement {
@@ -36,7 +37,7 @@ public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchiev
 	}
 
 	@Override
-	public void breakBlock(World par1World, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
 		if (inv != null) {

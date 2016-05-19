@@ -21,6 +21,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
+
 public class EntityPixie extends EntityFlyingCreature {
 
 	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
@@ -100,7 +102,7 @@ public class EntityPixie extends EntityFlyingCreature {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
 		if(getType() == 0 && par1DamageSource.getEntity() != summoner || getType() == 1 && par1DamageSource.getEntity() instanceof EntityPlayer)
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;

@@ -26,10 +26,12 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
 
 	@Override
-	public void renderTileEntityAt(TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false)
 				|| tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;

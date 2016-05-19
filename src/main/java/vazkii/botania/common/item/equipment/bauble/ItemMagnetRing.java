@@ -36,6 +36,7 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class ItemMagnetRing extends ItemBauble {
 		this.range = range;
 		addPropertyOverride(new ResourceLocation("botania", "on"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				return ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
 			}
 		});

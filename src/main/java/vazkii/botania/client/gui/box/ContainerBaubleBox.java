@@ -23,6 +23,8 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
 
+import javax.annotation.Nonnull;
+
 public class ContainerBaubleBox extends Container {
 
 	InventoryBaubleBox baubleBoxInv;
@@ -65,7 +67,7 @@ public class ContainerBaubleBox extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
+	public boolean canInteractWith(@Nonnull EntityPlayer player) {
 		boolean can = baubleBoxInv.isUseableByPlayer(player);
 		if(!can)
 			onContainerClosed(player);

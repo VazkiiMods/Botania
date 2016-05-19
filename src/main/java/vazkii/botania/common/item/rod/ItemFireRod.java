@@ -32,6 +32,8 @@ import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
@@ -44,6 +46,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(!par3World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {

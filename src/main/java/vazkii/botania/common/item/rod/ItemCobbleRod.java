@@ -25,6 +25,8 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	static final int COST = 150;
@@ -34,6 +36,7 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		return ItemDirtRod.place(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);

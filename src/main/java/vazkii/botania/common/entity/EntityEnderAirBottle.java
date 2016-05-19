@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult pos) {
+	protected void onImpact(@Nonnull RayTraceResult pos) {
 		if(pos.entityHit == null && !worldObj.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
 			worldObj.playEvent(2002, new BlockPos((int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ)), 8);

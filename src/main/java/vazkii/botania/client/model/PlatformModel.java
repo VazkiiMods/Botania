@@ -32,10 +32,12 @@ import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class PlatformModel implements IBakedModel {
 
+	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 		if(state.getBlock() != ModBlocks.platform)
@@ -91,16 +93,19 @@ public class PlatformModel implements IBakedModel {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public TextureAtlasSprite getParticleTexture() {
 		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:blocks/livingwood0");
 	}
 
+	@Nonnull
 	@Override
 	public ItemCameraTransforms getItemCameraTransforms() {
 		return ItemCameraTransforms.DEFAULT;
 	}
 
+	@Nonnull
 	@Override
 	public ItemOverrideList getOverrides() {
 		return ItemOverrideList.NONE;
@@ -115,7 +120,7 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		@Override
-		public TileEntity getTileEntity(BlockPos pos) {
+		public TileEntity getTileEntity(@Nonnull BlockPos pos) {
 			/* todo is this actually needed? if so this can't be an iblockaccess anymore
 			IBlockState state = getBlockState(pos);
 			if(state == null || !state.getBlock().hasTileEntity(state))
@@ -133,12 +138,13 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		@Override
-		public int getCombinedLight(BlockPos pos, int lightValue) {
+		public int getCombinedLight(@Nonnull BlockPos pos, int lightValue) {
 			return 15 << 20 | 15 << 4;
 		}
 
+		@Nonnull
 		@Override
-		public IBlockState getBlockState(BlockPos pos) {
+		public IBlockState getBlockState(@Nonnull BlockPos pos) {
 			IBlockState state = compose.getBlockState(pos);
 			if(state.getBlock() instanceof BlockCamo) {
 				state = ((TileCamo) compose.getTileEntity(pos)).camoState;
@@ -147,12 +153,13 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		@Override
-		public boolean isAirBlock(BlockPos pos) {
+		public boolean isAirBlock(@Nonnull BlockPos pos) {
 			return compose.isAirBlock(pos);
 		}
 
+		@Nonnull
 		@Override
-		public Biome getBiomeGenForCoords(BlockPos pos) {
+		public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
 			return compose.getBiomeGenForCoords(pos);
 		}
 
@@ -162,17 +169,18 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		@Override
-		public int getStrongPower(BlockPos pos, EnumFacing direction) {
+		public int getStrongPower(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
 			return compose.getStrongPower(pos, direction);
 		}
 
+		@Nonnull
 		@Override
 		public WorldType getWorldType() {
 			return compose.getWorldType();
 		}
 
 		@Override
-		public boolean isSideSolid(BlockPos pos, EnumFacing side, boolean _default) {
+		public boolean isSideSolid(@Nonnull BlockPos pos, @Nonnull EnumFacing side, boolean _default) {
 			return compose.isSideSolid(pos, side, _default);
 		}
 	}

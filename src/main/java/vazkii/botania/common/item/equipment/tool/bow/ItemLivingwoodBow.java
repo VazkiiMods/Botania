@@ -43,6 +43,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
@@ -61,7 +62,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		setMaxDamage(500);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 				if (entityIn == null)
 				{
 					return 0.0F;
@@ -75,13 +76,15 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		});
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, @Nonnull World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		// Copy from superclass with our own check
 		boolean flag = canFire(stack, player);
 		ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(stack, world, player, hand, flag);
@@ -99,7 +102,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase shooter, int useTicks) {
+	public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World world, EntityLivingBase shooter, int useTicks) {
 		int j = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier());
 
 		if(shooter instanceof EntityPlayer) {

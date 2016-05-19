@@ -21,6 +21,8 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockRedStringDispenser extends BlockRedString {
 
 	public BlockRedStringDispenser() {
@@ -28,6 +30,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
@@ -44,6 +47,7 @@ public class BlockRedStringDispenser extends BlockRedString {
 		return meta;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
@@ -64,8 +68,9 @@ public class BlockRedStringDispenser extends BlockRedString {
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
+	@Nonnull
 	@Override
-	public TileRedString createTileEntity(World world, IBlockState meta) {
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState meta) {
 		return new TileRedStringDispenser();
 	}
 

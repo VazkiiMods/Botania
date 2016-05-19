@@ -15,6 +15,8 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 /** Use minecraft's EnumDyeColor in as many places as possible. */
 @Deprecated
 public enum EnumColor implements IStringSerializable {
@@ -111,6 +113,7 @@ public enum EnumColor implements IStringSerializable {
         return name().replace("_", ".").toLowerCase(Locale.ENGLISH);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return NAMES[ordinal()];

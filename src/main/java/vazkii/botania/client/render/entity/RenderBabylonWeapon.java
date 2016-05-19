@@ -27,6 +27,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
@@ -38,7 +39,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 	}
 
 	@Override
-	public void doRender(EntityBabylonWeapon weapon, double par2, double par4, double par6, float par8, float par9) {
+	public void doRender(@Nonnull EntityBabylonWeapon weapon, double par2, double par4, double par6, float par8, float par9) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float)par2, (float)par4, (float)par6);
 		GlStateManager.rotate(weapon.getRotation(), 0F, 1F, 0F);
@@ -104,8 +105,9 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.popMatrix();
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityBabylonWeapon p_110775_1_) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityBabylonWeapon p_110775_1_) {
 		return null;
 	}
 

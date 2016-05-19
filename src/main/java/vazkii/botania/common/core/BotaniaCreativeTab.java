@@ -23,6 +23,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
@@ -36,6 +37,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModItems.lexicon);
@@ -52,7 +54,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllRelevantItems(List<ItemStack> list) {
+	public void displayAllRelevantItems(@Nonnull List<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);

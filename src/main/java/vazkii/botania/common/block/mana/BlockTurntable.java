@@ -30,6 +30,8 @@ import vazkii.botania.common.block.tile.mana.TileTurntable;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILexiconable {
 
 	public BlockTurntable() {
@@ -43,8 +45,9 @@ public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILe
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileTurntable();
 	}
 

@@ -27,6 +27,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ItemKingKey extends ItemRelic implements IManaUsingItem {
@@ -40,8 +41,9 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		super(LibItemNames.KING_KEY);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		par3EntityPlayer.setActiveHand(hand);
 		setCharging(par1ItemStack, true);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
@@ -96,6 +98,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;

@@ -7,6 +7,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 
+import javax.annotation.Nonnull;
+
 // White to Gray
 public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
     public BlockModDoubleFlower1() {
@@ -18,6 +20,7 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
                 .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE));
     }
 
+    @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
@@ -32,6 +35,7 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
         return meta;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         BlockDoublePlant.EnumBlockHalf half = (meta & 8) > 0 ? BlockDoublePlant.EnumBlockHalf.UPPER : BlockDoublePlant.EnumBlockHalf.LOWER;

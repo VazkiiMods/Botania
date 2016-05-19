@@ -18,12 +18,13 @@ import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class AesirRingRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundThorRing = false;
 		boolean foundOdinRing = false;
 		boolean foundLokiRing = false;
@@ -45,7 +46,7 @@ public class AesirRingRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		String soulbind = null;
 		UUID soulbindUUID = null;
 		boolean hasUUID = false;
@@ -91,8 +92,9 @@ public class AesirRingRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 

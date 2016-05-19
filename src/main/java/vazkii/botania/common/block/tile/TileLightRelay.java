@@ -36,6 +36,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -265,17 +266,17 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		@Override
-		public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
+		public boolean attackEntityFrom(@Nonnull DamageSource p_70097_1_, float p_70097_2_) {
 			return false;
 		}
 
 		@Override
-		protected void readEntityFromNBT(NBTTagCompound cmp) {
+		protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 			setExit(new BlockPos(cmp.getInteger(TAG_EXIT_X), cmp.getInteger(TAG_EXIT_Y), cmp.getInteger(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void writeEntityToNBT(NBTTagCompound cmp) {
+		protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 			BlockPos exit = getExitPos();
 			cmp.setInteger(TAG_EXIT_X, exit.getX());
 			cmp.setInteger(TAG_EXIT_Y, exit.getY());

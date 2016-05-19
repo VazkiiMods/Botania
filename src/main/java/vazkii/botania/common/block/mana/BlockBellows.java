@@ -34,6 +34,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockBellows extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875, 0, 0.1875, 1-0.1875, 10.0 / 16, 1-0.1875);
@@ -45,6 +47,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
@@ -55,6 +58,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta < 2 || meta > 5) {
@@ -63,6 +67,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -90,6 +95,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -100,8 +106,9 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileBellows();
 	}
 

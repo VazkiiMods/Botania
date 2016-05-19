@@ -43,13 +43,15 @@ import vazkii.botania.client.model.ModelCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.core.handler.MethodHandles;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
 	private EntityItem entity = null;
 	private RenderEntityItem itemRenderer = null;
 
 	@Override
-	public void renderTileEntityAt(TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
 		ItemStack stack = null;
 		if (cube != null) {
 			if(entity == null)

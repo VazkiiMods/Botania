@@ -48,6 +48,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -377,7 +378,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult rtr) {
+	protected void onImpact(@Nonnull RayTraceResult rtr) {
 		boolean collided = false;
 		boolean dead = false;
 

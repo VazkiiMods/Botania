@@ -20,8 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.wand.IWandable;
 
+import javax.annotation.Nonnull;
+
 public class BehaviourWand extends BehaviorDefaultDispenseItem {
 
+	@Nonnull
 	@Override
 	protected ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
 		EnumFacing facing = BlockDispenser.getFacing(par1IBlockSource.getBlockMetadata());

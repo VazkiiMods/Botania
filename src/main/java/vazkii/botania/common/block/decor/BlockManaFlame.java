@@ -36,6 +36,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockManaFlame extends BlockMod implements ILexiconable {
@@ -48,6 +49,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		setLightLevel(1F);
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
@@ -60,12 +62,13 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		return ((TileManaFlame) world.getTileEntity(pos)).getLightColor();
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.INVISIBLE;
@@ -87,7 +90,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
 		return null;
 	}
 
@@ -106,8 +109,9 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		return ImmutableList.of();
 	}
 
@@ -116,8 +120,9 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileManaFlame();
 	}
 

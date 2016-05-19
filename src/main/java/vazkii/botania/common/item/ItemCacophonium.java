@@ -41,6 +41,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemCacophonium extends ItemMod implements ICraftAchievement {
@@ -89,6 +90,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		boolean can = isDOIT(stack);
@@ -120,6 +122,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 			list.add(I18n.translateToLocal(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BLOCK;
@@ -130,8 +133,9 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		return 72000;
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(ItemNBTHelper.getBoolean(par1ItemStack, TAG_HAS_SOUND, false) || isDOIT(par1ItemStack))
 			par3EntityPlayer.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

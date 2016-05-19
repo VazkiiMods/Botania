@@ -13,12 +13,15 @@ package vazkii.botania.common.block.decor.panes;
 import net.minecraft.util.BlockRenderLayer;
 import vazkii.botania.common.block.ModBlocks;
 
+import javax.annotation.Nonnull;
+
 public class BlockManaglassPane extends BlockModPane {
 
 	public BlockManaglassPane() {
 		super(ModBlocks.manaGlass);
 	}
 
+	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.TRANSLUCENT;

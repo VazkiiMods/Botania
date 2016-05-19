@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemCraftPattern extends ItemMod {
@@ -33,6 +34,7 @@ public class ItemCraftPattern extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
@@ -46,11 +48,12 @@ public class ItemCraftPattern extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < TileCraftCrate.PATTERNS.length; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();

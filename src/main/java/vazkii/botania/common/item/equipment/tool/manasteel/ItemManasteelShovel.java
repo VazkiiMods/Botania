@@ -40,6 +40,8 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, ISortableTool {
 
 	private static final int MANA_PER_DAMAGE = 60;
@@ -55,27 +57,29 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 		setUnlocalizedName(name);
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
 		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
 		return true;
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entity) {
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
 		if (state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, BlockPos pos, EnumHand hand, EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+	public EnumActionResult onItemUse(@Nonnull ItemStack p_77648_1_, EntityPlayer p_77648_2_, @Nonnull World p_77648_3_, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
 		if(!p_77648_2_.canPlayerEdit(pos, side, p_77648_1_))
 			return EnumActionResult.PASS;
 		else {
@@ -114,7 +118,7 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 

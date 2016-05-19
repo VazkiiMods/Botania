@@ -27,6 +27,8 @@ import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import javax.annotation.Nonnull;
+
 public class GuiButtonCategory extends GuiButtonLexicon {
 
 	private static final ResourceLocation fallbackResource = new ResourceLocation(LibResources.CATEGORY_INDEX);
@@ -71,7 +73,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft mc, int mx, int my) {
+	public void drawButton(@Nonnull Minecraft mc, int mx, int my) {
 		boolean inside = mx >= xPosition && my >= yPosition && mx < xPosition + width && my < yPosition + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);

@@ -43,6 +43,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 import java.util.List;
@@ -80,10 +81,11 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 	}
 
 	@Override
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
 		CACHE.clear();
 	}
 
+	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 		if(state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
@@ -136,6 +138,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		}
 	}
 
+	@Nonnull
 	@Override
 	public ItemOverrideList getOverrides() {
 		return itemHandler;
@@ -144,7 +147,9 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return true; }
 	@Override public boolean isBuiltInRenderer() { return false; }
+	@Nonnull
 	@Override public TextureAtlasSprite getParticleTexture() { return null; }
+	@Nonnull
 	@Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
 	private static class CompositeBakedModel implements IBakedModel {
@@ -178,6 +183,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		}
 
 		// Forward all to flower model
+		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			return genQuads;
@@ -198,22 +204,26 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 			return base.isBuiltInRenderer();
 		}
 
+		@Nonnull
 		@Override
 		public TextureAtlasSprite getParticleTexture() {
 			return base.getParticleTexture();
 		}
 
+		@Nonnull
 		@Override
 		public ItemCameraTransforms getItemCameraTransforms() {
 			return base.getItemCameraTransforms();
 		}
 
+		@Nonnull
 		@Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 	}
 
 	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+		@Nonnull
 		@Override
-		public IBakedModel handleItemState(IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
+		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
 			// Items always have GRASS island
 			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
 			String identifier;

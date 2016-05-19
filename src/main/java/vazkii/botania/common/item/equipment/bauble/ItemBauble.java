@@ -37,6 +37,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,8 +55,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
 		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
 			return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack);
 
@@ -175,8 +177,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		return getContainerItem(stack) != null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return getCosmeticItem(itemStack);
 	}
 

@@ -27,6 +27,8 @@ import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemGaiaHead extends ItemMod {
 
 	public ItemGaiaHead() {
@@ -34,6 +36,7 @@ public class ItemGaiaHead extends ItemMod {
 	}
 
 	// Copied from vanila skull itemBlock. Relevant edits are indicated.
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (facing == EnumFacing.DOWN) {

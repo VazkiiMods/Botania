@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -159,7 +160,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	@Override
-	public int compareTo(LexiconEntry o) {
+	public int compareTo(@Nonnull LexiconEntry o) {
 		return getNameForSorting().compareTo(o.getNameForSorting());
 	}
 

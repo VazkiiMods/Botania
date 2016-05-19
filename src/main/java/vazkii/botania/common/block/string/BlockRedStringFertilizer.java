@@ -20,6 +20,7 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockRedStringFertilizer extends BlockRedString implements IGrowable {
@@ -30,22 +31,23 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 	}
 
 	@Override
-	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
+	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
 		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
+	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		((TileRedStringFertilizer) world.getTileEntity(pos)).grow(world, rand);
 	}
 
+	@Nonnull
 	@Override
-	public TileRedString createTileEntity(World world, IBlockState meta) {
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState meta) {
 		return new TileRedStringFertilizer();
 	}
 }

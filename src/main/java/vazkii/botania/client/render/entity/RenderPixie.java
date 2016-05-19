@@ -23,6 +23,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
+import javax.annotation.Nonnull;
+
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	ShaderCallback callback = shader -> {
@@ -41,13 +43,14 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 		shadowSize = 0.0F;
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityPixie entity) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
 		return new ResourceLocation(LibResources.MODEL_PIXIE);
 	}
 
 	@Override
-	public void doRender(EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
+	public void doRender(@Nonnull EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
 		if(pixie.getType() == 1)
 			ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
 		super.doRender(pixie, par2, par4, par6, par8, par9);

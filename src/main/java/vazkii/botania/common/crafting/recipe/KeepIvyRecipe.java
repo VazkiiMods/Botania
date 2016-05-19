@@ -19,10 +19,12 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+
 public class KeepIvyRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
@@ -41,7 +43,7 @@ public class KeepIvyRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack item = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -66,8 +68,9 @@ public class KeepIvyRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

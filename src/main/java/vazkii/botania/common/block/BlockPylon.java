@@ -37,6 +37,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
@@ -53,11 +54,13 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.PYLON_VARIANT);
@@ -68,6 +71,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		return state.getValue(BotaniaStateProps.PYLON_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta > PylonVariant.values().length) {
@@ -87,7 +91,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < PylonVariant.values().length; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
@@ -102,6 +106,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -122,8 +127,9 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePylon();
 	}
 

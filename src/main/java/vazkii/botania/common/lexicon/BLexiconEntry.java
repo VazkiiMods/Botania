@@ -16,6 +16,8 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 
+import javax.annotation.Nonnull;
+
 public class BLexiconEntry extends LexiconEntry {
 
 	public BLexiconEntry(String unlocalizedName, LexiconCategory category) {
@@ -56,7 +58,7 @@ public class BLexiconEntry extends LexiconEntry {
 	}
 
 	@Override
-	public int compareTo(LexiconEntry o) {
+	public int compareTo(@Nonnull LexiconEntry o) {
 		return o instanceof WLexiconEntry ? 1 : super.compareTo(o);
 	}
 

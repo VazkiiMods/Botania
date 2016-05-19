@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class EntityFlyingCreature extends EntityAmbientCreature {
 
 	public EntityFlyingCreature(World par1World) {
@@ -29,7 +31,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 	}
 
 	@Override
-	protected void updateFallState(double y, boolean onGround, IBlockState state, BlockPos pos) {
+	protected void updateFallState(double y, boolean onGround, @Nonnull IBlockState state, @Nonnull BlockPos pos) {
 		// NO-OP
 	}
 

@@ -16,6 +16,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	public BlockBiomeStoneB() {
@@ -23,6 +25,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.BIOMEBRICK_VARIANT);
@@ -33,6 +36,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 		return state.getValue(BotaniaStateProps.BIOMEBRICK_VARIANT).ordinal();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= BiomeBrickVariant.values().length) {

@@ -34,6 +34,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
@@ -48,6 +50,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 	}
 
+	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.RAIL_DIRECTION);
@@ -58,6 +61,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		return state.getValue(BotaniaStateProps.RAIL_DIRECTION).getMetadata();
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.byMetadata(meta));
@@ -99,6 +103,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		return LexiconData.ghostRail;
 	}
 
+	@Nonnull
 	@Override
 	public IProperty<EnumRailDirection> getShapeProperty() {
 		return BlockRailPowered.SHAPE;

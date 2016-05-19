@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
@@ -24,7 +25,7 @@ public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
 	}
 
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer par2EntityPlayer, @Nonnull List<String> par3List, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
 			for(int i = 0; i < 2; i++)
 				par3List.add(I18n.translateToLocal("botaniamisc.creativePool" + i));

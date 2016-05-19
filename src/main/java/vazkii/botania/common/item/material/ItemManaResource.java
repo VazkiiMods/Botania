@@ -42,6 +42,7 @@ import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		}
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
@@ -98,8 +100,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 15) {
 			if(!par2EntityPlayer.capabilities.isCreativeMode)
 				--par1ItemStack.stackSize;
@@ -120,7 +123,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
 				par3List.add(new ItemStack(par1, 1, i));
@@ -135,6 +138,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return 0xFFFFFF;
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
@@ -157,8 +161,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return meta == 7 || meta == 8 || meta == 9;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
 	}
 

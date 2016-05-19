@@ -30,6 +30,8 @@ import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
 	public BlockManaVoid() {
@@ -44,8 +46,9 @@ public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverla
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileManaVoid();
 	}
 

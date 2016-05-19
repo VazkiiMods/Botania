@@ -18,6 +18,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
+import javax.annotation.Nonnull;
+
 public class WLexiconEntry extends BLexiconEntry {
 
 	private static final int PAGES = 7;
@@ -34,7 +36,7 @@ public class WLexiconEntry extends BLexiconEntry {
 	}
 
 	@Override
-	public int compareTo(LexiconEntry o) {
+	public int compareTo(@Nonnull LexiconEntry o) {
 		return -1;
 	}
 

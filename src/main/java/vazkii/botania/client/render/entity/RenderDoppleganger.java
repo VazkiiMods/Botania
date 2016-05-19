@@ -21,6 +21,8 @@ import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
+import javax.annotation.Nonnull;
+
 public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
 	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
@@ -54,7 +56,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	}
 
 	@Override
-	public void doRender(EntityDoppleganger dopple, double par2, double par4, double par6, float par8, float par9) {
+	public void doRender(@Nonnull EntityDoppleganger dopple, double par2, double par4, double par6, float par8, float par9) {
 		int invulTime = dopple.getInvulTime();
 		if(invulTime > 0) {
 			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
@@ -69,8 +71,9 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 		ShaderHelper.releaseShader();
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityDoppleganger par1Entity) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger par1Entity) {
 		return DefaultPlayerSkin.getDefaultSkinLegacy();
 	}
 

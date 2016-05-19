@@ -27,10 +27,12 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	@Override
-	public void renderTileEntityAt(TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
 		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false)
 				|| altar.getWorld().getBlockState(altar.getPos()).getBlock() != ModBlocks.altar)
 			return;

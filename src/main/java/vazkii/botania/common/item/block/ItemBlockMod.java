@@ -21,14 +21,17 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.IPickupAchievement;
 
+import javax.annotation.Nonnull;
+
 public class ItemBlockMod extends ItemBlock implements IPickupAchievement, ICraftAchievement {
 
 	public ItemBlockMod(Block block) {
 		super(block);
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return getUnlocalizedNameInefficiently_(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);
 	}
 

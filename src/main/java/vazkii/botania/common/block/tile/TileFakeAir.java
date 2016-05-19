@@ -15,6 +15,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 
+import javax.annotation.Nonnull;
+
 public class TileFakeAir extends TileMod {
 
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -31,6 +33,7 @@ public class TileFakeAir extends TileMod {
 		return SubTileBubbell.isValidBubbell(worldObj, flowerPos);
 	}
 
+	@Nonnull
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);

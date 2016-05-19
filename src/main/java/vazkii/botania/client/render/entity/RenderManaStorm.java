@@ -17,6 +17,8 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
+import javax.annotation.Nonnull;
+
 public class RenderManaStorm extends Render<EntityManaStorm> {
 
 	public RenderManaStorm(RenderManager renderManager) {
@@ -24,7 +26,7 @@ public class RenderManaStorm extends Render<EntityManaStorm> {
 	}
 
 	@Override
-	public void doRender(EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
+	public void doRender(@Nonnull EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		float maxScale = 1.95F;
@@ -35,8 +37,9 @@ public class RenderManaStorm extends Render<EntityManaStorm> {
 		GlStateManager.popMatrix();
 	}
 
+	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityManaStorm p_110775_1_) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm p_110775_1_) {
 		return null;
 	}
 

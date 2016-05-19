@@ -21,6 +21,7 @@ import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTeruBozu> {
@@ -30,7 +31,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 	ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();

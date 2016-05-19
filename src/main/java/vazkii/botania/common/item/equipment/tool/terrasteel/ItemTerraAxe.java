@@ -36,6 +36,7 @@ import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,7 +85,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		this.attackSpeed = -3f;
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), new IItemPropertyGetter() {
 			@Override
-			public float apply(ItemStack stack, World world, EntityLivingBase entity) {
+			public float apply(@Nonnull ItemStack stack, World world, EntityLivingBase entity) {
 				if(entity instanceof EntityPlayer && !shouldBreak(((EntityPlayer) entity)))
 					return 0;
 				return 1;
@@ -385,7 +386,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			}
 			
 			@Override
-			public int compareTo(SwapCandidate other) {
+			public int compareTo(@Nonnull SwapCandidate other) {
 				// Aka, a bigger range implies a smaller value, meaning
 				// bigger ranges will be preferred in a min-heap
 				return other.range - range;
