@@ -62,7 +62,9 @@ import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -135,14 +137,30 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		invalidate();
 	}
 
+	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull IBlockState state) {
+		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
+		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
+
+		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+			if (recipe.matches(stack)) {
+				if(recipe.getCatalyst() == null)
+					matchingNonCatRecipes.add(recipe);
+				else if (recipe.getCatalyst() == state)
+					matchingCatRecipes.add(recipe);
+			}
+		}
+
+		// Recipes with matching catalyst take priority above recipes with no catalyst specified
+		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.get(0) :
+				!matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) :
+				null;
+	}
+
 	public boolean collideEntityItem(EntityItem item) {
 		if(worldObj.isRemote || item.isDead)
 			return false;
 
-		boolean didChange = false;
 		ItemStack stack = item.getEntityItem();
-		if(stack == null)
-			return false;
 
 		if(stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
@@ -158,32 +176,30 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(age > 100 && age < 130)
 			return false;
 
-		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (recipe.getCatalyst() == null || worldObj.getBlockState(pos.down()) == recipe.getCatalyst())) {
-				int mana = recipe.getManaToConsume();
-				if(getCurrentMana() >= mana) {
-					recieveMana(-mana);
+		RecipeManaInfusion recipe = getMatchingRecipe(stack, worldObj.getBlockState(pos.down()));
 
-					stack.stackSize--;
-					if(stack.stackSize == 0)
-						item.setDead();
+		if(recipe != null) {
+			int mana = recipe.getManaToConsume();
+			if(getCurrentMana() >= mana) {
+				recieveMana(-mana);
 
-					ItemStack output = recipe.getOutput().copy();
-					EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-					try {
-						MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
-					} catch (Throwable ignored) {}
-					worldObj.spawnEntityInWorld(outputItem);
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					item.setDead();
 
-					craftingFanciness();
-					didChange = true;
-				}
+				ItemStack output = recipe.getOutput().copy();
+				EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				try {
+					MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
+				} catch (Throwable ignored) {}
+				worldObj.spawnEntityInWorld(outputItem);
 
-				break;
+				craftingFanciness();
+				return true;
 			}
 		}
 
-		return didChange;
+		return false;
 	}
 
 	private void craftingFanciness() {

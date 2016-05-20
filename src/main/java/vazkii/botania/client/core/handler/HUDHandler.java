@@ -167,44 +167,47 @@ public final class HUDHandler {
 			}
 
 			profiler.startSection("manaBar");
+
 			EntityPlayer player = mc.thePlayer;
-			int totalMana = 0;
-			int totalMaxMana = 0;
-			boolean anyRequest = false;
-			boolean creative = false;
+			if(!player.isSpectator()) {
+				int totalMana = 0;
+				int totalMaxMana = 0;
+				boolean anyRequest = false;
+				boolean creative = false;
 
-			IInventory mainInv = player.inventory;
-			IInventory baublesInv = PlayerHandler.getPlayerBaubles(player);
+				IInventory mainInv = player.inventory;
+				IInventory baublesInv = PlayerHandler.getPlayerBaubles(player);
 
-			int invSize = mainInv.getSizeInventory();
-			int size = invSize;
-			if(baublesInv != null)
-				size += baublesInv.getSizeInventory();
+				int invSize = mainInv.getSizeInventory();
+				int size = invSize;
+				if(baublesInv != null)
+					size += baublesInv.getSizeInventory();
 
-			for(int i = 0; i < size; i++) {
-				boolean useBaubles = i >= invSize;
-				IInventory inv = useBaubles ? baublesInv : mainInv;
-				ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+				for(int i = 0; i < size; i++) {
+					boolean useBaubles = i >= invSize;
+					IInventory inv = useBaubles ? baublesInv : mainInv;
+					ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 
-				if(stack != null) {
-					Item item = stack.getItem();
-					if(item instanceof IManaUsingItem)
-						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
+					if(stack != null) {
+						Item item = stack.getItem();
+						if(item instanceof IManaUsingItem)
+							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
 
-					if(item instanceof IManaItem) {
-						if(!((IManaItem) item).isNoExport(stack)) {
-							totalMana += ((IManaItem) item).getMana(stack);
-							totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+						if(item instanceof IManaItem) {
+							if(!((IManaItem) item).isNoExport(stack)) {
+								totalMana += ((IManaItem) item).getMana(stack);
+								totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+							}
 						}
+
+						if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+							creative = true;
 					}
-
-					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
-						creative = true;
 				}
-			}
 
-			if(anyRequest)
-				renderManaInvBar(event.getResolution(), creative, totalMana, totalMaxMana);
+				if(anyRequest)
+					renderManaInvBar(event.getResolution(), creative, totalMana, totalMaxMana);
+			}
 
 			profiler.endStartSection("itemsRemaining");
 			ItemsRemainingRenderHandler.render(event.getResolution(), event.getPartialTicks());
@@ -272,36 +275,29 @@ public final class HUDHandler {
 		Profiler profiler = mc.mcProfiler;
 
 		profiler.startSection("poolRecipe");
-		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack)) {
-				if(recipe.getCatalyst() == null || recipe.getCatalyst() == tile.getWorld().getBlockState(tile.getPos().down())) {
-					int x = res.getScaledWidth() / 2 - 11;
-					int y = res.getScaledHeight() / 2 + 10;
+		RecipeManaInfusion recipe = TilePool.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
+		if(recipe != null) {
+			int x = res.getScaledWidth() / 2 - 11;
+			int y = res.getScaledHeight() / 2 + 10;
 
-					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-					int v = mc.thePlayer.getName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
+			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
+			int v = mc.thePlayer.getName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
-					GlStateManager.enableBlend();
-					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-					mc.renderEngine.bindTexture(manaBar);
-					RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-					GlStateManager.color(1F, 1F, 1F, 1F);
+			mc.renderEngine.bindTexture(manaBar);
+			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 
-					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x - 20, y);
-					mc.getRenderItem().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
-					mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe.getOutput(), x + 26, y, "");
-					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x - 20, y);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe.getOutput(), x + 26, y, "");
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-
-					GlStateManager.disableLighting();
-					GlStateManager.disableBlend();
-
-
-					break;
-				}
-			}
+			GlStateManager.disableLighting();
+			GlStateManager.disableBlend();
 		}
 		profiler.endSection();
 	}
