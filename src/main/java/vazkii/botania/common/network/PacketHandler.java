@@ -26,16 +26,12 @@ public final class PacketHandler {
     public static void sendToNearby(World world, BlockPos pos, IMessage toSend) {
         if(world instanceof WorldServer) {
             WorldServer ws = ((WorldServer) world);
-            PlayerChunkMapEntry chunk = ws.getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
-
-            if(chunk == null)
-                return;
 
             for (EntityPlayer player : ws.playerEntities) {
                 EntityPlayerMP playerMP = ((EntityPlayerMP) player);
 
                 if (playerMP.getDistanceSq(pos) < 64 * 64
-                        && chunk.containsPlayer(playerMP)) {
+                        && ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
                     HANDLER.sendTo(toSend, playerMP);
                 }
             }

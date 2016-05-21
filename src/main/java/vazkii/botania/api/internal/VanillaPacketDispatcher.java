@@ -24,17 +24,17 @@ public final class VanillaPacketDispatcher {
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
 		if(tile.getWorld() instanceof WorldServer) {
 			WorldServer ws = ((WorldServer) tile.getWorld());
-			PlayerChunkMapEntry chunk = ws.getPlayerChunkMap().getEntry(tile.getPos().getX() >> 4, tile.getPos().getZ() >> 4);
+			SPacketUpdateTileEntity packet = tile.getUpdatePacket();
 
-			if(chunk == null)
+			if(packet == null)
 				return;
 
 			for (EntityPlayer player : ws.playerEntities) {
 				EntityPlayerMP playerMP = ((EntityPlayerMP) player);
 
 				if (playerMP.getDistanceSq(tile.getPos()) < 64 * 64
-						&& chunk.containsPlayer(playerMP)) {
-					playerMP.connection.sendPacket(tile.getUpdatePacket());
+						&& ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, tile.getPos().getX() >> 4, tile.getPos().getZ() >> 4)) {
+					playerMP.connection.sendPacket(packet);
 				}
 			}
 
