@@ -44,7 +44,7 @@ public class PacketBotaniaEffect implements IMessage {
         args = new int[type.argCount];
 
         for (int i = 0; i < args.length; i++) {
-            args[i] = ByteBufUtils.readVarInt(buf, 3);
+            args[i] = ByteBufUtils.readVarInt(buf, 5);
         }
     }
 
@@ -56,7 +56,7 @@ public class PacketBotaniaEffect implements IMessage {
         buf.writeDouble(z);
 
         for (int i = 0; i < type.argCount; i++) {
-            ByteBufUtils.writeVarInt(buf, args[i], 3);
+            ByteBufUtils.writeVarInt(buf, args[i], 5);
         }
     }
 
