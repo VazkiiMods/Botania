@@ -81,7 +81,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
-		list.add(String.format(I18n.format("botaniamisc.shardLevel"), I18n.format("botania.roman" + (stack.getItemDamage() + 1))));
+		list.add(I18n.format("botaniamisc.shardLevel", I18n.format("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 
 	@Nonnull

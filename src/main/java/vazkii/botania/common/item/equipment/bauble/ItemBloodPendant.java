@@ -97,7 +97,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			return;
 		}
 
-		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.format("botaniamisc.brewOf"), I18n.format(brew.getUnlocalizedName(stack))), list);
+		addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
 			addStringToTooltip(" " + format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))), list);

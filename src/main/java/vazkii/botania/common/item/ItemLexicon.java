@@ -107,7 +107,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String edition = TextFormatting.GOLD + String.format(I18n.format("botaniamisc.edition"), getEdition());
+			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
 			if(!edition.isEmpty())
 				par3List.add(edition);
 
@@ -119,7 +119,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(String.format(I18n.format(format), typesKnown.size()), par3List);
+			addStringToTooltip(I18n.format(format, typesKnown.size()), par3List);
 
 			for(KnowledgeType type : typesKnown)
 				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), par3List);

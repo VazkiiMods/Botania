@@ -61,8 +61,8 @@ botaniamisc.noLexicon=보타니아 사전을 읽기 위해서는 당신이 그�
 botaniamisc.cantOpen=이 페이지는 보타니아 사전의 일부가 아닌 것 같습니다. 다른곳에서 왔을 수 도...?
 botaniamisc.clickToShare=공유
 botaniamisc.drop=떨어뜨림
-botaniamisc.dropTip0=팁: %key% 키를 누름으로써 당신의 아이템을 드롭시킬 수 있습니다
-botaniamisc.dropTip1=컨트롤-%key% 가 한 뭉을 떨어뜨릴 겁니다
+botaniamisc.dropTip0=팁: %s 키를 누름으로써 당신의 아이템을 드롭시킬 수 있습니다
+botaniamisc.dropTip1=컨트롤-%s 가 한 뭉을 떨어뜨릴 겁니다
 botaniamisc.wandMode.bind=연결모드
 botaniamisc.wandMode.function=기능 모드
 botaniamisc.playVideo=비디오 재생
@@ -379,7 +379,7 @@ botania.versioning.disabled=Sorry. This feature is currently disabled due to ser
 botania.baubletype.amulet=&a아뮬렛&7 슬릇에 착용 가능
 botania.baubletype.ring=&a반지&7 슬릇에 착용 가능
 botania.baubletype.belt=&a벨트&7 슬릇에 착용 가능
-botania.baubletooltip=&b%key%&7로 버블즈 인벤토리를 여세요
+botania.baubletooltip=&b%s&7로 버블즈 인벤토리를 여세요
 
 # RELIC POEMS
 item.dice.poem0=그는 카드를 명상을 하듯 다루지,

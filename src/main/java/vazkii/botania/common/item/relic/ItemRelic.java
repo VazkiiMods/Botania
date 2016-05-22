@@ -63,9 +63,9 @@ public class ItemRelic extends ItemMod implements IRelic {
 			if(!hasUUID(stack)) {
 				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
 			} else {
-				addStringToTooltip(String.format(I18n.format("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
+				addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", getSoulbindUsername(stack)), list);
 				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
-					addStringToTooltip(String.format(I18n.format("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
+					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius", getSoulbindUsername(stack)), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)

@@ -29,7 +29,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 		if(displayString.equals("+"))
 			tooltip.add(I18n.format("botaniamisc.clickToAdd"));
 		else {
-			tooltip.add(String.format(I18n.format("botaniamisc.bookmark"), id - GuiLexicon.BOOKMARK_START + 1));
+			tooltip.add(I18n.format("botaniamisc.bookmark", id - GuiLexicon.BOOKMARK_START + 1));
 			tooltip.add(TextFormatting.GRAY + I18n.format("botaniamisc.clickToSee"));
 			tooltip.add(TextFormatting.GRAY + I18n.format("botaniamisc.shiftToRemove"));
 		}

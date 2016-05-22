@@ -340,7 +340,7 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(String.format(I18n.format("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
+		fontRendererObj.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
 
 		String s = TextFormatting.BOLD + categoryHighlight;
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);

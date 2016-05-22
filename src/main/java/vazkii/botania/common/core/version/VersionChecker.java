@@ -15,6 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,7 +51,7 @@ public final class VersionChecker {
 					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
 
-					ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.format("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));
+					ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.format("botania.versioning.updateMessage", onlineVersion));
 					player.addChatComponentMessage(component);
 				}
 			}

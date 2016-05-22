@@ -102,11 +102,11 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
-			addStringToTooltip(I18n.format("botania.baubletooltip").replaceAll("%key%", key), par3List);
+			addStringToTooltip(I18n.format("botania.baubletooltip", key), par3List);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
-			addStringToTooltip(String.format(I18n.format("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), par3List);
 
 		if(hasPhantomInk(par1ItemStack))
 			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), par3List);

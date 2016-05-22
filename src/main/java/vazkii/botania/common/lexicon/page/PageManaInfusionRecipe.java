@@ -106,7 +106,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / ratio);
 
-		String ratioString = String.format(I18n.format("botaniamisc.ratio"), ratio);
+		String ratioString = I18n.format("botaniamisc.ratio", ratio);
 		String dropString = I18n.format("botaniamisc.drop") + " " + TextFormatting.BOLD + "(?)";
 
 		boolean hoveringOverDrop = false;
@@ -136,8 +136,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		if(hoveringOverDrop) {
 			String key = RenderHelper.getKeyDisplayString("key.drop");
-			String tip0 = I18n.format("botaniamisc.dropTip0").replaceAll("%key%", TextFormatting.GREEN + key + TextFormatting.WHITE);
-			String tip1 = I18n.format("botaniamisc.dropTip1").replaceAll("%key%", TextFormatting.GREEN + key + TextFormatting.WHITE);
+			String tip0 = I18n.format("botaniamisc.dropTip0", TextFormatting.GREEN + key + TextFormatting.WHITE);
+			String tip1 = I18n.format("botaniamisc.dropTip1", TextFormatting.GREEN + key + TextFormatting.WHITE);
 			RenderHelper.renderTooltip(mx, my, Arrays.asList(tip0, tip1));
 		}
 	}

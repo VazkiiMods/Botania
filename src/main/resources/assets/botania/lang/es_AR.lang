@@ -188,7 +188,7 @@ botania.versioning.flavour33=Antes de actualizar tu versión de Botania, te gust
 botania.versioning.flavour34=De vuelta en la rutina de actualización de Botania. No se necesita diversión. #angbadang
 botania.versioning.flavour35=Te convertirías en una Niña Mágica a cambio de una actualización de Botania?
 botania.versioning.outdated=Estás jugando con la versión %s de Botania, la última versión es la %s. 
-botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz click aquí para descargar la última versión de Botania","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz click aquí para descargar la última versión de Botania","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Comenzando la descarga de la versión %s. Por favor no quites tu disco duro. Te gusta ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Quizás puedes apoyar a  ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" en [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Vazkii's Patreon","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Descarga de  %s completada. Borra el antiguo arhivo .jar de Botania y vuelve a cargar tu juego para que la actualización se efectúe.. 
 botania.versioning.downloadedAlready=Ya descargaste la última versión. Cierra tu juego, borra la versión anterior de la carpeta "mods" y vuelve a iniciar Minecraft ara efectuar la actualización. 
@@ -200,7 +200,7 @@ botania.versioning.disabled= Lo lamentamos, esta función está desactivada por 
 botania.baubletype.amulet=Equipable en el slot para  &aAmuletos&7
 botania.baubletype.ring=Equipable en el slot para &aAnillos&7
 botania.baubletype.belt=Equipable en el slot para &acinturón&7
-botania.baubletooltip=Oprime la &b%key%&7 para abrir el menú de Baubles
+botania.baubletooltip=Oprime la &b%s&7 para abrir el menú de Baubles
 
 # ENTITY NAMES
 entity.Botania.botania:manaBurst.name=Mana Burst

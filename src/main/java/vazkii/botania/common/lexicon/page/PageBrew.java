@@ -53,7 +53,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
-		String s = TextFormatting.BOLD + String.format(I18n.format("botaniamisc.brewOf"), I18n.format(brew.getUnlocalizedName()));
+		String s = TextFormatting.BOLD + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName()));
 		renderer.drawString(s, gui.getLeft() + gui.getWidth() / 2 - renderer.getStringWidth(s) / 2, y, 0x222222);
 		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);

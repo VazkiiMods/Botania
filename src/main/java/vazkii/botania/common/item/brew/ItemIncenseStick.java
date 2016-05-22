@@ -82,7 +82,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 			return;
 		}
 
-		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.format("botaniamisc.brewOf"), I18n.format(brew.getUnlocalizedName(stack))), list);
+		addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
 			PotionEffect longEffect = new PotionEffect(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);

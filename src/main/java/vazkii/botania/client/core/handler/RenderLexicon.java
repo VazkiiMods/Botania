@@ -171,7 +171,7 @@ public class RenderLexicon {
             font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
             GlStateManager.translate(0F, 10F, 0F);
             GlStateManager.scale(0.6F, 0.6F, 0.6F);
-            font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + String.format(I18n.format("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
+            font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), 0, 0, 0xA07100);
 
             GlStateManager.translate(0F, 15F, 0F);
             font.drawString(I18n.format("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);

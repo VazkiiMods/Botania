@@ -59,7 +59,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / ratio);
 
-		String ratioString = String.format(I18n.format("botaniamisc.ratio"), ratio);
+		String ratioString = I18n.format("botaniamisc.ratio", ratio);
 		String stopStr = I18n.format("botaniamisc.shiftToStopSpin");
 
 		boolean unicode = font.getUnicodeFlag();
