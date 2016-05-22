@@ -490,5 +490,10 @@ public class ClientProxy extends CommonProxy {
 	public void removeBoss(IBotaniaBoss boss) {
 		BossBarHandler.bosses.remove(boss);
 	}
+
+	@Override
+	public int getClientRenderDistance() {
+		return Minecraft.getMinecraft().gameSettings.renderDistanceChunks;
+	}
 }
 

@@ -336,4 +336,8 @@ public class CommonProxy {
 		// NO-OP
 	}
 
+	public int getClientRenderDistance() {
+		return 0;
+	}
+
 }

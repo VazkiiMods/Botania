@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 
@@ -25,7 +26,9 @@ import javax.annotation.Nonnull;
 public class EntitySignalFlare extends Entity {
 
 	private static final String COLOR_TAG = "color";
+	private static final String FIRED_Y_TAG = "firedY";
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FIRED_Y = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 
 	public EntitySignalFlare(World par1World) {
 		super(par1World);
@@ -35,6 +38,7 @@ public class EntitySignalFlare extends Entity {
 	@Override
 	protected void entityInit() {
 		dataManager.register(COLOR, 0);
+		dataManager.register(FIRED_Y, 0);
 	}
 
 	@Override
@@ -59,7 +63,7 @@ public class EntitySignalFlare extends Entity {
 					Botania.proxy.wispFX(worldObj, posX, posY, posZ + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
 
 				for(int i = 0; i < 4; i++)
-					Botania.proxy.wispFX(worldObj, posX + 0.5, 256, posZ + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+					Botania.proxy.wispFX(worldObj, posX + 0.5, Math.min(256, getFiredAt() + Botania.proxy.getClientRenderDistance() * 16), posZ + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 				Botania.proxy.setWispFXDistanceLimit(true);
 			}
 		}
@@ -68,11 +72,13 @@ public class EntitySignalFlare extends Entity {
 	@Override
 	protected void readEntityFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
 		setColor(nbttagcompound.getInteger(COLOR_TAG));
+		setFiredAt(nbttagcompound.getInteger(FIRED_Y_TAG));
 	}
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound nbttagcompound) {
 		nbttagcompound.setInteger(COLOR_TAG, getColor());
+		nbttagcompound.setInteger(FIRED_Y_TAG, getFiredAt());
 	}
 
 	public void setColor(int color) {
@@ -81,6 +87,14 @@ public class EntitySignalFlare extends Entity {
 
 	public int getColor() {
 		return dataManager.get(COLOR);
+	}
+
+	public void setFiredAt(int y) {
+		dataManager.set(FIRED_Y, y);
+	}
+
+	public int getFiredAt() {
+		return dataManager.get(FIRED_Y);
 	}
 
 }

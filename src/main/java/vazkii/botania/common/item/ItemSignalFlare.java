@@ -57,6 +57,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 				EntitySignalFlare flare = new EntitySignalFlare(par2World);
 				flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
 				flare.setColor(getColor(par1ItemStack));
+				flare.setFiredAt((int) par3EntityPlayer.posY);
 				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				par2World.spawnEntityInWorld(flare);

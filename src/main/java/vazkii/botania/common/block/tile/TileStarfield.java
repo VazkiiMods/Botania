@@ -31,7 +31,7 @@ public class TileStarfield extends TileMod {
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {
 				double x = pos.getX() + 0.5 + (Math.random() - 0.5) * radius;
-				double y = pos.getY() + 256;
+				double y = Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16);
 				double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 				float w = 0.6F;
