@@ -11,7 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -35,7 +35,7 @@ public class GuiButtonChallengeInfo extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(I18n.translateToLocal("botaniamisc.challengeInfo"));
+		tooltip.add(I18n.format("botaniamisc.challengeInfo"));
 
 		int tooltipY = (tooltip.size() + 1) * 5;
 		if(k == 2)

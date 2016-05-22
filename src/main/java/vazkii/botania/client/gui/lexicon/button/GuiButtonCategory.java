@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -122,7 +122,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		GlStateManager.popMatrix();
 
 		if(inside)
-			gui.categoryHighlight = I18n.translateToLocal(getTooltipText());
+			gui.categoryHighlight = I18n.format(getTooltipText());
 	}
 
 	private String getTooltipText() {

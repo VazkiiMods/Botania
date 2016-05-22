@@ -10,8 +10,8 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconEntry;
 
@@ -24,7 +24,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 
 	public GuiLexiconHistory() {
 		super(null);
-		title = I18n.translateToLocal("botaniamisc.historyLong");
+		title = I18n.format("botaniamisc.historyLong");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 		ILexicon lex = (ILexicon) stackUsed.getItem();
 		for(int i = history.size() - 1; i >= 0; i--) {
 			LexiconEntry entry = history.get(i);
-			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && I18n.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
+			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && I18n.format(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
 				entriesToDisplay.add(entry);
 		}
 	}

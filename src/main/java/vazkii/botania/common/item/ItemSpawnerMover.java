@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,8 +27,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -84,11 +86,12 @@ public class ItemSpawnerMover extends ItemMod {
 		return 0;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> infoList, boolean advancedTooltips) {
 		String id = getEntityId(stack);
 		if (id != null)
-			infoList.add(I18n.translateToLocal("entity." + id + ".name"));
+			infoList.add(I18n.format("entity." + id + ".name"));
 	}
 
 	@Override

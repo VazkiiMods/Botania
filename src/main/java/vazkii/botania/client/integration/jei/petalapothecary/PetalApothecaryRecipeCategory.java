@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = I18n.translateToLocal("botania.nei.petalApothecary");
+		localizedName = I18n.format("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
 				0, 0, 150, 110);
 	}

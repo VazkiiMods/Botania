@@ -13,8 +13,8 @@ package vazkii.botania.common.lexicon.page;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -47,7 +47,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		String manaUsage = I18n.translateToLocal("botaniamisc.manaUsage");
+		String manaUsage = I18n.format("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 110, 0x66000000);
 
 		int ratio = 10;
@@ -59,8 +59,8 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / ratio);
 
-		String ratioString = String.format(I18n.translateToLocal("botaniamisc.ratio"), ratio);
-		String stopStr = I18n.translateToLocal("botaniamisc.shiftToStopSpin");
+		String ratioString = String.format(I18n.format("botaniamisc.ratio"), ratio);
+		String stopStr = I18n.format("botaniamisc.shiftToStopSpin");
 
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);

@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -19,7 +20,6 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -75,7 +75,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 22 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
-	static ItemStack[] armorset;
+	private static ItemStack[] armorset;
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
@@ -106,25 +106,28 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorSetName() {
-		return I18n.translateToLocal("botania.armorset.manaweave.name");
+		return I18n.format("botania.armorset.manaweave.name");
 	}
-	
+
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(ClientProxy.jingleTheBells) {
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.santaweaveInfo"), list);
+			addStringToTooltip(I18n.format("botaniamisc.santaweaveInfo"), list);
 			addStringToTooltip("", list);
 		}
 		
 		super.addInformationAfterShift(stack, player, list, adv);
 	}
-	
+
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.manaweave.desc0"), list);
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.manaweave.desc1"), list);
+		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc0"), list);
+		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc1"), list);
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,7 +40,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -546,7 +546,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			mc.fontRendererObj.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
-			String label = I18n.translateToLocal("botaniamisc.unsetRecipe");
+			String label = I18n.format("botaniamisc.unsetRecipe");
 			boolean setRecipe = false;
 
 			if(recipe[9] == null)
@@ -595,7 +595,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		int yoff = 110;
 		if(setRecipe && !canCraft(player, recipe, getFakeInv(player))) {
-			String warning = TextFormatting.RED + I18n.translateToLocal("botaniamisc.cantCraft");
+			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
 			mc.fontRendererObj.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}

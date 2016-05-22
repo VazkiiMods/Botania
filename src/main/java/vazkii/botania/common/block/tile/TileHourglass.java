@@ -14,12 +14,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StringUtils;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 
@@ -141,6 +143,7 @@ public class TileHourglass extends TileSimpleInventory {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderHUD(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int x = res.getScaledWidth() / 2 + 10;
@@ -165,7 +168,7 @@ public class TileHourglass extends TileSimpleInventory {
 			if(!move)
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			if(!status.isEmpty())
-				mc.fontRendererObj.drawStringWithShadow(I18n.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRendererObj.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
 	}

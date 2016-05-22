@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -30,7 +31,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -104,13 +104,14 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		String rankFormat = I18n.translateToLocal("botaniamisc.toolRank");
-		String rank = I18n.translateToLocal("botania.rank" + getLevel(par1ItemStack));
+		String rankFormat = I18n.format("botaniamisc.toolRank");
+		String rank = I18n.format("botania.rank" + getLevel(par1ItemStack));
 		par3List.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));
 		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-			par3List.add(TextFormatting.RED + I18n.translateToLocal("botaniamisc.getALife"));
+			par3List.add(TextFormatting.RED + I18n.format("botaniamisc.getALife"));
 	}
 
 	@Nonnull

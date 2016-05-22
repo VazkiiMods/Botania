@@ -15,6 +15,7 @@ import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -91,24 +91,25 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown())
 			addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), par3List);
+		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		BaubleType type = getBaubleType(par1ItemStack);
-		addStringToTooltip(I18n.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
+		addStringToTooltip(I18n.format("botania.baubletype." + type.name().toLowerCase()), par3List);
 
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
-			addStringToTooltip(I18n.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
+			addStringToTooltip(I18n.format("botania.baubletooltip").replaceAll("%key%", key), par3List);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
-			addStringToTooltip(String.format(I18n.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
+			addStringToTooltip(String.format(I18n.format("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
 
 		if(hasPhantomInk(par1ItemStack))
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.hasPhantomInk"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

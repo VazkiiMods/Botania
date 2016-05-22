@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +30,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -359,9 +361,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		ItemStack pool = new ItemStack(ModBlocks.pool, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT).ordinal());
-		String name = I18n.translateToLocal(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = I18n.format(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 

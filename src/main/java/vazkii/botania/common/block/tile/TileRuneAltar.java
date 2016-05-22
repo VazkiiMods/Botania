@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.BotaniaAPI;
@@ -383,9 +383,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			}
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0) {
-			String s = I18n.translateToLocal("botaniamisc.altarRefill0");
+			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
-			s = I18n.translateToLocal("botaniamisc.altarRefill1");
+			s = I18n.format("botaniamisc.altarRefill1");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}

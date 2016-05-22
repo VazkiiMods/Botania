@@ -17,11 +17,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -185,13 +185,13 @@ public final class TooltipAdditionDisplayHandler {
 			Gui.drawRect(mouseX + offx + i, mouseY - offy - height, mouseX + offx + i + 1, mouseY - offy, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
 		Gui.drawRect(mouseX + offx + rainbowWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);
 
-		String rank = I18n.translateToLocal("botania.rank" + level).replaceAll("&", "\u00a7");
+		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
-			rank = I18n.translateToLocal("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
+			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
 		}
 

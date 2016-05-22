@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,9 +30,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
@@ -201,15 +203,16 @@ public class ItemBottledMana extends ItemMod {
 		return seed;
 	}
 
-	long randomSeed(ItemStack stack) {
+	private long randomSeed(ItemStack stack) {
 		long seed = Math.abs(itemRand.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		par3List.add(I18n.translateToLocal("botaniamisc.bottleTooltip"));
+		par3List.add(I18n.format("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull

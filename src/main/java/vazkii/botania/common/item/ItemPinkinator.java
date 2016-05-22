@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -19,8 +20,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.lib.LibItemNames;
@@ -60,9 +62,10 @@ public class ItemPinkinator extends ItemMod {
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
-		p_77624_3_.add(I18n.translateToLocal("botaniamisc.pinkinatorDesc"));
+		p_77624_3_.add(I18n.format("botaniamisc.pinkinatorDesc"));
 	}
 
 }

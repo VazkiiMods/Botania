@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -18,8 +19,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
@@ -162,16 +164,17 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
-			par3List.add(String.format(I18n.translateToLocal("botaniamisc.color"), I18n.translateToLocal("botania.color" + storedColor)));
+			par3List.add(String.format(I18n.format("botaniamisc.color"), I18n.format("botania.color" + storedColor)));
 	}
 
 
-	public String getItemShortTermName(ItemStack stack) {
-		return I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
+	private String getItemShortTermName(ItemStack stack) {
+		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
 	}
 
 	@Nonnull
@@ -180,7 +183,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens == null)
 			return super.getItemStackDisplayName(stack);
-		return String.format(I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
+		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
 
 	@Override

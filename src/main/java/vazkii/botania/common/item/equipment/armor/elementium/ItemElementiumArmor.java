@@ -1,10 +1,10 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -71,15 +71,17 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorSetName() {
-		return I18n.translateToLocal("botania.armorset.elementium.name");
+		return I18n.format("botania.armorset.elementium.name");
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.elementium.desc"), list);
+		addStringToTooltip(I18n.format("botania.armorset.elementium.desc"), list);
 	}
 
 }

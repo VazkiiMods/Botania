@@ -10,13 +10,15 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -75,10 +77,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 		return 0;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(isStackCreative(par1ItemStack))
-			par3List.add(I18n.translateToLocal("botaniamisc.creative"));
+			par3List.add(I18n.format("botaniamisc.creative"));
 	}
 
 	@Override

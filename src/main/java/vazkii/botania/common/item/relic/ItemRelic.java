@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -18,9 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -49,31 +51,33 @@ public class ItemRelic extends ItemMod implements IRelic {
 			updateRelic(stack, (EntityPlayer) entity);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
 		addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
-				addStringToTooltip(I18n.translateToLocal("botaniamisc.relicUnbound"), list);
+				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
 			} else {
-				addStringToTooltip(String.format(I18n.translateToLocal("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
+				addStringToTooltip(String.format(I18n.format("botaniamisc.relicSoulbound"), getSoulbindUsername(stack)), list);
 				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
-					addStringToTooltip(String.format(I18n.translateToLocal("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
+					addStringToTooltip(String.format(I18n.format("botaniamisc.notYourSagittarius"), getSoulbindUsername(stack)), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)
-				addStringToTooltip(I18n.translateToLocal("botaniamisc.dropIkea"), list);
+				addStringToTooltip(I18n.format("botaniamisc.dropIkea"), list);
 
 			if(stack.getItem() == ModItems.dice) {
 				addStringToTooltip("", list);
 				String name = stack.getUnlocalizedName() + ".poem";
 				for(int i = 0; i < 4; i++)
-					addStringToTooltip(TextFormatting.ITALIC + I18n.translateToLocal(name + i), list);
+					addStringToTooltip(TextFormatting.ITALIC + I18n.format(name + i), list);
 			}
-		} else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), list);
+		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
 	}
 
 	public boolean shouldDamageWrongPlayer() {

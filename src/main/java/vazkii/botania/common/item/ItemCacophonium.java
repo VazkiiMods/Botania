@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,9 +31,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
@@ -114,12 +116,13 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		return EnumActionResult.PASS;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(isDOIT(stack))
-			list.add(I18n.translateToLocal("botaniamisc.justDoIt"));
+			list.add(I18n.format("botaniamisc.justDoIt"));
 		else if(ItemNBTHelper.getBoolean(stack, TAG_HAS_SOUND, false))
-			list.add(I18n.translateToLocal(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
+			list.add(I18n.format(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
 	@Nonnull

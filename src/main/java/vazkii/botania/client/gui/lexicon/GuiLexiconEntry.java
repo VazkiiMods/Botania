@@ -13,11 +13,11 @@ package vazkii.botania.client.gui.lexicon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -66,9 +66,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			return;
 		}
 
-		title = I18n.translateToLocal(entry.getUnlocalizedName());
+		title = I18n.format(entry.getUnlocalizedName());
 		if(entry instanceof IAddonEntry)
-			subtitle = I18n.translateToLocal(((IAddonEntry) entry).getSubtitle());
+			subtitle = I18n.format(((IAddonEntry) entry).getSubtitle());
 		else subtitle = null;
 	}
 

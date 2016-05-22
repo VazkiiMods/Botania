@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +30,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -101,10 +103,11 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		list.add(creative);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String edition = TextFormatting.GOLD + String.format(I18n.translateToLocal("botaniamisc.edition"), getEdition());
+			String edition = TextFormatting.GOLD + String.format(I18n.format("botaniamisc.edition"), getEdition());
 			if(!edition.isEmpty())
 				par3List.add(edition);
 
@@ -116,22 +119,23 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(String.format(I18n.translateToLocal(format), typesKnown.size()), par3List);
+			addStringToTooltip(String.format(I18n.format(format), typesKnown.size()), par3List);
 
 			for(KnowledgeType type : typesKnown)
-				addStringToTooltip(" \u2022 " + I18n.translateToLocal(type.getUnlocalizedName()), par3List);
+				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), par3List);
 
-		} else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), par3List);
+		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static String getEdition() {
 		String version = LibMisc.BUILD;
 		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
-		return build == 0 ? I18n.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
+		return build == 0 ? I18n.format("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
 	}
 
 	@Nonnull

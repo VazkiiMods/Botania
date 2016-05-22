@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,9 +26,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
@@ -101,10 +103,11 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 			par3List.add(forColor(i));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
-		par3List.add(String.format(I18n.translateToLocal("botaniamisc.flareColor"), I18n.translateToLocal("botania.color" + storedColor)));
+		par3List.add(String.format(I18n.format("botaniamisc.flareColor"), I18n.format("botania.color" + storedColor)));
 	}
 
 	public static ItemStack forColor(int color) {

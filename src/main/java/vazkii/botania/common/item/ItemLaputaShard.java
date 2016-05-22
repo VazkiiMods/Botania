@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -28,8 +29,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
@@ -76,9 +78,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			list.add(new ItemStack(item, 1, (i + 1) * 5 - 1));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
-		list.add(String.format(I18n.translateToLocal("botaniamisc.shardLevel"), I18n.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
+		list.add(String.format(I18n.format("botaniamisc.shardLevel"), I18n.format("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 
 	@Nonnull

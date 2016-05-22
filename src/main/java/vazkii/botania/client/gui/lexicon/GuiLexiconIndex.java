@@ -14,11 +14,11 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -67,7 +67,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	public void setTitle() {
-		title = I18n.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
+		title = I18n.format(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return true;
 		
 		search = search.toLowerCase();
-		if(I18n.translateToLocal(e.getUnlocalizedName()).toLowerCase().contains(search))
+		if(I18n.format(e.getUnlocalizedName()).toLowerCase().contains(search))
 			return true;
 		
 		for(ItemStack stack : e.getDisplayedRecipes()) {
@@ -155,7 +155,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null) {
-				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? TextFormatting.ITALIC : "") + I18n.translateToLocal(entry.getUnlocalizedName());
+				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? TextFormatting.ITALIC : "") + I18n.format(entry.getUnlocalizedName());
 				button.displayStack = entry.getIcon();
 				if(entry == tutEntry)
 					tutPage = page;
@@ -186,14 +186,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			if(entriesToDisplay.size() == 1) {
 				boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 				mc.fontRendererObj.setUnicodeFlag(true);
-				String s = I18n.translateToLocal("botaniamisc.enterToView");
+				String s = I18n.format("botaniamisc.enterToView");
 				mc.fontRendererObj.drawString(s, left + guiWidth / 2 - mc.fontRendererObj.getStringWidth(s) / 2, top + 30, 0x666666);
 				mc.fontRendererObj.setUnicodeFlag(unicode);
 			}
 		} else {
 			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 			mc.fontRendererObj.setUnicodeFlag(true);
-			String s = I18n.translateToLocal("botaniamisc.typeToSearch");
+			String s = I18n.format("botaniamisc.typeToSearch");
 			mc.fontRendererObj.drawString(s, left + 120 - mc.fontRendererObj.getStringWidth(s), top + guiHeight - 18, 0x666666);
 			mc.fontRendererObj.setUnicodeFlag(unicode);
 		}
@@ -224,7 +224,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 			int x = currentButton.xPosition;
 			int y = currentButton.yPosition;
-			String s = I18n.translateToLocal(currentEntry.getTagline());
+			String s = I18n.format(currentEntry.getTagline());
 			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 			mc.fontRendererObj.setUnicodeFlag(true);
 			int width = mc.fontRendererObj.getStringWidth(s);

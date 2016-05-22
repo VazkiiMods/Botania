@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.common.Optional;
@@ -156,13 +156,15 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(GuiScreen.isShiftKeyDown())
 			addInformationAfterShift(stack, player, list, adv);
-		else addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), list);
+		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		addStringToTooltip(getArmorSetTitle(player), list);
 		addArmorSetDescription(stack, list);
@@ -170,7 +172,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		for(int i = 0; i < stacks.length; i++)
 			addStringToTooltip((hasArmorSetItem(player, i) ? TextFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
 		if(hasPhantomInk(stack))
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.hasPhantomInk"), list);
+			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), list);
 	}
 	
 	public void addStringToTooltip(String s, List<String> tooltip) {
@@ -210,7 +212,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return false;
 	}
 
-	public int getSetPiecesEquipped(EntityPlayer player) {
+	private int getSetPiecesEquipped(EntityPlayer player) {
 		int pieces = 0;
 		for(int i = 0; i < 4; i++)
 			if(hasArmorSetItem(player, i))
@@ -219,16 +221,19 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return pieces;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public String getArmorSetName() {
-		return I18n.translateToLocal("botania.armorset.manasteel.name");
+		return I18n.format("botania.armorset.manasteel.name");
 	}
 
-	public String getArmorSetTitle(EntityPlayer player) {
-		return I18n.translateToLocal("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
+	@SideOnly(Side.CLIENT)
+	private String getArmorSetTitle(EntityPlayer player) {
+		return I18n.format("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.manasteel.desc"), list);
+		addStringToTooltip(I18n.format("botania.armorset.manasteel.desc"), list);
 	}
 
 	@Override

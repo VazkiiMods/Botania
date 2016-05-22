@@ -29,6 +29,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFlowerPlaceable;
@@ -164,6 +166,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);

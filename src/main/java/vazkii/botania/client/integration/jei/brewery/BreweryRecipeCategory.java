@@ -17,7 +17,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -32,7 +32,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = new ResourceLocation("botania", "textures/gui/neiBrewery.png");
 		background = guiHelper.createDrawable(location, 0, 0, 166, 65, 0, 0, 0, 0);
-		localizedName = I18n.translateToLocal("botania.nei.brewery");
+		localizedName = I18n.format("botania.nei.brewery");
 	}
 
 	@Nonnull

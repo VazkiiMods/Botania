@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.brew;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -26,8 +27,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -143,15 +145,16 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	@Nonnull
 	@Override
 	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-		return String.format(I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name"), I18n.translateToLocal(getBrew(stack).getUnlocalizedName(stack)), TextFormatting.BOLD + "" + getSwigsLeft(stack) + TextFormatting.RESET);
+		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name"), net.minecraft.util.text.translation.I18n.translateToLocal(getBrew(stack).getUnlocalizedName(stack)), TextFormatting.BOLD + "" + getSwigsLeft(stack) + TextFormatting.RESET);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			list.add(format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(effect, 1F) + ")"));
+			list.add(format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(effect, 1F) + ")"));
 		}
 	}
 

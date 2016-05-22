@@ -21,6 +21,7 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -30,7 +31,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -137,7 +137,7 @@ public final class HUDHandler {
 
 			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
 				profiler.startSection("multiblockRightClick");
-				String s = I18n.translateToLocal("botaniamisc.rightClickToAnchor");
+				String s = I18n.format("botaniamisc.rightClickToAnchor");
 				mc.fontRendererObj.drawStringWithShadow(s, event.getResolution().getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, event.getResolution().getScaledHeight() / 2 - 30, 0xFFFFFF);
 				profiler.endSection();
 			}
@@ -228,7 +228,7 @@ public final class HUDHandler {
 		if(ticks > 0) {
 			int alpha = Math.min(255, (int) (ticks * 256.0F / 10.0F));
 			int color = 0x00CC00 + (alpha << 24);
-			String disp = I18n.translateToLocal(ItemTwigWand.getModeString(stack));
+			String disp = I18n.format(ItemTwigWand.getModeString(stack));
 
 			int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(disp) / 2;
 			int y = res.getScaledHeight() - 70;
@@ -350,8 +350,8 @@ public final class HUDHandler {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					font = mc.standardGalacticFontRenderer;
 
-				drawStr = I18n.translateToLocal(entry.getUnlocalizedName());
-				secondLine = TextFormatting.ITALIC + I18n.translateToLocal(entry.getTagline());
+				drawStr = I18n.format(entry.getUnlocalizedName());
+				secondLine = TextFormatting.ITALIC + I18n.format(entry.getTagline());
 				draw = true;
 			}
 		}
@@ -397,9 +397,9 @@ public final class HUDHandler {
 
 	private void renderNearIndexDisplay(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
-		String txt0 = I18n.translateToLocal("botaniamisc.nearIndex0");
-		String txt1 = TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.nearIndex1");
-		String txt2 = TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.nearIndex2");
+		String txt0 = I18n.format("botaniamisc.nearIndex0");
+		String txt1 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex1");
+		String txt2 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex2");
 
 		int l = Math.max(mc.fontRendererObj.getStringWidth(txt0), Math.max(mc.fontRendererObj.getStringWidth(txt1), mc.fontRendererObj.getStringWidth(txt2))) + 20;
 		int x = res.getScaledWidth() - l - 20;
@@ -432,7 +432,7 @@ public final class HUDHandler {
 		renderManaBar(x, y, color, mana < 0 ? 0.5F : 1F, mana, maxMana);
 
 		if(mana < 0) {
-			String text = I18n.translateToLocal("botaniamisc.statusUnknown");
+			String text = I18n.format("botaniamisc.statusUnknown");
 			x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(text) / 2;
 			y -= 1;
 			mc.fontRendererObj.drawString(text, x, y, color);

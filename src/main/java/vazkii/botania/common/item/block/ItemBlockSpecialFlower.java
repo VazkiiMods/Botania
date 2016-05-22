@@ -12,6 +12,7 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,8 +21,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -75,6 +77,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return getUnlocalizedNameInefficiently_(par1ItemStack);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer par2EntityPlayer, @Nonnull List<String> par3List, boolean par4) {
 		String type = getType(par1ItemStack);
@@ -84,7 +87,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
-			String refLocalized = I18n.translateToLocal(refUnlocalized);
+			String refLocalized = I18n.format(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
 				par3List.add(TextFormatting.ITALIC + refLocalized);
 		}

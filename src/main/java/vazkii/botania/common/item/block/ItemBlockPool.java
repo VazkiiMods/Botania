@@ -11,9 +11,11 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -24,11 +26,12 @@ public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
 		super(par2Block);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer par2EntityPlayer, @Nonnull List<String> par3List, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
 			for(int i = 0; i < 2; i++)
-				par3List.add(I18n.translateToLocal("botaniamisc.creativePool" + i));
+				par3List.add(I18n.format("botaniamisc.creativePool" + i));
 	}
 
 }

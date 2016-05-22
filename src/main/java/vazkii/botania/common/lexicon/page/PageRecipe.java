@@ -15,9 +15,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
@@ -79,12 +79,12 @@ public class PageRecipe extends LexiconPage {
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.clickToRecipe")));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(TextFormatting.GRAY + I18n.format("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
 
 			if(tooltipContainerStack != null)
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 
 		tooltipStack = tooltipContainerStack = null;

@@ -12,6 +12,7 @@ package vazkii.botania.api.subtile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +20,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
@@ -211,9 +213,10 @@ public class SubTileFunctional extends SubTileEntity {
 		return linkedPool != null && linkedPool.hasWorldObj() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = I18n.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
+		String name = I18n.format("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
 		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}

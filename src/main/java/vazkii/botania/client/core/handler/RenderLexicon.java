@@ -8,6 +8,7 @@ import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -164,30 +164,30 @@ public class RenderLexicon {
             if(stack != null)
                 title = stack.getDisplayName();
             if(title.equals(origTitle) && bevo)
-                title = I18n.translateToLocal("item.botania:lexicon.bevo");
+                title = I18n.format("item.botania:lexicon.bevo");
             if(title.equals(origTitle) && saice)
-                title = I18n.translateToLocal("item.botania:lexicon.saice");
+                title = I18n.format("item.botania:lexicon.saice");
 
             font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
             GlStateManager.translate(0F, 10F, 0F);
             GlStateManager.scale(0.6F, 0.6F, 0.6F);
-            font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + String.format(I18n.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
+            font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + String.format(I18n.format("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
 
             GlStateManager.translate(0F, 15F, 0F);
-            font.drawString(I18n.translateToLocal("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
+            font.drawString(I18n.format("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
             GlStateManager.translate(0F, 10F, 0F);
-            font.drawString(I18n.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
+            font.drawString(I18n.format("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
             GlStateManager.translate(0F, 50F, 0F);
-            font.drawString(I18n.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
+            font.drawString(I18n.format("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
 
             GlStateManager.translate(0F, 10F, 0F);
-            font.drawString(TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
+            font.drawString(TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
 
             if(bevo || saice) {
                 GlStateManager.translate(0F, 10F, 0F);
-                font.drawString(I18n.translateToLocal("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
+                font.drawString(I18n.format("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
             }
         }
 

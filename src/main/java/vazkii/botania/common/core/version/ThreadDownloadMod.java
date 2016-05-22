@@ -11,11 +11,11 @@
 package vazkii.botania.common.core.version;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 
 import java.awt.*;
 import java.io.File;
@@ -46,7 +46,7 @@ public class ThreadDownloadMod extends Thread {
 	@Override
 	public void run() {
 		try {
-			ITextComponent component = ITextComponent.Serializer.jsonToComponent(String.format(I18n.translateToLocal("botania.versioning.startingDownload"), fileName));
+			ITextComponent component = ITextComponent.Serializer.jsonToComponent(String.format(I18n.format("botania.versioning.startingDownload"), fileName));
 			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(component);
 

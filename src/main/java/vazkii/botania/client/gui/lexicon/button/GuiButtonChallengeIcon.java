@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.challenge.Challenge;
 
 import javax.annotation.Nonnull;
@@ -50,7 +50,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(TextFormatting.AQUA + I18n.translateToLocal(challenge.unlocalizedName));
+		tooltip.add(TextFormatting.AQUA + I18n.format(challenge.unlocalizedName));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +31,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -243,12 +243,12 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		Block block = getBlock(par1ItemStack);
 		if(block != null && block != Blocks.AIR) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(count + " " + I18n.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			par3List.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(I18n.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), par3List);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

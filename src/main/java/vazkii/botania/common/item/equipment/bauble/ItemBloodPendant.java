@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +27,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -84,20 +86,21 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		return r << 16 | g << 8 | b;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addHiddenTooltip(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		super.addHiddenTooltip(stack, player, list, adv);
 
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
-			addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.translateToLocal("botaniamisc.notInfused"), list);
+			addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.notInfused"), list);
 			return;
 		}
 
-		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.translateToLocal("botaniamisc.brewOf"), I18n.translateToLocal(brew.getUnlocalizedName(stack))), list);
+		addStringToTooltip(TextFormatting.LIGHT_PURPLE + String.format(I18n.format("botaniamisc.brewOf"), I18n.format(brew.getUnlocalizedName(stack))), list);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			addStringToTooltip(" " + format + I18n.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))), list);
+			addStringToTooltip(" " + format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))), list);
 		}
 	}
 

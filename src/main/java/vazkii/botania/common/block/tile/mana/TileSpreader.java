@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -31,8 +32,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -559,8 +561,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = I18n.translateToLocal(new ItemStack(ModBlocks.spreader, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = I18n.format(new ItemStack(ModBlocks.spreader, 1, worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 

@@ -12,7 +12,7 @@ package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -36,8 +36,8 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 		int k = getHoverState(hovered);
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(I18n.translateToLocal("botaniamisc.historyLong"));
-		tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.historyDesc"));
+		tooltip.add(I18n.format("botaniamisc.historyLong"));
+		tooltip.add(TextFormatting.GRAY + I18n.format("botaniamisc.historyDesc"));
 
 		int tooltipY = (tooltip.size() + 1) * 5;
 		if(k == 2)

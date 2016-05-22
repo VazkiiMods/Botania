@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -24,7 +25,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
@@ -314,6 +316,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		return hasLava;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		int xc = res.getScaledWidth() / 2;
 		int yc = res.getScaledHeight() / 2;
@@ -357,9 +360,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			}
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0 && hasWater) {
-			String s = I18n.translateToLocal("botaniamisc.altarRefill0");
+			String s = I18n.format("botaniamisc.altarRefill0");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
-			s = I18n.translateToLocal("botaniamisc.altarRefill1");
+			s = I18n.format("botaniamisc.altarRefill1");
 			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}

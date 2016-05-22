@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,8 +32,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -228,9 +230,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		return getUnlocalizedNameLazy(par1ItemStack);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer p, List<String> list, boolean adv) {
-		list.add(I18n.translateToLocal(getModeString(stack)));
+		list.add(I18n.format(getModeString(stack)));
 	}
 
 	@Nonnull

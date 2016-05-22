@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +32,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -102,10 +102,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			list.add(new ItemStack(item, 1, i));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		par3List.add(I18n.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
+		par3List.add(I18n.format("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
 	@Override

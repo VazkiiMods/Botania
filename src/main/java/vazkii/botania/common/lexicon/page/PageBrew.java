@@ -12,9 +12,9 @@ package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -53,7 +53,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
-		String s = TextFormatting.BOLD + String.format(I18n.translateToLocal("botaniamisc.brewOf"), I18n.translateToLocal(brew.getUnlocalizedName()));
+		String s = TextFormatting.BOLD + String.format(I18n.format("botaniamisc.brewOf"), I18n.format(brew.getUnlocalizedName()));
 		renderer.drawString(s, gui.getLeft() + gui.getWidth() / 2 - renderer.getStringWidth(s) / 2, y, 0x222222);
 		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);

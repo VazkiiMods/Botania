@@ -13,7 +13,7 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -38,7 +38,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 		List<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < 3; i++)
-			tooltip.add((i == 0 ? TextFormatting.RED : TextFormatting.GRAY) + I18n.translateToLocal("botaniamisc.lexiconOptions" + i));
+			tooltip.add((i == 0 ? TextFormatting.RED : TextFormatting.GRAY) + I18n.format("botaniamisc.lexiconOptions" + i));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

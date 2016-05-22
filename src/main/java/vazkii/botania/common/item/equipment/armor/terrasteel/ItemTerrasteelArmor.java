@@ -12,12 +12,12 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -65,7 +65,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return multimap;
 	}
 
-	static ItemStack[] armorset;
+	private static ItemStack[] armorset;
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
@@ -96,16 +96,18 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorSetName() {
-		return I18n.translateToLocal("botania.armorset.terrasteel.name");
+		return I18n.format("botania.armorset.terrasteel.name");
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc0"), list);
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc1"), list);
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.terrasteel.desc2"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc0"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc1"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc2"), list);
 	}
 
 }

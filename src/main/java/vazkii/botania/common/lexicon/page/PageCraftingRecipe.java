@@ -14,12 +14,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -87,7 +87,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.translateToLocal("botaniamisc.shapeless")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.format("botaniamisc.shapeless")));
 
 			iconY += 20;
 		}
@@ -99,7 +99,7 @@ public class PageCraftingRecipe extends PageRecipe {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.translateToLocal("botaniamisc.oredict")));
+				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.format("botaniamisc.oredict")));
 		}
 		GlStateManager.disableBlend();
 	}

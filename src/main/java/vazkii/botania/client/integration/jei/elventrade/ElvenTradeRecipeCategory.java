@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
@@ -37,7 +37,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	private final IDrawable overlay;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
-		localizedName = I18n.translateToLocal("botania.nei.elvenTrade");
+		localizedName = I18n.format("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elvenTradeOverlay.png"), 0, 15, 140, 90);
 	}

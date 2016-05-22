@@ -14,13 +14,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -86,7 +86,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for(int i = 0; i < 6; i++)
 			if(hasAncientWill(stack, i))
-				addStringToTooltip(I18n.translateToLocal("botania.armorset.will" + i + ".desc"), list);
+				addStringToTooltip(I18n.format("botania.armorset.will" + i + ".desc"), list);
 	}
 
 	public static boolean hasAnyWill(ItemStack stack) {

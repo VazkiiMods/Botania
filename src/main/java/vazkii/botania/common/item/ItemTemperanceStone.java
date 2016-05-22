@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
@@ -18,7 +19,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -48,8 +48,8 @@ public class ItemTemperanceStone extends ItemMod {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(I18n.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), par3List);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

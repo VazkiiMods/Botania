@@ -13,9 +13,9 @@ package vazkii.botania.client.gui.lexicon;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -44,7 +44,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	public void setTitle() {
-		title = challenge == null ? "(null)" : I18n.translateToLocal(challenge.unlocalizedName);
+		title = challenge == null ? "(null)" : I18n.format(challenge.unlocalizedName);
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(TextFormatting.BOLD + I18n.translateToLocal(challenge.unlocalizedName), left + 38, top + 13, 0);
-		fontRendererObj.drawString(I18n.translateToLocal(challenge.level.getName()) + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.translateToLocal(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
+		fontRendererObj.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
+		fontRendererObj.drawString(I18n.format(challenge.level.getName()) + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
 		int width = guiWidth - 30;
 		int x = left + 16;
@@ -116,7 +116,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	void setCompleteButtonTitle() {
-		completeButton.displayString = I18n.translateToLocal(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
+		completeButton.displayString = I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
 	}
 
 	void back() {

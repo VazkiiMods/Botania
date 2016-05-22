@@ -17,6 +17,8 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
@@ -56,6 +58,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);

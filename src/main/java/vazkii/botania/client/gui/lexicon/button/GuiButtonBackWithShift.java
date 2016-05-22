@@ -11,7 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,7 @@ public class GuiButtonBackWithShift extends GuiButtonBack {
 
 	@Override
 	public List<String> getTooltip() {
-		return Arrays.asList(I18n.translateToLocal("botaniamisc.back"), TextFormatting.GRAY + I18n.translateToLocal("botaniamisc.clickToIndex"));
+		return Arrays.asList(I18n.format("botaniamisc.back"), TextFormatting.GRAY + I18n.format("botaniamisc.clickToIndex"));
 	}
 
 }

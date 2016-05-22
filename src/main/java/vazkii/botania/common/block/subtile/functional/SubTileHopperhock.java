@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,8 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
@@ -234,12 +236,13 @@ public class SubTileHopperhock extends SubTileFunctional {
 		filterType = cmp.getInteger(TAG_FILTER_TYPE);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
 
 		int color = getColor();
-		String filter = I18n.translateToLocal("botaniamisc.filter" + filterType);
+		String filter = I18n.format("botaniamisc.filter" + filterType);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(filter) / 2;

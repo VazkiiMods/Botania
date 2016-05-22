@@ -10,12 +10,14 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -43,10 +45,11 @@ public class ItemAncientWill extends ItemMod {
 			list.add(new ItemStack(item, 1, i));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
-		addStringToTooltip(I18n.translateToLocal("botaniamisc.craftToAddWill"), list);
-		addStringToTooltip(I18n.translateToLocal("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
+		addStringToTooltip(I18n.format("botaniamisc.craftToAddWill"), list);
+		addStringToTooltip(I18n.format("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
 	}
 
 	public void addStringToTooltip(String s, List<String> tooltip) {

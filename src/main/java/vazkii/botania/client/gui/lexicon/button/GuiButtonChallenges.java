@@ -13,7 +13,7 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -37,7 +37,7 @@ public class GuiButtonChallenges extends GuiButtonLexicon {
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 131 : 120, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();
-		tooltip.add(TextFormatting.YELLOW + I18n.translateToLocal("botaniamisc.challenges"));
+		tooltip.add(TextFormatting.YELLOW + I18n.format("botaniamisc.challenges"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

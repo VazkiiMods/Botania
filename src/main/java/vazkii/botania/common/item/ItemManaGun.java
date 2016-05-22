@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +28,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -204,11 +204,12 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		return null;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.shiftinfo"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
 			return;
 		}
 
@@ -221,13 +222,13 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 		if(clip) {
 			int pos = getClipPos(par1ItemStack);
-			addStringToTooltip(I18n.translateToLocal("botaniamisc.hasClip"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasClip"), par3List);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
 				String name = "";
 				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
 				if(lensAt == null)
-					name = I18n.translateToLocal("botaniamisc.clipEmpty");
+					name = I18n.format("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
 				addStringToTooltip(formatting + " - " + name, par3List);
 			}

@@ -16,12 +16,12 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -285,7 +285,7 @@ public class GuiLexicon extends GuiScreen {
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
 
-		fontRendererObj.drawString(I18n.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		fontRendererObj.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
@@ -340,7 +340,7 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(String.format(I18n.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
+		fontRendererObj.drawString(String.format(I18n.format("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
 
 		String s = TextFormatting.BOLD + categoryHighlight;
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
@@ -481,9 +481,9 @@ public class GuiLexicon extends GuiScreen {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
-				button.displayString = I18n.translateToLocal(category.getUnlocalizedName());
+				button.displayString = I18n.format(category.getUnlocalizedName());
 			else {
-				button.displayString = I18n.translateToLocal("botaniamisc.lexiconIndex");
+				button.displayString = I18n.format("botaniamisc.lexiconIndex");
 				break;
 			}
 		}
@@ -511,9 +511,9 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		if(isMainPage())
-			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.translateToLocal("botaniamisc.history"), this));
+			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
 		else if(isChallenge())
-			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.translateToLocal("botaniamisc.info"), this));
+			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {

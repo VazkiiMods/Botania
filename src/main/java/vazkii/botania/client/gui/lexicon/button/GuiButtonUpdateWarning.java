@@ -13,7 +13,7 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -46,7 +46,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		List<String> tooltip = new ArrayList<>();
 		String version = PersistentVariableHelper.lastBotaniaVersion;
 		for(int i = 0; i < 6; i++) {
-			tooltip.add(TextFormatting.GRAY + String.format(I18n.translateToLocal("botaniamisc.changes" + i), version).replaceAll("&", "\u00a7"));
+			tooltip.add(TextFormatting.GRAY + String.format(I18n.format("botaniamisc.changes" + i), version).replaceAll("&", "\u00a7"));
 			if(i == 3)
 				tooltip.add("");
 		}
