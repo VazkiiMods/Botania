@@ -22,7 +22,9 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntityEnderAirBottle extends EntityThrowable {
 
@@ -36,9 +38,9 @@ public class EntityEnderAirBottle extends EntityThrowable {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(pos.entityHit == null && !worldObj.isRemote) {
+		if(pos.getBlockPos() != null && !worldObj.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
-			worldObj.playEvent(2002, new BlockPos((int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ)), 8);
+			worldObj.playEvent(2002, new BlockPos(this), 8);
 
 			for(BlockPos coords : coordsList) {
 				worldObj.setBlockState(coords, Blocks.END_STONE.getDefaultState());
@@ -49,27 +51,21 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		}
 	}
 
-	public List<BlockPos> getCoordsToPut(BlockPos pos) {
+	private List<BlockPos> getCoordsToPut(BlockPos pos) {
 		List<BlockPos> possibleCoords = new ArrayList<>();
-		List<BlockPos> selectedCoords = new ArrayList<>();
 		int range = 4;
 		int rangeY = 4;
 
 		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
-			IBlockState state = worldObj.getBlockState(pos);
+			IBlockState state = worldObj.getBlockState(bPos);
 			Block block = state.getBlock();
-			if(block != null && block.isReplaceableOreGen(state, worldObj, pos, BlockStateMatcher.forBlock(Blocks.STONE)))
-				possibleCoords.add(pos);
+			if(block.isReplaceableOreGen(state, worldObj, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
+				possibleCoords.add(bPos);
 		}
 
-		int count = 64;
-		while(!possibleCoords.isEmpty() && count > 0) {
-			BlockPos coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size()));
-			possibleCoords.remove(coords);
-			selectedCoords.add(coords);
-			count--;
-		}
-		return selectedCoords;
+		Collections.shuffle(possibleCoords, rand);
+
+		return possibleCoords.stream().limit(64).collect(Collectors.toList());
 	}
 
 }
