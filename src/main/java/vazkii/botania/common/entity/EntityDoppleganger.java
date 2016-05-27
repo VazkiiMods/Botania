@@ -136,7 +136,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
 
-	private List<UUID> playersWhoAttacked = new ArrayList<>();
+	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	public EntityPlayer trueKiller = null;
 
 	private static boolean isPlayingMusic = false;

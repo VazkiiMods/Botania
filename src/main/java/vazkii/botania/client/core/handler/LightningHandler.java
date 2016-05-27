@@ -38,7 +38,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -115,7 +114,7 @@ public class LightningHandler {
 	private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
 		ParticleRenderDispatcher.lightningCount++;
 		float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
-		float mainalpha = 1;
+		float mainalpha;
 		if(pass == 0)
 			mainalpha = (1 - boltage) * 0.4F;
 		else mainalpha = 1 - boltage * 0.5F;
@@ -173,24 +172,24 @@ public class LightningHandler {
 	public static class LightningBolt {
 
 		public ArrayList<Segment> segments = new ArrayList<>();
-		public Vector3 start;
-		public Vector3 end;
+		public final Vector3 start;
+		public final Vector3 end;
 		BlockPos target;
-		TIntIntHashMap splitparents = new TIntIntHashMap();
+		final TIntIntHashMap splitparents = new TIntIntHashMap();
 
-		public double length;
+		public final double length;
 		public int numsegments0;
 		private int numsplits;
 		private boolean finalized;
-		private Random rand;
-		public long seed;
+		private final Random rand;
+		public final long seed;
 
 		public int particleAge;
-		public int particleMaxAge;
+		public final int particleMaxAge;
 		public boolean isDead;
 		private AxisAlignedBB boundingBox;
 
-		private World world;
+		private final World world;
 		private Entity source;
 
 		public static final ConcurrentLinkedQueue<LightningBolt> boltlist = new ConcurrentLinkedQueue<>();
@@ -201,8 +200,8 @@ public class LightningHandler {
 		public static int playerdamage = 1;
 		public static int entitydamage = 1;
 
-		public int colorOuter;
-		public int colorInner;
+		public final int colorOuter;
+		public final int colorInner;
 
 		public static class BoltPoint {
 
@@ -212,9 +211,9 @@ public class LightningHandler {
 				this.offsetvec = offsetvec;
 			}
 
-			public Vector3 point;
-			Vector3 basepoint;
-			Vector3 offsetvec;
+			public final Vector3 point;
+			final Vector3 basepoint;
+			final Vector3 offsetvec;
 		}
 
 		private static final Comparator<Segment> SEGMENT_SORTER = (o1, o2) -> {
@@ -274,8 +273,8 @@ public class LightningHandler {
 				return startpoint.point.toString() + " " + endpoint.point.toString();
 			}
 
-			public BoltPoint startpoint;
-			public BoltPoint endpoint;
+			public final BoltPoint startpoint;
+			public final BoltPoint endpoint;
 
 			public Vector3 diff;
 
@@ -287,10 +286,10 @@ public class LightningHandler {
 
 			public float sinprev;
 			public float sinnext;
-			public float light;
+			public final float light;
 
-			public int segmentno;
-			public int splitno;
+			public final int segmentno;
+			public final int splitno;
 		}
 
 		public LightningBolt(World world, Vector3 sourcevec, Vector3 targetvec, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
@@ -338,7 +337,7 @@ public class LightningHandler {
 			ArrayList<Segment> oldsegments = segments;
 			segments = new ArrayList<>();
 
-			Segment prev = null;
+			Segment prev;
 
 			for(Segment segment : oldsegments) {
 				prev = segment.prev;

@@ -27,8 +27,8 @@ import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends Container {
 
-	InventoryBaubleBox baubleBoxInv;
-	InventoryBaubles baubles;
+	final InventoryBaubleBox baubleBoxInv;
+	final InventoryBaubles baubles;
 
 	public ContainerBaubleBox(EntityPlayer player) {
 		int i;

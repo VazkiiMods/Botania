@@ -63,7 +63,7 @@ public class MiscellaneousIcons {
 
     public TextureAtlasSprite[] sparkUpgradeIcons;
     public TextureAtlasSprite[] kingKeyWeaponIcons;
-    public Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
+    public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
     public TextureAtlasSprite[] tiaraWingIcons;
 
     // begin dank_memes

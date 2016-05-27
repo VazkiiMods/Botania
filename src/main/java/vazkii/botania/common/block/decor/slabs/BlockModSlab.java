@@ -28,7 +28,7 @@ import java.util.Random;
 
 public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
-	String name;
+	final String name;
 	protected final boolean doubleSlab;
 	public static final PropertyEnum<DummyEnum> DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
 
@@ -82,11 +82,6 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	@Override
 	public Item getItemDropped(IBlockState p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return Item.getItemFromBlock(getSingleBlock());
-	}
-
-	@Override
-	public int quantityDropped(IBlockState state, int fortune, @Nonnull Random random) {
-		return super.quantityDropped(state, fortune, random);
 	}
 
 	@Override

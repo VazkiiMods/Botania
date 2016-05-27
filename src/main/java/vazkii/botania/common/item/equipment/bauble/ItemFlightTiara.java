@@ -68,8 +68,8 @@ import java.util.List;
 
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
 
-	private static ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
-	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
+	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
 
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_TIME_LEFT = "timeLeft";
@@ -131,7 +131,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	// Might as well be called sugar given it's not secure at all :D
 	String salt(String str) {
-		str = str += "wowsuchsaltmuchsecurityverywow";
+		str = str + "wowsuchsaltmuchsecurityverywow";
 		SecureRandom rand = new SecureRandom(str.getBytes());
 		int l = str.length();
 		int steps = rand.nextInt(l);

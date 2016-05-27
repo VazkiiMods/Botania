@@ -37,11 +37,9 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -247,7 +245,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		private final Random rand;
 		private final IBlockState stateToSet;
 
-		private BlockPos startCoords;
+		private final BlockPos startCoords;
 		private int ticksExisted = 0;
 
 		/**

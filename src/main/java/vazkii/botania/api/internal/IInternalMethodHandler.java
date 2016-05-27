@@ -26,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconPage;

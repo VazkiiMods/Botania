@@ -33,9 +33,9 @@ import java.util.List;
 
 public class ItemOdinRing extends ItemRelicBauble {
 
-	private static List<String> damageNegations = new ArrayList<>();
+	private static final List<String> damageNegations = new ArrayList<>();
 
-	private Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);

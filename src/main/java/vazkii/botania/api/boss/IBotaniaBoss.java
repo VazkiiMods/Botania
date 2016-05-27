@@ -11,9 +11,7 @@
 package vazkii.botania.api.boss;
 
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.BossInfo;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.ShaderCallback;

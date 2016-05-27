@@ -40,7 +40,7 @@ public class PageShedding extends PageEntity {
 
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
-	ItemStack shedStack;
+	final ItemStack shedStack;
 	ItemStack tooltipStack;
 	boolean tooltipEntry;
 
@@ -94,7 +94,6 @@ public class PageShedding extends PageEntity {
 
 			if(tooltipEntry) {
 				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(TextFormatting.GRAY + I18n.format("botaniamisc.clickToRecipe")));
-				tooltipY += 18;
 			}
 		}
 		else if(tooltipEntity) {

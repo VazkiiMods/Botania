@@ -92,7 +92,7 @@ public final class ShaderHelper {
 	// http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
 
 	private static int createProgram(String vert, String frag) {
-		int vertId = 0, fragId = 0, program = 0;
+		int vertId = 0, fragId = 0, program;
 		if(vert != null)
 			vertId = createShader(vert, VERT);
 		if(frag != null)

@@ -49,11 +49,11 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 
-	private String name;
-	private String texName;
-	private int swigs;
-	private int drinkSpeed;
-	private ItemStack baseItem;
+	private final String name;
+	private final String texName;
+	private final int swigs;
+	private final int drinkSpeed;
+	private final ItemStack baseItem;
 
 	public ItemBrewBase(String name, String texName, int swigs, int drinkSpeed, ItemStack baseItem) {
 		super(name);

@@ -21,7 +21,7 @@ import java.util.Collections;
 
 public class GuiButtonPage extends GuiButtonLexicon {
 
-	boolean right;
+	final boolean right;
 
 	public GuiButtonPage(int par1, int par2, int par3, boolean right) {
 		super(par1, par2, par3, 18, 10, "");

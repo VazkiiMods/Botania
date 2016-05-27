@@ -89,12 +89,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	float accumulatedManaLoss = 0;
 	boolean fake = false;
-	Set<BlockPos> alreadyCollidedAt = new HashSet<>();
+	final Set<BlockPos> alreadyCollidedAt = new HashSet<>();
 	boolean fullManaLastTick = true;
 	UUID shooterIdentity = null;
 	int _ticksExisted = 0;
 	boolean scanBeam = false;
-	public List<PositionProperties> propsList = new ArrayList<>();
+	public final List<PositionProperties> propsList = new ArrayList<>();
 
 	public EntityManaBurst(World world) {
 		super(world);

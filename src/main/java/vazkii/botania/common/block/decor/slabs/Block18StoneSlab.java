@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class Block18StoneSlab extends BlockLivingSlab {
 
-	int index;
+	final int index;
 
 	public Block18StoneSlab(boolean full, FutureStoneVariant variant, int index) {
 		super(full, ModFluffBlocks.stone.getDefaultState().withProperty(BotaniaStateProps.FUTURESTONE_VARIANT, variant));

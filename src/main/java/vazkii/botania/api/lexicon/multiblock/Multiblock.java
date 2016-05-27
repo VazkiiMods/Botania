@@ -29,14 +29,14 @@ import java.util.Map;
  */
 public class Multiblock {
 
-	public List<MultiblockComponent> components = new ArrayList<>();
-	public List<ItemStack> materials = new ArrayList<>();
+	public final List<MultiblockComponent> components = new ArrayList<>();
+	public final List<ItemStack> materials = new ArrayList<>();
 
 	public BlockPos minPos = BlockPos.ORIGIN;
 	public BlockPos maxPos = BlockPos.ORIGIN;
 	public BlockPos offPos = BlockPos.ORIGIN;
 
-	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<>();
+	public final HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z

@@ -22,7 +22,7 @@ import java.util.List;
 
 public class GuiButtonHistory extends GuiButtonLexicon {
 
-	GuiLexicon gui;
+	final GuiLexicon gui;
 
 	public GuiButtonHistory(int par1, int par2, int par3, String str, GuiLexicon gui) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);

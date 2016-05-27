@@ -45,7 +45,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 			for(BlockPos coords : coordsList) {
 				worldObj.setBlockState(coords, Blocks.END_STONE.getDefaultState());
 				if(Math.random() < 0.1)
-					worldObj.playEvent(2001, coords, Block.getIdFromBlock(Blocks.END_STONE));
+					worldObj.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
 			}
 			setDead();
 		}

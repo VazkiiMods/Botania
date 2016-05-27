@@ -34,8 +34,8 @@ public class FXWisp extends Particle {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-	private static Queue<FXWisp> queuedRenders = new ArrayDeque<>();
-	private static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
+	private static final Queue<FXWisp> queuedRenders = new ArrayDeque<>();
+	private static final Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque<>();
 
 	// Queue values
 	private float f;
@@ -171,8 +171,8 @@ public class FXWisp extends Particle {
 
 	private boolean depthTest = true;
 	public boolean distanceLimit = true;
-	private float moteParticleScale;
-	private int moteHalfLife;
+	private final float moteParticleScale;
+	private final int moteHalfLife;
 	public boolean tinkle = false;
 	public int blendmode = 1;
 }

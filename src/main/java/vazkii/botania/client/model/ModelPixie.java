@@ -17,9 +17,9 @@ import net.minecraft.util.math.MathHelper;
 
 public class ModelPixie extends ModelBase {
 
-	ModelRenderer Body;
-	ModelRenderer LeftWing;
-	ModelRenderer RightWing;
+	final ModelRenderer Body;
+	final ModelRenderer LeftWing;
+	final ModelRenderer RightWing;
 
 	public ModelPixie() {
 		textureWidth = 64;

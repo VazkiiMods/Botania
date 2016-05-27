@@ -28,7 +28,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
-	ModelTeruTeruBozu model = new ModelTeruTeruBozu();
+	final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {

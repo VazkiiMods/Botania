@@ -16,13 +16,13 @@ import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelBellows extends ModelBase {
 
-	ModelRenderer Base;
-	ModelRenderer Top;
-	ModelRenderer Funnel;
-	ModelRenderer Pipe;
-	ModelRenderer Handle1;
-	ModelRenderer Handle2;
-	ModelRenderer Handle3;
+	final ModelRenderer Base;
+	final ModelRenderer Top;
+	final ModelRenderer Funnel;
+	final ModelRenderer Pipe;
+	final ModelRenderer Handle1;
+	final ModelRenderer Handle2;
+	final ModelRenderer Handle3;
 
 	public ModelBellows() {
 		textureWidth = 64;

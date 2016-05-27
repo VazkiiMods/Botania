@@ -14,7 +14,6 @@ import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;

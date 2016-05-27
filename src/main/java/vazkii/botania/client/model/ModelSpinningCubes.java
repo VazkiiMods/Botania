@@ -19,7 +19,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ModelSpinningCubes extends ModelBase {
 
-	ModelRenderer spinningCube;
+	final ModelRenderer spinningCube;
 
 	public ModelSpinningCubes() {
 		spinningCube = new ModelRenderer(this, 42, 0);

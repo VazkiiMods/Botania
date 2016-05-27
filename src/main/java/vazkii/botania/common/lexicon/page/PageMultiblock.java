@@ -41,8 +41,8 @@ public class PageMultiblock extends LexiconPage {
 	private static final ResourceLocation multiblockOverlay = new ResourceLocation(LibResources.GUI_MULTIBLOCK_OVERLAY);
 
 	GuiButton button;
-	MultiblockSet set;
-	Multiblock mb;
+	final MultiblockSet set;
+	final Multiblock mb;
 	int ticksElapsed;
 
 	public PageMultiblock(String unlocalizedName, MultiblockSet set) {

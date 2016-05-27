@@ -17,8 +17,8 @@ import vazkii.botania.common.block.ModBlocks;
 
 public class SlotFlower extends Slot {
 
-	InventoryFlowerBag inv;
-	int color;
+	final InventoryFlowerBag inv;
+	final int color;
 
 	public SlotFlower(InventoryFlowerBag p_i1824_1_, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_, int color) {
 		super(p_i1824_1_, p_i1824_2_, p_i1824_3_, p_i1824_4_);

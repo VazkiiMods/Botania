@@ -45,7 +45,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 	private static final ResourceLocation manaInfusionOverlay = new ResourceLocation(LibResources.GUI_MANA_INFUSION_OVERLAY);
 
-	private List<RecipeManaInfusion> recipes;
+	private final List<RecipeManaInfusion> recipes;
 	private int ticksElapsed = 0;
 	private int recipeAt = 0;
 	private final ItemStack renderStack;

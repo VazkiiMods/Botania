@@ -66,7 +66,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing.Axis axis = null;
+		EnumFacing.Axis axis;
 		switch (meta) {
 			case 8: axis = EnumFacing.Axis.Z; break;
 			case 4: axis = EnumFacing.Axis.X; break;

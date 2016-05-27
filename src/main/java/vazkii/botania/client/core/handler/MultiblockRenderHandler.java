@@ -40,7 +40,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 public final class MultiblockRenderHandler {
 
-	private static MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
+	private static final MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
 	private static int dimension;
 
 	public static boolean rendering = false;

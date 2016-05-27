@@ -319,8 +319,8 @@ public final class ConfigHandler {
 		private int lastBuild;
 		private int currentBuild;
 
-		private Map<String, List<AdaptableValue>> adaptableValues = new HashMap<>();
-		private List<String> changes = new ArrayList<>();
+		private final Map<String, List<AdaptableValue>> adaptableValues = new HashMap<>();
+		private final List<String> changes = new ArrayList<>();
 
 		public ConfigAdaptor(boolean enabled) {
 			this.enabled = enabled;

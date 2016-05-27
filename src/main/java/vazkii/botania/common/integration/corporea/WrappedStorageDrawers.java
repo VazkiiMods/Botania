@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class WrappedStorageDrawers extends WrappedInventoryBase {
 
-	private IDrawerGroup invRaw;
+	private final IDrawerGroup invRaw;
 
 	private WrappedStorageDrawers(IDrawerGroup inv, ICorporeaSpark spark) {
 		this.invRaw = inv;

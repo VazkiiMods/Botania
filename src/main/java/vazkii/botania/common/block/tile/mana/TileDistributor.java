@@ -22,7 +22,7 @@ import java.util.List;
 
 public class TileDistributor extends TileMod implements IManaReceiver {
 
-	List<IManaReceiver> validPools = new ArrayList<>();
+	final List<IManaReceiver> validPools = new ArrayList<>();
 
 	@Override
 	public void updateEntity() {

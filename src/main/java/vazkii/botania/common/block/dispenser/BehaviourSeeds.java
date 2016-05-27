@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
-	Block block;
+	private final Block block;
 
 	public BehaviourSeeds(Block block) {
 		this.block = block;

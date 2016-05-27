@@ -41,7 +41,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	};
 
 	int positionAt = 0;
-	int[] ticksRemaining = { -1, -1, -1, -1, -1, -1, -1, -1};
+	final int[] ticksRemaining = { -1, -1, -1, -1, -1, -1, -1, -1};
 
 	@Override
 	public void onUpdate() {

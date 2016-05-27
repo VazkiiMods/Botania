@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.IItemPropertyGetter;
@@ -37,16 +38,15 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.List;
 
 public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 
-	private static final List<ResourceLocation> BLACKLIST = Arrays.asList(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
+	private static final List<ResourceLocation> BLACKLIST = ImmutableList.of(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
 
-	final int range;
+	private final int range;
 
 	public ItemMagnetRing() {
 		this(LibItemNames.MAGNET_RING, 6);

@@ -26,7 +26,7 @@ import java.net.URL;
 
 public class ThreadDownloadMod extends Thread {
 
-	private String fileName;
+	private final String fileName;
 
 	private byte[] buffer = new byte[10240];
 

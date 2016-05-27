@@ -39,7 +39,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
 
-	List<T> recipes;
+	final List<T> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 

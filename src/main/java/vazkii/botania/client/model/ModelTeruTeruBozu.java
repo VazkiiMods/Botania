@@ -16,10 +16,10 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelTeruTeruBozu extends ModelBase {
 
-	public ModelRenderer thread;
-	public ModelRenderer cloth;
-	public ModelRenderer happyFace;
-	public ModelRenderer sadFace;
+	public final ModelRenderer thread;
+	public final ModelRenderer cloth;
+	public final ModelRenderer happyFace;
+	public final ModelRenderer sadFace;
 
 	public ModelTeruTeruBozu() {
 		textureWidth = 64;

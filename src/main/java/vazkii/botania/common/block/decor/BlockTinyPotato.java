@@ -73,7 +73,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing side = null;
+		EnumFacing side;
 		switch (meta) {
 			case 3: side = EnumFacing.WEST; break;
 			case 0: side = EnumFacing.NORTH; break;

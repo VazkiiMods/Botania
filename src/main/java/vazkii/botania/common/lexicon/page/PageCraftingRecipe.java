@@ -40,7 +40,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	private static final ResourceLocation craftingOverlay = new ResourceLocation(LibResources.GUI_CRAFTING_OVERLAY);
 
-	List<IRecipe> recipes;
+	final List<IRecipe> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 

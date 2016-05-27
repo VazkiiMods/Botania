@@ -28,11 +28,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public List<LexiconPage> pages = new ArrayList<>();
+	public final List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
 	private ItemStack icon = null;
 	
-	private List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
+	private final List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.

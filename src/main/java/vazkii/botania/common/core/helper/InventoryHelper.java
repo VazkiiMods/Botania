@@ -160,10 +160,10 @@ public class InventoryHelper {
 
 	public static class GenericInventory implements IInventory {
 
-		protected String inventoryTitle;
+		protected final String inventoryTitle;
 		protected int slotsCount;
 		protected ItemStack[] inventoryContents;
-		protected boolean isInvNameLocalized;
+		protected final boolean isInvNameLocalized;
 
 		public GenericInventory(String name, boolean isInvNameLocalized, int size) {
 			this.isInvNameLocalized = isInvNameLocalized;

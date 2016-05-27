@@ -30,7 +30,7 @@ import java.util.UUID;
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	Achievement achievement;
-	private ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
+	private final ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
 		@Override
 		protected boolean shouldRegister() {
 			return false;

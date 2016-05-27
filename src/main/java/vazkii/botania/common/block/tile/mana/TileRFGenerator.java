@@ -34,7 +34,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	int mana = 0;
 
 	// Thanks to skyboy for help with this cuz I'm a noob with RF
-	private EnumMap<EnumFacing, IEnergyReceiver> receiverCache = new EnumMap<>(EnumFacing.class);
+	private final EnumMap<EnumFacing, IEnergyReceiver> receiverCache = new EnumMap<>(EnumFacing.class);
 	private boolean deadCache;
 
 	@Override

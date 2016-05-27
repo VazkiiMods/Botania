@@ -23,7 +23,7 @@ import java.util.List;
 
 public class GuiButtonNotes extends GuiButtonLexicon {
 
-	GuiLexicon parent;
+	final GuiLexicon parent;
 
 	public GuiButtonNotes(GuiLexicon parent, int id, int x, int y) {
 		super(id, x, y, 11, 11, "");

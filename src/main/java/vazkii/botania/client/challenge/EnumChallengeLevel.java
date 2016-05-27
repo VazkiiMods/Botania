@@ -17,7 +17,7 @@ public enum EnumChallengeLevel {
 	HARD("botania.challengelevel.hard"),
 	LUNATIC("botania.challengelevel.lunatic");
 
-	String name;
+	final String name;
 
 	private EnumChallengeLevel(String name) {
 		this.name = name;

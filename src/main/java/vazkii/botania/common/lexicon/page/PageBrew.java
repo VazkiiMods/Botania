@@ -32,7 +32,7 @@ import java.util.List;
 
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
-	RecipeBrew recipe;
+	final RecipeBrew recipe;
 	String text;
 
 	public PageBrew(RecipeBrew recipe, String unlocalizedName, String bottomText) {

@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public static Material[] materialsShovel = new Material[]{ Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
+	public static final Material[] materialsShovel = new Material[]{ Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
 
 	public ItemElementiumShovel() {
 		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SHOVEL);

@@ -55,7 +55,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	protected Map<EntityEquipmentSlot, ModelBiped> models = null;
-	public EntityEquipmentSlot type;
+	public final EntityEquipmentSlot type;
 
 	public ItemManasteelArmor(EntityEquipmentSlot type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);

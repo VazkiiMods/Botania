@@ -12,9 +12,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import vazkii.botania.api.mana.IManaItem;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessOreRecipe {
     public ShapelessManaUpgradeRecipe(ItemStack output, Object... inputs) {

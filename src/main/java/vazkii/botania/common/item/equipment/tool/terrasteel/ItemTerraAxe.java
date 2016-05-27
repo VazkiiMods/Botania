@@ -38,11 +38,9 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -77,7 +75,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
+	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
 
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
@@ -163,14 +161,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * @param steps The range of the block swapper, in blocks.
 	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
 	 * documentation).
-	 * @return The created block swapper.
 	 */
-	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
+	private static void addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		// Block swapper registration should only occur on the server
 		if(world.isRemote)
-			return swapper;
+			return;
 
 		// If the mapping for this dimension doesn't exist, create it.
 		int dim = world.provider.getDimension();
@@ -179,8 +176,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
-
-		return swapper;
 	}
 
 	/**
@@ -239,13 +234,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		/**
 		 * The priority queue of all possible candidates for swapping.
 		 */
-		private PriorityQueue<SwapCandidate> candidateQueue;
+		private final PriorityQueue<SwapCandidate> candidateQueue;
 		
 		/**
 		 * The set of already swaps coordinates which do not have
 		 * to be revisited.
 		 */
-		private Set<BlockPos> completedCoords;
+		private final Set<BlockPos> completedCoords;
 		
 		/**
 		 * Creates a new block swapper with the provided parameters.

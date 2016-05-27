@@ -61,7 +61,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
-			String sound = null;
+			String sound;
 			try {
 				if(living instanceof EntityCreeper)
 					sound = "creeper.primed";

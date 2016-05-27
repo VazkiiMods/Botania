@@ -110,8 +110,8 @@ public class GuiLexicon extends GuiScreen {
 	List<LexiconCategory> allCategories;
 
 	String title;
-	int guiWidth = 146;
-	int guiHeight = 180;
+	final int guiWidth = 146;
+	final int guiHeight = 180;
 	int left, top;
 
 	@Override
@@ -155,7 +155,7 @@ public class GuiLexicon extends GuiScreen {
 		} else if(isCategoryIndex()) {
 			int categories = allCategories.size();
 			for(int i = 0; i < categories + 1; i++) {
-				LexiconCategory category = null;
+				LexiconCategory category;
 				category = i >= categories ? null : allCategories.get(i);
 				int perline = 5;
 				int x = i % perline;

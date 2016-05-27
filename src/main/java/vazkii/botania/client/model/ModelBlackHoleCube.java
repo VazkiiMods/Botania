@@ -15,18 +15,18 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelBlackHoleCube extends ModelBase {
-	public ModelRenderer shape1;
-	public ModelRenderer shape1_1;
-	public ModelRenderer shape1_2;
-	public ModelRenderer shape1_3;
-	public ModelRenderer shape1_4;
-	public ModelRenderer shape1_5;
-	public ModelRenderer shape1_6;
-	public ModelRenderer shape1_7;
-	public ModelRenderer shape1_8;
-	public ModelRenderer shape1_9;
-	public ModelRenderer shape1_10;
-	public ModelRenderer shape1_11;
+	public final ModelRenderer shape1;
+	public final ModelRenderer shape1_1;
+	public final ModelRenderer shape1_2;
+	public final ModelRenderer shape1_3;
+	public final ModelRenderer shape1_4;
+	public final ModelRenderer shape1_5;
+	public final ModelRenderer shape1_6;
+	public final ModelRenderer shape1_7;
+	public final ModelRenderer shape1_8;
+	public final ModelRenderer shape1_9;
+	public final ModelRenderer shape1_10;
+	public final ModelRenderer shape1_11;
 
 	public ModelBlackHoleCube() {
 		textureWidth = 36;

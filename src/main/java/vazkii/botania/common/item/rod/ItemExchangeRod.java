@@ -364,10 +364,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_META, 0);
 	}
 
-	private boolean setTargetBlock(ItemStack stack, Block block, int meta) {
+	private void setTargetBlock(ItemStack stack, Block block, int meta) {
 		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 		ItemNBTHelper.setInt(stack, TAG_TARGET_BLOCK_META, meta);
-		return true;
 	}
 
 	public static String getTargetBlockName(ItemStack stack) {

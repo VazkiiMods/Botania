@@ -40,10 +40,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -110,7 +107,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 							invToPutItemIn = inv.handler;
 							priorityInv = priority;
-							sideToPutItemIn = dir.getOpposite();
 							amountToPutIn = availablePut;
 						}
 					}

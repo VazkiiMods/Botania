@@ -30,8 +30,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemDice extends ItemRelic {
 

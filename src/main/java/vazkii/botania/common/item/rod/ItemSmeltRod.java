@@ -137,7 +137,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	}
 
 	static class SmeltData {
-		public RayTraceResult pos;
+		public final RayTraceResult pos;
 		public int progress;
 
 		public SmeltData(RayTraceResult pos, int progress) {

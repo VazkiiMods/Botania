@@ -27,7 +27,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	private static final ResourceLocation elvenTradeOverlay = new ResourceLocation(LibResources.GUI_ELVEN_TRADE_OVERLAY);
 
-	List<RecipeElvenTrade> recipes;
+	final List<RecipeElvenTrade> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 

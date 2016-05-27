@@ -179,19 +179,19 @@ public final class ModFluffBlocks {
 	public static Block stone;
 	public static Block pavement;
 
-	public static Block[] biomeStoneStairs = new Block[24];
-	public static Block[] biomeStoneSlabs = new Block[24];
-	public static Block[] biomeStoneFullSlabs = new Block[24];
+	public static final Block[] biomeStoneStairs = new Block[24];
+	public static final Block[] biomeStoneSlabs = new Block[24];
+	public static final Block[] biomeStoneFullSlabs = new Block[24];
 	public static Block biomeStoneWall;
 
-	public static Block[] stoneStairs = new Block[8];
-	public static Block[] stoneSlabs = new Block[8];
-	public static Block[] stoneFullSlabs = new Block[8];
+	public static final Block[] stoneStairs = new Block[8];
+	public static final Block[] stoneSlabs = new Block[8];
+	public static final Block[] stoneFullSlabs = new Block[8];
 	public static Block stoneWall;
 
-	public static Block[] pavementStairs = new Block[BlockPavement.TYPES];
-	public static Block[] pavementSlabs = new Block[BlockPavement.TYPES];
-	public static Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
+	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
+	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
+	public static final Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
 
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;

@@ -309,7 +309,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 			for (int j = 0; j < 4; ++j)
 			{
 				float f3 = 0.25F;
-				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double)f3, this.posY - this.motionY * (double)f3, this.posZ - this.motionZ * (double)f3, this.motionX, this.motionY, this.motionZ, new int[0]);
+				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double)f3, this.posY - this.motionY * (double)f3, this.posZ - this.motionZ * (double)f3, this.motionX, this.motionY, this.motionZ);
 			}
 
 			f1 = 0.8F;

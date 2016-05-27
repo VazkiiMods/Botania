@@ -33,7 +33,6 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;

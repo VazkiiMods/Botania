@@ -134,7 +134,6 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 							IBlockState state = world.getBlockState(pos_);
 							Block block = state.getBlock();
 							if(!block.isAir(state, world, pos_) && !block.isReplaceable(world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
-								int id = Block.getIdFromBlock(block);
 								TileEntity tile = world.getTileEntity(pos_);
 
 								if(tile != null) {

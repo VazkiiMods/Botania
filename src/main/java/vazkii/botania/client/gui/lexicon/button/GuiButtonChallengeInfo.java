@@ -21,7 +21,7 @@ import java.util.List;
 
 public class GuiButtonChallengeInfo extends GuiButtonLexicon {
 
-	GuiLexicon gui;
+	final GuiLexicon gui;
 
 	public GuiButtonChallengeInfo(int par1, int par2, int par3, String str, GuiLexicon gui) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);

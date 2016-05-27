@@ -25,9 +25,9 @@ public class ColoredLightHelper {
 	// Begin API Copypasta
 	// https://github.com/CptSpaceToaster/CptsModdingLight/blob/1.7.2/src/main/java/coloredlightscore/src/api/CLApi.java
 
-	public static int r[] = new int[] { 0, 15, 0, 8, 0, 10, 0, 10, 5, 15, 8, 15, 0, 15, 15, 15 };
-	public static int g[] = new int[] { 0, 0, 15, 3, 0, 0, 15, 10, 5, 10, 15, 15, 8, 0, 12, 15 };
-	public static int b[] = new int[] { 0, 0, 0, 0, 15, 15, 15, 10, 5, 13, 0, 0, 15, 15, 10, 15 };
+	public static final int[] r = new int[] { 0, 15, 0, 8, 0, 10, 0, 10, 5, 15, 8, 15, 0, 15, 15, 15 };
+	public static final int[] g = new int[] { 0, 0, 15, 3, 0, 0, 15, 10, 5, 10, 15, 15, 8, 0, 12, 15 };
+	public static final int[] b = new int[] { 0, 0, 0, 0, 15, 15, 15, 10, 5, 13, 0, 0, 15, 15, 10, 15 };
 
 	public static int makeRGBLightValue(float r, float g, float b, float currentLightValue) {
 		// Clamp color channels

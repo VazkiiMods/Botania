@@ -164,7 +164,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 	private static class StringRandomItem extends WeightedRandom.Item {
 
-		public String s;
+		public final String s;
 
 		public StringRandomItem(int par1, String s) {
 			super(par1);

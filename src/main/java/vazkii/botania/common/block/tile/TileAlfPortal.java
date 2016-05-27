@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import com.google.common.base.Function;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -43,6 +42,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class TileAlfPortal extends TileMod {
 
@@ -76,10 +76,10 @@ public class TileAlfPortal extends TileMod {
 	private static final String TAG_STACK = "portalStack";
 	private static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
-	List<ItemStack> stacksIn = new ArrayList<>();
+	private final List<ItemStack> stacksIn = new ArrayList<>();
 
 	public int ticksOpen = 0;
-	int ticksSinceLastItem = 0;
+	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean hasUnloadedParts = false;
 
@@ -137,7 +137,7 @@ public class TileAlfPortal extends TileMod {
 							continue;
 
 						ItemStack stack = item.getEntityItem();
-						if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
+						if((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
 							item.setDead();
 							addItem(stack);
 							ticksSinceLastItem = 0;
@@ -191,7 +191,7 @@ public class TileAlfPortal extends TileMod {
 		return false;
 	}
 
-	AxisAlignedBB getPortalAABB() {
+	private AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
 		if(worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
@@ -199,14 +199,14 @@ public class TileAlfPortal extends TileMod {
 		return aabb;
 	}
 
-	void addItem(ItemStack stack) {
+	private void addItem(ItemStack stack) {
 		int size = stack.stackSize;
 		stack.stackSize = 1;
 		for(int i = 0; i < size; i++)
 			stacksIn.add(stack.copy());
 	}
 
-	void resolveRecipes() {
+	private void resolveRecipes() {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
 			if(stack != null && stack.getItem() instanceof ILexicon) {
@@ -228,7 +228,7 @@ public class TileAlfPortal extends TileMod {
 		}
 	}
 
-	void spawnItem(ItemStack stack) {
+	private void spawnItem(ItemStack stack) {
 		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 		item.getEntityData().setBoolean(TAG_PORTAL_FLAG, true);
 		worldObj.spawnEntityInWorld(item);
@@ -338,7 +338,8 @@ public class TileAlfPortal extends TileMod {
 		}
 	}
 
-	private boolean check2DArray(BlockPos[] positions, IBlockState state, boolean onlyCheckBlock, Function<BlockPos, BlockPos>... converters) {
+	@SafeVarargs
+	private final boolean check2DArray(BlockPos[] positions, IBlockState state, boolean onlyCheckBlock, Function<BlockPos, BlockPos>... converters) {
 		for(BlockPos pos : positions) {
 			for(Function<BlockPos, BlockPos> f : converters)
 				if(f != null)

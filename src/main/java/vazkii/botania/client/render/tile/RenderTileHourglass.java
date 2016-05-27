@@ -26,8 +26,8 @@ import java.util.Random;
 
 public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass> {
 
-	ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
-	ModelHourglass model = new ModelHourglass();
+	final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
+	final ModelHourglass model = new ModelHourglass();
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {

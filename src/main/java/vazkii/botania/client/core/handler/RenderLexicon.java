@@ -30,12 +30,12 @@ import vazkii.botania.common.item.ModItems;
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 
-    ModelBook model = new ModelBook();
-    ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
+    final ModelBook model = new ModelBook();
+    final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
 
     @SubscribeEvent
     public void renderItem(RenderHandEvent evt) {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc;
         if(true || !ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || !PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.lexicon))
             return;
         evt.setCanceled(true);
@@ -127,8 +127,8 @@ public class RenderLexicon {
     private void doRender() {
         GlStateManager.pushMatrix();
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-        float opening = 0F;
-        float pageFlip = 0F;
+        float opening;
+        float pageFlip;
 
         float ticks = ClientTickHandler.ticksWithLexicaOpen;
         if(ticks > 0 && ticks < 10) {

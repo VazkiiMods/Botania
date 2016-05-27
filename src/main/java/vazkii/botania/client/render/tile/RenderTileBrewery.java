@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
-	ModelBrewery model = new ModelBrewery();
+	final ModelBrewery model = new ModelBrewery();
 	public TileBrewery brewery;
 
 	@Override

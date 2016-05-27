@@ -66,27 +66,25 @@ public class EntityThrownItem extends EntityItem {
 			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
 			double d0 = 0.0D;
 
-			for (int j = 0; j < list.size(); ++j)
-			{
-				Entity entity1 = (Entity)list.get(j);
+			for (Object aList : list) {
+				Entity entity1 = (Entity) aList;
 
 				int pickupDelay;
 				try {
 					pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(this);
-				} catch (Throwable ignored) { continue; }
+				} catch (Throwable ignored) {
+					continue;
+				}
 
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0))
-				{
+				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
-					if (RayTraceResult1 != null)
-					{
+					if (RayTraceResult1 != null) {
 						double d1 = vec3.distanceTo(RayTraceResult1.hitVec);
 
-						if (d1 < d0 || d0 == 0.0D)
-						{
+						if (d1 < d0 || d0 == 0.0D) {
 							entity = entity1;
 							d0 = d1;
 						}

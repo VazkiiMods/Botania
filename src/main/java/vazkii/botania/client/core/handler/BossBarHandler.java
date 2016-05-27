@@ -25,7 +25,6 @@ import vazkii.botania.client.lib.LibResources;
 
 import java.awt.*;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;

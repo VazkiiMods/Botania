@@ -26,7 +26,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
-	int RANGE = 4;
+	final int RANGE = 4;
 
 	@Override
 	public void onUpdate() {

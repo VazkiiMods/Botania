@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 
 public abstract class ItemBaubleModifier extends ItemBauble {
 
-	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemBaubleModifier(String name) {
 		super(name);

@@ -22,7 +22,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockBiomeStoneSlab extends BlockLivingSlab {
 
-	int index;
+	final int index;
 
 	public BlockBiomeStoneSlab(boolean full, IBlockState state, int index) {
 		super(full, state);

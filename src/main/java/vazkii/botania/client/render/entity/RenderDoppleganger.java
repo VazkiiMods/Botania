@@ -17,7 +17,6 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.internal.ShaderCallback;
-import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 

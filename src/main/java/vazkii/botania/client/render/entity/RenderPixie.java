@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
-	ShaderCallback callback = shader -> {
+	final ShaderCallback callback = shader -> {
         // Frag Uniforms
         int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
         ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);

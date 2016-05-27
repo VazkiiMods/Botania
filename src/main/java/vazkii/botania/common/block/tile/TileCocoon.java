@@ -43,9 +43,9 @@ public class TileCocoon extends TileMod {
 			hatch();
 	}
 
-	public void hatch() {
+	private void hatch() {
 		if(!worldObj.isRemote) {
-			worldObj.playEvent(2001, pos, Block.getIdFromBlock(getBlockType()));
+			worldObj.playEvent(2001, pos, Block.getStateId(getBlockType().getStateFromMeta(getBlockMetadata())));
 			worldObj.setBlockToAir(pos);
 
 			EntityAgeable entity = null;

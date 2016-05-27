@@ -36,8 +36,8 @@ public class FXSparkle extends Particle {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	private static Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
-	private static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
+	private static final Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
+	private static final Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque<>();
 
 	// Queue values
 	private float f;
@@ -212,7 +212,6 @@ public class FXSparkle extends Particle {
 			}
 
 			if (var21 && 1.0D - var14 < var23) {
-				var23 = 1.0D - var14;
 				var22 = 5;
 			}
 
@@ -256,9 +255,9 @@ public class FXSparkle extends Particle {
 	public boolean corrupt = false;
 	public boolean fake = false;
 	private int multiplier = 2;
-	private boolean shrink = true;
-	public int particle = 16;
+	private final boolean shrink = true;
+	public final int particle = 16;
 	public boolean tinkle = false;
-	public boolean slowdown = true;
+	public final boolean slowdown = true;
 	public int currentColor = 0;
 }

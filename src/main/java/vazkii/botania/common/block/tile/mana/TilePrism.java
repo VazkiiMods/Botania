@@ -16,7 +16,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;

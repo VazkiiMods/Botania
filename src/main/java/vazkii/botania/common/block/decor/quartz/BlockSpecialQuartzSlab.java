@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class BlockSpecialQuartzSlab extends BlockModSlab {
 
-	Block source;
+	final Block source;
 
 	public BlockSpecialQuartzSlab(Block source, boolean par2) {
 		super(par2, Material.ROCK, "quartzSlab" + ((BlockSpecialQuartz) source).type + (par2 ? "Full" : "Half"));

@@ -53,7 +53,6 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 			float f2 = 0.91F;
 
 			if (onGround)  {
-				f2 = 0.54600006F;
 				Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock();
 				f2 = block.slipperiness * 0.91F;
 			}
@@ -63,7 +62,6 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 			f2 = 0.91F;
 
 			if (onGround) {
-				f2 = 0.54600006F;
 				Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock();
 				f2 = block.slipperiness * 0.91F;
 			}

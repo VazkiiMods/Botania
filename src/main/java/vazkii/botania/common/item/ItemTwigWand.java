@@ -132,7 +132,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			TileEntity tile = par3World.getTileEntity(pos);
 			boolean bindable = tile instanceof IWandBindable;
 
-			boolean wanded = false;
+			boolean wanded;
 			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, pos, side)) {
 				if(boundTile.equals(pos))
 					setBoundTile(par1ItemStack, UNBOUND_POS);

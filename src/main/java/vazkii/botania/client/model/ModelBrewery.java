@@ -17,10 +17,10 @@ import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends ModelBase {
 
-	ModelRenderer Pole;
-	ModelRenderer Top;
-	ModelRenderer Bottom;
-	ModelRenderer Plate;
+	final ModelRenderer Pole;
+	final ModelRenderer Top;
+	final ModelRenderer Bottom;
+	final ModelRenderer Plate;
 
 	public ModelBrewery() {
 		textureWidth = 64;

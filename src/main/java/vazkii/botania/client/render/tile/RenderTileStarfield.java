@@ -32,7 +32,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
 	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
 	private static final Random field_147527_e = new Random(31100L);
-	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
+	final FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
 	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
 	{
@@ -111,7 +111,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 
 			if (i == 0)
 			{
-				f11 = f12 = f13 = 1.0F * f6;
+				f11 = f12 = 1.0F * f6;
 			}
 
 			// Botania: change color based on time

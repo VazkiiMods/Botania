@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorporeaIndex> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX);
-	ModelEnderCrystal crystal = new ModelEnderCrystal(0F, false);
+	final ModelEnderCrystal crystal = new ModelEnderCrystal(0F, false);
 	public static boolean move = true;
 
 	@Override

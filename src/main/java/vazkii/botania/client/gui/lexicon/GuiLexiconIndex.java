@@ -54,7 +54,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	LexiconEntry currentEntry;
 	float infoTime;
 
-	List<LexiconEntry> entriesToDisplay = new ArrayList<>();
+	final List<LexiconEntry> entriesToDisplay = new ArrayList<>();
 
 	public GuiLexiconIndex() {
 		parent = new GuiLexicon();
@@ -206,8 +206,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			infoTime = Math.max(0, infoTime - timeDelta);
 
 			if(currentButton != null && infoTime == 0) {
-				int x = par1 + 10;
-				int y = par2;
+				int x;
+				int y;
 
 				x = currentButton.xPosition - 20;
 				y = currentButton.yPosition;

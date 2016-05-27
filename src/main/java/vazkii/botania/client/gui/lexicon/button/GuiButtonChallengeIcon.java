@@ -23,7 +23,7 @@ import java.util.List;
 
 public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
-	public Challenge challenge;
+	public final Challenge challenge;
 
 	public GuiButtonChallengeIcon(int id, int x, int y, Challenge challenge) {
 		super(id, x, y, 16, 16, "");

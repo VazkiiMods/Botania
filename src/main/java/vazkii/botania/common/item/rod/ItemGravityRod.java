@@ -191,7 +191,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		if(stack != null && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
-			Entity item = null;
+			Entity item;
 			
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);

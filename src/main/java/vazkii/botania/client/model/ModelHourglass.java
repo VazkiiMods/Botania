@@ -19,13 +19,13 @@ import java.awt.*;
 
 public class ModelHourglass extends ModelBase {
 
-	public ModelRenderer ring;
-	public ModelRenderer base1;
-	public ModelRenderer base2;
-	public ModelRenderer glass1;
-	public ModelRenderer sand1;
-	public ModelRenderer glass2;
-	public ModelRenderer sand2;
+	public final ModelRenderer ring;
+	public final ModelRenderer base1;
+	public final ModelRenderer base2;
+	public final ModelRenderer glass1;
+	public final ModelRenderer sand1;
+	public final ModelRenderer glass2;
+	public final ModelRenderer sand2;
 
 	public ModelHourglass() {
 		textureWidth = 48;

@@ -40,7 +40,7 @@ public class CorporeaAutoCompleteHandler {
 	private List<CompletionData> completions = new ArrayList<>();
 	private int position;
 
-	static TreeSet<String> itemNames = new TreeSet<>(String::compareToIgnoreCase);
+	static final TreeSet<String> itemNames = new TreeSet<>(String::compareToIgnoreCase);
 
 	private boolean tabLastTick = false;
 
@@ -165,8 +165,8 @@ public class CorporeaAutoCompleteHandler {
 
 	private static class CompletionData implements Comparable<CompletionData> {
 
-		private String string;
-		private int prefixLength;
+		private final String string;
+		private final int prefixLength;
 
 		public CompletionData(String string, int prefixLength) {
 			this.string = string;

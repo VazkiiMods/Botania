@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 
 public class ContainerFlowerBag extends Container {
 
-	InventoryFlowerBag flowerBagInv;
+	final InventoryFlowerBag flowerBagInv;
 
 	public ContainerFlowerBag(EntityPlayer player) {
 		int i;

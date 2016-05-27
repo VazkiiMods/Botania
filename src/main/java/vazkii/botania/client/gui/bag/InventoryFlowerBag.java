@@ -26,8 +26,8 @@ public class InventoryFlowerBag implements IInventory {
 
 	private static final ItemStack[] FALLBACK_INVENTORY = new ItemStack[16];
 
-	EntityPlayer player;
-	int slot;
+	final EntityPlayer player;
+	final int slot;
 	ItemStack[] stacks = null;
 
 	boolean invPushed = false;

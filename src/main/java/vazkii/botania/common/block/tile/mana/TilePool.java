@@ -66,7 +66,6 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -100,7 +99,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	int ticksDoingTransfer = 0;
 
 	private String inputKey = "";
-	private String outputKey = "";
+	private final String outputKey = "";
 
 	private int ticks = 0;
 	private boolean sendPacket = false;

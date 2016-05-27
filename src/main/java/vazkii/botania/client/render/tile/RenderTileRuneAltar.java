@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 
 public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar> {
 
-	ModelSpinningCubes cubes = new ModelSpinningCubes();
+	final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {

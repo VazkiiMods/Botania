@@ -27,7 +27,7 @@ public class MultiblockComponent {
 	protected BlockPos relPos;
 	protected final IBlockState state;
 	protected final TileEntity tileEntity;
-	private boolean doFancyRender;
+	private final boolean doFancyRender;
 
 	public MultiblockComponent(BlockPos relPos, IBlockState state) {
 		this(relPos, state, null);

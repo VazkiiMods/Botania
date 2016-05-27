@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import vazkii.botania.api.mana.IManaCollisionGhost;
 
 public class TilePlatform extends TileCamo {
 

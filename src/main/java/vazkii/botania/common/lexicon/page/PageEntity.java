@@ -30,7 +30,7 @@ public class PageEntity extends LexiconPage{
 	Entity dummyEntity;
 	int relativeMouseX, relativeMouseY;
 	boolean tooltipEntity;
-	int size;
+	final int size;
 	Constructor entityConstructor;
 
 	public PageEntity(String unlocalizedName, String entity, int size) {

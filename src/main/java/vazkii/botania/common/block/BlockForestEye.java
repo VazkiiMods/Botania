@@ -63,7 +63,7 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
 		TileForestEye eye = (TileForestEye) par1World.getTileEntity(pos);
-		return Math.min(15, Math.max(0, eye.entities - 1));
+		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
 	}
 
 	@Override

@@ -23,25 +23,25 @@ import javax.annotation.Nonnull;
 public class ModelArmorManasteel extends ModelBiped {
 
 
-	public ModelRenderer helm;
-	public ModelRenderer body;
-	public ModelRenderer armR;
-	public ModelRenderer armL;
-	public ModelRenderer belt;
-	public ModelRenderer bootR;
-	public ModelRenderer bootL;
-	public ModelRenderer helm1;
-	public ModelRenderer helm2;
-	public ModelRenderer helm3;
-	public ModelRenderer helm4;
-	public ModelRenderer helm5;
-	public ModelRenderer helm6;
-	public ModelRenderer helm7;
-	public ModelRenderer body2;
-	public ModelRenderer armRpauldron;
-	public ModelRenderer armLpauldron;
-	public ModelRenderer legR;
-	public ModelRenderer legL;
+	public final ModelRenderer helm;
+	public final ModelRenderer body;
+	public final ModelRenderer armR;
+	public final ModelRenderer armL;
+	public final ModelRenderer belt;
+	public final ModelRenderer bootR;
+	public final ModelRenderer bootL;
+	public final ModelRenderer helm1;
+	public final ModelRenderer helm2;
+	public final ModelRenderer helm3;
+	public final ModelRenderer helm4;
+	public final ModelRenderer helm5;
+	public final ModelRenderer helm6;
+	public final ModelRenderer helm7;
+	public final ModelRenderer body2;
+	public final ModelRenderer armRpauldron;
+	public final ModelRenderer armLpauldron;
+	public final ModelRenderer legR;
+	public final ModelRenderer legL;
 
 	private final EntityEquipmentSlot slot;
 

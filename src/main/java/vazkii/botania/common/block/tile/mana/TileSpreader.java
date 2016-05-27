@@ -116,13 +116,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	float mmForcedVelocityMultiplier = 1F;
 
 	String inputKey = "";
-	String outputKey = "";
+	final String outputKey = "";
 
 	// End Map Maker Tags
 
-	public static boolean staticRedstone = false;
-	public static boolean staticDreamwood = false;
-	public static boolean staticUltra = false;
+	public static final boolean staticRedstone = false;
+	public static final boolean staticDreamwood = false;
+	public static final boolean staticUltra = false;
 
 	UUID identity;
 
@@ -187,7 +187,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		boolean wasInNetwork = inNetwork;
 		if(!inNetwork && !isInvalid()) {
 			ManaNetworkEvent.addCollector(this);
-			inNetwork = true;
 		}
 
 		boolean redstone = false;

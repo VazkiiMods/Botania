@@ -18,11 +18,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileNightshade extends SubTileDaybloom {
 
 	@Override
-	public int getDelayBetweenPassiveGeneration() {
-		return super.getDelayBetweenPassiveGeneration();
-	}
-
-	@Override
 	public boolean canGeneratePassively() {
 		return !super.canGeneratePassively() && !supertile.getWorld().isDaytime();
 	}

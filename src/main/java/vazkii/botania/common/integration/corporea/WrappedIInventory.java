@@ -20,7 +20,7 @@ import java.util.List;
 
 public class WrappedIInventory extends WrappedInventoryBase{
 
-	private InvWithLocation inv;
+	private final InvWithLocation inv;
 
 	private WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
 		this.inv = inv;

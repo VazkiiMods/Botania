@@ -36,13 +36,13 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 	private static boolean boundStencil = false;
 
-	GuiLexicon gui;
-	private LexiconCategory category;
+	final GuiLexicon gui;
+	private final LexiconCategory category;
 	private ResourceLocation resource = null;
 	private float ticksHovered = 0F;
-	private float time = 12F;
+	private final float time = 12F;
 
-	private ShaderCallback shaderCallback = shader -> {
+	private final ShaderCallback shaderCallback = shader -> {
 		TextureManager r = Minecraft.getMinecraft().renderEngine;
 		int heightMatchUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "heightMatch");
 		int imageUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "image");

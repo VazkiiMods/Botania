@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
 
-	private static int maxTicks = 30;
-	private static int leaveTicks = 20;
+	private static final int maxTicks = 30;
+	private static final int leaveTicks = 20;
 
 	private static ItemStack stack;
 	private static int ticks, count;

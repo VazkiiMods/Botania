@@ -20,7 +20,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 
 public class RLexiconEntry  extends BLexiconEntry {
 
-	Achievement a;
+	final Achievement a;
 
 	public RLexiconEntry(String unlocalizedName, LexiconCategory category, Achievement a) {
 		super(unlocalizedName, category);

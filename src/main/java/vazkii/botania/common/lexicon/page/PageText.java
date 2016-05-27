@@ -57,7 +57,7 @@ public class PageText extends LexiconPage {
 
 		List<List<String>> lines = new ArrayList<>();
 
-		String controlCodes = "";
+		String controlCodes;
 		for(String s : textEntries) {
 			List<String> words = new ArrayList<>();
 			String lineStr = "";

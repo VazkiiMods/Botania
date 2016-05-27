@@ -15,12 +15,12 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelAvatar extends ModelBase {
 
-	public ModelRenderer body;
-	public ModelRenderer rightarm;
-	public ModelRenderer leftarm;
-	public ModelRenderer rightleg;
-	public ModelRenderer leftleg;
-	public ModelRenderer head;
+	public final ModelRenderer body;
+	public final ModelRenderer rightarm;
+	public final ModelRenderer leftarm;
+	public final ModelRenderer rightleg;
+	public final ModelRenderer leftleg;
+	public final ModelRenderer head;
 
 	public ModelAvatar() {
 		textureWidth = 32;

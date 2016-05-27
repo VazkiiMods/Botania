@@ -224,7 +224,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 			int pos = getClipPos(par1ItemStack);
 			addStringToTooltip(I18n.format("botaniamisc.hasClip"), par3List);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
-				String name = "";
+				String name;
 				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
 				if(lensAt == null)

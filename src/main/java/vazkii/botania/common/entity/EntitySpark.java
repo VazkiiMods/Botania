@@ -54,10 +54,10 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
-	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
+	final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	int removeTransferants = 2;
-	boolean firstTick = false;
+	final boolean firstTick = false;
 
 	public EntitySpark(World world) {
 		super(world);
@@ -89,7 +89,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 
 		if(first)
-			first = true;
 
 		Collection<ISparkEntity> transfers = getTransfers();
 

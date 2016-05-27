@@ -23,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockPavementSlab extends BlockLivingSlab {
 
-	int index;
+	final int index;
 
 	public BlockPavementSlab(boolean full, EnumDyeColor color, int index) {
 		super(full, ModFluffBlocks.pavement.getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color));

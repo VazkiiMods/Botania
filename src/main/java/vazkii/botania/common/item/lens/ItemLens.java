@@ -82,8 +82,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	private static final int[] props = new int[SUBTYPES];
 	private static final Lens[] lenses = new Lens[SUBTYPES];
-	private static Lens fallbackLens = new Lens();
-	private static Lens stormLens = new LensStorm();
+	private static final Lens fallbackLens = new Lens();
+	private static final Lens stormLens = new LensStorm();
 
 	static {
 		setProps(NORMAL, PROP_NONE);
@@ -244,9 +244,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return ItemNBTHelper.getInt(stack, TAG_COLOR, -1);
 	}
 
-	public static ItemStack setLensColor(ItemStack stack, int color) {
+	public static void setLensColor(ItemStack stack, int color) {
 		ItemNBTHelper.setInt(stack, TAG_COLOR, color);
-		return stack;
 	}
 
 	@Override

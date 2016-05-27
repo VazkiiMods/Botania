@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.EnumDyeColor;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.api.state.BotaniaStateProps;

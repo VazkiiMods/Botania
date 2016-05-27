@@ -50,7 +50,7 @@ import java.util.Random;
 
 public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable, IWandHUD {
 
-	Random random;
+	final Random random;
 
 	public BlockOpenCrate() {
 		super(Material.WOOD, LibBlockNames.OPEN_CRATE);

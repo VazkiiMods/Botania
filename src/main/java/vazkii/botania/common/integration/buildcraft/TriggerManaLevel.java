@@ -23,7 +23,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 		FULL
 	};
 
-	private State state;
+	private final State state;
 
 	public TriggerManaLevel(State state) {
 		this.state = state;

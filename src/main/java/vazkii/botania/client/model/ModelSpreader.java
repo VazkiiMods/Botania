@@ -15,16 +15,16 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelSpreader extends ModelBase {
 
-	ModelRenderer cubeSide1;
-	ModelRenderer cubeSide2;
-	ModelRenderer cubeSide3;
-	ModelRenderer cubeSide4;
-	ModelRenderer cubeSide5;
-	ModelRenderer cubeHole1;
-	ModelRenderer cubeHole2;
-	ModelRenderer cubeHole3;
-	ModelRenderer cubeHole4;
-	ModelRenderer cubeInside;
+	final ModelRenderer cubeSide1;
+	final ModelRenderer cubeSide2;
+	final ModelRenderer cubeSide3;
+	final ModelRenderer cubeSide4;
+	final ModelRenderer cubeSide5;
+	final ModelRenderer cubeHole1;
+	final ModelRenderer cubeHole2;
+	final ModelRenderer cubeHole3;
+	final ModelRenderer cubeHole4;
+	final ModelRenderer cubeInside;
 
 	public ModelSpreader() {
 		textureWidth = 64;

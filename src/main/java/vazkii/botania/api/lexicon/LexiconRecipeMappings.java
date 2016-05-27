@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public final class LexiconRecipeMappings {
 
-	private static Map<String, EntryData> mappings = new HashMap<>();
+	private static final Map<String, EntryData> mappings = new HashMap<>();
 
 	/**
 	 * Maps the given stack to the given page of the entry.
