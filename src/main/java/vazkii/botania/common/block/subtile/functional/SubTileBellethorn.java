@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.google.common.base.Predicate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitch;
@@ -23,6 +22,7 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SubTileBellethorn extends SubTileFunctional {
 
@@ -53,13 +53,9 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-range, -range, -range), supertile.getPos().add(range + 1, range + 1, range + 1)));
-			Predicate<Entity> selector = getSelector();
+			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-range, -range, -range), supertile.getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
 
 			for(EntityLivingBase entity : entities) {
-				if(!selector.apply(entity))
-					continue;
-
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
 					int dmg = 4;
 					if(entity instanceof EntityWitch)

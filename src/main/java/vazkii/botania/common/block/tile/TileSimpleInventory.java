@@ -52,10 +52,9 @@ public abstract class TileSimpleInventory extends TileMod {
 
 	@Nonnull
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-			return (T) itemHandler;
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemHandler);
 		return super.getCapability(cap, side);
 	}
 

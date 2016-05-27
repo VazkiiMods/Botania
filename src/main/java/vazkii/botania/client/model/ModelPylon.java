@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
@@ -33,6 +32,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class ModelPylon implements IPylonModel {
 
@@ -61,19 +61,19 @@ public class ModelPylon implements IPylonModel {
 			// (OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group)
 
 			// Turn on "Crystal"
-			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
 
 			// Turn on "Crystal_Ring", and "Ring_Panel0x"
-			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
 
 			// Turn on "Ring_Gem0x"
-			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
-			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER);
+			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
 		} catch(Exception e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}

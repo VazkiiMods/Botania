@@ -42,7 +42,9 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 
 		final int cost = 100;
 
+		@SuppressWarnings("unchecked")
 		List<IMob> mobs = (List<IMob>) (List) supertile.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
+
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {
 				if(mob instanceof EntityLiving) {

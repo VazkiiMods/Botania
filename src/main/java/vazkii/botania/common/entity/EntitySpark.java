@@ -88,10 +88,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		if(first || upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 
-		if(first)
-
 		Collection<ISparkEntity> transfers = getTransfers();
-
 
 		if(upgrade != SparkUpgradeType.NONE) {
 			switch(upgrade) {

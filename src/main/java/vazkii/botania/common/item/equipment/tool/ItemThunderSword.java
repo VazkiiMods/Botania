@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,6 +36,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public class ItemThunderSword extends ItemManasteelSword implements ICraftAchievement {
 
@@ -50,7 +50,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, @Nonnull EntityLivingBase attacker) {
 		if(!(entity instanceof EntityPlayer) && entity != null) {
 			double range = 8;
-			final List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
+			List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
@@ -60,7 +60,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 			EntityLivingBase lightningSource = entity;
 			int hops = entity.worldObj.isThundering() ? 10 : 4;
 			for(int i = 0; i < hops; i++) {
-				List<Entity> entities = entity.worldObj.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
+				List<Entity> entities = entity.worldObj.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector::test);
 				if(entities.isEmpty())
 					break;
 
