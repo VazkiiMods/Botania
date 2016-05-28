@@ -34,14 +34,9 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	boolean postsEvent() {
-		return false;
-	}
-
-	@Override
 	boolean canFire(ItemStack stack, EntityPlayer player) {
 		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack);
-		return ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
+		return player.capabilities.isCreativeMode || ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
 	}
 
 	@Override
@@ -52,7 +47,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	protected ItemStack getAmmo(EntityPlayer player) {
+	protected ItemStack getAmmo(EntityLivingBase player) {
 		return new ItemStack(Items.ARROW);
 	}
 
