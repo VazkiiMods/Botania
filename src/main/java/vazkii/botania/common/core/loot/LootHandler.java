@@ -58,14 +58,6 @@ public final class LootHandler {
         }
     }
 
-    @SubscribeEvent
-    public void lootTest(PlayerInteractEvent.EntityInteract evt) {
-        if (!evt.getWorld().isRemote && evt.getTarget() instanceof EntityMinecartChest) {
-            ((EntityMinecartChest) evt.getTarget()).clear();
-            ((EntityMinecartChest) evt.getTarget()).setLootTable(new ResourceLocation("minecraft", "chests/village_blacksmith"), evt.getTarget().worldObj.rand.nextLong());
-        }
-    }
-
     private LootPool getInjectPool(String entryName) {
         return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "botania_inject_pool");
     }
