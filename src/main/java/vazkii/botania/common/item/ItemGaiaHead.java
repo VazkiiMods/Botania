@@ -94,7 +94,7 @@ public class ItemGaiaHead extends ItemMod {
 
 							tileentityskull.setPlayerProfile(gameprofile);*/
 						} else {
-							tileentityskull.setType(stack.getMetadata());
+							tileentityskull.setType(3); // Botania - Force type to 3 (humanoid)
 						}
 
 						tileentityskull.setSkullRotation(i);
