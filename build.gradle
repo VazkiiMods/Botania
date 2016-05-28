@@ -1,3 +1,6 @@
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
 buildscript {
     repositories {
         mavenCentral()
@@ -115,8 +118,22 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
     file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
+
+    def updateJsonFile = file('version/update.json')
+    def updateJson = new JsonSlurper().parse(updateJsonFile) as Map
+
+    // Add to version section
+    updateJson."${minecraft.version}"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
+
+    // Update promos
+    updateJson.promos."${minecraft.version}-latest" = "${version}"
+    updateJson.promos."${minecraft.version}-recommended" = "${version}"
+
+
+    updateJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(updateJson)))
 }
 
+/* Unused - Forgecraft and web server stuff
 // I have no idea what I'm doing
 task wtfGradle2(type: Copy) {
     from(jar.destinationDir)
@@ -154,9 +171,7 @@ task sort(type: Delete) {
 	delete "${config.dir_output}/${deobfJar.archiveName}", "${config.dir_output}/wtf"
 }
 
-/**
- * This is the upload task from the build.xml
- */
+// This is the upload task from the build.xml
 task upload() << {
     scp('/files') {
         fileset(file: jar.archivePath)
@@ -172,9 +187,7 @@ task upload() << {
     }
 }
 
-/**
- * This is deply_web task
- */
+// This is deploy_web task
 task deployWeb << {
     scp('/') {
         fileset(dir: 'web') //everything from the web directory
@@ -202,6 +215,7 @@ def scp(String dir, Closure antFileset = {}) {
         }
     }
 }
+*/
 
 def parseConfig(File config) {
     config.withReader {
