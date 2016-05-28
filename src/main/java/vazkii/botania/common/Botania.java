@@ -42,7 +42,8 @@ import vazkii.botania.common.integration.coloredlights.LightHelperColored;
 import vazkii.botania.common.integration.coloredlights.LightHelperVanilla;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY, acceptedMinecraftVersions = LibMisc.MC_VERSIONS)
+@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
+		guiFactory = LibMisc.GUI_FACTORY, acceptedMinecraftVersions = LibMisc.MC_VERSIONS, updateJSON = LibMisc.UPDATE_JSON)
 public class Botania {
 
 	public static boolean gardenOfGlassLoaded = false;
