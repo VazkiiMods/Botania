@@ -16,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumActionResult;
@@ -41,7 +42,7 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class ItemManasteelAxe extends ItemTool implements IManaUsingItem, ISortableTool {
+public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortableTool {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
@@ -52,18 +53,10 @@ public class ItemManasteelAxe extends ItemTool implements IManaUsingItem, ISorta
 	}
 
 	public ItemManasteelAxe(ToolMaterial mat, String name) {
-		super(mat, ImmutableSet.of());
+		super(mat, 8F, -3.1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
-		this.damageVsEntity = 8f;
-		this.attackSpeed = -3.1f;
-	}
-
-	@Nonnull
-	@Override
-	public Set<String> getToolClasses(ItemStack stack) {
-		return ImmutableSet.of("axe");
 	}
 
 	@Nonnull
