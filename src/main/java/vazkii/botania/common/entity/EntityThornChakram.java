@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,8 +40,9 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> RETURN_TO = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final int MAX_BOUNCES = 16;
-	boolean bounced = false;
+	private boolean bounced = false;
 	private ItemStack stack;
 
 	public EntityThornChakram(World world) {
@@ -57,57 +59,62 @@ public class EntityThornChakram extends EntityThrowable {
 		super.entityInit();
 		dataManager.register(BOUNCES, 0);
 		dataManager.register(FLARE, false);
+		dataManager.register(RETURN_TO, -1);
 	}
 
 	@Override
 	public void onUpdate() {
+		// Standard motion
 		double mx = motionX;
 		double my = motionY;
 		double mz = motionZ;
 
 		super.onUpdate();
 
-		if(isFire()) {
+		if(!bounced) {
+			// Reset the drag applied by super
+			motionX = mx;
+			motionY = my;
+			motionZ = mz;
+		}
+
+		bounced = false;
+
+		// Returning motion
+		if(isReturning()) {
+			Entity thrower = worldObj.getEntityByID(getEntityToReturnTo());
+			Vector3 motion = Vector3.fromEntityCenter(thrower).sub(Vector3.fromEntityCenter(this)).normalize();
+			motionX = motion.x;
+			motionY = motion.y;
+			motionZ = motion.z;
+		}
+
+		// Client FX
+		if(worldObj.isRemote && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
 				worldObj.spawnParticle(EnumParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
-		int bounces = getTimesBounced();
-		if(bounces >= MAX_BOUNCES || ticksExisted > 60) {
+		// Server state control
+		if(!worldObj.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
 			EntityLivingBase thrower = getThrower();
-			noClip = true;
-			if(thrower == null)
+			if(thrower == null) {
 				dropAndKill();
-			else {
-				Vector3 motion = Vector3.fromEntityCenter(thrower).sub(Vector3.fromEntityCenter(this)).normalize();
-				motionX = motion.x;
-				motionY = motion.y;
-				motionZ = motion.z;
-				if(!worldObj.isRemote && MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
-					if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(getItemStack()))))
-						dropAndKill();
-					else
-						setDead();
+			} else {
+				setEntityToReturnTo(thrower.getEntityId());
+				if(getDistanceSqToEntity(thrower) < 2)
+					dropAndKill();
 			}
-		} else {
-			if(!bounced) {
-				motionX = mx;
-				motionY = my;
-				motionZ = mz;
-			}
-			bounced = false;
 		}
 	}
 
 	private void dropAndKill() {
-		if(!worldObj.isRemote) {
-			ItemStack stack = getItemStack();
-			EntityItem item = new EntityItem(worldObj, posX, posY, posZ, stack);
-			worldObj.spawnEntityInWorld(item);
-			setDead();
-		}
+		ItemStack stack = getItemStack();
+		EntityItem item = new EntityItem(worldObj, posX, posY, posZ, stack);
+		worldObj.spawnEntityInWorld(item);
+		setDead();
 	}
 
 	private ItemStack getItemStack() {
@@ -116,36 +123,44 @@ public class EntityThornChakram extends EntityThrowable {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(noClip)
+		if(isReturning())
 			return;
 
-		if (pos.getBlockPos() != null) {
-			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-			worldObj.getTileEntity(pos.getBlockPos());
-			if(block instanceof BlockBush || block instanceof BlockLeaves)
-				return;
-		}
+		switch (pos.typeOfHit) {
+			case BLOCK: {
+				Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+				if(block instanceof BlockBush || block instanceof BlockLeaves)
+					return;
 
-		boolean fire = isFire();
-		EntityLivingBase thrower = getThrower();
-		if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
-			pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
-			if(fire)
-				pos.entityHit.setFire(5);
-			else if(worldObj.rand.nextInt(3) == 0)
-				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
-		} else if (pos.getBlockPos() != null) {
-			int bounces = getTimesBounced();
-			if(bounces < MAX_BOUNCES) {
-				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
-				EnumFacing dir = pos.sideHit;
-				Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
-				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
+				int bounces = getTimesBounced();
+				if(bounces < MAX_BOUNCES) {
+					Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
+					EnumFacing dir = pos.sideHit;
+					Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
+					Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-				motionX = movementVec.x;
-				motionY = movementVec.y;
-				motionZ = movementVec.z;
-				bounced = true;
+					motionX = movementVec.x;
+					motionY = movementVec.y;
+					motionZ = movementVec.z;
+					bounced = true;
+
+					if(!worldObj.isRemote)
+						setTimesBounced(getTimesBounced() + 1);
+				}
+
+				break;
+			}
+			case ENTITY: {
+				if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
+					EntityLivingBase thrower = getThrower();
+					pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
+					if(isFire())
+						pos.entityHit.setFire(5);
+					else if(worldObj.rand.nextInt(3) == 0)
+						((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
+				}
+
+				break;
 			}
 		}
 	}
@@ -155,11 +170,11 @@ public class EntityThornChakram extends EntityThrowable {
 		return 0F;
 	}
 
-	public int getTimesBounced() {
+	private int getTimesBounced() {
 		return dataManager.get(BOUNCES);
 	}
 
-	public void setTimesBounced(int times) {
+	private void setTimesBounced(int times) {
 		dataManager.set(BOUNCES, times);
 	}
 
@@ -169,6 +184,18 @@ public class EntityThornChakram extends EntityThrowable {
 
 	public void setFire(boolean fire) {
 		dataManager.set(FLARE, fire);
+	}
+
+	private boolean isReturning() {
+		return getEntityToReturnTo() > -1;
+	}
+
+	private int getEntityToReturnTo() {
+		return dataManager.get(RETURN_TO);
+	}
+
+	private void setEntityToReturnTo(int entityID) {
+		dataManager.set(RETURN_TO, entityID);
 	}
 
 	@Override

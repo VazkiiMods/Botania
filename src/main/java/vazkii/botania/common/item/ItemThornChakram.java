@@ -22,6 +22,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityThornChakram;
@@ -38,6 +40,7 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 		setHasSubtypes(true);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
@@ -53,19 +56,16 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand)  {
-		--stack.stackSize;
-
-		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
 		if(!world.isRemote) {
 			ItemStack copy = stack.copy();
-			stack.stackSize = 1;
+			copy.stackSize = 1;
 			EntityThornChakram c = new EntityThornChakram(world, player, copy);
 			c.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			c.setFire(stack.getItemDamage() != 0);
 			world.spawnEntityInWorld(c);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			--stack.stackSize;
 		}
-
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
