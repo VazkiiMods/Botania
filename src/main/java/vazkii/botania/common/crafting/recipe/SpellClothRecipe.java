@@ -30,7 +30,7 @@ public class SpellClothRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.isItemEnchanted() && !foundEnchanted)
+				if(stack.isItemEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
 					foundEnchanted = true;
 
 				else if(stack.getItem() == ModItems.spellCloth && !foundCloth)
