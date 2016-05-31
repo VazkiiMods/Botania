@@ -18,9 +18,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.opengl.GL11;
@@ -142,7 +142,7 @@ public class FXSparkle extends Particle {
 		motionY -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
-			pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
+			wiggleAround(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
 
 		posX += motionX;
 		posY += motionY;
@@ -167,89 +167,75 @@ public class FXSparkle extends Particle {
 		particleGravity = value;
 	}
 
-	private boolean pushOutOfBlocks(double par1, double par3, double par5) {
-		int var7 = MathHelper.floor_double(par1);
-		int var8 = MathHelper.floor_double(par3);
-		int var9 = MathHelper.floor_double(par5);
-		double var10 = par1 - var7;
-		double var12 = par3 - var8;
-		double var14 = par5 - var9;
+	// Copy of Entity.pushOutOfBlocks with several important changes
+	private boolean wiggleAround(double x, double y, double z)
+	{
+		BlockPos blockpos = new BlockPos(x, y, z);
+		double d0 = x - (double)blockpos.getX();
+		double d1 = y - (double)blockpos.getY();
+		double d2 = z - (double)blockpos.getZ();
 
-		BlockPos bPos = new BlockPos(var7, var8, var9);
-		if (!worldObj.isAirBlock(bPos)) {
-			boolean var16 = !worldObj.isBlockNormalCube(bPos.west(), false);
-			boolean var17 = !worldObj.isBlockNormalCube(bPos.east(), false);
-			boolean var18 = !worldObj.isBlockNormalCube(bPos.down(), false);
-			boolean var19 = !worldObj.isBlockNormalCube(bPos.up(), false);
-			boolean var20 = !worldObj.isBlockNormalCube(bPos.north(), false);
-			boolean var21 = !worldObj.isBlockNormalCube(bPos.south(), false);
-			byte var22 = -1;
-			double var23 = 9999.0D;
+		// Botania - change collision box list check to !airblock check
+		if (!worldObj.isAirBlock(blockpos))
+		{
+			EnumFacing enumfacing = EnumFacing.UP;
+			double d3 = Double.MAX_VALUE;
 
-			if (var16 && var10 < var23) {
-				var23 = var10;
-				var22 = 0;
+			if (!this.worldObj.isBlockFullCube(blockpos.west()) && d0 < d3)
+			{
+				d3 = d0;
+				enumfacing = EnumFacing.WEST;
 			}
 
-			if (var17 && 1.0D - var10 < var23) {
-				var23 = 1.0D - var10;
-				var22 = 1;
+			if (!this.worldObj.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
+			{
+				d3 = 1.0D - d0;
+				enumfacing = EnumFacing.EAST;
 			}
 
-			if (var18 && var12 < var23) {
-				var23 = var12;
-				var22 = 2;
+
+			if (!this.worldObj.isBlockFullCube(blockpos.north()) && d2 < d3)
+			{
+				d3 = d2;
+				enumfacing = EnumFacing.NORTH;
 			}
 
-			if (var19 && 1.0D - var12 < var23) {
-				var23 = 1.0D - var12;
-				var22 = 3;
+			if (!this.worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
+			{
+				d3 = 1.0D - d2;
+				enumfacing = EnumFacing.SOUTH;
 			}
 
-			if (var20 && var14 < var23) {
-				var23 = var14;
-				var22 = 4;
+			if (!this.worldObj.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
+			{
+				d3 = 1.0D - d1;
+				enumfacing = EnumFacing.UP;
 			}
 
-			if (var21 && 1.0D - var14 < var23) {
-				var22 = 5;
+			float f = this.rand.nextFloat() * 0.05F + 0.01F; // Botania - made multiplier and add both smaller
+			float f1 = (float)enumfacing.getAxisDirection().getOffset();
+			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use a secondary movement variable below
+
+			if (enumfacing.getAxis() == EnumFacing.Axis.X)
+			{
+				this.motionX += (double)(f1 * f);
+				this.motionY = this.motionZ = secondary;
 			}
-
-			float var25 = rand.nextFloat() * 0.05F + 0.025F;
-			float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-
-			if (var22 == 0) {
-				motionX = -var25;
-				motionY=motionZ=var26;
+			else if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+			{
+				this.motionY += (double)(f1 * f);
+				this.motionX = this.motionZ = secondary;
 			}
-
-			if (var22 == 1) {
-				motionX = var25;
-				motionY=motionZ=var26;
-			}
-
-			if (var22 == 2) {
-				motionY = -var25;
-				motionX=motionZ=var26;
-			}
-
-			if (var22 == 3) {
-				motionY = var25;
-				motionX=motionZ=var26;
-			}
-
-			if (var22 == 4) {
-				motionZ = -var25;
-				motionY=motionX=var26;
-			}
-
-			if (var22 == 5) {
-				motionZ = var25;
-				motionY=motionX=var26;
+			else if (enumfacing.getAxis() == EnumFacing.Axis.Z)
+			{
+				this.motionZ += (double)(f1 * f);
+				this.motionX = this.motionY = secondary;
 			}
 
 			return true;
-		} else return false;
+		}
+
+		return false;
 	}
 
 	public boolean corrupt = false;

@@ -74,7 +74,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2,
+                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
                                         red, green, blue, (float) Math.random(), 10);
                             }
                             break;
