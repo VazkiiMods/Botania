@@ -11,6 +11,7 @@
 package vazkii.botania.api.lexicon;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.IManaItem;
 
 import java.util.HashMap;
@@ -47,13 +48,18 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
+		ItemStack wildCopy = stack.copy();
+		wildCopy.setItemDamage(OreDictionary.WILDCARD_VALUE);
+		String wildKey = stackToString(wildCopy);
+		if (mappings.containsKey(wildKey))
+			return mappings.get(wildKey);
 		return mappings.get(stackToString(stack));
 	}
 	
 	public static String stackToString(ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return "NULL";
-		
+
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
@@ -61,7 +67,7 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static boolean ignoreMeta(ItemStack stack) {
-		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem;
+		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem || stack.getItemDamage() == OreDictionary.WILDCARD_VALUE;
 	}
 
 	public static class EntryData {
