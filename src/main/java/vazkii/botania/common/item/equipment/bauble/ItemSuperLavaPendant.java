@@ -59,10 +59,9 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.36F, -0.24F, armor ? 0.2F : 0.15F);
-			GlStateManager.rotate(-45F, 0F, 0F, 1F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.scale(0.5, 0.5, 0.5);
+			GlStateManager.rotate(180, 0, 0, 1);
+			GlStateManager.translate(-0.5, -0.90, armor ? -0.4 : -0.25);
 
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.crimsonGem;
 			float f = gemIcon.getMinU();

@@ -99,13 +99,13 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
-			GlStateManager.rotate(90, 0, 0, 1);
-			GlStateManager.translate(1.475F, armor ? -0.57F : -0.5F, 0.53F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
+			GlStateManager.scale(0.8, 0.8, 0.8);
+			GlStateManager.rotate(-90, 0, 1, 0);
+			GlStateManager.rotate(180, 1, 0, 0);
+			GlStateManager.translate(0.1625, -1.625, 0.40);
+			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.GROUND);
 		}
 	}
 
