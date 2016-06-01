@@ -115,8 +115,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 				}
 			} else {
 				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+				BlockPos correctedPos = bBlock.isReplaceable(par3World, pos) ? pos : pos.offset(side);
 
-				if(entities == 0) {
+				if(entities == 0 && !(correctedPos.getY() < 0) && !(correctedPos.getY() >= 256)) {
 					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
 					if(remove > 0) {
 						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
