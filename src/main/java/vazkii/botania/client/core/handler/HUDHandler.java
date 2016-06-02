@@ -142,8 +142,12 @@ public final class HUDHandler {
 			}
 
 			if(main != null && main.getItem() instanceof ItemCraftingHalo) {
-				profiler.startSection("craftingHalo");
+				profiler.startSection("craftingHalo_main");
 				ItemCraftingHalo.renderHUD(event.getResolution(), mc.thePlayer, main);
+				profiler.endSection();
+			} else if(offhand != null && offhand.getItem() instanceof ItemCraftingHalo) {
+				profiler.startSection("craftingHalo_off");
+				ItemCraftingHalo.renderHUD(event.getResolution(), mc.thePlayer, offhand);
 				profiler.endSection();
 			}
 
