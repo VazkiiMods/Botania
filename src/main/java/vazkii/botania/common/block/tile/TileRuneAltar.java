@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -345,23 +346,23 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			float anglePer = 360F / amt;
 			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
 				if(recipe.matches(itemHandler)) {
-					GL11.glEnable(GL11.GL_BLEND);
-					GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.enableBlend();
+					GlStateManager.enableRescaleNormal();
+					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 					recipe.getOutput();
 					float progress = (float) mana / (float) manaToGet;
 
 					mc.renderEngine.bindTexture(HUDHandler.manaBar);
-					GL11.glColor4f(1F, 1F, 1F, 1F);
+					GlStateManager.color(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					if(progress == 1F) {
 						mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-						GL11.glTranslatef(0F, 0F, 100F);
+						GlStateManager.translate(0F, 0F, 100F);
 						mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-						GL11.glTranslatef(0F, 0F, -100F);
+						GlStateManager.translate(0F, 0F, -100F);
 					}
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
@@ -375,9 +376,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GL11.glTranslated(xPos, yPos, 0);
+				GlStateManager.translate(xPos, yPos, 0);
 				mc.getRenderItem().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GL11.glTranslated(-xPos, -yPos, 0);
+				GlStateManager.translate(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}

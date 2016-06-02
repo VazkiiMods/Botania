@@ -56,12 +56,12 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			
 			par1Minecraft.renderEngine.bindTexture(dogResource);
 			float f = 1F / 64F;
-			GL11.glTranslated(dogPos, 0, 0);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GlStateManager.translate(dogPos, 0, 0);
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, yPosition, zLevel + 10, (dogPos % 100 < 50) ? 23 : 0, 0, 23, 19, f, f);
 			xPosition = (int) Math.max(xPosition, dogPos + 10);
 			
-			GL11.glTranslated(-dogPos, 0, 0);
+			GlStateManager.translate(-dogPos, 0, 0);
 		}
 		
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;

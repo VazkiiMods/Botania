@@ -99,8 +99,8 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		int x = gui.getLeft() + gui.getWidth() / 2 - 50;
 		int y = gui.getTop() + 120;
@@ -111,7 +111,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 	@Override
