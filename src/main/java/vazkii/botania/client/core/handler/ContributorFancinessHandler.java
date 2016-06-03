@@ -19,9 +19,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLLog;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -43,7 +45,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
-	public static final boolean phi = false;
+	private static final boolean phi = false;
 
 	@Override
 	public void doRenderLayer(@Nonnull EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
@@ -97,9 +99,10 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 					throw new NumberFormatException();
 				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
 			} catch(NumberFormatException e) {
-				SubTileSignature sig = BotaniaAPI.getSignatureForName(value);
-				if(sig != null)
+				if(BotaniaAPIClient.getRegisteredSubtileItemModels().containsKey(value))
 					flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
+				else
+					flowerMap.put(key, new ItemStack(Blocks.RED_FLOWER));
 			}
 		}
 	}
