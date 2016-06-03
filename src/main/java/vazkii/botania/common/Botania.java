@@ -71,7 +71,7 @@ public class Botania {
 
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
-		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
+		bloodMagicLoaded = Loader.isModLoaded("BloodMagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
