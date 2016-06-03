@@ -448,41 +448,6 @@ botania.baubletype.belt=A équiper dans l'emplacement &aBelt&7
 botania.baubletooltip=Appuyez &b%key%&7 pour ouvrir le menu Baubles
 
 # RELIC POEMS
-item.infiniteFruit.poem0=Le fruit du jardin interdit
-item.infiniteFruit.poem1=Eternally cleanses one's hunger,
-item.infiniteFruit.poem2=For that it rebuilds its pulp
-item.infiniteFruit.poem3=And makes itself younger.
-
-item.excaliber.poem0=Une épée d'un vrai héro
-item.excaliber.poem1=Fit for only one of the kind,
-item.excaliber.poem2=Sharp and magic conjuring,
-item.excaliber.poem3=Enemies it will quickly find.
-
-item.flugelEye.poem0=A vision of the past on one's mind,
-item.flugelEye.poem1=Round and round is the memory matrix,
-item.flugelEye.poem2=And their viable interactions
-item.flugelEye.poem3=Will take the psyche back to basics.
-
-item.thorRing.poem0=The force of the Thunder God
-item.thorRing.poem1=Will Shatter the salt of the Terra,
-item.thorRing.poem2=With unstoppable strength
-item.thorRing.poem3=It'll begin anew a new era.
-
-item.odinRing.poem0=The wise old God lays its blessings,
-item.odinRing.poem1=Of virtue, life and divinity,
-item.odinRing.poem2=With the hindrance of death on one's hands,
-item.odinRing.poem3=They'll form the Holy Trinity.
-
-item.lokiRing.poem0=La main vide, une interaction accroupie,
-item.lokiRing.poem1=Once on the center, then around the track,
-item.lokiRing.poem2=Back to the start one'd go to complete
-item.lokiRing.poem3=The power of creating back-to-back.
-
-item.aesirRing.poem0=Les forces des Dieux
-item.aesirRing.poem1=In this band form as one,
-item.aesirRing.poem2=And when combined all together
-item.aesirRing.poem3=Above them will be none.
-
 item.dice.poem0=He deals the cards to find the answer,
 item.dice.poem1=The sacred geometry of chance,
 item.dice.poem2=The hidden laws of a probable outcome,
@@ -1493,22 +1458,6 @@ item.botania:lensFirework.name=Mana Lens: Celebratory
 item.botania:lensFirework.short=Celebratory
 item.botania:lensFlare.name=Mana Lens: Flare
 item.botania:lensFlare.short=Flare
-item.botania:manaPetal0.name=Pétale de mana blanche
-item.botania:manaPetal1.name=Pétale de mana orange
-item.botania:manaPetal2.name=Pétale de mana magenta 
-item.botania:manaPetal3.name=Pétale de mana bleue claire
-item.botania:manaPetal4.name=Pétale de mana jaune
-item.botania:manaPetal5.name=Pétale de mana citron
-item.botania:manaPetal6.name=Pétale de mana rose
-item.botania:manaPetal7.name=Pétale de mana grise
-item.botania:manaPetal8.name=Pétale de mana grise claire
-item.botania:manaPetal9.name=Pétale de mana cyan
-item.botania:manaPetal10.name=Pétale de mana violette
-item.botania:manaPetal11.name=Pétale de mana bleue
-item.botania:manaPetal12.name=Pétale de mana marron
-item.botania:manaPetal13.name=Pétale de mana verte
-item.botania:manaPetal14.name=Pétale de mana rouge
-item.botania:manaPetal15.name=Pétale de mana noire
 item.botania:rune0.name=Rune d'eau
 item.botania:rune1.name=Rune de feu
 item.botania:rune2.name=Rune de terre
@@ -2074,14 +2023,7 @@ botania.category.misc=Divers
 # - BASIC
 # -- WELCOME TO BOTANIA
 botania.entry.welcome=Welcome To Botania
-
-
-
-
-
-
-
-
+botania.tagline.welcome=Welcome to the Hotel Botania
 botania.page.welcome0=&oWhat is peace? Is it truly just a lack of combat? Is it years of sitting quietly in a garden, surrounded by flowers? Is it watching over a kingdom that you are able to call your own? Is it the completion of almost every task known to man? Is it the ability to watch numbers of resources steadily rise as you watch your collection grow?
 botania.page.welcome1=&oIs peace something that can be obtained easily, without work - or is it something difficult to obtain?<br>Let's say for a moment - not even a second - that peace is truly just a lack of work; peaceful days surrounded by flowers.
 botania.page.welcome2=&oYears spent watching time tick by while you watch your flora perform every single task imaginable, without outside help from polluting machines or computers tangled in cables and pipes.<br>Now imagine that everything we just talked about was possible.
