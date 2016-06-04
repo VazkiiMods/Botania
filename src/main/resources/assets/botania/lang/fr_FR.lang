@@ -1,10 +1,15 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in fr_FR, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Jardin de verre
 generator.botania-skyblock.info=Non recommendé pour les débutants de botania
-
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=Page suivante
 botaniamisc.prevPage=Page précédante

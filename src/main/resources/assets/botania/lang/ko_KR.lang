@@ -1,3 +1,11 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in ko_KR, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 #번역시 주의 점: 현재 꽃이름을 제외한 음역은 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
 itemGroup.Botania=보타니아 [Botania]

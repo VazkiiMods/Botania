@@ -1,9 +1,18 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+#
+# Copying English entries will cause them to become outdated when this file changes
+# Untranslated entries will automatically be inherited from this file.
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Garden of Glass
 generator.botania-skyblock.info=Not recommended for botania newcomers
 
 # Something that is not localized, translators, do NOT change this line.
+# You do not need to copy this into your lang file
 botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.unofficial.warnRemove=[Botania] Warning: Some decorative blocks are being removed, please migrate to either the vanilla or Quark versions.
