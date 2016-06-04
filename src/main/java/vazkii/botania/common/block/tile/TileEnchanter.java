@@ -272,7 +272,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		sync();
 	}
 
-	public void craftingFanciness() {
+	private void craftingFanciness() {
 		worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();

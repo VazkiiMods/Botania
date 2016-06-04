@@ -40,6 +40,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -50,8 +51,6 @@ import java.util.Random;
 
 public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable, IWandHUD {
 
-	final Random random;
-
 	public BlockOpenCrate() {
 		super(Material.WOOD, LibBlockNames.OPEN_CRATE);
 		setHardness(2.0F);
@@ -59,7 +58,6 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		setDefaultState(blockState.getBaseState()
 				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
 				.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
-		random = new Random();
 	}
 
 	@Nonnull
@@ -127,36 +125,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
-
-				if (itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.updateComparatorOutputLevel(pos, state.getBlock());
-		}
+		InventoryHelper.dropInventory(inv, par1World, state, pos);
 
 		super.breakBlock(par1World, pos, state);
 	}

@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -26,19 +28,22 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.VanillaDoubleChestItemHandler;
 import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-//From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
+// Some methods from OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {
 
 	protected static boolean areMergeCandidates(ItemStack source, ItemStack target) {
@@ -334,4 +339,32 @@ public class InventoryHelper {
 		@Override
 		public void closeInventory(@Nonnull EntityPlayer player) { }
 	}
+
+	public static void dropInventory(TileSimpleInventory inv, World world, IBlockState state, BlockPos pos) {
+		if(inv != null) {
+			for(int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
+
+				if(itemstack != null) {
+					net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
+				}
+			}
+
+			world.updateComparatorOutputLevel(pos, state.getBlock());
+		}
+	}
+
+	public static void withdrawFromInventory(TileSimpleInventory inv, EntityPlayer player) {
+		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
+			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
+			if(stackAt != null) {
+				ItemStack copy = stackAt.copy();
+				ItemHandlerHelper.giveItemToPlayer(player, copy);
+				inv.getItemHandler().setStackInSlot(i, null);
+				player.worldObj.updateComparatorOutputLevel(inv.getPos(), null);
+				break;
+			}
+		}
+	}
+
 }

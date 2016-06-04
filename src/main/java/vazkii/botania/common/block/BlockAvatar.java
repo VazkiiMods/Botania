@@ -33,6 +33,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -43,8 +44,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(.3125, 0, .21875, 1-.3125, 17/16.0, 1-.21875);
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(.21875, 0, .3125, 1-.21875, 17/16.0, 1-.3125);
-
-	private final Random random = new Random();
 
 	protected BlockAvatar() {
 		super(Material.WOOD, LibBlockNames.AVATAR);
@@ -105,36 +104,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
-
-				if (itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.updateComparatorOutputLevel(pos, state.getBlock());
-		}
+		InventoryHelper.dropInventory(inv, par1World, state, pos);
 
 		super.breakBlock(par1World, pos, state);
 	}

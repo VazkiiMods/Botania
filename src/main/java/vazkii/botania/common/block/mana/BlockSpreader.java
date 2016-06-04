@@ -19,12 +19,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -43,6 +41,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -53,8 +52,6 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
-
-	private final Random random = new Random();
 
 	public BlockSpreader() {
 		super(Material.WOOD, LibBlockNames.SPREADER);
@@ -195,36 +192,11 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		TileSpreader inv = (TileSpreader) tile;
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
-				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.WOOL, 1, inv.paddingColor) : inv.getItemHandler().getStackInSlot(j1);
-
-				if(itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.updateComparatorOutputLevel(pos, state.getBlock());
+		if(inv.paddingColor != -1) {
+			net.minecraft.inventory.InventoryHelper.spawnItemStack(par1World, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.WOOL, 1, inv.paddingColor));
 		}
+
+		InventoryHelper.dropInventory(inv, par1World, state, pos);
 
 		super.breakBlock(par1World, pos, state);
 	}
