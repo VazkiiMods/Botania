@@ -55,7 +55,6 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -162,14 +161,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		} else {
 			return false;
 		}
-	}
-
-	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
 	@Override

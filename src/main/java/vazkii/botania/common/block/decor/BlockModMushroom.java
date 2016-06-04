@@ -38,7 +38,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -52,7 +51,6 @@ import java.util.Random;
 public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
-	private int originalLight;
 
 	public BlockModMushroom() {
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
@@ -112,22 +110,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
-	}
-
-	@Nonnull
-	@Override
-	public Block setLightLevel(float p_149715_1_) {
-		originalLight = (int) (p_149715_1_ * 15);
-		return super.setLightLevel(p_149715_1_);
-	}
-
-	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-
-		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
 	@Override

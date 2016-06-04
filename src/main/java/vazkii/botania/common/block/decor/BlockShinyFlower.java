@@ -20,10 +20,8 @@ import net.minecraftforge.fml.common.Optional;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -35,15 +33,6 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
-	}
-
-	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-
-		return ColoredLightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), originalLight);
 	}
 
 	@Override

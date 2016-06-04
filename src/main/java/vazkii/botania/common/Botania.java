@@ -37,9 +37,6 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
-import vazkii.botania.common.integration.coloredlights.ILightHelper;
-import vazkii.botania.common.integration.coloredlights.LightHelperColored;
-import vazkii.botania.common.integration.coloredlights.LightHelperVanilla;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
@@ -56,8 +53,6 @@ public class Botania {
 	public static boolean rfApiLoaded = false;
 	public static boolean storageDrawersLoaded = false;
 	public static boolean quarkLoaded = false;
-
-	public static ILightHelper lightHelper;
 
 	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
@@ -79,8 +74,6 @@ public class Botania {
 
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 		
-		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
-
 		proxy.preInit(event);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

@@ -46,7 +46,6 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
-import vazkii.botania.common.integration.coloredlights.LightHelper;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -92,10 +91,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 			return world.getBlockState(pos).getLightValue(world, pos);
 
 		TileEntity tile = world.getTileEntity(pos);
-		int currentLight = tile instanceof TileSpecialFlower ? ((TileSpecialFlower) tile).getLightValue() : -1;
-		if(currentLight == -1)
-			currentLight = originalLight;
-		return LightHelper.getPackedColor(world.getBlockState(pos).getValue(BotaniaStateProps.COLOR), currentLight);
+		return tile instanceof TileSpecialFlower ? ((TileSpecialFlower) tile).getLightValue() : lightValue;
 	}
 
 	@Override

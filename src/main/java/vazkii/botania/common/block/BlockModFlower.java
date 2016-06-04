@@ -51,8 +51,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
-	public int originalLight;
-
 	protected BlockModFlower() {
 		this(LibBlockNames.FLOWER);
 	}
@@ -118,13 +116,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, @Nonnull List<ItemStack> par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
-	}
-
-	@Nonnull
-	@Override
-	public Block setLightLevel(float p_149715_1_) {
-		originalLight = (int) (p_149715_1_ * 15);
-		return super.setLightLevel(p_149715_1_);
 	}
 
 	@Override

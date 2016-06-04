@@ -12,40 +12,23 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import javax.annotation.Nonnull;
-
 public class BlockSeaLamp extends BlockMod implements ILexiconable {
-
-	private int coloredLight = -1;
 
 	public BlockSeaLamp() {
 		super(Material.GLASS, LibBlockNames.SEA_LAMP);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-	}
-
-	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-
-		return coloredLight == -1 ? (coloredLight = ColoredLightHelper.makeRGBLightValue(85, 136, 125, originalLight)) : coloredLight;
 	}
 
 	@Override

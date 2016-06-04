@@ -12,7 +12,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 
 public class TileManaFlame extends TileMod {
 
@@ -63,10 +62,7 @@ public class TileManaFlame extends TileMod {
 
 	public int getLightColor() {
 		if(lightColor == -1) {
-			float r = (float) (color >> 16 & 0xFF) / 0xFF;
-			float g = (float) (color >> 8 & 0xFF) / 0xFF;
-			float b = (float) (color & 0xFF) / 0xFF;
-			lightColor = ColoredLightHelper.makeRGBLightValue(r, g, b, 1F);
+			lightColor = 0xFFFFFF;
 		}
 
 		return lightColor;

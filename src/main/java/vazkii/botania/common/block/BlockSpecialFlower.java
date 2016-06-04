@@ -55,7 +55,6 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.integration.coloredlights.LightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -179,10 +178,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 
-		int currentLight = world.getTileEntity(pos) == null ? -1 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
-		if(currentLight == -1)
-			currentLight = 0;
-		return LightHelper.getPackedColor(state.getValue(BotaniaStateProps.COLOR), currentLight);
+		return world.getTileEntity(pos) == null ? 0 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
 	}
 
 	@Override
