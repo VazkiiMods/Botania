@@ -43,7 +43,6 @@ botaniamisc.devEdition=Del escritor
 botaniamisc.lexiconcover0=Tu guía para todas
 botaniamisc.lexiconcover1=tus necesidades botánicas
 botaniamisc.lexiconcover2=de la autora de bestsellers
-botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
 botaniamisc.lexiconcover4=Editado por BevoLJ
 botaniamisc.lexiconcover5=Editado por Saice
 botaniamisc.shiftinfo=Mantén &bSHIFT&7 apretado para más información
@@ -178,14 +177,6 @@ botania.color14=rojo
 botania.color15=negro
 botania.color16=arcoíris
 
-# RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
-
 # ZODIAC SIGNS
 botania.sign0=Aries
 botania.sign1=Tauro
@@ -232,39 +223,6 @@ botania.armorset.will2.shortDesc=Los golpes críticos curan una porción del da�
 botania.armorset.will3.shortDesc=Los golpes críticos infligen un fuerte efecto de lentitud
 botania.armorset.will4.shortDesc=Los golpes críticos atraviesan la armadura
 botania.armorset.will5.shortDesc=Los golpes críticos infligen un efecto de wither
-
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Conocimiento minecraftiano
@@ -482,8 +440,6 @@ achievement.botania:aesirRing.desc=Crea el anillo del Aesir combinando los anill
 achievement.botania:nullFlower=Tranquilízate
 achievement.botania:nullFlower.desc=Encuentra un bug que te permita encontrar una flor de Botania sin definir. ¡No olvides informar!
 achievement.botania:desuGun=Amante de dos caras.
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
 
 # CHALLENGE LEVELS
 botania.challengelevel.easy=Fácil
