@@ -11,9 +11,6 @@ itemGroup.Botania=Botania
 generator.botania-skyblock=Glazen Tuin
 generator.botania-skyblock.info=Niet aanbevolen voor Botania beginners
 
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
-
 botaniamisc.nextPage=Volgende pagina
 botaniamisc.prevPage=Vorige pagina
 botaniamisc.back=Terug
@@ -190,14 +187,6 @@ botania.color14=Rood
 botania.color15=Zwart
 botania.color16=Regenboog
 
-# RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
-
 # ZODIAC SIGNS
 botania.sign0=Ram
 botania.sign1=Stier
@@ -250,39 +239,6 @@ botania.armorset.will3.shortDesc=Voltreffers geven een sterk traagheid effect
 botania.armorset.will4.shortDesc=Voltreffers doordringen armor
 botania.armorset.will5.shortDesc=Voltreffers geven aantastend effect
 
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
-
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraft Wijsheid
 botania.knowledge.alfheim=&aElven&7 Wijsheid
@@ -330,71 +286,6 @@ worldgen.flower.tallChance=Worldgen lange bloemen kans
 worldgen.mushroom.quantity=Worldgen Paddenstoel hoeveelheid
 
 # VERSION CHECKING
-botania.versioning.flavour0=Er is een Botania update!
-botania.versioning.flavour1=Er is een Botania update!
-botania.versioning.flavour2=Er is een Botania update!
-botania.versioning.flavour3=Er is een Botania update!
-botania.versioning.flavour4=Er is een Botania update!
-botania.versioning.flavour5=Er is een Botania update!
-botania.versioning.flavour6=Er is een Botania update!
-botania.versioning.flavour7=Er is een Botania update!
-botania.versioning.flavour8=Er is een Botania update!
-botania.versioning.flavour9=Er is een Botania update!
-botania.versioning.flavour10=Er is een Botania update!
-botania.versioning.flavour11=Er is een Botania update!
-botania.versioning.flavour12=Er is een Botania update!
-botania.versioning.flavour13=Er is een Botania update!
-botania.versioning.flavour14=Er is een Botania update!
-botania.versioning.flavour15=Er is een Botania update!
-botania.versioning.flavour16=Er is een Botania update!
-botania.versioning.flavour17=Er is een Botania update!
-botania.versioning.flavour18=Er is een Botania update!
-botania.versioning.flavour19=Er is een Botania update!
-botania.versioning.flavour20=Er is een Botania update!
-botania.versioning.flavour21=Er is een Botania update!
-botania.versioning.flavour22=Er is een Botania update!
-botania.versioning.flavour23=Er is een Botania update!
-botania.versioning.flavour24=Er is een Botania update!
-botania.versioning.flavour25=Er is een Botania update!
-botania.versioning.flavour26=Er is een Botania update!
-botania.versioning.flavour27=Er is een Botania update!
-botania.versioning.flavour28=Er is een Botania update!
-botania.versioning.flavour29=Er is een Botania update!
-botania.versioning.flavour30=Er is een Botania update!
-botania.versioning.flavour31=Er is een Botania update!
-botania.versioning.flavour32=Er is een Botania update!
-botania.versioning.flavour33=Er is een Botania update!
-botania.versioning.flavour34=Er is een Botania update!
-botania.versioning.flavour35=Er is een Botania update!
-botania.versioning.flavour36=Er is een Botania update!
-botania.versioning.flavour37=Er is een Botania update!
-botania.versioning.flavour38=Er is een Botania update!
-botania.versioning.flavour39=Er is een Botania update!
-botania.versioning.flavour40=Er is een Botania update!
-botania.versioning.flavour41=Er is een Botania update!
-botania.versioning.flavour42=Er is een Botania update!
-botania.versioning.flavour43=Er is een Botania update!
-botania.versioning.flavour44=Er is een Botania update!
-botania.versioning.flavour45=Er is een Botania update!
-botania.versioning.flavour46=Er is een Botania update!
-botania.versioning.flavour47=Er is een Botania update!
-botania.versioning.flavour48=Er is een Botania update!
-botania.versioning.flavour49=Er is een Botania update!
-botania.versioning.flavour50=Er is een Botania update!
-botania.versioning.flavour51=Er is een Botania update!
-botania.versioning.flavour52=Er is een Botania update!
-botania.versioning.flavour53=Er is een Botania update!
-botania.versioning.flavour54=Er is een Botania update!
-botania.versioning.flavour55=Er is een Botania update!
-botania.versioning.flavour56=Er is een Botania update!
-botania.versioning.flavour57=Er is een Botania update!
-botania.versioning.flavour58=Er is een Botania update!
-botania.versioning.flavour59=Er is een Botania update!
-botania.versioning.flavour60=Er is een Botania update!
-botania.versioning.flavour61=Er is een Botania update!
-botania.versioning.flavour62=Er is een Botania update!
-botania.versioning.flavour63=Er is een Botania update!
-botania.versioning.flavour64=Er is een Botania update!
 botania.versioning.outdated=Je gebruikt Botania versie %s, de laatste versie is %s.
 botania.versioning.updateMessage=["Klik voor... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Hier klikken om automatisch bij te werken naar de laatste versie","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om naar de website van de mod te gaan","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om de lijst met wijzigingen te zien","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Begin met downloaden van %s. Koppel je hardeschijf niet af. Plezier van ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Overweeg ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" te ondersteunen op [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om naar Vazkii's Patreon te gaan","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
@@ -465,7 +356,6 @@ achievement.botania:manaBlasterShoot=Oh Yeah
 achievement.botania:manaBlasterShoot.desc=Maak en schiet een Mana Blaster
 achievement.botania:tiaraWings=Hartendief
 achievement.botania:tiaraWings.desc=Maak en gebruik een Flügel Tiara met Flügel vleugels
-achievement.botania:terrasteelPickup=Dancer in the Dark
 achievement.botania:terrasteelPickup.desc=Roep een staaf Terrastaal op met een Bodemverbindingsplaat
 achievement.botania:elfPortalOpen=De Wereld Roept
 achievement.botania:elfPortalOpen.desc=Open een poort naar het Elvenrijk
@@ -538,11 +428,8 @@ achievement.botania:lokiRing.desc=Verdien de Ring van Loki voor een heldhaftige 
 achievement.botania:aesirRing=Zoals de Goden zeggen
 achievement.botania:aesirRing.desc=Vervaardig de Ring van de Aesir door de Ring der Goden te combineren
 
-achievement.botania:nullFlower=Take it Easy
 achievement.botania:nullFlower.desc=Vindt een bug die je een ongedefinieerde Botania bloem geeft. Niet vergeten te melden!
 achievement.botania:desuGun=Tweezijdige Liefde
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
 
 # CHALLENGE LEVELS
 botania.challengelevel.easy=Makkelijk
