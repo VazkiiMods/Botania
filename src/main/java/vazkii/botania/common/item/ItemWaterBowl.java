@@ -10,41 +10,47 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemWaterBowl extends ItemMod implements IFluidContainerItem {
+import javax.annotation.Nonnull;
 
-	private static final FluidStack STACK = new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME);
+public class ItemWaterBowl extends ItemMod  {
 
 	public ItemWaterBowl() {
 		super(LibItemNames.WATER_BOWL);
 		setMaxStackSize(1);
 	}
 
-	// Needed for rendering water dynamic model
-
+	@Nonnull
 	@Override
-	public FluidStack getFluid(ItemStack container) {
-		return STACK;
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return new Handler(stack);
 	}
 
-	@Override
-	public int getCapacity(ItemStack container) {
-		return 0;
+	private static class Handler extends FluidHandlerItemStackSimple.SwapEmpty {
+
+		private Handler(ItemStack stack) {
+			super(stack, new ItemStack(Items.BOWL), Fluid.BUCKET_VOLUME);
+			setFluid(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME));
+		}
+
+		@Override
+		public boolean canFillFluidType(FluidStack fluid) {
+			return false;
+		}
+
+		@Override
+		public boolean canDrainFluidType(FluidStack fluid) {
+			return fluid.getFluid() == FluidRegistry.WATER;
+		}
 	}
 
-	@Override
-	public int fill(ItemStack container, FluidStack resource, boolean doFill) {
-		return 0;
-	}
-
-	@Override
-	public FluidStack drain(ItemStack container, int maxDrain, boolean doDrain) {
-		return null;
-	}
 }

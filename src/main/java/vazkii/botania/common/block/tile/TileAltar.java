@@ -26,6 +26,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -80,19 +85,33 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 						item.setDead();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 				}
+
+				return true;
 			}
 		}
 
-		if(!hasWater() && !hasLava()) {
-			if(stack.getItem() == Items.WATER_BUCKET && !worldObj.isRemote) {
-				setWater(true);
-				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-				stack.setItem(Items.BUCKET);
-			} else if(stack.getItem() == Items.LAVA_BUCKET && !worldObj.isRemote) {
-				setLava(true);
-				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-				stack.setItem(Items.BUCKET);
-			} else return false;
+		if(!hasWater() && !hasLava() && !worldObj.isRemote) {
+
+			if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+				IFluidHandler fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+
+				FluidStack drainWater = fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
+				FluidStack drainLava = fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), false);
+
+				if(drainWater != null && drainWater.getFluid() == FluidRegistry.WATER && drainWater.amount == Fluid.BUCKET_VOLUME) {
+					setWater(true);
+					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
+					return true;
+				} else if(drainLava != null && drainLava.getFluid() == FluidRegistry.LAVA && drainLava.amount == Fluid.BUCKET_VOLUME) {
+					setLava(true);
+					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), true);
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		if(hasLava()) {
