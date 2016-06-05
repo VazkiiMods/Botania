@@ -22,8 +22,8 @@ import vazkii.botania.common.core.helper.Vector3;
 
 public class TilePylon extends TileEntity {
 
-	boolean activated = false;
-	int centerX, centerY, centerZ;
+	public boolean activated = false;
+	public int centerX, centerY, centerZ;
 	int ticks = 0;
 
 
