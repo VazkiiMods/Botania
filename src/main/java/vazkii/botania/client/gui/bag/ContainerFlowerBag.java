@@ -51,14 +51,6 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	@Override
-	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-		if (slotId >= 0 && slotId < inventorySlots.size()
-				&& getSlot(slotId).getStack() == flowerBagInv.bag)
-			return null;
-		else return super.slotClick(slotId, dragType, clickTypeIn, player);
-	}
-
-	@Override
 	public boolean canInteractWith(@Nonnull EntityPlayer player) {
 		return player.getHeldItemMainhand() == flowerBagInv.bag
 				|| player.getHeldItemOffhand() == flowerBagInv.bag;

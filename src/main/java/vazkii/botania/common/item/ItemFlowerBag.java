@@ -55,7 +55,6 @@ import javax.annotation.Nullable;
 public class ItemFlowerBag extends ItemMod {
 
 	private static final String TAG_ITEMS = "InvItems";
-	private static final String TAG_SLOT = "Slot";
 
 	public ItemFlowerBag() {
 		super(LibItemNames.FLOWER_BAG);

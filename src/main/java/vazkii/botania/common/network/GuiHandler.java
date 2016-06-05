@@ -19,6 +19,7 @@ import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.bag.InventoryFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
+import vazkii.botania.client.gui.box.InventoryBaubleBox;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -36,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
 		case LibGuiIDs.FLOWER_BAG :
 			return new ContainerFlowerBag(player.inventory, new InventoryFlowerBag(player.getHeldItem(hand)));
 		case LibGuiIDs.BAUBLE_BOX :
-			return new ContainerBaubleBox(player);
+			return new ContainerBaubleBox(player, new InventoryBaubleBox(player.getHeldItem(hand)));
 		}
 
 		return null;
@@ -54,7 +55,7 @@ public class GuiHandler implements IGuiHandler {
 		case LibGuiIDs.FLOWER_BAG :
 			return new GuiFlowerBag(player.inventory, new InventoryFlowerBag(player.getHeldItem(hand)));
 		case LibGuiIDs.BAUBLE_BOX :
-			return new GuiBaubleBox(player);
+			return new GuiBaubleBox(player, new InventoryBaubleBox(player.getHeldItem(hand)));
 		}
 
 		return null;

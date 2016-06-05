@@ -20,6 +20,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
 
@@ -27,16 +28,15 @@ import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends Container {
 
-	final InventoryBaubleBox baubleBoxInv;
-	final InventoryBaubles baubles;
+	private final InventoryBaubleBox baubleBoxInv;
+	private final InventoryBaubles baubles;
 
-	public ContainerBaubleBox(EntityPlayer player) {
+	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
 		int i;
 		int j;
 
-		int slot = player.inventory.currentItem;
 		IInventory playerInv = player.inventory;
-		baubleBoxInv = new InventoryBaubleBox(player, slot);
+		baubleBoxInv = boxInv;
 
 		baubles = new InventoryBaubles(player);
 		baubles.setEventHandler(this);
@@ -51,7 +51,7 @@ public class ContainerBaubleBox extends Container {
 		for(i = 0; i < 4; ++i)
 			for(j = 0; j < 6; ++j) {
 				int k = j + i * 6;
-				addSlotToContainer(new SlotAnyBauble(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
+				addSlotToContainer(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
 			}
 
 		for(i = 0; i < 3; ++i)
@@ -59,7 +59,7 @@ public class ContainerBaubleBox extends Container {
 				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			if(player.inventory.currentItem == i)
+			if(playerInv.getStackInSlot(i) == baubleBoxInv.box)
 				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
@@ -68,17 +68,13 @@ public class ContainerBaubleBox extends Container {
 
 	@Override
 	public boolean canInteractWith(@Nonnull EntityPlayer player) {
-		boolean can = baubleBoxInv.isUseableByPlayer(player);
-		if(!can)
-			onContainerClosed(player);
-
-		return can;
+		return player.getHeldItemMainhand() == baubleBoxInv.box
+				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
 
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
-		baubleBoxInv.pushInventory();
 
 		if(!player.worldObj.isRemote)
 			PlayerHandler.setPlayerBaubles(player, baubles);
@@ -99,7 +95,6 @@ public class ContainerBaubleBox extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			System.out.println(p_82846_2_ + " " + itemstack);
 			if(p_82846_2_ < 28) {
 				if(!mergeItemStack(itemstack1, 28, 64, true))
 					return null;

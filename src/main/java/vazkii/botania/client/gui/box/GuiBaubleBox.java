@@ -22,13 +22,8 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 
-	public GuiBaubleBox(EntityPlayer player) {
-		super(new ContainerBaubleBox(player));
-	}
-
-	@Override
-	protected boolean checkHotbarKeys(int p_146983_1_) {
-		return false;
+	public GuiBaubleBox(EntityPlayer player, InventoryBaubleBox box) {
+		super(new ContainerBaubleBox(player, box));
 	}
 
 	@Override
