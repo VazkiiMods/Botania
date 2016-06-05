@@ -18,19 +18,24 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.lib.LibPotionNames;
 
+import javax.annotation.Nonnull;
+
 public class PotionAllure extends PotionMod {
 
 	public PotionAllure() {
 		super(LibPotionNames.ALLURE, false, 0x0034E4, 5);
-		MinecraftForge.EVENT_BUS.register(this);
 		setBeneficial();
 	}
 
-	@SubscribeEvent
-	public void onEntityUpdate(LivingUpdateEvent event) {
-		EntityLivingBase e = event.getEntityLiving();
-		if(e instanceof EntityPlayer && hasEffect(e)) {
-			EntityFishHook hook = ((EntityPlayer) e).fishEntity;
+	@Override
+	public boolean isReady(int duration, int amplifier) {
+		return true;
+	}
+
+	@Override
+	public void performEffect(@Nonnull EntityLivingBase living, int amplified) {
+		if(living instanceof EntityPlayer) {
+			EntityFishHook hook = ((EntityPlayer) living).fishEntity;
 			if(hook != null)
 				hook.onUpdate();
 		}

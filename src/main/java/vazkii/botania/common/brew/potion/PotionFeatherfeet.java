@@ -16,19 +16,23 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.lib.LibPotionNames;
 
+import javax.annotation.Nonnull;
+
 public class PotionFeatherfeet extends PotionMod {
 
 	public PotionFeatherfeet() {
 		super(LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
-		MinecraftForge.EVENT_BUS.register(this);
 		setBeneficial();
 	}
 
-	@SubscribeEvent
-	public void onEntityUpdate(LivingUpdateEvent event) {
-		EntityLivingBase e = event.getEntityLiving();
-		if(hasEffect(e))
-			e.fallDistance = 2.5F;
+	@Override
+	public boolean isReady(int duration, int amplifier) {
+		return true;
+	}
+
+	@Override
+	public void performEffect(@Nonnull EntityLivingBase living, int amplified) {
+		living.fallDistance = 2.5F;
 	}
 
 }

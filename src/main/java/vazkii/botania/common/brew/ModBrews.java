@@ -59,12 +59,12 @@ public class ModBrews {
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
 		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(MobEffects.STRENGTH, 1800, 3), new PotionEffect(MobEffects.SPEED, 1800, 2), new PotionEffect(MobEffects.WEAKNESS, 3600, 2), new PotionEffect(MobEffects.HUNGER, 200, 2));
-		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross, 1800, 0));
-		featherfeet = new BrewModPotion(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet, 1800, 0));
-		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness, 7200, 0));
-		bloodthirst = new BrewModPotion(LibBrewNames.BLOODTHIRST, 20000, new PotionEffect(ModPotions.bloodthrst, 7200, 0));
-		allure = new BrewModPotion(LibBrewNames.ALLURE, 2000, new PotionEffect(ModPotions.allure, 4800, 0));
-		clear = new BrewModPotion(LibBrewNames.CLEAR, 4000, new PotionEffect(ModPotions.clear, 0, 0));
+		soulCross = new BrewMod(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross, 1800, 0));
+		featherfeet = new BrewMod(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet, 1800, 0));
+		emptiness = new BrewMod(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness, 7200, 0));
+		bloodthirst = new BrewMod(LibBrewNames.BLOODTHIRST, 20000, new PotionEffect(ModPotions.bloodthrst, 7200, 0));
+		allure = new BrewMod(LibBrewNames.ALLURE, 2000, new PotionEffect(ModPotions.allure, 4800, 0));
+		clear = new BrewMod(LibBrewNames.CLEAR, 4000, new PotionEffect(ModPotions.clear, 0, 0));
 	}
 
 	public static void initTC() {
