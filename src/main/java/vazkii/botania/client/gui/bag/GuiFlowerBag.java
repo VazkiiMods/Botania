@@ -19,6 +19,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -49,10 +50,10 @@ public class GuiFlowerBag extends GuiContainer {
 
 		List<Slot> slotList = inventorySlots.inventorySlots;
 		for(Slot slot : slotList)
-			if(slot instanceof SlotFlower) {
-				SlotFlower slotf = (SlotFlower) slot;
+			if(slot instanceof SlotItemHandler) {
+				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {
-					ItemStack stack = new ItemStack(ModBlocks.flower, 0, slotf.color);
+					ItemStack stack = new ItemStack(ModBlocks.flower, 0, slotf.getSlotIndex()); // index matches colors
 					int x = guiLeft + slotf.xDisplayPosition;
 					int y = guiTop + slotf.yDisplayPosition;
 					RenderHelper.enableGUIStandardItemLighting();

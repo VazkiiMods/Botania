@@ -17,6 +17,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.gui.SlotLocked;
 
 import javax.annotation.Nonnull;
@@ -34,7 +35,7 @@ public class ContainerFlowerBag extends Container {
 		for(i = 0; i < 2; ++i)
 			for(j = 0; j < 8; ++j) {
 				int k = j + i * 8;
-				addSlotToContainer(new SlotFlower(flowerBagInv, k, 17 + j * 18, 26 + i * 18, k));
+				addSlotToContainer(new SlotItemHandler(flowerBagInv, k, 17 + j * 18, 26 + i * 18));
 			}
 
 		for(i = 0; i < 3; ++i)
@@ -42,9 +43,9 @@ public class ContainerFlowerBag extends Container {
 				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			/*if(player.inventory.currentItem == i)
-				addSlotToContainer(new SlotLocked(player.inventory, i, 8 + i * 18, 142));
-			else*/ addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
+			if(playerInv.getStackInSlot(i) == flowerBagInv.bag)
+				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
 
 	}

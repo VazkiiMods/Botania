@@ -74,7 +74,9 @@ public class ItemFlowerBag extends ItemMod {
 		private final IItemHandler inv = new ItemStackHandler(16) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack toInsert, boolean simulate) {
-				if(toInsert != null && toInsert.getItem() == Item.getItemFromBlock(ModBlocks.flower))
+				if(toInsert != null
+						&& toInsert.getItem() == Item.getItemFromBlock(ModBlocks.flower)
+						&& toInsert.getItemDamage() == slot)
 					return super.insertItem(slot, toInsert, simulate);
 				else return toInsert;
 			}
@@ -132,8 +134,6 @@ public class ItemFlowerBag extends ItemMod {
 
 				ItemStack bag = event.getEntityPlayer().inventory.getStackInSlot(i);
 				if(bag != null && bag.getItem() == this) {
-					event.setCanceled(true);
-
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
@@ -142,10 +142,10 @@ public class ItemFlowerBag extends ItemMod {
 						event.getItem().setDead();
 					else {
 						event.getItem().setEntityItemStack(result);
-						event.getItem().setDefaultPickupDelay();
 					}
 
 					if(result != entityStack) {
+						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
 							event.getItem().worldObj.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
