@@ -121,19 +121,6 @@ public class PlatformModel implements IBakedModel {
 
 		@Override
 		public TileEntity getTileEntity(@Nonnull BlockPos pos) {
-			/* todo is this actually needed? if so this can't be an iblockaccess anymore
-			IBlockState state = getBlockState(pos);
-			if(state == null || !state.getBlock().hasTileEntity(state))
-				return null;
-
-			TileEntity tile = state.getBlock().createTileEntity(this, state);
-			if(tile == null)
-				return null;
-
-			tile.setWorldObj(this);
-			tile.setPos(pos);
-
-			return tile;*/
 			return compose.getTileEntity(pos);
 		}
 

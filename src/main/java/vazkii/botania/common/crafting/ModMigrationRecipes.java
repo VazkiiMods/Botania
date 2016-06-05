@@ -49,7 +49,7 @@ public final class ModMigrationRecipes {
         if (quark) {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("end_bricks_stairs")), new ItemStack(ModFluffBlocks.endStoneStairs));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("end_bricks_slab")), new ItemStack(ModFluffBlocks.endStoneSlab));
-            // todo End stone chiseled brick? (not in quark)
+            // End stone chiseled brick - not in quark
         }
 
         // Andesite normal + polished -> vanilla
@@ -64,7 +64,7 @@ public final class ModMigrationRecipes {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("world_stone_bricks"), 1, 2), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.ANDESITE_BRICK.ordinal()));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_andesite_bricks_stairs")), new ItemStack(ModFluffBlocks.stoneStairs[4]));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_andesite_bricks_slab")), new ItemStack(ModFluffBlocks.stoneSlabs[4]));
-            // todo Andesite chiseled brick? (not in quark)
+            // Andesite chiseled brick - not in quark
             // Andesite wall
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_andesite_wall")), new ItemStack(ModFluffBlocks.stoneWall, 1, FutureStoneVariant.ANDESITE.ordinal()));
         }
@@ -80,7 +80,7 @@ public final class ModMigrationRecipes {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("world_stone_bricks"), 1, 3), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.BASALT_BRICK.ordinal()));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_basalt_bricks_stairs")), new ItemStack(ModFluffBlocks.stoneStairs[5]));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_basalt_bricks_slab")), new ItemStack(ModFluffBlocks.stoneSlabs[5]));
-            // todo Basalt chiseled brick? (not in quark)
+            // Basalt chiseled brick - not in quark
             // Basalt wall
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("basalt_wall")), new ItemStack(ModFluffBlocks.stoneWall, 1, FutureStoneVariant.BASALT.ordinal()));
         }
@@ -97,7 +97,7 @@ public final class ModMigrationRecipes {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("world_stone_bricks"), 1, 1), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.DIORITE_BRICK.ordinal()));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_diorite_bricks_stairs")), new ItemStack(ModFluffBlocks.stoneStairs[6]));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_diorite_bricks_slab")), new ItemStack(ModFluffBlocks.stoneSlabs[6]));
-            // todo Diorite chiseled brick? (not in quark)
+            // Diorite chiseled brick - not in quark
             // Diorite wall
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_diorite_wall")), new ItemStack(ModFluffBlocks.stoneWall, 1, FutureStoneVariant.DIORITE.ordinal()));
         }
@@ -114,7 +114,7 @@ public final class ModMigrationRecipes {
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("world_stone_bricks"), 1, 0), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.GRANITE_BRICK.ordinal()));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_granite_bricks_stairs")), new ItemStack(ModFluffBlocks.stoneStairs[7]));
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_granite_bricks_slab")), new ItemStack(ModFluffBlocks.stoneSlabs[7]));
-            // todo Granite chiseled brick? (not in quark)
+            // Granite chiseled brick - not in quark
             // Granite wall
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_granite_wall")), new ItemStack(ModFluffBlocks.stoneWall, 1, FutureStoneVariant.GRANITE.ordinal()));
         }

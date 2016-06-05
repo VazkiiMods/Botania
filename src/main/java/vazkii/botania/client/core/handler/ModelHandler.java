@@ -121,7 +121,6 @@ import static vazkii.botania.common.item.ModItems.*;
 
 public final class ModelHandler {
 
-    // todo reorganize, alphabetize
     public static void registerModels() {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
@@ -525,7 +524,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.avatar);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
 
-        registerItemModel(ModBlocks.bellows); // todo await animation api
+        registerItemModel(ModBlocks.bellows);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
 
         registerItemModel(ModBlocks.brewery);
@@ -534,13 +533,13 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.corporeaCrystalCube);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
 
-        registerItemModel(ModBlocks.corporeaIndex); // todo json maybe? await animation api
+        registerItemModel(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
 
         registerItemModel(ModItems.gaiaHead);
         ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
-        registerItemModel(ModBlocks.hourglass); // todo json maybe?
+        registerItemModel(ModBlocks.hourglass);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
         registerItemModel(ModBlocks.teruTeruBozu);

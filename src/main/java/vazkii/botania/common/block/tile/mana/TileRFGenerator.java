@@ -57,8 +57,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Optional.Method(modid = "CoFHAPI|energy")
-	protected final int transmitEnergy(int energy) {
-		// TODO: Share energy amoung receivers ?
+	private final int transmitEnergy(int energy) {
 		for(Map.Entry<EnumFacing, IEnergyReceiver> e : receiverCache.entrySet()) {
 			IEnergyReceiver tile = e.getValue();
 			if (tile == null)

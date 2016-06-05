@@ -155,8 +155,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void onUpdate() {
 		setTicksExisted(getTicksExisted() + 1);
 		super.onUpdate();
-		// superUpdate(); todo 1.9 removed a ton of what appears to just be copied superclass code
-		// todo 1.9 if shit breaks revert this :P
 
 		if(!fake && !isDead)
 			ping();
@@ -560,7 +558,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public ItemStack getSourceLens() {
 		Optional<ItemStack> stack = dataManager.get(SOURCE_LENS);
 		if(!stack.isPresent())
-			return new ItemStack(Blocks.STONE, 0, 0); // todo 1.9 refact later
+			return new ItemStack(Blocks.STONE, 0, 0);
 		else return stack.get();
 	}
 
