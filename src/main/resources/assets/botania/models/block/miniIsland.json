@@ -1,5 +1,6 @@
 {
     "__comment": "Author: wiiv",
+    "parent": "minecraft:block/block",
     "elements": [
         {
             "name": "Shape0",

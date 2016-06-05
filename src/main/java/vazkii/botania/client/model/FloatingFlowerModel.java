@@ -22,12 +22,11 @@ import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
@@ -35,6 +34,7 @@ import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -44,12 +44,13 @@ import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadListener {
+public class FloatingFlowerModel implements IBakedModel {
 
 	private static final String MUNDANE_PREFIX = "botania:shimmeringFlower_";
 	private final Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
@@ -78,11 +79,6 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		};
 		quad.pipe(consumer);
 		return builder.build();
-	}
-
-	@Override
-	public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
-		CACHE.clear();
 	}
 
 	@Nonnull
@@ -147,18 +143,18 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return true; }
 	@Override public boolean isBuiltInRenderer() { return false; }
-	@Nonnull
-	@Override public TextureAtlasSprite getParticleTexture() { return null; }
-	@Nonnull
-	@Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/dirt"); }
+	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
-	private static class CompositeBakedModel implements IBakedModel {
+	private static class CompositeBakedModel implements IPerspectiveAwareModel {
 
-		private final IBakedModel base;
+		private final IBakedModel flower;
+		private final IBakedModel island;
 		private final List<BakedQuad> genQuads;
 
 		public CompositeBakedModel(IBakedModel flower, IBakedModel island) {
-			this.base = flower;
+			this.flower = flower;
+			this.island = island;
 
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
@@ -183,41 +179,35 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 		}
 
 		// Forward all to flower model
-		@Nonnull
-		@Override
-		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
+		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			return genQuads;
 		}
+		@Override public boolean isAmbientOcclusion() {
+			return flower.isAmbientOcclusion();
+		}
+		@Override public boolean isGui3d() {
+			return flower.isGui3d();
+		}
+		@Override public boolean isBuiltInRenderer() {
+			return flower.isBuiltInRenderer();
+		}
+		@Nonnull @Override public TextureAtlasSprite getParticleTexture() {
+			return flower.getParticleTexture();
+		}
+		@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() {
+			return flower.getItemCameraTransforms();
+		}
+		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 
 		@Override
-		public boolean isAmbientOcclusion() {
-			return base.isAmbientOcclusion();
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+			if(island instanceof IPerspectiveAwareModel) {
+				Pair<? extends IBakedModel, Matrix4f> pair = ((IPerspectiveAwareModel) island).handlePerspective(cameraTransformType);
+				if(pair != null && pair.getRight() != null)
+					return Pair.of(this, pair.getRight());
+			}
+			return Pair.of(this, TRSRTransformation.identity().getMatrix());
 		}
-
-		@Override
-		public boolean isGui3d() {
-			return true;
-		}
-
-		@Override
-		public boolean isBuiltInRenderer() {
-			return base.isBuiltInRenderer();
-		}
-
-		@Nonnull
-		@Override
-		public TextureAtlasSprite getParticleTexture() {
-			return base.getParticleTexture();
-		}
-
-		@Nonnull
-		@Override
-		public ItemCameraTransforms getItemCameraTransforms() {
-			return base.getItemCameraTransforms();
-		}
-
-		@Nonnull
-		@Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 	}
 
 	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
