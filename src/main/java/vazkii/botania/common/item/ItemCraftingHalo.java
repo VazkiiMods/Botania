@@ -96,7 +96,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
 		if(segment == 0)
-			player.openGui(Botania.instance, LibGuiIDs.CRAFTING_HALO, world, 0, 0, 0);
+			player.openGui(Botania.instance, LibGuiIDs.CRAFTING_HALO, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 		else {
 			if(itemForPos == null)
 				assignRecipe(stack, itemForPos, segment);

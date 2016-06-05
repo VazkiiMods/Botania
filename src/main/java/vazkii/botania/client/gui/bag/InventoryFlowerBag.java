@@ -10,183 +10,42 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import vazkii.botania.common.item.ItemFlowerBag;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
-import javax.annotation.Nonnull;
-import java.util.Arrays;
+public class InventoryFlowerBag implements IItemHandlerModifiable {
 
-public class InventoryFlowerBag implements IInventory {
+	private final IItemHandlerModifiable bagInv;
+	final ItemStack bag;
 
-	private static final ItemStack[] FALLBACK_INVENTORY = new ItemStack[16];
-
-	final EntityPlayer player;
-	final int slot;
-	ItemStack[] stacks = null;
-
-	boolean invPushed = false;
-	ItemStack storedInv = null;
-
-	public InventoryFlowerBag(EntityPlayer player, int slot) {
-		this.player = player;
-		this.slot = slot;
-	}
-
-	public static boolean isFlowerBag(ItemStack stack) {
-		return stack != null && stack.getItem() == ModItems.flowerBag;
-	}
-
-	ItemStack getStack() {
-		ItemStack stack = player.inventory.getStackInSlot(slot);
-		if(stack != null)
-			storedInv = stack;
-		return stack;
-	}
-
-	ItemStack[] getInventory() {
-		if(stacks != null)
-			return stacks;
-
-		ItemStack stack = getStack();
-		if(isFlowerBag(getStack())) {
-			stacks = ItemFlowerBag.loadStacks(stack);
-			return stacks;
-		}
-
-		return FALLBACK_INVENTORY;
-	}
-
-	public void pushInventory() {
-		if(invPushed)
-			return;
-
-		ItemStack stack = getStack();
-		if(stack == null)
-			stack = storedInv;
-
-		if(stack != null) {
-			ItemStack[] inv = getInventory();
-			ItemFlowerBag.setStacks(stack, inv);
-		}
-
-		invPushed = true;
+	public InventoryFlowerBag(ItemStack bag) {
+		this.bag = bag;
+		this.bagInv = (IItemHandlerModifiable) bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 16;
+	public void setStackInSlot(int slot, ItemStack stack) {
+		bagInv.setStackInSlot(slot, stack);
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
-		return getInventory()[i];
+	public int getSlots() {
+		return bagInv.getSlots();
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		ItemStack[] inventorySlots = getInventory();
-		if (inventorySlots[i] != null) {
-			ItemStack stackAt;
-
-			if (inventorySlots[i].stackSize <= j) {
-				stackAt = inventorySlots[i];
-				inventorySlots[i] = null;
-				return stackAt;
-			} else {
-				stackAt = inventorySlots[i].splitStack(j);
-
-				if (inventorySlots[i].stackSize == 0)
-					inventorySlots[i] = null;
-
-				return stackAt;
-			}
-		}
-
-		return null;
+	public ItemStack getStackInSlot(int slot) {
+		return bagInv.getStackInSlot(slot);
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int i) {
-		return getStackInSlot(i);
+	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+		return bagInv.insertItem(slot, stack, simulate);
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		ItemStack[] inventorySlots = getInventory();
-		inventorySlots[i] = itemstack;
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		return bagInv.extractItem(slot, amount, simulate);
 	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return isFlowerBag(getStack()) ? 64 : 0;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(@Nonnull EntityPlayer entityplayer) {
-		return isFlowerBag(getStack());
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, @Nonnull ItemStack itemstack) {
-		return isFlowerBag(getStack());
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		if (stacks != null) {
-			Arrays.fill(stacks, null);
-		}
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Nonnull
-	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentString(getName());
-	}
-
-	@Override
-	public void openInventory(@Nonnull EntityPlayer player) {
-		// NO-OP
-	}
-
-	@Override
-	public void closeInventory(@Nonnull EntityPlayer player) {
-		// NO-OP
-	}
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return LibItemNames.FLOWER_BAG;
-	}
-
-	@Override
-	public void markDirty() {
-		// NO-OP
-	}
-
 }

@@ -11,10 +11,12 @@
 package vazkii.botania.common.network;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
+import vazkii.botania.client.gui.bag.InventoryFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
@@ -25,12 +27,14 @@ import vazkii.botania.common.lib.LibGuiIDs;
 public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
+		EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+
 		switch(ID) {
 		case LibGuiIDs.CRAFTING_HALO :
 			return new ContainerCraftingHalo(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
-			return new ContainerFlowerBag(player);
+			return new ContainerFlowerBag(player.inventory, new InventoryFlowerBag(player.getHeldItem(hand)));
 		case LibGuiIDs.BAUBLE_BOX :
 			return new ContainerBaubleBox(player);
 		}
@@ -39,14 +43,16 @@ public class GuiHandler implements IGuiHandler {
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
+		EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+
 		switch(ID) {
 		case LibGuiIDs.LEXICON :
 			return GuiLexicon.currentOpenLexicon;
 		case LibGuiIDs.CRAFTING_HALO :
 			return new GuiCraftingHalo(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
-			return new GuiFlowerBag(player);
+			return new GuiFlowerBag(player.inventory, new InventoryFlowerBag(player.getHeldItem(hand)));
 		case LibGuiIDs.BAUBLE_BOX :
 			return new GuiBaubleBox(player);
 		}

@@ -10,25 +10,20 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.common.block.ModBlocks;
 
-public class SlotFlower extends Slot {
+public class SlotFlower extends SlotItemHandler {
 
-	final InventoryFlowerBag inv;
+	private final InventoryFlowerBag inv;
 	final int color;
 
 	public SlotFlower(InventoryFlowerBag p_i1824_1_, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_, int color) {
 		super(p_i1824_1_, p_i1824_2_, p_i1824_3_, p_i1824_4_);
 		this.color = color;
 		inv = p_i1824_1_;
-	}
-
-	@Override
-	public void onSlotChange(ItemStack oldStack, ItemStack newStack) {
-		inv.setInventorySlotContents(color, newStack);
 	}
 
 	@Override

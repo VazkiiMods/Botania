@@ -11,6 +11,8 @@
 package vazkii.botania.client.gui.bag;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -21,15 +23,13 @@ import javax.annotation.Nonnull;
 
 public class ContainerFlowerBag extends Container {
 
-	final InventoryFlowerBag flowerBagInv;
+	private final InventoryFlowerBag flowerBagInv;
 
-	public ContainerFlowerBag(EntityPlayer player) {
+	public ContainerFlowerBag(InventoryPlayer playerInv, InventoryFlowerBag flowerBagInv) {
 		int i;
 		int j;
 
-		int slot = player.inventory.currentItem;
-		IInventory playerInv = player.inventory;
-		flowerBagInv = new InventoryFlowerBag(player, slot);
+		this.flowerBagInv = flowerBagInv;
 
 		for(i = 0; i < 2; ++i)
 			for(j = 0; j < 8; ++j) {
@@ -42,26 +42,25 @@ public class ContainerFlowerBag extends Container {
 				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			if(player.inventory.currentItem == i)
-				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
-			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
+			/*if(player.inventory.currentItem == i)
+				addSlotToContainer(new SlotLocked(player.inventory, i, 8 + i * 18, 142));
+			else*/ addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
 
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull EntityPlayer player) {
-		boolean can = flowerBagInv.isUseableByPlayer(player);
-		if(!can)
-			onContainerClosed(player);
-
-		return can;
+	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
+		if (slotId >= 0 && slotId < inventorySlots.size()
+				&& getSlot(slotId).getStack() == flowerBagInv.bag)
+			return null;
+		else return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}
 
 	@Override
-	public void onContainerClosed(EntityPlayer player) {
-		super.onContainerClosed(player);
-		flowerBagInv.pushInventory();
+	public boolean canInteractWith(@Nonnull EntityPlayer player) {
+		return player.getHeldItemMainhand() == flowerBagInv.bag
+				|| player.getHeldItemOffhand() == flowerBagInv.bag;
 	}
 
 	@Override

@@ -10,12 +10,14 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketCollectItem;
@@ -29,11 +31,17 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -42,6 +50,7 @@ import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemFlowerBag extends ItemMod {
 
@@ -54,11 +63,66 @@ public class ItemFlowerBag extends ItemMod {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
+	@Nonnull
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
+		return new InvProvider();
+	}
+
+	private static class InvProvider implements ICapabilitySerializable<NBTBase> {
+
+		private final IItemHandler inv = new ItemStackHandler(16) {
+			@Override
+			public ItemStack insertItem(int slot, ItemStack toInsert, boolean simulate) {
+				if(toInsert != null && toInsert.getItem() == Item.getItemFromBlock(ModBlocks.flower))
+					return super.insertItem(slot, toInsert, simulate);
+				else return toInsert;
+			}
+		};
+
+		@Override
+		public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+		}
+
+		@Override
+		public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
+			else return null;
+		}
+
+		@Override
+		public NBTBase serializeNBT() {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
+		}
+
+		@Override
+		public void deserializeNBT(NBTBase nbt) {
+			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
+		}
+	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		if(stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_ITEMS)) {
+			NBTTagList oldData = stack.getTagCompound().getTagList(TAG_ITEMS, Constants.NBT.TAG_COMPOUND);
+			IItemHandler newInv = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
+			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(newInv, null, oldData);
+
+			stack.getTagCompound().removeTag(TAG_ITEMS);
+
+			if(stack.getTagCompound().getSize() == 0)
+				stack.setTagCompound(null);
+		}
+	}
+
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
-		ItemStack stack = event.getItem().getEntityItem();
-		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && stack.stackSize > 0) {
-			int color = stack.getItemDamage();
+		ItemStack entityStack = event.getItem().getEntityItem();
+		if(entityStack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && entityStack.stackSize > 0) {
+			int color = entityStack.getItemDamage();
 			if(color > 15)
 				return;
 
@@ -66,40 +130,31 @@ public class ItemFlowerBag extends ItemMod {
 				if(i == event.getEntityPlayer().inventory.currentItem)
 					continue; // prevent item deletion
 
-				ItemStack invStack = event.getEntityPlayer().inventory.getStackInSlot(i);
-				if(invStack != null && invStack.getItem() == this) {
-					ItemStack[] bagInv = loadStacks(invStack);
-					ItemStack stackAt = bagInv[color];
-					boolean didChange = false;
-					if(stackAt == null) {
-						bagInv[color] = stack.copy();
-						stack.stackSize = 0;
-						didChange = true;
-					} else {
-						int stackAtSize = stackAt.stackSize;
-						int stackSize = stack.stackSize;
-						int spare = 64 - stackAtSize;
-						int pass = Math.min(spare, stackSize);
-						if(pass > 0) {
-							stackAt.stackSize += pass;
-							stack.stackSize -= pass;
-							didChange = true;
-						}
+				ItemStack bag = event.getEntityPlayer().inventory.getStackInSlot(i);
+				if(bag != null && bag.getItem() == this) {
+					event.setCanceled(true);
+
+					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
+					ItemStack result = bagInv.insertItem(color, entityStack, false);
+
+					if(result == null)
+						event.getItem().setDead();
+					else {
+						event.getItem().setEntityItemStack(result);
+						event.getItem().setDefaultPickupDelay();
 					}
 
-					if(didChange) {
-						setStacks(invStack, bagInv);
+					if(result != entityStack) {
 						if (!event.getItem().isSilent()) {
 							event.getItem().worldObj.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().worldObj.rand.nextFloat() - event.getItem().worldObj.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
 						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId()));
+						event.getEntityPlayer().openContainer.detectAndSendChanges();
 					}
 				}
-
-				if(stack.stackSize == 0)
-					return;
 			}
 		}
 	}
@@ -107,7 +162,7 @@ public class ItemFlowerBag extends ItemMod {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, 0, 0, 0);
+		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
@@ -117,67 +172,26 @@ public class ItemFlowerBag extends ItemMod {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null) {
 			if(!world.isRemote) {
-				IItemHandler inv = null;
-				if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
-					inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				IItemHandler tileInv = null;
+				if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
+					tileInv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 				else if(tile instanceof IInventory)
-					inv = new InvWrapper(((IInventory) tile));
+					tileInv = new InvWrapper(((IInventory) tile));
 
-				if(inv == null)
-					return EnumActionResult.SUCCESS;
+				if(tileInv == null)
+					return EnumActionResult.FAIL;
 
-				ItemStack[] stacks = loadStacks(stack);
-				ItemStack[] newStacks = new ItemStack[stacks.length];
-				boolean putAny = false;
+				IItemHandlerModifiable bagInv = (IItemHandlerModifiable) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
-				int i = 0;
-				for(ItemStack petal : stacks) {
-					if(petal != null) {
-						newStacks[i] = ItemHandlerHelper.insertItemStacked(inv, petal, false);
-						int count = petal.stackSize;
-						if(newStacks[i] != null)
-							count = petal.stackSize - newStacks[i].stackSize;
-						putAny |= count > 0;
-					}
-
-					i++;
-				}
-
-				setStacks(stack, newStacks);
-				if(putAny && tile instanceof TileEntityChest) {
-					player.displayGUIChest(((TileEntityChest) tile));
+				for(int i = 0; i < bagInv.getSlots(); i++) {
+					ItemStack flower = bagInv.getStackInSlot(i);
+					bagInv.setStackInSlot(i, ItemHandlerHelper.insertItemStacked(tileInv, flower, false));
 				}
 			}
 
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
-	}
-
-	public static ItemStack[] loadStacks(ItemStack stack) {
-		NBTTagList var2 = ItemNBTHelper.getList(stack, TAG_ITEMS, 10, false);
-		ItemStack[] inventorySlots = new ItemStack[16];
-		for(int var3 = 0; var3 < var2.tagCount(); ++var3) {
-			NBTTagCompound var4 = var2.getCompoundTagAt(var3);
-			byte var5 = var4.getByte(TAG_SLOT);
-			if(var5 >= 0 && var5 < inventorySlots.length)
-				inventorySlots[var5] = ItemStack.loadItemStackFromNBT(var4);
-		}
-
-		return inventorySlots;
-	}
-
-	public static void setStacks(ItemStack stack, ItemStack[] inventorySlots) {
-		NBTTagList var2 = new NBTTagList();
-		for(int var3 = 0; var3 < inventorySlots.length; ++var3)
-			if(inventorySlots[var3] != null) {
-				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte(TAG_SLOT, (byte)var3);
-				inventorySlots[var3].writeToNBT(var4);
-				var2.appendTag(var4);
-			}
-
-		ItemNBTHelper.setList(stack, TAG_ITEMS, var2);
 	}
 
 }
