@@ -14,6 +14,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.util.EnumHandSide;
@@ -22,39 +23,39 @@ import javax.annotation.Nonnull;
 
 public class ModelArmorTerrasteel extends ModelBiped {
 
-	public final ModelRenderer helm;
+	private final ModelRenderer helm;
 	public final ModelRenderer body;
-	public final ModelRenderer armr;
-	public final ModelRenderer armL;
+	private final ModelRenderer armr;
+	private final ModelRenderer armL;
 	public final ModelRenderer belt;
-	public final ModelRenderer bootR;
-	public final ModelRenderer bootL;
-	public final ModelRenderer helm2;
-	public final ModelRenderer helm3;
-	public final ModelRenderer helm4;
-	public final ModelRenderer helmLeaf1;
-	public final ModelRenderer helmLeaf2;
-	public final ModelRenderer helmLeaf3;
-	public final ModelRenderer helmLeaf4;
-	public final ModelRenderer helmLeaf5;
-	public final ModelRenderer helmLeaf6;
-	public final ModelRenderer helmbranch1;
-	public final ModelRenderer helmbranch2;
-	public final ModelRenderer helmbranch3;
-	public final ModelRenderer helmbranch4;
-	public final ModelRenderer body2;
-	public final ModelRenderer armRpauldron;
-	public final ModelRenderer armRbranch1;
-	public final ModelRenderer armRbranch2;
-	public final ModelRenderer armLpauldron;
-	public final ModelRenderer armLbranch1;
-	public final ModelRenderer armLbranch2;
-	public final ModelRenderer legR;
-	public final ModelRenderer legL;
-	public final ModelRenderer bootR1;
-	public final ModelRenderer bootRbranch;
-	public final ModelRenderer bootL2;
-	public final ModelRenderer bootLbranch;
+	private final ModelRenderer bootR;
+	private final ModelRenderer bootL;
+	private final ModelRenderer helm2;
+	private final ModelRenderer helm3;
+	private final ModelRenderer helm4;
+	private final ModelRenderer helmLeaf1;
+	private final ModelRenderer helmLeaf2;
+	private final ModelRenderer helmLeaf3;
+	private final ModelRenderer helmLeaf4;
+	private final ModelRenderer helmLeaf5;
+	private final ModelRenderer helmLeaf6;
+	private final ModelRenderer helmbranch1;
+	private final ModelRenderer helmbranch2;
+	private final ModelRenderer helmbranch3;
+	private final ModelRenderer helmbranch4;
+	private final ModelRenderer body2;
+	private final ModelRenderer armRpauldron;
+	private final ModelRenderer armRbranch1;
+	private final ModelRenderer armRbranch2;
+	private final ModelRenderer armLpauldron;
+	private final ModelRenderer armLbranch1;
+	private final ModelRenderer armLbranch2;
+	private final ModelRenderer legR;
+	private final ModelRenderer legL;
+	private final ModelRenderer bootR1;
+	private final ModelRenderer bootRbranch;
+	private final ModelRenderer bootL2;
+	private final ModelRenderer bootLbranch;
 
 	private final EntityEquipmentSlot slot;
 
@@ -233,7 +234,12 @@ public class ModelArmorTerrasteel extends ModelBiped {
 	}
 
 	@Override
-	public void render(@Nonnull Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if(entity instanceof EntityArmorStand) {
+			// Hack so helmets look right on armor stand
+			netHeadYaw = 0;
+		}
+
 		helm.showModel = slot == EntityEquipmentSlot.HEAD;
 		body.showModel = slot == EntityEquipmentSlot.CHEST;
 		armr.showModel = slot == EntityEquipmentSlot.CHEST;
@@ -256,56 +262,10 @@ public class ModelArmorTerrasteel extends ModelBiped {
 			bipedLeftLeg = bootL;
 		}
 
-		prepareForRender(entity);
-		super.render(entity, f, f1, f2, f3, f4, f5);
+		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}
 
-	public void prepareForRender(Entity entity) {
-		EntityLivingBase living = (EntityLivingBase) entity;
-		isSneak = living != null && living.isSneaking();
-		isChild = living != null && living.isChild();
-		if(living != null) {
-			ModelBiped.ArmPose mainPose = ArmPose.EMPTY;
-			ModelBiped.ArmPose offPose = ArmPose.EMPTY;
-
-			// Copy from RenderPlayer.setModelVisibilities
-			if(living.getHeldItemMainhand() != null) {
-				mainPose = ArmPose.ITEM;
-				if (living.getItemInUseCount() > 0) {
-					EnumAction enumaction = living.getHeldItemMainhand().getItemUseAction();
-
-					if (enumaction == EnumAction.BLOCK) {
-						mainPose = ModelBiped.ArmPose.BLOCK;
-					} else if (enumaction == EnumAction.BOW) {
-						mainPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-					}
-				}
-			}
-
-			if (living.getHeldItemOffhand() != null) {
-				offPose = ModelBiped.ArmPose.ITEM;
-
-				if (living.getItemInUseCount() > 0) {
-					EnumAction enumaction1 = living.getHeldItemOffhand().getItemUseAction();
-
-					if (enumaction1 == EnumAction.BLOCK) {
-						offPose = ModelBiped.ArmPose.BLOCK;
-					}
-				}
-			}
-
-			if(living.getPrimaryHand() == EnumHandSide.RIGHT) {
-				rightArmPose = mainPose;
-				leftArmPose = offPose;
-			} else {
-				rightArmPose = offPose;
-				leftArmPose = mainPose;
-			}
-			// End copy RenderPlayer.setModelVisibilities
-		}
-	}
-
-	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+	private void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
