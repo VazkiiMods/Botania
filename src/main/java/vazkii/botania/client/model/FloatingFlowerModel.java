@@ -35,10 +35,10 @@ import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.fml.common.FMLLog;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -132,7 +132,7 @@ public class FloatingFlowerModel implements IBakedModel, IResourceManagerReloadL
 
 			// Enhance!
 			CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
-			FMLLog.info("[Botania]: Cached floating flower model for islandtype %s and flowertype %s", islandType, identifier);
+			Botania.LOGGER.debug("Cached floating flower model for islandtype %s and flowertype %s", islandType, identifier);
 			CACHE.put(islandType, identifier, model);
 			return model;
 		}

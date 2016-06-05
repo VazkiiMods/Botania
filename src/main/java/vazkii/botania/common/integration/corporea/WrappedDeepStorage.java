@@ -11,14 +11,13 @@ package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import org.apache.logging.log4j.Level;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.common.Botania;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 				deepStoragePresent = false;
 			}
 			checkedInterface = true;
-			FMLLog.log(Level.INFO, "[Botania] Corporea support for Deep Storage: %b", deepStoragePresent);
+			Botania.LOGGER.info("Corporea support for Deep Storage: %b", deepStoragePresent);
 		}
 		return deepStoragePresent;
 	}

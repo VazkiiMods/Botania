@@ -17,11 +17,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.util.glu.Project;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
@@ -95,8 +95,7 @@ public class RenderLexicon {
             }
             // End EntityRenderer.renderHand copy
         } catch (Throwable throwable) {
-            FMLLog.warning("[Botania]: Failed to render lexicon");
-            throwable.printStackTrace();
+            Botania.LOGGER.warn("Failed to render lexicon");
         }
     }
 

@@ -21,13 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import org.apache.logging.log4j.Level;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -2176,7 +2174,7 @@ public final class ModCraftingRecipes {
 			initGardenOfGlass();
 
 		int newRecipeListSize = CraftingManager.getInstance().getRecipeList().size();
-		FMLLog.log(Level.INFO, "[Botania] Registered %d recipes.", newRecipeListSize - recipeListSize);
+		Botania.LOGGER.info("Registered %d recipes.", newRecipeListSize - recipeListSize);
 	}
 
 	private static void initGardenOfGlass() {

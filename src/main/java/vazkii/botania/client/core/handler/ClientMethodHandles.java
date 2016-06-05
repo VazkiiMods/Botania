@@ -3,8 +3,8 @@ package vazkii.botania.client.core.handler;
 import com.google.common.base.Throwables;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
@@ -67,7 +67,7 @@ public final class ClientMethodHandles {
 //            f.setAccessible(true);
 //            equippedProgress_getter = MethodHandles.publicLookup().unreflectGetter(f);
         } catch (IllegalAccessException e) {
-            FMLLog.severe("[Botania]: Couldn't initialize client methodhandles! Things will be broken!");
+            Botania.LOGGER.fatal("Couldn't initialize client methodhandles! Things will be broken!");
             e.printStackTrace();
             throw Throwables.propagate(e);
         }

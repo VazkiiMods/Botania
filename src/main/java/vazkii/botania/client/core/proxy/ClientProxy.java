@@ -30,7 +30,6 @@ import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -103,6 +102,7 @@ import vazkii.botania.client.render.tile.RenderTileTerraPlate;
 import vazkii.botania.client.render.tile.RenderTileTeruTeruBozu;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileAvatar;
@@ -173,8 +173,7 @@ public class ClientProxy extends CommonProxy {
 			PersistentVariableHelper.load();
 			PersistentVariableHelper.save();
 		} catch (IOException e) {
-			FMLLog.severe("Botania's persistent Variables couldn't load!");
-			e.printStackTrace();
+			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
 
 		super.preInit(event);

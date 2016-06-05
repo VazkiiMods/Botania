@@ -4,8 +4,8 @@ import com.google.common.base.Throwables;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import java.lang.invoke.MethodHandle;
@@ -89,7 +89,7 @@ public final class MethodHandles {
             m.setAccessible(true);
             isActivated = publicLookup().unreflect(m);
         } catch (Throwable t) {
-            FMLLog.severe("[Botania]: Couldn't initialize methodhandles! Things will be broken!");
+            Botania.LOGGER.fatal("Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
             throw Throwables.propagate(t);
         }

@@ -34,6 +34,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -60,6 +62,8 @@ public class Botania {
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
 
+	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
@@ -73,7 +77,7 @@ public class Botania {
 		quarkLoaded = Loader.isModLoaded("Quark");
 
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
-		
+
 		proxy.preInit(event);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

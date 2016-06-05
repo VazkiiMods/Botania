@@ -11,8 +11,6 @@
 package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraftforge.fml.common.FMLLog;
-import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -20,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.io.BufferedReader;
@@ -109,13 +108,13 @@ public final class ShaderHelper {
 
 		ARBShaderObjects.glLinkProgramARB(program);
 		if(ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
-			FMLLog.log(Level.ERROR, getLogInfo(program));
+			Botania.LOGGER.error(getLogInfo(program));
 			return 0;
 		}
 
 		ARBShaderObjects.glValidateProgramARB(program);
 		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
-			FMLLog.log(Level.ERROR, getLogInfo(program));
+			Botania.LOGGER.error(getLogInfo(program));
 			return 0;
 		}
 

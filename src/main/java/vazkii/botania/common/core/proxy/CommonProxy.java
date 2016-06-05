@@ -28,7 +28,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -36,7 +35,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import org.apache.logging.log4j.Level;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
@@ -169,7 +167,7 @@ public class CommonProxy {
 				if(page instanceof ITwoNamedPage)
 					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
 			}
-		FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
+		Botania.LOGGER.info("The Lexica Botania has %d words.", words);
 
 		registerDefaultEntityBlacklist();
 	}

@@ -21,13 +21,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLLog;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -208,7 +208,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 					load(props);
 				}
 			} catch (IOException e) {
-				FMLLog.info("[Botania] Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
+				Botania.LOGGER.info("Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
 			}
 			VersionChecker.doneChecking = true;
 		}

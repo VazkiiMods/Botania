@@ -41,10 +41,10 @@ import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
@@ -127,7 +127,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		if(e.isJsonPrimitive() && e.getAsJsonPrimitive().isString()) {
 			return new ModelResourceLocation(e.getAsString());
 		}
-		FMLLog.severe("Expect ModelResourceLocation, got: ", json);
+		Botania.LOGGER.error("Expect ModelResourceLocation, got: ", json);
 		return new ModelResourceLocation("builtin/missing", "missing");
 	}
 

@@ -17,7 +17,6 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 import org.lwjgl.BufferUtils;
@@ -27,6 +26,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -161,7 +161,7 @@ public class MiscellaneousIcons {
         int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
         int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
 
-        FMLLog.info("[Botania]: Dumped atlas %d wide by %d tall%n", width, height);
+        Botania.LOGGER.debug("Dumped atlas %d wide by %d tall%n", width, height);
 
         int pixels = width * height;
         
@@ -191,7 +191,7 @@ public class MiscellaneousIcons {
         try {
             ImageIO.write(bufferedimage, "png", result);
         } catch (IOException e) {
-            FMLLog.warning("[Botania]: Failed to dump debug atlas");
+            Botania.LOGGER.warn("Failed to dump debug atlas");
         }
     }
 
