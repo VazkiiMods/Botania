@@ -1,5 +1,5 @@
 {
-    "__comment": "",
+    "__comment": "Author: wiiv",
     "textures": {
         "layer0": "botania:items/manaBlaster",
         "layer1": "botania:items/manaBlasterColor",
@@ -131,9 +131,9 @@
             "from": [ 9.5, 11.0, 6.0 ], 
             "to": [ 17.5, 12.0, 10.0 ], 
             "faces": {
-                "north": { "texture": "layer1", "uv": [ 0.0, 0.0, 8.0, 5.0 ] },
-                "east": { "texture": "layer1", "uv": [ 0.0, 0.0, 5.0, 5.0 ] },
-                "south": { "texture": "layer1", "uv": [ 0.0, 0.0, 8.0, 5.0 ] }
+                "north": { "texture": "layer1", "uv": [ 0.0, 0.0, 8.0, 5.0 ], "tintindex": 1 },
+                "east": { "texture": "layer1", "uv": [ 0.0, 0.0, 5.0, 5.0 ], "tintindex": 1 },
+                "south": { "texture": "layer1", "uv": [ 0.0, 0.0, 8.0, 5.0 ], "tintindex": 1 }
             }
         },
         {
@@ -161,5 +161,42 @@
                 "down": { "texture": "layer3", "uv": [ 3.0, 0.01, 6.0, 6.5 ], "rotation": 90 }
             }
         }
-    ]
+    ],
+    "display": {
+        "gui": {
+            "rotation": [ 0, -20, -40 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.45, 0.45, 0.45 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 90, 0 ],
+            "translation": [ 0, 2.45, -1.5 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, -90, 0 ],
+            "translation": [ 0, 2.45, -1.5 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 10, 80, -5 ],
+            "translation": [ 0.8, 2.5, 0 ],
+            "scale": [ 0.45, 0.45, 0.45 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 10, -80, 5 ],
+            "translation": [ -1.8, 2.5, 0 ],
+            "scale": [ 0.45, 0.45, 0.45 ]
+        }
+    }
 }
