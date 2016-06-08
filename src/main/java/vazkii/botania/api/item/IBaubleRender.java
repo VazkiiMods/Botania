@@ -13,6 +13,7 @@ package vazkii.botania.api.item;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * A Bauble Item that implements this will be have hooks to render something on
@@ -42,11 +43,14 @@ public interface IBaubleRender {
 		}
 
 		public static void applySneakingRotation() {
-			GlStateManager.rotate(28.64789F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.translate(0F, 0.2F, 0F);
+			GlStateManager.rotate(90F / (float) Math.PI, 1.0F, 0.0F, 0.0F);
 		}
 
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GlStateManager.translate(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.25 : 0), 0);
+			GlStateManager.translate(0, -player.getDefaultEyeHeight(), 0);
+			if (player.isSneaking())
+				GlStateManager.translate(0.25F * MathHelper.sin(player.rotationPitch * (float) Math.PI / 180), 0.25F * MathHelper.cos(player.rotationPitch * (float) Math.PI / 180), 0F);
 		}
 
 	}
@@ -61,7 +65,7 @@ public interface IBaubleRender {
 
 		/**
 		 * Render Type for the player's body, translations apply on the player's head rotations.
-		 * Sneaking is not handled and should be done during the render.~
+		 * Sneaking is not handled and should be done during the render.
 		 * @see IBaubleRender.Helper
 		 */
 		HEAD;
