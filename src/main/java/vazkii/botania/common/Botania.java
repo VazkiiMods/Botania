@@ -83,22 +83,11 @@ public class Botania {
 	}
 
 	@SubscribeEvent
-	public void nagUnofficial(PlayerEvent.PlayerLoggedInEvent evt) {
+	public void nagRemoval(PlayerEvent.PlayerLoggedInEvent evt) {
 		EntityPlayer player = evt.player;
-
 		ITextComponent message = new TextComponentTranslation("botaniamisc.unofficial.warnRemove");
 		message.setStyle(new Style().setColor(TextFormatting.RED));
-
-		ITextComponent message2 = new TextComponentTranslation("botaniamisc.unofficial.report");
-		message2.setStyle(new Style().setColor(TextFormatting.YELLOW));
-
-		ITextComponent url = new TextComponentString(" https://github.com/williewillus/Botania/issues");
-		url.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/williewillus/Botania/issues"));
-		url.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("CLICK")));
-
 		player.addChatComponentMessage(message);
-
-		player.addChatComponentMessage(message2.appendSibling(url));
 	}
 
 	@EventHandler

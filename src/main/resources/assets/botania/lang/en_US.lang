@@ -16,7 +16,6 @@ generator.botania-skyblock.info=Not recommended for botania newcomers
 botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.unofficial.warnRemove=[Botania] Warning: Some decorative blocks are being removed, please migrate to either the vanilla or Quark versions.
-botaniamisc.unofficial.report=[Botania] This port is unofficial! Report issues to the porter HERE:
 
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
