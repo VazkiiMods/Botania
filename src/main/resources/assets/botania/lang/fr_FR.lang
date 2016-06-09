@@ -9,7 +9,7 @@
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Jardin de verre
-generator.botania-skyblock.info=Non recommendé pour les débutants de botania
+generator.botania-skyblock.info=Non recommandé pour les débutants de botania
 
 botaniamisc.nextPage=Page suivante
 botaniamisc.prevPage=Page précédante
@@ -21,7 +21,7 @@ botaniamisc.statusUnknown=Statut inconnu
 botaniamisc.color=%s teinté
 botaniamisc.manaUsage=Utilisation de mana
 botaniamisc.shiftToRead=Maj-cliquez droit pour lire plus
-botaniamisc.clickToRecipe=Maj-cliquez vour voir la recette
+botaniamisc.clickToRecipe=Maj-cliquez pour voir la recette
 botaniamisc.clickToIndex=Maj-cliquez pour l'index
 botaniamisc.flareColor=%s tours
 botaniamisc.outputtingPower=Partage le mana aux éléments
@@ -32,7 +32,7 @@ botaniamisc.compositeLens=Composé avec %s
 botaniamisc.filter0=Ramassage seulement des éléments en cadres
 botaniamisc.filter1=Ramassage seulement des éléments hors cadres
 botaniamisc.filter2=Ramassage de tous les éléments
-botaniamisc.creativePool0=Bassin de mana créatif, a du mana à l'infini
+botaniamisc.creativePool0=Bassin de mana créatif, possède du mana à l'infini
 botaniamisc.creativePool1=Digne d'un égoïste
 botaniamisc.savedByLaurel=Votre couronne de laurier d'or vole en éclats, dès qu'elle vous sauve de la mort.
 botaniamisc.toolRank=%s&7 rang
@@ -62,7 +62,7 @@ botaniamisc.lexiconIndex=Index du lexique
 botaniamisc.hasIvy=A lierre éternel
 botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" a partagé un ","color":"blue"},{"text":"Lexique Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Vous pouvez le créer avec un livre et une pousse d'arbre !","color":"aqua"}}},{"text":" entrée, cliquez pour la voir : ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Cliquez pour lire ceci","color":"aqua"}}}]
 botaniamisc.noLexicon=Vous avez besoin d'un Lexique Botania en main pour lire ceci.
-botaniamisc.cantOpen=Il ne semble pas que votre Lexique Botania ai cette page. Il provient peut-être d'une source extérieure...?
+botaniamisc.cantOpen=Il ne semble pas que votre Lexique Botania contient cette page. Il provient peut-être d'une source extérieure...?
 botaniamisc.clickToShare=Partagez
 botaniamisc.drop=Jeter
 botaniamisc.dropTip0=Aide: Vous pouvez appuyer %s dans votre inventaire pour jeter
@@ -71,7 +71,7 @@ botaniamisc.wandMode.bind=Mode de liaison
 botaniamisc.wandMode.function=Mode de fonction
 botaniamisc.playVideo=Jouer la vidéo
 botaniamisc.brewOf=Brassage de %s
-botaniamisc.needsCatalysts=Qu'importe la force avec laquelle vous essayez depoussez le lingot dans la balise, rien ne semble arriver, peut-être que la configuration vos pylônes de catalyseur est débranchée.
+botaniamisc.needsCatalysts=Qu'importe la force avec laquelle vous essayez d'insérer le lingot dans la balise, rien ne semble arriver, peut-être que la configuration vos pylônes de catalyseur est débranchée.
 botaniamisc.peacefulNoob=Vous essayez d'offrir le lingot, mais l'ambiance paisible de votre monde vous empêche de faire ainsi. Peut-être devriez-vous faire quelque chose à cela.
 botaniamisc.notInfused=Non infusé
 botaniamisc.getALife=Prennez une vie
@@ -89,17 +89,17 @@ botaniamisc.nearIndex1=Tout ce que vous direz pourra être
 botaniamisc.nearIndex2=intercepte comme demande
 botaniamisc.startTutorial=Débuter le tutoriel
 botaniamisc.tutorialStarted=Vous avez débuté le tutoriel. Veuillez suivre les flêches rouges et lire le contenu afin d'être guidé à travers les fondements de Botania!
-botaniamisc.tutorialEnded=Le tutoriel est terminé. Vous devez maintenant avoir une idée sur le fonctionnement de Botania, assurez-vous d'avoir lu les autres pages afin de découvrir d'autres manière d'utiliser le mod.
+botaniamisc.tutorialEnded=Le tutoriel est terminé. Vous devez maintenant avoir une idée sur le fonctionnement de Botania, assurez-vous d'avoir lu les autres pages afin de découvrir d'autres manières d'utiliser le mod.
 botaniamisc.cosmeticBauble=&oCosmétique
 botaniamisc.hasCosmetic=&oA un ajout cosmétique: &r%s
 botaniamisc.typeToSearch=(texte à rechercher)
-botaniamisc.viewOnline=Visionnez en ligne
+botaniamisc.viewOnline=Visionner en ligne
 botaniamisc.history=Histoire
-botaniamisc.historyLong=Consultez l'histoire
-botaniamisc.historyDesc=Voyez les dernières entrées vititées
+botaniamisc.historyLong=Consulter l'histoire
+botaniamisc.historyDesc=Voir les dernières entrées visitées
 botaniamisc.lexiconOptions0=Options de Botania 
-botaniamisc.lexiconOptions1=Configurez Botania depuis le jeu
-botaniamisc.lexiconOptions2=Quelques options réclameront la relance du jeu
+botaniamisc.lexiconOptions1=Configurer Botania depuis le jeu
+botaniamisc.lexiconOptions2=Quelques options réclameront le redémarrage du jeu
 botaniamisc.hasPhantomInk=&bcamoufflé par de l'encre sympatique
 botaniamisc.pinkinatorDesc=S'applique directement au Wither.
 botaniamisc.relicUnbound=&6Relique&7, déliée
@@ -112,7 +112,7 @@ botaniamisc.blocksAway=%s Blocs plus loin
 botaniamisc.clickToTeleport=Cliquez-droit pour téléporter
 botaniamisc.clickToRemoveWarp=Maj-cliquez-gauche pour retirer
 botaniamisc.unboundWarp=Délier un point de déformation
-botaniamisc.clickToAddWarp=Cliquez-droit pour lier à cette position
+botaniamisc.clickToAddWarp=Cliquer-droit pour lier à cette position
 botaniamisc.hasKeepIvy=A un lierre résolu
 botaniamisc.active=&aActive
 botaniamisc.inactive=&cInactive
@@ -122,11 +122,11 @@ botaniamisc.hourglassLock=Ce sablier est verrouillé. Cliquez-droit dessus avec 
 botaniamisc.locked=Verrouillé
 botaniamisc.stopped=Arrêté
 botaniamisc.lockedStopped=Verrouillé, Arrêté
-botaniamisc.visualize=Visualisez
-botaniamisc.unvisualize=Dévisualisez
+botaniamisc.visualize=Visualiser
+botaniamisc.unvisualize=Dévisualiser
 botaniamisc.rightClickToAnchor=Cliquez-droit n'importe quel bloc pour ancrer cette apercu de structure à cela.
 botaniamisc.structureComplete=Structure complété !
-botaniamisc.materialsRequired=Materiaux requis
+botaniamisc.materialsRequired=Matériaux requis
 botaniamisc.challenges=Défis
 botaniamisc.markCompleted=Marque complété
 botaniamisc.markNotCompleted=Marque non complété
@@ -211,7 +211,7 @@ botania.armorset.terrasteel.name=Volonté des ancients
 botania.armorset.terrasteel.desc0=20% de mana en moins sur les outils à mana
 botania.armorset.terrasteel.desc1=Régénère même si la faim n'est pas complète
 botania.armorset.will0.desc=Les coups critiques appliquent un fort effet de faiblesse (Volonté d'Ahrim)
-botania.armorset.will1.desc=Les dégâts de coup critiques augmentent avec l'HP inférieur (Volonté de Dharok)
+botania.armorset.will1.desc=Les dégâts de coup critiques augmentent avec de faibles PV (Volonté de Dharok)
 botania.armorset.will2.desc=Les coups critiques guérissent une partie de dégâts reçus (Volonté de Guthan)
 botania.armorset.will3.desc=Les coups critiques appliquent un fort effet de lenteur (Volonté de Torag)
 botania.armorset.will4.desc=Les coups critiques transpercent l'armure (Volonté de Verac)
@@ -249,7 +249,7 @@ lexicon.render.3D=Rendu 3D du lexique
 manaBar.height=Hauteur de la barre de mana
 powerSystem.subtle=Use Subtle Power System
 pylonModel.old=Utiliser l'ancien modèle de pylône
-elfPortal.particles.enabled=Activer Portal Particles
+elfPortal.particles.enabled=Activer les particules des portails elfiques
 chargeAnimation.enabled=Animation de chargement activée
 vanillaParticleConfig.enabled=Utiliser la config des particules Vanilla
 manaSpreaders.silent=Diffuseurs de mana silencieux
@@ -267,24 +267,24 @@ worldgen.mushroom.quantity=Quantité de génération de champignons
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA EST OBSOLETE!?
-botania.versioning.flavour1=Que voulez-vous dire par Botania est obsolète, ignard personnage?
+botania.versioning.flavour1=Que voulez-vous dire par Botania est obsolète, fou ignorant ?
 botania.versioning.flavour2=Ce n'est pas comme si Botania souhaitait devenir obsolète, b-b-BAKA!
-botania.versioning.flavour3=Téléportez-moi Scotty. Nous avons une nouvelle version de Botaina.
-botania.versioning.flavour4=La mise à jour de Botania update demande si vous avez accepté Vazkii en tant que seigneur et sauveur.
+botania.versioning.flavour3=Téléportez-moi Scotty. Nous avons une nouvelle version de Botania.
+botania.versioning.flavour4=La mise à jour de Botania demande si vous avez accepté Vazkii en tant que seigneur et sauveur.
 botania.versioning.flavour5=Hey, une mise à jour de Botania, c'est rare, n'est-ce pas?
 botania.versioning.flavour6=Que pense le scout à propos de la mise à jour de Botania?
-botania.versioning.flavour7=Hey dude, il y a une novuelle mise à jour de Botania. Why am I australian?
-botania.versioning.flavour8=Comme avoir une vie est dépassé, voici une mise à jour de Botania.
+botania.versioning.flavour7=Hey chéri, il y a une nouvelle mise à jour de Botania. Why am I australian?
+botania.versioning.flavour8=Comme n'avoir qu'une vie est dépassé, voici une mise à jour de Botania.
 botania.versioning.flavour9=Mise à jour Botania basée sur le remerciement.
 botania.versioning.flavour10=200 mises à jour, c'est pour cela qu'on m'appelle Mister Fahrenheit.
 botania.versioning.flavour11=Perry l'ornithorinque, permets moi de te présenter le Botania-MaJ-inator.
 botania.versioning.flavour12=Botania mis à jour. #hoennconfirmed
 botania.versioning.flavour13=Tu as activé ma Carte Piège! Je joue Mise à Jour de Botania !
-botania.versioning.flavour14=Jouons à un drinking game, buvons un verre à chaque mise à jour de Botania. *hic*
+botania.versioning.flavour14=Jouons à un jeu à boire, buvons un verre à chaque mise à jour de Botania. *hic*
 botania.versioning.flavour15=Ne faites pas attention à la mise à jour de Botania derrière les rideaux.
 botania.versioning.flavour16=Tu reçois une mise à jour ! Tu reçois une mise à jour ! TOUT LE MONDE RECOIT UNE MISE A JOUR ! 
 botania.versioning.flavour17=Your build's unbalanced and your hair's a Kuriboh! Hey. Hoo. 
-botania.versioning.flavour18=WhY iS tHiS uPdAtE mEsSaGe CaSeD lIkE tHiS!? 
+botania.versioning.flavour18=PoUrQuOi La NoTiFiCaTiOn De MiSe à JoUr S'aFfIcHe CoMmE çA !?
 botania.versioning.flavour19=Afin de mettre à jour Botania vous devez accepter les conditions d'utilisation. 
 botania.versioning.flavour20=wow such botania so update much fix very content 
 botania.versioning.flavour21=Cette mise à jour de Botania va s'auto-détruire dans 3...2...
@@ -299,7 +299,7 @@ botania.versioning.flavour29=Mets-le à jour, mets-le à jour, mets-le à jour, 
 botania.versioning.flavour30=Botania utilise Mise à Jour ! C'est super efficace ! 
 botania.versioning.flavour31=Une nouvelle mise à jour de Botania est disponible, 20% plus fraîche.
 botania.versioning.flavour32=Félicitations ! Tu es le 100'000ème joueur de Botania ayant une version obsolète, cliquez ICI pour un iPad gratuit!
-botania.versioning.flavour33=Avant de mette à jour Botania, souhaitez-vous insViverochethe la barre de recherche Ask?
+botania.versioning.flavour33=Avant de mettre à jour Botania, souhaitez-vous insViverochethe la barre de recherche Ask?
 botania.versioning.flavour34=Back on the Botania update treadmill. No fun required. #angbadang
 botania.versioning.flavour35=Souhaite-tu devenir une magicienne pour la mise à jour de Botania ?
 botania.versioning.flavour36=Pourquoi la mise à jour de Botania à traversée la route ? Pour passer du côté client.
@@ -326,9 +326,9 @@ botania.versioning.error=Woah! It seems like something went wrong while trying t
 botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
 
 # BAUBLE TOOLTIPS
-botania.baubletype.amulet=Équipable dans l'emplacement &aAmulet&7
-botania.baubletype.ring=Équipable dans l'emplacement &aRing&7
-botania.baubletype.belt=Équipable dans l'emplacement &aBelt&7
+botania.baubletype.amulet=A équiper dans l'emplacement &aAmulet&7
+botania.baubletype.ring=A équiper dans l'emplacement &aRing&7
+botania.baubletype.belt=A équiper dans l'emplacement &aBelt&7
 botania.baubletooltip=Appuyez &b%s&7 pour ouvrir le menu Baubles
 
 # DEATH MESSAGES
@@ -345,7 +345,7 @@ entity.Botania.botania:magicLandmine.name=Piège de Gaïa
 entity.Botania.botania:spark.name=Étincelle
 entity.Botania.botania:thrownItem.name=Élément jeté
 entity.Botania.botania:magicMissile.name=Missile magique
-entity.Botania.botania:thornChakram.name=Thorn Chakram
+entity.Botania.botania:thornChakram.name=Chakram d'épines
 entity.Botania.botania:corporeaSpark.name=Étincelle de Corporea
 entity.Botania.botania:enderAirBottle.name=Bouteille d'air du néant
 entity.Botania.botania:poolMinecart.name=Wagonnet à bassin de mana
@@ -359,7 +359,7 @@ achievement.botania:EndoflammePickup=Arrivée de l'aube
 achievement.botania:daybloomPickup.desc=Faite une Fleur de jour dans l'apoticaire de pétale
 achievement.botania:manaPoolPickup=Vague vive
 achievement.botania:manaPoolPickup.desc=Améliorez un bassin de mana dilué à un normal
-achievement.botania:endoflamePickup=Fussion
+achievement.botania:endoflamePickup=Fusion
 achievement.botania:endoflamePickup.desc=Faite une Endoflamme pour augmenter la production de mana
 achievement.botania:tinyPotatoPet=Soyons juste amis
 achievement.botania:tinyPotatoPet.desc=Faites d'une minuscule pomme de terre votre animal de compagnie
@@ -367,7 +367,7 @@ achievement.botania:sparkCraft=Énergie directe
 achievement.botania:sparkCraft.desc=Faites une étincelle pour aider à transférer le mana autour
 achievement.botania:baubleWear=Arts intérieurs
 achievement.botania:baubleWear.desc=Faite n'importe quelle variété de Bibelot et portez-les
-achievement.botania:manaCookieEat=Hérésie pourrie et chocolat
+achievement.botania:manaCookieEat=Hérésie accablante et chocolat
 achievement.botania:manaCookieEat.desc=Infusez et mangez un délicieux cookie de mana
 achievement.botania:runePickup=Poupée Lilium
 achievement.botania:runePickup.desc=Utilisez l'autel runique pour créer une rune
@@ -389,15 +389,15 @@ achievement.botania:heiseiDreamPickup=Cataclysme Heisei
 achievement.botania:heiseiDreamPickup.desc=Créez un rève Heisei pour provoquer des ravage sur les créatures
 achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=Fabriquez un dil- euh... Baton des landes
-achievement.botania:spawnerMoverUse=je ne peux pas lever mon (censuré)
-achievement.botania:spawnerMoverUse.desc=Utilisez un aggrégateur de vie pour transporter une cage de monstre
+achievement.botania:spawnerMoverUse=Je ne peux pas lever mon (censuré)
+achievement.botania:spawnerMoverUse.desc=Utilisez un aggrégateur de vie pour transporter un générateur de monstre
 achievement.botania:enderAirMake=Imitation à l'air
 achievement.botania:enderAirMake.desc=Récupérez une bouteille d'air du néant
-achievement.botania:corporeaCraft=Poser boissons et friandises
+achievement.botania:corporeaCraft=Jeter des boissons gazeuses et des friandises
 achievement.botania:corporeaCraft.desc=Fabriquez un bloc qui servira au réseau Corporea
 
 achievement.botania:signalFlareStun=Voyez les lumières
-achievement.botania:signalFlareStun.desc=Aveugnez 100 créatures ou plus d'un coup avec une fusée de détresse
+achievement.botania:signalFlareStun.desc=Aveuglez 100 créatures ou plus d'un coup avec une fusée de détresse
 
 # BLOCK NAMES# CHALLENGE LEVELS
 botania.challengelevel.easy=Facile
@@ -407,7 +407,7 @@ botania.challengelevel.lunatic=Lunatique
 
 # CHALLENGE TEXT
 botania.challenge.flowerFarm=Ferme de fleurs
-botania.challenge.flowerFarm.desc=Créez une ferme automatisée des 16 couleurs complètes de fleurs botania flowers. Point bonus si les fleurs sont triées.
+botania.challenge.flowerFarm.desc=Créer une ferme automatisée des 16 couleurs complètes de fleurs botania flowers. Point bonus si les fleurs sont triées.
 botania.challenge.recordFarm=Ferme de disques
 botania.challenge.reedFarm=Ferme de canne à sucre
 botania.challenge.cobbleGen=Générateur de pierre
@@ -1374,7 +1374,7 @@ botania.entry.arcanerose=Rosa Arcana
 
 # -- CONJURING WITH MANA
 botania.entry.manaConjuration=Conjurer avec le mana
-botania.page.manaConjuration0=Similaira  à la capacité de &4Alchemie avec le mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
+botania.page.manaConjuration0=Similaire à la capacité de &4Alchemie avec le mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
 botania.page.manaConjuration1=Creating the catalyst
 botania.page.manaConjuration2=Conjurer la &1Redstone&0
 botania.page.manaConjuration3=Conjurer la &1Glowstone&0
@@ -1389,7 +1389,7 @@ botania.page.manaConjuration10=Conjurer les  &1Feuilles&0
 # -- SPECTRAL RAIL
 botania.entry.ghostRail=Rail spectral
 botania.page.ghostRail0=Utiliser une &1Plateforme spectral&0 comme un composant de &1Rail&0 donne quelques habilités interressantes au &1Chariot&0 qui passerai à travers lui : lorsqu'il est éjecté de ce rail, le chariot flotte un instant, il sera aussi capable de passer à travers les murs.<br>Cet effet s'arrêtera si le chariot atterri sur un rail ou rentre en collision avec n'importe quelle variété de &1Boisrève&0.
-botania.page.ghostRail1=Voie de l'esprit, pourriez-vous dire
+botania.page.ghostRail1=Voie de l'esprit, vous pourriez dire
 
 # -- DRUM OF THE CANOPY  
 botania.entry.canopyDrum=Tambour de la canopée  
@@ -1400,14 +1400,14 @@ botania.page.canopyDrum1=Émondage avec style
 # -- MANA BLASTER
 botania.entry.manaBlaster=Exploseur de mana
 
-# -- ROD OF BIFROST
+# -- BÂTON DU BIFROST
 botania.entry.rainbowRod=Bâton du Bifrost
 
-# -- ROD OF THE SKIES
+# -- BÂTON DES CIEUX
 botania.entry.tornadoRod=Bâton des cieux
 
-# -- ROD OF THE HELLS
+# -- BÂTON DES ENFERS
 botania.entry.fireRod=Bâton des enfers
 
-# -- ROD OF THE HIGHLANDS
+# -- BÂTON DES HAUTES TERRES
 botania.entry.skyDirtRod=Bâton des hautes-terres
