@@ -14,15 +14,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -73,7 +76,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 
-		/*addPropertyOverride(new ResourceLocation("botania", "clip"), new IItemPropertyGetter() {
+		addPropertyOverride(new ResourceLocation("botania", "clip"), new IItemPropertyGetter() {
 			@Override
 			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return hasClip(itemStack) ? 1 : 0;
@@ -84,7 +87,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 				return isSugoiKawaiiDesuNe(itemStack) ? 1 : 0;
 			}
-		})*/;
+		});
 	}
 
 	@Nonnull

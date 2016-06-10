@@ -3,14 +3,13 @@
     "textures": {
         "layer0": "botania:items/manaBlaster",
         "layer1": "botania:items/manaBlasterColor",
-        "layer2": "botania:items/manaBlasterGlass",
-        "layer3": "botania:items/manaBlasterLensClip"
+        "layer2": "botania:items/manaBlasterGlass"
     },
     "elements": [
         {
             "name": "Barrel1",
-            "from": [ -10.0, 5.0, 5.5 ], 
-            "to": [ -3.0, 14.0, 10.5 ], 
+            "from": [ -10.0, 5.0, 5.5 ],
+            "to": [ -3.0, 14.0, 10.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 0.0, 7.01, 3.5, 11.49 ] },
                 "east": { "texture": "layer0", "uv": [ 6.0, 7.0, 8.5, 11.5 ] },
@@ -22,8 +21,8 @@
         },
         {
             "name": "Barrel2",
-            "from": [ -3.0, 5.0, 5.5 ], 
-            "to": [ 7.0, 9.0, 10.5 ], 
+            "from": [ -3.0, 5.0, 5.5 ],
+            "to": [ 7.0, 9.0, 10.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 11.01, 14.0, 15.99, 15.99 ] },
                 "south": { "texture": "layer0", "uv": [ 16.0, 14.0, 11.0, 16.0 ] },
@@ -33,8 +32,8 @@
         },
         {
             "name": "Barrel3",
-            "from": [ 7.0, 5.0, 5.5 ], 
-            "to": [ 10.0, 14.0, 10.5 ], 
+            "from": [ 7.0, 5.0, 5.5 ],
+            "to": [ 10.0, 14.0, 10.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 0.0, 11.5, 1.5, 16.0 ] },
                 "east": { "texture": "layer0", "uv": [ 1.5, 11.5, 4.0, 16.0 ] },
@@ -46,8 +45,8 @@
         },
         {
             "name": "Barrel4",
-            "from": [ 10.0, 12.0, 5.5 ], 
-            "to": [ 18.0, 14.0, 10.5 ], 
+            "from": [ 10.0, 12.0, 5.5 ],
+            "to": [ 18.0, 14.0, 10.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 4.01, 14.5, 8.0, 15.5 ] },
                 "east": { "texture": "layer0", "uv": [ 4.0, 14.5, 6.5, 15.5 ] },
@@ -58,8 +57,8 @@
         },
         {
             "name": "Barrel5",
-            "from": [ 10.0, 9.0, 5.5 ], 
-            "to": [ 18.0, 11.0, 10.5 ], 
+            "from": [ 10.0, 9.0, 5.5 ],
+            "to": [ 18.0, 11.0, 10.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 8.0, 14.5, 4.0, 15.5 ] },
                 "east": { "texture": "layer0", "uv": [ 6.5, 14.5, 4.0, 15.5 ] },
@@ -70,8 +69,8 @@
         },
         {
             "name": "Strap",
-            "from": [ 14.0, -5.0, 6.5 ], 
-            "to": [ 19.0, 9.0, 9.5 ], 
+            "from": [ 14.0, -5.0, 6.5 ],
+            "to": [ 19.0, 9.0, 9.5 ],
             "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "z", "angle": 22.5 },
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 0.0, 0.01, 2.5, 6.99 ] },
@@ -83,8 +82,8 @@
         },
         {
             "name": "Magazine",
-            "from": [ 12.5, -6.0, 7.0 ], 
-            "to": [ 18.5, -5.0, 9.0 ], 
+            "from": [ 12.5, -6.0, 7.0 ],
+            "to": [ 18.5, -5.0, 9.0 ],
             "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "z", "angle": 22.5 },
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 7.5, 0.0, 8.0, 3.0 ], "rotation": 90 },
@@ -97,8 +96,8 @@
         },
         {
             "name": "Trigger Guard1",
-            "from": [ 10.0, 6.0, 7.0 ], 
-            "to": [ 16.0, 7.0, 9.0 ], 
+            "from": [ 10.0, 6.0, 7.0 ],
+            "to": [ 16.0, 7.0, 9.0 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 5.5, 3.01, 8.5, 3.5 ] },
                 "south": { "texture": "layer0", "uv": [ 5.5, 3.01, 8.5, 3.49 ] },
@@ -108,8 +107,8 @@
         },
         {
             "name": "Trigger",
-            "from": [ 13.0, 7.0, 7.5 ], 
-            "to": [ 16.0, 9.0, 8.5 ], 
+            "from": [ 13.0, 7.0, 7.5 ],
+            "to": [ 16.0, 9.0, 8.5 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 5.5, 5.0, 6.5, 6.0 ] },
                 "south": { "texture": "layer0", "uv": [ 5.5, 5.0, 6.5, 6.0 ] },
@@ -118,8 +117,8 @@
         },
         {
             "name": "Trigger Guard2",
-            "from": [ 10.0, 7.0, 7.0 ], 
-            "to": [ 11.0, 9.0, 9.0 ], 
+            "from": [ 10.0, 7.0, 7.0 ],
+            "to": [ 11.0, 9.0, 9.0 ],
             "faces": {
                 "north": { "texture": "layer0", "uv": [ 5.5, 4.0, 6.0, 5.0 ] },
                 "east": { "texture": "layer0", "uv": [ 5.5, 4.0, 6.5, 5.0 ] },
@@ -128,8 +127,8 @@
         },
         {
             "name": "Colorizer",
-            "from": [ 9.5, 11.0, 6.0 ], 
-            "to": [ 17.5, 12.0, 10.0 ], 
+            "from": [ 9.5, 11.0, 6.0 ],
+            "to": [ 17.5, 12.0, 10.0 ],
             "faces": {
                 "north": { "texture": "layer1", "uv": [ 0.0, 0.0, 8.0, 5.0 ], "tintindex": 1 },
                 "east": { "texture": "layer1", "uv": [ 0.0, 0.0, 5.0, 5.0 ], "tintindex": 1 },
@@ -138,27 +137,14 @@
         },
         {
             "name": "Glass",
-            "from": [ -3.5, 9.5, 6.0 ], 
-            "to": [ 7.5, 13.5, 10.0 ], 
+            "from": [ -3.5, 9.5, 6.0 ],
+            "to": [ 7.5, 13.5, 10.0 ],
             "faces": {
                 "north": { "texture": "layer2", "uv": [ 0.01, 7.01, 6.99, 7.99 ] },
                 "east": { "texture": "layer2", "uv": [ 7.01, 7.01, 9.49, 7.99 ] },
                 "south": { "texture": "layer2", "uv": [ 6.99, 7.01, 0.01, 7.99 ] },
                 "up": { "texture": "layer2", "uv": [ 11.01, 0.01, 13.49, 6.99 ] },
                 "down": { "texture": "layer2", "uv": [ 8.51, 0.01, 6.99, 9.99 ] }
-            }
-        },
-        {
-            "name": "Clip",
-            "from": [ -4.5, 2.0, 5.0 ], 
-            "to": [ 8.5, 8.0, 11.0 ], 
-            "faces": {
-                "north": { "texture": "layer3", "uv": [ 0.01, 6.51, 6.5, 9.49 ] },
-                "east": { "texture": "layer3", "uv": [ 6.01, 0.0, 9.0, 3.0 ] },
-                "south": { "texture": "layer3", "uv": [ 6.5, 6.5, 0.01, 9.5 ] },
-                "west": { "texture": "layer3", "uv": [ 6.0, 3.0, 9.0, 6.0 ] },
-                "up": { "texture": "layer3", "uv": [ 0.0, 0.01, 3.0, 6.5 ], "rotation": 90 },
-                "down": { "texture": "layer3", "uv": [ 3.0, 0.01, 6.0, 6.5 ], "rotation": 90 }
             }
         }
     ],
@@ -198,5 +184,26 @@
             "translation": [ -1.8, 2.5, 0 ],
             "scale": [ 0.45, 0.45, 0.45 ]
         }
-    }
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "botania:clip": 1
+            },
+            "model": "botania:item/manaGunClip"
+        },
+        {
+            "predicate": {
+                "botania:desu": 1
+            },
+            "model": "botania:item/desuGun"
+        },
+        {
+            "predicate": {
+                "botania:desu": 1,
+                "botania:clip": 1
+            },
+            "model": "botania:item/desuGunClip"
+        }
+    ]
 }
