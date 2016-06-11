@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 22, 2015, 2:01:01 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
@@ -44,8 +44,19 @@ import java.util.List;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
+	private enum Variants {
+		BLACK_BOWTIE, BLACK_TIE, RED_GLASSES, PUFFY_SCARF,
+		ENGINEER_GOGGLES, EYEPATCH, WICKED_EYEPATCH, RED_RIBBONS,
+		PINK_FLOWER_BUD, POLKA_DOTTED_BOWS, BLUE_BUTTERFLY, CAT_EARS,
+		WITCH_PIN, DEVIL_TAIL, KAMUI_EYE, GOOGLY_EYES,
+		FOUR_LEAF_CLOVER, CLOCK_EYE, UNICORN_HORN, DEVIL_HORNS,
+		HYPER_PLUS, BOTANIST_EMBLEM, ANCIENT_MASK, EERIE_MASK,
+		ALIEN_ANTENNA, ANAGLYPH_GLASSES, ORANGE_SHADES, GROUCHO_GLASSES,
+		THICK_EYEBROWS, LUSITANIC_SHIELD, TINY_POTATO_MASK, QUESTGIVER_MARK
+	}
+
 	private static final int SUBTYPES = 32;
-	private final ItemStack renderStack;
+	private ItemStack renderStack;
 
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
@@ -85,243 +96,216 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		if(type == RenderType.HEAD) {
+
+		renderStack = stack;
+
+		if (stack.getItemDamage() >= 32 || stack.getItemDamage() < 0) return;
+		Variants variant = Variants.values()[stack.getItemDamage()];
+
+		if (type == RenderType.HEAD) {
 			Helper.translateToHeadLevel(player);
-			switch(stack.getItemDamage()) {
-			case 2:
-				faceTranslate();
-				GlStateManager.translate(0F, 0F, 0.045F);
-				renderIcon(2);
-				break;
-			case 4:
-				faceTranslate();
-				GlStateManager.translate(0F, 0F, 0.045F);
-				renderIcon(4);
-				break;
-			case 5:
-				faceTranslate();
-				scale(0.35F);
-				GlStateManager.translate(-0.3F, 0.2F, -0.5F);
-				renderIcon(5);
-				break;
-			case 6:
-				faceTranslate();
-				scale(0.45F);
-				GlStateManager.translate(0.2F, 0.2F, -0.4F);
-				renderIcon(6);
-				break;
-			case 7:
-				faceTranslate();
-				scale(0.9F);
-				GlStateManager.translate(0F, -0.4F, -0.42F);
-				renderIcon(7);
-				break;
-			case 8:
-				faceTranslate();
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
-				GlStateManager.translate(0F, 0.1F, -0.2F);
-				renderIcon(8);
-				break;
-			case 9:
-				faceTranslate();
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
-				GlStateManager.translate(0F, 0.1F, -0.1F);
-				renderIcon(9);
-				GlStateManager.translate(0F, -0.45F, 0F);
-				renderIcon(9);
-				break;
-			case 10:
-				faceTranslate();
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
-				scale(0.6F);
-				GlStateManager.translate(0F, 0.25F, -0.4F);
+			Helper.translateToFace();
+			Helper.defaultTransforms();
+			switch (variant) {
+				case RED_GLASSES:
+					GlStateManager.scale(1.25, 1.25, 1.25);
+					GlStateManager.translate(0F, -0.085F, 0.045F);
+					renderItem();
+					break;
+				case ENGINEER_GOGGLES:
+					GlStateManager.scale(1.25, 1.25, 1.25);
+					GlStateManager.translate(0F, -0.085F, 0.045F);
+					renderItem();
+					break;
+				case EYEPATCH:
+					scale(0.55F);
+					GlStateManager.translate(-0.45F, -0.25F, 0F);
+					renderItem();
+					break;
+				case WICKED_EYEPATCH:
+					scale(0.55F);
+					GlStateManager.translate(0.45F, -0.25F, 0F);
+					renderItem();
+					break;
+				case RED_RIBBONS:
+					scale(0.9F);
+					GlStateManager.translate(0F, 0.75F, 1F);
+					renderItem();
+					break;
+				case PINK_FLOWER_BUD:
+					GlStateManager.rotate(-90F, 0F, 1F, 0F);
+					GlStateManager.translate(0.4F, 0.6F, 0.45F);
+					renderItem();
+					break;
+				case POLKA_DOTTED_BOWS:
+					GlStateManager.rotate(-90F, 0F, 1F, 0F);
+					GlStateManager.translate(0.65F, 0.3F, 0.5F);
+					renderItem();
+					GlStateManager.translate(0F, 0F, -1F);
+					renderItem();
+					break;
+				case BLUE_BUTTERFLY:
+					GlStateManager.translate(-0.75F, 0.1F, 1F);
+					GlStateManager.pushMatrix();
+					GlStateManager.rotate(45F, 0F, 1F, 0F);
+					renderItem();
+					GlStateManager.popMatrix();
 
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(-0.2F, 0.15F, 0F);
-				GlStateManager.rotate(-45F, 0F, 0F, 1F);
-				renderIcon(10);
-				GlStateManager.popMatrix();
-
-				GlStateManager.translate(0.15F, 0.3F, 0F);
-				GlStateManager.rotate(-135F, 0F, 0F, 1F);
-				renderIcon(10);
-				break;
-			case 11:
-				faceTranslate();
-				scale(0.6F);
-				GlStateManager.translate(0F, 0F, -0.55F);
-				renderIcon(11);
-				break;
-			case 15:
-				faceTranslate();
-				GlStateManager.translate(-0.01F, 0F, 0.05F);
-				renderIcon(15);
-				break;
-			case 17:
-				faceTranslate();
-				scale(0.35F);
-				GlStateManager.translate(0.25F, 0.2F, -0.60F);
-				renderIcon(17);
-				break;
-			case 18:
-				faceTranslate();
-				scale(0.75F);
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
-				GlStateManager.translate(-0.2F, -0.15F, -0.5F);
-				renderIcon(18);
-				break;
-			case 19:
-				faceTranslate();
-				scale(0.6F);
-				GlStateManager.translate(0F, 0F, -0.5F);
-				renderIcon(19);
-				break;
-			case 20:
-				faceTranslate();
-				scale(0.25F);
-				GlStateManager.translate(-0.7F, 0.3F, -1.5F);
-				renderIcon(20);
-				GlStateManager.translate(1.4F, 0F, 0F);
-				renderIcon(20);
-				break;
-			case 22:
-				faceTranslate();
-				renderIcon(22);
-				break;
-			case 23:
-				faceTranslate();
-				renderIcon(23);
-				break;
-			case 24:
-				faceTranslate();
-				scale(0.8F);
-				GlStateManager.translate(0F, -0.1F, -0.5F);
-				renderIcon(24);
-				break;
-			case 25:
-				faceTranslate();
-				GlStateManager.translate(0F, 0F, 0.04F);
-				renderIcon(25);
-				break;
-			case 26:
-				faceTranslate();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.color(1F, 1F, 1F, 0.7F);
-				renderIcon(26);
-				break;
-			case 27:
-				faceTranslate();
-				scale(0.90F);
-				GlStateManager.translate(0F, 0F, 0.09F);
-				renderIcon(27);
-				break;
-			case 28:
-				faceTranslate();
-				scale(0.25F);
-				GlStateManager.translate(-0.4F, 0.4F, -1.1F);
-				renderIcon(28);
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.translate(-0.775F, -0.4F, 0.04F);
-				renderIcon(28);
-				break;
-			case 30:
-				faceTranslate();
-				renderIcon(30);
-				break;
-			case 31:
-				faceTranslate();
-				scale(0.8F);
-				GlStateManager.translate(0F, -0.3F, -0.75F);
-				renderIcon(31);
-				break;
+					GlStateManager.translate(0F, 0F, -0.75F);
+					GlStateManager.rotate(-45F, 0F, 1F, 0F);
+					renderItem();
+					break;
+				case CAT_EARS:
+					GlStateManager.translate(0F, 0.25F, 0.25F);
+					renderItem();
+					break;
+				case GOOGLY_EYES:
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GlStateManager.scale(1.5F, 1.5F, 1F);
+					GlStateManager.translate(0F, -0.05F, -0.15F);
+					renderItem();
+					break;
+				case CLOCK_EYE:
+					scale(0.75F);
+					GlStateManager.translate(-0.25F, -0.1F, 0F);
+					GlStateManager.rotate(180F, 0F, 0F, 1F);
+					renderItem();
+					break;
+				case UNICORN_HORN:
+					scale(1.25F);
+					GlStateManager.rotate(-90F, 0F, 1F, 0F);
+					GlStateManager.translate(0F, 0.4F, 0F);
+					renderItem();
+					break;
+				case DEVIL_HORNS:
+					GlStateManager.translate(0F, 0.2F, 0.25F);
+					renderItem();
+					break;
+				case HYPER_PLUS:
+					scale(0.35F);
+					GlStateManager.translate(-0.7F, 1F, -0.5F);
+					renderItem();
+					GlStateManager.translate(1.45F, 0F, 0F);
+					renderItem();
+					break;
+				case ANCIENT_MASK:
+					scale(1.25F);
+					GlStateManager.translate(0F, 0.025F, 0.01F);
+					renderItem();
+					break;
+				case EERIE_MASK:
+					renderItem();
+					break;
+				case ALIEN_ANTENNA:
+					scale(0.9F);
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GlStateManager.translate(0F, 0.75F, -1F);
+					renderItem();
+					break;
+				case ANAGLYPH_GLASSES:
+					scale(1.25F);
+					GlStateManager.translate(0F, -0.025F, 0F);
+					renderItem();
+					break;
+				case ORANGE_SHADES:
+					scale(1.25f);
+					GlStateManager.translate(0F, 0.04F, 0F);
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					GlStateManager.color(1F, 1F, 1F, 0.7F);
+					renderItem();
+					break;
+				case GROUCHO_GLASSES:
+					scale(1.5F);
+					GlStateManager.translate(0F, -0.2125F, 0F);
+					renderItem();
+					break;
+				case THICK_EYEBROWS:
+					scale(0.5F);
+					GlStateManager.translate(-0.4F, 0.05F, 0F);
+					renderItem();
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GlStateManager.translate(-0.775F, 0F, 0F);
+					renderItem();
+					break;
+				case TINY_POTATO_MASK:
+					scale(1.25F);
+					GlStateManager.translate(0F, 0.025F, 0F);
+					renderItem();
+					break;
+				case QUESTGIVER_MARK:
+					scale(0.8F);
+					GlStateManager.translate(0F, 1F, 0.3F);
+					renderItem();
+					break;
 			}
 		} else {
 			Helper.rotateIfSneaking(player);
-			switch(stack.getItemDamage()) {
-			case 0:
-				chestTranslate();
-				renderIcon(0);
-				break;
-			case 1:
-				chestTranslate();
-				GlStateManager.translate(0F, 0F, 0.2F);
-				renderIcon(1);
-				break;
-			case 3:
-				chestTranslate();
-				GlStateManager.translate(0F, 0F, 0.15F);
-				renderIcon(3);
-				break;
-			case 12:
-				chestTranslate();
-				scale(0.225F);
-				GlStateManager.translate(-0.725F, 0.45F, -0.6F);
-				renderIcon(12);
-				break;
-			case 13:
-				chestTranslate();
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
-				GlStateManager.translate(0.33F, -0.15F, 0.55F);
-				renderIcon(13);
-				break;
-			case 14:
-				chestTranslate();
-				scale(0.9F);
-				GlStateManager.translate(0.45F, 0.05F, -0.1F);
-				renderIcon(14);
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.translate(0.9F, -0.25F, 0F);
-				renderKamuiBlack();
-				break;
-			case 16:
-				chestTranslate();
-				scale(0.225F);
-				GlStateManager.translate(0.725F, 0.45F, -0.6F);
-				renderIcon(16);
-				break;
-			case 21:
-				chestTranslate();
-				scale(0.5F);
-				GlStateManager.translate(0F, 0.15F, 0.32F);
-				renderIcon(21);
-				break;
-			case 29:
-				chestTranslate();
-				GlStateManager.translate(0.05F, -0.25F, 0.25F);
-				GlStateManager.rotate(8F, 0F, 1F, 0F);
-				renderIcon(29);
-				break;
+			Helper.translateToChest();
+			Helper.defaultTransforms();
+			switch (variant) {
+				case BLACK_BOWTIE:
+					GlStateManager.translate(0F, 0.15F, 0F);
+					renderItem();
+					break;
+				case BLACK_TIE:
+					GlStateManager.translate(0F, -0.15F, 0F);
+					renderItem();
+					break;
+				case PUFFY_SCARF:
+					GlStateManager.translate(0F, -0.15F, 0F);
+					renderItem();
+					break;
+				case WITCH_PIN:
+					scale(0.35F);
+					GlStateManager.translate(-0.35F, 0.35F, 0.15F);
+					renderItem();
+					break;
+				case DEVIL_TAIL:
+					GlStateManager.rotate(90F, 0F, 1F, 0F);
+					GlStateManager.translate(0.5F, -0.75F, 0F);
+					renderItem();
+					break;
+				case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
+					scale(0.9F);
+					GlStateManager.translate(0.9F, 0.35F, 0F);
+					renderItem();
+					GlStateManager.translate(-1.3F, -0.5F, 0.5F);
+					GlStateManager.rotate(180F, 0F, 0F, 1F);
+					GlStateManager.rotate(180F, 1F, 0F, 0F);
+					renderKamuiBlack();
+					break;
+				case FOUR_LEAF_CLOVER:
+					scale(0.5F);
+					GlStateManager.translate(0.35F, 0.3F, -0.075F);
+					renderItem();
+					break;
+				case BOTANIST_EMBLEM:
+					scale(0.5F);
+					GlStateManager.translate(0F, -0.75F, 0F);
+					renderItem();
+					break;
+				case LUSITANIC_SHIELD:
+					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GlStateManager.translate(0.035F, -0.2F, 0.55F);
+					GlStateManager.rotate(8F, 0F, 0F, 1F);
+					renderItem();
+					break;
 			}
 		}
-	}
-
-	public void faceTranslate() {
-		GlStateManager.rotate(-90F, 0F, 1F, 0F);
-		GlStateManager.rotate(-90F, 1F, 0F, 0F);
-		GlStateManager.scale(1.25F, 1.25F, 1.25F);
-		GlStateManager.translate(0F, 0.10F, 1.45F);
-	}
-
-	public void chestTranslate() {
-		GlStateManager.translate(0F, 0.5F, 0F);
-		GlStateManager.rotate(-90F, 1F, 0F, 0F);
 	}
 
 	public void scale(float f) {
 		GlStateManager.scale(f, f, f);
 	}
 
-	@SuppressWarnings("deprecation")
-	public void renderIcon(int i) {
+	public void renderItem() {
 		GlStateManager.pushMatrix();
-		renderStack.setItemDamage(i);
-		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
+		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.NONE);
 		GlStateManager.popMatrix();
 	}
 
 	public void renderKamuiBlack() {
-		renderStack.setItemDamage(14);
 
 		// Modified copy of RenderItem.renderItem(stack, transformtype)
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -334,9 +318,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
-		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false); // todo 1.9
+		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.NONE, false);
 
-		GlStateManager.translate(-0.5F, -0.1F, -0.4F);
 		this.renderModel(model, renderStack, 0xFF00004C);
 
 		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
@@ -345,7 +328,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.disableBlend();
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
-		//
 	}
 
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param

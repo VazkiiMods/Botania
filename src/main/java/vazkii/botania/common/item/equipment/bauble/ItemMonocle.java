@@ -52,12 +52,15 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
-			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+			Helper.translateToHeadLevel(player);
+			Helper.translateToFace();
+			Helper.defaultTransforms();
+			GlStateManager.rotate(180F, 0F, 1F, 0F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.rotate(90, 0, 0, 1); // todo 1.8 could use some further refinement
-			GlStateManager.translate(2.88F, armor ? -0.75F : -0.63F, 0.62F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this), ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND); // todo 1.9
+			GlStateManager.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 		}
 	}
 
