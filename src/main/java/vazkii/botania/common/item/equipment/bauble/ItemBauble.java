@@ -57,24 +57,24 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(!EntityDoppleganger.isTruePlayer(player))
 			return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack);
 
-		if(canEquip(par1ItemStack, par3EntityPlayer)) {
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
+		if(canEquip(par1ItemStack, player)) {
+			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 			for(int i = 0; i < baubles.getSizeInventory(); i++) {
 				if(baubles.isItemValidForSlot(i, par1ItemStack)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
-					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, par3EntityPlayer)) {
-						if(!par2World.isRemote) {
+					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+						if(!world.isRemote) {
 							baubles.setInventorySlotContents(i, par1ItemStack.copy());
-							if(!par3EntityPlayer.capabilities.isCreativeMode)
-								par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
+							if(!player.capabilities.isCreativeMode)
+								player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 						}
 
 						if(stackInSlot != null) {
-							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
+							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
 							return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
 						}
 						break;
@@ -88,28 +88,28 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(GuiScreen.isShiftKeyDown())
-			addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
+			addHiddenTooltip(par1ItemStack, player, stacks, par4);
+		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		BaubleType type = getBaubleType(par1ItemStack);
-		addStringToTooltip(I18n.format("botania.baubletype." + type.name().toLowerCase()), par3List);
+		addStringToTooltip(I18n.format("botania.baubletype." + type.name().toLowerCase()), stacks);
 
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
-			addStringToTooltip(I18n.format("botania.baubletooltip", key), par3List);
+			addStringToTooltip(I18n.format("botania.baubletooltip", key), stacks);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
-			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), stacks);
 
 		if(hasPhantomInk(par1ItemStack))
-			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), stacks);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

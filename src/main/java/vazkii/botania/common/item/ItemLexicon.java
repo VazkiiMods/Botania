@@ -68,23 +68,23 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(par2EntityPlayer.isSneaking()) {
-			Block block = par3World.getBlockState(pos).getBlock();
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		if(player.isSneaking()) {
+			Block block = world.getBlockState(pos).getBlock();
 
 			if(block != null) {
 				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, pos, par2EntityPlayer, par1ItemStack);
+					LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, par1ItemStack);
 					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
 						Botania.proxy.setLexiconStack(par1ItemStack);
 
-						openBook(par2EntityPlayer, par1ItemStack, par3World, false);
+						openBook(player, par1ItemStack, world, false);
 						return EnumActionResult.SUCCESS;
 					}
-				} else if(par3World.isRemote) {
+				} else if(world.isRemote) {
 					RayTraceResult mop = new RayTraceResult(new Vec3d(par8, par9, par10), side, pos);
-					return Botania.proxy.openWikiPage(par3World, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+					return Botania.proxy.openWikiPage(world, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 				}
 			}
 		}
@@ -105,11 +105,11 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
 			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
 			if(!edition.isEmpty())
-				par3List.add(edition);
+				stacks.add(edition);
 
 			List<KnowledgeType> typesKnown = new ArrayList<>();
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -119,12 +119,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(I18n.format(format, typesKnown.size()), par3List);
+			addStringToTooltip(I18n.format(format, typesKnown.size()), stacks);
 
 			for(KnowledgeType type : typesKnown)
-				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), par3List);
+				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), stacks);
 
-		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
+		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {
@@ -140,17 +140,17 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		String force = getForcedPage(par1ItemStack);
 		if(force != null && !force.isEmpty()) {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else par3EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
+			else player.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
 
-		openBook(par3EntityPlayer, par1ItemStack, par2World, skipSound);
+		openBook(player, par1ItemStack, world, skipSound);
 		skipSound = false;
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

@@ -104,8 +104,8 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
-		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
@@ -114,22 +114,22 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				enchanter.sync();
 			}
 		} else if(enchanter.stage == 0) {
-			if(par5EntityPlayer.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
+			if(player.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
 				enchanter.itemToEnchant = null;
 				enchanter.sync();
-			} else par5EntityPlayer.addChatMessage(new TextComponentTranslation("botaniamisc.invFull"));
+			} else player.addChatMessage(new TextComponentTranslation("botaniamisc.invFull"));
 		}
 
 		return true;
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileEnchanter enchanter = (TileEnchanter) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
 		ItemStack itemstack = enchanter.itemToEnchant;
 
@@ -138,14 +138,14 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 			float f1 = random.nextFloat() * 0.8F + 0.1F;
 			EntityItem entityitem;
 
-			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
+			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
 				int k1 = random.nextInt(21) + 10;
 
 				if (k1 > itemstack.stackSize)
 					k1 = itemstack.stackSize;
 
 				itemstack.stackSize -= k1;
-				entityitem = new EntityItem(par1World, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+				entityitem = new EntityItem(world, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 				float f3 = 0.05F;
 				entityitem.motionX = (float)random.nextGaussian() * f3 * 0.5;
 				entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -156,9 +156,9 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 			}
 		}
 
-		par1World.updateComparatorOutputLevel(pos, state.getBlock());
+		world.updateComparatorOutputLevel(pos, state.getBlock());
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override

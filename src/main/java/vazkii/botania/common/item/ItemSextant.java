@@ -103,20 +103,20 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
-		if(!par3EntityPlayer.isSneaking()) {
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(par2World, par3EntityPlayer, false, 128);
+		if(!player.isSneaking()) {
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, false, 128);
 			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
-				if(!par2World.isRemote) {
+				if(!world.isRemote) {
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.getBlockPos().getY());
 					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
 				}
 			} else ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, -1);
 
-			par3EntityPlayer.setActiveHand(hand);
+			player.setActiveHand(hand);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

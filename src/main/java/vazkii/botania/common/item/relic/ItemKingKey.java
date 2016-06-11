@@ -43,8 +43,8 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		par3EntityPlayer.setActiveHand(hand);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
 		setCharging(par1ItemStack, true);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}

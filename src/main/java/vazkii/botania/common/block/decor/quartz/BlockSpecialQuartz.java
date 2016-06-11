@@ -83,7 +83,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IBlockState onBlockPlaced(World par1World, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
+	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
 		if (meta == 2) { // Pillar quartz variant
 			switch (side.getAxis()) {
 			case Y:
@@ -114,10 +114,10 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> par3List) {
-		par3List.add(new ItemStack(this, 1, 0));
-		par3List.add(new ItemStack(this, 1, 1));
-		par3List.add(new ItemStack(this, 1, 2));
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+		stacks.add(new ItemStack(this, 1, 0));
+		stacks.add(new ItemStack(this, 1, 1));
+		stacks.add(new ItemStack(this, 1, 2));
 	}
 
 	@Override

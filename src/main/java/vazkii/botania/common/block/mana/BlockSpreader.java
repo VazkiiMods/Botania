@@ -86,16 +86,16 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
-			par3.add(new ItemStack(par1, 1, i));
+			par3.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
-		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(pos);
-		par1World.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
+		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
+		world.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
 		switch(orientation) {
 		case DOWN:
@@ -140,8 +140,8 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing par6, float par7, float par8, float par9) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
 
@@ -155,15 +155,15 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 				return false;
 
 		if(lens == null && isHeldItemLens) {
-			if (!par5EntityPlayer.capabilities.isCreativeMode)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+			if (!player.capabilities.isCreativeMode)
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
 		} else if(lens != null && !wool) {
 			ItemStack add = lens.copy();
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropItem(add, false);
+			if(!player.inventory.addItemStackToInventory(add))
+				player.dropItem(add, false);
 			spreader.getItemHandler().setStackInSlot(0, null);
 			spreader.markDirty();
 		}
@@ -172,11 +172,11 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 			spreader.paddingColor = heldItem.getItemDamage();
 			heldItem.stackSize--;
 			if(heldItem.stackSize == 0)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
 			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(pad))
-				par5EntityPlayer.dropItem(pad, false);
+			if(!player.inventory.addItemStackToInventory(pad))
+				player.dropItem(pad, false);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}
@@ -185,20 +185,20 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileEntity tile = par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return;
 
 		TileSpreader inv = (TileSpreader) tile;
 
 		if(inv.paddingColor != -1) {
-			net.minecraft.inventory.InventoryHelper.spawnItemStack(par1World, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.WOOL, 1, inv.paddingColor));
+			net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.WOOL, 1, inv.paddingColor));
 		}
 
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override

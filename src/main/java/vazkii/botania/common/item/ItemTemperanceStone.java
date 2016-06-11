@@ -46,10 +46,10 @@ public class ItemTemperanceStone extends ItemMod {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(I18n.format("botaniamisc.active"), par3List);
-		else addStringToTooltip(I18n.format("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

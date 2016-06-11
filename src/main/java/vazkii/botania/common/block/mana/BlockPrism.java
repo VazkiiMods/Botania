@@ -111,8 +111,8 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack heldItem, EnumFacing side, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float par7, float par8, float par9) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
 
@@ -121,19 +121,19 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 
 		if(lens == null && isHeldItemLens) {
-			if(!par5EntityPlayer.capabilities.isCreativeMode)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+			if(!player.capabilities.isCreativeMode)
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
-			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
 		} else if(lens != null) {
 			ItemStack add = lens.copy();
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropItem(add, false);
+			if(!player.inventory.addItemStackToInventory(add))
+				player.dropItem(add, false);
 			prism.getItemHandler().setStackInSlot(0, null);
 			prism.markDirty();
-			par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
 
 		return true;
@@ -153,12 +153,12 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override

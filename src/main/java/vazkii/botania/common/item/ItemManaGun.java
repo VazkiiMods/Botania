@@ -92,39 +92,39 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		int effCd = COOLDOWN;
-		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(MobEffects.HASTE);
+		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
-		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
+		if(player.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
-			par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
-			if(par2World.isRemote)
-				par3EntityPlayer.swingArm(hand);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			if(world.isRemote)
+				player.swingArm(hand);
 			ItemStack lens = getLens(par1ItemStack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			par1ItemStack.setItemDamage(effCd);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		} else if(par1ItemStack.getItemDamage() == 0) {
-			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
-			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
-				if(!par2World.isRemote) {
-					par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
-					par3EntityPlayer.addStat(ModAchievements.manaBlasterShoot, 1);
+			EntityManaBurst burst = getBurst(player, par1ItemStack, true);
+			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, player, burst.getMana(), true)) {
+				if(!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
+					player.addStat(ModAchievements.manaBlasterShoot, 1);
 					if(isSugoiKawaiiDesuNe(par1ItemStack))
-						par3EntityPlayer.addStat(ModAchievements.desuGun, 1);
-					par2World.spawnEntityInWorld(burst);
+						player.addStat(ModAchievements.desuGun, 1);
+					world.spawnEntityInWorld(burst);
 				} else {
-					par3EntityPlayer.swingArm(hand);
-					par3EntityPlayer.motionX -= burst.motionX * 0.1;
-					par3EntityPlayer.motionY -= burst.motionY * 0.3;
-					par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
+					player.swingArm(hand);
+					player.motionX -= burst.motionX * 0.1;
+					player.motionY -= burst.motionY * 0.3;
+					player.motionZ -= burst.motionZ * 0.1;
 				}
 				par1ItemStack.setItemDamage(effCd);
-			} else if(!par2World.isRemote)
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+			} else if(!world.isRemote)
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -208,23 +208,23 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 			return;
 		}
 
 		ItemStack lens = getLens(par1ItemStack);
 		if(lens != null) {
-			List<String> tooltip = lens.getTooltip(par2EntityPlayer, false);
+			List<String> tooltip = lens.getTooltip(player, false);
 			if(tooltip.size() > 1)
-				par3List.addAll(tooltip.subList(1, tooltip.size()));
+				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}
 
 		if(clip) {
 			int pos = getClipPos(par1ItemStack);
-			addStringToTooltip(I18n.format("botaniamisc.hasClip"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasClip"), stacks);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
 				String name;
 				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
@@ -232,7 +232,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 				if(lensAt == null)
 					name = I18n.format("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
-				addStringToTooltip(formatting + " - " + name, par3List);
+				addStringToTooltip(formatting + " - " + name, stacks);
 			}
 		}
 	}
@@ -332,7 +332,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}

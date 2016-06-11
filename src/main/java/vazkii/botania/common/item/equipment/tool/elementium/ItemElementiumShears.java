@@ -43,7 +43,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}

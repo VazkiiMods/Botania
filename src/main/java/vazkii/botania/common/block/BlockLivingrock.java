@@ -74,9 +74,9 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < LivingRockVariant.values().length; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Nonnull

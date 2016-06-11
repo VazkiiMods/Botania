@@ -29,8 +29,8 @@ public class EntityMagicLandmine extends Entity {
 
 	public EntityDoppleganger summoner;
 
-	public EntityMagicLandmine(World par1World) {
-		super(par1World);
+	public EntityMagicLandmine(World world) {
+		super(world);
 		setSize(0F, 0F);
 	}
 

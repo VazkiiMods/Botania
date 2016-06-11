@@ -43,7 +43,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	}
 
 	@Override
-	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);
 		int hex = color.getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
@@ -51,7 +51,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 		int b = (hex & 0xFF);
 
 		Botania.proxy.setSparkleFXNoClip(true);
-		Botania.proxy.sparkleFX(par1World, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.1 + par5Random.nextFloat() * 0.1, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, par5Random.nextFloat(), 5);
+		Botania.proxy.sparkleFX(world, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 
 		Botania.proxy.setSparkleFXNoClip(false);
 	}

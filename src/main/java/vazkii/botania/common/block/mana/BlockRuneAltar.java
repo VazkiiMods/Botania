@@ -67,26 +67,26 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
-		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
 
-		if(par5EntityPlayer.isSneaking()) {
+		if(player.isSneaking()) {
 			if(altar.manaToGet == 0)
-				InventoryHelper.withdrawFromInventory(altar, par5EntityPlayer);
+				InventoryHelper.withdrawFromInventory(altar, player);
 		} else if(altar.isEmpty() && stack == null)
-			altar.trySetLastRecipe(par5EntityPlayer);
+			altar.trySetLastRecipe(player);
 		else if(stack != null)
-			return altar.addItem(par5EntityPlayer, stack);
+			return altar.addItem(player, stack);
 		return false;
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
@@ -106,8 +106,8 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
-		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(pos);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
 		return altar.signal;
 	}
 

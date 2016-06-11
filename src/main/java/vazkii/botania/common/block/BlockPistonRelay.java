@@ -87,9 +87,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		if(!par1World.isRemote)
-			mapCoords(par1World.provider.getDimension(), pos, 2);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		if(!world.isRemote)
+			mapCoords(world.provider.getDimension(), pos, 2);
 	}
 
 	private void mapCoords(int world, BlockPos pos, int time) {

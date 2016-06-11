@@ -39,17 +39,17 @@ public class ItemDye extends Item16Colors {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		Block block = par3World.getBlockState(pos).getBlock();
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		Block block = world.getBlockState(pos).getBlock();
 		EnumDyeColor color = EnumDyeColor.byMetadata(par1ItemStack.getItemDamage());
-		if(block == Blocks.WOOL && color != par3World.getBlockState(pos).getValue(BlockColored.COLOR)
-				|| block == Blocks.CARPET && color != par3World.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
-			par3World.setBlockState(pos, par3World.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
+		if(block == Blocks.WOOL && color != world.getBlockState(pos).getValue(BlockColored.COLOR)
+				|| block == Blocks.CARPET && color != world.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
 			par1ItemStack.stackSize--;
 			return EnumActionResult.SUCCESS;
 		}
 
-		TileEntity tile = par3World.getTileEntity(pos);
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof IManaPool) {
 			IManaPool pool = (IManaPool) tile;
 			if(color != pool.getColor()) {

@@ -143,8 +143,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setCreateFog(true);
 
-	public EntityDoppleganger(World par1World) {
-		super(par1World);
+	public EntityDoppleganger(World world) {
+		super(world);
 		setSize(0.6F, 1.8F);
 		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		tasks.addTask(0, new EntityAISwimming(this));

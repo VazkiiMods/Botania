@@ -178,15 +178,15 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		state = getActualState(state, world, pos);
 		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = (hex & 0xFF);
 
-		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
-			Botania.proxy.sparkleFX(world, pos.getX() + 0.3 + par5Random.nextFloat() * 0.5, pos.getY() + 0.5 + par5Random.nextFloat() * 0.5, pos.getZ() + 0.3 + par5Random.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, par5Random.nextFloat(), 5);
+		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
+			Botania.proxy.sparkleFX(world, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 
 	}
 

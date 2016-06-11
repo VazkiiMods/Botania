@@ -66,9 +66,9 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	}
 
 	@Override
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < SUBTYPES; i++)
-			par3.add(new ItemStack(par1, 1, i));
+			par3.add(new ItemStack(item, 1, i));
 	}
 
 	@Nonnull
@@ -79,14 +79,14 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		IBlockState state = par3World.getBlockState(pos);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		IBlockState state = world.getBlockState(pos);
 
 		if((state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0)) {
 			int meta = par1ItemStack.getItemDamage();
 
-			BlockSwapper swapper = addBlockSwapper(par3World, pos, meta);
-			par3World.setBlockState(pos, swapper.stateToSet, 1 | 2);
+			BlockSwapper swapper = addBlockSwapper(world, pos, meta);
+			world.setBlockState(pos, swapper.stateToSet, 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				double x = (Math.random() - 0.5) * 3;
 				double y = Math.random() - 0.5 + 1;
@@ -148,7 +148,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 				float velMul = 0.025F;
 
-				Botania.proxy.wispFX(par3World, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+				Botania.proxy.wispFX(world, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
 			}
 
 			par1ItemStack.stackSize--;

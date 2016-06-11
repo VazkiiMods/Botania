@@ -48,8 +48,8 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(!par3World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			player.worldObj.spawnEntityInWorld(entity);
@@ -57,14 +57,14 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player) ? COOLDOWN / 2 : COOLDOWN);
 
 			ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
-			par3World.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 		}
 
 		return EnumActionResult.SUCCESS;
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		// Keep for backward compat
 		if(par1ItemStack.getItemDamage() > 0)
 			par1ItemStack.setItemDamage(0);

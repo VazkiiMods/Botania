@@ -29,8 +29,8 @@ public class EntitySignalFlare extends Entity {
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> FIRED_Y = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 
-	public EntitySignalFlare(World par1World) {
-		super(par1World);
+	public EntitySignalFlare(World world) {
+		super(world);
 		setSize(0F, 0F);
 	}
 

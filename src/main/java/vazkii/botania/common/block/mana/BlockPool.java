@@ -118,10 +118,10 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TilePool pool = (TilePool) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TilePool pool = (TilePool) world.getTileEntity(pos);
 		lastFragile = pool.fragile;
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Nonnull
@@ -136,11 +136,11 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
-		par3.add(new ItemStack(par1, 1, 0));
-		par3.add(new ItemStack(par1, 1, 2));
-		par3.add(new ItemStack(par1, 1, 3));
-		par3.add(new ItemStack(par1, 1, 1));
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+		par3.add(new ItemStack(item, 1, 0));
+		par3.add(new ItemStack(item, 1, 2));
+		par3.add(new ItemStack(item, 1, 3));
+		par3.add(new ItemStack(item, 1, 1));
 	}
 
 	@Override
@@ -155,11 +155,11 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World par1World, BlockPos pos, IBlockState state, Entity par5Entity) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
-			TilePool tile = (TilePool) par1World.getTileEntity(pos);
+			TilePool tile = (TilePool) world.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, pos);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 	}
 
@@ -208,8 +208,8 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
-		TilePool pool = (TilePool) par1World.getTileEntity(pos);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TilePool pool = (TilePool) world.getTileEntity(pos);
 		int val = (int) ((double) pool.getCurrentMana() / (double) pool.manaCap * 15.0);
 		if(pool.getCurrentMana() > 0)
 			val = Math.max(val, 1);

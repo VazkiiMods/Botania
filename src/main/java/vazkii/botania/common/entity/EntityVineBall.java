@@ -38,8 +38,8 @@ public class EntityVineBall extends EntityThrowable {
 	private static final Map<EnumFacing, PropertyBool> propMap = ImmutableMap.of(EnumFacing.NORTH, BlockVine.NORTH, EnumFacing.SOUTH, BlockVine.SOUTH,
 			EnumFacing.WEST, BlockVine.WEST, EnumFacing.EAST, BlockVine.EAST);
 
-	public EntityVineBall(World par1World) {
-		super(par1World);
+	public EntityVineBall(World world) {
+		super(world);
 	}
 
 	public EntityVineBall(EntityLivingBase thrower, boolean gravity) {

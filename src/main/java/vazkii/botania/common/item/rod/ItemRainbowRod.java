@@ -58,38 +58,38 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(!par2World.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
-			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
+			Vector3 vector = new Vector3(player.getLookVec()).normalize();
 
-			double x = par3EntityPlayer.posX;
-			double y = par3EntityPlayer.posY;
-			double z = par3EntityPlayer.posZ;
+			double x = player.posX;
+			double y = player.posY;
+			double z = player.posZ;
 
 			double lx = 0;
 			double ly = -1;
 			double lz = 0;
 
 			int count = 0;
-			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer);
+			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
 			BlockPos playerPos = new BlockPos((int) x, (int) y, (int) z);
-			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlockState(playerPos).getBlock().isAir(par2World.getBlockState(playerPos), par2World, playerPos) || par2World.getBlockState(playerPos).getBlock() == place) {
+			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || world.getBlockState(playerPos).getBlock().isAir(world.getBlockState(playerPos), world, playerPos) || world.getBlockState(playerPos).getBlock() == place) {
 				if(y >= 256 || y <= 0)
 					break;
 
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++) {
 						BlockPos pos_ = new BlockPos((int) x + i, (int) y, (int) z + j);
-						if(par2World.getBlockState(pos_).getBlock().isAir(par2World.getBlockState(pos_), par2World, pos_) || par2World.getBlockState(pos_).getBlock() == place) {
-							par2World.setBlockState(pos_, place.getDefaultState());
-							TileBifrost tile = (TileBifrost) par2World.getTileEntity(pos_);
+						if(world.getBlockState(pos_).getBlock().isAir(world.getBlockState(pos_), world, pos_) || world.getBlockState(pos_).getBlock() == place) {
+							world.setBlockState(pos_, place.getDefaultState());
+							TileBifrost tile = (TileBifrost) world.getTileEntity(pos_);
 							if(tile != null) {
 								for(int k = 0; k < 4; k++)
-									Botania.proxy.sparkleFX(par2World, tile.getPos().getX() + Math.random(), tile.getPos().getY() + Math.random(), tile.getPos().getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+									Botania.proxy.sparkleFX(world, tile.getPos().getX() + Math.random(), tile.getPos().getY() + Math.random(), tile.getPos().getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 								tile.ticks = time;
 							}
 						}
@@ -107,9 +107,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			}
 
 			if(count > 0) {
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false);
-				par3EntityPlayer.getCooldownTracker().setCooldown(this, TIME);
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
+				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, MANA_COST, false);
+				player.getCooldownTracker().setCooldown(this, TIME);
 			}
 		}
 
@@ -128,7 +128,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		// Kept for backward compat
 		if (par1ItemStack.getItemDamage() > 0)
 			par1ItemStack.setItemDamage(0);

@@ -79,41 +79,41 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		Block block = par3World.getBlockState(pos).getBlock();
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		Block block = world.getBlockState(pos).getBlock();
 		BlockPos boundTile = getBoundTile(par1ItemStack);
 
-		if(boundTile.getY() != -1 && par2EntityPlayer.isSneaking() && !pos.equals(boundTile)) {
-			TileEntity tile = par3World.getTileEntity(boundTile);
+		if(boundTile.getY() != -1 && player.isSneaking() && !pos.equals(boundTile)) {
+			TileEntity tile = world.getTileEntity(boundTile);
 			if(tile instanceof IWandBindable) {
-				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, pos, side)) {
+				if(((IWandBindable) tile).bindTo(player, par1ItemStack, pos, side)) {
 					Vector3 orig = new Vector3(boundTile.getX() + 0.5, boundTile.getY() + 0.5, boundTile.getZ() + 0.5);
 					Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-					doParticleBeam(par3World, orig, end);
+					doParticleBeam(world, orig, end);
 
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, boundTile);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, boundTile);
 					setBoundTile(par1ItemStack, UNBOUND_POS);
 				}
 
 				return EnumActionResult.SUCCESS;
 			} else setBoundTile(par1ItemStack, UNBOUND_POS);
-		} else if(par2EntityPlayer.isSneaking()) {
-			block.rotateBlock(par3World, pos, side);
-			if(par3World.isRemote)
-				par2EntityPlayer.swingArm(hand);
+		} else if(player.isSneaking()) {
+			block.rotateBlock(world, pos, side);
+			if(world.isRemote)
+				player.swingArm(hand);
 		}
 
 		if(block == Blocks.LAPIS_BLOCK && ConfigHandler.enchanterEnabled) {
 			EnumFacing.Axis axis = null;
-			if(TileEnchanter.canEnchanterExist(par3World, pos, EnumFacing.Axis.X))
+			if(TileEnchanter.canEnchanterExist(world, pos, EnumFacing.Axis.X))
 				axis = EnumFacing.Axis.X;
-			else if(TileEnchanter.canEnchanterExist(par3World, pos, EnumFacing.Axis.Z))
+			else if(TileEnchanter.canEnchanterExist(world, pos, EnumFacing.Axis.Z))
 				axis = EnumFacing.Axis.Z;
 
-			if(axis != null && !par3World.isRemote) {
-				par3World.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
-				par2EntityPlayer.addStat(ModAchievements.enchanterMake, 1);
-				par3World.playSound(null, pos, BotaniaSoundEvents.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
+			if(axis != null && !world.isRemote) {
+				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
+				player.addStat(ModAchievements.enchanterMake, 1);
+				world.playSound(null, pos, BotaniaSoundEvents.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -125,40 +125,40 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 					float velMul = 0.07F;
 
-					Botania.proxy.wispFX(par3World, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+					Botania.proxy.wispFX(world, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
 				}
 			}
 		} else if(block instanceof IWandable) {
-			TileEntity tile = par3World.getTileEntity(pos);
+			TileEntity tile = world.getTileEntity(pos);
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded;
-			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, pos, side)) {
+			if(getBindMode(par1ItemStack) && bindable && player.isSneaking() && ((IWandBindable) tile).canSelect(player, par1ItemStack, pos, side)) {
 				if(boundTile.equals(pos))
 					setBoundTile(par1ItemStack, UNBOUND_POS);
 				else setBoundTile(par1ItemStack, pos);
 
-				if(par3World.isRemote)
-					par2EntityPlayer.swingArm(hand);
-				par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.11F, 1F);
+				if(world.isRemote)
+					player.swingArm(hand);
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.11F, 1F);
 
 				wanded = true;
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, pos, side);
-				if(wanded && par3World.isRemote)
-					par2EntityPlayer.swingArm(hand);
+				wanded = ((IWandable) block).onUsedByWand(player, par1ItemStack, world, pos, side);
+				if(wanded && world.isRemote)
+					player.swingArm(hand);
 			}
 
 			return wanded ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		} else if(((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.containsKey(par2EntityPlayer.getUniqueID()) && !par3World.isRemote) {
-			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.get(par2EntityPlayer.getUniqueID());
-			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(par3World.provider.getDimension(), pos);
+		} else if(((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.containsKey(player.getUniqueID()) && !world.isRemote) {
+			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.get(player.getUniqueID());
+			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(world.provider.getDimension(), pos);
 
-			((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.remove(par2EntityPlayer.getUniqueID());
+			((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.remove(player.getUniqueID());
 			((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.put(bindPos, currentPos);
-			BlockPistonRelay.WorldData.get(par3World).markDirty();
+			BlockPistonRelay.WorldData.get(world).markDirty();
 
-			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return EnumActionResult.SUCCESS;
 		}
 
@@ -191,9 +191,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		BlockPos coords = getBoundTile(par1ItemStack);
-		TileEntity tile = par2World.getTileEntity(coords);
+		TileEntity tile = world.getTileEntity(coords);
 		if(tile == null || !(tile instanceof IWandBindable))
 			setBoundTile(par1ItemStack, UNBOUND_POS);
 	}
@@ -219,9 +219,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(forColors(i, i));
+			stacks.add(forColors(i, i));
 	}
 
 	@Nonnull

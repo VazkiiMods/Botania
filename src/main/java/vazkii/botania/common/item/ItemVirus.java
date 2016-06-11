@@ -52,9 +52,9 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, EntityLivingBase par3EntityLivingBase, EnumHand hand) {
+	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer player, EntityLivingBase par3EntityLivingBase, EnumHand hand) {
 		if(par3EntityLivingBase instanceof EntityHorse) {
-			if(par2EntityPlayer.worldObj.isRemote)
+			if(player.worldObj.isRemote)
 				return true;
 			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
 			if(horse.getType() != HorseType.ZOMBIE && horse.getType() != HorseType.SKELETON && horse.isTame()) {

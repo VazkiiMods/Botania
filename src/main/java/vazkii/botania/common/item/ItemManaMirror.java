@@ -67,8 +67,8 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par2World.isRemote)
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		if(world.isRemote)
 			return;
 
 		IManaPool pool = getManaPool(par1ItemStack);
@@ -85,12 +85,12 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
-			TileEntity tile = par3World.getTileEntity(pos);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		if(player.isSneaking() && !world.isRemote) {
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(par1ItemStack, tile);
-				par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return EnumActionResult.SUCCESS;
 			}
 		}

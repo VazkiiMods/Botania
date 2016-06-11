@@ -99,9 +99,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
@@ -116,19 +116,19 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
-		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(pos);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(pos);
 		return crate.getSignal();
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		if (!par1World.isRemote) {
-			TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, par1World, state, pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		if (!world.isRemote) {
+			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			InventoryHelper.dropInventory(inv, world, state, pos);
 		}
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override

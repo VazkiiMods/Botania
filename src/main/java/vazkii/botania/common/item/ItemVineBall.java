@@ -31,16 +31,16 @@ public class ItemVineBall extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(!par3EntityPlayer.capabilities.isCreativeMode)
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(!player.capabilities.isCreativeMode)
 			--par1ItemStack.stackSize;
 
-		par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-		if(!par2World.isRemote) {
-			EntityVineBall ball = new EntityVineBall(par3EntityPlayer, true);
-			ball.setHeadingFromThrower(par3EntityPlayer, par3EntityPlayer.rotationPitch, par3EntityPlayer.rotationYaw, 0.0F, 1.5F, 1.0F);
-			par2World.spawnEntityInWorld(ball);
+		if(!world.isRemote) {
+			EntityVineBall ball = new EntityVineBall(player, true);
+			ball.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntityInWorld(ball);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

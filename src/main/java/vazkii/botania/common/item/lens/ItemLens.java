@@ -148,9 +148,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < SUBTYPES; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
@@ -166,10 +166,10 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
-			par3List.add(I18n.format("botaniamisc.color", I18n.format("botania.color" + storedColor)));
+			stacks.add(I18n.format("botaniamisc.color", I18n.format("botania.color" + storedColor)));
 	}
 
 

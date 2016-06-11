@@ -27,8 +27,8 @@ import java.util.List;
 
 public class EntityThrownItem extends EntityItem {
 
-	public EntityThrownItem(World par1World) {
-		super(par1World);
+	public EntityThrownItem(World world) {
+		super(world);
 	}
 
 	public EntityThrownItem(World world, double x,

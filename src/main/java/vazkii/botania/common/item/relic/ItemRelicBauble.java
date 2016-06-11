@@ -60,9 +60,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		dummy.addBindInfo(par3List, par1ItemStack, par2EntityPlayer);
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+		dummy.addBindInfo(stacks, par1ItemStack, player);
 	}
 
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {

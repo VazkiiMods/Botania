@@ -112,22 +112,22 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> par6List, Entity par7Entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity) {
 		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
-			super.addCollisionBoxToList(state, par1World, pos, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity);
 	}
 
 	@Override
-	public float getBlockHardness(IBlockState state, World par1World, BlockPos pos) {
-		PlatformVariant variant = par1World.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, par1World, pos);
+	public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
+		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
+		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
 	}
 
 	@Nonnull

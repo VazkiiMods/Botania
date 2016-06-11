@@ -112,8 +112,8 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
-		TileTerraPlate plate = (TileTerraPlate) par1World.getTileEntity(pos);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileTerraPlate plate = (TileTerraPlate) world.getTileEntity(pos);
 		int val = (int) ((double) plate.getCurrentMana() / (double) TileTerraPlate.MAX_MANA * 15.0);
 		if(plate.getCurrentMana() > 0)
 			val = Math.max(val, 1);

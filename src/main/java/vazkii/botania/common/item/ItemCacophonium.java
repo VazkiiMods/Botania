@@ -138,9 +138,9 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(ItemNBTHelper.getBoolean(par1ItemStack, TAG_HAS_SOUND, false) || isDOIT(par1ItemStack))
-			par3EntityPlayer.setActiveHand(hand);
+			player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 

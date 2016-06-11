@@ -21,8 +21,8 @@ import javax.annotation.Nonnull;
 
 public class EntityFlyingCreature extends EntityAmbientCreature {
 
-	public EntityFlyingCreature(World par1World) {
-		super(par1World);
+	public EntityFlyingCreature(World world) {
+		super(world);
 	}
 
 	@Override

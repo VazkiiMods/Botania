@@ -33,8 +33,8 @@ public class ItemOpenBucket extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		RayTraceResult RayTraceResult = rayTrace(par2World, par3EntityPlayer, true);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		RayTraceResult RayTraceResult = rayTrace(world, player, true);
 
 		if(RayTraceResult == null)
 			return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
@@ -42,20 +42,20 @@ public class ItemOpenBucket extends ItemMod {
 			if(RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
 				BlockPos pos = RayTraceResult.getBlockPos();
 
-				if(!par2World.isBlockModifiable(par3EntityPlayer, pos))
+				if(!world.isBlockModifiable(player, pos))
 					return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 
-				if(!par3EntityPlayer.canPlayerEdit(pos, RayTraceResult.sideHit, par1ItemStack))
+				if(!player.canPlayerEdit(pos, RayTraceResult.sideHit, par1ItemStack))
 					return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 
-				Material material = par2World.getBlockState(pos).getMaterial();
-				int l = par2World.getBlockState(pos).getBlock().getMetaFromState(par2World.getBlockState(pos)); // hack to get meta so we don't have to know the level prop
+				Material material = world.getBlockState(pos).getMaterial();
+				int l = world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)); // hack to get meta so we don't have to know the level prop
 
 				if((material == Material.LAVA || material == Material.WATER) && l == 0) {
-					par2World.setBlockToAir(pos);
+					world.setBlockToAir(pos);
 					
 					for(int x = 0; x < 5; x++)
-						par2World.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+						world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 
 					return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 				}

@@ -51,32 +51,32 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 0) {
-			if(par2World.isRemote)
-				par3EntityPlayer.swingArm(hand);
+			if(world.isRemote)
+				player.swingArm(hand);
 			else {
-				EntitySignalFlare flare = new EntitySignalFlare(par2World);
-				flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
+				EntitySignalFlare flare = new EntitySignalFlare(world);
+				flare.setPosition(player.posX, player.posY, player.posZ);
 				flare.setColor(getColor(par1ItemStack));
-				flare.setFiredAt((int) par3EntityPlayer.posY);
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				flare.setFiredAt((int) player.posY);
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 40F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-				par2World.spawnEntityInWorld(flare);
+				world.spawnEntityInWorld(flare);
 
 				int stunned = 0;
 				int range = 5;
-				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
+				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled())) {
+					if(entity != player && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled())) {
 						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 						stunned++;
 					}
 
 				if(stunned >= 100)
-					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
+					player.addStat(ModAchievements.signalFlareStun, 1);
 			}
-			par1ItemStack.damageItem(200, par3EntityPlayer);
+			par1ItemStack.damageItem(200, player);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -84,7 +84,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}
@@ -98,16 +98,16 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(forColor(i));
+			stacks.add(forColor(i));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
-		par3List.add(I18n.format("botaniamisc.flareColor", I18n.format("botania.color" + storedColor)));
+		stacks.add(I18n.format("botaniamisc.flareColor", I18n.format("botania.color" + storedColor)));
 	}
 
 	public static ItemStack forColor(int color) {

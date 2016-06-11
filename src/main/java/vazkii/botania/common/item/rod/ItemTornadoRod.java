@@ -65,7 +65,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean holding) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean holding) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			boolean damaged = par1ItemStack.getItemDamage() > 0;
@@ -99,12 +99,12 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		int meta = par1ItemStack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, false)) {
-			par3EntityPlayer.setActiveHand(hand);
+		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+			player.setActiveHand(hand);
 			if(meta == 0) {
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, true);
+				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
 				setFlying(par1ItemStack, true);
 			}
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

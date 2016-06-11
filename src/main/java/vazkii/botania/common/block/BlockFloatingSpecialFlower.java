@@ -120,16 +120,16 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		// NO-OP
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
-			par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), s));
+			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
-				par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), BotaniaAPI.miniFlowers.get(s)));
+				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), BotaniaAPI.miniFlowers.get(s)));
 		}
 	}
 
@@ -180,9 +180,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean eventReceived(IBlockState state, World par1World, BlockPos pos, int eventID, int value) {
-		super.eventReceived(state, par1World, pos, eventID, value);
-		TileEntity tileentity = par1World.getTileEntity(pos);
+	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int eventID, int value) {
+		super.eventReceived(state, world, pos, eventID, value);
+		TileEntity tileentity = world.getTileEntity(pos);
 		return tileentity != null ? tileentity.receiveClientEvent(eventID, value) : false;
 	}
 

@@ -74,34 +74,34 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		IBlockState wstate = par3World.getBlockState(pos);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		IBlockState wstate = world.getBlockState(pos);
 
-		if(par2EntityPlayer.isSneaking()) {
-			TileEntity tile = par3World.getTileEntity(pos);
+		if(player.isSneaking()) {
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile == null) {
 				if(BlockCamo.isValidBlock(wstate)) {
 					Item item = Item.getItemFromBlock(wstate.getBlock());
 
 					boolean set = setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
-					par2EntityPlayer.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
+					player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
 
-					displayRemainderCounter(par2EntityPlayer, par1ItemStack);
+					displayRemainderCounter(player, par1ItemStack);
 					return EnumActionResult.SUCCESS;
 				}
 			}
 		} else if(canExchange(par1ItemStack) && !ItemNBTHelper.getBoolean(par1ItemStack, TAG_SWAPPING, false)) {
 			Block block = getBlock(par1ItemStack);
 			int meta = getBlockMeta(par1ItemStack);
-			List<BlockPos> swap = getBlocksToSwap(par3World, par1ItemStack, block.getStateFromMeta(meta), pos, null);
+			List<BlockPos> swap = getBlocksToSwap(world, par1ItemStack, block.getStateFromMeta(meta), pos, null);
 			if(swap.size() > 0) {
 				ItemNBTHelper.setBoolean(par1ItemStack, TAG_SWAPPING, true);
 				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_X, pos.getX());
 				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Y, pos.getY());
 				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Z, pos.getZ());
 				setTargetBlock(par1ItemStack, wstate.getBlock(), wstate.getBlock().getMetaFromState(wstate));
-				if(par3World.isRemote)
-					par2EntityPlayer.swingArm(hand);
+				if(world.isRemote)
+					player.swingArm(hand);
 			}
 		}
 

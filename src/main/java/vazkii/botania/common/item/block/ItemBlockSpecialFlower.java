@@ -79,22 +79,22 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer par2EntityPlayer, @Nonnull List<String> par3List, boolean par4) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer player, @Nonnull List<String> stacks, boolean par4) {
 		String type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
-		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
+		sig.addTooltip(par1ItemStack, player, stacks);
 
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = I18n.format(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
-				par3List.add(TextFormatting.ITALIC + refLocalized);
+				stacks.add(TextFormatting.ITALIC + refLocalized);
 		}
 
 		String mod = BotaniaAPI.subTileMods.get(type);
 		if(!mod.equals(LibMisc.MOD_ID))
-			par3List.add(TextFormatting.ITALIC + "[" + mod + "]");
+			stacks.add(TextFormatting.ITALIC + "[" + mod + "]");
 	}
 
 	public static String getType(ItemStack stack) {

@@ -106,24 +106,24 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		String rank = I18n.format("botania.rank" + getLevel(par1ItemStack));
 		String rankFormat = I18n.format("botaniamisc.toolRank", rank);
-		par3List.add(rankFormat.replaceAll("&", "\u00a7"));
+		stacks.add(rankFormat.replaceAll("&", "\u00a7"));
 		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-			par3List.add(TextFormatting.RED + I18n.format("botaniamisc.getALife"));
+			stacks.add(TextFormatting.RED + I18n.format("botaniamisc.getALife"));
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
 
 		if(level != 0) {
 			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
-			if(!par2World.isRemote)
-				par2World.playSound(null, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, BotaniaSoundEvents.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+			if(!world.isRemote)
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
@@ -137,8 +137,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		super.onUpdate(par1ItemStack, world, par3Entity, par4, par5);
 		if(isEnabled(par1ItemStack)) {
 			int level = getLevel(par1ItemStack);
 

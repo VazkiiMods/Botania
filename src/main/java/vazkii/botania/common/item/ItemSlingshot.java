@@ -35,7 +35,7 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityLivingBase living, int par4) {
+	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityLivingBase living, int par4) {
 		int j = getMaxItemUseDuration(par1ItemStack) - par4;
 
 		if(!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || PlayerHelper.hasAmmo(((EntityPlayer) living), AMMO_FUNC)) {
@@ -48,18 +48,18 @@ public class ItemSlingshot extends ItemMod {
 			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode)
 				PlayerHelper.consumeAmmo(((EntityPlayer) living), AMMO_FUNC);
 
-			if(!par2World.isRemote) {
+			if(!world.isRemote) {
 				EntityVineBall ball = new EntityVineBall(living, false);
 				ball.motionX *= 1.6;
 				ball.motionY *= 1.6;
 				ball.motionZ *= 1.6;
-				par2World.spawnEntityInWorld(ball);
+				world.spawnEntityInWorld(ball);
 			}
 		}
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
 		return par1ItemStack;
 	}
 
@@ -76,9 +76,9 @@ public class ItemSlingshot extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(par3EntityPlayer.capabilities.isCreativeMode || PlayerHelper.hasAmmo(par3EntityPlayer, AMMO_FUNC)) {
-			par3EntityPlayer.setActiveHand(hand);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(player.capabilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
+			player.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 

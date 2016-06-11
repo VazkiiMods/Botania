@@ -133,12 +133,12 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override

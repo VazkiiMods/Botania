@@ -65,11 +65,11 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		if(getBlock(par1ItemStack) != Blocks.AIR && par3EntityPlayer.isSneaking()) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(getBlock(par1ItemStack) != Blocks.AIR && player.isSneaking()) {
 			int dmg = par1ItemStack.getItemDamage();
 			par1ItemStack.setItemDamage(~dmg & 1);
-			par3EntityPlayer.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
+			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -78,15 +78,15 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		IBlockState state = par3World.getBlockState(pos);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		IBlockState state = world.getBlockState(pos);
 		boolean set = setBlock(par1ItemStack, state.getBlock(), state.getBlock().getMetaFromState(state));
 
 		if(!set) {
 			Block bBlock = getBlock(par1ItemStack);
 			int bmeta = getBlockMeta(par1ItemStack);
 
-			TileEntity tile = par3World.getTileEntity(pos);
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IInventory) {
 				IInventory inv = (IInventory) tile;
 				int[] slots = inv instanceof ISidedInventory ? ((ISidedInventory) inv).getSlotsForFace(side) : InventoryHelper.buildSlotsForLinearInventory(inv);
@@ -114,23 +114,23 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 					}
 				}
 			} else {
-				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
-				BlockPos correctedPos = bBlock.isReplaceable(par3World, pos) ? pos : pos.offset(side);
+				int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+				BlockPos correctedPos = bBlock.isReplaceable(world, pos) ? pos : pos.offset(side);
 
 				if(entities == 0 && !(correctedPos.getY() < 0) && !(correctedPos.getY() >= 256)) {
-					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
+					int remove = player.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
 					if(remove > 0) {
 						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
 						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
 
-						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
+						Item.getItemFromBlock(bBlock).onItemUse(stack, player, world, pos, hand, side, par8, par9, par10);
 						set = true;
 					}
 				}
 			}
 		}
 
-		par2EntityPlayer.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
+		player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
 		return set ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 	}
 
@@ -240,16 +240,16 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		Block block = getBlock(par1ItemStack);
 		if(block != null && block != Blocks.AIR) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(I18n.format("botaniamisc.active"), par3List);
-		else addStringToTooltip(I18n.format("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {

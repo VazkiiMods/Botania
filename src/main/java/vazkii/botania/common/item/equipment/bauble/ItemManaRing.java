@@ -47,8 +47,8 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
-		par3List.add(new ItemStack(par1, 1, 10000));
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+		stacks.add(new ItemStack(item, 1, 10000));
 	}
 
 	@Override

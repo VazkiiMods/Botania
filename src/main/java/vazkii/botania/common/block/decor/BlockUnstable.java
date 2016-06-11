@@ -81,9 +81,9 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
@@ -103,14 +103,14 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(IBlockState state, World par1World, BlockPos pos, Random par5Random) {
-		int color = Minecraft.getMinecraft().getBlockColors().colorMultiplier(state, par1World, pos, 0);
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		int color = Minecraft.getMinecraft().getBlockColors().colorMultiplier(state, world, pos, 0);
 		int colorBright = new Color(color).brighter().getRGB();
 		int colorDark = new Color(color).darker().getRGB();
 
 		Vector3 origVector = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-		Vector3 endVector = origVector.copy().add(par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1);
-		Botania.proxy.lightningFX(par1World, origVector, endVector, 5F, colorDark, colorBright);
+		Vector3 endVector = origVector.copy().add(world.rand.nextDouble() * 2 - 1, world.rand.nextDouble() * 2 - 1, world.rand.nextDouble() * 2 - 1);
+		Botania.proxy.lightningFX(world, origVector, endVector, 5F, colorDark, colorBright);
 	}
 
 	@Override

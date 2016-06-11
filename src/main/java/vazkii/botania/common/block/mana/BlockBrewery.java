@@ -78,26 +78,26 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
-		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
-		if(par5EntityPlayer.isSneaking()) {
+		if(player.isSneaking()) {
 			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
-				InventoryHelper.withdrawFromInventory(brew, par5EntityPlayer);
+				InventoryHelper.withdrawFromInventory(brew, player);
 		} else {
 			if(stack != null)
-				return brew.addItem(par5EntityPlayer, stack);
+				return brew.addItem(player, stack);
 		}
 		return false;
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(par1World, pos, state);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
@@ -106,8 +106,8 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World par1World, BlockPos pos) {
-		TileBrewery brew = (TileBrewery) par1World.getTileEntity(pos);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 		return brew.signal;
 	}
 

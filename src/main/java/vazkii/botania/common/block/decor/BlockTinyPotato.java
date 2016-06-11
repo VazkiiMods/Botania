@@ -96,21 +96,21 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		GameRegistry.register(new ItemBlockTinyPotato(this), getRegistryName());
 	}
 	@Override
-	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer par5EntityPlayer, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(pos);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact();
-			par5EntityPlayer.addStat(ModAchievements.tinyPotatoPet, 1);
-			par1World.spawnParticle(EnumParticleTypes.HEART, pos.getX() + AABB.minX + Math.random() * (AABB.maxX - AABB.minX), pos.getY() + AABB.maxY, pos.getZ() + AABB.minZ + Math.random() * (AABB.maxZ - AABB.minZ), 0, 0 ,0);
+			player.addStat(ModAchievements.tinyPotatoPet, 1);
+			world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + AABB.minX + Math.random() * (AABB.maxX - AABB.minX), pos.getY() + AABB.maxY, pos.getZ() + AABB.minZ + Math.random() * (AABB.maxZ - AABB.minZ), 0, 0 ,0);
 		}
 		return true;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
-		par1World.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, par5EntityLiving.getHorizontalFacing().getOpposite()));
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, par5EntityLiving.getHorizontalFacing().getOpposite()));
 		if (par6ItemStack.hasDisplayName())
-			((TileTinyPotato) par1World.getTileEntity(pos)).name = par6ItemStack.getDisplayName();
+			((TileTinyPotato) world.getTileEntity(pos)).name = par6ItemStack.getDisplayName();
 	}
 
 	@Override

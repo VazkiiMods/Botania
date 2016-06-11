@@ -28,10 +28,10 @@ public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer par2EntityPlayer, @Nonnull List<String> par3List, boolean par4) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer player, @Nonnull List<String> stacks, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
 			for(int i = 0; i < 2; i++)
-				par3List.add(I18n.format("botaniamisc.creativePool" + i));
+				stacks.add(I18n.format("botaniamisc.creativePool" + i));
 	}
 
 }

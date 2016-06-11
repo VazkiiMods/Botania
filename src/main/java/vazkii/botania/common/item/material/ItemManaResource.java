@@ -87,34 +87,34 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
-			return par3World.isRemote || EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, pos, par2EntityPlayer)) {
-			if(!par3World.isRemote)
-				par3World.playEvent(2005, pos, 0);
+			return world.isRemote || EntityDoppleganger.spawn(player, par1ItemStack, world, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, world, pos, player)) {
+			if(!world.isRemote)
+				world.playEvent(2005, pos, 0);
 
 			return EnumActionResult.SUCCESS;
 		}
 
-		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, pos, hand, side, par8, par9, par10);
+		return super.onItemUse(par1ItemStack, player, world, pos, hand, side, par8, par9, par10);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 15) {
-			if(!par2EntityPlayer.capabilities.isCreativeMode)
+			if(!player.capabilities.isCreativeMode)
 				--par1ItemStack.stackSize;
 
-			par3World.playSound(null, par2EntityPlayer.posX, par2EntityPlayer.posY, par2EntityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-			if(!par3World.isRemote) {
-				EntityEnderAirBottle b = new EntityEnderAirBottle(par3World, par2EntityPlayer);
-				b.setHeadingFromThrower(par2EntityPlayer, par2EntityPlayer.rotationPitch, par2EntityPlayer.rotationYaw, 0F, 1.5F, 1F);
-				par3World.spawnEntityInWorld(b);
+			if(!world.isRemote) {
+				EntityEnderAirBottle b = new EntityEnderAirBottle(world, player);
+				b.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
+				world.spawnEntityInWorld(b);
 			}
-			else par2EntityPlayer.swingArm(hand);
+			else player.swingArm(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
@@ -123,10 +123,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-				par3List.add(new ItemStack(par1, 1, i));
+				stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override

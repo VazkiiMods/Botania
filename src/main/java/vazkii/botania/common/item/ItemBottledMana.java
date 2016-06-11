@@ -188,7 +188,7 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		getSeed(par1ItemStack);
 	}
 
@@ -211,19 +211,19 @@ public class ItemBottledMana extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		par3List.add(I18n.format("botaniamisc.bottleTooltip"));
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+		stacks.add(I18n.format("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		par3EntityPlayer.setActiveHand(hand);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World par2World, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
 		randomEffect(living, par1ItemStack);
 		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
 		randomSeed(par1ItemStack);

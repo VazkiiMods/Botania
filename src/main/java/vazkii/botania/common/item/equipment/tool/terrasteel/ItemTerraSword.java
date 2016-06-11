@@ -53,18 +53,18 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		super.onUpdate(par1ItemStack, world, par3Entity, par4, par5);
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
+			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote && world.rand.nextInt(2) == 0) {
 				EntityManaBurst burst = getBurst(player, par1ItemStack);
-				par2World.spawnEntityInWorld(burst);
+				world.spawnEntityInWorld(burst);
 				ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
-				par2World.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 			}
 		}
 	}

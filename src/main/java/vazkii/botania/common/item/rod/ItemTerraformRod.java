@@ -99,23 +99,23 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, EnumHand hand) {
-		par3EntityPlayer.setActiveHand(hand);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
-	private void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
+	private void terraform(ItemStack par1ItemStack, World world, EntityPlayer player) {
+		int range = IManaProficiencyArmor.Helper.hasProficiency(player) ? 22 : 16;
 
-		BlockPos startCenter = new BlockPos(par3EntityPlayer).down();
+		BlockPos startCenter = new BlockPos(player).down();
 
-		if(startCenter.getY() < par2World.getSeaLevel()) // Not below sea level
+		if(startCenter.getY() < world.getSeaLevel()) // Not below sea level
 			return;
 
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
 		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
-			IBlockState state = par2World.getBlockState(pos);
+			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock() == Blocks.AIR)
 				continue;
 			else if(Item.getItemFromBlock(state.getBlock()) == null)
@@ -127,8 +127,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 						BlockPos pos_ = pos.offset(dir);
-						Block block_ = par2World.getBlockState(pos_).getBlock();
-						if(block_.isAir(par2World.getBlockState(pos_), par2World, pos_) || block_.isReplaceable(par2World, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.DOUBLE_PLANT) {
+						Block block_ = world.getBlockState(pos_).getBlock();
+						if(block_.isAir(world.getBlockState(pos_), world, pos_) || block_.isReplaceable(world, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.DOUBLE_PLANT) {
 							airBlocks.add(pos_);
 						}
 					}
@@ -137,7 +137,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 						if(pos.getY() > startCenter.getY())
 							blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
 						else for(BlockPos coords : airBlocks) {
-							if(par2World.getBlockState(coords.down()).getBlock() != Blocks.AIR)
+							if(world.getBlockState(coords.down()).getBlock() != Blocks.AIR)
 								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
 						}
 					}
@@ -147,16 +147,16 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		int cost = COST_PER * blocks.size();
 
-		if(par2World.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, cost, true)) {
-			if(!par2World.isRemote)
+		if(world.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true)) {
+			if(!world.isRemote)
 				for(CoordsWithBlock block : blocks)
-					par2World.setBlockState(block, block.block.getDefaultState());
+					world.setBlockState(block, block.block.getDefaultState());
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					par2World.playSound(par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+					world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
-					Botania.proxy.sparkleFX(par2World, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
+					Botania.proxy.sparkleFX(world, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
 		}
 	}

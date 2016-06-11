@@ -83,9 +83,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
-		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), par3List);
-		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), stacks);
+		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
 	}
 
 	@Override

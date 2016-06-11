@@ -91,9 +91,9 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item par1, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < PylonVariant.values().length; i++)
-			par3.add(new ItemStack(par1, 1, i));
+			par3.add(new ItemStack(item, 1, i));
 	}
 
 	@Override

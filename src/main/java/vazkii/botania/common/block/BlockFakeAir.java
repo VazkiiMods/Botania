@@ -118,7 +118,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World par1World, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
 		return null;
 	}
 
