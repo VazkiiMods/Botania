@@ -67,6 +67,7 @@ import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
+import vazkii.botania.client.render.entity.LayerGaiaHead;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -277,10 +278,12 @@ public class ClientProxy extends CommonProxy {
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());
 		render.addLayer(new BaubleRenderHandler());
+		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler());
 		render.addLayer(new BaubleRenderHandler());
+		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
 	}
 
 	@Override
