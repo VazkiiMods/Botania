@@ -16,6 +16,25 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
 
+	public static int[] doubleArrayToIntArray(double[] doubles) {
+		int[] ret = new int[doubles.length * 2];
+		for (int i = 0; i < doubles.length; i++) {
+			long l = Double.doubleToLongBits(doubles[i]);
+			ret[i] = (int) (l >>> 32);
+			ret[i + 1] = (int) l;
+		}
+		return ret;
+	}
+
+	public static double[] intArrayToDoubleArray(int[] ints) {
+		double[] ret = new double[ints.length / 2];
+		for (int i = 0; i < ints.length; i += 2) {
+			long l = ((long) ints[i]) << 32 | ints[i + 1];
+			ret[i / 2] = Double.longBitsToDouble(l);
+		}
+		return ret;
+	}
+
 	public static float pointDistanceSpace(BlockPos p1, BlockPos p2) {
 		return pointDistanceSpace(p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ());
 	}

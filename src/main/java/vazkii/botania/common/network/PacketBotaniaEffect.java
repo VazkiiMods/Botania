@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
@@ -33,6 +34,10 @@ public class PacketBotaniaEffect implements IMessage {
         this.y = y;
         this.z = z;
         this.args = args;
+    }
+
+    public PacketBotaniaEffect(EffectType type, double x, double y, double z, double... args) {
+        this(type, x, y, z, MathHelper.doubleArrayToIntArray(args));
     }
 
     @Override
