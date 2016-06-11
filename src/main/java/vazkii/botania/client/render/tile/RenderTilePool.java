@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -68,7 +69,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			if(pool != null)
 				time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
-			color = Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+			color = MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
 		}
 
 		if (fab || forceManaNumber > -1) {

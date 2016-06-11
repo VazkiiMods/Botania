@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.common.registry.RegistryDelegate;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -55,7 +56,7 @@ public final class ColorHandler {
                     public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
                         if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
                             float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                            return Color.getHSBColor(time * 0.005F, 0.6F, 1F).hashCode();
+                            return MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
                         } else {
                             return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                         }
@@ -72,7 +73,7 @@ public final class ColorHandler {
                         if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
                             return 0xFFFFFF;
                         float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                        return Color.getHSBColor((time * 5) % 360 / 360F, 0.4F, 0.9F).hashCode();
+                        return MathHelper.hsvToRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
                     }
                 },
                 ModBlocks.spreader
