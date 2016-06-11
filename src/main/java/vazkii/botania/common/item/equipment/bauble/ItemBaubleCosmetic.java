@@ -263,7 +263,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					break;
 				case DEVIL_TAIL:
 					GlStateManager.rotate(90F, 0F, 1F, 0F);
-					GlStateManager.translate(0.25F, -0.4F, -0.055F);
+					GlStateManager.translate(0.5F, -0.75F, 0F);
 					renderItem();
 					break;
 				case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
