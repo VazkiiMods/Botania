@@ -19,8 +19,8 @@ import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
-	public RenderCorporeaSpark(RenderManager p_i46185_1_) {
-		super(p_i46185_1_);
+	public RenderCorporeaSpark(RenderManager manager) {
+		super(manager);
 	}
 
 	protected DataParameter<Integer> getInvisibilityParam() {

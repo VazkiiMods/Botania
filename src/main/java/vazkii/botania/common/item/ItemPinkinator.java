@@ -64,8 +64,8 @@ public class ItemPinkinator extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
-		p_77624_3_.add(I18n.format("botaniamisc.pinkinatorDesc"));
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+		tooltip.add(I18n.format("botaniamisc.pinkinatorDesc"));
 	}
 
 }

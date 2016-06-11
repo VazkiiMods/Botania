@@ -29,8 +29,8 @@ import java.util.Random;
 
 public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
-	public RenderSparkBase(RenderManager p_i46185_1_) {
-		super(p_i46185_1_);
+	public RenderSparkBase(RenderManager manager) {
+		super(manager);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull Entity p_110775_1_) {
+	protected ResourceLocation getEntityTexture(@Nonnull Entity entity) {
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

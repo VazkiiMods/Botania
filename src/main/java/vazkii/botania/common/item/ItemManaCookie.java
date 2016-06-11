@@ -37,9 +37,9 @@ public class ItemManaCookie extends ItemFood {
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack p_77849_1_, World p_77849_2_, @Nonnull EntityPlayer p_77849_3_) {
-		super.onFoodEaten(p_77849_1_, p_77849_2_, p_77849_3_);
-		p_77849_3_.addStat(ModAchievements.manaCookieEat, 1);
+	protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
+		super.onFoodEaten(stack, world, player);
+		player.addStat(ModAchievements.manaCookieEat, 1);
 	}
 
 	@Nonnull

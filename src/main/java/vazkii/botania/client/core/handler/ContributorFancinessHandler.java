@@ -48,7 +48,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	private static final boolean phi = false;
 
 	@Override
-	public void doRenderLayer(@Nonnull EntityPlayer player, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
+	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		String name = player.getDisplayName().getUnformattedText();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;

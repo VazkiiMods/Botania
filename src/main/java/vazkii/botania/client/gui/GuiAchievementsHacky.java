@@ -18,8 +18,8 @@ import vazkii.botania.common.achievement.ModAchievements;
 
 public class GuiAchievementsHacky extends GuiAchievements {
 
-	public GuiAchievementsHacky(GuiScreen p_i45026_1_, StatisticsManager p_i45026_2_) {
-		super(p_i45026_1_, p_i45026_2_);
+	public GuiAchievementsHacky(GuiScreen screen, StatisticsManager stats) {
+		super(screen, stats);
 		ReflectionHelper.setPrivateValue(GuiAchievements.class, this, ModAchievements.pageIndex, "currentPage");
 	}
 

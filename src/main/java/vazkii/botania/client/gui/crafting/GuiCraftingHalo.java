@@ -22,18 +22,18 @@ public class GuiCraftingHalo extends GuiContainer {
 
 	private static final ResourceLocation craftingTableGuiTextures = new ResourceLocation("textures/gui/container/crafting_table.png");
 
-	public GuiCraftingHalo(InventoryPlayer p_i1084_1_, World p_i1084_2_) {
-		super(new ContainerCraftingHalo(p_i1084_1_, p_i1084_2_));
+	public GuiCraftingHalo(InventoryPlayer playerInv, World world) {
+		super(new ContainerCraftingHalo(playerInv, world));
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		fontRendererObj.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
 		fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(craftingTableGuiTextures);
 		int k = (width - xSize) / 2;

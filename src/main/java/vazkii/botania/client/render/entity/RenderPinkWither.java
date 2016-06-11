@@ -22,13 +22,13 @@ public class RenderPinkWither extends RenderWither {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
 
-	public RenderPinkWither(RenderManager p_i46130_1_) {
-		super(p_i46130_1_);
+	public RenderPinkWither(RenderManager manager) {
+		super(manager);
 	}
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityWither p_110775_1_) {
+	protected ResourceLocation getEntityTexture(EntityWither entity) {
 		return resource;
 	}
 

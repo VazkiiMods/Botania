@@ -28,8 +28,8 @@ import java.util.Iterator;
 
 public class EntityPinkWither extends EntityWither {
 
-	public EntityPinkWither(World p_i1701_1_) {
-		super(p_i1701_1_);
+	public EntityPinkWither(World world) {
+		super(world);
 
 		Iterator<EntityAITasks.EntityAITaskEntry> taskIter = this.tasks.taskEntries.iterator();
 		while (taskIter.hasNext()) {
@@ -78,7 +78,7 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
 		// NO-OP
 	}
 

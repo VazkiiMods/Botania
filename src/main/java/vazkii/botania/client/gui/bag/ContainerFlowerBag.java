@@ -57,15 +57,15 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
 		ItemStack itemstack = null;
-		Slot slot = inventorySlots.get(p_82846_2_);
+		Slot slot = inventorySlots.get(slotIndex);
 
 		if(slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if(p_82846_2_ < 16) {
+			if(slotIndex < 16) {
 				if(!mergeItemStack(itemstack1, 16, 52, true))
 					return null;
 			} else {
@@ -84,7 +84,7 @@ public class ContainerFlowerBag extends Container {
 			if(itemstack1.stackSize == itemstack.stackSize)
 				return null;
 
-			slot.onPickupFromSlot(p_82846_1_, itemstack1);
+			slot.onPickupFromSlot(player, itemstack1);
 		}
 
 		return itemstack;

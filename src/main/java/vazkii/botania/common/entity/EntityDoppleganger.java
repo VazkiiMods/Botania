@@ -414,8 +414,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	public void onDeath(@Nonnull DamageSource p_70645_1_) {
-		super.onDeath(p_70645_1_);
+	public void onDeath(@Nonnull DamageSource source) {
+		super.onDeath(source);
 		EntityLivingBase entitylivingbase = getAttackingEntity();
 		if(entitylivingbase instanceof EntityPlayer) {
 			((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);

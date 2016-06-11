@@ -33,24 +33,24 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack p_77626_1_) {
+	public int getMaxItemUseDuration(ItemStack stack) {
 		return 32;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
-		return isBoot(p_77661_1_) ? EnumAction.DRINK : EnumAction.EAT;
+	public EnumAction getItemUseAction(ItemStack stack) {
+		return isBoot(stack) ? EnumAction.DRINK : EnumAction.EAT;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_, EnumHand hand) {
-		if(p_77659_3_.canEat(false) && isRightPlayer(p_77659_3_, p_77659_1_)) {
-			p_77659_3_.setActiveHand(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, p_77659_1_);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(player.canEat(false) && isRightPlayer(player, stack)) {
+			player.setActiveHand(hand);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
-		return ActionResult.newResult(EnumActionResult.PASS, p_77659_1_);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override

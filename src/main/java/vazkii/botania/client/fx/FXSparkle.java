@@ -117,7 +117,7 @@ public class FXSparkle extends Particle {
 	}
 
 	@Override
-	public void renderParticle(VertexBuffer worldRendererIn, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(VertexBuffer worldRendererIn, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;

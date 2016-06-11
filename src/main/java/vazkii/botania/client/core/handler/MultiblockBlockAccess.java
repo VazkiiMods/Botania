@@ -56,9 +56,9 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	}
 
 	@Override
-	public int getCombinedLight(@Nonnull BlockPos pos, int p_72802_4_) {
+	public int getCombinedLight(@Nonnull BlockPos pos, int lightValue) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getCombinedLight(pos, p_72802_4_);
+			return originalBlockAccess.getCombinedLight(pos, lightValue);
 		return 15728640;
 	}
 

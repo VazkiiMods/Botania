@@ -24,12 +24,12 @@ import javax.annotation.Nonnull;
 
 public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 
-	public RenderPoolMinecart(RenderManager p_i46155_1_) {
-		super(p_i46155_1_);
+	public RenderPoolMinecart(RenderManager manager) {
+		super(manager);
 	}
 
 	@Override
-	protected void renderCartContents(EntityPoolMinecart poolCart, float p_147910_2_, @Nonnull IBlockState state) {
+	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull IBlockState state) {
 		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
 		TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TilePool.class).renderTileEntityAt(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);

@@ -31,9 +31,9 @@ public class EntityThrownItem extends EntityItem {
 		super(par1World);
 	}
 
-	public EntityThrownItem(World p_i1710_1_, double p_i1710_2_,
-			double p_i1710_4_, double p_i1710_6_, EntityItem item) {
-		super(p_i1710_1_, p_i1710_2_, p_i1710_4_, p_i1710_6_, item.getEntityItem());
+	public EntityThrownItem(World world, double x,
+			double y, double z, EntityItem item) {
+		super(world, x, y, z, item.getEntityItem());
 
 		int pickupDelay = 0;
 		try {

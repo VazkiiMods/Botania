@@ -163,9 +163,9 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item p_149666_1_, CreativeTabs p_149666_2_, @Nonnull List<ItemStack> p_149666_3_) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
 		for(int i = 0; i < COUNT; ++i)
-			p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Nonnull

@@ -85,7 +85,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
+	public boolean isPassable(IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 

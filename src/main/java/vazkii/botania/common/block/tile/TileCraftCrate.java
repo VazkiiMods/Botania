@@ -123,7 +123,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		InventoryCrafting craft = new InventoryCrafting(new Container() {
 			@Override
-			public boolean canInteractWith(@Nonnull EntityPlayer p_75145_1_) {
+			public boolean canInteractWith(@Nonnull EntityPlayer player) {
 				return false;
 			}
 		}, 3, 3);

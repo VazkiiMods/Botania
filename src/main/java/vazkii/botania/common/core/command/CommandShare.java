@@ -29,7 +29,7 @@ public class CommandShare extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender p_71518_1_) {
+	public String getCommandUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 

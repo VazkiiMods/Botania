@@ -29,13 +29,13 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 
 	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource p_82487_1_, ItemStack p_82487_2_) {
-		EnumFacing enumfacing = BlockDispenser.getFacing(p_82487_1_.getBlockMetadata());
-		World world = p_82487_1_.getWorld();
-		double d0 = p_82487_1_.getX() + enumfacing.getFrontOffsetX() * 1.125F;
-		double d1 = p_82487_1_.getY() + enumfacing.getFrontOffsetY() * 1.125F;
-		double d2 = p_82487_1_.getZ() + enumfacing.getFrontOffsetZ() * 1.125F;
-		BlockPos pos = p_82487_1_.getBlockPos().offset(enumfacing);
+	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+		EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+		World world = source.getWorld();
+		double d0 = source.getX() + enumfacing.getFrontOffsetX() * 1.125F;
+		double d1 = source.getY() + enumfacing.getFrontOffsetY() * 1.125F;
+		double d2 = source.getZ() + enumfacing.getFrontOffsetZ() * 1.125F;
+		BlockPos pos = source.getBlockPos().offset(enumfacing);
 		IBlockState state = world.getBlockState(pos);
 		double d3;
 
@@ -43,24 +43,24 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 			d3 = 0.0D;
 		else {
 			if(state.getMaterial() != Material.AIR || !BlockRailBase.isRailBlock(world.getBlockState(pos.down())))
-				return super.dispenseStack(p_82487_1_, p_82487_2_);
+				return super.dispenseStack(source, stack);
 
 			d3 = -1.0D;
 		}
 
 		EntityMinecart entityminecart = new EntityPoolMinecart(world, d0, d1 + d3, d2);
 
-		if(p_82487_2_.hasDisplayName())
-			entityminecart.setCustomNameTag(p_82487_2_.getDisplayName());
+		if(stack.hasDisplayName())
+			entityminecart.setCustomNameTag(stack.getDisplayName());
 
 		world.spawnEntityInWorld(entityminecart);
-		p_82487_2_.splitStack(1);
-		return p_82487_2_;
+		stack.splitStack(1);
+		return stack;
 	}
 
 	@Override
-	protected void playDispenseSound(IBlockSource p_82485_1_) {
-		p_82485_1_.getWorld().playEvent(1000, p_82485_1_.getBlockPos(), 0);
+	protected void playDispenseSound(IBlockSource source) {
+		source.getWorld().playEvent(1000, source.getBlockPos(), 0);
 	}
 
 }

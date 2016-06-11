@@ -60,7 +60,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
+	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int slot, boolean held) {
 		if(!(par3Entity instanceof EntityPlayer))
 			return;
 

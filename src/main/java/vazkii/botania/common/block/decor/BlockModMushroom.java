@@ -91,7 +91,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public void updateTick(@Nonnull World p_149674_1_, @Nonnull BlockPos pos, IBlockState state, Random p_149674_5_) {
+	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {
 		// NO-OP, to prevent spreading
 	}
 

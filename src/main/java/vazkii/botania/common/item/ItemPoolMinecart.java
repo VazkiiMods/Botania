@@ -41,18 +41,18 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, BlockPos pos, EnumHand hand, EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
-		if(BlockRailBase.isRailBlock(p_77648_3_.getBlockState(pos))) {
-			if(!p_77648_3_.isRemote) {
-				EntityMinecart entityminecart = new EntityPoolMinecart(p_77648_3_, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(BlockRailBase.isRailBlock(world.getBlockState(pos))) {
+			if(!world.isRemote) {
+				EntityMinecart entityminecart = new EntityPoolMinecart(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
-				if(p_77648_1_.hasDisplayName())
-					entityminecart.setCustomNameTag(p_77648_1_.getDisplayName());
+				if(stack.hasDisplayName())
+					entityminecart.setCustomNameTag(stack.getDisplayName());
 
-				p_77648_3_.spawnEntityInWorld(entityminecart);
+				world.spawnEntityInWorld(entityminecart);
 			}
 
-			--p_77648_1_.stackSize;
+			--stack.stackSize;
 			return EnumActionResult.SUCCESS;
 		}
 

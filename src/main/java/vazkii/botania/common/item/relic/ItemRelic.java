@@ -53,8 +53,8 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
-		addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+		addBindInfo(tooltip, stack, player);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -185,7 +185,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack p_77613_1_) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return BotaniaAPI.rarityRelic;
 	}
 

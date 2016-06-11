@@ -42,9 +42,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	}
 
 	@Override
-	public void onUpdate(ItemStack p_77663_1_, World p_77663_2_, Entity p_77663_3_, int p_77663_4_, boolean p_77663_5_) {
-		if(p_77663_3_ instanceof EntityPlayer)
-			dummy.updateRelic(p_77663_1_, (EntityPlayer) p_77663_3_);
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+		if(entity instanceof EntityPlayer)
+			dummy.updateRelic(stack, (EntityPlayer) entity);
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack p_77613_1_) {
+	public EnumRarity getRarity(ItemStack stack) {
 		return BotaniaAPI.rarityRelic;
 	}
 

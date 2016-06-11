@@ -107,8 +107,8 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityBabylonWeapon p_110775_1_) {
-		return null;
+	protected ResourceLocation getEntityTexture(@Nonnull EntityBabylonWeapon entity) {
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 
 }

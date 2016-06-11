@@ -49,12 +49,12 @@ public class BlockGaiaHead extends BlockSkull {
 
     @Nonnull
 	@Override
-    public List<ItemStack> getDrops(@Nonnull IBlockAccess p_149749_1_, @Nonnull BlockPos pos, IBlockState state, int fortune) {
+    public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<>();
         
         if(!state.getValue(NODROP)) {
             ItemStack itemstack = new ItemStack(ModItems.gaiaHead, 1);
-            TileEntitySkull tileentityskull = (TileEntitySkull)p_149749_1_.getTileEntity(pos);
+            TileEntitySkull tileentityskull = (TileEntitySkull)world.getTileEntity(pos);
 
             if(tileentityskull == null) 
             	return ret;
@@ -65,7 +65,7 @@ public class BlockGaiaHead extends BlockSkull {
     }
 	
 	@Override
-    public Item getItemDropped(IBlockState p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return ModItems.gaiaHead;
     }
 
@@ -76,7 +76,7 @@ public class BlockGaiaHead extends BlockSkull {
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileGaiaHead();
 	}
 }

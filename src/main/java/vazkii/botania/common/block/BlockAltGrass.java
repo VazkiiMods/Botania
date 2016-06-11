@@ -101,8 +101,8 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-    public Item getItemDropped(IBlockState state, Random p_149650_2_, int p_149650_3_) {
-        return Blocks.DIRT.getItemDropped(state, p_149650_2_, p_149650_3_);
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return Blocks.DIRT.getItemDropped(state, rand, fortune);
     }
 
 	@Nonnull

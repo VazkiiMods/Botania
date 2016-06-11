@@ -13,6 +13,7 @@ package vazkii.botania.client.render.entity;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
@@ -39,8 +40,8 @@ public class RenderManaStorm extends Render<EntityManaStorm> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm p_110775_1_) {
-		return null;
+	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 
 }

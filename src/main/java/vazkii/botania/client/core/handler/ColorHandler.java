@@ -43,7 +43,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
                         return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                     }
                 },
@@ -53,7 +53,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
                         if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
                             float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
                             return MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
@@ -69,7 +69,7 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess p_186720_2_, BlockPos pos, int tintIndex) {
+                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
                         if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
                             return 0xFFFFFF;
                         float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;

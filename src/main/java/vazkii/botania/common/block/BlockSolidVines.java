@@ -48,7 +48,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random p_149674_5_) {
+	public void updateTick(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
 		// NO-OP
 	}
 

@@ -266,7 +266,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		@Override
-		public boolean attackEntityFrom(@Nonnull DamageSource p_70097_1_, float p_70097_2_) {
+		public boolean attackEntityFrom(@Nonnull DamageSource source, float damage) {
 			return false;
 		}
 

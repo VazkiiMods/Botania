@@ -34,14 +34,14 @@ public class GuiFlowerBag extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String s = I18n.format("item.botania:flowerBag.name");
 		fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
 		fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;

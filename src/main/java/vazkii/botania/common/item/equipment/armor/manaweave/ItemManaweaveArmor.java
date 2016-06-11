@@ -63,8 +63,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getUnlocalizedName(ItemStack p_77667_1_) {
-		String name = super.getUnlocalizedName(p_77667_1_);
+	public String getUnlocalizedName(ItemStack stack) {
+		String name = super.getUnlocalizedName(stack);
 		if(ClientProxy.jingleTheBells)
 			name = name.replaceAll("manaweave", "santaweave");
 		return name;

@@ -43,12 +43,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 	private static final String TAG_MANA = "mana";
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
 
-	public EntityPoolMinecart(World p_i1712_1_) {
-		super(p_i1712_1_);
+	public EntityPoolMinecart(World world) {
+		super(world);
 	}
 
-	public EntityPoolMinecart(World p_i1715_1_, double p_i1715_2_, double p_i1715_4_, double p_i1715_6_) {
-		super(p_i1715_1_, p_i1715_2_, p_i1715_4_, p_i1715_6_);
+	public EntityPoolMinecart(World world, double x, double y, double z) {
+		super(world, x, y, z);
 	}
 
 	@Override
@@ -81,8 +81,8 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public void killMinecart(DamageSource p_94095_1_) {
-		super.killMinecart(p_94095_1_);
+	public void killMinecart(DamageSource source) {
+		super.killMinecart(source);
 		dropItemWithOffset(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
 	}
 
@@ -167,15 +167,15 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound p_70014_1_) {
-		super.writeEntityToNBT(p_70014_1_);
-		p_70014_1_.setInteger(TAG_MANA, getMana());
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
+		super.writeEntityToNBT(cmp);
+		cmp.setInteger(TAG_MANA, getMana());
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-		super.readEntityFromNBT(p_70037_1_);
-		setMana(p_70037_1_.getInteger(TAG_MANA));
+	protected void readEntityFromNBT(NBTTagCompound cmp) {
+		super.readEntityFromNBT(cmp);
+		setMana(cmp.getInteger(TAG_MANA));
 	}
 
 	public int getMana() {

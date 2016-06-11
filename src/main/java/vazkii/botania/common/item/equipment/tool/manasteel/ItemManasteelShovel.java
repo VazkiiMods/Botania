@@ -79,30 +79,30 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(@Nonnull ItemStack p_77648_1_, EntityPlayer p_77648_2_, @Nonnull World p_77648_3_, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
-		if(!p_77648_2_.canPlayerEdit(pos, side, p_77648_1_))
+	public EnumActionResult onItemUse(@Nonnull ItemStack stack, EntityPlayer player, @Nonnull World world, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(!player.canPlayerEdit(pos, side, stack))
 			return EnumActionResult.PASS;
 		else {
-			UseHoeEvent event = new UseHoeEvent(p_77648_2_, p_77648_1_, p_77648_3_, pos);
+			UseHoeEvent event = new UseHoeEvent(player, stack, world, pos);
 			if(MinecraftForge.EVENT_BUS.post(event))
 				return EnumActionResult.FAIL;
 
 			if(event.getResult() == Result.ALLOW) {
-				ToolCommons.damageItem(p_77648_1_, 1, p_77648_2_, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 				return EnumActionResult.SUCCESS;
 			}
 
-			Block block = p_77648_3_.getBlockState(pos).getBlock();
+			Block block = world.getBlockState(pos).getBlock();
 
-			if(side != EnumFacing.DOWN && p_77648_3_.getBlockState(pos.up()).getBlock().isAir(p_77648_3_.getBlockState(pos.up()), p_77648_3_, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
+			if(side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
 				Block block1 = Blocks.FARMLAND;
-				p_77648_3_.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
+				world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
 
-				if (p_77648_3_.isRemote)
+				if (world.isRemote)
 					return EnumActionResult.SUCCESS;
 				else {
-					p_77648_3_.setBlockState(pos, block1.getDefaultState());
-					ToolCommons.damageItem(p_77648_1_, 1, p_77648_2_, MANA_PER_DAMAGE);
+					world.setBlockState(pos, block1.getDefaultState());
+					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 					return EnumActionResult.SUCCESS;
 				}
 			}

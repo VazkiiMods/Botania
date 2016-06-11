@@ -27,7 +27,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -38,7 +38,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 				drawTexturedModalRect(guiLeft+slot.xDisplayPosition, guiTop+slot.yDisplayPosition, 200, 0, 16, 16);
 		}
 
-		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - p_146976_2_, guiTop + 45 - 30 - p_146976_3_, mc.thePlayer);
+		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.thePlayer);
 	}
 
 }

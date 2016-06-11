@@ -65,26 +65,26 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, BlockPos pos, IBlockState state) {
-		super.onBlockAdded(p_149726_1_, pos, state);
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		super.onBlockAdded(world, pos, state);
 
-		if(!p_149726_1_.isRemote && p_149726_1_.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && p_149726_1_.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
-			p_149726_1_.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-			p_149726_1_.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 2);
-			p_149726_1_.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 2);
-			EntityBlaze blaze = new EntityBlaze(p_149726_1_);
+		if(!world.isRemote && world.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
+			world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+			world.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 2);
+			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 2);
+			EntityBlaze blaze = new EntityBlaze(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
-			p_149726_1_.spawnEntityInWorld(blaze);
-			p_149726_1_.notifyNeighborsOfStateChange(pos, Blocks.AIR);
-			p_149726_1_.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
-			p_149726_1_.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
+			world.spawnEntityInWorld(blaze);
+			world.notifyNeighborsOfStateChange(pos, Blocks.AIR);
+			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
+			world.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, BlockPos pos, IBlockState state, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		p_149689_1_.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, p_149689_5_.getHorizontalFacing().getOpposite()));
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
 	}
 
 	@SubscribeEvent

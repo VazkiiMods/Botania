@@ -19,24 +19,24 @@ import java.util.Random;
 
 public class TileRedStringFertilizer extends TileRedString {
 
-	public boolean canGrow(World p_149851_1_, boolean p_149851_5_) {
+	public boolean canGrow(World world, boolean isClient) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 
-		return block instanceof IGrowable ? ((IGrowable) block).canGrow(p_149851_1_, binding, p_149851_1_.getBlockState(binding), p_149851_5_) : false;
+		return block instanceof IGrowable ? ((IGrowable) block).canGrow(world, binding, world.getBlockState(binding), isClient) : false;
 	}
 
-	public boolean canUseBonemeal(World p_149852_1_, Random p_149852_2_) {
+	public boolean canUseBonemeal(World world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		return block instanceof IGrowable ? ((IGrowable) block).canUseBonemeal(p_149852_1_, p_149852_2_, binding, p_149852_1_.getBlockState(binding)) : false;
+		return block instanceof IGrowable ? ((IGrowable) block).canUseBonemeal(world, rand, binding, world.getBlockState(binding)) : false;
 	}
 
-	public void grow(World p_149853_1_, Random p_149853_2_) {
+	public void grow(World world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 		if(block instanceof IGrowable)
-			((IGrowable) block).grow(p_149853_1_, p_149853_2_, binding, p_149853_1_.getBlockState(binding));
+			((IGrowable) block).grow(world, rand, binding, world.getBlockState(binding));
 	}
 
 	@Override

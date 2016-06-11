@@ -97,7 +97,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public boolean isPassable(IBlockAccess p_149655_1_, BlockPos pos) {
+	public boolean isPassable(IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 
@@ -108,12 +108,12 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World p_149668_1_, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
 		return null;
 	}
 
 	@Override
-	public int tickRate(World p_149738_1_) {
+	public int tickRate(World world) {
 		return 2;
 	}
 

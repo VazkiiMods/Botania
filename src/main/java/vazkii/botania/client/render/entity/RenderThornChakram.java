@@ -31,13 +31,13 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 	}
 
 	@Override
-	public void doRender(@Nonnull EntityThornChakram c, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	public void doRender(@Nonnull EntityThornChakram c, double x, double y, double z, float entityYaw, float partialTicks) {
 		boolean fire = c.isFire();
 		TextureAtlasSprite iicon = null;//ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
 
 		if(iicon != null)  {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
+			GlStateManager.translate((float)x, (float)y, (float)z);
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			bindEntityTexture(c);

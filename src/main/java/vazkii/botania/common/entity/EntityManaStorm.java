@@ -33,8 +33,8 @@ public class EntityManaStorm extends Entity {
 	public int burstsFired;
 	public int deathTime;
 
-	public EntityManaStorm(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public EntityManaStorm(World world) {
+		super(world);
 	}
 
 	@Override
