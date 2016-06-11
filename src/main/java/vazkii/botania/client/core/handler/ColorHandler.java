@@ -25,6 +25,7 @@ import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Map;
 
@@ -81,13 +82,15 @@ public final class ColorHandler {
         blocks.registerBlockColorHandler(
                 new IBlockColor() {
                     @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-                        TileEntity tile = world.getTileEntity(pos);
-                        if(tile instanceof TileCamo) {
-                            TileCamo camo = (TileCamo) tile;
-                            IBlockState camoState = camo.camoState;
-                            if(camoState != null)
-                                return camoState.getBlock() instanceof BlockCamo ? 0xFFFFFF : Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
+                    public int colorMultiplier(@Nonnull IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {
+                        if (world != null && pos != null) {
+                            TileEntity tile = world.getTileEntity(pos);
+                            if(tile instanceof TileCamo) {
+                                TileCamo camo = (TileCamo) tile;
+                                IBlockState camoState = camo.camoState;
+                                if(camoState != null)
+                                    return camoState.getBlock() instanceof BlockCamo ? 0xFFFFFF : Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
+                            }
                         }
                         return 0xFFFFFF;
                     }
