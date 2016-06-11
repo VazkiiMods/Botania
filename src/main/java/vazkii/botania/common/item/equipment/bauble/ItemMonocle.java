@@ -56,10 +56,11 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 			Helper.translateToHeadLevel(player);
 			Helper.translateToFace();
+			Helper.defaultTransforms();
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.32F, 0.125F, armor ? -0.13F : -0.25F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
+			GlStateManager.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 		}
 	}
 

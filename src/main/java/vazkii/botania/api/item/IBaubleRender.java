@@ -72,7 +72,16 @@ public interface IBaubleRender {
 		public static void translateToFace() {
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(0f, -1.6f, -0.35f);
+			GlStateManager.translate(0f, -4.35f, -1.27f);
+		}
+
+		/**
+		 * Scales down the render to a correct size.
+		 * Use for any render.
+		 */
+		public static void defaultTransforms() {
+			GlStateManager.translate(0.0, 3.0, 1.0);
+			GlStateManager.scale(0.55, 0.55, 0.55);
 		}
 
 		/**
@@ -81,7 +90,7 @@ public interface IBaubleRender {
 		 */
 		public static void translateToChest() {
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(0F, -0.3F, 0.0825F);
+			GlStateManager.translate(0F, -3.2F, -0.85F);
 		}
 
 	}

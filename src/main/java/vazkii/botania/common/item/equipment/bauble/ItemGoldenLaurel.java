@@ -68,15 +68,16 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
 			Helper.translateToHeadLevel(player);
+			Helper.defaultTransforms();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.translate(-0.35F, 1.1F, 0);
+			GlStateManager.translate(0F, -3.2F, -1.825F);
 			GlStateManager.rotate(-90F, 0F, 1F, 0F);
 			GlStateManager.scale(1.625F, 1.625F, 1.625F);
 			GlStateManager.rotate(-80F, 1F, 0F, 0F);
 			if(armor) {
 				GlStateManager.scale(1.1F, 1.1F, 1.1F);
 			}
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 		}
 	}
 }

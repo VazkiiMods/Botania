@@ -105,55 +105,54 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		if (type == RenderType.HEAD) {
 			Helper.translateToHeadLevel(player);
 			Helper.translateToFace();
+			Helper.defaultTransforms();
 			switch (variant) {
 				case RED_GLASSES:
-					GlStateManager.translate(0F, 0.01F, 0.045F);
+					GlStateManager.scale(1.25, 1.25, 1.25);
+					GlStateManager.translate(0F, -0.085F, 0.045F);
 					renderItem();
 					break;
 				case ENGINEER_GOGGLES:
-					GlStateManager.translate(0F, 0.01F, 0.045F);
+					GlStateManager.scale(1.25, 1.25, 1.25);
+					GlStateManager.translate(0F, -0.085F, 0.045F);
 					renderItem();
 					break;
 				case EYEPATCH:
-					scale(0.35F);
-					GlStateManager.translate(-0.3F, 0.4F, 0.1F);
+					scale(0.55F);
+					GlStateManager.translate(-0.45F, -0.25F, 0F);
 					renderItem();
 					break;
 				case WICKED_EYEPATCH:
-					scale(0.45F);
-					GlStateManager.translate(0.2F, 0.2F, -0.4F);
+					scale(0.55F);
+					GlStateManager.translate(0.45F, -0.25F, 0F);
 					renderItem();
 					break;
 				case RED_RIBBONS:
 					scale(0.9F);
-					GlStateManager.translate(0F, 0.4F, 0.42F);
+					GlStateManager.translate(0F, 0.75F, 1F);
 					renderItem();
 					break;
 				case PINK_FLOWER_BUD:
 					GlStateManager.rotate(-90F, 0F, 1F, 0F);
-					GlStateManager.translate(0.4F, 0.1F, 0.2F);
+					GlStateManager.translate(0.4F, 0.6F, 0.45F);
 					renderItem();
 					break;
 				case POLKA_DOTTED_BOWS:
 					GlStateManager.rotate(-90F, 0F, 1F, 0F);
-					GlStateManager.translate(0.4F, 0.3F, 0.2F);
+					GlStateManager.translate(0.65F, 0.3F, 0.5F);
 					renderItem();
-					GlStateManager.translate(0F, 0F, -0.525F);
+					GlStateManager.translate(0F, 0F, -1F);
 					renderItem();
 					break;
 				case BLUE_BUTTERFLY:
-					GlStateManager.rotate(-90F, 0F, 0F, 1F);
-					renderItem();
-					GlStateManager.translate(0F, 0.25F, -0.4F);
-
+					GlStateManager.translate(-0.75F, 0.1F, 1F);
 					GlStateManager.pushMatrix();
-					GlStateManager.translate(-0.2F, 0.15F, 0F);
-					GlStateManager.rotate(-45F, 0F, 0F, 1F);
+					GlStateManager.rotate(45F, 0F, 1F, 0F);
 					renderItem();
 					GlStateManager.popMatrix();
 
-					GlStateManager.translate(0.15F, 0.3F, 0F);
-					GlStateManager.rotate(-135F, 0F, 0F, 1F);
+					GlStateManager.translate(0F, 0F, -0.75F);
+					GlStateManager.rotate(-45F, 0F, 1F, 0F);
 					renderItem();
 					break;
 				case CAT_EARS:
@@ -167,14 +166,15 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					renderItem();
 					break;
 				case CLOCK_EYE:
-					scale(0.5F);
-					GlStateManager.translate(0.25F, 0.2F, 0.1F);
+					scale(0.75F);
+					GlStateManager.translate(-0.25F, -0.1F, 0F);
+					GlStateManager.rotate(180F, 0F, 0F, 1F);
 					renderItem();
 					break;
 				case UNICORN_HORN:
-					scale(0.75F);
+					scale(1.25F);
 					GlStateManager.rotate(-90F, 0F, 1F, 0F);
-					GlStateManager.translate(0.1F, 0.4F, -0.0625F);
+					GlStateManager.translate(0F, 0.4F, 0F);
 					renderItem();
 					break;
 				case DEVIL_HORNS:
@@ -182,10 +182,10 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					renderItem();
 					break;
 				case HYPER_PLUS:
-					scale(0.3125F);
-					GlStateManager.translate(-0.7F, 1.5F, 0.3F);
+					scale(0.35F);
+					GlStateManager.translate(-0.7F, 1F, -0.5F);
 					renderItem();
-					GlStateManager.translate(1.4F, 0F, 0F);
+					GlStateManager.translate(1.45F, 0F, 0F);
 					renderItem();
 					break;
 				case ANCIENT_MASK:
@@ -194,13 +194,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					renderItem();
 					break;
 				case EERIE_MASK:
-					GlStateManager.translate(0F, 0.05F, 0F);
 					renderItem();
 					break;
 				case ALIEN_ANTENNA:
-					scale(0.8F);
+					scale(0.9F);
 					GlStateManager.rotate(180F, 0F, 1F, 0F);
-					GlStateManager.translate(0F, 0.5F, -0.85F);
+					GlStateManager.translate(0F, 0.75F, -1F);
 					renderItem();
 					break;
 				case ANAGLYPH_GLASSES:
@@ -209,6 +208,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					renderItem();
 					break;
 				case ORANGE_SHADES:
+					scale(1.25f);
 					GlStateManager.translate(0F, 0.04F, 0F);
 					GlStateManager.enableBlend();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -216,16 +216,16 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					renderItem();
 					break;
 				case GROUCHO_GLASSES:
-					scale(0.90F);
-					GlStateManager.translate(0F, -0.035F, 0F);
+					scale(1.5F);
+					GlStateManager.translate(0F, -0.2125F, 0F);
 					renderItem();
 					break;
 				case THICK_EYEBROWS:
-					scale(0.35F);
-					GlStateManager.translate(-0.4F, 0.6F, 0.2F);
+					scale(0.5F);
+					GlStateManager.translate(-0.4F, 0.05F, 0F);
 					renderItem();
 					GlStateManager.rotate(180F, 0F, 1F, 0F);
-					GlStateManager.translate(-0.775F, 0.2F, 0F);
+					GlStateManager.translate(-0.775F, 0F, 0F);
 					renderItem();
 					break;
 				case TINY_POTATO_MASK:
@@ -235,15 +235,17 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					break;
 				case QUESTGIVER_MARK:
 					scale(0.8F);
-					GlStateManager.translate(0F, 0.75F, 0.3F);
+					GlStateManager.translate(0F, 1F, 0.3F);
 					renderItem();
 					break;
 			}
 		} else {
 			Helper.rotateIfSneaking(player);
 			Helper.translateToChest();
+			Helper.defaultTransforms();
 			switch (variant) {
 				case BLACK_BOWTIE:
+					GlStateManager.translate(0F, 0.15F, 0F);
 					renderItem();
 					break;
 				case BLACK_TIE:
@@ -266,26 +268,26 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					break;
 				case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
 					scale(0.9F);
-					GlStateManager.translate(0.45F, 0.2F, -0.1F);
+					GlStateManager.translate(0.9F, 0.35F, 0F);
 					renderItem();
+					GlStateManager.translate(-1.3F, -0.5F, 0.5F);
 					GlStateManager.rotate(180F, 0F, 0F, 1F);
 					GlStateManager.rotate(180F, 1F, 0F, 0F);
-					GlStateManager.translate(0.9F, -0.225F, -0.18F);
 					renderKamuiBlack();
 					break;
 				case FOUR_LEAF_CLOVER:
-					scale(0.35F);
-					GlStateManager.translate(-0.35F, 0.35F, 0.15F);
+					scale(0.5F);
+					GlStateManager.translate(0.35F, 0.3F, -0.075F);
 					renderItem();
 					break;
 				case BOTANIST_EMBLEM:
 					scale(0.5F);
-					GlStateManager.translate(0.2F, 0.125F, 0.05F);
+					GlStateManager.translate(0F, -0.75F, 0F);
 					renderItem();
 					break;
 				case LUSITANIC_SHIELD:
 					GlStateManager.rotate(180F, 0F, 1F, 0F);
-					GlStateManager.translate(0.035F, -0.2F, 0.175F);
+					GlStateManager.translate(0.035F, -0.2F, 0.55F);
 					GlStateManager.rotate(8F, 0F, 0F, 1F);
 					renderItem();
 					break;
@@ -299,7 +301,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	public void renderItem() {
 		GlStateManager.pushMatrix();
-		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
+		Minecraft.getMinecraft().getRenderItem().renderItem(renderStack, ItemCameraTransforms.TransformType.NONE);
 		GlStateManager.popMatrix();
 	}
 
@@ -316,9 +318,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.enableBlend();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
-		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, false);
+		model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.NONE, false);
 
-		GlStateManager.translate(-0.5F, -0.1F, -0.4F);
 		this.renderModel(model, renderStack, 0xFF00004C);
 
 		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
@@ -327,7 +328,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.disableBlend();
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
-		//
 	}
 
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param
