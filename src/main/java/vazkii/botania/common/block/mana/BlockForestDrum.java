@@ -115,12 +115,16 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(burst.isFake())
 			return;
+		if(world.isRemote) {
+			world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
+			return;
+		}
 		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
 		if(variant == DrumVariant.WILD)
 			ItemGrassHorn.breakGrass(world, null, 0, pos);
 		else if(variant == DrumVariant.CANOPY)
 			ItemGrassHorn.breakGrass(world, null, 1, pos);
-		else if(!world.isRemote) {
+		else {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 			List<EntityLiving> shearables = new ArrayList<>();
@@ -166,11 +170,8 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			}
 		}
 
-		if(!world.isRemote)
-			for(int i = 0; i < 10; i++)
-				world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
-		else world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
-
+		for(int i = 0; i < 10; i++)
+			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 1F);
 	}
 
 	@Override

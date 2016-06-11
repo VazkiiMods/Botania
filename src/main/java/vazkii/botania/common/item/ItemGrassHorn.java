@@ -59,11 +59,7 @@ public class ItemGrassHorn extends ItemMod {
 	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
+		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
 	@Nonnull
@@ -86,11 +82,11 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
-		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-			breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
-
-		if(!player.worldObj.isRemote)
+		if(!player.worldObj.isRemote) {
+			if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
+				breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
 			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+		}
 	}
 
 	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
@@ -121,7 +117,7 @@ public class ItemGrassHorn extends ItemMod {
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
-			else if(!world.isRemote) {
+			else {
 				world.setBlockToAir(currCoords);
 				if(ConfigHandler.blockBreakParticles)
 					world.playEvent(2001, currCoords, Block.getStateId(state));
