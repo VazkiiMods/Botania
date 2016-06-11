@@ -1,5 +1,6 @@
 package vazkii.botania.common.network;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +36,10 @@ public final class PacketHandler {
             }
 
         }
+    }
+
+    public static void sendToNearby(World world, Entity e, IMessage toSend) {
+        sendToNearby(world, new BlockPos(e), toSend);
     }
 
     public static void sendTo(EntityPlayerMP playerMP, IMessage toSend) {

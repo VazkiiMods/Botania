@@ -33,14 +33,16 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,10 +56,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
-	final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
+	private final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
-	int removeTransferants = 2;
-	final boolean firstTick = false;
+	private int removeTransferants = 2;
 
 	public EntitySpark(World world) {
 		super(world);
@@ -75,23 +76,23 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(worldObj.isRemote)
+			return;
+
 		ISparkAttachable tile = getAttachedTile();
 		if(tile == null) {
-			if(!worldObj.isRemote)
-				setDead();
+			setDead();
 			return;
 		}
 
-		boolean first = worldObj.isRemote && !firstTick;
 		SparkUpgradeType upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
-		if(first || upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
+		if(upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
-		if(upgrade != SparkUpgradeType.NONE) {
-			switch(upgrade) {
+		switch(upgrade) {
 			case DISPERSIVE : {
 				List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
 
@@ -158,7 +159,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 				break;
 			}
-			case RECESSIVE : { // Recessive
+			case RECESSIVE : {
 				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
@@ -169,7 +170,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				}
 				break;
 			}
-			}
+			case NONE:
+			default: break;
 		}
 
 		if(!transfers.isEmpty()) {
@@ -197,51 +199,20 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		if(removeTransferants > 0)
 			removeTransferants--;
-		getTransfers();
+		filterTransfers();
 	}
 
-	void particlesTowards(Entity e) {
-		Vector3 thisVec = Vector3.fromEntityCenter(this).add(0, 0, 0);
-		Vector3 receiverVec = Vector3.fromEntityCenter(e).add(0, 0, 0);
-
-		double rc = 0.45;
-		thisVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
-		receiverVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
-
-		Vector3 motion = receiverVec.copy().sub(thisVec);
-		motion.multiply(0.04F);
-		float r = 0.4F + 0.3F * (float) Math.random();
-		float g = 0.4F + 0.3F * (float) Math.random();
-		float b = 0.4F + 0.3F * (float) Math.random();
-		float size = 0.125F + 0.125F * (float) Math.random();
-
-		Botania.proxy.wispFX(worldObj, thisVec.x, thisVec.y, thisVec.z, r, g, b, size, (float) motion.x, (float) motion.y, (float) motion.z);
+	private void particlesTowards(Entity e) {
+		PacketHandler.sendToNearby(worldObj, this,
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, posX, posY, posZ,
+						getEntityId(), e.getEntityId()));
 	}
 
 	public static void particleBeam(Entity e1, Entity e2) {
-		if(e1 == null || e2 == null)
-			return;
-
-		Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
-		Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
-		Vector3 diff = end.copy().sub(orig);
-		Vector3 movement = diff.copy().normalize().multiply(0.1);
-		int iters = (int) (diff.mag() / movement.mag());
-		float huePer = 1F / iters;
-		float hueSum = (float) Math.random();
-
-		Vector3 currentPos = orig.copy();
-		for(int i = 0; i < iters; i++) {
-			float hue = i * huePer + hueSum;
-			Color color = Color.getHSBColor(hue, 1F, 1F);
-			float r = Math.min(1F, color.getRed() / 255F + 0.4F);
-			float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
-			float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
-
-			Botania.proxy.setSparkleFXNoClip(true);
-			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
-			Botania.proxy.setSparkleFXNoClip(false);
-			currentPos.add(movement);
+		if(e1 != null && e2 != null && !e1.worldObj.isRemote) {
+			PacketHandler.sendToNearby(e1.worldObj, e1,
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
+							e1.getEntityId(), e2.getEntityId()));
 		}
 	}
 
@@ -253,19 +224,23 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
 		if(stack != null) {
+			if(worldObj.isRemote)
+				return stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
+					|| stack.getItem() == ModItems.phantomInk;
+
 			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					if(upgrade != SparkUpgradeType.NONE) {
-						if(!worldObj.isRemote)
-							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
+						if (worldObj.isRemote)
+							System.out.println("WTF");
+						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
 						setUpgrade(SparkUpgradeType.NONE);
 
 						transfers.clear();
 						removeTransferants = 2;
 					} else setDead();
-					if(player.worldObj.isRemote)
-						player.swingArm(hand);
+					player.swingArm(hand);
 					return true;
 				} else {
 					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
@@ -277,20 +252,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
 				stack.stackSize--;
-				if(player.worldObj.isRemote)
-					player.swingArm(hand);
+				player.swingArm(hand);
+				return true;
+			} else if (stack.getItem() == ModItems.phantomInk) {
+				int invis = dataManager.get(INVISIBILITY);
+				dataManager.set(INVISIBILITY, ~invis & 1);
 				return true;
 			}
-		}
-
-		return doPhantomInk(stack);
-	}
-
-	public boolean doPhantomInk(ItemStack stack) {
-		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataManager.get(INVISIBILITY);
-			dataManager.set(INVISIBILITY, ~invis & 1);
-			return true;
 		}
 
 		return false;
@@ -331,12 +299,10 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		return null;
 	}
 
-
-	@Override
-	public Collection<ISparkEntity> getTransfers() {
-		Collection<ISparkEntity> removals = new ArrayList<>();
-
-		for(ISparkEntity spark : transfers) {
+	private void filterTransfers() {
+		Iterator<ISparkEntity> iter = transfers.iterator();
+		while (iter.hasNext()) {
+			ISparkEntity spark = iter.next();
 			SparkUpgradeType upgr = getUpgrade();
 			SparkUpgradeType supgr = spark.getUpgrade();
 			ISparkAttachable atile = spark.getAttachedTile();
@@ -345,12 +311,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					&& !spark.areIncomingTransfersDone()
 					&& atile != null && !atile.isFull()
 					&& (upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT || upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE) || !(atile instanceof IManaPool))))
-				removals.add(spark);
+				iter.remove();
 		}
+	}
 
-		if(!removals.isEmpty())
-			transfers.removeAll(removals);
-
+	@Override
+	public Collection<ISparkEntity> getTransfers() {
+		filterTransfers();
 		return transfers;
 	}
 
@@ -380,8 +347,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		ISparkAttachable tile = getAttachedTile();
 		if(tile instanceof IManaPool)
 			return removeTransferants > 0;
-
-			return tile != null && tile.areIncomingTranfersDone();
+		return tile != null && tile.areIncomingTranfersDone();
 	}
 
 }

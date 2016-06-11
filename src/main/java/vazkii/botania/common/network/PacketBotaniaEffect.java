@@ -18,6 +18,8 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
+import java.awt.*;
+
 public class PacketBotaniaEffect implements IMessage {
 
     private EffectType type;
@@ -137,6 +139,62 @@ public class PacketBotaniaEffect implements IMessage {
                             }
                             break;
                         }
+                        case SPARK_NET_INDICATOR: {
+                            Entity e1 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
+                            Entity e2 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[1]);
+
+                            if(e1 == null || e2 == null)
+                                return;
+
+                            Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
+                            Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
+                            Vector3 diff = end.copy().sub(orig);
+                            Vector3 movement = diff.copy().normalize().multiply(0.1);
+                            int iters = (int) (diff.mag() / movement.mag());
+                            float huePer = 1F / iters;
+                            float hueSum = (float) Math.random();
+
+                            Vector3 currentPos = orig.copy();
+                            for(int i = 0; i < iters; i++) {
+                                float hue = i * huePer + hueSum;
+                                Color color = Color.getHSBColor(hue, 1F, 1F);
+                                float r = Math.min(1F, color.getRed() / 255F + 0.4F);
+                                float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
+                                float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
+
+                                Botania.proxy.setSparkleFXNoClip(true);
+                                Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
+                                Botania.proxy.setSparkleFXNoClip(false);
+                                currentPos.add(movement);
+                            }
+
+                            break;
+                        }
+                        case SPARK_MANA_FLOW: {
+                            Entity e1 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
+                            Entity e2 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[1]);
+
+                            if(e1 == null || e2 == null)
+                                return;
+
+                            Vector3 thisVec = Vector3.fromEntityCenter(e1).add(0, 0, 0);
+                            Vector3 receiverVec = Vector3.fromEntityCenter(e2).add(0, 0, 0);
+
+                            double rc = 0.45;
+                            thisVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+                            receiverVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+
+                            Vector3 motion = receiverVec.copy().sub(thisVec);
+                            motion.multiply(0.04F);
+                            float r = 0.4F + 0.3F * (float) Math.random();
+                            float g = 0.4F + 0.3F * (float) Math.random();
+                            float b = 0.4F + 0.3F * (float) Math.random();
+                            float size = 0.125F + 0.125F * (float) Math.random();
+
+                            Botania.proxy.wispFX(Minecraft.getMinecraft().theWorld, thisVec.x, thisVec.y, thisVec.z, r, g, b,
+                                    size, (float) motion.x, (float) motion.y, (float) motion.z);
+                            break;
+                        }
                     }
                 }
             });
@@ -150,7 +208,9 @@ public class PacketBotaniaEffect implements IMessage {
         POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
         PAINT_LENS(1),  // Arg: colour
         ARENA_INDICATOR(0),
-        ITEM_SMOKE(2); // Arg: Entity ID, number of particles
+        ITEM_SMOKE(2), // Arg: Entity ID, number of particles
+        SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
+        SPARK_MANA_FLOW(2); // Arg: Entity ID from, Entity ID towards
 
         private final int argCount;
 
