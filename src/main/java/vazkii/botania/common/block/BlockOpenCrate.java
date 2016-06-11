@@ -123,9 +123,10 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 
 	@Override
 	public void breakBlock(@Nonnull World par1World, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
-
-		InventoryHelper.dropInventory(inv, par1World, state, pos);
+		if (!par1World.isRemote) {
+			TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(pos);
+			InventoryHelper.dropInventory(inv, par1World, state, pos);
+		}
 
 		super.breakBlock(par1World, pos, state);
 	}

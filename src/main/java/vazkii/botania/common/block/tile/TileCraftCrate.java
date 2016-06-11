@@ -70,7 +70,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_PATTERN = "pattern";
 
 	public int pattern = -1;
-	int signal = 0;
+	private int signal = 0;
 
 	@Override
 	public int getSizeInventory() {
@@ -117,7 +117,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		}
 	}
 
-	boolean craft(boolean fullCheck) {
+	private boolean craft(boolean fullCheck) {
 		if(fullCheck && !isFull())
 			return false;
 
@@ -163,14 +163,14 @@ public class TileCraftCrate extends TileOpenCrate {
 		return true;
 	}
 
-	void ejectAll() {
+	private void ejectAll() {
 		for(int i = 0; i < getSizeInventory(); ++i) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(stack != null)
 				eject(stack, false);
 			itemHandler.setStackInSlot(i, null);
-			markDirty();
 		}
+		markDirty();
 	}
 
 	@Override
@@ -187,8 +187,10 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {
-		craft(false);
-		ejectAll();
+		if(!player.worldObj.isRemote) {
+			craft(false);
+			ejectAll();
+		}
 		return true;
 	}
 
