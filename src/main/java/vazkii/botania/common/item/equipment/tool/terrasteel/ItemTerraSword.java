@@ -10,21 +10,21 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -38,6 +38,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.network.PacketLeftClick;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -50,22 +52,32 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 
 	public ItemTerraSword() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, world, par3Entity, par4, par5);
-		if(par3Entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) par3Entity;
-			PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
-			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
+	@SubscribeEvent
+	public void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
+		if (evt.getItemStack() != null
+				&& evt.getItemStack().getItem() == this) {
+			PacketHandler.sendToServer(new PacketLeftClick());
+		}
+	}
 
-			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote && world.rand.nextInt(2) == 0) {
-				EntityManaBurst burst = getBurst(player, par1ItemStack);
-				world.spawnEntityInWorld(burst);
-				ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
-				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
-			}
+	@SubscribeEvent
+	public void attackEntity(AttackEntityEvent evt) {
+		if (!evt.getEntityPlayer().worldObj.isRemote) {
+			trySpawnBurst(evt.getEntityPlayer());
+		}
+	}
+
+	public void trySpawnBurst(EntityPlayer player) {
+		if (player.getHeldItemMainhand() != null
+				&& player.getHeldItemMainhand().getItem() == this
+				&& player.getCooledAttackStrength(0) == 1) {
+			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
+			player.worldObj.spawnEntityInWorld(burst);
+			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}
 
