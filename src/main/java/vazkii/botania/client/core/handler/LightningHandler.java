@@ -10,10 +10,10 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.google.common.collect.Lists;
 import gnu.trove.map.hash.TIntIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -22,7 +22,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -39,11 +38,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LightningHandler {
 
+	private static final int BATCH_THRESHOLD = 200;
 	private static final ResourceLocation outsideResource = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 
@@ -82,15 +82,31 @@ public class LightningHandler {
 		ParticleRenderDispatcher.lightningCount = 0;
 
 		render.bindTexture(outsideResource);
+		int counter = 0;
+
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
-		for(LightningBolt bolt : LightningBolt.boltlist)
-			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 0, false);
+		for (LightningBolt bolt : LightningBolt.boltlist) {
+			renderBolt(bolt, tessellator, 0, false);
+			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
+				tessellator.draw();
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+			}
+			counter++;
+		}
 		tessellator.draw();
 
 		render.bindTexture(insideResource);
+		counter = 0;
+
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
-		for(LightningBolt bolt : LightningBolt.boltlist)
-			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 1, true);
+		for (LightningBolt bolt : LightningBolt.boltlist) {
+			renderBolt(bolt, tessellator, 0, false);
+			if(counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
+				tessellator.draw();
+				tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+			}
+			counter++;
+		}
 		tessellator.draw();
 
 		GlStateManager.disableBlend();
@@ -111,7 +127,7 @@ public class LightningHandler {
 		LightningBolt.boltlist.add(bolt);
 	}
 
-	private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
+	private void renderBolt(LightningBolt bolt, Tessellator tessellator, int pass, boolean inner) {
 		ParticleRenderDispatcher.lightningCount++;
 		float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
 		float mainalpha;
@@ -174,7 +190,6 @@ public class LightningHandler {
 		public ArrayList<Segment> segments = new ArrayList<>();
 		public final Vector3 start;
 		public final Vector3 end;
-		BlockPos target;
 		final TIntIntHashMap splitparents = new TIntIntHashMap();
 
 		public final double length;
@@ -187,18 +202,14 @@ public class LightningHandler {
 		public int particleAge;
 		public final int particleMaxAge;
 		public boolean isDead;
-		private AxisAlignedBB boundingBox;
 
 		private final World world;
 		private Entity source;
 
-		public static final ConcurrentLinkedQueue<LightningBolt> boltlist = new ConcurrentLinkedQueue<>();
+		public static final List<LightningBolt> boltlist = new ArrayList<>();
 
 		public float speed = 1.5F;
 		public static final int fadetime = 20;
-
-		public static int playerdamage = 1;
-		public static int entitydamage = 1;
 
 		public final int colorOuter;
 		public final int colorInner;
@@ -311,19 +322,7 @@ public class LightningHandler {
 			particleMaxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
 			particleAge = -(int) (length * speed);
 
-			boundingBox = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
-			boundingBox = new AxisAlignedBB(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z), Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)).expand(length / 2, length / 2, length / 2);
-
 			segments.add(new Segment(start, end));
-		}
-
-		public static Vector3 getFocalPoint(TileEntity tile) {
-			return Vector3.fromTileEntityCenter(tile);
-		}
-
-		public LightningBolt(World world, Vector3 sourcevec, TileEntity target, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-			this(world, sourcevec, getFocalPoint(target), ticksPerMeter, seed, colorOuter, colorInner);
-			this.target = target.getPos();
 		}
 
 		public void setWrapper(Entity entity) {
