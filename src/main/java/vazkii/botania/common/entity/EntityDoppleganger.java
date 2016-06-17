@@ -594,13 +594,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 					anyWithArmor = true;
 
 				Collection<PotionEffect> active = player.getActivePotionEffects();
-				Iterator<PotionEffect> iter = active.iterator();
-
-				while (iter.hasNext()) {
-					PotionEffect effect = iter.next();
-					if(effect.getDuration() < 200 && effect.getIsAmbient() && !effect.getPotion().isBadEffect())
-						iter.remove();
-				}
+				active.removeIf(effect -> effect.getDuration() < 200 && effect.getIsAmbient() && !effect.getPotion().isBadEffect());
 
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= range) {

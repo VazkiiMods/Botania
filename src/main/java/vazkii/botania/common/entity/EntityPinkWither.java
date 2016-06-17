@@ -31,22 +31,10 @@ public class EntityPinkWither extends EntityWither {
 	public EntityPinkWither(World world) {
 		super(world);
 
-		Iterator<EntityAITasks.EntityAITaskEntry> taskIter = this.tasks.taskEntries.iterator();
-		while (taskIter.hasNext()) {
-			EntityAITasks.EntityAITaskEntry entry = taskIter.next();
-			if (entry.action instanceof EntityAIAttackRanged) {
-				taskIter.remove(); // Remove firing wither skulls
-			}
-		}
+		this.tasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIAttackRanged); // Remove firing wither skulls
 
-		Iterator<EntityAITasks.EntityAITaskEntry> targetTaskIter = this.targetTasks.taskEntries.iterator();
-		while (targetTaskIter.hasNext()) {
-			EntityAITasks.EntityAITaskEntry entry = targetTaskIter.next();
-			if (entry.action instanceof EntityAIHurtByTarget
-					|| entry.action instanceof EntityAINearestAttackableTarget) {
-				targetTaskIter.remove(); // Remove revenge and aggro
-			}
-		}
+		this.targetTasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIHurtByTarget
+				|| entry.action instanceof EntityAINearestAttackableTarget); // Remove revenge and aggro
 	}
 
 	@Override
