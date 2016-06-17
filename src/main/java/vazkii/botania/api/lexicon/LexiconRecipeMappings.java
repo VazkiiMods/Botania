@@ -56,14 +56,14 @@ public final class LexiconRecipeMappings {
 		return mappings.get(stackToString(stack));
 	}
 	
-	private static String stackToString(ItemStack stack) {
+	public static String stackToString(ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return "NULL";
 
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getItem().getRegistryName().toString() + (ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
+		return stack.getUnlocalizedName() + (ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
 	}
 
 	public static boolean ignoreMeta(ItemStack stack) {
