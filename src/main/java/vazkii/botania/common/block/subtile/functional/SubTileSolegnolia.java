@@ -26,7 +26,6 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	private static final double RANGE_MINI = 1;
 
 	private static final Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
-	private static boolean registered = false;
 
 	@Override
 	public void onUpdate() {
@@ -34,8 +33,6 @@ public class SubTileSolegnolia extends SubTileFunctional {
 
 		if(!existingFlowers.contains(this)) {
 			existingFlowers.add(this);
-			if(!registered)
-				registered = true;
 		}
 	}
 
