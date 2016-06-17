@@ -48,24 +48,22 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
-		String wildKey = stackToString(stack, true);
+		ItemStack wildCopy = stack.copy();
+		wildCopy.setItemDamage(OreDictionary.WILDCARD_VALUE);
+		String wildKey = stackToString(wildCopy);
 		if (mappings.containsKey(wildKey))
 			return mappings.get(wildKey);
 		return mappings.get(stackToString(stack));
 	}
 	
 	public static String stackToString(ItemStack stack) {
-		return stackToString(stack, false);
-	}
-	
-	public static String stackToString(ItemStack stack, boolean forceIgnore) {
 		if(stack == null || stack.getItem() == null)
 			return "NULL";
 
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getUnlocalizedName() + (forceIgnore || ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
+		return stack.getUnlocalizedName() + (ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
 	}
 
 	public static boolean ignoreMeta(ItemStack stack) {
