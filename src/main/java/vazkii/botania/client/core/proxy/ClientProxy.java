@@ -12,6 +12,7 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -166,6 +167,11 @@ public class ClientProxy extends CommonProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
+
+	private static final ModelBiped EMPTY_MODEL = new ModelBiped();
+	static {
+		EMPTY_MODEL.setInvisible(true);
+	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -496,6 +502,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public int getClientRenderDistance() {
 		return Minecraft.getMinecraft().gameSettings.renderDistanceChunks;
+	}
+
+	@Override
+	public ModelBiped getEmptyModelBiped() {
+		return EMPTY_MODEL;
 	}
 }
 

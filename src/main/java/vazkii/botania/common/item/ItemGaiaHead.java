@@ -30,15 +30,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
 public class ItemGaiaHead extends ItemMod {
-
-	@SideOnly(Side.CLIENT)
-	private static final ModelBiped EMPTY = new ModelBiped();
 
 	public ItemGaiaHead() {
 		super(LibItemNames.GAIA_HEAD);
@@ -53,8 +51,7 @@ public class ItemGaiaHead extends ItemMod {
 	@Nonnull
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		EMPTY.setInvisible(true);
-		return EMPTY;
+		return (ModelBiped) Botania.proxy.getEmptyModelBiped();
 	}
 
 	// Copied from vanila skull itemBlock. Relevant edits are indicated.
