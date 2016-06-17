@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -35,6 +36,8 @@ public class ItemOvergrowthSeed extends ItemMod {
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);
+		if(Item.getItemFromBlock(state.getBlock()) == null)
+			return EnumActionResult.PASS;
 		ItemStack blockStack = new ItemStack(state.getBlock());
 		int[] ids = OreDictionary.getOreIDs(blockStack);
 		for(int i : ids) {
