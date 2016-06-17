@@ -236,7 +236,16 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
-		return super.canPlaceBlockAt(world, pos) || world.getBlockState(pos.down()).getBlock() == ModBlocks.redStringRelay || world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM;
+		return world.getBlockState(pos.down()).getBlock() == ModBlocks.redStringRelay
+				|| world.getBlockState(pos.down()).getBlock() == Blocks.MYCELIUM
+				|| super.canPlaceBlockAt(world, pos);
+	}
+
+	@Override
+	protected boolean canSustainBush(IBlockState state) {
+		return state.getBlock() == ModBlocks.redStringRelay
+				|| state.getBlock() == Blocks.MYCELIUM
+				|| super.canSustainBush(state);
 	}
 
 	@Override
