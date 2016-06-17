@@ -4,8 +4,7 @@
     "model": "botania:claw",
     "textures": {
       "all": "botania:model/spawnerClaw"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "normal": [{}],

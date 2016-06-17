@@ -2,8 +2,7 @@
   "__comment": "The texture is split apart to facilitate efficient use of the atlas. Sorry for the clutter!",
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:altar",
-    "transform": "forge:default-block"
+    "model": "botania:altar"
   },
   "variants": {
     "variant": {
