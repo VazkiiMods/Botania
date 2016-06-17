@@ -92,7 +92,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 BlockPos pos = new BlockPos(message.x, message.y, message.z);
                                 Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
                                 Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-                                LightningHandler.spawnLightningBolt(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
+                                Botania.proxy.lightningFX(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
                                         outputting ? itemVec : tileVec, 80, Minecraft.getMinecraft().theWorld.rand.nextLong(), 0x4400799c, 0x4400C6FF);
                             }
                             break;

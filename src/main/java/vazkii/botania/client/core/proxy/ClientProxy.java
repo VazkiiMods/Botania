@@ -63,6 +63,7 @@ import vazkii.botania.client.core.handler.RenderLexicon;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -486,7 +487,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
+		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override

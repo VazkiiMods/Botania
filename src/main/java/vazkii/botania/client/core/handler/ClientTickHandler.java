@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
-import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -57,7 +56,6 @@ public class ClientTickHandler {
 	@SubscribeEvent
 	public void clientTickEnd(ClientTickEvent event) {
 		if(event.phase == Phase.END) {
-			LightningBolt.update();
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 
