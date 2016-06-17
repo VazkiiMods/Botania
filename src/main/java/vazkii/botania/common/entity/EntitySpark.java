@@ -232,8 +232,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					if(upgrade != SparkUpgradeType.NONE) {
-						if (worldObj.isRemote)
-							System.out.println("WTF");
 						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
 						setUpgrade(SparkUpgradeType.NONE);
 
