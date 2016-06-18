@@ -45,6 +45,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -215,6 +216,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 			e.setPlayerCount(playerCount);
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+			if (hard)
+				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
 			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
 			world.spawnEntityInWorld(e);
@@ -361,23 +364,21 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-		Entity e = par1DamageSource.getEntity();
-		if((par1DamageSource.damageType.equals("player") || e instanceof EntityPixie) && e != null && isTruePlayer(e) && getInvulTime() == 0) {
+	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
+		Entity e = source.getEntity();
+
+		if (e instanceof EntityPlayer && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
 
 			if(!playersWhoAttacked.contains(player.getUniqueID()))
 				playersWhoAttacked.add(player.getUniqueID());
 
-			boolean crit = false;
-			if(e instanceof EntityPlayer) {
-				EntityPlayer p = (EntityPlayer) e;
-				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(MobEffects.BLINDNESS) && !p.isRiding();
-			}
+			boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
 
 			int cap = crit ? 60 : 40;
-			return super.attackEntityFrom(par1DamageSource, Math.min(cap, par2) * (isHardMode() ? 0.6F : 1F));
+			return super.attackEntityFrom(source, Math.min(cap, par2));
 		}
+
 		return false;
 	}
 
