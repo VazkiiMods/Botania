@@ -56,7 +56,7 @@ public final class ColorHandler {
                     public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
                         if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
                             float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                            return MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
+                            return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
                         } else {
                             return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                         }
@@ -73,7 +73,7 @@ public final class ColorHandler {
                         if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
                             return 0xFFFFFF;
                         float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                        return MathHelper.hsvToRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
+                        return Color.HSBtoRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
                     }
                 },
                 ModBlocks.spreader

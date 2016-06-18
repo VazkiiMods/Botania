@@ -42,7 +42,7 @@ public final class BoundTileRenderer {
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		GlStateManager.pushMatrix();
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableDepth();
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();

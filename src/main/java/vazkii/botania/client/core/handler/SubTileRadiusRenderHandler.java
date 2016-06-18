@@ -64,7 +64,7 @@ public final class SubTileRadiusRenderHandler {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.disableTexture2D();
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

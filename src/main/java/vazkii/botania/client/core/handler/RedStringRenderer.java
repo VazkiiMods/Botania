@@ -37,7 +37,7 @@ public final class RedStringRenderer {
 			GlStateManager.pushMatrix();
 			GlStateManager.disableTexture2D();
 			GlStateManager.enableBlend();
-			GL11.glPushAttrib(GL11.GL_LIGHTING);
+			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 0F, 0F, sizeAlpha);

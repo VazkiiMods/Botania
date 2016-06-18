@@ -69,7 +69,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			if(pool != null)
 				time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
-			color = MathHelper.hsvToRGB(time * 0.005F, 0.6F, 1F);
+			color = Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 		}
 
 		if (fab || forceManaNumber > -1) {

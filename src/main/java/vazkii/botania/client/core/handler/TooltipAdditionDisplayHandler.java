@@ -187,8 +187,8 @@ public final class TooltipAdditionDisplayHandler {
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+		GlStateManager.disableLighting();
 		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");

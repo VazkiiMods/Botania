@@ -32,7 +32,7 @@ public final class ParticleRenderDispatcher {
 
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
 
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.depthMask(false);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);

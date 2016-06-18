@@ -66,7 +66,7 @@ public class ModelHourglass extends ModelBase {
 		base2.render(f);
 		Color c = new Color(color);
 		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
-		GL11.glPushAttrib(GL11.GL_NORMALIZE);
+		GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
 		GlStateManager.enableNormalize();
 
 		if(fract1 > 0) {
