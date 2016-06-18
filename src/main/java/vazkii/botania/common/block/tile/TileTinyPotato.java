@@ -48,12 +48,12 @@ public class TileTinyPotato extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setString(TAG_NAME, name);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		name = cmp.getString(TAG_NAME);
 	}
 }

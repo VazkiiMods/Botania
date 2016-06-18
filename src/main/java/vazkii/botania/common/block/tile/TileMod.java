@@ -32,7 +32,7 @@ public class TileMod extends TileEntity implements ITickable {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
-		writeCustomNBT(ret);
+		writePacketNBT(ret);
 		return ret;
 	}
 
@@ -45,26 +45,24 @@ public class TileMod extends TileEntity implements ITickable {
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-		readCustomNBT(par1nbtTagCompound);
+		readPacketNBT(par1nbtTagCompound);
 	}
 
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void writePacketNBT(NBTTagCompound cmp) {}
 
-	public void readCustomNBT(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void readPacketNBT(NBTTagCompound cmp) {}
 
 	@Override
 	public final SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(pos, -999, getUpdateTag());
+		NBTTagCompound tag = new NBTTagCompound();
+		writePacketNBT(tag);
+		return new SPacketUpdateTileEntity(pos, -999, tag);
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(net, packet);
-		readCustomNBT(packet.getNbtCompound());
+		readPacketNBT(packet.getNbtCompound());
 	}
 
 	@Override

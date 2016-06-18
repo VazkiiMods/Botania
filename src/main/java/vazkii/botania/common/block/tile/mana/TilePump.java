@@ -121,12 +121,12 @@ public class TilePump extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		boolean prevActive = active;
 		active = cmp.getBoolean(TAG_ACTIVE);
 		if(worldObj != null && worldObj.isRemote)

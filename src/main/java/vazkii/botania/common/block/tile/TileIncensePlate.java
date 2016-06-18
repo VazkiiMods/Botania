@@ -105,15 +105,15 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_TIME_LEFT, timeLeft);
 		par1nbtTagCompound.setBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 		timeLeft = par1nbtTagCompound.getInteger(TAG_TIME_LEFT);
 		burning = par1nbtTagCompound.getBoolean(TAG_BURNING);
 	}

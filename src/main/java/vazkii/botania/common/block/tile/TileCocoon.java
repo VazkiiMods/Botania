@@ -105,13 +105,13 @@ public class TileCocoon extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME_PASSED, timePassed);
 		cmp.setInteger(TAG_EMERALDS_GIVEN, emeraldsGiven);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		timePassed = cmp.getInteger(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInteger(TAG_EMERALDS_GIVEN);
 	}

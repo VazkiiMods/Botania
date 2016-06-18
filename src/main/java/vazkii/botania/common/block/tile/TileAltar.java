@@ -283,8 +283,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		cmp.setBoolean(TAG_HAS_WATER, hasWater());
 		cmp.setBoolean(TAG_HAS_LAVA, hasLava());
@@ -292,8 +292,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
 		hasLava = cmp.getBoolean(TAG_HAS_LAVA);

@@ -163,7 +163,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		bindPos = new BlockPos(
 			cmp.getInteger(TAG_BIND_X),
 			cmp.getInteger(TAG_BIND_Y),
@@ -172,7 +172,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_BIND_X, bindPos.getX());
 		cmp.setInteger(TAG_BIND_Y, bindPos.getY());
 		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());

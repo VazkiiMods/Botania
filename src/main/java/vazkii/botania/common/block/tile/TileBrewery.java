@@ -174,15 +174,15 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);
 	}

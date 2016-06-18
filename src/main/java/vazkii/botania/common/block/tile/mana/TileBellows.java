@@ -122,12 +122,12 @@ public class TileBellows extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
 

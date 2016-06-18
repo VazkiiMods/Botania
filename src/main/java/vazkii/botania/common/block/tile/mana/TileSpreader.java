@@ -270,8 +270,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		UUID identity = getIdentifier();
 		cmp.setBoolean(TAG_HAS_IDENTITY, true);
@@ -309,8 +309,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		if(cmp.getBoolean(TAG_HAS_IDENTITY)) {
 			long most = cmp.getLong(TAG_UUID_MOST);
@@ -383,7 +383,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(!player.isSneaking()) {
 			if(!worldObj.isRemote) {
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
-				writeCustomNBT(nbttagcompound);
+				writePacketNBT(nbttagcompound);
 				nbttagcompound.setInteger(TAG_KNOWN_MANA, mana);
 				if(player instanceof EntityPlayerMP)
 					((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));

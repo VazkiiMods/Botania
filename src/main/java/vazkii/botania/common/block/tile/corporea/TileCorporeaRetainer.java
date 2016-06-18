@@ -71,8 +71,8 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		cmp.setBoolean(TAG_PENDING_REQUEST, pendingRequest);
 		cmp.setInteger(TAG_REQUEST_X, requestPos.getX());
@@ -99,8 +99,8 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
 		int x = cmp.getInteger(TAG_REQUEST_X);

@@ -313,7 +313,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setInteger(TAG_MANA_REQUIRED, manaRequired);
 		cmp.setInteger(TAG_STAGE, stage);
@@ -332,7 +332,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 		manaRequired = cmp.getInteger(TAG_MANA_REQUIRED);
 		stage = cmp.getInteger(TAG_STAGE);

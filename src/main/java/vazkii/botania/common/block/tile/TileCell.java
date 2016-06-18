@@ -53,7 +53,7 @@ public class TileCell extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_GENERATION, generation);
 		cmp.setBoolean(TAG_TICKED, ticked);
 		if(ticked) {
@@ -67,7 +67,7 @@ public class TileCell extends TileMod {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		generation = cmp.getInteger(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if(ticked) {

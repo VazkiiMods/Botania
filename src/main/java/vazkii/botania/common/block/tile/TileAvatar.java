@@ -51,16 +51,16 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setBoolean(TAG_ENABLED, enabled);
 		par1nbtTagCompound.setInteger(TAG_TICKS_ELAPSED, ticksElapsed);
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
 		ticksElapsed = par1nbtTagCompound.getInteger(TAG_TICKS_ELAPSED);
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);

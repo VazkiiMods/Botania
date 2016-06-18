@@ -55,13 +55,13 @@ public class TileTurntable extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_SPEED, speed);
 		cmp.setBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		speed = cmp.getInteger(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}

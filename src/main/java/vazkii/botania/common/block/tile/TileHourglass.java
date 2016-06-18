@@ -109,8 +109,8 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_TIME, time);
 		par1nbtTagCompound.setFloat(TAG_TIME_FRACTION, timeFraction);
 		par1nbtTagCompound.setBoolean(TAG_FLIP, flip);
@@ -120,8 +120,8 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 		time = par1nbtTagCompound.getInteger(TAG_TIME);
 		timeFraction = par1nbtTagCompound.getFloat(TAG_TIME_FRACTION);
 		flip = par1nbtTagCompound.getBoolean(TAG_FLIP);

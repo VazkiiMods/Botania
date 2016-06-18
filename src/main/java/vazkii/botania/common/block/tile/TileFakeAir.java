@@ -23,7 +23,7 @@ public class TileFakeAir extends TileMod {
 	private static final String TAG_FLOWER_Y = "flowerY";
 	private static final String TAG_FLOWER_Z = "flowerZ";
 
-	private BlockPos flowerPos;
+	private BlockPos flowerPos = BlockPos.ORIGIN;
 
 	public void setFlower(TileEntity tile) {
 		flowerPos = tile.getPos();

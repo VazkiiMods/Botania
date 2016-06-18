@@ -106,8 +106,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		cmp.setString(TAG_SUBTILE_NAME, subTileName);
 		NBTTagCompound subCmp = new NBTTagCompound();
@@ -118,8 +118,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		subTileName = cmp.getString(TAG_SUBTILE_NAME);
 		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);

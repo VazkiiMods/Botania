@@ -25,7 +25,7 @@ public class TileCamo extends TileMod {
 	public IBlockState camoState;
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		if(camoState != null) {
 			cmp.setString(TAG_CAMO, Block.REGISTRY.getNameForObject(camoState.getBlock()).toString());
 			cmp.setInteger(TAG_CAMO_META, camoState.getBlock().getMetaFromState(camoState));
@@ -33,7 +33,7 @@ public class TileCamo extends TileMod {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		Block b = Block.getBlockFromName(cmp.getString(TAG_CAMO));
 		if (b != null) {
 			camoState = b.getStateFromMeta(cmp.getInteger(TAG_CAMO_META));

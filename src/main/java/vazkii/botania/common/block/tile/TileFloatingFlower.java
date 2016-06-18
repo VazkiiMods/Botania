@@ -46,12 +46,12 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setString(TAG_ISLAND_TYPE, type.toString());
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		type = IslandType.ofType(cmp.getString(TAG_ISLAND_TYPE));
 	}
 

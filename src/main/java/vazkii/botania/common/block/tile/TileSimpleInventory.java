@@ -25,13 +25,13 @@ public abstract class TileSimpleInventory extends TileMod {
 	protected SimpleItemStackHandler itemHandler = createItemHandler();
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1NBTTagCompound) {
+	public void readPacketNBT(NBTTagCompound par1NBTTagCompound) {
 		itemHandler = createItemHandler();
 		itemHandler.deserializeNBT(par1NBTTagCompound);
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1NBTTagCompound) {
+	public void writePacketNBT(NBTTagCompound par1NBTTagCompound) {
 		par1NBTTagCompound.merge(itemHandler.serializeNBT());
 	}
 
