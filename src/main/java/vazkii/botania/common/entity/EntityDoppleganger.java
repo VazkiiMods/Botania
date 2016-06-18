@@ -24,7 +24,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
@@ -41,6 +40,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -74,7 +74,6 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -86,6 +85,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -596,7 +596,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 					anyWithArmor = true;
 
 				Collection<PotionEffect> active = player.getActivePotionEffects();
-				active.removeIf(effect -> effect.getDuration() < 200 && effect.getIsAmbient() && !effect.getPotion().isBadEffect());
+				Iterator<PotionEffect> iter = active.iterator();
+				while(iter.hasNext()) {
+					PotionEffect effect = iter.next();
+					if (effect.getDuration() < 160 && effect.getIsAmbient() && !effect.getPotion().isBadEffect()) {
+						iter.remove();
+						((EntityPlayerMP) player).connection.sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), effect.getPotion()));
+					}
+				}
 
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= range) {

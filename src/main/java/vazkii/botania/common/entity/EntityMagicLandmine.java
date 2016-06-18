@@ -62,7 +62,7 @@ public class EntityMagicLandmine extends Entity {
 			if(!worldObj.isRemote) {
 				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				for(EntityPlayer player : players) {
-					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeMobDamage(summoner), 10);
+					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeIndirectMagicDamage(this, summoner), 10);
 					player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 25, 0));
 					PotionEffect wither = new PotionEffect(MobEffects.WITHER, 70, 3);
 					wither.getCurativeItems().clear();
