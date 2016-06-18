@@ -15,7 +15,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 public class TileTinyPlanet extends TileMod {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		ItemTinyPlanet.applyEffect(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 	}
 

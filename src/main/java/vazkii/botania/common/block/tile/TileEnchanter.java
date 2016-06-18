@@ -137,7 +137,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		IBlockState state = worldObj.getBlockState(getPos());
 		EnumFacing.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 

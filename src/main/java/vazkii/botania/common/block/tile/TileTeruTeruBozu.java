@@ -15,7 +15,7 @@ public class TileTeruTeruBozu extends TileMod {
 	public boolean wasRaining = false;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 

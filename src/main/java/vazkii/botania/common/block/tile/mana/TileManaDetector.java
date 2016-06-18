@@ -21,7 +21,7 @@ import vazkii.botania.common.block.tile.TileMod;
 public class TileManaDetector extends TileMod {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 		if(state != expectedState && !worldObj.isRemote)

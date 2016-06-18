@@ -30,7 +30,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	int mana;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		enabled = true;
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);

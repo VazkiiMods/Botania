@@ -69,7 +69,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {

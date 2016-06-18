@@ -32,7 +32,7 @@ public class TileTurntable extends TileMod {
 	boolean backwards = false;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
 
 		for(EnumFacing dir : EnumFacing.VALUES) {

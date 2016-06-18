@@ -53,7 +53,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		++ticks;
 		if(ticks % 20 == 0)
 			updateCount();

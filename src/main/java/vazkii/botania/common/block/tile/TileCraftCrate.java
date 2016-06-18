@@ -99,7 +99,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 

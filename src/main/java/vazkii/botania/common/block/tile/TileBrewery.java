@@ -79,7 +79,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(mana > 0 && recipe == null) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(itemHandler)) {

@@ -214,7 +214,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(manaCap == -1)
 			manaCap = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 

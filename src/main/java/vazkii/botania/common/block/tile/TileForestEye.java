@@ -18,7 +18,7 @@ public class TileForestEye extends TileMod {
 	public int entities = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 		int range = 6;

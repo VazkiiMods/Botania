@@ -27,7 +27,7 @@ import java.util.List;
 public class TileEnderEye extends TileMod {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 

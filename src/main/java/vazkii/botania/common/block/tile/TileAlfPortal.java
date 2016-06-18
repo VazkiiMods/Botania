@@ -108,7 +108,7 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		IBlockState iBlockState = worldObj.getBlockState(getPos());
 		if(iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;

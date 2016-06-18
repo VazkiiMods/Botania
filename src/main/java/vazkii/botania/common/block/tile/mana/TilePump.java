@@ -69,7 +69,7 @@ public class TilePump extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		hasRedstone = false;
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);

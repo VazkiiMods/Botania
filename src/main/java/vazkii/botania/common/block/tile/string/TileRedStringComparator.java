@@ -19,8 +19,8 @@ public class TileRedStringComparator extends TileRedString {
 	int comparatorValue = 0;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		BlockPos binding = getBinding();
 		EnumFacing dir = getOrientation();
 		IBlockState state = getStateAtBinding();

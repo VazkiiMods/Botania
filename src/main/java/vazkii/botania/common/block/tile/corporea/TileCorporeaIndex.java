@@ -148,7 +148,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public boolean hasCloseby;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		double x = pos.getX() + 0.5;
 		double y = pos.getY() + 0.5;
 		double z = pos.getZ() + 0.5;

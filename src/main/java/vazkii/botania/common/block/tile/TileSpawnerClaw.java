@@ -36,7 +36,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 	int mana = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		TileEntity tileBelow = worldObj.getTileEntity(pos.down());
 		if(mana >= 5 && tileBelow instanceof TileEntityMobSpawner) {
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;

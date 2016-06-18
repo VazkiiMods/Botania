@@ -42,7 +42,7 @@ public class TileHourglass extends TileSimpleInventory {
 	public boolean move = true;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		int totalTime = getTotalTime();
 		if(totalTime > 0) {
 			if(move)

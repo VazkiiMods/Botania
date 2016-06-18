@@ -38,7 +38,7 @@ public class TileBellows extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean disable = true;
 		TileEntity tile = getLinkedTile();
 		if(!active && tile instanceof TilePool) {

@@ -67,7 +67,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		ticksElapsed++;
 
 		if(bindPos.getY() > -1 && isValidBinding()) {

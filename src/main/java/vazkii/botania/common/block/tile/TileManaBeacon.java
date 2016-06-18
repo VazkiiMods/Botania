@@ -17,7 +17,7 @@ import vazkii.botania.common.Botania;
 public class TileManaBeacon extends TileMod {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);

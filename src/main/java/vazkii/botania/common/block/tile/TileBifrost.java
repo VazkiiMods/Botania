@@ -22,7 +22,7 @@ public class TileBifrost extends TileMod {
 	public int ticks = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(!worldObj.isRemote) {
 			if(ticks <= 0) {
 				worldObj.setBlockToAir(pos);

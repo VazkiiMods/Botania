@@ -16,7 +16,7 @@ import vazkii.botania.common.Botania;
 public class TileStarfield extends TileMod {
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		if(!worldObj.isRemote) {
 			boolean newState = !worldObj.isDaytime();

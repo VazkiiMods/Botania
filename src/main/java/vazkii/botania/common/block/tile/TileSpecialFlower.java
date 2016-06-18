@@ -72,7 +72,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(subTile != null) {
 			TileEntity tileBelow = worldObj.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {

@@ -37,7 +37,7 @@ public class TileTinyPotato extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(worldObj.rand.nextInt(100) == 0)
 			jump();
 

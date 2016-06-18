@@ -28,7 +28,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	private BlockPos binding;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		EnumFacing dir = getOrientation();
 		BlockPos pos_ = getPos();
 		int range = getRange();

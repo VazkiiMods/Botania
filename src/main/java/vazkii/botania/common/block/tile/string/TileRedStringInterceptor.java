@@ -29,8 +29,8 @@ public class TileRedStringInterceptor extends TileRedString {
 	private static final ThreadLocal<Set<TileRedStringInterceptor>> interceptors = ThreadLocal.withInitial(HashSet::new);;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		super.update();
 		interceptors.get().add(this);
 	}
 

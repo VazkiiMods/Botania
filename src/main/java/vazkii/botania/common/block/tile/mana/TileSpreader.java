@@ -182,7 +182,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
 		boolean wasInNetwork = inNetwork;
 		if(!inNetwork && !isInvalid()) {

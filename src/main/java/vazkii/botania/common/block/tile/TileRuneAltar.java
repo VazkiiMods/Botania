@@ -22,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -102,7 +101,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 
 		// Update every tick.
 		recieveMana(0);

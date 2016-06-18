@@ -45,7 +45,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(!worldObj.isRemote && Botania.rfApiLoaded) {
 			if(deadCache)
 				reCache();

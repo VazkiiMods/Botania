@@ -40,7 +40,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	public int comparatorOutput = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack != null && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);

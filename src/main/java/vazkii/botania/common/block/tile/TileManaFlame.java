@@ -29,7 +29,7 @@ public class TileManaFlame extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		float c = 0.3F;
 
 		if(worldObj.isRemote && Math.random() < c) {

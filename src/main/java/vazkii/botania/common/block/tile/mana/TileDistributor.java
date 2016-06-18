@@ -25,7 +25,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 	final List<IManaReceiver> validPools = new ArrayList<>();
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 		validPools.clear();

@@ -34,7 +34,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -245,7 +244,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
 
 		boolean didChange = false;

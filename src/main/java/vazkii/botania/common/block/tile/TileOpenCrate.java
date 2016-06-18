@@ -41,7 +41,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 

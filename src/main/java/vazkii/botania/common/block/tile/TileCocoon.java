@@ -37,7 +37,7 @@ public class TileCocoon extends TileMod {
 	public int emeraldsGiven;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		timePassed++;
 		if(timePassed >= TOTAL_TIME)
 			hatch();
