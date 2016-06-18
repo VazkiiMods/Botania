@@ -50,10 +50,10 @@ public final class MathHelper {
 
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
 		Vector3 entityVector = Vector3.fromEntityCenter(entity);
-		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
+		Vector3 finalVector = originalPosVector.subtract(entityVector);
 
 		if(finalVector.mag() > 1)
-			finalVector.normalize();
+			finalVector = finalVector.normalize();
 
 		entity.motionX = finalVector.x * modifier;
 		entity.motionY = finalVector.y * modifier;

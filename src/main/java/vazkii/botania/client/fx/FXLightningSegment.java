@@ -37,29 +37,29 @@ public class FXLightningSegment {
     }
 
     public void calcDiff() {
-        diff = endPoint.point.copy().subtract(startPoint.point);
+        diff = endPoint.point.subtract(startPoint.point);
     }
 
     public void calcEndDiffs() {
         if(prev != null) {
-            Vector3 prevdiffnorm = prev.diff.copy().normalize();
-            Vector3 thisdiffnorm = diff.copy().normalize();
+            Vector3 prevdiffnorm = prev.diff.normalize();
+            Vector3 thisdiffnorm = diff.normalize();
 
-            prevDiff = thisdiffnorm.copy().add(prevdiffnorm).normalize();
+            prevDiff = thisdiffnorm.add(prevdiffnorm).normalize();
             sinPrev = (float) Math.sin(thisdiffnorm.angle(prevdiffnorm.multiply(-1)) / 2);
         } else {
-            prevDiff = diff.copy().normalize();
+            prevDiff = diff.normalize();
             sinPrev = 1;
         }
 
         if(next != null) {
-            Vector3 nextdiffnorm = next.diff.copy().normalize();
-            Vector3 thisdiffnorm = diff.copy().normalize();
+            Vector3 nextdiffnorm = next.diff.normalize();
+            Vector3 thisdiffnorm = diff.normalize();
 
             nextDiff = thisdiffnorm.add(nextdiffnorm).normalize();
             sinNext = (float) Math.sin(thisdiffnorm.angle(nextdiffnorm.multiply(-1)) / 2);
         } else {
-            nextDiff = diff.copy().normalize();
+            nextDiff = diff.normalize();
             sinNext = 1;
         }
     }

@@ -78,8 +78,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			int count = 10;
 			int start = ticksElapsed % size;
 
-			Vector3 vecMag = vec.copy().normalize().multiply(dist);
-			Vector3 vecTip = vecMag.copy().multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+			Vector3 vecMag = vec.normalize().multiply(dist);
+			Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 			double radPer = Math.PI / 16.0;
 			float mul = 0.5F;
@@ -88,9 +88,9 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			for(int i = start; i < start + count; i++) {
 				mul = Math.min(maxMul, mul + mulPer);
 				double rad = radPer * (i + ticksElapsed * 0.4);
-				Vector3 vecRot = vecMag.copy().crossProduct(Vector3.one).multiply(mul).rotate(rad, vecMag).add(vecTip);
+				Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
 				Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
-				vecTip.add(vecMag);
+				vecTip = vecTip.add(vecMag);
 			}
 			
 			BlockPos endpoint = getEndpoint();

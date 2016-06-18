@@ -30,7 +30,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
@@ -83,7 +82,7 @@ public class EntityThornChakram extends EntityThrowable {
 		// Returning motion
 		if(isReturning()) {
 			Entity thrower = worldObj.getEntityByID(getEntityToReturnTo());
-			Vector3 motion = Vector3.fromEntityCenter(thrower).sub(Vector3.fromEntityCenter(this)).normalize();
+			Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
 			motionX = motion.x;
 			motionY = motion.y;
 			motionZ = motion.z;

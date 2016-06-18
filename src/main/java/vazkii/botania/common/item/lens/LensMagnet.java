@@ -54,13 +54,13 @@ public class LensMagnet extends Lens {
 						Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
 						Vector3 motionVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
 
-						Vector3 normalMotionVec = motionVec.copy().normalize();
-						Vector3 magnetVec = tileVec.sub(burstVec).normalize();
-						Vector3 differenceVec = normalMotionVec.sub(magnetVec).multiply(motionVec.mag() * 0.1);
+						Vector3 normalMotionVec = motionVec.normalize();
+						Vector3 magnetVec = tileVec.subtract(burstVec).normalize();
+						Vector3 differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.mag() * 0.1);
 
-						Vector3 finalMotionVec = motionVec.sub(differenceVec);
+						Vector3 finalMotionVec = motionVec.subtract(differenceVec);
 						if(!magnetized) {
-							finalMotionVec.multiply(0.75);
+							finalMotionVec = finalMotionVec.multiply(0.75);
 							entity.getEntityData().setBoolean(TAG_MAGNETIZED, true);
 							entity.getEntityData().setInteger(TAG_MAGNETIZED_X, tile.getPos().getX());
 							entity.getEntityData().setInteger(TAG_MAGNETIZED_Y, tile.getPos().getY());

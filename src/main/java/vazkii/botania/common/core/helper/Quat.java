@@ -68,14 +68,17 @@ public final class Quat {
 		}
 	}
 
-	public void rotate(Vector3 vec) {
+	public Vector3 rotate(Vector3 vec) {
 		double d = -x * vec.x - y * vec.y - z * vec.z;
 		double d1 = s * vec.x + y * vec.z - z * vec.y;
 		double d2 = s * vec.y - x * vec.z + z * vec.x;
 		double d3 = s * vec.z + x * vec.y - y * vec.x;
-		vec.x = d1 * s - d * x - d2 * z + d3 * y;
-		vec.y = d2 * s - d * y + d1 * z - d3 * x;
-		vec.z = d3 * s - d * z - d1 * y + d2 * x;
+
+		double vx = d1 * s - d * x - d2 * z + d3 * y;
+		double vy = d2 * s - d * y + d1 * z - d3 * x;
+		double vz = d3 * s - d * z - d1 * y + d2 * x;
+
+		return new Vector3(vx, vy, vz);
 	}
 
 	@Override

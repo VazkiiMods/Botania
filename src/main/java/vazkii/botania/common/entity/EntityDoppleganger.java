@@ -86,7 +86,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -399,7 +398,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		if(attacker != null) {
 			Vector3 thisVector = Vector3.fromEntityCenter(this);
 			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
-			Vector3 motionVector = thisVector.copy().sub(playerVector).copy().normalize().multiply(0.75);
+			Vector3 motionVector = thisVector.subtract(playerVector).normalize().multiply(0.75);
 
 			if(getHealth() > 0) {
 				motionX = -motionVector.x;
@@ -536,7 +535,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 					double zp = pylonPos.z + 0.5 + Math.sin(worldTime) * rad;
 
 					Vector3 partPos = new Vector3(xp, pylonPos.y, zp);
-					Vector3 mot = pos.copy().sub(partPos).multiply(0.04);
+					Vector3 mot = pos.subtract(partPos).multiply(0.04);
 
 					float r = 0.7F + (float) Math.random() * 0.3F;
 					float g = (float) Math.random() * 0.3F;
@@ -600,7 +599,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= range) {
 					Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 					Vector3 playerVector = Vector3.fromEntityCenter(player);
-					Vector3 motion = sourceVector.copy().sub(playerVector).copy().normalize();
+					Vector3 motion = sourceVector.subtract(playerVector).normalize();
 
 					player.motionX = motion.x;
 					player.motionY = 0.2;

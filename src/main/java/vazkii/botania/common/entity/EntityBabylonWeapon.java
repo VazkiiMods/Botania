@@ -119,7 +119,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				else playerLook = new Vector3(lookat.getBlockPos().getX() + 0.5, lookat.getBlockPos().getY() + 0.5, lookat.getBlockPos().getZ() + 0.5);
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
-				Vector3 motionVec = playerLook.sub(thisVec).normalize().multiply(2);
+				Vector3 motionVec = playerLook.subtract(thisVec).normalize().multiply(2);
 
 				x = motionVec.x;
 				y = motionVec.y;

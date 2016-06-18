@@ -9,7 +9,7 @@ public class FXLightningBoltPoint {
     public final Vector3 offsetvec;
 
     public FXLightningBoltPoint(Vector3 basepoint, Vector3 offsetvec) {
-        point = basepoint.copy().add(offsetvec);
+        point = basepoint.add(offsetvec);
         this.basepoint = basepoint;
         this.offsetvec = offsetvec;
     }

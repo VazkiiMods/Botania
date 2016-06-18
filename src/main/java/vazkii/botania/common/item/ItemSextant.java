@@ -131,13 +131,14 @@ public class ItemSextant extends ItemMod {
 		Botania.proxy.wispFX(world, source.x + 0.5, source.y + 1, source.z + 0.5, 1F, 0F, 0F, 0.2F, -0.1F);
 
 		Vector3 centerVec = Vector3.fromEntityCenter(player);
-		Vector3 diffVec = source.copy().subtract(centerVec);
+		Vector3 diffVec = source.subtract(centerVec);
 		Vector3 lookVec = new Vector3(player.getLookVec());
 		double mul = diffVec.y / lookVec.y;
-		lookVec.multiply(mul).add(centerVec);
+		lookVec = lookVec.multiply(mul).add(centerVec);
 
-		lookVec.x = net.minecraft.util.math.MathHelper.floor_double(lookVec.x);
-		lookVec.z = net.minecraft.util.math.MathHelper.floor_double(lookVec.z);
+		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor_double(lookVec.x),
+				lookVec.y,
+				net.minecraft.util.math.MathHelper.floor_double(lookVec.z));
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}

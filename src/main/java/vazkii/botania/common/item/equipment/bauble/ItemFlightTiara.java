@@ -164,9 +164,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
-			Vector3 look = new Vector3(p.getLookVec());
-			look.y = 0;
-			look.normalize();
+			Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
 
 			if(flying) {
 				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))

@@ -41,7 +41,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
-			Vector3 placeVec = playerVec.copy().add(lookVec);
+			Vector3 placeVec = playerVec.add(lookVec);
 
 			int x = MathHelper.floor_double(placeVec.x);
 			int y = MathHelper.floor_double(placeVec.y) + 1;

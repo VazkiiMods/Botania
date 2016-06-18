@@ -81,9 +81,9 @@ public final class RedStringRenderer {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(tile.getPos().getX() + 0.5 - renderPosX, tile.getPos().getY() + 0.5 - renderPosY, tile.getPos().getZ() + 0.5 - renderPosZ);
 			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
-			Vector3 vecNorm = vecOrig.copy().normalize();
-			Vector3 vecMag = vecNorm.copy().multiply(0.025);
-			Vector3 vecApply = vecMag.copy();
+			Vector3 vecNorm = vecOrig.normalize();
+			Vector3 vecMag = vecNorm.multiply(0.025);
+			Vector3 vecApply = vecMag;
 
 			int stages = (int) (vecOrig.mag() / vecMag.mag());
 
@@ -97,7 +97,7 @@ public final class RedStringRenderer {
 			for(int i = 0; i < stages; i++) {
 				addVertexAtWithTranslation(tessellator, dir, vecApply.x, vecApply.y, vecApply.z, rand, len);
 				rand = Math.random() - 0.5;
-				vecApply.add(vecMag);
+				vecApply = vecApply.add(vecMag);
 				len += add;
 				addVertexAtWithTranslation(tessellator, dir, vecApply.x, vecApply.y, vecApply.z, rand, len);
 			}

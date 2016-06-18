@@ -79,7 +79,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
 			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
-			Vector3 moveVector = targetVec.copy().sub(currentVec);
+			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setMotion(moveVector.x, moveVector.y, moveVector.z);
 

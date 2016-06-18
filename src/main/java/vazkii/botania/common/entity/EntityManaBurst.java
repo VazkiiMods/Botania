@@ -339,8 +339,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 				Vector3 currentPos = Vector3.fromEntity(this);
 				Vector3 oldPos = new Vector3(prevPosX, prevPosY, prevPosZ);
-				Vector3 diffVec = oldPos.copy().sub(currentPos);
-				Vector3 diffVecNorm = diffVec.copy().normalize();
+				Vector3 diffVec = oldPos.subtract(currentPos);
+				Vector3 diffVecNorm = diffVec.normalize();
 
 				double distance = 0.095;
 
@@ -358,7 +358,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					posZ += diffVecNorm.z * distance;
 
 					currentPos = Vector3.fromEntity(this);
-					diffVec = oldPos.copy().sub(currentPos);
+					diffVec = oldPos.subtract(currentPos);
 					if(getEntityData().hasKey(ItemTinyPlanet.TAG_ORBIT))
 						break;
 				} while(Math.abs(diffVec.mag()) > distance);

@@ -58,8 +58,8 @@ public class TilePylon extends TileEntity implements ITickable {
 					double z = pos.getZ() + 0.5 + Math.sin(worldTime) * r;
 
 					Vector3 ourCoords = new Vector3(x, pos.getY() + 0.25, z);
-					centerBlock.sub(new Vector3(0, 0.5, 0));
-					Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
+					centerBlock = centerBlock.subtract(new Vector3(0, 0.5, 0));
+					Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 					Botania.proxy.wispFX(worldObj, x, pos.getY() + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
 					if(worldObj.rand.nextInt(3) == 0)
@@ -67,7 +67,7 @@ public class TilePylon extends TileEntity implements ITickable {
 				}
 			} else {
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
-				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
+				Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 				Block block = worldObj.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {

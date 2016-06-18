@@ -120,7 +120,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
 			if(worldObj.rand.nextInt(20) == 0) {
 				Vector3 vec = Vector3.fromTileEntityCenter(this);
-				Vector3 endVec = vec.copy().add(0, 2.5, 0);
+				Vector3 endVec = vec.add(0, 2.5, 0);
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}

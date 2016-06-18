@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -148,13 +147,13 @@ public class PacketBotaniaEffect implements IMessage {
 
                             Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
                             Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
-                            Vector3 diff = end.copy().sub(orig);
-                            Vector3 movement = diff.copy().normalize().multiply(0.1);
+                            Vector3 diff = end.subtract(orig);
+                            Vector3 movement = diff.normalize().multiply(0.1);
                             int iters = (int) (diff.mag() / movement.mag());
                             float huePer = 1F / iters;
                             float hueSum = (float) Math.random();
 
-                            Vector3 currentPos = orig.copy();
+                            Vector3 currentPos = orig;
                             for(int i = 0; i < iters; i++) {
                                 float hue = i * huePer + hueSum;
                                 Color color = Color.getHSBColor(hue, 1F, 1F);
@@ -165,7 +164,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 Botania.proxy.setSparkleFXNoClip(true);
                                 Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
                                 Botania.proxy.setSparkleFXNoClip(false);
-                                currentPos.add(movement);
+                                currentPos = currentPos.add(movement);
                             }
 
                             break;
@@ -177,15 +176,14 @@ public class PacketBotaniaEffect implements IMessage {
                             if(e1 == null || e2 == null)
                                 return;
 
-                            Vector3 thisVec = Vector3.fromEntityCenter(e1).add(0, 0, 0);
-                            Vector3 receiverVec = Vector3.fromEntityCenter(e2).add(0, 0, 0);
+                            Vector3 thisVec = Vector3.fromEntityCenter(e1);
+                            Vector3 receiverVec = Vector3.fromEntityCenter(e2);
 
                             double rc = 0.45;
                             thisVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
                             receiverVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
-                            Vector3 motion = receiverVec.copy().sub(thisVec);
-                            motion.multiply(0.04F);
+                            Vector3 motion = receiverVec.subtract(thisVec).multiply(0.04F);
                             float r = 0.4F + 0.3F * (float) Math.random();
                             float g = 0.4F + 0.3F * (float) Math.random();
                             float b = 0.4F + 0.3F * (float) Math.random();

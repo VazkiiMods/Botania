@@ -39,7 +39,7 @@ public class FXLightning extends Particle {
         this.speed = ticksPerMeter;
         this.colorOuter = colorOuter;
         this.colorInner = colorInner;
-        this.length = targetvec.copy().subtract(sourcevec).mag();
+        this.length = targetvec.subtract(sourcevec).mag();
         this.particleMaxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
         this.particleAge = -(int) (length * speed);
 
@@ -86,8 +86,8 @@ public class FXLightning extends Particle {
 
             double width = 0.025F * (playerVec.mag() / 5 + 1) * (1 + rendersegment.light) * 0.5F;
 
-            Vector3 diff1 = playerVec.copy().crossProduct(rendersegment.prevDiff).normalize().multiply(width / rendersegment.sinPrev);
-            Vector3 diff2 = playerVec.copy().crossProduct(rendersegment.nextDiff).normalize().multiply(width / rendersegment.sinNext);
+            Vector3 diff1 = playerVec.crossProduct(rendersegment.prevDiff).normalize().multiply(width / rendersegment.sinPrev);
+            Vector3 diff2 = playerVec.crossProduct(rendersegment.nextDiff).normalize().multiply(width / rendersegment.sinNext);
 
             Vector3 startvec = rendersegment.startPoint.point;
             Vector3 endvec = rendersegment.endPoint.point;
@@ -104,7 +104,7 @@ public class FXLightning extends Particle {
             wr.pos(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z).tex(0.5, 1).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
 
             if(rendersegment.next == null) {
-                Vector3 roundend = rendersegment.endPoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
+                Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
 
                 wr.pos(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z).tex(0, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
                 wr.pos(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
@@ -113,7 +113,7 @@ public class FXLightning extends Particle {
             }
 
             if(rendersegment.prev == null) {
-                Vector3 roundend = rendersegment.startPoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
+                Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
 
                 wr.pos(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z).tex(0.5, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
                 wr.pos(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z).tex(0, 0).lightmap(0xF0, 0xF0).color(r, g, b, a).endVertex();
@@ -132,7 +132,7 @@ public class FXLightning extends Particle {
         for(FXLightningSegment segment : oldSegments) {
             prev = segment.prev;
 
-            Vector3 subsegment = segment.diff.copy().multiply(1F / splits);
+            Vector3 subsegment = segment.diff.multiply(1F / splits);
 
             FXLightningBoltPoint[] newpoints = new FXLightningBoltPoint[splits + 1];
 
@@ -141,10 +141,10 @@ public class FXLightning extends Particle {
             newpoints[splits] = segment.endPoint;
 
             for(int i = 1; i < splits; i++) {
-                Vector3 randoff = segment.diff.copy().perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff);
-                randoff.multiply((rand.nextFloat() - 0.5F) * amount * 2);
+                Vector3 randoff = segment.diff.perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff);
+                randoff = randoff.multiply((rand.nextFloat() - 0.5F) * amount * 2);
 
-                Vector3 basepoint = startpoint.copy().add(subsegment.copy().multiply(i));
+                Vector3 basepoint = startpoint.add(subsegment.multiply(i));
 
                 newpoints[i] = new FXLightningBoltPoint(basepoint, randoff);
             }
@@ -156,13 +156,13 @@ public class FXLightning extends Particle {
                     prev.next = next;
 
                 if(i != 0 && rand.nextFloat() < splitChance) {
-                    Vector3 splitrot = next.diff.copy().xCrossProduct().rotate(rand.nextFloat() * 360, next.diff);
-                    Vector3 diff = next.diff.copy().rotate((rand.nextFloat() * 0.66F + 0.33F) * splitAngle, splitrot).multiply(splitLength);
+                    Vector3 splitrot = next.diff.xCrossProduct().rotate(rand.nextFloat() * 360, next.diff);
+                    Vector3 diff = next.diff.rotate((rand.nextFloat() * 0.66F + 0.33F) * splitAngle, splitrot).multiply(splitLength);
 
                     splitCount++;
                     splitParents.put(splitCount, next.splitNo);
 
-                    FXLightningSegment split = new FXLightningSegment(newpoints[i], new FXLightningBoltPoint(newpoints[i + 1].basepoint, newpoints[i + 1].offsetvec.copy().add(diff)), segment.light / 2F, next.segmentNo, splitCount);
+                    FXLightningSegment split = new FXLightningSegment(newpoints[i], new FXLightningBoltPoint(newpoints[i + 1].basepoint, newpoints[i + 1].offsetvec.add(diff)), segment.light / 2F, next.segmentNo, splitCount);
                     split.prev = prev;
 
                     segments.add(split);

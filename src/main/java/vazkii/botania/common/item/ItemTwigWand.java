@@ -169,13 +169,13 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(!world.isRemote)
 			return;
 
-		Vector3 diff = end.copy().sub(orig);
-		Vector3 movement = diff.copy().normalize().multiply(0.05);
+		Vector3 diff = end.subtract(orig);
+		Vector3 movement = diff.normalize().multiply(0.05);
 		int iters = (int) (diff.mag() / movement.mag());
 		float huePer = 1F / iters;
 		float hueSum = (float) Math.random();
 
-		Vector3 currentPos = orig.copy();
+		Vector3 currentPos = orig;
 		for(int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
 			Color color = Color.getHSBColor(hue, 1F, 1F);
@@ -186,7 +186,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			Botania.proxy.setSparkleFXNoClip(true);
 			Botania.proxy.sparkleFX(world, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
 			Botania.proxy.setSparkleFXNoClip(false);
-			currentPos.add(movement);
+			currentPos = currentPos.add(movement);
 		}
 	}
 

@@ -103,9 +103,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
-					target.add(new Vector3(player.getLookVec()).multiply(distance));
-
-					target.y += 0.5;
+					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
@@ -121,9 +119,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
-					target.add(new Vector3(player.getLookVec()).multiply(distance));
-
-					target.y += 0.5;
+					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 				}
@@ -151,11 +147,10 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 							targetEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 3, true, true));
 					}
 
-					Vector3 target3 = Vector3.fromEntityCenter(player);
-					target3.add(new Vector3(player.getLookVec()).multiply(length));
-					target3.y += 0.5;
+					Vector3 target3 = Vector3.fromEntityCenter(player)
+							.add(new Vector3(player.getLookVec()).multiply(length)).add(0, 0.5, 0);
 					if(item instanceof EntityItem)
-						target3.y += 0.25;
+						target3 = target3.add(0, 0.25, 0);
 
 					for(int i = 0; i < 4; i++) {
 						float r = 0.5F + (float) Math.random() * 0.5F;
@@ -201,9 +196,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
-					target.add(new Vector3(player.getLookVec()).multiply(distance));
-
-					target.y += 0.5;
+					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))

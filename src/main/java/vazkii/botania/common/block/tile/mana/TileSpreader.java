@@ -690,7 +690,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(!blockVec.isInside(axis))
 			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 
-		Vector3 diffVec =  blockVec.copy().sub(thisVec);
+		Vector3 diffVec =  blockVec.subtract(thisVec);
 		Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
 		Vector3 rotVec = new Vector3(0, 1, 0);
 		double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;

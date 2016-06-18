@@ -98,10 +98,10 @@ public class EntityMagicMissile extends EntityThrowable {
 		boolean evil = isEvil();
 		Vector3 thisVec = Vector3.fromEntityCenter(this);
 		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
-		Vector3 diff = thisVec.copy().sub(oldPos);
-		Vector3 step = diff.copy().normalize().multiply(0.05);
+		Vector3 diff = thisVec.subtract(oldPos);
+		Vector3 step = diff.normalize().multiply(0.05);
 		int steps = (int) (diff.mag() / step.mag());
-		Vector3 particlePos = oldPos.copy();
+		Vector3 particlePos = oldPos;
 
 		Botania.proxy.setSparkleFXCorrupt(evil);
 		for(int i = 0; i < steps; i++) {
@@ -109,7 +109,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(worldObj.rand.nextInt(steps) <= 1)
 				Botania.proxy.sparkleFX(worldObj, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 1F, evil ? 0F : 0.4F, 1F, 0.8F, 2);
 
-			particlePos.add(step);
+			particlePos = particlePos.add(step);
 		}
 		Botania.proxy.setSparkleFXCorrupt(false);
 
@@ -122,8 +122,8 @@ public class EntityMagicMissile extends EntityThrowable {
 			}
 
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
-			Vector3 diffVec = targetVec.copy().sub(thisVec);
-			Vector3 motionVec = diffVec.copy().normalize().multiply(evil ? 0.5 : 0.6);
+			Vector3 diffVec = targetVec.subtract(thisVec);
+			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
 			motionX = motionVec.x;
 			motionY = motionVec.y;
 			if(time < 10)
