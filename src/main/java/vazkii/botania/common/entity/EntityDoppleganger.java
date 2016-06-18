@@ -776,6 +776,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		this.bossInfo.removePlayer(player);
 	}
 
+	@Override
+	public boolean canBePushed() {
+		return super.canBePushed() && getInvulTime() == 0;
+	}
+
 	private void spawnMissile() {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
