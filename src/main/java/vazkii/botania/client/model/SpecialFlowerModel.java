@@ -192,7 +192,6 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 			@Override
 			public IBakedModel load(@Nonnull String key) {
-				Botania.LOGGER.info("Cached special flower {} model for key {}", loadBlocks ? "block": "item", key);
 				Map<Optional<String>, ModelResourceLocation> loadFrom = loadBlocks ? blockModels : itemModels;
 
 				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
