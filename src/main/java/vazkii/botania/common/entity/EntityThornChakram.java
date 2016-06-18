@@ -204,6 +204,7 @@ public class EntityThornChakram extends EntityThrowable {
 		if(stack != null) {
 			compound.setTag("fly_stack", stack.writeToNBT(new NBTTagCompound()));
 		}
+		compound.setBoolean("flare", isFire());
 	}
 
 	@Override
@@ -212,6 +213,7 @@ public class EntityThornChakram extends EntityThrowable {
 		if(compound.hasKey("fly_stack")) {
 			stack = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fly_stack"));
 		}
+		setFire(compound.getBoolean("flare"));
 	}
 
 }
