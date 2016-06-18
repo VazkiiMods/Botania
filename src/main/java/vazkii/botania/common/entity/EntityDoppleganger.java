@@ -50,6 +50,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -853,6 +855,18 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			}
 
 			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+
+			Vec3d origPos = new Vec3d(d3, d4 + height / 2, d5);
+			Vec3d newPos = new Vec3d(posX, posY + height / 2, posZ);
+
+			if(origPos.squareDistanceTo(newPos) > 1) {
+				for(EntityPlayer player : getPlayersAround()) {
+					RayTraceResult rtr = player.getEntityBoundingBox().expandXyz(0.25).calculateIntercept(origPos, newPos);
+					if(rtr != null)
+						player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
+				}
+			}
+
 			return true;
 		}
 	}
