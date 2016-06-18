@@ -283,7 +283,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						}
 					}
 				} else {
-					if(!player.capabilities.isCreativeMode) {
+					if(!player.isSpectator() && !player.capabilities.isCreativeMode) {
 						player.capabilities.allowFlying = false;
 						player.capabilities.isFlying = false;
 						player.capabilities.disableDamage = false;
