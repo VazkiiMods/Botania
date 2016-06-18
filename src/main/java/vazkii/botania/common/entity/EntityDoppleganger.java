@@ -467,8 +467,18 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 				continue;
 
 			EntityPlayer saveLastAttacker = this.attackingPlayer;
-			attackingPlayer = player;
+			double savePosX = posX;
+			double savePosY = posY;
+			double savePosZ = posZ;
+
+			attackingPlayer = player; // Fake attacking player as the killer
+			posX = player.posX;       // Spoof pos so drops spawn at the player
+			posY = player.posY;
+			posZ = player.posZ;
 			super.dropLoot(wasRecentlyHit, lootingModifier, DamageSource.causePlayerDamage(player));
+			posX = savePosX;
+			posY = savePosY;
+			posZ = savePosZ;
 			attackingPlayer = saveLastAttacker;
 		}
 
@@ -570,14 +580,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 					int zp = posZInt + k;
 					BlockPos posp = new BlockPos(xp, yp, zp);
 					if(isCheatyBlock(worldObj, posp)) {
-						Block block = worldObj.getBlockState(posp).getBlock();
-						List<ItemStack> items = block.getDrops(worldObj, posp, worldObj.getBlockState(posp), 0);
-						for(ItemStack stack : items) {
-							if(ConfigHandler.blockBreakParticles)
-								worldObj.playEvent(2001, posp, Block.getStateId(worldObj.getBlockState(posp)));
-							worldObj.spawnEntityInWorld(new EntityItem(worldObj, xp + 0.5, yp + 0.5, zp + 0.5, stack));
-						}
-						worldObj.setBlockToAir(posp);
+						worldObj.destroyBlock(posp, true);
 					}
 				}
 
@@ -674,7 +677,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 								if(entity != null) {
 									if(!entity.isImmuneToFire())
-										entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 30, 0));
+										entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
 									range = 6F;
 									entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 									worldObj.spawnEntityInWorld(entity);
