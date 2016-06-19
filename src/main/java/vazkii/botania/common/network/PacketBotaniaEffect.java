@@ -176,12 +176,9 @@ public class PacketBotaniaEffect implements IMessage {
                             if(e1 == null || e2 == null)
                                 return;
 
-                            Vector3 thisVec = Vector3.fromEntityCenter(e1);
-                            Vector3 receiverVec = Vector3.fromEntityCenter(e2);
-
                             double rc = 0.45;
-                            thisVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
-                            receiverVec.add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+                            Vector3 thisVec = Vector3.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+                            Vector3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
                             Vector3 motion = receiverVec.subtract(thisVec).multiply(0.04F);
                             float r = 0.4F + 0.3F * (float) Math.random();
