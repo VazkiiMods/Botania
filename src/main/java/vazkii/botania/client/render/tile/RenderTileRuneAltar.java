@@ -47,21 +47,18 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 
 		double time = ClientTickHandler.ticksInGame + partticks;
 
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(1F, 2.5F, 1F);
+			GlStateManager.translate(0.5F, 1.25F, 0.5F);
 			GlStateManager.rotate(angles[i] + (float) time, 0F, 1F, 0F);
-			GlStateManager.translate(2.25F, 0F, 0.5F);
+			GlStateManager.translate(1.125F, 0F, 0.25F);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.translate(0D, 0.15 * Math.sin((time + i * 10) / 5D), 0F);
+			GlStateManager.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {
-				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
 				mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
-
 			}
 			GlStateManager.popMatrix();
 		}
