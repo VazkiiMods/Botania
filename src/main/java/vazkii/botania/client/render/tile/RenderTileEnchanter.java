@@ -31,17 +31,17 @@ import javax.annotation.Nonnull;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
 
-	EntityItem item;
+	private EntityItem item;
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
 		float alphaMod = 0F;
 
-		if(enchanter.stage == 2)
+		if(enchanter.stage == TileEnchanter.State.GATHER_MANA)
 			alphaMod = Math.min(20, enchanter.stageTicks) / 20F;
-		else if(enchanter.stage == 4)
+		else if(enchanter.stage == TileEnchanter.State.RESET)
 			alphaMod = (20 - enchanter.stageTicks) / 20F;
-		else if(enchanter.stage > 2)
+		else if(enchanter.stage == TileEnchanter.State.DO_ENCHANT)
 			alphaMod = 1F;
 
 		if(enchanter.itemToEnchant != null) {
@@ -85,7 +85,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			if(enchanter.stage == 3 || enchanter.stage == 4) {
+			if(enchanter.stage == TileEnchanter.State.DO_ENCHANT || enchanter.stage == TileEnchanter.State.RESET) {
 				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
 				int angle = ticks * 2;
 				float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
@@ -108,7 +108,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
+	private void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		//tessellator.getBuffer().setBrightness(brightness);

@@ -190,6 +190,27 @@ public class PacketBotaniaEffect implements IMessage {
                                     size, (float) motion.x, (float) motion.y, (float) motion.z);
                             break;
                         }
+                        case ENCHANTER_CRAFT: {
+                            for(int i = 0; i < 25; i++) {
+                                float red = (float) Math.random();
+                                float green = (float) Math.random();
+                                float blue = (float) Math.random();
+                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
+                                        message.x + Math.random() * 0.4 - 0.2, message.y, message.z + Math.random() * 0.4 - 0.2,
+                                        red, green, blue, (float) Math.random(), 10);
+                            }
+                            break;
+                        }
+                        case ENCHANTER_DESTROY: {
+                            for(int i = 0; i < 50; i++) {
+                                float red = (float) Math.random();
+                                float green = (float) Math.random();
+                                float blue = (float) Math.random();
+                                Botania.proxy.wispFX(Minecraft.getMinecraft().theWorld, message.x, message.y, message.z,
+                                        red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
+                            }
+                            break;
+                        }
                     }
                 }
             });
@@ -205,7 +226,9 @@ public class PacketBotaniaEffect implements IMessage {
         ARENA_INDICATOR(0),
         ITEM_SMOKE(2), // Arg: Entity ID, number of particles
         SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
-        SPARK_MANA_FLOW(2); // Arg: Entity ID from, Entity ID towards
+        SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
+        ENCHANTER_CRAFT(0),
+        ENCHANTER_DESTROY(0);
 
         private final int argCount;
 

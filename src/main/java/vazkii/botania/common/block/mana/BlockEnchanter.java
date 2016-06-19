@@ -117,7 +117,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				enchanter.sync();
 			}
-		} else if(enchanter.stage == 0) {
+		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
 			if(player.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
 				enchanter.itemToEnchant = null;
 				enchanter.sync();
@@ -174,7 +174,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileEnchanter) world.getTileEntity(pos)).renderHUD(mc, res);
+		((TileEnchanter) world.getTileEntity(pos)).renderHUD(res);
 	}
 
 }
