@@ -254,15 +254,15 @@ botania.wings9=Wings: The One
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Mana Affinity
-botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools and Rods
+botania.armorset.manasteel.desc=10%% less Mana cost on Mana Tools and Rods
 botania.armorset.elementium.name=Great Fairy's Blessing
 botania.armorset.elementium.desc=Chance for pixies to apply potion effects
 botania.armorset.terrasteel.name=Will of the Ancients
-botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools and Rods
+botania.armorset.terrasteel.desc0=20%% less Mana cost on Mana Tools and Rods
 botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
 botania.armorset.terrasteel.desc2=Passive Mana generation on Mana Tablets
 botania.armorset.manaweave.name=Manatide Prowess
-botania.armorset.manaweave.desc0=35% less Mana cost on Mana Tools and Rods
+botania.armorset.manaweave.desc0=35%% less Mana cost on Mana Tools and Rods
 botania.armorset.manaweave.desc1=Increased proficiency with Magical Rods
 
 botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
