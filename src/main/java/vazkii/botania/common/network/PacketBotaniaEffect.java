@@ -7,6 +7,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -74,13 +75,15 @@ public class PacketBotaniaEffect implements IMessage {
                 // Use anon - lambda causes classloading issues
                 @Override
                 public void run() {
+                    Minecraft mc = Minecraft.getMinecraft();
+                    World world = mc.theWorld;
                     switch (message.type) {
                         case POOL_CRAFT: {
                             for(int i = 0; i < 25; i++) {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
+                                Botania.proxy.sparkleFX(world, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
                                         red, green, blue, (float) Math.random(), 10);
                             }
                             break;
@@ -91,8 +94,8 @@ public class PacketBotaniaEffect implements IMessage {
                                 BlockPos pos = new BlockPos(message.x, message.y, message.z);
                                 Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
                                 Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-                                Botania.proxy.lightningFX(Minecraft.getMinecraft().theWorld, outputting ? tileVec : itemVec,
-                                        outputting ? itemVec : tileVec, 80, Minecraft.getMinecraft().theWorld.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+                                Botania.proxy.lightningFX(world, outputting ? tileVec : itemVec,
+                                        outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
                             }
                             break;
                         }
@@ -103,8 +106,8 @@ public class PacketBotaniaEffect implements IMessage {
                             int g = (hex & 0xFF00) >> 8;
                             int b = (hex & 0xFF);
                             for(int i = 0; i < 10; i++) {
-                                BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[Minecraft.getMinecraft().theWorld.rand.nextInt(6)]);
-                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
+                                BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[world.rand.nextInt(6)]);
+                                Botania.proxy.sparkleFX(world,
                                         pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
                                         r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
                             }
@@ -120,12 +123,12 @@ public class PacketBotaniaEffect implements IMessage {
                                 double y = message.y + 0.5;
                                 double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
 
-                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld, x, y, z, r, g, b, 5F, 120);
+                                Botania.proxy.sparkleFX(world, x, y, z, r, g, b, 5F, 120);
                             }
                             break;
                         }
                         case ITEM_SMOKE: {
-                            Entity item = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
+                            Entity item = world.getEntityByID(message.args[0]);
                             int p = message.args[1];
 
                             for(int i = 0; i < p; i++) {
@@ -134,13 +137,15 @@ public class PacketBotaniaEffect implements IMessage {
                                 double d1 = item.worldObj.rand.nextGaussian() * m;
                                 double d2 = item.worldObj.rand.nextGaussian() * m;
                                 double d3 = 10.0D;
-                                item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3, message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+                                item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+                                        message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3,
+                                        message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
                             }
                             break;
                         }
                         case SPARK_NET_INDICATOR: {
-                            Entity e1 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
-                            Entity e2 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[1]);
+                            Entity e1 = world.getEntityByID(message.args[0]);
+                            Entity e2 = world.getEntityByID(message.args[1]);
 
                             if(e1 == null || e2 == null)
                                 return;
@@ -170,8 +175,8 @@ public class PacketBotaniaEffect implements IMessage {
                             break;
                         }
                         case SPARK_MANA_FLOW: {
-                            Entity e1 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[0]);
-                            Entity e2 = Minecraft.getMinecraft().theWorld.getEntityByID(message.args[1]);
+                            Entity e1 = world.getEntityByID(message.args[0]);
+                            Entity e2 = world.getEntityByID(message.args[1]);
 
                             if(e1 == null || e2 == null)
                                 return;
@@ -186,7 +191,7 @@ public class PacketBotaniaEffect implements IMessage {
                             float b = 0.4F + 0.3F * (float) Math.random();
                             float size = 0.125F + 0.125F * (float) Math.random();
 
-                            Botania.proxy.wispFX(Minecraft.getMinecraft().theWorld, thisVec.x, thisVec.y, thisVec.z, r, g, b,
+                            Botania.proxy.wispFX(world, thisVec.x, thisVec.y, thisVec.z, r, g, b,
                                     size, (float) motion.x, (float) motion.y, (float) motion.z);
                             break;
                         }
@@ -195,7 +200,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.sparkleFX(Minecraft.getMinecraft().theWorld,
+                                Botania.proxy.sparkleFX(world,
                                         message.x + Math.random() * 0.4 - 0.2, message.y, message.z + Math.random() * 0.4 - 0.2,
                                         red, green, blue, (float) Math.random(), 10);
                             }
@@ -206,7 +211,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.wispFX(Minecraft.getMinecraft().theWorld, message.x, message.y, message.z,
+                                Botania.proxy.wispFX(world, message.x, message.y, message.z,
                                         red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
                             }
                             break;
