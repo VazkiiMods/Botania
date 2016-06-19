@@ -777,12 +777,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	}
 
 	@Override
-	protected void collideWithEntity(Entity entity) {
-		if(getInvulTime() == 0)
-			super.collideWithEntity(entity);
-	}
-
-	@Override
 	protected void collideWithNearbyEntities() {
 		if(getInvulTime() == 0)
 			super.collideWithNearbyEntities();
