@@ -26,6 +26,23 @@ public final class MathHelper {
 		return ret;
 	}
 
+	public static int[] longArrayToIntArray(long[] longs) {
+		int[] ret = new int[longs.length * 2];
+		for (int i = 0; i < longs.length; i++) {
+			ret[i] = (int) (longs[i] >>> 32);
+			ret[i + 1] = (int) longs[i];
+		}
+		return ret;
+	}
+
+	public static long[] intArrayToLongArray(int[] ints) {
+		long[] ret = new long[ints.length / 2];
+		for (int i = 0; i < ints.length; i += 2) {
+			ret[i / 2] = ((long) ints[i]) << 32 | ints[i + 1];
+		}
+		return ret;
+	}
+
 	public static double[] intArrayToDoubleArray(int[] ints) {
 		double[] ret = new double[ints.length / 2];
 		for (int i = 0; i < ints.length; i += 2) {

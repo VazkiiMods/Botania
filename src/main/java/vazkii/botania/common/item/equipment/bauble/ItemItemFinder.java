@@ -29,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.tileentity.TileEntity;
@@ -47,6 +48,7 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 	private static final String TAG_POSITIONS_OLD = "highlightPositions";
 	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
-	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
+	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock1";
 
 	public ItemItemFinder() {
 		super(LibItemNames.ITEM_FINDER);
@@ -209,19 +211,14 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private long[] getBlockPositions(ItemStack stack) {
-		NBTTagList list = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
-		long[] ret = new long[list.tagCount()];
-		for (int i = 0; i < list.tagCount(); i++) {
-			ret[i] = ((NBTTagLong) list.get(i)).getLong();
-		}
-		return ret;
+		int[] ints = ItemNBTHelper.getIntArray(stack, TAG_BLOCK_POSITIONS);
+		return MathHelper.intArrayToLongArray(ints);
 	}
 
 	private void setBlockPositions(ItemStack stack, long[] vals) {
-		NBTTagList list = new NBTTagList();
-		for(long l : vals)
-			list.appendTag(new NBTTagLong(l));
-		ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, list);
+		stack.getTagCompound().removeTag(TAG_BLOCK_POSITIONS);
+		int[] write = MathHelper.longArrayToIntArray(vals);
+		ItemNBTHelper.setIntArray(stack, TAG_BLOCK_POSITIONS, write);
 	}
 
 	@Override
