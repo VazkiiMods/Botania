@@ -17,6 +17,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -122,19 +125,20 @@ public final class TooltipAdditionDisplayHandler {
 								GlStateManager.shadeModel(GL11.GL_SMOOTH);
 								GlStateManager.enableBlend();
 								GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-								GL11.glBegin(GL11.GL_TRIANGLE_FAN);
+
+								VertexBuffer buf = Tessellator.getInstance().getBuffer();
+								buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 
 								float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
-								GlStateManager.color(0F, 0.5F, 0F, a);
-								GL11.glVertex2i(cx, cy);
-								GlStateManager.color(0F, 1F, 0F, 1F);
+								buf.pos(cx, cy, 0).color(0F, 0.5F, 0F, a).endVertex();
 
 								for(float i = angles; i > 0; i--) {
 									double rad = (i - 90) / 180F * Math.PI;
-									GL11.glVertex2d(cx + Math.cos(rad) * r, cy + Math.sin(rad) * r);
+									buf.pos(cx + Math.cos(rad) * r, cy + Math.sin(rad) * r, 0).color(0F, 1F, 0F, 1F).endVertex();
 								}
-								GL11.glVertex2i(cx, cy);
-								GL11.glEnd();
+								
+								buf.pos(cx, cy, 0).color(0F, 1F, 0F, 0F).endVertex();
+								Tessellator.getInstance().draw();
 
 								GlStateManager.disableBlend();
 								GlStateManager.enableTexture2D();

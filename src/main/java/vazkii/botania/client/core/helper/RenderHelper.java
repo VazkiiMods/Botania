@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
@@ -220,16 +221,19 @@ public final class RenderHelper {
 		GlStateManager.depthMask(true);
 		GL11.glStencilMask(0x00);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
-		GL11.glBegin(GL11.GL_TRIANGLE_FAN);
-		GlStateManager.color(0F, 0.5F, 0.5F, a);
-		GL11.glVertex2i(centerX, centerY);
-		GlStateManager.color(0F, 1F, 0.5F, a);
+
+		VertexBuffer buf = Tessellator.getInstance().getBuffer();
+		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+		buf.pos(centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
+
 		for(int i = degs; i > 0; i--) {
 			double rad = (i - 90) / 180F * Math.PI;
-			GL11.glVertex2d(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r);
+			buf.pos(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
-		GL11.glVertex2i(centerX, centerY);
-		GL11.glEnd();
+
+		buf.pos(centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
+		Tessellator.getInstance().draw();
+
 		GlStateManager.disableBlend();
 		GlStateManager.enableTexture2D();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
