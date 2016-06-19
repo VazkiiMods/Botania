@@ -26,12 +26,13 @@ import java.util.Set;
 
 public class TileRedStringInterceptor extends TileRedString {
 
-	private static final ThreadLocal<Set<TileRedStringInterceptor>> interceptors = ThreadLocal.withInitial(HashSet::new);;
+	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
 
 	@Override
 	public void update() {
 		super.update();
-		interceptors.get().add(this);
+		if(!worldObj.isRemote)
+			interceptors.add(this);
 	}
 
 	@Override
@@ -44,11 +45,14 @@ public class TileRedStringInterceptor extends TileRedString {
 	}
 
 	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
+		if(world.isRemote)
+			return;
+
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
 		boolean did = false;
 
 
-		for(TileRedStringInterceptor inter : interceptors.get()) {
+		for(TileRedStringInterceptor inter : interceptors) {
 			if(!inter.saneState()) {
 				remove.add(inter);
 				continue;
@@ -57,22 +61,18 @@ public class TileRedStringInterceptor extends TileRedString {
 			if(inter.worldObj == world) {
 				BlockPos coords = inter.getBinding();
 				if(coords != null && coords.equals(pos)) {
-					if(!world.isRemote) {
-						Block block = inter.getBlockType();
-						world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
-						world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
-					}
-
+					Block block = inter.getBlockType();
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
 					did = true;
 				}
 			}
 		}
 
-		interceptors.get().removeAll(remove);
+		interceptors.removeAll(remove);
 		if(did) {
-			if(world.isRemote)
-				player.swingArm(hand);
-			else world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
+			player.swingArm(hand);
+			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 	}
 

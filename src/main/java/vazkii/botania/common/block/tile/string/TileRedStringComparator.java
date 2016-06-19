@@ -16,13 +16,12 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileRedStringComparator extends TileRedString {
 
-	int comparatorValue = 0;
+	private int comparatorValue = 0;
 
 	@Override
 	public void update() {
 		super.update();
 		BlockPos binding = getBinding();
-		EnumFacing dir = getOrientation();
 		IBlockState state = getStateAtBinding();
 		int origVal = comparatorValue;
 
