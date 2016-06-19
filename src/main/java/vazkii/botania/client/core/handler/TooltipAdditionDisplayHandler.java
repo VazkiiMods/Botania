@@ -49,7 +49,7 @@ public final class TooltipAdditionDisplayHandler {
 		GuiScreen gui = mc.currentScreen;
 		if(gui != null && gui instanceof GuiContainer && mc.thePlayer != null && mc.thePlayer.inventory.getItemStack() == null) {
 			GuiContainer container = (GuiContainer) gui;
-			Slot slot = ReflectionHelper.getPrivateValue(GuiContainer.class, container, LibObfuscation.THE_SLOT);
+			Slot slot = container.getSlotUnderMouse();
 			if(slot != null && slot.getHasStack()) {
 				ItemStack stack = slot.getStack();
 				if(stack != null) {
@@ -194,7 +194,7 @@ public final class TooltipAdditionDisplayHandler {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
 			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
 		}
-
+		GlStateManager.enableLighting();
 		GlStateManager.enableDepth();
 		GL11.glPopAttrib();
 	}
