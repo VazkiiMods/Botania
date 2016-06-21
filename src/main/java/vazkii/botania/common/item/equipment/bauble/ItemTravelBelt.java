@@ -108,13 +108,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		return speed;
 	}
 
-	public void onMovedTick(ItemStack stack, EntityPlayer player) {
-		// NO-OP
-	}
+	public void onMovedTick(ItemStack stack, EntityPlayer player) {}
 
-	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
-		// NO-OP
-	}
+	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {}
 
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {

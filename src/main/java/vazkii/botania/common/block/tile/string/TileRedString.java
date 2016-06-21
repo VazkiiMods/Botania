@@ -59,9 +59,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 	public abstract boolean acceptBlock(BlockPos pos);
 
-	public void onBound(BlockPos pos) {
-		// NO-OP
-	}
+	public void onBound(BlockPos pos) {}
 
 	@Nonnull
 	@Override

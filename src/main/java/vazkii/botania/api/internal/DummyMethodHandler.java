@@ -150,14 +150,10 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
-		// NO-OP
-	}
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {}
 
 	@Override
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
-		// NO-OP
-	}
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {}
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
@@ -165,14 +161,10 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
-		// NO-OP
-	}
+	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {}
 
 	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		// NO-OP
-	}
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
@@ -205,9 +197,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
-		// NO-OP
-	}
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {}
 
 	@Override
 	public boolean hasSolegnoliaAround(Entity e) {
@@ -225,9 +215,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
-		// NO-OP
-	}
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {}
 
 	@Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {

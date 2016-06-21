@@ -120,9 +120,7 @@ public class SubTileEntity {
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-		// NO-OP
-	}
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {}
 
 	/**
 	 * Called when a player right clicks this sub tile.
@@ -132,16 +130,12 @@ public class SubTileEntity {
 	/**
 	 * Called when this sub tile is added to the world.
 	 */
-	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-		//NO-OP
-	}
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {}
 
 	/**
 	 * Called when this sub tile is harvested
 	 */
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		//NO-OP
-	}
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {}
 
 	/**
 	 * Allows additional processing of sub tile drops
@@ -201,9 +195,7 @@ public class SubTileEntity {
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@SideOnly(Side.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		// NO-OP
-	}
+	public void renderHUD(Minecraft mc, ScaledResolution res) {}
 
 	/**
 	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)

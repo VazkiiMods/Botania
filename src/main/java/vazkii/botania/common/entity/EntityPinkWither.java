@@ -66,15 +66,10 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-		// NO-OP
-	}
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {}
 
 	@Override
-	public void addTrackingPlayer(@Nonnull EntityPlayerMP player)
-	{
-		// NO-OP
-	}
+	public void addTrackingPlayer(@Nonnull EntityPlayerMP player) {}
 
 	// COPYPASTA
 

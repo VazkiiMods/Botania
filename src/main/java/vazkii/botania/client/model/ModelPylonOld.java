@@ -152,8 +152,6 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderGems(PylonVariant variant) {
-		// NO-OP
-	}
+	public void renderGems(PylonVariant variant) {}
 
 }

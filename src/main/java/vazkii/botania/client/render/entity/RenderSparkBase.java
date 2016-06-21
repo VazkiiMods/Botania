@@ -84,17 +84,13 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
 	}
 
-	protected void colorSpinningIcon(T entity, float a) {
-		// NO-OP
-	}
+	protected void colorSpinningIcon(T entity, float a) {}
 
 	protected TextureAtlasSprite getSpinningIcon(T entity) {
 		return null;
 	}
 
-	protected void renderCallback(T entity, float pticks) {
-		// NO-OP
-	}
+	protected void renderCallback(T entity, float pticks) {}
 
 	@Nonnull
 	@Override

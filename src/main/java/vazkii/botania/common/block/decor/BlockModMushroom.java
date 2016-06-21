@@ -30,6 +30,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -91,9 +93,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {
-		// NO-OP, to prevent spreading
-	}
+	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {} // Prevent spreading
 
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
@@ -106,6 +106,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
@@ -117,6 +118,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		return getMetaFromState(state);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
@@ -149,8 +151,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		// NO-OP
-	}
+	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 }

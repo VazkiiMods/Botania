@@ -65,9 +65,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		dummy.addBindInfo(stacks, par1ItemStack, player);
 	}
 
-	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
-		// NO-OP
-	}
+	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {}
 
 	@Override
 	public boolean canEquip(ItemStack stack, EntityLivingBase player) {

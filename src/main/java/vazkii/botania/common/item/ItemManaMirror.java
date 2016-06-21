@@ -212,9 +212,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 
 		@Override
-		public void recieveMana(int mana) {
-			// NO-OP
-		}
+		public void recieveMana(int mana) {}
 
 		@Override
 		public boolean canRecieveManaFromBursts() {

@@ -27,8 +27,6 @@ public class DummyPage extends LexiconPage {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {
-		// NO-OP
-	}
+	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {}
 
 }

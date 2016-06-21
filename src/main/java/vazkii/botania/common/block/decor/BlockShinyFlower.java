@@ -61,8 +61,6 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	}
 
 	@Override
-	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		// NO-OP
-	}
+	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 }

@@ -200,9 +200,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public void apply(ItemStack stack, BurstProperties props) {
-		// NO-OP
-	}
+	public void apply(ItemStack stack, BurstProperties props) {}
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {

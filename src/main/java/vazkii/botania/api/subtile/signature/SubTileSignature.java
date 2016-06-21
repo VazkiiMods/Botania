@@ -37,8 +37,6 @@ public abstract class SubTileSignature {
 	/**
 	 * Adds additional text to the tooltip. This text is added after getUnlocalizedLoreTextForStack.
 	 */
-	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		// NO-OP
-	}
+	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {}
 
 }

@@ -423,9 +423,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {
-		// NO-OP
-	}
+	public void attachSpark(ISparkEntity entity) {}
 
 	@Override
 	public ISparkEntity getAttachedSpark() {

@@ -19,29 +19,21 @@ import vazkii.botania.api.mana.IManaSpreader;
 
 public class Lens  {
 
-	public void apply(ItemStack stack, BurstProperties props) {
-		// NO-OP
-	}
+	public void apply(ItemStack stack, BurstProperties props) {}
 
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		return dead;
 	}
 
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
-		// NO-OP
-	}
+	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {}
 
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		return true;
 	}
 
-	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		// NO-OP
-	}
+	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
 
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		// NO-OP
-	}
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
 
 
 }

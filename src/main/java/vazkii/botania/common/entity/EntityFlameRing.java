@@ -65,7 +65,7 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(worldObj.rand.nextInt(20) == 0)
-			worldObj.playSound(null, posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F);
+			worldObj.playSound(posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
 
 		if(worldObj.isRemote)
 			return;
@@ -98,13 +98,8 @@ public class EntityFlameRing extends Entity {
 
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {
-		// NO-OP
-	}
-
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
-		// NO-OP
-	}
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {}
 }

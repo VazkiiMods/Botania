@@ -50,9 +50,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	}
 
 	@Override
-	public void load(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void load(NBTTagCompound cmp) {}
 
 	@Override
 	public String getNotesKey() {

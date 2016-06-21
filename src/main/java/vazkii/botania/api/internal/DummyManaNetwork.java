@@ -23,9 +23,7 @@ public class DummyManaNetwork implements IManaNetwork {
 	public static final DummyManaNetwork instance = new DummyManaNetwork();
 
 	@Override
-	public void clear() {
-		// NO-OP
-	}
+	public void clear() {}
 
 	@Override
 	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {

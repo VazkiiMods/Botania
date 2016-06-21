@@ -38,9 +38,7 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void entityInit() {
-		// NO-OP
-	}
+	protected void entityInit() {}
 
 	@Override
 	public void onUpdate() {
@@ -63,7 +61,7 @@ public class EntityManaStorm extends Entity {
 		}
 	}
 
-	public void spawnBurst() {
+	private void spawnBurst() {
 		EntityManaBurst burst = new EntityManaBurst(worldObj);
 		burst.setPosition(posX, posY, posZ);
 

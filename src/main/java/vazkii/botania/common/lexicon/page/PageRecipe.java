@@ -94,9 +94,7 @@ public class PageRecipe extends LexiconPage {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		// NO-OP
-	}
+	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {}
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {

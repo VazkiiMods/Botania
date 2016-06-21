@@ -711,9 +711,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void markDispatchable() {
-		// NO-OP
-	}
+	public void markDispatchable() {}
 
 	@Override
 	public float getRotationX() {

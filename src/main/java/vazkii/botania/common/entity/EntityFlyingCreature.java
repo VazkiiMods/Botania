@@ -26,14 +26,10 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 	}
 
 	@Override
-	public void fall(float dist, float damageMult) {
-		// NO-OP
-	}
+	public void fall(float dist, float damageMult) {}
 
 	@Override
-	protected void updateFallState(double y, boolean onGround, @Nonnull IBlockState state, @Nonnull BlockPos pos) {
-		// NO-OP
-	}
+	protected void updateFallState(double y, boolean onGround, @Nonnull IBlockState state, @Nonnull BlockPos pos) {}
 
 	@Override
 	public void moveEntityWithHeading(float par1, float par2) {

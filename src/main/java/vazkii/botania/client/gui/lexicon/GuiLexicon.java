@@ -638,9 +638,7 @@ public class GuiLexicon extends GuiScreen {
 		return "index";
 	}
 
-	public void load(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void load(NBTTagCompound cmp) {}
 
 	public GuiLexicon copy() {
 		return new GuiLexicon();

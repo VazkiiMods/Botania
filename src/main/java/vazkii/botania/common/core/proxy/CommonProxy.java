@@ -221,17 +221,11 @@ public class CommonProxy {
 			event.registerServerCommand(new CommandSkyblockSpread());
 	}
 
-	public void setEntryToOpen(LexiconEntry entry) {
-		// NO-OP
-	}
+	public void setEntryToOpen(LexiconEntry entry) {}
 
-	public void setToTutorialIfFirstLaunch() {
-		// NO-OP
-	}
+	public void setToTutorialIfFirstLaunch() {}
 
-	public void setLexiconStack(ItemStack stack) {
-		// NO-OP
-	}
+	public void setLexiconStack(ItemStack stack) {}
 
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
@@ -258,45 +252,29 @@ public class CommonProxy {
 		return false;
 	}
 
-	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
-		// NO-OP
-	}
+	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {}
 
-	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
-		// NO-OP
-	}
+	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {}
 
-	public void removeSextantMultiblock() {
-		// NO-OP
-	}
+	public void removeSextantMultiblock() {}
 
 	public long getWorldElapsedTicks() {
 		return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0].getTotalWorldTime();
 	}
 
-	public void setSparkleFXNoClip(boolean noclip) {
-		// NO-OP
-	}
+	public void setSparkleFXNoClip(boolean noclip) {}
 
-	public void setSparkleFXCorrupt(boolean corrupt) {
-		// NO-OP
-	}
+	public void setSparkleFXCorrupt(boolean corrupt) {}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		sparkleFX(world, x, y, z, r, g, b, size, m, false);
 	}
 
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		// NO-OP
-	}
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {}
 
-	public void setWispFXDistanceLimit(boolean limit) {
-		// NO-OP
-	}
+	public void setWispFXDistanceLimit(boolean limit) {}
 
-	public void setWispFXDepthTest(boolean depth) {
-		// NO-OP
-	}
+	public void setWispFXDepthTest(boolean depth) {}
 
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
 		wispFX(world, x, y, z, r, g, b, size, 0F);
@@ -314,25 +292,17 @@ public class CommonProxy {
 		wispFX(world, x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
 	}
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		// NO-OP
-	}
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {}
 
 	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
 		lightningFX(world, vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
 	}
 
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		// NO-OP
-	}
+	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}
 
-	public void addBoss(IBotaniaBoss boss) {
-		// NO-OP
-	}
+	public void addBoss(IBotaniaBoss boss) {}
 
-	public void removeBoss(IBotaniaBoss boss) {
-		// NO-OP
-	}
+	public void removeBoss(IBotaniaBoss boss) {}
 
 	public int getClientRenderDistance() {
 		return 0;

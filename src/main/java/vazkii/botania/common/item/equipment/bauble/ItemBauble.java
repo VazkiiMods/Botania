@@ -148,14 +148,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		}
 	}
 
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		// NO-OP
-	}
+	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		// NO-OP
-	}
+	public void onUnequipped(ItemStack stack, EntityLivingBase player) {}
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {

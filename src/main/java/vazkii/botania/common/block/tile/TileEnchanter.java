@@ -401,9 +401,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {
-		// NO-OP
-	}
+	public void attachSpark(ISparkEntity entity) {}
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
