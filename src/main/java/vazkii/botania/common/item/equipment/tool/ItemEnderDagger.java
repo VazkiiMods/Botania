@@ -53,17 +53,20 @@ public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
-		if(par2EntityLivingBase instanceof EntityEnderman && par3EntityLivingBase instanceof EntityPlayer)
-			par2EntityLivingBase.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) par3EntityLivingBase), 20);
-		par1ItemStack.damageItem(1, par3EntityLivingBase);
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
+		if(!target.worldObj.isRemote
+				&& target instanceof EntityEnderman
+				&& attacker instanceof EntityPlayer
+				&& ((EntityPlayer) attacker).getCooledAttackStrength(0) == 1) {
+			target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 20);
+		}
+
+		stack.damageItem(1, attacker);
 		return true;
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		// NO-OP
-	}
+	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {}
 
 	@Override
 	public boolean usesMana(ItemStack stack) {
