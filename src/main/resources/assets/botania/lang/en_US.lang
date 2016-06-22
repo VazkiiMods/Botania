@@ -3102,7 +3102,7 @@ botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
 # -- ROD OF THE DEPTHS
 botania.entry.cobbleRod=Rod of the Depths
 botania.tagline.cobbleRod=A rod to create cobble
-botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.<br>For the same &4Mana&0 cost, this item can provide &1Cobblestone&0 to the &1Rod of the Shifting Crust&0.
+botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.<br>For the same &4Mana&0 cost, this item can provide &1Cobblestone&0 to the &1Rod of the Shifting Crust&0.
 botania.page.cobbleRod1=It's cobbling time
 
 # -- ROD OF THE MOLTEN CORE
@@ -3318,7 +3318,7 @@ botania.page.corporeaFunnel2=Energistically applied
 botania.entry.corporeaInterceptor=Corporea Interceptor
 botania.tagline.corporeaInterceptor=Intercept Corporea requests and send redstone signals
 botania.page.corporeaInterceptor0=The &1Corporea Interceptor&0 does exactly as the name suggests, it intercepts corporea requests. First and foremost, &1Item Frames&0 with items need be attached around the block, these define what items will trigger the interceptor.<br>Whenever a request is fired to the corporea network, be it from an Index, Funnel, etc, and there's no items in the network that can fulfil it this block will be triggered.
-botania.page.corporeaInterceptor1=Of course, the the block is only triggered if the item requested matches one of items in the &1Item Frames&0 about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using &1Crafty Crates&0 or light up a lamp indicating that the inventory for a resource is out.
+botania.page.corporeaInterceptor1=Of course, the block is only triggered if the item requested matches one of items in the &1Item Frames&0 about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using &1Crafty Crates&0 or light up a lamp indicating that the inventory for a resource is out.
 botania.page.corporeaInterceptor2=So many automation prospects
 
 # -- CORPOREA CRYSTAL CUBE
