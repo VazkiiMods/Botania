@@ -71,6 +71,11 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
+	}
+
+	@Override
 	public void onUpdate() {
 		EntityLivingBase thrower = getThrower();
 		if(!worldObj.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.isDead)) {
