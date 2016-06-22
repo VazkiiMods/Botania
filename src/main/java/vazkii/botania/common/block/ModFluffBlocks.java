@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
@@ -345,7 +346,8 @@ public final class ModFluffBlocks {
 		stoneWall = new Block18StoneWall();
 
 		count = 0;
-		for (EnumDyeColor color : BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues()) {
+		for (EnumDyeColor color : ImmutableList.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE,
+				EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN)) {
 			pavementStairs[count] = new BlockPavementStairs(color);
 			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
 			pavementFullSlabs[count] = new BlockPavementSlab(true, color, count);

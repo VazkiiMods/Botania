@@ -2163,7 +2163,7 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
 		}
 
-		// Pavement Stairsm & Stairs
+		// Pavement Stairs & Stairs
 		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
 			addStairsAndSlabs(ModFluffBlocks.pavement, i, ModFluffBlocks.pavementStairs[i], ModFluffBlocks.pavementSlabs[i]);
 
