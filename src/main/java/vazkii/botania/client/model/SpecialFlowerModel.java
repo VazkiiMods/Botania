@@ -192,6 +192,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 			@Override
 			public IBakedModel load(@Nonnull String key) {
+				if (key == null) Botania.LOGGER.error("Null passed to special model cacheloader?!");
 				Map<Optional<String>, ModelResourceLocation> loadFrom = loadBlocks ? blockModels : itemModels;
 
 				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
@@ -208,10 +209,17 @@ public class SpecialFlowerModel implements IModelCustomData {
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			if(state.getBlock() != ModBlocks.specialFlower)
 				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
+
 			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
-			IBakedModel ret = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-			if(ret == null)
-				ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
+
+			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+			if(subtileId != null) { // Todo remove - workaround for subtile ID being null?
+				IBakedModel specialModel = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
+				if(specialModel != null)
+					ret = specialModel;
+			}
+
 			return ret.getQuads(state, face, rand);
 		}
 
