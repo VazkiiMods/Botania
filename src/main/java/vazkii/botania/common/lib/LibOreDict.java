@@ -84,13 +84,6 @@ public final class LibOreDict {
 		"runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
 	};
 
-	public static final String[] STONE_18_VARIANTS = new String[] {
-		"stoneAndesite", "stoneBasalt", "stoneDiorite", "stoneGranite",
-		"stoneAndesitePolished", "stoneBasaltPolished", "stoneDioritePolished", "stoneGranitePolished",
-		"stoneAndesiteBricks", "stoneBasaltBricks", "stoneDioriteBricks", "stoneGraniteBricks",
-		"stoneAndesiteChiseled", "stoneBasaltChiseled", "stoneDioriteChiseled", "stoneGraniteChiseled"
-	};
-
 	public static final String[] QUARTZ = new String[] {
 		"quartzDark", "quartzMana", "quartzBlaze", 
 		"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"

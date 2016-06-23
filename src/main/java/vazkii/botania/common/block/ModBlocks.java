@@ -381,27 +381,13 @@ public final class ModBlocks {
 		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
 
 		// Vanilla OreDict entries
-		OreDictionary.registerOre("dirt", Blocks.DIRT);
-		OreDictionary.registerOre("grass", Blocks.GRASS);
-		OreDictionary.registerOre("sand", Block.getBlockFromName("sand"));
-		OreDictionary.registerOre("gravel", Block.getBlockFromName("gravel"));
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre("snowLayer", Blocks.SNOW_LAYER);
 		OreDictionary.registerOre("mycelium", Blocks.MYCELIUM);
 		OreDictionary.registerOre("podzol", new ItemStack(Blocks.DIRT, 1, 2));
-		OreDictionary.registerOre("netherrack", Blocks.NETHERRACK);
 		OreDictionary.registerOre("soulSand", Blocks.SOUL_SAND);
 		OreDictionary.registerOre("ice", Blocks.ICE);
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.STONE_SLAB, 1, 3));
-		OreDictionary.registerOre("chestWood", Blocks.CHEST);
-		OreDictionary.registerOre("craftingTableWood", Blocks.CRAFTING_TABLE);
-		OreDictionary.registerOre(LibOreDict.PRISMARINE_BLOCK, new ItemStack(Blocks.PRISMARINE, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[3], new ItemStack(Blocks.STONE, 1, 1));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[2], new ItemStack(Blocks.STONE, 1, 3));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[0], new ItemStack(Blocks.STONE, 1, 5));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[7], new ItemStack(Blocks.STONE, 1, 2));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[6], new ItemStack(Blocks.STONE, 1, 4));
-		OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[4], new ItemStack(Blocks.STONE, 1, 6));
 
 		BotaniaAPI.registerPaintableBlock(unstableBlock, BotaniaStateProps.COLOR);
 		BotaniaAPI.registerPaintableBlock(manaBeacon, BotaniaStateProps.COLOR);

@@ -1243,12 +1243,12 @@ public final class ModCraftingRecipes {
 		// Crafty Crate Recipe
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.openCrate, 1, 1),
 				"WCW", "W W", "W W",
-				'C', "craftingTableWood",
+				'C', "workbench",
 				'W', new ItemStack(ModBlocks.dreamwood, 1, 1)));
 		recipeCraftCrate = BotaniaAPI.getLatestAddedRecipe();
 
 		// Crafting Placeholder Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 32, 11), "craftingTableWood", LibOreDict.LIVING_ROCK);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 32, 11), "workbench", LibOreDict.LIVING_ROCK);
 		recipePlaceholder = BotaniaAPI.getLatestAddedRecipe();
 
 		// Nether Brick Recipe
@@ -1523,7 +1523,7 @@ public final class ModCraftingRecipes {
 				" P ", "ICI", " I ",
 				'P', LibOreDict.MANA_PEARL,
 				'I', LibOreDict.MANA_STEEL,
-				'C', "craftingTableWood");
+				'C', "workbench");
 		recipeCraftingHalo = BotaniaAPI.getLatestAddedRecipe();
 
 		// Mana Lens: Flash Recipe
