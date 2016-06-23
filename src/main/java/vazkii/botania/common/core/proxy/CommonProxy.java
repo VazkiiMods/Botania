@@ -167,14 +167,14 @@ public class CommonProxy {
 				if(page instanceof ITwoNamedPage)
 					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
 			}
-		Botania.LOGGER.info("The Lexica Botania has %d words.", words);
+		Botania.LOGGER.info("The Lexica Botania has {} words.", words);
 
 		registerDefaultEntityBlacklist();
 	}
 
 	private int countWords(String s) {
 		String s1 = I18n.translateToLocal(s);
-		return s1.split(" ").length;
+		return s1.split("\\s+").length;
 	}
 
 	private void registerDefaultEntityBlacklist() {
