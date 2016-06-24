@@ -29,6 +29,12 @@ public class PureDaisyRecipeHandler implements IRecipeHandler<RecipePureDaisy> {
 	}
 
 	@Nonnull
+	// @Override todo hack to support 1.10 JEI
+	public String getRecipeCategoryUid(Object o) { // o is erased type param
+		return getRecipeCategoryUid();
+	}
+
+	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull RecipePureDaisy recipe) {
 		return new PureDaisyRecipeWrapper(recipe);

@@ -29,6 +29,12 @@ public class ElvenTradeRecipeHandler implements IRecipeHandler<RecipeElvenTrade>
 	}
 
 	@Nonnull
+	// @Override todo hack to support 1.10 JEI
+	public String getRecipeCategoryUid(Object o) { // o is erased type param
+		return getRecipeCategoryUid();
+	}
+
+	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull RecipeElvenTrade recipe) {
 		return new ElvenTradeRecipeWrapper(recipe);

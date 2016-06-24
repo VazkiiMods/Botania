@@ -29,6 +29,12 @@ public class BreweryRecipeHandler implements IRecipeHandler<RecipeBrew> {
 	}
 
 	@Nonnull
+	// @Override todo hack to support 1.10 JEI
+	public String getRecipeCategoryUid(Object o) { // o is erased type param
+		return getRecipeCategoryUid();
+	}
+
+	@Nonnull
 	@Override
 	public IRecipeWrapper getRecipeWrapper(@Nonnull RecipeBrew recipe) {
 		return new BreweryRecipeWrapper(recipe);
