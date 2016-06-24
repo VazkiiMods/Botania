@@ -6,6 +6,7 @@ import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
@@ -21,7 +22,8 @@ public class BehaviourFelPumpkin extends BehaviorDefaultDispenseItem {
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
     {
         World world = source.getWorld();
-        BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+        EnumFacing facing = world.getBlockState(source.getBlockPos()).getValue(BlockDispenser.FACING);
+        BlockPos blockpos = source.getBlockPos().offset(facing);
         Block blockpumpkin = ModBlocks.felPumpkin;
 
         if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
