@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.core.proxy.ICrossVersionProxy;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
@@ -62,10 +63,24 @@ public class Botania {
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
 
+	public static ICrossVersionProxy crossVersionProxy;
+
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		try {
+			if ("1.10".equals(Loader.MC_VERSION)) {
+				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_110").newInstance();
+			} else if ("1.9.4".equals(Loader.MC_VERSION)) {
+				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_19").newInstance();
+			} else {
+				throw new IllegalStateException("Botania couldn't find a cross version proxy!");
+			}
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			throw new IllegalStateException("Botania couldn't find a cross version proxy!", ex);
+		}
+
 		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
 
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
