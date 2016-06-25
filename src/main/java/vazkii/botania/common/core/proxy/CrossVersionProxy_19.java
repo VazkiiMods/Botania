@@ -29,8 +29,9 @@ public class CrossVersionProxy_19 implements ICrossVersionProxy {
     public void copyGameType(PlayerControllerMP from, BotaniaPlayerController to) {
         try {
             Class<?> gameTypeClazz = Class.forName("net.minecraft.world.WorldSettings.GameType");
-            Object gameType = from.getCurrentGameType();
-            Method m = ReflectionHelper.findMethod(PlayerControllerMP.class, null, new String[]{ "setGameType", "func_78746_a", "a" }, gameTypeClazz);
+            Method m = ReflectionHelper.findMethod(PlayerControllerMP.class, null, new String[]{ "getCurrentGameType", "func_178889_l", "l" });
+            Object gameType = m.invoke(from);
+            m = ReflectionHelper.findMethod(PlayerControllerMP.class, null, new String[]{ "setGameType", "func_78746_a", "a" }, gameTypeClazz);
             m.invoke(to, gameType);
         } catch (IllegalAccessException | InvocationTargetException | ClassNotFoundException ignored) {}
     }

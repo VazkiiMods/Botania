@@ -70,9 +70,11 @@ public class Botania {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
-			if ("1.10".equals(Loader.MC_VERSION)) {
+			if ("Minecraft 1.10".equals(Loader.instance().getMCVersionString())) {
+				Botania.LOGGER.info("Enabling proxy for Minecraft 1.10");
 				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_110").newInstance();
-			} else if ("1.9.4".equals(Loader.MC_VERSION)) {
+			} else if ("Minecraft 1.9.4".equals(Loader.instance().getMCVersionString())) {
+				Botania.LOGGER.info("Enabling proxy for Minecraft 1.9.4");
 				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_19").newInstance();
 			} else {
 				throw new IllegalStateException("Botania couldn't find a cross version proxy!");
