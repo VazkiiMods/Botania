@@ -331,12 +331,11 @@ public class ClientProxy extends CommonProxy {
 		EntityPlayer player = mc.thePlayer;
 		if(entity == player) {
 			if(!(mc.playerController instanceof IExtendedPlayerController)) {
-				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
 				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
 				boolean isFlying = player.capabilities.isFlying;
 				boolean allowFlying = player.capabilities.allowFlying;
-				controller.setGameType(type);
+				Botania.crossVersionProxy.copyGameType(mc.playerController, controller);
 				player.capabilities.isFlying = isFlying;
 				player.capabilities.allowFlying = allowFlying;
 				mc.playerController = controller;

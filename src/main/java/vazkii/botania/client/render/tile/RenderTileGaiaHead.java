@@ -25,6 +25,7 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,7 +62,7 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
 		} else if (view instanceof EntitySkeleton) {
 			skullType = 0;
-			if(((EntitySkeleton) view).getSkeletonType() == 1)
+			if(Botania.crossVersionProxy.getSkeletonTypeInt((EntitySkeleton) view) == 1)
 				skullType = 1;
 		} else if(view instanceof EntityWither)
 			skullType = 1;

@@ -38,6 +38,7 @@ import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -250,7 +251,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.hasKey("id"))
-						tile = TileEntity.create(tilecmp);
+						tile = Botania.crossVersionProxy.createTeFromCompound(entity.worldObj, tilecmp);
 
 					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
 					entity.worldObj.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));

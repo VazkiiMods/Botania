@@ -14,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
@@ -41,7 +42,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
 				if(event.getEntityLiving() instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, ((EntitySkeleton)event.getEntityLiving()).getSkeletonType()));
+					addDrop(event, new ItemStack(Items.SKULL, 1, Botania.crossVersionProxy.getSkeletonTypeInt((EntitySkeleton) event.getEntityLiving())));
 				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.SKULL, 1, 2));
 				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
