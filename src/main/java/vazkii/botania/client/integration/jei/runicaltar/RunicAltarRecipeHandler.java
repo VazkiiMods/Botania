@@ -29,8 +29,8 @@ public class RunicAltarRecipeHandler implements IRecipeHandler<RecipeRuneAltar> 
 	}
 
 	@Nonnull
-	// @Override todo hack to support 1.10 JEI
-	public String getRecipeCategoryUid(Object o) { // o is erased type param
+	@Override
+	public String getRecipeCategoryUid(@Nonnull RecipeRuneAltar recipe) { // o is erased type param
 		return getRecipeCategoryUid();
 	}
 
