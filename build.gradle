@@ -117,17 +117,21 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
     }
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
+    file('web/versions.ini').append("\n${version}=1.10")
+    file("${config.dir_repo}/version/1.10.txt").write("${version}")
 
     def updateJsonFile = file('version/update.json')
     def updateJson = new JsonSlurper().parse(updateJsonFile) as Map
 
     // Add to version section
     updateJson."${minecraft.version}"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
+    updateJson."1.10"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
 
     // Update promos
     updateJson.promos."${minecraft.version}-latest" = "${version}"
     updateJson.promos."${minecraft.version}-recommended" = "${version}"
+    updateJson.promos."1.10-latest" = "${version}"
+    updateJson.promos."1.10-recommended" = "${version}"
 
 
     updateJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(updateJson)))
@@ -239,6 +243,7 @@ curseforge {
         """
         releaseType = "beta"
         addGameVersion '1.9.4'
+        addGameVersion '1.10'
         relations {
             requiredLibrary 'baubles'
         }
