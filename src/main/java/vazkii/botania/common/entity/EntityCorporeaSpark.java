@@ -25,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
@@ -69,6 +70,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
 		dataManager.register(DISPLAY_STACK, Optional.absent());
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target) {
+		return isMaster() ? new ItemStack(ModItems.corporeaSpark, 1, 1) : new ItemStack(ModItems.corporeaSpark);
 	}
 
 	@Override

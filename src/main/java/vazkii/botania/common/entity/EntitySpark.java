@@ -23,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -70,6 +71,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		setSize(0.1F, 0.5F);
 		dataManager.register(INVISIBILITY, 0);
 		dataManager.register(UPGRADE, 0);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target) {
+		return new ItemStack(ModItems.spark);
 	}
 
 	@Override
