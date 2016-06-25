@@ -201,7 +201,7 @@ public class SubTileEntity {
 	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
 	 */
 	public int getLightValue() {
-		return -1;
+		return 0;
 	}
 
 	/**

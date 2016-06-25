@@ -41,7 +41,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 
 	public String subTileName = "";
-	SubTileEntity subTile;
+	private SubTileEntity subTile;
 
 	@Override
 	public SubTileEntity getSubTile() {
@@ -193,7 +193,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	public int getLightValue() {
 		if(subTile == null)
-			return -1;
+			return 0;
 		return subTile.getLightValue();
 	}
 
