@@ -21,7 +21,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -30,10 +29,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -53,7 +55,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
@@ -147,6 +148,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		} else if(tile.isEmpty() && tile.hasWater && stack == null)
 			tile.trySetLastRecipe(player);
 		else {
@@ -155,7 +157,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.capabilities.isCreativeMode)
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, getContainer(stack));
+						drain(FluidRegistry.WATER, stack);
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -165,7 +167,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				return true;
 			} else if(stack != null && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.capabilities.isCreativeMode)
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, getContainer(stack));
+					drain(FluidRegistry.LAVA, stack);
 
 				tile.setLava(true);
 				tile.setWater(false);
@@ -196,6 +198,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Override
 	public void fillWithRain(World world, BlockPos pos) {
 		if(world.rand.nextInt(20) == 1) {
 			TileEntity tile = world.getTileEntity(pos);
@@ -216,28 +219,20 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	private boolean isValidWaterContainer(ItemStack stack) {
 		if(stack == null || stack.stackSize != 1)
 			return false;
-		if(stack.getItem() == ModItems.waterBowl)
-			return true;
 
-		if(stack.getItem() instanceof IFluidContainerItem) {
-			FluidStack fluidStack = ((IFluidContainerItem) stack.getItem()).getFluid(stack);
-			return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
+		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
+			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
+				return true;
 		}
-		FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(stack);
-		return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
+
+		return false;
 	}
 
-	private ItemStack getContainer(ItemStack stack) {
-		if(stack.getItem() == ModItems.waterBowl)
-			return new ItemStack(Items.BOWL);
-
-		if (stack.getItem().hasContainerItem(stack))
-			return stack.getItem().getContainerItem(stack);
-		else if (stack.getItem() instanceof IFluidContainerItem) {
-			((IFluidContainerItem) stack.getItem()).drain(stack, FluidContainerRegistry.BUCKET_VOLUME, true);
-			return stack;
-		}
-		return FluidContainerRegistry.drainFluidContainer(stack);
+	private void drain(Fluid fluid, ItemStack stack) {
+		stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+				.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
 	}
 
 	@Override
