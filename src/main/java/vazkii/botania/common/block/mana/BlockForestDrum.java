@@ -171,7 +171,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		}
 
 		for(int i = 0; i < 10; i++)
-			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
 	}
 
 	@Override
