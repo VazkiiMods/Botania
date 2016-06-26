@@ -25,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
@@ -68,15 +69,25 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+		if(world.isRemote)
+			return true;
+
 		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
 
 		if(player.isSneaking()) {
-			if(altar.manaToGet == 0)
+			if(altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
-		} else if(altar.isEmpty() && stack == null)
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			}
+		} else if(altar.isEmpty() && stack == null) {
 			altar.trySetLastRecipe(player);
-		else if(stack != null)
-			return altar.addItem(player, stack);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+		} else if(stack != null) {
+			boolean result = altar.addItem(player, stack);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			return result;
+		}
+
 		return false;
 	}
 
