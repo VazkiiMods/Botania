@@ -25,9 +25,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -151,10 +154,164 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(mx, my, mz);
 	}
 
+	// Copy of EntityThrowable.onUpdate. Relevant edits indicated.
+	private void superUpdate() {
+		this.lastTickPosX = this.posX;
+		this.lastTickPosY = this.posY;
+		this.lastTickPosZ = this.posZ;
+		// super.onUpdate(); Botania - inline supersuperclass's onUpdate
+		{
+			if (!this.worldObj.isRemote)
+			{
+				this.setFlag(6, this.isGlowing());
+			}
+
+			this.onEntityUpdate();
+		}
+
+		if (this.throwableShake > 0)
+		{
+			--this.throwableShake;
+		}
+
+		// Botania - remove inGround check and its else branch. Bursts are never inGround.
+
+		Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		RayTraceResult raytraceresult = this.worldObj.rayTraceBlocks(vec3d, vec3d1);
+		vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+
+		if (raytraceresult != null)
+		{
+			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
+		}
+
+		if(!worldObj.isRemote) { // Botania - only do entity colliding on server
+			Entity entity = null;
+			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().addCoord(this.motionX, this.motionY, this.motionZ).expandXyz(1.0D));
+			double d0 = 0.0D;
+			boolean flag = false;
+
+			for (int i = 0; i < list.size(); ++i)
+			{
+				Entity entity1 = (Entity)list.get(i);
+
+				if (entity1.canBeCollidedWith())
+				{
+					if (entity1 == this.ignoreEntity)
+					{
+						flag = true;
+					}
+					else if (this.ticksExisted < 2 && this.ignoreEntity == null)
+					{
+						this.ignoreEntity = entity1;
+						flag = true;
+					}
+					else
+					{
+						flag = false;
+						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
+						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
+
+						if (raytraceresult1 != null)
+						{
+							double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
+
+							if (d1 < d0 || d0 == 0.0D)
+							{
+								entity = entity1;
+								d0 = d1;
+							}
+						}
+					}
+				}
+			}
+
+			if (this.ignoreEntity != null)
+			{
+				/*if (flag)
+				{
+					this.ignoreTime = 2;
+				}
+				else if (this.ignoreTime-- <= 0)
+				{
+					this.ignoreEntity = null;
+				}*/
+			}
+
+			if (entity != null)
+			{
+				raytraceresult = new RayTraceResult(entity);
+			}
+		} // End wrap - only do entity colliding on server
+
+		if (raytraceresult != null)
+		{
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && this.worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
+			{
+				this.setPortal(raytraceresult.getBlockPos());
+			}
+			else
+			{
+				this.onImpact(raytraceresult);
+			}
+		}
+
+		this.posX += this.motionX;
+		this.posY += this.motionY;
+		this.posZ += this.motionZ;
+		float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+		this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
+
+		for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+		{
+			;
+		}
+
+		while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
+		{
+			this.prevRotationPitch += 360.0F;
+		}
+
+		while (this.rotationYaw - this.prevRotationYaw < -180.0F)
+		{
+			this.prevRotationYaw -= 360.0F;
+		}
+
+		while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
+		{
+			this.prevRotationYaw += 360.0F;
+		}
+
+		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
+		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+		float f1 = 0.99F;
+		float f2 = this.getGravityVelocity();
+
+		if (this.isInWater())
+		{
+			for (int j = 0; j < 4; ++j)
+			{
+				float f3 = 0.25F;
+				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double)f3, this.posY - this.motionY * (double)f3, this.posZ - this.motionZ * (double)f3, this.motionX, this.motionY, this.motionZ, new int[0]);
+			}
+
+			f1 = 0.8F;
+		}
+
+		// Botania - don't apply drag
+		// this.motionX *= (double)f1;
+		// this.motionY *= (double)f1;
+		// this.motionZ *= (double)f1;
+		this.motionY -= (double)f2;
+		this.setPosition(this.posX, this.posY, this.posZ);
+	}
+
 	@Override
 	public void onUpdate() {
 		setTicksExisted(getTicksExisted() + 1);
-		super.onUpdate();
+		superUpdate();
 
 		if(!fake && !isDead)
 			ping();
