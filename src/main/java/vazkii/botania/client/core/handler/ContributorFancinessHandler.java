@@ -99,10 +99,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 					throw new NumberFormatException();
 				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
 			} catch(NumberFormatException e) {
-				if(BotaniaAPIClient.getRegisteredSubtileItemModels().containsKey(value))
-					flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
-				else
-					flowerMap.put(key, new ItemStack(Blocks.RED_FLOWER));
+				flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
 			}
 		}
 	}

@@ -9,8 +9,6 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -31,6 +29,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -58,6 +57,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class SpecialFlowerModel implements IModelCustomData {
 
@@ -109,7 +109,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 		for(String key : customData.keySet()) {
 			if("base".equals(key)) {
-				blockBuilder.put(Optional.absent(), getLocation(customData.get(key)));
+				blockBuilder.put(Optional.empty(), getLocation(customData.get(key)));
 			}
 		}
 
@@ -164,8 +164,8 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
 
 		private final IBakedModel baseModel;
-		private final LoadingCache<String, IBakedModel> bakedBlockModels;
-		private final LoadingCache<String, IBakedModel> bakedItemModels;
+		private final LoadingCache<String, Optional<IBakedModel>> bakedBlockModels;
+		private final LoadingCache<String, Optional<IBakedModel>> bakedItemModels;
 
 		SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
 									   ImmutableMap<Optional<String>, ModelResourceLocation> itemModels, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
@@ -173,7 +173,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 			this.itemModels = itemModels;
 			this.transforms = cameraTransforms;
 
-			ModelResourceLocation baseModelPath = blockModels.getOrDefault(Optional.absent(),
+			ModelResourceLocation baseModelPath = blockModels.getOrDefault(Optional.empty(),
 					new ModelResourceLocation("builtin/missing", "missing"));
 			this.baseModel = ModelLoaderRegistry.getModelOrMissing(baseModelPath)
 					.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
@@ -182,7 +182,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 			this.bakedItemModels = CacheBuilder.newBuilder().build(new Loader(false));
 		}
 
-		private class Loader extends CacheLoader<String, IBakedModel> {
+		private class Loader extends CacheLoader<String, Optional<IBakedModel>> {
 
 			private final boolean loadBlocks;
 
@@ -191,16 +191,17 @@ public class SpecialFlowerModel implements IModelCustomData {
 			}
 
 			@Override
-			public IBakedModel load(@Nonnull String key) {
+			public Optional<IBakedModel> load(@Nonnull String key) {
 				if (key == null) Botania.LOGGER.error("Null passed to special model cacheloader?!");
 				Map<Optional<String>, ModelResourceLocation> loadFrom = loadBlocks ? blockModels : itemModels;
 
 				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
-				if(loc == null) {
-					loc = new ModelResourceLocation("builtin/missing", "missing");
-				}
+				if(loc == null)
+					return Optional.empty();
 				IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
-				return model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+				if(model == ModelLoaderRegistry.getMissingModel())
+					return Optional.empty();
+				return Optional.of(model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
 			}
 		}
 
@@ -215,9 +216,9 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 			if(subtileId != null) { // Todo remove - workaround for subtile ID being null?
-				IBakedModel specialModel = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-				if(specialModel != null)
-					ret = specialModel;
+				Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
+				if(specialModel.isPresent())
+					ret = specialModel.get();
 			}
 
 			return ret.getQuads(state, face, rand);
@@ -229,16 +230,20 @@ public class SpecialFlowerModel implements IModelCustomData {
 			return itemHandler;
 		}
 
+		private final ItemStack roseFallback = new ItemStack(Blocks.RED_FLOWER);
+
 		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 			@Nonnull
 			@Override
 			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase living) {
-				IBakedModel item = bakedItemModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
-				if(item == null) {
-					item = bakedBlockModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
-				}
+				Optional<IBakedModel> item = bakedItemModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
 
-				return item == null ? Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel() : item;
+				if(!item.isPresent())
+					item = bakedBlockModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
+
+				return item.isPresent()
+						? item.get()
+						: Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
 			}
 		};
 
