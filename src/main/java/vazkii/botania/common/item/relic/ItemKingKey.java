@@ -67,7 +67,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			int div = spawned / 5;
 			int mod = spawned % 5;
 
-			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
+			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, living.getEyeHeight(), div * 0.1);
 
 			Random rand = living.worldObj.rand;
 			Vector3 axis = look.normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
@@ -77,7 +77,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			axis1 = axis1.multiply(div * 3.5 + 5).rotate(rot, look);
 			if(axis1.y < 0)
-				axis1 = axis.multiply(0, -1, 0);
+				axis1 = axis1.multiply(0, -1, 0);
 
 			Vector3 end = pl.add(axis1);
 
