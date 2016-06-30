@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -42,6 +43,8 @@ import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.core.proxy.ICrossVersionProxy;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Map;
+
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
 		guiFactory = LibMisc.GUI_FACTORY, acceptedMinecraftVersions = LibMisc.MC_VERSIONS, updateJSON = LibMisc.UPDATE_JSON)
 public class Botania {
@@ -67,18 +70,25 @@ public class Botania {
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
+	private static final Map<String, String> PROXY_MAP = ImmutableMap.of(
+			"1.9.4", "vazkii.botania.common.core.proxy.CrossVersionProxy_19",
+			"1.10", "vazkii.botania.common.core.proxy.CrossVersionProxy_110",
+			"1.10.2", "vazkii.botania.common.core.proxy.CrossVersionProxy_110"
+	);
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
-			if ("Minecraft 1.10".equals(Loader.instance().getMCVersionString())) {
-				Botania.LOGGER.info("Enabling proxy for Minecraft 1.10");
-				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_110").newInstance();
-			} else if ("Minecraft 1.9.4".equals(Loader.instance().getMCVersionString())) {
-				Botania.LOGGER.info("Enabling proxy for Minecraft 1.9.4");
-				crossVersionProxy = (ICrossVersionProxy) Class.forName("vazkii.botania.common.core.proxy.CrossVersionProxy_19").newInstance();
-			} else {
+			// Prevent constant "1.9.4" from being inlined and messing up selection in 1.10
+			String mcVersion = Loader.MC_VERSION.toString();
+
+			if(!PROXY_MAP.containsKey(mcVersion))
 				throw new IllegalStateException("Botania couldn't find a cross version proxy!");
-			}
+
+			Class clazz = Class.forName(PROXY_MAP.get(mcVersion));
+			crossVersionProxy = (ICrossVersionProxy) clazz.newInstance();
+
+			Botania.LOGGER.info("Enabling proxy for Minecraft {}", mcVersion);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
 			throw new IllegalStateException("Botania couldn't find a cross version proxy!", ex);
 		}
