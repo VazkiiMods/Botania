@@ -2,7 +2,9 @@
     "1.10": {
         "r1.8-311": "See https://github.com/williewillus/Botania/releases/r1.8-311"
     },
-    "1.10.2": {},
+    "1.10.2": {
+        "r1.8-312": "See https://github.com/williewillus/Botania/releases/r1.8-312"
+    },
     "1.9": {
         "r1.8-301": "See https://github.com/williewillus/Botania/releases/r1.8-301",
         "r1.8-302": "See https://github.com/williewillus/Botania/releases/r1.8-302",
@@ -16,15 +18,18 @@
         "r1.8-308": "See https://github.com/williewillus/Botania/releases/r1.8-308",
         "r1.8-309": "See https://github.com/williewillus/Botania/releases/r1.8-309",
         "r1.8-310": "See https://github.com/williewillus/Botania/releases/r1.8-310",
-        "r1.8-311": "See https://github.com/williewillus/Botania/releases/r1.8-311"
+        "r1.8-311": "See https://github.com/williewillus/Botania/releases/r1.8-311",
+        "r1.8-312": "See https://github.com/williewillus/Botania/releases/r1.8-312"
     },
     "homepage": "https://minecraft.curseforge.com/projects/botania-unofficial",
     "promos": {
         "1.10-latest": "r1.8-311",
         "1.10-recommended": "r1.8-311",
+        "1.10.2-latest": "r1.8-312",
+        "1.10.2-recommended": "r1.8-312",
         "1.9-latest": "r1.8-305",
         "1.9-recommended": "r1.8-305",
-        "1.9.4-latest": "r1.8-311",
-        "1.9.4-recommended": "r1.8-311"
+        "1.9.4-latest": "r1.8-312",
+        "1.9.4-recommended": "r1.8-312"
     }
 }
