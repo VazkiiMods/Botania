@@ -248,7 +248,7 @@ curseforge {
         """
         releaseType = "release"
         addGameVersion '1.9.4'
-        addGameVersion '1.10'
+        addGameVersion '1.10.2'
         relations {
             requiredLibrary 'baubles'
         }
