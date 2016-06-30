@@ -79,8 +79,8 @@ public class Botania {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
-			// Prevent constant "1.9.4" from being inlined and messing up selection in 1.10
-			String mcVersion = Loader.MC_VERSION.toString();
+			// The constant is inlined at compile time, we want the real value.
+			String mcVersion = (String) Loader.class.getDeclaredField("MC_VERSION").get(null);
 
 			if(!PROXY_MAP.containsKey(mcVersion))
 				throw new IllegalStateException("Botania couldn't find a cross version proxy!");
@@ -89,7 +89,7 @@ public class Botania {
 			crossVersionProxy = (ICrossVersionProxy) clazz.newInstance();
 
 			Botania.LOGGER.info("Enabling proxy for Minecraft {}", mcVersion);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		} catch (NoSuchFieldException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
 			throw new IllegalStateException("Botania couldn't find a cross version proxy!", ex);
 		}
 
