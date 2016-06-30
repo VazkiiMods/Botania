@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "botania:items/twigWand0",
     "layer1": "botania:items/twigWand1",
