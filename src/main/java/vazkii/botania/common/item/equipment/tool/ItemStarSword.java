@@ -54,7 +54,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 					Vector3 posVec = Vector3.fromBlockPos(pos.getBlockPos());
 					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);
-					motVec.normalize().negate().multiply(1.5);
+					motVec = motVec.normalize().negate().multiply(1.5);
 
 					EntityFallingStar star = new EntityFallingStar(world, player);
 					star.setPosition(posVec.x, posVec.y, posVec.z);

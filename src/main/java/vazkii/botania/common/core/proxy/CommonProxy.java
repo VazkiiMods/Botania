@@ -11,6 +11,7 @@
 package vazkii.botania.common.core.proxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityDragonPart;
@@ -153,6 +154,11 @@ public class CommonProxy {
 		if(Botania.thaumcraftLoaded) {
 			ModBrews.initTC();
 			ModBrewRecipes.initTC();
+			try {
+				@SuppressWarnings("unchecked")
+				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.lib.aura.EntityAuraNode");
+				BotaniaAPI.blacklistEntityFromGravityRod(clazz);
+			} catch (ClassNotFoundException ignored) {}
 		}
 
 		ModBlocks.addDispenserBehaviours();
