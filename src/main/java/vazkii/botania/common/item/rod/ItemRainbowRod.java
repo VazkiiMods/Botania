@@ -66,43 +66,46 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			double x = player.posX;
 			double y = player.posY;
 			double z = player.posZ;
+			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos((int) x, (int) y, (int) z);
 
-			double lx = 0;
-			double ly = -1;
-			double lz = 0;
+			double lastX = 0;
+			double lastY = -1;
+			double lastZ = 0;
 
 			int count = 0;
 			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
-			BlockPos playerPos = new BlockPos((int) x, (int) y, (int) z);
-			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || world.getBlockState(playerPos).getBlock().isAir(world.getBlockState(playerPos), world, playerPos) || world.getBlockState(playerPos).getBlock() == place) {
+			while(count < maxlen && (int) lastX == (int) x && (int) lastY == (int) y && (int) lastZ == (int) z
+					|| count < 4
+					|| world.isAirBlock(pos)
+					|| world.getBlockState(pos).getBlock() == place) {
 				if(y >= 256 || y <= 0)
 					break;
 
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++) {
 						BlockPos pos_ = new BlockPos((int) x + i, (int) y, (int) z + j);
-						if(world.getBlockState(pos_).getBlock().isAir(world.getBlockState(pos_), world, pos_) || world.getBlockState(pos_).getBlock() == place) {
+						if(world.isAirBlock(pos_)
+								|| world.getBlockState(pos_).getBlock() == place) {
 							world.setBlockState(pos_, place.getDefaultState());
 							TileBifrost tile = (TileBifrost) world.getTileEntity(pos_);
 							if(tile != null) {
-								for(int k = 0; k < 4; k++)
-									Botania.proxy.sparkleFX(world, tile.getPos().getX() + Math.random(), tile.getPos().getY() + Math.random(), tile.getPos().getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 								tile.ticks = time;
 							}
 						}
 
 					}
 
-				lx = x;
-				ly = y;
-				lz = z;
+				lastX = x;
+				lastY = y;
+				lastZ = z;
 
 				x += vector.x;
 				y += vector.y;
 				z += vector.z;
+				pos.setPos(x, y, z);
 				count++;
 			}
 
