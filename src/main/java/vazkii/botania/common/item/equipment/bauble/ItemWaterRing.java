@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,9 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
+	private static final double SPEED_MULT = 1.2;
+	private static final double MAX_SPEED = 1.3;
+
 	public ItemWaterRing() {
 		super(LibItemNames.WATER_RING);
 	}
@@ -32,22 +36,24 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 		super.onWornTick(stack, player);
 
 		if(player.isInsideOfMaterial(Material.WATER)) {
-			double motionX = player.motionX * 1.2;
-			double motionY = player.motionY * 1.2;
-			double motionZ = player.motionZ * 1.2;
+			if(player instanceof EntityPlayer) {
+				ItemStack firstRing = PlayerHandler.getPlayerBaubles((EntityPlayer) player).getStackInSlot(1);
+				if(firstRing != null && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
+					return;
+				}
+			}
 
-			boolean changeX = Math.min(1.3, Math.abs(motionX)) == Math.abs(motionX);
-			boolean changeY = Math.min(1.3, Math.abs(motionY)) == Math.abs(motionY);
-			boolean changeZ = Math.min(1.3, Math.abs(motionZ)) == Math.abs(motionZ);
+			double motionX = player.motionX * SPEED_MULT;
+			double motionY = player.motionY * SPEED_MULT;
+			double motionZ = player.motionZ * SPEED_MULT;
 
-			if(player instanceof EntityPlayer && ((EntityPlayer) player).capabilities.isFlying)
-				changeX = changeY = changeZ = false;
+			boolean flying = player instanceof EntityPlayer && ((EntityPlayer) player).capabilities.isFlying;
 
-			if(changeX)
+			if(Math.abs(motionX) < MAX_SPEED && !flying)
 				player.motionX = motionX;
-			if(changeY)
+			if(Math.abs(motionY) < MAX_SPEED && !flying)
 				player.motionY = motionY;
-			if(changeZ)
+			if(Math.abs(motionZ) < MAX_SPEED && !flying)
 				player.motionZ = motionZ;
 
 			PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
@@ -58,7 +64,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 			if(player.getAir() <= 1 && player instanceof EntityPlayer) {
 				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
-				if(mana > 0) // If zero gets in the player has no air but won't drown.
+				if (mana > 0)
 					player.setAir(mana);
 			}
 		} else onUnequipped(stack, player);
