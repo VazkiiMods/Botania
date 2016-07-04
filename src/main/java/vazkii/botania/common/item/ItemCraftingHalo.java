@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -34,6 +35,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -47,7 +49,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientMethodHandles;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -56,8 +61,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -106,10 +109,15 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
-	public static IInventory getFakeInv(EntityPlayer player) {
-		GenericInventory tempInv = new GenericInventory("temp", false, player.inventory.getSizeInventory() - 4);
-		tempInv.copyFrom(player.inventory);
-		return tempInv;
+	public static IItemHandler getFakeInv(EntityPlayer player) {
+		ItemStackHandler ret = new ItemStackHandler(player.inventory.mainInventory.length);
+		for(int i = 0; i < player.inventory.mainInventory.length; i++) {
+			ItemStack stack = player.inventory.mainInventory[i];
+			if(stack != null)
+				ret.setStackInSlot(i, player.inventory.mainInventory[i].copy());
+		}
+
+		return ret;
 	}
 
 	@Override
@@ -134,7 +142,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		}
 	}
 
-	void tryCraft(EntityPlayer player, ItemStack stack, int slot, boolean particles, IInventory inv, boolean validate) {
+	void tryCraft(EntityPlayer player, ItemStack stack, int slot, boolean particles, IItemHandler inv, boolean validate) {
 		ItemStack itemForPos = getItemForSlot(stack, slot);
 		if(itemForPos == null)
 			return;
@@ -143,7 +151,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(validate)
 			recipe = validateRecipe(player, stack, recipe, slot);
 
-		if(canCraft(player, recipe, inv))
+		if(canCraft(recipe, inv))
 			doCraft(player, recipe, particles);
 	}
 
@@ -166,18 +174,18 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		return recipe;
 	}
 
-	private static boolean canCraft(EntityPlayer player, ItemStack[] recipe, IInventory inv) {
+	private static boolean canCraft(ItemStack[] recipe, IItemHandler inv) {
 		if(recipe == null)
 			return false;
 
-		if(recipe[9].stackSize != InventoryHelper.testInventoryInsertion(inv, recipe[9], null))
+		if(ItemHandlerHelper.insertItemStacked(inv, recipe[9], true) != null)
 			return false;
 
 		return consumeRecipeIngredients(recipe, inv, null);
 	}
 
 	private static void doCraft(EntityPlayer player, ItemStack[] recipe, boolean particles) {
-		consumeRecipeIngredients(recipe, player.inventory, player);
+		consumeRecipeIngredients(recipe, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP), player);
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
 			player.dropItem(recipe[9], false);
 
@@ -191,7 +199,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			Botania.proxy.wispFX(player.worldObj, centerVector.x, centerVector.y, centerVector.z, 1F, 0F, 1F, 0.2F + 0.2F * (float) Math.random(), ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 	}
 
-	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IInventory inv, EntityPlayer player) {
+	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IItemHandler inv, EntityPlayer player) {
 		for(int i = 0; i < 9; i++) {
 			ItemStack ingredient = recipe[i];
 			if(ingredient != null && !consumeFromInventory(ingredient, inv, player))
@@ -201,8 +209,8 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		return true;
 	}
 
-	private static boolean consumeFromInventory(ItemStack stack, IInventory inv, EntityPlayer player) {
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+	private static boolean consumeFromInventory(ItemStack stack, IItemHandler inv, EntityPlayer player) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stackAt = inv.getStackInSlot(i);
 			if(stackAt != null && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
 				boolean consume = true;
@@ -212,15 +220,15 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 					if(container == stackAt)
 						consume = false;
 					else {
-						ItemHandlerHelper.giveItemToPlayer(player, container);
+						if(player == null)
+							ItemHandlerHelper.insertItem(inv, container, false);
+						else
+							ItemHandlerHelper.giveItemToPlayer(player, container);
 					}
 				}
 
-				if(consume) {
-					stackAt.stackSize--;
-					if(stackAt.stackSize == 0)
-						inv.setInventorySlotContents(i, null);
-				}
+				if(consume)
+					inv.extractItem(i, 1, false);
 
 				return true;
 			}
@@ -460,6 +468,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			ItemStack slotStack = getItemForSlot(stack, seg);
 			if(slotStack != null) {
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				RenderHelper.enableStandardItemLighting();
 				float scale = seg == 0 ? 0.9F : 0.8F;
 				GlStateManager.scale(scale, scale, scale);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
@@ -467,6 +476,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 				GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
 				Minecraft.getMinecraft().getRenderItem().renderItem(slotStack, ItemCameraTransforms.TransformType.GUI);
+				RenderHelper.disableStandardItemLighting();
 			}
 			GlStateManager.popMatrix();
 
@@ -587,7 +597,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		}
 
 		int yoff = 110;
-		if(setRecipe && !canCraft(player, recipe, getFakeInv(player))) {
+		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
 			mc.fontRendererObj.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
