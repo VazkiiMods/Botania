@@ -71,32 +71,38 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			double lastX = 0;
 			double lastY = -1;
 			double lastZ = 0;
+			BlockPos.MutableBlockPos lastChecker = new BlockPos.MutableBlockPos();
 
 			int count = 0;
 			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
-			while(count < maxlen && (int) lastX == (int) x && (int) lastY == (int) y && (int) lastZ == (int) z
-					|| count < 4
-					|| world.isAirBlock(pos)
-					|| world.getBlockState(pos).getBlock() == place) {
-				if(y >= 256 || y <= 0)
-					break;
+			BlockPos.MutableBlockPos placePos = new BlockPos.MutableBlockPos();
+			while (count < maxlen) {
+				lastChecker.setPos(lastX, lastY, lastZ);
 
-				for(int i = -2; i < 1; i++)
-					for(int j = -2; j < 1; j++) {
-						BlockPos pos_ = new BlockPos((int) x + i, (int) y, (int) z + j);
-						if(world.isAirBlock(pos_)
-								|| world.getBlockState(pos_).getBlock() == place) {
-							world.setBlockState(pos_, place.getDefaultState());
-							TileBifrost tile = (TileBifrost) world.getTileEntity(pos_);
-							if(tile != null) {
-								tile.ticks = time;
+				if (!lastChecker.equals(pos)) {
+					if (y >= world.getHeight() || y <= 0
+							|| (!world.isAirBlock(pos) && world.getBlockState(pos).getBlock() != place))
+						break;
+
+					for(int i = -2; i < 1; i++)
+						for(int j = -2; j < 1; j++) {
+							placePos.setPos(pos.getX() + i, pos.getY(), pos.getZ() + j);
+							if(world.isAirBlock(placePos)
+									|| world.getBlockState(placePos).getBlock() == place) {
+								world.setBlockState(placePos, place.getDefaultState());
+								TileBifrost tile = (TileBifrost) world.getTileEntity(placePos);
+								if(tile != null) {
+									tile.ticks = time;
+								}
 							}
-						}
 
-					}
+						}
+					count++;
+				}
+
 
 				lastX = x;
 				lastY = y;
@@ -106,7 +112,6 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 				y += vector.y;
 				z += vector.z;
 				pos.setPos(x, y, z);
-				count++;
 			}
 
 			if(count > 0) {
