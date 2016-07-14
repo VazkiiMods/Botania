@@ -89,7 +89,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		InvWithLocation inv = getSparkInventory();
 		if(inv == null) {
 			if(!worldObj.isRemote)
-				setDead();
+				dropAndKill();
 			return;
 		}
 
@@ -116,11 +116,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			setItemDisplayTicks(displayTicks + 1);
 	}
 
+	private void dropAndKill() {
+		entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
+		setDead();
+	}
+
 	@Override
 	public void setDead() {
 		super.setDead();
-		if(!worldObj.isRemote)
-			entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
 		connections.remove(this);
 		connectionsClient.remove(this);
 		restartNetwork();
@@ -272,7 +275,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		if(stack != null) {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
-					setDead();
+					if(!player.worldObj.isRemote)
+						dropAndKill();
 					if(isMaster())
 						restartNetwork();
 					if(player.worldObj.isRemote)

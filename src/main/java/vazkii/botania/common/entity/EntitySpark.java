@@ -88,7 +88,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		ISparkAttachable tile = getAttachedTile();
 		if(tile == null) {
-			setDead();
+			dropAndKill();
 			return;
 		}
 
@@ -223,6 +223,14 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		}
 	}
 
+	private void dropAndKill() {
+		SparkUpgradeType upgrade = getUpgrade();
+		entityDropItem(new ItemStack(ModItems.spark), 0F);
+		if(upgrade !=  SparkUpgradeType.NONE)
+			entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
+		setDead();
+	}
+
 	@Override
 	public boolean canBeCollidedWith() {
 		return true;
@@ -244,7 +252,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 						transfers.clear();
 						removeTransferants = 2;
-					} else setDead();
+					} else dropAndKill();
 					player.swingArm(hand);
 					return true;
 				} else {
@@ -279,17 +287,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
 		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
-	}
-
-	@Override
-	public void setDead() {
-		super.setDead();
-		if(!worldObj.isRemote) {
-			SparkUpgradeType upgrade = getUpgrade();
-			entityDropItem(new ItemStack(ModItems.spark), 0F);
-			if(upgrade !=  SparkUpgradeType.NONE)
-				entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
-		}
 	}
 
 	@Override
