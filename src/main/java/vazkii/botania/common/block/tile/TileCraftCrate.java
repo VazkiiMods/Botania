@@ -19,6 +19,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
@@ -186,8 +187,8 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack stack) {
-		if(!player.worldObj.isRemote) {
+	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
+		if(!world.isRemote) {
 			craft(false);
 			ejectAll();
 		}

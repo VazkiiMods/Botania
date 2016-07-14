@@ -150,7 +150,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(pos);
-		return crate.onWanded(player, stack);
+		return crate.onWanded(world, player, stack);
 	}
 
 	@Override

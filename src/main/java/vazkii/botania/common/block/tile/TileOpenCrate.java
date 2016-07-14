@@ -84,7 +84,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		worldObj.spawnEntityInWorld(item);
 	}
 
-	public boolean onWanded(EntityPlayer player, ItemStack stack) {
+	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
 		return false;
 	}
 
