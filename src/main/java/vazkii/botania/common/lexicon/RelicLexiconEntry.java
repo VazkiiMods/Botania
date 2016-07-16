@@ -18,11 +18,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 
-public class RLexiconEntry  extends BLexiconEntry {
+public class RelicLexiconEntry extends BasicLexiconEntry {
 
 	final Achievement a;
 
-	public RLexiconEntry(String unlocalizedName, LexiconCategory category, Achievement a) {
+	public RelicLexiconEntry(String unlocalizedName, LexiconCategory category, Achievement a) {
 		super(unlocalizedName, category);
 		setKnowledgeType(BotaniaAPI.relicKnowledge);
 		this.a = a;

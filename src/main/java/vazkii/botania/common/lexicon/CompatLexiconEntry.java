@@ -14,11 +14,11 @@ import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.common.lib.LibMisc;
 
-public class CLexiconEntry extends BLexiconEntry implements IAddonEntry {
+public class CompatLexiconEntry extends BasicLexiconEntry implements IAddonEntry {
 
 	final String mod;
 
-	public CLexiconEntry(String unlocalizedName, LexiconCategory category, String mod) {
+	public CompatLexiconEntry(String unlocalizedName, LexiconCategory category, String mod) {
 		super(unlocalizedName, category);
 		this.mod = mod;
 	}

@@ -44,7 +44,7 @@ public class ItemObedienceStick extends ItemMod {
 		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
 			boolean pool = tileAt instanceof IManaPool;
 			Actuator act = pool ? Actuator.functionalActuator : Actuator.generatingActuator;
-			int range = pool ? SubTileFunctional.RANGE : SubTileGenerating.RANGE;
+			int range = pool ? SubTileFunctional.LINK_RANGE : SubTileGenerating.LINK_RANGE;
 
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++)

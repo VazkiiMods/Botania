@@ -18,9 +18,9 @@ import vazkii.botania.api.lexicon.LexiconPage;
 
 import javax.annotation.Nonnull;
 
-public class BLexiconEntry extends LexiconEntry {
+public class BasicLexiconEntry extends LexiconEntry {
 
-	public BLexiconEntry(String unlocalizedName, LexiconCategory category) {
+	public BasicLexiconEntry(String unlocalizedName, LexiconCategory category) {
 		super(unlocalizedName, category);
 		BotaniaAPI.addEntry(this, category);
 	}
@@ -59,7 +59,7 @@ public class BLexiconEntry extends LexiconEntry {
 
 	@Override
 	public int compareTo(@Nonnull LexiconEntry o) {
-		return o instanceof WLexiconEntry ? 1 : super.compareTo(o);
+		return o instanceof WelcomeLexiconEntry ? 1 : super.compareTo(o);
 	}
 
 }

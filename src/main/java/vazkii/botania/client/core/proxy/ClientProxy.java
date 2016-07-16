@@ -106,6 +106,7 @@ import vazkii.botania.client.render.tile.RenderTileTeruTeruBozu;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileAvatar;
@@ -211,6 +212,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
 		MinecraftForge.EVENT_BUS.register(new BossBarHandler());
+		MinecraftForge.EVENT_BUS.register(new BergamuteEventHandler());
 		
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(new AdaptorNotifier());

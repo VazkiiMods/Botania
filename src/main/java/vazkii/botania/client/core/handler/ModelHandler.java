@@ -59,6 +59,7 @@ import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
@@ -277,6 +278,7 @@ public final class ModelHandler {
         BotaniaAPIClient.registerSubtileModel(SubTileBubbell.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BUBBELL + "Chibi"));
         BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SOLEGNOLIA));
         BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SOLEGNOLIA + "Chibi"));
+        BotaniaAPIClient.registerSubtileModel(SubTileBergamute.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SOLEGNOLIA)); // todo model
     }
 
     private static void registerStandardBlocks() {

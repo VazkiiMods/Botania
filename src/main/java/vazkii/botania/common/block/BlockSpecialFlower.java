@@ -114,13 +114,13 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				LibBlockNames.SUBTILE_VINCULOTUS,
 				LibBlockNames.SUBTILE_SPECTRANTHEMUM,
 				LibBlockNames.SUBTILE_BUBBELL,
-				LibBlockNames.SUBTILE_SOLEGNOLIA));
+				LibBlockNames.SUBTILE_SOLEGNOLIA,
+				LibBlockNames.SUBTILE_BERGAMUTE));
 	}
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	protected BlockSpecialFlower() {
-		super();
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
 		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);

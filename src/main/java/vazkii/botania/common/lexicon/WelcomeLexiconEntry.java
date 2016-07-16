@@ -20,11 +20,11 @@ import vazkii.botania.common.lib.LibLexicon;
 
 import javax.annotation.Nonnull;
 
-public class WLexiconEntry extends BLexiconEntry {
+public class WelcomeLexiconEntry extends BasicLexiconEntry {
 
 	private static final int PAGES = 7;
 
-	public WLexiconEntry() {
+	public WelcomeLexiconEntry() {
 		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
 		setPriority();
 		setIcon(new ItemStack(ModItems.cosmetic, 1, 31));

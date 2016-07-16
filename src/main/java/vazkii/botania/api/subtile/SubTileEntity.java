@@ -52,6 +52,14 @@ public class SubTileEntity {
 	public static final String TAG_TYPE = "type";
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 
+	public final BlockPos getPos() {
+		return supertile.getPos();
+	}
+
+	public final World getWorld() {
+		return supertile.getWorld();
+	}
+
 	public void setSupertile(TileEntity tile) {
 		supertile = tile;
 	}

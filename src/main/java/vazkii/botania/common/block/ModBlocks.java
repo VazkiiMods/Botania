@@ -84,6 +84,7 @@ import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
@@ -507,6 +508,7 @@ public final class ModBlocks {
 		registerSubTileWithMini(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BERGAMUTE, SubTileBergamute.class);
 	}
 
 	public static void registerMultiparts() {

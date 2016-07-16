@@ -12,9 +12,9 @@ package vazkii.botania.common.lexicon;
 
 import vazkii.botania.api.lexicon.LexiconCategory;
 
-public class HLexiconEntry extends ALexiconEntry {
+public class HeadLexiconEntry extends AlfheimLexiconEntry {
 
-	public HLexiconEntry(String unlocalizedName, LexiconCategory category) {
+	public HeadLexiconEntry(String unlocalizedName, LexiconCategory category) {
 		super(unlocalizedName, category);
 	}
 

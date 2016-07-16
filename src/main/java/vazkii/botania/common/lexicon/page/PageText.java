@@ -117,13 +117,12 @@ public class PageText extends LexiconPage {
 		font.setUnicodeFlag(unicode);
 	}
 
-	public static String getControlCodes(String s) {
+	private static String getControlCodes(String s) {
 		String controls = s.replaceAll("(?<!\u00a7)(.)", "");
-		String wiped = controls.replaceAll(".*r", "r");
-		return wiped;
+		return controls.replaceAll(".*r", "r");
 	}
 
-	public static String toControlCodes(String s) {
+	private static String toControlCodes(String s) {
 		return s.replaceAll(".", "\u00a7$0");
 	}
 

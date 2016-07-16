@@ -34,7 +34,7 @@ import java.awt.*;
  */
 public class SubTileFunctional extends SubTileEntity {
 
-	public static final int RANGE = 10;
+	public static final int LINK_RANGE = 10;
 
 	private static final String TAG_MANA = "mana";
 
@@ -117,7 +117,7 @@ public class SubTileFunctional extends SubTileEntity {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-				linkedPool = network.getClosestPool(supertile.getPos(), supertile.getWorld(), RANGE);
+				linkedPool = network.getClosestPool(supertile.getPos(), supertile.getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
 		}

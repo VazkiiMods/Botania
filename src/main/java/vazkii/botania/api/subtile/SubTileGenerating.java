@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class SubTileGenerating extends SubTileEntity {
 
-	public static final int RANGE = 6;
+	public static final int LINK_RANGE = 6;
 
 	private static final String TAG_MANA = "mana";
 
@@ -142,7 +142,7 @@ public class SubTileGenerating extends SubTileEntity {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-				linkedCollector = network.getClosestCollector(supertile.getPos(), supertile.getWorld(), RANGE);
+				linkedCollector = network.getClosestCollector(supertile.getPos(), supertile.getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
 		}

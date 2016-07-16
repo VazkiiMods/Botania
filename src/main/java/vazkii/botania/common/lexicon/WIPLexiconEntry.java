@@ -13,7 +13,7 @@ package vazkii.botania.common.lexicon;
 import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconCategory;
 
-public class WIPLexiconEntry extends BLexiconEntry implements IAddonEntry {
+public class WIPLexiconEntry extends BasicLexiconEntry implements IAddonEntry {
 
 	public WIPLexiconEntry(String unlocalizedName, LexiconCategory category) {
 		super(unlocalizedName, category);

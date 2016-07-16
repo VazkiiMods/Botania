@@ -28,7 +28,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
-import vazkii.botania.common.lexicon.DLexiconEntry;
+import vazkii.botania.common.lexicon.DogLexiconEntry;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -160,7 +160,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				if(entry == tutEntry)
 					tutPage = page;
 				
-				if(entry instanceof DLexiconEntry)
+				if(entry instanceof DogLexiconEntry)
 					button.dog = true;
 			} else button.displayString = "";
 		}

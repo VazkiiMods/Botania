@@ -16,9 +16,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lexicon.page.PageTutorial;
 import vazkii.botania.common.lib.LibLexicon;
 
-public class TLexiconEntry extends BLexiconEntry {
+public class TutLexiconEntry extends BasicLexiconEntry {
 
-	public TLexiconEntry() {
+	public TutLexiconEntry() {
 		super(LibLexicon.BASICS_TUTORIAL, BotaniaAPI.categoryBasics);
 		setPriority();
 		setIcon(new ItemStack(Items.BOOK));

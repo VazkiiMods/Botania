@@ -1335,6 +1335,8 @@ tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
 tile.botania:flower.solegnoliaChibi.name=Solegnolia Petite
 tile.botania:flower.solegnoliaChibi.reference=All your magnets are belong to us
+tile.botania:flower.bergamute.name=Bergamute
+tile.botania:flower.bergamute.reference=Totally another Extra Utils ripoff
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -2504,6 +2506,12 @@ botania.entry.solegnolia=Solegnolia
 botania.tagline.solegnolia=Creates spaces where the Ring of Magnetization doesn't work
 botania.page.solegnolia0=The &1Ring of Magnetization&0 is a rather handy tool for anyone digging or collecting. It does, however, fall into the problem that it picks up unwanted items near complex systems. The &1Solegnolia&0 disrupts the ring and prevents any items around it from being pulled towards a wearer of one, and any rings whose wearers stand inside the radius from picking items up. It does not require &4Mana&0.
 botania.page.solegnolia1=On/Off
+
+# -- BERGAMUTE
+botania.entry.bergamute=Bergamute
+botania.tagline.bergamute=Absorbs sound
+botania.page.bergamute0=Anyone that has ever taken on the role of a rancher knows the pain of the cacaphonous din that arises from their herds of animals. The &1Bergamute&0 absorbs sound energy emitted in a close radius around itself, converting it into negligible amounts of mana and emitting it into the environment. The absorption itself needs no &4mana&0 to occur.
+botania.page.bergamute1=Deaf to All but the Song
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

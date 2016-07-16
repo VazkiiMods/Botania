@@ -15,9 +15,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 
-public class DLexiconEntry extends BLexiconEntry {
+public class DogLexiconEntry extends BasicLexiconEntry {
 
-	public DLexiconEntry(String unlocalizedName, LexiconCategory category) {
+	public DogLexiconEntry(String unlocalizedName, LexiconCategory category) {
 		super(unlocalizedName, category);
 	}
 	
