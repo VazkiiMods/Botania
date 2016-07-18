@@ -71,48 +71,53 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		ticksElapsed++;
 
 		if(bindPos.getY() > -1 && isValidBinding()) {
-			Vector3 vec = getMovementVector();
+			if(worldObj.isRemote) {
+				Vector3 vec = getMovementVector();
 
-			double dist = 0.1;
-			int size = (int) (vec.mag() / dist);
-			int count = 10;
-			int start = ticksElapsed % size;
+				double dist = 0.1;
+				int size = (int) (vec.mag() / dist);
+				int count = 10;
+				int start = ticksElapsed % size;
 
-			Vector3 vecMag = vec.normalize().multiply(dist);
-			Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+				Vector3 vecMag = vec.normalize().multiply(dist);
+				Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
-			double radPer = Math.PI / 16.0;
-			float mul = 0.5F;
-			float mulPer = 0.4F;
-			float maxMul = 2;
-			for(int i = start; i < start + count; i++) {
-				mul = Math.min(maxMul, mul + mulPer);
-				double rad = radPer * (i + ticksElapsed * 0.4);
-				Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-				Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
-				vecTip = vecTip.add(vecMag);
-			}
-			
-			BlockPos endpoint = getEndpoint();
+				double radPer = Math.PI / 16.0;
+				float mul = 0.5F;
+				float mulPer = 0.4F;
+				float maxMul = 2;
+				for(int i = start; i < start + count; i++) {
+					mul = Math.min(maxMul, mul + mulPer);
+					double rad = radPer * (i + ticksElapsed * 0.4);
+					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+					Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
+					vecTip = vecTip.add(vecMag);
+				}
+			} else {
+				BlockPos endpoint = getEndpoint();
 
-			if(endpoint != null && !worldObj.isRemote) {
-				float range = 0.5F;
-				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(1 + range, 1 + range, 1 + range)));
-				for(EntityEnderPearl pearl : enderPearls) {
-					pearl.posX = endpoint.getX() + pearl.posX - pos.getX();
-					pearl.posY = endpoint.getY() + pearl.posY - pos.getY();
-					pearl.posZ = endpoint.getZ() + pearl.posZ - pos.getZ();
+				if(endpoint != null) {
+					AxisAlignedBB aabb = ModBlocks.lightRelay.getBoundingBox(worldObj.getBlockState(pos), worldObj, pos).offset(pos);
+					float range = 0.5F;
+					List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, aabb.expandXyz(range));
+					for(EntityEnderPearl pearl : enderPearls) {
+						pearl.setPositionAndUpdate(
+								endpoint.getX() + pearl.posX - pos.getX(),
+								endpoint.getY() + pearl.posY - pos.getY(),
+								endpoint.getZ() + pearl.posZ - pos.getZ()
+						);
+					}
 				}
 			}
 		}
 	}
 
-	public boolean isValidBinding() {
+	private boolean isValidBinding() {
 		Block block = worldObj.getBlockState(bindPos).getBlock();
 		return block == ModBlocks.lightRelay;
 	}
 	
-	public BlockPos getEndpoint() {
+	private BlockPos getEndpoint() {
 		List<TileLightRelay> pointsPassed = new ArrayList<>();
 		TileLightRelay relay = this;
 		BlockPos lastCoords = null;
