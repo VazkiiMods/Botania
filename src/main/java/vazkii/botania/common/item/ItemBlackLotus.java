@@ -25,6 +25,8 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -70,19 +72,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
 		}
 
-		for(int i = 0; i < 50; i++) {
-			float r = (float) Math.random() * 0.25F;
-			float g = 0F;
-			float b = (float) Math.random() * 0.25F;
-			float s = 0.45F * (float) Math.random() * 0.25F;
-
-			float m = 0.045F;
-			float mx = ((float) Math.random() - 0.5F) * m;
-			float my = (float) Math.random() * m;
-			float mz = ((float) Math.random() - 0.5F) * m;
-
-			Botania.proxy.wispFX(item.worldObj, item.posX, tile.getPos().getY() + 0.5F, item.posZ, r, g, b, s, mx, my, mz);
-		}
+		PacketHandler.sendToNearby(item.worldObj, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
 		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 

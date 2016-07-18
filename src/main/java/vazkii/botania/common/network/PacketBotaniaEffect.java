@@ -216,6 +216,30 @@ public class PacketBotaniaEffect implements IMessage {
                             }
                             break;
                         }
+                        case ENTROPINNYUM: {
+                            for(int i = 0; i < 50; i++)
+                                Botania.proxy.sparkleFX(world, message.x + Math.random() * 4 - 2, message.y + Math.random() * 4 - 2, message.z + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
+
+                            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, message.x, message.y, message.z, 1D, 0D, 0D);
+                            break;
+                        }
+                        case BLACK_LOTUS_DISSOLVE: {
+                            for(int i = 0; i < 50; i++) {
+                                float r = (float) Math.random() * 0.35F;
+                                float g = 0F;
+                                float b = (float) Math.random() * 0.35F;
+                                float s = 0.45F * (float) Math.random() * 0.25F;
+
+                                float m = 0.045F;
+                                float mx = ((float) Math.random() - 0.5F) * m;
+                                float my = (float) Math.random() * m;
+                                float mz = ((float) Math.random() - 0.5F) * m;
+
+                                Botania.proxy.wispFX(world, message.x, message.y, message.z, r, g, b, s, mx, my, mz);
+                            }
+
+                            break;
+                        }
                     }
                 }
             });
@@ -233,7 +257,9 @@ public class PacketBotaniaEffect implements IMessage {
         SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
         SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
         ENCHANTER_CRAFT(0),
-        ENCHANTER_DESTROY(0);
+        ENCHANTER_DESTROY(0),
+        ENTROPINNYUM(0),
+        BLACK_LOTUS_DISSOLVE(0);
 
         private final int argCount;
 

@@ -20,6 +20,8 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
@@ -31,22 +33,16 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(mana == 0) {
+		if(!supertile.getWorld().isRemote && mana == 0) {
 			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityTNTPrimed tnt : tnts) {
 				if(tnt.getFuse() == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
-					if(!supertile.getWorld().isRemote) {
-						tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
-						tnt.setDead();
-						mana += getMaxMana();
-						sync();
-					}
+					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
+					tnt.setDead();
+					mana += getMaxMana();
+					sync();
 
-					for(int i = 0; i < 50; i++)
-						Botania.proxy.sparkleFX(tnt.worldObj, tnt.posX + Math.random() * 4 - 2, tnt.posY + Math.random() * 4 - 2, tnt.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
-
-					supertile.getWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, tnt.posX, tnt.posY, tnt.posZ, 1D, 0D, 0D);
-					return;
+					PacketHandler.sendToNearby(supertile.getWorld(), supertile.getPos(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENTROPINNYUM, tnt.posX, tnt.posY, tnt.posZ));
 				}
 			}
 		}
