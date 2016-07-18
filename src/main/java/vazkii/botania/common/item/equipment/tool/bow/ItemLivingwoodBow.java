@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
@@ -194,7 +195,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(living instanceof EntityPlayerMP) {
 			ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
+			if(Botania.crossVersionProxy.isSurvivalOrAdventure((EntityPlayerMP) living))
 				PlayerHelper.consumeAmmo(((EntityPlayerMP) living), AMMO_FUNC);
 		}
 	}

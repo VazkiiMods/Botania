@@ -2,6 +2,7 @@ package vazkii.botania.common.core.proxy;
 
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -21,5 +22,7 @@ public interface ICrossVersionProxy {
     int getSkeletonTypeInt(EntitySkeleton skeleton);
 
     void setSkeletonTypeInt(EntitySkeleton skeleton, int type);
+
+    boolean isSurvivalOrAdventure(EntityPlayerMP playerMP);
 
 }
