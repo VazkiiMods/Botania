@@ -27,6 +27,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -669,7 +670,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 									entity = new EntitySkeleton(worldObj);
 									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 									if(worldObj.rand.nextInt(8) == 0) {
-										Botania.crossVersionProxy.setSkeletonTypeInt((EntitySkeleton) entity, 1);
+										((EntitySkeleton) entity).setSkeletonType(SkeletonType.WITHER);
 										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;

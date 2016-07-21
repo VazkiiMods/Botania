@@ -146,13 +146,8 @@ public class PlatformModel implements IBakedModel {
 
 		@Nonnull
 		@Override
-		public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
-			return compose.getBiomeGenForCoords(pos);
-		}
-
-		@Override
-		public boolean extendedLevelsInChunkCache() {
-			return compose.extendedLevelsInChunkCache();
+		public Biome getBiome(@Nonnull BlockPos pos) {
+			return compose.getBiome(pos);
 		}
 
 		@Override

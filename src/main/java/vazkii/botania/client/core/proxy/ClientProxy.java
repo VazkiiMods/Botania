@@ -26,7 +26,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -337,7 +336,7 @@ public class ClientProxy extends CommonProxy {
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
 				boolean isFlying = player.capabilities.isFlying;
 				boolean allowFlying = player.capabilities.allowFlying;
-				Botania.crossVersionProxy.copyGameType(mc.playerController, controller);
+				controller.setGameType(mc.playerController.getCurrentGameType());
 				player.capabilities.isFlying = isFlying;
 				player.capabilities.allowFlying = allowFlying;
 				mc.playerController = controller;

@@ -85,15 +85,10 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Nonnull
 	@Override
-	public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
+	public Biome getBiome(@Nonnull BlockPos pos) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getBiomeGenForCoords(pos);
+			return originalBlockAccess.getBiome(pos);
 		return null;
-	}
-
-	@Override
-	public boolean extendedLevelsInChunkCache() {
-		return hasBlockAccess && originalBlockAccess.extendedLevelsInChunkCache();
 	}
 
 	@Override

@@ -10,15 +10,11 @@
  */
 package vazkii.botania.common;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.HoverEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -40,10 +36,7 @@ import org.apache.logging.log4j.Logger;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
-import vazkii.botania.common.core.proxy.ICrossVersionProxy;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.util.Map;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
 		guiFactory = LibMisc.GUI_FACTORY, acceptedMinecraftVersions = LibMisc.MC_VERSIONS, updateJSON = LibMisc.UPDATE_JSON)
@@ -66,33 +59,10 @@ public class Botania {
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
 
-	public static ICrossVersionProxy crossVersionProxy;
-
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
-
-	private static final Map<String, String> PROXY_MAP = ImmutableMap.of(
-			"1.9.4", "vazkii.botania.common.core.proxy.CrossVersionProxy_19",
-			"1.10", "vazkii.botania.common.core.proxy.CrossVersionProxy_110",
-			"1.10.2", "vazkii.botania.common.core.proxy.CrossVersionProxy_110"
-	);
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		try {
-			// The constant is inlined at compile time, we want the real value.
-			String mcVersion = (String) Loader.class.getDeclaredField("MC_VERSION").get(null);
-
-			if(!PROXY_MAP.containsKey(mcVersion))
-				throw new IllegalStateException("Botania couldn't find a cross version proxy!");
-
-			Class clazz = Class.forName(PROXY_MAP.get(mcVersion));
-			crossVersionProxy = (ICrossVersionProxy) clazz.newInstance();
-
-			Botania.LOGGER.info("Enabling proxy for Minecraft {}", mcVersion);
-		} catch (NoSuchFieldException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-			throw new IllegalStateException("Botania couldn't find a cross version proxy!", ex);
-		}
-
 		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
 
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");

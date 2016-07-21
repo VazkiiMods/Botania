@@ -195,7 +195,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(living instanceof EntityPlayerMP) {
 			ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-			if(Botania.crossVersionProxy.isSurvivalOrAdventure((EntityPlayerMP) living))
+			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
 				PlayerHelper.consumeAmmo(((EntityPlayerMP) living), AMMO_FUNC);
 		}
 	}

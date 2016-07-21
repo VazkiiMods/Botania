@@ -46,7 +46,7 @@ minecraft {
     version = "${config.mc_version}-${config.forge_version}"
     runDir = "eclipse/assets"
 
-    mappings = "snapshot_20160518"
+    mappings = "snapshot_20160718"
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number
@@ -67,7 +67,7 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    deobfCompile "mezz.jei:jei_1.9.4:3.6.7.216"
+    deobfCompile "mezz.jei:jei_1.10.2:3.7.8.234"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
@@ -119,9 +119,7 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
     // todo make this flexibile - collection of supported mc versions
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file('web/versions.ini').append("\n${version}=1.10.2")
     file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
-    file("${config.dir_repo}/version/1.10.2.txt").write("${version}")
 
     def updateJsonFile = file('version/update.json')
     def updateJson = new JsonSlurper().parse(updateJsonFile) as Map
@@ -130,14 +128,10 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
 
     // Add to version section
     updateJson."${minecraft.version}"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
-    updateJson."1.10.2"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
 
     // Update promos
     updateJson.promos."${minecraft.version}-latest" = "${version}"
     updateJson.promos."${minecraft.version}-recommended" = "${version}"
-    updateJson.promos."1.10.2-latest" = "${version}"
-    updateJson.promos."1.10.2-recommended" = "${version}"
-
 
     updateJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(updateJson)))
 }
@@ -247,8 +241,7 @@ curseforge {
 		    See https://github.com/williewillus/Botania/releases/tag/${version}
         """
         releaseType = "release"
-        addGameVersion '1.9.4'
-        addGameVersion '1.10.2'
+        addGameVersion "${minecraft.version}"
         relations {
             requiredLibrary 'baubles'
         }

@@ -20,6 +20,7 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
@@ -62,7 +63,7 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
 		} else if (view instanceof EntitySkeleton) {
 			skullType = 0;
-			if(Botania.crossVersionProxy.getSkeletonTypeInt((EntitySkeleton) view) == 1)
+			if (((EntitySkeleton) view).getSkeletonType() == SkeletonType.WITHER)
 				skullType = 1;
 		} else if(view instanceof EntityWither)
 			skullType = 1;

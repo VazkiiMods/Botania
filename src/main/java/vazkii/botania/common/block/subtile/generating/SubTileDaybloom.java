@@ -59,7 +59,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		boolean rain = supertile.getWorld().getBiome(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
 		return supertile.getWorld().isDaytime() && !rain && supertile.getWorld().canBlockSeeSky(supertile.getPos().up());
 	}
 
