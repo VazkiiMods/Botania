@@ -22,6 +22,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,6 +49,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public ItemTerrasteelHelm(String name) {
 		super(EntityEquipmentSlot.HEAD, name);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -123,7 +125,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {
 				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
-				ItemStack stack = player.inventory.armorItemInSlot(3);
+				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 				if(crit && stack != null && stack.getItem() instanceof ItemTerrasteelHelm) {
 					boolean ahrim = hasAncientWill(stack, 0);
 					boolean dharok = hasAncientWill(stack, 1);
