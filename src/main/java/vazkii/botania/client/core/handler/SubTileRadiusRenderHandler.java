@@ -34,8 +34,10 @@ import java.awt.*;
 
 public final class SubTileRadiusRenderHandler {
 
+	private SubTileRadiusRenderHandler() {}
+
 	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		RayTraceResult pos = mc.objectMouseOver;
 
@@ -79,7 +81,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
-	private void renderRectangle(AxisAlignedBB aabb) {
+	private static void renderRectangle(AxisAlignedBB aabb) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {
@@ -124,7 +126,7 @@ public final class SubTileRadiusRenderHandler {
 		GlStateManager.popMatrix();
 	}
 
-	private void renderCircle(BlockPos center, double radius) {
+	private static void renderCircle(BlockPos center, double radius) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {

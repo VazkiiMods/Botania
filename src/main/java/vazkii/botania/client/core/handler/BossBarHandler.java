@@ -31,13 +31,15 @@ import java.util.WeakHashMap;
 
 public final class BossBarHandler {
 
+	private BossBarHandler() {}
+
 	// Only access on the client thread!
 	public static final Set<IBotaniaBoss> bosses = Collections.newSetFromMap(new WeakHashMap<>());
 	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
 	@SubscribeEvent
-	public void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
+	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
 		UUID infoUuid = evt.getBossInfo().getUniqueId();
 		for(IBotaniaBoss currentBoss : bosses) {
 			if(currentBoss.getBossInfoUuid().equals(infoUuid)) {

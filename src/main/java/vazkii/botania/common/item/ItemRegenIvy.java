@@ -33,11 +33,11 @@ public class ItemRegenIvy extends ItemMod {
 		super(LibItemNames.REGEN_IVY);
 		GameRegistry.addRecipe(new RegenIvyRecipe());
 		RecipeSorter.register("botania:regenIvy", RegenIvyRecipe.class, Category.SHAPELESS, "");
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(ItemRegenIvy.class);
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onTick(PlayerTickEvent event) {
+	public static void onTick(PlayerTickEvent event) {
 		if(event.phase == Phase.END && !event.player.worldObj.isRemote)
 			for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
 				ItemStack stack = event.player.inventory.getStackInSlot(i);

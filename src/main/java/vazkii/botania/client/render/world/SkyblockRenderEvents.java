@@ -20,7 +20,7 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 public final class SkyblockRenderEvents {
 
 	@SubscribeEvent
-	public void onRender(RenderWorldLastEvent event) {
+	public static void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getMinecraft().theWorld;
 		if(ConfigHandler.enableFancySkybox && world.provider.getDimension() == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().theWorld))) {
 			if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))

@@ -37,6 +37,8 @@ import java.awt.*;
 
 public final class SkyblockWorldEvents {
 
+	private SkyblockWorldEvents() {}
+
 	private static final String TAG_MADE_ISLAND = "Botania-MadeIsland";
 	private static final String TAG_HAS_OWN_ISLAND = "Botania-HasOwnIsland";
 	private static final String TAG_ISLAND_X = "Botania-IslandX";
@@ -44,7 +46,7 @@ public final class SkyblockWorldEvents {
 	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
 
 	@SubscribeEvent
-	public void onPlayerUpdate(LivingUpdateEvent event) {
+	public static void onPlayerUpdate(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().worldObj.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			NBTTagCompound data = player.getEntityData();
@@ -67,7 +69,7 @@ public final class SkyblockWorldEvents {
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) {
 			ItemStack equipped = event.getItemStack();
 			if(equipped == null && event.getEntityPlayer().isSneaking()) {
@@ -103,7 +105,7 @@ public final class SkyblockWorldEvents {
 	}
 
 	@SubscribeEvent
-	public void onDrops(BlockEvent.HarvestDropsEvent event) {
+	public static void onDrops(BlockEvent.HarvestDropsEvent event) {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.TALLGRASS) {
 			ItemStack stackToRemove = null;
 			for(ItemStack stack : event.getDrops())

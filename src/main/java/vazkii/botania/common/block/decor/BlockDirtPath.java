@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -53,7 +54,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 		setHardness(0.6F);
 		setSoundType(SoundType.GROUND);
 		useNeighborBrightness = true;
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(BlockDirtPath.class);
 	}
 
 	@Override
@@ -113,11 +114,11 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	}
 
 	@SubscribeEvent
-	public void onTickEnd(TickEvent.WorldTickEvent event) {
+	public static void onTickEnd(TickEvent.WorldTickEvent event) {
 		if(event.world.isRemote || event.phase != TickEvent.Phase.END)
 			return;
 		for(EntityPlayerMP player : event.world.getPlayers(EntityPlayerMP.class, p -> p.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).hasModifier(speedBoost))) {
-			if (event.world.getBlockState(new BlockPos(player).down()).getBlock() != this) {
+			if (event.world.getBlockState(new BlockPos(player).down()).getBlock() != ModBlocks.dirtPath) {
 				player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(speedBoost);
 			}
 		} // todo 1.8 there's probably a better way to do this.

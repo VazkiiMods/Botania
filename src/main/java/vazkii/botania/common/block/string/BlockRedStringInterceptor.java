@@ -31,7 +31,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor() {
 		super(LibBlockNames.RED_STRING_INTERCEPTOR);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(BlockRedStringInterceptor.class);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
@@ -62,7 +62,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@SubscribeEvent
-	public void onInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
 		TileRedStringInterceptor.onInteract(event.getEntityPlayer(), event.getWorld(), event.getPos(), event.getHand());
 	}
 

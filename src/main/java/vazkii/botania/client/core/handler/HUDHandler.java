@@ -70,10 +70,12 @@ import java.awt.*;
 
 public final class HUDHandler {
 
+	private HUDHandler() {}
+
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
+	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
@@ -90,7 +92,7 @@ public final class HUDHandler {
 	}
 
 	@SubscribeEvent
-	public void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
+	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 		ItemStack main = mc.thePlayer.getHeldItemMainhand();
@@ -221,7 +223,7 @@ public final class HUDHandler {
 		}
 	}
 
-	private void renderWandModeDisplay(ItemStack stack, ScaledResolution res) {
+	private static void renderWandModeDisplay(ItemStack stack, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
@@ -244,7 +246,7 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private void renderManaInvBar(ScaledResolution res, boolean hasCreative, int totalMana, int totalMaxMana) {
+	private static void renderManaInvBar(ScaledResolution res, boolean hasCreative, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
@@ -273,7 +275,7 @@ public final class HUDHandler {
 		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
 	}
 
-	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
+	private static void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
@@ -305,7 +307,7 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private void renderCrystalCubeHUD(ScaledResolution res, TileCorporeaCrystalCube tile) {
+	private static void renderCrystalCubeHUD(ScaledResolution res, TileCorporeaCrystalCube tile) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 
@@ -331,7 +333,7 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private void drawLexiconHUD(ItemStack stack, IBlockState state, RayTraceResult pos, ScaledResolution res) {
+	private static void drawLexiconHUD(ItemStack stack, IBlockState state, RayTraceResult pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Block block = state.getBlock();
 		Profiler profiler = mc.mcProfiler;
@@ -398,7 +400,7 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private void renderNearIndexDisplay(ScaledResolution res) {
+	private static void renderNearIndexDisplay(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		String txt0 = I18n.format("botaniamisc.nearIndex0");
 		String txt1 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex1");

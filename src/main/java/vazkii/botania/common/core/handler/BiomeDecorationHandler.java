@@ -26,10 +26,12 @@ import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BiomeDecorationHandler {
+public final class BiomeDecorationHandler {
+
+	private BiomeDecorationHandler() {}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
+	public static void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.getType() == EventType.FLOWERS) {
 			boolean flowers = true;
 			if(event.getWorld().provider instanceof IFlowerlessWorld)

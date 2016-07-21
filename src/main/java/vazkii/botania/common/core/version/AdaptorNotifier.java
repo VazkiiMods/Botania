@@ -18,10 +18,12 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 public final class AdaptorNotifier {
 
-	private boolean triedToWarnPlayer;
+	private AdaptorNotifier() {}
+
+	private static boolean triedToWarnPlayer;
 
 	@SubscribeEvent
-	public void onTick(ClientTickEvent event) {
+	public static void onTick(ClientTickEvent event) {
 		if(!triedToWarnPlayer && Minecraft.getMinecraft().thePlayer != null) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			ConfigHandler.adaptor.tellChanges(player);

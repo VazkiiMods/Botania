@@ -48,7 +48,7 @@ public class ItemVirus extends ItemMod {
 	public ItemVirus() {
 		super(LibItemNames.VIRUS);
 		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(ItemVirus.class);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public void onLivingHurt(LivingHurtEvent event) {
+	public static void onLivingHurt(LivingHurtEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		if(entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase)
 			entity = (EntityLivingBase) entity.getRidingEntity();

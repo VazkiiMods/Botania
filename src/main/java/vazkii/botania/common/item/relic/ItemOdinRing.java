@@ -39,7 +39,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(ItemOdinRing.class);
 
 		damageNegations.add(DamageSource.drown.damageType);
 		damageNegations.add(DamageSource.fall.damageType);
@@ -60,7 +60,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	@SubscribeEvent
-	public void onPlayerAttacked(LivingAttackEvent event) {
+	public static void onPlayerAttacked(LivingAttackEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			if(getOdinRing(player) != null && damageNegations.contains(event.getSource().damageType))

@@ -157,7 +157,7 @@ public final class ModAchievements {
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);
 
-		MinecraftForge.EVENT_BUS.register(new AchievementTriggerer());
+		MinecraftForge.EVENT_BUS.register(AchievementTriggerer.class);
 	}
 
 }

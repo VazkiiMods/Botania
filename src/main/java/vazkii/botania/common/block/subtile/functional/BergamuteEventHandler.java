@@ -21,11 +21,14 @@ import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class BergamuteEventHandler {
+
+    private BergamuteEventHandler() {}
+
     private static final Random RAND = new Random();
     private static final float MULTIPLIER = 0.15F;
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onSoundEvent(PlaySoundEvent evt) {
+    public static void onSoundEvent(PlaySoundEvent evt) {
         ISound sound = evt.getResultSound();
 
         if (sound != null && shouldSilence(sound.getCategory())) {

@@ -39,7 +39,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 		if(!supertile.getWorld().isRemote && !existingFlowers.contains(this)) {
 			existingFlowers.add(this);
 			if(!registered) {
-				MinecraftForge.EVENT_BUS.register(new EndermanIntercepter());
+				MinecraftForge.EVENT_BUS.register(EndermanIntercepter.class);
 				registered = true;
 			}
 		}
@@ -73,7 +73,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 	public static class EndermanIntercepter {
 
 		@SubscribeEvent
-		public void onEndermanTeleport(EnderTeleportEvent event) {
+		public static void onEndermanTeleport(EnderTeleportEvent event) {
 			int cost = 50;
 
 			if(event.getEntityLiving() instanceof EntityEnderman) {

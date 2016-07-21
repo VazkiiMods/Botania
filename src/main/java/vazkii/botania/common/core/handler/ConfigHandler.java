@@ -102,7 +102,7 @@ public final class ConfigHandler {
 		config.load();
 		load();
 
-		MinecraftForge.EVENT_BUS.register(new ChangeListener());
+		MinecraftForge.EVENT_BUS.register(ChangeListener.class);
 	}
 
 	public static void load() {
@@ -436,7 +436,7 @@ public final class ConfigHandler {
 	public static class ChangeListener {
 
 		@SubscribeEvent
-		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
+		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
 			if(eventArgs.getModID().equals(LibMisc.MOD_ID))
 				load();
 		}

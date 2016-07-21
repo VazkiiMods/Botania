@@ -39,8 +39,10 @@ import java.util.List;
 
 public final class BoundTileRenderer {
 
+	private BoundTileRenderer() {}
+
 	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		GlStateManager.pushMatrix();
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableDepth();
@@ -89,11 +91,11 @@ public final class BoundTileRenderer {
 		GlStateManager.popMatrix();
 	}
 
-	private void renderBlockOutlineAt(BlockPos pos, int color) {
+	private static void renderBlockOutlineAt(BlockPos pos, int color) {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
 
-	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
+	private static void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {
@@ -140,7 +142,7 @@ public final class BoundTileRenderer {
 		GlStateManager.popMatrix();
 	}
 
-	private void renderBlockOutline(AxisAlignedBB aabb) {
+	private static void renderBlockOutline(AxisAlignedBB aabb) {
 		Tessellator tessellator = Tessellator.getInstance();
 
 		double ix = aabb.minX;

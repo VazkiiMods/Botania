@@ -38,11 +38,13 @@ import java.util.Map.Entry;
 
 public final class SheddingHandler {
 
+	private SheddingHandler() {}
+
 	private static final List<ShedPattern> patterns = new ArrayList<>();
 	private static final List<ShedPattern> defaultPatterns = new ArrayList<>();
 
 	@SubscribeEvent
-	public void onLivingUpdate(LivingUpdateEvent event) {
+	public static void onLivingUpdate(LivingUpdateEvent event) {
 		if(event.getEntityLiving().worldObj.isRemote)
 			return;
 

@@ -16,7 +16,9 @@ import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 
-public class PixieHandler {
+public final class PixieHandler {
+
+	private PixieHandler() {}
 
 	private static final Potion[] potions = {
 			MobEffects.BLINDNESS,
@@ -26,7 +28,7 @@ public class PixieHandler {
 	};
 
 	@SubscribeEvent
-	public void onDamageTaken(LivingHurtEvent event) {
+	public static void onDamageTaken(LivingHurtEvent event) {
 		if(!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
@@ -57,7 +59,7 @@ public class PixieHandler {
 		}
 	}
 
-	private float getChance(ItemStack stack) {
+	private static float getChance(ItemStack stack) {
 		if(stack == null || !(stack.getItem() instanceof IPixieSpawner))
 			return 0F;
 		else return ((IPixieSpawner) stack.getItem()).getPixieChance(stack);

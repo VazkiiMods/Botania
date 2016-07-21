@@ -40,6 +40,8 @@ import vazkii.botania.common.block.ModBlocks;
 
 public final class MultiblockRenderHandler {
 
+	private MultiblockRenderHandler() {}
+
 	private static final MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
 	private static int dimension;
 
@@ -79,7 +81,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.thePlayer != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.thePlayer.isSneaking() || anchor != null)) {
 			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
@@ -87,7 +89,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		if(currentMultiblock != null && anchor == null && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer) {
 			anchor = event.getPos();
 			angle = event.getEntityPlayer().getHorizontalFacing();
@@ -95,7 +97,7 @@ public final class MultiblockRenderHandler {
 		}
 	}
 
-	private void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
+	private static void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
 		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimension()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
@@ -133,7 +135,7 @@ public final class MultiblockRenderHandler {
 		}
 	}
 
-	private boolean renderComponentInWorld(World world, Multiblock mb, MultiblockComponent comp, BlockPos anchorPos) {
+	private static boolean renderComponentInWorld(World world, Multiblock mb, MultiblockComponent comp, BlockPos anchorPos) {
 		double renderPosX, renderPosY, renderPosZ;
 
 		try {

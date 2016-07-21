@@ -62,11 +62,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(ItemLokiRing.class);
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)

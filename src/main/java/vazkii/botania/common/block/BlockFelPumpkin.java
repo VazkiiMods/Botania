@@ -43,7 +43,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		super(Material.GOURD, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(BlockFelPumpkin.class);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
@@ -88,7 +88,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	}
 
 	@SubscribeEvent
-	public void onDrops(LivingDropsEvent event) {
+	public static void onDrops(LivingDropsEvent event) {
 		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))
 			if(event.getDrops().isEmpty())
 				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BLAZE_POWDER, 6)));

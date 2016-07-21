@@ -40,7 +40,7 @@ public class ItemKeepIvy extends ItemMod {
 		super(LibItemNames.KEEP_IVY);
 		GameRegistry.addRecipe(new KeepIvyRecipe());
 		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
 	}
 
 	@SubscribeEvent
@@ -78,7 +78,7 @@ public class ItemKeepIvy extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public void onPlayerRespawn(PlayerRespawnEvent event) {
+	public static void onPlayerRespawn(PlayerRespawnEvent event) {
 		NBTTagCompound data = event.player.getEntityData();
 		if(data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
 			NBTTagCompound cmp = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);

@@ -17,8 +17,10 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 
 public final class CommonTickHandler {
 
+	private CommonTickHandler() {}
+
 	@SubscribeEvent
-	public void onTick(WorldTickEvent event) {
+	public static void onTick(WorldTickEvent event) {
 		if(event.phase == Phase.END) {
 			CorporeaHelper.clearCache();
 		}

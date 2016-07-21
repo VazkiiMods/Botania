@@ -42,7 +42,6 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 		setLightLevel(1F);
 		setBlockUnbreakable();
 		setSoundType(SoundType.GLASS);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override

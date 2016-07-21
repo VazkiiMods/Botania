@@ -23,7 +23,7 @@ import vazkii.botania.common.item.ItemRegenIvy;
 public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void onTooltipEvent(ItemTooltipEvent event) {
+	public static void onTooltipEvent(ItemTooltipEvent event) {
 		if(event.getItemStack().getItem() == Item.getItemFromBlock(Blocks.DIRT) && event.getItemStack().getItemDamage() == 1) {
 			event.getToolTip().add(I18n.format("botaniamisc.coarseDirt0"));
 			event.getToolTip().add(I18n.format("botaniamisc.coarseDirt1"));

@@ -131,18 +131,18 @@ public class CommonProxy {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
-		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
+		MinecraftForge.TERRAIN_GEN_BUS.register(BiomeDecorationHandler.class);
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(new PixieHandler());
-		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
-		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
+		MinecraftForge.EVENT_BUS.register(PixieHandler.class);
+		MinecraftForge.EVENT_BUS.register(SheddingHandler.class);
+		MinecraftForge.EVENT_BUS.register(SubTileNarslimmus.SpawnIntercepter.class);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(Botania.gardenOfGlassLoaded)
-			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
+			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
 
-		MinecraftForge.EVENT_BUS.register(new CommonTickHandler());
+		MinecraftForge.EVENT_BUS.register(CommonTickHandler.class);
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 

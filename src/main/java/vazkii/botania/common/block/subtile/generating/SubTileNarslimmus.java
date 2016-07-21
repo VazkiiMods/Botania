@@ -89,7 +89,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 	public static class SpawnIntercepter {
 
 		@SubscribeEvent
-		public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
+		public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 			if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.getEntityLiving().worldObj, MathHelper.floor_double(event.getX()), MathHelper.floor_double(event.getZ())))
 				event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
 		}

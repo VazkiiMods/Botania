@@ -46,7 +46,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(BlockGhostRail.class);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 	}
 
@@ -68,14 +68,14 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	}
 
 	@SubscribeEvent
-	public void onMinecartUpdate(MinecartUpdateEvent event) {
+	public static void onMinecartUpdate(MinecartUpdateEvent event) {
 		BlockPos entPos = new BlockPos(event.getEntity());
 		IBlockState state = event.getEntity().worldObj.getBlockState(entPos);
 		Block block = state.getBlock();
 		boolean air = block.isAir(state, event.getEntity().worldObj, entPos);
 		int floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
-		if(block == this)
+		if(block == ModBlocks.ghostRail)
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 20);
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 0);

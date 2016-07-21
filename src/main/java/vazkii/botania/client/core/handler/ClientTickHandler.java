@@ -28,7 +28,9 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 
-public class ClientTickHandler {
+public final class ClientTickHandler {
+
+	private ClientTickHandler() {}
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
@@ -37,14 +39,14 @@ public class ClientTickHandler {
 	public static float delta = 0;
 	public static float total = 0;
 
-	private void calcDelta() {
+	private static void calcDelta() {
 		float oldTotal = total;
 		total = ticksInGame + partialTicks;
 		delta = total - oldTotal;
 	}
 
 	@SubscribeEvent
-	public void renderTick(RenderTickEvent event) {
+	public static void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
 		else {
@@ -54,7 +56,7 @@ public class ClientTickHandler {
 	}
 
 	@SubscribeEvent
-	public void clientTickEnd(ClientTickEvent event) {
+	public static void clientTickEnd(ClientTickEvent event) {
 		if(event.phase == Phase.END) {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();

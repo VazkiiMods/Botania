@@ -30,13 +30,15 @@ import java.util.Deque;
 
 public class LightningHandler {
 
+	private LightningHandler() {}
+
 	private static final int BATCH_THRESHOLD = 200;
 	private static final ResourceLocation outsideResource = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 	public static final Deque<FXLightning> queuedLightningBolts = new ArrayDeque<>();
 
 	@SubscribeEvent
-	public void onRenderWorldLast(RenderWorldLastEvent event) {
+	public static void onRenderWorldLast(RenderWorldLastEvent event) {
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
 
 		profiler.startSection("botania-particles");

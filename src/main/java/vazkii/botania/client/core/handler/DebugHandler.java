@@ -31,10 +31,12 @@ import java.util.UUID;
 
 public final class DebugHandler {
 
+	private DebugHandler() {}
+
 	private static final String PREFIX = TextFormatting.GREEN + "[Botania] " + TextFormatting.RESET;
 
 	@SubscribeEvent
-	public void onDrawDebugText(RenderGameOverlayEvent.Text event) {
+	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getMinecraft().theWorld;
 		if(Minecraft.getMinecraft().gameSettings.showDebugInfo) {
 			event.getLeft().add(null);
