@@ -12,11 +12,13 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
@@ -38,7 +40,7 @@ public class ItemSlingshot extends ItemMod {
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityLivingBase living, int par4) {
 		int j = getMaxItemUseDuration(par1ItemStack) - par4;
 
-		if(!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || PlayerHelper.hasAmmo(((EntityPlayer) living), AMMO_FUNC)) {
+		if(!world.isRemote && (!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || PlayerHelper.hasAmmo(((EntityPlayer) living), AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -48,19 +50,14 @@ public class ItemSlingshot extends ItemMod {
 			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode)
 				PlayerHelper.consumeAmmo(((EntityPlayer) living), AMMO_FUNC);
 
-			if(!world.isRemote) {
-				EntityVineBall ball = new EntityVineBall(living, false);
-				ball.motionX *= 1.6;
-				ball.motionY *= 1.6;
-				ball.motionZ *= 1.6;
-				world.spawnEntityInWorld(ball);
-			}
+			EntityVineBall ball = new EntityVineBall(living, false);
+			ball.setHeadingFromThrower(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
+			ball.motionX *= 1.6;
+			ball.motionY *= 1.6;
+			ball.motionZ *= 1.6;
+			world.spawnEntityInWorld(ball);
+			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		}
-	}
-
-	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
-		return par1ItemStack;
 	}
 
 	@Override
