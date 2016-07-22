@@ -19,6 +19,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -61,23 +62,24 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
-			String sound;
+			SoundEvent sound;
 			try {
 				if(living instanceof EntityCreeper)
-					sound = "creeper.primed";
+					sound = SoundEvents.ENTITY_CREEPER_PRIMED;
 				else if(living instanceof EntitySlime)
-					sound = "mob.slime." + (((EntitySlime) living).getSlimeSize() > 1 ? "big" : "small");
-				else sound = (String) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
+					sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH;
+				else sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
 
 				if(sound != null) {
 					String s = EntityList.getEntityString(entity);
 					if(s == null)
 						s = "generic";
 
-					ItemNBTHelper.setString(stack, TAG_SOUND, sound);
+					ItemNBTHelper.setString(stack, TAG_SOUND, sound.getRegistryName().toString());
 					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
 					ItemNBTHelper.setBoolean(stack, TAG_HAS_SOUND, true);
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, stack.copy());
+					player.setHeldItem(hand, stack);
+					//player.inventory.setInventorySlotContents(player.inventory.currentItem, stack.copy());
 
 					if(player.worldObj.isRemote)
 						player.swingArm(hand);
@@ -147,10 +149,10 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
-			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, 0.9F);
+			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
 	}
 
-	public static void playSound(World world, ItemStack stack, double x, double y, double z, float volume) {
+	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {
 		if(stack == null)
 			return;
 
@@ -160,7 +162,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 			sound = "botania:doit";
 
 		if(sound != null && !sound.isEmpty() && SoundEvent.REGISTRY.containsKey(new ResourceLocation(sound)))
-			world.playSound(null, x, y, z, SoundEvent.REGISTRY.getObject(new ResourceLocation(sound)), SoundCategory.NEUTRAL, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+			world.playSound(null, x, y, z, SoundEvent.REGISTRY.getObject(new ResourceLocation(sound)), category, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 
 	private static boolean isDOIT(ItemStack stack) {

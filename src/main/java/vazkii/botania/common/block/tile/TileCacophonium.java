@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import vazkii.botania.common.item.ItemCacophonium;
 
 public class TileCacophonium extends TileMod {
@@ -21,7 +22,7 @@ public class TileCacophonium extends TileMod {
 	public ItemStack stack;
 
 	public void annoyDirewolf() {
-		ItemCacophonium.playSound(worldObj, stack, pos.getX(), pos.getY(), pos.getZ(), 1F);
+		ItemCacophonium.playSound(worldObj, stack, pos.getX(), pos.getY(), pos.getZ(), SoundCategory.BLOCKS, 1F);
 	}
 
 	@Override
