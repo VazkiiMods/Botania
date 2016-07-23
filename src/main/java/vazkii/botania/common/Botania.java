@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -29,8 +23,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.common.core.handler.IMCHandler;
@@ -76,15 +68,6 @@ public class Botania {
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 
 		proxy.preInit(event);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	public void nagRemoval(PlayerEvent.PlayerLoggedInEvent evt) {
-		EntityPlayer player = evt.player;
-		ITextComponent message = new TextComponentTranslation("botaniamisc.unofficial.warnRemove");
-		message.setStyle(new Style().setColor(TextFormatting.RED));
-		player.addChatComponentMessage(message);
 	}
 
 	@EventHandler

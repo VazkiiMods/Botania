@@ -15,8 +15,6 @@ generator.botania-skyblock.info=Not recommended for botania newcomers
 # You do not need to copy this into your lang file
 botaniamisc.noloc=botaniamisc.noloc
 
-botaniamisc.unofficial.warnRemove=[Botania] Warning: Some decorative blocks are being removed, please migrate to either the vanilla or Quark versions.
-
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
 botaniamisc.back=Back
