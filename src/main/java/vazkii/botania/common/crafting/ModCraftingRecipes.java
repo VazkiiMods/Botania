@@ -1764,12 +1764,12 @@ public final class ModCraftingRecipes {
 					new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("Quark", "world_stone_bricks")), 1, 0),
 			};
 
-			for(int i = 0; i < 4; i++) {
+			/*for(int i = 0; i < 4; i++) { todo readd chiseled versions
 				addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 12),
 						"SS", "SS",
 						'S', quarkBlocks[i]);
 				recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
-			}
+			}*/
 		}
 
 		// Blaze Light Recipe

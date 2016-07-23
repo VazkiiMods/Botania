@@ -1,9 +1,0 @@
-{
-  "forge_marker": 1,
-  "variants": {
-    "normal": [{
-      "model": "minecraft:cube_all",
-      "textures": { "all": "botania:blocks/stone0" }
-    }]
-  }
-}

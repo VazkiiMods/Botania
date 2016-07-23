@@ -39,14 +39,11 @@ import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.api.state.enums.DrumVariant;
-import vazkii.botania.api.state.enums.EndBrickVariant;
-import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
-import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
@@ -355,7 +352,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
         // todo 1.8 this is temporary until animation API is done, currnetly item model textures will not match true spreader texture
-        registerVariantsDefaulted(ModFluffBlocks.stone, FutureStoneVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }
 
@@ -618,7 +614,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModFluffBlocks.dreamwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingrockWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.stoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
 
         // Ignore dummy variant in slabs
         for (Block b : ModFluffBlocks.biomeStoneSlabs) {
@@ -626,10 +621,6 @@ public final class ModelHandler {
         }
 
         for (Block b : ModFluffBlocks.pavementSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
-        }
-
-        for (Block b : ModFluffBlocks.stoneSlabs) {
             ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
         }
 
@@ -655,10 +646,6 @@ public final class ModelHandler {
             ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
         }
 
-        for (Block b : ModFluffBlocks.stoneFullSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
-        }
-        
         List<Block> otherFullSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingwoodPlankSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
                 ModFluffBlocks.dreamwoodPlankSlabFull,
                 ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
@@ -753,10 +740,6 @@ public final class ModelHandler {
     }
 
     private static void registerStairs() {
-        for (Block b : ModFluffBlocks.stoneStairs) {
-            registerItemModel(b);
-        }
-
         for (Block b : ModFluffBlocks.pavementStairs) {
             registerItemModel(b);
         }
@@ -796,10 +779,6 @@ public final class ModelHandler {
             registerItemModel(b);
         }
 
-        for (Block b : ModFluffBlocks.stoneSlabs) {
-            registerItemModel(b);
-        }
-
         registerItemModel(ModFluffBlocks.livingwoodSlab);
         registerItemModel(ModFluffBlocks.livingwoodPlankSlab);
         registerItemModel(ModFluffBlocks.livingrockSlab);
@@ -830,12 +809,6 @@ public final class ModelHandler {
         for (BiomeStoneVariant variant : BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues()) {
             String variantName = "inventory_" + variant.getName();
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation("botania:biomeStoneA0Wall", variantName));
-        }
-
-        item = Item.getItemFromBlock(ModFluffBlocks.stoneWall);
-        for (FutureStoneVariant variant : BotaniaStateProps.FUTURESTONEWALL_VARIANT.getAllowedValues()) {
-            String variantName = "inventory_" + variant.getName();
-            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal(), new ModelResourceLocation("botania:stone0Wall", variantName));
         }
 
         registerItemModel(ModFluffBlocks.livingrockWall);

@@ -30,14 +30,11 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.api.state.enums.DrumVariant;
-import vazkii.botania.api.state.enums.EndBrickVariant;
-import vazkii.botania.api.state.enums.FutureStoneVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
-import vazkii.botania.api.state.enums.PrismarineVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
@@ -90,18 +87,6 @@ public final class BotaniaStateProps {
 
 	/** Properties for individual blocks **/
 
-	// Block18Stone
-	public static final PropertyEnum<FutureStoneVariant> FUTURESTONE_VARIANT = PropertyEnum.create("variant", FutureStoneVariant.class);
-
-	// Block18StoneWall
-	public static final PropertyEnum<FutureStoneVariant> FUTURESTONEWALL_VARIANT = PropertyEnum.create("fswall_variant", FutureStoneVariant.class, new Predicate<FutureStoneVariant>() {
-		@Override
-		public boolean apply(FutureStoneVariant variant) {
-			// Just the four kinds (no polished, chiseled, etc.)
-			return variant.ordinal() >= 0 && variant.ordinal() <= 3;
-		}
-	});
-
 	// BlockAlfPortal
 	public static final PropertyEnum<AlfPortalState> ALFPORTAL_STATE = PropertyEnum.create("state", AlfPortalState.class);
 
@@ -133,9 +118,6 @@ public final class BotaniaStateProps {
 
 	// BlockEnchanter
 	public static final PropertyEnum<EnumFacing.Axis> ENCHANTER_DIRECTION = PropertyEnum.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
-
-	// BlockEndStoneBrick
-	public static final PropertyEnum<EndBrickVariant> ENDBRICK_VARIANT = PropertyEnum.create("variant", EndBrickVariant.class);
 
 	// BlockForestDrum
 	public static final PropertyEnum<DrumVariant> DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
@@ -187,9 +169,6 @@ public final class BotaniaStateProps {
 
 	// BlockPrism
 	public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
-
-	// BlockPrismarine
-	public static final PropertyEnum<PrismarineVariant> PRISMARINE_VARIANT = PropertyEnum.create("variant", PrismarineVariant.class);
 
 	// BlockPylon
 	public static final PropertyEnum<PylonVariant> PYLON_VARIANT = PropertyEnum.create("variant", PylonVariant.class);

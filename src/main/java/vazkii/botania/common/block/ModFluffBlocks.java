@@ -11,14 +11,11 @@
 package vazkii.botania.common.block;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
-import vazkii.botania.api.state.enums.FutureStoneVariant;
-import vazkii.botania.common.block.decor.Block18Stone;
 import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
@@ -28,7 +25,6 @@ import vazkii.botania.common.block.decor.panes.BlockManaglassPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
-import vazkii.botania.common.block.decor.slabs.Block18StoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
@@ -45,7 +41,6 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
-import vazkii.botania.common.block.decor.stairs.Block18StoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
@@ -60,7 +55,6 @@ import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStair
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerrockStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerwoodPlankStairs;
-import vazkii.botania.common.block.decor.walls.Block18StoneWall;
 import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
 import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
@@ -69,7 +63,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Locale;
-import java.util.Set;
 
 public final class ModFluffBlocks {
 
@@ -142,18 +135,12 @@ public final class ModFluffBlocks {
 
 	public static Block biomeStoneA;
 	public static Block biomeStoneB;
-	public static Block stone;
 	public static Block pavement;
 
 	public static final Block[] biomeStoneStairs = new Block[24];
 	public static final Block[] biomeStoneSlabs = new Block[24];
 	public static final Block[] biomeStoneFullSlabs = new Block[24];
 	public static Block biomeStoneWall;
-
-	public static final Block[] stoneStairs = new Block[8];
-	public static final Block[] stoneSlabs = new Block[8];
-	public static final Block[] stoneFullSlabs = new Block[8];
-	public static Block stoneWall;
 
 	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
 	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
@@ -208,7 +195,6 @@ public final class ModFluffBlocks {
 
 		biomeStoneA = new BlockBiomeStoneA();
 		biomeStoneB = new BlockBiomeStoneB();
-		stone = new Block18Stone();
 		pavement = new BlockPavement();
 
 		if(ConfigHandler.darkQuartzEnabled) {
@@ -265,24 +251,6 @@ public final class ModFluffBlocks {
 			count++;
 		}
 		biomeStoneWall = new BlockBiomeStoneWall();
-
-		Set<FutureStoneVariant> allowed = ImmutableSet.of(FutureStoneVariant.ANDESITE, FutureStoneVariant.ANDESITE_BRICK,
-				FutureStoneVariant.BASALT, FutureStoneVariant.BASALT_BRICK, FutureStoneVariant.DIORITE, FutureStoneVariant.DIORITE_BRICK,
-				FutureStoneVariant.GRANITE, FutureStoneVariant.GRANITE_BRICK);
-
-		count = 0;
-		for(FutureStoneVariant variant : FutureStoneVariant.values()) {
-			if (!allowed.contains(variant)) {
-				// Filter - only get the base blocks, and the brick versions
-				continue;
-			}
-
-			stoneStairs[count] = new Block18StoneStairs(variant);
-			stoneSlabs[count] = new Block18StoneSlab(false, variant, count);
-			stoneFullSlabs[count] = new Block18StoneSlab(true, variant, count);
-			count++;
-		}
-		stoneWall = new Block18StoneWall();
 
 		count = 0;
 		for (EnumDyeColor color : ImmutableList.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE,
@@ -354,11 +322,6 @@ public final class ModFluffBlocks {
 		for(int i = 0; i < 24; i++) {
 			((BlockModSlab) biomeStoneSlabs[i]).register();
 			((BlockModSlab) biomeStoneFullSlabs[i]).register();
-		}
-
-		for(int i = 0; i < 8; i++) {
-			((BlockModSlab) stoneSlabs[i]).register();
-			((BlockModSlab) stoneFullSlabs[i]).register();
 		}
 
 		for(int i = 0; i < pavementSlabs.length; i++) {
