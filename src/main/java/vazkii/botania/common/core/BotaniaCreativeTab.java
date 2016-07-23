@@ -386,14 +386,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
 			addBlock(pavementSlab);
 
-		if(ConfigHandler.enderStuff19Enabled) {
-			addBlock(ModBlocks.endStoneBrick);
-			addBlock(ModFluffBlocks.endStoneSlab);
-			addBlock(ModFluffBlocks.endStoneStairs);
-			addBlock(ModFluffBlocks.enderBrickSlab);
-			addBlock(ModFluffBlocks.enderBrickStairs);
-		}
-
 		addItem(ModItems.cosmetic);
 	}
 

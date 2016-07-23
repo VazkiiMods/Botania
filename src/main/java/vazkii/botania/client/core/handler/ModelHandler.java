@@ -347,7 +347,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
-        registerVariantsDefaulted(ModBlocks.endStoneBrick, EndBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.dreamwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
@@ -639,7 +638,7 @@ public final class ModelHandler {
                 ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
                 ModFluffBlocks.tileSlab, ModFluffBlocks.manaQuartzSlab, ModFluffBlocks.blazeQuartzSlab, ModFluffBlocks.darkQuartzSlab,
                 ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab, ModFluffBlocks.dirtPathSlab,
-                ModFluffBlocks.shimmerrockSlab, ModFluffBlocks.shimmerwoodPlankSlab, ModFluffBlocks.endStoneSlab, ModFluffBlocks.enderBrickSlab);
+                ModFluffBlocks.shimmerrockSlab, ModFluffBlocks.shimmerwoodPlankSlab);
 
         for (Block b : otherSlabs) {
             if (b == null) // Dark quartz disabled
@@ -665,7 +664,7 @@ public final class ModelHandler {
                 ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
                 ModFluffBlocks.tileSlabFull, ModFluffBlocks.darkQuartzSlabFull, ModFluffBlocks.manaQuartzSlabFull, ModFluffBlocks.blazeQuartzSlabFull,
                 ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull, ModFluffBlocks.dirtPathSlabFull,
-                ModFluffBlocks.shimmerrockSlabFull, ModFluffBlocks.shimmerwoodPlankSlabFull, ModFluffBlocks.endStoneSlabFull, ModFluffBlocks.enderBrickSlabFull);
+                ModFluffBlocks.shimmerrockSlabFull, ModFluffBlocks.shimmerwoodPlankSlabFull);
 
         for (Block b : otherFullSlabs) {
             if (b == null) // Dark quartz disabled
@@ -772,8 +771,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.dreamwoodStairs);
         registerItemModel(ModFluffBlocks.dreamwoodPlankStairs);
         registerItemModel(ModFluffBlocks.elfQuartzStairs);
-        registerItemModel(ModFluffBlocks.enderBrickStairs);
-        registerItemModel(ModFluffBlocks.endStoneStairs);
         registerItemModel(ModFluffBlocks.lavenderQuartzStairs);
         registerItemModel(ModFluffBlocks.livingrockStairs);
         registerItemModel(ModFluffBlocks.livingrockBrickStairs);
@@ -822,8 +819,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.dirtPathSlab);
         registerItemModel(ModFluffBlocks.shimmerrockSlab);
         registerItemModel(ModFluffBlocks.shimmerwoodPlankSlab);
-        registerItemModel(ModFluffBlocks.endStoneSlab);
-        registerItemModel(ModFluffBlocks.enderBrickSlab);
         registerItemModel(ModFluffBlocks.netherBrickSlab);
         registerItemModel(ModFluffBlocks.soulBrickSlab);
         registerItemModel(ModFluffBlocks.snowBrickSlab);

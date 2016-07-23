@@ -23,20 +23,6 @@ public final class ModMigrationRecipes {
         // Prismarine -> vanilla
         GameRegistry.addShapelessRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(ModItems.manaResource, 1, 10));
 
-        // End stuff -> vanilla
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.END_BRICKS), new ItemStack(ModBlocks.endStoneBrick));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_BLOCK), new ItemStack(ModBlocks.endStoneBrick, 1, 2));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_PILLAR), new ItemStack(ModBlocks.endStoneBrick, 1, 3));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_SLAB), new ItemStack(ModFluffBlocks.enderBrickSlab));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PURPUR_STAIRS), new ItemStack(ModFluffBlocks.enderBrickStairs));
-
-        // End stuff -> quark
-        if (quark) {
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("end_bricks_stairs")), new ItemStack(ModFluffBlocks.endStoneStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("end_bricks_slab")), new ItemStack(ModFluffBlocks.endStoneSlab));
-            // End stone chiseled brick - not in quark
-        }
-
         // Andesite normal + polished -> vanilla
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 5), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.ANDESITE.ordinal()));
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.STONE, 1, 6), new ItemStack(ModFluffBlocks.stone, 1, FutureStoneVariant.POLISHED_ANDESITE.ordinal()));

@@ -34,7 +34,6 @@ import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
 import vazkii.botania.common.block.decor.BlockDirtPath;
 import vazkii.botania.common.block.decor.BlockElfGlass;
-import vazkii.botania.common.block.decor.BlockEndStoneBrick;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
@@ -233,7 +232,6 @@ public final class ModBlocks {
 	public static Block petalBlock;
 	public static Block corporeaIndex;
 	public static Block corporeaFunnel;
-	public static Block endStoneBrick;
 	public static Block mushroom;
 	public static Block pump;
 	public static Block doubleFlower1;
@@ -321,7 +319,6 @@ public final class ModBlocks {
 		petalBlock = new BlockPetalBlock();
 		corporeaIndex = new BlockCorporeaIndex();
 		corporeaFunnel = new BlockCorporeaFunnel();
-		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
 		pump = new BlockPump();
 		doubleFlower1 = new BlockModDoubleFlower1();

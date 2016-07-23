@@ -31,8 +31,6 @@ import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.decor.slabs.Block18StoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
-import vazkii.botania.common.block.decor.slabs.BlockEndStoneSlab;
-import vazkii.botania.common.block.decor.slabs.BlockEnderBrickSlab;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
@@ -49,8 +47,6 @@ import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
 import vazkii.botania.common.block.decor.stairs.Block18StoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
-import vazkii.botania.common.block.decor.stairs.BlockEndStoneStairs;
-import vazkii.botania.common.block.decor.stairs.BlockEnderBrickStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockSnowBrickStairs;
@@ -162,13 +158,6 @@ public final class ModFluffBlocks {
 	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
 	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
 	public static final Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
-
-	public static Block endStoneSlab;
-	public static Block endStoneSlabFull;
-	public static Block endStoneStairs;
-	public static Block enderBrickSlab;
-	public static Block enderBrickSlabFull;
-	public static Block enderBrickStairs;
 
 	public static Block shimmerrockSlab;
 	public static Block shimmerrockSlabFull;
@@ -304,13 +293,6 @@ public final class ModFluffBlocks {
 			count++;
 		}
 
-		endStoneSlab = new BlockEndStoneSlab(false);
-		endStoneSlabFull = new BlockEndStoneSlab(true);
-		endStoneStairs = new BlockEndStoneStairs();
-		enderBrickSlab = new BlockEnderBrickSlab(false);
-		enderBrickSlabFull = new BlockEnderBrickSlab(true);
-		enderBrickStairs = new BlockEnderBrickStairs();
-
 		shimmerrockSlab = new BlockShimmerrockSlab(false);
 		shimmerrockSlabFull = new BlockShimmerrockSlab(true);
 		shimmerrockStairs = new BlockShimmerrockStairs();
@@ -363,11 +345,6 @@ public final class ModFluffBlocks {
 
 		((BlockModSlab) dirtPathSlab).register();
 		((BlockModSlab) dirtPathSlabFull).register();
-
-		((BlockModSlab) endStoneSlab).register();
-		((BlockModSlab) endStoneSlabFull).register();
-		((BlockModSlab) enderBrickSlab).register();
-		((BlockModSlab) enderBrickSlabFull).register();
 
 		((BlockModSlab) shimmerrockSlab).register();
 		((BlockModSlab) shimmerrockSlabFull).register();
