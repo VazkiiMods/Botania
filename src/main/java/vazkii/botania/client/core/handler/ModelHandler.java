@@ -610,7 +610,8 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
 
         // Ignore vanilla variant in walls
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
+        ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall,
+                (new StateMap.Builder()).withName(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ignore(BlockWall.VARIANT).withSuffix("_wall").build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.dreamwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingrockWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
@@ -807,8 +808,7 @@ public final class ModelHandler {
     private static void registerWalls() {
         Item item = Item.getItemFromBlock(ModFluffBlocks.biomeStoneWall);
         for (BiomeStoneVariant variant : BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues()) {
-            String variantName = "inventory_" + variant.getName();
-            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation("botania:biomeStoneA0Wall", variantName));
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":" + variant.getName() + "_wall", "inventory"));
         }
 
         registerBlock(ModFluffBlocks.livingrockWall, "livingrock_wall");
