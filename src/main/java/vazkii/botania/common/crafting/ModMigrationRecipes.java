@@ -22,21 +22,6 @@ public final class ModMigrationRecipes {
 
         // Prismarine -> vanilla
         GameRegistry.addShapelessRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(ModItems.manaResource, 1, 10));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 0), new ItemStack(ModBlocks.prismarine, 1, 0));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 1), new ItemStack(ModBlocks.prismarine, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PRISMARINE, 1, 2), new ItemStack(ModBlocks.prismarine, 1, 2));
-        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.SEA_LANTERN), new ItemStack(ModBlocks.seaLamp));
-
-        // Prismarine -> quark
-        if (quark) {
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_rough_wall")), new ItemStack(ModFluffBlocks.prismarineWall));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_stairs")), new ItemStack(ModFluffBlocks.prismarineStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_slab")), new ItemStack(ModFluffBlocks.prismarineSlab));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_bricks_stairs")), new ItemStack(ModFluffBlocks.prismarineBrickStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_bricks_slab")), new ItemStack(ModFluffBlocks.prismarineBrickSlab));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_dark_stairs")), new ItemStack(ModFluffBlocks.darkPrismarineStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("prismarine_dark_slab")), new ItemStack(ModFluffBlocks.darkPrismarineSlab));
-        }
 
         // End stuff -> vanilla
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.END_BRICKS), new ItemStack(ModBlocks.endStoneBrick));

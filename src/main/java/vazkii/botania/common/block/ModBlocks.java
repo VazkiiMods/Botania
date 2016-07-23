@@ -41,9 +41,7 @@ import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
-import vazkii.botania.common.block.decor.BlockSeaLamp;
 import vazkii.botania.common.block.decor.BlockShimmerrock;
 import vazkii.botania.common.block.decor.BlockShimmerwoodPlanks;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
@@ -213,8 +211,6 @@ public final class ModBlocks {
 	public static Block bifrost;
 	public static Block solidVines;
 	public static Block buriedPetals;
-	public static Block prismarine;
-	public static Block seaLamp;
 	public static Block floatingFlower;
 	public static Block tinyPotato;
 	public static Block spawnerClaw;
@@ -305,8 +301,6 @@ public final class ModBlocks {
 		bifrost = new BlockBifrost();
 		solidVines = new BlockSolidVines();
 		buriedPetals = new BlockBuriedPetals();
-		prismarine = new BlockPrismarine();
-		seaLamp = new BlockSeaLamp();
 		floatingFlower = new BlockFloatingFlower();
 		tinyPotato = new BlockTinyPotato();
 		spawnerClaw = new BlockSpawnerClaw();

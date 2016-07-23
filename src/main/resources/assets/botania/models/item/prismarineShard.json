@@ -1,7 +1,3 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": 
-    {
-        "layer0": "botania:items/prismarineShard"
-    }
+    "parent": "minecraft:item/prismarine_shard"
 }

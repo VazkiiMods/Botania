@@ -275,7 +275,6 @@ public final class LexiconData {
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
 	public static LexiconEntry shinyFlowers;
-	public static LexiconEntry prismarine;
 	public static LexiconEntry shedding;
 	public static LexiconEntry tinyPotato;
 	public static LexiconEntry headCreating;
@@ -1382,14 +1381,6 @@ public final class LexiconData {
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageText("3"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipesShinyFlowers),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipesMiniIsland));
-
-		/*prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
-		prismarine.setLexiconPages(new PageText("0"), new PageText("1"),
-				new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe),
-				new PageCraftingRecipe("3", ModCraftingRecipes.recipePrismarine),
-				new PageCraftingRecipe("4", ModCraftingRecipes.recipePrismarineBrick),
-				new PageCraftingRecipe("5", ModCraftingRecipes.recipeDarkPrismarine),
-				new PageCraftingRecipe("6", ModCraftingRecipes.recipeSeaLamp));*/
 
 		tinyPotato = new BasicLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
 		tinyPotato.setLexiconPages(new PageText("0"),
