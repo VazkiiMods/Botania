@@ -1,13 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:claw",
-    "textures": {
-      "all": "botania:model/spawnerClaw"
-    }
-  },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": {
+      "model": "botania:life_imbuer"
+    }
   }
 }

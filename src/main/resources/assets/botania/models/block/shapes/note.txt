@@ -1,0 +1,2 @@
+This folder is for "abstract" models, that only define shapes and not textures.
+Textured models for actual blocks goes in the root folder (one level up).

@@ -318,11 +318,11 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.redStringRelay);
         registerItemModel(ModBlocks.rfGenerator);
         registerItemModel(ModBlocks.root);
-        registerItemModel(ModBlocks.runeAltar);
+        registerBlock(ModBlocks.runeAltar, "runic_altar");
         registerItemModel(ModBlocks.shimmerrock);
         registerItemModel(ModBlocks.shimmerwoodPlanks);
         registerItemModel(ModBlocks.sparkChanger);
-        registerItemModel(ModBlocks.spawnerClaw);
+        registerBlock(ModBlocks.spawnerClaw, "life_imbuer");
         registerItemModel(ModBlocks.specialFlower);
         registerItemModel(ModBlocks.starfield);
         registerItemModel(ModBlocks.terraPlate);
