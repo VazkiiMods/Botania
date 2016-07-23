@@ -1,14 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:drum",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "wild": { "textures": { "top": "botania:blocks/forestDrum0", "side": "botania:blocks/forestDrum1" } },
-      "gathering": { "textures": { "top": "botania:blocks/forestDrum2", "side": "botania:blocks/forestDrum3" } },
-      "canopy": { "textures": { "top": "botania:blocks/forestDrum4", "side": "botania:blocks/forestDrum5" } }
-    }
+    "variant=wild": { "model": "botania:drum_wild" },
+    "variant=gathering": { "model": "botania:drum_gathering" },
+    "variant=canopy": { "model": "botania:drum_canopy" }
   }
 }

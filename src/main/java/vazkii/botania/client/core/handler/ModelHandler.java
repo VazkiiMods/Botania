@@ -304,7 +304,7 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.forestEye);
         registerItemModel(ModBlocks.ghostRail);
         registerItemModel(ModBlocks.incensePlate);
-        registerItemModel(ModBlocks.lightLauncher);
+        registerBlock(ModBlocks.lightLauncher, "luminizer_launcher");
         registerItemModel(ModBlocks.manaBomb);
         registerItemModel(ModBlocks.manaDetector);
         registerItemModel(ModBlocks.manaGlass);
@@ -326,7 +326,7 @@ public final class ModelHandler {
         registerBlock(ModBlocks.sparkChanger, "spark_tinkerer");
         registerBlock(ModBlocks.spawnerClaw, "life_imbuer");
         registerItemModel(ModBlocks.specialFlower);
-        registerItemModel(ModBlocks.starfield);
+        registerBlock(ModBlocks.starfield, "starfield_creator");
         registerBlock(ModBlocks.terraPlate, "terra_plate");
         registerItemModel(ModBlocks.tinyPlanet);
         registerItemModel(ModBlocks.tinyPotato);

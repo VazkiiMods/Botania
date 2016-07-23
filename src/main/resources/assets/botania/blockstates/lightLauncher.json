@@ -1,19 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:fourhigh",
-    "textures": {
-      "bottom": "botania:blocks/lightLauncher",
-      "top": "botania:blocks/lightLauncher",
-      "side": "botania:blocks/lightLauncher"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": {},
-      "false": {}
-    },
-    "inventory": [{}]
+    "powered=true":  { "model": "botania:luminizer_launcher" },
+    "powered=false": { "model": "botania:luminizer_launcher" }
   }
 }
