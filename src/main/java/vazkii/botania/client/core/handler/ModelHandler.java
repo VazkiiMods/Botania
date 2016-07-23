@@ -808,7 +808,7 @@ public final class ModelHandler {
     private static void registerWalls() {
         Item item = Item.getItemFromBlock(ModFluffBlocks.biomeStoneWall);
         for (BiomeStoneVariant variant : BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues()) {
-            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":" + variant.getName() + "_wall", "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + variant.getName() + "_wall", "inventory"));
         }
 
         registerBlock(ModFluffBlocks.livingrockWall, "livingrock_wall");
@@ -886,7 +886,7 @@ public final class ModelHandler {
     private static void registerBlock(Block b, String name) {
         ModelLoader.setCustomModelResourceLocation(
                 Item.getItemFromBlock(b), 0,
-                new ModelResourceLocation(LibMisc.MOD_ID + ":" + name, "inventory"));
+                new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + name, "inventory"));
     }
 
     private static void registerItemModel(Block b) {
