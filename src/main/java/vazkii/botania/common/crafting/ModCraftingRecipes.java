@@ -2168,8 +2168,6 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.pavement, i, ModFluffBlocks.pavementStairs[i], ModFluffBlocks.pavementSlabs[i]);
 
 		// Misc Recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.WHEAT, 4, 0), new ItemStack(ModBlocks.thatch));
-
 		if(Botania.gardenOfGlassLoaded)
 			initGardenOfGlass();
 

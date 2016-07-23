@@ -103,21 +103,6 @@ public final class ModMigrationRecipes {
             // Granite wall
             GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("stone_granite_wall")), new ItemStack(ModFluffBlocks.stoneWall, 1, FutureStoneVariant.GRANITE.ordinal()));
         }
-
-        // Thatch
-        if (quark) {
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("thatch")), new ItemStack(ModBlocks.thatch));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("thatch_slab")), new ItemStack(ModFluffBlocks.thatchSlab));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("thatch_stairs")), new ItemStack(ModFluffBlocks.thatchStairs));
-        }
-
-        // Reeds
-        if (quark) {
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("reed_block")), new ItemStack(ModBlocks.reedBlock));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("reed_block_slab")), new ItemStack(ModFluffBlocks.reedSlab));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("reed_block_stairs")), new ItemStack(ModFluffBlocks.reedStairs));
-            GameRegistry.addShapelessRecipe(new ItemStack(findQuarkBlock("reed_block_wall")), new ItemStack(ModFluffBlocks.reedWall));
-        }
     }
 
     private static Block findQuarkBlock(String name) {

@@ -319,7 +319,6 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.redStringFertilizer);
         registerItemModel(ModBlocks.redStringInterceptor);
         registerItemModel(ModBlocks.redStringRelay);
-        registerItemModel(ModBlocks.reedBlock);
         registerItemModel(ModBlocks.rfGenerator);
         registerItemModel(ModBlocks.root);
         registerItemModel(ModBlocks.runeAltar);
@@ -329,7 +328,6 @@ public final class ModelHandler {
         registerItemModel(ModBlocks.spawnerClaw);
         registerItemModel(ModBlocks.specialFlower);
         registerItemModel(ModBlocks.starfield);
-        registerItemModel(ModBlocks.thatch);
         registerItemModel(ModBlocks.terraPlate);
         registerItemModel(ModBlocks.tinyPlanet);
         registerItemModel(ModBlocks.tinyPotato);
@@ -621,7 +619,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModFluffBlocks.dreamwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingrockWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.livingwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.reedWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
         ModelLoader.setCustomStateMapper(ModFluffBlocks.stoneWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
 
         // Ignore dummy variant in slabs
@@ -639,7 +636,7 @@ public final class ModelHandler {
 
         List<Block> otherSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodPlankSlab, ModFluffBlocks.livingrockSlab, ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.livingrockBrickSlab,
                 ModFluffBlocks.dreamwoodPlankSlab,
-                ModFluffBlocks.reedSlab, ModFluffBlocks.thatchSlab, ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
+                ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
                 ModFluffBlocks.tileSlab, ModFluffBlocks.manaQuartzSlab, ModFluffBlocks.blazeQuartzSlab, ModFluffBlocks.darkQuartzSlab,
                 ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab, ModFluffBlocks.dirtPathSlab,
                 ModFluffBlocks.shimmerrockSlab, ModFluffBlocks.shimmerwoodPlankSlab, ModFluffBlocks.endStoneSlab, ModFluffBlocks.enderBrickSlab);
@@ -665,7 +662,7 @@ public final class ModelHandler {
         
         List<Block> otherFullSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingwoodPlankSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
                 ModFluffBlocks.dreamwoodPlankSlabFull,
-                ModFluffBlocks.reedSlabFull, ModFluffBlocks.thatchSlabFull, ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
+                ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
                 ModFluffBlocks.tileSlabFull, ModFluffBlocks.darkQuartzSlabFull, ModFluffBlocks.manaQuartzSlabFull, ModFluffBlocks.blazeQuartzSlabFull,
                 ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull, ModFluffBlocks.dirtPathSlabFull,
                 ModFluffBlocks.shimmerrockSlabFull, ModFluffBlocks.shimmerwoodPlankSlabFull, ModFluffBlocks.endStoneSlabFull, ModFluffBlocks.enderBrickSlabFull);
@@ -785,13 +782,11 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.manaQuartzStairs);
         registerItemModel(ModFluffBlocks.netherBrickStairs);
         registerItemModel(ModFluffBlocks.redQuartzStairs);
-        registerItemModel(ModFluffBlocks.reedStairs);
         registerItemModel(ModFluffBlocks.shimmerrockStairs);
         registerItemModel(ModFluffBlocks.shimmerwoodPlankStairs);
         registerItemModel(ModFluffBlocks.snowBrickStairs);
         registerItemModel(ModFluffBlocks.soulBrickStairs);
         registerItemModel(ModFluffBlocks.sunnyQuartzStairs);
-        registerItemModel(ModFluffBlocks.thatchStairs);
         registerItemModel(ModFluffBlocks.tileStairs);
     }
 
@@ -833,9 +828,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.soulBrickSlab);
         registerItemModel(ModFluffBlocks.snowBrickSlab);
         registerItemModel(ModFluffBlocks.tileSlab);
-        registerItemModel(ModFluffBlocks.reedSlab);
-        registerItemModel(ModFluffBlocks.thatchSlab);
-
     }
 
     private static void registerWalls() {
@@ -854,7 +846,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.livingrockWall);
         registerItemModel(ModFluffBlocks.livingwoodWall);
         registerItemModel(ModFluffBlocks.dreamwoodWall);
-        registerItemModel(ModFluffBlocks.reedWall);
     }
 
     private static void registerPanes() {

@@ -1,9 +1,0 @@
-{
-  "forge_marker": 1,
-  "variants": {
-    "normal": [{
-      "model": "minecraft:cube_bottom_top",
-      "textures": { "bottom": "botania:blocks/reedBlock1", "top": "botania:blocks/reedBlock1", "side": "botania:blocks/reedBlock0" }
-    }]
-  }
-}
