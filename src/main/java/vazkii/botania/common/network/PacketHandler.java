@@ -14,7 +14,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
 
-    private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.MOD_ID);
+    private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.NETWORK_CHANNEL);
 
     public static void init() {
         HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
