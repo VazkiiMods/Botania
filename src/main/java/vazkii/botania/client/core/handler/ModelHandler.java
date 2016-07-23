@@ -811,9 +811,9 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation("botania:biomeStoneA0Wall", variantName));
         }
 
-        registerItemModel(ModFluffBlocks.livingrockWall);
-        registerItemModel(ModFluffBlocks.livingwoodWall);
-        registerItemModel(ModFluffBlocks.dreamwoodWall);
+        registerBlock(ModFluffBlocks.livingrockWall, "livingrock_wall");
+        registerBlock(ModFluffBlocks.livingwoodWall, "livingwood_wall");
+        registerBlock(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
     }
 
     private static void registerPanes() {
@@ -881,6 +881,12 @@ public final class ModelHandler {
      		ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
      		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
      	}
+    }
+
+    private static void registerBlock(Block b, String name) {
+        ModelLoader.setCustomModelResourceLocation(
+                Item.getItemFromBlock(b), 0,
+                new ModelResourceLocation(LibMisc.MOD_ID + ":" + name, "inventory"));
     }
 
     private static void registerItemModel(Block b) {

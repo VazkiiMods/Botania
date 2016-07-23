@@ -1,34 +1,19 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:dummy",
-    "uvlock": true,
-    "transform": "forge:default-block",
-    "textures": { "particle": "#wall", "wall": "botania:blocks/dreamwood0" }
-  },
-  "variants": {
-    "north": {
-      "true": { "submodel": "minecraft:wall_side" },
-      "false": {}
+  "multipart": [
+    {   "when": { "up": "true" },
+      "apply": { "model": "botania:dreamwood_wall_post" }
     },
-    "south": {
-      "true": { "submodel": "minecraft:wall_side", "y": 180 },
-      "false": {}
+    {   "when": { "north": "true" },
+      "apply": { "model": "botania:dreamwood_wall_side", "uvlock": true }
     },
-    "west": {
-      "true": { "submodel": "minecraft:wall_side", "y": 270 },
-      "false": {}
+    {   "when": { "east": "true" },
+      "apply": { "model": "botania:dreamwood_wall_side", "y": 90, "uvlock": true }
     },
-    "east": {
-      "true": { "submodel": "minecraft:wall_side", "y": 90 },
-      "false": {}
+    {   "when": { "south": "true" },
+      "apply": { "model": "botania:dreamwood_wall_side", "y": 180, "uvlock": true }
     },
-    "up": {
-      "true": { "submodel": "minecraft:wall_post" },
-      "false": {}
-    },
-    "inventory": [{
-      "model": "minecraft:wall_inventory"
-    }]
-  }
+    {   "when": { "west": "true" },
+      "apply": { "model": "botania:dreamwood_wall_side", "y": 270, "uvlock": true }
+    }
+  ]
 }
