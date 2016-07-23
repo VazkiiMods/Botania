@@ -1,4 +1,5 @@
 {
+  "__comment": "The texture is split apart to facilitate efficient use of the atlas. Sorry for the clutter!",
   "parent": "minecraft:block/block",
   "display": {
     "gui": {

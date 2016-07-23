@@ -114,6 +114,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.IntFunction;
 
 import static vazkii.botania.common.item.ModItems.*;
 
@@ -138,7 +139,6 @@ public final class ModelHandler {
         registerSlabs();
         registerWalls();
         registerPanes();
-        registerAltars();
         registerQuartzBlocks();
         registerLuminizers();
 
@@ -281,6 +281,8 @@ public final class ModelHandler {
     private static void registerStandardBlocks() {
         registerItemModel(ModBlocks.alchemyCatalyst);
         registerItemModel(ModBlocks.alfPortal);
+        // Off by one on purpose to exclude MOSSY
+        registerBlockAllMetaNames(ModBlocks.altar, AltarVariant.values().length - 1, i -> AltarVariant.values()[i].getName() + "_apothecary");
         registerItemModel(ModBlocks.bifrost);
         registerItemModel(ModBlocks.bifrostPerm);
         registerItemModel(ModBlocks.blazeBlock);
@@ -321,11 +323,11 @@ public final class ModelHandler {
         registerBlock(ModBlocks.runeAltar, "runic_altar");
         registerItemModel(ModBlocks.shimmerrock);
         registerItemModel(ModBlocks.shimmerwoodPlanks);
-        registerItemModel(ModBlocks.sparkChanger);
+        registerBlock(ModBlocks.sparkChanger, "spark_tinkerer");
         registerBlock(ModBlocks.spawnerClaw, "life_imbuer");
         registerItemModel(ModBlocks.specialFlower);
         registerItemModel(ModBlocks.starfield);
-        registerItemModel(ModBlocks.terraPlate);
+        registerBlock(ModBlocks.terraPlate, "terra_plate");
         registerItemModel(ModBlocks.tinyPlanet);
         registerItemModel(ModBlocks.tinyPotato);
         registerItemModel(ModBlocks.turntable);
@@ -335,7 +337,7 @@ public final class ModelHandler {
 
         // Item models which all use the same base model and recolored by render layer
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.manaBeacon), EnumDyeColor.values().length);
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.petalBlock), EnumDyeColor.values().length);
+        registerBlockAllMeta(ModBlocks.petalBlock, EnumDyeColor.values().length, "petal_block");
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
 
         // Blocks which share models with their item, and have only one variant to switch over
@@ -822,15 +824,6 @@ public final class ModelHandler {
         registerItemModel(ModFluffBlocks.managlassPane);
     }
 
-    private static void registerAltars() {
-        Item item = Item.getItemFromBlock(ModBlocks.altar);
-        String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.altar).toString();
-        for (int i = 0; i < AltarVariant.values().length - 1; i++) { // Off by one on purpose to exclude MOSSY
-            String variantName = "variant=" + AltarVariant.values()[i].getName();
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, variantName));
-        }
-    }
-
     private static void registerQuartzBlocks() {
         for (Block b : Lists.newArrayList(ModFluffBlocks.blazeQuartz, ModFluffBlocks.darkQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.sunnyQuartz)) {
             if (b == null) // Dark quartz disabled
@@ -884,9 +877,21 @@ public final class ModelHandler {
     }
 
     private static void registerBlock(Block b, String name) {
-        ModelLoader.setCustomModelResourceLocation(
-                Item.getItemFromBlock(b), 0,
-                new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + name, "inventory"));
+        registerBlockAllMeta(b, 1, name);
+    }
+
+    private static void registerBlockAllMeta(Block b, int maxExclusive, String name) {
+        registerBlockAllMetaNames(b, maxExclusive, i -> name);
+    }
+
+    private static void registerBlockAllMetaNames(Block b, int maxExclusive, IntFunction<String> metaToName) {
+        Item item = Item.getItemFromBlock(b);
+        for (int i = 0; i < maxExclusive; i++) {
+            ModelLoader.setCustomModelResourceLocation(
+                    item, i,
+                    new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + metaToName.apply(i), "inventory")
+            );
+        }
     }
 
     private static void registerItemModel(Block b) {

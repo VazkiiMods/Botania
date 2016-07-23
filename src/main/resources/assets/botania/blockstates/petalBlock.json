@@ -1,15 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:cube_all_tinted",
-    "textures": {
-      "all": "botania:blocks/petalBlock"
-    }
-  },
   "variants": {
-    "normal": [{}],
-    "inventory": [{
-      "transform": "forge:default-block"
-    }]
+    "normal": {
+      "model": "botania:petal_block"
+    }
   }
 }

@@ -1,19 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:threehigh",
-    "textures": {
-      "bottom": "botania:blocks/sparkChanger0",
-      "top": "botania:blocks/sparkChanger1",
-      "side": "botania:blocks/sparkChanger2"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": {},
-      "false": {}
-    },
-    "inventory": [{}]
+    "powered=true":  { "model": "botania:spark_tinkerer" },
+    "powered=false": { "model": "botania:spark_tinkerer" }
   }
 }
