@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemBrewVial extends ItemBrewBase {
 
 	public ItemBrewVial() {
-		super(LibItemNames.BREW_VIAL, LibItemNames.VIAL, 4, 32, new ItemStack(ModItems.vial));
+		super(LibItemNames.BREW_VIAL, 4, 32, new ItemStack(ModItems.vial));
 	}
 
 }

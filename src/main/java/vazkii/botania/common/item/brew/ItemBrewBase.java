@@ -17,6 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -25,6 +26,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -39,8 +41,10 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 
@@ -49,22 +53,17 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 
-	private final String name;
-	private final String texName;
 	private final int swigs;
 	private final int drinkSpeed;
 	private final ItemStack baseItem;
 
-	public ItemBrewBase(String name, String texName, int swigs, int drinkSpeed, ItemStack baseItem) {
+	public ItemBrewBase(String name, int swigs, int drinkSpeed, ItemStack baseItem) {
 		super(name);
-		this.name = name;
-		this.texName = texName;
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;
 		setMaxStackSize(1);
-		setMaxDamage(swigs);
-		setNoRepair();
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> swigs - getSwigsLeft(stack));
 	}
 
 	@Override

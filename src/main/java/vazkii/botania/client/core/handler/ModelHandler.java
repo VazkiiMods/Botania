@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
@@ -131,7 +130,6 @@ public final class ModelHandler {
 
         registerStandardItems();
         registerTESRItems();
-        registerBrews();
     }
 
     private static void registerSubtiles() {
@@ -418,6 +416,10 @@ public final class ModelHandler {
         registerItemModel(manaCookie);
         registerItemModel(infiniteFruit);
         registerItemModelMetas(lens, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
+        ModelLoader.setCustomModelResourceLocation(vial, 0, new ModelResourceLocation("botania:vial", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(vial, 1, new ModelResourceLocation("botania:flask", "inventory"));
+        registerItemModel(brewFlask);
+        registerItemModel(brewVial);
 
         registerItemModel(waterRing);
         registerItemModel(miningRing);
@@ -490,29 +492,6 @@ public final class ModelHandler {
 
         registerBlockStandardPath(ModBlocks.teruTeruBozu);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
-    }
-
-    private static void registerBrews() {
-        ModelLoader.setCustomModelResourceLocation(vial, 0, new ModelResourceLocation("botania:vial", "inventory"));
-        ModelLoader.setCustomModelResourceLocation(vial, 1, new ModelResourceLocation("botania:flask", "inventory"));
-
-        for (int i = 0; i < 6; i++) {
-            ModelLoader.registerItemVariants(brewFlask, new ModelResourceLocation("botania:flask1_" + i, "inventory"));
-        }
-
-        ModelLoader.setCustomMeshDefinition(brewFlask, stack -> {
-            int swigsTaken = 6 - ((ItemBrewBase) brewFlask).getSwigsLeft(stack);
-            return new ModelResourceLocation("botania:flask1_" + swigsTaken, "inventory");
-        });
-
-        for (int i = 0; i < 4; i++) {
-            ModelLoader.registerItemVariants(brewVial, new ModelResourceLocation("botania:vial1_" + i, "inventory"));
-        }
-
-        ModelLoader.setCustomMeshDefinition(brewVial, stack -> {
-            int swigsTaken = 4 - ((ItemBrewBase) brewVial).getSwigsLeft(stack);
-            return new ModelResourceLocation("botania:vial1_" + swigsTaken, "inventory");
-        });
     }
 
     private static void registerStateMappers() {
