@@ -774,36 +774,36 @@ public final class ModelHandler {
 
     private static void registerSlabs() {
         for (Block b : ModFluffBlocks.biomeStoneSlabs) {
-            registerBlockStandardPath(b);
+            registerBlockVariant(b, "half=bottom");
         }
 
         for (Block b : ModFluffBlocks.pavementSlabs) {
-            registerBlockStandardPath(b);
+            registerBlockVariant(b, "half=bottom");
         }
 
-        registerBlockStandardPath(ModFluffBlocks.livingwoodSlab);
-        registerBlockStandardPath(ModFluffBlocks.livingwoodPlankSlab);
-        registerBlockStandardPath(ModFluffBlocks.livingrockSlab);
-        registerBlockStandardPath(ModFluffBlocks.livingrockBrickSlab);
+        registerBlockVariant(ModFluffBlocks.livingwoodSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.livingwoodPlankSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.livingrockSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.livingrockBrickSlab, "half=bottom");
 
-        registerBlockStandardPath(ModFluffBlocks.blazeQuartzSlab);
+        registerBlockVariant(ModFluffBlocks.blazeQuartzSlab, "half=bottom");
         if (ConfigHandler.darkQuartzEnabled)
-            registerBlockStandardPath(ModFluffBlocks.darkQuartzSlab);
-        registerBlockStandardPath(ModFluffBlocks.elfQuartzSlab);
-        registerBlockStandardPath(ModFluffBlocks.lavenderQuartzSlab);
-        registerBlockStandardPath(ModFluffBlocks.manaQuartzSlab);
-        registerBlockStandardPath(ModFluffBlocks.redQuartzSlab);
-        registerBlockStandardPath(ModFluffBlocks.sunnyQuartzSlab);
+            registerBlockVariant(ModFluffBlocks.darkQuartzSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.elfQuartzSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.lavenderQuartzSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.manaQuartzSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.redQuartzSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.sunnyQuartzSlab, "half=bottom");
 
-        registerBlockStandardPath(ModFluffBlocks.dreamwoodSlab);
-        registerBlockStandardPath(ModFluffBlocks.dreamwoodPlankSlab);
-        registerBlockStandardPath(ModFluffBlocks.dirtPathSlab);
-        registerBlockStandardPath(ModFluffBlocks.shimmerrockSlab);
-        registerBlockStandardPath(ModFluffBlocks.shimmerwoodPlankSlab);
-        registerBlockStandardPath(ModFluffBlocks.netherBrickSlab);
-        registerBlockStandardPath(ModFluffBlocks.soulBrickSlab);
-        registerBlockStandardPath(ModFluffBlocks.snowBrickSlab);
-        registerBlockStandardPath(ModFluffBlocks.tileSlab);
+        registerBlockVariant(ModFluffBlocks.dreamwoodSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.dreamwoodPlankSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.dirtPathSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.shimmerrockSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.shimmerwoodPlankSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.netherBrickSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.soulBrickSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.snowBrickSlab, "half=bottom");
+        registerBlockVariant(ModFluffBlocks.tileSlab, "half=bottom");
     }
 
     private static void registerWalls() {
