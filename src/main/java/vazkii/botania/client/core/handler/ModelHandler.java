@@ -140,7 +140,6 @@ public final class ModelHandler {
         registerWalls();
         registerPanes();
         registerQuartzBlocks();
-        registerLuminizers();
 
         /** Normal Items **/
         registerStandardItems();
@@ -279,75 +278,75 @@ public final class ModelHandler {
     }
 
     private static void registerStandardBlocks() {
-        registerItemModel(ModBlocks.alchemyCatalyst);
-        registerItemModel(ModBlocks.alfPortal);
-        // Off by one on purpose to exclude MOSSY
-        registerBlockAllMetaNames(ModBlocks.altar, AltarVariant.values().length - 1, i -> AltarVariant.values()[i].getName() + "_apothecary");
-        registerItemModel(ModBlocks.bifrost);
-        registerItemModel(ModBlocks.bifrostPerm);
-        registerItemModel(ModBlocks.blazeBlock);
-        registerItemModel(ModBlocks.cacophonium);
-        registerItemModel(ModBlocks.cellBlock);
-        registerItemModel(ModBlocks.conjurationCatalyst);
-        registerItemModel(ModBlocks.cocoon);
-        registerItemModel(ModBlocks.corporeaFunnel);
-        registerItemModel(ModBlocks.corporeaInterceptor);
-        registerItemModel(ModBlocks.corporeaRetainer);
-        registerItemModel(ModBlocks.dirtPath);
-        registerItemModel(ModBlocks.distributor);
-        registerItemModel(ModBlocks.elfGlass);
-        registerItemModel(ModBlocks.enchantedSoil);
-        registerItemModel(ModBlocks.enchanter);
-        registerItemModel(ModBlocks.enderEye);
-        registerItemModel(ModBlocks.felPumpkin);
-        registerItemModel(ModBlocks.floatingSpecialFlower);
-        registerItemModel(ModBlocks.forestEye);
-        registerItemModel(ModBlocks.ghostRail);
-        registerItemModel(ModBlocks.incensePlate);
-        registerBlock(ModBlocks.lightLauncher, "luminizer_launcher");
-        registerItemModel(ModBlocks.manaBomb);
-        registerItemModel(ModBlocks.manaDetector);
-        registerItemModel(ModBlocks.manaGlass);
-        registerItemModel(ModBlocks.manaVoid);
-        registerItemModel(ModBlocks.prism);
-        registerItemModel(ModBlocks.pistonRelay);
-        registerItemModel(ModBlocks.pump);
-        registerItemModel(ModBlocks.redStringComparator);
-        registerItemModel(ModBlocks.redStringContainer);
-        registerItemModel(ModBlocks.redStringDispenser);
-        registerItemModel(ModBlocks.redStringFertilizer);
-        registerItemModel(ModBlocks.redStringInterceptor);
-        registerItemModel(ModBlocks.redStringRelay);
-        registerItemModel(ModBlocks.rfGenerator);
-        registerItemModel(ModBlocks.root);
-        registerBlock(ModBlocks.runeAltar, "runic_altar");
-        registerItemModel(ModBlocks.shimmerrock);
-        registerItemModel(ModBlocks.shimmerwoodPlanks);
-        registerBlock(ModBlocks.sparkChanger, "spark_tinkerer");
-        registerBlock(ModBlocks.spawnerClaw, "life_imbuer");
-        registerItemModel(ModBlocks.specialFlower);
-        registerBlock(ModBlocks.starfield, "starfield_creator");
-        registerBlock(ModBlocks.terraPlate, "terra_plate");
-        registerItemModel(ModBlocks.tinyPlanet);
-        registerItemModel(ModBlocks.tinyPotato);
-        registerItemModel(ModBlocks.turntable);
+        registerBlockStandardPath(ModBlocks.alchemyCatalyst);
+        registerBlockStandardPath(ModBlocks.alfPortal);
+        registerBlockStandardPath(ModBlocks.bifrost);
+        registerBlockStandardPath(ModBlocks.bifrostPerm);
+        registerBlockStandardPath(ModBlocks.blazeBlock);
+        registerBlockStandardPath(ModBlocks.cacophonium);
+        registerBlockStandardPath(ModBlocks.cellBlock);
+        registerBlockStandardPath(ModBlocks.conjurationCatalyst);
+        registerBlockStandardPath(ModBlocks.cocoon);
+        registerBlockStandardPath(ModBlocks.corporeaFunnel);
+        registerBlockStandardPath(ModBlocks.corporeaInterceptor);
+        registerBlockStandardPath(ModBlocks.corporeaRetainer);
+        registerBlockVariant(ModBlocks.dirtPath);
+        registerBlockStandardPath(ModBlocks.distributor);
+        registerBlockStandardPath(ModBlocks.elfGlass);
+        registerBlockStandardPath(ModBlocks.enchantedSoil);
+        registerBlockStandardPath(ModBlocks.enchanter);
+        registerBlockStandardPath(ModBlocks.enderEye);
+        registerBlockStandardPath(ModBlocks.felPumpkin);
+        registerBlockStandardPath(ModBlocks.floatingSpecialFlower);
+        registerBlockVariant(ModBlocks.forestEye);
+        registerBlockStandardPath(ModBlocks.ghostRail);
+        registerBlockStandardPath(ModBlocks.incensePlate);
+        registerBlockVariant(ModBlocks.lightLauncher, "powered=false");
+        registerBlockStandardPath(ModBlocks.manaBomb);
+        registerBlockStandardPath(ModBlocks.manaDetector);
+        registerBlockStandardPath(ModBlocks.manaGlass);
+        registerBlockStandardPath(ModBlocks.manaVoid);
+        registerBlockStandardPath(ModBlocks.prism);
+        registerBlockStandardPath(ModBlocks.pistonRelay);
+        registerBlockStandardPath(ModBlocks.pump);
+        registerBlockStandardPath(ModBlocks.redStringComparator);
+        registerBlockStandardPath(ModBlocks.redStringContainer);
+        registerBlockStandardPath(ModBlocks.redStringDispenser);
+        registerBlockStandardPath(ModBlocks.redStringFertilizer);
+        registerBlockStandardPath(ModBlocks.redStringInterceptor);
+        registerBlockStandardPath(ModBlocks.redStringRelay);
+        registerBlockStandardPath(ModBlocks.rfGenerator);
+        registerBlockStandardPath(ModBlocks.root);
+        registerBlockVariant(ModBlocks.runeAltar);
+        registerBlockStandardPath(ModBlocks.shimmerrock);
+        registerBlockStandardPath(ModBlocks.shimmerwoodPlanks);
+        registerBlockVariant(ModBlocks.sparkChanger, "powered=false");
+        registerBlockVariant(ModBlocks.spawnerClaw);
+        registerBlockStandardPath(ModBlocks.specialFlower);
+        registerBlockVariant(ModBlocks.starfield, "powered=false");
+        registerBlockVariant(ModBlocks.terraPlate);
+        registerBlockVariant(ModBlocks.tinyPlanet);
+        registerBlockStandardPath(ModBlocks.tinyPotato);
+        registerBlockStandardPath(ModBlocks.turntable);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
         registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
         // Item models which all use the same base model and recolored by render layer
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.manaBeacon), EnumDyeColor.values().length);
-        registerBlockAllMeta(ModBlocks.petalBlock, EnumDyeColor.values().length, "petal_block");
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.unstableBlock), EnumDyeColor.values().length);
+        registerBlockVariantMetas(ModBlocks.manaBeacon, EnumDyeColor.values().length, "normal");
+        registerBlockVariantMetas(ModBlocks.petalBlock, EnumDyeColor.values().length, "normal");
+        registerBlockVariantMetas(ModBlocks.unstableBlock, EnumDyeColor.values().length, "normal");
 
         // Blocks which share models with their item, and have only one variant to switch over
         registerVariantsDefaulted(ModBlocks.pylon, PylonVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.altar, AltarVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.altGrass, AltGrassVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneA, BiomeStoneVariant.class, "variant");
         registerVariantsDefaulted(ModFluffBlocks.biomeStoneB, BiomeBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.customBrick, CustomBrickVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.dreamwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.forestDrum, DrumVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.lightRelay, LuminizerVariant.class, "powered=false,variant");
         registerVariantsDefaulted(ModBlocks.livingrock, LivingRockVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
@@ -516,28 +515,28 @@ public final class ModelHandler {
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
     @SuppressWarnings("deprecation")
     private static void registerTESRItems() {
-        registerItemModel(ModBlocks.avatar);
+        registerBlockStandardPath(ModBlocks.avatar);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
 
-        registerItemModel(ModBlocks.bellows);
+        registerBlockStandardPath(ModBlocks.bellows);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
 
-        registerItemModel(ModBlocks.brewery);
+        registerBlockStandardPath(ModBlocks.brewery);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
 
-        registerItemModel(ModBlocks.corporeaCrystalCube);
+        registerBlockStandardPath(ModBlocks.corporeaCrystalCube);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
 
-        registerItemModel(ModBlocks.corporeaIndex);
+        registerBlockStandardPath(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
 
         registerItemModel(ModItems.gaiaHead);
         ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
-        registerItemModel(ModBlocks.hourglass);
+        registerBlockStandardPath(ModBlocks.hourglass);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
 
-        registerItemModel(ModBlocks.teruTeruBozu);
+        registerBlockStandardPath(ModBlocks.teruTeruBozu);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
     }
 
@@ -744,67 +743,67 @@ public final class ModelHandler {
 
     private static void registerStairs() {
         for (Block b : ModFluffBlocks.pavementStairs) {
-            registerItemModel(b);
+            registerBlockStandardPath(b);
         }
 
         for (Block b : ModFluffBlocks.biomeStoneStairs) {
-            registerItemModel(b);
+            registerBlockStandardPath(b);
         }
 
-        registerItemModel(ModFluffBlocks.blazeQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.blazeQuartzStairs);
         if (ConfigHandler.darkQuartzEnabled)
-            registerItemModel(ModFluffBlocks.darkQuartzStairs);
-        registerItemModel(ModFluffBlocks.dreamwoodStairs);
-        registerItemModel(ModFluffBlocks.dreamwoodPlankStairs);
-        registerItemModel(ModFluffBlocks.elfQuartzStairs);
-        registerItemModel(ModFluffBlocks.lavenderQuartzStairs);
-        registerItemModel(ModFluffBlocks.livingrockStairs);
-        registerItemModel(ModFluffBlocks.livingrockBrickStairs);
-        registerItemModel(ModFluffBlocks.livingwoodStairs);
-        registerItemModel(ModFluffBlocks.livingwoodPlankStairs);
-        registerItemModel(ModFluffBlocks.manaQuartzStairs);
-        registerItemModel(ModFluffBlocks.netherBrickStairs);
-        registerItemModel(ModFluffBlocks.redQuartzStairs);
-        registerItemModel(ModFluffBlocks.shimmerrockStairs);
-        registerItemModel(ModFluffBlocks.shimmerwoodPlankStairs);
-        registerItemModel(ModFluffBlocks.snowBrickStairs);
-        registerItemModel(ModFluffBlocks.soulBrickStairs);
-        registerItemModel(ModFluffBlocks.sunnyQuartzStairs);
-        registerItemModel(ModFluffBlocks.tileStairs);
+            registerBlockStandardPath(ModFluffBlocks.darkQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.dreamwoodStairs);
+        registerBlockStandardPath(ModFluffBlocks.dreamwoodPlankStairs);
+        registerBlockStandardPath(ModFluffBlocks.elfQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.lavenderQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.livingrockStairs);
+        registerBlockStandardPath(ModFluffBlocks.livingrockBrickStairs);
+        registerBlockStandardPath(ModFluffBlocks.livingwoodStairs);
+        registerBlockStandardPath(ModFluffBlocks.livingwoodPlankStairs);
+        registerBlockStandardPath(ModFluffBlocks.manaQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.netherBrickStairs);
+        registerBlockStandardPath(ModFluffBlocks.redQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.shimmerrockStairs);
+        registerBlockStandardPath(ModFluffBlocks.shimmerwoodPlankStairs);
+        registerBlockStandardPath(ModFluffBlocks.snowBrickStairs);
+        registerBlockStandardPath(ModFluffBlocks.soulBrickStairs);
+        registerBlockStandardPath(ModFluffBlocks.sunnyQuartzStairs);
+        registerBlockStandardPath(ModFluffBlocks.tileStairs);
     }
 
     private static void registerSlabs() {
         for (Block b : ModFluffBlocks.biomeStoneSlabs) {
-            registerItemModel(b);
+            registerBlockStandardPath(b);
         }
 
         for (Block b : ModFluffBlocks.pavementSlabs) {
-            registerItemModel(b);
+            registerBlockStandardPath(b);
         }
 
-        registerItemModel(ModFluffBlocks.livingwoodSlab);
-        registerItemModel(ModFluffBlocks.livingwoodPlankSlab);
-        registerItemModel(ModFluffBlocks.livingrockSlab);
-        registerItemModel(ModFluffBlocks.livingrockBrickSlab);
+        registerBlockStandardPath(ModFluffBlocks.livingwoodSlab);
+        registerBlockStandardPath(ModFluffBlocks.livingwoodPlankSlab);
+        registerBlockStandardPath(ModFluffBlocks.livingrockSlab);
+        registerBlockStandardPath(ModFluffBlocks.livingrockBrickSlab);
 
-        registerItemModel(ModFluffBlocks.blazeQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.blazeQuartzSlab);
         if (ConfigHandler.darkQuartzEnabled)
-            registerItemModel(ModFluffBlocks.darkQuartzSlab);
-        registerItemModel(ModFluffBlocks.elfQuartzSlab);
-        registerItemModel(ModFluffBlocks.lavenderQuartzSlab);
-        registerItemModel(ModFluffBlocks.manaQuartzSlab);
-        registerItemModel(ModFluffBlocks.redQuartzSlab);
-        registerItemModel(ModFluffBlocks.sunnyQuartzSlab);
+            registerBlockStandardPath(ModFluffBlocks.darkQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.elfQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.lavenderQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.manaQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.redQuartzSlab);
+        registerBlockStandardPath(ModFluffBlocks.sunnyQuartzSlab);
 
-        registerItemModel(ModFluffBlocks.dreamwoodSlab);
-        registerItemModel(ModFluffBlocks.dreamwoodPlankSlab);
-        registerItemModel(ModFluffBlocks.dirtPathSlab);
-        registerItemModel(ModFluffBlocks.shimmerrockSlab);
-        registerItemModel(ModFluffBlocks.shimmerwoodPlankSlab);
-        registerItemModel(ModFluffBlocks.netherBrickSlab);
-        registerItemModel(ModFluffBlocks.soulBrickSlab);
-        registerItemModel(ModFluffBlocks.snowBrickSlab);
-        registerItemModel(ModFluffBlocks.tileSlab);
+        registerBlockStandardPath(ModFluffBlocks.dreamwoodSlab);
+        registerBlockStandardPath(ModFluffBlocks.dreamwoodPlankSlab);
+        registerBlockStandardPath(ModFluffBlocks.dirtPathSlab);
+        registerBlockStandardPath(ModFluffBlocks.shimmerrockSlab);
+        registerBlockStandardPath(ModFluffBlocks.shimmerwoodPlankSlab);
+        registerBlockStandardPath(ModFluffBlocks.netherBrickSlab);
+        registerBlockStandardPath(ModFluffBlocks.soulBrickSlab);
+        registerBlockStandardPath(ModFluffBlocks.snowBrickSlab);
+        registerBlockStandardPath(ModFluffBlocks.tileSlab);
     }
 
     private static void registerWalls() {
@@ -813,15 +812,15 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + variant.getName() + "_wall", "inventory"));
         }
 
-        registerBlock(ModFluffBlocks.livingrockWall, "livingrock_wall");
-        registerBlock(ModFluffBlocks.livingwoodWall, "livingwood_wall");
-        registerBlock(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
+        registerBlockCustomPath(ModFluffBlocks.livingrockWall, "livingrock_wall");
+        registerBlockCustomPath(ModFluffBlocks.livingwoodWall, "livingwood_wall");
+        registerBlockCustomPath(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
     }
 
     private static void registerPanes() {
-        registerItemModel(ModFluffBlocks.alfglassPane);
-        registerItemModel(ModFluffBlocks.bifrostPane);
-        registerItemModel(ModFluffBlocks.managlassPane);
+        registerBlockStandardPath(ModFluffBlocks.alfglassPane);
+        registerBlockStandardPath(ModFluffBlocks.bifrostPane);
+        registerBlockStandardPath(ModFluffBlocks.managlassPane);
     }
 
     private static void registerQuartzBlocks() {
@@ -833,14 +832,6 @@ public final class ModelHandler {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "variant=normal"));
             ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, "variant=chiseled"));
             ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, "variant=pillar_y"));
-        }
-    }
-
-    private static void registerLuminizers() {
-        Item item = Item.getItemFromBlock(ModBlocks.lightRelay);
-        String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.lightRelay).toString();
-        for (LuminizerVariant v : LuminizerVariant.values()) {
-            ModelLoader.setCustomModelResourceLocation(item, v.ordinal(), new ModelResourceLocation(name, "powered=false,variant=" + v.getName()));
         }
     }
 
@@ -876,26 +867,52 @@ public final class ModelHandler {
      	}
     }
 
-    private static void registerBlock(Block b, String name) {
-        registerBlockAllMeta(b, 1, name);
+
+    // -- Registers the ItemBlock model to be the Block's model, of the specified variant -- //
+    private static void registerBlockVariant(Block b) {
+        registerBlockVariant(b, "normal");
     }
 
-    private static void registerBlockAllMeta(Block b, int maxExclusive, String name) {
-        registerBlockAllMetaNames(b, maxExclusive, i -> name);
+    private static void registerBlockVariant(Block b, String variant) {
+        registerBlockVariantMetas(b, 1, variant);
     }
 
-    private static void registerBlockAllMetaNames(Block b, int maxExclusive, IntFunction<String> metaToName) {
+    private static void registerBlockVariantMetas(Block b, int maxExclusive, String variant) {
+        registerBlockVariantMetas(b, maxExclusive, i -> variant);
+    }
+
+    private static void registerBlockVariantMetas(Block b, int maxExclusive, IntFunction<String> metaToVariant) {
         Item item = Item.getItemFromBlock(b);
         for (int i = 0; i < maxExclusive; i++) {
             ModelLoader.setCustomModelResourceLocation(
                     item, i,
-                    new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + metaToName.apply(i), "inventory")
+                    new ModelResourceLocation(item.getRegistryName(), metaToVariant.apply(i))
             );
         }
     }
 
-    private static void registerItemModel(Block b) {
+    // Registers the ItemBlock to models/item/<registryname>#inventory
+    private static void registerBlockStandardPath(Block b) {
         registerItemModel(Item.getItemFromBlock(b));
+    }
+
+    // Registers the ItemBlock to a custom path in models/item/itemblock/
+    private static void registerBlockCustomPath(Block b, String path) {
+        registerBlockCustomPathMetas(b, 1, path);
+    }
+
+    private static void registerBlockCustomPathMetas(Block b, int maxExclusive, String path) {
+        registerBlockCustomPathMetas(b, maxExclusive, i -> path);
+    }
+
+    private static void registerBlockCustomPathMetas(Block b, int maxExclusive, IntFunction<String> metaToPath) {
+        Item item = Item.getItemFromBlock(b);
+        for (int i = 0; i < maxExclusive; i++) {
+            ModelLoader.setCustomModelResourceLocation(
+                    item, i,
+                    new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + metaToPath.apply(i), "inventory")
+            );
+        }
     }
 
     private static void registerItemModel(Item i,int meta) {

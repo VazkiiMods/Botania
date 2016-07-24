@@ -3,7 +3,7 @@
   "variants": {
     "normal": [{
       "model": "minecraft:cube_all",
-      "textures": { "all": "botania:blocks/dirtPath" }
+      "textures": { "all": "minecraft:blocks/grass_path_top" }
     }]
   }
 }

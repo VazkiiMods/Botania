@@ -1,15 +1,5 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:miniblock_top_tinted",
-    "textures": {
-      "all": "botania:blocks/manaBeacon0",
-      "top": "botania:blocks/manaBeacon1"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": { "model": "botania:unstable_beacon" }
   }
 }

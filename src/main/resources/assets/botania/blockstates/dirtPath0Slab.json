@@ -3,9 +3,9 @@
   "defaults": {
     "model": "minecraft:half_slab",
     "textures": {
-      "bottom": "botania:blocks/dirtPath",
-      "top": "botania:blocks/dirtPath",
-      "side": "botania:blocks/dirtPath"
+      "bottom": "minecraft:blocks/grass_path_top",
+      "top": "minecraft:blocks/grass_path_top",
+      "side": "minecraft:blocks/grass_path_top"
     },
     "transform": "forge:default-block"
   },
