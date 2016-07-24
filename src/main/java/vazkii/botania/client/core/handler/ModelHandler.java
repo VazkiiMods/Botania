@@ -104,12 +104,10 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.IntFunction;
@@ -127,17 +125,12 @@ public final class ModelHandler {
         registerStateMappers();
 
         registerStandardBlocks();
-        registerPavement();
         registerStairs();
         registerSlabs();
-        registerWalls();
         registerQuartzBlocks();
 
         registerStandardItems();
         registerTESRItems();
-        registerManaResources();
-        registerRunes();
-        registerLens();
         registerBrews();
     }
 
@@ -219,6 +212,7 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.bifrost);
         registerBlockCustomPath(ModFluffBlocks.bifrostPane, "bifrost_pane");
         registerBlockStandardPath(ModBlocks.bifrostPerm);
+        registerBlockCustomPathMetas(ModFluffBlocks.biomeStoneWall, 8, i -> BiomeStoneVariant.values()[i + 8].getName() + "_wall");
         registerBlockStandardPath(ModBlocks.blazeBlock);
         registerBlockStandardPath(ModBlocks.cacophonium);
         registerBlockStandardPath(ModBlocks.cellBlock);
@@ -229,11 +223,9 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.corporeaRetainer);
         registerBlockVariant(ModBlocks.dirtPath);
         registerBlockCustomPathMetas(ModBlocks.doubleFlower1, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i).getName());
-        Item item = Item.getItemFromBlock(ModBlocks.doubleFlower2); // todo make this look pretty :(
-        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/double_flower_" + color.getName(), "inventory"));
-        }
+        registerBlockCustomPathMetas(ModBlocks.doubleFlower2, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i + 8).getName());
         registerBlockStandardPath(ModBlocks.distributor);
+        registerBlockCustomPath(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
         registerBlockStandardPath(ModBlocks.elfGlass);
         registerBlockStandardPath(ModBlocks.enchantedSoil);
         registerBlockStandardPath(ModBlocks.enchanter);
@@ -245,12 +237,17 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.ghostRail);
         registerBlockStandardPath(ModBlocks.incensePlate);
         registerBlockVariant(ModBlocks.lightLauncher, "powered=false");
+        registerBlockCustomPath(ModFluffBlocks.livingrockWall, "livingrock_wall");
+        registerBlockCustomPath(ModFluffBlocks.livingwoodWall, "livingwood_wall");
         registerBlockStandardPath(ModBlocks.manaBomb);
         registerBlockStandardPath(ModBlocks.manaDetector);
         registerBlockStandardPath(ModBlocks.manaGlass);
         registerBlockCustomPath(ModFluffBlocks.managlassPane, "managlass_pane");
         registerBlockStandardPath(ModBlocks.manaVoid);
         registerBlockCustomPathMetas(ModBlocks.mushroom, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
+        // Explicit mapping needed because saved meta does not match EnumDyeColor
+        EnumDyeColor[] manualMapping = { EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE, EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN };
+        registerBlockVariantMetas(ModFluffBlocks.pavement, 6, i -> "color=" + manualMapping[i].getName());
         registerBlockStandardPath(ModBlocks.prism);
         registerBlockStandardPath(ModBlocks.pistonRelay);
         registerBlockStandardPath(ModBlocks.pump);
@@ -410,13 +407,17 @@ public final class ModelHandler {
         registerItemModel(aesirRing);
         registerItemModel(baubleBox);
         registerItemModel(tinyPlanet);
+        registerItemModelMetas(manaResource, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
         registerItemModel(manaRing);
         registerItemModel(manaRingGreater);
+        String[] runeNames = { "water", "fire", "earth", "air", "spring", "summer", "autumn", "winter", "mana", "lust", "gluttony", "greed", "sloth", "wrath", "envy", "pride" };
+        registerItemModelMetas(rune, runeNames.length, i -> "rune_" + runeNames[i]);
         registerItemModel(auraRing);
         registerItemModel(auraRingGreater);
         registerItemModel(spark);
         registerItemModel(manaCookie);
         registerItemModel(infiniteFruit);
+        registerItemModelMetas(lens, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
 
         registerItemModel(waterRing);
         registerItemModel(miningRing);
@@ -489,28 +490,6 @@ public final class ModelHandler {
 
         registerBlockStandardPath(ModBlocks.teruTeruBozu);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
-    }
-
-    private static void registerManaResources() {
-        Item item = manaResource;
-        for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
-            String name = "botania:" + LibItemNames.MANA_RESOURCE_NAMES[i];
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
-        }
-    }
-
-    private static void registerRunes() {
-        List<String> variantNames = ImmutableList.of("water", "fire", "earth", "air", "spring", "summer", "autumn", "winter", "mana", "lust", "gluttony", "greed", "sloth", "wrath", "envy", "pride");
-        for (int i = 0; i < variantNames.size(); i++) {
-            ModelLoader.setCustomModelResourceLocation(rune, i, new ModelResourceLocation("botania:rune_" + variantNames.get(i), "inventory"));
-        }
-    }
-
-    private static void registerLens() {
-        int counter = 0;
-        for (String s : LibItemNames.LENS_NAMES) {
-            ModelLoader.setCustomModelResourceLocation(lens, counter++, new ModelResourceLocation("botania:" + s, "inventory"));
-        }
     }
 
     private static void registerBrews() {
@@ -620,42 +599,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.hourglass, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
     }
 
-    private static void registerPavement() {
-        Item item = Item.getItemFromBlock(ModFluffBlocks.pavement);
-        String name = ForgeRegistries.BLOCKS.getKey(ModFluffBlocks.pavement).toString();
-
-        for (EnumDyeColor e : BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues()) {
-            String variant = "color=" + e.getName();
-            switch (e) { // Explicit switch needed because saved meta does not match EnumDyeColor
-                case BLACK: {
-                    ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, variant));
-                    break;
-                }
-                case BLUE: {
-                    ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, variant));
-                    break;
-                }
-                case RED: {
-                    ModelLoader.setCustomModelResourceLocation(item, 3, new ModelResourceLocation(name, variant));
-                    break;
-                }
-                case YELLOW: {
-                    ModelLoader.setCustomModelResourceLocation(item, 4, new ModelResourceLocation(name, variant));
-                    break;
-                }
-                case GREEN: {
-                    ModelLoader.setCustomModelResourceLocation(item, 5, new ModelResourceLocation(name, variant));
-                    break;
-                }
-                case WHITE:
-                default: {
-                    ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, variant));
-                    break;
-                }
-            }
-        }
-    }
-
     private static void registerStairs() {
         for (Block b : ModFluffBlocks.pavementStairs) {
             registerBlockStandardPath(b);
@@ -721,26 +664,12 @@ public final class ModelHandler {
         registerBlockVariant(ModFluffBlocks.tileSlab, "half=bottom");
     }
 
-    private static void registerWalls() {
-        Item item = Item.getItemFromBlock(ModFluffBlocks.biomeStoneWall);
-        for (BiomeStoneVariant variant : BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues()) {
-            ModelLoader.setCustomModelResourceLocation(item, variant.ordinal() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + variant.getName() + "_wall", "inventory"));
-        }
-
-        registerBlockCustomPath(ModFluffBlocks.livingrockWall, "livingrock_wall");
-        registerBlockCustomPath(ModFluffBlocks.livingwoodWall, "livingwood_wall");
-        registerBlockCustomPath(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
-    }
-
     private static void registerQuartzBlocks() {
+        String[] variantNames = { "variant=normal", "variant=chiseled", "variant=pillar_y" };
         for (Block b : Lists.newArrayList(ModFluffBlocks.blazeQuartz, ModFluffBlocks.darkQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.sunnyQuartz)) {
             if (b == null) // Dark quartz disabled
                 continue;
-            Item item = Item.getItemFromBlock(b);
-            String name = ForgeRegistries.BLOCKS.getKey(b).toString();
-            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(name, "variant=normal"));
-            ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(name, "variant=chiseled"));
-            ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(name, "variant=pillar_y"));
+            registerBlockVariantMetas(b, 3, i -> variantNames[i]);
         }
     }
 
@@ -757,11 +686,7 @@ public final class ModelHandler {
      * Registers all metas of the given item to models/item/registryname.json
      */
     private static void registerItemModelAllMeta(Item item, int range) {
-        String loc = ForgeRegistries.ITEMS.getKey(item).toString();
-        for(int i = 0; i < range; i++) {
-            ModelLoader.registerItemVariants(item, new ModelResourceLocation(loc, "inventory"));
-            ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(loc, "inventory"));
-        }
+        registerItemModelMetas(item, range, i -> item.getRegistryName().getResourcePath());
     }
 
     /**
@@ -769,13 +694,17 @@ public final class ModelHandler {
      * Range is exclusive upper bound
      */
     private static void registerItemModelMetas(Item item, String loc, int range) {
-     	for(int i = 0; i < range; i++) {
-     		String name = "botania:" + loc + i;
-     		ModelLoader.registerItemVariants(item, new ModelResourceLocation(name, "inventory"));
-     		ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
-     	}
+        registerItemModelMetas(item, range, i -> loc + i);
     }
 
+    private static void registerItemModelMetas(Item item, int maxExclusive, IntFunction<String> metaToName) {
+        for (int i = 0; i < maxExclusive; i++) {
+            ModelLoader.setCustomModelResourceLocation(
+                    item, i,
+                    new ModelResourceLocation(LibMisc.MOD_ID + ":" + metaToName.apply(i), "inventory")
+            );
+        }
+    }
 
     // -- Registers the ItemBlock model to be the Block's model, of the specified variant -- //
     private static void registerBlockVariant(Block b) {
