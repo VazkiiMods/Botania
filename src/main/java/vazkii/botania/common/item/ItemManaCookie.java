@@ -38,12 +38,8 @@ public class ItemManaCookie extends ItemFood {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"), new IItemPropertyGetter() {
-			@Override
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				return stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F;
-			}
-		});
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
+				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 	}
 
 	@Override

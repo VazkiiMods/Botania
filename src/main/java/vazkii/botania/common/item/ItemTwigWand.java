@@ -69,12 +69,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	public ItemTwigWand() {
 		super(LibItemNames.TWIG_WAND);
 		setMaxStackSize(1);
-		addPropertyOverride(new ResourceLocation("botania", "bindmode"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				return getBindMode(stack) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "bindmode"), (stack, worldIn, entityIn) -> getBindMode(stack) ? 1 : 0);
 	}
 
 	@Nonnull

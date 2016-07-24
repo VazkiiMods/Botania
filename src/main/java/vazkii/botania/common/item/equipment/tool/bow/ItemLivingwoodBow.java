@@ -62,20 +62,17 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		setMaxDamage(500);
-		addPropertyOverride(new ResourceLocation("minecraft:pull"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				if (entityIn == null)
-				{
-					return 0.0F;
-				}
-				else
-				{
-					ItemStack itemstack = entityIn.getActiveItemStack();
-					return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
-				}
-			}
-		});
+		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
+            if (entityIn == null)
+            {
+                return 0.0F;
+            }
+            else
+            {
+                ItemStack itemstack = entityIn.getActiveItemStack();
+                return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
+            }
+        });
 	}
 
 	@Nonnull

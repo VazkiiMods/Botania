@@ -31,13 +31,10 @@ public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
 
 	public ItemBlockPool(Block par2Block) {
 		super(par2Block);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "full"), new IItemPropertyGetter() {
-			@Override
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				boolean renderFull = stack.getItemDamage() == PoolVariant.CREATIVE.ordinal() || (stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull"));
-				return renderFull ? 1F : 0F;
-			}
-		});
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "full"), (stack, worldIn, entityIn) -> {
+            boolean renderFull = stack.getItemDamage() == PoolVariant.CREATIVE.ordinal() || (stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull"));
+            return renderFull ? 1F : 0F;
+        });
 	}
 
 	@SideOnly(Side.CLIENT)

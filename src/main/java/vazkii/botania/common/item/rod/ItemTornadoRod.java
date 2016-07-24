@@ -56,12 +56,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		super(LibItemNames.TORNADO_ROD);
 		setMaxDamage(MAX_DAMAGE);
 		setMaxStackSize(1);
-		addPropertyOverride(new ResourceLocation("botania", "flying"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
-				return isFlying(itemStack) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "flying"), (stack, world, living) -> isFlying(stack) ? 1 : 0);
 	}
 
 	@Override

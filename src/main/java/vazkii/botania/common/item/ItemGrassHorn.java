@@ -53,12 +53,8 @@ public class ItemGrassHorn extends ItemMod {
 		super(LibItemNames.GRASS_HORN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"), new IItemPropertyGetter() {
-			@Override
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				return stack.getDisplayName().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
+				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
 	}
 
 	@Override

@@ -76,18 +76,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 
-		addPropertyOverride(new ResourceLocation("botania", "clip"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
-				return hasClip(itemStack) ? 1 : 0;
-			}
-		});
-		addPropertyOverride(new ResourceLocation("botania", "desu"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
-				return isSugoiKawaiiDesuNe(itemStack) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "clip"), (itemStack, world, entityLivingBase) -> hasClip(itemStack) ? 1 : 0);
+		addPropertyOverride(new ResourceLocation("botania", "desu"), (itemStack, world, entityLivingBase) -> isSugoiKawaiiDesuNe(itemStack) ? 1 : 0);
 	}
 
 	@Nonnull

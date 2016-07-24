@@ -46,12 +46,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
-		addPropertyOverride(new ResourceLocation("botania", "elucidator"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				return "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
+				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0);
 	}
 
 	@Nonnull

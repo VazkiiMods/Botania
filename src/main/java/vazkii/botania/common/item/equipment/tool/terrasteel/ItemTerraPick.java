@@ -81,18 +81,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
 		GameRegistry.addRecipe(new TerraPickTippingRecipe());
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, Category.SHAPELESS, "");
-		addPropertyOverride(new ResourceLocation("botania", "tipped"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
-				return isTipped(itemStack) ? 1 : 0;
-			}
-		});
-		addPropertyOverride(new ResourceLocation("botania", "enabled"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
-				return isEnabled(itemStack) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "tipped"), (itemStack, world, entityLivingBase) -> isTipped(itemStack) ? 1 : 0);
+		addPropertyOverride(new ResourceLocation("botania", "enabled"), (itemStack, world, entityLivingBase) -> isEnabled(itemStack) ? 1 : 0);
 	}
 
 	@Override

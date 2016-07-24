@@ -46,12 +46,7 @@ public class ItemSpawnerMover extends ItemMod {
 	public ItemSpawnerMover() {
 		super(LibItemNames.SPAWNER_MOVER);
 		setMaxStackSize(1);
-		addPropertyOverride(new ResourceLocation("botania", "full"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				return hasData(stack) ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "full"), (stack, worldIn, entityIn) -> hasData(stack) ? 1 : 0);
 	}
 
 	public static NBTTagCompound getSpawnerTag(ItemStack stack) {

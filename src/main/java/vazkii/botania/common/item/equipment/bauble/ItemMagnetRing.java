@@ -56,12 +56,7 @@ public class ItemMagnetRing extends ItemBauble {
 	public ItemMagnetRing(String name, int range) {
 		super(name);
 		this.range = range;
-		addPropertyOverride(new ResourceLocation("botania", "on"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				return ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "on"), (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0);
 	}
 
 	@SubscribeEvent

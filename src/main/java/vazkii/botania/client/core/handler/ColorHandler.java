@@ -41,25 +41,17 @@ public final class ColorHandler {
 
         // 16 colors
         blocks.registerBlockColorHandler(
-                new IBlockColor() {
-                    @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-                        return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
-                    }
-                },
+                (state, world, pos, tintIndex) -> state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue,
                 ModBlocks.specialFlower, ModBlocks.manaBeacon, ModBlocks.petalBlock, ModBlocks.unstableBlock);
 
         // Pool
         blocks.registerBlockColorHandler(
-                new IBlockColor() {
-                    @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-                        if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
-                            float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                            return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
-                        } else {
-                            return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
-                        }
+                (state, world, pos, tintIndex) -> {
+                    if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
+                        float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+                        return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
+                    } else {
+                        return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
                     }
                 },
                 ModBlocks.pool
@@ -67,47 +59,40 @@ public final class ColorHandler {
 
         // Spreader
         blocks.registerBlockColorHandler(
-                new IBlockColor() {
-                    @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-                        if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
-                            return 0xFFFFFF;
-                        float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                        return Color.HSBtoRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
-                    }
+                (state, world, pos, tintIndex) -> {
+                    if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
+                        return 0xFFFFFF;
+                    float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+                    return Color.HSBtoRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
                 },
                 ModBlocks.spreader
         );
 
         // Platforms
         blocks.registerBlockColorHandler(
-                new IBlockColor() {
-                    @Override
-                    public int colorMultiplier(@Nonnull IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {
-                        if (world != null && pos != null) {
-                            TileEntity tile = world.getTileEntity(pos);
-                            if(tile instanceof TileCamo) {
-                                TileCamo camo = (TileCamo) tile;
-                                IBlockState camoState = camo.camoState;
-                                if(camoState != null)
-                                    return camoState.getBlock() instanceof BlockCamo ? 0xFFFFFF : Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
-                            }
+                (state, world, pos, tintIndex) -> {
+                    if (world != null && pos != null) {
+                        TileEntity tile = world.getTileEntity(pos);
+                        if(tile instanceof TileCamo) {
+                            TileCamo camo = (TileCamo) tile;
+                            IBlockState camoState = camo.camoState;
+                            if(camoState != null)
+                                return camoState.getBlock() instanceof BlockCamo
+                                        ? 0xFFFFFF
+                                        : Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
                         }
-                        return 0xFFFFFF;
                     }
+                    return 0xFFFFFF;
                 }, ModBlocks.platform);
 
         ItemColors items = Minecraft.getMinecraft().getItemColors();
 
-        items.registerItemColorHandler(new IItemColor() {
-            @Override
-            public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
-                Item item = stack.getItem();
-                if (item instanceof IColorable) {
-                    return ((IColorable) item).getColorFromItemStack(stack, tintIndex);
-                } else {
-                    return 0xFFFFFF;
-                }
+        items.registerItemColorHandler((stack, tintIndex) -> {
+            Item item = stack.getItem();
+            if (item instanceof IColorable) {
+                return ((IColorable) item).getColorFromItemStack(stack, tintIndex);
+            } else {
+                return 0xFFFFFF;
             }
         }, ModItems.manaResource, ModItems.twigWand, ModItems.dye, ModItems.petal, ModItems.manaGun, ModItems.manaMirror, ModItems.manaTablet, ModItems.signalFlare,
                 ModItems.spellCloth, ModItems.brewFlask, ModItems.brewVial, ModItems.incenseStick, ModItems.bloodPendant, ModItems.enderDagger,

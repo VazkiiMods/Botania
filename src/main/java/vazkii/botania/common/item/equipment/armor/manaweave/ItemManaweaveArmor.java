@@ -40,12 +40,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	
 	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
-		addPropertyOverride(new ResourceLocation("botania", "holiday"), new IItemPropertyGetter() {
-			@Override
-			public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-				return ClientProxy.jingleTheBells ? 1 : 0;
-			}
-		});
+		addPropertyOverride(new ResourceLocation("botania", "holiday"), (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0);
 	}
 
 	@Override
