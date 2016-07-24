@@ -19,47 +19,6 @@
     "df_variant=pink,half=lower": [{ "textures": { "cross": "botania:blocks/flower6Tall0" } }],
     "df_variant=pink,half=upper": [{ "textures": { "cross": "botania:blocks/flower6Tall1" } }],
     "df_variant=gray,half=lower": [{ "textures": { "cross": "botania:blocks/flower7Tall0" } }],
-    "df_variant=gray,half=upper": [{ "textures": { "cross": "botania:blocks/flower7Tall1" } }],
-
-    "inventory_white": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower0Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_orange": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower1Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_magenta": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower2Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_light_blue": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower3Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_yellow": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower4Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_lime": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower5Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_pink": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower6Tall1" },
-      "transform": "forge:default-item"
-    }],
-    "inventory_gray": [{
-      "model": "builtin/generated",
-      "textures": { "layer0": "botania:blocks/flower7Tall1" },
-      "transform": "forge:default-item"
-    }]
+    "df_variant=gray,half=upper": [{ "textures": { "cross": "botania:blocks/flower7Tall1" } }]
   }
 }

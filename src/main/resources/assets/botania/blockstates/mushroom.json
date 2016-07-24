@@ -1,43 +1,20 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cross"
-  },
   "variants": {
-    "color": {
-      "white": { "textures": { "cross": "botania:blocks/mushroom0" } },
-      "orange": { "textures": { "cross": "botania:blocks/mushroom1" } },
-      "magenta": { "textures": { "cross": "botania:blocks/mushroom2" } },
-      "light_blue": { "textures": { "cross": "botania:blocks/mushroom3" } },
-      "yellow": { "textures": { "cross": "botania:blocks/mushroom4" } },
-      "lime": { "textures": { "cross": "botania:blocks/mushroom5" } },
-      "pink": { "textures": { "cross": "botania:blocks/mushroom6" } },
-      "gray": { "textures": { "cross": "botania:blocks/mushroom7" } },
-      "silver": { "textures": { "cross": "botania:blocks/mushroom8" } },
-      "cyan": { "textures": { "cross": "botania:blocks/mushroom9" } },
-      "purple": { "textures": { "cross": "botania:blocks/mushroom10" } },
-      "blue": { "textures": { "cross": "botania:blocks/mushroom11" } },
-      "brown": { "textures": { "cross": "botania:blocks/mushroom12" } },
-      "green": { "textures": { "cross": "botania:blocks/mushroom13" } },
-      "red": { "textures": { "cross": "botania:blocks/mushroom14" } },
-      "black": { "textures": { "cross": "botania:blocks/mushroom15" } }
-    },
-
-    "inventory_white": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom0" } }],
-    "inventory_orange": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom1" } }],
-    "inventory_magenta": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom2" } }],
-    "inventory_light_blue": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom3" } }],
-    "inventory_yellow": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom4" } }],
-    "inventory_lime": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom5" } }],
-    "inventory_pink": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom6" } }],
-    "inventory_gray": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom7" } }],
-    "inventory_silver": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom8" } }],
-    "inventory_cyan": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom9" } }],
-    "inventory_purple": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom10" } }],
-    "inventory_blue": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom11" } }],
-    "inventory_brown": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom12" } }],
-    "inventory_green": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom13" } }],
-    "inventory_red": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom14" } }],
-    "inventory_black": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/mushroom15" } }]
+    "color=white": { "model": "botania:mushroom_white" },
+    "color=orange": { "model": "botania:mushroom_orange" },
+    "color=magenta": { "model": "botania:mushroom_magenta" },
+    "color=light_blue": { "model": "botania:mushroom_light_blue" },
+    "color=yellow": { "model": "botania:mushroom_yellow" },
+    "color=lime": { "model": "botania:mushroom_lime" },
+    "color=pink": { "model": "botania:mushroom_pink" },
+    "color=gray": { "model": "botania:mushroom_gray" },
+    "color=silver": { "model": "botania:mushroom_silver" },
+    "color=cyan": { "model": "botania:mushroom_cyan" },
+    "color=purple": { "model": "botania:mushroom_purple" },
+    "color=blue": { "model": "botania:mushroom_blue" },
+    "color=brown": { "model": "botania:mushroom_brown" },
+    "color=green": { "model": "botania:mushroom_green" },
+    "color=red": { "model": "botania:mushroom_red" },
+    "color=black": { "model": "botania:mushroom_black" }
   }
 }

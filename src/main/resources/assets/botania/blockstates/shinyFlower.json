@@ -1,43 +1,20 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cross"
-  },
   "variants": {
-    "color": {
-      "white": { "textures": { "cross": "botania:blocks/flowerGlimmering0" } },
-      "orange": { "textures": { "cross": "botania:blocks/flowerGlimmering1" } },
-      "magenta": { "textures": { "cross": "botania:blocks/flowerGlimmering2" } },
-      "light_blue": { "textures": { "cross": "botania:blocks/flowerGlimmering3" } },
-      "yellow": { "textures": { "cross": "botania:blocks/flowerGlimmering4" } },
-      "lime": { "textures": { "cross": "botania:blocks/flowerGlimmering5" } },
-      "pink": { "textures": { "cross": "botania:blocks/flowerGlimmering6" } },
-      "gray": { "textures": { "cross": "botania:blocks/flowerGlimmering7" } },
-      "silver": { "textures": { "cross": "botania:blocks/flowerGlimmering8" } },
-      "cyan": { "textures": { "cross": "botania:blocks/flowerGlimmering9" } },
-      "purple": { "textures": { "cross": "botania:blocks/flowerGlimmering10" } },
-      "blue": { "textures": { "cross": "botania:blocks/flowerGlimmering11" } },
-      "brown": { "textures": { "cross": "botania:blocks/flowerGlimmering12" } },
-      "green": { "textures": { "cross": "botania:blocks/flowerGlimmering13" } },
-      "red": { "textures": { "cross": "botania:blocks/flowerGlimmering14" } },
-      "black": { "textures": { "cross": "botania:blocks/flowerGlimmering15" } }
-    },
-
-    "inventory_white": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering0" } }],
-    "inventory_orange": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering1" } }],
-    "inventory_magenta": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering2" } }],
-    "inventory_light_blue": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering3" } }],
-    "inventory_yellow": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering4" } }],
-    "inventory_lime": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering5" } }],
-    "inventory_pink": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering6" } }],
-    "inventory_gray": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering7" } }],
-    "inventory_silver": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering8" } }],
-    "inventory_cyan": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering9" } }],
-    "inventory_purple": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering10" } }],
-    "inventory_blue": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering11" } }],
-    "inventory_brown": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering12" } }],
-    "inventory_green": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering13" } }],
-    "inventory_red": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering14" } }],
-    "inventory_black": [{ "model": "builtin/generated", "transform": "forge:default-item", "textures": { "layer0": "botania:blocks/flowerGlimmering15" } }]
+    "color=white": { "model": "botania:glimmering_flower_white" },
+    "color=orange": { "model": "botania:glimmering_flower_orange" },
+    "color=magenta": { "model": "botania:glimmering_flower_magenta" },
+    "color=light_blue": { "model": "botania:glimmering_flower_light_blue" },
+    "color=yellow": { "model": "botania:glimmering_flower_yellow" },
+    "color=lime": { "model": "botania:glimmering_flower_lime" },
+    "color=pink": { "model": "botania:glimmering_flower_pink" },
+    "color=gray": { "model": "botania:glimmering_flower_gray" },
+    "color=silver": { "model": "botania:glimmering_flower_silver" },
+    "color=cyan": { "model": "botania:glimmering_flower_cyan" },
+    "color=purple": { "model": "botania:glimmering_flower_purple" },
+    "color=blue": { "model": "botania:glimmering_flower_blue" },
+    "color=brown": { "model": "botania:glimmering_flower_brown" },
+    "color=green": { "model": "botania:glimmering_flower_green" },
+    "color=red": { "model": "botania:glimmering_flower_red" },
+    "color=black": { "model": "botania:glimmering_flower_black" }
   }
 }

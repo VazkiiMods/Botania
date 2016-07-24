@@ -132,8 +132,6 @@ public final class ModelHandler {
 
         /** ItemBlocks **/
         registerStandardBlocks();
-        registerMushrooms();
-        registerFlowers();
         registerPavement();
         registerStairs();
         registerSlabs();
@@ -291,6 +289,11 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.corporeaInterceptor);
         registerBlockStandardPath(ModBlocks.corporeaRetainer);
         registerBlockVariant(ModBlocks.dirtPath);
+        registerBlockCustomPathMetas(ModBlocks.doubleFlower1, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i).getName());
+        Item item = Item.getItemFromBlock(ModBlocks.doubleFlower2); // todo make this look pretty :(
+        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
+            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/double_flower_" + color.getName(), "inventory"));
+        }
         registerBlockStandardPath(ModBlocks.distributor);
         registerBlockStandardPath(ModBlocks.elfGlass);
         registerBlockStandardPath(ModBlocks.enchantedSoil);
@@ -298,6 +301,7 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.enderEye);
         registerBlockStandardPath(ModBlocks.felPumpkin);
         registerBlockStandardPath(ModBlocks.floatingSpecialFlower);
+        registerBlockCustomPathMetas(ModBlocks.flower, EnumDyeColor.values().length, i -> "flower_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockVariant(ModBlocks.forestEye);
         registerBlockStandardPath(ModBlocks.ghostRail);
         registerBlockStandardPath(ModBlocks.incensePlate);
@@ -306,6 +310,7 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.manaDetector);
         registerBlockStandardPath(ModBlocks.manaGlass);
         registerBlockStandardPath(ModBlocks.manaVoid);
+        registerBlockCustomPathMetas(ModBlocks.mushroom, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockStandardPath(ModBlocks.prism);
         registerBlockStandardPath(ModBlocks.pistonRelay);
         registerBlockStandardPath(ModBlocks.pump);
@@ -320,13 +325,14 @@ public final class ModelHandler {
         registerBlockVariant(ModBlocks.runeAltar);
         registerBlockStandardPath(ModBlocks.shimmerrock);
         registerBlockStandardPath(ModBlocks.shimmerwoodPlanks);
+        registerBlockCustomPathMetas(ModBlocks.shinyFlower, EnumDyeColor.values().length, i -> "glimmering_flower_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockVariant(ModBlocks.sparkChanger, "powered=false");
         registerBlockVariant(ModBlocks.spawnerClaw);
         registerBlockStandardPath(ModBlocks.specialFlower);
         registerBlockVariant(ModBlocks.starfield, "powered=false");
         registerBlockVariant(ModBlocks.terraPlate);
         registerBlockVariant(ModBlocks.tinyPlanet);
-        registerBlockStandardPath(ModBlocks.tinyPotato);
+        registerBlockVariant(ModBlocks.tinyPotato, "facing=north");
         registerBlockStandardPath(ModBlocks.turntable);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
@@ -669,42 +675,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.hourglass, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
     }
 
-    private static void registerMushrooms() {
-        Item item = Item.getItemFromBlock(ModBlocks.mushroom);
-        for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.mushroom).toString();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
-        }
-    }
-
-    private static void registerFlowers() {
-        Item item = Item.getItemFromBlock(ModBlocks.flower);
-        for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.flower).toString();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
-        }
-
-        item = Item.getItemFromBlock(ModBlocks.shinyFlower);
-        for (EnumDyeColor color : EnumDyeColor.values()) {
-            String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.shinyFlower).toString();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, "inventory_" + color.getName()));
-        }
-
-        item = Item.getItemFromBlock(ModBlocks.doubleFlower1);
-        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1.getAllowedValues()) {
-            String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.doubleFlower1).toString();
-            String variant = "inventory_" + color.getName();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata(), new ModelResourceLocation(name, variant));
-        }
-
-        item = Item.getItemFromBlock(ModBlocks.doubleFlower2);
-        for (EnumDyeColor color : BotaniaStateProps.DOUBLEFLOWER_VARIANT_2.getAllowedValues()) {
-            String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.doubleFlower2).toString();
-            String variant = "inventory_" + color.getName();
-            ModelLoader.setCustomModelResourceLocation(item, color.getMetadata() - 8, new ModelResourceLocation(name, variant));
-        }
-    }
-
     private static void registerPavement() {
         Item item = Item.getItemFromBlock(ModFluffBlocks.pavement);
         String name = ForgeRegistries.BLOCKS.getKey(ModFluffBlocks.pavement).toString();
@@ -893,7 +863,7 @@ public final class ModelHandler {
 
     // Registers the ItemBlock to models/item/<registryname>#inventory
     private static void registerBlockStandardPath(Block b) {
-        registerItemModel(Item.getItemFromBlock(b));
+        registerBlockVariant(b, "inventory");
     }
 
     // Registers the ItemBlock to a custom path in models/item/itemblock/

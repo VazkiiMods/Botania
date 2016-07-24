@@ -1,19 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:tiny_potato",
-    "textures": {
-      "all": "botania:model/tinyPotatoCopy"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "north": {},
-      "south": { "y": 180 },
-      "west": { "y": 270 },
-      "east": { "y": 90 }
-    },
-    "inventory": [{}]
+    "facing=north": { "model": "botania:tiny_potato" },
+    "facing=south": { "model": "botania:tiny_potato", "y": 180 },
+    "facing=west": { "model": "botania:tiny_potato", "y": 270 },
+    "facing=east": { "model": "botania:tiny_potato", "y": 90 }
   }
 }
