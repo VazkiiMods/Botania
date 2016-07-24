@@ -8,10 +8,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,15 +21,20 @@ import net.minecraftforge.common.IShearable;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
 	public ItemElementiumShears() {
 		super(LibItemNames.ELEMENTIUM_SHEARS);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "reddit"),
+				(stack, worldIn, entityIn) -> stack.getDisplayName().equalsIgnoreCase("dammit reddit") ? 1F: 0F);
 	}
 
 	@Nonnull

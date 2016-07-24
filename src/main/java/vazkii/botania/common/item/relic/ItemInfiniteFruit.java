@@ -13,23 +13,29 @@ package vazkii.botania.common.item.relic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	public ItemInfiniteFruit() {
 		super(LibItemNames.INFINITE_FRUIT);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "boot"), (stack, worldIn, entityIn) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 	}
 
 	@Override
@@ -69,8 +75,8 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		}
 	}
 
-	public static boolean isBoot(ItemStack par1ItemStack) {
-		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
+	private static boolean isBoot(ItemStack par1ItemStack) {
+		String name = par1ItemStack.getDisplayName().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
 

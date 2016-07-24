@@ -16,12 +16,10 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockWall;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -124,13 +122,10 @@ public final class ModelHandler {
         ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
         OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
 
-        /** Subtile block models **/
         registerSubtiles();
 
-        /** Custom statemappers **/
         registerStateMappers();
 
-        /** ItemBlocks **/
         registerStandardBlocks();
         registerPavement();
         registerStairs();
@@ -138,50 +133,12 @@ public final class ModelHandler {
         registerWalls();
         registerQuartzBlocks();
 
-        /** Normal Items **/
         registerStandardItems();
         registerTESRItems();
         registerManaResources();
         registerRunes();
         registerLens();
         registerBrews();
-
-        /** Special Item Meshers **/
-        // Cannot use lambdas directly yet because FG/SS can't reobfuscate them, need a dummy wrapper
-        // See https://github.com/MinecraftForge/ForgeGradle/issues/314.
-        ModelLoader.registerItemVariants(elementiumShears,
-                new ModelResourceLocation("botania:elementiumShears", "inventory"),
-                new ModelResourceLocation("botania:dammitReddit", "inventory"));
-        ModelLoader.setCustomMeshDefinition(elementiumShears, MesherWrapper.of(stack ->
-                stack.getDisplayName().equalsIgnoreCase("dammit reddit")
-                    ? new ModelResourceLocation("botania:dammitReddit", "inventory")
-                    : new ModelResourceLocation("botania:elementiumShears", "inventory")));
-
-        ModelLoader.registerItemVariants(grassHorn,
-                new ModelResourceLocation("botania:grassHorn0", "inventory"),
-                new ModelResourceLocation("botania:grassHorn1", "inventory"),
-                new ModelResourceLocation("botania:grassHorn2", "inventory"),
-                new ModelResourceLocation("botania:vuvuzela", "inventory"));
-        ModelLoader.setCustomMeshDefinition(grassHorn, MesherWrapper.of(stack ->
-                stack.getDisplayName().toLowerCase().contains("vuvuzela")
-                        ? new ModelResourceLocation("botania:vuvuzela", "inventory")
-                        : new ModelResourceLocation("botania:grassHorn" + stack.getMetadata(), "inventory")));
-
-        ModelLoader.registerItemVariants(infiniteFruit,
-                new ModelResourceLocation("botania:infiniteFruit", "inventory"),
-                new ModelResourceLocation("botania:infiniteFruitBoot", "inventory"));
-        ModelLoader.setCustomMeshDefinition(infiniteFruit, MesherWrapper.of(stack ->
-                ItemInfiniteFruit.isBoot(stack)
-                    ? new ModelResourceLocation("botania:infiniteFruitBoot", "inventory")
-                    : new ModelResourceLocation("botania:infiniteFruit", "inventory")));
-
-        ModelLoader.registerItemVariants(manaCookie,
-                new ModelResourceLocation("botania:manaCookie", "inventory"),
-                new ModelResourceLocation("botania:totalBiscuit", "inventory"));
-        ModelLoader.setCustomMeshDefinition(manaCookie, MesherWrapper.of(stack ->
-                stack.getDisplayName().toLowerCase().equals("totalbiscuit")
-                    ? new ModelResourceLocation("botania:totalBiscuit", "inventory")
-                    : new ModelResourceLocation("botania:manaCookie", "inventory")));
     }
 
     private static void registerSubtiles() {
@@ -388,6 +345,7 @@ public final class ModelHandler {
         registerItemModel(elementiumShovel);
         registerItemModel(elementiumAxe);
         registerItemModel(elementiumSword);
+        registerItemModel(elementiumShears);
 
         registerItemModel(terrasteelHelm);
         registerItemModel(terrasteelHelmRevealing);
@@ -457,6 +415,8 @@ public final class ModelHandler {
         registerItemModel(auraRing);
         registerItemModel(auraRingGreater);
         registerItemModel(spark);
+        registerItemModel(manaCookie);
+        registerItemModel(infiniteFruit);
 
         registerItemModel(waterRing);
         registerItemModel(miningRing);
@@ -500,6 +460,7 @@ public final class ModelHandler {
         registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
         registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
         registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
+        registerItemModelMetas(grassHorn, LibItemNames.GRASS_HORN, 3);
     }
 
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
@@ -560,19 +521,19 @@ public final class ModelHandler {
             ModelLoader.registerItemVariants(brewFlask, new ModelResourceLocation("botania:flask1_" + i, "inventory"));
         }
 
-        ModelLoader.setCustomMeshDefinition(brewFlask, MesherWrapper.of(stack -> {
+        ModelLoader.setCustomMeshDefinition(brewFlask, stack -> {
             int swigsTaken = 6 - ((ItemBrewBase) brewFlask).getSwigsLeft(stack);
             return new ModelResourceLocation("botania:flask1_" + swigsTaken, "inventory");
-        }));
+        });
 
         for (int i = 0; i < 4; i++) {
             ModelLoader.registerItemVariants(brewVial, new ModelResourceLocation("botania:vial1_" + i, "inventory"));
         }
 
-        ModelLoader.setCustomMeshDefinition(brewVial, MesherWrapper.of(stack -> {
+        ModelLoader.setCustomMeshDefinition(brewVial, stack -> {
             int swigsTaken = 4 - ((ItemBrewBase) brewVial).getSwigsLeft(stack);
             return new ModelResourceLocation("botania:vial1_" + swigsTaken, "inventory");
-        }));
+        });
     }
 
     private static void registerStateMappers() {
@@ -873,21 +834,4 @@ public final class ModelHandler {
     }
 
     private ModelHandler() {}
-
-    private interface MesherWrapper extends ItemMeshDefinition {
-
-        static MesherWrapper of(MesherWrapper w) {
-            return w;
-        }
-
-        ModelResourceLocation getLocation(ItemStack stack);
-
-        @Nonnull
-        @Override
-        default ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-            return getLocation(stack);
-        }
-
-    }
-
 }
