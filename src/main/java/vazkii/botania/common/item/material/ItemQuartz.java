@@ -13,7 +13,10 @@ package vazkii.botania.common.item.material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
@@ -42,12 +45,18 @@ public class ItemQuartz extends ItemMod implements IElvenItem {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
+	private String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack);
 	}
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return stack.getItemDamage() == 5;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 7, LibItemNames.QUARTZ);
 	}
 }

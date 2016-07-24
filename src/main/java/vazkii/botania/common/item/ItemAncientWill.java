@@ -20,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -62,5 +63,10 @@ public class ItemAncientWill extends ItemMod {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 6, LibItemNames.ANCIENT_WILL);
+	}
 
 }

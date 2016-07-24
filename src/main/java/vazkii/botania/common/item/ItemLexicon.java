@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -31,6 +32,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -59,7 +61,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
 	private static final String TAG_QUEUE_TICKS = "queueTicks";
-	boolean skipSound = false;
+	private boolean skipSound = false;
 
 	public ItemLexicon() {
 		super(LibItemNames.LEXICON);
@@ -235,6 +237,13 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

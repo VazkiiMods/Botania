@@ -14,6 +14,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -36,6 +39,12 @@ public class ItemSlimeBottle extends ItemMod {
 			if(meta != newMeta)
 				stack.setItemDamage(newMeta);
 		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.SLIME_BOTTLE);
 	}
 
 }

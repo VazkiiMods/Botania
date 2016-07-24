@@ -14,6 +14,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -40,6 +43,12 @@ public class Item16Colors extends ItemMod implements IColorable {
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAllMeta(this, EnumDyeColor.values().length);
 	}
 
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {

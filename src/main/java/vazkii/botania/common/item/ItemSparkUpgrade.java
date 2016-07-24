@@ -13,6 +13,9 @@ package vazkii.botania.common.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
@@ -37,6 +40,12 @@ public class ItemSparkUpgrade extends ItemMod {
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 4, LibItemNames.SPARK_UPGRADE);
 	}
 
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {

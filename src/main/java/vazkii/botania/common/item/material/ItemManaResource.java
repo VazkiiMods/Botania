@@ -33,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -170,6 +171,12 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemMetas(this, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
 	}
 
 }

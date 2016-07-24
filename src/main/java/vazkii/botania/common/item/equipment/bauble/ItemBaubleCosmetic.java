@@ -35,6 +35,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
 import vazkii.botania.common.lib.LibItemNames;
@@ -86,6 +87,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), stacks);
 		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 32, LibItemNames.COSMETIC);
 	}
 
 	@Override

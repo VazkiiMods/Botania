@@ -23,7 +23,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -80,6 +80,13 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		list.add(I18n.format("botaniamisc.lotusDesc"));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemModel(this, 0);
+		ModelHandler.registerItemModel(this, 1);
 	}
 
 }

@@ -45,6 +45,7 @@ import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.client.model.SpecialFlowerModel;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
@@ -101,8 +102,6 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemBrewBase;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -128,7 +127,12 @@ public final class ModelHandler {
         registerSlabs();
         registerQuartzBlocks();
 
-        registerStandardItems();
+        for (Item item : Item.REGISTRY) {
+            if (item.getRegistryName().getResourceDomain().equalsIgnoreCase(LibMisc.MOD_ID)
+                    && item instanceof IModelRegister)
+                ((IModelRegister) item).registerModels();
+        }
+
         registerTESRItems();
     }
 
@@ -271,7 +275,7 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.turntable);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
-        registerItemModelAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
+        registerItemAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
 
         // Item models which all use the same base model and recolored by render layer
         registerBlockVariantMetas(ModBlocks.manaBeacon, EnumDyeColor.values().length, "normal");
@@ -298,174 +302,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }
 
-    private static void registerStandardItems() {
-        registerItemModel(manasteelSword);
-        registerItemModel(spawnerMover);
-        registerItemModel(terraPick);
-        registerItemModel(magnetRing);
-        registerItemModel(magnetRingGreater);
-        registerItemModel(manaGun);
-        registerItemModel(tornadoRod);
-
-        registerItemModel(twigWand);
-        registerItemModel(pestleAndMortar);
-        registerItemModel(blackLotus);
-        registerItemModel(blackLotus, 1);
-        ModelLoader.registerItemVariants(lexicon, new ModelResourceLocation("botania:lexicon_default", "inventory"));
-        registerItemModel(lexicon);
-
-        registerItemModel(manasteelHelm);
-        registerItemModel(manasteelHelmRevealing);
-        registerItemModel(manasteelChest);
-        registerItemModel(manasteelLegs);
-        registerItemModel(manasteelBoots);
-
-        registerItemModel(manasteelPick);
-        registerItemModel(manasteelShovel);
-        registerItemModel(manasteelAxe);
-        registerItemModel(manasteelShears);
-
-        registerItemModel(manaweaveHelm);
-        registerItemModel(manaweaveChest);
-        registerItemModel(manaweaveLegs);
-        registerItemModel(manaweaveBoots);
-
-        registerItemModel(elementiumHelm);
-        registerItemModel(elementiumHelmRevealing);
-        registerItemModel(elementiumChest);
-        registerItemModel(elementiumLegs);
-        registerItemModel(elementiumBoots);
-
-        registerItemModel(elementiumPick);
-        registerItemModel(elementiumShovel);
-        registerItemModel(elementiumAxe);
-        registerItemModel(elementiumSword);
-        registerItemModel(elementiumShears);
-
-        registerItemModel(terrasteelHelm);
-        registerItemModel(terrasteelHelmRevealing);
-        registerItemModel(terrasteelChest);
-        registerItemModel(terrasteelLegs);
-        registerItemModel(terrasteelBoots);
-        registerItemModel(terraSword);
-        registerItemModel(terraAxe);
-
-        registerItemModel(starSword);
-        registerItemModel(thunderSword);
-        registerItemModel(crystalBow);
-        registerItemModel(livingwoodBow);
-        registerItemModel(glassPick);
-
-        registerItemModel(flowerBag);
-        registerItemModel(fertilizer);
-        registerItemModel(obedienceStick);
-        
-        registerItemModel(dirtRod);
-        registerItemModel(waterRod);
-        registerItemModel(cobbleRod);
-        registerItemModel(fireRod);
-        registerItemModel(rainbowRod);
-        registerItemModel(skyDirtRod);
-        registerItemModel(terraformRod);
-        registerItemModel(diviningRod);
-        registerItemModel(gravityRod);
-        registerItemModel(missileRod);
-        registerItemModel(smeltRod);
-        registerItemModel(exchangeRod);
-
-        registerItemModel(openBucket);
-        registerItemModel(bloodPendant);
-        registerItemModel(manaTablet);
-        registerItemModel(enderDagger);
-        registerItemModel(slingshot);
-        registerItemModel(vineBall);
-        registerItemModel(regenIvy);
-        registerItemModel(keepIvy);
-        registerItemModel(recordGaia1);
-        registerItemModel(recordGaia2);
-        registerItemModel(overgrowthSeed);
-        registerItemModel(worldSeed);
-        registerItemModel(incenseStick);
-        registerItemModel(enderHand);
-        registerItemModel(craftingHalo);
-        registerItemModel(spellCloth);
-        registerItemModel(autocraftingHalo);
-        registerItemModel(sextant);
-        registerItemModel(cacophonium);
-        registerItemModel(clip);
-        registerItemModel(phantomInk);
-        registerItemModel(poolMinecart);
-        registerItemModel(pinkinator);
-        registerItemModel(dice);
-        registerItemModel(kingKey);
-        registerItemModel(flugelEye);
-        registerItemModel(thorRing);
-        registerItemModel(lokiRing);
-        registerItemModel(odinRing);
-        registerItemModel(aesirRing);
-        registerItemModel(baubleBox);
-        registerItemModel(tinyPlanet);
-        registerItemModelMetas(manaResource, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
-        registerItemModel(manaRing);
-        registerItemModel(manaRingGreater);
-        String[] runeNames = { "water", "fire", "earth", "air", "spring", "summer", "autumn", "winter", "mana", "lust", "gluttony", "greed", "sloth", "wrath", "envy", "pride" };
-        registerItemModelMetas(rune, runeNames.length, i -> "rune_" + runeNames[i]);
-        registerItemModel(auraRing);
-        registerItemModel(auraRingGreater);
-        registerItemModel(spark);
-        registerItemModel(manaCookie);
-        registerItemModel(infiniteFruit);
-        registerItemModelMetas(lens, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
-        ModelLoader.setCustomModelResourceLocation(vial, 0, new ModelResourceLocation("botania:vial", "inventory"));
-        ModelLoader.setCustomModelResourceLocation(vial, 1, new ModelResourceLocation("botania:flask", "inventory"));
-        registerItemModel(brewFlask);
-        registerItemModel(brewVial);
-
-        registerItemModel(waterRing);
-        registerItemModel(miningRing);
-        registerItemModel(reachRing);
-        registerItemModel(swapRing);
-        registerItemModel(pixieRing);
-        registerItemModel(travelBelt);
-        registerItemModel(superTravelBelt);
-        registerItemModel(speedUpBelt);
-        registerItemModel(knockbackBelt);
-        registerItemModel(itemFinder);
-        registerItemModel(monocle);
-        registerItemModel(icePendant);
-        registerItemModel(lavaPendant);
-        registerItemModel(superLavaPendant);
-        registerItemModel(holyCloak);
-        registerItemModel(unholyCloak);
-        registerItemModel(goldLaurel);
-        registerItemModel(flightTiara);
-        registerItemModel(divaCharm);
-        registerItemModel(manaMirror);
-        registerItemModel(manaInkwell);
-        registerItemModel(waterBowl);
-
-        registerItemModelAllMeta(flightTiara, ItemFlightTiara.WING_TYPES);
-        registerItemModelAllMeta(laputaShard, 20);
-        registerItemModelAllMeta(signalFlare, EnumDyeColor.values().length);
-        registerItemModelAllMeta(dye, EnumDyeColor.values().length);
-        registerItemModelAllMeta(petal, EnumDyeColor.values().length);
-
-        registerItemModelMetas(sparkUpgrade, LibItemNames.SPARK_UPGRADE, 4);
-        registerItemModelMetas(corporeaSpark, LibItemNames.CORPOREA_SPARK, 2);
-        registerItemModelMetas(manaBottle, LibItemNames.MANA_BOTTLE, 6);
-        registerItemModelMetas(ancientWill, LibItemNames.ANCIENT_WILL, 6);
-        registerItemModelMetas(temperanceStone, LibItemNames.TEMPERANCE_STONE, 2);
-        registerItemModelMetas(thornChakram, LibItemNames.THORN_CHAKRAM, 2);
-        registerItemModelMetas(blackHoleTalisman, LibItemNames.BLACK_HOLE_TALISMAN, 2);
-        registerItemModelMetas(slimeBottle, LibItemNames.SLIME_BOTTLE, 2);
-        registerItemModelMetas(grassSeeds, LibItemNames.GRASS_SEEDS, 9);
-        registerItemModelMetas(quartz, LibItemNames.QUARTZ, 7);
-        registerItemModelMetas(cosmetic, LibItemNames.COSMETIC, 32);
-        registerItemModelMetas(craftPattern, LibItemNames.CRAFT_PATTERN, 9);
-        registerItemModelMetas(virus, LibItemNames.VIRUS, 2);
-        registerItemModelMetas(grassHorn, LibItemNames.GRASS_HORN, 3);
-    }
-
     // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
     @SuppressWarnings("deprecation")
     private static void registerTESRItems() {
@@ -483,9 +319,6 @@ public final class ModelHandler {
 
         registerBlockStandardPath(ModBlocks.corporeaIndex);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
-
-        registerItemModel(ModItems.gaiaHead);
-        ForgeHooksClient.registerTESRItemStack(ModItems.gaiaHead, 0, TileGaiaHead.class);
 
         registerBlockStandardPath(ModBlocks.hourglass);
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
@@ -664,19 +497,19 @@ public final class ModelHandler {
     /**
      * Registers all metas of the given item to models/item/registryname.json
      */
-    private static void registerItemModelAllMeta(Item item, int range) {
-        registerItemModelMetas(item, range, i -> item.getRegistryName().getResourcePath());
+    public static void registerItemAllMeta(Item item, int range) {
+        registerItemMetas(item, range, i -> item.getRegistryName().getResourcePath());
     }
 
     /**
      * Registers each meta of an item to models/item/registryname<meta>.json
      * Range is exclusive upper bound
      */
-    private static void registerItemModelMetas(Item item, String loc, int range) {
-        registerItemModelMetas(item, range, i -> loc + i);
+    public static void registerItemAppendMeta(Item item, int maxExclusive, String loc) {
+        registerItemMetas(item, maxExclusive, i -> loc + i);
     }
 
-    private static void registerItemModelMetas(Item item, int maxExclusive, IntFunction<String> metaToName) {
+    public static void registerItemMetas(Item item, int maxExclusive, IntFunction<String> metaToName) {
         for (int i = 0; i < maxExclusive; i++) {
             ModelLoader.setCustomModelResourceLocation(
                     item, i,
@@ -732,13 +565,9 @@ public final class ModelHandler {
         }
     }
 
-    private static void registerItemModel(Item i,int meta) {
+    public static void registerItemModel(Item i,int meta) {
         ResourceLocation loc = i.getRegistryName();
         ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "inventory"));
-    }
-
-    private static void registerItemModel(Item i) {
-        registerItemModel(i, 0);
     }
 
     private ModelHandler() {}

@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
@@ -108,6 +109,12 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
 		stacks.add(I18n.format("botaniamisc.flareColor", I18n.format("botania.color" + storedColor)));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAllMeta(this, EnumDyeColor.values().length);
 	}
 
 	public static ItemStack forColor(int color) {

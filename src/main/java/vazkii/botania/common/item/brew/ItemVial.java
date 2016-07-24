@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item.brew;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.common.item.ItemMod;
@@ -55,6 +59,13 @@ public class ItemVial extends ItemMod implements IBrewContainer {
 	@Override
 	public int getManaCost(Brew brew, ItemStack stack) {
 		return brew.getManaCost() * (stack.getItemDamage() + 1);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("botania:vial", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(this, 1, new ModelResourceLocation("botania:flask", "inventory"));
 	}
 
 }

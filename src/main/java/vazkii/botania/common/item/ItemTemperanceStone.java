@@ -22,6 +22,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
@@ -52,7 +53,13 @@ public class ItemTemperanceStone extends ItemMod {
 		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
 
-	void addStringToTooltip(String s, List<String> tooltip) {
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.TEMPERANCE_STONE);
+	}
+
+	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 

@@ -31,6 +31,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
@@ -341,4 +342,11 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public boolean isCombinable(ItemStack stack) {
 		return stack.getItemDamage() != NORMAL;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemMetas(this, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
+	}
+
 }

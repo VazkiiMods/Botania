@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,13 +31,17 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -48,7 +53,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
+public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModelRegister {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() instanceof ItemArrow;
 	public static final int MANA_PER_DAMAGE = 40;
@@ -219,4 +224,9 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		else return new ItemStack(Items.ARROW);
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
 }
