@@ -23,13 +23,6 @@
     "east": {
       "true": { "submodel": { "eside": { "model": "minecraft:pane_side", "y": 90 } } },
       "false": { "submodel": { "eside": { "model": "minecraft:pane_noside_alt" } } }
-    },
-    "inventory": [{
-      "transform": "forge:default-item",
-      "model": "builtin/generated",
-      "textures": {
-        "layer0": "botania:blocks/elfGlass"
-      }
-    }]
+    }
   }
 }

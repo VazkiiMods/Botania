@@ -136,7 +136,6 @@ public final class ModelHandler {
         registerStairs();
         registerSlabs();
         registerWalls();
-        registerPanes();
         registerQuartzBlocks();
 
         /** Normal Items **/
@@ -259,7 +258,9 @@ public final class ModelHandler {
     private static void registerStandardBlocks() {
         registerBlockStandardPath(ModBlocks.alchemyCatalyst);
         registerBlockStandardPath(ModBlocks.alfPortal);
+        registerBlockCustomPath(ModFluffBlocks.alfglassPane, "alfglass_pane");
         registerBlockStandardPath(ModBlocks.bifrost);
+        registerBlockCustomPath(ModFluffBlocks.bifrostPane, "bifrost_pane");
         registerBlockStandardPath(ModBlocks.bifrostPerm);
         registerBlockStandardPath(ModBlocks.blazeBlock);
         registerBlockStandardPath(ModBlocks.cacophonium);
@@ -290,6 +291,7 @@ public final class ModelHandler {
         registerBlockStandardPath(ModBlocks.manaBomb);
         registerBlockStandardPath(ModBlocks.manaDetector);
         registerBlockStandardPath(ModBlocks.manaGlass);
+        registerBlockCustomPath(ModFluffBlocks.managlassPane, "managlass_pane");
         registerBlockStandardPath(ModBlocks.manaVoid);
         registerBlockCustomPathMetas(ModBlocks.mushroom, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockStandardPath(ModBlocks.prism);
@@ -767,12 +769,6 @@ public final class ModelHandler {
         registerBlockCustomPath(ModFluffBlocks.livingrockWall, "livingrock_wall");
         registerBlockCustomPath(ModFluffBlocks.livingwoodWall, "livingwood_wall");
         registerBlockCustomPath(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
-    }
-
-    private static void registerPanes() {
-        registerBlockStandardPath(ModFluffBlocks.alfglassPane);
-        registerBlockStandardPath(ModFluffBlocks.bifrostPane);
-        registerBlockStandardPath(ModFluffBlocks.managlassPane);
     }
 
     private static void registerQuartzBlocks() {
