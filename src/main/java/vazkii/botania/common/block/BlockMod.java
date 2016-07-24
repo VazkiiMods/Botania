@@ -14,7 +14,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -22,7 +25,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockMod extends Block {
+public class BlockMod extends Block implements IModelRegister {
 
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
@@ -41,4 +44,9 @@ public class BlockMod extends Block {
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+
+	}
 }

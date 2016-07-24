@@ -16,6 +16,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -23,10 +24,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -123,6 +127,13 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).compValue;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		super.registerModels();
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileCorporeaCrystalCube.class);
 	}
 
 }

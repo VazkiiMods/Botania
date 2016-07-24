@@ -28,6 +28,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.QuartzVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
@@ -124,4 +125,12 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return this == ModFluffBlocks.elfQuartz ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		String[] variantNames = { "variant=normal", "variant=chiseled", "variant=pillar_y" };
+		ModelHandler.registerBlockVariantMetas(this, 3, i -> variantNames[i]);
+	}
+
 }

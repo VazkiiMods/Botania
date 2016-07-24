@@ -6,6 +6,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,9 +15,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -26,10 +33,10 @@ import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.util.Random;
 
-public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
+public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister {
 
-	final String name;
-	protected final boolean doubleSlab;
+	private final String name;
+	private final boolean doubleSlab;
 	public static final PropertyEnum<DummyEnum> DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
 
 	public BlockModSlab(boolean full, Material mat, String name) {
@@ -123,7 +130,18 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		return LexiconData.decorativeBlocks;
 	}
 
-	public enum DummyEnum implements IStringSerializable {
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		if(!doubleSlab) {
+			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
+			ModelHandler.registerBlockVariant(this, "half=bottom");
+		} else {
+			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
+		}
+	}
+
+	private enum DummyEnum implements IStringSerializable {
 		SINGLETON {
 			@Nonnull
 			@Override

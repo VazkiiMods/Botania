@@ -123,17 +123,18 @@ public final class ModelHandler {
         registerStateMappers();
 
         registerStandardBlocks();
-        registerStairs();
-        registerSlabs();
-        registerQuartzBlocks();
+
+        for (Block block : Block.REGISTRY) {
+            if (block.getRegistryName().getResourceDomain().equalsIgnoreCase(LibMisc.MOD_ID)
+                    && block instanceof IModelRegister)
+                ((IModelRegister) block).registerModels();
+        }
 
         for (Item item : Item.REGISTRY) {
             if (item.getRegistryName().getResourceDomain().equalsIgnoreCase(LibMisc.MOD_ID)
                     && item instanceof IModelRegister)
                 ((IModelRegister) item).registerModels();
         }
-
-        registerTESRItems();
     }
 
     private static void registerSubtiles() {
@@ -208,6 +209,14 @@ public final class ModelHandler {
     }
 
     private static void registerStandardBlocks() {
+        registerBlockStandardPath(ModBlocks.avatar);
+        registerBlockStandardPath(ModBlocks.bellows);
+        registerBlockStandardPath(ModBlocks.brewery);
+        registerBlockStandardPath(ModBlocks.corporeaCrystalCube);
+        registerBlockStandardPath(ModBlocks.corporeaIndex);
+        registerBlockStandardPath(ModBlocks.hourglass);
+        registerBlockStandardPath(ModBlocks.teruTeruBozu);
+
         registerBlockStandardPath(ModBlocks.alchemyCatalyst);
         registerBlockStandardPath(ModBlocks.alfPortal);
         registerBlockCustomPath(ModFluffBlocks.alfglassPane, "alfglass_pane");
@@ -302,31 +311,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
     }
 
-    // Only for models that absolutely can't be converted to JSON. Use VERY sparingly
-    @SuppressWarnings("deprecation")
-    private static void registerTESRItems() {
-        registerBlockStandardPath(ModBlocks.avatar);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.avatar), 0, TileAvatar.class);
-
-        registerBlockStandardPath(ModBlocks.bellows);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.bellows), 0, TileBellows.class);
-
-        registerBlockStandardPath(ModBlocks.brewery);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.brewery), 0, TileBrewery.class);
-
-        registerBlockStandardPath(ModBlocks.corporeaCrystalCube);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaCrystalCube), 0, TileCorporeaCrystalCube.class);
-
-        registerBlockStandardPath(ModBlocks.corporeaIndex);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.corporeaIndex), 0, TileCorporeaIndex.class);
-
-        registerBlockStandardPath(ModBlocks.hourglass);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.hourglass), 0, TileHourglass.class);
-
-        registerBlockStandardPath(ModBlocks.teruTeruBozu);
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.teruTeruBozu), 0, TileTeruTeruBozu.class);
-    }
-
     private static void registerStateMappers() {
         // Override to let custom model loader work, see SpecialFlowerModel
         ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).ignore(((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
@@ -351,138 +335,6 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
-
-        // Ignore vanilla variant in walls
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.biomeStoneWall,
-                (new StateMap.Builder()).withName(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ignore(BlockWall.VARIANT).withSuffix("_wall").build());
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.dreamwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.livingrockWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
-        ModelLoader.setCustomStateMapper(ModFluffBlocks.livingwoodWall, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
-
-        // Ignore dummy variant in slabs
-        for (Block b : ModFluffBlocks.biomeStoneSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
-        }
-
-        for (Block b : ModFluffBlocks.pavementSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
-        }
-
-        List<Block> otherSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodPlankSlab, ModFluffBlocks.livingrockSlab, ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.livingrockBrickSlab,
-                ModFluffBlocks.dreamwoodPlankSlab,
-                ModFluffBlocks.netherBrickSlab, ModFluffBlocks.soulBrickSlab, ModFluffBlocks.snowBrickSlab,
-                ModFluffBlocks.tileSlab, ModFluffBlocks.manaQuartzSlab, ModFluffBlocks.blazeQuartzSlab, ModFluffBlocks.darkQuartzSlab,
-                ModFluffBlocks.lavenderQuartzSlab, ModFluffBlocks.redQuartzSlab, ModFluffBlocks.elfQuartzSlab, ModFluffBlocks.sunnyQuartzSlab, ModFluffBlocks.dirtPathSlab,
-                ModFluffBlocks.shimmerrockSlab, ModFluffBlocks.shimmerwoodPlankSlab);
-
-        for (Block b : otherSlabs) {
-            if (b == null) // Dark quartz disabled
-                continue;
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
-        }
-
-        // Ignore both dummy variant and half prop in full slabs
-        for (Block b : ModFluffBlocks.biomeStoneFullSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
-        }
-
-        for (Block b : ModFluffBlocks.pavementFullSlabs) {
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
-        }
-
-        List<Block> otherFullSlabs = Lists.newArrayList(ModFluffBlocks.livingwoodSlabFull, ModFluffBlocks.livingwoodPlankSlabFull, ModFluffBlocks.livingrockSlabFull, ModFluffBlocks.dreamwoodSlabFull, ModFluffBlocks.livingrockBrickSlabFull,
-                ModFluffBlocks.dreamwoodPlankSlabFull,
-                ModFluffBlocks.netherBrickSlabFull, ModFluffBlocks.soulBrickSlabFull, ModFluffBlocks.snowBrickSlabFull,
-                ModFluffBlocks.tileSlabFull, ModFluffBlocks.darkQuartzSlabFull, ModFluffBlocks.manaQuartzSlabFull, ModFluffBlocks.blazeQuartzSlabFull,
-                ModFluffBlocks.lavenderQuartzSlabFull, ModFluffBlocks.redQuartzSlabFull, ModFluffBlocks.elfQuartzSlabFull, ModFluffBlocks.sunnyQuartzSlabFull, ModFluffBlocks.dirtPathSlabFull,
-                ModFluffBlocks.shimmerrockSlabFull, ModFluffBlocks.shimmerwoodPlankSlabFull);
-
-        for (Block b : otherFullSlabs) {
-            if (b == null) // Dark quartz disabled
-                continue;
-            ModelLoader.setCustomStateMapper(b, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
-        }
-
-        // Ignore everything in TESR items to suppress missing model errors
-        ModelLoader.setCustomStateMapper(ModBlocks.avatar, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.bellows, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.brewery, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.gaiaHead, new StateMap.Builder().ignore(BlockSkull.FACING, BlockSkull.NODROP).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.hourglass, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-    }
-
-    private static void registerStairs() {
-        for (Block b : ModFluffBlocks.pavementStairs) {
-            registerBlockStandardPath(b);
-        }
-
-        for (Block b : ModFluffBlocks.biomeStoneStairs) {
-            registerBlockStandardPath(b);
-        }
-
-        registerBlockStandardPath(ModFluffBlocks.blazeQuartzStairs);
-        if (ConfigHandler.darkQuartzEnabled)
-            registerBlockStandardPath(ModFluffBlocks.darkQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.dreamwoodStairs);
-        registerBlockStandardPath(ModFluffBlocks.dreamwoodPlankStairs);
-        registerBlockStandardPath(ModFluffBlocks.elfQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.lavenderQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.livingrockStairs);
-        registerBlockStandardPath(ModFluffBlocks.livingrockBrickStairs);
-        registerBlockStandardPath(ModFluffBlocks.livingwoodStairs);
-        registerBlockStandardPath(ModFluffBlocks.livingwoodPlankStairs);
-        registerBlockStandardPath(ModFluffBlocks.manaQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.netherBrickStairs);
-        registerBlockStandardPath(ModFluffBlocks.redQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.shimmerrockStairs);
-        registerBlockStandardPath(ModFluffBlocks.shimmerwoodPlankStairs);
-        registerBlockStandardPath(ModFluffBlocks.snowBrickStairs);
-        registerBlockStandardPath(ModFluffBlocks.soulBrickStairs);
-        registerBlockStandardPath(ModFluffBlocks.sunnyQuartzStairs);
-        registerBlockStandardPath(ModFluffBlocks.tileStairs);
-    }
-
-    private static void registerSlabs() {
-        for (Block b : ModFluffBlocks.biomeStoneSlabs) {
-            registerBlockVariant(b, "half=bottom");
-        }
-
-        for (Block b : ModFluffBlocks.pavementSlabs) {
-            registerBlockVariant(b, "half=bottom");
-        }
-
-        registerBlockVariant(ModFluffBlocks.livingwoodSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.livingwoodPlankSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.livingrockSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.livingrockBrickSlab, "half=bottom");
-
-        registerBlockVariant(ModFluffBlocks.blazeQuartzSlab, "half=bottom");
-        if (ConfigHandler.darkQuartzEnabled)
-            registerBlockVariant(ModFluffBlocks.darkQuartzSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.elfQuartzSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.lavenderQuartzSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.manaQuartzSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.redQuartzSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.sunnyQuartzSlab, "half=bottom");
-
-        registerBlockVariant(ModFluffBlocks.dreamwoodSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.dreamwoodPlankSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.dirtPathSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.shimmerrockSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.shimmerwoodPlankSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.netherBrickSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.soulBrickSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.snowBrickSlab, "half=bottom");
-        registerBlockVariant(ModFluffBlocks.tileSlab, "half=bottom");
-    }
-
-    private static void registerQuartzBlocks() {
-        String[] variantNames = { "variant=normal", "variant=chiseled", "variant=pillar_y" };
-        for (Block b : Lists.newArrayList(ModFluffBlocks.blazeQuartz, ModFluffBlocks.darkQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.sunnyQuartz)) {
-            if (b == null) // Dark quartz disabled
-                continue;
-            registerBlockVariantMetas(b, 3, i -> variantNames[i]);
-        }
     }
 
     private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String variantHeader) {
@@ -523,7 +375,7 @@ public final class ModelHandler {
         registerBlockVariant(b, "normal");
     }
 
-    private static void registerBlockVariant(Block b, String variant) {
+    public static void registerBlockVariant(Block b, String variant) {
         registerBlockVariantMetas(b, 1, variant);
     }
 
@@ -531,7 +383,7 @@ public final class ModelHandler {
         registerBlockVariantMetas(b, maxExclusive, i -> variant);
     }
 
-    private static void registerBlockVariantMetas(Block b, int maxExclusive, IntFunction<String> metaToVariant) {
+    public static void registerBlockVariantMetas(Block b, int maxExclusive, IntFunction<String> metaToVariant) {
         Item item = Item.getItemFromBlock(b);
         for (int i = 0; i < maxExclusive; i++) {
             ModelLoader.setCustomModelResourceLocation(

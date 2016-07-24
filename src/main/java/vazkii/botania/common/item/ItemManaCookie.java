@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -19,8 +20,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
@@ -30,7 +35,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class ItemManaCookie extends ItemFood {
+public class ItemManaCookie extends ItemFood implements IModelRegister {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
@@ -54,4 +59,9 @@ public class ItemManaCookie extends ItemFood {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
 }

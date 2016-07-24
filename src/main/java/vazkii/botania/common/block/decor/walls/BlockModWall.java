@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,9 +23,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -33,7 +38,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class BlockModWall extends BlockWall implements ILexiconable {
+public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister {
 
 	public BlockModWall(Block block, int meta) {
 		super(block);
@@ -98,6 +103,12 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockWall.VARIANT).build());
 	}
 
 }
