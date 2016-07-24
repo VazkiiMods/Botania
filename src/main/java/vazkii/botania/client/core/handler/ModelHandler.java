@@ -150,25 +150,6 @@ public final class ModelHandler {
         /** Special Item Meshers **/
         // Cannot use lambdas directly yet because FG/SS can't reobfuscate them, need a dummy wrapper
         // See https://github.com/MinecraftForge/ForgeGradle/issues/314.
-
-        ModelLoader.registerItemVariants(Item.getItemFromBlock(ModBlocks.pool),
-                new ModelResourceLocation("botania:pool", "variant=default"),
-                new ModelResourceLocation("botania:pool", "variant=diluted"),
-                new ModelResourceLocation("botania:pool", "variant=creative"),
-                new ModelResourceLocation("botania:pool", "variant=fabulous"),
-                new ModelResourceLocation("botania:pool", "default_full"),
-                new ModelResourceLocation("botania:pool", "diluted_full"),
-                new ModelResourceLocation("botania:pool", "creative_full"),
-                new ModelResourceLocation("botania:pool", "fabulous_full"));
-        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(ModBlocks.pool), MesherWrapper.of(stack -> {
-            int meta = stack.getMetadata();
-            if (meta < 0 || meta > 3)
-                meta = 0;
-            PoolVariant v = PoolVariant.values()[meta];
-            boolean renderFull = v == PoolVariant.CREATIVE || (stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull"));
-            return new ModelResourceLocation("botania:pool", renderFull ? v.getName() + "_full" : "variant=" + v.getName());
-        }));
-
         ModelLoader.registerItemVariants(elementiumShears,
                 new ModelResourceLocation("botania:elementiumShears", "inventory"),
                 new ModelResourceLocation("botania:dammitReddit", "inventory"));
@@ -357,6 +338,7 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.livingwood, LivingWoodVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.openCrate, CrateVariant.class, "pattern=none,variant");
         registerVariantsDefaulted(ModBlocks.platform, PlatformVariant.class, "variant");
+        registerVariantsDefaulted(ModBlocks.pool, PoolVariant.class, "variant");
         registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
         // todo 1.8 this is temporary until animation API is done, currnetly item model textures will not match true spreader texture
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");

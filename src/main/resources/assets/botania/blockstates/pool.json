@@ -1,31 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:pool_tinted",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "default": { "textures": { "all": "botania:model/pool" } },
-      "diluted": { "textures": { "all": "botania:model/dilutedPool" } },
-      "creative": { "textures": { "all": "botania:model/infinitePool" } },
-      "fabulous": { "textures": { "all": "botania:model/pool" } }
-    },
-    "default_full": [{
-      "model": "botania:pool_filled",
-      "textures": { "all": "botania:model/pool", "liquid": "botania:blocks/manaWater" }
-    }],
-    "diluted_full": [{
-      "model": "botania:pool_filled",
-      "textures": { "all": "botania:model/dilutedPool", "liquid": "botania:blocks/manaWater" }
-    }],
-    "creative_full": [{
-      "model": "botania:pool_filled",
-      "textures": { "all": "botania:model/infinitePool", "liquid": "botania:blocks/manaWater" }
-    }],
-    "fabulous_full": [{
-      "model": "botania:pool_filled",
-      "textures": { "all": "botania:model/pool", "liquid": "botania:blocks/manaWater" }
-    }]
+    "variant=default": { "model": "botania:default_pool" },
+    "variant=diluted": { "model": "botania:diluted_pool" },
+    "variant=creative": { "model": "botania:creative_pool" },
+    "variant=fabulous": { "model": "botania:fabulous_pool" }
   }
 }
