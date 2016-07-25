@@ -10,8 +10,7 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": [{}]
   }
 
 }

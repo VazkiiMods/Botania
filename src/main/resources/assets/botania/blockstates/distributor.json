@@ -6,12 +6,10 @@
       "top": "botania:blocks/distributor0",
       "side": "botania:blocks/distributor1",
       "bottom": "botania:blocks/livingrock0"
-    }
+    },
+    "transform": "forge:default-block"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{
-      "transform": "forge:default-block"
-    }]
+    "normal": [{}]
   }
 }

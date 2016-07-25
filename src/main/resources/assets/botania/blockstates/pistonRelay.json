@@ -4,12 +4,10 @@
     "model": "minecraft:cube_all",
     "textures": {
       "all": "botania:blocks/pistonRelay"
-    }
+    },
+    "transform": "forge:default-block"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{
-      "transform": "forge:default-block"
-    }]
+    "normal": [{}]
   }
 }

@@ -1,23 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:prism",
-    "textures": {
-      "bottom": "botania:blocks/prism0",
-      "top": "botania:blocks/prism0",
-      "side": "botania:blocks/prism1"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "inventory": [{}],
-    "powered": {
-      "true": {},
-      "false": {}
-    },
-    "has_lens": {
-      "true": {},
-      "false": {}
-    }
+    "has_lens=false,powered=false": { "model": "botania:prism" },
+    "has_lens=true,powered=false": { "model": "botania:prism" },
+    "has_lens=false,powered=true": { "model": "botania:prism" },
+    "has_lens=true,powered=true": { "model": "botania:prism" }
   }
 }

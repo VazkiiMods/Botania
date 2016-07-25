@@ -3,8 +3,7 @@
   "defaults": {
     "textures": {
       "rail": "botania:blocks/ghostRail"
-    },
-    "transform": "forge:default-item"
+    }
   },
   "variants": {
     "shape": {
@@ -14,12 +13,6 @@
       "ascending_west": { "model": "minecraft:rail_raised_sw", "y": 90 },
       "ascending_north": { "model": "minecraft:rail_raised_ne" },
       "ascending_south": { "model": "minecraft:rail_raised_sw" }
-    },
-    "inventory": [{
-      "model": "builtin/generated",
-      "textures": {
-        "layer0": "botania:blocks/ghostRail"
-      }
-    }]
+    }
   }
 }

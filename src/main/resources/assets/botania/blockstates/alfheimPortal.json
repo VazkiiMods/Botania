@@ -1,22 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "textures": {
-      "all": "botania:blocks/alfheimPortal0"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "state": {
-      "off": {},
-      "on_x": {
-        "textures": { "all": "botania:blocks/alfheimPortal1" }
-      },
-      "on_z": {
-        "textures": { "all": "botania:blocks/alfheimPortal1" }
-      }
-    },
-    "inventory": [{}]
+    "state=off": { "model": "botania:alfheim_portal" },
+    "state=on_x": { "model": "botania:alfheim_portal_on" },
+    "state=on_z": { "model": "botania:alfheim_portal_on" }
   }
 }

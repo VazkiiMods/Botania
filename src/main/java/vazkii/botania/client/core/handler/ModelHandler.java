@@ -8,20 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockSkull;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -48,7 +43,6 @@ import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.subtile.SubTileDecor;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -92,25 +86,11 @@ import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
-import vazkii.botania.common.block.tile.TileAvatar;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.block.tile.TileHourglass;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.IntFunction;
-
-import static vazkii.botania.common.item.ModItems.*;
 
 public final class ModelHandler {
 
@@ -209,79 +189,79 @@ public final class ModelHandler {
     }
 
     private static void registerStandardBlocks() {
-        registerBlockStandardPath(ModBlocks.avatar);
-        registerBlockStandardPath(ModBlocks.bellows);
-        registerBlockStandardPath(ModBlocks.brewery);
-        registerBlockStandardPath(ModBlocks.corporeaCrystalCube);
-        registerBlockStandardPath(ModBlocks.corporeaIndex);
-        registerBlockStandardPath(ModBlocks.hourglass);
-        registerBlockStandardPath(ModBlocks.teruTeruBozu);
+        registerBlockCustomPath(ModBlocks.avatar, "avatar");
+        registerBlockCustomPath(ModBlocks.bellows, "bellows");
+        registerBlockCustomPath(ModBlocks.brewery, "brewery");
+        registerBlockVariantInventory(ModBlocks.corporeaCrystalCube);
+        registerBlockCustomPath(ModBlocks.corporeaIndex, "corporea_index");
+        registerBlockCustomPath(ModBlocks.hourglass, "hovering_hourglass");
+        registerBlockCustomPath(ModBlocks.teruTeruBozu, "teru_teru_bozu");
 
-        registerBlockStandardPath(ModBlocks.alchemyCatalyst);
-        registerBlockStandardPath(ModBlocks.alfPortal);
+        registerBlockVariantNormal(ModBlocks.alchemyCatalyst);
+        registerBlockVariant(ModBlocks.alfPortal, "state=off");
         registerBlockCustomPath(ModFluffBlocks.alfglassPane, "alfglass_pane");
-        registerBlockStandardPath(ModBlocks.bifrost);
+        registerBlockVariantNormal(ModBlocks.bifrost);
         registerBlockCustomPath(ModFluffBlocks.bifrostPane, "bifrost_pane");
-        registerBlockStandardPath(ModBlocks.bifrostPerm);
+        registerBlockVariantNormal(ModBlocks.bifrostPerm);
         registerBlockCustomPathMetas(ModFluffBlocks.biomeStoneWall, 8, i -> BiomeStoneVariant.values()[i + 8].getName() + "_wall");
-        registerBlockStandardPath(ModBlocks.blazeBlock);
-        registerBlockStandardPath(ModBlocks.cacophonium);
-        registerBlockStandardPath(ModBlocks.cellBlock);
-        registerBlockStandardPath(ModBlocks.conjurationCatalyst);
-        registerBlockStandardPath(ModBlocks.cocoon);
-        registerBlockStandardPath(ModBlocks.corporeaFunnel);
-        registerBlockStandardPath(ModBlocks.corporeaInterceptor);
-        registerBlockStandardPath(ModBlocks.corporeaRetainer);
-        registerBlockVariant(ModBlocks.dirtPath);
+        registerBlockVariantNormal(ModBlocks.blazeBlock);
+        registerBlockVariant(ModBlocks.cacophonium, "powered=false");
+        registerBlockVariantNormal(ModBlocks.cellBlock);
+        registerBlockVariantNormal(ModBlocks.conjurationCatalyst);
+        registerBlockVariantNormal(ModBlocks.cocoon);
+        registerBlockVariant(ModBlocks.corporeaFunnel, "powered=false");
+        registerBlockVariant(ModBlocks.corporeaInterceptor, "powered=false");
+        registerBlockVariant(ModBlocks.corporeaRetainer, "powered=false");
+        registerBlockVariantNormal(ModBlocks.dirtPath);
         registerBlockCustomPathMetas(ModBlocks.doubleFlower1, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockCustomPathMetas(ModBlocks.doubleFlower2, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i + 8).getName());
-        registerBlockStandardPath(ModBlocks.distributor);
+        registerBlockVariantNormal(ModBlocks.distributor);
         registerBlockCustomPath(ModFluffBlocks.dreamwoodWall, "dreamwood_wall");
-        registerBlockStandardPath(ModBlocks.elfGlass);
-        registerBlockStandardPath(ModBlocks.enchantedSoil);
-        registerBlockStandardPath(ModBlocks.enchanter);
-        registerBlockStandardPath(ModBlocks.enderEye);
-        registerBlockStandardPath(ModBlocks.felPumpkin);
-        registerBlockStandardPath(ModBlocks.floatingSpecialFlower);
+        registerBlockVariantNormal(ModBlocks.elfGlass);
+        registerBlockVariantNormal(ModBlocks.enchantedSoil);
+        registerBlockVariant(ModBlocks.enchanter, "facing=x");
+        registerBlockVariant(ModBlocks.enderEye, "powered=false");
+        registerBlockVariant(ModBlocks.felPumpkin, "facing=north");
+        registerBlockVariantInventory(ModBlocks.floatingSpecialFlower);
         registerBlockCustomPathMetas(ModBlocks.flower, EnumDyeColor.values().length, i -> "flower_" + EnumDyeColor.byMetadata(i).getName());
-        registerBlockVariant(ModBlocks.forestEye);
-        registerBlockStandardPath(ModBlocks.ghostRail);
-        registerBlockStandardPath(ModBlocks.incensePlate);
+        registerBlockVariantNormal(ModBlocks.forestEye);
+        registerBlockCustomPath(ModBlocks.ghostRail, "ghost_rail");
+        registerBlockVariant(ModBlocks.incensePlate, "facing=south");
         registerBlockVariant(ModBlocks.lightLauncher, "powered=false");
         registerBlockCustomPath(ModFluffBlocks.livingrockWall, "livingrock_wall");
         registerBlockCustomPath(ModFluffBlocks.livingwoodWall, "livingwood_wall");
-        registerBlockStandardPath(ModBlocks.manaBomb);
-        registerBlockStandardPath(ModBlocks.manaDetector);
-        registerBlockStandardPath(ModBlocks.manaGlass);
+        registerBlockVariantNormal(ModBlocks.manaBomb);
+        registerBlockVariant(ModBlocks.manaDetector, "powered=false");
+        registerBlockVariantNormal(ModBlocks.manaGlass);
         registerBlockCustomPath(ModFluffBlocks.managlassPane, "managlass_pane");
-        registerBlockStandardPath(ModBlocks.manaVoid);
+        registerBlockVariantNormal(ModBlocks.manaVoid);
         registerBlockCustomPathMetas(ModBlocks.mushroom, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
         // Explicit mapping needed because saved meta does not match EnumDyeColor
         EnumDyeColor[] manualMapping = { EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE, EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN };
         registerBlockVariantMetas(ModFluffBlocks.pavement, 6, i -> "color=" + manualMapping[i].getName());
-        registerBlockStandardPath(ModBlocks.prism);
-        registerBlockStandardPath(ModBlocks.pistonRelay);
-        registerBlockStandardPath(ModBlocks.pump);
-        registerBlockStandardPath(ModBlocks.redStringComparator);
-        registerBlockStandardPath(ModBlocks.redStringContainer);
-        registerBlockStandardPath(ModBlocks.redStringDispenser);
-        registerBlockStandardPath(ModBlocks.redStringFertilizer);
-        registerBlockStandardPath(ModBlocks.redStringInterceptor);
-        registerBlockStandardPath(ModBlocks.redStringRelay);
-        registerBlockStandardPath(ModBlocks.rfGenerator);
-        registerBlockStandardPath(ModBlocks.root);
-        registerBlockVariant(ModBlocks.runeAltar);
-        registerBlockStandardPath(ModBlocks.shimmerrock);
-        registerBlockStandardPath(ModBlocks.shimmerwoodPlanks);
+        registerBlockVariant(ModBlocks.prism, "has_lens=false,powered=false");
+        registerBlockVariantNormal(ModBlocks.pistonRelay);
+        registerBlockVariantInventory(ModBlocks.pump);
+        registerBlockVariant(ModBlocks.redStringComparator, "facing=north");
+        registerBlockVariant(ModBlocks.redStringContainer, "facing=north");
+        registerBlockVariant(ModBlocks.redStringDispenser, "facing=north,powered=false");
+        registerBlockVariant(ModBlocks.redStringFertilizer, "facing=north");
+        registerBlockVariant(ModBlocks.redStringInterceptor, "facing=north,powered=false");
+        registerBlockVariant(ModBlocks.redStringRelay, "facing=north");
+        registerBlockVariantNormal(ModBlocks.rfGenerator);
+        registerBlockVariantNormal(ModBlocks.root);
+        registerBlockVariantNormal(ModBlocks.runeAltar);
+        registerBlockVariantNormal(ModBlocks.shimmerrock);
+        registerBlockVariantNormal(ModBlocks.shimmerwoodPlanks);
         registerBlockCustomPathMetas(ModBlocks.shinyFlower, EnumDyeColor.values().length, i -> "glimmering_flower_" + EnumDyeColor.byMetadata(i).getName());
         registerBlockVariant(ModBlocks.sparkChanger, "powered=false");
-        registerBlockVariant(ModBlocks.spawnerClaw);
-        registerBlockStandardPath(ModBlocks.specialFlower);
+        registerBlockVariantNormal(ModBlocks.spawnerClaw);
+        registerBlockVariantInventory(ModBlocks.specialFlower);
         registerBlockVariant(ModBlocks.starfield, "powered=false");
-        registerBlockVariant(ModBlocks.terraPlate);
-        registerBlockVariant(ModBlocks.tinyPlanet);
+        registerBlockVariantNormal(ModBlocks.terraPlate);
+        registerBlockVariantNormal(ModBlocks.tinyPlanet);
         registerBlockVariant(ModBlocks.tinyPotato, "facing=north");
-        registerBlockStandardPath(ModBlocks.turntable);
+        registerBlockVariantNormal(ModBlocks.turntable);
 
         // Register all metas to variant inventory, so the smartmodel can take over from there. See MiscellaneousIcons
         registerItemAllMeta(Item.getItemFromBlock(ModBlocks.floatingFlower), EnumDyeColor.values().length);
@@ -371,8 +351,13 @@ public final class ModelHandler {
     }
 
     // -- Registers the ItemBlock model to be the Block's model, of the specified variant -- //
-    private static void registerBlockVariant(Block b) {
+    private static void registerBlockVariantNormal(Block b) {
         registerBlockVariant(b, "normal");
+    }
+
+    // Registers the ItemBlock to models/item/<registryname>#inventory
+    private static void registerBlockVariantInventory(Block b) {
+        registerBlockVariant(b, "inventory");
     }
 
     public static void registerBlockVariant(Block b, String variant) {
@@ -391,11 +376,6 @@ public final class ModelHandler {
                     new ModelResourceLocation(item.getRegistryName(), metaToVariant.apply(i))
             );
         }
-    }
-
-    // Registers the ItemBlock to models/item/<registryname>#inventory
-    private static void registerBlockStandardPath(Block b) {
-        registerBlockVariant(b, "inventory");
     }
 
     // Registers the ItemBlock to a custom path in models/item/itemblock/

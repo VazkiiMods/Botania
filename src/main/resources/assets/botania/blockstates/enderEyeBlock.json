@@ -12,7 +12,6 @@
       "true": { "textures": { "all": "botania:blocks/enderEyeBlock1" } },
       "false": {}
     },
-    "powered=false": [{}],
-    "inventory": [{}]
+    "powered=false": [{}]
   }
 }

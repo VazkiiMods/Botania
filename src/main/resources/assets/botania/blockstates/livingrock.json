@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "default": { "textures": { "all": "botania:blocks/livingrock0" } },
-      "brick": { "textures": { "all": "botania:blocks/livingrock1" } },
-      "mossy_brick": { "textures": { "all": "botania:blocks/livingrock2" } },
-      "cracked_brick": { "textures": { "all": "botania:blocks/livingrock3" } },
-      "chiseled_brick": { "textures": { "all": "botania:blocks/livingrock4" } }
-    }
+    "variant=default": { "model": "botania:livingrock" },
+    "variant=brick": { "model": "botania:livingrock_brick" },
+    "variant=mossy_brick": { "model": "botania:livingrock_mossy_brick" },
+    "variant=cracked_brick": { "model": "botania:livingrock_cracked_brick" },
+    "variant=chiseled_brick": { "model": "botania:livingrock_chiseled_brick" }
   }
 }

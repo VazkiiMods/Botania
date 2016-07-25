@@ -21,7 +21,6 @@
     "powered": {
       "true": {},
       "false": {}
-    },
-    "inventory": [{}]
+    }
   }
 }

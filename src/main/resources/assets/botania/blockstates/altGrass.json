@@ -1,30 +1,40 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "textures": { "bottom": "minecraft:blocks/dirt" },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "dry": {
-        "textures": { "top": "botania:blocks/altGrass0", "side": "botania:blocks/altGrass1" }
-      },
-      "golden": {
-        "textures": { "top": "botania:blocks/altGrass2", "side": "botania:blocks/altGrass3" }
-      },
-      "vivid": {
-        "textures": { "top": "botania:blocks/altGrass4", "side": "botania:blocks/altGrass5" }
-      },
-      "scorched": {
-        "textures": { "top": "botania:blocks/altGrass6", "side": "botania:blocks/altGrass7" }
-      },
-      "infused": {
-        "textures": { "top": "botania:blocks/altGrass8", "side": "botania:blocks/altGrass9" }
-      },
-      "mutated": {
-        "textures": { "top": "botania:blocks/altGrass10", "side": "botania:blocks/altGrass11" }
-      }
-    }
+    "variant=dry": [
+      { "model": "botania:dry_grass" },
+      { "model": "botania:dry_grass", "y": 90 },
+      { "model": "botania:dry_grass", "y": 180 },
+      { "model": "botania:dry_grass", "y": 270 }
+    ],
+    "variant=golden": [
+      { "model": "botania:golden_grass" },
+      { "model": "botania:golden_grass", "y": 90 },
+      { "model": "botania:golden_grass", "y": 180 },
+      { "model": "botania:golden_grass", "y": 270 }
+    ],
+    "variant=vivid": [
+      { "model": "botania:vivid_grass" },
+      { "model": "botania:vivid_grass", "y": 90 },
+      { "model": "botania:vivid_grass", "y": 180 },
+      { "model": "botania:vivid_grass", "y": 270 }
+    ],
+    "variant=scorched": [
+      { "model": "botania:scorched_grass" },
+      { "model": "botania:scorched_grass", "y": 90 },
+      { "model": "botania:scorched_grass", "y": 180 },
+      { "model": "botania:scorched_grass", "y": 270 }
+    ],
+    "variant=infused": [
+      { "model": "botania:infused_grass" },
+      { "model": "botania:infused_grass", "y": 90 },
+      { "model": "botania:infused_grass", "y": 180 },
+      { "model": "botania:infused_grass", "y": 270 }
+    ],
+    "variant=mutated": [
+      { "model": "botania:mutated_grass" },
+      { "model": "botania:mutated_grass", "y": 90 },
+      { "model": "botania:mutated_grass", "y": 180 },
+      { "model": "botania:mutated_grass", "y": 270 }
+    ]
   }
 }
