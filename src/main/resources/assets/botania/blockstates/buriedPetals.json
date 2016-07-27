@@ -21,7 +21,6 @@
       "green": { "textures": { "particle": "minecraft:blocks/wool_colored_green" }},
       "red": { "textures": { "particle": "minecraft:blocks/wool_colored_red" }},
       "black": { "textures": { "particle": "minecraft:blocks/wool_colored_black" }}
-    },
-    "inventory": [{}]
+    }
   }
 }

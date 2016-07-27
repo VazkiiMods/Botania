@@ -1,6 +1,13 @@
 {
+  "parent": "minecraft:block/block",
   "textures": {
-    "particle": "#west"
+    "bottom": "botania:model/cocoon_bottom",
+    "top": "botania:model/cocoon_top",
+    "north": "botania:model/cocoon_north",
+    "south": "botania:model/cocoon_south",
+    "west": "botania:model/cocoon_west",
+    "east": "botania:model/cocoon_east",
+    "particle": "botania:model/cocoon_east"
   },
   "elements": [
     {

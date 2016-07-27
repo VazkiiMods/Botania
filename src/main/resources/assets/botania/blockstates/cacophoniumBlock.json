@@ -1,18 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "textures": {
-      "bottom": "botania:blocks/cacophoniumBlock1",
-      "top": "botania:blocks/cacophoniumBlock0",
-      "side": "botania:blocks/cacophoniumBlock1"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": {},
-      "false": {}
-    }
+    "powered=false": { "model": "botania:cacophonium_block" },
+    "powered=true": { "model": "botania:cacophonium_block" }
   }
 }

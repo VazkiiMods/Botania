@@ -1,25 +1,20 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant=forest": [{ "textures": { "all": "botania:blocks/biomeStone0" } }],
-    "variant=plains": [{ "textures": { "all": "botania:blocks/biomeStone1" } }],
-    "variant=mountain": [{ "textures": { "all": "botania:blocks/biomeStone2" } }],
-    "variant=fungal": [{ "textures": { "all": "botania:blocks/biomeStone3" } }],
-    "variant=swamp": [{ "textures": { "all": "botania:blocks/biomeStone4" } }],
-    "variant=desert": [{ "textures": { "all": "botania:blocks/biomeStone5" } }],
-    "variant=taiga": [{ "textures": { "all": "botania:blocks/biomeStone6" } }],
-    "variant=mesa": [{ "textures": { "all": "botania:blocks/biomeStone7" } }],
-    "variant=forest_cobble": [{ "textures": { "all": "botania:blocks/biomeStone8" } }],
-    "variant=plains_cobble": [{ "textures": { "all": "botania:blocks/biomeStone9" } }],
-    "variant=mountain_cobble": [{ "textures": { "all": "botania:blocks/biomeStone10" } }],
-    "variant=fungal_cobble": [{ "textures": { "all": "botania:blocks/biomeStone11" } }],
-    "variant=swamp_cobble": [{ "textures": { "all": "botania:blocks/biomeStone12" } }],
-    "variant=desert_cobble": [{ "textures": { "all": "botania:blocks/biomeStone13" } }],
-    "variant=taiga_cobble": [{ "textures": { "all": "botania:blocks/biomeStone14" } }],
-    "variant=mesa_cobble": [{ "textures": { "all": "botania:blocks/biomeStone15" } }]
+    "variant=forest": { "model": "botania:forest_stone" },
+    "variant=plains": { "model": "botania:plains_stone" },
+    "variant=mountain": { "model": "botania:mountain_stone" },
+    "variant=fungal": { "model": "botania:fungal_stone" },
+    "variant=swamp": { "model": "botania:swamp_stone" },
+    "variant=desert": { "model": "botania:desert_stone" },
+    "variant=taiga": { "model": "botania:taiga_stone" },
+    "variant=mesa": { "model": "botania:mesa_stone" },
+    "variant=forest_cobble": { "model": "botania:forest_cobble_stone" },
+    "variant=plains_cobble": { "model": "botania:plains_cobble_stone" },
+    "variant=mountain_cobble": { "model": "botania:mountain_cobble_stone" },
+    "variant=fungal_cobble": { "model": "botania:fungal_cobble_stone" },
+    "variant=swamp_cobble": { "model": "botania:swamp_cobble_stone" },
+    "variant=desert_cobble": { "model": "botania:desert_cobble_stone" },
+    "variant=taiga_cobble": { "model": "botania:taiga_cobble_stone" },
+    "variant=mesa_cobble": { "model": "botania:mesa_cobble_stone" }
   }
 }
