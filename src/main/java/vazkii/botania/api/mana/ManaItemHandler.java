@@ -13,6 +13,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 
 public final class ManaItemHandler {
@@ -249,6 +250,10 @@ public final class ManaItemHandler {
 			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player);
 		}
+		
+		ManaDiscountEvent event = new ManaDiscountEvent(player, discount);
+		MinecraftForge.EVENT_BUS.post(event);
+		discount = event.getDiscount();
 
 		return discount;
 	}
