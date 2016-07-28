@@ -1,7 +1,5 @@
 {
   "variants": {
-    "normal": {
-      "model": "botania:runic_altar"
-    }
+    "normal": { "model": "botania:runic_altar" }
   }
 }

@@ -1,15 +1,5 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "textures": {
-      "top": "botania:blocks/distributor0",
-      "side": "botania:blocks/distributor1",
-      "bottom": "botania:blocks/livingrock0"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "normal": [{}]
+    "normal": { "model": "botania:mana_distributor" }
   }
 }

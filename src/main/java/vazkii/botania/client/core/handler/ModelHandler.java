@@ -244,9 +244,9 @@ public final class ModelHandler {
         registerBlockVariantInventory(ModBlocks.pump);
         registerBlockVariant(ModBlocks.redStringComparator, "facing=north");
         registerBlockVariant(ModBlocks.redStringContainer, "facing=north");
-        registerBlockVariant(ModBlocks.redStringDispenser, "facing=north,powered=false");
+        registerBlockVariant(ModBlocks.redStringDispenser, "facing=north");
         registerBlockVariant(ModBlocks.redStringFertilizer, "facing=north");
-        registerBlockVariant(ModBlocks.redStringInterceptor, "facing=north,powered=false");
+        registerBlockVariant(ModBlocks.redStringInterceptor, "facing=north");
         registerBlockVariant(ModBlocks.redStringRelay, "facing=north");
         registerBlockVariantNormal(ModBlocks.rfGenerator);
         registerBlockVariantNormal(ModBlocks.root);
@@ -315,6 +315,9 @@ public final class ModelHandler {
         ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
         ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
+
+        ModelLoader.setCustomStateMapper(ModBlocks.redStringDispenser, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
+        ModelLoader.setCustomStateMapper(ModBlocks.redStringInterceptor, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
     }
 
     private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String variantHeader) {

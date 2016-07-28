@@ -1,17 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "textures": {
-      "all": "botania:blocks/enderEyeBlock0"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": { "textures": { "all": "botania:blocks/enderEyeBlock1" } },
-      "false": {}
-    },
-    "powered=false": [{}]
+    "powered=true": { "model": "botania:ender_eye_block_powered" },
+    "powered=false": { "model": "botania:ender_eye_block" }
   }
 }

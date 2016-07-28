@@ -1,22 +1,10 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:orientable",
-    "textures": {
-      "top": "botania:blocks/redStringRelay",
-      "front": "botania:blocks/redStringSender",
-      "side": "botania:blocks/redStringRelay"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "north": {},
-      "south": { "y": 180 },
-      "west": { "y": 270 },
-      "east": { "y": 90 },
-      "down": { "x": 90 },
-      "up": { "x": 270 }
-    }
+    "facing=north": { "model": "botania:red_string_relay" },
+    "facing=south": { "model": "botania:red_string_relay", "y": 180 },
+    "facing=west": { "model": "botania:red_string_relay", "y": 270 },
+    "facing=east": { "model": "botania:red_string_relay", "y": 90 },
+    "facing=up": { "model": "botania:red_string_relay", "x": 270 },
+    "facing=down": { "model": "botania:red_string_relay", "x": 90 }
   }
 }

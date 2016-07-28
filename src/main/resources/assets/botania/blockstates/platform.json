@@ -1,14 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "abstruse": { "textures": { "all": "botania:blocks/platform0" } },
-      "spectral": { "textures": { "all": "botania:blocks/platform1" } },
-      "infrangible": { "textures": { "all": "botania:blocks/platform2" } }
-    }
+    "variant=abstruse": { "model": "botania:abstruse_platform" },
+    "variant=spectral": { "model": "botania:spectral_platform" },
+    "variant=infrangible": { "model": "botania:infrangible_platform" }
   }
 }

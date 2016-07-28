@@ -1,39 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:spreader",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "mana": {
-        "textures": {
-          "inside": "botania:model/spreader_item/mana_inside",
-          "side": "botania:model/spreader_item/mana_side",
-          "material": "botania:blocks/livingwood0"
-        }
-      },
-      "redstone": {
-        "textures": {
-          "inside": "botania:model/spreader_item/redstone_inside",
-          "side": "botania:model/spreader_item/redstone_side",
-          "material": "botania:model/spreader_item/redstone_material"
-        }
-      },
-      "elven": {
-        "textures": {
-          "inside": "botania:model/spreader_item/elven_inside",
-          "side": "botania:model/spreader_item/elven_side",
-          "material": "botania:blocks/dreamwood0"
-        }
-      },
-      "gaia": {
-        "textures": {
-          "inside": "botania:model/spreader_item/gaia_inside",
-          "side": "botania:model/spreader_item/gaia_side",
-          "material": "botania:blocks/dreamwood0"
-        }
-      }
-    }
+    "variant=mana": { "model": "botania:mana_spreader" },
+    "variant=redstone": { "model": "botania:redstone_spreader" },
+    "variant=elven": { "model": "botania:elven_spreader" },
+    "variant=gaia": { "model": "botania:gaia_spreader" }
   }
 }

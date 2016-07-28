@@ -1,16 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "textures": {
-      "all": "botania:blocks/enchanter"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "x": {},
-      "z": {}
-    }
+    "facing=x": { "model": "botania:mana_enchanter" },
+    "facing=z": { "model": "botania:mana_enchanter" }
   }
 }

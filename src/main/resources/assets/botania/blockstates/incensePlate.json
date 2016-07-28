@@ -1,18 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:incense_plate",
-    "textures": {
-      "all": "botania:model/incensePlate"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "north": { "y": 180 },
-      "south": {},
-      "west": { "y": 90 },
-      "east": { "y": 270 }
-    }
+    "facing=north": { "model": "botania:incense_plate", "y": 180 },
+    "facing=south": { "model": "botania:incense_plate" },
+    "facing=west": { "model": "botania:incense_plate", "y": 90 },
+    "facing=east": { "model": "botania:incense_plate", "y": 270 }
   }
 }
