@@ -207,7 +207,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			    if(manaRequired == -1) {
 				    manaRequired = 0;
 				    for(EnchantmentData data : enchants) {
-					    manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantmentobj.getRarity().getWeight())) * 1.05F) * ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+						manaRequired += (int)
+								(5000F  * ((15 - Math.min(15, data.enchantmentobj.getRarity().getWeight()))
+											* 1.05F)
+										* ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F)
+										* (0.9F + enchants.size() * 0.05F)
+										* (data.enchantmentobj.isTreasureEnchantment() ? 1.25F : 1F));
 				    }
 			    } else if(mana >= manaRequired) {
 				    manaRequired = 0;
@@ -348,7 +353,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		String enchStr = cmp.getString(TAG_ENCHANTS);
 		if(!enchStr.isEmpty()) {
 			String[] enchTokens = enchStr.split(",");
-            Botania.LOGGER.info(Arrays.toString(enchTokens));
 			for(String token : enchTokens) {
                 String[] entryTokens = token.split("=");
 				Enchantment ench = Enchantment.getEnchantmentByLocation(entryTokens[0]);
