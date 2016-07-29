@@ -16,17 +16,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.block.IRegisterCallback;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister {
+public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister, IRegisterCallback {
 
 	public BlockModStairs(IBlockState state, String name) {
 		super(state);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		useNeighborBrightness = true;
@@ -41,5 +43,11 @@ public class BlockModStairs extends BlockStairs implements ILexiconable, IModelR
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 }

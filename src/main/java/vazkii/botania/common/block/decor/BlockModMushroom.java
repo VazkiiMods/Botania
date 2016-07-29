@@ -38,6 +38,8 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.IRegisterCallback;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -50,13 +52,13 @@ import java.util.List;
 import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable {
+public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IRegisterCallback {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	public BlockModMushroom() {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
 		setUnlocalizedName(LibBlockNames.MUSHROOM);
 		setLightLevel(0.2F);
 		setHardness(0F);
@@ -153,4 +155,9 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+	}
 }

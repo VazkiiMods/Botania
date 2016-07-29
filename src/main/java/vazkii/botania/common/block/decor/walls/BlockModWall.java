@@ -30,6 +30,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.block.IRegisterCallback;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -38,13 +40,14 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister {
+public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister, IRegisterCallback {
 
 	public BlockModWall(Block block, int meta) {
 		super(block);
 		// For backward compat don't kill me
 		String name = block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall";
-		register(name);
+		setRegistryName(name);
+		ModBlocks.ALL_BLOCKS.add(this);
 		setUnlocalizedName(name);
 		setDefaultState(blockState.getBaseState()
 				.withProperty(UP, false)
@@ -90,8 +93,9 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		return true;
 	}
 
-	public void register(String name) {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+	@Override
+	public void register() {
+		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 

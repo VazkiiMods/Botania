@@ -175,8 +175,12 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class ModBlocks {
 
+	public static final Set<Block> ALL_BLOCKS = new HashSet<>();
 	public static Block flower;
 	public static Block altar;
 	public static Block livingrock;
@@ -351,6 +355,14 @@ public final class ModBlocks {
 		altGrass = new BlockAltGrass();
 
 		ModFluffBlocks.init();
+
+		for (Block b : ALL_BLOCKS) {
+			if (b instanceof IRegisterCallback) {
+				((IRegisterCallback) b).register();
+			} else {
+				throw new RuntimeException(b.getRegistryName() + " doesn't have register callbacks!");
+			}
+		}
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));

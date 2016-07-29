@@ -65,7 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
+public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD, IRegisterCallback {
 
 	static {
 		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(
@@ -121,8 +121,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	protected BlockSpecialFlower() {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
-		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
 		setSoundType(SoundType.PLANT);
@@ -377,4 +376,9 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		}
 	}
 
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
+	}
 }

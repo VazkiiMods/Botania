@@ -271,63 +271,6 @@ public final class ModFluffBlocks {
 		managlassPane = new BlockManaglassPane();
 		alfglassPane = new BlockAlfglassPane();
 		bifrostPane = new BlockBifrostPane();
-
-		if(ConfigHandler.darkQuartzEnabled) {
-			((BlockModSlab) darkQuartzSlab).register();
-			((BlockModSlab) darkQuartzSlabFull).register();
-		}
-		((BlockModSlab) manaQuartzSlab).register();
-		((BlockModSlab) manaQuartzSlabFull).register();
-		((BlockModSlab) blazeQuartzSlab).register();
-		((BlockModSlab) blazeQuartzSlabFull).register();
-		((BlockModSlab) lavenderQuartzSlab).register();
-		((BlockModSlab) lavenderQuartzSlabFull).register();
-		((BlockModSlab) redQuartzSlab).register();
-		((BlockModSlab) redQuartzSlabFull).register();
-		((BlockModSlab) elfQuartzSlab).register();
-		((BlockModSlab) elfQuartzSlabFull).register();
-		((BlockModSlab) sunnyQuartzSlab).register();
-		((BlockModSlab) sunnyQuartzSlabFull).register();
-
-		((BlockModSlab) livingwoodSlab).register();
-		((BlockModSlab) livingwoodSlabFull).register();
-		((BlockModSlab) livingwoodPlankSlab).register();
-		((BlockModSlab) livingwoodPlankSlabFull).register();
-		((BlockModSlab) livingrockSlab).register();
-		((BlockModSlab) livingrockSlabFull).register();
-		((BlockModSlab) livingrockBrickSlab).register();
-		((BlockModSlab) livingrockBrickSlabFull).register();
-		((BlockModSlab) dreamwoodSlab).register();
-		((BlockModSlab) dreamwoodSlabFull).register();
-		((BlockModSlab) dreamwoodPlankSlab).register();
-		((BlockModSlab) dreamwoodPlankSlabFull).register();
-
-		((BlockModSlab) netherBrickSlab).register();
-		((BlockModSlab) netherBrickSlabFull).register();
-		((BlockModSlab) soulBrickSlab).register();
-		((BlockModSlab) soulBrickSlabFull).register();
-		((BlockModSlab) snowBrickSlab).register();
-		((BlockModSlab) snowBrickSlabFull).register();
-		((BlockModSlab) tileSlab).register();
-		((BlockModSlab) tileSlabFull).register();
-
-		((BlockModSlab) dirtPathSlab).register();
-		((BlockModSlab) dirtPathSlabFull).register();
-
-		((BlockModSlab) shimmerrockSlab).register();
-		((BlockModSlab) shimmerrockSlabFull).register();
-		((BlockModSlab) shimmerwoodPlankSlab).register();
-		((BlockModSlab) shimmerwoodPlankSlabFull).register();
-
-		for(int i = 0; i < 24; i++) {
-			((BlockModSlab) biomeStoneSlabs[i]).register();
-			((BlockModSlab) biomeStoneFullSlabs[i]).register();
-		}
-
-		for(int i = 0; i < pavementSlabs.length; i++) {
-			((BlockModSlab) pavementSlabs[i]).register();
-			((BlockModSlab) pavementFullSlabs[i]).register();
-		}
 	}
 
 }

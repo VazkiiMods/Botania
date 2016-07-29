@@ -38,10 +38,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockGaiaHead extends BlockSkull implements IModelRegister {
+public class BlockGaiaHead extends BlockSkull implements IModelRegister, IRegisterCallback {
 
 	public BlockGaiaHead() {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GAIA_HEAD));
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GAIA_HEAD));
 		setUnlocalizedName(LibBlockNames.GAIA_HEAD);
 		setHardness(1.0F);
 	}
@@ -89,5 +90,10 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(FACING, NODROP).build());
+	}
+
+	@Override
+	public void register() {
+		GameRegistry.register(this);
 	}
 }

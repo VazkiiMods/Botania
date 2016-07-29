@@ -36,15 +36,15 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockGhostRail extends BlockRailBase implements ILexiconable {
+public class BlockGhostRail extends BlockRailBase implements ILexiconable, IRegisterCallback {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
 	public BlockGhostRail() {
 		super(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
 		MinecraftForge.EVENT_BUS.register(BlockGhostRail.class);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
@@ -107,5 +107,11 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	@Override
 	public IProperty<EnumRailDirection> getShapeProperty() {
 		return BlockRailPowered.SHAPE;
+	}
+
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 }

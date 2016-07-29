@@ -32,10 +32,11 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockSolidVines extends BlockVine implements ILexiconable {
+public class BlockSolidVines extends BlockVine implements ILexiconable, IRegisterCallback {
 
 	public BlockSolidVines() {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
 		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
 		setSoundType(SoundType.PLANT);
@@ -66,4 +67,8 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 		return LexiconData.vineBall;
 	}
 
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+	}
 }

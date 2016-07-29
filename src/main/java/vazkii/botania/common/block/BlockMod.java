@@ -25,13 +25,13 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockMod extends Block implements IModelRegister {
+public class BlockMod extends Block implements IModelRegister, IRegisterCallback {
 
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
 		setUnlocalizedName(name);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		registerItemForm();
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
@@ -48,5 +48,11 @@ public class BlockMod extends Block implements IModelRegister {
 	@Override
 	public void registerModels() {
 
+	}
+
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		registerItemForm();
 	}
 }

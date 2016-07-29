@@ -47,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable {
+public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IRegisterCallback {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
@@ -57,8 +57,8 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	protected BlockModFlower(String name) {
 		setUnlocalizedName(name);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		registerItemForm();
+		ModBlocks.ALL_BLOCKS.add(this);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
@@ -165,4 +165,9 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
 	}
 
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		registerItemForm();
+	}
 }

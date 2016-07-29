@@ -24,6 +24,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.IRegisterCallback;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -33,16 +35,18 @@ import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.util.Random;
 
-public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister {
+public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister, IRegisterCallback {
 
 	private final String name;
 	private final boolean doubleSlab;
-	public static final PropertyEnum<DummyEnum> DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
+	private static final PropertyEnum<DummyEnum> DUMMY = PropertyEnum.create("dummy", DummyEnum.class);
 
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(mat);
 		this.name = name;
 		setUnlocalizedName(name);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		ModBlocks.ALL_BLOCKS.add(this);
 		doubleSlab = full;
 		if(!full) {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
@@ -96,10 +100,11 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 		return new ItemStack(getSingleBlock());
 	}
 
+	@Override
 	public void register() {
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
 		if (!isDouble())
-			GameRegistry.register(new ItemBlockModSlab(this), new ResourceLocation(LibMisc.MOD_ID, name));
+			GameRegistry.register(new ItemBlockModSlab(this), getRegistryName());
 	}
 
 	@Nonnull

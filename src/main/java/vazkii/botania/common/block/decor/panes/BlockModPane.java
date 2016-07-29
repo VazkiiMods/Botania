@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.common.block.IRegisterCallback;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -26,14 +27,14 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockModPane extends BlockPane {
+public class BlockModPane extends BlockPane implements IRegisterCallback {
 
 	public BlockModPane(Block source) {
 		super(Material.GLASS, false);
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		ModBlocks.ALL_BLOCKS.add(this);
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
@@ -53,4 +54,9 @@ public class BlockModPane extends BlockPane {
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
 	}
 
+	@Override
+	public void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+	}
 }
