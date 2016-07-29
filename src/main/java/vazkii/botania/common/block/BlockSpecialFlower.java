@@ -121,6 +121,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	protected BlockSpecialFlower() {
+		ModBlocks.ALL_BLOCKS.add(this);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
