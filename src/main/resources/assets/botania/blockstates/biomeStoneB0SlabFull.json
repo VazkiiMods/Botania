@@ -1,9 +1,5 @@
 {
-  "forge_marker": 1,
   "variants": {
-    "normal": [{
-      "model": "minecraft:cube_all",
-      "textures": { "all": "botania:blocks/biomeStone16" }
-    }]
+    "normal": { "model": "botania:metamorphic/forest_brick" }
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:taiga_stone" }
+    "normal": { "model": "botania:metamorphic/taiga_stone" }
   }
 }

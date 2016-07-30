@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "normal": { "textures": { "bottom": "botania:blocks/blockDarkQuartz0", "top": "botania:blocks/blockDarkQuartz1", "side": "botania:blocks/blockDarkQuartz2" } },
-      "chiseled": { "textures": { "bottom": "botania:blocks/chiseledDarkQuartz1", "top": "botania:blocks/chiseledDarkQuartz1", "side": "botania:blocks/chiseledDarkQuartz0" } },
-      "pillar_x": { "x": 90, "y": 90, "textures": { "bottom": "botania:blocks/pillarDarkQuartz1", "top": "botania:blocks/pillarDarkQuartz1", "side": "botania:blocks/pillarDarkQuartz0" } },
-      "pillar_y": { "textures": { "bottom": "botania:blocks/pillarDarkQuartz1", "top": "botania:blocks/pillarDarkQuartz1", "side": "botania:blocks/pillarDarkQuartz0" } },
-      "pillar_z": { "x": 90, "textures": { "bottom": "botania:blocks/pillarDarkQuartz1", "top": "botania:blocks/pillarDarkQuartz1", "side": "botania:blocks/pillarDarkQuartz0" } }
-    }
+    "variant=normal": { "model": "botania:quartz/dark_quartz" },
+    "variant=chiseled": { "model": "botania:quartz/dark_quartz_chiseled" },
+    "variant=pillar_x": { "model": "botania:quartz/dark_quartz_pillar", "x": 90, "y": 90 },
+    "variant=pillar_y": { "model": "botania:quartz/dark_quartz_pillar" },
+    "variant=pillar_z": { "model": "botania:quartz/dark_quartz_pillar", "x": 90 }
   }
 }

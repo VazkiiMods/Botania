@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mountain_stone" }
+    "normal": { "model": "botania:metamorphic/mountain_stone" }
   }
 }

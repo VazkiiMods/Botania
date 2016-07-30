@@ -1,20 +1,20 @@
 {
   "variants": {
-    "color=white": { "model": "botania:mushroom_white" },
-    "color=orange": { "model": "botania:mushroom_orange" },
-    "color=magenta": { "model": "botania:mushroom_magenta" },
-    "color=light_blue": { "model": "botania:mushroom_light_blue" },
-    "color=yellow": { "model": "botania:mushroom_yellow" },
-    "color=lime": { "model": "botania:mushroom_lime" },
-    "color=pink": { "model": "botania:mushroom_pink" },
-    "color=gray": { "model": "botania:mushroom_gray" },
-    "color=silver": { "model": "botania:mushroom_silver" },
-    "color=cyan": { "model": "botania:mushroom_cyan" },
-    "color=purple": { "model": "botania:mushroom_purple" },
-    "color=blue": { "model": "botania:mushroom_blue" },
-    "color=brown": { "model": "botania:mushroom_brown" },
-    "color=green": { "model": "botania:mushroom_green" },
-    "color=red": { "model": "botania:mushroom_red" },
-    "color=black": { "model": "botania:mushroom_black" }
+    "color=white": { "model": "botania:plants/mushroom_white" },
+    "color=orange": { "model": "botania:plants/mushroom_orange" },
+    "color=magenta": { "model": "botania:plants/mushroom_magenta" },
+    "color=light_blue": { "model": "botania:plants/mushroom_light_blue" },
+    "color=yellow": { "model": "botania:plants/mushroom_yellow" },
+    "color=lime": { "model": "botania:plants/mushroom_lime" },
+    "color=pink": { "model": "botania:plants/mushroom_pink" },
+    "color=gray": { "model": "botania:plants/mushroom_gray" },
+    "color=silver": { "model": "botania:plants/mushroom_silver" },
+    "color=cyan": { "model": "botania:plants/mushroom_cyan" },
+    "color=purple": { "model": "botania:plants/mushroom_purple" },
+    "color=blue": { "model": "botania:plants/mushroom_blue" },
+    "color=brown": { "model": "botania:plants/mushroom_brown" },
+    "color=green": { "model": "botania:plants/mushroom_green" },
+    "color=red": { "model": "botania:plants/mushroom_red" },
+    "color=black": { "model": "botania:plants/mushroom_black" }
   }
 }

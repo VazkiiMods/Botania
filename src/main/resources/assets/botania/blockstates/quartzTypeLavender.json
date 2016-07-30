@@ -1,16 +1,9 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "variant": {
-      "normal": { "textures": { "bottom": "botania:blocks/blockLavenderQuartz0", "top": "botania:blocks/blockLavenderQuartz1", "side": "botania:blocks/blockLavenderQuartz2" } },
-      "chiseled": { "textures": { "bottom": "botania:blocks/chiseledLavenderQuartz1", "top": "botania:blocks/chiseledLavenderQuartz1", "side": "botania:blocks/chiseledLavenderQuartz0" } },
-      "pillar_x": { "x": 90, "y": 90, "textures": { "bottom": "botania:blocks/pillarLavenderQuartz1", "top": "botania:blocks/pillarLavenderQuartz1", "side": "botania:blocks/pillarLavenderQuartz0" } },
-      "pillar_y": { "textures": { "bottom": "botania:blocks/pillarLavenderQuartz1", "top": "botania:blocks/pillarLavenderQuartz1", "side": "botania:blocks/pillarLavenderQuartz0" } },
-      "pillar_z": { "x": 90, "textures": { "bottom": "botania:blocks/pillarLavenderQuartz1", "top": "botania:blocks/pillarLavenderQuartz1", "side": "botania:blocks/pillarLavenderQuartz0" } }
-    }
+    "variant=normal": { "model": "botania:quartz/lavender_quartz" },
+    "variant=chiseled": { "model": "botania:quartz/lavender_quartz_chiseled" },
+    "variant=pillar_x": { "model": "botania:quartz/lavender_quartz_pillar", "x": 90, "y": 90 },
+    "variant=pillar_y": { "model": "botania:quartz/lavender_quartz_pillar" },
+    "variant=pillar_z": { "model": "botania:quartz/lavender_quartz_pillar", "x": 90 }
   }
 }

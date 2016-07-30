@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mesa_stone" }
+    "normal": { "model": "botania:metamorphic/mesa_stone" }
   }
 }
