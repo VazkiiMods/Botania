@@ -31,6 +31,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.StorageVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -113,7 +114,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
+		ModelHandler.registerCustomItemblock(this, "corporea_index");
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileCorporeaIndex.class);
 	}
 

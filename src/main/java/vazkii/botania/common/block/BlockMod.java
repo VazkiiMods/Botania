@@ -12,11 +12,13 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -47,7 +49,8 @@ public class BlockMod extends Block implements IModelRegister, IRegisterCallback
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-
+		if(Item.getItemFromBlock(this) != null)
+			ModelHandler.registerBlockToState(this, 0, getDefaultState());
 	}
 
 	@Override

@@ -5,7 +5,10 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 
 import javax.annotation.Nonnull;
 
@@ -42,5 +45,12 @@ public class BlockModDoubleFlower2 extends BlockModDoubleFlower {
         BlockDoublePlant.EnumBlockHalf half = (meta & 8) > 0 ? BlockDoublePlant.EnumBlockHalf.UPPER : BlockDoublePlant.EnumBlockHalf.LOWER;
         meta &= -9;
         return getDefaultState().withProperty(HALF, half).withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.byMetadata(meta + 8));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModels() {
+        super.registerModels();
+        ModelHandler.registerCustomItemblock(this, 8, i -> "double_flower_" + EnumDyeColor.byMetadata(i + 8).getName());
     }
 }

@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -88,6 +89,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		ModelLoader.setCustomStateMapper(this,
 				(new StateMap.Builder()).withName(BotaniaStateProps.BIOMESTONEWALL_VARIANT)
 						.ignore(BlockWall.VARIANT).withSuffix("_wall").build());
+		ModelHandler.registerCustomItemblock(this, 8, i -> BiomeStoneVariant.values()[i + 8].getName() + "_wall");
 	}
 
 }

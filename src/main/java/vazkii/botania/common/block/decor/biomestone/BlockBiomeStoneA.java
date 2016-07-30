@@ -12,8 +12,11 @@ package vazkii.botania.common.block.decor.biomestone;
 
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
@@ -52,6 +55,12 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 			meta += 8; // Drop cobblestone variant
 		}
 		return meta;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, BiomeStoneVariant.values().length);
 	}
 
 }

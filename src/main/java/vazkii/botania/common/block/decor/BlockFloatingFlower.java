@@ -52,6 +52,7 @@ import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
@@ -256,5 +257,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
+		// All to variant inventory so smartmodel can work
+		ModelHandler.registerItemAllMeta(Item.getItemFromBlock(this), EnumDyeColor.values().length);
 	}
 }

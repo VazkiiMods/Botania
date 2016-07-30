@@ -41,6 +41,7 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -160,6 +161,9 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
+		ModelHandler.registerBlockToState(this, 3);
+		// Statemapper after item registration, because the items should be registered to the actual variant names
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.PLATFORM_VARIANT).build());
+
 	}
 }

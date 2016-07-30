@@ -31,6 +31,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -39,6 +41,7 @@ import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -49,7 +52,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
@@ -234,6 +236,12 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		float f = 1F / 16F;
 		return new AxisAlignedBB(pos.getX() + f, pos.getY() + f, pos.getZ() + f,
 				pos.getX() + 1 - f, pos.getY() + 1 - f, pos.getZ() + 1 - f);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, SpreaderVariant.values().length);
 	}
 
 }

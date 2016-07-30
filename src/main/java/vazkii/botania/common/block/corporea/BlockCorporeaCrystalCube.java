@@ -33,6 +33,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -132,7 +133,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
+		ModelHandler.registerInventoryVariant(this);
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileCorporeaCrystalCube.class);
 	}
 

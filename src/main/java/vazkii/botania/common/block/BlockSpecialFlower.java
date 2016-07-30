@@ -55,6 +55,7 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -391,5 +392,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public void registerModels() {
 		// Let custom loader work
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).ignore(getTypeProperty()).build());
+		ModelHandler.registerInventoryVariant(this);
 	}
 }

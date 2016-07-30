@@ -11,15 +11,21 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -62,5 +68,12 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 
 	@Override
 	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(getTypeProperty()).build());
+		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "glimmering_flower_" + EnumDyeColor.byMetadata(i).getName());
+	}
 
 }

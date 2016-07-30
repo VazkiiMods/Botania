@@ -11,6 +11,9 @@
 package vazkii.botania.common.block.decor.walls.living;
 
 import net.minecraft.block.SoundType;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
 
@@ -21,6 +24,12 @@ public class BlockLivingrockWall extends BlockModWall {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerCustomItemblock(this, "livingrock_wall");
 	}
 
 }

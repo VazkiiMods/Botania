@@ -38,6 +38,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -157,9 +158,9 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileBrewery.class);
+		ModelHandler.registerCustomItemblock(this, "brewery");
 	}
 
 }

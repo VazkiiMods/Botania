@@ -1,5 +1,5 @@
 {
-  "model": "minecraft:cube_bottom_top",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "bottom": "botania:blocks/corporeaInterceptor0",
     "top": "botania:blocks/corporeaInterceptor0",

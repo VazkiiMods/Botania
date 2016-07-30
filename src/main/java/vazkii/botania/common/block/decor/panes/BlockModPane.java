@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.IRegisterCallback;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -27,7 +28,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockModPane extends BlockPane implements IRegisterCallback {
+public class BlockModPane extends BlockPane implements IRegisterCallback, IModelRegister {
 
 	public BlockModPane(Block source) {
 		super(Material.GLASS, false);
@@ -59,4 +60,7 @@ public class BlockModPane extends BlockPane implements IRegisterCallback {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
+
+	@Override
+	public void registerModels() {}
 }

@@ -26,11 +26,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -168,6 +171,14 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.luminizerTransport;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		int i = 0;
+		for(LuminizerVariant v : LuminizerVariant.values())
+			ModelHandler.registerBlockToState(this, i++, getDefaultState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, v));
 	}
 
 }

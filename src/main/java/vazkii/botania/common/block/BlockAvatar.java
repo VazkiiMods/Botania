@@ -37,6 +37,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -155,9 +156,10 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileAvatar.class);
+		ModelHandler.registerCustomItemblock(this, "avatar");
+		super.registerModels();
 	}
 
 }

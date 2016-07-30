@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumBlockRenderType;
@@ -18,6 +19,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
@@ -74,4 +78,11 @@ public class BlockBuriedPetals extends BlockModFlower {
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.INVISIBLE;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public final void registerModels() {
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(getTypeProperty()).build());
+	}
+
 }

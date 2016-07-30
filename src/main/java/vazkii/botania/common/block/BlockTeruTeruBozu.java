@@ -31,6 +31,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -144,7 +145,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
+		ModelHandler.registerCustomItemblock(this, "teru_teru_bozu");
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileTeruTeruBozu.class);
 	}
 

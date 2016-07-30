@@ -30,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -37,6 +39,7 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -186,6 +189,13 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 				}
 		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, 0, getDefaultState());
+		ModelHandler.registerBlockToState(this, 1, getDefaultState().withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.CRAFTY));
 	}
 
 }

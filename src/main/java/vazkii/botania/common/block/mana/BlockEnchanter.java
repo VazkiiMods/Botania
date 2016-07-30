@@ -29,11 +29,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
@@ -175,6 +178,12 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileEnchanter) world.getTileEntity(pos)).renderHUD(res);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, 0, getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
 }

@@ -37,6 +37,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.IPickupAchievement;
@@ -178,7 +179,8 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public final void registerModels() {
+	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(getTypeProperty()).build());
+		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "flower_" + EnumDyeColor.byMetadata(i).getName());
 	}
 }

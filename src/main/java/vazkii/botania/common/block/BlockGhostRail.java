@@ -25,9 +25,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -36,7 +40,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockGhostRail extends BlockRailBase implements ILexiconable, IRegisterCallback {
+public class BlockGhostRail extends BlockRailBase implements ILexiconable, IRegisterCallback, IModelRegister {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
@@ -113,5 +117,11 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IRegi
 	public void register() {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerCustomItemblock(this, "ghost_rail");
 	}
 }

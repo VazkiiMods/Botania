@@ -140,7 +140,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 	public void registerModels() {
 		if(!doubleSlab) {
 			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
-			ModelHandler.registerBlockVariant(this, "half=bottom");
+			ModelHandler.registerBlockToState(this, 0, getDefaultState());
 		} else {
 			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
 		}

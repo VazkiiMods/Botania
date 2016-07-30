@@ -229,7 +229,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public final void registerModels() {
+	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.FACING).build());
 	}
 

@@ -32,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
@@ -125,5 +126,6 @@ public class BlockManaBeacon extends BlockMod implements ILexiconable {
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+		ModelHandler.registerBlockToState(this, EnumDyeColor.values().length);
 	}
 }

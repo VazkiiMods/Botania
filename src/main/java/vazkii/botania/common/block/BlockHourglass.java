@@ -43,6 +43,7 @@ import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -204,9 +205,9 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		super.registerModels();
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileHourglass.class);
+		ModelHandler.registerCustomItemblock(this, "hovering_hourglass");
 	}
 
 }

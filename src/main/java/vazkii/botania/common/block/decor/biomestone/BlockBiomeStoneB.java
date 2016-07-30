@@ -12,8 +12,11 @@ package vazkii.botania.common.block.decor.biomestone;
 
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
@@ -43,5 +46,11 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.values()[meta]);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, BiomeBrickVariant.values().length);
 	}
 }

@@ -31,12 +31,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.DrumVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.ItemGrassHorn;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -187,6 +190,12 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		default:
 			return LexiconData.forestDrum;
 		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, DrumVariant.values().length);
 	}
 
 }

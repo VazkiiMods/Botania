@@ -100,6 +100,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
+		super.registerModels();
 	}
 
 }

@@ -129,8 +129,9 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		String[] variantNames = { "variant=normal", "variant=chiseled", "variant=pillar_y" };
-		ModelHandler.registerBlockVariantMetas(this, 3, i -> variantNames[i]);
+		ModelHandler.registerBlockToState(this, 0, getDefaultState());
+		ModelHandler.registerBlockToState(this, 1, getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.CHISELED));
+		ModelHandler.registerBlockToState(this, 2, getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y));
 	}
 
 }

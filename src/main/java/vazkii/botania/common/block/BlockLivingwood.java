@@ -23,10 +23,13 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -105,6 +108,12 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	@Override
 	public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return state.getValue(BotaniaStateProps.LIVINGWOOD_VARIANT) == LivingWoodVariant.DEFAULT;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, LivingWoodVariant.values().length);
 	}
 
 }

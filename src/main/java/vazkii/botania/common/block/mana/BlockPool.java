@@ -45,6 +45,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
@@ -246,5 +247,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+		ModelHandler.registerBlockToState(this, PoolVariant.values().length);
 	}
 }

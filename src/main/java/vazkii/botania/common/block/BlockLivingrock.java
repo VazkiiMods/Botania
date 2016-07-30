@@ -22,10 +22,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LivingRockVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -89,6 +92,12 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		boolean isDefaultVariant = world.getBlockState(pos).getValue(BotaniaStateProps.LIVINGROCK_VARIANT) == LivingRockVariant.DEFAULT;
 		return isDefaultVariant ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, LivingRockVariant.values().length);
 	}
 
 }
