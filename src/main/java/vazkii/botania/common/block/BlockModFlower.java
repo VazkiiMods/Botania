@@ -17,6 +17,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,10 +30,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -47,7 +52,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IRegisterCallback {
+public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IRegisterCallback, IModelRegister {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
@@ -169,5 +174,11 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	public void register() {
 		GameRegistry.register(this);
 		registerItemForm();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public final void registerModels() {
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(getTypeProperty()).build());
 	}
 }

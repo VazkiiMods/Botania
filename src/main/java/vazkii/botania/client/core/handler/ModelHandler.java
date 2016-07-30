@@ -100,8 +100,6 @@ public final class ModelHandler {
 
         registerSubtiles();
 
-        registerStateMappers();
-
         registerStandardBlocks();
 
         for (Block block : Block.REGISTRY) {
@@ -289,35 +287,6 @@ public final class ModelHandler {
         registerVariantsDefaulted(ModBlocks.spreader, SpreaderVariant.class, "variant");
         // todo 1.8 this is temporary until animation API is done, currnetly item model textures will not match true spreader texture
         registerVariantsDefaulted(ModBlocks.storage, StorageVariant.class, "variant");
-    }
-
-    private static void registerStateMappers() {
-        // Override to let custom model loader work, see SpecialFlowerModel
-        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).ignore(((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
-
-        // Override to let smart models work, see MiscellaneousIcons
-        ModelLoader.setCustomStateMapper(ModBlocks.floatingSpecialFlower, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.floatingFlower, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.platform, new StateMap.Builder().ignore(BotaniaStateProps.PLATFORM_VARIANT).build());
-
-        // Ignore vanilla facing, variant in double flower
-        ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower1, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.FACING).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.doubleFlower2, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.FACING).build());
-
-        // Ignore color in pool, unstable cube, mana beacon, special flower, and petals (handled by Block.colorMultiplier)
-        ModelLoader.setCustomStateMapper(ModBlocks.pool, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.unstableBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.manaBeacon, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.petalBlock, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.specialFlower, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR, ((BlockFlower) ModBlocks.specialFlower).getTypeProperty()).build());
-
-        // Ignore vanilla variant in flowers
-        ModelLoader.setCustomStateMapper(ModBlocks.flower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.flower).getTypeProperty()).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.shinyFlower, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.shinyFlower).getTypeProperty()).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.buriedPetals, (new StateMap.Builder()).ignore(((BlockFlower) ModBlocks.buriedPetals).getTypeProperty()).build());
-
-        ModelLoader.setCustomStateMapper(ModBlocks.redStringDispenser, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-        ModelLoader.setCustomStateMapper(ModBlocks.redStringInterceptor, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
     }
 
     private static <T extends Enum<T> & IStringSerializable> void registerVariantsDefaulted(Block b, Class<T> enumclazz, String variantHeader) {
