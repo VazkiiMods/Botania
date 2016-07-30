@@ -25,7 +25,7 @@ public class TileTinyPotato extends TileMod {
 
 	public void interact() {
 		jump();
-		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
+		if(name.toLowerCase().trim().endsWith("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
 			nextDoIt = 40;
 			worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
 		}
