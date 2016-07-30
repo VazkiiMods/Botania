@@ -216,11 +216,7 @@ public final class ModelHandler {
 
     // Registers the ItemBlock to a custom path in models/item/itemblock/
     public static void registerCustomItemblock(Block b, String path) {
-        registerCustomItemblock(b, 1, path);
-    }
-
-    public static void registerCustomItemblock(Block b, int maxExclusive, String path) {
-        registerCustomItemblock(b, maxExclusive, i -> path);
+        registerCustomItemblock(b, 1, i -> path);
     }
 
     public static void registerCustomItemblock(Block b, int maxExclusive, IntFunction<String> metaToPath) {
