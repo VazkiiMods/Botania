@@ -1408,11 +1408,9 @@ public final class LexiconData {
 		phantomInk = new BasicLexiconEntry(LibLexicon.MISC_PHANTOM_INK, categoryMisc);
 		phantomInk.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePhantomInk));
 
-		if (ConfigHandler.stones18Enabled) {
-			stoneAlchemy = new BasicLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
-			stoneAlchemy.setLexiconPages(new PageText("0"),
-					new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes));
-		}
+		stoneAlchemy = new BasicLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
+		stoneAlchemy.setLexiconPages(new PageText("0"),
+				new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes));
 
 		blazeBlock = new BasicLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
 		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));
