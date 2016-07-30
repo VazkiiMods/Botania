@@ -102,15 +102,13 @@ public final class ModelHandler {
 
         registerStandardBlocks();
 
-        for (Block block : Block.REGISTRY) {
-            if (block.getRegistryName().getResourceDomain().equalsIgnoreCase(LibMisc.MOD_ID)
-                    && block instanceof IModelRegister)
+        for(Block block : Block.REGISTRY) {
+            if(block instanceof IModelRegister)
                 ((IModelRegister) block).registerModels();
         }
 
-        for (Item item : Item.REGISTRY) {
-            if (item.getRegistryName().getResourceDomain().equalsIgnoreCase(LibMisc.MOD_ID)
-                    && item instanceof IModelRegister)
+        for(Item item : Item.REGISTRY) {
+            if(item instanceof IModelRegister)
                 ((IModelRegister) item).registerModels();
         }
     }
@@ -367,11 +365,6 @@ public final class ModelHandler {
                     new ModelResourceLocation(LibMisc.MOD_ID + ":itemblock/" + metaToPath.apply(i), "inventory")
             );
         }
-    }
-
-    public static void registerItemModel(Item i,int meta) {
-        ResourceLocation loc = i.getRegistryName();
-        ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "inventory"));
     }
 
     private ModelHandler() {}

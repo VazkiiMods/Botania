@@ -1,7 +1,6 @@
 {
     "parent": "minecraft:item/generated",
-    "textures": 
-    {
+    "textures": {
         "layer0": "botania:items/blackLotus"
     }
 }

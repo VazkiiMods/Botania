@@ -85,8 +85,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerItemModel(this, 0);
-		ModelHandler.registerItemModel(this, 1);
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.BLACK_LOTUS);
 	}
 
 }
