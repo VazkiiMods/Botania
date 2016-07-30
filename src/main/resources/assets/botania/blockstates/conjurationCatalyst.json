@@ -1,16 +1,5 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "textures": {
-      "bottom": "botania:blocks/conjurationCatalyst0",
-      "top": "botania:blocks/conjurationCatalyst1",
-      "side": "botania:blocks/conjurationCatalyst2"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "normal": [{}]
+    "normal": { "model": "botania:conjuration_catalyst" }
   }
-
 }

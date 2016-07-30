@@ -1,16 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "textures": {
-      "all": "botania:blocks/corporeaRetainer"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": {},
-      "false": {}
-    }
+    "powered=true": { "model": "botania:corporea_retainer" },
+    "powered=false": { "model": "botania:corporea_retainer" }
   }
 }

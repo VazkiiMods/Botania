@@ -1,16 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_all",
-    "transform": "forge:default-block",
-    "textures": {
-      "all": "botania:blocks/manaDetector0"
-    }
-  },
   "variants": {
-    "powered": {
-      "true": { "textures": { "all": "botania:blocks/manaDetector1" } },
-      "false": {}
-    }
+    "powered=false": { "model": "botania:mana_detector" },
+    "powered=true": { "model": "botania:mana_detector_powered" }
   }
 }

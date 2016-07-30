@@ -1,18 +1,6 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "minecraft:cube_bottom_top",
-    "textures": {
-      "bottom": "botania:blocks/corporeaInterceptor0",
-      "top": "botania:blocks/corporeaInterceptor0",
-      "side": "botania:blocks/corporeaInterceptor1"
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "powered": {
-      "true": {},
-      "false": {}
-    }
+    "powered=false": { "model": "botania:corporea_interceptor" },
+    "powered=true": { "model": "botania:corporea_interceptor" }
   }
 }
