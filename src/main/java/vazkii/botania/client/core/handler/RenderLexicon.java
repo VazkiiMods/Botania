@@ -12,11 +12,14 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.util.glu.Project;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -30,114 +33,59 @@ import vazkii.botania.common.item.ModItems;
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 
-    final ModelBook model = new ModelBook();
-    final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
+    private final ModelBook model = new ModelBook();
+    private final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
 
     @SubscribeEvent
-    public void renderItem(RenderHandEvent evt) {
-        Minecraft mc;
-        if(true || !ConfigHandler.lexicon3dModel || mc.gameSettings.thirdPersonView != 0 || !PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.lexicon))
+    public void renderItem(RenderSpecificHandEvent evt) {
+        Minecraft mc = Minecraft.getMinecraft();
+        if(!ConfigHandler.lexicon3dModel 
+                || mc.gameSettings.thirdPersonView != 0 
+                || mc.thePlayer.getHeldItem(evt.getHand()) == null
+                || mc.thePlayer.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)
             return;
         evt.setCanceled(true);
-
         try {
-            // Called immediately before EntityRenderer.renderHand
-            GlStateManager.clear(256);
-            // Begin copy EntityRenderer.renderHand
-            GlStateManager.matrixMode(5889);
-            GlStateManager.loadIdentity();
-            float f = 0.07F;
-
-            if (mc.gameSettings.anaglyph)
-            {
-                GlStateManager.translate((float)(-(/*xOffset*/0 * 2 - 1)) * f, 0.0F, 0.0F);
-            }
-
-            float fovModifier = ((float) ClientMethodHandles.getFOVModifier.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks, false));
-            float farPlane = ((float) ClientMethodHandles.farPlaneDistance_getter.invokeExact(mc.entityRenderer));
-            Project.gluPerspective(fovModifier, (float)mc.displayWidth / (float)mc.displayHeight, 0.05F, farPlane * 2.0F);
-            GlStateManager.matrixMode(5888);
-            GlStateManager.loadIdentity();
-
-            if (mc.gameSettings.anaglyph)
-            {
-                GlStateManager.translate((float)(/*xOffset*/0 * 2 - 1) * 0.1F, 0.0F, 0.0F);
-            }
-
-            GlStateManager.pushMatrix();
-            ClientMethodHandles.hurtCameraEffect.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks);
-
-            if (mc.gameSettings.viewBobbing)
-            {
-                ClientMethodHandles.setupViewBobbing.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks);
-            }
-
-            boolean flag = mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase)mc.getRenderViewEntity()).isPlayerSleeping();
-
-            if (mc.gameSettings.thirdPersonView == 0 && !flag && !mc.gameSettings.hideGUI && !mc.playerController.isSpectator())
-            {
-                ClientMethodHandles.enableLightmap.invokeExact(mc.entityRenderer);
-                renderItemInFirstPerson();
-                ClientMethodHandles.disableLightmap.invokeExact(mc.entityRenderer);
-            }
-
-            GlStateManager.popMatrix();
-
-            if (mc.gameSettings.thirdPersonView == 0 && !flag)
-            {
-                mc.getItemRenderer().renderOverlays(ClientTickHandler.partialTicks);
-                ClientMethodHandles.hurtCameraEffect.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks);
-            }
-
-            if (mc.gameSettings.viewBobbing)
-            {
-                ClientMethodHandles.setupViewBobbing.invokeExact(mc.entityRenderer, ClientTickHandler.partialTicks);
-            }
-            // End EntityRenderer.renderHand copy
+            renderItemInFirstPerson(mc.thePlayer, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress());
         } catch (Throwable throwable) {
             Botania.LOGGER.warn("Failed to render lexicon");
         }
     }
 
-    private void renderItemInFirstPerson() throws Throwable {
+    private void renderItemInFirstPerson(AbstractClientPlayer player, float partialTicks, float interpPitch, EnumHand hand, float swingProgress, ItemStack stack, float equipProgress) throws Throwable {
         // Cherry picked from ItemRenderer.renderItemInFirstPerson
-        float prevEquippedProgress = 0;//((float) ClientMethodHandles.prevEquippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
-        float equippedProgress = 0;//((float) ClientMethodHandles.equippedProgress_getter.invokeExact(Minecraft.getMinecraft().getItemRenderer()));
-        float f = 1.0F - (prevEquippedProgress + (equippedProgress - prevEquippedProgress) * ClientTickHandler.partialTicks);
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        float f1 = player.getSwingProgress(ClientTickHandler.partialTicks);
-        float f2 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * ClientTickHandler.partialTicks;
-        float f3 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * ClientTickHandler.partialTicks;
-        this.func_178101_a(f2, f3);
-        this.func_178109_a(player);
-        this.func_178110_a(player, ClientTickHandler.partialTicks);
-        GlStateManager.enableRescaleNormal();
+        boolean flag = hand == EnumHand.MAIN_HAND;
+        EnumHandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
         GlStateManager.pushMatrix();
-        this.func_178105_d(f1);
-        this.transformFirstPersonItem(f, f1);
-
-        doRender();
-
+        boolean flag1 = enumhandside == EnumHandSide.RIGHT;
+        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float)Math.PI);
+        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * ((float)Math.PI * 2F));
+        float f2 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
+        int i = flag1 ? 1 : -1;
+        GlStateManager.translate((float)i * f, f1, f2);
+        this.transformSideFirstPerson(enumhandside, equipProgress);
+        this.transformFirstPerson(enumhandside, swingProgress);
+        doRender(enumhandside, partialTicks, stack);
         GlStateManager.popMatrix();
-        GlStateManager.disableRescaleNormal();
-        RenderHelper.disableStandardItemLighting();
     }
     
-    private void doRender() {
+    private void doRender(EnumHandSide side, float partialTicks, ItemStack stack) {
+        Minecraft mc = Minecraft.getMinecraft();
+
         GlStateManager.pushMatrix();
-        Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+        mc.renderEngine.bindTexture(texture);
         float opening;
         float pageFlip;
 
         float ticks = ClientTickHandler.ticksWithLexicaOpen;
         if(ticks > 0 && ticks < 10) {
             if(Minecraft.getMinecraft().currentScreen instanceof GuiLexicon)
-                ticks += ClientTickHandler.partialTicks;
-            else ticks -= ClientTickHandler.partialTicks;
+                ticks += partialTicks;
+            else ticks -= partialTicks;
         }
 
         GlStateManager.translate(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
-        GlStateManager.rotate(87.5F + ticks * 5, 0F, 1F, 0F);
+        GlStateManager.rotate(87.5F + ticks * (side == EnumHandSide.RIGHT ? 5 : 10), 0F, 1F, 0F);
         GlStateManager.rotate(ticks * 2.85F, 0F, 0F, 1F);
         opening = ticks / 12F;
 
@@ -153,13 +101,12 @@ public class RenderLexicon {
             GlStateManager.rotate(180F, 0F, 0F, 1F);
             GlStateManager.translate(-0.3F, -0.21F, -0.07F);
             GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
-            boolean bevo = Minecraft.getMinecraft().thePlayer.getName().equalsIgnoreCase("BevoLJ");
-            boolean saice = Minecraft.getMinecraft().thePlayer.getName().equalsIgnoreCase("saice");
+            boolean bevo = mc.thePlayer.getName().equalsIgnoreCase("BevoLJ");
+            boolean saice = mc.thePlayer.getName().equalsIgnoreCase("saice");
 
             String title = ModItems.lexicon.getItemStackDisplayName(null);
             String origTitle = title;
 
-            ItemStack stack = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, Item.class);
             if(stack != null)
                 title = stack.getDisplayName();
             if(title.equals(origTitle) && bevo)
@@ -188,56 +135,37 @@ public class RenderLexicon {
                 GlStateManager.translate(0F, 10F, 0F);
                 font.drawString(I18n.format("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
             }
+
+            GlStateManager.color(1F, 1F, 1F);
         }
 
         GlStateManager.popMatrix();
     }
 
-    // Copy - ItemRenderer.func_178101_a
-    private void func_178101_a(float angle, float p_178101_2_) {
-        GlStateManager.pushMatrix();
-        GlStateManager.rotate(angle, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate(p_178101_2_, 0.0F, 1.0F, 0.0F);
-        RenderHelper.enableStandardItemLighting();
-        GlStateManager.popMatrix();
+    // Copy - ItemRenderer.transformSideFirstPerson
+    // Arg - Side, EquipProgress
+    private void transformSideFirstPerson(EnumHandSide p_187459_1_, float p_187459_2_)
+    {
+        int i = p_187459_1_ == EnumHandSide.RIGHT ? 1 : -1;
+        GlStateManager.translate((float)i * 0.56F, -0.52F + p_187459_2_ * -0.6F, -0.72F);
     }
 
-    // Copy - ItemRenderer.func_178109_a
-    private void func_178109_a(AbstractClientPlayer clientPlayer) {
-        int i = Minecraft.getMinecraft().theWorld.getCombinedLight(new BlockPos(clientPlayer.posX, clientPlayer.posY + (double)clientPlayer.getEyeHeight(), clientPlayer.posZ), 0);
-        float f = (float)(i & 65535);
-        float f1 = (float)(i >> 16);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f, f1);
-    }
-
-    // Copy - ItemRenderer.func_178110_a
-    private void func_178110_a(EntityPlayerSP entityplayerspIn, float partialTicks) {
-        float f = entityplayerspIn.prevRenderArmPitch + (entityplayerspIn.renderArmPitch - entityplayerspIn.prevRenderArmPitch) * partialTicks;
-        float f1 = entityplayerspIn.prevRenderArmYaw + (entityplayerspIn.renderArmYaw - entityplayerspIn.prevRenderArmYaw) * partialTicks;
-        GlStateManager.rotate((entityplayerspIn.rotationPitch - f) * 0.1F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate((entityplayerspIn.rotationYaw - f1) * 0.1F, 0.0F, 1.0F, 0.0F);
-    }
-
-    // Copy - ItemRenderer.func_178105_d
-    private void func_178105_d(float p_178105_1_) {
-        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(p_178105_1_) * (float)Math.PI);
-        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(p_178105_1_) * (float)Math.PI * 2.0F);
-        float f2 = -0.2F * MathHelper.sin(p_178105_1_ * (float)Math.PI);
-        GlStateManager.translate(f, f1, f2);
-    }
-
-    // Copy with modification - ItemRenderer.transformFirstPersonItem
-    private void transformFirstPersonItem(float equipProgress, float swingProgress) {
-        GlStateManager.translate(1.2F, -1F, -0.71999997F); // Botania - x(0.56) -> 1; y(-0.52) -> -1
-        GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
-        GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F); // Botania - 45 -> 90
-        GlStateManager.rotate(-20, 0, 0, 1); // Botania - added
-        float f = MathHelper.sin(swingProgress * swingProgress * (float)Math.PI);
-        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float)Math.PI);
-        GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
+    // Copy with modification - ItemRenderer.transformFirstPerson
+    // Arg - Side, SwingProgress
+    private void transformFirstPerson(EnumHandSide p_187453_1_, float p_187453_2_)
+    {
+        int i = p_187453_1_ == EnumHandSide.RIGHT ? 1 : -1;
+        // Botania - added
+        GlStateManager.translate(p_187453_1_ == EnumHandSide.RIGHT ? 0.5F : 0.3F, -0.25F, 0.2F);
+        GlStateManager.rotate(90F, 0F, 1F, 0F);
+        GlStateManager.rotate(12F, 0F, 0F, -1F);
+        // End add
+        float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float)Math.PI);
+        GlStateManager.rotate((float)i * (45.0F + f * -20.0F), 0.0F, 1.0F, 0.0F);
+        float f1 = MathHelper.sin(MathHelper.sqrt_float(p_187453_2_) * (float)Math.PI);
+        GlStateManager.rotate((float)i * f1 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
-        // GlStateManager.scale(0.4F, 0.4F, 0.4F); Botania - removed
+        GlStateManager.rotate((float)i * -45.0F, 0.0F, 1.0F, 0.0F);
     }
 
 }

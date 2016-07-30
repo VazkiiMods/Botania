@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
@@ -25,20 +26,18 @@ public class LexiconModel implements IPerspectiveAwareModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
         IBakedModel original = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path);
-        /*if(cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND && ConfigHandler.lexicon3dModel)
-            return Pair.of(this, null); todo 1.9 */
+        if((cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
+                || cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
+                && ConfigHandler.lexicon3dModel)
+            return Pair.of(this, null);
         return ((IPerspectiveAwareModel) original).handlePerspective(cameraTransformType);
     }
 
-    @Nonnull
-    @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) { return ImmutableList.of(); }
+    @Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) { return ImmutableList.of(); }
     @Override public boolean isAmbientOcclusion() { return false; }
     @Override public boolean isGui3d() { return false; }
     @Override public boolean isBuiltInRenderer() { return false; }
-    @Nonnull
-    @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:items/lexicon"); }
-    @Nonnull
-    @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
-    @Nonnull
-    @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
+    @Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:items/lexicon"); }
+    @Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+    @Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 }
