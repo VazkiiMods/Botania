@@ -10,12 +10,17 @@
  */
 package vazkii.botania.client.core.handler;
 
+import com.google.common.base.Optional;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ContextCapabilities;
@@ -27,6 +32,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Map;
 import java.util.UUID;
 
 public final class DebugHandler {
@@ -39,7 +45,7 @@ public final class DebugHandler {
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getMinecraft().theWorld;
 		if(Minecraft.getMinecraft().gameSettings.showDebugInfo) {
-			event.getLeft().add(null);
+			event.getLeft().add("");
 			String version = LibMisc.VERSION;
 			if(version.contains("GRADLE"))
 				version = "N/A";
@@ -70,6 +76,19 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
+
+				if (Minecraft.getMinecraft().objectMouseOver != null
+					&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null) {
+					BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
+					IBlockState state = world.getBlockState(pos);
+					state = state.getActualState(world, pos);
+					state = state.getBlock().getExtendedState(state, world, pos);
+					if (state instanceof IExtendedBlockState) {
+						for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
+							event.getRight().add(e.getKey().getName() + ": " + e.getValue().orNull());
+						}
+					}
+				}
 			} else if(Minecraft.IS_RUNNING_ON_MAC)
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
 			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");

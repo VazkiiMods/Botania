@@ -35,6 +35,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IBlockProvider;
@@ -79,59 +82,41 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = world.getBlockState(pos);
-		boolean set = setBlock(par1ItemStack, state.getBlock(), state.getBlock().getMetaFromState(state));
+		boolean set = setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state));
 
 		if(!set) {
-			Block bBlock = getBlock(par1ItemStack);
-			int bmeta = getBlockMeta(par1ItemStack);
+			Block bBlock = getBlock(stack);
+			int bmeta = getBlockMeta(stack);
 
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile != null && tile instanceof IInventory) {
-				IInventory inv = (IInventory) tile;
-				int[] slots = inv instanceof ISidedInventory ? ((ISidedInventory) inv).getSlotsForFace(side) : InventoryHelper.buildSlotsForLinearInventory(inv);
-				for(int slot : slots) {
-					ItemStack stackInSlot = inv.getStackInSlot(slot);
-					if(stackInSlot == null) {
-						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
-						int maxSize = stack.getMaxStackSize();
-						stack.stackSize = remove(par1ItemStack, maxSize);
-						if(stack.stackSize != 0) {
-							if(inv.isItemValidForSlot(slot, stack) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stack, side))) {
-								inv.setInventorySlotContents(slot, stack);
-								inv.markDirty();
-								set = true;
-							}
-						}
-					} else if(stackInSlot.getItem() == Item.getItemFromBlock(bBlock) && stackInSlot.getItemDamage() == bmeta) {
-						int maxSize = stackInSlot.getMaxStackSize();
-						int missing = maxSize - stackInSlot.stackSize;
-						if(inv.isItemValidForSlot(slot, stackInSlot) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stackInSlot, side))) {
-							stackInSlot.stackSize += remove(par1ItemStack, missing);
-							inv.markDirty();
-							set = true;
-						}
-					}
-				}
+			if(tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side)) {
+				IItemHandler inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+				ItemStack toAdd = new ItemStack(bBlock, 1, bmeta);
+				int maxSize = toAdd.getMaxStackSize();
+				toAdd.stackSize = remove(stack, maxSize);
+				ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
+				if(remainder != null)
+					add(stack, remainder.stackSize);
 			} else {
 				int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 				BlockPos correctedPos = bBlock.isReplaceable(world, pos) ? pos : pos.offset(side);
 
 				if(entities == 0 && !(correctedPos.getY() < 0) && !(correctedPos.getY() >= 256)) {
-					int remove = player.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
+					int remove = player.capabilities.isCreativeMode ? 1 : remove(stack, 1);
 					if(remove > 0) {
-						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
-						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
+						ItemStack toUse = new ItemStack(bBlock, 1, bmeta);
+						ItemsRemainingRenderHandler.set(toUse, getBlockCount(stack));
 
-						Item.getItemFromBlock(bBlock).onItemUse(stack, player, world, pos, hand, side, par8, par9, par10);
+						Item.getItemFromBlock(bBlock).onItemUse(toUse, player, world, pos, hand, side, hitX, hitY, hitZ);
 						set = true;
 					}
 				}
 			}
 		}
 
-		player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
+		player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, stack);
 		return set ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 	}
 
@@ -144,7 +129,6 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 			int highest = -1;
 			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
-			Arrays.fill(counts, 0);
 
 			for(int i = 0; i < counts.length; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);

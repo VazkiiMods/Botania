@@ -43,16 +43,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-// Some methods from OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {
-
-	public static int[] buildSlotsForLinearInventory(IInventory inv) {
-		int[] slots = new int[inv.getSizeInventory()];
-		for (int i = 0; i < slots.length; i++)
-			slots[i] = i;
-
-		return slots;
-	}
 
 	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, EnumFacing side) {
         IItemHandler ret = getInventory(world, pos, side);
