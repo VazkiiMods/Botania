@@ -54,7 +54,6 @@ public final class LibObfuscation {
 
 	// PlayerControllerMP
 	public static final String[] NET_CLIENT_HANDLER = new String[] { "netClientHandler", "field_78774_b", "b" };
-	public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "i" };
 
 	// MobSpawnerBaseLogic
 	public static final String[] IS_ACTIVATED = new String[] { "isActivated" ,"func_98279_f", "h" };
@@ -89,20 +88,5 @@ public final class LibObfuscation {
 	public static final String[] STAR_GL_CALL_LIST = new String[] { "starGLCallList", "field_72772_v", "p" };
 	public static final String[] GL_SKY_LIST = new String[] { "glSkyList", "field_72771_w", "q" };
 	public static final String[] GL_SKY_LIST2 = new String[] { "glSkyList2", "field_72781_x", "r" };
-
-	// EntityRenderer
-	public static final String[] FAR_PLANE_DISTANCE = { "farPlaneDistance", "field_78530_s", "k" };
-	public static final String[] HURT_CAMERA_EFFECT = { "hurtCameraEffect", "func_78482_e", "d" };
-	public static final String[] SETUP_VIEW_BOBBING = { "setupViewBobbing", "func_78475_f", "e" };
-	public static final String[] ENABLE_LIGHTMAP = { "enableLightmap", "func_180436_i", "i" };
-	public static final String[] DISABLE_LIGHTMAP = { "disableLightmap", "func_175072_h", "h" };
-	public static final String[] GET_FOV_MODIFIER = { "getFOVModifier", "func_78481_a", "a" };
-
-	// ItemRenderer todo 1.9 dual wielding
-	public static final String[] PREV_EQUIPPED_PROGRESS = { "prevEquippedProgress", "field_78451_d", "f" };
-	public static final String[] EQUIPPED_PROGRESS = { "equippedProgress", "field_78454_c", "e" };
-
-	// SoundType
-	public static final String[] BREAK_SOUND = { "breakSound", "field_185862_o", "o" };
 
 }

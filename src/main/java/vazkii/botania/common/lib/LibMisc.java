@@ -17,7 +17,7 @@ public final class LibMisc {
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:Forge@[12.18.1.2024,];required-after:Baubles;after:Thaumcraft";
+	public static final String DEPENDENCIES = "required-after:Forge@[12.18.1.2034,];required-after:Baubles;after:Thaumcraft";
 	public static final String MC_VERSIONS = "[1.10.2]";
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/williewillus/Botania/HEAD/version/update.json";
 

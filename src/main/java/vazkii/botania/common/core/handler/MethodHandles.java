@@ -23,8 +23,8 @@ public final class MethodHandles {
             spawnRange_getter, spawnCount_getter, maxNearbyEntities_getter,
             maxSpawnDelay_getter, minSpawnDelay_getter,
             spawnDelay_getter, spawnDelay_setter, prevMobRotation_setter, mobRotation_setter, potentialSpawns_getter,
-            randomEntity_getter, isActivated, // MobSpawnerBaseLogic
-            breakSound_getter; // SoundType
+            randomEntity_getter, isActivated; // MobSpawnerBaseLogic
+
 
     static {
         try {
@@ -80,10 +80,6 @@ public final class MethodHandles {
             f = ReflectionHelper.findField(MobSpawnerBaseLogic.class, LibObfuscation.RANDOM_ENTITY);
             f.setAccessible(true);
             randomEntity_getter = publicLookup().unreflectGetter(f);
-
-            f = ReflectionHelper.findField(SoundType.class, LibObfuscation.BREAK_SOUND);
-            f.setAccessible(true);
-            breakSound_getter = publicLookup().unreflectGetter(f);
 
             Method m = ReflectionHelper.findMethod(MobSpawnerBaseLogic.class, null, LibObfuscation.IS_ACTIVATED);
             m.setAccessible(true);
