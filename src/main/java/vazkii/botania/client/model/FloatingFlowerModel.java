@@ -47,7 +47,10 @@ import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class FloatingFlowerModel implements IBakedModel {
@@ -151,6 +154,7 @@ public class FloatingFlowerModel implements IBakedModel {
 		private final IBakedModel flower;
 		private final IBakedModel island;
 		private final List<BakedQuad> genQuads;
+		private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
 
 		public CompositeBakedModel(IBakedModel flower, IBakedModel island) {
 			this.flower = flower;
@@ -159,6 +163,8 @@ public class FloatingFlowerModel implements IBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
 
+			for(EnumFacing e : EnumFacing.VALUES)
+				faceQuads.put(e, new ArrayList<>());
 
 			// Add flower quads, scaled and translated
 			for(BakedQuad quad : flower.getQuads(null, null, 0)) {
@@ -166,13 +172,13 @@ public class FloatingFlowerModel implements IBakedModel {
 			}
 
 			for(EnumFacing e : EnumFacing.VALUES) {
-				genBuilder.addAll(flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+				faceQuads.get(e).addAll(flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
 			}
 
 			// Add island quads
 			genBuilder.addAll(island.getQuads(null, null, 0));
 			for(EnumFacing e : EnumFacing.VALUES) {
-				genBuilder.addAll(island.getQuads(null, e, 0));
+				faceQuads.get(e).addAll(island.getQuads(null, e, 0));
 			}
 
 			genQuads = genBuilder.build();
@@ -180,7 +186,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 		// Forward all to flower model
 		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
-			return genQuads;
+			return face == null ? genQuads : faceQuads.get(face);
 		}
 		@Override public boolean isAmbientOcclusion() {
 			return flower.isAmbientOcclusion();
