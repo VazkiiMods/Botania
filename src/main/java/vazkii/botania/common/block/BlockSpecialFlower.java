@@ -174,7 +174,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		if (meta > 15) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta)).withProperty(type, EnumFlowerType.POPPY);
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
