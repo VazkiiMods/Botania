@@ -5,7 +5,7 @@
   },
   "variants": {
     "variant": {
-      "grass": { "textures": { "all": "botania:model/miniIsland" } },
+      "grass": { "textures": { "all": "blocks/grass_top" } },
       "podzol": { "textures": { "all": "botania:model/miniIslandPodzol" } },
       "mycel": { "textures": { "all": "botania:model/miniIslandMycelium" } },
       "snow": { "textures": { "all": "botania:model/miniIslandSnow" } },
