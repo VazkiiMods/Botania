@@ -64,10 +64,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.ISLAND_TYPE, IFloatingFlower.IslandType.GRASS)
-				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull

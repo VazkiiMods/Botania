@@ -49,7 +49,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		super(Material.IRON, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState()).withProperty(Properties.AnimationProperty, null).withProperty(Properties.StaticProperty, true));
+		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true));
 	}
 
 	@Nonnull

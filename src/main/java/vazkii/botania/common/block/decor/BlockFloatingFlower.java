@@ -82,9 +82,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
 
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.ISLAND_TYPE, IslandType.GRASS)
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull

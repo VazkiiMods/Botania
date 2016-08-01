@@ -210,16 +210,13 @@ public class SpecialFlowerModel implements IModelCustomData {
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			if(state.getBlock() != ModBlocks.specialFlower)
 				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
-			Botania.LOGGER.info("Getting " + (face == null ? "gen" : face.getName()) + " quads");
 			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
 			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-			if(subtileId != null) { // Todo remove - workaround for subtile ID being null?
-				Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-				if(specialModel.isPresent())
-					ret = specialModel.get();
-			}
+			Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(subtileId);
+			if(specialModel.isPresent())
+				ret = specialModel.get();
 
 			return ret.getQuads(state, face, rand);
 		}

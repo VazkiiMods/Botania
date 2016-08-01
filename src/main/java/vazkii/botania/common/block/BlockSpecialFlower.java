@@ -57,6 +57,7 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
@@ -132,9 +133,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
 	}
 
