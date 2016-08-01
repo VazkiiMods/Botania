@@ -210,7 +210,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			if(state.getBlock() != ModBlocks.specialFlower)
 				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
-
+			Botania.LOGGER.info("Getting " + (face == null ? "gen" : face.getName()) + " quads");
 			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
