@@ -43,7 +43,8 @@ public class PageElvenRecipe extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(RecipeElvenTrade recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
+			for(ItemStack output : recipe.getOutputs())
+				LexiconRecipeMappings.map(output, entry, index);
 	}
 
 	@Override
@@ -58,7 +59,10 @@ public class PageElvenRecipe extends PageRecipe {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 
-		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
+		List<ItemStack> outputs = recipe.getOutputs();
+		for(int i = 0; i < outputs.size(); i++) {
+			renderItemAtOutputPos(gui, i % 2, i / 2, outputs.get(i));
+		}
 
 		List<Object> inputs = recipe.getInputs();
 		int i = 0;
@@ -94,6 +98,26 @@ public class PageElvenRecipe extends PageRecipe {
 		renderItem(gui, xPos, yPos, stack1, false);
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void renderItemAtOutputPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack) {
+		if(stack == null || stack.getItem() == null)
+			return;
+		stack = stack.copy();
+
+		if(stack.getItemDamage() == Short.MAX_VALUE)
+			stack.setItemDamage(0);
+
+		int xPos = gui.getLeft() + x * 20 + 94;
+		int yPos = gui.getTop() + y * 20 + 52;
+
+		ItemStack stack1 = stack.copy();
+		if (stack1.getItemDamage() == -1) {
+			stack1.setItemDamage(0);
+		}
+
+		renderItem(gui, xPos, yPos, stack1, false);
+	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -114,7 +138,7 @@ public class PageElvenRecipe extends PageRecipe {
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList<>();
 		for(RecipeElvenTrade r : recipes)
-			list.add(r.getOutput());
+			list.addAll(r.getOutputs());
 
 		return list;
 	}
