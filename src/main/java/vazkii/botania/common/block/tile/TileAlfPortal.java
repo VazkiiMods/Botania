@@ -222,7 +222,8 @@ public class TileAlfPortal extends TileMod {
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 			if(recipe.matches(stacksIn, false)) {
 				recipe.matches(stacksIn, true);
-				spawnItem(recipe.getOutput().copy());
+				for(ItemStack output : recipe.getOutputs())
+					spawnItem(output.copy());
 				break;
 			}
 		}

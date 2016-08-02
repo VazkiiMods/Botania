@@ -495,14 +495,24 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
-	 * @param output The ItemStack to return.
+	 * @param outputs The ItemStacks to return.
 	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
 	 * @return The recipe created.
 	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
-		RecipeElvenTrade recipe = new RecipeElvenTrade(output, inputs);
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack[] outputs, Object... inputs) {
+		RecipeElvenTrade recipe = new RecipeElvenTrade(outputs, inputs);
 		elvenTradeRecipes.add(recipe);
 		return recipe;
+	}
+
+	/**
+	 * Registers a Elven Trade recipe (throw an item into an Alfeim Portal).
+	 * @param output The ItemStack to return
+	 * @param inputs The items required, can be an ItemStack or an Ore Dictionary entry string.
+	 * @return The recipe created.
+	 */
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
+		return registerElvenTradeRecipe(new ItemStack[]{ output }, inputs);
 	}
 
 	/**
