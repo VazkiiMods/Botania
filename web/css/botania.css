@@ -115,27 +115,28 @@ hr {
   padding-right: 5px;
 }
 
+.container{
+	overflow: hidden;
+}
+
 .carousel {
-	height: 500px;
-	width: 100%;
-	margin-top: 25px;
+	margin-bottom: 40px;
 }
 
 .carousel-caption {
 	z-index: 10;
+	max-width: 100%;
 	min-height: 240px;
 	margin-bottom: 60px;
-	padding: 20px;
+	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
 .carousel .item {
 	height: 500px;
 	background-color: #777;
-}
-
-#myCarousel {
-	margin-bottom: 40px;
+	background-size: 970px 500px;
+	background-position: center center;
 }
 
 .carousel-inner {

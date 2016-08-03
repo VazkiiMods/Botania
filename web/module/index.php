@@ -7,8 +7,7 @@
 		<li data-target="#myCarousel" data-slide-to="4"></li>
 	</ol>
 	<div class="carousel-inner">
-		<div class="item active">
-		  <img src="img/ss0.png" alt="First slide">
+		<div class="item active" style="background-image: url(img/ss0.png);">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Beautifully Presented</h1>
@@ -17,8 +16,7 @@
 			</div>
 		  </div>
 		</div>
-		<div class="item">
-		  <img src="img/ss1.png" alt="Second slide">
+		<div class="item" style="background-image: url(img/ss1.png);">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Uniquely Powered</h1>
@@ -27,7 +25,7 @@
 			</div>
 		  </div>
 		</div>
-		<div class="item">
+		<div class="item" style="background-image: url(img/ss2.png);">
 		  <img src="img/ss2.png" alt="Third slide">
 		  <div class="container">
 			<div class="carousel-caption">
@@ -37,8 +35,7 @@
 			</div>
 		  </div>
 		</div>
-		<div class="item">
-		  <img src="img/ss3.png" alt="Fourth slide">
+		<div class="item" style="background-image: url(img/ss3.png);">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Thoroughly Documented</h1>
@@ -47,8 +44,7 @@
 			</div>
 		  </div>
 		</div>
-		<div class="item">
-		  <img src="img/ss4.png" alt="Fifth slide">
+		<div class="item" style="background-image: url(img/ss4.png);">
 		  <div class="container">
 			<div class="carousel-caption">
 			  <h1>Packed with Content</h1>
