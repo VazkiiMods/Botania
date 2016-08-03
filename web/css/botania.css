@@ -143,19 +143,22 @@ hr {
 	width: 100%;
 }
 
+.featurettes{
+	padding-top: 30px;
+}
+
 .featurette-divider {
 	margin: 20px 0;
 }
 
 .featurette-heading {
+	margin-top: 0;
 	font-weight: 300;
 	line-height: 1;
 	letter-spacing: -1px;
 }
 
 .featurette-image {
-	box-shadow: 0px 0px 20px 2px #000000;
-	margin-top: 100px;
 	margin-bottom: 10px;
 }
 
@@ -165,7 +168,7 @@ hr {
 
 .video-intro {
 	margin-left: 20px;
-	color: #888;
+	color: #888;g
 	font-weight: bold;
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 	width: 800px;
