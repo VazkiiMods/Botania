@@ -63,7 +63,6 @@
 </div>
 	
 <div class="featurettes">
-	<hr class="featurette-divider">
 
 	<div class="row featurette">
 		<div class="col-md-5">
