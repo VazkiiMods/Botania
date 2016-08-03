@@ -90,7 +90,8 @@ hr {
 } 
 
 .btn {
-	width: 240px;
+	width: inherit;
+  padding: 8px 16px;
 }
 
 .btn-succeed {
