@@ -111,10 +111,8 @@ hr {
 
 .carousel {
 	height: 500px;
-	width: 970px;
-	margin-top: -18px;
-	left: 50%;
-	margin-left: -485px;
+	width: 100%;
+	margin-top: 25px;
 }
 
 .carousel-caption {
@@ -134,7 +132,6 @@ hr {
 }
 
 .carousel-inner {
-	box-shadow: 0 3px 10px rgba(0,0,0,.23), 0 3px 10px rgba(0,0,0,.16);
 }
 
 .carousel-inner > .item > img {
