@@ -144,6 +144,9 @@ hr {
 }
 
 .featurettes{
+}
+
+.featurette{
 	padding-top: 30px;
 }
 
@@ -163,22 +166,18 @@ hr {
 }
 
 .youtube {
-	width: 912px;
+	margin-top: 30px;
 }
 
 .video-intro {
-	margin-left: 20px;
-	color: #888;g
+	color: #888;
 	font-weight: bold;
-	text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 	width: 800px;
 }
 
 iframe {
-	width: 290px;	
-	height: 220px;
-	margin: 15px 0px 0px 10px;
-	box-shadow: -1px 0px 20px 2px #000000;
+	width: 100%;
+	min-height: 200px;
 }
 
 #moe-counter {

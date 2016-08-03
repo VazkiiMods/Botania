@@ -99,33 +99,38 @@
 
 <hr class="featurette-divider">
 
-<div class="row featurette">
-	<div class="col-md-7">
-		<h2 class="featurette-heading">Not convinced yet? <span class="text-muted">Check out some videos.</span></h2>
+<div class="featurette">
+	<h2 class="featurette-heading">Not convinced yet? <span class="text-muted">Check out some videos.</span></h2>
 		<div class="video-intro">Riskable and Jansey's tutorials are a great way to see what you can do with the mod.</div>
 		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/myYI32o2J1M" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/GM_BLKkiCF8" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/8E-9HMsTiKU" frameborder="0" allowfullscreen></iframe>
-		
-			<iframe src="//www.youtube.com/embed/21wLyza082Q" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/bDtoajbSCh0" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/QBOgWz_enQQ" frameborder="0" allowfullscreen></iframe>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/myYI32o2J1M" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/GM_BLKkiCF8" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/8E-9HMsTiKU" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/21wLyza082Q" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/bDtoajbSCh0" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/QBOgWz_enQQ" frameborder="0" allowfullscreen></iframe></div>
+			</div>		
 		</div>
+
 		<div class="video-intro">If you prefer a more traditional assessment, try Direwolf20's spotlight. Note: might be outdated.</div>
 		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/ixIVMYrbpaw" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/bpM_MSJZY2o" frameborder="0" allowfullscreen></iframe>
-
-			<iframe src="//www.youtube.com/embed/igyN7rkx17E" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/Z2tlGSqZaE4" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/H8-3_U6tvas" frameborder="0" allowfullscreen></iframe>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/ixIVMYrbpaw" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/bpM_MSJZY2o" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/igyN7rkx17E" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/Z2tlGSqZaE4" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/H8-3_U6tvas" frameborder="0" allowfullscreen></iframe></div>
+			</div>
 		</div>
+
 		<div class="video-intro">Looking for a Let's Play? Check out Vanhal's Garden of Glass (optional botania skyblock mode) LP.</div>
 		<div class="lead youtube">
-			<iframe src="//www.youtube.com/embed/JD7WZ1Vab-w" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/YBNAqJYemxQ" frameborder="0" allowfullscreen></iframe>
-			<iframe src="//www.youtube.com/embed/SN0rxfvOiJM" frameborder="0" allowfullscreen></iframe>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/JD7WZ1Vab-w" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/YBNAqJYemxQ" frameborder="0" allowfullscreen></iframe></div>
+				<div class="col-xs-12 col-sm-6 col-md-4"><iframe src="//www.youtube.com/embed/SN0rxfvOiJM" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+
 		</div>
-	</div>
 </div>
