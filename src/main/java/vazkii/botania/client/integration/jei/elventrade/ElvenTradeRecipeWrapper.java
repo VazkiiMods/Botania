@@ -22,7 +22,7 @@ import java.util.List;
 public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 
 	private final List input;
-	private final ItemStack output;
+	private final List<ItemStack> outputs;
 
 	@SuppressWarnings("unchecked")
 	public ElvenTradeRecipeWrapper(RecipeElvenTrade recipe) {
@@ -36,7 +36,7 @@ public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 			}
 		}
 		input = builder.build();
-		output = recipe.getOutput();
+		outputs = ImmutableList.copyOf(recipe.getOutputs());
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public List<ItemStack> getOutputs() {
-		return ImmutableList.of(output);
+		return outputs;
 	}
 
 	@Override
