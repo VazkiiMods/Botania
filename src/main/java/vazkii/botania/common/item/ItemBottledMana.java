@@ -180,9 +180,9 @@ public class ItemBottledMana extends ItemMod {
 		case 15 : { // Drop own Head
 			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
 				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
-				ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
-				ItemNBTHelper.setString(stack, "SkullOwner", living.getName());
-				living.entityDropItem(stack, 0);
+				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
+				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());
+				living.entityDropItem(skull, 0);
 			}
 			break;
 		}
