@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.item.ISortableTool.ToolType;
@@ -78,7 +79,7 @@ public class ItemSwapRing extends ItemBauble {
 		}
 
 		if(bestSlot != -1) {
-			player.inventory.setInventorySlotContents(player.inventory.currentItem, bestTool);
+			player.setHeldItem(EnumHand.MAIN_HAND, bestTool);
 			player.inventory.setInventorySlotContents(bestSlot, currentStack);
 		}
 	}

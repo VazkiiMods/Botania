@@ -93,7 +93,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 				InventoryHelper.withdrawFromInventory(brew, player);
 		} else {
 			if(stack != null)
-				return brew.addItem(player, stack);
+				return brew.addItem(player, stack, hand);
 		}
 		return false;
 	}

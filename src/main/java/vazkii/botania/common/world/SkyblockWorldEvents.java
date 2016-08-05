@@ -92,7 +92,7 @@ public final class SkyblockWorldEvents {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
-								event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, new ItemStack(ModItems.waterBowl));
+								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
 							else event.getEntityPlayer().dropItem(new ItemStack(ModItems.waterBowl), false);
 						}
 					}

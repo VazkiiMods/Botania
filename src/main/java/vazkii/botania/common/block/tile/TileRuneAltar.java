@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
@@ -35,6 +36,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	List<ItemStack> lastRecipe = null;
 	int recipeKeepTicks = 0;
 
-	public boolean addItem(EntityPlayer player, ItemStack stack) {
+	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon)
 			return false;
 
@@ -61,7 +63,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			if(player == null || !player.capabilities.isCreativeMode) {
 				stack.stackSize--;
 				if(stack.stackSize == 0 && player != null)
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					player.setHeldItem(hand, null);
 			}
 
 			EntityItem item = new EntityItem(worldObj, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, new ItemStack(ModBlocks.livingrock));
@@ -111,7 +113,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			for(EntityItem item : items)
 				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack) && stack.stackSize == 0)
+					if(addItem(null, stack, null) && stack.stackSize == 0)
 						item.setDead();
 				}
 		}

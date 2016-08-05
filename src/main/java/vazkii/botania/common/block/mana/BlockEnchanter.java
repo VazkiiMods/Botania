@@ -117,7 +117,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 				enchanter.sync();
 			}
 		} else if(enchanter.stage == TileEnchanter.State.IDLE) {

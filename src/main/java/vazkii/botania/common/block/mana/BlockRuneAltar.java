@@ -83,7 +83,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 		} else if(stack != null) {
-			boolean result = altar.addItem(player, stack);
+			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return result;
 		}

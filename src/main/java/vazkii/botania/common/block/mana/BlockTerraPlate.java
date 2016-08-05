@@ -58,7 +58,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 			if(player == null || !player.capabilities.isCreativeMode) {
 				stack.stackSize--;
 				if(stack.stackSize == 0 && player != null)
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					player.setHeldItem(hand, null);
 			}
 
 			ItemStack target = stack.copy();
