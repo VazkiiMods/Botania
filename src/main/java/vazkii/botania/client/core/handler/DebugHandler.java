@@ -84,8 +84,12 @@ public final class DebugHandler {
 					state = state.getActualState(world, pos);
 					state = state.getBlock().getExtendedState(state, world, pos);
 					if (state instanceof IExtendedBlockState) {
-						for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
-							event.getRight().add(e.getKey().getName() + ": " + e.getValue().orNull());
+						try {
+							for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
+								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orNull());
+							}
+						} catch (Throwable t) {
+							event.getRight().add("Error getting extended state");
 						}
 					}
 				}
