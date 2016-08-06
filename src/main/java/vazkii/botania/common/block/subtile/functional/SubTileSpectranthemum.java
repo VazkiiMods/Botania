@@ -141,7 +141,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if(!bound && !pos.equals(bindPos) && MathHelper.pointDistanceSpace(pos, supertile.getPos()) <= BIND_RANGE && !(pos.equals(supertile.getPos()))) {
+		if(!bound && !pos.equals(bindPos) && pos.distanceSq(supertile.getPos()) <= BIND_RANGE * BIND_RANGE && !(pos.equals(supertile.getPos()))) {
 			bindPos = pos;
 			sync();
 

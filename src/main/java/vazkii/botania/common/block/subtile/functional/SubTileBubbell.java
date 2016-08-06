@@ -50,19 +50,16 @@ public class SubTileBubbell extends SubTileFunctional {
 			if(ticksExisted % 10 == 0 && range < getRange())
 				range++;
 
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++)
-					for(int k = -range; k < range + 1; k++) {
-						BlockPos pos = supertile.getPos().add(i, j, k);
-						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							IBlockState state = supertile.getWorld().getBlockState(pos);
-							if(state.getMaterial() == Material.WATER) {
-								supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
-								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
-								air.setFlower(supertile);
-							}
-						}
+			for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-range, -range, -range), getPos().add(range, range, range))) {
+				if(getPos().distanceSq(pos) < range * range) {
+					IBlockState state = supertile.getWorld().getBlockState(pos);
+					if(state.getMaterial() == Material.WATER) {
+						supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
+						TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
+						air.setFlower(supertile);
 					}
+				}
+			}
 		}
 	}
 

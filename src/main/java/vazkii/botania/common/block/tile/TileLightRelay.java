@@ -160,7 +160,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
-		if(player.worldObj.getBlockState(pos).getBlock() != ModBlocks.lightRelay || MathHelper.pointDistanceSpace(pos, getPos()) > MAX_DIST)
+		if(player.worldObj.getBlockState(pos).getBlock() != ModBlocks.lightRelay || pos.distanceSq(getPos()) > MAX_DIST * MAX_DIST)
 			return false;
 
 		bindPos = pos;
