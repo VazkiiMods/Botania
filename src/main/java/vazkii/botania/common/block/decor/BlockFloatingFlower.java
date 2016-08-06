@@ -10,19 +10,14 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -31,10 +26,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -128,40 +121,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
 		}
 		return state;
-	}
-
-	@Override
-	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
-		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
-		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
-		if (d0 > 2.5D) {
-			d0 = 2.5D;
-		}
-		int i = (int)(150.0D * d0);
-		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.DIRT.getDefaultState()));
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager effectRenderer) {
-		if (world.getBlockState(pos).getBlock() == this) {
-			int i = 4;
-			ParticleDigging.Factory factory = new ParticleDigging.Factory();
-			for (int j = 0; j < i; ++j) {
-				for (int k = 0; k < i; ++k) {
-					for (int l = 0; l < i; ++l) {
-						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
-						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
-						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.DIRT.getDefaultState())));
-					}
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
