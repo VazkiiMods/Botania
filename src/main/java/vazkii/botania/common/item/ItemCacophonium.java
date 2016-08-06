@@ -36,6 +36,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.core.helpers.Strings;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
@@ -45,13 +48,14 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
-	private static final String TAG_HAS_SOUND = "hasSound";
 
 	public ItemCacophonium() {
 		super(LibItemNames.CACOPHONIUM);
@@ -62,32 +66,33 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
-			SoundEvent sound;
-			try {
-				if(living instanceof EntityCreeper)
-					sound = SoundEvents.ENTITY_CREEPER_PRIMED;
-				else if(living instanceof EntitySlime)
-					sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH;
-				else sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
+			SoundEvent sound = null;
 
-				if(sound != null) {
-					String s = EntityList.getEntityString(entity);
-					if(s == null)
-						s = "generic";
-
-					ItemNBTHelper.setString(stack, TAG_SOUND, sound.getRegistryName().toString());
-					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
-					ItemNBTHelper.setBoolean(stack, TAG_HAS_SOUND, true);
-					player.setHeldItem(hand, stack);
-					//player.inventory.setInventorySlotContents(player.inventory.currentItem, stack.copy());
-
-					if(player.worldObj.isRemote)
-						player.swingArm(hand);
-
-					return true;
+			if(living instanceof EntityCreeper)
+				sound = SoundEvents.ENTITY_CREEPER_PRIMED;
+			else if(living instanceof EntitySlime)
+				sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH;
+			else {
+				try {
+					sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
+				} catch (InvocationTargetException | IllegalAccessException ignored) {
+					Botania.LOGGER.debug("Couldn't get living sound");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			}
+
+			if(sound != null) {
+				String s = EntityList.getEntityString(entity);
+				if(s == null)
+					s = "generic";
+
+				ItemNBTHelper.setString(stack, TAG_SOUND, sound.getRegistryName().toString());
+				ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
+				player.setHeldItem(hand, stack);
+
+				if(player.worldObj.isRemote)
+					player.swingArm(hand);
+
+				return true;
 			}
 		}
 
@@ -97,15 +102,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
-		boolean can = isDOIT(stack);
-		if(!can) {
-			String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
-			isDOIT(stack);
-			if(sound != null && !sound.isEmpty())
-				can = true;
-		}
-
-		if(can) {
+		if(getSound(stack) != null) {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block == Blocks.NOTEBLOCK) {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
@@ -123,7 +120,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(isDOIT(stack))
 			list.add(I18n.format("botaniamisc.justDoIt"));
-		else if(ItemNBTHelper.getBoolean(stack, TAG_HAS_SOUND, false))
+		else if(getSound(stack) != null)
 			list.add(I18n.format(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
@@ -140,10 +137,10 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		if(ItemNBTHelper.getBoolean(par1ItemStack, TAG_HAS_SOUND, false) || isDOIT(par1ItemStack))
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(getSound(stack) != null)
 			player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override
@@ -156,13 +153,17 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		if(stack == null)
 			return;
 
-		String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
-		boolean doit = isDOIT(stack);
-		if(doit)
-			sound = "botania:doit";
+		SoundEvent sound = getSound(stack);
 
-		if(sound != null && !sound.isEmpty() && SoundEvent.REGISTRY.containsKey(new ResourceLocation(sound)))
-			world.playSound(null, x, y, z, SoundEvent.REGISTRY.getObject(new ResourceLocation(sound)), category, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+		if(sound != null)
+			world.playSound(null, x, y, z, sound, category, volume, sound == BotaniaSoundEvents.doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+	}
+
+	@Nullable
+	private static SoundEvent getSound(ItemStack stack) {
+		if(isDOIT(stack))
+			return BotaniaSoundEvents.doit;
+		else return SoundEvent.REGISTRY.getObject(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
