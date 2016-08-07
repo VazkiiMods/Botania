@@ -192,15 +192,16 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 			@Override
 			public Optional<IBakedModel> load(@Nonnull String key) {
-				if (key == null) Botania.LOGGER.error("Null passed to special model cacheloader?!");
 				Map<Optional<String>, ModelResourceLocation> loadFrom = loadBlocks ? blockModels : itemModels;
 
 				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
 				if(loc == null)
 					return Optional.empty();
+
 				IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
 				if(model == ModelLoaderRegistry.getMissingModel())
 					return Optional.empty();
+
 				return Optional.of(model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
 			}
 		}
@@ -210,11 +211,12 @@ public class SpecialFlowerModel implements IModelCustomData {
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			if(state.getBlock() != ModBlocks.specialFlower)
 				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
+
 			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
 			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-			Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(subtileId);
+			Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(subtileId == null ? "" : subtileId);
 			if(specialModel.isPresent())
 				ret = specialModel.get();
 
