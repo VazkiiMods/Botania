@@ -103,14 +103,11 @@ public class SubTileOrechid extends SubTileFunctional {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		Block source = getSourceBlock();
-		for(int i = -RANGE; i < RANGE + 1; i++)
-			for(int j = -RANGE_Y; j < RANGE_Y; j++)
-				for(int k = -RANGE; k < RANGE + 1; k++) {
-					BlockPos pos = supertile.getPos().add(i, j, k);
-					IBlockState state = supertile.getWorld().getBlockState(pos);
-					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
-						possibleCoords.add(pos);
-				}
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+			IBlockState state = supertile.getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
+				possibleCoords.add(pos);
+		}
 
 		if(possibleCoords.isEmpty())
 			return null;

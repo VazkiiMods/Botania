@@ -58,25 +58,21 @@ public class SubTileMunchdew extends SubTileGenerating {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = supertile.getPos();
 
-				for(int i = -RANGE; i < RANGE + 1; i++)
-					for(int j = 0; j < RANGE_Y; j++)
-						for(int k = -RANGE; k < RANGE + 1; k++) {
-							BlockPos pos_ = pos.add(i, j, k);
-							if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
-								boolean exposed = false;
-								for(EnumFacing dir : EnumFacing.VALUES) {
-									IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
-									if(offState.getBlock().isAir(offState, supertile.getWorld(), pos_.offset(dir))) {
-										exposed = true;
-										break;
-									}
-								}
-
-
-								if(exposed)
-									coords.add(pos_);
+				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, -RANGE_Y, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
+					if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
+						boolean exposed = false;
+						for(EnumFacing dir : EnumFacing.VALUES) {
+							IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
+							if(offState.getBlock().isAir(offState, supertile.getWorld(), pos_.offset(dir))) {
+								exposed = true;
+								break;
 							}
 						}
+
+						if(exposed)
+							coords.add(pos_);
+					}
+				}
 
 				if(coords.isEmpty())
 					break eatLeaves;

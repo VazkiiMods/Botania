@@ -93,16 +93,15 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				Item stackItem = stack.getItem();
 				if(stackItem instanceof ItemBlock || stackItem instanceof ItemBlockSpecial || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {
-						for(int i = -rangePlace; i < rangePlace + 1; i++)
-							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
-								for(int l = -rangePlace; l < rangePlace + 1; l++) {
-									BlockPos pos_ = pos.add(i, j, l);
-									IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
-									Block blockAbove = stateAbove.getBlock();
-
-									if(filter == supertile.getWorld().getBlockState(pos_) && (blockAbove.isAir(stateAbove, supertile.getWorld(), pos_.up()) || blockAbove.isReplaceable(supertile.getWorld(), pos_.up())))
-										validPositions.add(pos_.up());
-								}
+						for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
+							IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
+							Block blockAbove = stateAbove.getBlock();
+							BlockPos up = pos_.up();
+							if(filter == supertile.getWorld().getBlockState(pos_)
+									&& (blockAbove.isAir(stateAbove, supertile.getWorld(), up)
+										|| blockAbove.isReplaceable(supertile.getWorld(), up)))
+								validPositions.add(up);
+						}
 
 						scanned = true;
 					}

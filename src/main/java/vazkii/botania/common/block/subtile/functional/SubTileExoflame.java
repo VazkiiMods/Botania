@@ -39,51 +39,45 @@ public class SubTileExoflame extends SubTileFunctional {
 
 		boolean did = false;
 
-		fireFurnaces : {
-			for(int i = -RANGE; i < RANGE + 1; i++)
-				for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
-					for(int k = -RANGE; k < RANGE + 1; k++) {
-						BlockPos pos = supertile.getPos().add(i, j, k);
-
-						TileEntity tile = supertile.getWorld().getTileEntity(pos);
-						Block block = supertile.getWorld().getBlockState(pos).getBlock();
-						if(tile != null) {
-							if(tile instanceof TileEntityFurnace && (block == Blocks.FURNACE || block == Blocks.LIT_FURNACE)) {
-								TileEntityFurnace furnace = (TileEntityFurnace) tile;
-								boolean canSmelt = canFurnaceSmelt(furnace);
-								if(canSmelt && mana > 2) {
-									if(furnace.getField(0) < 2) { // Field 0 -> Burn time
-										if(furnace.getField(0) == 0)
-											BlockFurnace.setState(true, supertile.getWorld(), pos);
-										furnace.setField(0, 200);
-										mana = Math.max(0, mana - COST);
-									}
-									if(ticksExisted % 2 == 0)
-										furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
-
-									did = true;
-
-									if(mana <= 0)
-										break fireFurnaces;
-								}
-							} else if(tile instanceof IExoflameHeatable) {
-								IExoflameHeatable heatable = (IExoflameHeatable) tile;
-
-								if(heatable.canSmelt() && mana > 2) {
-									if(heatable.getBurnTime() == 0) {
-										heatable.boostBurnTime();
-										mana = Math.max(0, mana - COST);
-									}
-
-									if(ticksExisted % 2 == 0)
-										heatable.boostCookTime();
-
-									if(mana <= 0)
-										break fireFurnaces;
-								}
-							}
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+			TileEntity tile = supertile.getWorld().getTileEntity(pos);
+			Block block = supertile.getWorld().getBlockState(pos).getBlock();
+			if(tile != null) {
+				if(tile instanceof TileEntityFurnace && (block == Blocks.FURNACE || block == Blocks.LIT_FURNACE)) {
+					TileEntityFurnace furnace = (TileEntityFurnace) tile;
+					boolean canSmelt = canFurnaceSmelt(furnace);
+					if(canSmelt && mana > 2) {
+						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
+							if(furnace.getField(0) == 0)
+								BlockFurnace.setState(true, supertile.getWorld(), pos);
+							furnace.setField(0, 200);
+							mana = Math.max(0, mana - COST);
 						}
+						if(ticksExisted % 2 == 0)
+							furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
+
+						did = true;
+
+						if(mana <= 0)
+							break;
 					}
+				} else if(tile instanceof IExoflameHeatable) {
+					IExoflameHeatable heatable = (IExoflameHeatable) tile;
+
+					if(heatable.canSmelt() && mana > 2) {
+						if(heatable.getBurnTime() == 0) {
+							heatable.boostBurnTime();
+							mana = Math.max(0, mana - COST);
+						}
+
+						if(ticksExisted % 2 == 0)
+							heatable.boostCookTime();
+
+						if(mana <= 0)
+							break;
+					}
+				}
+			}
 		}
 
 		if(did)

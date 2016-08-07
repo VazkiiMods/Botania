@@ -112,24 +112,24 @@ public class ItemGrassHorn extends ItemMod {
 		int rangeY = 3 + stackDmg * 4;
 		List<BlockPos> coords = new ArrayList<>();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -rangeY; k < rangeY + 1; k++) {
-					BlockPos pos = srcPos.add(i, k, j);
-					Block block = world.getBlockState(pos).getBlock();
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) || stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos) || stackDmg == 2 && block == Blocks.SNOW_LAYER)
-						coords.add(pos);
-				}
+		for(BlockPos pos : BlockPos.getAllInBox(srcPos.add(-range, -rangeY, -range), srcPos.add(range, rangeY, range))) {
+			Block block = world.getBlockState(pos).getBlock();
+			if(block instanceof IHornHarvestable
+					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
+					: stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)
+						|| stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos)
+						|| stackDmg == 2 && block == Blocks.SNOW_LAYER)
+				coords.add(pos);
+		}
 
 		Collections.shuffle(coords, rand);
 
 		int count = Math.min(coords.size(), 32 + stackDmg * 16);
 		for(int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
-			List<ItemStack> items = new ArrayList<>();
 			IBlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
-			items.addAll(block.getDrops(world, currCoords, state, 0));
+			List<ItemStack> items = block.getDrops(world, currCoords, state, 0);
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
