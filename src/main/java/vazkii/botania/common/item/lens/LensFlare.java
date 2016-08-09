@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import java.awt.*;
 
@@ -48,22 +49,20 @@ public class LensFlare extends Lens {
 		float my = (float) (MathHelper.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 
 		int storedColor = ItemLens.getStoredColor(stack);
-		float r = 1, g = 1, b = 1;
+		int hex = -1;
 
 		TileEntity tile = (TileEntity) spreader;
 		if(storedColor == 16) {
-			Color c = Color.getHSBColor(tile.getWorld().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
-			r = c.getRed() / 255F;
-			g = c.getGreen() / 255F;
-			b = c.getBlue() / 255F;
+			hex = Color.HSBtoRGB(tile.getWorld().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if(storedColor >= 0) {
-			int hex = EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
-			r = (hex & 0xFF0000) >> 16;
-			g = (hex & 0xFF00) >> 8;
-			b = (hex & 0xFF);
+			hex = EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
 		}
 
-		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r / 255F, g / 255F, b / 255F, 0.4F, mx, my, mz);
+		float r = ((hex & 0xFF0000) >> 16) / 255F;
+		float g = ((hex & 0xFF00) >> 8) / 255F;
+		float b = (hex & 0xFF) / 255F;
+
+		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r, g, b, 0.4F, mx, my, mz);
 	}
 
 }
