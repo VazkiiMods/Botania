@@ -47,7 +47,7 @@ public class TileCorporeaRetainer extends TileMod {
 		this.request = request;
 		this.requestCount = requestCount;
 		pendingRequest = true;
-		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
 	}
 
 	public boolean hasPendingRequest() {
@@ -65,7 +65,7 @@ public class TileCorporeaRetainer extends TileMod {
 				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
 				pendingRequest = false;
-				worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+				worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
 			}
 		}
 	}
