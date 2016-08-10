@@ -14,6 +14,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.AltarVariant;
@@ -43,6 +44,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void register(@Nonnull IModRegistry registry) {
 		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+
+		jeiHelpers.getSubtypeRegistry().registerNbtInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), ItemBlockSpecialFlower::getType);
+		jeiHelpers.getSubtypeRegistry().registerNbtInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
 
 		registry.addRecipeCategories(
 				new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
