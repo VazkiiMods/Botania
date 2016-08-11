@@ -42,12 +42,22 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import javax.annotation.Nonnull;
+import java.util.regex.Pattern;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
+
+
+	private static boolean matches(String name, String match) {
+		return name.equals(match) || name.startsWith(match + " ");
+	}
+
+	private static String removeFromFront(String name, String match) {
+		return name.substring(match.length()).trim();
+	}
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
@@ -62,28 +72,28 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
-		String name = potato.name.toLowerCase();
+		String name = potato.name.toLowerCase().trim();
 
 		boolean usedShader = false;
-		if (name.startsWith("gaia ")) {
+		if (matches(name, "gaia")) {
 			ShaderHelper.useShader(ShaderHelper.doppleganger);
-			name = name.substring(5);
+			name = removeFromFront(name, "gaia");
 			usedShader = true;
-		} else if (name.startsWith("hot ")) {
+		} else if (matches(name, "hot")) {
 			ShaderHelper.useShader(ShaderHelper.halo);
-			name = name.substring(4);
+			name = removeFromFront(name, "hot");
 			usedShader = true;
-		} else if (name.startsWith("magic ")) {
+		} else if (matches(name, "magic")) {
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
-			name = name.substring(6);
+			name = removeFromFront(name, "magic");
 			usedShader = true;
-		} else if (name.startsWith("gold ")) {
+		} else if (matches(name, "gold")) {
 			ShaderHelper.useShader(ShaderHelper.gold);
-			name = name.substring(5);
+			name = removeFromFront(name, "gold");
 			usedShader = true;
-		} else if (name.startsWith("snoop ")) {
+		} else if (matches(name, "snoop")) {
 			ShaderHelper.useShader(ShaderHelper.terraPlateRune);
-			name = name.substring(6);
+			name = removeFromFront(name, "snoop");
 			usedShader = true;
 		}
 
@@ -104,16 +114,23 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 		GlStateManager.rotate(rotZ, 0F, 0F, 1F);
 
 		GlStateManager.pushMatrix();
-		if (name.equals("pahimar")) {
-			GlStateManager.scale(1F, 0.3F, 1F);
-			GlStateManager.translate(0F, 3.5F, 0F);
-		} else if (name.equals("kyle hyde"))
-			mc.renderEngine.bindTexture(textureGrayscale);
-		else if (name.equals("dinnerbone") || name.equals("grumm")) {
-			GlStateManager.rotate(180F, 0F, 0F, 1F);
-			GlStateManager.translate(0F, -2.625F, 0F);
-		} else if (name.equals("aureylian"))
-			GlStateManager.color(1F, 0.5F, 1F);
+		switch (name) {
+			case "pahimar":
+				GlStateManager.scale(1F, 0.3F, 1F);
+				GlStateManager.translate(0F, 3.5F, 0F);
+				break;
+			case "kyle hyde":
+				mc.renderEngine.bindTexture(textureGrayscale);
+				break;
+			case "dinnerbone":
+			case "grumm":
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(0F, -2.625F, 0F);
+				break;
+			case "aureylian":
+				GlStateManager.color(1F, 0.5F, 1F);
+				break;
+		}
 
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
@@ -263,9 +280,11 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				renderItem(new ItemStack(Items.PAINTING));
 			} else if (name.equals("jibril")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
-				GlStateManager.translate(0F, 0.7F, 0F);
+				GlStateManager.translate(0F, -0.8F, 0F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				ItemFlightTiara.renderHalo(null, partialTicks);
+				GlStateManager.disableBlend();
+				GlStateManager.disableLighting();
 			} else if (name.equals("nebris")) {
 				GlStateManager.scale(2F, 2F, 2F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
@@ -294,6 +313,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				renderItem(new ItemStack(Items.COOKIE));
 			} else if (name.equals("sethbling")) {
 				GlStateManager.scale(1.2F, 1.2F, 1.2F);
+				GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, 1.4F, -0.5F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
