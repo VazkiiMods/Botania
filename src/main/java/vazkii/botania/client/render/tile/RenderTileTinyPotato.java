@@ -39,15 +39,18 @@ import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
+	private final ItemStack[] cosmetics = Arrays.stream(ItemBaubleCosmetic.Variants.values()).map(v -> new ItemStack(ModItems.cosmetic, 1, v.ordinal())).toArray(ItemStack[]::new);
 
 
 	private static boolean matches(String name, String match) {
@@ -172,13 +175,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.6F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 23));
+				renderItem(cosmetics[23]);
 			} else if (name.equals("kamina")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -0.6F, 0.4F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 26));
+				renderItem(cosmetics[26]);
 			} else if (name.equals("haighyorkie")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -189,29 +192,29 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(0F, -1F, -0.4F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 7));
+				renderItem(cosmetics[7]);
 			} else if (name.equals("direwolf20")) {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -2.5F, 0.125F);
-				renderItem(new ItemStack(ModItems.cosmetic));
+				renderItem(cosmetics[0]);
 			} else if (name.equals("doctor")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.45F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 25));
+				renderItem(cosmetics[25]);
 			} else if (name.equals("snoo")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(0F, -0.75F, -0.5F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 24));
+				renderItem(cosmetics[24]);
 			} else if (name.equals("charlotte")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.6F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 12));
+				renderItem(cosmetics[12]);
 			} else if (name.equals("greg") || name.equals("gregorioust")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -256,19 +259,19 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, 0.3F, 0.1F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 31));
+				renderItem(cosmetics[31]);
 			} else if (name.equals("kurumi")) {
 				GlStateManager.scale(0.4F, 0.4F, 0.4F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0.4F, -2F, 1.3F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 17));
+				renderItem(cosmetics[17]);
 			} else if (name.equals("ichun")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.45F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 15));
+				renderItem(cosmetics[15]);
 			} else if (name.equals("wiiv") || name.equals("dylan4ever") || name.equals("dylankaiser")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
@@ -299,7 +302,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
 				GlStateManager.rotate(270F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.5F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 8));
+				renderItem(cosmetics[8]);
 			} else if (name.equals("etho") || name.equals("ethoslab")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
@@ -338,7 +341,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, -1.6F, 0F);
-				renderItem(new ItemStack(ModItems.cosmetic, 1, 27));
+				renderItem(cosmetics[27]);
 			} else if (name.equals("martyn") || name.equals("inthelittlewood")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
@@ -447,6 +450,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 	}
 
 	private void renderBlock(Block block) {
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(block.getDefaultState(), 1.0F);
 	}
 }
