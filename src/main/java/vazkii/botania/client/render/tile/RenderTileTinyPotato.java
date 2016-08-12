@@ -42,7 +42,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 import javax.annotation.Nonnull;
-import java.util.regex.Pattern;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
@@ -188,19 +187,19 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			} else if (name.equals("chitoge")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -0.2F, 0.1F);
+				GlStateManager.rotate(-180F, 0F, 1F, 0F);
+				GlStateManager.translate(0F, -0.75F, -0.4F);
 				renderItem(new ItemStack(ModItems.cosmetic, 1, 7));
 			} else if (name.equals("direwolf20")) {
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -1.7F, 0.5F);
+				GlStateManager.translate(0F, -2.5F, 0.125F);
 				renderItem(new ItemStack(ModItems.cosmetic));
 			} else if (name.equals("doctor")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -0.65F, 0.4F);
+				GlStateManager.translate(0F, -1.45F, 0F);
 				renderItem(new ItemStack(ModItems.cosmetic, 1, 25));
 			} else if (name.equals("snoo")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
@@ -213,7 +212,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -0.7F, 0.4F);
+				GlStateManager.translate(0F, -1.6F, 0F);
 				renderItem(new ItemStack(ModItems.cosmetic, 1, 12));
 			} else if (name.equals("greg") || name.equals("gregorioust")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
@@ -270,7 +269,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -0.7F, 0.4F);
+				GlStateManager.translate(0F, -1.45F, 0F);
 				renderItem(new ItemStack(ModItems.cosmetic, 1, 15));
 			} else if (name.equals("wiiv") || name.equals("dylan4ever") || name.equals("dylankaiser")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
@@ -342,7 +341,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
-				GlStateManager.translate(0F, -0.77F, 0.4F);
+				GlStateManager.translate(0F, -1.6F, 0F);
 				renderItem(new ItemStack(ModItems.cosmetic, 1, 27));
 			} else if (name.equals("martyn") || name.equals("inthelittlewood")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
@@ -430,7 +429,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(TextureAtlasSprite icon) {
+	private void renderIcon(TextureAtlasSprite icon) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -438,11 +437,11 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 	}
 
-	public void renderItem(ItemStack stack) {
+	private void renderItem(ItemStack stack) {
 		Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.HEAD);
 	}
 
-	public void renderBlock(Block block) {
+	private void renderBlock(Block block) {
 		Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(block.getDefaultState(), 1.0F);
 	}
 }
