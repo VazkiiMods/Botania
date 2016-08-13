@@ -61,6 +61,10 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
+		ItemStack stack = entity.getDisplayedItem().orNull();
+		if(stack == null)
+			return;
+
 		GlStateManager.pushMatrix();
 		GlStateManager.rotate(90F, 1F, 0F, 0F);
 		float scalef = 1F / 6F;
@@ -69,10 +73,6 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color(1F, 1F, 1F, absTime / 10);
 		GlStateManager.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
-
-		ItemStack stack = entity.getDisplayedItem().orNull();
-		if(stack == null)
-			return;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite icon = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, entity.worldObj, null).getParticleTexture();
