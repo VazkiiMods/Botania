@@ -25,6 +25,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -47,133 +49,105 @@ public final class TooltipAdditionDisplayHandler {
 
 	private static float lexiconLookupTime = 0F;
 
-	public static void render() {
+	@SubscribeEvent
+	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
+		if(evt.getStack() == null)
+			return;
+
+		ItemStack stack = evt.getStack();
 		Minecraft mc = Minecraft.getMinecraft();
-		GuiScreen gui = mc.currentScreen;
-		if(gui != null && gui instanceof GuiContainer && mc.thePlayer != null && mc.thePlayer.inventory.getItemStack() == null) {
-			GuiContainer container = (GuiContainer) gui;
-			Slot slot = container.getSlotUnderMouse();
-			if(slot != null && slot.getHasStack()) {
-				ItemStack stack = slot.getStack();
-				if(stack != null) {
-					ScaledResolution res = new ScaledResolution(mc);
-					FontRenderer font = mc.fontRendererObj;
-					int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
-					int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;
+		int width = evt.getWidth();
+		int height = 3;
+		int tooltipX = evt.getX();
+		int tooltipY = evt.getY() - 4;
+		FontRenderer font = evt.getFontRenderer();
 
-					List<String> tooltip;
-					try {
-						tooltip = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
-					} catch(Exception e) {
-						tooltip = new ArrayList<>();
+		if(stack.getItem() instanceof ItemTerraPick)
+			drawTerraPick(stack, tooltipX, tooltipY, width, height, font);
+		else if(stack.getItem() instanceof IManaTooltipDisplay)
+			drawManaBar(stack, (IManaTooltipDisplay) stack.getItem(), tooltipX, tooltipY, width, height);
+
+		EntryData data = LexiconRecipeMappings.getDataForStack(stack);
+		if(data != null) {
+			int lexSlot = -1;
+			ItemStack lexiconStack = null;
+
+			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
+				ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
+				if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
+					lexiconStack = stackAt;
+					lexSlot = i;
+					break;
+				}
+			}
+
+			if(lexSlot > -1) {
+				int x = tooltipX - 34;
+				GlStateManager.disableDepth();
+
+				Gui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
+				Gui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
+
+				if(ConfigHandler.useShiftForQuickLookup ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
+					lexiconLookupTime += ClientTickHandler.delta;
+
+					int cx = x + 8;
+					int cy = tooltipY + 8;
+					float r = 12;
+					float time = 20F;
+					float angles = lexiconLookupTime / time * 360F;
+
+					GlStateManager.disableLighting();
+					GlStateManager.disableTexture2D();
+					GlStateManager.shadeModel(GL11.GL_SMOOTH);
+					GlStateManager.enableBlend();
+					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+					VertexBuffer buf = Tessellator.getInstance().getBuffer();
+					buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+
+					float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
+					buf.pos(cx, cy, 0).color(0F, 0.5F, 0F, a).endVertex();
+
+					for(float i = angles; i > 0; i--) {
+						double rad = (i - 90) / 180F * Math.PI;
+						buf.pos(cx + Math.cos(rad) * r, cy + Math.sin(rad) * r, 0).color(0F, 1F, 0F, 1F).endVertex();
 					}
-					int width = 0;
-					for(String s : tooltip)
-						width = Math.max(width, font.getStringWidth(s) + 2);
-					int tooltipHeight = (tooltip.size() - 1) * 10 + 5;
 
-					int height = 3;
-					int offx = 11;
-					int offy = 17;
+					buf.pos(cx, cy, 0).color(0F, 1F, 0F, 0F).endVertex();
+					Tessellator.getInstance().draw();
 
-					boolean offscreen = mouseX + width + 19 >= res.getScaledWidth();
+					GlStateManager.disableBlend();
+					GlStateManager.enableTexture2D();
+					GlStateManager.shadeModel(GL11.GL_FLAT);
 
-					int fixY = res.getScaledHeight() - (mouseY + tooltipHeight);
-					if(fixY < 0)
-						offy -= fixY;
-					if(offscreen)
-						offx = -13 - width;
+					if(lexiconLookupTime >= time) {
+						mc.thePlayer.inventory.currentItem = lexSlot;
+						Botania.proxy.setEntryToOpen(data.entry);
+						Botania.proxy.setLexiconStack(lexiconStack);
+						mc.thePlayer.closeScreen();
+						ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
 
-					if(stack.getItem() instanceof ItemTerraPick)
-						drawTerraPick(stack, mouseX, mouseY, offx, offy, width, height, font);
-					else if(stack.getItem() instanceof IManaTooltipDisplay)
-						drawManaBar(stack, (IManaTooltipDisplay) stack.getItem(), mouseX, mouseY, offx, offy, width, height);
-
-					EntryData data = LexiconRecipeMappings.getDataForStack(stack);
-					if(data != null) {
-						int lexSlot = -1;
-						ItemStack lexiconStack = null;
-
-						for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
-							ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
-							if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
-								lexiconStack = stackAt;
-								lexSlot = i;
-								break;
-							}
-						}
-
-						if(lexSlot > -1) {
-							int x = mouseX + offx - 34;
-							int y = mouseY - offy;
-							GlStateManager.disableDepth();
-
-							Gui.drawRect(x - 4, y - 4, x + 20, y + 26, 0x44000000);
-							Gui.drawRect(x - 6, y - 6, x + 22, y + 28, 0x44000000);
-
-							if(ConfigHandler.useShiftForQuickLookup ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
-								lexiconLookupTime += ClientTickHandler.delta;
-
-								int cx = x + 8;
-								int cy = y + 8;
-								float r = 12;
-								float time = 20F;
-								float angles = lexiconLookupTime / time * 360F;
-
-								GlStateManager.disableLighting();
-								GlStateManager.disableTexture2D();
-								GlStateManager.shadeModel(GL11.GL_SMOOTH);
-								GlStateManager.enableBlend();
-								GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-								VertexBuffer buf = Tessellator.getInstance().getBuffer();
-								buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
-
-								float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
-								buf.pos(cx, cy, 0).color(0F, 0.5F, 0F, a).endVertex();
-
-								for(float i = angles; i > 0; i--) {
-									double rad = (i - 90) / 180F * Math.PI;
-									buf.pos(cx + Math.cos(rad) * r, cy + Math.sin(rad) * r, 0).color(0F, 1F, 0F, 1F).endVertex();
-								}
-								
-								buf.pos(cx, cy, 0).color(0F, 1F, 0F, 0F).endVertex();
-								Tessellator.getInstance().draw();
-
-								GlStateManager.disableBlend();
-								GlStateManager.enableTexture2D();
-								GlStateManager.shadeModel(GL11.GL_FLAT);
-
-								if(lexiconLookupTime >= time) {
-									mc.thePlayer.inventory.currentItem = lexSlot;
-									Botania.proxy.setEntryToOpen(data.entry);
-									Botania.proxy.setLexiconStack(lexiconStack);
-									mc.thePlayer.closeScreen();
-									ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
-
-								}
-							} else lexiconLookupTime = 0F;
-
-							mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, y);
-							GlStateManager.disableLighting();
-
-							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
-							GlStateManager.scale(0.5F, 0.5F, 1F);
-							boolean mac = Minecraft.IS_RUNNING_ON_MAC;
-
-							mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
-							GlStateManager.scale(2F, 2F, 1F);
-
-
-							GlStateManager.enableDepth();
-						} else lexiconLookupTime = 0F;
-					} else lexiconLookupTime = 0F;
+					}
 				} else lexiconLookupTime = 0F;
+
+				mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, tooltipY);
+				GlStateManager.disableLighting();
+
+				font.drawStringWithShadow("?", x + 10, tooltipY + 8, 0xFFFFFFFF);
+				GlStateManager.scale(0.5F, 0.5F, 1F);
+				boolean mac = Minecraft.IS_RUNNING_ON_MAC;
+
+				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
+				GlStateManager.scale(2F, 2F, 1F);
+
+
+				GlStateManager.enableDepth();
 			} else lexiconLookupTime = 0F;
 		} else lexiconLookupTime = 0F;
 	}
 
-	private static void drawTerraPick(ItemStack stack, int mouseX, int mouseY, int offx, int offy, int width, int height, FontRenderer font) {
+	private static void drawTerraPick(ItemStack stack, int mouseX, int mouseY, int width, int height, FontRenderer font) {
 		int level = ItemTerraPick.getLevel(stack);
 		int max = ItemTerraPick.LEVELS[Math.min(ItemTerraPick.LEVELS.length - 1, level + 1)];
 		boolean ss = level >= ItemTerraPick.LEVELS.length - 1;
@@ -184,33 +158,33 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		GlStateManager.disableDepth();
-		Gui.drawRect(mouseX + offx - 1, mouseY - offy - height - 1, mouseX + offx + width + 1, mouseY - offy, 0xFF000000);
+		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
-			Gui.drawRect(mouseX + offx + i, mouseY - offy - height, mouseX + offx + i + 1, mouseY - offy, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
-		Gui.drawRect(mouseX + offx + rainbowWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);
+			Gui.drawRect(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
+		Gui.drawRect(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableLighting();
-		font.drawStringWithShadow(rank, mouseX + offx, mouseY - offy - 12, 0xFFFFFF);
+		font.drawStringWithShadow(rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if(!ss) {
 			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.drawStringWithShadow(rank, mouseX + offx + width - font.getStringWidth(rank), mouseY - offy - 12, 0xFFFFFF);
+			font.drawStringWithShadow(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
 		GlStateManager.enableLighting();
 		GlStateManager.enableDepth();
 		GL11.glPopAttrib();
 	}
 
-	private static void drawManaBar(ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int offx, int offy, int width, int height) {
+	private static void drawManaBar(ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int width, int height) {
 		float fraction = display.getManaFractionForDisplay(stack);
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		GlStateManager.disableDepth();
-		Gui.drawRect(mouseX + offx - 1, mouseY - offy - height - 1, mouseX + offx + width + 1, mouseY - offy, 0xFF000000);
-		Gui.drawRect(mouseX + offx, mouseY - offy - height, mouseX + offx + manaBarWidth, mouseY - offy, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		Gui.drawRect(mouseX + offx + manaBarWidth, mouseY - offy - height, mouseX + offx + width, mouseY - offy, 0xFF555555);
+		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		Gui.drawRect(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		Gui.drawRect(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }
