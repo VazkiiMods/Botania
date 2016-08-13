@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -75,9 +77,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
-
-		addPropertyOverride(new ResourceLocation("botania", "clip"), (itemStack, world, entityLivingBase) -> hasClip(itemStack) ? 1 : 0);
-		addPropertyOverride(new ResourceLocation("botania", "desu"), (itemStack, world, entityLivingBase) -> isSugoiKawaiiDesuNe(itemStack) ? 1 : 0);
 	}
 
 	@Nonnull
@@ -141,17 +140,21 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int tintIndex) {
-		if(tintIndex != 1)
-			return 0xFFFFFF;
+	public int getColorFromItemStack(ItemStack stack, int tintIndex) {
+		ItemStack lens = getLens(stack);
+		if(lens != null && tintIndex == 0)
+			return ((IColorable) ModItems.lens).getColorFromItemStack(lens, tintIndex);
 
-		EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, par1ItemStack, false);
-		Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
+		if(tintIndex == 2) {
+			EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, stack, false);
+			Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
 
-		float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
-		int c = (int) (255 * mul);
+			float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
+			int c = (int) (255 * mul);
 
-		return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
+			return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
+		} else return 0xFFFFFF;
+
 	}
 
 	@Override
@@ -330,5 +333,24 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.registerItemVariants(this,
+				new ModelResourceLocation("botania:desuGunClip", "inventory"),
+				new ModelResourceLocation("botania:desuGun", "inventory"),
+				new ModelResourceLocation("botania:manaGunClip", "inventory"),
+				new ModelResourceLocation("botania:manaGun", "inventory"));
+		ModelLoader.setCustomMeshDefinition(this, stack -> {
+			if (hasClip(stack) && isSugoiKawaiiDesuNe(stack))
+				return new ModelResourceLocation("botania:desuGunClip", "inventory");
+			else if (isSugoiKawaiiDesuNe(stack))
+				return new ModelResourceLocation("botania:desuGun", "inventory");
+			else if(hasClip(stack))
+				return new ModelResourceLocation("botania:manaGunClip", "inventory");
+			else return new ModelResourceLocation("botania:manaGun", "inventory");
+		});
 	}
 }
