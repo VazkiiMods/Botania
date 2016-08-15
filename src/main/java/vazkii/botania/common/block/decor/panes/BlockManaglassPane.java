@@ -24,6 +24,7 @@ public class BlockManaglassPane extends BlockModPane {
 		super(ModBlocks.manaGlass);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {

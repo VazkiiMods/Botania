@@ -197,9 +197,11 @@ public class SpecialFlowerModel implements IModelCustomData {
 				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
 				if(loc == null)
 					return Optional.empty();
+
 				IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
 				if(model == ModelLoaderRegistry.getMissingModel())
 					return Optional.empty();
+
 				return Optional.of(model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
 			}
 		}
@@ -216,13 +218,9 @@ public class SpecialFlowerModel implements IModelCustomData {
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
 			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-			if(subtileId != null) { // Todo remove - workaround for subtile ID being null?
-				Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(extendedState.getValue(BotaniaStateProps.SUBTILE_ID));
-				if(specialModel.isPresent())
-					ret = specialModel.get();
-			} else {
-				Botania.LOGGER.fatal("NULL SUBTILE ID");
-			}
+			Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(subtileId == null ? "" : subtileId);
+			if(specialModel.isPresent())
+				ret = specialModel.get();
 
 			return ret.getQuads(state, face, rand);
 		}

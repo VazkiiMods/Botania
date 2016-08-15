@@ -58,11 +58,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.HELD_STATE, null)
-				.withProperty(BotaniaStateProps.HELD_WORLD, null)
-				.withProperty(BotaniaStateProps.HELD_POS, null)
-				.withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
 	}
 
 	@Nonnull
@@ -116,6 +112,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)

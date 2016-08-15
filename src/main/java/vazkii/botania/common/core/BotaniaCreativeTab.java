@@ -301,7 +301,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
 
-		addStack(new ItemStack(Blocks.DIRT, 1, 1));
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
 

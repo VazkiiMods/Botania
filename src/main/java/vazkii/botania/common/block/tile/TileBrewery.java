@@ -16,6 +16,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
@@ -31,6 +32,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	int manaLastTick = 0;
 	public int signal = 0;
 
-	public boolean addItem(EntityPlayer player, ItemStack stack) {
+	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
 		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0) == null != stack.getItem() instanceof IBrewContainer)
 			return false;
 
@@ -60,7 +62,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.stackSize--;
 					if(stack.stackSize == 0 && player != null)
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+						player.setHeldItem(hand, null);
 				}
 
 				break;
@@ -99,7 +101,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 			for(EntityItem item : items)
 				if(!item.isDead && item.getEntityItem() != null) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack) && stack.stackSize == 0)
+					if(addItem(null, stack, null) && stack.stackSize == 0)
 						item.setDead();
 				}
 		}

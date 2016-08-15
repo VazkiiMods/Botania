@@ -34,7 +34,6 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack currentStack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TileEntity tile = world.getTileEntity(pos);
 

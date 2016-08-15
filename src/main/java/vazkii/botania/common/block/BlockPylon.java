@@ -93,6 +93,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		return getMetaFromState(state);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < PylonVariant.values().length; i++)

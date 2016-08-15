@@ -36,7 +36,7 @@ public class BlockFakeAir extends BlockMod {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
 	public BlockFakeAir() {
-		super(Material.AIR, LibBlockNames.FAKE_AIR);
+		super(Material.STRUCTURE_VOID, LibBlockNames.FAKE_AIR);
 		setTickRandomly(true);
 	}
 
@@ -68,7 +68,7 @@ public class BlockFakeAir extends BlockMod {
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if(shouldRemove(world, pos))
-			world.setBlockState(pos, Blocks.WATER.getDefaultState());
+			world.setBlockState(pos, rand.nextInt(10) == 0 ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
 	}
 
 	@Override

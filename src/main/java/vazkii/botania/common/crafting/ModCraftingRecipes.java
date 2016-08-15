@@ -167,7 +167,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeFireRod;
 	public static IRecipe recipeVineBall;
 	public static IRecipe recipeSlingshot;
-	public static IRecipe recipeMossStone;
 	public static IRecipe recipeLensInfluence;
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
@@ -1117,10 +1116,6 @@ public final class ModCraftingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'A', LibOreDict.RUNE[3]);
 		recipeSlingshot = BotaniaAPI.getLatestAddedRecipe();
-
-		// Moss Stone Recipe
-		addShapelessOreDictRecipe(new ItemStack(Blocks.MOSSY_COBBLESTONE), "cobblestone", new ItemStack(ModItems.vineBall));
-		recipeMossStone = BotaniaAPI.getLatestAddedRecipe();
 
 		// Influence Lens Recipe
 		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 12),

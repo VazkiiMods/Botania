@@ -1,6 +1,8 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.ITickableSound;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.audio.Sound;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.audio.SoundHandler;
@@ -32,14 +34,18 @@ public class BergamuteEventHandler {
         ISound sound = evt.getResultSound();
 
         if (sound != null && shouldSilence(sound.getCategory())) {
-            SubTileBergamute berg = SubTileBergamute.getBergamuteNearby(sound.getXPosF(), sound.getYPosF(), sound.getZPosF());
+            if(sound instanceof ITickableSound) {
+                evt.setResultSound(new WrappedTickableSound((ITickableSound) sound, MULTIPLIER));
+            } else {
+                SubTileBergamute berg = SubTileBergamute.getBergamuteNearby(sound.getXPosF(), sound.getYPosF(), sound.getZPosF());
 
-            if (berg != null) {
-                evt.setResultSound(new WrappedSound(sound, MULTIPLIER));
+                if (berg != null) {
+                    evt.setResultSound(new WrappedSound(sound, MULTIPLIER));
 
-                if (RAND.nextBoolean()) {
-                    Color color = TilePool.PARTICLE_COLOR;
-                    BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getPos().getX() + 0.3 + Math.random() * 0.5, berg.getPos().getY() + 0.5 + Math.random()  * 0.5, berg.getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+                    if (RAND.nextBoolean()) {
+                        Color color = TilePool.PARTICLE_COLOR;
+                        BotaniaAPI.internalHandler.sparkleFX(berg.getWorld(), berg.getPos().getX() + 0.3 + Math.random() * 0.5, berg.getPos().getY() + 0.5 + Math.random()  * 0.5, berg.getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+                    }
                 }
             }
         }
@@ -54,15 +60,18 @@ public class BergamuteEventHandler {
 
         private final ISound compose;
         private final float volMult;
+        private final boolean recheck;
 
         private WrappedSound(ISound toWrap, float volMult) {
             this.compose = toWrap;
             this.volMult = volMult;
+            this.recheck = toWrap instanceof MovingSound;
         }
 
         @Override
         public float getVolume() {
-            return compose.getVolume() * volMult;
+            float mult = recheck && SubTileBergamute.getBergamuteNearby(getXPosF(), getYPosF(), getZPosF()) == null ? 1F : volMult;
+            return compose.getVolume() * mult;
         }
 
         @Nonnull @Override public ResourceLocation getSoundLocation() { return compose.getSoundLocation(); }
@@ -76,5 +85,19 @@ public class BergamuteEventHandler {
         @Override public float getYPosF() { return compose.getYPosF(); }
         @Override public float getZPosF() { return compose.getZPosF(); }
         @Nonnull @Override public AttenuationType getAttenuationType() { return compose.getAttenuationType(); }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static class WrappedTickableSound extends WrappedSound implements ITickableSound {
+
+        private final ITickableSound compose;
+
+        private WrappedTickableSound(ITickableSound toWrap, float volMult) {
+            super(toWrap, volMult);
+            this.compose = toWrap;
+        }
+
+        @Override public boolean isDonePlaying() { return compose.isDonePlaying(); }
+        @Override public void update() { compose.update(); }
     }
 }

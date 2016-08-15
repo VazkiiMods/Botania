@@ -80,6 +80,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < LivingWoodVariant.values().length; i++)

@@ -24,12 +24,6 @@ public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onTooltipEvent(ItemTooltipEvent event) {
-		if(event.getItemStack().getItem() == Item.getItemFromBlock(Blocks.DIRT) && event.getItemStack().getItemDamage() == 1) {
-			event.getToolTip().add(I18n.format("botaniamisc.coarseDirt0"));
-			event.getToolTip().add(I18n.format("botaniamisc.coarseDirt1"));
-		} else if(event.getItemStack().getItem() == Item.getItemFromBlock(Blocks.MOB_SPAWNER) && event.getEntityPlayer().capabilities.isCreativeMode)
-			event.getToolTip().add(I18n.format("botaniamisc.spawnerTip"));
-
 		if(ItemNBTHelper.detectNBT(event.getItemStack()) && ItemNBTHelper.getBoolean(event.getItemStack(), ItemRegenIvy.TAG_REGEN, false))
 			event.getToolTip().add(I18n.format("botaniamisc.hasIvy"));
 		if(ItemNBTHelper.detectNBT(event.getItemStack()) && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))

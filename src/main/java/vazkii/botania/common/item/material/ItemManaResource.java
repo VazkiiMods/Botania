@@ -78,7 +78,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 				stack.stackSize--;
 				if(stack.stackSize == 0)
-					event.getEntityPlayer().inventory.setInventorySlotContents(event.getEntityPlayer().inventory.currentItem, null);
+					event.getEntityPlayer().setHeldItem(event.getHand(), null);
 
 				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 				event.setCanceled(true);

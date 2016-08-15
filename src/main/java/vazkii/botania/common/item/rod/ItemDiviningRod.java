@@ -66,24 +66,20 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 	public void doHighlight(World world, BlockPos pos, int range, long seedxor) {
 		Botania.proxy.setWispFXDepthTest(false);
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos_ = pos.add(i, j, k);
-					IBlockState state = world.getBlockState(pos_);
-					if (Item.getItemFromBlock(state.getBlock()) == null) {
-						continue;
-					}
-					ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-					for(int id : OreDictionary.getOreIDs(orestack)) {
-						String s = OreDictionary.getOreName(id);
-						if(s.matches("^ore[A-Z].+")) {
-							Random rand = new Random(s.hashCode() ^ seedxor);
-							Botania.proxy.wispFX(world, pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
-							break;
-						}
-					}
+		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+			IBlockState state = world.getBlockState(pos_);
+			if(Item.getItemFromBlock(state.getBlock()) == null)
+				continue;
+			ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+			for(int id : OreDictionary.getOreIDs(orestack)) {
+				String s = OreDictionary.getOreName(id);
+				if(s.matches("^ore[A-Z].+")) {
+					Random rand = new Random(s.hashCode() ^ seedxor);
+					Botania.proxy.wispFX(world, pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
+					break;
 				}
+			}
+		}
 		Botania.proxy.setWispFXDepthTest(true);
 	}
 

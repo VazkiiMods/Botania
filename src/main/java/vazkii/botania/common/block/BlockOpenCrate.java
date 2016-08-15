@@ -101,6 +101,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
@@ -156,6 +157,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		return crate.onWanded(world, player, stack);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);

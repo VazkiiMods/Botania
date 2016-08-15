@@ -9,11 +9,11 @@ import java.util.List;
 
 public class RecipeElvenTrade {
 
-	private final ItemStack output;
+	private final ImmutableList<ItemStack> outputs;
 	private final ImmutableList<Object> inputs;
 
-	public RecipeElvenTrade(ItemStack output, Object... inputs) {
-		this.output = output;
+	public RecipeElvenTrade(ItemStack[] outputs, Object... inputs) {
+		this.outputs = ImmutableList.copyOf(outputs);
 
 		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
 		for(Object obj : inputs) {
@@ -88,8 +88,8 @@ public class RecipeElvenTrade {
 		return inputs;
 	}
 
-	public ItemStack getOutput() {
-		return output;
+	public List<ItemStack> getOutputs() {
+		return outputs;
 	}
 
 }

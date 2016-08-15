@@ -72,6 +72,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
 		for(int i = 0; i < 8; i++)

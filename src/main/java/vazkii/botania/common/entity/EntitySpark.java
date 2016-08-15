@@ -12,8 +12,10 @@ package vazkii.botania.common.entity;
 
 import baubles.common.lib.PlayerHandler;
 import gnu.trove.map.hash.TObjectIntHashMap;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -215,9 +217,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						getEntityId(), e.getEntityId()));
 	}
 
-	public static void particleBeam(Entity e1, Entity e2) {
+	public static void particleBeam(EntityPlayer player, Entity e1, Entity e2) {
 		if(e1 != null && e2 != null && !e1.worldObj.isRemote) {
-			PacketHandler.sendToNearby(e1.worldObj, e1,
+			PacketHandler.sendTo(((EntityPlayerMP) player),
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
 							e1.getEntityId(), e2.getEntityId()));
 		}
@@ -258,7 +260,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				} else {
 					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 					for(ISparkEntity spark : allSparks)
-						particleBeam(this, (Entity) spark);
+						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == SparkUpgradeType.NONE) {

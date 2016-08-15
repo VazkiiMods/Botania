@@ -44,20 +44,22 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
-			player.displayGUIChest(player.getInventoryEnderChest());
+			if(!player.worldObj.isRemote)
+				player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer iplayer, EntityLivingBase entity, EnumHand hand) {
-		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
-			iplayer.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
-			ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, true);
-			entity.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
+		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
+			if(!player.worldObj.isRemote)
+				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
+			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
+			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
 			return true;
 		}
 

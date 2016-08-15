@@ -83,6 +83,7 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 		return AABB;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)

@@ -45,7 +45,7 @@ import java.util.List;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
-	private enum Variants {
+	public enum Variants {
 		BLACK_BOWTIE, BLACK_TIE, RED_GLASSES, PUFFY_SCARF,
 		ENGINEER_GOGGLES, EYEPATCH, WICKED_EYEPATCH, RED_RIBBONS,
 		PINK_FLOWER_BUD, POLKA_DOTTED_BOWS, BLUE_BUTTERFLY, CAT_EARS,

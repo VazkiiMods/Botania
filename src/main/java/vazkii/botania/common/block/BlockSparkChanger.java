@@ -119,7 +119,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 			pstack.stackSize--;
 			if(pstack.stackSize == 0)
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 
 			return true;
 		}

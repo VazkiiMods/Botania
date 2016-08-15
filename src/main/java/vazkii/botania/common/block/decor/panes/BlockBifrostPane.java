@@ -24,6 +24,7 @@ public class BlockBifrostPane extends BlockModPane {
 		super(ModBlocks.bifrostPerm);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {

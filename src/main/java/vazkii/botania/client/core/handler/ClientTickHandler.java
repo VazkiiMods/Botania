@@ -50,7 +50,6 @@ public final class ClientTickHandler {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
 		else {
-			TooltipAdditionDisplayHandler.render();
 			calcDelta();
 		}
 	}

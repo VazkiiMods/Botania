@@ -40,7 +40,7 @@ public class EntityThrownItem extends EntityItem {
 			pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(item);
 		} catch (Throwable ignored) {}
 
-		item.setPickupDelay(pickupDelay);
+		setPickupDelay(pickupDelay);
 		motionX = item.motionX;
 		motionY = item.motionY;
 		motionZ = item.motionZ;
@@ -63,12 +63,10 @@ public class EntityThrownItem extends EntityItem {
 		if (!worldObj.isRemote)
 		{
 			Entity entity = null;
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
+			List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
 			double d0 = 0.0D;
 
-			for (Object aList : list) {
-				Entity entity1 = (Entity) aList;
-
+			for (Entity entity1 : list) {
 				int pickupDelay;
 				try {
 					pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(this);

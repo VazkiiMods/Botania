@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -18,8 +17,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,11 +29,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -57,6 +52,7 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
@@ -132,9 +128,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setDefaultState(((IExtendedBlockState) blockState.getBaseState())
-				.withProperty(BotaniaStateProps.SUBTILE_ID, "daybloom")
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
 		);
 	}
 
@@ -210,12 +204,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
@@ -342,43 +338,10 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
-	}
-
-	@Override
-	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles) {
-		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
-		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
-		if (d0 > 2.5D) {
-			d0 = 2.5D;
-		}
-		int i = (int)(150.0D * d0);
-		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(Blocks.WATERLILY.getDefaultState()));
-		return true;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager effectRenderer) {
-		if (world.getBlockState(pos).getBlock() == this) {
-			int i = 4;
-			ParticleDigging.Factory factory = new ParticleDigging.Factory();
-			for (int j = 0; j < i; ++j) {
-				for (int k = 0; k < i; ++k) {
-					for (int l = 0; l < i; ++l) {
-						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
-						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
-						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(Blocks.WATERLILY.getDefaultState())));
-					}
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override

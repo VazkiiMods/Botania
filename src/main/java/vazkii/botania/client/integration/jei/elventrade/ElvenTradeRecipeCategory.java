@@ -106,8 +106,11 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 			posX += 18;
 		}
 
-		recipeLayout.getItemStacks().init(index, false, 93, 41);
-		recipeLayout.getItemStacks().set(index, wrapper.getOutputs().get(0));
+		for (int i = 0; i < wrapper.getOutputs().size(); i++) {
+			ItemStack stack = wrapper.getOutputs().get(i);
+			recipeLayout.getItemStacks().init(index + i, false, 93 + (i % 2 * 20), 41 + (i / 2 * 20));
+			recipeLayout.getItemStacks().set(index + i, stack);
+		}
 	}
 
 }

@@ -82,6 +82,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 6; i++)
@@ -120,6 +121,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random r) {
 		if (state.getBlock() != this)

@@ -69,55 +69,58 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		if(getBlock(par1ItemStack) != Blocks.AIR && player.isSneaking()) {
-			int dmg = par1ItemStack.getItemDamage();
-			par1ItemStack.setItemDamage(~dmg & 1);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(getBlock(stack) != Blocks.AIR && player.isSneaking()) {
+			int dmg = stack.getItemDamage();
+			stack.setItemDamage(~dmg & 1);
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = world.getBlockState(pos);
-		boolean set = setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state));
 
-		if(!set) {
+		if (Item.getItemFromBlock(state.getBlock()) != null
+				&& setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state))) {
+			return EnumActionResult.SUCCESS;
+		} else {
 			Block bBlock = getBlock(stack);
 			int bmeta = getBlockMeta(stack);
 
+			if(bBlock == null)
+				return EnumActionResult.PASS;
+
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side)) {
-				IItemHandler inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
-				ItemStack toAdd = new ItemStack(bBlock, 1, bmeta);
-				int maxSize = toAdd.getMaxStackSize();
-				toAdd.stackSize = remove(stack, maxSize);
-				ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
-				if(remainder != null)
-					add(stack, remainder.stackSize);
+				if(!world.isRemote) {
+					IItemHandler inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+					ItemStack toAdd = new ItemStack(bBlock, 1, bmeta);
+					int maxSize = toAdd.getMaxStackSize();
+					toAdd.stackSize = remove(stack, maxSize);
+					ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
+					if(remainder != null)
+						add(stack, remainder.stackSize);
+				}
+				return EnumActionResult.SUCCESS;
 			} else {
-				int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
-				BlockPos correctedPos = bBlock.isReplaceable(world, pos) ? pos : pos.offset(side);
+				if(player.capabilities.isCreativeMode || getBlockCount(stack) > 0) {
+					ItemStack toUse = new ItemStack(bBlock, 1, bmeta);
 
-				if(entities == 0 && !(correctedPos.getY() < 0) && !(correctedPos.getY() >= 256)) {
-					int remove = player.capabilities.isCreativeMode ? 1 : remove(stack, 1);
-					if(remove > 0) {
-						ItemStack toUse = new ItemStack(bBlock, 1, bmeta);
+					if (Item.getItemFromBlock(bBlock).onItemUse(toUse, player, world, pos, hand, side, hitX, hitY, hitZ) == EnumActionResult.SUCCESS) {
+						remove(stack, 1);
 						ItemsRemainingRenderHandler.set(toUse, getBlockCount(stack));
-
-						Item.getItemFromBlock(bBlock).onItemUse(toUse, player, world, pos, hand, side, hitX, hitY, hitZ);
-						set = true;
+						return EnumActionResult.SUCCESS;
 					}
 				}
 			}
 		}
 
-		player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, stack);
-		return set ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
@@ -210,7 +213,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0) {
+		if(Item.getItemFromBlock(block) != null && (getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
@@ -257,8 +260,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	public static Block getBlock(ItemStack stack) {
-		Block block = Block.getBlockFromName(getBlockName(stack));
-		return block;
+		return Block.getBlockFromName(getBlockName(stack));
 	}
 
 	public static int getBlockMeta(ItemStack stack) {

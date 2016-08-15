@@ -46,23 +46,20 @@ public class ItemObedienceStick extends ItemMod {
 			Actuator act = pool ? Actuator.functionalActuator : Actuator.generatingActuator;
 			int range = pool ? SubTileFunctional.LINK_RANGE : SubTileGenerating.LINK_RANGE;
 
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++)
-					for(int k = -range; k < range + 1; k++) {
-						BlockPos pos_ = pos.add(i, j, k);
-						if(MathHelper.pointDistanceSpace(pos_, pos) > range)
-							continue;
+			for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+				if(pos_.distanceSq(pos) > range * range)
+					continue;
 
-						TileEntity tile = world.getTileEntity(pos_);
-						if(tile instanceof ISubTileContainer) {
-							SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
-							if(act.actuate(subtile, tileAt)) {
-								Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
-								Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-								ItemTwigWand.doParticleBeam(world, orig, end);
-							}
-						}
+				TileEntity tile = world.getTileEntity(pos_);
+				if(tile instanceof ISubTileContainer) {
+					SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
+					if(act.actuate(subtile, tileAt)) {
+						Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
+						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+						ItemTwigWand.doParticleBeam(world, orig, end);
 					}
+				}
+			}
 
 			if(player.worldObj.isRemote)
 				player.swingArm(hand);

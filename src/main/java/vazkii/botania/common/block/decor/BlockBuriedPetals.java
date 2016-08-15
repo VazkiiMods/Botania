@@ -46,6 +46,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return AABB;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);

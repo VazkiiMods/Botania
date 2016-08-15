@@ -97,7 +97,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
-		return null;
+		return NULL_AABB;
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 
 		if(lens == null && isHeldItemLens) {
 			if(!player.capabilities.isCreativeMode)
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();

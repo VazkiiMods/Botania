@@ -93,7 +93,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 				InventoryHelper.withdrawFromInventory(brew, player);
 		} else {
 			if(stack != null)
-				return brew.addItem(player, stack);
+				return brew.addItem(player, stack, hand);
 		}
 		return false;
 	}
@@ -150,6 +150,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		return LexiconData.brewery;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileBrewery) world.getTileEntity(pos)).renderHUD(mc, res);

@@ -371,7 +371,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	private boolean isEnchantmentValid(Enchantment ench) {
-		if(!ench.canApply(itemToEnchant) || !ench.type.canEnchantItem(itemToEnchant.getItem()))
+		if(!ench.canApply(itemToEnchant))
 			return false;
 
 		for(EnchantmentData data : enchants) {

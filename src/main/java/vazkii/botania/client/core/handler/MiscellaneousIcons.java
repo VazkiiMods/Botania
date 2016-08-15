@@ -10,6 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -24,6 +25,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.common.Botania;
@@ -97,6 +99,15 @@ public class MiscellaneousIcons {
 
         // Lexicon
         evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModel());
+
+        // Mana Blaster
+        ModelResourceLocation key = new ModelResourceLocation("botania:manaGun", "inventory");
+        IBakedModel originalModel = evt.getModelRegistry().getObject(key);
+        evt.getModelRegistry().putObject(key, new GunModel(originalModel));
+
+        key = new ModelResourceLocation("botania:manaGunClip", "inventory");
+        originalModel = evt.getModelRegistry().getObject(key);
+        evt.getModelRegistry().putObject(key, new GunModel(originalModel));
     }
 
     @SubscribeEvent

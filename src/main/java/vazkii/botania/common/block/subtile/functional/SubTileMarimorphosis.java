@@ -96,14 +96,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = supertile.getPos().add(i, j, k);
-					IBlockState state = supertile.getWorld().getBlockState(pos);
-					if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.STONE)))
-						possibleCoords.add(pos);
-				}
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-range, -rangeY, -range), getPos().add(range, rangeY, range))) {
+			IBlockState state = supertile.getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.STONE)))
+				possibleCoords.add(pos);
+		}
 
 		if(possibleCoords.isEmpty())
 			return null;

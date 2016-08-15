@@ -24,6 +24,7 @@ public class BlockAlfglassPane extends BlockModPane {
 		super(ModBlocks.elfGlass);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {

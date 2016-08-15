@@ -87,6 +87,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
@@ -158,7 +159,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		if(lens == null && isHeldItemLens) {
 			if (!player.capabilities.isCreativeMode)
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
@@ -174,7 +175,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 			spreader.paddingColor = heldItem.getItemDamage();
 			heldItem.stackSize--;
 			if(heldItem.stackSize == 0)
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
 			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
 			if(!player.inventory.addItemStackToInventory(pad))
@@ -233,9 +234,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
-		float f = 1F / 16F;
-		return new AxisAlignedBB(pos.getX() + f, pos.getY() + f, pos.getZ() + f,
-				pos.getX() + 1 - f, pos.getY() + 1 - f, pos.getZ() + 1 - f);
+		return FULL_BLOCK_AABB.offset(pos).contract(1.0/16.0);
 	}
 
 	@SideOnly(Side.CLIENT)

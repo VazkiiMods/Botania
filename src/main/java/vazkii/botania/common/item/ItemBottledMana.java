@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2014, 2:41:19 AM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -54,7 +54,7 @@ public class ItemBottledMana extends ItemMod {
 		setMaxDamage(6);
 	}
 
-	public void effect(EntityLivingBase living, int id) {
+	public void effect(ItemStack stack, EntityLivingBase living, int id) {
 		switch(id) {
 		case 0 : { // Random motion
 			living.motionX = (Math.random() - 0.5) * 3;
@@ -98,13 +98,14 @@ public class ItemBottledMana extends ItemMod {
 		case 7 : { // All your inventory is belong to us
 			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
 				EntityPlayer player = ((EntityPlayer) living);
-				for(int i = 0; i < player.inventory.getSizeInventory(); i++)
-					if(i != player.inventory.currentItem) {
-						ItemStack stackAt = player.inventory.getStackInSlot(i);
+				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+					ItemStack stackAt = player.inventory.getStackInSlot(i);
+					if(stackAt != stack) {
 						if(stackAt != null)
 							player.entityDropItem(stackAt, 0);
 						player.inventory.setInventorySlotContents(i, null);
 					}
+				}
 			}
 
 			break;
@@ -179,9 +180,9 @@ public class ItemBottledMana extends ItemMod {
 		case 15 : { // Drop own Head
 			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
 				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
-				ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
-				ItemNBTHelper.setString(stack, "SkullOwner", living.getName());
-				living.entityDropItem(stack, 0);
+				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
+				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());
+				living.entityDropItem(skull, 0);
 			}
 			break;
 		}
@@ -189,15 +190,13 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		getSeed(par1ItemStack);
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {}
+
+	private void randomEffect(EntityLivingBase player, ItemStack stack) {
+		effect(stack, player, new Random(getSeed(stack)).nextInt(16));
 	}
 
-	public void randomEffect(EntityLivingBase player, ItemStack stack) {
-		effect(player, new Random(getSeed(stack)).nextInt(16));
-	}
-
-	long getSeed(ItemStack stack) {
+	private long getSeed(ItemStack stack) {
 		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
 		if(seed == -1)
 			return randomSeed(stack);

@@ -31,12 +31,14 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
@@ -112,19 +114,21 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
-		boolean stackEnchantable = stack != null && stack.getItem() != Items.BOOK && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability(stack) > 0;
+		boolean stackEnchantable = stack != null
+				&& stack.getItem() != Items.BOOK
+				&& stack.isItemEnchantable()
+				&& stack.stackSize == 1;
 
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 				enchanter.sync();
 			}
 		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
-			if(player.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
-				enchanter.itemToEnchant = null;
-				enchanter.sync();
-			} else player.addChatMessage(new TextComponentTranslation("botaniamisc.invFull"));
+			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
+			enchanter.itemToEnchant = null;
+			enchanter.sync();
 		}
 
 		return true;
@@ -175,6 +179,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return LexiconData.manaEnchanting;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileEnchanter) world.getTileEntity(pos)).renderHUD(res);

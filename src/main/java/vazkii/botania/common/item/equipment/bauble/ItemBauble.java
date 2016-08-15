@@ -57,20 +57,22 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(!EntityDoppleganger.isTruePlayer(player))
-			return ActionResult.newResult(EnumActionResult.FAIL, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
-		if(canEquip(par1ItemStack, player)) {
+		ItemStack toEquip = stack.copy();
+		toEquip.stackSize = 1;
+
+		if(canEquip(toEquip, player)) {
 			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 			for(int i = 0; i < baubles.getSizeInventory(); i++) {
-				if(baubles.isItemValidForSlot(i, par1ItemStack)) {
+				if(baubles.isItemValidForSlot(i, toEquip)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
 					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
 						if(!world.isRemote) {
-							baubles.setInventorySlotContents(i, par1ItemStack.copy());
-							if(!player.capabilities.isCreativeMode)
-								player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+							baubles.setInventorySlotContents(i, toEquip);
+							stack.stackSize--;
 						}
 
 						if(stackInSlot != null) {
@@ -83,7 +85,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			}
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override

@@ -52,10 +52,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
-	private List<ICorporeaSpark> connectionsClient = new ArrayList<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
-	private boolean firstUpdateClient = true;
-	private boolean firstUpdateServer = true;
+	private boolean firstTick = true;
 
 	public EntityCorporeaSpark(World world) {
 		super(world);
@@ -86,24 +84,25 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+
+		if(worldObj.isRemote)
+			return;
+
 		InvWithLocation inv = getSparkInventory();
 		if(inv == null) {
-			if(!worldObj.isRemote)
-				dropAndKill();
+			dropAndKill();
 			return;
 		}
 
 		if(isMaster())
 			master = this;
 
-		if(worldObj.isRemote ? firstUpdateClient : firstUpdateServer) {
+		if(firstTick) {
 			if(isMaster())
 				restartNetwork();
 			else findNetwork();
 
-			if(worldObj.isRemote)
-				firstUpdateClient = false;
-			else firstUpdateServer = false;
+			firstTick = false;
 		}
 
 		if(master != null && (((Entity) master).isDead || master.getNetwork() != getNetwork()))
@@ -125,7 +124,6 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	public void setDead() {
 		super.setDead();
 		connections.remove(this);
-		connectionsClient.remove(this);
 		restartNetwork();
 	}
 
@@ -143,20 +141,16 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		}
 
 		this.master = master;
-		if(worldObj.isRemote)
-			connectionsClient = connections;
-		else this.connections = connections;
+		this.connections = connections;
 	}
 
-	List<ICorporeaSpark> getNearbySparks() {
+	private List<ICorporeaSpark> getNearbySparks() {
 		List ret = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 		return ((List<ICorporeaSpark>) ret);
 	}
 
-	void restartNetwork() {
-		if(worldObj.isRemote)
-			connectionsClient = new ArrayList<>();
-		else connections = new ArrayList<>();
+	private void restartNetwork() {
+		connections = new ArrayList<>();
 		relatives = new ArrayList<>();
 
 		if(master != null) {
@@ -167,7 +161,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		}
 	}
 
-	void findNetwork() {
+	private void findNetwork() {
 		List<ICorporeaSpark> sparks = getNearbySparks();
 		if(sparks.size() > 0) {
 			for(ICorporeaSpark spark : sparks)
@@ -183,18 +177,18 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		}
 	}
 
-	void displayRelatives(ArrayList<ICorporeaSpark> checked, ICorporeaSpark spark) {
+	private static void displayRelatives(EntityPlayer player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
 		if(spark == null)
 			return;
 
 		List<ICorporeaSpark> sparks = spark.getRelatives();
 		if(sparks.isEmpty())
-			EntitySpark.particleBeam((Entity) spark, (Entity) spark.getMaster());
+			EntitySpark.particleBeam(player, (Entity) spark, (Entity) spark.getMaster());
 		else for(ICorporeaSpark endSpark : sparks) {
 			if(!checked.contains(endSpark)) {
-				EntitySpark.particleBeam((Entity) spark, (Entity) endSpark);
+				EntitySpark.particleBeam(player, (Entity) spark, (Entity) endSpark);
 				checked.add(endSpark);
-				displayRelatives(checked, endSpark);
+				displayRelatives(player, checked, endSpark);
 			}
 		}
 	}
@@ -209,7 +203,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	public List<ICorporeaSpark> getConnections() {
-		return worldObj.isRemote ? connectionsClient : connections;
+		return connections;
 	}
 
 	@Override
@@ -275,29 +269,30 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		if(stack != null) {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
-					if(!player.worldObj.isRemote)
+					if(!player.worldObj.isRemote) {
 						dropAndKill();
-					if(isMaster())
-						restartNetwork();
-					if(player.worldObj.isRemote)
-						player.swingArm(hand);
+						if(isMaster())
+							restartNetwork();
+					} else player.swingArm(hand);
 					return true;
 				} else {
-					displayRelatives(new ArrayList<>(), master);
+					if(!player.worldObj.isRemote) {
+						displayRelatives(player, new ArrayList<>(), master);
+					}
 					return true;
 				}
 			} else if(stack.getItem() == ModItems.dye) {
 				int color = stack.getItemDamage();
 				if(color != getNetwork().getMetadata()) {
-					setNetwork(EnumDyeColor.byMetadata(color));
+					if(!worldObj.isRemote) {
+						setNetwork(EnumDyeColor.byMetadata(color));
 
-					if(master != null)
-						restartNetwork();
-					else findNetwork();
+						if(master != null)
+							restartNetwork();
+						else findNetwork();
 
-					stack.stackSize--;
-					if(player.worldObj.isRemote)
-						player.swingArm(hand);
+						stack.stackSize--;
+					} else player.swingArm(hand);
 				}
 			}
 		}
