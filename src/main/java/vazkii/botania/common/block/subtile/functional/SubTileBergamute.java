@@ -45,7 +45,7 @@ public class SubTileBergamute extends SubTileFunctional {
 
     @Override
     public int getColor() {
-        return 0x1FCBFF;
+        return 0xF46C6C;
     }
 
     @Override
