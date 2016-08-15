@@ -204,12 +204,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
@@ -336,6 +338,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);

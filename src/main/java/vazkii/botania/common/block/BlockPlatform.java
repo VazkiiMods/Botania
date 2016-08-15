@@ -112,6 +112,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)

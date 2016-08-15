@@ -88,6 +88,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 2; i++)

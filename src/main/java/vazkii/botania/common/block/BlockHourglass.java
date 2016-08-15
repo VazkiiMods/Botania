@@ -191,6 +191,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);

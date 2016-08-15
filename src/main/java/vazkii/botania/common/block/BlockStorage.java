@@ -66,6 +66,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		return getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.values()[meta]);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < StorageVariant.values().length; i++)

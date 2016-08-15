@@ -179,6 +179,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return LexiconData.manaEnchanting;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileEnchanter) world.getTileEntity(pos)).renderHUD(res);

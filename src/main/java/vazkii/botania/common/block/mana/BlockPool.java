@@ -140,6 +140,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return drops;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		par3.add(new ItemStack(item, 1, 0));

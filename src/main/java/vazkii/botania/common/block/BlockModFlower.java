@@ -118,6 +118,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
@@ -129,6 +130,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		return getMetaFromState(state);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;

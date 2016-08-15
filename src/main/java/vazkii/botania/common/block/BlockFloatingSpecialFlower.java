@@ -205,6 +205,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);

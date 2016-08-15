@@ -95,6 +95,7 @@ public class BlockPavement extends BlockMod {
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < TYPES; i++)

@@ -99,6 +99,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
 		list.add(new ItemStack(item));
