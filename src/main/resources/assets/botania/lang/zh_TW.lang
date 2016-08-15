@@ -54,9 +54,6 @@ botaniamisc.shiftToRemove=Shift點擊移除
 botaniamisc.clickToAdd=點擊添加書籤
 botaniamisc.ratio=放大：%s倍
 botaniamisc.bottleTooltip=味道如何
-botaniamisc.coarseDirt0=劣質土,草
-botaniamisc.coarseDirt1=無法生長
-botaniamisc.spawnerTip=Tip:使用刷怪蛋改變怪物類型
 botaniamisc.shardLevel=碎片能量 %s
 botaniamisc.lexiconIndex=辭典目錄
 botaniamisc.hasIvy=有永恆常春籐
@@ -2917,7 +2914,6 @@ botania.page.vineBall0=&1梯子&0不能獨立存在,它們需要 有依附的東
 botania.page.vineBall1=也可以用一些類似&1活木&0和&1風&0 &1之符文&0的材料製作一把能忽 視重力發射&1籐蔓球&0的彈弓.
 botania.page.vineBall2=這將會在Vineacraft出現..
 botania.page.vineBall3=...如果那確實存在的話.
-botania.page.vineBall4=哦,你也能製作&1苔石&0
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=拉普達碎片

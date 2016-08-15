@@ -56,9 +56,6 @@ botaniamisc.shiftToRemove=Shift-klik om te verwijderen
 botaniamisc.clickToAdd=Favoriet toevoegen
 botaniamisc.ratio=Inzoomen: %sx
 botaniamisc.bottleTooltip=Het heeft een verworven smaak
-botaniamisc.coarseDirt0=Grof Vuil, gras
-botaniamisc.coarseDirt1=wil er niet op groeien
-botaniamisc.spawnerTip=Tip: Gebruik een Spawn ei om de mob te wijzigen
 botaniamisc.shardLevel=Schervenkracht %s
 botaniamisc.lexiconIndex=Lexicon Index
 botaniamisc.hasIvy=Heeft Tijdloze Klimop
@@ -2791,7 +2788,6 @@ botania.page.vineBall0=&1Ladders&0 kunnen niet op zichzelf staan, ze hebben iets
 botania.page.vineBall1=Het is ook mogelijk, middels combinatie van enkele materialen zoals &1Levenshout&0 of een &1Rune der Lucht&0, om een katapult te maken die de &1Lianenballen&0 kan afschieten zonder last te hebben van de zwaartekracht.
 botania.page.vineBall2=Dit zou bestaan in Vinecraft...
 botania.page.vineBall3=...als dat zou bestaan.
-botania.page.vineBall4=Oh, en je kunt ook &1Mossige Steen&0 maken
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Scherf van Laputa

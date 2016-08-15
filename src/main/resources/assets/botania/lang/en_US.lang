@@ -58,9 +58,6 @@ botaniamisc.shiftToRemove=Shift-click to remove
 botaniamisc.clickToAdd=Add Bookmark
 botaniamisc.ratio=%sx Zoom (hover to zoom out)
 botaniamisc.bottleTooltip=It has an acquired taste
-botaniamisc.coarseDirt0=Coarse Dirt, grass
-botaniamisc.coarseDirt1=won't grow on it
-botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
 botaniamisc.shardLevel=Shard Power %s
 botaniamisc.lexiconIndex=Lexicon Index
 botaniamisc.hasIvy=Has Timeless Ivy
@@ -2977,7 +2974,6 @@ botania.page.vineBall0=&1Ladders&0 can't stand up on their own, they require som
 botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 or a &1Rune of Air&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
 botania.page.vineBall2=This would be in Vineacraft...
 botania.page.vineBall3=...if that actually existed.
-botania.page.vineBall4=Oh, and you can make &1Moss Stone&0 too
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Shard of Laputa

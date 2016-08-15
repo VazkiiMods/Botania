@@ -54,9 +54,6 @@ botaniamisc.shiftToRemove=Shift-clic para quitar
 botaniamisc.clickToAdd=Añadir marcador
 botaniamisc.ratio=Zoom: %sx
 botaniamisc.bottleTooltip=Tiene un gusto refinado
-botaniamisc.coarseDirt0=Tierra basta, la hierba
-botaniamisc.coarseDirt1=no crece sobre ella
-botaniamisc.spawnerTip=Consejo: Usa un huevo de engendrar para cambiar la criatura
 botaniamisc.shardLevel=Potencia de lasca %s
 botaniamisc.lexiconIndex=Índice del lexicón
 botaniamisc.hasIvy=Tiene hiedra eterna
@@ -2266,7 +2263,6 @@ botania.page.vineBall0=Las &1escaleras de mano&0 no se sostienen por si sola, ha
 botania.page.vineBall1=También es posible combinando algunos materiales tales como &1madera viviente&0 o una &1runa de aire&0 crear un tirachinas que permite arrojar estas &1bolas de enredadera&0 ignorando completamente la fuerza de gravedad.
 botania.page.vineBall2=Así sería en Enredacraft...
 botania.page.vineBall3=...si en realidad existiese.
-botania.page.vineBall4=Oh, y se puede hace &1piedra musgosa&0 también
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Lasca de Laputa

@@ -51,7 +51,6 @@ botaniamisc.shiftToRemove=Shift + click para quitar
 botaniamisc.clickToAdd=Click para añadir un señalador aquí
 botaniamisc.ratio=%s:1 Ratio
 botaniamisc.bottleTooltip=Ha adquirido gusto
-botaniamisc.spawnerTip=Tip: Usa un huevo de spawn para cambiar el mob
 botaniamisc.shardLevel=Shard Power %s
 botaniamisc.lexiconIndex=Índice del Lexicon
 
