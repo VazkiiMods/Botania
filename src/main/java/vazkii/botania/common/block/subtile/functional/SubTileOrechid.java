@@ -46,7 +46,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(supertile.getWorld().isRemote && redstoneSignal > 0 || !canOperate())
+		if(supertile.getWorld().isRemote || redstoneSignal > 0 || !canOperate())
 			return;
 
 		int cost = getCost();
