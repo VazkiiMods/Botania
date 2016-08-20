@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:miniIsland_new"
+    "model": "botania:miniIsland"
   },
   "variants": {
     "variant": {
