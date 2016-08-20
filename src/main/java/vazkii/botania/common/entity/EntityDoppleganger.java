@@ -43,6 +43,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
@@ -60,6 +61,7 @@ import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -88,8 +90,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -595,18 +599,21 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			setDead();
 		else {
 			for(EntityPlayer player : players) {
-				if(player.inventory.armorInventory[0] != null || player.inventory.armorInventory[1] != null || player.inventory.armorInventory[2] != null || player.inventory.armorInventory[3] != null)
-					anyWithArmor = true;
-
-				Collection<PotionEffect> active = player.getActivePotionEffects();
-				Iterator<PotionEffect> iter = active.iterator();
-				while(iter.hasNext()) {
-					PotionEffect effect = iter.next();
-					if (effect.getDuration() < 160 && effect.getIsAmbient() && !effect.getPotion().isBadEffect()) {
-						iter.remove();
-						((EntityPlayerMP) player).connection.sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), effect.getPotion()));
+				for(EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
+					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && player.getItemStackFromSlot(e) != null) {
+						anyWithArmor = true;
+						break;
 					}
 				}
+
+				player.getActivePotionEffects().stream()
+						.filter(effect -> effect.getDuration() < 160 && effect.getIsAmbient() && !effect.getPotion().isBadEffect())
+						.map(PotionEffect::getPotion)
+						.distinct()
+						.forEach(potion -> {
+							player.removePotionEffect(potion);
+							((WorldServer) worldObj).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
+						});
 
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= range) {
