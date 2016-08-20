@@ -67,6 +67,7 @@ public final class ConfigHandler {
 	public static int glSecondaryTextureUnit = 7;
 
 	public static boolean altFlowerTextures = false;
+	public static boolean staticFloaters = false;
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
 
@@ -184,6 +185,9 @@ public final class ConfigHandler {
 		
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
+
+		desc = "Set this to true if you use lots of floating flowers and are experiencing rendering lag. Will disable the floating flowers' animations and render them statically for a major performance boost.";
+		staticFloaters = loadPropBool("staticFloaters.enabled", desc, staticFloaters);
 
 		desc = "Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);

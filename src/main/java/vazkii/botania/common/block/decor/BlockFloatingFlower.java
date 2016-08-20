@@ -23,6 +23,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -87,7 +88,13 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		return ConfigHandler.staticFloaters ? EnumBlockRenderType.MODEL : EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+	}
+
+	@Nonnull
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 
 	@Nonnull

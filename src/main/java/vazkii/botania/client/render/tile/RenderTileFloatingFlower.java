@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -28,6 +29,9 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+		if(ConfigHandler.staticFloaters)
+			return;
+
 		if (tile != null)
 			if (!tile.getWorld().isBlockLoaded(tile.getPos(), false))
 				return;
