@@ -120,10 +120,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> DATA_MOB_SPAWN_TICKS = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> TP_DELAY = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> AGGRO = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HARD_MODE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<BlockPos> SOURCE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BLOCK_POS);
 	private static final DataParameter<Optional<UUID>> BOSSINFO_ID = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -138,16 +135,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	private static final List<String> CHEATY_BLOCKS = Arrays.asList("OpenBlocks:beartrap",
 			"ThaumicTinkerer:magnet");
 
+	private static boolean isPlayingMusic = false;
+
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
-
+	private boolean aggro = false;
+	private int tpDelay = 0;
+	private int mobSpawnTicks = 0;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	public EntityPlayer trueKiller = null;
-
-	private static boolean isPlayingMusic = false;
-
 	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setCreateFog(true);
+	public EntityPlayer trueKiller = null;
 
 	public EntityDoppleganger(World world) {
 		super(world);
@@ -209,15 +207,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
 			e.setSource(pos);
-			e.setMobSpawnTicks(MOB_SPAWN_TICKS);
+			e.mobSpawnTicks = MOB_SPAWN_TICKS;
 			e.setHardMode(hard);
 
-			List<EntityPlayer> players = e.getPlayersAround();
-			int playerCount = 0;
-			for(EntityPlayer p : players)
-				if(isTruePlayer(p))
-					playerCount++;
-
+			int playerCount = (int) e.getPlayersAround().stream().filter(EntityDoppleganger::isTruePlayer).count();
 			e.setPlayerCount(playerCount);
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 			if (hard)
@@ -268,10 +261,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(INVUL_TIME, 0);
-		dataManager.register(AGGRO, false);
-		dataManager.register(TP_DELAY, 0);
 		dataManager.register(SOURCE, BlockPos.ORIGIN);
-		dataManager.register(DATA_MOB_SPAWN_TICKS, 0);
 		dataManager.register(HARD_MODE, false);
 		dataManager.register(PLAYER_COUNT, 0);
 		dataManager.register(BOSSINFO_ID, Optional.absent());
@@ -281,20 +271,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		return dataManager.get(INVUL_TIME);
 	}
 
-	public boolean isAggroed() {
-		return dataManager.get(AGGRO);
-	}
-
-	public int getTPDelay() {
-		return dataManager.get(TP_DELAY);
-	}
-
 	public BlockPos getSource() {
 		return dataManager.get(SOURCE);
-	}
-
-	public int getMobSpawnTicks() {
-		return dataManager.get(DATA_MOB_SPAWN_TICKS);
 	}
 
 	public boolean isHardMode() {
@@ -309,20 +287,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		dataManager.set(INVUL_TIME, time);
 	}
 
-	public void setAggroed(boolean aggored) {
-		dataManager.set(AGGRO, aggored);
-	}
-
-	public void setTPDelay(int delay) {
-		dataManager.set(TP_DELAY, delay);
-	}
-
 	public void setSource(BlockPos pos) {
 		dataManager.set(SOURCE, pos);
-	}
-
-	public void setMobSpawnTicks(int ticks) {
-		dataManager.set(DATA_MOB_SPAWN_TICKS, ticks);
 	}
 
 	public void setHardMode(boolean hardMode) {
@@ -337,8 +303,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_INVUL_TIME, getInvulTime());
-		par1nbtTagCompound.setBoolean(TAG_AGGRO, isAggroed());
-		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, getMobSpawnTicks());
+		par1nbtTagCompound.setBoolean(TAG_AGGRO, aggro);
+		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
 
 		BlockPos source = getSource();
 		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.getX());
@@ -353,8 +319,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readEntityFromNBT(par1nbtTagCompound);
 		setInvulTime(par1nbtTagCompound.getInteger(TAG_INVUL_TIME));
-		setAggroed(par1nbtTagCompound.getBoolean(TAG_AGGRO));
-		setMobSpawnTicks(par1nbtTagCompound.getInteger(TAG_MOB_SPAWN_TICKS));
+		aggro = par1nbtTagCompound.getBoolean(TAG_AGGRO);
+		mobSpawnTicks = par1nbtTagCompound.getInteger(TAG_MOB_SPAWN_TICKS);
 
 		int x = par1nbtTagCompound.getInteger(TAG_SOURCE_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SOURCE_Y);
@@ -411,11 +377,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 				motionX = -motionVector.x;
 				motionY = 0.5;
 				motionZ = -motionVector.z;
-				setTPDelay(4);
-				spawnPixies = isAggroed();
+				tpDelay = 4;
+				spawnPixies = aggro;
 			}
 
-			setAggroed(true);
+			aggro = true;
 		}
 	}
 
@@ -632,10 +598,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 		if(isDead)
 			return;
 
-		int mobTicks = getMobSpawnTicks();
 		boolean spawnMissiles = hard && ticksExisted % 15 < 4;
 
-		if(invul > 0 && mobTicks == MOB_SPAWN_TICKS) {
+		if(invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if(invul < SPAWN_TICKS)  {
 				if(invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
 					for(int i = 0; i < 2; i++)
@@ -647,20 +612,20 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 
 			motionY = 0;
 		} else {
-			if(isAggroed()) {
+			if(aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
-				if(dying && mobTicks > 0) {
+				if(dying && mobSpawnTicks > 0) {
 					motionX = 0;
 					motionY = 0;
 					motionZ = 0;
 
-					int reverseTicks = MOB_SPAWN_TICKS - mobTicks;
+					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
 					if(reverseTicks < MOB_SPAWN_START_TICKS) {
 						motionY = 0.2;
 						setInvulTime(invul + 1);
 					}
 
-					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobTicks > MOB_SPAWN_END_TICKS && mobTicks % MOB_SPAWN_WAVE_TIME == 0) {
+					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS && mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
 						for(int pl = 0; pl < playerCount; pl++)
 							for(int i = 0; i < 3 + worldObj.rand.nextInt(2); i++) {
 								EntityLiving entity = null;
@@ -708,14 +673,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 						}
 					}
 
-					setMobSpawnTicks(mobTicks - 1);
-					setTPDelay(10);
-				} else if(getTPDelay() > 0) {
+					mobSpawnTicks--;
+					tpDelay = 10;
+				} else if(tpDelay > 0) {
 					if(invul > 0)
 						setInvulTime(invul - 1);
 
-					setTPDelay(getTPDelay() - 1);
-					if(getTPDelay() == 0 && getHealth() > 0) {
+					tpDelay--;
+					if(tpDelay == 0 && getHealth() > 0) {
 						int tries = 0;
 						while(!teleportRandomly() && tries < 50)
 							tries++;
@@ -746,7 +711,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
 									worldObj.spawnEntityInWorld(pixie);
 								}
 
-						setTPDelay(hard ? (dying ? 35 : 45) : (dying ? 40 : 60));
+						tpDelay = hard ? (dying ? 35 : 45) : (dying ? 40 : 60);
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
