@@ -11,10 +11,8 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
@@ -79,7 +77,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
-						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						Botania.proxy.wispFX(player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
 
 				par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
@@ -146,7 +144,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 					for(int i = 0; i < 20; i++)
 						for(int j = 0; j < 5; j++)
-							Botania.proxy.wispFX(p.worldObj, p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+							Botania.proxy.wispFX(p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 
 					if(!world.isRemote) {
 						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);

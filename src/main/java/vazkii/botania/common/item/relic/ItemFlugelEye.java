@@ -55,7 +55,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
 					float z1 = (float) (pos.getZ() + Math.random());
-					Botania.proxy.wispFX(player.worldObj, x1, y1, z1, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.5F, -0.05F + (float) Math.random() * 0.05F);
+					Botania.proxy.wispFX(x1, y1, z1, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.5F, -0.05F + (float) Math.random() * 0.05F);
 				}
 			} else {
 				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
@@ -74,7 +74,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		float x = (float) (living.posX - Math.random() * living.width);
 		float y = (float) (living.posY - 1.6 + Math.random());
 		float z = (float) (living.posZ - Math.random() * living.width);
-		Botania.proxy.wispFX(living.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
+		Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
 	}
 
 	@Nonnull
@@ -112,7 +112,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			float x = (float) (entity.posX + Math.random());
 			float y = (float) (entity.posY - 1.6 + Math.random());
 			float z = (float) (entity.posZ + Math.random());
-			Botania.proxy.wispFX(entity.worldObj, x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
+			Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
 		}
 		if(!entity.worldObj.isRemote)
 			entity.worldObj.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);

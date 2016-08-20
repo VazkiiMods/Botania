@@ -214,7 +214,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
+		Botania.proxy.sparkleFX(x, y, z, r, g, b, size, m);
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				if(stackToPlace.stackSize == 0) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
 					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
+						Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
 				}
 			}
 		}

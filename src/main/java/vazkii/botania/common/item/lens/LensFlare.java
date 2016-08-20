@@ -16,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import java.awt.*;
 
@@ -62,7 +61,7 @@ public class LensFlare extends Lens {
 		float g = ((hex & 0xFF00) >> 8) / 255F;
 		float b = (hex & 0xFF) / 255F;
 
-		Botania.proxy.wispFX(tile.getWorld(), tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r, g, b, 0.4F, mx, my, mz);
+		Botania.proxy.wispFX(tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, r, g, b, 0.4F, mx, my, mz);
 	}
 
 }

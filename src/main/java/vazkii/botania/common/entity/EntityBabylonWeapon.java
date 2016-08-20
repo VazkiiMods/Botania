@@ -158,7 +158,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		motionZ = z;
 
 		if(liveTime > delay)
-			Botania.proxy.wispFX(worldObj, posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
+			Botania.proxy.wispFX(posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
 
 		if(liveTime > 200 + delay)
 			setDead();

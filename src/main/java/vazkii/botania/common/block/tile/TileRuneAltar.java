@@ -123,13 +123,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			if(worldObj.rand.nextInt(20) == 0) {
 				Vector3 vec = Vector3.fromTileEntityCenter(this);
 				Vector3 endVec = vec.add(0, 2.5, 0);
-				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
+				Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
 
 		if(cooldown > 0) {
 			cooldown--;
-			Botania.proxy.wispFX(getWorld(), pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
+			Botania.proxy.wispFX(pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
 		}
 
 		int newSignal = 0;
@@ -261,7 +261,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			float red = (float) Math.random();
 			float green = (float) Math.random();
 			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+			Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
 

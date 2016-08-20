@@ -68,8 +68,8 @@ public class TileIncensePlate extends TileSimpleInventory  {
 					float r = color.getRed() / 255F;
 					float g = color.getGreen() / 255F;
 					float b = color.getBlue() / 255F;
-					Botania.proxy.wispFX(worldObj, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, r, g, b, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
-					Botania.proxy.wispFX(worldObj, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.2F, 0.2F, 0.2F, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
+					Botania.proxy.wispFX(x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, r, g, b, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
+					Botania.proxy.wispFX(x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.2F, 0.2F, 0.2F, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
 				itemHandler.setStackInSlot(0, null);

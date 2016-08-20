@@ -31,7 +31,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
 	@Override

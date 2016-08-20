@@ -33,7 +33,6 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
@@ -90,7 +89,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 					mul = Math.min(maxMul, mul + mulPer);
 					double rad = radPer * (i + ticksElapsed * 0.4);
 					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-					Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
+					Botania.proxy.wispFX(vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
 					vecTip = vecTip.add(vecMag);
 				}
 			} else {
@@ -256,7 +255,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 					double sin = Math.sin(rad);
 					double s = 0.4;
 
-					Botania.proxy.sparkleFX(worldObj, posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
+					Botania.proxy.sparkleFX(posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
 				}
 
 				posX += motVec.x;

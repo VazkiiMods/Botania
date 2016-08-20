@@ -44,7 +44,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			Botania.proxy.sparkleFX(worldObj, posX + xs, posY + ys, posZ + zs, 1F, 0.4F, 1F, 2F, 6);
+			Botania.proxy.sparkleFX(posX + xs, posY + ys, posZ + zs, 1F, 0.4F, 1F, 2F, 6);
 		}
 
 		EntityLivingBase thrower = getThrower();

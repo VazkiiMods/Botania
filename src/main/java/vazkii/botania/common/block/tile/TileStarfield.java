@@ -44,7 +44,7 @@ public class TileStarfield extends TileMod {
 				float s = 20F + (float) Math.random() * 20F;
 				int m = 50;
 
-				Botania.proxy.sparkleFX(worldObj, x, y, z, r, g, b, s, m);
+				Botania.proxy.sparkleFX(x, y, z, r, g, b, s, m);
 			}
 		}
 	}

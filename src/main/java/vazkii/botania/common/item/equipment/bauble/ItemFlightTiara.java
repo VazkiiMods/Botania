@@ -278,7 +278,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 							}
 
 							for(int i = 0; i < 2; i++)
-								Botania.proxy.sparkleFX(event.getEntityLiving().worldObj, x + Math.random() * event.getEntityLiving().width, y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().width, r, g, b, 2F * (float) Math.random(), 20);
+								Botania.proxy.sparkleFX(x + Math.random() * event.getEntityLiving().width, y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().width, r, g, b, 2F * (float) Math.random(), 20);
 						}
 					}
 				} else {

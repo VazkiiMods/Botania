@@ -43,7 +43,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 					if (ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true)
 							&& ((ItemBucket) Items.WATER_BUCKET).tryPlaceContainedLiquid(player, world, placePos)) {
 						for(int i = 0; i < 6; i++)
-							Botania.proxy.sparkleFX(world, pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
+							Botania.proxy.sparkleFX(pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
 						return EnumActionResult.SUCCESS;
 					}
 				}

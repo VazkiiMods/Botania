@@ -75,7 +75,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				String s = OreDictionary.getOreName(id);
 				if(s.matches("^ore[A-Z].+")) {
 					Random rand = new Random(s.hashCode() ^ seedxor);
-					Botania.proxy.wispFX(world, pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
+					Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
 					break;
 				}
 			}

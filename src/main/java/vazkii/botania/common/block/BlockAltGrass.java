@@ -140,13 +140,13 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			break;
 		case INFUSED:
 			if(r.nextInt(100) == 0)
-				Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
+				Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
 			break; 
 		case MUTATED:
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)
-					Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-				else Botania.proxy.sparkleFX(world, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5);
+					Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 0F, 1F, r.nextFloat() * 0.2F + 1F, 5);
+				else Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 1F, 1F, 0F, r.nextFloat() * 0.2F + 1F, 5);
 			}
 			break;
 		}

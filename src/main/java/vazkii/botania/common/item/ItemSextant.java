@@ -82,7 +82,7 @@ public class ItemSextant extends ItemMod {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double zp = z + Math.sin(radian) * radius;
-					Botania.proxy.wispFX(world, xp + 0.5, source.y + 1, zp + 0.5, 0F, 1F, 1F, 0.3F, -0.01F);
+					Botania.proxy.wispFX(xp + 0.5, source.y + 1, zp + 0.5, 0F, 1F, 1F, 0.3F, -0.01F);
 				}
 		}
 	}
@@ -128,7 +128,7 @@ public class ItemSextant extends ItemMod {
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		World world = player.worldObj;
 		Vector3 source = new Vector3(x, y, z);
-		Botania.proxy.wispFX(world, source.x + 0.5, source.y + 1, source.z + 0.5, 1F, 0F, 0F, 0.2F, -0.1F);
+		Botania.proxy.wispFX(source.x + 0.5, source.y + 1, source.z + 0.5, 1F, 0F, 0F, 0.2F, -0.1F);
 
 		Vector3 centerVec = Vector3.fromEntityCenter(player);
 		Vector3 diffVec = source.subtract(centerVec);

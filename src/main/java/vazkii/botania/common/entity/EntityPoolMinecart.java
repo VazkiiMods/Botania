@@ -109,7 +109,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 			double y = MathHelper.floor_double(posY);
 			double z = MathHelper.floor_double(posZ);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+				Botania.proxy.wispFX(x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
 	}
 

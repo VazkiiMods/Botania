@@ -52,7 +52,7 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
-				Botania.proxy.wispFX(player.worldObj, player.posX, player.posY + 0.5, player.posZ, 0.4F + (float) Math.random() + 0.25F, 0F, 0F, 0.6F + (float) Math.random() * 0.2F, xMotion, 0F, zMotion);
+				Botania.proxy.wispFX(player.posX, player.posY + 0.5, player.posZ, 0.4F + (float) Math.random() + 0.25F, 0F, 0F, 0.6F + (float) Math.random() * 0.2F, xMotion, 0F, zMotion);
 			}
 
 			return true;

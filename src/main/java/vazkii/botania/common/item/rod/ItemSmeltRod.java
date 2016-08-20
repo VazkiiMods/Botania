@@ -109,7 +109,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								double y = pos.getBlockPos().getY() + Math.random();
 								double z = pos.getBlockPos().getZ() + Math.random();
 
-								Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+								Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 							}
 						}
 					}
@@ -122,7 +122,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						double x = pos.getBlockPos().getX() + Math.random();
 						double y = pos.getBlockPos().getY() + Math.random();
 						double z = pos.getBlockPos().getZ() + Math.random();
-						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+						Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)
 						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);

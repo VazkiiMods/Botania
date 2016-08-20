@@ -54,13 +54,13 @@ public class EntityFlameRing extends Entity {
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
 
-				Botania.proxy.wispFX(worldObj, posX + x, posY - 0.2, posZ + z, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.65F + (float) Math.random() * 0.45F, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
+				Botania.proxy.wispFX(posX + x, posY - 0.2, posZ + z, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.65F + (float) Math.random() * 0.45F, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
 
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
 				z = Math.sin(rad) * smokeRadius;
-				Botania.proxy.wispFX(worldObj, posX + x, posY - 0.2, posZ + z, gs, gs, gs, 0.65F + (float) Math.random() * 0.45F, -0.155F - (float) Math.random() * 0.025F);
+				Botania.proxy.wispFX(posX + x, posY - 0.2, posZ + z, gs, gs, gs, 0.65F + (float) Math.random() * 0.45F, -0.155F - (float) Math.random() * 0.025F);
 			}
 		}
 

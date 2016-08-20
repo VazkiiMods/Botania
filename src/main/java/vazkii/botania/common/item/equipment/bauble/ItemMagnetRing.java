@@ -16,13 +16,11 @@ import baubles.common.lib.PlayerHandler;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -37,7 +35,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemMagnetRing extends ItemBauble {
@@ -99,7 +96,7 @@ public class ItemMagnetRing extends ItemBauble {
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
 						if(player.worldObj.isRemote) {
 							boolean red = player.worldObj.rand.nextBoolean();
-							Botania.proxy.sparkleFX(player.worldObj, item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
+							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
 						pulled++;
 					}

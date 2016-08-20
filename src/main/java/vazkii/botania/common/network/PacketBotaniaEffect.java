@@ -83,7 +83,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.sparkleFX(world, message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
+                                Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
                                         red, green, blue, (float) Math.random(), 10);
                             }
                             break;
@@ -94,7 +94,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 BlockPos pos = new BlockPos(message.x, message.y, message.z);
                                 Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
                                 Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-                                Botania.proxy.lightningFX(world, outputting ? tileVec : itemVec,
+                                Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
                                         outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
                             }
                             break;
@@ -107,7 +107,7 @@ public class PacketBotaniaEffect implements IMessage {
                             int b = (hex & 0xFF);
                             for(int i = 0; i < 10; i++) {
                                 BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[world.rand.nextInt(6)]);
-                                Botania.proxy.sparkleFX(world,
+                                Botania.proxy.sparkleFX(
                                         pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
                                         r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
                             }
@@ -123,7 +123,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 double y = message.y + 0.5;
                                 double z = message.z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
 
-                                Botania.proxy.sparkleFX(world, x, y, z, r, g, b, 5F, 120);
+                                Botania.proxy.sparkleFX(x, y, z, r, g, b, 5F, 120);
                             }
                             break;
                         }
@@ -167,7 +167,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
 
                                 Botania.proxy.setSparkleFXNoClip(true);
-                                Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
+                                Botania.proxy.sparkleFX(currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
                                 Botania.proxy.setSparkleFXNoClip(false);
                                 currentPos = currentPos.add(movement);
                             }
@@ -191,7 +191,7 @@ public class PacketBotaniaEffect implements IMessage {
                             float b = 0.4F + 0.3F * (float) Math.random();
                             float size = 0.125F + 0.125F * (float) Math.random();
 
-                            Botania.proxy.wispFX(world, thisVec.x, thisVec.y, thisVec.z, r, g, b,
+                            Botania.proxy.wispFX(thisVec.x, thisVec.y, thisVec.z, r, g, b,
                                     size, (float) motion.x, (float) motion.y, (float) motion.z);
                             break;
                         }
@@ -200,7 +200,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.sparkleFX(world,
+                                Botania.proxy.sparkleFX(
                                         message.x + Math.random() * 0.4 - 0.2, message.y, message.z + Math.random() * 0.4 - 0.2,
                                         red, green, blue, (float) Math.random(), 10);
                             }
@@ -211,14 +211,14 @@ public class PacketBotaniaEffect implements IMessage {
                                 float red = (float) Math.random();
                                 float green = (float) Math.random();
                                 float blue = (float) Math.random();
-                                Botania.proxy.wispFX(world, message.x, message.y, message.z,
+                                Botania.proxy.wispFX(message.x, message.y, message.z,
                                         red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
                             }
                             break;
                         }
                         case ENTROPINNYUM: {
                             for(int i = 0; i < 50; i++)
-                                Botania.proxy.sparkleFX(world, message.x + Math.random() * 4 - 2, message.y + Math.random() * 4 - 2, message.z + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
+                                Botania.proxy.sparkleFX(message.x + Math.random() * 4 - 2, message.y + Math.random() * 4 - 2, message.z + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
 
                             world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, message.x, message.y, message.z, 1D, 0D, 0D);
                             break;
@@ -235,7 +235,7 @@ public class PacketBotaniaEffect implements IMessage {
                                 float my = (float) Math.random() * m;
                                 float mz = ((float) Math.random() - 0.5F) * m;
 
-                                Botania.proxy.wispFX(world, message.x, message.y, message.z, r, g, b, s, mx, my, mz);
+                                Botania.proxy.wispFX(message.x, message.y, message.z, r, g, b, s, mx, my, mz);
                             }
 
                             break;

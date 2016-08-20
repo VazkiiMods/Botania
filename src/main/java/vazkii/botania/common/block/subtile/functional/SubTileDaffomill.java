@@ -38,7 +38,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		super.onUpdate();
 
 		if(supertile.getWorld().rand.nextInt(4) == 0)
-			Botania.proxy.wispFX(supertile.getWorld(), supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getFrontOffsetX() * 0.1F, orientation.getFrontOffsetY() * 0.1F, orientation.getFrontOffsetZ() * 0.1F);
+			Botania.proxy.wispFX(supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getFrontOffsetX() * 0.1F, orientation.getFrontOffsetY() * 0.1F, orientation.getFrontOffsetZ() * 0.1F);
 
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;

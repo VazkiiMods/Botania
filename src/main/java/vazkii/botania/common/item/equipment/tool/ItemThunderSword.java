@@ -69,7 +69,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 					target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), dmg);
 				else target.attackEntityFrom(DamageSource.causeMobDamage(attacker), dmg);
 
-				Botania.proxy.lightningFX(entity.worldObj, Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
+				Botania.proxy.lightningFX(Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
 
 				alreadyTargetedEntities.add(target);
 				lightningSource = target;

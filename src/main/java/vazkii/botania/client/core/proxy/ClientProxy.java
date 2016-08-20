@@ -430,11 +430,11 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle(world) && !fake)
+	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
+		if(!doParticle() && !fake)
 			return;
 
-		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
+		FXSparkle sparkle = new FXSparkle(Minecraft.getMinecraft().theWorld, x, y, z, size, r, g, b, m);
 		sparkle.fake = sparkle.noClip = fake;
 		if(noclipEnabled)
 			sparkle.noClip = true;
@@ -457,19 +457,16 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle(world))
+	public void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
+		if(!doParticle())
 			return;
 
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
+		FXWisp wisp = new FXWisp(Minecraft.getMinecraft().theWorld, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
 		wisp.setSpeed(motionx, motiony, motionz);
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 
-	private boolean doParticle(World world) {
-		if(!world.isRemote)
-			return false;
-
+	private boolean doParticle() {
 		if(!ConfigHandler.useVanillaParticleLimiter)
 			return true;
 
@@ -483,8 +480,8 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(Minecraft.getMinecraft().theWorld, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override

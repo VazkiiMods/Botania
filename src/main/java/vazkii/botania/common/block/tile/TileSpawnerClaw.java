@@ -54,7 +54,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 							MethodHandles.spawnDelay_setter.invokeExact(logic, delay - 1);
 
                         if(Math.random() > 0.5)
-                            Botania.proxy.wispFX(worldObj, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
+                            Botania.proxy.wispFX(getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
 						MethodHandles.prevMobRotation_setter.invokeExact(logic, logic.getMobRotation());
                         MethodHandles.mobRotation_setter.invokeExact(logic, (logic.getMobRotation() + 1000.0F / (((int) MethodHandles.spawnDelay_getter.invokeExact(logic)) + 200.0F)) % 360.0D);

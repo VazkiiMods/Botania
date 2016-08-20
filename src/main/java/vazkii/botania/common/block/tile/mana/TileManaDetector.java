@@ -29,7 +29,7 @@ public class TileManaDetector extends TileMod {
 
 		if(expectedState)
 			for(int i = 0; i < 4; i++)
-				Botania.proxy.sparkleFX(getWorld(), pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 	}
 
 }

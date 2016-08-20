@@ -100,7 +100,7 @@ public class ServerProxy implements IProxy {
 	public void setSparkleFXCorrupt(boolean corrupt) {}
 
 	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {}
+	public void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {}
 
 	@Override
 	public void setWispFXDistanceLimit(boolean limit) {}
@@ -109,10 +109,10 @@ public class ServerProxy implements IProxy {
 	public void setWispFXDepthTest(boolean depth) {}
 
 	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {}
+	public void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {}
 
 	@Override
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}
+	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {}
 
 	@Override
 	public void addBoss(IBotaniaBoss boss) {}

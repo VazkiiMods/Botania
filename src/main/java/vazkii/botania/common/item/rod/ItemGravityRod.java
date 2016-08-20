@@ -160,7 +160,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float xm = ((float) Math.random() - 0.5F) * m;
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
-						Botania.proxy.wispFX(world, item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
+						Botania.proxy.wispFX(item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
 					}
 					
 					MathHelper.setEntityMotionFromVector(item, target3, 0.3333333F);

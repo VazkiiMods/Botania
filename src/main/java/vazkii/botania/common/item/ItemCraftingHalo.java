@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -28,7 +27,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
@@ -196,7 +194,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
 		float m = 0.1F;
 		for(int i = 0; i < 4; i++)
-			Botania.proxy.wispFX(player.worldObj, centerVector.x, centerVector.y, centerVector.z, 1F, 0F, 1F, 0.2F + 0.2F * (float) Math.random(), ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+			Botania.proxy.wispFX(centerVector.x, centerVector.y, centerVector.z, 1F, 0F, 1F, 0.2F + 0.2F * (float) Math.random(), ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 	}
 
 	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IItemHandler inv, EntityPlayer player) {

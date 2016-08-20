@@ -28,7 +28,7 @@ public class TileBifrost extends TileMod {
 				worldObj.setBlockToAir(pos);
 			} else ticks--;
 		} else if(Math.random() < 0.1)
-			Botania.proxy.sparkleFX(worldObj, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}
 
 	@Nonnull

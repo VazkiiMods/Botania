@@ -56,7 +56,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 		int b = (hex & 0xFF);
 
 		Botania.proxy.setSparkleFXNoClip(true);
-		Botania.proxy.sparkleFX(world, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
+		Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 
 		Botania.proxy.setSparkleFXNoClip(false);
 	}

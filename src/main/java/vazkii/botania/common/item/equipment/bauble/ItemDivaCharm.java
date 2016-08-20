@@ -22,7 +22,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -77,7 +76,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 							double z = event.getEntityLiving().posZ;
 
 							for(int i = 0; i < 50; i++)
-								Botania.proxy.sparkleFX(event.getEntityLiving().worldObj, x + Math.random() * event.getEntityLiving().width, y + Math.random() * event.getEntityLiving().height, z + Math.random() * event.getEntityLiving().width, 1F, 1F, 0.25F, 1F, 3);
+								Botania.proxy.sparkleFX(x + Math.random() * event.getEntityLiving().width, y + Math.random() * event.getEntityLiving().height, z + Math.random() * event.getEntityLiving().width, 1F, 1F, 0.25F, 1F, 3);
 						}
 					}
 				}

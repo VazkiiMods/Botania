@@ -42,7 +42,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 		boolean output = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 
 		if(output) for(int i = 0; i < 4; i++)
-			Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+			Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 
 		return output;
 	}

@@ -114,7 +114,7 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 
 		Vector3 origVector = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		Vector3 endVector = origVector.add(world.rand.nextDouble() * 2 - 1, world.rand.nextDouble() * 2 - 1, world.rand.nextDouble() * 2 - 1);
-		Botania.proxy.lightningFX(world, origVector, endVector, 5F, colorDark, colorBright);
+		Botania.proxy.lightningFX(origVector, endVector, 5F, colorDark, colorBright);
 	}
 
 	@Override

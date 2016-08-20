@@ -32,10 +32,10 @@ public class TileManaBeacon extends TileMod {
 			int b = (hex & 0xFF);
 
 			Botania.proxy.setWispFXDistanceLimit(false);
-			Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - pos.getY())), (float) (Math.random() - 0.5F));
+			Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - pos.getY())), (float) (Math.random() - 0.5F));
 
 			for(int i = 0; i < 2; i++)
-				Botania.proxy.wispFX(worldObj, pos.getX() + 0.5, Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16), pos.getZ() + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
+				Botania.proxy.wispFX(pos.getX() + 0.5, Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16), pos.getZ() + 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
 			Botania.proxy.setWispFXDistanceLimit(true);
 		}
 	}

@@ -56,7 +56,7 @@ public class TileManaFlame extends TileMod {
 			float s = 0.2F + (float) Math.random() * 0.1F;
 			float m = 0.03F + (float) Math.random() * 0.015F;
 
-			Botania.proxy.wispFX(worldObj, x, y, z, r, g, b, s, -m);
+			Botania.proxy.wispFX(x, y, z, r, g, b, s, -m);
 		}
 	}
 

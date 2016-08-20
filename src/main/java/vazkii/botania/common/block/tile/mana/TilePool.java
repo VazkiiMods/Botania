@@ -224,7 +224,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+				Botania.proxy.wispFX(pos.getX() + 0.3 + Math.random() * 0.5, pos.getY() + 0.6 + Math.random() * 0.25, pos.getZ() + Math.random(), PARTICLE_COLOR.getRed() / 255F, PARTICLE_COLOR.getGreen() / 255F, PARTICLE_COLOR.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 			return;
 		}
 
