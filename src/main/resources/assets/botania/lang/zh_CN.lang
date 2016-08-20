@@ -349,6 +349,7 @@ references.enabled=启用工具提示文本
 shaders.enabled=启用光影支持
 baubleRender.enabled=启用饰品渲染
 spreader.posShift=发射器位置移动
+# No translation staticFloaters.enabled=?
 versionChecking.enabled=启用版本检查
 wandBeam.static=启用静态法杖光线
 worldgen.flower.density=世界生成花密度
