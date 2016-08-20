@@ -25,7 +25,7 @@ public final class LibMisc {
 	public static final String NETWORK_CHANNEL = MOD_ID;
 
 	// Proxy Constants
-	public static final String PROXY_COMMON = "vazkii.botania.common.core.proxy.CommonProxy";
+	public static final String PROXY_SERVER = "vazkii.botania.common.core.proxy.ServerProxy";
 	public static final String PROXY_CLIENT = "vazkii.botania.client.core.proxy.ClientProxy";
 	public static final String GUI_FACTORY = "vazkii.botania.client.core.proxy.GuiFactory";
 

@@ -137,7 +137,7 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.version.AdaptorNotifier;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -165,7 +165,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Map;
 
-public class ClientProxy extends CommonProxy {
+public class ClientProxy implements IProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
@@ -185,8 +185,6 @@ public class ClientProxy extends CommonProxy {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
 
-		super.preInit(event);
-
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 		ModelHandler.registerModels();
 		initRenderers();
@@ -194,7 +192,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		super.init(event);
 		ColorHandler.init();
 		initAuxiliaryRender();
 
@@ -232,7 +229,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		super.postInit(event);
 		CorporeaAutoCompleteHandler.updateItemList();
 	}
 
@@ -329,7 +325,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
-		super.setExtraReach(entity, reach);
 		Minecraft mc = Minecraft.getMinecraft();
 		EntityPlayer player = mc.thePlayer;
 		if(entity == player) {
