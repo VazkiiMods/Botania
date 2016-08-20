@@ -167,12 +167,10 @@ public class FloatingFlowerModel implements IBakedModel {
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add flower quads, scaled and translated
-			for(BakedQuad quad : flower.getQuads(null, null, 0)) {
-				genBuilder.add(transform(quad, transform));
-			}
-
+			flower.getQuads(null, null, 0).stream().map(q -> transform(q, transform)).forEach(genBuilder::add);
 			for(EnumFacing e : EnumFacing.VALUES) {
-				faceQuads.get(e).addAll(flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+				List<BakedQuad> faceQ = faceQuads.get(e);
+				flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).forEach(faceQ::add);
 			}
 
 			// Add island quads
