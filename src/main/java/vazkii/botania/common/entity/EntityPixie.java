@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +24,7 @@ import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 
-public class EntityPixie extends EntityFlyingCreature {
+public class EntityPixie extends EntityFlying {
 
 	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
@@ -132,6 +133,11 @@ public class EntityPixie extends EntityFlyingCreature {
 
 	@Override
 	protected boolean canDespawn() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeLeashedTo(EntityPlayer player) {
 		return false;
 	}
 
