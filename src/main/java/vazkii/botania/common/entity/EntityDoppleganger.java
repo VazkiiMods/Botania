@@ -18,7 +18,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -43,7 +42,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
@@ -97,7 +95,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-public class EntityDoppleganger extends EntityCreature implements IBotaniaBoss {
+public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	public static final float ARENA_RANGE = 12F;
 	private static final int SPAWN_TICKS = 160;
