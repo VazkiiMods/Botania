@@ -144,9 +144,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public EntityDoppleganger(World world) {
 		super(world);
 		setSize(0.6F, 1.8F);
-		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, Float.MAX_VALUE));
+		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, ARENA_RANGE * 1.5F));
 		isImmuneToFire = true;
 		experienceValue = 825;
 		Botania.proxy.addBoss(this);
