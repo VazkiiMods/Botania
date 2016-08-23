@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.model;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
@@ -20,23 +21,29 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.LightUtil;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.common.model.TRSRTransformation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 public class ModelPylon implements IPylonModel {
 
-	private static final Function<ResourceLocation, TextureAtlasSprite> TEXTUREGETTER = input -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(input.toString());
 	private IBakedModel manaCrystal;
 	private IBakedModel manaRingsAndPanes;
 	private IBakedModel manaGems;
@@ -57,23 +64,23 @@ public class ModelPylon implements IPylonModel {
 			IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
 			IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
 
-			// All groups are off by default
-			// (OBJState constructor is derp, so the boolean condition is inverted - pass false to turn on a group)
+			// Hide necessary groups and bake
+			VertexFormat format = Attributes.DEFAULT_BAKED_FORMAT;
+			IModelState hideGroups = hideGroups(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04",
+					"Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"));
+			manaCrystal = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			naturaCrystal = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			gaiaCrystal = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 
-			// Turn on "Crystal"
-			manaCrystal = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			naturaCrystal = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			gaiaCrystal = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			hideGroups = hideGroups(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"));
+			manaRingsAndPanes = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			naturaRingsAndPanes = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			gaiaRingsAndPanes = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 
-			// Turn on "Crystal_Ring", and "Ring_Panel0x"
-			manaRingsAndPanes = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			naturaRingsAndPanes = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			gaiaRingsAndPanes = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-
-			// Turn on "Ring_Gem0x"
-			manaGems = manaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			naturaGems = naturaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
-			gaiaGems = gaiaModel.bake(new OBJModel.OBJState(ImmutableList.of("Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"), false), Attributes.DEFAULT_BAKED_FORMAT, TEXTUREGETTER::apply);
+			hideGroups = hideGroups(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"));
+			manaGems = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			naturaGems = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			gaiaGems = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 		} catch(Exception e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
@@ -129,21 +136,30 @@ public class ModelPylon implements IPylonModel {
 	}
 
 	private void renderModel(IBakedModel model) {
-		renderModel(model, -1);
-	}
-
-	private void renderModel(IBakedModel model, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
-		this.renderQuads(worldrenderer, model.getQuads(null, null, 0), color);
+		for(BakedQuad bakedquad : model.getQuads(null, null, 0))
+			LightUtil.renderQuadColor(worldrenderer, bakedquad, -1);
 		tessellator.draw();
 	}
 
-	private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color) {
-		for(BakedQuad bakedquad : quads)
-			LightUtil.renderQuadColor(renderer, bakedquad, color);
+	private IModelState hideGroups(List<String> groups) {
+		return part -> {
+            if (part.isPresent()) {
+                List<String> parts = new ArrayList<>();
+                Models.getParts(part.get()).forEachRemaining(parts::add);
+				for (String s : parts) {
+					if (groups.contains(s)) {
+						// Hide it
+						return Optional.of(TRSRTransformation.identity());
+					}
+				}
+            }
+
+            return Optional.absent();
+        };
 	}
 
 }

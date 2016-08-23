@@ -36,13 +36,8 @@ import java.util.Random;
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 	private static final ResourceLocation textureOld = new ResourceLocation(LibResources.MODEL_PYLON_OLD);
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_PYLON);
-
 	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
-	private static final ResourceLocation textureGreen = new ResourceLocation(LibResources.MODEL_PYLON_GREEN);
-
 	private static final ResourceLocation texturePinkOld = new ResourceLocation(LibResources.MODEL_PYLON_PINK_OLD);
-	private static final ResourceLocation texturePink = new ResourceLocation(LibResources.MODEL_PYLON_PINK);
 
 	IPylonModel model;
 	public static boolean green = false;
