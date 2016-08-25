@@ -42,6 +42,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
@@ -90,6 +91,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
@@ -565,14 +567,16 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					}
 				}
 
-				player.getActivePotionEffects().stream()
+				List<Potion> potionsToRemove = player.getActivePotionEffects().stream()
 						.filter(effect -> effect.getDuration() < 160 && effect.getIsAmbient() && !effect.getPotion().isBadEffect())
 						.map(PotionEffect::getPotion)
 						.distinct()
-						.forEach(potion -> {
-							player.removePotionEffect(potion);
-							((WorldServer) worldObj).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
-						});
+						.collect(Collectors.toList());
+
+				potionsToRemove.forEach(potion -> {
+					player.removePotionEffect(potion);
+					((WorldServer) worldObj).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
+				});
 
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= range) {
