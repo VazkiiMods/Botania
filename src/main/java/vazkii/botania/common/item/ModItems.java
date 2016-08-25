@@ -423,6 +423,7 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
+		OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dye, 1, OreDictionary.WILDCARD_VALUE));
 		for(int i = 0; i < 7; i++)
 			OreDictionary.registerOre(LibOreDict.QUARTZ[i], new ItemStack(quartz, 1, i));
 
