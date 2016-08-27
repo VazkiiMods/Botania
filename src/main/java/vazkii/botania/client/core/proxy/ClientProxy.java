@@ -30,10 +30,12 @@ import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -467,6 +469,9 @@ public class ClientProxy implements IProxy {
 	}
 
 	private boolean doParticle() {
+		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+			return false;
+
 		if(!ConfigHandler.useVanillaParticleLimiter)
 			return true;
 
