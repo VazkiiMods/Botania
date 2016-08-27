@@ -95,6 +95,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item));
 		ItemStack creative = new ItemStack(item);

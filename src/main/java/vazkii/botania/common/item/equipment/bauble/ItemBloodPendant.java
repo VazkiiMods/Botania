@@ -58,6 +58,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
@@ -68,6 +69,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if(pass == 0)
 			return 0xFFFFFF;
@@ -166,6 +168,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

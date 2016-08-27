@@ -22,6 +22,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -39,17 +41,12 @@ public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par2 == 0)
 			return 0xFFFFFF;
 
 		return Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F));
-	}
-
-	@Nonnull
-	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.NONE;
 	}
 
 	@Override

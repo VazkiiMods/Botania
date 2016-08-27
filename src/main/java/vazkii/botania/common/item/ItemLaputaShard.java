@@ -73,6 +73,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(int i = 0; i < 4; i++)

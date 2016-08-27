@@ -86,6 +86,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int mana : CREATIVE_MANA) {
 			ItemStack stack = new ItemStack(item);

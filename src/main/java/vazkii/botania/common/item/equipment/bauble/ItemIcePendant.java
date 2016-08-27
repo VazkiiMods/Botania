@@ -22,6 +22,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -50,6 +52,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

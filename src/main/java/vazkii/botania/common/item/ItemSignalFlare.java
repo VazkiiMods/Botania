@@ -91,6 +91,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par2 == 0)
 			return 0xFFFFFF;
@@ -99,6 +100,7 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
 			stacks.add(forColor(i));

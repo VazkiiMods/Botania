@@ -205,6 +205,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par2 == 0 || par2 == 3)
 			return 0xFFFFFF;

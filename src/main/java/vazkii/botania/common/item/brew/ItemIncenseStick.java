@@ -45,6 +45,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
@@ -55,6 +56,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if(pass == 0)
 			return 0xFFFFFF;

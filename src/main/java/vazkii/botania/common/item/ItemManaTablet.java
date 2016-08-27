@@ -45,6 +45,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		// Empty tablet
 		stacks.add(new ItemStack(item, 1));
@@ -62,6 +63,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		float mana = getMana(par1ItemStack);
 		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / MAX_MANA, 1F) : 0xFFFFFF;

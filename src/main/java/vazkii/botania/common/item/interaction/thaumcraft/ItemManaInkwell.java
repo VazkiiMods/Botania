@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.items.IScribeTools;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -42,6 +44,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, USES));
 		list.add(new ItemStack(item));

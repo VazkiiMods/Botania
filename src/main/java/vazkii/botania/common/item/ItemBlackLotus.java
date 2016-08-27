@@ -42,6 +42,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));

@@ -37,6 +37,7 @@ public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchiev
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
 			stacks.add(new ItemStack(item, 1, i));

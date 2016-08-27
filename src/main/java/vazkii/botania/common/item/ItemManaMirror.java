@@ -23,6 +23,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -55,6 +57,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		float mana = getMana(par1ItemStack);
 		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / TilePool.MAX_MANA, 1F) : 0xFFFFFF;

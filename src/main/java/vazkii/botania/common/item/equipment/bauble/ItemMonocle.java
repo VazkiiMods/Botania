@@ -49,6 +49,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;

@@ -22,6 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
@@ -101,6 +103,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

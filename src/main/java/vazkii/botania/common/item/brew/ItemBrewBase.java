@@ -118,6 +118,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack stack = new ItemStack(item);
@@ -127,6 +128,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if(pass == 0)
 			return 0xFFFFFF;

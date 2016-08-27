@@ -149,12 +149,14 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < SUBTYPES; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
 	}
