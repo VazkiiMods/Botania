@@ -10,7 +10,8 @@
         "r1.8-316": "See https://github.com/williewillus/Botania/releases/r1.8-316",
         "r1.8-317": "See https://github.com/williewillus/Botania/releases/r1.8-317",
         "r1.8-318": "See https://github.com/williewillus/Botania/releases/r1.8-318",
-        "r1.8-319": "See https://github.com/williewillus/Botania/releases/r1.8-319"
+        "r1.8-319": "See https://github.com/williewillus/Botania/releases/r1.8-319",
+        "r1.8-320": "See https://github.com/williewillus/Botania/releases/r1.8-320"
     },
     "1.9": {
         "r1.8-301": "See https://github.com/williewillus/Botania/releases/r1.8-301",
@@ -33,8 +34,8 @@
     "promos": {
         "1.10-latest": "r1.8-311",
         "1.10-recommended": "r1.8-311",
-        "1.10.2-latest": "r1.8-319",
-        "1.10.2-recommended": "r1.8-319",
+        "1.10.2-latest": "r1.8-320",
+        "1.10.2-recommended": "r1.8-320",
         "1.9-latest": "r1.8-305",
         "1.9-recommended": "r1.8-305",
         "1.9.4-latest": "r1.8-313",
