@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.material;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
@@ -29,6 +30,6 @@ public class ItemManaPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return getColorFromItemStack(stack, 0);
+		return EnumDyeColor.byMetadata(stack.getItemDamage()).getMapColor().colorValue;
 	}
 }

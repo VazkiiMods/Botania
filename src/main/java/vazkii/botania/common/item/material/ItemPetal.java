@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -94,6 +95,6 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return getColorFromItemStack(stack, 0);
+		return EnumDyeColor.byMetadata(stack.getItemDamage()).getMapColor().colorValue;
 	}
 }
