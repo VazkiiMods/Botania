@@ -34,6 +34,7 @@ import java.util.Queue;
 
 public class FXSparkle extends Particle {
 
+	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
 	private static final Queue<FXSparkle> queuedRenders = new ArrayDeque<>();
@@ -73,7 +74,7 @@ public class FXSparkle extends Particle {
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(ParticleManager.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		for(FXSparkle sparkle : queuedRenders)

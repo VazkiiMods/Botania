@@ -24,9 +24,6 @@ public final class LibObfuscation {
 	public static final String[] AGE = { "age", "field_70292_b", "d" };
 	public static final String[] PICKUP_DELAY = { "delayBeforeCanPickup", "field_145804_b", "e" };
 
-	// ParticleManager
-	public static final String[] PARTICLE_TEXTURES = { "particleTextures", "field_110737_b", "b" };
-
 	// EntityAINearestAttackableTarget
 	public static final String[] TARGET_CLASS = { "targetClass", "field_75307_b", "a" };
 	public static final String[] TARGET_ENTITY_SELECTOR = { "targetEntitySelector", "field_82643_g", "c" };
@@ -50,10 +47,10 @@ public final class LibObfuscation {
 	public static final String[] ITEM_IN_USE_COUNT = { "activeItemStackUseCount", "field_184628_bn", "bn" };
 
 	// EntityHorse
-	public static final String[] HORSE_JUMP_STRENGTH = { "horseJumpStrength", "field_110271_bv", "bC" };
+	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bC" };
 
 	// PlayerControllerMP
-	public static final String[] NET_CLIENT_HANDLER = { "netClientHandler", "field_78774_b", "b" };
+	public static final String[] NET_CLIENT_HANDLER = { "connection", "field_78774_b", "b" };
 
 	// MobSpawnerBaseLogic
 	public static final String[] IS_ACTIVATED = { "isActivated" ,"func_98279_f", "h" };
@@ -73,9 +70,6 @@ public final class LibObfuscation {
 
 	// EntityThrowable
 	public static final String[] THROWER = { "thrower", "field_70192_c", "h" };
-
-	// GuiContainer
-	public static final String[] THE_SLOT = { "theSlot", "field_147006_u", "u" };
 
 	// GuiChat
 	public static final String[] INPUT_FIELD = { "inputField", "field_146415_a", "a" };

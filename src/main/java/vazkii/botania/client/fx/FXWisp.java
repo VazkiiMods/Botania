@@ -32,6 +32,7 @@ import java.util.Queue;
 
 public class FXWisp extends Particle {
 
+	private static final ResourceLocation vanillaParticles = new ResourceLocation("textures/particle/particles.png");
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
 	private static final Queue<FXWisp> queuedRenders = new ArrayDeque<>();
@@ -81,7 +82,7 @@ public class FXWisp extends Particle {
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ReflectionHelper.getPrivateValue(ParticleManager.class, null, LibObfuscation.PARTICLE_TEXTURES) : particles);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
 
 		if(!queuedRenders.isEmpty()) {
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);

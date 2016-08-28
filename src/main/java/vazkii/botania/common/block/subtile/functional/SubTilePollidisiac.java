@@ -43,8 +43,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 				if(mana < manaCost)
 					break;
 
-				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
-				if(animal.getGrowingAge() == 0 && love <= 0) {
+				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
 					for(EntityItem item : items) {
 						int age;
 						try {
