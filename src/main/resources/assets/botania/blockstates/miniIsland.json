@@ -1,20 +1,14 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "botania:miniIsland"
-  },
   "variants": {
-    "variant": {
-      "grass": { "textures": { "all": "botania:model/miniIsland" } },
-      "podzol": { "textures": { "all": "botania:model/miniIslandPodzol" } },
-      "mycel": { "textures": { "all": "botania:model/miniIslandMycelium" } },
-      "snow": { "textures": { "all": "botania:model/miniIslandSnow" } },
-      "dry": { "textures": { "all": "botania:model/miniIslandDry" } },
-      "golden": { "textures": { "all": "botania:model/miniIslandGolden" } },
-      "vivid": { "textures": { "all": "botania:model/miniIslandVivid" } },
-      "scorched": { "textures": { "all": "botania:model/miniIslandScorched" } },
-      "infused": { "textures": { "all": "botania:model/miniIslandInfused" } },
-      "mutated": { "textures": { "all": "botania:model/miniIslandMutated" } }
-    }
+    "variant=grass": { "model": "botania:islands/island_grass" },
+    "variant=podzol": { "model": "botania:islands/island_podzol" },
+    "variant=mycel": { "model": "botania:islands/island_mycel" },
+    "variant=snow": { "model": "botania:islands/island_snow" },
+    "variant=dry": { "model": "botania:islands/island_dry" },
+    "variant=golden": { "model": "botania:islands/island_golden" },
+    "variant=vivid": { "model": "botania:islands/island_vivid" },
+    "variant=scorched": { "model": "botania:islands/island_scorched" },
+    "variant=infused": { "model": "botania:islands/island_infused" },
+    "variant=mutated": { "model": "botania:islands/island_mutated" }
   }
 }
