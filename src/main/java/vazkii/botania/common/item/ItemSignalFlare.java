@@ -39,7 +39,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemSignalFlare extends ItemMod implements IColorable {
+public class ItemSignalFlare extends ItemMod {
 
 	private static final String TAG_COLOR = "color";
 
@@ -88,15 +88,6 @@ public class ItemSignalFlare extends ItemMod implements IColorable {
 	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0)
-			return 0xFFFFFF;
-
-		return EnumDyeColor.byMetadata(getColor(par1ItemStack)).getMapColor().colorValue;
 	}
 
 	@Override

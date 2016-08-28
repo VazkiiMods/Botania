@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBlockPool extends ItemBlockWithMetaNameAndColor {
+public class ItemBlockPool extends ItemBlockWithMetadataAndName {
 
 	public ItemBlockPool(Block par2Block) {
 		super(par2Block);

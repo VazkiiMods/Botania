@@ -24,17 +24,14 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 
-public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer, IColorable {
+public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
@@ -53,26 +50,6 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 			if(brewStack != null)
 				list.add(brewStack);
 		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int pass) {
-		if(pass == 0)
-			return 0xFFFFFF;
-
-		Brew brew = getBrew(stack);
-		if(brew == BotaniaAPI.fallbackBrew)
-			return 0x989898;
-
-		Color color = new Color(brew.getColor(stack));
-		int add = (int) (Math.sin(ClientTickHandler.ticksInGame * 0.2) * 24);
-
-		int r = Math.max(0, Math.min(255, color.getRed() + add));
-		int g = Math.max(0, Math.min(255, color.getGreen() + add));
-		int b = Math.max(0, Math.min(255, color.getBlue() + add));
-
-		return r << 16 | g << 8 | b;
 	}
 
 	@SideOnly(Side.CLIENT)

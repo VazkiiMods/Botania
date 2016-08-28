@@ -36,7 +36,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -44,7 +43,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
-public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt, IColorable {
+public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
 	public static final int SUBTYPES = 22;
 
@@ -153,12 +152,6 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < SUBTYPES; i++)
 			stacks.add(new ItemStack(item, 1, i));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
 	}
 
 	@Nonnull

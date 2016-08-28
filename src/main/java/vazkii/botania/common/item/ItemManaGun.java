@@ -56,7 +56,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
+public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
@@ -139,25 +139,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int tintIndex) {
-		ItemStack lens = getLens(stack);
-		if(lens != null && tintIndex == 0)
-			return ((IColorable) ModItems.lens).getColorFromItemStack(lens, tintIndex);
-
-		if(tintIndex == 2) {
-			EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, stack, false);
-			Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
-
-			float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
-			int c = (int) (255 * mul);
-
-			return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
-		} else return 0xFFFFFF;
-
-	}
-
-	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return getLens(stack) != null;
 	}
@@ -168,7 +149,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem, IColorable {
 		return getLens(itemStack);
 	}
 
-	private EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
+	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		int maxMana = 120;

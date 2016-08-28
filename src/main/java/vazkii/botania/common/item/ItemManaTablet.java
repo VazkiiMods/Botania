@@ -29,9 +29,9 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
-public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay, IColorable {
+public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
-	private static final int MAX_MANA = 500000;
+	public static final int MAX_MANA = 500000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_CREATIVE = "creative";
@@ -60,13 +60,6 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
 		stacks.add(creative);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / MAX_MANA, 1F) : 0xFFFFFF;
 	}
 
 	@Override

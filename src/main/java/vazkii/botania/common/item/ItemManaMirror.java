@@ -37,7 +37,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay, IColorable {
+public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -54,13 +54,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		setMaxStackSize(1);
 		setMaxDamage(1000);
 		setNoRepair();
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / TilePool.MAX_MANA, 1F) : 0xFFFFFF;
 	}
 
 	@Override

@@ -15,10 +15,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -45,7 +43,6 @@ import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -55,10 +52,9 @@ import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker, IColorable {
+public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -207,15 +203,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	public static void setTipped(ItemStack stack) {
 		ItemNBTHelper.setBoolean(stack, TAG_TIPPED, true);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0 || !isEnabled(par1ItemStack))
-			return 0xFFFFFF;
-
-		return Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F);
 	}
 
 	public static boolean isEnabled(ItemStack stack) {

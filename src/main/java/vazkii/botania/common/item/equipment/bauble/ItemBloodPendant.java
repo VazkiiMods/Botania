@@ -37,18 +37,16 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 
-public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender, IColorable {
+public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
@@ -66,26 +64,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			if(brewStack != null)
 				list.add(brewStack);
 		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int pass) {
-		if(pass == 0)
-			return 0xFFFFFF;
-
-		Brew brew = getBrew(stack);
-		if(brew == BotaniaAPI.fallbackBrew)
-			return 0xC6000E;
-
-		Color color = new Color(brew.getColor(stack));
-		int add = (int) (Math.sin(ClientTickHandler.ticksInGame * 0.2) * 24);
-
-		int r = Math.max(0, Math.min(255, color.getRed() + add));
-		int g = Math.max(0, Math.min(255, color.getGreen() + add));
-		int b = Math.max(0, Math.min(255, color.getBlue() + add));
-
-		return r << 16 | g << 8 | b;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -185,7 +163,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				float f3 = icon.getMaxV();
 				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 
-				Color color = new Color(getColorFromItemStack(stack, 1));
+				Color color = new Color(Minecraft.getMinecraft().getItemColors().getColorFromItemstack(stack, 1));
 				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 				int light = 15728880;
 				int lightmapX = light % 65536;

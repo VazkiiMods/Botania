@@ -46,7 +46,7 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockWithMetaNameAndColor;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -88,7 +88,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetaNameAndColor(this), getRegistryName());
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@SideOnly(Side.CLIENT)

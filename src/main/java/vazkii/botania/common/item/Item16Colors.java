@@ -21,17 +21,11 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class Item16Colors extends ItemMod implements IColorable {
+public class Item16Colors extends ItemMod {
 
 	public Item16Colors(String name) {
 		super(name);
 		setHasSubtypes(true);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		return EnumDyeColor.byMetadata(par1ItemStack.getItemDamage()).getMapColor().colorValue;
 	}
 
 	@Override

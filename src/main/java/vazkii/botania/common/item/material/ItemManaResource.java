@@ -39,15 +39,13 @@ import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.List;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement, IColorable {
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
 	final int types = 24;
 
@@ -128,15 +126,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
 				stacks.add(new ItemStack(item, 1, i));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par1ItemStack.getItemDamage() == 5 || par1ItemStack.getItemDamage() == 14)
-			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F);
-
-		return 0xFFFFFF;
 	}
 
 	@Nonnull

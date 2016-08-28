@@ -205,16 +205,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0 || par2 == 3)
-			return 0xFFFFFF;
-
-		EnumDyeColor color = EnumDyeColor.byMetadata(par2 == 1 ? getColor1(par1ItemStack) : getColor2(par1ItemStack));
-		return color.getMapColor().colorValue;
-	}
-
-	@Override
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
 			stacks.add(forColors(i, i));

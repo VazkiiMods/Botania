@@ -17,7 +17,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -35,20 +34,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.List;
 
-public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement, IColorable {
+public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -125,22 +120,6 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 			setBrew(stack, s);
 			list.add(stack);
 		}
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int pass) {
-		if(pass == 0)
-			return 0xFFFFFF;
-
-		Color color = new Color(getBrew(stack).getColor(stack));
-		int add = (int) (Math.sin(ClientTickHandler.ticksInGame * 0.1) * 16);
-
-		int r = Math.max(0, Math.min(255, color.getRed() + add));
-		int g = Math.max(0, Math.min(255, color.getGreen() + add));
-		int b = Math.max(0, Math.min(255, color.getBlue() + add));
-
-		return r << 16 | g << 8 | b;
 	}
 
 	@Nonnull

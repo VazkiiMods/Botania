@@ -18,35 +18,21 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.item.IColorable;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 
-public class ItemEnderDagger extends ItemManasteelSword implements IColorable {
+public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger() {
 		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);
 		setMaxDamage(69); // What you looking at?
 		setNoRepair();
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0)
-			return 0xFFFFFF;
-
-		return Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F));
 	}
 
 	@Override
