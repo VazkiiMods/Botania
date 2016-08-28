@@ -35,6 +35,7 @@ public class Item16Colors extends ItemMod implements IColorable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
 			stacks.add(new ItemStack(item, 1, i));
