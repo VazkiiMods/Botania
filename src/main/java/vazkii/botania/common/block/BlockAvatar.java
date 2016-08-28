@@ -56,7 +56,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		super(Material.WOOD, LibBlockNames.AVATAR);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 
 	@Nonnull
@@ -71,6 +70,11 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH);
 	}
 
 	@Override

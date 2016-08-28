@@ -65,7 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD, IRegisterCallback, IModelRegister {
+public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD, IModelRegister {
 
 	static {
 		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(
@@ -121,15 +121,15 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	protected BlockSpecialFlower() {
-		ModBlocks.ALL_BLOCKS.add(this);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY)
-		);
 	}
 
 	@Nonnull
@@ -342,12 +342,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
 	}
 
 	@SideOnly(Side.CLIENT)

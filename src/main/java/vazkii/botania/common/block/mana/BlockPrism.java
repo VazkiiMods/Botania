@@ -57,10 +57,6 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POWERED, false)
-				.withProperty(BotaniaStateProps.HAS_LENS, false)
-		);
 	}
 
 	@Nonnull
@@ -73,6 +69,13 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false);
 	}
 
 	@Override

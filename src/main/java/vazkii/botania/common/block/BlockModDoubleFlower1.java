@@ -16,17 +16,21 @@ import javax.annotation.Nonnull;
 public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
     public BlockModDoubleFlower1() {
         super(false);
-        setDefaultState(blockState.getBaseState()
-                .withProperty(FACING, EnumFacing.SOUTH)
-                .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
-                .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
-                .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE));
     }
 
     @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_1);
+    }
+
+    @Override
+    protected IBlockState pickDefaultState() {
+        return blockState.getBaseState()
+                .withProperty(FACING, EnumFacing.SOUTH)
+                .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
+                .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
+                .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE);
     }
 
     @Override

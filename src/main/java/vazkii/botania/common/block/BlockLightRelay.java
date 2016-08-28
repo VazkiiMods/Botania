@@ -49,7 +49,6 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	protected BlockLightRelay() {
 		super(Material.GLASS, LibBlockNames.LIGHT_RELAY);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
@@ -62,6 +61,11 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.LUMINIZER_VARIANT, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

@@ -40,13 +40,17 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICr
 		super(Material.IRON, LibBlockNames.CORPOREA_RETAINER);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

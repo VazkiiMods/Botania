@@ -24,7 +24,11 @@ public class BlockRedStringRelay extends BlockRedString {
 
 	public BlockRedStringRelay() {
 		super(LibBlockNames.RED_STRING_RELAY);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
 	}
 
 	@Nonnull

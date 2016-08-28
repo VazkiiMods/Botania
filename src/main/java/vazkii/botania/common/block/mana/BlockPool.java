@@ -69,9 +69,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
@@ -79,6 +76,13 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT, BotaniaStateProps.COLOR);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override

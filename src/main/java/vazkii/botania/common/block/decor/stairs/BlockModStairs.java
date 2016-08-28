@@ -23,12 +23,13 @@ import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister, IRegisterCallback {
+public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister {
 
 	public BlockModStairs(IBlockState state, String name) {
 		super(state);
-		ModBlocks.ALL_BLOCKS.add(this);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		useNeighborBrightness = true;
@@ -43,11 +44,5 @@ public class BlockModStairs extends BlockStairs implements ILexiconable, IModelR
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 }

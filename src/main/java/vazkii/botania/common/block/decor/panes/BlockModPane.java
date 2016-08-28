@@ -28,14 +28,15 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockModPane extends BlockPane implements IRegisterCallback, IModelRegister {
+public class BlockModPane extends BlockPane implements IModelRegister {
 
 	public BlockModPane(Block source) {
 		super(Material.GLASS, false);
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		ModBlocks.ALL_BLOCKS.add(this);
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
@@ -53,12 +54,6 @@ public class BlockModPane extends BlockPane implements IRegisterCallback, IModel
 	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, @Nonnull EnumFacing dir) {
 		Block block = world.getBlockState(pos).getBlock();
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 
 	@Override

@@ -64,7 +64,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull

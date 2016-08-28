@@ -58,13 +58,17 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		setResistance(5.0F);
 		setLightLevel(1.0F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ENCHANTER_DIRECTION);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X);
 	}
 
 	@Override

@@ -17,17 +17,21 @@ public class BlockModDoubleFlower2 extends BlockModDoubleFlower {
 
     public BlockModDoubleFlower2() {
         super(true);
-        setDefaultState(blockState.getBaseState()
-                .withProperty(FACING, EnumFacing.SOUTH)
-                .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
-                .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
-                .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.SILVER));
     }
 
     @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, VARIANT, HALF, BotaniaStateProps.DOUBLEFLOWER_VARIANT_2);
+    }
+
+    @Override
+    protected IBlockState pickDefaultState() {
+        return blockState.getBaseState()
+                .withProperty(FACING, EnumFacing.SOUTH)
+                .withProperty(VARIANT, EnumPlantType.SUNFLOWER)
+                .withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
+                .withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_2, EnumDyeColor.SILVER);
     }
 
     @Override

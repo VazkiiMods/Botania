@@ -58,15 +58,19 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		super(Material.WOOD, LibBlockNames.OPEN_CRATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
-				.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CRATE_VARIANT, BotaniaStateProps.CRATE_PATTERN);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState()
+				.withProperty(BotaniaStateProps.CRATE_VARIANT, CrateVariant.OPEN)
+				.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE);
 	}
 
 	@Override

@@ -27,7 +27,11 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	public BlockRedStringFertilizer() {
 		super(LibBlockNames.RED_STRING_FERTILIZER);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
 	}
 
 	@Override

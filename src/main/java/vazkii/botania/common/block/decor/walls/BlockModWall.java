@@ -40,23 +40,16 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister, IRegisterCallback {
+public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister {
 
 	public BlockModWall(Block block, int meta) {
 		super(block);
 		// For backward compat don't kill me
 		String name = block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall";
 		setRegistryName(name);
-		ModBlocks.ALL_BLOCKS.add(this);
 		setUnlocalizedName(name);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(UP, false)
-				.withProperty(NORTH, false)
-				.withProperty(SOUTH, false)
-				.withProperty(WEST, false)
-				.withProperty(EAST, false)
-				.withProperty(VARIANT, EnumType.NORMAL)
-		);
+		setDefaultState(pickDefaultState());
+		register();
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
@@ -77,6 +70,16 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		return new BlockStateContainer(this, VARIANT, UP, NORTH, SOUTH, WEST, EAST);
 	}
 
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState()
+				.withProperty(UP, false)
+				.withProperty(NORTH, false)
+				.withProperty(SOUTH, false)
+				.withProperty(WEST, false)
+				.withProperty(EAST, false)
+				.withProperty(VARIANT, EnumType.NORMAL);
+	}
+
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return 0;
@@ -93,7 +96,6 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		return true;
 	}
 
-	@Override
 	public void register() {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());

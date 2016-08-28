@@ -46,13 +46,17 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		this.type = type;
 		setHardness(0.8F);
 		setResistance(10F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.QUARTZ_VARIANT);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL);
 	}
 
 	@Override

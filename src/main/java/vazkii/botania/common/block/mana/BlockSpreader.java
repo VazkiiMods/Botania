@@ -59,13 +59,17 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		super(Material.WOOD, LibBlockNames.SPREADER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.SPREADER_VARIANT);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA);
 	}
 
 	@Override

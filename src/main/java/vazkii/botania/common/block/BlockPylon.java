@@ -53,8 +53,6 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setLightLevel(0.5F);
-
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA));
 	}
 
 	@Nonnull
@@ -67,6 +65,11 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.PYLON_VARIANT);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA);
 	}
 
 	@Override

@@ -47,13 +47,17 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
 		MinecraftForge.EVENT_BUS.register(BlockFelPumpkin.class);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override

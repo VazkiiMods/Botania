@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable, IRegisterCallback, IModelRegister {
+public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable, IModelRegister {
 	private static final int COUNT = 8;
 
 	private final boolean second;
@@ -62,8 +62,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		this.setHardness(0.0F);
 		this.setSoundType(SoundType.PLANT);
 		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
-		ModBlocks.ALL_BLOCKS.add(this);
+		setDefaultState(pickDefaultState());
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 		setUnlocalizedName(name);
 		setHardness(0F);
 		setTickRandomly(false);
@@ -73,6 +75,8 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@Nonnull
 	@Override
 	public abstract BlockStateContainer createBlockState();
+
+	protected abstract IBlockState pickDefaultState();
 
 	@Override
 	public abstract int getMetaFromState(IBlockState state);
@@ -219,12 +223,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		state = state.getBlock().getActualState(state, world, pos);
 		PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
 		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getValue(prop).ordinal() - (second ? 8 : 0));
-	}
-
-	@Override
-	public final void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@SideOnly(Side.CLIENT)

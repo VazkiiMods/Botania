@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -25,17 +26,21 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-
-public class BlockMod extends Block implements IModelRegister, IRegisterCallback {
+public abstract class BlockMod extends Block implements IModelRegister {
 
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
 		setUnlocalizedName(name);
-		ModBlocks.ALL_BLOCKS.add(this);
+		setDefaultState(pickDefaultState()); // This MUST happen before registering the block
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
+		registerItemForm();
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
+	}
+
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState();
 	}
 
 	public void registerItemForm() {
@@ -51,11 +56,5 @@ public class BlockMod extends Block implements IModelRegister, IRegisterCallback
 	public void registerModels() {
 		if(Item.getItemFromBlock(this) != null)
 			ModelHandler.registerBlockToState(this, 0, getDefaultState());
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		registerItemForm();
 	}
 }

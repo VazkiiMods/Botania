@@ -34,13 +34,17 @@ public class BlockCacophonium extends BlockMod {
 	protected BlockCacophonium() {
 		super(Material.WOOD, LibBlockNames.CACOPHONIUM);
 		setHardness(0.8F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

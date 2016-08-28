@@ -53,7 +53,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IRegisterCallback, IModelRegister {
+public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IModelRegister {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
@@ -63,13 +63,14 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	protected BlockModFlower(String name) {
 		setUnlocalizedName(name);
-		ModBlocks.ALL_BLOCKS.add(this);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
+		registerItemForm();
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 	}
 
 	public void registerItemForm() {
@@ -171,12 +172,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		Block flower = color.getMetadata() >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
 		world.setBlockState(pos, flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
 		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		registerItemForm();
 	}
 
 	@SideOnly(Side.CLIENT)

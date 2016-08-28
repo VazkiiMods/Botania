@@ -25,7 +25,11 @@ public class BlockRedStringComparator extends BlockRedString {
 
 	public BlockRedStringComparator() {
 		super(LibBlockNames.RED_STRING_COMPARATOR);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
 	}
 
 	@Override

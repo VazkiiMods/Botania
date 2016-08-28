@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.util.Random;
 
-public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister, IRegisterCallback {
+public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister {
 
 	private final String name;
 	private final boolean doubleSlab;
@@ -46,13 +46,15 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 		this.name = name;
 		setUnlocalizedName(name);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		ModBlocks.ALL_BLOCKS.add(this);
 		doubleSlab = full;
 		if(!full) {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			useNeighborBrightness = true;
 		}
 		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
+		GameRegistry.register(this);
+		if (!isDouble())
+			GameRegistry.register(new ItemBlockModSlab(this), getRegistryName());
 	}
 
 	@Nonnull
@@ -98,13 +100,6 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 	@Override
 	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
-	}
-
-	@Override
-	public void register() {
-		GameRegistry.register(this);
-		if (!isDouble())
-			GameRegistry.register(new ItemBlockModSlab(this), getRegistryName());
 	}
 
 	@Nonnull
