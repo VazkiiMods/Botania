@@ -163,7 +163,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileAvatar.class);
 		ModelHandler.registerCustomItemblock(this, "avatar");
-		super.registerModels();
 	}
 
 }

@@ -36,7 +36,7 @@ import java.util.List;
 
 public class BlockCocoon extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 0.125, 0.875, 0.125);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 0.875, 13.0/16);;
 
 	protected BlockCocoon() {
 		super(Material.CLOTH, LibBlockNames.COCOON);
