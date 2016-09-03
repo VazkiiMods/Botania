@@ -33,7 +33,7 @@ public class BergamuteEventHandler {
     public static void onSoundEvent(PlaySoundEvent evt) {
         ISound sound = evt.getResultSound();
 
-        if (sound != null && shouldSilence(sound.getCategory())) {
+        if (sound != null && shouldSilence(sound)) {
             if(sound instanceof ITickableSound) {
                 evt.setResultSound(new WrappedTickableSound((ITickableSound) sound, MULTIPLIER));
             } else {
@@ -51,8 +51,10 @@ public class BergamuteEventHandler {
         }
     }
 
-    private static boolean shouldSilence(SoundCategory category) {
-        return category != SoundCategory.VOICE && category != SoundCategory.MUSIC;
+    private static boolean shouldSilence(ISound sound) {
+        return sound.getCategory() != SoundCategory.VOICE
+                && sound.getCategory() != SoundCategory.MUSIC
+                && sound.getClass().getName().startsWith("net.minecraft.client.audio");
     }
 
     @SideOnly(Side.CLIENT)
