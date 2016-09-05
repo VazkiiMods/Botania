@@ -136,7 +136,6 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
     updateJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(updateJson)))
 }
 
-/* Unused - Forgecraft and web server stuff
 // I have no idea what I'm doing
 task wtfGradle2(type: Copy) {
     from(jar.destinationDir)
@@ -218,7 +217,7 @@ def scp(String dir, Closure antFileset = {}) {
         }
     }
 }
-*/
+
 
 def parseConfig(File config) {
     config.withReader {
@@ -236,11 +235,11 @@ jar {
 curseforge {
     apiKey = priv.cfkey
     project {
-        id = "241973"
+        id = "225643"
         changelog = """
-		    See https://github.com/williewillus/Botania/releases/tag/${version}
+		    See http://botaniamod.net/changelog.php#${version}
         """
-        releaseType = "release"
+        releaseType = "beta"
         addGameVersion "${minecraft.version}"
         relations {
             requiredLibrary 'baubles'
@@ -248,5 +247,4 @@ curseforge {
     }
 }
 
-//defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
-defaultTasks 'clean', 'build', 'incrementBuildNumber', 'curseforge'
+defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
