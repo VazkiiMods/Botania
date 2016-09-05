@@ -43,10 +43,10 @@ group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-con
 archivesBaseName = config.mod_name
 
 minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
+    version = "${config.mc_version}-${config.forge_version}-${config.mc_version_suffix}"
     runDir = "eclipse/assets"
 
-    mappings = "snapshot_20160718"
+    mappings = config.mc_mappings
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number
@@ -240,7 +240,7 @@ curseforge {
 		    See http://botaniamod.net/changelog.php#${version}
         """
         releaseType = "beta"
-        addGameVersion "${minecraft.version}"
+        addGameVersion "${config.cf_meta_version}"
         relations {
             requiredLibrary 'baubles'
         }
