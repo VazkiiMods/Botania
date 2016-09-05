@@ -120,20 +120,6 @@ task incrementBuildNumber(dependsOn: 'reobfJar') << {
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
     file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
-
-    def updateJsonFile = file('version/update.json')
-    def updateJson = new JsonSlurper().parse(updateJsonFile) as Map
-
-    // todo detect if the mcversion is absent
-
-    // Add to version section
-    updateJson."${minecraft.version}"."${version}" = "See https://github.com/williewillus/Botania/releases/${version}"
-
-    // Update promos
-    updateJson.promos."${minecraft.version}-latest" = "${version}"
-    updateJson.promos."${minecraft.version}-recommended" = "${version}"
-
-    updateJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(updateJson)))
 }
 
 // I have no idea what I'm doing
