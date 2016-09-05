@@ -16,8 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.render.IModelRegister;
-import vazkii.botania.common.block.IRegisterCallback;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;

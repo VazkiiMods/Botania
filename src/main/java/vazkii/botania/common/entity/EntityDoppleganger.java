@@ -638,7 +638,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 									entity = new EntitySkeleton(worldObj);
 									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 									if(worldObj.rand.nextInt(8) == 0) {
-										((EntitySkeleton) entity).setSkeletonType(SkeletonType.WITHER);
+										((EntitySkeleton) entity).func_189768_a(SkeletonType.WITHER);
 										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;

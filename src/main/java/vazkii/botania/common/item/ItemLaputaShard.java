@@ -252,7 +252,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.hasKey("id"))
-						tile = TileEntity.create(entity.worldObj, tilecmp);
+						tile = TileEntity.func_190200_a(entity.worldObj, tilecmp);
 
 					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
 					entity.worldObj.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));

@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.block.decor;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockMushroom;
@@ -40,18 +45,12 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.IRegisterCallback;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IModelRegister {

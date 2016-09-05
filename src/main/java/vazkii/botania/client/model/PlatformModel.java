@@ -146,8 +146,8 @@ public class PlatformModel implements IBakedModel {
 
 		@Nonnull
 		@Override
-		public Biome getBiome(@Nonnull BlockPos pos) {
-			return compose.getBiome(pos);
+		public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
+			return compose.getBiomeGenForCoords(pos);
 		}
 
 		@Override

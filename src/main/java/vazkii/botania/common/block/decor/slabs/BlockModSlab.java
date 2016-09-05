@@ -1,5 +1,10 @@
 package vazkii.botania.common.block.decor.slabs;
 
+import java.util.Locale;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -23,17 +28,10 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.IRegisterCallback;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.Locale;
-import java.util.Random;
 
 public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IModelRegister {
 

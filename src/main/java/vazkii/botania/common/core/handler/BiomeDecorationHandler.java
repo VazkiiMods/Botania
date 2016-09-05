@@ -36,8 +36,8 @@ public final class BiomeDecorationHandler {
 			boolean flowers = true;
 			if(event.getWorld().provider instanceof IFlowerlessWorld)
 				flowers = ((IFlowerlessWorld) event.getWorld().provider).generateFlowers(event.getWorld());
-			else if(event.getWorld().getBiome(event.getPos()) instanceof IFlowerlessBiome)
-				flowers = ((IFlowerlessBiome) event.getWorld().getBiome(event.getPos())).canGenerateFlowers(event.getWorld(), event.getPos().getX(), event.getPos().getZ());
+			else if(event.getWorld().getBiomeGenForCoords(event.getPos()) instanceof IFlowerlessBiome)
+				flowers = ((IFlowerlessBiome) event.getWorld().getBiomeGenForCoords(event.getPos())).canGenerateFlowers(event.getWorld(), event.getPos().getX(), event.getPos().getZ());
 
 			if(!flowers)
 				return;

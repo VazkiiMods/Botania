@@ -63,7 +63,7 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
 		} else if (view instanceof EntitySkeleton) {
 			skullType = 0;
-			if (((EntitySkeleton) view).getSkeletonType() == SkeletonType.WITHER)
+			if (((EntitySkeleton) view).func_189771_df() == SkeletonType.WITHER)
 				skullType = 1;
 		} else if(view instanceof EntityWither)
 			skullType = 1;

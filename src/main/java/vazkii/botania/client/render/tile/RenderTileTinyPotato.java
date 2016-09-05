@@ -348,7 +348,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			} else if (name.equals("williewillus")) {
 				GlStateManager.rotate(180F, 1F, 0F, 0F);
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				renderItem(new ItemStack(Blocks.RED_NETHER_BRICK));
+				renderItem(new ItemStack(Blocks.field_189879_dh));
 				GlStateManager.scale(0.75F, 0.75F, 0.75F);
 				GlStateManager.translate(-1.1F, -1.25F, 0F);
 				renderItem(new ItemStack(Blocks.CHORUS_FLOWER));

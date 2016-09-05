@@ -85,9 +85,9 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Nonnull
 	@Override
-	public Biome getBiome(@Nonnull BlockPos pos) {
+	public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getBiome(pos);
+			return originalBlockAccess.getBiomeGenForCoords(pos);
 		return null;
 	}
 

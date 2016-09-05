@@ -75,7 +75,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public ItemStack getStoneToPut(BlockPos coords) {
-		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiome(coords)));
+		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords)));
 
 		TIntArrayList values = new TIntArrayList();
 		for(int i = 0; i < 8; i++) {
