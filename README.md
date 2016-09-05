@@ -1,14 +1,10 @@
 README:
 
-This is williewillus' port and continuation of Botania for Minecraft versions 1.8.x and above
+This is williewillus' old port and of Botania for Minecraft versions 1.8.x up to 1.10.2, build 320.
 
-All licensing and distribution rights are exactly as 1.7.10 Botania.
+Vazkii took a break from Botania from 2016-02-25 to 2016-09-05, I have ported it in this time and fixed things here and there.
 
-Use at your own risk as bugs may pop up unexpectedly.
-
-As of 2016 02 25, Vazkii has stopped working on Botania. Requests for design changes will still not be accepted here (post them on reddit). Even then, don't expect anything to be added without severe deliberation scrutiny.
-
-Please report all 1.8+ issues to this repository.
+Future development is now at Vazkii's BotaniaV2 Repository; remaining issues in this repository will be fixed, but new issue reports will not be accepted. Thanks!
 
 These non-CurseForge builds can be openly used in modpacks of any kind, in accordance with the requirements of the license of this mod.
 
