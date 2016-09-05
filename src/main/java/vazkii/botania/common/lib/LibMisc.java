@@ -18,8 +18,6 @@ public final class LibMisc {
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:Forge@[12.18.1.2053,];required-after:Baubles;after:Thaumcraft";
-	public static final String MC_VERSIONS = "[1.10.2]";
-	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/williewillus/Botania/HEAD/version/update.json";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;

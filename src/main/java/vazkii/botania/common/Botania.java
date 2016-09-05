@@ -92,8 +92,7 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES,
-		guiFactory = LibMisc.GUI_FACTORY, acceptedMinecraftVersions = LibMisc.MC_VERSIONS, updateJSON = LibMisc.UPDATE_JSON)
+@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
 
 	public static boolean gardenOfGlassLoaded = false;
