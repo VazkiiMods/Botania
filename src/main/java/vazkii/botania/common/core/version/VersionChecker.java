@@ -46,7 +46,7 @@ public final class VersionChecker {
 			if(!onlineVersion.isEmpty()) {
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
-				int clientBuild = 10;//LibMisc.BUILD.contains("GRADLE") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD);
+				int clientBuild = LibMisc.BUILD.contains("GRADLE") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {
 					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(FLAVOUR_MESSAGES)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 					player.addChatComponentMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
