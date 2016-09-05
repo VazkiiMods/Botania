@@ -36,5 +36,7 @@ public final class LibMisc {
 		0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
 		0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
 	};
+	
+	public static final int PASSIVE_FLOWER_DECAY = 72000;
 
 }

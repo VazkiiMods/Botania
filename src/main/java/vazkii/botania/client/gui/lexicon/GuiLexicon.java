@@ -527,10 +527,10 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.manaIntro);
 		tutorial.add(LexiconData.pool);
 		tutorial.add(LexiconData.spreader);
-		if(ConfigHandler.hardcorePassiveGeneration > 0)
-			tutorial.add(LexiconData.generatingIntro);
-		tutorial.add(LexiconData.passiveGen);
-		tutorial.add(LexiconData.daybloom);
+		tutorial.add(LexiconData.generatingIntro);
+		tutorial.add(LexiconData.endoflame);
+//		tutorial.add(LexiconData.passiveGen);
+//		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
 

@@ -122,10 +122,6 @@ public final class LexiconData {
 	public static LexiconEntry bergamute;
 
 	public static LexiconEntry generatingIntro;
-	public static LexiconEntry passiveGen;
-	public static LexiconEntry primusLoci;
-	public static LexiconEntry daybloom;
-	public static LexiconEntry nightshade;
 	public static LexiconEntry endoflame;
 	public static LexiconEntry hydroangeas;
 	public static LexiconEntry thermalily;
@@ -634,27 +630,8 @@ public final class LexiconData {
 		bergamute.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.bergamuteRecipe));
 
 		// GENERATING FLOWERS ENTRIES
-		if (ConfigHandler.hardcorePassiveGeneration > 0) {
-			generatingIntro = new BasicLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
-			generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
-		}
-
-		passiveGen = new BasicLexiconEntry(LibLexicon.GFLOWER_PASSIVE_GENERATION, categoryGenerationFlowers);
-		passiveGen.setPriority().setLexiconPages(new PageText("0"), new PageText("1"))
-				.setIcon(new ItemStack(Blocks.DEADBUSH));
-
-		primusLoci = new BasicLexiconEntry(LibLexicon.GFLOWER_PRIMUS_LOCI, categoryGenerationFlowers);
-		primusLoci.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
-		primusLoci.setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
-		primusLoci.addExtraDisplayedRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
-		primusLoci.addExtraDisplayedRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME));
-
-		daybloom = new BasicLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
-		daybloom.setPriority().setLexiconPages(new PageText("0"), new PageText("1"),
-				new PagePetalRecipe<>("2", ModPetalRecipes.daybloomRecipe));
-
-		nightshade = new BasicLexiconEntry(LibLexicon.GFLOWER_NIGHTSHADE, categoryGenerationFlowers);
-		nightshade.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.nightshadeRecipe));
+		generatingIntro = new BasicLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
+		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 
 		endoflame = new BasicLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
 		endoflame.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"),

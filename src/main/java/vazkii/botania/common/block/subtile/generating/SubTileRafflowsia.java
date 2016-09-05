@@ -55,7 +55,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
 							String name = stile.getUnlocalizedName();
 
-							if(stile instanceof SubTileGenerating && ((SubTileGenerating) stile).isPassiveFlower()) {
+							if(stile instanceof SubTileGenerating) {
 								boolean last = name.equals(lastFlower);
 								if(last)
 									lastFlowerTimes++;

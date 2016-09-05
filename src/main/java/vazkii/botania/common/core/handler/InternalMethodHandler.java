@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.core.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
@@ -70,9 +73,7 @@ import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
-
-import java.util.ArrayList;
-import java.util.List;
+import vazkii.botania.common.lib.LibMisc;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 
@@ -229,9 +230,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public int getPassiveFlowerDecay() {
-		return ConfigHandler.hardcorePassiveGeneration;
+		return LibMisc.PASSIVE_FLOWER_DECAY;
 	}
-
+	
 	@Override
 	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {

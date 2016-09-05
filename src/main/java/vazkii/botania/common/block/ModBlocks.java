@@ -74,7 +74,6 @@ import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.string.BlockRedStringRelay;
-import vazkii.botania.common.block.subtile.SubTileDecor;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -105,7 +104,6 @@ import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
-import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
@@ -113,7 +111,6 @@ import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
@@ -174,9 +171,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public final class ModBlocks {
 
@@ -454,13 +448,9 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class, SubTileDecor.Daybloom.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM_PRIME, SubTileDaybloom.Prime.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class, SubTileDecor.Hydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_THERMALILY, SubTileThermalily.class);
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_NIGHTSHADE, SubTileNightshade.class, SubTileDecor.Nightshade.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME, SubTileNightshade.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
@@ -514,11 +504,6 @@ public final class ModBlocks {
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
-	}
-
-	private static void registerSubTileWithDecor(String key, Class<? extends SubTileEntity> clazz, Class<? extends SubTileEntity> decor) {
-		BotaniaAPI.registerSubTile(key, clazz);
-		BotaniaAPI.registerMiniSubTile(key + "Decor", decor, key);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

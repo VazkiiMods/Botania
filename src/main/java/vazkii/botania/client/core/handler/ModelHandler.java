@@ -8,12 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.IntFunction;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -22,12 +25,8 @@ import net.minecraftforge.fml.common.registry.RegistryDelegate;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.client.render.IModelRegister;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.subtile.SubTileDecor;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -58,7 +57,6 @@ import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
-import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
@@ -66,16 +64,11 @@ import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.IntFunction;
 
 public final class ModelHandler {
 
@@ -111,16 +104,9 @@ public final class ModelHandler {
         BotaniaAPIClient.registerSubtileModel(SubTileManastar.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MANASTAR));
         BotaniaAPIClient.registerSubtileModel(SubTilePureDaisy.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_PUREDAISY));
 
-        BotaniaAPIClient.registerSubtileModel(SubTileDaybloom.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM));
-        BotaniaAPIClient.registerSubtileModel(SubTileDecor.Daybloom.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM + "Decor"));
-        BotaniaAPIClient.registerSubtileModel(SubTileDaybloom.Prime.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
         BotaniaAPIClient.registerSubtileModel(SubTileEndoflame.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ENDOFLAME));
         BotaniaAPIClient.registerSubtileModel(SubTileHydroangeas.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HYDROANGEAS));
-        BotaniaAPIClient.registerSubtileModel(SubTileDecor.Hydroangeas.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_HYDROANGEAS + "Decor"));
         BotaniaAPIClient.registerSubtileModel(SubTileThermalily.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_THERMALILY));
-        BotaniaAPIClient.registerSubtileModel(SubTileNightshade.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE));
-        BotaniaAPIClient.registerSubtileModel(SubTileDecor.Nightshade.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE + "Decor"));
-        BotaniaAPIClient.registerSubtileModel(SubTileNightshade.Prime.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_NIGHTSHADE_PRIME));
         BotaniaAPIClient.registerSubtileModel(SubTileArcaneRose.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ARCANE_ROSE));
         BotaniaAPIClient.registerSubtileModel(SubTileMunchdew.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_MUNCHDEW));
         BotaniaAPIClient.registerSubtileModel(SubTileEntropinnyum.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_ENTROPINNYUM));

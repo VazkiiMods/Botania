@@ -74,8 +74,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				LibBlockNames.SUBTILE_MANASTAR,
 
 				// Generating
-				LibBlockNames.SUBTILE_DAYBLOOM,
-				LibBlockNames.SUBTILE_NIGHTSHADE,
 				LibBlockNames.SUBTILE_ENDOFLAME,
 				LibBlockNames.SUBTILE_HYDROANGEAS,
 				LibBlockNames.SUBTILE_THERMALILY,

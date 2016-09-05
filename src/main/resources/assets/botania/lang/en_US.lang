@@ -177,15 +177,11 @@ botania.nei.lexicaNoInfo=(there's no Extra Info for this entry, sorry!)
 botania.nei.quickInfo:tile.livingwood0~0=You can create Livingwood by placing Wood next to a Pure Daisy
 botania.nei.quickInfo:tile.livingrock0~0=You can create Livingrock by placing Stone next to a Pure Daisy
 
-botania.nei.quickInfo:flower.daybloom=In this world, it's kill or be killed
-botania.nei.quickInfo:flower.daybloomPrimus=This flower can not be harvested, but can be found rarely in the world
-botania.nei.quickInfo:flower.nightshadePrimus=This flower can not be harvested, but can be found rarely in the world
-
 botania.nei.quickInfo:item.bone~0=You're gonna have a bad time
 botania.nei.quickInfo:item.lexicon~0=What exactly did you expect?
 botania.nei.quickInfo:item.terrasteel~4=You can get Terrasteel by tossing the right materials on a Terrestrial Agglomeration Plate
 botania.nei.quickInfo:item.enderAirBottle~15=You can get this by right clicking with a Glass Bottle while in the End
-primus
+
 # BUILDCRAFT INTEGRATION
 botania.triggers.manaDetector=Mana Burst
 botania.triggers.manaEmpty=Mana Empty
@@ -1168,26 +1164,12 @@ tile.botania:flower.manastar.name=Manastar
 tile.botania:flower.manastar.reference=Wish upon a star
 
 # - GENERATING
-tile.botania:flower.daybloom.name=Daybloom
-tile.botania:flower.daybloom.reference=A Sting of light
-tile.botania:flower.daybloomDecor.name=Daybloom Motif
-tile.botania:flower.daybloomDecor.reference=A Stylish Touch of light
-tile.botania:flower.daybloomPrime.name=Daybloom Primus
-tile.botania:flower.daybloomPrime.reference=You should not have this on you
 tile.botania:flower.endoflame.name=Endoflame
 tile.botania:flower.endoflame.reference=Squirting Lag
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Just friendly crustaceans
-tile.botania:flower.hydroangeasDecor.name=Hydroangeas Motif
-tile.botania:flower.hydroangeasDecor.reference=Just friendlier crustaceans
 tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
-tile.botania:flower.nightshade.name=Nightshade
-tile.botania:flower.nightshade.reference=Ghastly signature
-tile.botania:flower.nightshadePrime.name=Nightshade Primus
-tile.botania:flower.nightshadePrime.reference=You should not have this on you
-tile.botania:flower.nightshadeDecor.name=Nightshade Motif
-tile.botania:flower.nightshadeDecor.reference=Ghastly signature
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 tile.botania:flower.munchdew.name=Munchdew
@@ -2465,25 +2447,6 @@ botania.entry.passiveGen=Caveats of Passive Generation
 botania.tagline.passiveGen=It's free or it's good, pick one
 botania.page.passiveGen0=The spectrum of &4Generating Flowers&0 can be arranged in two groups, &4Passive&0 and &4Active&0.<br>&4Passive Flowers&0 are those that simply create &4Mana&0 using a completely free resource, such as the sun, or water. &4Active Flowers&0 require some sort of resource to transform into &4Mana&0, be it renewable or not.
 botania.page.passiveGen1=At the start of a botanist's career, only very basic and rudimentary &4Passive Flowers&0 are available, such as the &1Daybloom&0 or &1Nightshade&0.<br>These flowers are required to advance on to more potent and effective &4Active Flowers&0, but they should not be relied upon aside from being a stepping stone, as all &4Passive Flowers&0 will decay into a &1Dead Bush&0 after three days of work. 
-
-# -- PRIMUS LOCI
-botania.entry.primusLoci=Primus Loci
-botania.tagline.primusLoci=Rare flower patches with non-decaying flowers
-botania.page.primusLoci0=Among one's travels, one might come across an unusual flower patch, with flowers resembling &1Dayblooms&0 and &1Nightshades&0.<br>This is called a &4Primus Locus&0, a rare occurence in the world, where two special generating flora, the &1Daybloom Primus&0 and &1Nightshade Primus&0 can appear. 
-botania.page.primusLoci1=These flowers act as normal &1Dayblooms&0 or &1Nightshades&0, however, they produce mana a little bit faster and do not decay, making them a great find for a fledgling botanist to set up camp around.<br>Primus flowers are incredibly fickle, and as such, attempting to move them off their natural resting place will kill them.
-
-# -- DAYBLOOM
-botania.entry.daybloom=Daybloom
-botania.tagline.daybloom=Mana from the sky
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, but about half a dozen of these should get the job done, for now.
-botania.page.daybloom1=&1Dayblooms&0 are classified as &4passive flowers&0, which means they will decay after some use.<br>They also produce feeble amounts of &4Mana&0 to begin with, so perhaps hastily upgrading to &1Endoflames&0 or other &1active flowers&0, once available, might be a good idea.
-botania.page.daybloom2=&oStarting up a brand new day&r.
-
-# -- NIGHTSHADE
-botania.entry.nightshade=Nightshade
-botania.tagline.nightshade=Mana from the moon
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime.<br>Alike its shining counterpart, they are classified as &4passive flowers&0, and as such will decay.
-botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame

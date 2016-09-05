@@ -92,6 +92,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 				stacks.add(TextFormatting.ITALIC + refLocalized);
 		}
 
+		System.out.println(type);
 		String mod = BotaniaAPI.subTileMods.get(type);
 		if(!mod.equals(LibMisc.MOD_ID))
 			stacks.add(TextFormatting.ITALIC + "[" + mod + "]");
@@ -119,8 +120,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		String type = getType(stack);
 		switch (type) {
-			case LibBlockNames.SUBTILE_DAYBLOOM:
-				return ModAchievements.daybloomPickup;
+//			case LibBlockNames.SUBTILE_DAYBLOOM: TODO fix this here
+//				return ModAchievements.daybloomPickup;
 			case LibBlockNames.SUBTILE_ENDOFLAME:
 				return ModAchievements.endoflamePickup;
 			case LibBlockNames.SUBTILE_KEKIMURUS:

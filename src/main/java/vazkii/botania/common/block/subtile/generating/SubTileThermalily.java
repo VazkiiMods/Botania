@@ -35,11 +35,6 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public boolean isPassiveFlower() {
-		return false;
-	}
-
-	@Override
 	public Material getMaterialToSearchFor() {
 		return Material.LAVA;
 	}

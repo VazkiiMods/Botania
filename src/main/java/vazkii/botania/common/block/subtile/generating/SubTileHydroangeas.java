@@ -10,6 +10,10 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -26,17 +30,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.signature.PassiveFlower;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-@PassiveFlower
-public class SubTileHydroangeas extends SubTilePassiveGenerating {
+public class SubTileHydroangeas extends SubTileGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final String TAG_COOLDOWN = "cooldown";
@@ -181,7 +180,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
-		return rain ? 1 : 2;
+		return rain ? 2 : 3;
 	}
 
 	public int getCooldown() {

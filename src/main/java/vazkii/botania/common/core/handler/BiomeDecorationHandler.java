@@ -22,9 +22,6 @@ import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public final class BiomeDecorationHandler {
 
@@ -50,7 +47,6 @@ public final class BiomeDecorationHandler {
 					int y = event.getWorld().getTopSolidOrLiquidBlock(event.getPos()).getY();
 
 					EnumDyeColor color = EnumDyeColor.byMetadata(event.getRand().nextInt(16));
-					boolean primus = event.getRand().nextInt(380) == 0;
 
 					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
 						int x1 = x + event.getRand().nextInt(dist * 2) - dist;
@@ -58,17 +54,9 @@ public final class BiomeDecorationHandler {
 						int z1 = z + event.getRand().nextInt(dist * 2) - dist;
 						BlockPos pos2 = new BlockPos(x1, y1, z1);
 						if(event.getWorld().isAirBlock(pos2) && (!event.getWorld().provider.getHasNoSky() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.getWorld(), pos2)) {
-							if(primus) {
-								event.getWorld().setBlockState(pos2, ModBlocks.specialFlower.getDefaultState(), 2);
-								TileSpecialFlower flower = (TileSpecialFlower) event.getWorld().getTileEntity(pos2);
-								flower.setSubTile(event.getRand().nextBoolean() ? LibBlockNames.SUBTILE_NIGHTSHADE_PRIME : LibBlockNames.SUBTILE_DAYBLOOM_PRIME);
-								SubTileDaybloom subtile = (SubTileDaybloom) flower.getSubTile();
-								subtile.setPrimusPosition();
-							} else {
-								event.getWorld().setBlockState(pos2, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color), 2);
-								if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false))
-									BlockModFlower.placeDoubleFlower(event.getWorld(), pos2, color, 0);
-							}
+							event.getWorld().setBlockState(pos2, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color), 2);
+							if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false))
+								BlockModFlower.placeDoubleFlower(event.getWorld(), pos2, color, 0);
 						}
 					}
 				}
