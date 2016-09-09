@@ -10,31 +10,33 @@
  */
 package vazkii.botania.client.gui.box;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.client.gui.SlotLocked;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.container.SlotBauble;
 import baubles.common.lib.PlayerHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.SlotItemHandler;
+import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.client.gui.SlotLocked;
+
+import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends Container {
 
-	InventoryBaubleBox baubleBoxInv;
-	InventoryBaubles baubles;
+	private final InventoryBaubleBox baubleBoxInv;
+	private final InventoryBaubles baubles;
 
-	public ContainerBaubleBox(EntityPlayer player) {
+	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
 		int i;
 		int j;
 
-		int slot = player.inventory.currentItem;
 		IInventory playerInv = player.inventory;
-		baubleBoxInv = new InventoryBaubleBox(player, slot);
+		baubleBoxInv = boxInv;
 
 		baubles = new InventoryBaubles(player);
 		baubles.setEventHandler(this);
@@ -49,7 +51,7 @@ public class ContainerBaubleBox extends Container {
 		for(i = 0; i < 4; ++i)
 			for(j = 0; j < 6; ++j) {
 				int k = j + i * 6;
-				addSlotToContainer(new SlotAnyBauble(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
+				addSlotToContainer(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
 			}
 
 		for(i = 0; i < 3; ++i)
@@ -57,7 +59,7 @@ public class ContainerBaubleBox extends Container {
 				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
-			if(player.inventory.currentItem == i)
+			if(playerInv.getStackInSlot(i) == baubleBoxInv.box)
 				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
@@ -65,40 +67,35 @@ public class ContainerBaubleBox extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		boolean can = baubleBoxInv.isUseableByPlayer(player);
-		if(!can)
-			onContainerClosed(player);
-
-		return can;
+	public boolean canInteractWith(@Nonnull EntityPlayer player) {
+		return player.getHeldItemMainhand() == baubleBoxInv.box
+				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
 
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
-		baubleBoxInv.pushInventory();
 
 		if(!player.worldObj.isRemote)
 			PlayerHandler.setPlayerBaubles(player, baubles);
 	}
 
 	@Override
-	public void putStacksInSlots(ItemStack[] p_75131_1_) {
+	public void putStacksInSlots(ItemStack[] arr) {
 		baubles.blockEvents = true;
-		super.putStacksInSlots(p_75131_1_);
+		super.putStacksInSlots(arr);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
 		ItemStack itemstack = null;
-		Slot slot = (Slot)inventorySlots.get(p_82846_2_);
+		Slot slot = inventorySlots.get(slotIndex);
 
 		if(slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			System.out.println(p_82846_2_ + " " + itemstack);
-			if(p_82846_2_ < 28) {
+			if(slotIndex < 28) {
 				if(!mergeItemStack(itemstack1, 28, 64, true))
 					return null;
 			} else {
@@ -107,13 +104,13 @@ public class ContainerBaubleBox extends Container {
 			}
 
 			if(itemstack1.stackSize == 0)
-				slot.putStack((ItemStack)null);
+				slot.putStack(null);
 			else slot.onSlotChanged();
 
 			if(itemstack1.stackSize == itemstack.stackSize)
 				return null;
 
-			slot.onPickupFromSlot(p_82846_1_, itemstack1);
+			slot.onPickupFromSlot(player, itemstack1);
 		}
 
 		return itemstack;

@@ -10,79 +10,93 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
 	private static final String TAG_QUEUE_TICKS = "queueTicks";
-	boolean skipSound = false;
+	private boolean skipSound = false;
 
 	public ItemLexicon() {
-		super();
+		super(LibItemNames.LEXICON);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.LEXICON);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(par2EntityPlayer.isSneaking()) {
-			Block block = par3World.getBlock(par4, par5, par6);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		if(player.isSneaking()) {
+			Block block = world.getBlockState(pos).getBlock();
 
 			if(block != null) {
 				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
+					LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, par1ItemStack);
 					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
 						Botania.proxy.setLexiconStack(par1ItemStack);
 
-						openBook(par2EntityPlayer, par1ItemStack, par3World, false);
-						return true;
+						openBook(player, par1ItemStack, world, false);
+						return EnumActionResult.SUCCESS;
 					}
-				} else if(par3World.isRemote) {
-					MovingObjectPosition pos = new MovingObjectPosition(par4, par5, par6, par7, Vec3.createVectorHelper(par8, par9, par10));
-					return Botania.proxy.openWikiPage(par3World, block, pos);
+				} else if(world.isRemote) {
+					RayTraceResult mop = new RayTraceResult(new Vec3d(par8, par9, par10), side, pos);
+					return Botania.proxy.openWikiPage(world, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 				}
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item));
 		ItemStack creative = new ItemStack(item);
 		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -92,14 +106,15 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		list.add(creative);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String edition = EnumChatFormatting.GOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
+			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
 			if(!edition.isEmpty())
-				par3List.add(edition);
+				stacks.add(edition);
 
-			List<KnowledgeType> typesKnown = new ArrayList();
+			List<KnowledgeType> typesKnown = new ArrayList<>();
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
 				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
 				if(isKnowledgeUnlocked(par1ItemStack, type))
@@ -107,39 +122,41 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(String.format(StatCollector.translateToLocal(format), typesKnown.size()), par3List);
+			addStringToTooltip(I18n.format(format, typesKnown.size()), stacks);
 
 			for(KnowledgeType type : typesKnown)
-				addStringToTooltip(" \u2022 " + StatCollector.translateToLocal(type.getUnlocalizedName()), par3List);
+				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), stacks);
 
-		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static String getEdition() {
 		String version = LibMisc.BUILD;
 		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
-		return build == 0 ? StatCollector.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
+		return build == 0 ? I18n.format("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		String force = getForcedPage(par1ItemStack);
 		if(force != null && !force.isEmpty()) {
 			LexiconEntry entry = getEntryFromForce(par1ItemStack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			else player.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
 
-		openBook(par3EntityPlayer, par1ItemStack, par2World, skipSound);
+		openBook(player, par1ItemStack, world, skipSound);
 		skipSound = false;
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	public static void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
@@ -150,7 +167,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(!l.isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && l.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
 			for(ItemStack rstack : ItemDice.relicStacks) {
 				Item item = rstack.getItem();
-				if(player.inventory.hasItem(item)) {
+				if(PlayerHelper.hasItem(player, s -> s != null && s.getItem() == item)) {
 					l.unlockKnowledge(stack, BotaniaAPI.relicKnowledge);
 					break;
 				}
@@ -160,7 +177,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		player.addStat(ModAchievements.lexiconUse, 1);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
 		if(!world.isRemote && !skipSound)
-			world.playSoundAtEntity(player, "botania:lexiconOpen", 0.5F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
 	}
 
 	@Override
@@ -169,15 +186,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
 			if(ticks == 1)
-				onItemRightClick(stack, world, (EntityPlayer) entity);
+				onItemRightClick(stack, world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
 
 			setQueueTicks(stack, ticks - 1);
 		}
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.uncommon;
+		return EnumRarity.UNCOMMON;
 	}
 
 	@Override
@@ -220,6 +238,13 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

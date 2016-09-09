@@ -10,19 +10,17 @@
  */
 package vazkii.botania.client.core.proxy;
 
-import java.util.Set;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.client.IModGuiFactory;
 import vazkii.botania.client.gui.GuiBotaniaConfig;
-import cpw.mods.fml.client.IModGuiFactory;
+
+import java.util.Set;
 
 public class GuiFactory implements IModGuiFactory {
 
 	@Override
-	public void initialize(Minecraft minecraftInstance) {
-		// NO-OP
-	}
+	public void initialize(Minecraft minecraftInstance) {}
 
 	@Override
 	public Class<? extends GuiScreen> mainConfigGuiClass() {

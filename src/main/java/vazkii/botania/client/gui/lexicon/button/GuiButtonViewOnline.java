@@ -10,17 +10,16 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 public class GuiButtonViewOnline extends GuiButtonLexicon {
 
@@ -29,15 +28,15 @@ public class GuiButtonViewOnline extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
-		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(field_146123_n);
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
+		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 41 : 30, 200, 11, 11);
 
-		List<String> tooltip = Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.viewOnline"));
+		List<String> tooltip = Collections.singletonList(TextFormatting.AQUA + I18n.format("botaniamisc.viewOnline"));
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);

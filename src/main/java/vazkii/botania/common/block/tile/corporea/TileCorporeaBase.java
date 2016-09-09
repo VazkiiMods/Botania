@@ -17,7 +17,7 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 public abstract class TileCorporeaBase extends TileSimpleInventory {
 
 	public ICorporeaSpark getSpark() {
-		return CorporeaHelper.getSparkForBlock(worldObj, xCoord, yCoord, zCoord);
+		return CorporeaHelper.getSparkForBlock(worldObj, getPos());
 	}
 
 }

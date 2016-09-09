@@ -10,159 +10,132 @@
  */
 package vazkii.botania.common.item.material;
 
-import java.awt.Color;
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
 	final int types = 24;
-	IIcon[] icons;
-
-	// begin dank_memes
-	public IIcon tailIcon = null;
-	public IIcon phiFlowerIcon = null;
-	public IIcon goldfishIcon = null;
-	public IIcon nerfBatIcon = null;
-	// end dank_memes
 
 	public ItemManaResource() {
-		super();
-		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
+		super(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR;
-		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
-		boolean ender = event.world.provider.dimensionId == 1;
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+		ItemStack stack = event.getItemStack();
+		boolean correctStack = stack != null && stack.getItem() == Items.GLASS_BOTTLE;
+		boolean ender = event.getWorld().provider.getDimension() == 1;
 
-		if(rightEvent && correctStack && ender) {
-			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
-
-			if(pos == null) {
+		if(correctStack && ender) {
+			if (event.getWorld().isRemote) {
+				event.getEntityPlayer().swingArm(event.getHand());
+			} else {
 				ItemStack stack1 = new ItemStack(this, 1, 15);
-				event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
+				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
-				if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
-					event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
+				if(!event.getEntityPlayer().inventory.addItemStackToInventory(stack1)) {
+					event.getEntityPlayer().dropItem(stack1, true);
+				} else {
+					event.getEntityPlayer().openContainer.detectAndSendChanges();
+				}
 
 				stack.stackSize--;
 				if(stack.stackSize == 0)
-					event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
+					event.getEntityPlayer().setHeldItem(event.getHand(), null);
 
-				if(event.world.isRemote)
-					event.entityPlayer.swingItem();
-				else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
+				event.setCanceled(true);
 			}
 		}
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
-			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par1ItemStack.getItemDamage() == 14);
-		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, par3World, par4, par5, par6, par2EntityPlayer)) {
-			if(!par3World.isRemote)
-				par3World.playAuxSFX(2005, par4, par5, par6, 0);
+			return world.isRemote || EntityDoppleganger.spawn(player, par1ItemStack, world, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, world, pos, player)) {
+			if(!world.isRemote)
+				world.playEvent(2005, pos, 0);
 
-			return true;
+			return EnumActionResult.SUCCESS;
 		}
 
-		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+		return super.onItemUse(par1ItemStack, player, world, pos, hand, side, par8, par9, par10);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 15) {
-			if(!par2EntityPlayer.capabilities.isCreativeMode)
+			if(!player.capabilities.isCreativeMode)
 				--par1ItemStack.stackSize;
 
-			par3World.playSoundAtEntity(par2EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-			if(!par3World.isRemote)
-				par3World.spawnEntityInWorld(new EntityEnderAirBottle(par3World, par2EntityPlayer));
-			else par2EntityPlayer.swingItem();
+			if(!world.isRemote) {
+				EntityEnderAirBottle b = new EntityEnderAirBottle(world, player);
+				b.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
+				world.spawnEntityInWorld(b);
+			}
+			else player.swingArm(hand);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-				par3List.add(new ItemStack(par1, 1, i));
+				stacks.add(new ItemStack(item, 1, i));
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[types];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
-
-		tailIcon = IconHelper.forName(par1IconRegister, "tail");
-		phiFlowerIcon = IconHelper.forName(par1IconRegister, "phiFlower");
-		goldfishIcon = IconHelper.forName(par1IconRegister, "goldfish");
-		nerfBatIcon = IconHelper.forName(par1IconRegister, "nerfBat");
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par1ItemStack.getItemDamage() == 5 || par1ItemStack.getItemDamage() == 14)
-			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F);
-
-		return 0xFFFFFF;
-	}
-
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
-	}
-
-	@Override
-	public boolean canFit(ItemStack stack, IInventory apothecary) {
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
 		int meta = stack.getItemDamage();
 		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
 	}
@@ -178,14 +151,21 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return meta == 7 || meta == 8 || meta == 9;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
 	}
 
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemMetas(this, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
 	}
 
 }

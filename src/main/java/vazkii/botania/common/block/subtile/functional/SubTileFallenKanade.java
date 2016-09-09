@@ -10,41 +10,44 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import java.util.List;
+
 public class SubTileFallenKanade extends SubTileFunctional {
 
 	private static final int RANGE = 2;
+	private static final int COST = 120;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		final int cost = 120;
-
-		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().provider.dimensionId != 1) {
-			List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+		if(!supertile.getWorld().isRemote && supertile.getWorld().provider.getDimension() != 1) {
+			boolean did = false;
+			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {
-				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost ) {
-					player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 60, 2));
-					mana -= cost;
+				if(player.getActivePotionEffect(MobEffects.REGENERATION) == null && mana >= COST) {
+					player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 60, 2, true, true));
+					mana -= COST;
+					did = true;
 				}
 			}
+			if(did)
+				sync();
 		}
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

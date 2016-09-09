@@ -10,15 +10,14 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISidedInventory {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	private static final int MAX_MANA = 6400;
 
@@ -31,19 +30,17 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	int mana;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
+	public void update() {
 		enabled = true;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
 				break;
 			}
 		}
 
-		ItemStack stack = getStackInSlot(0);
+		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack != null && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
@@ -54,16 +51,16 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setBoolean(TAG_ENABLED, enabled);
 		par1nbtTagCompound.setInteger(TAG_TICKS_ELAPSED, ticksElapsed);
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
 		ticksElapsed = par1nbtTagCompound.getInteger(TAG_TICKS_ELAPSED);
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);
@@ -75,33 +72,13 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() instanceof IAvatarTile;
-	}
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
-		return false;
-	}
-
-	@Override
-	public String getInventoryName() {
-		return LibBlockNames.AVATAR;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
+		};
 	}
 
 	@Override
@@ -116,12 +93,17 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return getStackInSlot(0) != null;
+		return itemHandler.getStackInSlot(0) != null;
 	}
 
 	@Override
 	public int getCurrentMana() {
 		return mana;
+	}
+
+	@Override
+	public IItemHandler getInventory() {
+		return getItemHandler();
 	}
 
 	@Override

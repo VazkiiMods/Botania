@@ -10,108 +10,150 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PylonVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockPylon extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
+public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabiliser {
+
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 21.0/16, 0.875);
 
 	public BlockPylon() {
-		super(Material.iron);
+		super(Material.IRON, LibBlockNames.PYLON);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.PYLON);
+		setSoundType(SoundType.METAL);
 		setLightLevel(0.5F);
-
-		float f = 1F / 16F * 2F;
-		setBlockBounds(f, 0F, f, 1F - f, 1F / 16F * 21F, 1F - f);
 	}
+
+	@Nonnull
 	@Override
-	protected boolean shouldRegisterInNameSet() {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.PYLON_VARIANT);
+	}
+
+	@Override
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.PYLON_VARIANT).ordinal();
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > PylonVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.values()[meta]);
+	}
+
+	@Override
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+		for(int i = 0; i < PylonVariant.values().length; i++)
+			par3.add(new ItemStack(item, 1, i));
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public int damageDropped(int par1) {
-		return par1;
-	}
-
-	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < 3; i++)
-			par3.add(new ItemStack(par1, 1, i));
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par2 == 0 ? Blocks.diamond_block.getIcon(0, 0) : ModBlocks.storage.getIcon(0, par2);
-	}
-
-	@Override
-	public boolean isOpaqueCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idPylon;
+	public float getEnchantPowerBonus(World world, BlockPos pos) {
+		IBlockState state = world.getBlockState(pos);
+		if (state.getBlock() != this || state.getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA) {
+			return 8;
+		} else {
+			return 15;
+		}
 	}
 
 	@Override
-	public float getEnchantPowerBonus(World world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 0 ? 8 : 15;
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePylon();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.pylon : meta == 1 ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		PylonVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT);
+		return variant == PylonVariant.MANA ? LexiconData.pylon : variant == PylonVariant.NATURA ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
 	}
+
 	@Override
-	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+	public boolean canStabaliseInfusion(World world, BlockPos pos) {
 		return ConfigHandler.enableThaumcraftStablizers;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, PylonVariant.values().length);
 	}
 }

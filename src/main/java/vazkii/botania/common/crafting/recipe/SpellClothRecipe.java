@@ -15,19 +15,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class SpellClothRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.isItemEnchanted() && !foundEnchanted)
+				if(stack.isItemEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
 					foundEnchanted = true;
 
 				else if(stack.getItem() == ModItems.spellCloth && !foundCloth)
@@ -41,7 +44,7 @@ public class SpellClothRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack stackToDisenchant = null;
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
@@ -71,4 +74,9 @@ public class SpellClothRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+	}
 }

@@ -10,30 +10,25 @@
  */
 package vazkii.botania.api.boss;
 
-import java.awt.Rectangle;
-
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.ShaderCallback;
+
+import java.awt.*;
+import java.util.UUID;
 
 /**
- * An extension of IBossDisplayData. This counts as a botania boss and as a normal
- * minecraft boss since it has IBossDisplayData. Instead of using the typical
- * BossStatus.setBossStatus(entity, true) to set the health bar in the render use
- * BotaniaAPI.internalMethodHandler.setBossStatus(entity);<br><br>
- * Alternatively, you can check if botania is loaded and use the vanilla one
- * if that's not the case.
+ * A Botania boss, that is subject to special rendering.
  */
-public interface IBotaniaBoss extends IBossDisplayData {
+public interface IBotaniaBoss {
 
 	/**
 	 * The ResourceLocation to bind for this boss's boss bar.
 	 * You can use BotaniaAPI.internalMethodHandler.getDefaultBossBarTexture() to get
 	 * the one used by botania bosses.
 	 */
-	@SideOnly(Side.CLIENT)
 	public ResourceLocation getBossBarTexture();
 
 	/**
@@ -41,7 +36,6 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 * boss bar texture. This is for the background, not the bar that shows
 	 * the HP.
 	 */
-	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarTextureRect();
 
 	/**
@@ -50,13 +44,38 @@ public interface IBotaniaBoss extends IBossDisplayData {
 	 * HP the boss has. The width of the rectangle will be multiplied by the
 	 * faction of the boss's current HP by max HP.
 	 */
-	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarHPTextureRect();
 
 	/**
-	 * A callback for when this boss's boss bar renders, you can do aditional rendering
+	 * A callback for when this boss's boss bar renders, you can do additional rendering
 	 * here if needed.
+	 * @return How tall your auxiliary renders were
 	 */
 	@SideOnly(Side.CLIENT)
-	public void bossBarRenderCallback(ScaledResolution res, int x, int y);
+	public int bossBarRenderCallback(ScaledResolution res, int x, int y);
+
+	/**
+	 * Get the serverside UUID of the {@link net.minecraft.world.BossInfoServer} instance tracking this boss
+	 * Note that this is NOT the entity's UUID, nor is it the clientside UUID of the BossInfoServer instance!
+	 * You will most likely need to sync this yourself using the datawatcher
+	 * @return The uuid.
+     */
+	public UUID getBossInfoUuid();
+
+	/**
+	 * The Shader Program to use for this boss's bar. Return 0 case
+	 * you don't want a shader to be used. You can use separate shaders
+	 * for the background and foreground.
+	 * @param background True if rendering the background of the boss bar,
+	 * false if rendering the bar itself that shows the HP.
+	 * @return OpenGL program ID of the shader to use
+	 */
+	public int getBossBarShaderProgram(boolean background);
+
+	/**
+	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
+	 * @return a ShaderCallback to use. If getBossBarShaderProgram returns an invalid shader the result of this method is ignored.
+	 */
+	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
+
 }

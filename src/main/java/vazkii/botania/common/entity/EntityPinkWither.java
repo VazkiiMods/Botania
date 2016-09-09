@@ -10,17 +10,31 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.Iterator;
 
 public class EntityPinkWither extends EntityWither {
 
-	public EntityPinkWither(World p_i1701_1_) {
-		super(p_i1701_1_);
+	public EntityPinkWither(World world) {
+		super(world);
+
+		this.tasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIAttackRanged); // Remove firing wither skulls
+
+		this.targetTasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIHurtByTarget
+				|| entry.action instanceof EntityAINearestAttackableTarget); // Remove revenge and aggro
 	}
 
 	@Override
@@ -32,43 +46,30 @@ public class EntityPinkWither extends EntityWither {
 				double d10 = func_82214_u(j);
 				double d2 = func_82208_v(j);
 				double d4 = func_82213_w(j);
-				worldObj.spawnParticle("heart", d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+				worldObj.spawnParticle(EnumParticleTypes.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 			}
 	}
 
 	@Override
-	public void setAttackTarget(EntityLivingBase p_70624_1_) {
-		// NO-OP
+	public void updateAITasks() {
+		if(this.ticksExisted % 20 == 0)
+			this.heal(1.0F);
 	}
 
 	@Override
-	protected void attackEntity(Entity p_70785_1_, float p_70785_2_) {
-		// NO-OP
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity p_70652_1_) {
-		return false;
-	}
-
-	@Override
-	protected boolean interact(EntityPlayer player) {
+	protected boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
 		if(!player.isSneaking()) {
-			player.mountEntity(this);
+			player.startRiding(this);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	protected boolean isAIEnabled() {
-		return false;
-	}
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {}
 
 	@Override
-	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
-		// NO-OP
-	}
+	public void addTrackingPlayer(@Nonnull EntityPlayerMP player) {}
 
 	// COPYPASTA
 

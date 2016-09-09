@@ -13,5 +13,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.tileentity.TileEntitySkull;
 
 public class TileGaiaHead extends TileEntitySkull {
-
+    public TileGaiaHead() {
+        setType(3);
+    }
 }

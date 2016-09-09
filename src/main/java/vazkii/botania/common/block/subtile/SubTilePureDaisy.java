@@ -11,8 +11,9 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -28,22 +29,19 @@ public class SubTilePureDaisy extends SubTileEntity {
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 
-	private static final int TOTAL_TIME = 1200;
-	private static final int TIME_PER = TOTAL_TIME / 8;
-
-	private static final int[][] POSITIONS = new int[][] {
-		{ -1, 0, -1 },
-		{ -1, 0, 0 },
-		{ -1, 0, 1 },
-		{ 0, 0, 1 },
-		{ 1, 0, 1 },
-		{ 1, 0, 0 },
-		{ 1, 0, -1 },
-		{ 0, 0, -1 },
+	private static final BlockPos[] POSITIONS = {
+			new BlockPos(-1, 0, -1 ),
+			new BlockPos(-1, 0, 0 ),
+			new BlockPos(-1, 0, 1 ),
+			new BlockPos(0, 0, 1 ),
+			new BlockPos(1, 0, 1 ),
+			new BlockPos(1, 0, 0 ),
+			new BlockPos(1, 0, -1 ),
+			new BlockPos(0, 0, -1 ),
 	};
 
 	int positionAt = 0;
-	int[] ticksRemaining = new int[] { TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER, TIME_PER };
+	final int[] ticksRemaining = { -1, -1, -1, -1, -1, -1, -1, -1};
 
 	@Override
 	public void onUpdate() {
@@ -53,54 +51,55 @@ public class SubTilePureDaisy extends SubTileEntity {
 		if(positionAt == POSITIONS.length)
 			positionAt = 0;
 
-		int[] acoords = POSITIONS[positionAt];
-		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
-		World world = supertile.getWorldObj();
-		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
-			Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
-			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+		BlockPos acoords = POSITIONS[positionAt];
+		BlockPos coords = supertile.getPos().add(acoords);
+		World world = supertile.getWorld();
+		if(!world.isAirBlock(coords)) {
+			IBlockState state = world.getBlockState(coords);
 			RecipePureDaisy recipe = null;
 			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)
-				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this, block, meta)) {
+				if(recipe_.matches(world, coords, this, state)) {
 					recipe = recipe_;
 					break;
 				}
 
 
 			if(recipe != null) {
-				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
+				if (ticksRemaining[positionAt] == -1)
+					ticksRemaining[positionAt] = recipe.getTime();
+				ticksRemaining[positionAt]--;
 
-				Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 				if(ticksRemaining[positionAt] <= 0) {
-					ticksRemaining[positionAt] = TIME_PER;
+					ticksRemaining[positionAt] = -1;
 
-					if(recipe.set(world,coords.posX, coords.posY, coords.posZ, this)) {
+					if(recipe.set(world,coords, this)) {
 						for(int i = 0; i < 25; i++) {
-							double x = coords.posX + Math.random();
-							double y = coords.posY + Math.random() + 0.5;
-							double z = coords.posZ + Math.random();
+							double x = coords.getX() + Math.random();
+							double y = coords.getY() + Math.random() + 0.5;
+							double z = coords.getZ() + Math.random();
 
-							Botania.proxy.wispFX(supertile.getWorldObj(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
+							Botania.proxy.wispFX(x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 						}
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(recipe.getOutput()) + (recipe.getOutputMeta() << 12));
+							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
-			} else ticksRemaining[positionAt] = TIME_PER;
+			} else ticksRemaining[positionAt] = -1;
 		}
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), 1);
+		return new RadiusDescriptor.Square(toBlockPos(), 1);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		positionAt = cmp.getInteger(TAG_POSITION);
 
-		if(supertile.getWorldObj() != null && !supertile.getWorldObj().isRemote)
+		if(supertile.getWorld() != null && !supertile.getWorld().isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
 				ticksRemaining[i] = cmp.getInteger(TAG_TICKS_REMAINING + i);
 	}

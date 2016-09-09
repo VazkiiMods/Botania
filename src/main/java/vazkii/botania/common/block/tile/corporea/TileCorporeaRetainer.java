@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TileCorporeaRetainer extends TileMod {
@@ -34,21 +35,19 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final int REQUEST_STRING = 2;
 
 	boolean pendingRequest = false;
-	int requestX, requestY, requestZ;
+	BlockPos requestPos = BlockPos.ORIGIN;
 	Object request;
 	int requestCount;
 
-	public void setPendingRequest(int x, int y, int z, Object request, int requestCount) {
+	public void setPendingRequest(BlockPos pos, Object request, int requestCount) {
 		if(pendingRequest)
 			return;
 
-		requestX = x;
-		requestY = y;
-		requestZ = z;
+		requestPos = pos;
 		this.request = request;
 		this.requestCount = requestCount;
 		pendingRequest = true;
-		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
 	}
 
 	public boolean hasPendingRequest() {
@@ -59,26 +58,26 @@ public class TileCorporeaRetainer extends TileMod {
 		if(!hasPendingRequest())
 			return;
 
-		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestX, requestY, requestZ);
+		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestPos);
 		if(spark != null) {
-			IInventory inv = spark.getInventory();
-			if(inv != null && inv instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv;
+			InvWithLocation inv = spark.getSparkInventory();
+			if(inv != null && inv.world.getTileEntity(inv.pos) instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
 				pendingRequest = false;
-				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+				worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
 			}
 		}
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		cmp.setBoolean(TAG_PENDING_REQUEST, pendingRequest);
-		cmp.setInteger(TAG_REQUEST_X, requestX);
-		cmp.setInteger(TAG_REQUEST_Y, requestY);
-		cmp.setInteger(TAG_REQUEST_Z, requestZ);
+		cmp.setInteger(TAG_REQUEST_X, requestPos.getX());
+		cmp.setInteger(TAG_REQUEST_Y, requestPos.getY());
+		cmp.setInteger(TAG_REQUEST_Z, requestPos.getZ());
 
 		int reqType = REQUEST_NULL;
 		if(request != null)
@@ -100,13 +99,14 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
-		requestX = cmp.getInteger(TAG_REQUEST_X);
-		requestY = cmp.getInteger(TAG_REQUEST_Y);
-		requestZ = cmp.getInteger(TAG_REQUEST_Z);
+		int x = cmp.getInteger(TAG_REQUEST_X);
+		int y = cmp.getInteger(TAG_REQUEST_Y);
+		int z = cmp.getInteger(TAG_REQUEST_Z);
+		requestPos = new BlockPos(x, y, z);
 
 		int reqType = cmp.getInteger(TAG_REQUEST_TYPE);
 		switch (reqType) {

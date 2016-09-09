@@ -1,0 +1,6 @@
+{
+  "parent": "botania:item/terraAxe",
+  "textures": {
+    "layer0": "botania:items/terraAxe0"
+  }
+}

@@ -12,18 +12,21 @@ package vazkii.botania.common.block.decor.slabs;
 
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockPavementSlab extends BlockLivingSlab {
 
-	int index;
+	final int index;
 
-	public BlockPavementSlab(boolean full, int meta, int index) {
-		super(full, ModFluffBlocks.pavement, meta);
+	public BlockPavementSlab(boolean full, EnumDyeColor color, int index) {
+		super(full, ModFluffBlocks.pavement.getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color));
 		this.index = index;
 		setHardness(2F);
 		setResistance(10F);
@@ -40,7 +43,7 @@ public class BlockPavementSlab extends BlockLivingSlab {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pavement;
 	}
 

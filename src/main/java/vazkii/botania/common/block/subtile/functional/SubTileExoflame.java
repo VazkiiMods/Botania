@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -27,61 +28,56 @@ public class SubTileExoflame extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
+	private static final int COST = 300;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
 		boolean did = false;
-		int cost = 300;
 
-		fireFurnaces : {
-			for(int i = -RANGE; i < RANGE + 1; i++)
-				for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
-					for(int k = -RANGE; k < RANGE + 1; k++) {
-						int x = supertile.xCoord + i;
-						int y = supertile.yCoord + j;
-						int z = supertile.zCoord + k;
-
-						TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
-						Block block = supertile.getWorldObj().getBlock(x, y, z);
-						if(tile != null) {
-							if(tile instanceof TileEntityFurnace && (block == Blocks.furnace || block == Blocks.lit_furnace)) {
-								TileEntityFurnace furnace = (TileEntityFurnace) tile;
-								boolean canSmelt = canFurnaceSmelt(furnace);
-								if(canSmelt && mana > 2) {
-									if(furnace.furnaceBurnTime < 2) {
-										if(furnace.furnaceBurnTime == 0)
-											BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
-										furnace.furnaceBurnTime = 200;
-										mana = Math.max(0, mana - cost);
-									}
-									if(ticksExisted % 2 == 0)
-										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
-
-									did = true;
-
-									if(mana <= 0)
-										break fireFurnaces;
-								}
-							} else if(tile instanceof IExoflameHeatable) {
-								IExoflameHeatable heatable = (IExoflameHeatable) tile;
-
-								if(heatable.canSmelt() && mana > 2) {
-									if(heatable.getBurnTime() == 0) {
-										heatable.boostBurnTime();
-										mana = Math.max(0, mana - cost);
-									}
-
-									if(ticksExisted % 2 == 0)
-										heatable.boostCookTime();
-
-									if(mana <= 0)
-										break fireFurnaces;
-								}
-							}
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+			TileEntity tile = supertile.getWorld().getTileEntity(pos);
+			Block block = supertile.getWorld().getBlockState(pos).getBlock();
+			if(tile != null) {
+				if(tile instanceof TileEntityFurnace && (block == Blocks.FURNACE || block == Blocks.LIT_FURNACE)) {
+					TileEntityFurnace furnace = (TileEntityFurnace) tile;
+					boolean canSmelt = canFurnaceSmelt(furnace);
+					if(canSmelt && mana > 2) {
+						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
+							if(furnace.getField(0) == 0)
+								BlockFurnace.setState(true, supertile.getWorld(), pos);
+							furnace.setField(0, 200);
+							mana = Math.max(0, mana - COST);
 						}
+						if(ticksExisted % 2 == 0)
+							furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
+
+						did = true;
+
+						if(mana <= 0)
+							break;
 					}
+				} else if(tile instanceof IExoflameHeatable) {
+					IExoflameHeatable heatable = (IExoflameHeatable) tile;
+
+					if(heatable.canSmelt() && mana > 2) {
+						if(heatable.getBurnTime() == 0) {
+							heatable.boostBurnTime();
+							mana = Math.max(0, mana - COST);
+						}
+
+						if(ticksExisted % 2 == 0)
+							heatable.boostCookTime();
+
+						if(mana <= 0)
+							break;
+					}
+				}
+			}
 		}
 
 		if(did)
@@ -92,7 +88,7 @@ public class SubTileExoflame extends SubTileFunctional {
 		if(furnace.getStackInSlot(0) == null)
 			return false;
 		else {
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(furnace.getStackInSlot(0));
+			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(furnace.getStackInSlot(0));
 
 			if(itemstack == null)
 				return false;
@@ -110,7 +106,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

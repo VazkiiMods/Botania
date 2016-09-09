@@ -15,14 +15,17 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 
+import javax.annotation.Nonnull;
+
 public class CompositeLensRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundLens = false;
 		boolean foundSecondLens = false;
 		boolean foundSlimeball = false;
@@ -34,7 +37,7 @@ public class CompositeLensRecipe implements IRecipe {
 					if(foundLens)
 						foundSecondLens = true;
 					else foundLens = true;
-				} else if(stack.getItem() == Items.slime_ball)
+				} else if(stack.getItem() == Items.SLIME_BALL)
 					foundSlimeball = true;
 				else return false; // Found an invalid item, breaking the recipe
 			}
@@ -44,7 +47,7 @@ public class CompositeLensRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack lens = null;
 		ItemStack secondLens = null;
 
@@ -80,5 +83,11 @@ public class CompositeLensRecipe implements IRecipe {
 	@Override
 	public ItemStack getRecipeOutput() {
 		return null;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

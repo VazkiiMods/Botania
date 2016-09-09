@@ -10,68 +10,91 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
+import javax.annotation.Nonnull;
 
-	IIcon iconOff, iconOn;
-	public static IIcon portalTex;
+public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable {
 
 	public BlockAlfPortal() {
-		super(Material.wood);
+		super(Material.WOOD, LibBlockNames.ALF_PORTAL);
 		setHardness(10F);
-		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.ALF_PORTAL);
+		setSoundType(SoundType.WOOD);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.ALFPORTAL_STATE);
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > AlfPortalState.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.values()[meta]);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
-		portalTex = IconHelper.forBlock(par1IconRegister, this, "Inside");
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE).ordinal();
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return meta == 0 ? iconOff : iconOn;
+	public IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileAlfPortal();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.alfhomancyIntro;
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		boolean did = ((TileAlfPortal) world.getTileEntity(x, y, z)).onWanded();
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
 		if(did && player != null)
 			player.addStat(ModAchievements.elfPortalOpen, 1);
 		return did;
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0;
 	}
 
 }

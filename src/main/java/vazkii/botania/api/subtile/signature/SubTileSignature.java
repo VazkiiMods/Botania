@@ -10,12 +10,10 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+
+import java.util.List;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.
@@ -23,16 +21,6 @@ import net.minecraft.util.IIcon;
 public abstract class SubTileSignature {
 
 	public static final String SPECIAL_FLOWER_PREFIX = "flower.";
-
-	/**
-	 * Equivalent to Block.registerBlockIcons.
-	 */
-	public abstract void registerIcons(IIconRegister register);
-
-	/**
-	 * Gets the icon to display for the flower item.
-	 */
-	public abstract IIcon getIconForStack(ItemStack stack);
 
 	/**
 	 * Gets the display name for the flower item.
@@ -49,8 +37,6 @@ public abstract class SubTileSignature {
 	/**
 	 * Adds additional text to the tooltip. This text is added after getUnlocalizedLoreTextForStack.
 	 */
-	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		// NO-OP
-	}
+	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {}
 
 }

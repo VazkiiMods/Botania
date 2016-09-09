@@ -10,64 +10,56 @@
  */
 package vazkii.botania.common.item;
 
-import java.awt.Color;
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.util.List;
+
 public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
-	IIcon[] icons;
-
-	private static final int MAX_MANA = 500000;
+	public static final int MAX_MANA = 500000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_CREATIVE = "creative";
 	private static final String TAG_ONE_USE = "oneUse";
 
 	public ItemManaTablet() {
-		super();
+		super(LibItemNames.MANA_TABLET);
 		setMaxStackSize(1);
 		setMaxDamage(1000);
-		setUnlocalizedName(LibItemNames.MANA_TABLET);
 		setNoRepair();
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		// Empty tablet
-		par3List.add(new ItemStack(par1, 1));
+		stacks.add(new ItemStack(item, 1));
 
 		// Full tablet
-		ItemStack fullPower = new ItemStack(par1, 1);
+		ItemStack fullPower = new ItemStack(item, 1);
 		setMana(fullPower, MAX_MANA);
-		par3List.add(fullPower);
+		stacks.add(fullPower);
 
 		// Creative Tablet
-		ItemStack creative = new ItemStack(par1, 1);
+		ItemStack creative = new ItemStack(item, 1);
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
-		par3List.add(creative);
-	}
-
-	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / MAX_MANA, 1F) : 0xFFFFFF;
+		stacks.add(creative);
 	}
 
 	@Override
@@ -80,27 +72,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 		return 0;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[Math.min(1, pass)];
-	}
-
-	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(isStackCreative(par1ItemStack))
-			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
+			stacks.add(I18n.format("botaniamisc.creative"));
 	}
 
 	@Override

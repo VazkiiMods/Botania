@@ -10,17 +10,61 @@
  */
 package vazkii.botania.common.block.decor.biomestone;
 
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockBiomeStoneA extends BlockBiomeStone {
 
 	public BlockBiomeStoneA() {
-		super(0, LibBlockNames.BIOME_STONE_A);
+		super(LibBlockNames.BIOME_STONE_A);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.BIOMESTONE_VARIANT);
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1 % 8 + 8;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.BIOMESTONE_VARIANT).ordinal();
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= BiomeStoneVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]);
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		int meta = getMetaFromState(state);
+		if (meta < 8) {
+			meta += 8; // Drop cobblestone variant
+		}
+		return meta;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, BiomeStoneVariant.values().length);
 	}
 
 }

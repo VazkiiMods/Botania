@@ -10,10 +10,10 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
-import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling
@@ -38,7 +38,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
-	public IInventory getInventory();
+	public InvWithLocation getSparkInventory();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list
@@ -82,6 +82,6 @@ public interface ICorporeaSpark {
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
 	 * of the same network, and on changing network should trigger a re-cache of the previous network.
 	 */
-	public int getNetwork();
+	public EnumDyeColor getNetwork();
 
 }

@@ -10,21 +10,24 @@
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import thaumcraft.api.IScribeTools;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.items.IScribeTools;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.Optional;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IScribeTools")
+import javax.annotation.Nonnull;
+import java.util.List;
+
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
 public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools {
 
 	private static final int COST_PER_USE = 50;
@@ -34,14 +37,15 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	private static final String TAG_MANA = "mana";
 
 	public ItemManaInkwell() {
-		setUnlocalizedName(LibItemNames.MANA_INKWELL);
+		super(LibItemNames.MANA_INKWELL);
 		setMaxDamage(USES);
 		setMaxStackSize(1);
 		setNoRepair();
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, USES));
 		list.add(new ItemStack(item));
 	}
@@ -64,11 +68,6 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 			}
 		}
 		super.setDamage(stack, damage);
-	}
-
-	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
 	}
 
 	@Override

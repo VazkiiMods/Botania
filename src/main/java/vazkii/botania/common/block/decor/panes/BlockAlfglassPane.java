@@ -10,12 +10,31 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
+
+import javax.annotation.Nonnull;
 
 public class BlockAlfglassPane extends BlockModPane {
 
 	public BlockAlfglassPane() {
 		super(ModBlocks.elfGlass);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Nonnull
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerCustomItemblock(this, "alfglass_pane");
 	}
 
 }

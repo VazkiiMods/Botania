@@ -90,6 +90,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_MARIMORPHOSIS = "marimorphosis";
 	public static final String FFLOWER_BUBBELL = "bubbell";
 	public static final String FFLOWER_SOLEGNOLIA = "solegnolia";
+	public static final String FFLOWER_BERGAMUTE = "bergamute";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_PASSIVE_GENERATION = "passiveGen";

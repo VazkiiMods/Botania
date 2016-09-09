@@ -10,6 +10,27 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.text.WordUtils;
+import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
+import vazkii.botania.api.corporea.ICorporeaRequestor;
+import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.helper.MathHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -20,38 +41,14 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.ServerChatEvent;
-
-import org.apache.commons.lang3.text.WordUtils;
-
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
-import vazkii.botania.api.corporea.ICorporeaRequestor;
-import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
-	public static final Set<TileCorporeaIndex> indexes = Collections.newSetFromMap(new WeakHashMap());
+	public static final Set<TileCorporeaIndex> indexes = Collections.newSetFromMap(new WeakHashMap<>());
 
-	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap();
+	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap<>();
 
 	/**
 	 * (name) = Item name, or "this" for the name of the item in your hand
@@ -151,14 +148,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public boolean hasCloseby;
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void update() {
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 0.5;
+		double z = pos.getZ() + 0.5;
 
-		double x = xCoord + 0.5;
-		double y = yCoord + 0.5;
-		double z = zCoord + 0.5;
-
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
 		for(EntityPlayer player : players)
 			if(isInRangeOfIndex(player, this)) {
@@ -197,11 +192,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public String getInventoryName() {
-		return LibBlockNames.CORPOREA_INDEX;
-	}
-
-	@Override
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof String))
 			return;
@@ -210,13 +200,13 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
 			if(stack != null) {
-				EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 				worldObj.spawnEntityInWorld(item);
 			}
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return player.worldObj.provider.dimensionId == index.worldObj.provider.dimensionId && MathHelper.pointDistancePlane(index.xCoord + 0.5, index.zCoord + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.yCoord + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
+		return player.worldObj.provider.getDimension() == index.worldObj.provider.getDimension() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -246,9 +236,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
-			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);
+			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
 			if(!nearbyIndexes.isEmpty()) {
-				String msg = event.message.toLowerCase().trim();
+				String msg = event.getMessage().toLowerCase().trim();
 				for(TileCorporeaIndex index : nearbyIndexes) {
 					if(index.worldObj.isRemote)
 						continue;
@@ -268,16 +258,16 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						}
 
 						if(name.equals("this")) {
-							ItemStack stack = event.player.getCurrentEquippedItem();
+							ItemStack stack = event.getPlayer().getHeldItemMainhand();
 							if(stack != null)
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
+						event.getPlayer().addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)
-							event.player.addStat(ModAchievements.superCorporeaRequest, 1);
+							event.getPlayer().addStat(ModAchievements.superCorporeaRequest, 1);
 					}
 				}
 
@@ -286,7 +276,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 
 		public static List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
-			List<TileCorporeaIndex> indexList = new ArrayList();
+			List<TileCorporeaIndex> indexList = new ArrayList<>();
 			for(TileCorporeaIndex index : indexes)
 				if(isInRangeOfIndex(player, index) && index.worldObj.isRemote == player.worldObj.isRemote)
 					indexList.add(index);

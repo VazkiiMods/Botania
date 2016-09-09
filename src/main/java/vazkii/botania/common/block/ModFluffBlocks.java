@@ -10,8 +10,12 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
-import vazkii.botania.common.block.decor.Block18Stone;
+import net.minecraft.item.EnumDyeColor;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeBrickVariant;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
@@ -21,15 +25,10 @@ import vazkii.botania.common.block.decor.panes.BlockManaglassPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
-import vazkii.botania.common.block.decor.slabs.Block18StoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
-import vazkii.botania.common.block.decor.slabs.BlockEndStoneSlab;
-import vazkii.botania.common.block.decor.slabs.BlockEnderBrickSlab;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
-import vazkii.botania.common.block.decor.slabs.BlockReedSlab;
-import vazkii.botania.common.block.decor.slabs.BlockThatchSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockSnowBrickSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockSoulBrickSlab;
@@ -42,16 +41,8 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
-import vazkii.botania.common.block.decor.stairs.Block18StoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
-import vazkii.botania.common.block.decor.stairs.BlockEndStoneStairs;
-import vazkii.botania.common.block.decor.stairs.BlockEnderBrickStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
-import vazkii.botania.common.block.decor.stairs.BlockReedStairs;
-import vazkii.botania.common.block.decor.stairs.BlockThatchStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockSnowBrickStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockSoulBrickStairs;
@@ -64,18 +55,14 @@ import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStair
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerrockStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockShimmerwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
-import vazkii.botania.common.block.decor.walls.Block18StoneWall;
 import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
-import vazkii.botania.common.block.decor.walls.BlockPrismarineWall;
-import vazkii.botania.common.block.decor.walls.BlockReedWall;
 import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.Locale;
 
 public final class ModFluffBlocks {
 
@@ -100,25 +87,6 @@ public final class ModFluffBlocks {
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
-
-	public static Block prismarineStairs;
-	public static Block prismarineSlab;
-	public static Block prismarineSlabFull;
-	public static Block prismarineWall;
-	public static Block prismarineBrickStairs;
-	public static Block prismarineBrickSlab;
-	public static Block prismarineBrickSlabFull;
-	public static Block darkPrismarineStairs;
-	public static Block darkPrismarineSlab;
-	public static Block darkPrismarineSlabFull;
-
-	public static Block reedStairs;
-	public static Block reedSlab;
-	public static Block reedSlabFull;
-	public static Block reedWall;
-	public static Block thatchStairs;
-	public static Block thatchSlab;
-	public static Block thatchSlabFull;
 
 	public static Block netherBrickStairs;
 	public static Block netherBrickSlab;
@@ -167,29 +135,16 @@ public final class ModFluffBlocks {
 
 	public static Block biomeStoneA;
 	public static Block biomeStoneB;
-	public static Block stone;
 	public static Block pavement;
 
-	public static Block[] biomeStoneStairs = new Block[24];
-	public static Block[] biomeStoneSlabs = new Block[24];
-	public static Block[] biomeStoneFullSlabs = new Block[24];
+	public static final Block[] biomeStoneStairs = new Block[24];
+	public static final Block[] biomeStoneSlabs = new Block[24];
+	public static final Block[] biomeStoneFullSlabs = new Block[24];
 	public static Block biomeStoneWall;
 
-	public static Block[] stoneStairs = new Block[8];
-	public static Block[] stoneSlabs = new Block[8];
-	public static Block[] stoneFullSlabs = new Block[8];
-	public static Block stoneWall;
-
-	public static Block[] pavementStairs = new Block[BlockPavement.TYPES];
-	public static Block[] pavementSlabs = new Block[BlockPavement.TYPES];
-	public static Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
-
-	public static Block endStoneSlab;
-	public static Block endStoneSlabFull;
-	public static Block endStoneStairs;
-	public static Block enderBrickSlab;
-	public static Block enderBrickSlabFull;
-	public static Block enderBrickStairs;
+	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
+	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
+	public static final Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
 
 	public static Block shimmerrockSlab;
 	public static Block shimmerrockSlabFull;
@@ -225,25 +180,6 @@ public final class ModFluffBlocks {
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
 
-		prismarineStairs = new BlockPrismarineStairs();
-		prismarineSlab = new BlockPrismarineSlab(false);
-		prismarineSlabFull = new BlockPrismarineSlab(true);
-		prismarineWall = new BlockPrismarineWall();
-		prismarineBrickStairs = new BlockPrismarineBrickStairs();
-		prismarineBrickSlab = new BlockPrismarineBrickSlab(false);
-		prismarineBrickSlabFull = new BlockPrismarineBrickSlab(true);
-		darkPrismarineStairs = new BlockDarkPrismarineStairs();
-		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
-		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
-
-		reedStairs = new BlockReedStairs();
-		reedSlab = new BlockReedSlab(false);
-		reedSlabFull = new BlockReedSlab(true);
-		reedWall = new BlockReedWall();
-		thatchStairs = new BlockThatchStairs();
-		thatchSlab = new BlockThatchSlab(false);
-		thatchSlabFull = new BlockThatchSlab(true);
-
 		netherBrickStairs = new BlockCustomBrickStairs();
 		netherBrickSlab = new BlockCustomBrickSlab(false);
 		netherBrickSlabFull = new BlockCustomBrickSlab(true);
@@ -259,7 +195,6 @@ public final class ModFluffBlocks {
 
 		biomeStoneA = new BlockBiomeStoneA();
 		biomeStoneB = new BlockBiomeStoneB();
-		stone = new Block18Stone();
 		pavement = new BlockPavement();
 
 		if(ConfigHandler.darkQuartzEnabled) {
@@ -297,35 +232,34 @@ public final class ModFluffBlocks {
 		dirtPathSlab = new BlockDirtPathSlab(false);
 		dirtPathSlabFull = new BlockDirtPathSlab(true);
 
-		for(int i = 0; i < 24; i++) {
-			int meta = i % 16;
-			Block block = i < 16 ? biomeStoneA : biomeStoneB;
-			biomeStoneStairs[i] = new BlockBiomeStoneStairs(block, meta);
-			biomeStoneSlabs[i] = new BlockBiomeStoneSlab(false, block, meta, i);
-			biomeStoneFullSlabs[i] = new BlockBiomeStoneSlab(true, block, meta, i);
+		int count = 0;
+		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
+			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
+			count++;
+		}
+
+		for (BiomeBrickVariant variant : BiomeBrickVariant.values()) {
+			if (variant.getName().toLowerCase(Locale.ROOT).contains("chiseled")) {
+				// No chiseled stairs/slabs
+				continue;
+			}
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
+			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
+			count++;
 		}
 		biomeStoneWall = new BlockBiomeStoneWall();
 
-		for(int i = 0; i < 8; i++) {
-			int meta = i > 3 ? i + 4 : i;
-			stoneStairs[i] = new Block18StoneStairs(meta);
-			stoneSlabs[i] = new Block18StoneSlab(false, meta, i);
-			stoneFullSlabs[i] = new Block18StoneSlab(true, meta, i);
+		count = 0;
+		for (EnumDyeColor color : ImmutableList.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE,
+				EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN)) {
+			pavementStairs[count] = new BlockPavementStairs(color);
+			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
+			pavementFullSlabs[count] = new BlockPavementSlab(true, color, count);
+			count++;
 		}
-		stoneWall = new Block18StoneWall();
-
-		for(int i = 0; i < pavementStairs.length; i++) {
-			pavementStairs[i] = new BlockPavementStairs(i);
-			pavementSlabs[i] = new BlockPavementSlab(false, i, i);
-			pavementFullSlabs[i] = new BlockPavementSlab(true, i, i);
-		}
-
-		endStoneSlab = new BlockEndStoneSlab(false);
-		endStoneSlabFull = new BlockEndStoneSlab(true);
-		endStoneStairs = new BlockEndStoneStairs();
-		enderBrickSlab = new BlockEnderBrickSlab(false);
-		enderBrickSlabFull = new BlockEnderBrickSlab(true);
-		enderBrickStairs = new BlockEnderBrickStairs();
 
 		shimmerrockSlab = new BlockShimmerrockSlab(false);
 		shimmerrockSlabFull = new BlockShimmerrockSlab(true);
@@ -337,85 +271,6 @@ public final class ModFluffBlocks {
 		managlassPane = new BlockManaglassPane();
 		alfglassPane = new BlockAlfglassPane();
 		bifrostPane = new BlockBifrostPane();
-
-		if(ConfigHandler.darkQuartzEnabled) {
-			((BlockModSlab) darkQuartzSlab).register();
-			((BlockModSlab) darkQuartzSlabFull).register();
-		}
-		((BlockModSlab) manaQuartzSlab).register();
-		((BlockModSlab) manaQuartzSlabFull).register();
-		((BlockModSlab) blazeQuartzSlab).register();
-		((BlockModSlab) blazeQuartzSlabFull).register();
-		((BlockModSlab) lavenderQuartzSlab).register();
-		((BlockModSlab) lavenderQuartzSlabFull).register();
-		((BlockModSlab) redQuartzSlab).register();
-		((BlockModSlab) redQuartzSlabFull).register();
-		((BlockModSlab) elfQuartzSlab).register();
-		((BlockModSlab) elfQuartzSlabFull).register();
-		((BlockModSlab) sunnyQuartzSlab).register();
-		((BlockModSlab) sunnyQuartzSlabFull).register();
-
-		((BlockModSlab) livingwoodSlab).register();
-		((BlockModSlab) livingwoodSlabFull).register();
-		((BlockModSlab) livingwoodPlankSlab).register();
-		((BlockModSlab) livingwoodPlankSlabFull).register();
-		((BlockModSlab) livingrockSlab).register();
-		((BlockModSlab) livingrockSlabFull).register();
-		((BlockModSlab) livingrockBrickSlab).register();
-		((BlockModSlab) livingrockBrickSlabFull).register();
-		((BlockModSlab) dreamwoodSlab).register();
-		((BlockModSlab) dreamwoodSlabFull).register();
-		((BlockModSlab) dreamwoodPlankSlab).register();
-		((BlockModSlab) dreamwoodPlankSlabFull).register();
-
-		((BlockModSlab) reedSlab).register();
-		((BlockModSlab) reedSlabFull).register();
-		((BlockModSlab) thatchSlab).register();
-		((BlockModSlab) thatchSlabFull).register();
-
-		((BlockModSlab) prismarineSlab).register();
-		((BlockModSlab) prismarineSlabFull).register();
-		((BlockModSlab) prismarineBrickSlab).register();
-		((BlockModSlab) prismarineBrickSlabFull).register();
-		((BlockModSlab) darkPrismarineSlab).register();
-		((BlockModSlab) darkPrismarineSlabFull).register();
-
-		((BlockModSlab) netherBrickSlab).register();
-		((BlockModSlab) netherBrickSlabFull).register();
-		((BlockModSlab) soulBrickSlab).register();
-		((BlockModSlab) soulBrickSlabFull).register();
-		((BlockModSlab) snowBrickSlab).register();
-		((BlockModSlab) snowBrickSlabFull).register();
-		((BlockModSlab) tileSlab).register();
-		((BlockModSlab) tileSlabFull).register();
-
-		((BlockModSlab) dirtPathSlab).register();
-		((BlockModSlab) dirtPathSlabFull).register();
-
-		((BlockModSlab) endStoneSlab).register();
-		((BlockModSlab) endStoneSlabFull).register();
-		((BlockModSlab) enderBrickSlab).register();
-		((BlockModSlab) enderBrickSlabFull).register();
-
-		((BlockModSlab) shimmerrockSlab).register();
-		((BlockModSlab) shimmerrockSlabFull).register();
-		((BlockModSlab) shimmerwoodPlankSlab).register();
-		((BlockModSlab) shimmerwoodPlankSlabFull).register();
-
-		for(int i = 0; i < 24; i++) {
-			((BlockModSlab) biomeStoneSlabs[i]).register();
-			((BlockModSlab) biomeStoneFullSlabs[i]).register();
-		}
-
-		for(int i = 0; i < 8; i++) {
-			((BlockModSlab) stoneSlabs[i]).register();
-			((BlockModSlab) stoneFullSlabs[i]).register();
-		}
-
-		for(int i = 0; i < pavementSlabs.length; i++) {
-			((BlockModSlab) pavementSlabs[i]).register();
-			((BlockModSlab) pavementFullSlabs[i]).register();
-		}
 	}
 
 }

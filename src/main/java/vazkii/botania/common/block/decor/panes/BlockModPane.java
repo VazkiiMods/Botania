@@ -10,80 +10,51 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
-public class BlockModPane extends BlockPane {
-
-	Block source;
-	public IIcon iconTop;
+public class BlockModPane extends BlockPane implements IModelRegister {
 
 	public BlockModPane(Block source) {
-		super("", "", Material.glass, false);
-		this.source = source;
-		setBlockName(source.getUnlocalizedName().replaceAll("tile.", "") + "Pane");
+		super(Material.GLASS, false);
+		// Backward compat don't kill me
+		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
+		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
 		useNeighborBrightness = true;
 	}
 
-	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		iconTop = IconHelper.forBlock(reg, this);
-	}
-
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	/*@Override
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
 		return false;
+	}*/
+
+	@Override
+	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, @Nonnull EnumFacing dir) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
 	}
 
 	@Override
-	public int getRenderType() {
-		return 18;
-	}
-
-	@Override
-	public int getRenderBlockPass() {
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon func_150097_e() {
-		return source.getIcon(0, 0);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return side >= 2 ? iconTop : source.getIcon(side, meta);
-	}
-
-	@Override
-	public boolean canPaneConnectTo(IBlockAccess world, int x, int y, int z, ForgeDirection dir) {
-		Block block = world.getBlock(x, y, z);
-		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, x, y, z, dir);
-	}
-
+	public void registerModels() {}
 }

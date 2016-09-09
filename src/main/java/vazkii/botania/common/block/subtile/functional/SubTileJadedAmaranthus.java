@@ -12,7 +12,11 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
@@ -22,37 +26,41 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
-	int RANGE = 4;
+	final int RANGE = 4;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		if(mana >= COST && !supertile.getWorldObj().isRemote && ticksExisted % 30 == 0) {
-			int x = supertile.xCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
-			int y = supertile.yCoord + RANGE;
-			int z = supertile.zCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
+		if(ticksExisted % 30 == 0 && mana >= COST) {
+			BlockPos pos = new BlockPos(
+				supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
+				supertile.getPos().getY() + RANGE,
+				supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
+			);
+			
+			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				Block blockAbove = supertile.getWorldObj().getBlock(x, y + 1, z);
-				if((supertile.getWorldObj().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorldObj(), x, y + 1, z)) {
-					int color = supertile.getWorldObj().rand.nextInt(16);
-					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z)) {
-						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorldObj().playAuxSFX(2001, x, y + 1, z, Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
-						supertile.getWorldObj().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
-					}
-
+				IBlockState stateAbove = supertile.getWorld().getBlockState(up);
+				Block blockAbove = stateAbove.getBlock();
+				if((supertile.getWorld().isAirBlock(up) || blockAbove.isReplaceable(supertile.getWorld(), up)) && stateAbove.getMaterial() != Material.WATER && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), up)) {
+					EnumDyeColor color = EnumDyeColor.byMetadata(supertile.getWorld().rand.nextInt(16));
+					IBlockState state = ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color);
+					if(ConfigHandler.blockBreakParticles)
+						supertile.getWorld().playEvent(2001, up, Block.getStateId(state));
+					supertile.getWorld().setBlockState(up, state, 1 | 2);
 					mana -= COST;
 					sync();
 
 					break;
 				}
 
-				y--;
+				up = pos;
+				pos = pos.down();
 			}
 		}
 	}
@@ -69,7 +77,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

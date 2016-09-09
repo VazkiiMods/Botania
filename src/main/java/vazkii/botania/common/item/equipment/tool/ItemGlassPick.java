@@ -17,24 +17,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import javax.annotation.Nonnull;
 
 public class ItemGlassPick extends ItemManasteelPick {
 
 	private static final int MANA_PER_DAMAGE = 160;
-	private static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MANASTEEL_GLASS", 0, 125, 4.8F, 1F, 10);
+	private static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MANASTEEL_GLASS", 0, 125, 4.8F, 0F, 10);
 
 	public ItemGlassPick() {
 		super(MATERIAL, LibItemNames.GLASS_PICK);
 		MinecraftForge.EVENT_BUS.register(this);
+		attackSpeed = -1;
 	}
 
 	@SubscribeEvent
 	public void onBlockDrops(HarvestDropsEvent event) {
-		if(event.harvester != null && event.block != null && event.drops.isEmpty() && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() == this && event.block.getMaterial() == Material.glass && event.block.canSilkHarvest(event.world, event.harvester, event.x, event.y, event.z, event.blockMetadata))
-			event.drops.add(new ItemStack(event.block, 1, event.blockMetadata));
+		if(event.getHarvester() != null && event.getState() != null && event.getDrops().isEmpty() && event.getHarvester().getHeldItemMainhand() != null && event.getHarvester().getHeldItemMainhand().getItem() == this && event.getState().getMaterial() == Material.GLASS && event.getState().getBlock().canSilkHarvest(event.getWorld(), event.getPos(), event.getState(), event.getHarvester()))
+			event.getDrops().add(new ItemStack(event.getState().getBlock(), 1, event.getState().getBlock().getMetaFromState(event.getState())));
 	}
 
 	@Override
@@ -43,8 +46,8 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.glass) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.GLASS) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 	@Override

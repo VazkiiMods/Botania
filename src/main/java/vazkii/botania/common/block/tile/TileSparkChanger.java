@@ -10,19 +10,18 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
+import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class TileSparkChanger extends TileSimpleInventory {
 
@@ -30,16 +29,16 @@ public class TileSparkChanger extends TileSimpleInventory {
 		if(worldObj.isRemote)
 			return;
 
-		ItemStack changeStack = getStackInSlot(0);
-		List<ISparkAttachable> attachables = new ArrayList();
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+		ItemStack changeStack = itemHandler.getStackInSlot(0);
+		List<ISparkAttachable> attachables = new ArrayList<>();
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+			TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
 			if(tile != null && tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;
 				ISparkEntity spark = attach.getAttachedSpark();
 				if(spark != null) {
-					int upg = spark.getUpgrade();
-					int newUpg = changeStack == null ? 0 : changeStack.getItemDamage() + 1;
+					SparkUpgradeType upg = spark.getUpgrade();
+					SparkUpgradeType newUpg = changeStack == null ? SparkUpgradeType.NONE : SparkUpgradeType.values()[changeStack.getItemDamage() + 1];
 					if(upg != newUpg)
 						attachables.add(attach);
 				}
@@ -49,15 +48,15 @@ public class TileSparkChanger extends TileSimpleInventory {
 		if(attachables.size() > 0) {
 			ISparkAttachable attach = attachables.get(worldObj.rand.nextInt(attachables.size()));
 			ISparkEntity spark = attach.getAttachedSpark();
-			int upg = spark.getUpgrade();
-			ItemStack sparkStack = upg == 0 ? null : new ItemStack(ModItems.sparkUpgrade, 1, upg - 1);
-			int newUpg = changeStack == null ? 0 : changeStack.getItemDamage() + 1;
+			SparkUpgradeType upg = spark.getUpgrade();
+			ItemStack sparkStack = upg == SparkUpgradeType.NONE ? null : new ItemStack(ModItems.sparkUpgrade, 1, upg.ordinal() - 1);
+			SparkUpgradeType newUpg = changeStack == null ? SparkUpgradeType.NONE : SparkUpgradeType.values()[changeStack.getItemDamage() + 1];
 			spark.setUpgrade(newUpg);
 			Collection transfers = spark.getTransfers();
 			if(transfers != null)
 				transfers.clear();
-			setInventorySlotContents(0, sparkStack);
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			itemHandler.setStackInSlot(0, sparkStack);
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 			markDirty();
 		}
 	}
@@ -68,24 +67,26 @@ public class TileSparkChanger extends TileSimpleInventory {
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() == ModItems.sparkUpgrade;
-	}
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
 
-	@Override
-	public int getInventoryStackLimit() {
-		return 1;
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(stack != null && stack.getItem() == ModItems.sparkUpgrade)
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 	@Override
 	public void markDirty() {
 		super.markDirty();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-	}
-
-	@Override
-	public String getInventoryName() {
-		return LibBlockNames.SPARK_CHANGER;
 	}
 
 }

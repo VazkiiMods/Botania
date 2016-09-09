@@ -1,0 +1,24 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cross"
+  },
+  "variants": {
+    "df_variant=white,half=lower": [{ "textures": { "cross": "botania:blocks/flower0Tall0" } }],
+    "df_variant=white,half=upper": [{ "textures": { "cross": "botania:blocks/flower0Tall1" } }],
+    "df_variant=orange,half=lower": [{ "textures": { "cross": "botania:blocks/flower1Tall0" } }],
+    "df_variant=orange,half=upper": [{ "textures": { "cross": "botania:blocks/flower1Tall1" } }],
+    "df_variant=magenta,half=lower": [{ "textures": { "cross": "botania:blocks/flower2Tall0" } }],
+    "df_variant=magenta,half=upper": [{ "textures": { "cross": "botania:blocks/flower2Tall1" } }],
+    "df_variant=light_blue,half=lower": [{ "textures": { "cross": "botania:blocks/flower3Tall0" } }],
+    "df_variant=light_blue,half=upper": [{ "textures": { "cross": "botania:blocks/flower3Tall1" } }],
+    "df_variant=yellow,half=lower": [{ "textures": { "cross": "botania:blocks/flower4Tall0" } }],
+    "df_variant=yellow,half=upper": [{ "textures": { "cross": "botania:blocks/flower4Tall1" } }],
+    "df_variant=lime,half=lower": [{ "textures": { "cross": "botania:blocks/flower5Tall0" } }],
+    "df_variant=lime,half=upper": [{ "textures": { "cross": "botania:blocks/flower5Tall1" } }],
+    "df_variant=pink,half=lower": [{ "textures": { "cross": "botania:blocks/flower6Tall0" } }],
+    "df_variant=pink,half=upper": [{ "textures": { "cross": "botania:blocks/flower6Tall1" } }],
+    "df_variant=gray,half=lower": [{ "textures": { "cross": "botania:blocks/flower7Tall0" } }],
+    "df_variant=gray,half=upper": [{ "textures": { "cross": "botania:blocks/flower7Tall1" } }]
+  }
+}

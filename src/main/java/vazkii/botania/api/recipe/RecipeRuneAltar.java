@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 
 public class RecipeRuneAltar extends RecipePetals {
 
-	int mana;
+	private final int mana;
 
 	public RecipeRuneAltar(ItemStack output, int mana, Object... inputs) {
 		super(output, inputs);

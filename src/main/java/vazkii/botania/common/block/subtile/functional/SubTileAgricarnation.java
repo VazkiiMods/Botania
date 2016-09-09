@@ -16,8 +16,12 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -32,24 +36,30 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
+		if(ticksExisted % 200 == 0)
+			sync();
+
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
+			int x = supertile.getPos().getX() + supertile.getWorld().rand.nextInt(range * 2 + 1) - range;
+			int z = supertile.getPos().getZ() + supertile.getWorld().rand.nextInt(range * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
-				int y = supertile.yCoord + i;
-
-				if(supertile.getWorldObj().isAirBlock(x, y, z))
+				int y = supertile.getPos().getY() + i;
+				BlockPos pos = new BlockPos(x, y, z);
+				if(supertile.getWorld().isAirBlock(pos))
 					continue;
 
-				if(isPlant(x, y, z) && mana > 5) {
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
+				if(isPlant(pos) && mana > 5) {
+					Block block = supertile.getWorld().getBlockState(pos).getBlock();
 					mana -= 5;
-					supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
+					supertile.getWorld().scheduleUpdate(pos, block, 1);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
-					supertile.getWorldObj().playSoundEffect(x, y, z, "botania:agricarnation", 0.01F, 0.5F + (float) Math.random() * 0.5F);
+						supertile.getWorld().playEvent(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
+					supertile.getWorld().playSound(null, x, y, z, BotaniaSoundEvents.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}
@@ -62,13 +72,14 @@ public class SubTileAgricarnation extends SubTileFunctional {
 		return true;
 	}
 
-	boolean isPlant(int x, int y, int z) {
-		Block block = supertile.getWorldObj().getBlock(x, y, z);
-		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
+	private boolean isPlant(BlockPos pos) {
+		IBlockState state = supertile.getWorld().getBlockState(pos);
+		Block block = state.getBlock();
+		if(block == Blocks.GRASS || block == Blocks.LEAVES || block == Blocks.LEAVES2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
 			return false;
 
-		Material mat = block.getMaterial();
-		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).func_149851_a(supertile.getWorldObj(), x, y, z, supertile.getWorldObj().isRemote);
+		Material mat = state.getMaterial();
+		return mat != null && (mat == Material.PLANTS || mat == Material.CACTUS || mat == Material.GRASS || mat == Material.LEAVES || mat == Material.GOURD) && block instanceof IGrowable && ((IGrowable) block).canGrow(supertile.getWorld(), pos, supertile.getWorld().getBlockState(pos), supertile.getWorld().isRemote);
 	}
 
 	@Override
@@ -87,7 +98,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	@Override

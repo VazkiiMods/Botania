@@ -1,0 +1,23 @@
+{
+  "__comment": "This table is injected as its own pool into minecraft:chests/abandoned_mineshaft",
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "name": "botania:blackLotus",
+        "weight": 35
+      },
+      {
+        "type": "item",
+        "name": "botania:overgrowthSeed",
+        "weight": 5
+      },
+      {
+        "type": "empty",
+        "weight": 60
+      }
+    ]
+  }]
+}

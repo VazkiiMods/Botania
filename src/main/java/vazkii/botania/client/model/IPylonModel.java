@@ -10,10 +10,12 @@
  */
 package vazkii.botania.client.model;
 
+import vazkii.botania.api.state.enums.PylonVariant;
+
 public interface IPylonModel {
 
-	public void renderCrystal();
-	public void renderRing();
-	public void renderGems();
+	public void renderCrystal(PylonVariant variant);
+	public void renderRing(PylonVariant variant);
+	public void renderGems(PylonVariant variant);
 
 }

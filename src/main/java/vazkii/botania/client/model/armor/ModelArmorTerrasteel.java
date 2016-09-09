@@ -14,49 +14,52 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHandSide;
+
+import javax.annotation.Nonnull;
 
 public class ModelArmorTerrasteel extends ModelBiped {
 
-	public ModelRenderer helm;
-	public ModelRenderer body;
-	public ModelRenderer armr;
-	public ModelRenderer armL;
-	public ModelRenderer belt;
-	public ModelRenderer bootR;
-	public ModelRenderer bootL;
-	public ModelRenderer helm2;
-	public ModelRenderer helm3;
-	public ModelRenderer helm4;
-	public ModelRenderer helmLeaf1;
-	public ModelRenderer helmLeaf2;
-	public ModelRenderer helmLeaf3;
-	public ModelRenderer helmLeaf4;
-	public ModelRenderer helmLeaf5;
-	public ModelRenderer helmLeaf6;
-	public ModelRenderer helmbranch1;
-	public ModelRenderer helmbranch2;
-	public ModelRenderer helmbranch3;
-	public ModelRenderer helmbranch4;
-	public ModelRenderer body2;
-	public ModelRenderer armRpauldron;
-	public ModelRenderer armRbranch1;
-	public ModelRenderer armRbranch2;
-	public ModelRenderer armLpauldron;
-	public ModelRenderer armLbranch1;
-	public ModelRenderer armLbranch2;
-	public ModelRenderer legR;
-	public ModelRenderer legL;
-	public ModelRenderer bootR1;
-	public ModelRenderer bootRbranch;
-	public ModelRenderer bootL2;
-	public ModelRenderer bootLbranch;
+	private final ModelRenderer helm;
+	public final ModelRenderer body;
+	private final ModelRenderer armr;
+	private final ModelRenderer armL;
+	public final ModelRenderer belt;
+	private final ModelRenderer bootR;
+	private final ModelRenderer bootL;
+	private final ModelRenderer helm2;
+	private final ModelRenderer helm3;
+	private final ModelRenderer helm4;
+	private final ModelRenderer helmLeaf1;
+	private final ModelRenderer helmLeaf2;
+	private final ModelRenderer helmLeaf3;
+	private final ModelRenderer helmLeaf4;
+	private final ModelRenderer helmLeaf5;
+	private final ModelRenderer helmLeaf6;
+	private final ModelRenderer helmbranch1;
+	private final ModelRenderer helmbranch2;
+	private final ModelRenderer helmbranch3;
+	private final ModelRenderer helmbranch4;
+	private final ModelRenderer body2;
+	private final ModelRenderer armRpauldron;
+	private final ModelRenderer armRbranch1;
+	private final ModelRenderer armRbranch2;
+	private final ModelRenderer armLpauldron;
+	private final ModelRenderer armLbranch1;
+	private final ModelRenderer armLbranch2;
+	private final ModelRenderer legR;
+	private final ModelRenderer legL;
+	private final ModelRenderer bootR1;
+	private final ModelRenderer bootRbranch;
+	private final ModelRenderer bootL2;
+	private final ModelRenderer bootLbranch;
 
-	int slot;
+	private final EntityEquipmentSlot slot;
 
-	public ModelArmorTerrasteel(int slot) {
+	public ModelArmorTerrasteel(EntityEquipmentSlot slot) {
 		this.slot = slot;
 
 		textureWidth = 64;
@@ -231,22 +234,27 @@ public class ModelArmorTerrasteel extends ModelBiped {
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		helm.showModel = slot == 0;
-		body.showModel = slot == 1;
-		armr.showModel = slot == 1;
-		armL.showModel = slot == 1;
-		legR.showModel = slot == 2;
-		legL.showModel = slot == 2;
-		bootL.showModel = slot == 3;
-		bootR.showModel = slot == 3;
+	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if(entity instanceof EntityArmorStand) {
+			// Hack so helmets look right on armor stand
+			netHeadYaw = 0;
+		}
+
+		helm.showModel = slot == EntityEquipmentSlot.HEAD;
+		body.showModel = slot == EntityEquipmentSlot.CHEST;
+		armr.showModel = slot == EntityEquipmentSlot.CHEST;
+		armL.showModel = slot == EntityEquipmentSlot.CHEST;
+		legR.showModel = slot == EntityEquipmentSlot.LEGS;
+		legL.showModel = slot == EntityEquipmentSlot.LEGS;
+		bootL.showModel = slot == EntityEquipmentSlot.FEET;
+		bootR.showModel = slot == EntityEquipmentSlot.FEET;
 		bipedHeadwear.showModel = false;
 
 		bipedHead = helm;
 		bipedBody = body;
 		bipedRightArm = armr;
 		bipedLeftArm = armL;
-		if(slot == 2) {
+		if(slot == EntityEquipmentSlot.LEGS) {
 			bipedRightLeg = legR;
 			bipedLeftLeg = legL;
 		} else {
@@ -254,32 +262,10 @@ public class ModelArmorTerrasteel extends ModelBiped {
 			bipedLeftLeg = bootL;
 		}
 
-		prepareForRender(entity);
-		super.render(entity, f, f1, f2, f3, f4, f5);
+		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}
 
-	public void prepareForRender(Entity entity) {
-		EntityLivingBase living = (EntityLivingBase) entity;
-		isSneak = living != null ? living.isSneaking() : false;
-		if(living != null && living instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) living;
-
-			ItemStack itemstack = player.inventory.getCurrentItem();
-			heldItemRight = itemstack != null ? 1 : 0;
-
-			aimedBow = false;
-			if (itemstack != null && player.getItemInUseCount() > 0) {
-				EnumAction enumaction = itemstack.getItemUseAction();
-
-				if (enumaction == EnumAction.block)
-					heldItemRight = 3;
-				else if (enumaction == EnumAction.bow)
-					aimedBow = true;
-			}
-		}
-	}
-
-	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+	private void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;

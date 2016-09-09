@@ -10,47 +10,62 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class TileMod extends TileEntity {
+import javax.annotation.Nonnull;
+
+public class TileMod extends TileEntity implements ITickable {
 
 	@Override
-	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeToNBT(par1nbtTagCompound);
+	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
+		return oldState.getBlock() != newState.getBlock();
+	}
 
-		writeCustomNBT(par1nbtTagCompound);
+	@Nonnull
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
+		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
+		writePacketNBT(ret);
+		return ret;
+	}
+
+	@Nonnull
+	@Override
+	public final NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-
-		readCustomNBT(par1nbtTagCompound);
+		readPacketNBT(par1nbtTagCompound);
 	}
 
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void writePacketNBT(NBTTagCompound cmp) {}
 
-	public void readCustomNBT(NBTTagCompound cmp) {
-		// NO-OP
+	public void readPacketNBT(NBTTagCompound cmp) {}
+
+	@Override
+	public final SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound tag = new NBTTagCompound();
+		writePacketNBT(tag);
+		return new SPacketUpdateTileEntity(pos, -999, tag);
 	}
 
 	@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		writeCustomNBT(nbttagcompound);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound);
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(net, packet);
-		readCustomNBT(packet.func_148857_g());
+		readPacketNBT(packet.getNbtCompound());
 	}
+
+	@Override
+	public void update() {}
 
 }

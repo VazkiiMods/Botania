@@ -10,24 +10,28 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
+
+import java.util.List;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
 
@@ -41,23 +45,29 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	private static final String TAG_TELEPORTED = "Botania_TPd";
 
-	int bindX, bindY = -1, bindZ;
+	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal == 0 && supertile.getWorldObj().blockExists(bindX, bindY, bindZ)) {
-			int x = supertile.xCoord;
-			int y = supertile.yCoord;
-			int z = supertile.zCoord;
+		if(!supertile.getWorld().isRemote && redstoneSignal == 0 && supertile.getWorld().isBlockLoaded(bindPos)) {
+			BlockPos pos = supertile.getPos();
 
 			boolean did = false;
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
+
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			
 			for(EntityItem item : items) {
-				if(item.age < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				int age;
+				try {
+					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
+				} catch (Throwable t) {
+					continue;
+				}
+
+				if(age < (60 + slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -69,14 +79,12 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					int cost = stack.stackSize * COST;
 					if(mana >= cost) {
 						spawnExplosionParticles(item, 10);
-						item.setPosition(bindX + 0.5, bindY + 1.5, bindZ + 0.5);
+						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
 						spawnExplosionParticles(item, 10);
-						if(!supertile.getWorldObj().isRemote) {
-							mana -= cost;
-							did = true;
-						}
+						mana -= cost;
+						did = true;
 					}
 				}
 			}
@@ -86,36 +94,32 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		}
 	}
 
-	public static void spawnExplosionParticles(EntityItem item, int p) {
-		for(int i = 0; i < p; i++) {
-			double m = 0.01;
-			double d0 = item.worldObj.rand.nextGaussian() * m;
-			double d1 = item.worldObj.rand.nextGaussian() * m;
-			double d2 = item.worldObj.rand.nextGaussian() * m;
-			double d3 = 10.0D;
-			item.worldObj.spawnParticle("explode", item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
-		}
+	static void spawnExplosionParticles(EntityItem item, int p) {
+		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInteger(TAG_BIND_X, bindX);
-		cmp.setInteger(TAG_BIND_Y, bindY);
-		cmp.setInteger(TAG_BIND_Z, bindZ);
+		cmp.setInteger(TAG_BIND_X, bindPos.getX());
+		cmp.setInteger(TAG_BIND_Y, bindPos.getY());
+		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		bindX = cmp.getInteger(TAG_BIND_X);
-		bindY = cmp.getInteger(TAG_BIND_Y);
-		bindZ = cmp.getInteger(TAG_BIND_Z);
+		bindPos = new BlockPos(
+			cmp.getInteger(TAG_BIND_X),
+			cmp.getInteger(TAG_BIND_Y),
+			cmp.getInteger(TAG_BIND_Z)
+		);
 	}
 
 	@Override
@@ -134,13 +138,11 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-		boolean bound = super.bindTo(player, wand, x, y, z, side);
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if(!bound && (x != bindX || y != bindY || z != bindZ) && MathHelper.pointDistanceSpace(x, y, z, supertile.xCoord, supertile.yCoord, supertile.zCoord) <= BIND_RANGE && (x != supertile.xCoord || y != supertile.yCoord || z != supertile.zCoord)) {
-			bindX = x;
-			bindY = y;
-			bindZ = z;
+		if(!bound && !pos.equals(bindPos) && pos.distanceSq(supertile.getPos()) <= BIND_RANGE * BIND_RANGE && !(pos.equals(supertile.getPos()))) {
+			bindPos = pos;
 			sync();
 
 			return true;
@@ -151,8 +153,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding() {
-		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1 ? new ChunkCoordinates(bindX, bindY, bindZ) : super.getBinding();
+	public BlockPos getBinding() {
+		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 	@Override

@@ -9,10 +9,9 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * This interface wraps IInventory corporea works with in order to provide
@@ -24,7 +23,7 @@ public interface IWrappedInventory {
 	/**
 	 * Break encapsulation and exposes original inventory.
 	 */
-	IInventory getWrappedObject();
+	InvWithLocation getWrappedObject();
 
 	/**
 	 * Counts items in the inventory matching the request

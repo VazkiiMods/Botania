@@ -13,6 +13,10 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
@@ -24,45 +28,45 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemObedienceStick extends ItemMod {
 
 	public ItemObedienceStick() {
+		super(LibItemNames.OBEDIENCE_STICK);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.OBEDIENCE_STICK);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
-		TileEntity tileAt = world.getTileEntity(x, y, z);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+		TileEntity tileAt = world.getTileEntity(pos);
 		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
 			boolean pool = tileAt instanceof IManaPool;
 			Actuator act = pool ? Actuator.functionalActuator : Actuator.generatingActuator;
-			int range = pool ? SubTileFunctional.RANGE : SubTileGenerating.RANGE;
+			int range = pool ? SubTileFunctional.LINK_RANGE : SubTileGenerating.LINK_RANGE;
 
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++)
-					for(int k = -range; k < range + 1; k++) {
-						int xp = x + i;
-						int yp = y + j;
-						int zp = z + k;
-						if(MathHelper.pointDistanceSpace(xp, yp, zp, x, y, z) > range)
-							continue;
+			for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+				if(pos_.distanceSq(pos) > range * range)
+					continue;
 
-						TileEntity tile = world.getTileEntity(xp, yp, zp);
-						if(tile instanceof ISubTileContainer) {
-							SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
-							if(act.actuate(subtile, tileAt)) {
-								Vector3 orig = new Vector3(xp + 0.5, yp + 0.5, zp + 0.5);
-								Vector3 end = new Vector3(x + 0.5, y + 0.5, z + 0.5);
-								ItemTwigWand.doParticleBeam(world, orig, end);
-							}
-						}
+				TileEntity tile = world.getTileEntity(pos_);
+				if(tile instanceof ISubTileContainer) {
+					SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
+					if(act.actuate(subtile, tileAt)) {
+						Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
+						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+						ItemTwigWand.doParticleBeam(world, orig, end);
 					}
+				}
+			}
 
 			if(player.worldObj.isRemote)
-				player.swingItem();
+				player.swingArm(hand);
+			return EnumActionResult.SUCCESS;
 		}
-		return false;
+
+		return EnumActionResult.PASS;
 	}
 
 	public static abstract class Actuator {

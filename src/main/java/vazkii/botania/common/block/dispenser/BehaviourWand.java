@@ -15,26 +15,28 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.wand.IWandable;
+
+import javax.annotation.Nonnull;
 
 public class BehaviourWand extends BehaviorDefaultDispenseItem {
 
+	@Nonnull
 	@Override
-	protected ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		ForgeDirection facing = ForgeDirection.getOrientation(BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata()).ordinal());
-		int x = par1IBlockSource.getXInt() + facing.offsetX;
-		int y = par1IBlockSource.getYInt() + facing.offsetY;
-		int z = par1IBlockSource.getZInt() + facing.offsetZ;
-		World world = par1IBlockSource.getWorld();
-		Block block = world.getBlock(x, y, z);
+	protected ItemStack dispenseStack(IBlockSource source, ItemStack par2ItemStack) {
+		World world = source.getWorld();
+		EnumFacing facing = world.getBlockState(source.getBlockPos()).getValue(BlockDispenser.FACING);
+		BlockPos pos = source.getBlockPos().offset(facing);
+		Block block = world.getBlockState(pos).getBlock();
 		if(block instanceof IWandable) {
-			((IWandable) block).onUsedByWand(null, par2ItemStack, world, x, y, z, facing.getOpposite().ordinal());
+			((IWandable) block).onUsedByWand(null, par2ItemStack, world, pos, facing.getOpposite());
 			return par2ItemStack;
 		}
 
-		return super.dispenseStack(par1IBlockSource, par2ItemStack);
+		return super.dispenseStack(source, par2ItemStack);
 	}
 
 }

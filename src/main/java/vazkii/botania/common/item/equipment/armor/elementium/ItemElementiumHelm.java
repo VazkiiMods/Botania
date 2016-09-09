@@ -1,6 +1,7 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.common.lib.LibItemNames;
@@ -12,7 +13,7 @@ public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDisc
 	}
 
 	public ItemElementiumHelm(String name) {
-		super(0, name);
+		super(EntityEquipmentSlot.HEAD, name);
 	}
 
 	@Override

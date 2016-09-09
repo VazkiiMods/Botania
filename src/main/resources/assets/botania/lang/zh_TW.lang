@@ -1,10 +1,15 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in zh_TW, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=植物魔法
 generator.botania-skyblock=硝子花園
 generator.botania-skyblock.info=不建議植物魔法新手使用
-
-#並非本地化條目,請翻譯者不要修改此行文本.
-botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=下一頁
 botaniamisc.prevPage=上一頁
@@ -49,9 +54,6 @@ botaniamisc.shiftToRemove=Shift點擊移除
 botaniamisc.clickToAdd=點擊添加書籤
 botaniamisc.ratio=放大：%s倍
 botaniamisc.bottleTooltip=味道如何
-botaniamisc.coarseDirt0=劣質土,草
-botaniamisc.coarseDirt1=無法生長
-botaniamisc.spawnerTip=Tip:使用刷怪蛋改變怪物類型
 botaniamisc.shardLevel=碎片能量 %s
 botaniamisc.lexiconIndex=辭典目錄
 botaniamisc.hasIvy=有永恆常春籐
@@ -60,8 +62,8 @@ botaniamisc.noLexicon=你需要有植物魔法辭典才能閱讀它.
 botaniamisc.cantOpen=你的書裡似乎沒有這一頁.或許它是從其他地方來的...?
 botaniamisc.clickToShare=分享
 botaniamisc.drop=扔出
-botaniamisc.dropTip0=提示:你在物品欄內可以按下%key%鍵來扔出物品
-botaniamisc.dropTip1=CTRL加%key%鍵扔出一整組
+botaniamisc.dropTip0=提示:你在物品欄內可以按下%s鍵來扔出物品
+botaniamisc.dropTip1=CTRL加%s鍵扔出一整組
 botaniamisc.wandMode.bind=綁定模式
 botaniamisc.wandMode.function=工作模式
 botaniamisc.playVideo=播放視頻
@@ -267,39 +269,6 @@ botania.armorset.will3.shortDesc=暴擊施加重度緩慢效果
 botania.armorset.will4.shortDesc=暴擊傷害穿透護甲
 botania.armorset.will5.shortDesc=暴擊施加凋零效果
 
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
-
 # KNOWLEDGE
 botania.knowledge.minecraft=主世界的知識
 botania.knowledge.alfheim=&a精靈&7的知識
@@ -416,7 +385,7 @@ botania.versioning.flavour62=90%的醫生會推薦你更新植物魔法.
 botania.versioning.flavour63=本次更新承諾在午夜。
 botania.versioning.flavour64=本次的植魔更新已經過時. 而他的名字是JOHN CENA! DOO DOO DOO DOO
 botania.versioning.outdated=你所使用的植物魔法版本為%s,最新版本為%s.
-botania.versioning.updateMessage=["點擊這裡... [",{"text":"下載","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此自動下載最新版本","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"網站","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此流覽該mod的網站","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"更新日誌","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此查看該版本的更新日誌","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["點擊這裡... [",{"text":"下載","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此自動下載最新版本","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"網站","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此流覽該mod的網站","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"更新日誌","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此查看該版本的更新日誌","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"開始下載%s.請勿移除你的硬碟.祝你玩得開心 ","color":"aqua"},{"text":"植物魔法","color":"green"},{"text":"?是否考慮贊助","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"贊助","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"點此進入Vazkii的贊助界面","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=已完成下載%s.請刪除舊的Botania .jar並且重啟遊戲以加載新版本.
 botania.versioning.downloadedAlready=你已下載最新版本.關閉你的遊戲,從你的mods文件夾中刪除舊版本的mod文件,並且重啟遊戲以加載新版本!
@@ -428,7 +397,7 @@ botania.versioning.disabled=抱歉,自動升級由於伺服器主機的原因已
 botania.baubletype.amulet=裝備在&a項鏈&7欄
 botania.baubletype.ring=裝備在&a戒指&7欄
 botania.baubletype.belt=裝備在&a腰帶&7欄
-botania.baubletooltip=按&b%key%&7鍵打開飾品菜單
+botania.baubletooltip=按&b%s&7鍵打開飾品菜單
 
 # RELIC POEMS
 item.dice.poem0=他發牌,以尋找答案,
@@ -801,19 +770,6 @@ tile.botania:dreamwood1Stairs.name=夢之木階梯
 tile.botania:dreamwood1Slab.name=夢之木半磚
 tile.botania:dreamwood1SlabFull.name=夢之木半磚
 tile.botania:conjurationCatalyst.name=煉造催化器
-tile.botania:prismarine0.name=海磷石
-tile.botania:prismarine1.name=海磷石磚
-tile.botania:prismarine2.name=暗海磷石
-tile.botania:prismarine0Stairs.name=海磷石階梯
-tile.botania:prismarine0Slab.name=海磷石階梯
-tile.botania:prismarine0SlabFull.name=海磷石半磚
-tile.botania:prismarine1Stairs.name=海磷石磚階梯
-tile.botania:prismarine1Slab.name=海磷石磚半磚
-tile.botania:prismarine1SlabFull.name=海磷石磚半磚
-tile.botania:prismarine2Stairs.name=暗海磷石階梯
-tile.botania:prismarine2Slab.name=暗海磷石半磚
-tile.botania:prismarine2SlabFull.name=暗海磷石半磚
-tile.botania:seaLamp.name=海燈籠
 tile.botania:miniIsland0.name=白色浮空花
 tile.botania:miniIsland1.name=橘色浮空花
 tile.botania:miniIsland2.name=洋紅色浮空花
@@ -832,14 +788,6 @@ tile.botania:miniIsland14.name=紅色浮空花
 tile.botania:miniIsland15.name=黑色浮空花
 tile.botania:tinyPotato.name=小小馬鈴薯
 tile.botania:spawnerClaw.name=生命灌注器
-tile.botania:reedBlock.name=甘蔗塊
-tile.botania:reedBlock0Stairs.name=甘蔗階梯
-tile.botania:reedBlock0Slab.name=甘蔗半磚
-tile.botania:reedBlock0SlabFull.name=甘蔗半磚
-tile.botania:thatch.name=茅草塊
-tile.botania:thatch0Stairs.name=茅草階梯
-tile.botania:thatch0Slab.name=茅草半磚
-tile.botania:thatch0SlabFull.name=茅草半磚
 tile.botania:customBrick0.name=煉獄磚塊
 tile.botania:customBrick1.name=靈魂磚塊
 tile.botania:customBrick2.name=霜凍磚塊
@@ -1068,46 +1016,10 @@ tile.botania:doubleFlower212.name=棕色高神秘花
 tile.botania:doubleFlower213.name=綠色高神秘花
 tile.botania:doubleFlower214.name=紅色高神秘花
 tile.botania:doubleFlower215.name=黑色高神秘花
-tile.botania:stone0.name=安山岩
-tile.botania:stone1.name=玄武岩
-tile.botania:stone2.name=閃長岩
-tile.botania:stone3.name=花崗岩
-tile.botania:stone4.name=拋光安山岩
-tile.botania:stone5.name=拋光玄武岩
-tile.botania:stone6.name=拋光閃長岩
-tile.botania:stone7.name=拋光花崗岩
-tile.botania:stone8.name=安山岩磚
-tile.botania:stone9.name=玄武岩磚
-tile.botania:stone10.name=閃長岩磚
-tile.botania:stone11.name=花崗岩磚
 tile.botania:stone12.name=浮雕安山岩磚
 tile.botania:stone13.name=浮雕玄武岩磚
 tile.botania:stone14.name=浮雕閃長岩磚
 tile.botania:stone15.name=浮雕花崗岩磚
-tile.botania:stone0Stairs.name=安山岩階梯
-tile.botania:stone1Stairs.name=玄武岩階梯
-tile.botania:stone2Stairs.name=閃長岩階梯
-tile.botania:stone3Stairs.name=花崗岩階梯
-tile.botania:stone8Stairs.name=安山岩磚階梯
-tile.botania:stone9Stairs.name=玄武岩磚階梯
-tile.botania:stone10Stairs.name=閃長岩磚階梯
-tile.botania:stone11Stairs.name=花崗岩磚階梯
-tile.botania:stone0Slab.name=安山岩半磚
-tile.botania:stone1Slab.name=玄武岩半磚
-tile.botania:stone2Slab.name=閃長岩半磚
-tile.botania:stone3Slab.name=花崗岩半磚
-tile.botania:stone8Slab.name=安山岩磚半磚
-tile.botania:stone9Slab.name=玄武岩磚半磚
-tile.botania:stone10Slab.name=閃長岩磚半磚
-tile.botania:stone11Slab.name=花崗岩磚半磚
-tile.botania:stone0SlabFull.name=安山岩半磚
-tile.botania:stone1SlabFull.name=玄武岩半磚
-tile.botania:stone2SlabFull.name=閃長岩半磚
-tile.botania:stone3SlabFull.name=花崗岩半磚
-tile.botania:stone8SlabFull.name=安山岩磚半磚
-tile.botania:stone9SlabFull.name=玄武岩磚半磚
-tile.botania:stone10SlabFull.name=閃長岩磚半磚
-tile.botania:stone11SlabFull.name=花崗岩磚半磚
 tile.botania:blazeBlock.name=烈焰燈
 tile.botania:corporeaInterceptor.name=多媒體攔截器
 tile.botania:corporeaCrystalCube.name=多媒體水晶魔方
@@ -1124,8 +1036,6 @@ tile.botania:lightLauncher.name=微光發射器
 tile.botania:livingrock0Wall.name=活石牆
 tile.botania:livingwood0Wall.name=活木牆
 tile.botania:dreamwood0Wall.name=夢之木牆
-tile.botania:prismarine0Wall.name=海晶石牆
-tile.botania:reedBlock0Wall.name=甘蔗圍牆
 tile.botania:biomeStoneA0Wall0.name=變質森林石牆
 tile.botania:biomeStoneA0Wall1.name=變質平原石牆
 tile.botania:biomeStoneA0Wall2.name=變質高山石牆
@@ -1134,10 +1044,6 @@ tile.botania:biomeStoneA0Wall4.name=變質沼澤石牆
 tile.botania:biomeStoneA0Wall5.name=變質沙漠石牆
 tile.botania:biomeStoneA0Wall6.name=變質雪原石牆
 tile.botania:biomeStoneA0Wall7.name=變質高原石牆
-tile.botania:stone0Wall0.name=安山岩石牆
-tile.botania:stone0Wall1.name=玄武岩石牆
-tile.botania:stone0Wall2.name=閃長岩石牆
-tile.botania:stone0Wall3.name=花崗岩石牆
 tile.botania:manaBomb.name=瑪那風暴
 tile.botania:buriedPetals0=埋藏白色花瓣
 tile.botania:buriedPetals0.name=埋藏白色花瓣
@@ -1635,7 +1541,7 @@ item.botania:terraAxe.name=泰拉斷裂者
 item.botania:manasteelNugget.name=魔鋼粒
 item.botania:terrasteelNugget.name=泰拉鋼粒
 item.botania:elementiumNugget.name=源質鋼粒
-item.botania:root.name=活根
+item.botania:livingRoot.name=活根
 item.botania:pebble.name=卵石
 item.botania:waterBowl.name=一碗水
 item.botania:obedienceStick.name=植物遵從法杖
@@ -2536,17 +2442,12 @@ botania.page.endoflame2=&o不是閃耀之光&r.
 # -- HYDROANGEAS
 botania.entry.hydroangeas=水繡球
 botania.tagline.hydroangeas=水力產魔機
-botania.page.hydroangeas0=&1Hydroangeas&0 act as a liquid based passive generator. They will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. The amount they produce is comparable to that of an &1Endoflame&0. They also seem to function faster during &4Rain&0.<br>&1Hydroangeas&0 are classified as &4passive flowers&0 and as such will decay.
 botania.page.hydroangeas2=一個簡單的&1水繡球&0系統
 botania.page.hydroangeas1=&o超次元來物&r?
 
 # -- THERMALILY
 botania.entry.thermalily=熾玫瑰
 botania.tagline.thermalily=地熱發電植魔版
-botania.page.thermalily0=The &1Thermalily&0 acts as a &1Lava&0 counterpart to the &1Hydroangeas&0. As expected, the flower will absorb &1Lava&0 around it, in the same height as it, to create &4Mana&0.<br>After absorbing the &1Lava&0, the flower will produce &4Mana&0 for around 45 seconds. After it stops, it needs a bit of time, around 5 minutes, to cool down, before it can absorb more &1Lava&0.
-botania.page.thermalily2=The amount of &4Mana&0 the &1Thermalily&0 produces during its active period is extremely high, serving as a very functional flower for when a quick boost is needed.<br>During the "cooldown" period, if the flower were to absorb any &4Lava&0, it instead consumes it, generating no &4Mana&0 and having to wait 5 minutes from there to start over.
-botania.page.thermalily3=While placing &1Lava&0 in the world is definitely possible via &1Dispensers&0, automatically gathering it and carrying it from the &4Nether&0 or deep underground is another story entirely.<br>As such, the &1Thermalily&0 is clasified as a "semi-automatable" flower.
-botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=阿卡納薔薇
@@ -2585,7 +2486,6 @@ botania.page.gourmaryllis3=&o為我們的新房客準備的火鍋&r.
 botania.entry.narslimmus=黏球草
 botania.tagline.narslimmus=黏黏瑪那
 botania.page.narslimmus0=這個世界上一些地方還存在 著未知的能量場,那裡能產生 &1史萊姆&0.人們稱其&4史萊姆區塊&0 .&1黏球草&0就能利用這種能量.如 果它被種在了一隻由那種能 量生出的&1史萊姆&0旁邊,它就會 將其分解並收集由其產生的 所有&4瑪那&0.&1史萊姆&0越大,產生 的&4瑪那&0就越多.它也會弄得黏 黏糊糊的.
-botania.page.narslimmus1=&oStick around, would ye&r? 
 
 # -- SPECTROLUS
 botania.entry.spectrolus=斑斕花
@@ -2742,7 +2642,6 @@ botania.page.incense0=&4藥劑&0以液態形式存在時可以 提供多樣化�
 botania.page.incense1=&1熏香&0能通過右擊放在&1香盤&0上, 這時再用&1打火石&0右擊就能將 其點燃.一旦點著,熏香就不 能取下了.<br>在需要替換前,一根熏香能燃 燒60倍於對應藥水時長的時 間.  
 botania.page.incense2=燃著&1熏香&0的&1香盤&0將會提供注 入&4藥劑&0的效果,以香盤為中心 24格以內的所有玩家都會受 到影響.<br>但不是所有的&4藥劑&0效果都能 注入&1熏香&0,比如&4瞬間治療&0和&1傷&0 &1害吸收&0就不能注入,熏香也不 能有一個以上的效果.
 botania.page.incense5=對於喜歡熏香的自動化狂魔 而言,&1熏香&0能通過&1漏斗&0或其他 輸入方式接收物品.有熏香時 &1比較器&0會輸出強度為1的信號 ,燃燒的時候強度則是2.<br>最後,如果一束&1引燃透鏡&0發出 的&4瑪那脈衝&0擊中了有熏香的 香盤,就會將其點著.
-botania.page.incense3=Incense is wincense
 botania.page.incense4=放上熏香
 
 # -- EYE OF THE ANCIENTS
@@ -3015,7 +2914,6 @@ botania.page.vineBall0=&1梯子&0不能獨立存在,它們需要 有依附的東
 botania.page.vineBall1=也可以用一些類似&1活木&0和&1風&0 &1之符文&0的材料製作一把能忽 視重力發射&1籐蔓球&0的彈弓.
 botania.page.vineBall2=這將會在Vineacraft出現..
 botania.page.vineBall3=...如果那確實存在的話.
-botania.page.vineBall4=哦,你也能製作&1苔石&0
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=拉普達碎片
@@ -3084,7 +2982,6 @@ botania.entry.clip=透鏡夾
 botania.tagline.clip=瑪那脈衝槍的多透鏡升級
 botania.page.clip0=&1瑪那脈衝槍&0作為一個強大而 萬能的工具,它的缺陷就在於 每次最多只能儲存一個&1透鏡&0. 將&1透鏡夾&0和&1瑪那脈衝槍&0在合 成欄合成後,就能讓它儲存最 多6個透鏡.<br>就像他們常說的,沒有槍的 俄羅斯輪盤可不算賭博...
 botania.page.clip1=添加和取出&1透鏡&0就像之前做 的那樣,要注意的是,只會按 照脈衝槍當前的槽取出或裝 入透鏡.<br>Shift右擊&1瑪那脈衝槍&0即可切 換槽位.同時也會改變所選的 透鏡,前提是槽內裝了透鏡.
-botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
 
 # -- ROD OF THE DEPTHS
 botania.entry.cobbleRod=深淵法杖
@@ -3206,7 +3103,6 @@ botania.page.enderAir0=&1終界&0的空氣看起來有一些變 異的特性.如
 botania.entry.enderEyeBlock=終界監視者
 botania.tagline.enderEyeBlock=看著來啟動紅石信號
 botania.page.enderEyeBlock0=&4終界使者&0的眼睛被看見時十分 敏感.由此製成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
-botania.page.enderEyeBlock1=MY BRAND
 
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量傳遞器
@@ -3236,7 +3132,6 @@ botania.entry.spawnerClaw=生命灌注器
 botania.tagline.spawnerClaw=用瑪那生成怪物,即使你不在身邊
 botania.page.spawnerClaw0=&1刷怪籠&0是個有趣的東西.它們 能從稀薄的空氣中抽取出生 命,但不知何故,只在附近有 玩家時才會運行.<br>當然這會在某些程度上限制 它生成生物的速度.
 botania.page.spawnerClaw1=將一個&1生命灌注器&0放在刷怪 籠的頂端並用&1瑪那發射器&0提 供大量的&4瑪那&0,當附近無玩家 時,&4瑪那&0就會驅動刷怪籠, 就好像有玩家存在一樣.
-botania.page.spawnerClaw2=Something something shadow dragon
 
 # -- RED STRING
 botania.entry.redString=紅線
@@ -3290,9 +3185,7 @@ botania.page.corporeaIndex2=輸入"鐵..."將搜索任何名稱包 括"鐵"的�
 botania.page.corporeaIndex3=物品名稱的複數形式只能在 常規名詞涉及到複數(以"-s", "-es"或"-ies"為後綴)時使用, 當前版本同樣適用於多個物 品請求,例如"10 蘋果".<br>"10 of this"搜索10個等同於 玩家手持物品的物品.
 botania.page.corporeaIndex4=複數請求的例子包括 "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples",等等.<br>索引可以識別或多或少的搜 索的繁瑣形式,所以: "2x stacks and 20x of apples"等同於 "2 stack 2 apple"或 "2 stacks + 2 apples".
 botania.page.corporeaIndex5=搜索"all"或"every"會提供網絡 內符合條件的全部物品,所以 "all 蘋果"將提供網絡內所有 蘋果.<br>另外,搜索"count","show","tell" 或"display"不會抽取任何物品, 但會顯示物品庫存.
-botania.page.corporeaIndex8=While near a &1Corporea Index&0, if one is using &4NotEnoughItems&0, pressing C on an item in one's inventory (or NEI panel) will request 1 of said item.<br>Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.
 botania.page.corporeaIndex6=最後，在靠近&1多媒體索引&0的地方，寫上物品部份的名稱，並在聊天區域按TAB鍵將可以自動拼完物品名稱.
-botania.page.corporeaIndex7=A certain magical one at that
 
 # -- CORPOREA FUNNEL
 botania.entry.corporeaFunnel=多媒體漏斗
@@ -3399,7 +3292,6 @@ botania.page.cosmeticBaubles7=都給我閉嘴
 botania.page.cosmeticBaubles8=這隻眼睛必須被封印
 botania.page.cosmeticBaubles9=這可不是豆芽
 botania.page.cosmeticBaubles10=最佳色彩
-botania.page.cosmeticBaubles11=Tilting the umbrella too much
 botania.page.cosmeticBaubles12=鄰人部
 botania.page.cosmeticBaubles13=喵
 botania.page.cosmeticBaubles14=別讓自己太前衛了
@@ -3448,7 +3340,6 @@ botania.page.auraRing2=升級戒指
 botania.entry.travelBelt=旅居者腰帶
 botania.tagline.travelBelt=更快,更高,更遠
 botania.page.travelBelt0=穿越各種地形是個麻煩事. &1旅居者腰帶&0能裝備在&4腰帶&0欄 ,裝備時增加移動速度,跳躍 高度和摔落傷害減免.<br>最後,非潛行時能讓裝備者自 動走上一格高的坡而不需要 跳躍.
-botania.page.travelBelt1=...everell
 
 # -- TECTONIC GIRDLE
 botania.entry.knockbackBelt=抗擊腰帶
@@ -3764,7 +3655,6 @@ botania.page.tinyPotato1=將它放在Kickstarter網站上 就起效了
 botania.entry.headCreating=頭顱製造
 botania.tagline.headCreating=製造玩家的頭顱
 botania.page.headCreating0=一個特別的精靈咒語,配合一 些材料和一個&1命名牌&0就能做 出牌子裡所寫者頭的複製品. 雖然並不知道這是怎樣的原 理,但似乎可以用&1符文祭壇&0來 製作.
-botania.page.headCreating2=A subset of the community has dedicated themselves to creating heads that serve as all sorts of decorations. Unlike any other page in this lexicon, clicking the &1View Online&0 button on the left of this page will take you to a website with a list of names that can be used for this purpose. Note, however, that this list is not affiliated with Botania in any way and is definitely not the only place to find these types of heads.
 botania.page.headCreating1=在遊戲中獲得你的頭
 
 # -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo

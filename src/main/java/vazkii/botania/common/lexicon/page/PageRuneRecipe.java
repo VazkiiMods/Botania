@@ -10,22 +10,21 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
@@ -45,10 +44,10 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		String manaUsage = I18n.format("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 110, 0x66000000);
 
 		int ratio = 10;
@@ -60,15 +59,15 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / ratio);
 
-		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
-		String stopStr = StatCollector.translateToLocal("botaniamisc.shiftToStopSpin");
+		String ratioString = I18n.format("botaniamisc.ratio", ratio);
+		String stopStr = I18n.format("botaniamisc.shiftToStopSpin");
 
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
 		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 	}
 
 }

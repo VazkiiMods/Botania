@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#side"
+  },
+  "elements": [{
+    "name": "Drum",
+    "from": [ 3.0, 0.0, 3.0 ],
+    "to": [ 13.0, 14.0, 13.0 ],
+    "faces": {
+      "north": { "texture": "#side", "uv": [ 3, 2, 13, 16 ] },
+      "south": { "texture": "#side", "uv": [ 3, 2, 13, 16 ] },
+      "west": { "texture": "#side", "uv": [ 3, 2, 13, 16 ] },
+      "east": { "texture": "#side", "uv": [ 3, 2, 13, 16 ] },
+      "up": { "texture": "#top", "uv": [ 3, 3, 12, 12 ] },
+      "down": { "texture": "#top", "uv": [ 3, 3, 12, 12 ], "cullface": "down" }
+    }
+  }]
+}

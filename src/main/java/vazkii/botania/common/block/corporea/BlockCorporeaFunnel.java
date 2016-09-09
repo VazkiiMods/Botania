@@ -11,62 +11,74 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
-	IIcon[] icons;
-
 	public BlockCorporeaFunnel() {
-		super(Material.iron, LibBlockNames.CORPOREA_FUNNEL);
+		super(Material.IRON, LibBlockNames.CORPOREA_FUNNEL);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
+		setSoundType(SoundType.METAL);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
-			((TileCorporeaFunnel) world.getTileEntity(x, y, z)).doRequest();
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			((TileCorporeaFunnel) world.getTileEntity(pos)).doRequest();
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
+	@Nonnull
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 > 1 ? 1 : 0];
-	}
-
-	@Override
-	public TileCorporeaBase createNewTileEntity(World world, int meta) {
+	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaFunnel();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.corporeaFunnel;
 	}
 }

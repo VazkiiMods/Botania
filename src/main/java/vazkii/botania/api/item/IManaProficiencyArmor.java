@@ -11,6 +11,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -23,16 +24,18 @@ import net.minecraft.item.ItemStack;
  */
 public interface IManaProficiencyArmor {
 
-	public boolean shouldGiveProficiency(ItemStack stack, int slot, EntityPlayer player);
+	public boolean shouldGiveProficiency(ItemStack stack, EntityEquipmentSlot slot, EntityPlayer player);
 
 	public final static class Helper {
 
 		public static boolean hasProficiency(EntityPlayer player) {
-			for(int i = 0; i < 4; i++) {
-				ItemStack armor = player.getCurrentArmor(i);
+			for(EntityEquipmentSlot e: EntityEquipmentSlot.values()) {
+				if(e.getSlotType() != EntityEquipmentSlot.Type.ARMOR)
+					continue;
+				ItemStack armor = player.getItemStackFromSlot(e);
 				if(armor != null) {
 					Item item = armor.getItem();
-					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, i, player))
+					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player))
 						return true;
 				}
 			}

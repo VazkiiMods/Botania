@@ -1,0 +1,6 @@
+{
+  "parent": "botania:item/crystalBow",
+  "textures": {
+    "layer0": "botania:items/crystalBow1"
+  }
+}

@@ -10,41 +10,39 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import java.util.List;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.List;
 
 public class GuiFlowerBag extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
 
-	public GuiFlowerBag(EntityPlayer player) {
-		super(new ContainerFlowerBag(player));
+	public GuiFlowerBag(InventoryPlayer playerInv, InventoryFlowerBag flowerBagInv) {
+		super(new ContainerFlowerBag(playerInv, flowerBagInv));
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		String s = StatCollector.translateToLocal("item.botania:flowerBag.name");
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		String s = I18n.format("item.botania:flowerBag.name");
 		fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-		fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, ySize - 96 + 2, 4210752);
+		fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
@@ -52,23 +50,18 @@ public class GuiFlowerBag extends GuiContainer {
 
 		List<Slot> slotList = inventorySlots.inventorySlots;
 		for(Slot slot : slotList)
-			if(slot instanceof SlotFlower) {
-				SlotFlower slotf = (SlotFlower) slot;
+			if(slot instanceof SlotItemHandler) {
+				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {
-					ItemStack stack = new ItemStack(ModBlocks.flower, 0, slotf.color);
+					ItemStack stack = new ItemStack(ModBlocks.flower, 0, slotf.getSlotIndex()); // index matches colors
 					int x = guiLeft + slotf.xDisplayPosition;
 					int y = guiTop + slotf.yDisplayPosition;
 					RenderHelper.enableGUIStandardItemLighting();
-					RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+					mc.getRenderItem().renderItemIntoGUI(stack, x, y);
 					RenderHelper.disableStandardItemLighting();
-					mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
+					mc.fontRendererObj.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 				}
 			}
-	}
-
-	@Override
-	protected boolean checkHotbarKeys(int p_146983_1_) {
-		return false;
 	}
 
 }

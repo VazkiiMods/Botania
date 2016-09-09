@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import baubles.api.BaubleType;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
 public class ItemPixieRing extends ItemBauble implements IPixieSpawner {
 

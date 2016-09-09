@@ -16,31 +16,33 @@ import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
-	Block block;
+	private final Block block;
 
 	public BehaviourSeeds(Block block) {
 		this.block = block;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		EnumFacing facing = BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata());
-		int x = par1IBlockSource.getXInt() + facing.getFrontOffsetX();
-		int y = par1IBlockSource.getYInt() + facing.getFrontOffsetY();
-		int z = par1IBlockSource.getZInt() + facing.getFrontOffsetZ();
-		World world = par1IBlockSource.getWorld();
+	public ItemStack dispenseStack(IBlockSource source, ItemStack par2ItemStack) {
+		World world = source.getWorld();
+		EnumFacing facing = world.getBlockState(source.getBlockPos()).getValue(BlockDispenser.FACING);
+		BlockPos pos = source.getBlockPos().offset(facing);
 
-		if(world.getBlock(x, y, z).isAir(world, x, y, z) && block.canBlockStay(world, x, y, z)) {
-			world.setBlock(x, y, z, block);
+		if(world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos) && block.canPlaceBlockAt(world, pos)) {
+			world.setBlockState(pos, block.getDefaultState());
 			par2ItemStack.stackSize--;
 			return par2ItemStack;
 		}
 
-		return super.dispenseStack(par1IBlockSource, par2ItemStack);
+		return super.dispenseStack(source, par2ItemStack);
 	}
 
 }

@@ -11,43 +11,43 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
+import javax.annotation.Nonnull;
+
 public abstract class TileRedString extends TileMod implements ITileBound {
 
-	private ChunkCoordinates binding;
+	private BlockPos binding;
 
 	@Override
-	public void updateEntity() {
-		ForgeDirection dir = getOrientation();
-		int x = xCoord;
-		int y = yCoord;
-		int z = zCoord;
+	public void update() {
+		EnumFacing dir = getOrientation();
+		BlockPos pos_ = getPos();
 		int range = getRange();
-		ChunkCoordinates currBinding = getBinding();
+		BlockPos currBinding = getBinding();
 		setBinding(null);
 
 		for(int i = 0; i < range; i++) {
-			x += dir.offsetX;
-			y += dir.offsetY;
-			z += dir.offsetZ;
-			if(worldObj.isAirBlock(x, y, z))
+			pos_ = pos_.offset(dir);
+			if(worldObj.isAirBlock(pos_))
 				continue;
 
-			TileEntity tile = worldObj.getTileEntity(x, y, z);
+			TileEntity tile = worldObj.getTileEntity(pos_);
 			if(tile instanceof TileRedString)
 				continue;
 
-			if(acceptBlock(x, y, z)) {
-				setBinding(new ChunkCoordinates(x, y, z));
-				if(currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z)
-					onBound(x, y, z);
+			if(acceptBlock(pos_)) {
+				setBinding(pos_);
+				if(currBinding == null || !currBinding.equals(pos_))
+					onBound(pos_);
 				break;
 			}
 		}
@@ -57,38 +57,46 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		return 8;
 	}
 
-	public abstract boolean acceptBlock(int x, int y, int z);
+	public abstract boolean acceptBlock(BlockPos pos);
 
-	public void onBound(int x, int y, int z) {
-		// NO-OP
-	}
+	public void onBound(BlockPos pos) {}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		return binding;
 	}
 
-	public void setBinding(ChunkCoordinates binding) {
+	public void setBinding(BlockPos binding) {
 		this.binding = binding;
 	}
 
-	public ForgeDirection getOrientation() {
-		return ForgeDirection.getOrientation(getBlockMetadata());
+	public EnumFacing getOrientation() {
+		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.FACING);
 	}
 
 	public TileEntity getTileAtBinding() {
-		ChunkCoordinates binding = getBinding();
-		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
+		BlockPos binding = getBinding();
+		return binding == null ? null : worldObj.getTileEntity(binding);
+	}
+
+	public IBlockState getStateAtBinding() {
+		BlockPos binding = getBinding();
+		return binding == null ? Blocks.AIR.getDefaultState() : worldObj.getBlockState(binding);
 	}
 
 	public Block getBlockAtBinding() {
-		ChunkCoordinates binding = getBinding();
-		return binding == null ? Blocks.air : worldObj.getBlock(binding.posX, binding.posY, binding.posZ);
+		return getStateAtBinding().getBlock();
+	}
+
+	@Override
+	public boolean hasFastRenderer() {
+		return true;
 	}
 
 }

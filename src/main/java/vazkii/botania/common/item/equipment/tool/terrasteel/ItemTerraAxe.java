@@ -10,39 +10,40 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-
+import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
 	
@@ -51,7 +52,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The number of blocks per tick which the Terra Truncator will
 	 * collect.
 	 */
-	public static final int BLOCK_SWAP_RATE = 10;
+	private static final int BLOCK_SWAP_RATE = 10;
 	
 	/**
 	 * The maximum radius (in blocks) which the Terra Truncator will go
@@ -63,7 +64,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * The maximum number of leaf blocks which the Terra Truncator will chew/go
 	 * through once a leaf block is encountered.
 	 */
-	public static final int LEAF_BLOCK_RANGE = 3;
+	private static final int LEAF_BLOCK_RANGE = 3;
 	
 	/**
 	 * The amount of mana required to restore 1 point of damage.
@@ -74,42 +75,29 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<Integer, Set<BlockSwapper>>();
-
-	IIcon iconOn, iconOff;
+	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
 
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
-		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
+		this.attackSpeed = -3f;
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
+            if(entity instanceof EntityPlayer && !shouldBreak(((EntityPlayer) entity)))
+                return 0;
+            return 1;
+        });
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconOn = IconHelper.forItem(par1IconRegister, this, 0);
-		iconOff = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int p_77617_1_) {
-		return iconOn;
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-		return shouldBreak(player) ? iconOn : iconOff;
-	}
-
-	public boolean shouldBreak(EntityPlayer player) {
+	private boolean shouldBreak(EntityPlayer player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
-		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
 		if(raycast != null) {
-			breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit);
-			ItemLokiRing.breakOnAllCursors(player, this, stack, x, y, z, raycast.sideHit);
+			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
+			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
 		}
 
 		return false;
@@ -121,10 +109,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	}
 
 	@Override
-	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
+	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
 		if(shouldBreak(player)) {
-			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-			addBlockSwapper(player.worldObj, player, stack, coords, 32, true);
+			addBlockSwapper(player.worldObj, player, stack, pos, 32, true);
 		}
 	}
 
@@ -140,7 +127,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return;
 
 		if(event.phase == Phase.END) {
-			int dim = event.world.provider.dimensionId;
+			int dim = event.world.provider.getDimension();
 			if(blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 				
@@ -171,24 +158,21 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * @param steps The range of the block swapper, in blocks.
 	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
 	 * documentation).
-	 * @return The created block swapper.
 	 */
-	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, int steps, boolean leaves) {
+	private static void addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		// Block swapper registration should only occur on the server
 		if(world.isRemote)
-			return swapper;
+			return;
 
 		// If the mapping for this dimension doesn't exist, create it.
-		int dim = world.provider.dimensionId;
+		int dim = world.provider.getDimension();
 		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new HashSet<BlockSwapper>());
+			blockSwappers.put(dim, new HashSet<>());
 
 		// Add the swapper
 		blockSwappers.get(dim).add(swapper);
-
-		return swapper;
 	}
 
 	/**
@@ -213,8 +197,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * for the next candidates for swapping. 1 is a good default.
 		 */
 		public static final int SINGLE_BLOCK_RADIUS = 1;
-		
-		
+
 		/**
 		 * The world the block swapper is doing the swapping in.
 		 */
@@ -233,7 +216,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		/**
 		 * The origin of the swapper (eg, where it started).
 		 */
-		private final ChunkCoordinates origin;
+		private final BlockPos origin;
 		
 		/**
 		 * Denotes whether leaves should be treated specially.
@@ -248,13 +231,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		/**
 		 * The priority queue of all possible candidates for swapping.
 		 */
-		private PriorityQueue<SwapCandidate> candidateQueue;
+		private final PriorityQueue<SwapCandidate> candidateQueue;
 		
 		/**
 		 * The set of already swaps coordinates which do not have
 		 * to be revisited.
 		 */
-		private Set<ChunkCoordinates> completedCoords;
+		private final Set<BlockPos> completedCoords;
 		
 		/**
 		 * Creates a new block swapper with the provided parameters.
@@ -266,7 +249,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * @param leaves If true, leaves will be treated specially and
 		 * severely reduce the radius of further spreading when encountered.
 		 */
-		public BlockSwapper(World world, EntityPlayer player, ItemStack truncator, ChunkCoordinates origCoords, int range, boolean leaves) {
+		public BlockSwapper(World world, EntityPlayer player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
 			this.world = world;
 			this.player = player;
 			this.truncator = truncator;
@@ -274,8 +257,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			this.range = range;
 			this.treatLeavesSpecial = leaves;
 			
-			this.candidateQueue = new PriorityQueue<SwapCandidate>();
-			this.completedCoords = new HashSet<ChunkCoordinates>();
+			this.candidateQueue = new PriorityQueue<>();
+			this.completedCoords = new HashSet<>();
 			
 			// Add the origin to our candidate queue with the original range
 			candidateQueue.offer(new SwapCandidate(this.origin, this.range));
@@ -310,11 +293,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// Otherwise, perform the break and then look at the adjacent tiles.
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world, 
-						cand.coordinates.posX, cand.coordinates.posY, cand.coordinates.posZ, 
-						origin.posX, origin.posY, origin.posZ, 
+						cand.coordinates, 
+						origin, 
 						null, ToolCommons.materialsAxe,
-						EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, truncator) > 0, 
-						EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, truncator), 
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, truncator) > 0,
+						EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, truncator),
 						0F, false, treatLeavesSpecial);
 				
 				remainingSwaps--;
@@ -323,11 +306,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				
 				// Then, go through all of the adjacent blocks and look if
 				// any of them are any good.
-				for(ChunkCoordinates adj : adjacent(cand.coordinates)) {
-					Block block = world.getBlock(adj.posX, adj.posY, adj.posZ);
+				for(BlockPos adj : adjacent(cand.coordinates)) {
+					Block block = world.getBlockState(adj).getBlock();
 					
-					boolean isWood = block.isWood(world, adj.posX, adj.posY, adj.posZ);
-					boolean isLeaf = block.isLeaves(world, adj.posX, adj.posY, adj.posZ);
+					boolean isWood = block.isWood(world, adj);
+					boolean isLeaf = block.isLeaves(world.getBlockState(adj), world, adj);
 					
 					// If it's not wood or a leaf, we aren't interested.
 					if(!isWood && !isLeaf)
@@ -348,8 +331,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return true;
 		}
 		
-		public List<ChunkCoordinates> adjacent(ChunkCoordinates original) {
-			List<ChunkCoordinates> coords = new ArrayList<ChunkCoordinates>();
+		public List<BlockPos> adjacent(BlockPos original) {
+			List<BlockPos> coords = new ArrayList<>();
 			// Visit all the surrounding blocks in the provided radius.
 			// Gotta love these nested loops, right?
 			for(int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++)
@@ -359,12 +342,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						if(dx == 0 && dy == 0 && dz == 0) 
 							continue;
 						
-						coords.add(new ChunkCoordinates(original.posX + dx, original.posY + dy, original.posZ + dz));
+						coords.add(original.add(dx, dy, dz));
 					}
 			
 			return coords;
 		}
-
+		
 		/**
 		 * Represents a potential candidate for swapping/removal. Sorted by
 		 * range (where a larger range is more preferable). As we're using
@@ -376,12 +359,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			/**
 			 * The location of this swap candidate.
 			 */
-			public ChunkCoordinates coordinates;
+			public final BlockPos coordinates;
 			
 			/**
 			 * The remaining range of this swap candidate.
 			 */
-			public int range;
+			public final int range;
 			
 			/**
 			 * Constructs a new Swap Candidate with the provided
@@ -389,13 +372,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			 * @param coordinates The coordinates of this candidate.
 			 * @param range The remaining range of this candidate.
 			 */
-			public SwapCandidate(ChunkCoordinates coordinates, int range) {
+			public SwapCandidate(BlockPos coordinates, int range) {
 				this.coordinates = coordinates;
 				this.range = range;
 			}
 			
 			@Override
-			public int compareTo(SwapCandidate other) {
+			public int compareTo(@Nonnull SwapCandidate other) {
 				// Aka, a bigger range implies a smaller value, meaning
 				// bigger ranges will be preferred in a min-heap
 				return other.range - range;
@@ -407,6 +390,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				
 				SwapCandidate cand = (SwapCandidate) other;
 				return coordinates.equals(cand.coordinates) && range == cand.range;
+			}
+
+			@Override
+			public int hashCode() {
+				return Objects.hash(coordinates, range);
 			}
 		}
 	}

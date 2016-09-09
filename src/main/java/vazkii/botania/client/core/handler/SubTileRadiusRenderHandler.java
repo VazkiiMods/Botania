@@ -10,52 +10,50 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
 
 public final class SubTileRadiusRenderHandler {
 
+	private SubTileRadiusRenderHandler() {}
+
 	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		MovingObjectPosition pos = mc.objectMouseOver;
+		RayTraceResult pos = mc.objectMouseOver;
 
 		if(!Botania.proxy.isClientPlayerWearingMonocle() || pos == null || pos.entityHit != null)
 			return;
-		int x = pos.blockX;
-		int y = pos.blockY;
-		int z = pos.blockZ;
+		BlockPos bPos = pos.getBlockPos();
 
-		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
-		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
-			ChunkCoordinates coords = ItemTwigWand.getBoundTile(stackHeld);
-			if(coords.posY != -1) {
-				x = coords.posX;
-				y = coords.posY;
-				z = coords.posZ;
+		ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand);
+		if(stackHeld != null && ItemTwigWand.getBindMode(stackHeld)) {
+			BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
+			if(coords.getY() != -1) {
+				bPos = coords;
 			}
 		}
 
-		TileEntity tile = mc.theWorld.getTileEntity(x, y, z);
+		TileEntity tile = mc.theWorld.getTileEntity(bPos);
 		if(tile == null || !(tile instanceof ISubTileContainer))
 			return;
 		ISubTileContainer container = (ISubTileContainer) tile;
@@ -66,27 +64,36 @@ public final class SubTileRadiusRenderHandler {
 		if(descriptor == null)
 			return;
 
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Tessellator.renderingWorldRenderer = false;
+		GlStateManager.pushMatrix();
+		GlStateManager.disableTexture2D();
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+		GlStateManager.disableLighting();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(descriptor.isCircle())
 			renderCircle(descriptor.getSubtileCoords(), descriptor.getCircleRadius());
 		else renderRectangle(descriptor.getAABB());
 
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
 		GL11.glPopAttrib();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
-	public void renderRectangle(AxisAlignedBB aabb) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(aabb.minX - RenderManager.renderPosX, aabb.minY - RenderManager.renderPosY, aabb.minZ - RenderManager.renderPosZ);
+	private static void renderRectangle(AxisAlignedBB aabb) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
@@ -96,34 +103,45 @@ public final class SubTileRadiusRenderHandler {
 		double x = aabb.maxX - aabb.minX - f;
 		double z = aabb.maxZ - aabb.minZ - f;
 
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		tessellator.addVertex(x, f, f);
-		tessellator.addVertex(f, f, f);
-		tessellator.addVertex(f, f, z);
-		tessellator.addVertex(x, f, z);
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(x, f, f).endVertex();
+		tessellator.getBuffer().pos(f, f, f).endVertex();
+		tessellator.getBuffer().pos(f, f, z).endVertex();
+		tessellator.getBuffer().pos(x, f, z).endVertex();
 		tessellator.draw();
 
 		x += f;
 		z += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.startDrawingQuads();
-		tessellator.addVertex(x, f1, 0);
-		tessellator.addVertex(0, f1, 0);
-		tessellator.addVertex(0, f1, z);
-		tessellator.addVertex(x, f1, z);
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(x, f1, 0).endVertex();
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
+		tessellator.getBuffer().pos(0, f1, z).endVertex();
+		tessellator.getBuffer().pos(x, f1, z).endVertex();
 		tessellator.draw();
 
-		GL11.glPopMatrix();
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GlStateManager.popMatrix();
 	}
 
-	public void renderCircle(ChunkCoordinates center, double radius) {
-		GL11.glPushMatrix();
-		double x = center.posX + 0.5;
-		double y = center.posY;
-		double z = center.posZ + 0.5;
-		GL11.glTranslated(x - RenderManager.renderPosX, y - RenderManager.renderPosY, z - RenderManager.renderPosZ);
+	private static void renderCircle(BlockPos center, double radius) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
+		GlStateManager.pushMatrix();
+		double x = center.getX() + 0.5;
+		double y = center.getY();
+		double z = center.getZ() + 0.5;
+		GlStateManager.translate(x - renderPosX, y - renderPosY, z - renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
@@ -136,32 +154,33 @@ public final class SubTileRadiusRenderHandler {
 		int step = totalAngles / drawAngles;
 
 		radius -= f;
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tessellator.addVertex(0, f, 0);
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(0, f, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.addVertex(xp, f, zp);
+			tessellator.getBuffer().pos(xp, f, zp).endVertex();
 		}
-		tessellator.addVertex(0, f, 0);
+		tessellator.getBuffer().pos(0, f, 0).endVertex();
 		tessellator.draw();
 
 		radius += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tessellator.addVertex(0, f1, 0);
+		tessellator.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.addVertex(xp, f1, zp);
+			tessellator.getBuffer().pos(xp, f1, zp).endVertex();
 		}
-		tessellator.addVertex(0, f1, 0);
+		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		tessellator.draw();
-		GL11.glPopMatrix();
+		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GlStateManager.popMatrix();
 	}
 
 }

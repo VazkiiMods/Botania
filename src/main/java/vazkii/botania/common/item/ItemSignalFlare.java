@@ -10,126 +10,104 @@
  */
 package vazkii.botania.common.item;
 
-import java.awt.Color;
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSignalFlare extends ItemMod {
+import javax.annotation.Nonnull;
+import java.util.List;
 
-	IIcon[] icons;
+public class ItemSignalFlare extends ItemMod {
 
 	private static final String TAG_COLOR = "color";
 
 	public ItemSignalFlare() {
-		super();
+		super(LibItemNames.SIGNAL_FLARE);
 		setMaxStackSize(1);
 		setNoRepair();
 		setMaxDamage(200);
-		setUnlocalizedName(LibItemNames.SIGNAL_FLARE);
 	}
 
+	@Nonnull
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		if(par1ItemStack.getItemDamage() == 0) {
-			if(par2World.isRemote)
-				par3EntityPlayer.swingItem();
+			if(world.isRemote)
+				player.swingArm(hand);
 			else {
-				EntitySignalFlare flare = new EntitySignalFlare(par2World);
-				flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
+				EntitySignalFlare flare = new EntitySignalFlare(world);
+				flare.setPosition(player.posX, player.posY, player.posZ);
 				flare.setColor(getColor(par1ItemStack));
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				flare.setFiredAt((int) player.posY);
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 40F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-				par2World.spawnEntityInWorld(flare);
+				world.spawnEntityInWorld(flare);
 
 				int stunned = 0;
 				int range = 5;
-				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
+				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled())) {
-						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
+					if(entity != player && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled())) {
+						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 						stunned++;
 					}
 
 				if(stunned >= 100)
-					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
+					player.addStat(ModAchievements.signalFlareStun, 1);
 			}
-			par1ItemStack.damageItem(200, par3EntityPlayer);
+			par1ItemStack.damageItem(200, player);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}
 
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[Math.min(1, pass)];
-	}
-
-	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0)
-			return 0xFFFFFF;
-
-		int colorv = getColor(par1ItemStack);
-		if(colorv >= EntitySheep.fleeceColorTable.length || colorv < 0)
-			return 0xFFFFFF;
-
-		float[] color = EntitySheep.fleeceColorTable[getColor(par1ItemStack)];
-		return new Color(color[0], color[1], color[2]).getRGB();
-	}
-
-	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(forColor(i));
+			stacks.add(forColor(i));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
-		par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.flareColor"), StatCollector.translateToLocal("botania.color" + storedColor)));
+		stacks.add(I18n.format("botaniamisc.flareColor", I18n.format("botania.color" + storedColor)));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAllMeta(this, EnumDyeColor.values().length);
 	}
 
 	public static ItemStack forColor(int color) {

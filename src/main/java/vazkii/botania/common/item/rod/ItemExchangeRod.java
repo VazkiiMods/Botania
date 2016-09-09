@@ -10,27 +10,31 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -42,9 +46,10 @@ import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWireframeCoordinateListProvider {
 
@@ -62,57 +67,53 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	private static final String TAG_EXTRA_RANGE = "extraRange";
 
 	public ItemExchangeRod() {
+		super(LibItemNames.EXCHANGE_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.EXCHANGE_ROD);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		Block wblock = par3World.getBlock(par4, par5, par6);
-		int wmeta = par3World.getBlockMetadata(par4, par5, par6);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		IBlockState wstate = world.getBlockState(pos);
 
-		if(par2EntityPlayer.isSneaking()) {
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+		if(player.isSneaking()) {
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile == null) {
-				if(BlockCamo.isValidBlock(wblock)) {
-					Item item = Item.getItemFromBlock(wblock);
-					if(!item.getHasSubtypes())
-						wmeta = 0;
+				if(BlockCamo.isValidBlock(wstate)) {
+					Item item = Item.getItemFromBlock(wstate.getBlock());
 
-					boolean set = setBlock(par1ItemStack, wblock, wmeta);
-					par2EntityPlayer.setCurrentItemOrArmor(0, par1ItemStack);
+					boolean set = setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
+					player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
 
-					displayRemainderCounter(par2EntityPlayer, par1ItemStack);
-					return set;
+					displayRemainderCounter(player, par1ItemStack);
+					return EnumActionResult.SUCCESS;
 				}
 			}
 		} else if(canExchange(par1ItemStack) && !ItemNBTHelper.getBoolean(par1ItemStack, TAG_SWAPPING, false)) {
 			Block block = getBlock(par1ItemStack);
 			int meta = getBlockMeta(par1ItemStack);
-			List<ChunkCoordinates> swap = getBlocksToSwap(par3World, par1ItemStack, block, meta, par4, par5, par6, null, 0);
+			List<BlockPos> swap = getBlocksToSwap(world, par1ItemStack, block.getStateFromMeta(meta), pos, null);
 			if(swap.size() > 0) {
 				ItemNBTHelper.setBoolean(par1ItemStack, TAG_SWAPPING, true);
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_X, par4);
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Y, par5);
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Z, par6);
-				setTargetBlock(par1ItemStack, wblock, wmeta);
-				if(par3World.isRemote)
-					par2EntityPlayer.swingItem();
+				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_X, pos.getX());
+				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Y, pos.getY());
+				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Z, pos.getZ());
+				setTargetBlock(par1ItemStack, wstate.getBlock(), wstate.getBlock().getMetaFromState(wstate));
+				if(world.isRemote)
+					player.swingArm(hand);
 			}
 		}
 
-		return false;
+		return EnumActionResult.SUCCESS;
 	}
 
 	@SubscribeEvent
-	public void onLeftClick(PlayerInteractEvent event) {
-		if(event.action == Action.LEFT_CLICK_BLOCK) {
-			ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-			if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, false)) {
-				if(exchange(event.world, event.entityPlayer, event.x, event.y, event.z, stack, getBlock(stack), getBlockMeta(stack)))
-					ManaItemHandler.requestManaExactForTool(stack, event.entityPlayer, COST, true);
-			}
+	public void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+		ItemStack stack = event.getItemStack();
+		if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
+			if(exchange(event.getWorld(), event.getEntityPlayer(), event.getPos(), stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
+				ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, true);
 		}
 	}
 
@@ -141,31 +142,30 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
 			Block targetBlock = getTargetBlock(stack);
 			int targetMeta = getTargetBlockMeta(stack);
-			List<ChunkCoordinates> swap = getBlocksToSwap(world, stack, block, meta, x, y, z, targetBlock, targetMeta);
+			List<BlockPos> swap = getBlocksToSwap(world, stack, block.getStateFromMeta(meta), new BlockPos(x, y, z), targetBlock.getStateFromMeta(targetMeta));
 			if(swap.size() == 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
 
-			ChunkCoordinates coords = swap.get(world.rand.nextInt(swap.size()));
-			boolean exchange = exchange(world, player, coords.posX, coords.posY, coords.posZ, stack, block, meta);
+			BlockPos coords = swap.get(world.rand.nextInt(swap.size()));
+			boolean exchange = exchange(world, player, coords, stack, block.getStateFromMeta(meta));
 			if(exchange)
 				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 			else ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 		}
 	}
 
-	public List<ChunkCoordinates> getBlocksToSwap(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
+	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, IBlockState swapState, BlockPos pos, IBlockState targetState) {
 		// If we have no target block passed in, infer it to be
 		// the block which the swapping is centered on (presumably the block
 		// which the player is looking at)
-		if(targetBlock == null) {
-			targetBlock = world.getBlock(xc, yc, zc);
-			targetMeta = world.getBlockMetadata(xc, yc, zc);
+		if(targetState == null) {
+			targetState = world.getBlockState(pos);
 		}
 
 		// Our result list
-		List<ChunkCoordinates> coordsList = new ArrayList<ChunkCoordinates>();
+		List<BlockPos> coordsList = new ArrayList<>();
 
 		// We subtract 1 from the effective range as the center tile is included
 		// So, with a range of 3, we are visiting tiles at -2, -1, 0, 1, 2
@@ -175,34 +175,33 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		for(int offsetX = -effRange; offsetX <= effRange; offsetX++)
 			for(int offsetY = -effRange; offsetY <= effRange; offsetY++)
 				for(int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
-					int x = xc + offsetX, y = yc + offsetY, z = zc + offsetZ;
-					
-					Block currentBlock = world.getBlock(x, y, z);
-					int currentMeta = world.getBlockMetadata(x, y, z);
+					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
+
+					IBlockState currentState = world.getBlockState(pos_);
 					
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
-					if(currentBlock != targetBlock || currentMeta != targetMeta)
+					if(currentState != targetState)
 						continue;
 					
 					// If this block is already the block we're swapping to,
 					// we don't need to swap again
-					if(currentBlock == blockToSwap && currentMeta == metaToSwap)
+					if(currentState == swapState)
 						continue;
 					
 					// Check to see if the block is visible on any side:
-					for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-						int adjX = x + dir.offsetX, adjY = y + dir.offsetY, adjZ = z + dir.offsetZ;
-						Block adjBlock = world.getBlock(adjX, adjY, adjZ);
-						
+					for(EnumFacing dir : EnumFacing.VALUES) {
+						BlockPos adjPos = pos_.offset(dir);
+						IBlockState adjState = world.getBlockState(adjPos);
+
 						// If the side of the adjacent block facing this block is
 						// _not_ solid, then this block is considered "visible"
 						// and should be replaced.
 						
 						// If there is a rendering-specific way to check for this,
 						// that should be placed in preference to this.
-						if(!adjBlock.isSideSolid(world, adjX, adjY, adjZ, dir.getOpposite())) {
-							coordsList.add(new ChunkCoordinates(x, y, z));
+						if(!adjState.isSideSolid(world, adjPos, dir.getOpposite())) {
+							coordsList.add(pos_);
 							break;
 						}
 					}
@@ -211,26 +210,26 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return coordsList;
 	}
 
-	public boolean exchange(World world, EntityPlayer player, int x, int y, int z, ItemStack stack, Block blockToSet, int metaToSet) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public boolean exchange(World world, EntityPlayer player, BlockPos pos, ItemStack stack, IBlockState state) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null)
 			return false;
 
-		ItemStack placeStack = removeFromInventory(player, stack, blockToSet, metaToSet, false);
+		ItemStack placeStack = removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), false);
 		if(placeStack != null) {
-			Block blockAt = world.getBlock(x, y, z);
-			int meta = world.getBlockMetadata(x, y, z);
-			if(!blockAt.isAir(world, x, y, z) && blockAt.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0 && (blockAt != blockToSet || meta != metaToSet)) {
+			IBlockState stateAt = world.getBlockState(pos);
+			Block blockAt = stateAt.getBlock();
+			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
 					if(!player.capabilities.isCreativeMode) {
-						List<ItemStack> drops = blockAt.getDrops(world, x, y, z, meta, 0);
+						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
 						for(ItemStack drop : drops)
-							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, drop));
-						removeFromInventory(player, stack, blockToSet, metaToSet, true);
+							world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
+						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);
 					}
-					world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blockAt) + (meta << 12));
-					world.setBlock(x, y, z, blockToSet, metaToSet, 1 | 2);
-					blockToSet.onBlockPlacedBy(world, x, y, z, player, placeStack);
+					world.playEvent(2001, pos, Block.getStateId(state));
+					world.setBlockState(pos, state, 1 | 2);
+					state.getBlock().onBlockPlacedBy(world, pos, state, player, placeStack);
 				}
 				displayRemainderCounter(player, stack);
 				return true;
@@ -242,11 +241,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	public boolean canExchange(ItemStack stack) {
 		Block block = getBlock(stack);
-		return block != null && block != Blocks.air;
+		return block != null && block != Blocks.AIR;
 	}
 
 	public static ItemStack removeFromInventory(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta, boolean doit) {
-		List<ItemStack> providers = new ArrayList();
+		List<ItemStack> providers = new ArrayList<>();
 		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
 			if(invStack == null)
@@ -334,26 +333,22 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block));
+		ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 		ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 		return true;
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + TextFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	public static String getBlockName(ItemStack stack) {
@@ -369,10 +364,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_META, 0);
 	}
 
-	private boolean setTargetBlock(ItemStack stack, Block block, int meta) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Block.blockRegistry.getNameForObject(block));
+	private void setTargetBlock(ItemStack stack, Block block, int meta) {
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 		ItemNBTHelper.setInt(stack, TAG_TARGET_BLOCK_META, meta);
-		return true;
 	}
 
 	public static String getTargetBlockName(ItemStack stack) {
@@ -390,33 +384,33 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
-		ItemStack holding = player.getCurrentEquippedItem();
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+		ItemStack holding = player.getHeldItemMainhand();
 		if(holding != stack || !canExchange(stack))
-			return null;
+			return ImmutableList.of();
 
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 
-		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
-		if(pos != null) {
-			int x = pos.blockX;
-			int y = pos.blockY;
-			int z = pos.blockZ;
+		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
+		if(pos != null && pos.getBlockPos() != null) {
+			BlockPos bPos = pos.getBlockPos();
 			Block targetBlock = null;
 			int targetMeta = 0;
 			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-				x = ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0);
-				y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
-				z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
+				bPos = new BlockPos(
+					ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
+					ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0),
+					ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0)
+				);
 				targetBlock = getTargetBlock(stack);
 				targetMeta = getTargetBlockMeta(stack);
 			}
 
-			if(!player.worldObj.isAirBlock(x, y, z)) {
-				List<ChunkCoordinates> coordsList = getBlocksToSwap(player.worldObj, stack, block, meta, x, y, z, targetBlock, targetMeta);
-				for(ChunkCoordinates coords : coordsList)
-					if(coords.posX == x && coords.posY == y && coords.posZ == z) {
+			if(!player.worldObj.isAirBlock(bPos)) {
+				List<BlockPos> coordsList = getBlocksToSwap(player.worldObj, stack, block.getStateFromMeta(meta), bPos, targetBlock == null ? null : targetBlock.getStateFromMeta(targetMeta));
+				for(BlockPos coords : coordsList)
+					if(coords.equals(bPos)) {
 						coordsList.remove(coords);
 						break;
 					}
@@ -424,6 +418,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			}
 
 		}
+		return ImmutableList.of();
+	}
+
+	@Override
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
 		return null;
 	}
 

@@ -2,20 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 15, 2014, 4:57:52 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.base.Predicates;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -26,8 +27,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -38,9 +41,21 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TileEnchanter extends TileMod implements ISparkAttachable {
 
@@ -52,68 +67,70 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private static final String TAG_ITEM = "item";
 	private static final String TAG_ENCHANTS = "enchantsToApply";
 
-	public int stage = 0;
+	public State stage = State.IDLE;
 	public int stageTicks = 0;
 
 	public int stage3EndTicks = 0;
 
-	int manaRequired = -1;
-	int mana = 0;
+	private int manaRequired = -1;
+	private int mana = 0;
 
 	public ItemStack itemToEnchant = null;
-	List<EnchantmentData> enchants = new ArrayList();
+	private final List<EnchantmentData> enchants = new ArrayList<>();
 
-	private static final int[][] OBSIDIAN_LOCATIONS = new int[][] {
-		{ 0, -1, 0 },
-		{ 0, -1, 1 }, { 0, -1, -1 }, { 1, -1, 0 }, { -1, -1, 0 },
-		{ 0, -1, 2 }, { -1, -1, 2 }, { 1, -1, 2 },
-		{ 0, -1, -2 }, { -1, -1, -2 }, { 1, -1, -2 },
-		{ 2, -1, 0 }, { 2, -1, 1 }, { 2, -1, -1 },
-		{ -2, -1, 0 }, { -2, -1, 1 }, { -2, -1, -1 }
+	private static final BlockPos[] OBSIDIAN_LOCATIONS = {
+		new BlockPos(0, -1, 0),
+		new BlockPos(0, -1, 1), new BlockPos(0, -1, -1), new BlockPos(1, -1, 0), new BlockPos(-1, -1, 0),
+		new BlockPos(0, -1, 2), new BlockPos(-1, -1, 2), new BlockPos(1, -1, 2),
+		new BlockPos(0, -1, -2), new BlockPos(-1, -1, -2), new BlockPos(1, -1, -2),
+		new BlockPos(2, -1, 0), new BlockPos(2, -1, 1), new BlockPos(2, -1, -1 ),
+		new BlockPos(-2, -1, 0), new BlockPos(-2, -1, 1), new BlockPos(-2, -1, -1)
 	};
 
-	private static final int[][][] PYLON_LOCATIONS = new int[][][] {
-		{ { -5, 1, 0 }, { 5, 1, 0 }, { -4, 1, 3 }, { 4, 1, 3 }, { -4, 1, -3 }, { 4, 1, -3 } },
-		{ { 0, 1, -5 }, { 0, 1, 5 }, { 3, 1, -4 }, { 3, 1, 4 }, { -3, 1, -4 }, { -3, 1, 4 } }
-	};
+	private static final Map<EnumFacing.Axis, BlockPos[]> PYLON_LOCATIONS = new EnumMap<>(EnumFacing.Axis.class);
 
-	private static final int[][] FLOWER_LOCATIONS = new int[][] {
-		{ -1, 0, -1 }, { 1, 0, -1 }, { -1, 0, 1 }, { 1, 0, 1 }
+	static {
+		PYLON_LOCATIONS.put(EnumFacing.Axis.X, new BlockPos[] { new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) });
+		PYLON_LOCATIONS.put(EnumFacing.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) });
+	}
+
+	private static final BlockPos[] FLOWER_LOCATIONS = {
+		new BlockPos(-1, 0, -1), new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1), new BlockPos(1, 0, 1)
 	};
 
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
 
-		for(int[] o : OBSIDIAN_LOCATIONS)
-			mb.addComponent(o[0], o[1] + 1, o[2], Blocks.obsidian, 0);
-		for(int[] p : PYLON_LOCATIONS[0]) {
-			mb.addComponent(p[0], p[1] + 1, p[2], ModBlocks.pylon, 0);
-			mb.addComponent(new FlowerComponent(new ChunkCoordinates(p[0], p[1], p[2]), ModBlocks.flower));
+		for(BlockPos o : OBSIDIAN_LOCATIONS)
+			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
+		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
+			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState());
+			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
 		}
-		for(int[] f : FLOWER_LOCATIONS)
-			mb.addComponent(new FlowerComponent(new ChunkCoordinates(f[0], f[1] + 1, f[2]), ModBlocks.flower));
+		for(BlockPos f : FLOWER_LOCATIONS)
+			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.flower));
 
-		mb.addComponent(0, 1, 0, Blocks.lapis_block, 0);
+		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.LAPIS_BLOCK.getDefaultState());
 
 		return mb.makeSet();
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		if(stage != 0 || itemToEnchant == null || !itemToEnchant.isItemEnchantable())
+		if(stage != State.IDLE || itemToEnchant == null || !itemToEnchant.isItemEnchantable())
 			return;
 
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 1, zCoord + 3));
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
 		int count = items.size();
 
 		if(count > 0 && !worldObj.isRemote) {
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getEntityItem();
-				if(item.getItem() == Items.enchanted_book) {
-					NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
+				if(item.getItem() == Items.ENCHANTED_BOOK) {
+					NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
 					if(enchants != null && enchants.tagCount() > 0) {
 						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
-						if(isEnchantmentValid(id)) {
+						if(isEnchantmentValid(Enchantment.getEnchantmentByID(id))) {
 							advanceStage();
 							return;
 						}
@@ -124,151 +141,155 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void updateEntity() {
-		if(getBlockMetadata() < PYLON_LOCATIONS.length)
-			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-				TileEntity tile = worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
-				if(tile != null && tile instanceof TilePylon)
-					((TilePylon) tile).activated = false;
-			}
+	public void update() {
+		IBlockState state = worldObj.getBlockState(getPos());
+		EnumFacing.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 
-		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
+		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
+			TileEntity tile = worldObj.getTileEntity(pos.add(pylon));
+			if(tile != null && tile instanceof TilePylon) {
+                ((TilePylon) tile).activated = stage == State.GATHER_MANA;
+                if(stage == State.GATHER_MANA)
+                    ((TilePylon) tile).centerPos = pos;
+            }
+		}
 
-			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
-			for(int i = 0; i < 50; i++) {
-				float red = (float) Math.random();
-				float green = (float) Math.random();
-				float blue = (float) Math.random();
-				Botania.proxy.wispFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
-			}
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:enchanterBlock", 0.5F, 10F);
+        if(stage != State.IDLE)
+            stageTicks++;
+
+        if(worldObj.isRemote)
+            return;
+
+		if(!canEnchanterExist(worldObj, pos, axis)) {
+			worldObj.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState(), 1 | 2);
+            PacketHandler.sendToNearby(worldObj, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
+                    pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5));
+			worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterFade, SoundCategory.BLOCKS, 0.5F, 10F);
 		}
 
 		switch(stage) {
-		case 1 : { // Get books
-			if(stageTicks % 20 == 0) {
-				List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 1, zCoord + 3));
-				int count = items.size();
-				boolean addedEnch = false;
+		    case GATHER_ENCHANTS : { // Get books
+		    	if(stageTicks % 20 == 0) {
+		    		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
+		    		int count = items.size();
+		    		boolean addedEnch = false;
 
-				if(count > 0 && !worldObj.isRemote) {
-					for(EntityItem entity : items) {
-						ItemStack item = entity.getEntityItem();
-						if(item.getItem() == Items.enchanted_book) {
-							NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
-							if(enchants != null && enchants.tagCount() > 0) {
-								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
-								short enchantId = enchant.getShort("id");
-								short enchantLvl = enchant.getShort("lvl");
-								if(!hasEnchantAlready(enchantId) && isEnchantmentValid(enchantId)) {
-									this.enchants.add(new EnchantmentData(enchantId, enchantLvl));
-									worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:ding", 1F, 1F);
-									addedEnch = true;
-									break;
-								}
-							}
-						}
-					}
-				}
+		    		if(count > 0 && !worldObj.isRemote) {
+		    			for(EntityItem entity : items) {
+		    				ItemStack item = entity.getEntityItem();
+		    				if(item.getItem() == Items.ENCHANTED_BOOK) {
+		    					NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
+		    					if(enchants != null && enchants.tagCount() > 0) {
+		    						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
+		    						short enchantId = enchant.getShort("id");
+		    						short enchantLvl = enchant.getShort("lvl");
+		    						Enchantment ench = Enchantment.getEnchantmentByID(enchantId);
+		    						if(!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
+		    							this.enchants.add(new EnchantmentData(ench, enchantLvl));
+		    							worldObj.playSound(null, pos, BotaniaSoundEvents.ding, SoundCategory.BLOCKS, 1F, 1F);
+		    							addedEnch = true;
+		    							break;
+		    						}
+		    					}
+		    				}
+		    			}
+		    		}
 
-				if(!addedEnch) {
-					if(enchants.isEmpty())
-						stage = 0;
-					else advanceStage();
-				}
+		    		if(!addedEnch) {
+		    			if(enchants.isEmpty())
+		    				stage = State.IDLE;
+		    			else advanceStage();
+		    		}
+		    	}
+		    	break;
+		    }
+		    case GATHER_MANA : { // Get Mana
+			    if(manaRequired == -1) {
+				    manaRequired = 0;
+				    for(EnchantmentData data : enchants) {
+						manaRequired += (int)
+								(5000F  * ((15 - Math.min(15, data.enchantmentobj.getRarity().getWeight()))
+											* 1.05F)
+										* ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F)
+										* (0.9F + enchants.size() * 0.05F)
+										* (data.enchantmentobj.isTreasureEnchantment() ? 1.25F : 1F));
+				    }
+			    } else if(mana >= manaRequired) {
+				    manaRequired = 0;
+				    for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
+					    ((TilePylon) worldObj.getTileEntity(pos.add(pylon))).activated = false;
+
+				    advanceStage();
+			    } else {
+				    ISparkEntity spark = getAttachedSpark();
+				    if(spark != null) {
+					    List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+					    for(ISparkEntity otherSpark : sparkEntities) {
+						    if(spark == otherSpark)
+							    continue;
+
+						    if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
+							    otherSpark.registerTransfer(spark);
+					    }
+				    }
+                    if(stageTicks % 5 == 0)
+                        sync();
+			    }
+
+			    break;
+		    }
+		    case DO_ENCHANT : { // Enchant
+		    	if(stageTicks >= 100) {
+		    		for(EnchantmentData data : enchants)
+		    			if(EnchantmentHelper.getEnchantmentLevel(data.enchantmentobj, itemToEnchant) == 0)
+		    				itemToEnchant.addEnchantment(data.enchantmentobj, data.enchantmentLevel);
+
+		    		enchants.clear();
+		    		manaRequired = -1;
+		    		mana = 0;
+
+		    		craftingFanciness();
+		    		advanceStage();
+		    	}
+		    	break;
+		    }
+			case RESET: { // Reset
+				if(stageTicks >= 20)
+					advanceStage();
+
+				break;
 			}
-			break;
 		}
-		case 2 : { // Get Mana
-			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-				TilePylon pylonTile = (TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
-				if(pylonTile != null) {
-					pylonTile.activated = true;
-					pylonTile.centerX = xCoord;
-					pylonTile.centerY = yCoord;
-					pylonTile.centerZ = zCoord;
-				}
-			}
-
-			if(manaRequired == -1) {
-				manaRequired = 0;
-				for(EnchantmentData data : enchants) {
-					Enchantment ench = Enchantment.enchantmentsList[data.enchant];
-					manaRequired += (int) (5000F * ((15 - Math.min(15, ench.getWeight())) * 1.05F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
-				}
-			} else if(mana >= manaRequired) {
-				manaRequired = 0;
-				for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()])
-					((TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2])).activated = false;
-
-				advanceStage();
-			} else {
-				ISparkEntity spark = getAttachedSpark();
-				if(spark != null) {
-					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
-					for(ISparkEntity otherSpark : sparkEntities) {
-						if(spark == otherSpark)
-							continue;
-
-						if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
-							otherSpark.registerTransfer(spark);
-					}
-				}
-			}
-
-			break;
-		}
-		case 3 : { // Enchant
-			if(stageTicks >= 100) {
-				for(EnchantmentData data : enchants)
-					if(EnchantmentHelper.getEnchantmentLevel(data.enchant, itemToEnchant) == 0)
-						itemToEnchant.addEnchantment(Enchantment.enchantmentsList[data.enchant], data.level);
-
-				enchants.clear();
-				manaRequired = -1;
-				mana = 0;
-
-				craftingFanciness();
-				advanceStage();
-			}
-			break;
-		}
-		case 4 : { // Reset
-			if(stageTicks >= 20)
-				advanceStage();
-
-			break;
-		}
-		}
-
-		if(stage != 0)
-			stageTicks++;
 	}
 
-	public void advanceStage() {
-		stage++;
-
-		if(stage == 4)
-			stage3EndTicks = stageTicks;
-		else if(stage == 5) {
-			stage = 0;
-			stage3EndTicks = 0;
+	private void advanceStage() {
+		switch(stage) {
+			case IDLE: stage = State.GATHER_ENCHANTS; break;
+			case GATHER_ENCHANTS: stage = State.GATHER_MANA; break;
+			case GATHER_MANA: stage = State.DO_ENCHANT; break;
+			case DO_ENCHANT: {
+				stage = State.RESET;
+				stage3EndTicks = stageTicks;
+				break;
+			}
+			case RESET: {
+				stage = State.IDLE;
+				stage3EndTicks = 0;
+				break;
+			}
 		}
 
 		stageTicks = 0;
 		sync();
 	}
 
-	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:enchanterEnchant", 1F, 1F);
-		for(int i = 0; i < 25; i++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-		}
+	private void craftingFanciness() {
+		worldObj.playSound(null, pos, BotaniaSoundEvents.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F);
+        PacketHandler.sendToNearby(worldObj, pos,
+                new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENCHANTER_CRAFT, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
@@ -295,14 +316,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	public void sync() {
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setInteger(TAG_MANA_REQUIRED, manaRequired);
-		cmp.setInteger(TAG_STAGE, stage);
+		cmp.setInteger(TAG_STAGE, stage.ordinal());
 		cmp.setInteger(TAG_STAGE_TICKS, stageTicks);
 		cmp.setInteger(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
@@ -311,17 +332,17 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			itemToEnchant.writeToNBT(itemCmp);
 		cmp.setTag(TAG_ITEM, itemCmp);
 
-		String enchStr = "";
-		for(EnchantmentData data : enchants)
-			enchStr = enchStr + data.enchant + ":" + data.level + ",";
-		cmp.setString(TAG_ENCHANTS, enchStr.isEmpty() ? enchStr : enchStr.substring(0, enchStr.length() - 1));
+		String enchStr = enchants.stream()
+							.map(e -> Enchantment.REGISTRY.getNameForObject(e.enchantmentobj) + "=" + e.enchantmentLevel)
+							.collect(Collectors.joining(","));
+		cmp.setString(TAG_ENCHANTS, enchStr);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 		manaRequired = cmp.getInteger(TAG_MANA_REQUIRED);
-		stage = cmp.getInteger(TAG_STAGE);
+		stage = State.values()[cmp.getInteger(TAG_STAGE)];
 		stageTicks = cmp.getInteger(TAG_STAGE_TICKS);
 		stage3EndTicks = cmp.getInteger(TAG_STAGE_3_END_TICKS);
 
@@ -333,29 +354,28 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		if(!enchStr.isEmpty()) {
 			String[] enchTokens = enchStr.split(",");
 			for(String token : enchTokens) {
-				String[] entryTokens = token.split(":");
-				int id = Integer.parseInt(entryTokens[0]);
+                String[] entryTokens = token.split("=");
+				Enchantment ench = Enchantment.getEnchantmentByLocation(entryTokens[0]);
 				int lvl = Integer.parseInt(entryTokens[1]);
-				enchants.add(new EnchantmentData(id, lvl));
+				enchants.add(new EnchantmentData(ench, lvl));
 			}
 		}
 	}
 
-	private boolean hasEnchantAlready(int enchant) {
+	private boolean hasEnchantAlready(Enchantment enchant) {
 		for(EnchantmentData data : enchants)
-			if(data.enchant == enchant)
+			if(data.enchantmentobj == enchant)
 				return true;
 
 		return false;
 	}
 
-	public boolean isEnchantmentValid(short id) {
-		Enchantment ench = Enchantment.enchantmentsList[id];
-		if(!ench.canApply(itemToEnchant) || !ench.type.canEnchantItem(itemToEnchant.getItem()))
+	private boolean isEnchantmentValid(Enchantment ench) {
+		if(!ench.canApply(itemToEnchant))
 			return false;
 
 		for(EnchantmentData data : enchants) {
-			Enchantment otherEnch = Enchantment.enchantmentsList[data.enchant];
+			Enchantment otherEnch = data.enchantmentobj;
 			if(!otherEnch.canApplyTogether(ench) || !ench.canApplyTogether(otherEnch))
 				return false;
 		}
@@ -363,17 +383,17 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		return true;
 	}
 
-	public static boolean canEnchanterExist(World world, int x, int y, int z, int meta) {
-		for(int[] obsidian : OBSIDIAN_LOCATIONS)
-			if(world.getBlock(obsidian[0] + x, obsidian[1] + y, obsidian[2] + z) != Blocks.obsidian)
+	public static boolean canEnchanterExist(World world, BlockPos pos, EnumFacing.Axis axis) {
+		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
+			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.OBSIDIAN)
 				return false;
 
-		for(int[] pylon : PYLON_LOCATIONS[meta])
-			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pylon[0] + x, pylon[1] + y - 1, pylon[2] + z))
+		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
+			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon).down()))
 				return false;
 
-		for(int[] flower : FLOWER_LOCATIONS)
-			if(!BotaniaAPI.internalHandler.isBotaniaFlower(world, flower[0] + x, flower[1] + y, flower[2] + z))
+		for(BlockPos flower : FLOWER_LOCATIONS)
+			if(!BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(flower)))
 				return false;
 
 		return true;
@@ -385,15 +405,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {
-		// NO-OP
-	}
+	public void attachSpark(ISparkEntity entity) {}
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
+		List<Entity> sparks = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1), Predicates.instanceOf(ISparkEntity.class));
 		if(sparks.size() == 1) {
-			Entity e = (Entity) sparks.get(0);
+			Entity e = sparks.get(0);
 			return (ISparkEntity) e;
 		}
 
@@ -402,7 +420,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	@Override
 	public boolean areIncomingTranfersDone() {
-		return stage == 3;
+		return stage == State.DO_ENCHANT;
 	}
 
 	@Override
@@ -410,7 +428,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		return Math.max(0, manaRequired - getCurrentMana());
 	}
 
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	public void renderHUD(ScaledResolution res) {
 		if(manaRequired > 0 && itemToEnchant != null) {
 			int x = res.getScaledWidth() / 2 + 20;
 			int y = res.getScaledHeight() / 2 - 8;
@@ -419,14 +437,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		}
 	}
 
-	private static class EnchantmentData {
-
-		public int enchant, level;
-
-		public EnchantmentData(int enchant, int level) {
-			this.enchant = enchant;
-			this.level = level;
-		}
+	public enum State {
+		IDLE,
+		GATHER_ENCHANTS,
+		GATHER_MANA,
+		DO_ENCHANT,
+		RESET
 	}
 
 }

@@ -10,25 +10,28 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SubTileOrechid extends SubTileFunctional {
 
@@ -43,21 +46,21 @@ public class SubTileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0 || !canOperate())
+		if(supertile.getWorld().isRemote || redstoneSignal > 0 || !canOperate())
 			return;
 
 		int cost = getCost();
-		if(!supertile.getWorldObj().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
-			ChunkCoordinates coords = getCoordsToPut();
+		if(mana >= cost && ticksExisted % getDelay() == 0) {
+			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
-				if(stack != null) {
+				if(stack != null && stack.getItem() != null) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
-					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
+						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -67,12 +70,12 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public ItemStack getOreToPut() {
-		Collection<WeightedRandom.Item> values = new ArrayList();
+		List<WeightedRandom.Item> values = new ArrayList<>();
 		Map<String, Integer> map = getOreMap();
 		for(String s : map.keySet())
 			values.add(new StringRandomItem(map.get(s), s));
 
-		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
+		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorld().rand, values)).s;
 
 		List<ItemStack> ores = OreDictionary.getOres(ore);
 
@@ -96,24 +99,19 @@ public class SubTileOrechid extends SubTileFunctional {
 		return getOreToPut();
 	}
 
-	public ChunkCoordinates getCoordsToPut() {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
+	private BlockPos getCoordsToPut() {
+		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		Block source = getSourceBlock();
-		for(int i = -RANGE; i < RANGE + 1; i++)
-			for(int j = -RANGE_Y; j < RANGE_Y; j++)
-				for(int k = -RANGE; k < RANGE + 1; k++) {
-					int x = supertile.xCoord + i;
-					int y = supertile.yCoord + j;
-					int z = supertile.zCoord + k;
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, source))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
-				}
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+			IBlockState state = supertile.getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(source)))
+				possibleCoords.add(pos);
+		}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	public boolean canOperate() {
@@ -125,7 +123,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public Block getSourceBlock() {
-		return Blocks.stone;
+		return Blocks.STONE;
 	}
 
 	public int getCost() {
@@ -138,7 +136,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override
@@ -163,7 +161,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 	private static class StringRandomItem extends WeightedRandom.Item {
 
-		public String s;
+		public final String s;
 
 		public StringRandomItem(int par1, String s) {
 			super(par1);

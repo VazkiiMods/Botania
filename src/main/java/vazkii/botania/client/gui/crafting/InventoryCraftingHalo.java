@@ -15,8 +15,8 @@ import net.minecraft.inventory.InventoryCrafting;
 
 public class InventoryCraftingHalo extends InventoryCrafting {
 
-	public InventoryCraftingHalo(Container p_i1807_1_, int p_i1807_2_, int p_i1807_3_) {
-		super(p_i1807_1_, p_i1807_2_, p_i1807_3_);
+	public InventoryCraftingHalo(Container container, int width, int height) {
+		super(container, width, height);
 	}
 
 }

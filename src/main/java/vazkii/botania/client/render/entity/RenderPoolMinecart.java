@@ -10,19 +10,29 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
-public class RenderPoolMinecart extends RenderMinecart {
+import javax.annotation.Nonnull;
+
+public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
+
+	public RenderPoolMinecart(RenderManager manager) {
+		super(manager);
+	}
 
 	@Override
-	protected void func_147910_a(EntityMinecart p_147910_1_, float p_147910_2_, Block p_147910_3_, int p_147910_4_) {
-		EntityPoolMinecart poolCart = (EntityPoolMinecart) p_147910_1_;
+	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull IBlockState state) {
+		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
-		super.func_147910_a(p_147910_1_, p_147910_2_, p_147910_3_, p_147910_4_);
+		TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TilePool.class).renderTileEntityAt(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);
 	}
 
 

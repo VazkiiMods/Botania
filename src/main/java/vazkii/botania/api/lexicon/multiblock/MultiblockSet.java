@@ -11,33 +11,28 @@
 package vazkii.botania.api.lexicon.multiblock;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumFacing;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * A set of Multiblock objects for various rotations.
  */
 public class MultiblockSet {
 
-	private final Multiblock[] mbs;
-
-	public MultiblockSet(Multiblock[] mbs) {
-		this.mbs = mbs;
-	}
+	private final Map<EnumFacing, Multiblock> mbs;
 
 	public MultiblockSet(Multiblock mb) {
-		this(mb.createRotations());
+		mbs = Collections.unmodifiableMap(mb.createRotations());
 	}
 
 	public Multiblock getForEntity(Entity e) {
-		return getForRotation(e.rotationYaw);
+		return getForFacing(e.getHorizontalFacing());
 	}
 
-	public Multiblock getForRotation(double rotation) {
-		int facing = MathHelper.floor_double(rotation * 4.0 / 360.0 + 0.5) & 3;
-		return getForIndex(facing);
+	public Multiblock getForFacing(EnumFacing facing) {
+		return mbs.get(facing);
 	}
 
-	public Multiblock getForIndex(int index) {
-		return mbs[Math.min(mbs.length - 1, index)];
-	}
 }

@@ -10,41 +10,39 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
+
+import java.util.Set;
 
 public class DummyManaNetwork implements IManaNetwork {
 
 	public static final DummyManaNetwork instance = new DummyManaNetwork();
 
 	@Override
-	public void clear() {
-		// NO-OP
-	}
+	public void clear() {}
 
 	@Override
-	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public List<TileSignature> getAllCollectorsInWorld(World world) {
-		return new ArrayList();
+	public Set<TileSignature> getAllCollectorsInWorld(World world) {
+		return ImmutableSet.of();
 	}
 
 	@Override
-	public List<TileSignature> getAllPoolsInWorld(World world) {
-		return new ArrayList();
+	public Set<TileSignature> getAllPoolsInWorld(World world) {
+		return ImmutableSet.of();
 	}
 
 }

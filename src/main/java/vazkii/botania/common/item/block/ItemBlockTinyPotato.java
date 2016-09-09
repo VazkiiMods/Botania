@@ -10,23 +10,21 @@
  */
 package vazkii.botania.common.item.block;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ItemBlockTinyPotato extends ItemBlockMod {
 
-	private static final List<String> TYPOS = Arrays.asList(new String[] {
-			"vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii", "vazkil", "vaskil", "vazkill", "vaskill", "vaski"
-	});
+	private static final List<String> TYPOS = Arrays.asList("vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii", "vazkil", "vaskil", "vazkill", "vaskill", "vaski");
 
 	private static final String NOT_MY_NAME[] = {
 		"Six letter word just to get me along",
@@ -60,7 +58,7 @@ public class ItemBlockTinyPotato extends ItemBlockMod {
 			EntityPlayer player = (EntityPlayer) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if(ticks < NOT_MY_NAME.length) {
-				player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + NOT_MY_NAME[ticks]));
+				player.addChatMessage(new TextComponentString(TextFormatting.RED + NOT_MY_NAME[ticks]));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

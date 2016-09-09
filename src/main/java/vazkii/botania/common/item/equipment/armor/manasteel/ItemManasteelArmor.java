@@ -10,76 +10,72 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import java.util.List;
-
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ISpecialArmor;
-import thaumcraft.api.IRunicArmor;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
-public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor {
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
+public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IModelRegister {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	protected ModelBiped[] models = null;
-	public int type;
+	protected Map<EntityEquipmentSlot, ModelBiped> models = null;
+	public final EntityEquipmentSlot type;
 
-	public ItemManasteelArmor(int type, String name) {
+	public ItemManasteelArmor(EntityEquipmentSlot type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
 
-	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
+	public ItemManasteelArmor(EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super(mat, 0, type);
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 
+	@Nonnull
 	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
 	}
 
 	@Override
@@ -111,42 +107,46 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}
 
+	@Nonnull
 	@Override
-	public final String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+	public final String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
+	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped original) {
 		if(ConfigHandler.enableArmorModels) {
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
 			if(model == null)
 				model = provideArmorModelForSlot(itemStack, armorSlot);
 
-			if(model != null)
+			if(model != null) {
+				model.setModelAttributes(original);
 				return model;
+			}
 		}
 
-		return super.getArmorModel(entityLiving, itemStack, armorSlot);
+		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
+	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, EntityEquipmentSlot slot) {
 		if(models == null)
-			models = new ModelBiped[4];
+			models = new EnumMap<>(EntityEquipmentSlot.class);
 
-		return models[slot];
+		return models.get(slot);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
-		models[slot] = new ModelArmorManasteel(slot);
-		return models[slot];
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
+		models.put(slot, new ModelArmorManasteel(slot));
+		return models.get(slot);
 	}
 
 	@Override
@@ -159,21 +159,23 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		if(GuiScreen.isShiftKeyDown())
 			addInformationAfterShift(stack, player, list, adv);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
+		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
 	}
 
-	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+	@SideOnly(Side.CLIENT)
+	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
 		addStringToTooltip(getArmorSetTitle(player), list);
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for(int i = 0; i < stacks.length; i++)
-			addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
+			addStringToTooltip((hasArmorSetItem(player, i) ? TextFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
 		if(hasPhantomInk(stack))
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), list);
+			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), list);
 	}
 	
 	public void addStringToTooltip(String s, List<String> tooltip) {
@@ -213,7 +215,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return false;
 	}
 
-	public int getSetPiecesEquipped(EntityPlayer player) {
+	private int getSetPiecesEquipped(EntityPlayer player) {
 		int pieces = 0;
 		for(int i = 0; i < 4; i++)
 			if(hasArmorSetItem(player, i))
@@ -222,16 +224,19 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return pieces;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.manasteel.name");
+		return I18n.format("botania.armorset.manasteel.name");
 	}
 
-	public String getArmorSetTitle(EntityPlayer player) {
-		return StatCollector.translateToLocal("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
+	@SideOnly(Side.CLIENT)
+	private String getArmorSetTitle(EntityPlayer player) {
+		return I18n.format("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manasteel.desc"), list);
+		addStringToTooltip(I18n.format("botania.armorset.manasteel.desc"), list);
 	}
 
 	@Override
@@ -248,5 +253,11 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	@Optional.Method(modid = "Thaumcraft")
 	public int getRunicCharge(ItemStack itemstack) {
 		return 0;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 }

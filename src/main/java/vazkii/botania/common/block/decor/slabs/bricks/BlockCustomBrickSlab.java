@@ -11,10 +11,14 @@
 package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
@@ -23,14 +27,14 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockCustomBrickSlab extends BlockLivingSlab {
 
 	public BlockCustomBrickSlab(boolean full) {
-		this(full, 0);
+		this(full, CustomBrickVariant.HELLISH_BRICK);
 	}
 
-	public BlockCustomBrickSlab(boolean full, int meta) {
-		super(full, ModBlocks.customBrick, meta);
+	public BlockCustomBrickSlab(boolean full, CustomBrickVariant variant) {
+		super(full, ModBlocks.customBrick.getDefaultState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, variant));
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class BlockCustomBrickSlab extends BlockLivingSlab {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}
 

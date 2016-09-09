@@ -12,7 +12,9 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
+
+import javax.annotation.Nonnull;
 
 public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 
@@ -20,10 +22,11 @@ public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 		super(block1);
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		String flowerName = getUnlocalizedName(stack) + ".name";
-		return String.format(StatCollector.translateToLocal("botaniamisc.floatingPrefix"), StatCollector.translateToLocal(flowerName));
+		return String.format(I18n.translateToLocal("botaniamisc.floatingPrefix"), I18n.translateToLocal(flowerName));
 	}
 
 }

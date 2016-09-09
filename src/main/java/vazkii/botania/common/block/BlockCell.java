@@ -10,12 +10,14 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -23,26 +25,36 @@ import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCell extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BlockCell extends BlockMod implements ILexiconable {
 
 	public BlockCell() {
-		super(Material.gourd);
-		setBlockName(LibBlockNames.CELL_BLOCK);
-		setStepSound(soundTypeCloth);
+		super(Material.GOURD, LibBlockNames.CELL_BLOCK);
+		setSoundType(SoundType.CLOTH);
+	}
+
+	@Nonnull
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+		return new ArrayList<>();
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		return new ArrayList();
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
+	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCell();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.dandelifeon;
 	}
 

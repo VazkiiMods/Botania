@@ -9,8 +9,9 @@
  * File Created @ [17/11/2015, 20:10:53 (GMT)]
  */
 package vazkii.botania.api.item;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 /**
@@ -19,9 +20,15 @@ import vazkii.botania.api.subtile.SubTileEntity;
 public interface IFlowerPlaceable {
 
 	/**
-	 * Gets the block to be placed, return null to not place anything.
+	 * Gets the state to be placed, return null to not place anything.
 	 */
-	public Block getBlockToPlaceByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
+	public IBlockState getBlockToPlaceByFlower(ItemStack stack, SubTileEntity flower, BlockPos pos);
 
-	public void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
+	/**
+	 * Called after the block is placed.
+	 * @param stack The stack that was placed.
+	 * @param flower The flower doing the placing.
+	 * @param pos The position that was placed at.
+     */
+	public void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, BlockPos pos);
 }

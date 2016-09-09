@@ -10,26 +10,37 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -37,11 +48,14 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
-import vazkii.botania.common.integration.coloredlights.LightHelper;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
@@ -52,75 +66,111 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
+	@Nonnull
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		int currentLight = ((TileSpecialFlower) world.getTileEntity(x, y, z)).getLightValue();
-		if(currentLight == -1)
-			currentLight = originalLight;
-		return LightHelper.getPackedColor(world.getBlockMetadata(x, y, z), currentLight);
+	public BlockStateContainer createBlockState() {
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.SUBTILE_ID, BotaniaStateProps.ISLAND_TYPE });
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+		state = super.getExtendedState(state, world, pos);
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileFloatingSpecialFlower) {
+			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, ((TileFloatingSpecialFlower) te).subTileName);
+		}
+		return state;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
+		if(world.getBlockState(pos).getBlock() != this)
+			return world.getBlockState(pos).getLightValue(world, pos);
+
+		TileEntity tile = world.getTileEntity(pos);
+		return tile instanceof TileSpecialFlower ? ((TileSpecialFlower) tile).getLightValue() : lightValue;
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getComparatorInputOverride(side);
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
+	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
 	}
 
 	@Override
-	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
-		return isProvidingWeakPower(world, x, y, z, side);
+	public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return getWeakPower(state, world, pos, side);
 	}
 
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		// NO-OP
-	}
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
-			par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), s));
+			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
-				par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), BotaniaAPI.miniFlowers.get(s)));
+				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), BotaniaAPI.miniFlowers.get(s)));
+		}
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
+		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name);
+	}
+
+	@Override
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
+	}
+
+	@Override
+	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
+		if (willHarvest) {
+			// Copy of super.removedByPlayer but don't set to air yet
+			// This is so getDrops below will have a TE to work with
+			onBlockHarvested(world, pos, state, player);
+			return true;
+		} else {
+			return super.removedByPlayer(state, world, pos, player, willHarvest);
 		}
 	}
 
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		String name = ((TileSpecialFlower) world.getTileEntity(x, y, z)).subTileName;
-		return ItemBlockSpecialFlower.ofType(new ItemStack(world.getBlock(x, y, z)), name);
+	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
+		super.harvestBlock(world, player, pos, state, te, stack);
+		// Now delete the block and TE
+		world.setBlockToAir(pos);
 	}
 
+	@Nonnull
 	@Override
-	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
-		if(!par6EntityPlayer.capabilities.isCreativeMode) {
-			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
-			((TileSpecialFlower) par1World.getTileEntity(par2, par3, par4)).onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
-		}
-	}
-
-	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList();
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+		ArrayList<ItemStack> list = new ArrayList<>();
+		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
 			String name = ((TileSpecialFlower) tile).subTileName;
-			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(world.getBlock(x, y, z)), name));
+			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
 
@@ -128,49 +178,51 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
-		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
-		TileEntity tileentity = par1World.getTileEntity(par2, par3, par4);
-		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
+	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int eventID, int value) {
+		super.eventReceived(state, world, pos, eventID, value);
+		TileEntity tileentity = world.getTileEntity(pos);
+		return tileentity != null ? tileentity.receiveClientEvent(eventID, value) : false;
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onWanded(stack, player);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ) || super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ) || super.onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockAdded(world, x, y, z);
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
+		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockFloatingSpecialFlower(this), getRegistryName());
 	}
 
+	@Nonnull
 	@Override
-	protected void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockFloatingSpecialFlower.class, name);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileFloatingSpecialFlower();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
 }

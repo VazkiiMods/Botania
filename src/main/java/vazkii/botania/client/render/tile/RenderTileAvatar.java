@@ -10,29 +10,27 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
 
-public class RenderTileAvatar extends TileEntitySpecialRenderer {
+import javax.annotation.Nonnull;
+
+public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
@@ -42,72 +40,68 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
-		TileAvatar avatar = (TileAvatar) tileentity;
+	public void renderTileEntityAt(@Nonnull TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
+		if (avatar != null)
+			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
+					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
+				return;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int meta = avatar.getWorldObj() != null ? avatar.getBlockMetadata() : 0;
+		EnumFacing facing = avatar != null && avatar.getWorld() != null
+				? avatar.getWorld().getBlockState(avatar.getPos()).getValue(BotaniaStateProps.CARDINALS)
+				: EnumFacing.SOUTH;
 
-		GL11.glTranslatef(0.5F, 1.6F, 0.5F);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glRotatef(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, meta - 2), 0)], 0F, 1F, 0F);
+		GlStateManager.translate(0.5F, 1.6F, 0.5F);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getIndex() - 2), 0)], 0F, 1F, 0F);
 		model.render();
 
-		ItemStack stack = avatar.getStackInSlot(0);
-		if(stack != null) {
-			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			float s = 0.4F;
-			GL11.glScalef(s, s, s);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslated(-1.2F, -3.5F, -0.65F);
-			GL11.glRotatef(20F, 0F, 0F, 1F);
+		if (avatar == null) {
+			GlStateManager.color(1F, 1F, 1F);
+			GlStateManager.scale(1F, -1F, -1F);
+			GlStateManager.enableRescaleNormal();
+			GlStateManager.popMatrix();
+			return;
+		}
 
-			int renderPass = 0;
-			do {
-				IIcon icon = stack.getItem().getIcon(stack, renderPass);
-				if(icon != null) {
-					Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-					float f = icon.getMinU();
-					float f1 = icon.getMaxU();
-					float f2 = icon.getMinV();
-					float f3 = icon.getMaxV();
-					ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-					GL11.glColor3f(1F, 1F, 1F);
-				}
-				renderPass++;
-			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
-			GL11.glPopMatrix();
+		ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
+		if(stack != null) {
+			GlStateManager.pushMatrix();
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			float s = 0.6F;
+			GlStateManager.scale(s, s, s);
+			GlStateManager.translate(-0.5F, 2F, -0.25F);
+			GlStateManager.rotate(-70, 1, 0, 0);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
+			GlStateManager.popMatrix();
 
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			Minecraft.getMinecraft().renderEngine.bindTexture(wieldable.getOverlayResource(avatar, stack));
 			s = 1.01F;
 
-			GL11.glPushMatrix();
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glScalef(s, s, s);
-			GL11.glTranslatef(0F, -0.01F, 0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.scale(s, s, s);
+			GlStateManager.translate(0F, -0.01F, 0F);
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 			float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
-			GL11.glColor4f(1F, 1F, 1F, alpha + 0.183F);
+			GlStateManager.color(1F, 1F, 1F, alpha + 0.183F);
 			model.render();
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
-		GL11.glColor3f(1F, 1F, 1F);
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 }

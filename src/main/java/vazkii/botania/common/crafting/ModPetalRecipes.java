@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import java.util.Arrays;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
@@ -22,6 +20,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+
+import java.util.Arrays;
 
 public final class ModPetalRecipes {
 
@@ -75,13 +75,12 @@ public final class ModPetalRecipes {
 	public static RecipePetals marimorphosisRecipe;
 	public static RecipePetals bubbellRecipe;
 	public static RecipePetals solegnoliaRecipe;
+	public static RecipePetals bergamuteRecipe;
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlue, green, red, cyan);
 
-		daybloomRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM), yellow, yellow, orange, lightBlue);
-		nightshadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE), black, black, purple, gray);
 		endoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), brown, brown, red, lightGray, manaPowder);
 		hydroangeasRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS), blue, blue, cyan, cyan, manaPowder);
 		thermalilyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY), red, orange, orange, runeEarth, runeFire);
@@ -125,8 +124,9 @@ public final class ModPetalRecipes {
 		marimorphosisRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MARIMORPHOSIS), gray, yellow, green, red, runeEarth, runeFire, redstoneRoot);
 		bubbellRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BUBBELL), cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);
 		solegnoliaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SOLEGNOLIA), brown, brown, red, blue, redstoneRoot);
+		bergamuteRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BERGAMUTE), orange, green, green, redstoneRoot); // todo temporary
 
-		ItemStack stack = new ItemStack(Items.skull, 1, 3);
+		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Object[] inputs = new Object[16];
 		Arrays.fill(inputs, pink);

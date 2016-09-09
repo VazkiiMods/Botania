@@ -10,57 +10,45 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	IIcon[] icons;
-
 	public BlockAlchemyCatalyst() {
 		this(LibBlockNames.ALCHEMY_CATALYST);
 	}
 
 	public BlockAlchemyCatalyst(String name) {
-		super(Material.rock);
+		super(Material.ROCK, name);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(Block.soundTypeStone);
-		setBlockName(name);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.alchemy;
 	}
 
 	@Override
-	public IIcon getIcon(World world, int x, int y, int z) {
-		return icons[3];
+	@SideOnly(Side.CLIENT)
+	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
+		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay;
 	}
 
 }

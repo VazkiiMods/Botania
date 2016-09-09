@@ -1,0 +1,6 @@
+{
+  "parent": "botania:item/livingwoodBow",
+  "textures": {
+    "layer0": "botania:items/livingwoodBow3"
+  }
+}

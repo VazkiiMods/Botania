@@ -10,8 +10,8 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be
@@ -19,13 +19,13 @@ import net.minecraft.util.ChunkCoordinates;
  */
 public class RadiusDescriptor {
 
-	final ChunkCoordinates subtileCoords;
+	private final BlockPos subtileCoords;
 
-	public RadiusDescriptor(ChunkCoordinates subtileCoords) {
+	public RadiusDescriptor(BlockPos subtileCoords) {
 		this.subtileCoords = subtileCoords;
 	}
 
-	public ChunkCoordinates getSubtileCoords() {
+	public BlockPos getSubtileCoords() {
 		return subtileCoords;
 	}
 
@@ -45,7 +45,7 @@ public class RadiusDescriptor {
 
 		final double radius;
 
-		public Circle(ChunkCoordinates subtileCoords, double radius) {
+		public Circle(BlockPos subtileCoords, double radius) {
 			super(subtileCoords);
 			this.radius = radius;
 		}
@@ -66,7 +66,7 @@ public class RadiusDescriptor {
 
 		final AxisAlignedBB aabb;
 
-		public Rectangle(ChunkCoordinates subtileCoords, AxisAlignedBB aabb) {
+		public Rectangle(BlockPos subtileCoords, AxisAlignedBB aabb) {
 			super(subtileCoords);
 			this.aabb = aabb;
 		}
@@ -80,8 +80,8 @@ public class RadiusDescriptor {
 
 	public static class Square extends Rectangle {
 
-		public Square(ChunkCoordinates subtileCoords, int expand) {
-			super(subtileCoords, AxisAlignedBB.getBoundingBox(subtileCoords.posX - expand, subtileCoords.posY, subtileCoords.posZ - expand, subtileCoords.posX + 1 + expand, subtileCoords.posY, subtileCoords.posZ + 1 + expand));
+		public Square(BlockPos subtileCoords, int expand) {
+			super(subtileCoords, new AxisAlignedBB(subtileCoords.add(-expand, 0, -expand), subtileCoords.add(expand + 1, 0, expand + 1)));
 		}
 
 	}

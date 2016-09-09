@@ -10,39 +10,37 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.lib.LibResources;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PageShedding extends PageEntity {
 
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
-	ItemStack shedStack;
+	final ItemStack shedStack;
 	ItemStack tooltipStack;
 	boolean tooltipEntry;
 
@@ -72,20 +70,20 @@ public class PageShedding extends PageEntity {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(sheddingOverlay);
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-			List<String> parsedTooltip = new ArrayList();
+			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
 			for(String s : tooltipData) {
 				String s_ = s;
 				if(!first)
-					s_ = EnumChatFormatting.GRAY + s;
+					s_ = TextFormatting.GRAY + s;
 				parsedTooltip.add(s_);
 				first = false;
 			}
@@ -95,37 +93,36 @@ public class PageShedding extends PageEntity {
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
-				tooltipY += 18;
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(TextFormatting.GRAY + I18n.format("botaniamisc.clickToRecipe")));
 			}
 		}
 		else if(tooltipEntity) {
-			List<String> parsedTooltip = new ArrayList();
+			List<String> parsedTooltip = new ArrayList<>();
 			parsedTooltip.add(EntityList.getEntityString(dummyEntity));
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
 		}
 
 		tooltipStack = null;
 		tooltipEntry = tooltipEntity = false;
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack) {
-		RenderItem render = new RenderItem();
+		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableDepth();
+		render.renderItemAndEffectIntoGUI(stack, xPos, yPos);
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, xPos, yPos, "");
 		RenderHelper.disableStandardItemLighting();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
@@ -142,12 +139,12 @@ public class PageShedding extends PageEntity {
 			}
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 	}
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(shedStack);
 		return list;
 	}

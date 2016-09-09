@@ -10,21 +10,23 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
+
+import java.util.List;
 
 public class LensDamage extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
-		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
+		if (entity.worldObj.isRemote)
+			return;
+		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 		for(EntityLivingBase living : entities) {
 			if(living instanceof EntityPlayer)
@@ -34,7 +36,7 @@ public class LensDamage extends Lens {
 				int mana = burst.getMana();
 				if(mana >= 16) {
 					burst.setMana(mana - 16);
-					if(!burst.isFake() && !entity.worldObj.isRemote)
+					if(!burst.isFake())
 						living.attackEntityFrom(DamageSource.magic, 8);
 					break;
 				}

@@ -10,21 +10,21 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
 
@@ -42,20 +42,17 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	public List<ItemStack> getFilter() {
-		List<ItemStack> filter = new ArrayList();
+		List<ItemStack> filter = new ArrayList<>();
 
-		final int[] orientationToDir = new int[] {
-				3, 4, 2, 5
-		};
 		final int[] rotationToStackSize = new int[] {
-				1, 16, 32, 64
+				1, 2, 4, 8, 16, 32, 48, 64
 		};
 
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, AxisAlignedBB.getBoundingBox(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, xCoord + dir.offsetX + 1, yCoord + dir.offsetY + 1, zCoord + dir.offsetZ + 1));
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
-				int orientation = frame.hangingDirection;
-				if(orientationToDir[orientation] == dir.ordinal()) {
+				EnumFacing orientation = frame.facingDirection;
+				if(orientation == dir) {
 					ItemStack stack = frame.getDisplayedItem();
 					if(stack != null) {
 						ItemStack copy = stack.copy();
@@ -70,18 +67,13 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return false;
-	}
-
-	@Override
 	public int getSizeInventory() {
 		return 1;
 	}
 
 	@Override
-	public String getInventoryName() {
-		return LibBlockNames.CORPOREA_FUNNEL;
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override
@@ -89,21 +81,36 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		if(!(request instanceof ItemStack))
 			return;
 
-		IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
-		if(inv == null || inv instanceof TileCorporeaFunnel)
-			inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
+		IItemHandler inv = getInv();
 
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
-		for(ItemStack reqStack : stacks)
-			if(request != null) {
-				if(inv != null && !(inv instanceof TileCorporeaFunnel) && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, ForgeDirection.UP))
-					InventoryHelper.insertItemIntoInventory(inv, reqStack);
-				else {
-					EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
-					worldObj.spawnEntityInWorld(item);
-				}
+		for(ItemStack reqStack : stacks) {
+			if(inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true) == null)
+				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
+			else {
+				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				worldObj.spawnEntityInWorld(item);
 			}
+		}
+	}
+
+	private IItemHandler getInv() {
+		TileEntity te = worldObj.getTileEntity(pos.down());
+		IItemHandler ret = InventoryHelper.getInventory(worldObj, pos.down(), EnumFacing.UP);
+		if(ret == null)
+			ret = InventoryHelper.getInventory(worldObj, pos.down(), null);
+		if(ret != null && !(te instanceof TileCorporeaFunnel))
+			return ret;
+
+		te = worldObj.getTileEntity(pos.down(2));
+		ret = InventoryHelper.getInventory(worldObj, pos.down(2), EnumFacing.UP);
+		if(ret == null)
+			ret = InventoryHelper.getInventory(worldObj, pos.down(2), null);
+		if(ret != null && !(te instanceof TileCorporeaFunnel))
+			return ret;
+
+		return null;
 	}
 
 }

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor.slabs;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
@@ -22,7 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockDirtPathSlab extends BlockLivingSlab {
 
 	public BlockDirtPathSlab(boolean full) {
-		super(full, ModBlocks.dirtPath, 0);
+		super(full, ModBlocks.dirtPath.getDefaultState());
 		setHardness(0.6F);
 	}
 
@@ -37,7 +38,7 @@ public class BlockDirtPathSlab extends BlockLivingSlab {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.dirtPath;
 	}
 

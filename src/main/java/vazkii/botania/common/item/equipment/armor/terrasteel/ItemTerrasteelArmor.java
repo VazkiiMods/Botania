@@ -10,15 +10,16 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
-import java.util.List;
-import java.util.UUID;
-
+import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
@@ -26,44 +27,45 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteelArmor(int type, String name) {
+	public ItemTerrasteelArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
-		models[slot] = new ModelArmorTerrasteel(slot);
-		return models[slot];
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
+		models.put(slot, new ModelArmorTerrasteel(slot));
+		return models.get(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == EntityEquipmentSlot.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 || super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
+	@Nonnull
 	@Override
-	public Multimap getItemAttributeModifiers() {
-		Multimap multimap = HashMultimap.create();
-		UUID uuid = new UUID(getUnlocalizedName().hashCode(), 0);
-		multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type) / 20, 0));
+	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+		UUID uuid = new UUID((getUnlocalizedName() + slot.toString()).hashCode(), 0);
+		if (slot == this.armorType) {
+			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type.getIndex()) / 20, 0));
+		}
 		return multimap;
 	}
 
-	static ItemStack[] armorset;
+	private static ItemStack[] armorset;
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
@@ -94,16 +96,18 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.terrasteel.name");
+		return I18n.format("botania.armorset.terrasteel.name");
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc0"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc1"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc2"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc0"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc1"), list);
+		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc2"), list);
 	}
 
 }

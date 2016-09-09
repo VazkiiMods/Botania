@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "color=white": { "model": "botania:plants/flower_white" },
+    "color=orange": { "model": "botania:plants/flower_orange" },
+    "color=magenta": { "model": "botania:plants/flower_magenta" },
+    "color=light_blue": { "model": "botania:plants/flower_light_blue" },
+    "color=yellow": { "model": "botania:plants/flower_yellow" },
+    "color=lime": { "model": "botania:plants/flower_lime" },
+    "color=pink": { "model": "botania:plants/flower_pink" },
+    "color=gray": { "model": "botania:plants/flower_gray" },
+    "color=silver": { "model": "botania:plants/flower_silver" },
+    "color=cyan": { "model": "botania:plants/flower_cyan" },
+    "color=purple": { "model": "botania:plants/flower_purple" },
+    "color=blue": { "model": "botania:plants/flower_blue" },
+    "color=brown": { "model": "botania:plants/flower_brown" },
+    "color=green": { "model": "botania:plants/flower_green" },
+    "color=red": { "model": "botania:plants/flower_red" },
+    "color=black": { "model": "botania:plants/flower_black" }
+  }
+}

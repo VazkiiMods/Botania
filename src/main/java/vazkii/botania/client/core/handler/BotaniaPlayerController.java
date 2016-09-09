@@ -13,17 +13,17 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IExtendedPlayerController;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class BotaniaPlayerController extends PlayerControllerMP implements IExtendedPlayerController {
 
 	private float distance = 0F;
 
-	public BotaniaPlayerController(Minecraft p_i45062_1_, NetHandlerPlayClient p_i45062_2_) {
-		super(p_i45062_1_, p_i45062_2_);
+	public BotaniaPlayerController(Minecraft mc, NetHandlerPlayClient netHandler) {
+		super(mc, netHandler);
 	}
 
 	@Override

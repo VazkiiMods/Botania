@@ -10,12 +10,12 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.common.eventhandler.Event;
+
+import java.util.List;
 
 /**
  * An event fired when an Elven Portal TE updates. The portal's
@@ -29,7 +29,7 @@ public class ElvenPortalUpdateEvent extends Event {
 	 */
 	public final TileEntity portalTile;
 	public final AxisAlignedBB aabb;
-	public boolean open;
+	public final boolean open;
 	public final List<ItemStack> stacksInside;
 
 	public ElvenPortalUpdateEvent(TileEntity te, AxisAlignedBB aabb, boolean open, List<ItemStack> stacks) {

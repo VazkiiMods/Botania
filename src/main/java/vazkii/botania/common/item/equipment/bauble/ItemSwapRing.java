@@ -10,17 +10,18 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.Block;
+import baubles.api.BaubleType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.item.ISortableTool.ToolType;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
 public class ItemSwapRing extends ItemBauble {
 
@@ -34,27 +35,25 @@ public class ItemSwapRing extends ItemBauble {
 			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
-		ItemStack currentStack = player.getCurrentEquippedItem();
+		ItemStack currentStack = player.getHeldItemMainhand();
 		if(currentStack == null || !(currentStack.getItem() instanceof ISortableTool))
 			return;
 
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
-		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(entity.worldObj, entity, true, 4.5F);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(entity.worldObj, entity, true, 4.5F);
 		ToolType typeToFind = null;
 
-		if(player.isSwingInProgress && pos != null) {
-			Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+		if(player.isSwingInProgress && pos != null && pos.getBlockPos() != null) {
+			IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
 
-			if(block != null) {
-				Material mat = block.getMaterial();
-				if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))
-					typeToFind = ToolType.PICK;
-				else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsShovel))
-					typeToFind = ToolType.SHOVEL;
-				else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsAxe))
-					typeToFind = ToolType.AXE;
-			}
+			Material mat = state.getMaterial();
+			if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))
+				typeToFind = ToolType.PICK;
+			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsShovel))
+				typeToFind = ToolType.SHOVEL;
+			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsAxe))
+				typeToFind = ToolType.AXE;
 		}
 
 		if(typeToFind == null)
@@ -80,7 +79,7 @@ public class ItemSwapRing extends ItemBauble {
 		}
 
 		if(bestSlot != -1) {
-			player.inventory.setInventorySlotContents(player.inventory.currentItem, bestTool);
+			player.setHeldItem(EnumHand.MAIN_HAND, bestTool);
 			player.inventory.setInventorySlotContents(bestSlot, currentStack);
 		}
 	}

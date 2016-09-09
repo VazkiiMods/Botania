@@ -10,105 +10,161 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
+import javax.annotation.Nonnull;
+import java.util.List;
 
-	IIcon[] icons;
-	private static final int SUBTYPES = 3;
+public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
 
 	public BlockPlatform() {
-		super(Material.wood);
+		super(Material.WOOD, LibBlockNames.PLATFORM);
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setStepSound(Block.soundTypeWood);
-		setBlockName(LibBlockNames.PLATFORM);
+		setSoundType(SoundType.WOOD);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, },
+				new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE, BotaniaStateProps.HELD_WORLD, BotaniaStateProps.HELD_POS });
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE);
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT).ordinal();
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > PlatformVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.values()[meta]);
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
+				.withProperty(BotaniaStateProps.HELD_POS, pos);
+
+		if (world.getTileEntity(pos) instanceof TileCamo) {
+			TileCamo tile = ((TileCamo) world.getTileEntity(pos));
+			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
+		} else {
+			return state;
+		}
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+	public boolean canRenderInLayer(IBlockState state, @Nonnull BlockRenderLayer layer) {
+		return true;
+	}
+
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < SUBTYPES; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+		for(int i = 0; i < PlatformVariant.values().length; i++)
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < SUBTYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity) {
+		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
+		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(SUBTYPES - 1, par2)];
+	public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
+		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
+		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
 	}
 
+	@Nonnull
 	@Override
-	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		if(meta == 2 || meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
-	}
-
-	@Override
-	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		return meta == 2 ? -1F : super.getBlockHardness(par1World, par2, par3, par4);
-	}
-
-	@Override
-	public TileCamo createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePlatform();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.platform : meta == 2 ? null : LexiconData.spectralPlatform;
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
+		return variant == PlatformVariant.ABSTRUSE ? LexiconData.platform : variant == PlatformVariant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		TilePlatform tile = (TilePlatform) world.getTileEntity(x, y, z);
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+		TilePlatform tile = (TilePlatform) world.getTileEntity(pos);
 		return tile.onWanded(player);
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, 3);
+		// Statemapper after item registration, because the items should be registered to the actual variant names
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.PLATFORM_VARIANT).build());
+
+	}
 }

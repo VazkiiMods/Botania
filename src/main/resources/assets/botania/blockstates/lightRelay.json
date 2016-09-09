@@ -1,0 +1,27 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "powered": {
+      "true": {},
+      "false": {}
+    },
+    "variant": {
+      "default": {
+        "textures": {
+          "layer0": "botania:blocks/lightRelay0",
+          "particle": "botania:blocks/lightRelay1"
+        }
+      },
+      "detector": {
+        "textures": {
+          "layer0": "botania:blocks/lightRelay2",
+          "particle": "botania:blocks/lightRelay3"
+        }
+      }
+    }
+  }
+}

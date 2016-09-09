@@ -49,6 +49,8 @@ public final class LibOreDict {
 	public static final String PRISMARINE_BLOCK = "blockPrismarine";
 	public static final String BLAZE_BLOCK = "blockBlaze";
 
+	public static final String DYE_WILDCARD = "dye";
+
 	public static final String[] FLOWER = new String[] {
 		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue",
 		"mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray",
@@ -82,13 +84,6 @@ public final class LibOreDict {
 		"runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB",
 		"runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB",
 		"runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
-	};
-
-	public static final String[] STONE_18_VARIANTS = new String[] {
-		"stoneAndesite", "stoneBasalt", "stoneDiorite", "stoneGranite",
-		"stoneAndesitePolished", "stoneBasaltPolished", "stoneDioritePolished", "stoneGranitePolished",
-		"stoneAndesiteBricks", "stoneBasaltBricks", "stoneDioriteBricks", "stoneGraniteBricks",
-		"stoneAndesiteChiseled", "stoneBasaltChiseled", "stoneDioriteChiseled", "stoneGraniteChiseled"
 	};
 
 	public static final String[] QUARTZ = new String[] {

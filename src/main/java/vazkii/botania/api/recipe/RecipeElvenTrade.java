@@ -1,32 +1,33 @@
 package vazkii.botania.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecipeElvenTrade {
 
-	ItemStack output;
-	List<Object> inputs;
+	private final ImmutableList<ItemStack> outputs;
+	private final ImmutableList<Object> inputs;
 
-	public RecipeElvenTrade(ItemStack output, Object... inputs) {
-		this.output = output;
+	public RecipeElvenTrade(ItemStack[] outputs, Object... inputs) {
+		this.outputs = ImmutableList.copyOf(outputs);
 
-		List<Object> inputsToSet = new ArrayList();
+		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
 			else throw new IllegalArgumentException("Invalid input");
 		}
 
-		this.inputs = inputsToSet;
+		this.inputs = inputsToSet.build();
 	}
 
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
-		List<Object> inputsMissing = new ArrayList(inputs);
-		List<ItemStack> stacksToRemove = new ArrayList();
+		List<Object> inputsMissing = new ArrayList<>(inputs);
+		List<ItemStack> stacksToRemove = new ArrayList<>();
 
 		for(ItemStack stack : stacks) {
 			if(stack == null) {
@@ -79,16 +80,16 @@ public class RecipeElvenTrade {
 		return inputsMissing.isEmpty();
 	}
 
-	boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
+	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
 		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList(inputs);
+		return inputs;
 	}
 
-	public ItemStack getOutput() {
-		return output;
+	public List<ItemStack> getOutputs() {
+		return outputs;
 	}
 
 }

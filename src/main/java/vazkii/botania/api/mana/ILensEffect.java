@@ -11,7 +11,7 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
@@ -31,7 +31,7 @@ public interface ILensEffect {
 	 * any block. This is called after the collision is handled.
 	 * @return True to kill the burst. False to keep it alive.
 	 */
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack);
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus is updated.

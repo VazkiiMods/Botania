@@ -11,29 +11,30 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.lib.LibResources;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 public class PotionMod extends Potion {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
+	private final int iconIndex;
 
-	public PotionMod(int id, String name, boolean badEffect, int color, int iconIndex) {
-		super(id, badEffect, color);
+	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
+		super(badEffect, color);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setPotionName("botania.potion." + name);
-		setIconIndex(iconIndex % 8, iconIndex / 8);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getStatusIconIndex() {
-		Minecraft.getMinecraft().renderEngine.bindTexture(resource);
-
-		return super.getStatusIconIndex();
+		this.iconIndex = iconIndex;
 	}
 
 	public boolean hasEffect(EntityLivingBase entity) {
@@ -42,6 +43,37 @@ public class PotionMod extends Potion {
 
 	public boolean hasEffect(EntityLivingBase entity, Potion potion) {
 		return entity.getActivePotionEffect(potion) != null;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+		render(x + 6, y + 7, 1);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
+		render(x + 3, y + 3, alpha);
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void render(int x, int y, float alpha) {
+		Minecraft.getMinecraft().renderEngine.bindTexture(resource);
+		Tessellator tessellator = Tessellator.getInstance();
+		VertexBuffer buf = tessellator.getBuffer();
+		buf.begin(7, DefaultVertexFormats.POSITION_TEX);
+		GlStateManager.color(1, 1, 1, alpha);
+
+		int textureX = iconIndex % 8 * 18;
+		int textureY = 198 + iconIndex / 8 * 18;
+
+		buf.pos(x, y + 18, 0).tex(textureX * 0.00390625, (textureY + 18) * 0.00390625).endVertex();
+		buf.pos(x + 18, y + 18, 0).tex((textureX + 18) * 0.00390625, (textureY + 18) * 0.00390625).endVertex();
+		buf.pos(x + 18, y, 0).tex((textureX + 18) * 0.00390625, textureY * 0.00390625).endVertex();
+		buf.pos(x, y, 0).tex(textureX * 0.00390625, textureY * 0.00390625).endVertex();
+
+		tessellator.draw();
 	}
 
 }

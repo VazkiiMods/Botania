@@ -10,16 +10,21 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntityEnderAirBottle extends EntityThrowable {
 
@@ -32,45 +37,35 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition pos) {
-		if(pos.entityHit == null && !worldObj.isRemote) {
-			List<ChunkCoordinates> coordsList = getCoordsToPut(pos.blockX, pos.blockY, pos.blockZ);
-			worldObj.playAuxSFX(2002, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), 8);
+	protected void onImpact(@Nonnull RayTraceResult pos) {
+		if(pos.getBlockPos() != null && !worldObj.isRemote) {
+			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
+			worldObj.playEvent(2002, new BlockPos(this), 8);
 
-			for(ChunkCoordinates coords : coordsList) {
-				worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.end_stone);
+			for(BlockPos coords : coordsList) {
+				worldObj.setBlockState(coords, Blocks.END_STONE.getDefaultState());
 				if(Math.random() < 0.1)
-					worldObj.playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Blocks.end_stone));
+					worldObj.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
 			}
 			setDead();
 		}
 	}
 
-	public List<ChunkCoordinates> getCoordsToPut(int xCoord, int yCoord, int zCoord) {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
-		List<ChunkCoordinates> selectedCoords = new ArrayList();
+	private List<BlockPos> getCoordsToPut(BlockPos pos) {
+		List<BlockPos> possibleCoords = new ArrayList<>();
 		int range = 4;
 		int rangeY = 4;
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range + 1; k++) {
-					int x = xCoord + i;
-					int y = yCoord + j;
-					int z = zCoord + k;
-					Block block = worldObj.getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(worldObj, x, y, z, Blocks.stone))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
-				}
-
-		int count = 64;
-		while(!possibleCoords.isEmpty() && count > 0) {
-			ChunkCoordinates coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size()));
-			possibleCoords.remove(coords);
-			selectedCoords.add(coords);
-			count--;
+		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
+			IBlockState state = worldObj.getBlockState(bPos);
+			Block block = state.getBlock();
+			if(block.isReplaceableOreGen(state, worldObj, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
+				possibleCoords.add(bPos);
 		}
-		return selectedCoords;
+
+		Collections.shuffle(possibleCoords, rand);
+
+		return possibleCoords.stream().limit(64).collect(Collectors.toList());
 	}
 
 }

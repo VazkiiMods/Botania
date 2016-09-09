@@ -14,9 +14,9 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
 public class ModelCrystalCube extends ModelBase {
-	public ModelRenderer cube;
-	public ModelRenderer base1;
-	public ModelRenderer base2;
+	public final ModelRenderer cube;
+	public final ModelRenderer base1;
+	public final ModelRenderer base2;
 
 	public ModelCrystalCube() {
 		textureWidth = 48;

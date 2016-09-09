@@ -10,22 +10,22 @@
  */
 package vazkii.botania.client.model;
 
-import java.awt.Color;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 public class ModelHourglass extends ModelBase {
 
-	public ModelRenderer ring;
-	public ModelRenderer base1;
-	public ModelRenderer base2;
-	public ModelRenderer glass1;
-	public ModelRenderer sand1;
-	public ModelRenderer glass2;
-	public ModelRenderer sand2;
+	public final ModelRenderer ring;
+	public final ModelRenderer base1;
+	public final ModelRenderer base2;
+	public final ModelRenderer glass1;
+	public final ModelRenderer sand1;
+	public final ModelRenderer glass2;
+	public final ModelRenderer sand2;
 
 	public ModelHourglass() {
 		textureWidth = 48;
@@ -66,39 +66,39 @@ public class ModelHourglass extends ModelBase {
 		base2.render(f);
 		Color c = new Color(color);
 		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
-		GL11.glPushAttrib(GL11.GL_NORMALIZE);
-		GL11.glEnable(GL11.GL_NORMALIZE);
+		GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
+		GlStateManager.enableNormalize();
 
 		if(fract1 > 0) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			if(flip)
-				GL11.glTranslatef(-2.5F * f, 1.0F * f, -2.5F * f);
+				GlStateManager.translate(-2.5F * f, 1.0F * f, -2.5F * f);
 			else {
-				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-2.5F * f, -6.0F * f, -2.5F * f);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(-2.5F * f, -6.0F * f, -2.5F * f);
 			}
 
-			GL11.glScalef(1F, fract1, 1F);
+			GlStateManager.scale(1F, fract1, 1F);
 			sand1.render(f);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		if(fract2 > 0) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			if(flip)
-				GL11.glTranslatef(-2.5F * f, -6.0F * f, -2.5F * f);
+				GlStateManager.translate(-2.5F * f, -6.0F * f, -2.5F * f);
 			else {
-				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-2.5F * f, 1.0F * f, -2.5F * f);
+				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GlStateManager.translate(-2.5F * f, 1.0F * f, -2.5F * f);
 			}
 
-			GL11.glScalef(1F, fract2, 1F);
+			GlStateManager.scale(1F, fract2, 1F);
 			sand2.render(f);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		}
 
 		GL11.glPopAttrib();
-		GL11.glColor3f(1F, 1F, 1F);
+		GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255));
 		glass1.render(f);
 		glass2.render(f);
 	}

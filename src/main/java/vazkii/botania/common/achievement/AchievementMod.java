@@ -10,18 +10,18 @@
  */
 package vazkii.botania.common.achievement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import vazkii.botania.api.item.IRelic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AchievementMod extends Achievement {
 
-	public static List<Achievement> achievements = new ArrayList();
+	public static final List<Achievement> achievements = new ArrayList<>();
 
 	public AchievementMod(String name, int x, int y, ItemStack icon, Achievement parent) {
 		super("achievement.botania:" + name, "botania:" + name, x, y, icon, parent);

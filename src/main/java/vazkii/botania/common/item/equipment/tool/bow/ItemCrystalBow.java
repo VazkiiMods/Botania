@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -33,20 +34,21 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	boolean postsEvent() {
-		return false;
+	boolean canFire(ItemStack stack, EntityPlayer player) {
+		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack);
+		return player.capabilities.isCreativeMode || ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
 	}
 
 	@Override
-	boolean canFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
-		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_);
-		return ManaItemHandler.requestManaExactForTool(p_77615_1_, p_77615_3_, ARROW_COST / (infinity + 1), false);
+	void onFire(ItemStack stack, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
+		arrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
+		if(living instanceof EntityPlayer)
+			ManaItemHandler.requestManaExactForTool(stack, ((EntityPlayer) living), ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
-	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
-		arrow.canBePickedUp = 2;
-		ManaItemHandler.requestManaExactForTool(p_77615_1_, p_77615_3_, ARROW_COST / (infinity ? 2 : 1), false);
+	protected ItemStack getAmmo(EntityLivingBase player) {
+		return new ItemStack(Items.ARROW);
 	}
 
 }

@@ -12,17 +12,17 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensStorm extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake()) {
-			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if(!entity.worldObj.isRemote && !burst.isFake()) {
+			BlockPos coords = burst.getBurstSourceBlockPos();
+			if(pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())))
 				entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, 5F, true);
 		} else dead = false;
 

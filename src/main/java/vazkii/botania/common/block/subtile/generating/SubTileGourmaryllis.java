@@ -10,18 +10,22 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileGourmaryllis extends SubTileGenerating {
 
@@ -35,41 +39,42 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(cooldown > 0)
+		if (supertile.getWorld().isRemote)
+			return;
+
+		if(cooldown > -1)
 			cooldown--;
-		if(cooldown == 0 && !supertile.getWorldObj().isRemote) {
+		if(cooldown == 0) {
 			mana = Math.min(getMaxMana(), mana + storedMana);
 			storedMana = 0;
 			sync();
 		}
 
 		int slowdown = getSlowdownFactor();
-		
-		boolean remote = supertile.getWorldObj().isRemote;
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+
+		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && item.age >= slowdown) {
-				if(cooldown == 0) {
-					if(!remote) {
-						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
-						storedMana = val * val * 64;
-						cooldown = val * 10;
-						supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
-						sync();
-					} else 
-						for(int i = 0; i < 10; i++) {
-							float m = 0.2F;
-							float mx = (float) (Math.random() - 0.5) * m;
-							float my = (float) (Math.random() - 0.5) * m;
-							float mz = (float) (Math.random() - 0.5) * m;
-							supertile.getWorldObj().spawnParticle("iconcrack_" + Item.getIdFromItem(stack.getItem()), item.posX, item.posY, item.posZ, mx, my, mz);
-						}
-							
+
+			int age;
+			try {
+				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
+			} catch (Throwable t) {
+				continue;
+			}
+
+			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && age >= slowdown) {
+				if(cooldown <= 0) {
+					int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
+					storedMana = val * val * 64;
+					cooldown = val * 10;
+					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.5F + (float) Math.random() * 0.5F);
+					sync();
+					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 				}
 
-				if(!remote)
-					item.setDead();
+				item.setDead();
 			}
 		}
 	}
@@ -89,7 +94,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

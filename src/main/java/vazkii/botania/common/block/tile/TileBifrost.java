@@ -13,6 +13,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
+
 public class TileBifrost extends TileMod {
 
 	private static final String TAG_TICKS = "ticks";
@@ -20,19 +22,21 @@ public class TileBifrost extends TileMod {
 	public int ticks = 0;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(!worldObj.isRemote) {
 			if(ticks <= 0) {
-				worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+				worldObj.setBlockToAir(pos);
 			} else ticks--;
 		} else if(Math.random() < 0.1)
-			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}
 
+	@Nonnull
 	@Override
-	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_TICKS, ticks);
+	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
+		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
+		ret.setInteger(TAG_TICKS, ticks);
+		return ret;
 	}
 
 	@Override

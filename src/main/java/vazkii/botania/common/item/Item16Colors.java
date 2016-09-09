@@ -10,40 +10,41 @@
  */
 package vazkii.botania.common.item;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class Item16Colors extends ItemMod {
 
 	public Item16Colors(String name) {
-		super();
+		super(name);
 		setHasSubtypes(true);
-		setUnlocalizedName(name);
 	}
 
 	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par1ItemStack.getItemDamage() >= EntitySheep.fleeceColorTable.length)
-			return 0xFFFFFF;
-
-		float[] color = EntitySheep.fleeceColorTable[par1ItemStack.getItemDamage()];
-		return new Color(color[0], color[1], color[2]).getRGB();
-	}
-
-	@Override
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List par3List) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(item, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAllMeta(this, EnumDyeColor.values().length);
 	}
 
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {

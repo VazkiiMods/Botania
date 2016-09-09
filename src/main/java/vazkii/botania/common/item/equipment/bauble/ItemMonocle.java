@@ -10,32 +10,32 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import baubles.api.BaubleType;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRedstoneComparator;
+import net.minecraft.block.BlockRedstoneRepeater;
+import net.minecraft.block.BlockRedstoneWire;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
@@ -49,45 +49,44 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	@SideOnly(Side.CLIENT)
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			float f = itemIcon.getMinU();
-			float f1 = itemIcon.getMaxU();
-			float f2 = itemIcon.getMinV();
-			float f3 = itemIcon.getMaxV();
-			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
-			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.35F, -0.1F, armor ? -0.3F : -0.25F);
-			GL11.glScalef(0.35F, 0.35F, 0.35F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+			Helper.translateToHeadLevel(player);
+			Helper.translateToFace();
+			Helper.defaultTransforms();
+			GlStateManager.rotate(180F, 0F, 1F, 0F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
-		MovingObjectPosition pos = mc.objectMouseOver;
-		if(pos == null)
+		RayTraceResult pos = mc.objectMouseOver;
+		if(pos == null || pos.getBlockPos() == null)
 			return;
-		Block block = player.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-		int meta = player.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
-		player.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		IBlockState state = player.worldObj.getBlockState(pos.getBlockPos());
+		Block block = state.getBlock();
+		player.worldObj.getTileEntity(pos.getBlockPos());
 
 		ItemStack dispStack = null;
 		String text = "";
 
-		if(block == Blocks.redstone_wire) {
-			dispStack = new ItemStack(Items.redstone);
-			text = EnumChatFormatting.RED + "" + meta;
-		} else if(block == Blocks.unpowered_repeater || block == Blocks.powered_repeater) {
-			dispStack = new ItemStack(Items.repeater);
-			text = "" + (((meta & 12) >> 2) + 1);
-		} else if(block == Blocks.unpowered_comparator || block == Blocks.powered_comparator) {
-			dispStack = new ItemStack(Items.comparator);
-			text = (meta & 4) == 4 ? "-" : "+";
+		if(block == Blocks.REDSTONE_WIRE) {
+			dispStack = new ItemStack(Items.REDSTONE);
+			text = TextFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
+		} else if(block == Blocks.UNPOWERED_REPEATER || block == Blocks.POWERED_REPEATER) {
+			dispStack = new ItemStack(Items.REPEATER);
+			text = "" + state.getValue(BlockRedstoneRepeater.DELAY);
+		} else if(block == Blocks.UNPOWERED_COMPARATOR || block == Blocks.POWERED_COMPARATOR) {
+			dispStack = new ItemStack(Items.COMPARATOR);
+			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
 		}
 
 		if(dispStack == null)
@@ -97,10 +96,10 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		int y = resolution.getScaledHeight() / 2 - 8;
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, dispStack, x, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(dispStack, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
+		mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 	public static boolean hasMonocle(EntityPlayer player) {

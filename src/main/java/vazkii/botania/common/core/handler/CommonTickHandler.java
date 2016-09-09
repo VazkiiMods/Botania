@@ -10,40 +10,18 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public final class CommonTickHandler {
 
+	private CommonTickHandler() {}
+
 	@SubscribeEvent
-	public void onTick(WorldTickEvent event) {
+	public static void onTick(WorldTickEvent event) {
 		if(event.phase == Phase.END) {
-			/*List<Entity> entities = new ArrayList(event.world.loadedEntityList);
-			for(Entity entity : entities)
-				if(entity instanceof EntityItem)
-					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);*/
-
-			CorporeaHelper.clearCache();
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onTick(ClientTickEvent event) {
-		if(event.phase == Phase.END) {
-			/*World world = Minecraft.getMinecraft().theWorld;
-			if(world != null) {
-				List<Entity> entities = new ArrayList(world.loadedEntityList);
-				for(Entity entity : entities)
-					if(entity instanceof EntityItem)
-						TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
-			}*/
-
 			CorporeaHelper.clearCache();
 		}
 	}

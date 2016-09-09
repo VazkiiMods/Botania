@@ -27,7 +27,7 @@ public class ThreadVersionChecker extends Thread {
 	@Override
 	public void run() {
 		try {
-			URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/version/" + MinecraftForge.MC_VERSION + ".txt");
+			URL url = new URL("https://raw.githubusercontent.com/Vazkii/BotaniaV2/master/version/" + MinecraftForge.MC_VERSION + ".txt");
 			BufferedReader r = new BufferedReader(new InputStreamReader(url.openStream()));
 			VersionChecker.onlineVersion = r.readLine();
 			r.close();

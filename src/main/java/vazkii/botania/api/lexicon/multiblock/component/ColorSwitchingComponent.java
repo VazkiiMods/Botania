@@ -11,7 +11,10 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 
@@ -21,23 +24,26 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public class ColorSwitchingComponent extends MultiblockComponent {
 
-	public ColorSwitchingComponent(ChunkCoordinates relPos, Block block) {
-		super(relPos, block, -1);
+	private final PropertyEnum<EnumDyeColor> colorProp;
+
+	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum<EnumDyeColor> colorProp) {
+		super(relPos, block.getDefaultState());
+		this.colorProp = colorProp;
 	}
 
 	@Override
-	public int getMeta() {
-		return (int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16;
+	public IBlockState getBlockState() {
+		return state.withProperty(colorProp, EnumDyeColor.byMetadata((int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16));
 	}
 
 	@Override
-	public boolean matches(World world, int x, int y, int z) {
-		return world.getBlock(x, y, z) == getBlock();
+	public boolean matches(World world, BlockPos pos) {
+		return world.getBlockState(pos).getBlock() == getBlockState().getBlock();
 	}
 
 	@Override
 	public MultiblockComponent copy() {
-		return new ColorSwitchingComponent(relPos, block);
+		return new ColorSwitchingComponent(getRelativePosition(), getBlockState().getBlock(), colorProp);
 	}
 
 }

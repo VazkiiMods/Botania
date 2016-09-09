@@ -15,15 +15,18 @@ import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 
+import javax.annotation.Nonnull;
+
 public class ItemBlockModSlab extends ItemSlab {
 
 	public ItemBlockModSlab(Block par1) {
-		super(par1, ((BlockModSlab)par1).getSingleBlock(), ((BlockModSlab)par1).getFullBlock(), false);
+		super(par1, ((BlockModSlab)par1).getSingleBlock(), ((BlockModSlab)par1).getFullBlock());
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return field_150939_a.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
+		return block.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
 	}
 
 }

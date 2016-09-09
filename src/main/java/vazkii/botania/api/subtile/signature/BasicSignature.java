@@ -10,38 +10,26 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
+
+import java.util.List;
 
 /**
  * A basic (and fallback) implementation of SubTileSignature.
  */
 public class BasicSignature extends SubTileSignature {
 
-	final String name;
+	private final String name;
 
 	public BasicSignature(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister register) {
-		BotaniaAPI.internalHandler.registerBasicSignatureIcons(name, register);
-	}
-
-	@Override
-	public IIcon getIconForStack(ItemStack stack) {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(name);
 	}
 
 	@Override
@@ -64,9 +52,6 @@ public class BasicSignature extends SubTileSignature {
 		if(clazz == null)
 			return "uwotm8";
 
-		if(clazz.getAnnotation(PassiveFlower.class) != null)
-			return "botania.flowerType.passiveGenerating";
-
 		if(SubTileGenerating.class.isAssignableFrom(clazz))
 			return "botania.flowerType.generating";
 
@@ -78,7 +63,7 @@ public class BasicSignature extends SubTileSignature {
 
 	@Override
 	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
-		tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocal(getType()));
+		tooltip.add(TextFormatting.BLUE + I18n.translateToLocal(getType()));
 	}
 
 	private String unlocalizedName(String end) {

@@ -10,13 +10,19 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaReceiver;
 
 /**
  * A TileEntity that implements this is considered an Avatar.
  */
-public interface IAvatarTile extends IInventory, IManaReceiver {
+public interface IAvatarTile extends IManaReceiver {
+
+	/**
+	 * Gets the avatar's inventory
+	 * @return An IItemhandler representing the avatar's inventory
+     */
+	public IItemHandler getInventory();
 
 	/**
 	 * Gets the amount of ticks that have elapsed on this avatar while it's functional

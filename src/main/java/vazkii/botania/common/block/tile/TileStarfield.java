@@ -10,28 +10,29 @@
  */
 package vazkii.botania.common.block.tile;
 
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 
 public class TileStarfield extends TileMod {
 
 	@Override
-	public void updateEntity() {
-		int meta = getBlockMetadata();
+	public void update() {
+		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		if(!worldObj.isRemote) {
-			int newMeta = worldObj.isDaytime() ? 0 : 1;
-			if(newMeta != meta) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
-				meta = newMeta;
+			boolean newState = !worldObj.isDaytime();
+			if(newState != state) {
+				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, newState), 1 | 2);
+				state = newState;
 			}
 		}
 
-		if(meta == 1) {
+		if(state) {
 			double radius = 512;
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {
-				double x = xCoord + 0.5 + (Math.random() - 0.5) * radius;
-				double y = yCoord + 256;
-				double z = zCoord + 0.5 + (Math.random() - 0.5) * radius;
+				double x = pos.getX() + 0.5 + (Math.random() - 0.5) * radius;
+				double y = Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16);
+				double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 				float w = 0.6F;
 				float c = 1F - w;
@@ -43,7 +44,7 @@ public class TileStarfield extends TileMod {
 				float s = 20F + (float) Math.random() * 20F;
 				int m = 50;
 
-				Botania.proxy.sparkleFX(worldObj, x, y, z, r, g, b, s, m);
+				Botania.proxy.sparkleFX(x, y, z, r, g, b, s, m);
 			}
 		}
 	}

@@ -10,17 +10,17 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileMedumone extends SubTileFunctional {
 
@@ -30,12 +30,12 @@ public class SubTileMedumone extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(mana > 0) {
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + 1, supertile.zCoord + RANGE + 1));
+		if(!supertile.getWorld().isRemote && mana > 0) {
+			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for(EntityLivingBase entity : entities)
 				if(!(entity instanceof EntityPlayer)) {
-					entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 100));
+					entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 100));
 					mana--;
 					if(mana == 0)
 						return;
@@ -50,7 +50,7 @@ public class SubTileMedumone extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

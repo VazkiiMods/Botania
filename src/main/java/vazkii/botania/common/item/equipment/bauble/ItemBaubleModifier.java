@@ -10,16 +10,15 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 public abstract class ItemBaubleModifier extends ItemBauble {
 
-	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemBaubleModifier(String name) {
 		super(name);

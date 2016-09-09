@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -25,10 +23,13 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public final class BotaniaCreativeTab extends CreativeTabs {
 
-	public static BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	List list;
+	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
+	List<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
@@ -36,6 +37,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModItems.lexicon);
@@ -52,7 +54,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllReleventItems(List list) {
+	public void displayAllRelevantItems(@Nonnull List<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
@@ -299,29 +301,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
 
-		addStack(new ItemStack(Blocks.dirt, 1, 1));
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
 
-		addBlock(ModBlocks.prismarine);
-		addBlock(ModBlocks.seaLamp);
-		addBlock(ModFluffBlocks.prismarineStairs);
-		addBlock(ModFluffBlocks.prismarineSlab);
-		addBlock(ModFluffBlocks.prismarineWall);
-		addBlock(ModFluffBlocks.prismarineBrickStairs);
-		addBlock(ModFluffBlocks.prismarineBrickSlab);
-		addBlock(ModFluffBlocks.darkPrismarineStairs);
-		addBlock(ModFluffBlocks.darkPrismarineSlab);
-
 		addBlock(ModBlocks.blazeBlock);
-
-		addBlock(ModBlocks.reedBlock);
-		addBlock(ModFluffBlocks.reedStairs);
-		addBlock(ModFluffBlocks.reedSlab);
-		addBlock(ModFluffBlocks.reedWall);
-		addBlock(ModBlocks.thatch);
-		addBlock(ModFluffBlocks.thatchStairs);
-		addBlock(ModFluffBlocks.thatchSlab);
 
 		addBlock(ModBlocks.customBrick);
 		addBlock(ModFluffBlocks.netherBrickStairs);
@@ -379,15 +362,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.sunnyQuartzSlab);
 		addBlock(ModFluffBlocks.sunnyQuartzStairs);
 
-		if(ConfigHandler.stones18Enabled) {
-			addBlock(ModFluffBlocks.stone);
-			for(int i = 0; i < 8; i++)
-				addBlock(ModFluffBlocks.stoneStairs[i]);
-			for(int i = 0; i < 8; i++)
-				addBlock(ModFluffBlocks.stoneSlabs[i]);
-			addBlock(ModFluffBlocks.stoneWall);
-		}
-
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
@@ -401,14 +375,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(pavementStair);
 		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
 			addBlock(pavementSlab);
-
-		if(ConfigHandler.enderStuff19Enabled) {
-			addBlock(ModBlocks.endStoneBrick);
-			addBlock(ModFluffBlocks.endStoneSlab);
-			addBlock(ModFluffBlocks.endStoneStairs);
-			addBlock(ModFluffBlocks.enderBrickSlab);
-			addBlock(ModFluffBlocks.enderBrickStairs);
-		}
 
 		addItem(ModItems.cosmetic);
 	}

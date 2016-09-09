@@ -10,14 +10,13 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -25,13 +24,15 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
-	RecipeBrew recipe;
+	final RecipeBrew recipe;
 	String text;
 
 	public PageBrew(RecipeBrew recipe, String unlocalizedName, String bottomText) {
@@ -41,6 +42,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		int width = gui.getWidth() - 30;
 		int height = gui.getHeight();
@@ -48,23 +50,23 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		int y = gui.getTop() + 12;
 
 		Brew brew = recipe.getBrew();
-		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
-		String s = EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.brewOf"), StatCollector.translateToLocal(brew.getUnlocalizedName()));
+		String s = TextFormatting.BOLD + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName()));
 		renderer.drawString(s, gui.getLeft() + gui.getWidth() / 2 - renderer.getStringWidth(s) / 2, y, 0x222222);
 		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);
 
-		ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
-		if(book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, BotaniaAPI.elvenKnowledge)) {
+		ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, ILexicon.class);
+		if(book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, BotaniaAPI.elvenKnowledge)) {
 			renderItemAtLinePos(gui, 20, 2, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
 			renderItemAtLinePos(gui, 20, 3, y + 12, recipe.getOutput(new ItemStack(ModItems.vial, 1, 1)));
 		} else renderItemAtLinePos(gui, 0, -1, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
 
 		int i = 0;
 		y = gui.getTop() + gui.getHeight() - 54;
-		List<Object> inputs = new ArrayList(recipe.getInputs());
+		List<Object> inputs = new ArrayList<>(recipe.getInputs());
 
 		int offset = gui.getWidth() / 2 - inputs.size() * 9;
 		for(Object input : inputs) {
@@ -98,7 +100,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		list.add(recipe.getOutput(new ItemStack(ModItems.vial)));
 		return list;
 	}

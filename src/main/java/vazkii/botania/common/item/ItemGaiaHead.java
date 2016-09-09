@@ -10,86 +10,131 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemGaiaHead extends ItemMod {
 
 	public ItemGaiaHead() {
-		setUnlocalizedName(LibItemNames.GAIA_HEAD);
+		super(LibItemNames.GAIA_HEAD);
 	}
 
-	// I couldn't deal with it.
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float sideX, float sideY, float sideZ) {
-		// The side of the wall the head is being used on.
-		ForgeDirection sideDir = ForgeDirection.getOrientation(side);
-
-		// If we can replace the block we're clicking on, then we'll go ahead
-		// and replace it (eg, snow).
-		if (world.getBlock(x, y, z).isReplaceable(world, x, y, z) && sideDir != ForgeDirection.DOWN) {
-			sideDir = ForgeDirection.UP;
-			y--;
-		}
-
-		// Skulls can't be placed on the bottom side of a block.
-		if (sideDir == ForgeDirection.DOWN)
-			return false;
-
-		// If the side we're trying to place the skull on isn't solid, then
-		// we can't place it either.
-		if (!world.isSideSolid(x, y, z, sideDir))
-			return false;
-
-		// Figure out where the skull actually goes based on the side we're placing it against.
-		switch(sideDir) {
-		case UP: y++; break; // If we're placing it on the top, then the skull goes 1 block above.
-		case NORTH: z--; break; // Placing it on the north side (Z- axis).
-		case SOUTH: z++; break; // Placing it on the south side (Z+ axis).
-		case WEST: x--; break; // Placing it on the west side (X- axis).
-		case EAST: x++; break; // Placing it on the east side (X+ axis).
-		default: return false; // Oops, this shouldn't happen.
-		}
-
-		// We can't place blocks as a measly client.
-		if(world.isRemote)
-			return true;
-
-		// If the skull says no, who are we to argue?
-		if (!ModBlocks.gaiaHead.canPlaceBlockOnSide(world, x, y, z, side))
-			return false;
-
-		// Gaia head, instead of skull
-		world.setBlock(x, y, z, ModBlocks.gaiaHead, sideDir.ordinal(), 2);
-		int headAngle = 0;
-
-		// If we place the skull on top of a block, we should also make it
-		// face the player by rotating it.
-		if (sideDir == ForgeDirection.UP)
-			headAngle = MathHelper.floor_double(player.rotationYaw * 16.0F / 360.0F + 0.5D) & 15;
-
-		// Update the skull's orientation if it lets us.
-		TileEntity tileentity = world.getTileEntity(x, y, z);
-
-		if (tileentity != null && tileentity instanceof TileEntitySkull) {
-			((TileEntitySkull) tileentity).func_145903_a(headAngle);
-			((BlockSkull) Blocks.skull).func_149965_a(world, x, y, z, (TileEntitySkull) tileentity);
-		}
-
-		// Remove a head from the stack.
-		--stack.stackSize;
-
-		// Call it a success and leave.
-		return true;
+	public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
+		return armorType == EntityEquipmentSlot.HEAD;
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Nonnull
+	@Override
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		return (ModelBiped) Botania.proxy.getEmptyModelBiped();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		super.registerModels();
+		ForgeHooksClient.registerTESRItemStack(this, 0, TileGaiaHead.class);
+	}
+
+	// Copied from vanila skull itemBlock. Relevant edits are indicated.
+	@Nonnull
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (facing == EnumFacing.DOWN) {
+			return EnumActionResult.FAIL;
+		} else {
+			if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos)) {
+				facing = EnumFacing.UP;
+				pos = pos.down();
+			}
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+			Block block = iblockstate.getBlock();
+			boolean flag = block.isReplaceable(worldIn, pos);
+
+			if (!flag) {
+				if (!worldIn.getBlockState(pos).getMaterial().isSolid() && !worldIn.isSideSolid(pos, facing, true)) {
+					return EnumActionResult.FAIL;
+				}
+
+				pos = pos.offset(facing);
+			}
+
+			if (playerIn.canPlayerEdit(pos, facing, stack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
+				if (worldIn.isRemote) {
+					return EnumActionResult.SUCCESS;
+				} else {
+					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().withProperty(BlockSkull.FACING, facing), 11); // Botania - skull -> gaia head
+					int i = 0;
+
+					if (facing == EnumFacing.UP) {
+						i = MathHelper.floor_double((double) (playerIn.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+					}
+
+					TileEntity tileentity = worldIn.getTileEntity(pos);
+
+					if (tileentity instanceof TileEntitySkull) {
+						TileEntitySkull tileentityskull = (TileEntitySkull) tileentity;
+
+						if (stack.getMetadata() == 3) // Botania - do not retrieve skins
+						{
+							/*GameProfile gameprofile = null;
+
+							if (stack.hasTagCompound())
+							{
+								NBTTagCompound nbttagcompound = stack.getTagCompound();
+
+								if (nbttagcompound.hasKey("SkullOwner", 10))
+								{
+									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
+								}
+								else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isEmpty())
+								{
+									gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+								}
+							}
+
+							tileentityskull.setPlayerProfile(gameprofile);*/
+						} else {
+							tileentityskull.setType(3); // Botania - Force type to 3 (humanoid)
+						}
+
+						tileentityskull.setSkullRotation(i);
+						Blocks.SKULL.checkWitherSpawn(worldIn, pos, tileentityskull);
+					}
+
+					--stack.stackSize;
+					return EnumActionResult.SUCCESS;
+				}
+			} else {
+				return EnumActionResult.FAIL;
+			}
+		}
+	}
 }

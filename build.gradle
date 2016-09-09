@@ -1,3 +1,6 @@
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
 buildscript {
     repositories {
         mavenCentral()
@@ -11,19 +14,24 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = "chickenbones"
         url = "http://chickenbones.net/maven/"
     }
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
 }
 
-apply plugin: 'forge'
-apply plugin: 'curseforge'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
 
 ext.configFile = file('build.properties')
 
@@ -36,20 +44,19 @@ archivesBaseName = config.mod_name
 
 minecraft {
     version = "${config.mc_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse/assets"
 
+    mappings = config.mc_mappings
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
     replace 'GRADLE:BUILD', config.build_number
     replace 'GRADLE:VERSION', config.version
 
     replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+    useDepAts = true
 }
 
 //This here is for SCP
-repositories {
-    mavenCentral()
-}
 configurations {
     sshAntTask
 }
@@ -60,14 +67,19 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.109:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
-    compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
+    deobfCompile "mezz.jei:jei_1.10.2:3.7.8.234"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
 }
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 processResources {
     // replace stuff in mcmod.info, nothing else
@@ -89,7 +101,7 @@ processResources {
  */
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-	archiveName = "${baseName} ${version}-deobf.${extension}"
+	archiveName = "${baseName}.${version}-deobf.${extension}"
 }
 
 artifacts {
@@ -98,11 +110,13 @@ artifacts {
 /**
  * Increments the buildnumber in your config file, and saves it
  */
-task incrementBuildNumber(dependsOn: 'reobf') << {
+task incrementBuildNumber(dependsOn: 'reobfJar') << {
     config.build_number = (config.build_number.toString().toInteger()) + 1
     configFile.withWriter {
         config.toProperties().store(it, "")
     }
+
+    // todo make this flexibile - collection of supported mc versions
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
     file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
@@ -145,9 +159,7 @@ task sort(type: Delete) {
 	delete "${config.dir_output}/${deobfJar.archiveName}", "${config.dir_output}/wtf"
 }
 
-/**
- * This is the upload task from the build.xml
- */
+// This is the upload task from the build.xml
 task upload() << {
     scp('/files') {
         fileset(file: jar.archivePath)
@@ -163,9 +175,7 @@ task upload() << {
     }
 }
 
-/**
- * This is deply_web task
- */
+// This is deploy_web task
 task deployWeb << {
     scp('/') {
         fileset(dir: 'web') //everything from the web directory
@@ -194,6 +204,7 @@ def scp(String dir, Closure antFileset = {}) {
     }
 }
 
+
 def parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
@@ -204,17 +215,22 @@ def parseConfig(File config) {
 
 jar {
     //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
+    archiveName = "${baseName}-unofficial.${version}.${extension}"
 }
 
-curse {
+curseforge {
     apiKey = priv.cfkey
-    projectId = "225643"
-    changelog = """
-		See http://botaniamod.net/changelog.php#${version}
-    """
-    releaseType = "release"
-    relatedProject 'baubles': 'requiredLibrary'
+    project {
+        id = "225643"
+        changelog = """
+		    See http://botaniamod.net/changelog.php#${version}
+        """
+        releaseType = "beta"
+        addGameVersion "${config.cf_meta_version}"
+        relations {
+            requiredLibrary 'baubles'
+        }
+    }
 }
 
 defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'

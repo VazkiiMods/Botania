@@ -2,37 +2,48 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 26, 2014, 7:50:37 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemVineBall extends ItemMod {
 
 	public ItemVineBall() {
-		setUnlocalizedName(LibItemNames.VINE_BALL);
+		super(LibItemNames.VINE_BALL);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par3EntityPlayer.capabilities.isCreativeMode)
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		if(!player.capabilities.isCreativeMode)
 			--par1ItemStack.stackSize;
 
-		par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (par2World.rand.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-		if(!par2World.isRemote)
-			par2World.spawnEntityInWorld(new EntityVineBall(par3EntityPlayer, true));
+		if(!world.isRemote) {
+			EntityVineBall ball = new EntityVineBall(player, true);
+			ball.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntityInWorld(ball);
+		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 }

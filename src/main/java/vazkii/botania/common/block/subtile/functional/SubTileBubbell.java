@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -37,28 +38,33 @@ public class SubTileBubbell extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(supertile.getWorld().isRemote)
+			return;
+
+		if(ticksExisted % 200 == 0)
+			sync();
+
 		if(mana > COST_PER_TICK) {
 			mana -= COST_PER_TICK;
 
 			if(ticksExisted % 10 == 0 && range < getRange())
 				range++;
 
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++)
-					for(int k = -range; k < range + 1; k++)
-						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							Block block = supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
-							if(block.getMaterial() == Material.water) {
-								supertile.getWorldObj().setBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k, ModBlocks.fakeAir, 0, 2);
-								TileFakeAir air = (TileFakeAir) supertile.getWorldObj().getTileEntity(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
-								air.setFlower(supertile);
-							}
-						}
+			for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-range, -range, -range), getPos().add(range, range, range))) {
+				if(getPos().distanceSq(pos) < range * range) {
+					IBlockState state = supertile.getWorld().getBlockState(pos);
+					if(state.getMaterial() == Material.WATER) {
+						supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
+						TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
+						air.setFlower(supertile);
+					}
+				}
+			}
 		}
 	}
 
-	public static boolean isValidBubbell(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public static boolean isValidBubbell(World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof ISubTileContainer) {
 			ISubTileContainer container = (ISubTileContainer) tile;
 			if(container.getSubTile() != null && container.getSubTile() instanceof SubTileBubbell) {
@@ -98,7 +104,7 @@ public class SubTileBubbell extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), range);
+		return new RadiusDescriptor.Circle(toBlockPos(), range);
 	}
 
 	@Override

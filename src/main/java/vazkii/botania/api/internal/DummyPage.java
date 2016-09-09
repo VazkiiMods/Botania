@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.internal;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconPage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A dummy page. It does absolutely nothing and is only
@@ -27,8 +27,6 @@ public class DummyPage extends LexiconPage {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {
-		// NO-OP
-	}
+	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {}
 
 }

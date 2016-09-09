@@ -10,105 +10,134 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPump extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
 
-	private static final int[] META_ROTATIONS = new int[] { 2, 5, 3, 4 };
+public class BlockPump extends BlockMod implements ILexiconable {
+
+	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0, 0, 0.25, 1, 0.5, 0.75);
+	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
 
 	public BlockPump() {
-		super(Material.rock);
+		super(Material.ROCK, LibBlockNames.PUMP);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.PUMP);
-		setBlockBounds(true);
+		setSoundType(SoundType.STONE);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.CARDINALS, Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty });
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(Properties.StaticProperty, true).withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess w, 	int x, int y, int z) {
-		setBlockBounds(w.getBlockMetadata(x, y, z) < 4);
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
 
-	public void setBlockBounds(boolean horiz) {
-		if(horiz)
-			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
-		else setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F);
+	@Nonnull
+	@Override
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+		return state.withProperty(Properties.StaticProperty, true);
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta < 2 || meta > 5) {
+			meta = 2;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
 	}
 
 	@Override
-	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
-		return RotationHelper.rotateVanillaBlock(Blocks.furnace, worldObj, x, y, z, axis);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()), 2);
+	}
+
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
+			return X_AABB;
+		} else {
+			return Z_AABB;
+		}
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingrock.getIcon(0, 0);
-	}
-
-	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idPump;
-	}
-
-	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TilePump) world.getTileEntity(x, y, z)).comparator;
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		return ((TilePump) world.getTileEntity(pos)).comparator;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.poolCart;
 	}
 
+
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePump();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerInventoryVariant(this);
 	}
 }

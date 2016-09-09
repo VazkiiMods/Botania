@@ -10,37 +10,26 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.awt.Desktop;
-import java.net.URI;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Queue;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -65,12 +54,26 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
 public class GuiLexicon extends GuiScreen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
-	public static HashMap<String, String> notes = new HashMap();
+	public static final Map<String, String> notes = new HashMap<>();
 
 	private static final String TAG_TYPE = "type";
 
@@ -79,11 +82,11 @@ public class GuiLexicon extends GuiScreen {
 	public static final int BOOKMARK_START = 1337;
 	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
-	public static List<GuiLexicon> bookmarks = new ArrayList();
-	public static List<String> bookmarkKeys = new ArrayList();
-	boolean bookmarksNeedPopulation = false;
+	public static final List<GuiLexicon> bookmarks = new ArrayList<>();
+	public static final List<String> bookmarkKeys = new ArrayList<>();
+	private boolean bookmarksNeedPopulation = false;
 
-	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
+	public static final Queue<LexiconEntry> tutorial = new ArrayDeque<>();
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
@@ -107,8 +110,8 @@ public class GuiLexicon extends GuiScreen {
 	List<LexiconCategory> allCategories;
 
 	String title;
-	int guiWidth = 146;
-	int guiHeight = 180;
+	final int guiWidth = 146;
+	final int guiHeight = 180;
 	int left, top;
 
 	@Override
@@ -130,7 +133,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void onInitGui() {
-		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
+		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
 		lastTime = ClientTickHandler.ticksInGame;
@@ -152,7 +155,7 @@ public class GuiLexicon extends GuiScreen {
 		} else if(isCategoryIndex()) {
 			int categories = allCategories.size();
 			for(int i = 0; i < categories + 1; i++) {
-				LexiconCategory category = null;
+				LexiconCategory category;
 				category = i >= categories ? null : allCategories.get(i);
 				int perline = 5;
 				int x = i % perline;
@@ -177,7 +180,9 @@ public class GuiLexicon extends GuiScreen {
 				button.visible = false;
 			}
 
-			if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.NOVEMBER && Calendar.getInstance().get(Calendar.DATE) == 22)
+			LocalDateTime now = LocalDateTime.now();
+
+			if(now.getMonth() == Month.NOVEMBER && now.getDayOfMonth() == 22)
 				buttonList.add(new GuiButtonDoot(-99, left + 100, top + 12));
 		}
 
@@ -199,11 +204,11 @@ public class GuiLexicon extends GuiScreen {
 		lastTime = time;
 		partialTicks = par3;
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawNotes(par3);
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 
@@ -211,6 +216,7 @@ public class GuiLexicon extends GuiScreen {
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
 
 		String subtitle = getSubtitle();
+
 		if(subtitle != null)
 			drawBookmark(left + guiWidth / 2, top - getTitleHeight() + 10, subtitle, true, 191);
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
@@ -223,17 +229,17 @@ public class GuiLexicon extends GuiScreen {
 			bookmarksNeedPopulation = false;
 		}
 
-		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+		if(mc.thePlayer.getName().equals("haighyorkie")) {
+			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
 			if(par1 >= left - 19 && par1 < left && par2 >= top + 62 && par2 < top + 88) {
 				mc.renderEngine.bindTexture(textureToff);
-				GL11.glPushMatrix();
-				GL11.glScalef(0.5F, 0.5F, 0.5F);
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glTranslatef(0F, 0F, 2F);
+				GlStateManager.pushMatrix();
+				GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GlStateManager.translate(0F, 0F, 2F);
 
 				int w = 256;
 				int h = 152;
@@ -241,10 +247,10 @@ public class GuiLexicon extends GuiScreen {
 				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
 
 				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
-				GL11.glDisable(GL11.GL_BLEND);
-				GL11.glPopMatrix();
+				GlStateManager.disableBlend();
+				GlStateManager.popMatrix();
 
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "IT SAYS MANUAL"));
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(TextFormatting.GOLD + "#goldfishchris", TextFormatting.AQUA + "IT SAYS MANUAL"));
 			}
 		}
 
@@ -252,11 +258,11 @@ public class GuiLexicon extends GuiScreen {
 
 		if(hasTutorialArrow) {
 			mc.renderEngine.bindTexture(texture);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColor4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.disableBlend();
 		}
 	}
 
@@ -279,7 +285,7 @@ public class GuiLexicon extends GuiScreen {
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
 
-		fontRendererObj.drawString(StatCollector.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		fontRendererObj.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
@@ -299,7 +305,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
 		// This function is called from the buttons so I can't use fontRendererObj
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		int l = font.getStringWidth(s);
@@ -312,8 +318,9 @@ public class GuiLexicon extends GuiScreen {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, v, 6, 11);
+
 		if(drawLeft)
 			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, v, 6, 11);
 		for(int i = 0; i < l + 6; i++)
@@ -324,8 +331,8 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	void drawHeader() {
-		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.pushMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
 
@@ -333,13 +340,13 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
+		fontRendererObj.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
 
-		String s = EnumChatFormatting.BOLD + categoryHighlight;
+		String s = TextFormatting.BOLD + categoryHighlight;
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
 
 		fontRendererObj.setUnicodeFlag(unicode);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		categoryHighlight = "";
 	}
@@ -433,7 +440,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public int bookmarkWidth(String b) {
 		if(fontRendererObj == null)
-			fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+			fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
@@ -474,16 +481,16 @@ public class GuiLexicon extends GuiScreen {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
-				button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
+				button.displayString = I18n.format(category.getUnlocalizedName());
 			else {
-				button.displayString = StatCollector.translateToLocal("botaniamisc.lexiconIndex");
+				button.displayString = I18n.format("botaniamisc.lexiconIndex");
 				break;
 			}
 		}
 	}
 
 	void populateBookmarks() {
-		List remove = new ArrayList();
+		List<GuiButton> remove = new ArrayList<>();
 		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons)
 			if(button.id >= BOOKMARK_START)
@@ -504,9 +511,9 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		if(isMainPage())
-			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));
+			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.history"), this));
 		else if(isChallenge())
-			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.info"), this));
+			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, I18n.format("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {
@@ -520,10 +527,10 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.manaIntro);
 		tutorial.add(LexiconData.pool);
 		tutorial.add(LexiconData.spreader);
-		if(ConfigHandler.hardcorePassiveGeneration > 0)
-			tutorial.add(LexiconData.generatingIntro);
-		tutorial.add(LexiconData.passiveGen);
-		tutorial.add(LexiconData.daybloom);
+		tutorial.add(LexiconData.generatingIntro);
+		tutorial.add(LexiconData.endoflame);
+//		tutorial.add(LexiconData.passiveGen);
+//		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
 
@@ -561,7 +568,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(char par1, int par2) throws IOException {
 		handleNoteKey(par1, par2);
 
 		if(!notesEnabled && closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
@@ -572,7 +579,7 @@ public class GuiLexicon extends GuiScreen {
 		if(par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147673_a(new ResourceLocation("botania:way")));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.way, 1.0F));
 				konamiIndex = 0;
 			}
 		} else konamiIndex = 0;
@@ -631,9 +638,7 @@ public class GuiLexicon extends GuiScreen {
 		return "index";
 	}
 
-	public void load(NBTTagCompound cmp) {
-		// NO-OP
-	}
+	public void load(NBTTagCompound cmp) {}
 
 	public GuiLexicon copy() {
 		return new GuiLexicon();

@@ -10,15 +10,15 @@
  */
 package vazkii.botania.api.mana;
 
-import java.util.UUID;
-
 import vazkii.botania.api.internal.IManaBurst;
+
+import java.util.UUID;
 
 /**
  * This describes an interface of a Mana Sender block that should be able to pingbackable
  * by a burst to tell it that the burst is still alive.
  */
-public interface IPingable extends IIdentifiable {
+public interface IPingable {
 
 	/**
 	 * Pings this object back, telling it that the burst passed in is still alive
@@ -27,5 +27,10 @@ public interface IPingable extends IIdentifiable {
 	 * correct ID internally. IManaBurst implementations should do this every tick.
 	 */
 	public void pingback(IManaBurst burst, UUID expectedIdentity);
+
+	/**
+	 * @return A unique and persistent identifier for this IPingable
+     */
+	public UUID getIdentifier();
 
 }

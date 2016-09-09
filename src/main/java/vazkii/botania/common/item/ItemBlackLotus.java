@@ -10,20 +10,26 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 
@@ -31,21 +37,23 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	private static final int MANA_PER_T2 = 100000;
 
 	public ItemBlackLotus() {
-		setUnlocalizedName(LibItemNames.BLACK_LOTUS);
+		super(LibItemNames.BLACK_LOTUS);
 		setHasSubtypes(true);
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public boolean hasEffect(ItemStack par1ItemStack, int pass) {
+	public boolean hasEffect(ItemStack par1ItemStack) {
 		return par1ItemStack.getItemDamage() > 0;
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
@@ -62,28 +70,23 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		if(!item.worldObj.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.stackSize--;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
 		}
 
-		for(int i = 0; i < 50; i++) {
-			float r = (float) Math.random() * 0.25F;
-			float g = 0F;
-			float b = (float) Math.random() * 0.25F;
-			float s = 0.45F * (float) Math.random() * 0.25F;
-
-			float m = 0.045F;
-			float mx = ((float) Math.random() - 0.5F) * m;
-			float my = (float) Math.random() * m;
-			float mz = ((float) Math.random() - 0.5F) * m;
-
-			Botania.proxy.wispFX(item.worldObj, item.posX, tile.yCoord + 0.5F, item.posZ, r, g, b, s, mx, my, mz);
-		}
-		item.worldObj.playSoundAtEntity(item, "botania:blackLotus", 0.5F, t2 ? 0.1F : 1F);
+		PacketHandler.sendToNearby(item.worldObj, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
+		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
-		list.add(StatCollector.translateToLocal("botaniamisc.lotusDesc"));
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+		list.add(I18n.format("botaniamisc.lotusDesc"));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.BLACK_LOTUS);
 	}
 
 }

@@ -14,13 +14,16 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class AncientWillRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundWill = false;
 		boolean foundItem = false;
 
@@ -41,7 +44,7 @@ public class AncientWillRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack item = null;
 		int will = -1;
 
@@ -73,4 +76,9 @@ public class AncientWillRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+	}
 }

@@ -11,18 +11,19 @@
 package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.nodes.IRevealer;
+import net.minecraftforge.fml.common.Optional;
+import thaumcraft.api.items.IGoggles;
+import thaumcraft.api.items.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList({
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer", striprefs = true)})
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements IGoggles, IRevealer {
 
 	public ItemElementiumHelmRevealing() {
@@ -40,7 +41,7 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
 		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : LibResources.MODEL_ELEMENTIUM_2;
 	}
 

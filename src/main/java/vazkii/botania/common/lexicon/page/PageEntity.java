@@ -10,39 +10,35 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.lang.reflect.Constructor;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.lang.reflect.Constructor;
 
 public class PageEntity extends LexiconPage{
 
 	Entity dummyEntity;
 	int relativeMouseX, relativeMouseY;
 	boolean tooltipEntity;
-	int size;
+	final int size;
 	Constructor entityConstructor;
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
+		Class EntityClass = (Class) EntityList.NAME_TO_CLASS.get(entity);
 		this.size = size;
 		try {
-			entityConstructor = EntityClass.getConstructor(new Class[] {World.class});
+			entityConstructor = EntityClass.getConstructor(World.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,21 +80,20 @@ public class PageEntity extends LexiconPage{
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
 		dummyEntity.worldObj = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().theWorld : null;
 
-		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x, y, 50.0F);
-		GL11.glScalef(-scale, scale, scale);
-		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-		GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+		GlStateManager.enableColorMaterial();
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, 50.0F);
+		GlStateManager.scale(-scale, scale, scale);
+		GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
-		GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
-		RenderManager.instance.playerViewY = 180.0F;
-		RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-		GL11.glPopMatrix();
+		Minecraft.getMinecraft().getRenderManager().playerViewY = 180.0F;
+		Minecraft.getMinecraft().getRenderManager().doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
+		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.disableRescaleNormal();
 		OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GlStateManager.disableTexture2D();
 		OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
@@ -108,7 +103,7 @@ public class PageEntity extends LexiconPage{
 	public void prepDummy() {
 		if(dummyEntity == null || dummyEntity.isDead) {
 			try {
-				dummyEntity = (Entity) entityConstructor.newInstance(new Object[] {Minecraft.getMinecraft().theWorld});
+				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().theWorld);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

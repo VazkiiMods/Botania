@@ -11,9 +11,9 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -26,18 +26,18 @@ public class HeadRecipe extends RecipeRuneAltar {
 	}
 
 	@Override
-	public boolean matches(IInventory inv) {
+	public boolean matches(IItemHandler inv) {
 		boolean matches = super.matches(inv);
 
 		if(matches) {
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
+			for(int i = 0; i < inv.getSlots(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if(stack == null)
 					break;
 
-				if(stack.getItem() == Items.name_tag) {
+				if(stack.getItem() == Items.NAME_TAG) {
 					name = stack.getDisplayName();
-					if(name.equals(StatCollector.translateToLocal("item.nameTag.name")))
+					if(name.equals(I18n.translateToLocal("item.nameTag.name")))
 						return false;
 				}
 			}
@@ -48,7 +48,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Override
 	public ItemStack getOutput() {
-		ItemStack stack = new ItemStack(Items.skull, 1, 3);
+		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
 		if(!name.isEmpty())
 			ItemNBTHelper.setString(stack, "SkullOwner", name);
 		return stack;

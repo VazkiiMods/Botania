@@ -10,107 +10,127 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.awt.Color;
-import java.util.List;
-
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
+import java.util.List;
 
-	IIcon[] icons;
+public class BlockManaBeacon extends BlockMod implements ILexiconable {
+
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
 
 	public BlockManaBeacon() {
-		super(Material.iron);
+		super(Material.IRON, LibBlockNames.MANA_BEACON);
 		setHardness(5.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeMetal);
-		float size = 3F / 16F;
-		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setBlockName(LibBlockNames.MANA_BEACON);
+		setSoundType(SoundType.METAL);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < 2; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 == 1 ? 1 : 0];
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
-		return false;
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
-	}
-
-	@Override
-	public int getRenderColor(int par1) {
-		float[] color = EntitySheep.fleeceColorTable[par1];
-		return new Color(color[0], color[1], color[2]).getRGB();
-	}
-
-	@Override
-	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
-		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.unstableBlocks;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileManaBeacon();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+		ModelHandler.registerBlockToState(this, EnumDyeColor.values().length);
 	}
 }

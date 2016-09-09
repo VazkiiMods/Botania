@@ -9,17 +9,18 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawer;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -27,16 +28,16 @@ import vazkii.botania.api.corporea.IWrappedInventory;
  */
 public class WrappedStorageDrawers extends WrappedInventoryBase {
 
-	private IDrawerGroup inv;
+	private final IDrawerGroup invRaw;
 
 	private WrappedStorageDrawers(IDrawerGroup inv, ICorporeaSpark spark) {
-		this.inv = inv;
+		this.invRaw = inv;
 		this.spark = spark;
 	}
 
 	@Override
-	public IInventory getWrappedObject() {
-		return (IInventory) inv;
+	public InvWithLocation getWrappedObject() {
+		return new InvWithLocation(new InvWrapper((IInventory) invRaw), spark.getSparkInventory().world, spark.getSparkInventory().pos);
 	}
 
 	@Override
@@ -53,8 +54,8 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		boolean removedAny = false;
 
-		for(int i = 0; i < inv.getDrawerCount(); i++) {
-			IDrawer drawer = inv.getDrawer(i);
+		for(int i = 0; i < invRaw.getDrawerCount(); i++) {
+			IDrawer drawer = invRaw.getDrawer(i);
 			if(drawer == null) {
 				continue;
 			}
@@ -93,7 +94,7 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 			}
 		}
 		if(removedAny) {
-			inv.markDirtyIfNeeded();
+			invRaw.markDirtyIfNeeded();
 		}
 		return stacks;
 	}
@@ -107,7 +108,9 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 	 * 
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
-	public static IWrappedInventory wrap(IInventory inv, ICorporeaSpark spark) {
-		return inv instanceof IDrawerGroup ? new WrappedStorageDrawers((IDrawerGroup) inv, spark) : null;
+	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
+		if(inv.world.getTileEntity(inv.pos) instanceof IDrawerGroup) {
+			return new WrappedStorageDrawers((IDrawerGroup) inv.world.getTileEntity(inv.pos), spark);
+		} else return null;
 	}
 }

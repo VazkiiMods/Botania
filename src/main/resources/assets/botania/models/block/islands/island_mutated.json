@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/miniIsland",
+  "textures": {
+    "all": "botania:model/miniIslandMutated"
+  }
+}

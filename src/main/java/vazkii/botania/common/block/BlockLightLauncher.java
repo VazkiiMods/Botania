@@ -10,70 +10,102 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
+
 	public BlockLightLauncher() {
-		super(Material.wood);
+		super(Material.WOOD, LibBlockNames.LIGHT_LAUNCHER);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.LIGHT_LAUNCHER);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
+		setSoundType(SoundType.WOOD);
+	}
+
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
+	public boolean isPassable(IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0|| world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
-			pickUpEntities(world, x, y, z);
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			pickUpEntities(world, pos);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
-	public void pickUpEntities(World world, int x, int y, int z) {
-		List<TileLightRelay> relays = new ArrayList();
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = world.getTileEntity(x + dir.offsetX, y, z + dir.offsetZ);
+	private void pickUpEntities(World world, BlockPos pos) {
+		List<TileLightRelay> relays = new ArrayList<>();
+		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof TileLightRelay) {
 				TileLightRelay relay = (TileLightRelay) tile;
 				if(relay.getBinding() != null)
@@ -82,7 +114,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 		}
 
 		if(!relays.isEmpty()) {
-			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+			AxisAlignedBB aabb = new AxisAlignedBB(pos, pos.add(1, 1, 1));
 			List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 			entities.addAll(world.getEntitiesWithinAABB(EntityItem.class, aabb));
 
@@ -96,7 +128,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.luminizerTransport;
 	}
 

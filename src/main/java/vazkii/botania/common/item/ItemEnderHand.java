@@ -13,7 +13,12 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -22,6 +27,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	private static final int COST_PROVIDE = 5;
@@ -29,26 +36,30 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	private static final int COST_OTHER = 5000;
 
 	public ItemEnderHand() {
+		super(LibItemNames.ENDER_HAND);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.ENDER_HAND);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
-			player.displayGUIChest(player.getInventoryEnderChest());
+			if(!player.worldObj.isRemote)
+				player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
-			world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
+			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
-		return stack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer iplayer, EntityLivingBase entity) {
-		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
-			iplayer.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
-			ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, true);
-			iplayer.worldObj.playSoundAtEntity(iplayer, "mob.endermen.portal", 1F, 1F);
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
+		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
+			if(!player.worldObj.isRemote)
+				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
+			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
+			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
 			return true;
 		}
 

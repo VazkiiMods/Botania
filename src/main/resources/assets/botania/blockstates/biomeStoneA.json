@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "variant=forest": { "model": "botania:metamorphic/forest_stone" },
+    "variant=plains": { "model": "botania:metamorphic/plains_stone" },
+    "variant=mountain": { "model": "botania:metamorphic/mountain_stone" },
+    "variant=fungal": { "model": "botania:metamorphic/fungal_stone" },
+    "variant=swamp": { "model": "botania:metamorphic/swamp_stone" },
+    "variant=desert": { "model": "botania:metamorphic/desert_stone" },
+    "variant=taiga": { "model": "botania:metamorphic/taiga_stone" },
+    "variant=mesa": { "model": "botania:metamorphic/mesa_stone" },
+    "variant=forest_cobble": { "model": "botania:metamorphic/forest_cobble_stone" },
+    "variant=plains_cobble": { "model": "botania:metamorphic/plains_cobble_stone" },
+    "variant=mountain_cobble": { "model": "botania:metamorphic/mountain_cobble_stone" },
+    "variant=fungal_cobble": { "model": "botania:metamorphic/fungal_cobble_stone" },
+    "variant=swamp_cobble": { "model": "botania:metamorphic/swamp_cobble_stone" },
+    "variant=desert_cobble": { "model": "botania:metamorphic/desert_cobble_stone" },
+    "variant=taiga_cobble": { "model": "botania:metamorphic/taiga_cobble_stone" },
+    "variant=mesa_cobble": { "model": "botania:metamorphic/mesa_cobble_stone" }
+  }
+}

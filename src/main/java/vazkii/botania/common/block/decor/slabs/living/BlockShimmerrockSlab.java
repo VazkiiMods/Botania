@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.decor.slabs.living;
 
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
@@ -18,10 +19,10 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 public class BlockShimmerrockSlab extends BlockLivingSlab {
 
 	public BlockShimmerrockSlab(boolean full) {
-		super(full, ModBlocks.shimmerrock, 0);
+		super(full, ModBlocks.shimmerrock.getDefaultState());
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override

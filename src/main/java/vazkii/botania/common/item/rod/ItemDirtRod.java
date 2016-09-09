@@ -17,9 +17,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -28,6 +31,8 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider {
 
@@ -38,39 +43,36 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	}
 
 	public ItemDirtRod(String name) {
-		super();
+		super(name);
 		setMaxStackSize(1);
-		setUnlocalizedName(name);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		return place(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		return place(par1ItemStack, player, world, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static boolean place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
-		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, false)) {
-			ForgeDirection dir = ForgeDirection.getOrientation(par7);
-			int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
+	public static EnumActionResult place(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
+		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, false)) {
+			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
-				stackToPlace.tryPlaceItemIntoWorld(par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+				stackToPlace.onItemUse(player, world, pos, hand, side, par8, par9, par10);
 
 				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, true);
+					ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true);
 					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(par3World, par4 + dir.offsetX + Math.random(), par5 + dir.offsetY + Math.random(), par6 + dir.offsetZ + Math.random(), r, g, b, 1F, 5);
+						Botania.proxy.sparkleFX(pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), r, g, b, 1F, 5);
+					return EnumActionResult.SUCCESS;
 				}
 			}
+
+			return EnumActionResult.FAIL;
 		}
 
-		return true;
-	}
-
-	@Override
-	public boolean isFull3D() {
-		return true;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
@@ -85,14 +87,14 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return -1;
 		return 0;
 	}

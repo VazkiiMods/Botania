@@ -10,64 +10,99 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockStarfield extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
 
-	IIcon[] icons;
+public class BlockStarfield extends BlockMod implements ILexiconable {
+
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
 
 	public BlockStarfield() {
-		super(Material.iron);
+		super(Material.IRON, LibBlockNames.STARFIELD);
 		setHardness(5F);
 		setResistance(2000F);
-		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.STARFIELD);
+		setSoundType(SoundType.METAL);
+	}
 
-		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Nonnull
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT_MIPPED;
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileStarfield();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.starfield;
 	}
 

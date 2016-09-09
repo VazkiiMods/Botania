@@ -14,12 +14,15 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.item.ItemManaGun;
+
+import javax.annotation.Nonnull;
 
 public class ManaGunRemoveLensRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundGun = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -36,7 +39,7 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack gun = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -63,4 +66,9 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+	}
 }

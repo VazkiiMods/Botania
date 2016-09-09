@@ -16,6 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -33,7 +34,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
 		if(entity instanceof EntityPlayer && !equipped) {
 			EntityPlayer player = (EntityPlayer) entity;
-			IInventory inv = getFakeInv(player);
+			IItemHandler inv = getFakeInv(player);
 
 			for(int i = 1; i < SEGMENTS; i++)
 				tryCraft(player, stack, i, false, inv, false);

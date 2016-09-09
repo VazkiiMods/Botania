@@ -10,47 +10,53 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.WorldServer;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import java.util.List;
 
 public class TileEnderEye extends TileMod {
 
 	@Override
-	public void updateEntity() {
-		int meta = getBlockMetadata();
+	public void update() {
+		if (worldObj.isRemote)
+			return;
+
+		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + range, yCoord + range, zCoord + range));
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
 		boolean looking = false;
 		for(EntityPlayer player : players) {
-			ItemStack helm = player.getCurrentArmor(3);
-			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
+			ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 
-			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
-			if(pos != null && pos.blockX == xCoord && pos.blockY == yCoord && pos.blockZ == zCoord) {
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
+			if(pos != null && pos.getBlockPos() != null && pos.getBlockPos().equals(getPos())) {
 				looking = true;
 				break;
 			}
 		}
 
-		int newMeta = looking ? 15 : 0;
-		if(newMeta != meta && !worldObj.isRemote)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
+		if(looking != wasLooking && !worldObj.isRemote)
+			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
 		
 		if(looking) {
-			double x = xCoord - 0.1 + Math.random() * 1.2;
-			double y = yCoord - 0.1 + Math.random() * 1.2;
-			double z = zCoord - 0.1 + Math.random() * 1.2;
-			
-			worldObj.spawnParticle("reddust", x, y, z, 1, 0, 0);
+			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
+			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
+			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
+
+			((WorldServer) worldObj).spawnParticle(EnumParticleTypes.REDSTONE, false, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
 		}
 	}
 

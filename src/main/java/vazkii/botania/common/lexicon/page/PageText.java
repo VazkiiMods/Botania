@@ -10,20 +10,18 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.common.base.Joiner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-import com.google.common.base.Joiner;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageText extends LexiconPage {
 
@@ -51,17 +49,17 @@ public class PageText extends LexiconPage {
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
+		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
-		List<List<String>> lines = new ArrayList();
+		List<List<String>> lines = new ArrayList<>();
 
-		String controlCodes = "";
+		String controlCodes;
 		for(String s : textEntries) {
-			List<String> words = new ArrayList();
+			List<String> words = new ArrayList<>();
 			String lineStr = "";
 			String[] tokens = s.split(" ");
 			for(String token : tokens) {
@@ -73,7 +71,7 @@ public class PageText extends LexiconPage {
 				if(font.getStringWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
-					words = new ArrayList();
+					words = new ArrayList<>();
 				}
 
 				words.add(controlCodes + token);
@@ -81,7 +79,7 @@ public class PageText extends LexiconPage {
 
 			if(!lineStr.isEmpty())
 				lines.add(words);
-			lines.add(new ArrayList());
+			lines.add(new ArrayList<>());
 		}
 
 		int i = 0;
@@ -119,13 +117,12 @@ public class PageText extends LexiconPage {
 		font.setUnicodeFlag(unicode);
 	}
 
-	public static String getControlCodes(String s) {
+	private static String getControlCodes(String s) {
 		String controls = s.replaceAll("(?<!\u00a7)(.)", "");
-		String wiped = controls.replaceAll(".*r", "r");
-		return wiped;
+		return controls.replaceAll(".*r", "r");
 	}
 
-	public static String toControlCodes(String s) {
+	private static String toControlCodes(String s) {
 		return s.replaceAll(".", "\u00a7$0");
 	}
 

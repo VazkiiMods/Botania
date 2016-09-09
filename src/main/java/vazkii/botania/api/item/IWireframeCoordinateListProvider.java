@@ -10,13 +10,11 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.math.BlockPos;
+
+import java.util.List;
 
 /**
  * An item that implements this will allow for various wireframes to be drawn
@@ -26,10 +24,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 public interface IWireframeCoordinateListProvider {
 
 	/**
-	 * Returns a list of ChunkCoordinates for the wireframes to draw.
-	 * Can be null.
+	 * Returns a list of BlockPos for the wireframes to draw.
+	 * Will not be null.
 	 */
-	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack);
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack);
+
+	/**
+	 * Gets a wireframe to draw thicker than the rest.
+	 * This is useful to indicate the precedence of some position over the others.
+	 * @return The position of a single wireframe to draw thicker than all the others.
+	 */
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack);
+
 
 }

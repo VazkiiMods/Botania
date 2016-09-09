@@ -10,21 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.awt.Desktop;
-import java.net.URI;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
-
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Mouse;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
@@ -35,6 +29,11 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
@@ -67,9 +66,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			return;
 		}
 
-		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
+		title = I18n.format(entry.getUnlocalizedName());
 		if(entry instanceof IAddonEntry)
-			subtitle = StatCollector.translateToLocal(((IAddonEntry) entry).getSubtitle());
+			subtitle = I18n.format(((IAddonEntry) entry).getSubtitle());
 		else subtitle = null;
 	}
 
@@ -115,7 +114,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	String getTitle() {
-		return String.format("%s " + EnumChatFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
+		return String.format("%s " + TextFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
 	}
 
 	@Override
@@ -213,7 +212,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				tutorial.poll();
 				positionTutorialArrow();
 				if(tutorial.isEmpty()) {
-					mc.thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+					mc.thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setStyle(new Style().setColor(TextFormatting.RED)));
 					hasTutorialArrow = false;
 				}
 			}
@@ -280,7 +279,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		fx = par1;
@@ -298,7 +297,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void handleMouseInput() {
+	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 
 		if(Mouse.getEventButton() == 0)
@@ -319,7 +318,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		page.onKeyPressed(par1, par2);
 
 		if(par2 == 1) {
-			mc.displayGuiScreen((GuiScreen)null);
+			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		} else if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();
@@ -336,14 +335,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
 	void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
-			rightButton.func_146113_a(mc.getSoundHandler());
+			rightButton.playPressSound(mc.getSoundHandler());
 			updateNote();
 		}
 	}
@@ -351,7 +350,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
-			leftButton.func_146113_a(mc.getSoundHandler());
+			leftButton.playPressSound(mc.getSoundHandler());
 			updateNote();
 		}
 	}
@@ -408,7 +407,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public GuiLexicon copy() {
-		GuiLexiconEntry gui = new GuiLexiconEntry(entry, new GuiScreen());
+		GuiLexiconEntry gui = new GuiLexiconEntry(entry, this.parent);
 		gui.page = page;
 		gui.setTitle();
 		return gui;

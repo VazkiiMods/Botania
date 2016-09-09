@@ -1,11 +1,12 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
-import java.util.List;
-
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
@@ -13,25 +14,25 @@ import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
-	public ItemElementiumArmor(int type, String name) {
+	public ItemElementiumArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.elementiumArmorMaterial);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
-		models[slot] = new ModelArmorElementium(slot);
-		return models[slot];
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
+		models.put(slot, new ModelArmorElementium(slot));
+		return models.get(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : slot == 2 ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
 	@Override
@@ -70,15 +71,17 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorSetName() {
-		return StatCollector.translateToLocal("botania.armorset.elementium.name");
+		return I18n.format("botania.armorset.elementium.name");
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.elementium.desc"), list);
+		addStringToTooltip(I18n.format("botania.armorset.elementium.desc"), list);
 	}
 
 }

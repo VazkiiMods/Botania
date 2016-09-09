@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderPearl;
@@ -21,17 +17,28 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileLightRelay extends TileMod implements IWandBindable {
 
@@ -41,72 +48,78 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
 
-	int bindX, bindY = -1, bindZ;
+	BlockPos bindPos = new BlockPos(0, -1, 0);
 	int ticksElapsed = 0;
 
 	public void mountEntity(Entity e) {
-		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1 || !isValidBinding())
+		if(e.isRiding() || worldObj.isRemote || bindPos.getY() == -1 || !isValidBinding())
 			return;
 
-		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
+		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, bindPos);
 		worldObj.spawnEntityInWorld(mover);
-		e.mountEntity(mover);
+		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
-			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(BotaniaSoundEvents.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
 			if(e instanceof EntityPlayer)
 				((EntityPlayer) e).addStat(ModAchievements.luminizerRide, 1);
 		}
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		ticksElapsed++;
 
-		if(bindY > -1 && isValidBinding()) {
-			Vector3 vec = getMovementVector();
+		if(bindPos.getY() > -1 && isValidBinding()) {
+			if(worldObj.isRemote) {
+				Vector3 vec = getMovementVector();
 
-			double dist = 0.1;
-			int size = (int) (vec.mag() / dist);
-			int count = 10;
-			int start = ticksElapsed % size;
+				double dist = 0.1;
+				int size = (int) (vec.mag() / dist);
+				int count = 10;
+				int start = ticksElapsed % size;
 
-			Vector3 vecMag = vec.copy().normalize().multiply(dist);
-			Vector3 vecTip = vecMag.copy().multiply(start).add(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+				Vector3 vecMag = vec.normalize().multiply(dist);
+				Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
-			double radPer = Math.PI / 16.0;
-			float mul = 0.5F;
-			float mulPer = 0.4F;
-			float maxMul = 2;
-			for(int i = start; i < start + count; i++) {
-				mul = Math.min(maxMul, mul + mulPer);
-				double rad = radPer * (i + ticksElapsed * 0.4);
-				Vector3 vecRot = vecMag.copy().crossProduct(Vector3.one).multiply(mul).rotate(rad, vecMag).add(vecTip);
-				Botania.proxy.wispFX(worldObj, vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
-				vecTip.add(vecMag);
-			}
+				double radPer = Math.PI / 16.0;
+				float mul = 0.5F;
+				float mulPer = 0.4F;
+				float maxMul = 2;
+				for(int i = start; i < start + count; i++) {
+					mul = Math.min(maxMul, mul + mulPer);
+					double rad = radPer * (i + ticksElapsed * 0.4);
+					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+					Botania.proxy.wispFX(vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
+					vecTip = vecTip.add(vecMag);
+				}
+			} else {
+				BlockPos endpoint = getEndpoint();
 
-			ChunkCoordinates endpoint = getEndpoint();
-			if(endpoint != null && !worldObj.isRemote) {
-				float range = 0.5F;
-				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + 1 + range, yCoord + 1 + range, zCoord + 1 + range));
-				for(EntityEnderPearl pearl : enderPearls) {
-					pearl.posX = endpoint.posX + pearl.posX - xCoord;
-					pearl.posY = endpoint.posY + pearl.posY - yCoord;
-					pearl.posZ = endpoint.posZ + pearl.posZ - zCoord;
+				if(endpoint != null) {
+					AxisAlignedBB aabb = ModBlocks.lightRelay.getBoundingBox(worldObj.getBlockState(pos), worldObj, pos).offset(pos);
+					float range = 0.5F;
+					List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, aabb.expandXyz(range));
+					for(EntityEnderPearl pearl : enderPearls) {
+						pearl.setPositionAndUpdate(
+								endpoint.getX() + pearl.posX - pos.getX(),
+								endpoint.getY() + pearl.posY - pos.getY(),
+								endpoint.getZ() + pearl.posZ - pos.getZ()
+						);
+					}
 				}
 			}
 		}
 	}
 
-	public boolean isValidBinding() {
-		Block block = worldObj.getBlock(bindX, bindY, bindZ);
+	private boolean isValidBinding() {
+		Block block = worldObj.getBlockState(bindPos).getBlock();
 		return block == ModBlocks.lightRelay;
 	}
-
-	public ChunkCoordinates getEndpoint() {
-		List<TileLightRelay> pointsPassed = new ArrayList();
+	
+	private BlockPos getEndpoint() {
+		List<TileLightRelay> pointsPassed = new ArrayList<>();
 		TileLightRelay relay = this;
-		ChunkCoordinates lastCoords = null;
+		BlockPos lastCoords = null;
 
 		// Doing while(true) gives an unreachable code error
 		boolean run = true;
@@ -114,12 +127,12 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(pointsPassed.contains(relay))
 				return null; // Circular path
 			pointsPassed.add(relay);
-
-			ChunkCoordinates coords = relay.getBinding();
+			
+			BlockPos coords = relay.getBinding();
 			if(coords == null)
 				return lastCoords;
-
-			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
+			
+			TileEntity tile = worldObj.getTileEntity(coords);
 			if(tile != null && tile instanceof TileLightRelay)
 				relay = (TileLightRelay) tile;
 			else return lastCoords;
@@ -131,42 +144,42 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	public Vector3 getMovementVector() {
-		return new Vector3(bindX - xCoord, bindY - yCoord, bindZ - zCoord);
+		return new Vector3(bindPos.getX() - pos.getX(), bindPos.getY() - pos.getY(), bindPos.getZ() - pos.getZ());
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
-		return bindY == -1 ? null : new ChunkCoordinates(bindX, bindY, bindZ);
+	public BlockPos getBinding() {
+		return bindPos.getY() == -1 ? null : bindPos;
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-		if(player.worldObj.getBlock(x, y, z) != ModBlocks.lightRelay || MathHelper.pointDistanceSpace(x, y, z, xCoord, yCoord, zCoord) > MAX_DIST)
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+		if(player.worldObj.getBlockState(pos).getBlock() != ModBlocks.lightRelay || pos.distanceSq(getPos()) > MAX_DIST * MAX_DIST)
 			return false;
 
-		bindX = x;
-		bindY = y;
-		bindZ = z;
+		bindPos = pos;
 		return true;
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		bindX = cmp.getInteger(TAG_BIND_X);
-		bindY = cmp.getInteger(TAG_BIND_Y);
-		bindZ = cmp.getInteger(TAG_BIND_Z);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		bindPos = new BlockPos(
+			cmp.getInteger(TAG_BIND_X),
+			cmp.getInteger(TAG_BIND_Y),
+			cmp.getInteger(TAG_BIND_Z)
+		);
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_BIND_X, bindX);
-		cmp.setInteger(TAG_BIND_Y, bindY);
-		cmp.setInteger(TAG_BIND_Z, bindZ);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_BIND_X, bindPos.getX());
+		cmp.setInteger(TAG_BIND_Y, bindPos.getY());
+		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	public static class EntityPlayerMover extends Entity {
@@ -174,63 +187,54 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
+		private static final DataParameter<BlockPos> EXIT_POS = EntityDataManager.createKey(EntityPlayerMover.class, DataSerializers.BLOCK_POS);
+
 
 		public EntityPlayerMover(World world) {
 			super(world);
 		}
 
-		public EntityPlayerMover(World world, int x, int y, int z, int exitX, int exitY, int exitZ) {
+		public EntityPlayerMover(World world, BlockPos pos, BlockPos exitPos) {
 			this(world);
-			setPosition(x + 0.5, y + 0.5, z + 0.5);
-			setExit(exitX, exitY, exitZ);
+			setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+			setExit(exitPos);
 		}
 
 		@Override
 		protected void entityInit() {
 			setSize(0F, 0F);
 			noClip = true;
-
-			dataWatcher.addObject(20, 0);
-			dataWatcher.addObject(21, 0);
-			dataWatcher.addObject(22, 0);
-			dataWatcher.setObjectWatched(20);
-			dataWatcher.setObjectWatched(21);
-			dataWatcher.setObjectWatched(22);
+			dataManager.register(EXIT_POS, BlockPos.ORIGIN);
 		}
 
 		@Override
 		public void onUpdate() {
 			super.onUpdate();
 
-			if(riddenByEntity == null && !worldObj.isRemote) {
+			if(getPassengers().isEmpty() && !worldObj.isRemote) {
 				setDead();
 				return;
 			}
 
-			boolean isItem = riddenByEntity instanceof EntityItem;
+			boolean isItem = getRidingEntity() instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.05F, (float) Math.random() * 0.3F + 0.7F);
+				playSound(BotaniaSoundEvents.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
-			int exitX = getExitX();
-			int exitY = getExitY();
-			int exitZ = getExitZ();
+			BlockPos pos = new BlockPos(this);
+			BlockPos exitPos = getExitPos();
 
-			int x = net.minecraft.util.MathHelper.floor_double(posX);
-			int y = net.minecraft.util.MathHelper.floor_double(posY);
-			int z = net.minecraft.util.MathHelper.floor_double(posZ);
-			if(x == exitX && y == exitY && z == exitZ) {
-				TileEntity tile = worldObj.getTileEntity(x, y, z);
+			if(pos.equals(exitPos)) {
+				TileEntity tile = worldObj.getTileEntity(pos);
 				if(tile != null && tile instanceof TileLightRelay) {
-					int meta = worldObj.getBlockMetadata(x, y, z);
-					if(meta > 0) {
-						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
-						worldObj.scheduleBlockUpdate(x, y, z, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
+					if(worldObj.getBlockState(pos).getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR) {
+						worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+						worldObj.scheduleUpdate(pos, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
 
 					TileLightRelay relay = (TileLightRelay) tile;
-					ChunkCoordinates bind = relay.getBinding();
+					BlockPos bind = relay.getBinding();
 					if(bind != null && relay.isValidBinding()) {
-						setExit(bind.posX, bind.posY, bind.posZ);
+						setExit(bind);
 						return;
 					}
 				}
@@ -239,7 +243,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				setDead();
 			} else {
 				Vector3 thisVec = Vector3.fromEntity(this);
-				Vector3 motVec = thisVec.negate().add(exitX + 0.5, exitY + 0.5, exitZ + 0.5).normalize().multiply(0.5);
+				Vector3 motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
 
 				Color color;
 
@@ -251,7 +255,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 					double sin = Math.sin(rad);
 					double s = 0.4;
 
-					Botania.proxy.sparkleFX(worldObj, posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
+					Botania.proxy.sparkleFX(posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
 				}
 
 				posX += motVec.x;
@@ -266,38 +270,29 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		@Override
-		public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
+		public boolean attackEntityFrom(@Nonnull DamageSource source, float damage) {
 			return false;
 		}
 
 		@Override
-		protected void readEntityFromNBT(NBTTagCompound cmp) {
-			setExit(cmp.getInteger(TAG_EXIT_X), cmp.getInteger(TAG_EXIT_Y), cmp.getInteger(TAG_EXIT_Z));
+		protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
+			setExit(new BlockPos(cmp.getInteger(TAG_EXIT_X), cmp.getInteger(TAG_EXIT_Y), cmp.getInteger(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void writeEntityToNBT(NBTTagCompound cmp) {
-			cmp.setInteger(TAG_EXIT_X, getExitX());
-			cmp.setInteger(TAG_EXIT_Y, getExitY());
-			cmp.setInteger(TAG_EXIT_Z, getExitZ());
+		protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
+			BlockPos exit = getExitPos();
+			cmp.setInteger(TAG_EXIT_X, exit.getX());
+			cmp.setInteger(TAG_EXIT_Y, exit.getY());
+			cmp.setInteger(TAG_EXIT_Z, exit.getZ());
 		}
 
-		public int getExitX() {
-			return dataWatcher.getWatchableObjectInt(20);
+		public BlockPos getExitPos() {
+			return dataManager.get(EXIT_POS);
 		}
 
-		public int getExitY() {
-			return dataWatcher.getWatchableObjectInt(21);
-		}
-
-		public int getExitZ() {
-			return dataWatcher.getWatchableObjectInt(22);
-		}
-
-		public void setExit(int x, int y, int z) {
-			dataWatcher.updateObject(20, x);
-			dataWatcher.updateObject(21, y);
-			dataWatcher.updateObject(22, z);
+		public void setExit(BlockPos pos) {
+			dataManager.set(EXIT_POS, pos);
 		}
 
 	}

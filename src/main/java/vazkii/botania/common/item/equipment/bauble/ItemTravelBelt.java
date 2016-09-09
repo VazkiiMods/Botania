@@ -10,33 +10,30 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import baubles.api.BaubleType;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUsingItem {
 
@@ -47,7 +44,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
 
-	public static List<String> playersWithStepup = new ArrayList();
+	public static final List<String> playersWithStepup = new ArrayList<>();
 
 	final float speed;
 	final float jump;
@@ -72,8 +69,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			String s = playerStr(player);
 
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
@@ -81,14 +78,16 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
-						float speed = beltItem.getSpeed(belt);
-						player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed);
-						beltItem.onMovedTick(belt, player);
+					if(player.worldObj.isRemote) {
+						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
+                            float speed = beltItem.getSpeed(belt);
+                            player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
+                            beltItem.onMovedTick(belt, player);
 
-						if(player.ticksExisted % COST_INTERVAL == 0)
-							ManaItemHandler.requestManaExact(belt, player, COST, true);
-					} else beltItem.onNotMovingTick(belt, player);
+                            if(player.ticksExisted % COST_INTERVAL == 0)
+                                ManaItemHandler.requestManaExact(belt, player, COST, true);
+                        } else beltItem.onNotMovingTick(belt, player);
+					}
 
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
@@ -109,18 +108,14 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		return speed;
 	}
 
-	public void onMovedTick(ItemStack stack, EntityPlayer player) {
-		// NO-OP
-	}
+	public void onMovedTick(ItemStack stack, EntityPlayer player) {}
 
-	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
-		// NO-OP
-	}
+	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {}
 
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 
 			if(belt != null && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
@@ -153,14 +148,15 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
-			Helper.rotateIfSneaking(event.entityPlayer);
-			GL11.glTranslatef(0F, 0.2F, 0F);
+			Helper.rotateIfSneaking(player);
+
+			GlStateManager.translate(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;
-			GL11.glScalef(s, s, s);
+			GlStateManager.scale(s, s, s);
 			if(model == null)
 				model = new ModelBiped();
 

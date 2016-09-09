@@ -10,11 +10,11 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.resources.I18n;
+
 import java.util.Arrays;
 import java.util.List;
-
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 
 public class GuiButtonBackWithShift extends GuiButtonBack {
 
@@ -24,7 +24,7 @@ public class GuiButtonBackWithShift extends GuiButtonBack {
 
 	@Override
 	public List<String> getTooltip() {
-		return Arrays.asList(StatCollector.translateToLocal("botaniamisc.back"), EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToIndex"));
+		return Arrays.asList(I18n.format("botaniamisc.back"), TextFormatting.GRAY + I18n.format("botaniamisc.clickToIndex"));
 	}
 
 }

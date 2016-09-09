@@ -17,11 +17,6 @@ import vazkii.botania.common.block.tile.TileMod;
 public class TileManaVoid extends TileMod implements IClientManaHandler {
 
 	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
-	@Override
 	public int getCurrentMana() {
 		return 0;
 	}
@@ -35,7 +30,7 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 	public void recieveMana(int mana) {
 		if(mana > 0)
 			for(int i = 0; i < 10; i++)
-				Botania.proxy.sparkleFX(getWorldObj(), xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 	}
 
 	@Override

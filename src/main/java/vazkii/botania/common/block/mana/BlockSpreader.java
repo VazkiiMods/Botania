@@ -10,98 +10,114 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpreader extends BlockModContainer implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
+import javax.annotation.Nonnull;
+import java.util.List;
 
-	Random random;
+public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
 	public BlockSpreader() {
-		super(Material.wood);
+		super(Material.WOOD, LibBlockNames.SPREADER);
 		setHardness(2.0F);
-		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.SPREADER);
+		setSoundType(SoundType.WOOD);
+	}
 
-		random = new Random();
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.SPREADER_VARIANT);
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal();
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta > SpreaderVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.values()[meta]);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
-			par3.add(new ItemStack(par1, 1, i));
+			par3.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
-		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage(), 1 | 2);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
+		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
+		world.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
 		switch(orientation) {
-		case 0:
+		case DOWN:
 			spreader.rotationY = -90F;
 			break;
-		case 1:
+		case UP:
 			spreader.rotationY = 90F;
 			break;
-		case 2:
+		case NORTH:
 			spreader.rotationX = 270F;
 			break;
-		case 3:
+		case SOUTH:
 			spreader.rotationX = 90F;
 			break;
-		case 4:
+		case WEST:
 			break;
 		default:
 			spreader.rotationX = 180F;
@@ -110,57 +126,52 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(IBlockState par1) {
+		return getMetaFromState(par1);
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
+	@Nonnull
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par2 >= 2 ? ModBlocks.dreamwood.getIcon(par1, 0) : ModBlocks.livingwood.getIcon(par1, 0);
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idSpreader;
-	}
-
-	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing par6, float par7, float par8, float par9) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
 
 		TileSpreader spreader = (TileSpreader) tile;
-		ItemStack lens = spreader.getStackInSlot(0);
-		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
+		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.wool);
+		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
 
 		if(heldItem != null)
 			if(heldItem.getItem() == ModItems.twigWand)
 				return false;
 
 		if(lens == null && isHeldItemLens) {
-			if (!par5EntityPlayer.capabilities.isCreativeMode)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+			if (!player.capabilities.isCreativeMode)
+				player.setHeldItem(hand, null);
 
-			spreader.setInventorySlotContents(0, heldItem.copy());
+			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
 		} else if(lens != null && !wool) {
 			ItemStack add = lens.copy();
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
-			spreader.setInventorySlotContents(0, null);
+			if(!player.inventory.addItemStackToInventory(add))
+				player.dropItem(add, false);
+			spreader.getItemHandler().setStackInSlot(0, null);
 			spreader.markDirty();
 		}
 
@@ -168,11 +179,11 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 			spreader.paddingColor = heldItem.getItemDamage();
 			heldItem.stackSize--;
 			if(heldItem.stackSize == 0)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+				player.setHeldItem(hand, null);
 		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
-			ItemStack pad = new ItemStack(Blocks.wool, 1, spreader.paddingColor);
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(pad))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(pad, false);
+			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
+			if(!player.inventory.addItemStackToInventory(pad))
+				player.dropItem(pad, false);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}
@@ -181,73 +192,59 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return;
 
 		TileSpreader inv = (TileSpreader) tile;
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
-				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getStackInSlot(j1);
-
-				if(itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.func_147453_f(par2, par3, par4, par5);
+		if(inv.paddingColor != -1) {
+			net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.WOOL, 1, inv.paddingColor));
 		}
 
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		InventoryHelper.dropInventory(inv, world, state, pos);
+
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		((TileSpreader) world.getTileEntity(x, y, z)).onWanded(player, stack);
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+		((TileSpreader) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileSpreader();
 	}
 
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileSpreader) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
+		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.spreader : meta == 1 ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		SpreaderVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.SPREADER_VARIANT);
+		return variant == SpreaderVariant.MANA ? LexiconData.spreader : variant == SpreaderVariant.REDSTONE ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 
 	@Override
-	public AxisAlignedBB getWireframeAABB(World world, int x, int y, int z) {
-		float f = 1F / 16F;
-		return AxisAlignedBB.getBoundingBox(x + f, y + f, z + f, x + 1 - f, y + 1 - f, z + 1 - f);
+	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
+		return FULL_BLOCK_AABB.offset(pos).contract(1.0/16.0);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, SpreaderVariant.values().length);
 	}
 
 }

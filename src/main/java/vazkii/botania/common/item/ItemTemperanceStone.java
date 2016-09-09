@@ -10,61 +10,56 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemTemperanceStone extends ItemMod {
 
-	IIcon enabledIcon;
-
 	public ItemTemperanceStone() {
-		setUnlocalizedName(LibItemNames.TEMPERANCE_STONE);
+		super(LibItemNames.TEMPERANCE_STONE);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int dmg = par1ItemStack.getItemDamage();
-		par1ItemStack.setItemDamage(~dmg & 1);
-		par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.3F, 0.1F);
-
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		int dmg = stack.getItemDamage();
+		stack.setItemDamage(~dmg & 1);
+		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 0.3F, 0.1F);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		enabledIcon = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return par1 == 1 ? enabledIcon : itemIcon;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
 
-	void addStringToTooltip(String s, List<String> tooltip) {
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.TEMPERANCE_STONE);
+	}
+
+	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 

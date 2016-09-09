@@ -22,7 +22,7 @@ public class ItemBlockElven extends ItemBlockMod implements IElvenItem {
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		return ((IElvenItem) field_150939_a).isElvenItem(stack);
+		return ((IElvenItem) block).isElvenItem(stack);
 	}
 
 }

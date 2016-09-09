@@ -16,7 +16,7 @@ import vazkii.botania.common.block.decor.stairs.BlockLivingStairs;
 public class BlockShimmerwoodPlankStairs extends BlockLivingStairs {
 
 	public BlockShimmerwoodPlankStairs() {
-		super(ModBlocks.shimmerwoodPlanks, 0);
+		super(ModBlocks.shimmerwoodPlanks.getDefaultState());
 	}
 
 }

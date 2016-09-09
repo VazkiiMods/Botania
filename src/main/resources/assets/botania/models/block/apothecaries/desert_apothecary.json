@@ -1,0 +1,23 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "gobletbaseside": "botania:model/altar/desert/gobletBase_sides",
+    "gobletbasetop": "botania:model/altar/desert/gobletBase_top",
+    "gobletbasebottom": "botania:model/altar/desert/gobletBase_bottom",
+    "gobletbase2side": "botania:model/altar/desert/gobletBase2_sides",
+    "gobletbase2top": "botania:model/altar/desert/gobletBase2_top",
+    "gobletbase2bottom": "botania:model/altar/desert/gobletBase2_bottom",
+    "gobletbase3side": "botania:model/altar/desert/gobletBase3_sides",
+    "gobletbase3top": "botania:model/altar/desert/gobletBase3_top",
+    "gobletbase3bottom": "botania:model/altar/desert/gobletBase3_bottom",
+    "gobletstandside": "botania:model/altar/desert/gobletStand_sides",
+    "gobletstandtopbottom": "botania:model/altar/desert/gobletStand_top_bottom",
+    "kelkbaseside": "botania:model/altar/desert/kelkBase_sides",
+    "kelkbasetopbottom": "botania:model/altar/desert/kelkBase_top_bottom",
+    "kelkbase2side": "botania:model/altar/desert/kelkBase2_sides",
+    "kelkbase2top": "botania:model/altar/desert/kelkBase2_top",
+    "kelkbase2bottom": "botania:model/altar/desert/kelkBase2_bottom",
+    "kelkwall": "botania:model/altar/desert/kelkWall",
+    "particle": "botania:blocks/biomeStone5"
+  }
+}

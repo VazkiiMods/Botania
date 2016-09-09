@@ -10,30 +10,30 @@
  */
 package vazkii.botania.common.core.version;
 
-import java.awt.Desktop;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
-
 public class ThreadDownloadMod extends Thread {
 
-	String fileName;
+	private final String fileName;
 
-	byte[] buffer = new byte[10240];
+	private byte[] buffer = new byte[10240];
 
-	int totalBytesDownloaded;
-	int bytesJustDownloaded;
+	private int totalBytesDownloaded;
+	private int bytesJustDownloaded;
 
-	InputStream webReader;
+	private InputStream webReader;
 
 	public ThreadDownloadMod(String fileName) {
 		setName("Botania Download File Thread");
@@ -46,7 +46,7 @@ public class ThreadDownloadMod extends Thread {
 	@Override
 	public void run() {
 		try {
-			IChatComponent component = IChatComponent.Serializer.func_150699_a(String.format(StatCollector.translateToLocal("botania.versioning.startingDownload"), fileName));
+			ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.format("botania.versioning.startingDownload", fileName));
 			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(component);
 
@@ -58,7 +58,7 @@ public class ThreadDownloadMod extends Thread {
 
 			try {
 				url.openStream().close(); // Add to DL Counter
-			} catch(IOException e) { }
+			} catch(IOException ignored) {}
 
 			url = new URL(base + "files/" + file);
 			webReader = url.openStream();
@@ -82,25 +82,19 @@ public class ThreadDownloadMod extends Thread {
 				f.renameTo(f1);
 
 			if(Minecraft.getMinecraft().thePlayer != null)
-				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
+				Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
 
-			finalize();
-		} catch(Throwable e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			sendError();
-			try {
-				finalize();
-			} catch(Throwable e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 
 	private void sendError() {
 		if(Minecraft.getMinecraft().thePlayer != null)
-			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.error").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new TextComponentTranslation("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
 	}
 }

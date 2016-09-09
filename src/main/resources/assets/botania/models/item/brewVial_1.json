@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/vial0",
+    "layer1": "botania:items/vial1_1"
+  }
+}

@@ -10,86 +10,79 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.item.IGrassHornExcempt;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
 import vazkii.botania.api.subtile.ISpecialFlower;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class ItemGrassHorn extends ItemMod {
 
 	private static final int SUBTYPES = 3;
-	IIcon[] icons;
-	IIcon vuvuzelaIcon;
 
 	public ItemGrassHorn() {
-		super();
+		super(LibItemNames.GRASS_HORN);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.GRASS_HORN);
 		setHasSubtypes(true);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
+				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-		vuvuzelaIcon = IconHelper.forName(par1IconRegister, "vuvuzela");
-	}
-
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
-	}
-
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 3, LibItemNames.GRASS_HORN);
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -97,65 +90,59 @@ public class ItemGrassHorn extends ItemMod {
 		return 72000;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
-		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-			breakGrass(player.worldObj, stack, stack.getItemDamage(), (int) player.posX, (int) player.posY, (int) player.posZ);
-
-		if(!player.worldObj.isRemote)
-			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
+	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
+		if(!player.worldObj.isRemote) {
+			if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
+				breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+		}
 	}
 
-	public static void breakGrass(World world, ItemStack stack, int stackDmg, int srcx, int srcy, int srcz) {
+	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
 		EnumHornType type = EnumHornType.getTypeForMeta(stackDmg);
-		Random rand = new Random(srcx ^ srcy ^ srcz);
+		Random rand = new Random(srcPos.hashCode());
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
-		List<ChunkCoordinates> coords = new ArrayList();
+		List<BlockPos> coords = new ArrayList<>();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -rangeY; k < rangeY + 1; k++) {
-					int x = srcx + i;
-					int y = srcy + k;
-					int z = srcz + j;
-
-					Block block = world.getBlock(x, y, z);
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, x, y, z, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
-						coords.add(new ChunkCoordinates(x, y, z));
-				}
+		for(BlockPos pos : BlockPos.getAllInBox(srcPos.add(-range, -rangeY, -range), srcPos.add(range, rangeY, range))) {
+			Block block = world.getBlockState(pos).getBlock();
+			if(block instanceof IHornHarvestable
+					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
+					: stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)
+						|| stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos)
+						|| stackDmg == 2 && block == Blocks.SNOW_LAYER)
+				coords.add(pos);
+		}
 
 		Collections.shuffle(coords, rand);
 
 		int count = Math.min(coords.size(), 32 + stackDmg * 16);
 		for(int i = 0; i < count; i++) {
-			ChunkCoordinates currCoords = coords.get(i);
-			List<ItemStack> items = new ArrayList();
-			Block block = world.getBlock(currCoords.posX, currCoords.posY, currCoords.posZ);
-			int meta = world.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);
-			items.addAll(block.getDrops(world, currCoords.posX, currCoords.posY, currCoords.posZ, meta, 0));
+			BlockPos currCoords = coords.get(i);
+			IBlockState state = world.getBlockState(currCoords);
+			Block block = state.getBlock();
+			List<ItemStack> items = block.getDrops(world, currCoords, state, 0);
 
-			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type))
-				((IHornHarvestable) block).harvestByHorn(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type);
-			else if(!world.isRemote) {
-				world.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
+			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
+				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
+			else {
+				world.setBlockToAir(currCoords);
 				if(ConfigHandler.blockBreakParticles)
-					world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					world.playEvent(2001, currCoords, Block.getStateId(state));
 
 				for(ItemStack stack_ : items)
-					world.spawnEntityInWorld(new EntityItem(world, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));
+					world.spawnEntityInWorld(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));
 			}
 		}
 	}
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
 }

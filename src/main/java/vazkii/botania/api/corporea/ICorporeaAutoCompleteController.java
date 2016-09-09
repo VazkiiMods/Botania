@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.corporea;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 /**
  * An interface for systems which may control if the item auto complete system should be active
  */
@@ -21,7 +18,6 @@ public interface ICorporeaAutoCompleteController {
 	/**
 	 * Return true if auto completion should be enabled.
 	 */
-	@SideOnly(Side.CLIENT)
 	public boolean shouldAutoComplete();
 
 }

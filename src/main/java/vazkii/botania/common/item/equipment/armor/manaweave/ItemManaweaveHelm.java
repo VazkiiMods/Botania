@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -26,7 +27,7 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	private static final int MANA_PER_DAMAGE = 30;
 
 	public ItemManaweaveHelm() {
-		super(0, LibItemNames.MANAWEAVE_HELM);
+		super(EntityEquipmentSlot.HEAD, LibItemNames.MANAWEAVE_HELM);
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	}
 
 	@Override
-	public boolean shouldGiveProficiency(ItemStack stack, int slot, EntityPlayer player) {
+	public boolean shouldGiveProficiency(ItemStack stack, EntityEquipmentSlot slot, EntityPlayer player) {
 		return hasArmorSet(player);
 	}
 

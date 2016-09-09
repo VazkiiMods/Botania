@@ -11,29 +11,43 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.common.lib.LibBlockNames;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.MethodHandles;
+
+import javax.annotation.Nonnull;
 
 public class TileOpenCrate extends TileSimpleInventory {
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
+	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
+		if(oldState.getBlock() != newState.getBlock())
+			return true;
+			if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
+				return true;
+			return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
+		}
+
+		@Override
+		public int getSizeInventory() {
+			return 1;
+		}
 
 	@Override
-	public String getInventoryName() {
-		return LibBlockNames.OPEN_CRATE;
-	}
+	public void update() {
+		if (worldObj.isRemote)
+			return;
 
-	@Override
-	public void updateEntity() {
 		boolean redstone = false;
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;
 				break;
@@ -41,32 +55,36 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 		if(canEject()) {
-			ItemStack stack = getStackInSlot(0);
+			ItemStack stack = itemHandler.getStackInSlot(0);
 			if(stack != null)
 				eject(stack, redstone);
 		}
 	}
 
 	public boolean canEject() {
-		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord) || blockBelow.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord - 1, zCoord) == null;
+		IBlockState stateBelow = worldObj.getBlockState(pos.down());
+		Block blockBelow = stateBelow.getBlock();
+		return blockBelow.isAir(stateBelow, worldObj, pos.down()) || stateBelow.getCollisionBoundingBox(worldObj, pos.down()) == null;
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord - 0.5, zCoord + 0.5, stack);
+		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;
 
-		if(redstone)
-			item.age = -200;
+		if(redstone) {
+			try {
+				MethodHandles.itemAge_setter.invokeExact(item, -200);
+			} catch (Throwable ignored) {}
+		}
 
-		setInventorySlotContents(0, null);
-		if(!worldObj.isRemote)
-			worldObj.spawnEntityInWorld(item);
+
+		itemHandler.setStackInSlot(0, null);
+		worldObj.spawnEntityInWorld(item);
 	}
 
-	public boolean onWanded(EntityPlayer player, ItemStack stack) {
+	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
 		return false;
 	}
 

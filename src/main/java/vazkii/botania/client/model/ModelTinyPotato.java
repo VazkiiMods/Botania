@@ -15,7 +15,7 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelTinyPotato extends ModelBase {
 
-	ModelRenderer potato;
+	final ModelRenderer potato;
 
 	public ModelTinyPotato() {
 		textureWidth = 64;

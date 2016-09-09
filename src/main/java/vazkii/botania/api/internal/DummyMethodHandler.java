@@ -10,10 +10,8 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -22,11 +20,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.boss.IBotaniaBoss;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -35,6 +35,8 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.List;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 
@@ -119,7 +121,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
-		return new ItemStack(Blocks.stone, 0, 0);
+		return new ItemStack(Blocks.STONE, 0, 0);
 	}
 
 	@Override
@@ -133,13 +135,13 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public IIcon getSubTileIconForName(String name) {
-		return Blocks.red_flower.getIcon(0, 0);
+	public ModelResourceLocation getSubTileBlockModelForName(String name) {
+		return new ModelResourceLocation("builtin/missing", "missing");
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, IIconRegister register) {
-		// NO-OP
+	public ModelResourceLocation getSubTileItemModelForName(String name) {
+		return new ModelResourceLocation("builtin/missing", "missing");
 	}
 
 	@Override
@@ -148,32 +150,29 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
-		// NO-OP
-	}
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {}
 
 	@Override
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
-		// NO-OP
-	}
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {}
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
-		return new ItemStack(Blocks.stone, 0, 0);
+		return new ItemStack(Blocks.STONE, 0, 0);
 	}
 
 	@Override
-	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
-		// NO-OP
-	}
+	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {}
 
 	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		// NO-OP
-	}
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
+		return null;
+	}
+
+	@Override
+	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
 		return null;
 	}
 
@@ -193,19 +192,12 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void setBossStatus(IBotaniaBoss status) {
-		// NO-OP
-	}
-
-	@Override
 	public boolean isBuildcraftPipe(TileEntity tile) {
 		return false;
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
-		// NO-OP
-	}
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {}
 
 	@Override
 	public boolean hasSolegnoliaAround(Entity e) {
@@ -218,17 +210,15 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public boolean isBotaniaFlower(World world, int x, int y, int z) {
+	public boolean isBotaniaFlower(World world, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
-		// NO-OP
-	}
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {}
 
 	@Override
-	public List<IWrappedInventory> wrapInventory(List<IInventory> inventories) {
+	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		return null;
 	}
 

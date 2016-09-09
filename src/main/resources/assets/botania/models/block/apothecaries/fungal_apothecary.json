@@ -1,0 +1,23 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "gobletbaseside": "botania:model/altar/fungal/gobletBase_sides",
+    "gobletbasetop": "botania:model/altar/fungal/gobletBase_top",
+    "gobletbasebottom": "botania:model/altar/fungal/gobletBase_bottom",
+    "gobletbase2side": "botania:model/altar/fungal/gobletBase2_sides",
+    "gobletbase2top": "botania:model/altar/fungal/gobletBase2_top",
+    "gobletbase2bottom": "botania:model/altar/fungal/gobletBase2_bottom",
+    "gobletbase3side": "botania:model/altar/fungal/gobletBase3_sides",
+    "gobletbase3top": "botania:model/altar/fungal/gobletBase3_top",
+    "gobletbase3bottom": "botania:model/altar/fungal/gobletBase3_bottom",
+    "gobletstandside": "botania:model/altar/fungal/gobletStand_sides",
+    "gobletstandtopbottom": "botania:model/altar/fungal/gobletStand_top_bottom",
+    "kelkbaseside": "botania:model/altar/fungal/kelkBase_sides",
+    "kelkbasetopbottom": "botania:model/altar/fungal/kelkBase_top_bottom",
+    "kelkbase2side": "botania:model/altar/fungal/kelkBase2_sides",
+    "kelkbase2top": "botania:model/altar/fungal/kelkBase2_top",
+    "kelkbase2bottom": "botania:model/altar/fungal/kelkBase2_bottom",
+    "kelkwall": "botania:model/altar/fungal/kelkWall",
+    "particle": "botania:blocks/biomeStone3"
+  }
+}

@@ -11,6 +11,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 
 
 public class TileTinyPotato extends TileMod {
@@ -23,9 +25,9 @@ public class TileTinyPotato extends TileMod {
 
 	public void interact() {
 		jump();
-		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
+		if(name.toLowerCase().trim().endsWith("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
 			nextDoIt = 40;
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
+			worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
 		}
 	}
 
@@ -35,7 +37,7 @@ public class TileTinyPotato extends TileMod {
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(worldObj.rand.nextInt(100) == 0)
 			jump();
 
@@ -46,12 +48,12 @@ public class TileTinyPotato extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setString(TAG_NAME, name);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		name = cmp.getString(TAG_NAME);
 	}
 }

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 
@@ -18,6 +19,6 @@ import vazkii.botania.api.internal.IManaBurst;
  */
 public interface IManaTrigger {
 
-	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z);
+	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos);
 
 }

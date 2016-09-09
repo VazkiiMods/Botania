@@ -1,201 +1,150 @@
-/**
- * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
- * http://www.mod-buildcraft.com
+/** Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
- * The BuildCraft API is distributed under the terms of the MIT License.
- * Please check the contents of the license, which should be located
- * as "LICENSE.API" in the BuildCraft source code distribution.
- */
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.core;
 
 import java.util.Locale;
 import java.util.Random;
 
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 
-public enum EnumColor {
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-	BLACK,
-	RED,
-	GREEN,
-	BROWN,
-	BLUE,
-	PURPLE,
-	CYAN,
-	LIGHT_GRAY,
-	GRAY,
-	PINK,
-	LIME,
-	YELLOW,
-	LIGHT_BLUE,
-	MAGENTA,
-	ORANGE,
-	WHITE;
+import javax.annotation.Nonnull;
 
-	public static final EnumColor[] VALUES = values();
-	public static final String[] DYES = {
-		"dyeBlack",
-		"dyeRed",
-		"dyeGreen",
-		"dyeBrown",
-		"dyeBlue",
-		"dyePurple",
-		"dyeCyan",
-		"dyeLightGray",
-		"dyeGray",
-		"dyePink",
-		"dyeLime",
-		"dyeYellow",
-		"dyeLightBlue",
-		"dyeMagenta",
-		"dyeOrange",
-		"dyeWhite"};
-	public static final String[] NAMES = {
-		"Black",
-		"Red",
-		"Green",
-		"Brown",
-		"Blue",
-		"Purple",
-		"Cyan",
-		"LightGray",
-		"Gray",
-		"Pink",
-		"Lime",
-		"Yellow",
-		"LightBlue",
-		"Magenta",
-		"Orange",
-		"White"};
-	public static final int[] DARK_HEX = {
-		0x2D2D2D,
-		0xA33835,
-		0x394C1E,
-		0x5C3A24,
-		0x3441A2,
-		0x843FBF,
-		0x36809E,
-		0x888888,
-		0x444444,
-		0xE585A0,
-		0x3FAA36,
-		0xCFC231,
-		0x7F9AD1,
-		0xFF64FF,
-		0xFF6A00,
-		0xFFFFFF};
-	public static final int[] LIGHT_HEX = {
-		0x181414,
-		0xBE2B27,
-		0x007F0E,
-		0x89502D,
-		0x253193,
-		0x7e34bf,
-		0x299799,
-		0xa0a7a7,
-		0x7A7A7A,
-		0xD97199,
-		0x39D52E,
-		0xFFD91C,
-		0x66AAFF,
-		0xD943C6,
-		0xEA7835,
-		0xe4e4e4};
+/** Use minecraft's EnumDyeColor in as many places as possible. */
+@Deprecated
+public enum EnumColor implements IStringSerializable {
 
-	@SideOnly(Side.CLIENT)
-	private static IIcon[] brushIcons;
+    BLACK,
+    RED,
+    GREEN,
+    BROWN,
+    BLUE,
+    PURPLE,
+    CYAN,
+    LIGHT_GRAY,
+    GRAY,
+    PINK,
+    LIME,
+    YELLOW,
+    LIGHT_BLUE,
+    MAGENTA,
+    ORANGE,
+    WHITE;
 
-	public int getDarkHex() {
-		return DARK_HEX[ordinal()];
-	}
+    public static final EnumColor[] VALUES = values();
+    public static final String[] DYES = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray",
+        "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite" };
+    public static final String[] NAMES = { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow",
+        "LightBlue", "Magenta", "Orange", "White" };
+    public static final int[] DARK_HEX = { 0x2D2D2D, 0xA33835, 0x394C1E, 0x5C3A24, 0x3441A2, 0x843FBF, 0x36809E, 0x888888, 0x444444, 0xE585A0,
+        0x3FAA36, 0xCFC231, 0x7F9AD1, 0xFF64FF, 0xFF6A00, 0xFFFFFF };
+    public static final int[] LIGHT_HEX = { 0x181414, 0xBE2B27, 0x007F0E, 0x89502D, 0x253193, 0x7e34bf, 0x299799, 0xa0a7a7, 0x7A7A7A, 0xD97199,
+        0x39D52E, 0xFFD91C, 0x66AAFF, 0xD943C6, 0xEA7835, 0xe4e4e4 };
 
-	public int getLightHex() {
-		return LIGHT_HEX[ordinal()];
-	}
+    @SideOnly(Side.CLIENT)
+    private static ResourceLocation iconSheet;
 
-	public static EnumColor fromId(int id) {
-		if (id < 0 || id >= VALUES.length) {
-			return WHITE;
-		}
-		return VALUES[id];
-	}
+    @SideOnly(Side.CLIENT)
+    private static TextureAtlasSprite[] brushSprites;
 
-	public static EnumColor fromDye(String dyeTag) {
-		for (int id = 0; id < DYES.length; id++) {
-			if (DYES[id].equals(dyeTag)) {
-				return VALUES[id];
-			}
-		}
-		return null;
-	}
+    public int getDarkHex() {
+        return DARK_HEX[ordinal()];
+    }
 
-	public static EnumColor fromName(String name) {
-		for (int id = 0; id < NAMES.length; id++) {
-			if (NAMES[id].equals(name)) {
-				return VALUES[id];
-			}
-		}
-		return null;
-	}
+    public int getLightHex() {
+        return LIGHT_HEX[ordinal()];
+    }
 
-	public static EnumColor getRand() {
-		return VALUES[new Random().nextInt(VALUES.length)];
-	}
+    public static EnumColor fromId(int id) {
+        if (id < 0 || id >= VALUES.length) {
+            return WHITE;
+        }
+        return VALUES[id];
+    }
 
-	public EnumColor getNext() {
-		EnumColor next = VALUES[(ordinal() + 1) % VALUES.length];
-		return next;
-	}
+    public static EnumColor fromDye(String dyeTag) {
+        for (int id = 0; id < DYES.length; id++) {
+            if (DYES[id].equals(dyeTag)) {
+                return VALUES[id];
+            }
+        }
+        return null;
+    }
 
-	public EnumColor getPrevious() {
-		EnumColor previous = VALUES[(ordinal() + VALUES.length - 1) % VALUES.length];
-		return previous;
-	}
+    public static EnumColor fromName(String name) {
+        for (int id = 0; id < NAMES.length; id++) {
+            if (NAMES[id].equals(name)) {
+                return VALUES[id];
+            }
+        }
+        return null;
+    }
 
-	public EnumColor inverse() {
-		return EnumColor.VALUES[15 - ordinal()];
-	}
+    public static EnumColor getRand() {
+        return VALUES[new Random().nextInt(VALUES.length)];
+    }
 
-	public String getTag() {
-		return "color." + name().replace("_", ".").toLowerCase(Locale.ENGLISH);
-	}
+    public EnumColor getNext() {
+        EnumColor next = VALUES[(ordinal() + 1) % VALUES.length];
+        return next;
+    }
 
-	public String getBasicTag() {
-		return name().replace("_", ".").toLowerCase(Locale.ENGLISH);
-	}
+    public EnumColor getPrevious() {
+        EnumColor previous = VALUES[(ordinal() + VALUES.length - 1) % VALUES.length];
+        return previous;
+    }
 
-	public String getName() {
-		return NAMES[ordinal()];
-	}
+    public EnumColor inverse() {
+        return EnumColor.VALUES[15 - ordinal()];
+    }
 
-	public String getLocalizedName() {
-		return StatCollector.translateToLocal(getTag());
-	}
+    public String getTag() {
+        return "color." + name().replace("_", ".").toLowerCase(Locale.ENGLISH);
+    }
 
-	public String getDye() {
-		return DYES[ordinal()];
-	}
+    public String getBasicTag() {
+        return name().replace("_", ".").toLowerCase(Locale.ENGLISH);
+    }
 
-	@Override
-	public String toString() {
-		String s = name().replace("_", " ");
-		String[] words = s.split(" ");
-		StringBuilder b = new StringBuilder();
-		for (String word : words) {
-			b.append(word.charAt(0)).append(word.substring(1).toLowerCase(Locale.ENGLISH)).append(" ");
-		}
-		return b.toString().trim();
-	}
+    @Nonnull
+    @Override
+    public String getName() {
+        return NAMES[ordinal()];
+    }
 
-	public static void setIconArray(IIcon[] icons) {
-		brushIcons = icons;
-	}
+    public String getLocalizedName() {
+        return I18n.translateToLocal(getTag());
+    }
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon() {
-		return brushIcons [ordinal()];
-	}
+    public String getDye() {
+        return DYES[ordinal()];
+    }
+
+    @Override
+    public String toString() {
+        String s = name().replace("_", " ");
+        String[] words = s.split(" ");
+        StringBuilder b = new StringBuilder();
+        for (String word : words) {
+            b.append(word.charAt(0)).append(word.substring(1).toLowerCase(Locale.ENGLISH)).append(" ");
+        }
+        return b.toString().trim();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void registerSprites(TextureAtlasSprite[] sprites) {
+        brushSprites = sprites;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public TextureAtlasSprite getSprite() {
+        return brushSprites[ordinal()];
+    }
 }

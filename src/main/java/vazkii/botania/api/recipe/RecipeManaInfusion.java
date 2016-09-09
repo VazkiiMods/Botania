@@ -10,18 +10,22 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.List;
-
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class RecipeManaInfusion {
 
-	ItemStack output;
-	Object input;
-	int mana;
-	boolean isAlchemy = false;
-	boolean isConjuration = false;
+	private final ItemStack output;
+	private final Object input;
+	private final int mana;
+	private @Nullable IBlockState catalystState;
+
+	public static IBlockState alchemyState;
+	public static IBlockState conjurationState;
 
 	public RecipeManaInfusion(ItemStack output, Object input, int mana) {
 		this.output = output;
@@ -54,20 +58,12 @@ public class RecipeManaInfusion {
 		return false;
 	}
 
-	public void setAlchemy(boolean alchemy) {
-		isAlchemy = alchemy;
+	public IBlockState getCatalyst() {
+		return catalystState;
 	}
 
-	public boolean isAlchemy() {
-		return isAlchemy;
-	}
-
-	public void setConjuration(boolean conjuration) {
-		isConjuration = conjuration;
-	}
-
-	public boolean isConjuration() {
-		return isConjuration;
+	public void setCatalyst(IBlockState catalyst) {
+		catalystState = catalyst;
 	}
 
 	public Object getInput() {
@@ -80,6 +76,38 @@ public class RecipeManaInfusion {
 
 	public int getManaToConsume() {
 		return mana;
+	}
+
+	/**
+	 * @deprecated Use {@link RecipeManaInfusion#setCatalyst(IBlockState)} instead
+	 */
+	@Deprecated
+	public void setAlchemy(boolean alchemy) {
+		catalystState = alchemy ? alchemyState : null;
+	}
+
+	/**
+	 * @deprecated Use {@link RecipeManaInfusion#getCatalyst()} instead
+	 */
+	@Deprecated
+	public boolean isAlchemy() {
+		return catalystState == alchemyState;
+	}
+
+	/**
+	 * @deprecated Use {@link RecipeManaInfusion#setCatalyst(IBlockState)} instead
+	 */
+	@Deprecated
+	public void setConjuration(boolean conjuration) {
+		catalystState = conjuration ? conjurationState : null;
+	}
+
+	/**
+	 * @deprecated Use {@link RecipeManaInfusion#getCatalyst()} instead
+	 */
+	@Deprecated
+	public boolean isConjuration() {
+		return catalystState == conjurationState;
 	}
 }
 

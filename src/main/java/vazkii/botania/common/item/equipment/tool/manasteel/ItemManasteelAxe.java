@@ -10,34 +10,44 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import java.util.regex.Pattern;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import com.google.common.collect.ImmutableSet;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
-public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortableTool {
+import javax.annotation.Nonnull;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortableTool, IModelRegister {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
@@ -48,37 +58,27 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	}
 
 	public ItemManasteelAxe(ToolMaterial mat, String name) {
-		super(mat);
+		super(mat, 8F, -3.1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 
+	@Nonnull
 	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
-	}
-
-	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
 		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-		if (block.getBlockHardness(world, x, y, z) != 0F)
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+		if (state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;
@@ -88,21 +88,22 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 		return MANA_PER_DAMAGE;
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
 			if(stackAt != null && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
-				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, x, y, z, s, sx, sy, sz);
+				EnumActionResult did = stackAt.getItem().onItemUse(stackAt, player, world, pos, hand, side, sx, sy, sz);
 				if(stackAt.stackSize == 0)
 					player.inventory.setInventorySlotContents(i, null);
 
-				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.sapling), SAPLING_PATTERN);
+				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
 				return did;
 			}
 		}
 
-		return false;
+		return EnumActionResult.PASS;
 	}
 
 
@@ -113,7 +114,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
@@ -132,4 +133,9 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 		return ToolCommons.getToolPriority(stack);
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
 }

@@ -10,66 +10,58 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.MobEffects;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.IIcon;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
-public class ItemManaCookie extends ItemFood {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Locale;
 
-	private IIcon totalBiscuitIcon;
+public class ItemManaCookie extends ItemFood implements IModelRegister {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
-		setPotionEffect(Potion.field_76443_y.id, 1,  0, 1F);
+		setPotionEffect(new PotionEffect(MobEffects.SATURATION, 20, 0), 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
+				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack p_77849_1_, World p_77849_2_, EntityPlayer p_77849_3_) {
-		super.onFoodEaten(p_77849_1_, p_77849_2_, p_77849_3_);
-		p_77849_3_.addStat(ModAchievements.manaCookieEat, 1);
+	protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
+		super.onFoodEaten(stack, world, player);
+		player.addStat(ModAchievements.manaCookieEat, 1);
 	}
 
+	@Nonnull
 	@Override
-	public Item setUnlocalizedName(String par1Str) {
-		GameRegistry.registerItem(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
-	}
-
-	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
-	@Override
-	public IIcon getIconIndex(ItemStack stack) {
-		return stack.getDisplayName().toLowerCase().equals("totalbiscuit") ? totalBiscuitIcon : super.getIconIndex(stack);
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
-		totalBiscuitIcon = IconHelper.forName(par1IconRegister, "totalBiscuit");
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
-
 }

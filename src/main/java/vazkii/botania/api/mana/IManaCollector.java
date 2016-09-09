@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.IManaBurst;
  * 
  * <b>Implementation Instructions:</b><br>
  * - Override invalidate() and onChunkUnload(), calling <i>ManaNetworkEvent.removeCollector(this);</i> on both.<br>
- * - On the first tick of onUpdate(), call </i>ManaNetworkEvent.addCollector(this);<i>
+ * - On the first tick of update() (or onLoad() in Forge build 1606 or higher), call </i>ManaNetworkEvent.addCollector(this);<i>
  */
 public interface IManaCollector extends IManaReceiver {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,22 +17,31 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 // A copy of the vanilla EntityThrowable class
 // Doing this because if I didn't do this it'd be an EntityThrowable
 // And we all know how much mods like deflecting EntityThrowables
-public abstract class EntityThrowableCopy extends Entity implements IProjectile {
-	private int field_145788_c = -1;
-	private int field_145786_d = -1;
-	private int field_145787_e = -1;
-	private Block field_145785_f;
+public abstract class EntityThrowableCopy extends Entity implements IProjectile
+{
+	private int xTile;
+	private int yTile;
+	private int zTile;
+	private Block inTile;
 	protected boolean inGround;
 	public int throwableShake;
 	/** The entity that threw this throwable item. */
@@ -42,182 +49,190 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	private String throwerName;
 	private int ticksInGround;
 	private int ticksInAir;
-	public EntityThrowableCopy(World p_i1776_1_)
+	public Entity field_184539_c;
+	private int field_184540_av;
+
+	public EntityThrowableCopy(World worldIn)
 	{
-		super(p_i1776_1_);
-		setSize(0.25F, 0.25F);
+		super(worldIn);
+		this.xTile = -1;
+		this.yTile = -1;
+		this.zTile = -1;
+		this.setSize(0.25F, 0.25F);
 	}
 
-	@Override
-	protected void entityInit() {}
+	public EntityThrowableCopy(World worldIn, double x, double y, double z)
+	{
+		this(worldIn);
+		this.setPosition(x, y, z);
+	}
+
+	public EntityThrowableCopy(World worldIn, EntityLivingBase throwerIn)
+	{
+		this(worldIn, throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - 0.10000000149011612D, throwerIn.posZ);
+		this.thrower = throwerIn;
+	}
+
+	protected void entityInit()
+	{
+	}
 
 	/**
 	 * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
 	 * length * 64 * renderDistanceWeight Args: distance
 	 */
-	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean isInRangeToRenderDist(double p_70112_1_)
+	public boolean isInRangeToRenderDist(double distance)
 	{
-		double d1 = boundingBox.getAverageEdgeLength() * 4.0D;
-		d1 *= 64.0D;
-		return p_70112_1_ < d1 * d1;
+		double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
+
+		if (Double.isNaN(d0))
+		{
+			d0 = 4.0D;
+		}
+
+		d0 = d0 * 64.0D;
+		return distance < d0 * d0;
 	}
 
-	public EntityThrowableCopy(World p_i1777_1_, EntityLivingBase p_i1777_2_)
+	public void func_184538_a(Entity p_184538_1_, float p_184538_2_, float p_184538_3_, float p_184538_4_, float p_184538_5_, float p_184538_6_)
 	{
-		super(p_i1777_1_);
-		thrower = p_i1777_2_;
-		setSize(0.25F, 0.25F);
-		setLocationAndAngles(p_i1777_2_.posX, p_i1777_2_.posY + p_i1777_2_.getEyeHeight(), p_i1777_2_.posZ, p_i1777_2_.rotationYaw, p_i1777_2_.rotationPitch);
-		posX -= MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
-		posY -= 0.10000000149011612D;
-		posZ -= MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
-		setPosition(posX, posY, posZ);
-		yOffset = 0.0F;
-		float f = 0.4F;
-		motionX = -MathHelper.sin(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * f;
-		motionZ = MathHelper.cos(rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float)Math.PI) * f;
-		motionY = -MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float)Math.PI) * f;
-		setThrowableHeading(motionX, motionY, motionZ, func_70182_d(), 1.0F);
-	}
+		float f = -MathHelper.sin(p_184538_3_ * 0.017453292F) * MathHelper.cos(p_184538_2_ * 0.017453292F);
+		float f1 = -MathHelper.sin((p_184538_2_ + p_184538_4_) * 0.017453292F);
+		float f2 = MathHelper.cos(p_184538_3_ * 0.017453292F) * MathHelper.cos(p_184538_2_ * 0.017453292F);
+		this.setThrowableHeading((double)f, (double)f1, (double)f2, p_184538_5_, p_184538_6_);
+		this.motionX += p_184538_1_.motionX;
+		this.motionZ += p_184538_1_.motionZ;
 
-	public EntityThrowableCopy(World p_i1778_1_, double p_i1778_2_, double p_i1778_4_, double p_i1778_6_)
-	{
-		super(p_i1778_1_);
-		ticksInGround = 0;
-		setSize(0.25F, 0.25F);
-		setPosition(p_i1778_2_, p_i1778_4_, p_i1778_6_);
-		yOffset = 0.0F;
-	}
-
-	protected float func_70182_d()
-	{
-		return 1.5F;
-	}
-
-	protected float func_70183_g()
-	{
-		return 0.0F;
+		if (!p_184538_1_.onGround)
+		{
+			this.motionY += p_184538_1_.motionY;
+		}
 	}
 
 	/**
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
-	@Override
-	public void setThrowableHeading(double p_70186_1_, double p_70186_3_, double p_70186_5_, float p_70186_7_, float p_70186_8_)
+	public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy)
 	{
-		float f2 = MathHelper.sqrt_double(p_70186_1_ * p_70186_1_ + p_70186_3_ * p_70186_3_ + p_70186_5_ * p_70186_5_);
-		p_70186_1_ /= f2;
-		p_70186_3_ /= f2;
-		p_70186_5_ /= f2;
-		p_70186_1_ += rand.nextGaussian() * 0.007499999832361937D * p_70186_8_;
-		p_70186_3_ += rand.nextGaussian() * 0.007499999832361937D * p_70186_8_;
-		p_70186_5_ += rand.nextGaussian() * 0.007499999832361937D * p_70186_8_;
-		p_70186_1_ *= p_70186_7_;
-		p_70186_3_ *= p_70186_7_;
-		p_70186_5_ *= p_70186_7_;
-		motionX = p_70186_1_;
-		motionY = p_70186_3_;
-		motionZ = p_70186_5_;
-		float f3 = MathHelper.sqrt_double(p_70186_1_ * p_70186_1_ + p_70186_5_ * p_70186_5_);
-		prevRotationYaw = rotationYaw = (float)(Math.atan2(p_70186_1_, p_70186_5_) * 180.0D / Math.PI);
-		prevRotationPitch = rotationPitch = (float)(Math.atan2(p_70186_3_, f3) * 180.0D / Math.PI);
-		ticksInGround = 0;
+		float f = MathHelper.sqrt_double(x * x + y * y + z * z);
+		x = x / (double)f;
+		y = y / (double)f;
+		z = z / (double)f;
+		x = x + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+		y = y + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+		z = z + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
+		x = x * (double)velocity;
+		y = y * (double)velocity;
+		z = z * (double)velocity;
+		this.motionX = x;
+		this.motionY = y;
+		this.motionZ = z;
+		float f1 = MathHelper.sqrt_double(x * x + z * z);
+		this.prevRotationYaw = this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
+		this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.atan2(y, (double)f1) * (180D / Math.PI));
+		this.ticksInGround = 0;
 	}
 
 	/**
-	 * Sets the velocity to the args. Args: x, y, z
+	 * Updates the velocity of the entity to a new value.
 	 */
-	@Override
 	@SideOnly(Side.CLIENT)
-	public void setVelocity(double p_70016_1_, double p_70016_3_, double p_70016_5_)
+	public void setVelocity(double x, double y, double z)
 	{
-		motionX = p_70016_1_;
-		motionY = p_70016_3_;
-		motionZ = p_70016_5_;
+		this.motionX = x;
+		this.motionY = y;
+		this.motionZ = z;
 
-		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
+		if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
 		{
-			float f = MathHelper.sqrt_double(p_70016_1_ * p_70016_1_ + p_70016_5_ * p_70016_5_);
-			prevRotationYaw = rotationYaw = (float)(Math.atan2(p_70016_1_, p_70016_5_) * 180.0D / Math.PI);
-			prevRotationPitch = rotationPitch = (float)(Math.atan2(p_70016_3_, f) * 180.0D / Math.PI);
+			float f = MathHelper.sqrt_double(x * x + z * z);
+			this.prevRotationYaw = this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
+			this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.atan2(y, (double)f) * (180D / Math.PI));
 		}
 	}
 
 	/**
 	 * Called to update the entity's position/logic.
 	 */
-	@Override
 	public void onUpdate()
 	{
-		lastTickPosX = posX;
-		lastTickPosY = posY;
-		lastTickPosZ = posZ;
+		this.lastTickPosX = this.posX;
+		this.lastTickPosY = this.posY;
+		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
 
-		if (throwableShake > 0)
+		if (this.throwableShake > 0)
 		{
-			--throwableShake;
+			--this.throwableShake;
 		}
 
-		if (inGround)
+		if (this.inGround)
 		{
-			if (worldObj.getBlock(field_145788_c, field_145786_d, field_145787_e) == field_145785_f)
+			if (this.worldObj.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
 			{
-				++ticksInGround;
+				++this.ticksInGround;
 
-				if (ticksInGround == 1200)
+				if (this.ticksInGround == 1200)
 				{
-					setDead();
+					this.setDead();
 				}
 
 				return;
 			}
 
-			inGround = false;
-			motionX *= rand.nextFloat() * 0.2F;
-			motionY *= rand.nextFloat() * 0.2F;
-			motionZ *= rand.nextFloat() * 0.2F;
-			ticksInGround = 0;
-			ticksInAir = 0;
+			this.inGround = false;
+			this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
+			this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
+			this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+			this.ticksInGround = 0;
+			this.ticksInAir = 0;
 		}
 		else
 		{
-			++ticksInAir;
+			++this.ticksInAir;
 		}
 
-		Vec3 vec3 = Vec3.createVectorHelper(posX, posY, posZ);
-		Vec3 vec31 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-		MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3, vec31);
-		vec3 = Vec3.createVectorHelper(posX, posY, posZ);
-		vec31 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
+		Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		RayTraceResult raytraceresult = this.worldObj.rayTraceBlocks(vec3d, vec3d1);
+		vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
-		if (movingobjectposition != null)
+		if (raytraceresult != null)
 		{
-			vec31 = Vec3.createVectorHelper(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
 		}
 
-		if (!worldObj.isRemote)
-		{
-			Entity entity = null;
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
-			double d0 = 0.0D;
-			EntityLivingBase entitylivingbase = getThrower();
+		Entity entity = null;
+		List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().addCoord(this.motionX, this.motionY, this.motionZ).expandXyz(1.0D));
+		double d0 = 0.0D;
+		boolean flag = false;
 
-			for (int j = 0; j < list.size(); ++j)
+		for (int i = 0; i < list.size(); ++i)
+		{
+			Entity entity1 = (Entity)list.get(i);
+
+			if (entity1.canBeCollidedWith())
 			{
-				Entity entity1 = (Entity)list.get(j);
-
-				if (entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5))
+				if (entity1 == this.field_184539_c)
 				{
-					float f = 0.3F;
-					AxisAlignedBB axisalignedbb = entity1.boundingBox.expand(f, f, f);
-					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
+					flag = true;
+				}
+				else if (this.ticksExisted < 2 && this.field_184539_c == null)
+				{
+					this.field_184539_c = entity1;
+					flag = true;
+				}
+				else
+				{
+					flag = false;
+					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
+					RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
-					if (movingobjectposition1 != null)
+					if (raytraceresult1 != null)
 					{
-						double d1 = vec3.distanceTo(movingobjectposition1.hitVec);
+						double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
 
 						if (d1 < d0 || d0 == 0.0D)
 						{
@@ -227,72 +242,84 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 					}
 				}
 			}
+		}
 
-			if (entity != null)
+		if (this.field_184539_c != null)
+		{
+			if (flag)
 			{
-				movingobjectposition = new MovingObjectPosition(entity);
+				this.field_184540_av = 2;
+			}
+			else if (this.field_184540_av-- <= 0)
+			{
+				this.field_184539_c = null;
 			}
 		}
 
-		if (movingobjectposition != null)
+		if (entity != null)
 		{
-			if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ) == Blocks.portal)
+			raytraceresult = new RayTraceResult(entity);
+		}
+
+		if (raytraceresult != null)
+		{
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && this.worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
 			{
-				setInPortal();
+				this.setPortal(raytraceresult.getBlockPos());
 			}
 			else
 			{
-				onImpact(movingobjectposition);
+				this.onImpact(raytraceresult);
 			}
 		}
 
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
-		float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float)(Math.atan2(motionX, motionZ) * 180.0D / Math.PI);
+		this.posX += this.motionX;
+		this.posY += this.motionY;
+		this.posZ += this.motionZ;
+		float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+		this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float)(Math.atan2(motionY, f1) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
+		for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
 		{
 			;
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F)
+		while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
 		{
-			prevRotationPitch += 360.0F;
+			this.prevRotationPitch += 360.0F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F)
+		while (this.rotationYaw - this.prevRotationYaw < -180.0F)
 		{
-			prevRotationYaw -= 360.0F;
+			this.prevRotationYaw -= 360.0F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F)
+		while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
 		{
-			prevRotationYaw += 360.0F;
+			this.prevRotationYaw += 360.0F;
 		}
 
-		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-		float f2 = 0.99F;
-		float f3 = getGravityVelocity();
+		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
+		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+		float f1 = 0.99F;
+		float f2 = this.getGravityVelocity();
 
-		if (isInWater())
+		if (this.isInWater())
 		{
-			for (int i = 0; i < 4; ++i)
+			for (int j = 0; j < 4; ++j)
 			{
-				float f4 = 0.25F;
-				worldObj.spawnParticle("bubble", posX - motionX * f4, posY - motionY * f4, posZ - motionZ * f4, motionX, motionY, motionZ);
+				float f3 = 0.25F;
+				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double)f3, this.posY - this.motionY * (double)f3, this.posZ - this.motionZ * (double)f3, this.motionX, this.motionY, this.motionZ);
 			}
 
-			f2 = 0.8F;
+			f1 = 0.8F;
 		}
 
-		motionX *= f2;
-		motionY *= f2;
-		motionZ *= f2;
-		motionY -= f3;
-		setPosition(posX, posY, posZ);
+		this.motionX *= (double)f1;
+		this.motionY *= (double)f1;
+		this.motionZ *= (double)f1;
+		this.motionY -= (double)f2;
+		this.setPosition(this.posX, this.posY, this.posZ);
 	}
 
 	/**
@@ -306,63 +333,84 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
-	protected abstract void onImpact(MovingObjectPosition p_70184_1_);
+	protected abstract void onImpact(RayTraceResult result);
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
-	@Override
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_)
+	public void writeEntityToNBT(@Nonnull NBTTagCompound compound)
 	{
-		p_70014_1_.setShort("xTile", (short)field_145788_c);
-		p_70014_1_.setShort("yTile", (short)field_145786_d);
-		p_70014_1_.setShort("zTile", (short)field_145787_e);
-		p_70014_1_.setByte("inTile", (byte)Block.getIdFromBlock(field_145785_f));
-		p_70014_1_.setByte("shake", (byte)throwableShake);
-		p_70014_1_.setByte("inGround", (byte)(inGround ? 1 : 0));
+		compound.setInteger("xTile", this.xTile);
+		compound.setInteger("yTile", this.yTile);
+		compound.setInteger("zTile", this.zTile);
+		ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(this.inTile);
+		compound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
+		compound.setByte("shake", (byte)this.throwableShake);
+		compound.setByte("inGround", (byte)(this.inGround ? 1 : 0));
 
-		if ((throwerName == null || throwerName.length() == 0) && thrower != null && thrower instanceof EntityPlayer)
+		if ((this.throwerName == null || this.throwerName.isEmpty()) && this.thrower instanceof EntityPlayer)
 		{
-			throwerName = thrower.getCommandSenderName();
+			this.throwerName = this.thrower.getName();
 		}
 
-		p_70014_1_.setString("ownerName", throwerName == null ? "" : throwerName);
+		compound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	@Override
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_)
+	public void readEntityFromNBT(@Nonnull NBTTagCompound compound)
 	{
-		field_145788_c = p_70037_1_.getShort("xTile");
-		field_145786_d = p_70037_1_.getShort("yTile");
-		field_145787_e = p_70037_1_.getShort("zTile");
-		field_145785_f = Block.getBlockById(p_70037_1_.getByte("inTile") & 255);
-		throwableShake = p_70037_1_.getByte("shake") & 255;
-		inGround = p_70037_1_.getByte("inGround") == 1;
-		throwerName = p_70037_1_.getString("ownerName");
+		this.xTile = compound.getInteger("xTile");
+		this.yTile = compound.getInteger("yTile");
+		this.zTile = compound.getInteger("zTile");
 
-		if (throwerName != null && throwerName.length() == 0)
+		if (compound.hasKey("inTile", 8))
 		{
-			throwerName = null;
+			this.inTile = Block.getBlockFromName(compound.getString("inTile"));
 		}
-	}
+		else
+		{
+			this.inTile = Block.getBlockById(compound.getByte("inTile") & 255);
+		}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public float getShadowSize()
-	{
-		return 0.0F;
+		this.throwableShake = compound.getByte("shake") & 255;
+		this.inGround = compound.getByte("inGround") == 1;
+		this.thrower = null;
+		this.throwerName = compound.getString("ownerName");
+
+		if (this.throwerName != null && this.throwerName.isEmpty())
+		{
+			this.throwerName = null;
+		}
+
+		this.thrower = this.getThrower();
 	}
 
 	public EntityLivingBase getThrower()
 	{
-		if (thrower == null && throwerName != null && throwerName.length() > 0)
+		if (this.thrower == null && this.throwerName != null && !this.throwerName.isEmpty())
 		{
-			thrower = worldObj.getPlayerEntityByName(throwerName);
+			this.thrower = this.worldObj.getPlayerEntityByName(this.throwerName);
+
+			if (this.thrower == null && this.worldObj instanceof WorldServer)
+			{
+				try
+				{
+					Entity entity = ((WorldServer)this.worldObj).getEntityFromUuid(UUID.fromString(this.throwerName));
+
+					if (entity instanceof EntityLivingBase)
+					{
+						this.thrower = (EntityLivingBase)entity;
+					}
+				}
+				catch (Throwable var2)
+				{
+					this.thrower = null;
+				}
+			}
 		}
 
-		return thrower;
+		return this.thrower;
 	}
 }

@@ -10,21 +10,26 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -36,13 +41,16 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
 
 	private static final int COST_PER = 55;
 
-	static final List<String> validBlocks = Arrays.asList(new String[] {
+	private static final List<String> validBlocks = ImmutableList.of(
 			"stone",
 			"dirt",
 			"grass",
@@ -53,29 +61,29 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			"mycelium",
 			"podzol",
 			"sandstone",
-
-			// Mod support
 			"blockDiorite",
 			"stoneDiorite",
 			"blockGranite",
 			"stoneGranite",
 			"blockAndesite",
 			"stoneAndesite",
+
+			// Mod support
 			"marble",
 			"blockMarble",
 			"limestone",
 			"blockLimestone"
-	});
+	);
 
 	public ItemTerraformRod() {
-		super();
+		super(LibItemNames.TERRAFORM_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.TERRAFORM_ROD);
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -84,104 +92,81 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		if(count != getMaxItemUseDuration(stack) && count % 10 == 0)
-			terraform(stack, player.worldObj, player);
+	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
+			terraform(stack, living.worldObj, ((EntityPlayer) living));
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
-	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
+	private void terraform(ItemStack par1ItemStack, World world, EntityPlayer player) {
+		int range = IManaProficiencyArmor.Helper.hasProficiency(player) ? 22 : 16;
 
-		int xCenter = (int) par3EntityPlayer.posX;
-		int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);
-		int zCenter = (int) par3EntityPlayer.posZ;
+		BlockPos startCenter = new BlockPos(player).down();
 
-		if(yCenter < 62) // Not below sea level
+		if(startCenter.getY() < world.getSeaLevel()) // Not below sea level
 			return;
 
-		int yStart = yCenter + range;
+		List<CoordsWithBlock> blocks = new ArrayList<>();
 
-		List<CoordsWithBlock> blocks = new ArrayList();
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
+			IBlockState state = world.getBlockState(pos);
+			if(state.getBlock() == Blocks.AIR)
+				continue;
+			else if(Item.getItemFromBlock(state.getBlock()) == null)
+				continue;
+			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
+			for(int id : ids)
+				if(validBlocks.contains(OreDictionary.getOreName(id))) {
+					List<BlockPos> airBlocks = new ArrayList<>();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++) {
-				int k = 0;
-				while(true) {
-					if(yStart + k < 0)
-						break;
-
-					int x = xCenter + i;
-					int y = yStart + k;
-					int z = zCenter + j;
-
-					Block block = par2World.getBlock(x, y, z);
-					int meta = par2World.getBlockMetadata(x, y, z);
-
-					int[] ids = OreDictionary.getOreIDs(new ItemStack(block, 1, meta));
-					for(int id : ids)
-						if(validBlocks.contains(OreDictionary.getOreName(id))) {
-							boolean hasAir = false;
-							List<ChunkCoordinates> airBlocks = new ArrayList();
-
-							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-								int x_ = x + dir.offsetX;
-								int y_ = y + dir.offsetY;
-								int z_ = z + dir.offsetZ;
-
-								Block block_ = par2World.getBlock(x_, y_, z_);
-								if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
-									airBlocks.add(new ChunkCoordinates(x_, y_, z_));
-									hasAir = true;
-								}
-							}
-
-							if(hasAir) {
-								if(y > yCenter)
-									blocks.add(new CoordsWithBlock(x, y, z, Blocks.air));
-								else for(ChunkCoordinates coords : airBlocks) {
-									if(par2World.getBlock(coords.posX, coords.posY - 1, coords.posZ) != Blocks.air)
-										blocks.add(new CoordsWithBlock(coords.posX, coords.posY, coords.posZ, Blocks.dirt));
-								}
-							}
-							break;
+					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+						BlockPos pos_ = pos.offset(dir);
+						Block block_ = world.getBlockState(pos_).getBlock();
+						if(block_.isAir(world.getBlockState(pos_), world, pos_) || block_.isReplaceable(world, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.DOUBLE_PLANT) {
+							airBlocks.add(pos_);
 						}
-					--k;
+					}
+
+					if(!airBlocks.isEmpty()) {
+						if(pos.getY() > startCenter.getY())
+							blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
+						else for(BlockPos coords : airBlocks) {
+							if(world.getBlockState(coords.down()).getBlock() != Blocks.AIR)
+								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
+						}
+					}
+					break;
 				}
-			}
+		}
 
 		int cost = COST_PER * blocks.size();
 
-		if(par2World.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, cost, true)) {
-			if(!par2World.isRemote)
+		if(world.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true)) {
+			if(!world.isRemote)
 				for(CoordsWithBlock block : blocks)
-					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
+					world.setBlockState(block, block.block.getDefaultState());
 
 			if(!blocks.isEmpty()) {
 				for(int i = 0; i < 10; i++)
-					par2World.playSoundAtEntity(par3EntityPlayer, "step.sand", 1F, 0.4F);
+					world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
-					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
+					Botania.proxy.sparkleFX(startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
 		}
 	}
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
+	private static class CoordsWithBlock extends BlockPos {
 
-	class CoordsWithBlock extends ChunkCoordinates {
+		private final Block block;
 
-		final Block block;
-
-		public CoordsWithBlock(int x, int y, int z, Block block) {
-			super(x, y, z);
+		private CoordsWithBlock(BlockPos pos, Block block) {
+			super(pos.getX(), pos.getY(), pos.getZ());
 			this.block = block;
 		}
 
@@ -194,14 +179,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
 		return false;
 	}
 
 	@Override
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.DIRT && meta == 0)
 			return -1;
 		return 0;
 	}

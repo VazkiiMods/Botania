@@ -10,26 +10,28 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.awt.*;
+import java.util.List;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -43,14 +45,23 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		boolean remote = supertile.getWorldObj().isRemote;
-		Item wool = Item.getItemFromBlock(Blocks.wool);
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+		boolean remote = supertile.getWorld().isRemote;
+		Item wool = Item.getItemFromBlock(Blocks.WOOL);
+
+		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		int slowdown = getSlowdownFactor();
-		
+
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() == wool && !item.isDead && item.age >= slowdown) {
+
+			int age;
+			try {
+				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
+			} catch (Throwable t) {
+				continue;
+			}
+
+			if(stack != null && stack.getItem() == wool && !item.isDead && age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					if(!remote) {
@@ -64,7 +75,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 						float mx = (float) (Math.random() - 0.5) * m;
 						float my = (float) (Math.random() - 0.5) * m;
 						float mz = (float) (Math.random() - 0.5) * m;
-						supertile.getWorldObj().spawnParticle("blockcrack_" + Item.getIdFromItem(stack.getItem()) + "_" + meta, item.posX, item.posY, item.posZ, mx, my, mz);
+						supertile.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, item.posX, item.posY, item.posZ, mx, my, mz, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 					}
 				}
 				
@@ -76,7 +87,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override
@@ -94,29 +105,30 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		return LexiconData.spectrolus;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
 
-		ItemStack stack = new ItemStack(Blocks.wool, 1, nextColor);
+		ItemStack stack = new ItemStack(Blocks.WOOL, 1, nextColor);
 		int color = getColor();
 
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(stack != null && stack.getItem() != null) {
 			String stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
+			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableLighting();
+		GlStateManager.disableBlend();
 	}
 
 	@Override

@@ -10,8 +10,11 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.util.IIcon;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * A block that implements this can provide an IIcon (block icons only)
@@ -20,6 +23,7 @@ import net.minecraft.world.World;
  */
 public interface IPoolOverlayProvider {
 
-	public IIcon getIcon(World world, int x, int y, int z);
+	@SideOnly(Side.CLIENT)
+	public TextureAtlasSprite getIcon(World world, BlockPos pos);
 
 }

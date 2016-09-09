@@ -10,25 +10,24 @@
  */
 package vazkii.botania.api.brew;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+
+import java.util.List;
 
 /**
  * The class for a Brew definition, each one is a singleton.
  */
 public class Brew {
 
-	String key;
-	String name;
-	int color;
-	int cost;
-	List<PotionEffect> effects;
-	boolean canInfuseBloodPendant = true;
-	boolean canInfuseIncense = true;
+	private final String key;
+	private final String name;
+	private final int color;
+	private final int cost;
+	private final List<PotionEffect> effects;
+	private boolean canInfuseBloodPendant = true;
+	private boolean canInfuseIncense = true;
 
 	/**
 	 * @param name The unlocalized name of this potion.
@@ -42,7 +41,7 @@ public class Brew {
 		this.name = name;
 		this.color = color;
 		this.cost = cost;
-		this.effects = new ArrayList(Arrays.asList(effects));
+		this.effects = ImmutableList.copyOf(effects);
 	}
 
 	/**
@@ -115,7 +114,7 @@ public class Brew {
 	}
 
 	/**
-	 * Gets the list of potion effects for the ItemStack passed in.
+	 * Gets the list of vanilla PotionEffects for the ItemStack passed in.
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */

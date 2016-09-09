@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor.quartz;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -22,12 +23,12 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class BlockSpecialQuartzStairs extends BlockModStairs {
 
 	public BlockSpecialQuartzStairs(Block source) {
-		super(source, 0, "quartzStairs" + ((BlockSpecialQuartz) source).type);
+		super(source.getDefaultState(), "quartzStairs" + ((BlockSpecialQuartz) source).type);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return this == ModFluffBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, x, y, z, player, lexicon);
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		return this == ModFluffBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, pos, player, lexicon);
 	}
 
 }

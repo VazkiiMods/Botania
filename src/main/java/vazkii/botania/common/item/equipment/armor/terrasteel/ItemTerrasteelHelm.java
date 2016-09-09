@@ -10,58 +10,46 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.item.IBaubleRender.Helper;
+import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer, IManaGivingItem {
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
-	static IIcon willIcon;
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public ItemTerrasteelHelm(String name) {
-		super(0, name);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
-		willIcon = IconHelper.forName(par1IconRegister, "willFlame");
+		super(EntityEquipmentSlot.HEAD, name);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -100,7 +88,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for(int i = 0; i < 6; i++)
 			if(hasAncientWill(stack, i))
-				addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + i + ".desc"), list);
+				addStringToTooltip(I18n.format("botania.armorset.will" + i + ".desc"), list);
 	}
 
 	public static boolean hasAnyWill(ItemStack stack) {
@@ -112,32 +100,32 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void renderOnPlayer(ItemStack stack, RenderPlayerEvent event) {
+	public static void renderOnPlayer(ItemStack stack, EntityPlayer player) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
-			GL11.glPushMatrix();
-			float f = willIcon.getMinU();
-			float f1 = willIcon.getMaxU();
-			float f2 = willIcon.getMinV();
-			float f3 = willIcon.getMaxV();
-			Helper.translateToHeadLevel(event.entityPlayer);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(180F, 1F, 0F, 0F);
-			GL11.glTranslatef(-0.26F, 0.15F, -0.39F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, willIcon.getIconWidth(), willIcon.getIconHeight(), 1F / 16F);
-			GL11.glPopMatrix();
+			GlStateManager.pushMatrix();
+			float f = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinU();
+			float f1 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxU();
+			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
+			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
+			IBaubleRender.Helper.translateToHeadLevel(player);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(-0.26F, -1.45F, -0.39F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconHeight(), 1F / 16F);
+			GlStateManager.popMatrix();
 		}
 	}
 
 	@SubscribeEvent
 	public void onEntityAttacked(LivingHurtEvent event) {
-		Entity attacker = event.source.getEntity();
+		Entity attacker = event.getSource().getEntity();
 		if(attacker instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {
-				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null;
-				ItemStack stack = player.inventory.armorItemInSlot(3);
+				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
+				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 				if(crit && stack != null && stack.getItem() instanceof ItemTerrasteelHelm) {
 					boolean ahrim = hasAncientWill(stack, 0);
 					boolean dharok = hasAncientWill(stack, 1);
@@ -147,17 +135,17 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 					boolean karil = hasAncientWill(stack, 5);
 
 					if(ahrim)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 20, 1));
 					if(dharok)
-						event.ammount *= 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
+						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
 					if(guthan)
-						player.heal(event.ammount * 0.25F);
+						player.heal(event.getAmount() * 0.25F);
 					if(torag)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60, 1));
 					if(verac)
-						event.source.setDamageBypassesArmor();
+						event.getSource().setDamageBypassesArmor();
 					if(karil)
-						event.entityLiving.addPotionEffect(new PotionEffect(Potion.wither.id, 60, 1));
+						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WITHER, 60, 1));
 				}
 			}
 		}

@@ -10,29 +10,29 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import baubles.api.BaubleType;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
@@ -54,8 +54,8 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@SubscribeEvent
 	public void onPlayerDamage(LivingHurtEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 			ItemStack belt = baubles.getStackInSlot(3);
 			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
@@ -79,15 +79,15 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
-		if(!event.source.isMagicDamage()) {
+		if(!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
-			player.worldObj.playSoundAtEntity(player, "botania:holyCloak", 1F, 1F);
+			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
 				double x = player.posX + Math.random() * player.width * 2 - player.width;
 				double y = player.posY + Math.random() * player.height;
 				double z = player.posZ + Math.random() * player.width * 2 - player.width;
 				boolean yellow = Math.random() > 0.5;
-				Botania.proxy.sparkleFX(player.worldObj, x, y, z, yellow ? 1F : 0.3F, yellow ? 1F : 0.3F, yellow ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
+				Botania.proxy.sparkleFX(x, y, z, yellow ? 1F : 0.3F, yellow ? 1F : 0.3F, yellow ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
 			}
 			return true;
 		}
@@ -127,15 +127,15 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
-			Helper.rotateIfSneaking(event.entityPlayer);
-			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
-			GL11.glTranslatef(0F, armor ? -0.07F : -0.01F, 0F);
+			Helper.rotateIfSneaking(player);
+			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 0.1F;
-			GL11.glScalef(s, s, s);
+			GlStateManager.scale(s, s, s);
 			if(model == null)
 				model = new ModelBiped();
 

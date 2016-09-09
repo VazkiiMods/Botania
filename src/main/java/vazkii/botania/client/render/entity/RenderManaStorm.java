@@ -10,34 +10,38 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
-public class RenderManaStorm extends Render {
+import javax.annotation.Nonnull;
 
-	@Override
-	public void doRender(Entity e, double x, double y, double z, float something, float pticks) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
-		EntityManaStorm storm = (EntityManaStorm) e;
-		float maxScale = 1.95F;
-		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
-		RenderHelper.renderStar(0x00FF00, scale, scale, scale, e.getUniqueID().getMostSignificantBits());
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+public class RenderManaStorm extends Render<EntityManaStorm> {
+
+	public RenderManaStorm(RenderManager renderManager) {
+		super(renderManager);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-		return null;
+	public void doRender(@Nonnull EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
+		float maxScale = 1.95F;
+		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
+		RenderHelper.renderStar(0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());
+		GlStateManager.disableBlend();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
+	}
+
+	@Nonnull
+	@Override
+	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 
 }

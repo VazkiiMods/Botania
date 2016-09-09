@@ -18,6 +18,8 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 
+import javax.annotation.Nonnull;
+
 public class EntityManaStorm extends Entity {
 
 	private static final String TAG_TIME = "time";
@@ -31,14 +33,12 @@ public class EntityManaStorm extends Entity {
 	public int burstsFired;
 	public int deathTime;
 
-	public EntityManaStorm(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public EntityManaStorm(World world) {
+		super(world);
 	}
 
 	@Override
-	protected void entityInit() {
-		// NO-OP
-	}
+	protected void entityInit() {}
 
 	@Override
 	public void onUpdate() {
@@ -61,7 +61,7 @@ public class EntityManaStorm extends Entity {
 		}
 	}
 
-	public void spawnBurst() {
+	private void spawnBurst() {
 		EntityManaBurst burst = new EntityManaBurst(worldObj);
 		burst.setPosition(posX, posY, posZ);
 
@@ -82,14 +82,14 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		liveTime = cmp.getInteger(TAG_TIME);
 		burstsFired = cmp.getInteger(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInteger(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME, liveTime);
 		cmp.setInteger(TAG_BURSTS_FIRED, burstsFired);
 		cmp.setInteger(TAG_DEATH_TIME, deathTime);

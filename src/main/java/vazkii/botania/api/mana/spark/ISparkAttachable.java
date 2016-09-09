@@ -38,15 +38,7 @@ public interface ISparkAttachable extends IManaReceiver {
 
 	/**
 	 * Gets the Spark that is attached to this block. A common implementation is
-	 * to check for Spark entities above:
-	 * 
-	  	List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
-	 	if(sparks.size() == 1) {
-			Entity e = (Entity) sparks.get(0);
-			return (ISparkEntity) e;
-		}
-
-		return null;
+	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
 	public ISparkEntity getAttachedSpark();
 

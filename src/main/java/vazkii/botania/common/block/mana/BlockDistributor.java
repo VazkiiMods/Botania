@@ -10,52 +10,45 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockDistributor extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
 
-	IIcon iconSide, iconTop;
+public class BlockDistributor extends BlockMod implements ILexiconable {
 
 	public BlockDistributor() {
-		super(Material.rock);
+		super(Material.ROCK, LibBlockNames.DISTRIBUTOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.DISTRIBUTOR);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		iconTop = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconSide = IconHelper.forBlock(par1IconRegister, this, 1);
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 
+	@Nonnull
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return par1 == 0 ? ModBlocks.livingrock.getIcon(0, 0) : par1 == 1 ? iconTop : iconSide;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileDistributor();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.distributor;
 	}
 

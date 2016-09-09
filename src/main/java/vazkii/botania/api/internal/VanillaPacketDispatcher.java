@@ -10,27 +10,24 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		World world = tile.getWorldObj();
-		List players = world.playerEntities;
-		for(Object player : players)
-			if(player instanceof EntityPlayerMP) {
-				EntityPlayerMP mp = (EntityPlayerMP) player;
-				if(pointDistancePlane(mp.posX, mp.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64)
-					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
-			}
+		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+		tile.getWorld().notifyBlockUpdate(tile.getPos(), state, state, 8);
 	}
 
-	public static void dispatchTEToNearbyPlayers(World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null)
 			dispatchTEToNearbyPlayers(tile);
 	}

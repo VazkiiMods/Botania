@@ -10,31 +10,34 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -47,19 +50,17 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	private static final String TAG_FLYING = "flying";
 
-	IIcon iconIdle, iconFlying;
-
 	public ItemTornadoRod() {
+		super(LibItemNames.TORNADO_ROD);
 		setMaxDamage(MAX_DAMAGE);
-		setUnlocalizedName(LibItemNames.TORNADO_ROD);
 		setMaxStackSize(1);
+		addPropertyOverride(new ResourceLocation("botania", "flying"), (stack, world, living) -> isFlying(stack) ? 1 : 0);
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean holding) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean holding) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
-			player.getCurrentEquippedItem();
 			boolean damaged = par1ItemStack.getItemDamage() > 0;
 
 			if(damaged && !isFlying(par1ItemStack))
@@ -68,15 +69,15 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			int max = FALL_MULTIPLIER * FLY_TIME;
 			if(par1ItemStack.getItemDamage() >= max) {
 				setFlying(par1ItemStack, false);
-				player.stopUsingItem();
+				player.resetActiveHand();
 			} else if(isFlying(par1ItemStack)) {
 				if(holding) {
 					player.fallDistance = 0F;
 					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player) ? 1.6 : 1.25;
 
-					player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
+					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
-						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						Botania.proxy.wispFX(player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
 
 				par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
@@ -89,49 +90,31 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		}
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
 		int meta = par1ItemStack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, false)) {
-			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+			player.setActiveHand(hand);
 			if(meta == 0) {
+				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
 				setFlying(par1ItemStack, true);
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, true);
 			}
+			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
 	}
 
-	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-
-	}
-
-	@Override
-	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return isFlying(par1ItemStack) ? iconFlying : iconIdle;
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return getIconIndex(stack);
-	}
-
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 720000;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconIdle = IconHelper.forItem(par1IconRegister, this, 0);
-		iconFlying = IconHelper.forItem(par1IconRegister, this, 1);
 	}
 
 	public boolean isFlying(ItemStack stack) {
@@ -143,11 +126,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
@@ -155,28 +133,34 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 		if(tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(te.xCoord + 0.5 - range, te.yCoord + 0.5 - rangeY, te.zCoord + 0.5 - range, te.xCoord + 0.5 + range, te.yCoord + 0.5 + rangeY, te.zCoord + 0.5 + range));
+			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for(EntityPlayer p : players) {
 				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
 					p.motionY = 2.8;
 
 					for(int i = 0; i < 20; i++)
 						for(int j = 0; j < 5; j++)
-							Botania.proxy.wispFX(p.worldObj, p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+							Botania.proxy.wispFX(p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 
 					if(!world.isRemote) {
-						p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
-						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet.id, 100, 0));
+						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);
 					}
 				}
 			}
 		}
 	}
+
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+		return newStack.getItem() != this || isFlying(oldStack) != isFlying(newStack);
+	}
+
 
 	@Override
 	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {

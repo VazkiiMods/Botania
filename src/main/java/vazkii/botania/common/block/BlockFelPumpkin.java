@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -19,87 +21,100 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
-	IIcon top, face;
-
 	public BlockFelPumpkin() {
-		super(Material.gourd);
-		setBlockName(LibBlockNames.FEL_PUMPKIN);
+		super(Material.GOURD, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
-		setStepSound(soundTypeWood);
-		MinecraftForge.EVENT_BUS.register(this);
+		setSoundType(SoundType.WOOD);
+		MinecraftForge.EVENT_BUS.register(BlockFelPumpkin.class);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? top : p_149691_1_ == 0 ? top : p_149691_2_ == 2 && p_149691_1_ == 2 ? face : p_149691_2_ == 3 && p_149691_1_ == 5 ? face : p_149691_2_ == 0 && p_149691_1_ == 3 ? face : p_149691_2_ == 1 && p_149691_1_ == 4 ? face : blockIcon;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_) {
-		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.CARDINALS).getHorizontalIndex();
+	}
 
-		if(!p_149726_1_.isRemote && p_149726_1_.getBlock(p_149726_2_, p_149726_3_ - 1, p_149726_4_) == Blocks.iron_bars && p_149726_1_.getBlock(p_149726_2_, p_149726_3_ - 2, p_149726_4_) == Blocks.iron_bars) {
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_, p_149726_4_, getBlockById(0), 0, 2);
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 1, p_149726_4_, getBlockById(0), 0, 2);
-			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 2, p_149726_4_, getBlockById(0), 0, 2);
-			EntityBlaze blaze = new EntityBlaze(p_149726_1_);
-			blaze.setLocationAndAngles(p_149726_2_ + 0.5D, p_149726_3_ - 1.95D, p_149726_4_ + 0.5D, 0.0F, 0.0F);
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));
+	}
+
+	@Override
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		super.onBlockAdded(world, pos, state);
+
+		if(!world.isRemote && world.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
+			world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+			world.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 2);
+			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 2);
+			EntityBlaze blaze = new EntityBlaze(world);
+			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
-			p_149726_1_.spawnEntityInWorld(blaze);
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_, p_149726_4_, getBlockById(0));
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_ - 1, p_149726_4_, getBlockById(0));
-			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_ - 2, p_149726_4_, getBlockById(0));
+			world.spawnEntityInWorld(blaze);
+			world.notifyNeighborsOfStateChange(pos, Blocks.AIR);
+			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
+			world.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 2.5D) & 3;
-		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, l, 2);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)  {
-		face = IconHelper.forBlock(p_149651_1_, this);
-		top = Blocks.pumpkin.getIcon(0, 0);
-		blockIcon = Blocks.pumpkin.getIcon(2, 0);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
 	}
 
 	@SubscribeEvent
-	public void onDrops(LivingDropsEvent event) {
-		if(event.entity instanceof EntityBlaze && event.entity.getEntityData().getBoolean(TAG_FEL_SPAWNED))
-			if(event.drops.isEmpty())
-				event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, new ItemStack(Items.blaze_powder, 6)));
-			else for(EntityItem item : event.drops) {
+	public static void onDrops(LivingDropsEvent event) {
+		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))
+			if(event.getDrops().isEmpty())
+				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BLAZE_POWDER, 6)));
+			else for(EntityItem item : event.getDrops()) {
 				ItemStack stack = item.getEntityItem();
-				if(stack.getItem() == Items.blaze_rod)
-					item.setEntityItemStack(new ItemStack(Items.blaze_powder, stack.stackSize * 10));
+				if(stack.getItem() == Items.BLAZE_ROD)
+					item.setEntityItemStack(new ItemStack(Items.BLAZE_POWDER, stack.stackSize * 10));
 			}
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.gardenOfGlass;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, 0, getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 
 }

@@ -10,30 +10,29 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemAncientWill extends ItemMod {
 
 	private static final int SUBTYPES = 6;
 
-	IIcon[] icons;
-
 	public ItemAncientWill() {
-		setUnlocalizedName(LibItemNames.ANCIENT_WILL);
+		super(LibItemNames.ANCIENT_WILL);
 		setHasSubtypes(true);
 		setMaxStackSize(1);
 
@@ -42,37 +41,33 @@ public class ItemAncientWill extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[SUBTYPES];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int dmg) {
-		return icons[Math.min(icons.length - 1, dmg)];
-	}
-
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
-		addStringToTooltip(StatCollector.translateToLocal("botaniamisc.craftToAddWill"), list);
-		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+		addStringToTooltip(I18n.format("botaniamisc.craftToAddWill"), list);
+		addStringToTooltip(I18n.format("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
 	}
 
 	public void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 6, LibItemNames.ANCIENT_WILL);
+	}
 
 }

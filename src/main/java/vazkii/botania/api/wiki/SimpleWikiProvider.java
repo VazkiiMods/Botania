@@ -10,17 +10,18 @@
  */
 package vazkii.botania.api.wiki;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
 import org.apache.commons.lang3.text.WordUtils;
 
 public class SimpleWikiProvider implements IWikiProvider {
 
-	final String name, urlBase, replacement;
-	final boolean lowercase;
+	private final String name, urlBase, replacement;
+	private final boolean lowercase;
 
 	public SimpleWikiProvider(String name, String urlBase) {
 		this(name, urlBase, "%20");
@@ -45,19 +46,14 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getBlockName(World world, MovingObjectPosition pos) {
-		int x = pos.blockX;
-		int y = pos.blockY;
-		int z = pos.blockZ;
+	public String getBlockName(World world, RayTraceResult pos, EntityPlayer player) {
+		BlockPos bPos = pos.getBlockPos();
+		IBlockState state = world.getBlockState(bPos);
 
-		Block block = world.getBlock(x, y, z);
-		if(block == null)
-			return null;
-
-		ItemStack stack = block.getPickBlock(pos, world, x, y, z);
+		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
 		if(stack == null || stack.getItem() == null)
-			stack = new ItemStack(block, 1, world.getBlockMetadata(x, y, z));
+			stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 
 		if(stack.getItem() == null)
 			return null;
@@ -70,8 +66,8 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiURL(World world, MovingObjectPosition pos) {
-		String name = getBlockName(world, pos);
+	public String getWikiURL(World world, RayTraceResult pos, EntityPlayer player) {
+		String name = getBlockName(world, pos, player);
 		if(name == null)
 			return null;
 
@@ -83,7 +79,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiName(World world, MovingObjectPosition pos) {
+	public String getWikiName(World world, RayTraceResult pos, EntityPlayer player) {
 		return name;
 	}
 

@@ -2,122 +2,130 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2014, 2:41:19 AM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+
 public class ItemBottledMana extends ItemMod {
 
-	IIcon[] icons;
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana() {
-		setUnlocalizedName(LibItemNames.MANA_BOTTLE);
+		super(LibItemNames.MANA_BOTTLE);
 		setMaxStackSize(1);
 		setMaxDamage(6);
 	}
 
-	public void effect(EntityPlayer player, int id) {
+	public void effect(ItemStack stack, EntityLivingBase living, int id) {
 		switch(id) {
 		case 0 : { // Random motion
-			player.motionX = (Math.random() - 0.5) * 3;
-			player.motionZ = (Math.random() - 0.5) * 3;
+			living.motionX = (Math.random() - 0.5) * 3;
+			living.motionZ = (Math.random() - 0.5) * 3;
 			break;
 		}
 		case 1 : { // Water
-			if(!player.worldObj.isRemote && !player.worldObj.provider.isHellWorld)
-				player.worldObj.setBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), Blocks.flowing_water);
+			if(!living.worldObj.isRemote && !living.worldObj.provider.doesWaterVaporize())
+				living.worldObj.setBlockState(new BlockPos(living), Blocks.FLOWING_WATER.getDefaultState());
 			break;
 		}
 		case 2 : { // Set on Fire
-			if(!player.worldObj.isRemote)
-				player.setFire(4);
+			if(!living.worldObj.isRemote)
+				living.setFire(4);
 			break;
 		}
 		case 3 : { // Mini Explosion
-			if(!player.worldObj.isRemote)
-				player.worldObj.createExplosion(null, player.posX, player.posY, player.posZ, 0.25F, false);
+			if(!living.worldObj.isRemote)
+				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 0.25F, false);
 			break;
 		}
 		case 4 : { // Mega Jump
-			if(!player.worldObj.provider.isHellWorld) {
-				if(!player.worldObj.isRemote)
-					player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
-				player.motionY = 6;
+			if(!living.worldObj.provider.doesWaterVaporize()) {
+				if(!living.worldObj.isRemote)
+					living.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 5));
+				living.motionY = 6;
 			}
 
 			break;
 		}
 		case 5 : { // Randomly set HP
-			if(!player.worldObj.isRemote)
-				player.setHealth(player.worldObj.rand.nextInt(19) + 1);
+			if(!living.worldObj.isRemote)
+				living.setHealth(living.worldObj.rand.nextInt(19) + 1);
 			break;
 		}
 		case 6 : { // Lots O' Hearts
-			if(!player.worldObj.isRemote)
-				player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 20 * 60 * 2, 9));
+			if(!living.worldObj.isRemote)
+				living.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
-			if(!player.worldObj.isRemote)
-				for(int i = 0; i < player.inventory.getSizeInventory(); i++)
-					if(i != player.inventory.currentItem) {
-						ItemStack stackAt = player.inventory.getStackInSlot(i);
+			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
+				EntityPlayer player = ((EntityPlayer) living);
+				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+					ItemStack stackAt = player.inventory.getStackInSlot(i);
+					if(stackAt != stack) {
 						if(stackAt != null)
-							player.dropPlayerItemWithRandomChoice(stackAt, true);
+							player.entityDropItem(stackAt, 0);
 						player.inventory.setInventorySlotContents(i, null);
 					}
+				}
+			}
 
 			break;
 		}
 		case 8 : { // Break your neck
-			player.rotationPitch = (float) Math.random() * 360F;
-			player.rotationYaw = (float) Math.random() * 180F;
+			living.rotationPitch = (float) Math.random() * 360F;
+			living.rotationYaw = (float) Math.random() * 180F;
 
 			break;
 		}
 		case 9 : { // Highest Possible
-			int x = MathHelper.floor_double(player.posX);
-			MathHelper.floor_double(player.posY);
-			int z = MathHelper.floor_double(player.posZ);
+			int x = MathHelper.floor_double(living.posX);
+			MathHelper.floor_double(living.posY);
+			int z = MathHelper.floor_double(living.posZ);
 			for(int i = 256; i > 0; i--) {
-				Block block = player.worldObj.getBlock(x, i, z);
-				if(!block.isAir(player.worldObj, x, i, z)) {
-					if(player instanceof EntityPlayerMP) {
-						EntityPlayerMP mp = (EntityPlayerMP) player;
-						mp.playerNetServerHandler.setPlayerLocation(player.posX, i + 1.6, player.posZ, player.rotationYaw, player.rotationPitch);
+				Block block = living.worldObj.getBlockState(new BlockPos(x, i, z)).getBlock();
+				if(!block.isAir(living.worldObj.getBlockState(new BlockPos(x, i, z)), living.worldObj, new BlockPos(x, i, z))) {
+					if(living instanceof EntityPlayerMP) {
+						EntityPlayerMP mp = (EntityPlayerMP) living;
+						mp.connection.setPlayerLocation(living.posX, i + 1.6, living.posZ, living.rotationYaw, living.rotationPitch);
 					}
 					break;
 				}
@@ -126,55 +134,55 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 10 : { // HYPERSPEEEEEED
-			if(!player.worldObj.isRemote)
-				player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 200));
+			if(!living.worldObj.isRemote)
+				living.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
-			if(!player.worldObj.isRemote)
-				player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 6000, 0));
+			if(!living.worldObj.isRemote)
+				living.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 6000, 0));
 			break;
 		}
 		case 12 : { // Flare
-			if(!player.worldObj.isRemote) {
-				EntitySignalFlare flare = new EntitySignalFlare(player.worldObj);
-				flare.setPosition(player.posX, player.posY, player.posZ);
-				flare.setColor(player.worldObj.rand.nextInt(16));
-				player.worldObj.playSoundAtEntity(player, "random.explode", 40F, (1.0F + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+			if(!living.worldObj.isRemote) {
+				EntitySignalFlare flare = new EntitySignalFlare(living.worldObj);
+				flare.setPosition(living.posX, living.posY, living.posZ);
+				flare.setColor(living.worldObj.rand.nextInt(16));
+				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.worldObj.rand.nextFloat() - living.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
-				player.worldObj.spawnEntityInWorld(flare);
+				living.worldObj.spawnEntityInWorld(flare);
 
 				int range = 5;
-				List<EntityLivingBase> entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+				List<EntityLivingBase> entities = living.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != player && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
-						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
+					if(entity != living && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))
+						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 			}
 
 			break;
 		}
 		case 13 : { // Pixie Friend
-			if(!player.worldObj.isRemote) {
-				EntityPixie pixie = new EntityPixie(player.worldObj);
-				pixie.setPosition(player.posX, player.posY + 1.5, player.posZ);
-				player.worldObj.spawnEntityInWorld(pixie);
+			if(!living.worldObj.isRemote) {
+				EntityPixie pixie = new EntityPixie(living.worldObj);
+				pixie.setPosition(living.posX, living.posY + 1.5, living.posZ);
+				living.worldObj.spawnEntityInWorld(pixie);
 			}
 			break;
 		}
 		case 14 : { // Nausea + Blindness :3
-			if(!player.worldObj.isRemote) {
-				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 160, 3));
-				player.addPotionEffect(new PotionEffect(Potion.blindness.id, 160, 0));
+			if(!living.worldObj.isRemote) {
+				living.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 160, 3));
+				living.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 160, 0));
 			}
 
 			break;
 		}
 		case 15 : { // Drop own Head
-			if(!player.worldObj.isRemote) {
-				player.attackEntityFrom(DamageSource.magic, player.getHealth() - 1);
-				ItemStack stack = new ItemStack(Items.skull, 1, 3);
-				ItemNBTHelper.setString(stack, "SkullOwner", player.getCommandSenderName());
-				player.dropPlayerItemWithRandomChoice(stack, true);
+			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
+				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
+				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
+				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());
+				living.entityDropItem(skull, 0);
 			}
 			break;
 		}
@@ -182,58 +190,46 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		getSeed(par1ItemStack);
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {}
+
+	private void randomEffect(EntityLivingBase player, ItemStack stack) {
+		effect(stack, player, new Random(getSeed(stack)).nextInt(16));
 	}
 
-	public void randomEffect(EntityPlayer player, ItemStack stack) {
-		effect(player, new Random(getSeed(stack)).nextInt(16));
-	}
-
-	long getSeed(ItemStack stack) {
+	private long getSeed(ItemStack stack) {
 		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
 		if(seed == -1)
 			return randomSeed(stack);
 		return seed;
 	}
 
-	long randomSeed(ItemStack stack) {
+	private long randomSeed(ItemStack stack) {
 		long seed = Math.abs(itemRand.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(StatCollector.translateToLocal("botaniamisc.bottleTooltip"));
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+		stacks.add(I18n.format("botaniamisc.bottleTooltip"));
+	}
+
+	@Nonnull
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+		player.setActiveHand(hand);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
 	}
 
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[6];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return icons[Math.min(icons.length - 1, par1)];
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		return par1ItemStack;
-	}
-
-	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		randomEffect(par3EntityPlayer, par1ItemStack);
+	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
+		randomEffect(living, par1ItemStack);
 		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
 		randomSeed(par1ItemStack);
 
 		if(par1ItemStack.getItemDamage() == 6)
-			return new ItemStack(Items.glass_bottle);
+			return new ItemStack(Items.GLASS_BOTTLE);
 		return par1ItemStack;
 	}
 
@@ -242,9 +238,16 @@ public class ItemBottledMana extends ItemMod {
 		return 20;
 	}
 
+	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.drink;
+		return EnumAction.DRINK;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 6, LibItemNames.MANA_BOTTLE);
 	}
 
 }

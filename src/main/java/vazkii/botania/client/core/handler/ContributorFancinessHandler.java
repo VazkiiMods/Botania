@@ -10,55 +10,75 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.item.IBaubleRender.Helper;
+import vazkii.botania.api.subtile.signature.SubTileSignature;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.version.VersionChecker;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.settings.GameSettings.Options;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.client.event.RenderPlayerEvent;
+public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.subtile.signature.SubTileSignature;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.version.VersionChecker;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.item.material.ItemManaResource;
-import cpw.mods.fml.common.FMLLog;
-
-public final class ContributorFancinessHandler {
-
-	public volatile static Map<String, IIcon> flowerMap = null;
+	public volatile static Map<String, ItemStack> flowerMap = null;
 	private volatile static boolean startedLoading = false;
 
-	private static boolean phi = true;
+	private static final boolean phi = false;
 
-	public static void render(RenderPlayerEvent.Specials event) {
-		String name = event.entityPlayer.getDisplayName();
+	@Override
+	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		String name = player.getDisplayName().getUnformattedText();
+
+		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
+		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(yawOffset, 0, -1, 0);
+		GlStateManager.rotate(yaw - 270, 0, 1, 0);
+		GlStateManager.rotate(pitch, 0, 0, 1);
 
 		if(name.equals("Vazkii") || name.equals("_phi")) {
 			if(phi)
-				renderPhiFlower(event);
-			else renderTwintails(event);
+				renderPhiFlower(player);
+			else renderTwintails(player, partialTicks);
 		} else if(name.equals("haighyorkie"))
-			renderGoldfish(event);
+			renderGoldfish(player);
 
 		firstStart();
-		
+
 		name = name.toLowerCase();
-		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
-			renderFlower(event, flowerMap.get(name));
+		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
+			renderFlower(player, flowerMap.get(name));
+
+		GlStateManager.popMatrix();
+	}
+
+	@Override
+	public boolean shouldCombineTextures() {
+		return false;
 	}
 
 	public static void firstStart() {
@@ -69,7 +89,7 @@ public final class ContributorFancinessHandler {
 	}
 
 	public static void load(Properties props) {
-		flowerMap = new HashMap();
+		flowerMap = new HashMap<>();
 		for(String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
@@ -77,103 +97,97 @@ public final class ContributorFancinessHandler {
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, ModBlocks.flower.func_149735_b(0, i));
+				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
 			} catch(NumberFormatException e) {
-				SubTileSignature sig = BotaniaAPI.getSignatureForName(value);
-				if(sig != null)
-					flowerMap.put(key, ItemBlockSpecialFlower.ofType(value).getIconIndex());
+				flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
 			}
 		}
 	}
 
-	private static void renderTwintails(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
+	private static void renderTwintails(EntityPlayer player, float partialTicks) {
+		GlStateManager.pushMatrix();
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tailIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.translateToHeadLevel(event.entityPlayer);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
+		Helper.translateToHeadLevel(player);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.translate(0, 1.62, 0);
 		float t = 0.13F;
-		GL11.glTranslatef(t, -0.5F, -0.1F);
-		if(event.entityPlayer.motionY < 0)
-			GL11.glRotatef((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
+		GlStateManager.translate(t, -0.5F, -0.1F);
+		if(player.motionY < 0)
+			GlStateManager.rotate((float) player.motionY * 20F, 1F, 0F, 0F);
 
-		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
-		GL11.glRotatef(r, 0F, 0F, 1F);
+		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.1F) * 2F;
+		GlStateManager.rotate(r, 0F, 0F, 1F);
 		float s = 0.9F;
-		GL11.glScalef(s, s, s);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glRotatef(-r, 0F, 0F, 1F);
-		GL11.glTranslatef(-t, -0F, 0F);
-		GL11.glScalef(-1F, 1F, 1F);
-		GL11.glTranslatef(t, -0F, 0F);
-		GL11.glRotatef(r, 0F, 0F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		GlStateManager.scale(s, s, s);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.rotate(-r, 0F, 0F, 1F);
+		GlStateManager.translate(-t, -0F, 0F);
+		GlStateManager.scale(-1F, 1F, 1F);
+		GlStateManager.translate(t, -0F, 0F);
+		GlStateManager.rotate(r, 0F, 0F, 1F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.popMatrix();
 	}
 
-	private static void renderPhiFlower(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
+	private static void renderPhiFlower(EntityPlayer player) {
+		GlStateManager.pushMatrix();
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.phiFlowerIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.translateToHeadLevel(event.entityPlayer);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glRotatef(180F, 1F, 0F, 0F);
-		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glScalef(0.4F, 0.4F, 0.4F);
-		GL11.glTranslatef(-1.2F, 0.2F, 0.125F);
-		GL11.glRotatef(20F, 1F, 0F, 0F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		Helper.translateToHeadLevel(player);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GlStateManager.translate(-0.4F, 0.1F, -0.25F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.scale(0.4F, 0.4F, 0.4F);
+		GlStateManager.translate(-1F, -3.5F, 0.125F);
+		GlStateManager.rotate(20F, 1F, 0F, 0F);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.popMatrix();
 	}
 
-	private static void renderGoldfish(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
+	private static void renderGoldfish(EntityPlayer player) {
+		GlStateManager.pushMatrix();
+		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.goldfishIcon;
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.rotateIfSneaking(event.entityPlayer);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glRotatef(180F, 0F, 0F, 1F);
-		GL11.glTranslatef(-0.75F, 0.5F, 0F);
-		GL11.glScalef(0.4F, 0.4F, 0.4F);
-		GL11.glTranslatef(1.2F, 0.5F, 0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
+		Helper.rotateIfSneaking(player);
+		GlStateManager.rotate(180F, 0F, 0F, 1F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GlStateManager.scale(0.4F, 0.4F, 0.4F);
+		GlStateManager.translate(-0.5F, 1.6F, 0F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.popMatrix();
 	}
 
-	private static void renderFlower(RenderPlayerEvent event, IIcon icon) {
-		GL11.glPushMatrix();
-		Helper.translateToHeadLevel(event.entityPlayer);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		GL11.glRotatef(180F, 0F, 0F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glTranslatef(-0.5F, 0.7F, 0F);
-
+	@SuppressWarnings("deprecation")
+	private static void renderFlower(EntityPlayer player, ItemStack flower) {
+		GlStateManager.pushMatrix();
+		Helper.translateToHeadLevel(player);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.rotate(180, 0, 0, 1);
+		GlStateManager.translate(0, -0.85, 0);
+		GlStateManager.rotate(-90, 0, 1, 0);
+		GlStateManager.scale(0.5, 0.5, 0.5);
 		ShaderHelper.useShader(ShaderHelper.gold);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		Minecraft.getMinecraft().getRenderItem().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false);
 		ShaderHelper.releaseShader();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
-	public static class ThreadContributorListLoader extends Thread {
+	private static class ThreadContributorListLoader extends Thread {
 
 		public ThreadContributorListLoader() {
 			setName("Botania Contributor Fanciness Thread");
@@ -186,11 +200,12 @@ public final class ContributorFancinessHandler {
 			try {
 				URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties");
 				Properties props = new Properties();
-				props.load(new InputStreamReader(url.openStream()));
-				load(props);
-			} catch(Exception e) {
-				FMLLog.info("[Botania] Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
-				e.printStackTrace();
+				try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
+					props.load(reader);
+					load(props);
+				}
+			} catch (IOException e) {
+				Botania.LOGGER.info("Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
 			}
 			VersionChecker.doneChecking = true;
 		}

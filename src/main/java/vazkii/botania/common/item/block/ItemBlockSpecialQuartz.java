@@ -15,14 +15,17 @@ import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 
+import javax.annotation.Nonnull;
+
 public class ItemBlockSpecialQuartz extends ItemMultiTexture {
 
 	public ItemBlockSpecialQuartz(Block par1) {
 		super(par1, par1, new String[]{ "" });
 	}
 
+	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return par1ItemStack.getItemDamage() >= 3 ? "" : ((BlockSpecialQuartz) field_150939_a).getNames()[par1ItemStack.getItemDamage()];
+	public String getUnlocalizedName(@Nonnull ItemStack par1ItemStack) {
+		return par1ItemStack.getItemDamage() >= 3 ? "" : ((BlockSpecialQuartz) block).getNames()[par1ItemStack.getItemDamage()];
 	}
 }

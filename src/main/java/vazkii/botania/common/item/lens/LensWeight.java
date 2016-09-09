@@ -10,33 +10,41 @@
  */
 package vazkii.botania.common.item.lens;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import java.util.Map;
+
 public class LensWeight extends Lens {
 
+	private static final Map<IBlockState, IBlockState> TECHNICAL_BLOCK_REMAP = ImmutableMap.of(
+			Blocks.LIT_REDSTONE_ORE.getDefaultState(), Blocks.REDSTONE_ORE.getDefaultState(),
+			Blocks.LIT_REDSTONE_LAMP.getDefaultState(), Blocks.REDSTONE_LAMP.getDefaultState()
+	);
+
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake()) {
-			int x = pos.blockX;
-			int y = pos.blockY;
-			int z = pos.blockZ;
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if(!entity.worldObj.isRemote && !burst.isFake() && pos.getBlockPos() != null) {
 			int harvestLevel = ConfigHandler.harvestLevelWeight;
 			
-			Block block = entity.worldObj.getBlock(x, y, z);
-			Block blockBelow = entity.worldObj.getBlock(x, y - 1, z);
-			int meta = entity.worldObj.getBlockMetadata(x, y, z);
-			int neededHarvestLevel = block.getHarvestLevel(meta);
+			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
+			int neededHarvestLevel = block.getHarvestLevel(state);
 			
-			if(blockBelow.isAir(entity.worldObj, x, y - 1, z) && block.getBlockHardness(entity.worldObj, x, y, z) != -1 && neededHarvestLevel <= harvestLevel && entity.worldObj.getTileEntity(x, y, z) == null && block.canSilkHarvest(entity.worldObj, null, x, y, z, meta)) {
-				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, block, meta);
-				if(!entity.worldObj.isRemote)
-					entity.worldObj.spawnEntityInWorld(falling);
+			if(entity.worldObj.isAirBlock(pos.getBlockPos().down()) && state.getBlockHardness(entity.worldObj, pos.getBlockPos()) != -1 && neededHarvestLevel <= harvestLevel && entity.worldObj.getTileEntity(pos.getBlockPos()) == null && block.canSilkHarvest(entity.worldObj, pos.getBlockPos(), state, null)) {
+				state = TECHNICAL_BLOCK_REMAP.getOrDefault(state, state);
+				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, pos.getBlockPos().getX() + 0.5, pos.getBlockPos().getY() + 0.5, pos.getBlockPos().getZ() + 0.5, state);
+				falling.fallTime = 1;
+				entity.worldObj.setBlockToAir(pos.getBlockPos());
+				entity.worldObj.spawnEntityInWorld(falling);
 			}
 		}
 

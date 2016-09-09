@@ -10,14 +10,19 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.common.block.tile.TileMod;
 import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyReceiver;
-import cpw.mods.fml.common.Optional;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.Optional;
+import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileMod;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
 public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
@@ -26,11 +31,10 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	private static final int MAX_MANA = 1280 * CONVERSION_RATE;
 
 	private static final String TAG_MANA = "mana";
-
 	int mana = 0;
 
 	// Thanks to skyboy for help with this cuz I'm a noob with RF
-	private IEnergyReceiver[] receiverCache;
+	private final EnumMap<EnumFacing, IEnergyReceiver> receiverCache = new EnumMap<>(EnumFacing.class);
 	private boolean deadCache;
 
 	@Override
@@ -38,14 +42,11 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	public void validate() {
 		super.validate();
 		deadCache = true;
-		receiverCache = null;
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI|energy")
-	public void updateEntity() {
-		super.updateEntity();
-		if(!worldObj.isRemote) {
+	public void update() {
+		if(!worldObj.isRemote && Botania.rfApiLoaded) {
 			if(deadCache)
 				reCache();
 
@@ -56,20 +57,17 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Optional.Method(modid = "CoFHAPI|energy")
-	protected final int transmitEnergy(int energy) {
-		if(receiverCache != null)
-			for(int i = receiverCache.length; i-- > 0;) {
-				IEnergyReceiver tile = receiverCache[i];
-				if(tile == null)
-					continue;
+	private final int transmitEnergy(int energy) {
+		for(Map.Entry<EnumFacing, IEnergyReceiver> e : receiverCache.entrySet()) {
+			IEnergyReceiver tile = e.getValue();
+			if (tile == null)
+				continue;
 
-				ForgeDirection from = ForgeDirection.VALID_DIRECTIONS[i];
-				if(tile.receiveEnergy(from, energy, true) > 0)
-					energy -= tile.receiveEnergy(from, energy, false);
+			energy -= tile.receiveEnergy(e.getKey().getOpposite(), energy, false);
 
-				if(energy <= 0)
-					return 0;
-			}
+			if (energy <= 0)
+				return 0;
+		}
 
 		return energy;
 	}
@@ -77,39 +75,28 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	@Optional.Method(modid = "CoFHAPI|energy")
 	private void reCache() {
 		if(deadCache) {
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-				onNeighborTileChange(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+			for(EnumFacing dir : EnumFacing.VALUES)
+				onNeighborTileChange(pos.offset(dir));
 			deadCache = false;
 		}
 	}
 
 	@Optional.Method(modid = "CoFHAPI|energy")
-	public void onNeighborTileChange(int x, int y, int z) {
-		TileEntity tile = worldObj.getTileEntity(x, y, z);
+	public void onNeighborTileChange(BlockPos pos) {
+		TileEntity tile = worldObj.getTileEntity(pos);
 
-		if(x < xCoord)
-			addCache(tile, 5);
-		else if(x > xCoord)
-			addCache(tile, 4);
-		else if(z < zCoord)
-			addCache(tile, 3);
-		else if(z > zCoord)
-			addCache(tile, 2);
-		else if(y < yCoord)
-			addCache(tile, 1);
-		else if(y > yCoord)
-			addCache(tile, 0);
+		BlockPos q = getPos();
+		EnumFacing side = EnumFacing.getFacingFromVector(pos.getX() - q.getX(), pos.getY() - q.getY(), pos.getZ() - q.getZ());
+
+		addCache(tile, side);
 	}
 
 	@Optional.Method(modid = "CoFHAPI|energy")
-	private void addCache(TileEntity tile, int side) {
-		if(receiverCache != null)
-			receiverCache[side] = null;
+	private void addCache(TileEntity tile, EnumFacing side) {
+		receiverCache.remove(side);
 
-		if(tile instanceof IEnergyReceiver && ((IEnergyReceiver)tile).canConnectEnergy(ForgeDirection.VALID_DIRECTIONS[side])) {
-			if(receiverCache == null)
-				receiverCache = new IEnergyReceiver[6];
-			receiverCache[side] = (IEnergyReceiver)tile;
+		if(tile instanceof IEnergyReceiver) {
+			receiverCache.put(side, (IEnergyReceiver)tile);
 		}
 	}
 
@@ -134,17 +121,17 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 	}
 
 	@Override
-	public boolean canConnectEnergy(ForgeDirection from) {
+	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}
 

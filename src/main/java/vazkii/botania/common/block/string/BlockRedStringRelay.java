@@ -10,10 +10,15 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockRedStringRelay extends BlockRedString {
 
@@ -22,7 +27,13 @@ public class BlockRedStringRelay extends BlockRedString {
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
+	}
+
+	@Nonnull
+	@Override
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileRedStringRelay();
 	}
 

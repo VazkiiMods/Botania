@@ -10,15 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileArcaneRose extends SubTileGenerating {
 
@@ -31,7 +31,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 		if(mana >= getMaxMana())
 			return;
 
-		List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + 1, supertile.zCoord + RANGE + 1));
+		List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityPlayer player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
@@ -42,7 +42,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

@@ -11,12 +11,13 @@
 package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
+import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.common.block.ModFluffBlocks;
 
 public class BlockSnowBrickSlab extends BlockCustomBrickSlab {
 
 	public BlockSnowBrickSlab(boolean full) {
-		super(full, 2);
+		super(full, CustomBrickVariant.FROSTY_BRICK);
 	}
 
 	@Override

@@ -15,13 +15,16 @@ public class TileTeruTeruBozu extends TileMod {
 	public boolean wasRaining = false;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
+		if (worldObj.isRemote)
+			return;
+
 		boolean isRaining = worldObj.isRaining();
 		if(isRaining && worldObj.rand.nextInt(9600) == 0)
 			worldObj.getWorldInfo().setRaining(false);
 
 		if(wasRaining != isRaining)
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		wasRaining = isRaining;
 	}
 

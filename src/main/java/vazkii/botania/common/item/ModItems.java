@@ -423,6 +423,7 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
+		OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dye, 1, OreDictionary.WILDCARD_VALUE));
 		for(int i = 0; i < 7; i++)
 			OreDictionary.registerOre(LibOreDict.QUARTZ[i], new ItemStack(quartz, 1, i));
 
@@ -458,12 +459,13 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
-		int min = Item.getIdFromItem(Items.record_13);
-		int max = Item.getIdFromItem(Items.record_wait);
+		int min = Item.getIdFromItem(Items.RECORD_13);
+		int max = Item.getIdFromItem(Items.RECORD_WAIT);
 		for(int i = min; i <= max; i++)
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 
-		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
-		OreDictionary.registerOre("powderBlaze", Items.blaze_powder);
+		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
+		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
+		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.PRISMARINE_SHARD));
 	}
 }

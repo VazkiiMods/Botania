@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -17,6 +18,6 @@ import net.minecraft.world.World;
  */
 public interface ILaputaImmobile {
 
-	public boolean canMove(World world, int x, int y, int z);
+	public boolean canMove(World world, BlockPos pos);
 
 }

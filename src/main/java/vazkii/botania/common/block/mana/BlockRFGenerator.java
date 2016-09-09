@@ -10,45 +10,55 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 
-public class BlockRFGenerator extends BlockModContainer implements ILexiconable {
+import javax.annotation.Nonnull;
+
+public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
 	public BlockRFGenerator() {
-		super(Material.rock);
+		super(Material.ROCK, LibBlockNames.RF_GENERATOR);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.RF_GENERATOR);
+		setSoundType(SoundType.STONE);
 	}
 
 	@Override
 	@Optional.Method(modid = "CoFHAPI|energy")
-	public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos tilePos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileRFGenerator)
-			((TileRFGenerator) tile).onNeighborTileChange(tileX, tileY, tileZ);
+			((TileRFGenerator) tile).onNeighborTileChange(tilePos);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileRFGenerator();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.rfGenerator;
 	}
 

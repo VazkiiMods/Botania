@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.world;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderFlat;
-import net.minecraftforge.common.MinecraftForge;
+
+import javax.annotation.Nonnull;
 
 public class WorldTypeSkyblock extends WorldType {
 
@@ -32,18 +35,13 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public boolean hasVoidParticles(boolean flag) {
-		return false;
-	}
-
-	@Override
 	public int getMinimumSpawnHeight(World world) {
 		return 86;
 	}
 
 	@Override
-	public int getSpawnFuzz() {
-		return 1;
+	public int getSpawnFuzz(@Nonnull WorldServer world, MinecraftServer server) {
+		return 0;
 	}
 
 	@Override
@@ -51,9 +49,10 @@ public class WorldTypeSkyblock extends WorldType {
 		return 260f;
 	}
 	
+	@Nonnull
 	@Override
-	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
-		return new ChunkProviderFlat(world, world.getSeed(), false, "2;1x0;");
+	public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions) {
+		return new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
 	}
 	
 }
