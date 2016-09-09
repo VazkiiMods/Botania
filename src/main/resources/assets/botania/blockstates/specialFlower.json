@@ -6,10 +6,16 @@
   },
   "variants": {
     "normal": [{
-      "custom": { "base": "minecraft:poppy" }
+      "custom": { "base": "botania:specialFlower#basemodel" }
     }],
     "inventory": [{
-      "custom": { "base": "minecraft:poppy" }
+      "custom": { "base": "botania:specialFlower#basemodel" }
+    }],
+    "basemodel": [{
+      "model": "minecraft:cross",
+      "textures": {
+        "cross": "botania:blocks/flower16"
+      }
     }]
   }
 }
