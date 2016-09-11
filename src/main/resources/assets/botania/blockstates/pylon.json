@@ -5,8 +5,8 @@
     "transform": {
       "gui": {
         "rotation": [ {"x": 30}, {"y": 225}, {"z": 0} ],
-        "translation": [ -0.25, 0, 0],
-        "scale": 0.5625,
+        "translation": [ -0.35, 0, 0],
+        "scale": 0.475,
         "post-rotation": [ {"x": 0}, {"y": 0}, {"z": 0} ]
       },
       "ground": {
