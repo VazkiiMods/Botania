@@ -130,7 +130,7 @@ public final class ModAchievements {
 		dandelifeonPickup = new AchievementMod(LibAchievementNames.DANDELIFEON_PICKUP, 0, 7, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON), gaiaGuardianKill);
 
 		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, 3, ModItems.laputaShard, null).setSpecial();
-		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, 1, new ItemStack(Items.SKULL, 1, 3), null).setSpecial();
+		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -4, 1, new ItemStack(Items.SKULL, 1, 3), null).setSpecial();
 		rankSSPick = new AchievementMod(LibAchievementNames.RANK_SS_PICK, -3, 3, ModItems.terraPick, null).setSpecial();
 		superCorporeaRequest = new AchievementMod(LibAchievementNames.SUPER_CORPOREA_REQUEST, -3, -1, ModBlocks.corporeaIndex, null).setSpecial();
 		pinkinator = new AchievementMod(LibAchievementNames.PINKINATOR, -5, -1, ModItems.pinkinator, null).setSpecial();
