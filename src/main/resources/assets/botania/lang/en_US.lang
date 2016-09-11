@@ -468,12 +468,12 @@ achievement.botania:flowerPickup=Sky of Beginning
 achievement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
 achievement.botania:lexiconUse=A Realistical Logical Ideologist
 achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the _index
-achievement.botania:daybloomPickup=Daybreak Arrival
-achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
+achievement.botania:daybloomPickup=Electric Magic
+achievement.botania:daybloomPickup.desc=Make a generating flower in a Petal Apothecary
 achievement.botania:manaPoolPickup=Vivid Wave
 achievement.botania:manaPoolPickup.desc=Craft a Mana Pool to store Mana
-achievement.botania:endoflamePickup=Meltdown
-achievement.botania:endoflamePickup.desc=Create an Endoflame to boost Mana production
+achievement.botania:endoflamePickup=An Ecstatic Vivace
+achievement.botania:endoflamePickup.desc=Make a functional flower in a Petal Apothecary
 achievement.botania:tinyPotatoPet=Just Be Friends
 achievement.botania:tinyPotatoPet.desc=Make a Tiny Potato and pet it
 achievement.botania:sparkCraft=Live Drive
@@ -482,7 +482,7 @@ achievement.botania:baubleWear=Inner Arts
 achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
 achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
 achievement.botania:manaCookieEat.desc=Infuse and eat a delicious Biscuit of Totality
-achievement.botania:runePickup=Lilium Doll
+achievement.botania:runePickup=Drop Pop Candy
 achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
 achievement.botania:manaBlasterShoot=M'aider Stranded Girl
 achievement.botania:manaBlasterShoot.desc=Craft and fire a Mana Blaster
@@ -506,7 +506,7 @@ achievement.botania:spawnerMoverUse=I can take off my (redacted)
 achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
 achievement.botania:enderAirMake=Imitation Air
 achievement.botania:enderAirMake.desc=Collect a Bottle of Ender Air
-achievement.botania:corporeaCraft=Drop Pop Candy
+achievement.botania:corporeaCraft=Packet Hero
 achievement.botania:corporeaCraft.desc=Craft a block that makes use of the Corporea Network
 achievement.botania:cacophoniumCraft=Noisy Lover Soul
 achievement.botania:cacophoniumCraft.desc=Craft a Cacophonium to mildly infuriate your foes
@@ -1989,7 +1989,7 @@ botania.entry.wand=Wand of the Forest
 botania.tagline.wand=Your essential multitool
 botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by effectively strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
 botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-right clicked on a compatible block to select it. Shift-right clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right clicking.<br>The two modes can be switched freely by shift-right clicking on air.
-botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.<br>Lastly, &1Dispensers&0 can use the wand for its various interaction tasks.
+botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
 botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
@@ -2051,7 +2051,7 @@ botania.entry.mIntro=An Introduction to Mana
 botania.tagline.mIntro=Start off with Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
-botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Natural Apparatus&0 sections of this Lexicon. 
+botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Endoflames or Hydroangeas&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Natural Apparatus&0 sections of this Lexicon. 
 
 # -- MANA SPREADER
 botania.entry.spreader=Mana Spreader
@@ -2261,7 +2261,7 @@ botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 # -- FLOWER SHRINKING
 botania.entry.flowerShrinking=Flower Shrinking
 botania.tagline.flowerShrinking=Smaller flowers with a smaller range
-botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.<br>This can also be done for passive generating flowers, turning them into decorative versions that don't decay.
+botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.
 botania.page.flowerShrinking1=Like a nendoroid
 
 # -- MODULATING DELAY
@@ -2438,20 +2438,14 @@ botania.page.bergamute1=Deaf to All but the Song
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
 botania.tagline.gIntro=Flowers that consume resources to make mana
-botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circumstances.
+botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively, the latter implying a requirement of some type of non-infinite resource without outside intervention.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
 botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other. It can be bound to another spreader with a wand in &4Bind Mode&0.
-
-# -- CAVEATS OF PASSIVE GENERATION
-botania.entry.passiveGen=Caveats of Passive Generation
-botania.tagline.passiveGen=It's free or it's good, pick one
-botania.page.passiveGen0=The spectrum of &4Generating Flowers&0 can be arranged in two groups, &4Passive&0 and &4Active&0.<br>&4Passive Flowers&0 are those that simply create &4Mana&0 using a completely free resource, such as the sun, or water. &4Active Flowers&0 require some sort of resource to transform into &4Mana&0, be it renewable or not.
-botania.page.passiveGen1=At the start of a botanist's career, only very basic and rudimentary &4Passive Flowers&0 are available, such as the &1Daybloom&0 or &1Nightshade&0.<br>These flowers are required to advance on to more potent and effective &4Active Flowers&0, but they should not be relied upon aside from being a stepping stone, as all &4Passive Flowers&0 will decay into a &1Dead Bush&0 after three days of work. 
 
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.tagline.endoflame=Mana from fuel
-botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
+botania.page.endoflame0=The &1Endoflame&0 is a very rudimentary &4generating flower&0, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to generate mana while the fuel lasts.<br>The amount of time it takes to burn through an item is roughly half of the time a furnace would.
 botania.page.endoflame1=There's a few small caveats though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Furthermore, the flower can only hold fuel equivalent to that of four times a &1Block of Coal&0. If any individual fuel with longer burn time than that is used, it won't be put to full efficiency.
 botania.page.endoflame3=As the &1Endoflame&0 is often a botanist's first foray into proper automatable &4Active Generating Flora&0, it would be best to not leave it to manual usage forever. As the flower requires dropped items, an &1Open Crate&0 (which you can find in the &4Natural Apparatus&0) section, and some sort of limiting mechanism (a timer or pressure plate) would be ideal for it.
 botania.page.endoflame2=&oNot nitor&r.
@@ -2459,7 +2453,7 @@ botania.page.endoflame2=&oNot nitor&r.
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.tagline.hydroangeas=Mana from water
-botania.page.hydroangeas0=&1Hydroangeas&0 act as a liquid based passive generator. They will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. The amount they produce is comparable to that of an &1Endoflame&0. They also seem to function faster during &4Rain&0.<br>&1Hydroangeas&0 are classified as &4passive flowers&0 and as such will decay.
+botania.page.hydroangeas0=&1Hydroangeas&0 act as a liquid based passive generator. They will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. The amount they produce is comparable to that of an &1Endoflame&0. They also seem to function faster during &4Rain&0.<br>&1Hydroangeas&0 are fleeting flora, and will decay after 1 hour of real world time.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
@@ -2520,11 +2514,8 @@ botania.page.spectrolus2=&oTaste the Rainbow&r.
 # -- RAFFLOWSIA
 botania.entry.rafflowsia=Rafflowsia
 botania.tagline.rafflowsia=Mana from flowers
-botania.page.rafflowsia0=Once upon a time, the peasants of the nation found joy in planting enormous fields of &1Dayblooms&0, &1Nightshades&0 and &1Hydroangeas&0. The lowly citizens relished in the free intake of &4Mana&0 provenient of the various elements.<br>They were happy with their ignorance.
-botania.page.rafflowsia1=One day, however, the plebians woke up to their prized gardens withered away, all of their hard work turned into &1Dead Bushes&0.<br>Revolted at the betrayal of their Gods, the men and women of the nation exclaimed in a single voice: "Passive flowers are useless now!"
-botania.page.rafflowsia2=Or so they believed. Soon enough, ingenious sages of the nobility would find out the recipe for a flower that can make use of these so said, deprecated flowers.<br>This flower was, therefore, dubbed the &1Rafflowsia&0.
-botania.page.rafflowsia3=The &1Rafflowsia&0 functions in a matter similar to the &1Kekimurus&0, with any sort of &4passive flowers&0, as in, it'll find any nearby placed on the floor and destroy them, creating &4Mana&0.<br>However, there are diminishing returns applied to this procedure, for the most effective usage, the same type of flower should not be destroyed multiple times in a row.
-botania.page.rafflowsia4=&oA New Dawn, you could say&r.
+botania.page.rafflowsia0=The &1Rafflowsia&0 functions in a matter similar to the &1Kekimurus&0, with any sort of &1man-made flowers&0 in the &1Petal Apothecary&0, as in, it'll find any nearby placed on the floor and destroy them, creating &4Mana&0.<br>However, there are diminishing returns applied to this procedure, for the most effective usage, the same type of flower should not be destroyed multiple times in a row.
+botania.page.rafflowsia1=&oA New Dawn, you could say&r.
 
 # -- DANDELIFEON
 botania.entry.dandelifeon=Dandelifeon
@@ -3048,8 +3039,8 @@ botania.page.fireChakram1=As fire as fenn's mixtape
 
 # -- OVERGROWTH SEED
 botania.entry.overgrowthSeed=Overgrowth Seed
-botania.tagline.overgrowthSeed=An elusive object that powers up flowers and prevents passive death
-botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>&4Passive flowers&0 planted on this soil won't get the speed boost, instead, they will simply not decay.
+botania.tagline.overgrowthSeed=An elusive object that powers up flowers
+botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.
 botania.page.overgrowthSeed1=There's one problem, though.<br>No known method of creating these exists. They have however, been allegedly spotted by historians in ancient structures and temples. Perhaps that would be a wise guess as to where to find these.
 
 # -- LIVINGWOOD BOW
@@ -3649,6 +3640,11 @@ botania.page.decorativeBlocks20=Crafting &1Hellish Bricks&0
 botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
 botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
 
+# -- DISPENSER TWEAKS
+botania.entry.dispenserTweaks=Dispenser Tweaks
+botania.tagline.dispenserTweaks=Get more out of your dispensers
+botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
+
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=Glimmering Flowers
 botania.tagline.shinyFlowers=Shiny flowers and floating flowers
@@ -3708,6 +3704,18 @@ botania.tagline.phantomInk=Make your armor and baubles invisible
 botania.page.phantomInk0=Having your beautiful skin and accessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
 botania.page.phantomInk1=Who you gonna call?
 
+# -- STONE ALCHEMY
+botania.entry.stoneAlchemy=Stone Alchemy
+botania.tagline.stoneAlchemy=Create new stone types
+botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cycle.<br> Stairs and slabs can be made from the rough and brick variants of these.
+botania.page.stoneAlchemy1=Creating the stones
+botania.page.stoneAlchemy2=Brickage
+botania.page.stoneAlchemy3=Chiseling
+
+#botania.page.stoneAlchemy2=Polish
+#botania.page.stoneAlchemy3=Brickage
+#botania.page.stoneAlchemy4=Chiseling
+
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=Blaze Light
 botania.tagline.blazeBlock=Compact blaze storage and a renewable obsidian source
@@ -3758,8 +3766,9 @@ botania.page.banners0=&1Botania&0 adds &415&0 new icons to banners, which can be
 botania.page.banners1=Showcase of the various banners
 
 # -- PREVNTING DECAY
-botania.entry.preventingDecay=Preventing Decay
-botania.tagline.preventingDecay=Preventing passive flowers' decay
+# this works
+botania.entry.preventingDecay=Numerical Mana
+botania.tagline.preventingDecay=Seeing the numbers in mana
 botania.page.preventingDecay0=no
 
 botania.subtitle.airRod=Rod of the Skies whooshes
