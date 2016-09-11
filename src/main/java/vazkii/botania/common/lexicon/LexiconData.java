@@ -1366,7 +1366,7 @@ public final class LexiconData {
 		pavement.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesPavement));
 
 		preventingDecay = new DogLexiconEntry(LibLexicon.MISC_PRENTING_DECAY, categoryMisc);
-		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Blocks.DEADBUSH));
+		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.monocle));
 
 		if (Botania.bcTriggersLoaded) {
 			bcIntegration = new CompatLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
