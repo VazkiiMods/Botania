@@ -589,7 +589,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			}
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe[9], x + 72, y + 18, "");
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, recipe[9], x + 72, y + 18);
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}

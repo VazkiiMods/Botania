@@ -243,7 +243,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			ItemStack paper = new ItemStack(Items.PAPER, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, paper, 14, -28, "");
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, paper, 14, -28);
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {

@@ -298,7 +298,7 @@ public final class HUDHandler {
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x - 20, y);
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe.getOutput(), x + 26, y, "");
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, recipe.getOutput(), x + 26, y);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			GlStateManager.disableLighting();

@@ -154,7 +154,7 @@ public class TileHourglass extends TileSimpleInventory {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
-			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, stack, x, y, "");
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack, x, y);
 			GlStateManager.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
 

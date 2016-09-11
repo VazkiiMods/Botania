@@ -95,7 +95,6 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 				stacks.add(TextFormatting.ITALIC + refLocalized);
 		}
 
-		System.out.println(type);
 		String mod = BotaniaAPI.subTileMods.get(type);
 		if(!mod.equals(LibMisc.MOD_ID))
 			stacks.add(TextFormatting.ITALIC + "[" + mod + "]");
