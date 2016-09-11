@@ -268,7 +268,6 @@ public final class LexiconData {
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
-	public static LexiconEntry dispenserTweaks;
 	public static LexiconEntry shinyFlowers;
 	public static LexiconEntry shedding;
 	public static LexiconEntry tinyPotato;
@@ -1324,9 +1323,6 @@ public final class LexiconData {
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
 					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"));
-
-		dispenserTweaks = new BasicLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
-		dispenserTweaks.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Blocks.DISPENSER));
 
 		shinyFlowers = new BasicLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageText("3"),

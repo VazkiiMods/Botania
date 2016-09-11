@@ -2034,10 +2034,6 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.livingrock, 1, ModFluffBlocks.livingrockBrickStairs, ModFluffBlocks.livingrockBrickSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModFluffBlocks.dreamwoodPlankStairs, ModFluffBlocks.dreamwoodPlankSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 0, ModFluffBlocks.netherBrickStairs, ModFluffBlocks.netherBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 1, ModFluffBlocks.soulBrickStairs, ModFluffBlocks.soulBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 2, ModFluffBlocks.snowBrickStairs, ModFluffBlocks.snowBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 3, ModFluffBlocks.tileStairs, ModFluffBlocks.tileSlab);
 		addStairsAndSlabs(ModBlocks.shimmerrock, 0, ModFluffBlocks.shimmerrockStairs, ModFluffBlocks.shimmerrockSlab);
 		addStairsAndSlabs(ModBlocks.shimmerwoodPlanks, 0, ModFluffBlocks.shimmerwoodPlankStairs, ModFluffBlocks.shimmerwoodPlankSlab);
 

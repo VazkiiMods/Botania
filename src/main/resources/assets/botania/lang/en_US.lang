@@ -1989,7 +1989,7 @@ botania.entry.wand=Wand of the Forest
 botania.tagline.wand=Your essential multitool
 botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by effectively strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
 botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-right clicked on a compatible block to select it. Shift-right clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right clicking.<br>The two modes can be switched freely by shift-right clicking on air.
-botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
+botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.<br>Lastly, &1Dispensers&0 can use the wand for its various interaction tasks.
 botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
@@ -3646,11 +3646,6 @@ botania.page.decorativeBlocks19=Crafting &1Roof Tiles&0
 botania.page.decorativeBlocks20=Crafting &1Hellish Bricks&0
 botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
 botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
-
-# -- DISPENSER TWEAKS
-botania.entry.dispenserTweaks=Dispenser Tweaks
-botania.tagline.dispenserTweaks=Get more out of your dispensers
-botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
 
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=Glimmering Flowers

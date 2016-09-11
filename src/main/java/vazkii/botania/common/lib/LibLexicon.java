@@ -241,9 +241,7 @@ public final class LibLexicon {
 	public static final String ALF_LOKI_RING = "lokiRing";
 	public static final String ALF_ODIN_RING = "odinRing";
 
-	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
-	public static final String MISC_DISPENSER_TWEAKS = "dispenserTweaks";
 	public static final String MISC_SHINY_FLOWERS = "shinyFlowers";
 	public static final String MISC_PRISMARINE = "prismarine";
 	public static final String MISC_SHEDDING = "shedding";
@@ -251,7 +249,6 @@ public final class LibLexicon {
 	public static final String MISC_HEAD_CREATING = "headCreating";
 	public static final String MISC_AZULEJO = "azulejo";
 	public static final String MISC_STARFIELD = "starfield";
-	public static final String MISC_DIRT_PATH = "dirtPath";
 	public static final String MISC_MUSHROOMS = "mushrooms";
 	public static final String MISC_PHANTOM_INK = "phantomInk";
 	public static final String MISC_STONE_ALCHEMY = "stoneAlchemy";

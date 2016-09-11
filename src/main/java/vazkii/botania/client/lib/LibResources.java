@@ -54,8 +54,6 @@ public final class LibResources {
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
-	public static final String ENTRY_UNSTABLE_BLOCK = PREFIX_ENTRIES + "unstableBlock.png";
-	public static final String ENTRY_UNSTABLE_BEACON = PREFIX_ENTRIES + "unstableBeacon.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
 	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elvenGarde.png";
 	public static final String ENTRY_DIMINISHING_RETURNS = PREFIX_ENTRIES + "diminishingReturns.png";

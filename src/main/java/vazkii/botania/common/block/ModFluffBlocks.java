@@ -30,10 +30,6 @@ import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSnowBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSoulBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockTileSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodPlankSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
@@ -44,10 +40,6 @@ import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSnowBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSoulBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockTileStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
@@ -86,19 +78,6 @@ public final class ModFluffBlocks {
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
-
-	public static Block netherBrickStairs;
-	public static Block netherBrickSlab;
-	public static Block netherBrickSlabFull;
-	public static Block soulBrickStairs;
-	public static Block soulBrickSlab;
-	public static Block soulBrickSlabFull;
-	public static Block snowBrickStairs;
-	public static Block snowBrickSlab;
-	public static Block snowBrickSlabFull;
-	public static Block tileStairs;
-	public static Block tileSlab;
-	public static Block tileSlabFull;
 
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
@@ -175,19 +154,6 @@ public final class ModFluffBlocks {
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
-
-		netherBrickStairs = new BlockCustomBrickStairs();
-		netherBrickSlab = new BlockCustomBrickSlab(false);
-		netherBrickSlabFull = new BlockCustomBrickSlab(true);
-		soulBrickStairs = new BlockSoulBrickStairs();
-		soulBrickSlab = new BlockSoulBrickSlab(false);
-		soulBrickSlabFull = new BlockSoulBrickSlab(true);
-		snowBrickStairs = new BlockSnowBrickStairs();
-		snowBrickSlab = new BlockSnowBrickSlab(false);
-		snowBrickSlabFull = new BlockSnowBrickSlab(true);
-		tileStairs = new BlockTileStairs();
-		tileSlab = new BlockTileSlab(false);
-		tileSlabFull = new BlockTileSlab(true);
 
 		biomeStoneA = new BlockBiomeStoneA();
 		biomeStoneB = new BlockBiomeStoneB();
