@@ -1749,24 +1749,6 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 
-		// 1.8 Stone Chiseling
-		if (Botania.quarkLoaded) {
-			recipe18StoneChisel = new ArrayList<>();
-			ItemStack[] quarkBlocks = {
-					new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("Quark", "world_stone_bricks")), 1, 2),
-					new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("Quark", "world_stone_bricks")), 1, 3),
-					new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("Quark", "world_stone_bricks")), 1, 1),
-					new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("Quark", "world_stone_bricks")), 1, 0),
-			};
-
-			/*for(int i = 0; i < 4; i++) { todo readd chiseled versions
-				addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 12),
-						"SS", "SS",
-						'S', quarkBlocks[i]);
-				recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
-			}*/
-		}
-
 		// Blaze Light Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.blazeBlock),
 				"BBB", "BBB", "BBB",

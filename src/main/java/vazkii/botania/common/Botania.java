@@ -104,7 +104,6 @@ public class Botania {
 	public static boolean etFuturumLoaded = false;
 	public static boolean rfApiLoaded = false;
 	public static boolean storageDrawersLoaded = false;
-	public static boolean quarkLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
@@ -124,8 +123,6 @@ public class Botania {
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-		quarkLoaded = Loader.isModLoaded("Quark");
-
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();

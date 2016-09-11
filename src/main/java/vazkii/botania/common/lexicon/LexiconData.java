@@ -293,10 +293,8 @@ public final class LexiconData {
 	public static void init() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
-		BotaniaAPI.addCategory(
-				BotaniaAPI.categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
-		BotaniaAPI.addCategory(
-				BotaniaAPI.categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES, 5));
@@ -670,8 +668,7 @@ public final class LexiconData {
 				new PagePetalRecipe<>("2", ModPetalRecipes.spectrolusRecipe));
 
 		rafflowsia = new AlfheimLexiconEntry(LibLexicon.GFLOWER_RAFFLOWSIA, categoryGenerationFlowers);
-		rafflowsia.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"),
-				new PagePetalRecipe<>("4", ModPetalRecipes.rafflowsiaRecipe));
+		rafflowsia.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.rafflowsiaRecipe));
 
 		dandelifeon = new AlfheimLexiconEntry(LibLexicon.GFLOWER_DANDELIFEON, categoryGenerationFlowers);
 		dandelifeon.setLexiconPages(new PageText("_w"), new PageText("0"), new PageText("1"), new PageText("2"),

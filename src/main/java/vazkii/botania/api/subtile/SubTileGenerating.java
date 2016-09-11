@@ -111,7 +111,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 
-		if(!overgrowth && passive)
+		if(passive)
 			passiveDecayTicks++;
 	}
 

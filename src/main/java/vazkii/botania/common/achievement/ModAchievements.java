@@ -30,7 +30,7 @@ public final class ModAchievements {
 
 	public static Achievement flowerPickup;
 	public static Achievement lexiconUse;
-	public static Achievement daybloomPickup; // TODO change this to something else
+	public static Achievement daybloomPickup; 
 	public static Achievement cacophoniumCraft;
 	public static Achievement manaPoolPickup;
 
@@ -91,11 +91,11 @@ public final class ModAchievements {
 	public static void init() {
 		flowerPickup = new AchievementMod(LibAchievementNames.FLOWER_PICKUP, 0, 4, new ItemStack(ModBlocks.flower, 1, 6), null);
 		lexiconUse = new AchievementMod(LibAchievementNames.LEXICON_USE, 1, 5, ModItems.lexicon, flowerPickup);
-		daybloomPickup = new AchievementMod(LibAchievementNames.DAYBLOOM_PICKUP, 3, 5, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS), lexiconUse); // TODO this too
+		daybloomPickup = new AchievementMod(LibAchievementNames.DAYBLOOM_PICKUP, 3, 5, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), lexiconUse);
 		cacophoniumCraft = new AchievementMod(LibAchievementNames.CACOPHONIUM_CRAFT, -1, 2, ModItems.cacophonium, flowerPickup);
 		manaPoolPickup = new AchievementMod(LibAchievementNames.MANA_POOL_PICKUP, 3, 2, ModBlocks.pool, daybloomPickup);
 
-		endoflamePickup = new AchievementMod(LibAchievementNames.ENDOFLAME_PICKUP, 2, 0, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), manaPoolPickup);
+		endoflamePickup = new AchievementMod(LibAchievementNames.ENDOFLAME_PICKUP, 2, 0, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN), manaPoolPickup);
 		tinyPotatoPet = new AchievementMod(LibAchievementNames.TINY_POTATO_PET, 2, -2, ModBlocks.tinyPotato, manaPoolPickup);
 		sparkCraft = new AchievementMod(LibAchievementNames.SPARK_CRAFT, 4, -2, ModItems.spark, manaPoolPickup);
 		baubleWear = new AchievementMod(LibAchievementNames.BAUBLE_WEAR, 4, 0, ModItems.manaRing, manaPoolPickup);

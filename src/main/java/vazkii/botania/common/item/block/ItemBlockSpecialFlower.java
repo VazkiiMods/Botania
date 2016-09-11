@@ -27,7 +27,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -120,10 +123,6 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		String type = getType(stack);
 		switch (type) {
-//			case LibBlockNames.SUBTILE_DAYBLOOM: TODO fix this here
-//				return ModAchievements.daybloomPickup;
-			case LibBlockNames.SUBTILE_ENDOFLAME:
-				return ModAchievements.endoflamePickup;
 			case LibBlockNames.SUBTILE_KEKIMURUS:
 				return ModAchievements.kekimurusPickup;
 			case LibBlockNames.SUBTILE_HEISEI_DREAM:
@@ -136,6 +135,12 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 				return ModAchievements.dandelifeonPickup;
 			case "":
 				return ModAchievements.nullFlower;
+			default:
+				Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(type);
+				if(SubTileGenerating.class.isAssignableFrom(clazz))
+					return ModAchievements.daybloomPickup;
+				else if(SubTileFunctional.class.isAssignableFrom(clazz))
+					return ModAchievements.endoflamePickup;
 		}
 		return null;
 	}
