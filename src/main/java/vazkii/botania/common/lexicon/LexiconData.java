@@ -276,7 +276,6 @@ public final class LexiconData {
 	public static LexiconEntry starfield;
 	public static LexiconEntry mushrooms;
 	public static LexiconEntry phantomInk;
-	public static LexiconEntry stoneAlchemy;
 	public static LexiconEntry blazeBlock;
 	public static LexiconEntry challenges;
 	public static LexiconEntry cacophonium;
@@ -423,8 +422,7 @@ public final class LexiconData {
 						new PageManaInfusionRecipe("11", ModManaInfusionRecipes.managlassRecipe),
 						new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaStringRecipe),
 						new PageCraftingRecipe("13", ModCraftingRecipes.recipeCobweb),
-						new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe),
-						new PageManaInfusionRecipe("15", ModManaAlchemyRecipes.prismarineRecipe))
+						new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe))
 				.setIcon(new ItemStack(ModBlocks.pool));
 
 		sparks = new BasicLexiconEntry(LibLexicon.MANA_SPARKS, categoryMana);
@@ -712,6 +710,7 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("19", ModManaAlchemyRecipes.redstoneToGlowstoneRecipes),
 				new PageManaInfusionRecipe("20", ModManaAlchemyRecipes.sandRecipe),
 				new PageManaInfusionRecipe("21", ModManaAlchemyRecipes.redSandRecipe),
+				new PageManaInfusionRecipe("26", ModManaAlchemyRecipes.stoneRecipes),
 				new PageManaInfusionRecipe("22", ModManaAlchemyRecipes.clayBreakdownRecipes),
 				new PageManaInfusionRecipe("24", ModManaAlchemyRecipes.tallgrassRecipes),
 				new PageManaInfusionRecipe("25", ModManaAlchemyRecipes.flowersRecipes),
@@ -1350,10 +1349,6 @@ public final class LexiconData {
 
 		phantomInk = new BasicLexiconEntry(LibLexicon.MISC_PHANTOM_INK, categoryMisc);
 		phantomInk.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePhantomInk));
-
-		stoneAlchemy = new BasicLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
-		stoneAlchemy.setLexiconPages(new PageText("0"),
-				new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes));
 
 		blazeBlock = new BasicLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
 		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));

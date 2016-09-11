@@ -47,7 +47,6 @@ public final class ModManaAlchemyRecipes {
 	public static RecipeManaInfusion redSandRecipe;
 	public static List<RecipeManaInfusion> clayBreakdownRecipes;
 	public static RecipeManaInfusion coarseDirtRecipe;
-	public static RecipeManaInfusion prismarineRecipe;
 	public static List<RecipeManaInfusion> stoneRecipes;
 	public static List<RecipeManaInfusion> tallgrassRecipes;
 	public static List<RecipeManaInfusion> flowersRecipes;
@@ -128,8 +127,6 @@ public final class ModManaAlchemyRecipes {
 		clayBreakdownRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.BRICK, 4), new ItemStack(Blocks.BRICK_BLOCK), 25));
 
 		coarseDirtRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.DIRT, 1, 1), new ItemStack(Blocks.DIRT), 120);
-
-		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(Items.QUARTZ), 200);
 
 		stoneRecipes = new ArrayList<>();
 		stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.STONE, 1, 5), new ItemStack(Blocks.STONE), 200)); // Stone->Andesite
