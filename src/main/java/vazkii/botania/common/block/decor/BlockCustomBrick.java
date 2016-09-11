@@ -84,7 +84,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
-		for(int i = 0; i < CustomBrickVariant.values().length; i++)
+		for(int i = 4; i < CustomBrickVariant.values().length; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}
 

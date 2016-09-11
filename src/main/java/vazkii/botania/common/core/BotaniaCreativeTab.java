@@ -98,7 +98,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.virus);
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);
-		addItem(ModItems.regenIvy);
 		addItem(ModItems.keepIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
@@ -297,12 +296,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.floatingSpecialFlower);
 		addBlock(ModBlocks.petalBlock);
 		addBlock(ModBlocks.mushroom);
-		addBlock(ModBlocks.unstableBlock);
-		addBlock(ModBlocks.manaBeacon);
-		addItem(ModItems.signalFlare);
-
-		addBlock(ModBlocks.dirtPath);
-		addBlock(ModFluffBlocks.dirtPathSlab);
 
 		addBlock(ModBlocks.blazeBlock);
 

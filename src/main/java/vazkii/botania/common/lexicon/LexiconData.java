@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.lexicon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -50,9 +53,6 @@ import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibLexicon;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class LexiconData {
 
@@ -182,7 +182,6 @@ public final class LexiconData {
 	public static LexiconEntry glassPick;
 	public static LexiconEntry diviningRod;
 	public static LexiconEntry gravityRod;
-	public static LexiconEntry regenIvy;
 	public static LexiconEntry missileRod;
 	public static LexiconEntry craftingHalo;
 	public static LexiconEntry clip;
@@ -276,7 +275,6 @@ public final class LexiconData {
 	public static LexiconEntry headCreating;
 	public static LexiconEntry azulejo;
 	public static LexiconEntry starfield;
-	public static LexiconEntry dirtPath;
 	public static LexiconEntry mushrooms;
 	public static LexiconEntry phantomInk;
 	public static LexiconEntry stoneAlchemy;
@@ -944,10 +942,6 @@ public final class LexiconData {
 		gravityRod.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeGravityRod));
 
-		regenIvy = new AlfheimLexiconEntry(LibLexicon.TOOL_REGEN_IVY, categoryTools);
-		regenIvy.setLexiconPages(new PageText("0"), new PageText("1"),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipeRegenIvy));
-
 		missileRod = new AlfheimLexiconEntry(LibLexicon.TOOL_MISSILE_ROD, categoryTools);
 		missileRod.setLexiconPages(new PageText("0"), new PageText("2"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeMissileRod));
@@ -1296,14 +1290,6 @@ public final class LexiconData {
 			odinRing.setLexiconPages(new PageText("0"));
 		}
 
-		// MISCLENAEOUS ENTRIES
-		unstableBlocks = new BasicLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
-		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipesUnstableBlocks), new PageText("3"),
-				new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON),
-				new PageCraftingRecipe("5", ModCraftingRecipes.recipesManaBeacons), new PageText("6"),
-				new PageCraftingRecipe("7", ModCraftingRecipes.recipesSignalFlares));
-
 		decorativeBlocks = new BasicLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);
 		if (ConfigHandler.darkQuartzEnabled)
 			decorativeBlocks.setLexiconPages(new PageText("0"),
@@ -1321,11 +1307,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("13", ModCraftingRecipes.recipeBlazeQuartz),
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
-					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"),
-					new PageCraftingRecipe("19", ModCraftingRecipes.recipeRoofTile),
-					new PageCraftingRecipe("20", ModCraftingRecipes.recipeNetherBrick),
-					new PageCraftingRecipe("21", ModCraftingRecipes.recipeSoulBrick),
-					new PageCraftingRecipe("22", ModCraftingRecipes.recipeSnowBrick));
+					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"));
 		else
 			decorativeBlocks.setLexiconPages(new PageText("0"),
 					new PageCraftingRecipe("1", ModCraftingRecipes.recipeLivingrockDecor1),
@@ -1341,11 +1323,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("13", ModCraftingRecipes.recipeBlazeQuartz),
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
-					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"),
-					new PageCraftingRecipe("19", ModCraftingRecipes.recipeRoofTile),
-					new PageCraftingRecipe("20", ModCraftingRecipes.recipeNetherBrick),
-					new PageCraftingRecipe("21", ModCraftingRecipes.recipeSoulBrick),
-					new PageCraftingRecipe("22", ModCraftingRecipes.recipeSnowBrick));
+					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"));
 
 		dispenserTweaks = new BasicLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
 		dispenserTweaks.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Blocks.DISPENSER));
@@ -1370,10 +1348,6 @@ public final class LexiconData {
 
 		starfield = new AlfheimLexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarfield));
-
-		dirtPath = new BasicLexiconEntry(LibLexicon.MISC_DIRT_PATH, categoryMisc);
-		dirtPath.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtPath),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipeDirtPathSlab));
 
 		mushrooms = new BasicLexiconEntry(LibLexicon.MISC_MUSHROOMS, categoryMisc);
 		mushrooms.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesMushrooms));

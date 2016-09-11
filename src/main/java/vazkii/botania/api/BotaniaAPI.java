@@ -95,7 +95,6 @@ public final class BotaniaAPI {
 
 	public static final Map<String, Integer> oreWeights = new HashMap<>();
 	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
-	public static final Map<Item, Block> seeds = new HashMap<>();
 
 	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static final Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
@@ -215,13 +214,6 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreArgonite", 1000); // Netherrocks
 		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite
-
-		addSeed(Items.WHEAT_SEEDS, Blocks.WHEAT);
-		addSeed(Items.POTATO, Blocks.POTATOES);
-		addSeed(Items.CARROT, Blocks.CARROTS);
-		addSeed(Items.NETHER_WART, Blocks.NETHER_WART);
-		addSeed(Items.PUMPKIN_SEEDS, Blocks.PUMPKIN_STEM);
-		addSeed(Items.MELON_SEEDS, Blocks.MELON_STEM);
 
 		registerModWiki("Minecraft", new SimpleWikiProvider("Minecraft Wiki", "http://minecraft.gamepedia.com/%s"));
 
@@ -648,14 +640,6 @@ public final class BotaniaAPI {
 
 	public static int getOreWeightNether(String ore) {
 		return oreWeightsNether.get(ore);
-	}
-
-	/**
-	 * Allows an item to be counted as a seed. Any item in this list can be
-	 * dispensed by a dispenser, the block is the block to be placed.
-	 */
-	public static void addSeed(Item item, Block block) {
-		seeds.put(item, block);
 	}
 
 	/**

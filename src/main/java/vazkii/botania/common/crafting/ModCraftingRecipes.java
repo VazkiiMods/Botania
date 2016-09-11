@@ -10,6 +10,10 @@
  */
 package vazkii.botania.common.crafting;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
@@ -35,14 +39,9 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
-import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public final class ModCraftingRecipes {
 
@@ -72,7 +71,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLensPhantom;
 	public static IRecipe recipeLensMagnet;
 	public static IRecipe recipeLensExplosive;
-	public static List<IRecipe> recipesUnstableBlocks;
 	public static IRecipe recipePylon;
 	public static IRecipe recipeDistributor;
 	public static IRecipe recipeLivingrockDecor1;
@@ -84,8 +82,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLivingwoodDecor3;
 	public static IRecipe recipeLivingwoodDecor4;
 	public static IRecipe recipeLivingwoodDecor5;
-	public static List<IRecipe> recipesManaBeacons;
-	public static List<IRecipe> recipesSignalFlares;
 	public static IRecipe recipeManaVoid;
 	public static List<IRecipe> recipesManaTablet;
 	public static IRecipe recipeManaDetector;
@@ -188,10 +184,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSpawnerClaw;
 	public static IRecipe recipeCraftCrate;
 	public static IRecipe recipePlaceholder;
-	public static IRecipe recipeNetherBrick;
-	public static IRecipe recipeSoulBrick;
-	public static IRecipe recipeSnowBrick;
-	public static IRecipe recipeRoofTile;
 	public static IRecipe recipeAzulejo;
 	public static List<IRecipe> recipesAzulejoCycling;
 	public static IRecipe recipeEnderEyeBlock;
@@ -207,7 +199,6 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesWings;
 	public static IRecipe recipeRFGenerator;
 	public static IRecipe recipeGravityRod;
-	public static IRecipe recipeRegenIvy;
 	public static IRecipe recipeUltraSpreader;
 	public static IRecipe recipeHelmetOfRevealing;
 	public static IRecipe recipeVial;
@@ -228,7 +219,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCraftingHalo;
 	public static List<IRecipe> recipesLensFlash;
 	public static IRecipe recipePrism;
-	public static IRecipe recipeDirtPath;
 	public static IRecipe recipeDreamwoodTwig;
 	public static IRecipe recipeMonocle;
 	public static IRecipe recipeClip;
@@ -473,15 +463,6 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 11), new ItemStack(ModItems.lens), LibOreDict.RUNE[14]);
 		recipeLensExplosive = BotaniaAPI.getLatestAddedRecipe();
 
-		// Unstable Block Recipes
-		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i),
-					"OPO", "PMP", "OPO",
-					'O', new ItemStack(Blocks.OBSIDIAN),
-					'P', LibOreDict.PETAL[i],
-					'M', new ItemStack(Items.ENDER_PEARL));
-		recipesUnstableBlocks = BotaniaAPI.getLatestAddedRecipes(16);
-
 		// Mana Pylon Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.pylon),
 				" G ", "MDM", " G ",
@@ -537,23 +518,6 @@ public final class ModCraftingRecipes {
 				" W ", "W W", " W ",
 				'W', new ItemStack(ModBlocks.dreamwood, 1, 1));
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 1, 5), LibOreDict.DREAM_WOOD, "dustGlowstone");
-
-		// Mana Beacon Recipe
-		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
-					" B ", "BPB", " B ",
-					'B', new ItemStack(ModBlocks.unstableBlock, 1, i),
-					'P', LibOreDict.MANA_PEARL);
-		recipesManaBeacons = BotaniaAPI.getLatestAddedRecipes(16);
-
-		// Signal Flare Recipe
-		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(ItemSignalFlare.forColor(i),
-					"I ", " B", "W ",
-					'B', new ItemStack(ModBlocks.manaBeacon, 1, i),
-					'I', "ingotIron",
-					'W', LibOreDict.LIVING_WOOD);
-		recipesSignalFlares = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Mana Void Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.manaVoid),
@@ -1246,33 +1210,6 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 32, 11), "workbench", LibOreDict.LIVING_ROCK);
 		recipePlaceholder = BotaniaAPI.getLatestAddedRecipe();
 
-		// Nether Brick Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 0),
-				" B ", "BSB", " B ",
-				'B', new ItemStack(Blocks.NETHERRACK),
-				'S', new ItemStack(Blocks.STONEBRICK));
-		recipeNetherBrick = BotaniaAPI.getLatestAddedRecipe();
-
-		// Soul Brick Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 1),
-				" B ", "BSB", " B ",
-				'B', new ItemStack(Blocks.SOUL_SAND),
-				'S', new ItemStack(Blocks.STONEBRICK));
-		recipeSoulBrick = BotaniaAPI.getLatestAddedRecipe();
-
-		// Snow Brick Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 2),
-				" B ", "BSB", " B ",
-				'B', new ItemStack(Blocks.SNOW),
-				'S', new ItemStack(Blocks.STONEBRICK));
-		recipeSnowBrick = BotaniaAPI.getLatestAddedRecipe();
-
-		// Roof Tile Recipe
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.customBrick, 4, 3),
-				"BB", "BB", "BB",
-				'B', "ingotBrick"));
-		recipeRoofTile = BotaniaAPI.getLatestAddedRecipe();
-
 		// Azulejo Recipe
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.customBrick, 1, 4), "gemLapis", "blockQuartz"));
 		recipeAzulejo = BotaniaAPI.getLatestAddedRecipe();
@@ -1365,10 +1302,6 @@ public final class ModCraftingRecipes {
 				'W', "cropWheat",
 				'D', LibOreDict.DRAGONSTONE);
 		recipeGravityRod = BotaniaAPI.getLatestAddedRecipe();
-
-		// Timeless Ivy Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.regenIvy), new ItemStack(Blocks.VINE), LibOreDict.LIFE_ESSENCE, LibOreDict.ELEMENTIUM);
-		recipeRegenIvy = BotaniaAPI.getLatestAddedRecipe();
 
 		// Gaia Mana Spreader Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.spreader, 1, 3),
@@ -1542,10 +1475,6 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(ModBlocks.platform, 1, 1));
 		recipePrism = BotaniaAPI.getLatestAddedRecipe();
 
-		// Trodden Dirt Recipe
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.DIRT, 1, 1), new ItemStack(Blocks.DIRT, 1, 1), new ItemStack(Blocks.DIRT, 1, 1), "sand"));
-		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
-
 		// Dreamwood Twig Recipe
 		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 13),
 				"W", "W",
@@ -1604,12 +1533,6 @@ public final class ModCraftingRecipes {
 				'V', new ItemStack(Blocks.VINE),
 				'T', LibOreDict.TERRA_STEEL);
 		recipeThornChakram = BotaniaAPI.getLatestAddedRecipe();
-
-		// Trodden Dirt Slab
-		GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.dirtPathSlab, 6),
-				"DDD",
-				'D', new ItemStack(ModBlocks.dirtPath));
-		recipeDirtPathSlab = BotaniaAPI.getLatestAddedRecipe();
 
 		// Pattern Recipes
 		{

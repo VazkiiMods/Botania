@@ -10,7 +10,10 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.Locale;
+
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -26,8 +29,6 @@ import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
-import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
-import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockSnowBrickSlab;
@@ -61,8 +62,6 @@ import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.util.Locale;
 
 public final class ModFluffBlocks {
 
@@ -129,9 +128,6 @@ public final class ModFluffBlocks {
 	public static Block sunnyQuartzSlab;
 	public static Block sunnyQuartzSlabFull;
 	public static Block sunnyQuartzStairs;
-
-	public static Block dirtPathSlab;
-	public static Block dirtPathSlabFull;
 
 	public static Block biomeStoneA;
 	public static Block biomeStoneB;
@@ -228,9 +224,6 @@ public final class ModFluffBlocks {
 		sunnyQuartzSlab = new BlockSpecialQuartzSlab(sunnyQuartz, false);
 		sunnyQuartzSlabFull = new BlockSpecialQuartzSlab(sunnyQuartz, true);
 		sunnyQuartzStairs = new BlockSpecialQuartzStairs(sunnyQuartz);
-
-		dirtPathSlab = new BlockDirtPathSlab(false);
-		dirtPathSlabFull = new BlockDirtPathSlab(true);
 
 		int count = 0;
 		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {

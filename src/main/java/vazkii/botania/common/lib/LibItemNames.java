@@ -21,7 +21,6 @@ public final class LibItemNames {
 	public static final String LENS = "lens";
 	public static final String MANA_PETAL = "manaPetal";
 	public static final String RUNE = "rune";
-	public static final String SIGNAL_FLARE = "signalFlare";
 	public static final String MANA_TABLET = "manaTablet";
 	public static final String MANA_GUN = "manaGun";
 	public static final String MANA_COOKIE = "manaCookie";
@@ -98,7 +97,6 @@ public final class LibItemNames {
 	public static final String SPARK_UPGRADE = "sparkUpgrade";
 	public static final String DIVINING_ROD = "diviningRod";
 	public static final String GRAVITY_ROD = "gravityRod";
-	public static final String REGEN_IVY = "regenIvy";
 	public static final String MANA_INKWELL = "manaInkwell";
 	public static final String VIAL = "vial";
 	public static final String FLASK = "flask";

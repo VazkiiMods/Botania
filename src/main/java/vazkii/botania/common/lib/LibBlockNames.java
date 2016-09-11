@@ -20,11 +20,9 @@ public final class LibBlockNames {
 	public static final String SPREADER = "spreader";
 	public static final String POOL = "pool";
 	public static final String RUNE_ALTAR = "runeAltar";
-	public static final String UNSTABLE_BLOCK = "unstableBlock";
 	public static final String PYLON = "pylon";
 	public static final String PISTON_RELAY = "pistonRelay";
 	public static final String DISTRIBUTOR = "distributor";
-	public static final String MANA_BEACON = "manaBeacon";
 	public static final String MANA_VOID = "manaVoid";
 	public static final String MANA_DETECTOR = "manaDetector";
 	public static final String ENCHANTER = "enchanter";
@@ -68,7 +66,6 @@ public final class LibBlockNames {
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
 	public static final String PRISM = "prism";
-	public static final String DIRT_PATH = "dirtPath";
 	public static final String ENCHANTED_SOIL = "enchantedSoil";
 	public static final String BIOME_STONE_A = "biomeStoneA";
 	public static final String BIOME_STONE_B = "biomeStoneB";

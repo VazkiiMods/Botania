@@ -70,7 +70,6 @@ public final class ModAchievements {
 	public static Achievement manaBombIgnite;
 	public static Achievement dandelifeonPickup;
 
-	public static Achievement signalFlareStun;
 	public static Achievement l20ShardUse;
 	public static Achievement gaiaGuardianNoArmor;
 	public static Achievement rankSSPick;
@@ -130,7 +129,6 @@ public final class ModAchievements {
 		manaBombIgnite = new AchievementMod(LibAchievementNames.MANA_BOMB_IGNITE, 0, 11, ModBlocks.manaBomb, gaiaGuardianKill);
 		dandelifeonPickup = new AchievementMod(LibAchievementNames.DANDELIFEON_PICKUP, 0, 7, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON), gaiaGuardianKill);
 
-		signalFlareStun = new AchievementMod(LibAchievementNames.SIGNAL_FLARE_STUN, -3, 1, ModItems.signalFlare, null).setSpecial();
 		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, 3, ModItems.laputaShard, null).setSpecial();
 		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, 1, new ItemStack(Items.SKULL, 1, 3), null).setSpecial();
 		rankSSPick = new AchievementMod(LibAchievementNames.RANK_SS_PICK, -3, 3, ModItems.terraPick, null).setSpecial();

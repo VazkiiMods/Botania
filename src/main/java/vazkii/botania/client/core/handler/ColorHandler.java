@@ -1,5 +1,8 @@
 package vazkii.botania.client.core.handler;
 
+import java.awt.Color;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -28,15 +31,11 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemManaMirror;
 import vazkii.botania.common.item.ItemManaTablet;
-import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
-
-import java.awt.*;
-import java.util.Map;
 
 public final class ColorHandler {
 
@@ -46,11 +45,6 @@ public final class ColorHandler {
 
         // Steal vine colorer
         blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
-
-        // 16 colors
-        blocks.registerBlockColorHandler(
-                (state, world, pos, tintIndex) -> state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue,
-                ModBlocks.specialFlower, ModBlocks.manaBeacon, ModBlocks.petalBlock, ModBlocks.unstableBlock);
 
         // Pool
         blocks.registerBlockColorHandler(
@@ -106,15 +100,12 @@ public final class ColorHandler {
                 ModItems.twigWand);
 
         items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getMapColor().colorValue, ModItems.dye, ModItems.petal);
-
         items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
-                ModBlocks.manaBeacon, ModBlocks.petalBlock, ModBlocks.unstableBlock, ModBlocks.pool, ModBlocks.spreader);
+                ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
         items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaMirror) ModItems.manaMirror).getMana(s) / TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 
         items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaTablet) ModItems.manaTablet).getMana(s) / ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
-
-        items.registerItemColorHandler((s, t) -> t == 1 ? EnumDyeColor.byMetadata(ItemSignalFlare.getColor(s)).getMapColor().colorValue : -1, ModItems.signalFlare);
 
         items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
 

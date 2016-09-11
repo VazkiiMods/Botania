@@ -128,7 +128,6 @@ public final class ModItems {
 	public static Item manaResource;
 	public static Item lens;
 	public static Item rune;
-	public static Item signalFlare;
 	public static Item manaTablet;
 	public static Item manaGun;
 	public static Item manaCookie;
@@ -205,7 +204,6 @@ public final class ModItems {
 	public static Item sparkUpgrade;
 	public static Item diviningRod;
 	public static Item gravityRod;
-	public static Item regenIvy;
 	public static Item manaInkwell;
 	public static Item vial;
 	public static Item brewVial;
@@ -277,7 +275,6 @@ public final class ModItems {
 		manaResource = new ItemManaResource();
 		lens = new ItemLens();
 		rune = new ItemRune();
-		signalFlare = new ItemSignalFlare();
 		manaTablet = new ItemManaTablet();
 		manaGun = new ItemManaGun();
 		manaCookie = new ItemManaCookie();
@@ -354,7 +351,6 @@ public final class ModItems {
 		sparkUpgrade = new ItemSparkUpgrade();
 		diviningRod = new ItemDiviningRod();
 		gravityRod = new ItemGravityRod();
-		regenIvy = new ItemRegenIvy();
 		manaInkwell = new ItemManaInkwell();
 		vial = new ItemVial();
 		brewVial = new ItemBrewVial();

@@ -32,10 +32,8 @@ import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
 import vazkii.botania.common.block.decor.BlockBlaze;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
-import vazkii.botania.common.block.decor.BlockDirtPath;
 import vazkii.botania.common.block.decor.BlockElfGlass;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockModMushroom;
@@ -45,10 +43,8 @@ import vazkii.botania.common.block.decor.BlockShimmerwoodPlanks;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
-import vazkii.botania.common.block.decor.BlockUnstable;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
-import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
 import vazkii.botania.common.block.mana.BlockBellows;
@@ -133,7 +129,6 @@ import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
@@ -182,11 +177,9 @@ public final class ModBlocks {
 	public static Block spreader;
 	public static Block pool;
 	public static Block runeAltar;
-	public static Block unstableBlock;
 	public static Block pylon;
 	public static Block pistonRelay;
 	public static Block distributor;
-	public static Block manaBeacon;
 	public static Block manaVoid;
 	public static Block manaDetector;
 	public static Block enchanter;
@@ -224,7 +217,6 @@ public final class ModBlocks {
 	public static Block floatingSpecialFlower;
 	public static Block manaFlame;
 	public static Block prism;
-	public static Block dirtPath;
 	public static Block enchantedSoil;
 	public static Block petalBlock;
 	public static Block corporeaIndex;
@@ -269,11 +261,9 @@ public final class ModBlocks {
 		spreader = new BlockSpreader();
 		pool = new BlockPool();
 		runeAltar = new BlockRuneAltar();
-		unstableBlock = new BlockUnstable();
 		pylon = new BlockPylon();
 		pistonRelay = new BlockPistonRelay();
 		distributor = new BlockDistributor();
-		manaBeacon = new BlockManaBeacon();
 		manaVoid = new BlockManaVoid();
 		manaDetector = new BlockManaDetector();
 		enchanter = new BlockEnchanter();
@@ -311,7 +301,6 @@ public final class ModBlocks {
 		floatingSpecialFlower = new BlockFloatingSpecialFlower();
 		manaFlame = new BlockManaFlame();
 		prism = new BlockPrism();
-		dirtPath = new BlockDirtPath();
 		enchantedSoil = new BlockEnchantedSoil();
 		petalBlock = new BlockPetalBlock();
 		corporeaIndex = new BlockCorporeaIndex();
@@ -372,9 +361,6 @@ public final class ModBlocks {
 		OreDictionary.registerOre("ice", Blocks.ICE);
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.STONE_SLAB, 1, 3));
 
-		BotaniaAPI.registerPaintableBlock(unstableBlock, BotaniaStateProps.COLOR);
-		BotaniaAPI.registerPaintableBlock(manaBeacon, BotaniaStateProps.COLOR);
-
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 
@@ -382,8 +368,6 @@ public final class ModBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		for(Item seed : BotaniaAPI.seeds.keySet())
-			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(seed, new BehaviourSeeds(BotaniaAPI.seeds.get(seed)));
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
@@ -397,7 +381,6 @@ public final class ModBlocks {
 		registerTile(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
 		registerTile(TilePylon.class, LibBlockNames.PYLON);
 		registerTile(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
-		registerTile(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
 		registerTile(TileManaVoid.class, LibBlockNames.MANA_VOID);
 		registerTile(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
 		registerTile(TileEnchanter.class, LibBlockNames.ENCHANTER);
