@@ -1321,7 +1321,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("13", ModCraftingRecipes.recipeBlazeQuartz),
 					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
-					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"));
+					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz));
 
 		shinyFlowers = new BasicLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageText("3"),

@@ -1165,21 +1165,21 @@ tile.botania:flower.manastar.reference=Wish upon a star
 
 # - GENERATING
 tile.botania:flower.endoflame.name=Endoflame
-tile.botania:flower.endoflame.reference=Squirting Lag
+tile.botania:flower.endoflame.reference=Endothermically reactive
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Just friendly crustaceans
 tile.botania:flower.thermalily.name=Thermalily
-tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
+tile.botania:flower.thermalily.reference=Not advised for blood mages
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 tile.botania:flower.munchdew.name=Munchdew
-tile.botania:flower.munchdew.reference=Nommy nommy the art teacher
+tile.botania:flower.munchdew.reference=Does this count as cannibalism?
 tile.botania:flower.entropinnyum.name=Entropinnyum
-tile.botania:flower.entropinnyum.reference=Magical girls are an option
+tile.botania:flower.entropinnyum.reference=Handle with care
 tile.botania:flower.kekimurus.name=Kekimurus
 tile.botania:flower.kekimurus.reference=This flower is a lie
 tile.botania:flower.gourmaryllis.name=Gourmaryllis
-tile.botania:flower.gourmaryllis.reference=Fuyukai Desu
+tile.botania:flower.gourmaryllis.reference=How unpleasant
 tile.botania:flower.narslimmus.name=Narslimmus
 tile.botania:flower.narslimmus.reference=What's this? It's all sticky
 tile.botania:flower.spectrolus.name=Spectrolus
@@ -1191,13 +1191,13 @@ tile.botania:flower.rafflowsia.reference=Trap Hole Nightmare
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
-tile.botania:flower.bellethorn.reference=world's end, girl's rondo
+tile.botania:flower.bellethorn.reference=Kiss from a rose
 tile.botania:flower.bellethornChibi.name=Bellethorne Petite
-tile.botania:flower.bellethornChibi.reference=world's end, girl's rondo
+tile.botania:flower.bellethornChibi.reference=Kiss from a rose
 tile.botania:flower.dreadthorn.name=Dreadthorne
-tile.botania:flower.dreadthorn.reference=Plan C
+tile.botania:flower.dreadthorn.reference=Just a prick
 tile.botania:flower.heiseiDream.name=Heisei Dream
-tile.botania:flower.heiseiDream.reference=Heisei heisei kowarete
+tile.botania:flower.heiseiDream.reference=Heisei heisei
 tile.botania:flower.tigerseye.name=Tigerseye
 tile.botania:flower.tigerseye.reference=The palmtop tiger
 tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
@@ -1209,7 +1209,7 @@ tile.botania:flower.orechidIgnem.reference=Red like roses
 tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=I'm not an Angel
 tile.botania:flower.exoflame.name=Exoflame
-tile.botania:flower.exoflame.reference=Wearing her black ribbons
+tile.botania:flower.exoflame.reference=Exothermically reactive
 tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Wear on the 25th of april
 tile.botania:flower.agricarnationChibi.name=Agricarnation Petite
@@ -1243,11 +1243,11 @@ tile.botania:flower.vinculotus.reference=Totally an Extra Utils ripoff
 tile.botania:flower.spectranthemum.name=Spectranthemum
 tile.botania:flower.spectranthemum.reference=In the shell
 tile.botania:flower.medumone.name=Medumone
-tile.botania:flower.medumone.reference='Twas Hades all along
+tile.botania:flower.medumone.reference=Solid as a rock
 tile.botania:flower.marimorphosis.name=Marimorphosis
-tile.botania:flower.marimorphosis.reference=U-MA-RU
+tile.botania:flower.marimorphosis.reference=U-M-R
 tile.botania:flower.marimorphosisChibi.name=Marimorphosis Petite
-tile.botania:flower.marimorphosisChibi.reference=U-MA-RU-CHAN
+tile.botania:flower.marimorphosisChibi.reference=U-M-R
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
 tile.botania:flower.bubbellChibi.name=Bubbell Petite
@@ -1982,7 +1982,7 @@ botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also 
 botania.page.pureDaisy1=Just give it &4a minute&0 or so...
 botania.page.pureDaisy2=&1Livingwood&0 can be turned into twigs
 botania.page.pureDaisy4=A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, perhaps this might come in handy. This includes &1Netherrack&0 into &1Cobblestone&0, &1Soul Sand&0 into &1Sand&0, &1Ice&0 into &1Packed Ice&0, and &1Water&0 into &1Snow&0.
-botania.page.pureDaisy3=White is bright and pure
+botania.page.pureDaisy3=A blank canvas to start your adventure
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Wand of the Forest
@@ -2038,7 +2038,7 @@ botania.entry.flowerBag=Flower Pouch
 botania.tagline.flowerBag=A trusty pouch to hold your floral goodness
 botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0. Not only that but it'll also passively catch any that enter the holder's inventory.
 botania.page.flowerBag2=Items won't be added automatically to the pouch if the pouch is held in your dominant hand.<br>Furthermore, shift-right clicking the pouch on a &1Chest&0 or other inventory will store all flowers the pouch contains into said inventory.
-botania.page.flowerBag1=Pull a copter out of it (any colors work)
+botania.page.flowerBag1=It's about the same size on the inside (any colors work)
 
 # -- WRAP
 botania.entry.wrap=Wrap
@@ -2119,7 +2119,7 @@ botania.page.manaVoid1=Even Chad from accounting?
 botania.entry.rfGenerator=Mana Fluxfield
 botania.tagline.rfGenerator=Converts Mana into Redstone Flux
 botania.page.rfGenerator0=By passing &4Mana&0 through a field of redstone energy, its state can change from a natural energy source to &4Redstone Flux&0.<br>Simply pointing a spreader at this block will have it shoot at it, converting the &4Mana&0 that lands on it into &4RF&0. It can then be pulled out with any &4RF&0 transporter.
-botania.page.rfGenerator1=The bullet guys. I bit it.
+botania.page.rfGenerator1=Challenging the fabric of magic mod reality
 
 # -- MANA LENSES
 botania.entry.lens=Mana Lenses
@@ -2168,7 +2168,7 @@ botania.entry.manaTablet=Mana Tablet
 botania.tagline.manaTablet=Portable Mana Storage 
 botania.page.manaTablet0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.<br>Not only that, but other items can also pull from it as they need it for their uses, making this an essential tool.
 botania.page.manaTablet1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.<br>Lastly, unlike normal items, these will never despawn when dropped on the floor.
-botania.page.manaTablet2=Don't put it on your pocket, it might bend
+botania.page.manaTablet2=Sadly, it doesn't have wifi
 
 # -- MANA MIRROR
 botania.entry.manaMirror=Mana Mirror
@@ -2186,13 +2186,13 @@ botania.page.manaDetector1=Crafting the detector
 botania.entry.redstoneSpreader=Pulse Mana Spreader
 botania.tagline.redstoneSpreader=A spreader that fires on a Redstone pulse
 botania.page.redstoneSpreader0=By combining a &1Mana Spreader&0 with a piece of &1Redstone&0, it's possible to create a &1Pulse Mana Spreader&0, which, as the name implies, fires when given a &4Redstone pulse&0, regardless of having a block in the end to put the &4Mana&0 or not.<br>It's to keep in note that this doesn't let the spreader shoot a burst until the last one dissipates or is absorbed.
-botania.page.redstoneSpreader1=Just add redstone
+botania.page.redstoneSpreader1=Lil' touch of redstone
 
 # -- MANASTAR
 botania.entry.manastar=Manastar
 botania.tagline.manastar=A flower for classifying mana loss or income
 botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to your pools will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
-botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
+botania.page.manastar1=It's a shooting star leaping through the skies
 
 # -- ELVEN MANA SPREADERS
 botania.entry.dreamwoodSpreader=Elven Mana Spreaders
@@ -2200,7 +2200,7 @@ botania.tagline.dreamwoodSpreader=Harder, better, faster, stronger
 botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like using &1Elementium&0 instead of &1Gold&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Pulse Mana Spreader&0.
 botania.page.dreamwoodSpreader1=Better spreaders, that's it
 botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.<br>It's to note that these spreaders fire a larger payload at once and thus, might fire less often.
-botania.page.dreamwoodSpreader3=ULTRA_SPREADER
+botania.page.dreamwoodSpreader3=The ultimate Mana Spreader
 
 # -- ELVEN MANA LENSES
 botania.entry.elvenLenses=Elven Mana Lenses
@@ -2239,7 +2239,7 @@ botania.entry.sparkChanger=Spark Tinkerer
 botania.tagline.sparkChanger=Control augments on sparks with redstone
 botania.page.sparkChanger0=The &1Spark Tinkerer&0 is a block with the ability to modify the &1Augments&0 placed on &1Sparks&0. Placing it adjacent to &1Mana Pools&0 or other blocks with a &1Spark&0 attached will connect it to those blocks.<br>Right clicking the &1Spark Tinkerer&0 with a &1Spark Augment&0 will put the augment in the block, it can be removed by right clicking again. 
 botania.page.sparkChanger1=When the &1Spark Tinkerer&0 gets a redstone signal it'll randomly pick a &1Spark&0, between all of those it's connected to that have a different augment from the one stored in it, and swap the augment in that &1Spark&0 with the one stored in the block.<br>The stored augment can be withdrawn or deposited with &1Hoppers&0 or other automation methods. &1Comparators&0 can read what augment is stored.
-botania.page.sparkChanger2=Hahahaha, water fire...
+botania.page.sparkChanger2=Mod your sparks
 
 # -- MANATIDE BELLOWS
 botania.entry.bellows=Manatide Bellows
@@ -2287,7 +2287,7 @@ botania.page.bellethorne1=&oEvery rose has its thorn&r.
 botania.entry.dreadthorne=Dreadthorne
 botania.tagline.dreadthorne=Damages adult animals
 botania.page.dreadthorne0=The &1Dreadthorne&0 is a slightly more specific counterpart to the &1Bellethrorne&0, by which, instead of all mobs around, it'll only hurt &4adult&0 animals and none else. 
-botania.page.dreadthorne1=&oNo Mr.Bond, I expect you to die&r.
+botania.page.dreadthorne1=&oIt's a modus operandi&r.
 
 # -- HEISEI DREAM
 botania.entry.heiseiDream=Heisei Dream
@@ -2305,7 +2305,7 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 botania.entry.orechid=Orechid
 botania.tagline.orechid=Creates ores from stone
 botania.page.orechid0=While going mining is all good, a renewable, sedentary, means of getting ore is due. The &1Orechid&0 will use &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
-botania.page.orechid1=&oNot dragon poop&r.
+botania.page.orechid1=&oThe less magical would call it a sieve&r.
 
 # -- ORECHID IGNEM
 botania.entry.orechidIgnem=Orechid Ignem
@@ -2337,7 +2337,7 @@ botania.entry.hopperhock=Hopperhock
 botania.tagline.hopperhock=Picks up items
 botania.page.hopperhock0=The &1Hopperhock&0 will pick up items around it. Giving it &4Mana&0 is optional, but it'll increase its range.<br>Items picked up will be put in adjacent inventories (e.g. &1Chests&0). Placing &1Item Frames&0 on any of the inventories will specify which items can or can't go in them.
 botania.page.hopperhock1=Any inventory which has no &1Item Frame&0 adjacent to it can accept any items, but labelled inventories will take priority.<br>The rule using to sort items can be changed by shift-right clicking the flower with a &1Wand of the Forest&0.
-botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
+botania.page.hopperhock2=&oHungry hungry flowers&r.
 
 # -- TANGLEBERRIE
 botania.entry.tangleberrie=Tangleberrie
@@ -2349,14 +2349,14 @@ botania.page.tangleberrie1=&oTangled, brave and frozen&r.
 botania.entry.jiyuulia=Jiyuulia
 botania.tagline.jiyuulia=Keeps mobs out
 botania.page.jiyuulia0=The &1Jiyuulia&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters at bay, protecting a circular area from them getting in.
-botania.page.jiyuulia1=&oHR HD DT Masterpiece&r.
+botania.page.jiyuulia1=&oYou're free to go everywhere but here&r.
 
 # -- RANNUNCARPUS
 botania.entry.rannuncarpus=Rannuncarpus
 botania.tagline.rannuncarpus=Places blocks down
 botania.page.rannuncarpus0=Quite a handy flower indeed, the &1Rannuncarpus&0 will pick up any nearby blocks in dropped item form and place them in the world nearby. It, however, only places the blocks thrown at it on top of a specific block, to specify this block, place it right below the soil the flower is resting on.
 botania.page.rannuncarpus1=Block items, such as &1Sugar Cane&0 will also work, but, much alike any other blocks, will only be placed in a location where they normally would be able to be placed.<br>Lastly, giving &4Mana&0 to the flower is optional, but it increases its range.
-botania.page.rannuncarpus2=&oThe Sandpit of Yanille&r?
+botania.page.rannuncarpus2=&oFind it in a sandpit&r?
 
 # -- HYACIDUS
 botania.entry.hyacidus=Hyacidus
@@ -2380,7 +2380,7 @@ botania.page.clayconia1=&oWhat a killer joke&r.
 botania.entry.loonium=Loonium
 botania.tagline.loonium=Conjures dungeon loot
 botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items and drop them in the nearby vicinity.
-botania.page.loonium1=&oTank Tank Heal Tank&r!
+botania.page.loonium1=&oThe mighty flower for epic loot&r!
 
 # -- DAFFOMILL
 botania.entry.daffomill=Daffomill
@@ -2406,14 +2406,14 @@ botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
 botania.entry.medumone=Medumone
 botania.tagline.medumone=Freezes mobs
 botania.page.medumone0=The &1Medumone&0 is a flower with the ability to completely halt a creature's movement.<br>While it receives &4Mana&0, it'll halt any nearby entities in their tracks with a powerful slowness effect, provided they are not players. 
-botania.page.medumone1=&oThose credits look fake&r...
+botania.page.medumone1=&oStop right there criminal scum
 
 # -- MARIMORPHOSIS
 botania.entry.marimorphosis=Marimorphosis
 botania.tagline.marimorphosis=Creates new stone types
 botania.page.marimorphosis0=The &1Marimorphosis&0 is a flower that executes metamorphic transformations on nearby &1Stone&0 blocks. These blocks get metamorphised into one of 8 different types of &1Metamorphic Stone&0. All 8 types will generate, but the type(s) that generate more often depend on the biome. All of these can be used to make bricks, chiseled bricks, slabs, stairs and even &1Petal Apothecary&0 variants.
 botania.page.marimorphosis1=The various flavours of &1Metamorphic Stone&0
-botania.page.marimorphosis3=Colorful like a ClariS song
+botania.page.marimorphosis3=A color for everyone
 botania.page.marimorphosis2=&oThis flower is pretty gneiss&r.
 
 # -- BUBBELL
@@ -2431,7 +2431,7 @@ botania.page.solegnolia1=On/Off
 # -- BERGAMUTE
 botania.entry.bergamute=Bergamute
 botania.tagline.bergamute=Absorbs sound
-botania.page.bergamute0=Anyone that has ever taken on the role of a rancher knows the pain of the cacaphonous din that arises from their herds of animals. The &1Bergamute&0 absorbs sound energy emitted in a close radius around itself, converting it into negligible amounts of mana and emitting it into the environment. The absorption itself needs no &4mana&0 to occur.
+botania.page.bergamute0=Anyone that has ever taken on the role of a rancher knows the pain of the cacaphonous din that arises from their herds of animals.<br>The &1Bergamute&0 absorbs sound energy emitted in a close radius around itself, converting it into negligible amounts of mana and emitting it into the environment. The absorption itself needs no &4mana&0 to occur.
 botania.page.bergamute1=Deaf to All but the Song
 
 # - GENERATING FLOWERS
@@ -2448,14 +2448,14 @@ botania.tagline.endoflame=Mana from fuel
 botania.page.endoflame0=The &1Endoflame&0 is a very rudimentary &4generating flower&0, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to generate mana while the fuel lasts.<br>The amount of time it takes to burn through an item is roughly half of the time a furnace would.
 botania.page.endoflame1=There's a few small caveats though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Furthermore, the flower can only hold fuel equivalent to that of four times a &1Block of Coal&0. If any individual fuel with longer burn time than that is used, it won't be put to full efficiency.
 botania.page.endoflame3=As the &1Endoflame&0 is often a botanist's first foray into proper automatable &4Active Generating Flora&0, it would be best to not leave it to manual usage forever. As the flower requires dropped items, an &1Open Crate&0 (which you can find in the &4Natural Apparatus&0) section, and some sort of limiting mechanism (a timer or pressure plate) would be ideal for it.
-botania.page.endoflame2=&oNot nitor&r.
+botania.page.endoflame2=&oWhen arson becomes useful&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.tagline.hydroangeas=Mana from water
 botania.page.hydroangeas0=&1Hydroangeas&0 act as a liquid based passive generator. They will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. The amount they produce is comparable to that of an &1Endoflame&0. They also seem to function faster during &4Rain&0.<br>&1Hydroangeas&0 are fleeting flora, and will decay after 1 hour of real world time.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
-botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
+botania.page.hydroangeas1=&oUnder the seeeeeeaaaaaaa~
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
@@ -2463,20 +2463,20 @@ botania.tagline.thermalily=Mana from lava
 botania.page.thermalily0=The &1Thermalily&0 acts as a &1Lava&0 counterpart to the &1Hydroangeas&0. As expected, the flower will absorb &1Lava&0 around it, in the same height as it, to create &4Mana&0.<br>After absorbing the &1Lava&0, the flower will produce &4Mana&0 for around 45 seconds. After it stops, it needs a bit of time, around 5 minutes, to cool down, before it can absorb more &1Lava&0.
 botania.page.thermalily2=The amount of &4Mana&0 the &1Thermalily&0 produces during its active period is extremely high, serving as a very functional flower for when a quick boost is needed.<br>During the "cooldown" period, if the flower were to absorb any &4Lava&0, it instead consumes it, generating no &4Mana&0 and having to wait 5 minutes from there to start over.
 botania.page.thermalily3=While placing &1Lava&0 in the world is definitely possible via &1Dispensers&0, automatically gathering it and carrying it from the &4Nether&0 or deep underground is another story entirely.<br>As such, the &1Thermalily&0 is clasified as a "semi-automatable" flower.
-botania.page.thermalily1=&o0108 Style&r.
+botania.page.thermalily1=&oThe hardest flower in the game&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.tagline.arcanerose=Mana from experience
 botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0.<br>What the flower can not do, however, is absorb raw experience orbs from the floor. They must first be gathered by a player.
-botania.page.arcanerose1=&oWhen this card is Summoned, toss a coin&r.
+botania.page.arcanerose1=&oWhen this flower is planted, toss a coin&r.
 
 # -- MUNCHDEW
 botania.entry.munchdew=Munchdew
 botania.tagline.munchdew=Mana from leaves
 botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and converted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
 botania.page.munchdew1=This flower outputs a hefty amount of mana per tree eaten.<br>However, after if finishes eating all the available leaves, when left without any, it'll take a break from doing so and will only be able to eat again after a bit over a minute.
-botania.page.munchdew2=&oYou pay for dinner, Shibazaki&r.
+botania.page.munchdew2=&oItadakimasu~&r
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=Entropinnyum
@@ -2639,7 +2639,7 @@ botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 th
 botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
 botania.page.complexBrews1b=96 Herblore
 botania.page.complexBrews2a=An entity affected with this brew's effect will regain HP whenever they slay any other creature.
-botania.page.complexBrews2b=It predates the set
+botania.page.complexBrews2b=Don't cross the souls
 botania.page.complexBrews3a=An entity affected with this brew's effect will be completely immune to any fall damage.
 botania.page.complexBrews3b=And I call it magic
 botania.page.complexBrews4a=This brew casts an aura of emptiness around any entity that has its effect. In a 128 block radius, mobs will not be allowed to spawn naturally.
@@ -2727,7 +2727,7 @@ botania.page.craftCrate3=To finish the recipe, one of two things can be done.<br
 botania.page.craftCrate4=Right clicking the crate with a &1Wand of the Forest&0 (remember: &1Dispensers&0 can do this) will attempt at crafting with whatever is inside the crate and eject it.<br>If this fails all the items inside are simply ejected with no crafting procedure done.
 botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it emit a signal equal to the amount of items inside the crate, which can be an extremely valuable asset in creating mechanisms with it.
 botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
-botania.page.craftCrate6=Made in Portugal
+botania.page.craftCrate6=Assembly line in a box
 botania.page.craftCrate8=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
 botania.page.craftCrate9=9 different patterns
 
@@ -2770,7 +2770,7 @@ botania.page.manaBomb1=Prepare to face the mighty...
 botania.entry.teruTeruBozu=Teru Teru Bozu
 botania.tagline.teruTeruBozu=Weather control and cuteness overload
 botania.page.teruTeruBozu0=&1Teru Teru Bozu&0 are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that &1Rain&0 or &1Snowstorms&0 will last. During bad weather, right clicking one with a &1Sunflower&0 or tossing said flower at it will have the sun come back. Attaching a &1Redstone Comparator&0 to one of these allows for it to detect bad weather.
-botania.page.teruTeruBozu1=Too spoopy
+botania.page.teruTeruBozu1=Take the rain away
 
 # -- LIVINGWOOD AVATAR
 botania.entry.avatar=Livingwood Avatar
@@ -2783,7 +2783,7 @@ botania.page.avatar2=But is it an anime?
 botania.entry.felPumpkin=Fel Pumpkin
 botania.tagline.felPumpkin=A pumpkin that can spawn blazes
 botania.page.felPumpkin0=A &1Fel Pumpkin&0 is a demented infusion of a &1Pumpkin&0 with the fel spirits of slain monsters. This vile pumpkin can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop a fairly reasonable amount of &1Blaze Powder&0 instead of a small serving of &1Blaze Rods&0.
-botania.page.felPumpkin1=Nerfing warlocks again
+botania.page.felPumpkin1=Spooky scary pumpkin
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -2878,19 +2878,19 @@ botania.tagline.elfGear=Manasteel equivalent gear with special properties
 botania.page.elfGear0=Similarly to other metals, as expected, &1Elementium&0 can, too, be shaped into tools and armor.<br>These pieces of equipment have a decent resistance to damage, about half of that of diamond, as well as the ability to drain &4Mana&0 to prevent damage.
 botania.page.elfGear1=Each of the tools come with their own ability or power of sorts which makes them unique. The armor allows the wearer to, when hit, have a chance to spawn a &1Pixie&0 that goes after the attacker, dealing decent damage.<br>The more pieces of &1Elementium Armor&0 equipped, the higher the chance.
 botania.page.elfGear2=Starting off, the &1Elementium Pickaxe&0 will destroy any &1Cobblestone&0, &1Dirt&0, &1Netherrack&0 and other mundane materials, leaving behind only the ores and fine resources.<br>Combining the &1Elementium Pickaxe&0 with a &1Terra Shatterer&0 in a crafting square allows for the latter to also get this power. This can't be undone.
-botania.page.elfGear3=I can fit a shower in my pocket, screw cobble
+botania.page.elfGear3=The &1Elementium Pickaxe&0
 botania.page.elfGear4=The &1Elementium Shovel&0 will, case the block dug is affected by gravity (&1Gravel&0, &1Sand&0, etc), dig all the blocks of that material above and/or below it, no more gravel falling while mining.
-botania.page.elfGear5=Putting Things on Top of Other Things
+botania.page.elfGear5=The &1Elementium Shovel&0
 botania.page.elfGear6=The &1Elementium Axe&0 doubles as a weapon, if used to strike the finishing blow to a &4Zombie&0, &4Skeleton&0, &4Creeper&0 or even another &4Player&0, it has a chance to decapitate them, leaving their severed head or skull behind.  
-botania.page.elfGear7=Off with their heads
+botania.page.elfGear7=The &1Elementium Axe&0
 botania.page.elfGear8=The &1Elementium Shears&0 hold the ability to, when held back like a bow, shear any nearby sheep with speed within a large area of effect centered on the holder.
-botania.page.elfGear9=Nui? She's h-arm-less
+botania.page.elfGear9=The &1Elementium Shears&0
 botania.page.elfGear10=Lastly, the &1Elementium Sword&0 will increase the chance of a &4Pixie&0 spawning when hit (this holds true when no &1Elementium Armor&0 is worn) and increases the strength of any &4Pixies&0 spawned.
-botania.page.elfGear11=The Lambent Light
-botania.page.elfGear12=Fortuna on the Sixteenth Night
-botania.page.elfGear13=When the Seagulls Cry Breakdown
-botania.page.elfGear14=Good People Die
-botania.page.elfGear15=The out of Infinity
+botania.page.elfGear11=The &1Elementium Sword&0
+botania.page.elfGear12=The &1Elementium Helmet&0
+botania.page.elfGear13=The &1Elementium Chestplate&0
+botania.page.elfGear14=The &1Elementium Leggings&0
+botania.page.elfGear15=The &1Elementium Boots&0
 
 # -- EXTRAPOLATED BUCKET
 botania.entry.openBucket=Extrapolated Bucket
@@ -2957,14 +2957,14 @@ botania.page.skyDirtRod1=Dirty Stick mk2
 botania.entry.glassPick=Vitreous Pickaxe
 botania.tagline.glassPick=A pickaxe with built-in silk touch for glass
 botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
-botania.page.glassPick1=Trapped inside with food
+botania.page.glassPick1=Poor man's silk touch
 
 # -- ROD OF DIVINING
 botania.entry.diviningRod=Rod of the Plentiful Mantle
 botania.tagline.diviningRod=A rod to find ores
 botania.page.diviningRod0=The &1Rod of the Plentiful Mantle&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
 botania.page.diviningRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll show all nearby ores, as if it was used by a player. The colors, in this case, remain the same if the avatar isn't moved.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
-botania.page.diviningRod1=inb4 ee3 
+botania.page.diviningRod1=One day Pahimar will deliver 
 
 # -- ROD OF THE BLACK MESA
 botania.entry.gravityRod=Rod of the Shaded Mesa
@@ -2999,7 +2999,7 @@ botania.entry.clip=Lens Clip
 botania.tagline.clip=A Mana Blaster upgrade that lets it have multiple lenses
 botania.page.clip0=While a formidable and versatile tool, the &1Mana Blaster&0's greatest downfall is the lack of an ability to store more than one &1Lens&0 at once. Not any more. The &1Lens Clip&0 will attach to a &1Mana Blaster&0 in a crafting grid and allow it to store up to 6 lenses rather than just one.<br>As they say, Russian Roulette is not the same without a gun...
 botania.page.clip1=Adding and removing &1Lenses&0 works just as it did previously, with one detail. The lens will be added or removed in the slot that the clip is currently on.<br>To change this slot, simply shift-right click the &1Mana Blaster&0 in the air. This will also change which lens is selected, case there is one in that slot.
-botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
+botania.page.clip2=An expansion of blasting
 
 # -- ROD OF THE DEPTHS
 botania.entry.cobbleRod=Rod of the Depths
@@ -3011,7 +3011,7 @@ botania.page.cobbleRod1=It's cobbling time
 botania.entry.smeltRod=Rod of the Molten Core
 botania.tagline.smeltRod=A rod to smelt blocks
 botania.page.smeltRod0=The &1Rod of the Molten Core&0 has the ability to expel heat provenient from the world's core. Holding it via right click and pointing at a block in the world that can be smelted into a different type of block will quickly turn it into that.<br>For some examples, &1Cobblestone&0 turns into &1Stone&0, &1Sand&0 into &1Glass&0, so on.
-botania.page.smeltRod1=Stolen from Efreet
+botania.page.smeltRod1=No raid party required
 
 # -- WORLD SEED
 botania.entry.worldSeed=World Seed
@@ -3035,7 +3035,7 @@ botania.page.thornChakram1=Spores and stingers
 botania.entry.fireChakram=Flare Chakram
 botania.tagline.fireChakram=A burning Thorn Chakram
 botania.page.fireChakram0=Some &1Blaze Powder&0 and &1Pixie Dust&0 does wonders when applied to a &1Thorn Chakram&0, this combination turns the already potent weapon into a &1Flame Chakram&0.<br>The &1Flame Chakram&0 works exactly the same as the original &1Thorn Chakram&0, the only difference being that it sets any living beings it touches aflame, and after all, you can't make bacon with some just some plants' thorns, can you?
-botania.page.fireChakram1=As fire as fenn's mixtape
+botania.page.fireChakram1=It's pretty lit
 
 # -- OVERGROWTH SEED
 botania.entry.overgrowthSeed=Overgrowth Seed
@@ -3053,7 +3053,7 @@ botania.page.livingwoodBow1=Does it shoot airplanes?
 botania.entry.crystalBow=Crystal Bow
 botania.tagline.crystalBow=A faster bow that creates arrows from Mana
 botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.<br>Given the lightweight and flexible structure of the bow, it can also fire at a much increased velocity than a conventional wooden one.
-botania.page.crystalBow1=The elves are roving
+botania.page.crystalBow1=An improved model, fixed reverting to a seed
 
 # -- STONE OF TEMPERANCE
 botania.entry.temperanceStone=Stone of Temperance
@@ -3065,13 +3065,13 @@ botania.page.temperanceStone1=Don't lose it
 botania.entry.terraAxe=Terra Truncator
 botania.tagline.terraAxe=An axe that chops down whole trees. How inspired
 botania.page.terraAxe0=The &1Terra Truncator&0 is a greataxe of premium quality achievable only with &1Terrasteel&0. When hitting a tree it'll take the whole thing down with speed, bringing all the logs and leaves along with it. Of course, this comes at a hefty cost of &4Mana&0.<br>This effect doesn't happen while sneaking or if the user has a &1Stone of Temperance&0.
-botania.page.terraAxe1=It's not a Dead END
+botania.page.terraAxe1=TIMBEEEEEEEER
 
 # -- FLORAL OBEDIENCE STICK
 botania.entry.obedienceStick=Floral Obedience Stick
 botania.tagline.obedienceStick=Mass binding flowers to a spot
 botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it.
-botania.page.obedienceStick1=This is not a dumb new age hat
+botania.page.obedienceStick1=Generate, or else!
 
 # -- SLIME IN A BOTTLE
 botania.entry.slimeBottle=Slime in a Bottle
@@ -3136,7 +3136,7 @@ botania.tagline.enderHand=Ender Chest access anywhere
 botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
 botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
 botania.page.enderHand2=Furthermore, simply having a &1Hand of Ender&0 present in one's inventory, allows for the &1Rod of the Shifting Crust&0 to be provided with items from that player's &1Ender Chest&0, this comes at an increased &4Mana&0 cost compared to that of the normal use of the rod.
-botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1=It's like the 4G of Ender Chests
 botania.page.enderHand1a=It's like the 4G of Ender Chests
 
 # -- SOULSCRIBE
@@ -3151,7 +3151,7 @@ botania.entry.spawnerClaw=Life Imbuer
 botania.tagline.spawnerClaw=Power spawners with Mana, even if there's nobody around
 botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They have the ability to bring out life from thin air, but somehow, this only manifests when there's a player nearby.<br>This, of course, tends to be a rather limiting factor in the onslaught of any creatures that they can create.
 botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spawner&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
-botania.page.spawnerClaw2=Something something shadow dragon
+botania.page.spawnerClaw2=Just a little push
 
 # -- RED STRING
 botania.entry.redString=Red String
@@ -3252,14 +3252,14 @@ botania.page.endStoneDecor4=Making &1Pillar Ender Bricks&0
 botania.entry.spawnerMover=Life Aggregator
 botania.tagline.spawnerMover=The ability to move spawners
 botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Gaia Spirits&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
-botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
+botania.page.spawnerMover1=A spawner parcel
 
 # -- RESOLUTE IVY
 botania.entry.keepIvy=Resolute Ivy
 botania.tagline.keepIvy=Ivy that can be attached to items to keep them after death
 botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
 botania.page.keepIvy2=There is, however, one restriction to the items in which this ivy can be attached to.<br>For &otechnical reasons&r, the ivy may not be attached to any item that, upon being used in a crafting table, gives something in return, such as &1Buckets of Water&0 or the &1Mortar and Pestle&0.
-botania.page.keepIvy1=Because people die when they are killed
+botania.page.keepIvy1=Because people die if they are killed
 
 # -- BLACK HOLE TALISMAN
 botania.entry.blackHoleTalisman=Black Hole Talisman
@@ -3267,7 +3267,7 @@ botania.tagline.blackHoleTalisman=Infinite storage of a block in a single slot
 botania.page.blackHoleTalisman0=The void is a massive space full of... void, really. There's nothing there. But with some ingenuity, this space can be used to store items to your heart's content.<br>The &1Black Hole Talisman&0 utilizes powerful Gaia and Ender magic to allow for a virtually infinite quantity of a single type of block to be stored in this space.
 botania.page.blackHoleTalisman1=Right clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, shift-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory it'll absorb any blocks of the type into it.<br>Placing the item in a crafting grid allows one to extract stacks of the blocks in it.
 botania.page.blackHoleTalisman2=While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right click with it.<br>Right clicking an inventory will try to fill it with the blocks stored in the talisman. Lastly, the talisman can provide the &1Rod of the Shifting Crust&0 with the blocks it contains.
-botania.page.blackHoleTalisman3=Like a Rageki but twice as fun
+botania.page.blackHoleTalisman3=Technically incorrect, the worst type of incorrect
 
 # -- LUMINIZER TRANSPORT
 botania.entry.luminizerTransport=Luminizer Transport
@@ -3369,7 +3369,7 @@ botania.page.travelBelt1=...everell
 botania.entry.knockbackBelt=Tectonic Girdle
 botania.tagline.knockbackBelt=Prevent all knockback damage
 botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
-botania.page.knockbackBelt1=I'm the man who can't be moved
+botania.page.knockbackBelt1=The steve who can't be moved
 
 # -- SNOWFLAKE PENDANT
 botania.entry.icePendant=Snowflake Pendant
@@ -3387,7 +3387,7 @@ botania.page.lavaPendant1=Hanako could have used one of these
 botania.entry.goldenLaurel=Golden Laurel Crown
 botania.tagline.goldenLaurel=Immunity to death, once
 botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
-botania.page.goldenLaurel1=Given the theme, probably Viridi
+botania.page.goldenLaurel1=People don't die if they are killed
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring of Chordata
@@ -3443,14 +3443,14 @@ botania.page.itemFinder2=Do you hear their voices?
 botania.entry.superLavaPendant=Crimson Pendant
 botania.tagline.superLavaPendant=Full on fire and lava resistance
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
-botania.page.superLavaPendant1=Runner-up on Monolith Code
+botania.page.superLavaPendant1=You can now take a lava bath
 
 # -- TAINTED BLOOD PENDANT
 botania.entry.bloodPendant=Tainted Blood Pendant
 botania.tagline.bloodPendant=Crystalized brews in pendant form
 botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
 botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
-botania.page.bloodPendant2=I'll get Saber for sure
+botania.page.bloodPendant2=Always potted up
 
 # -- CLOAKS OF JUDGEMENT
 botania.entry.judgementCloaks=Cloaks of Judgement
@@ -3662,7 +3662,7 @@ botania.page.shedding0=The living and unliving beings that inhabit our lands don
 botania.entry.tinyPotato=Tiny Potato
 botania.tagline.tinyPotato=A potato friend for all of us
 botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!<br>It can also be named in an &1Anvil&0.
-botania.page.tinyPotato1=Put it on Kickstarter, it'll work 
+botania.page.tinyPotato1=You are being believed in 
 
 # -- HEAD CREATION
 botania.entry.headCreating=Head Creation
