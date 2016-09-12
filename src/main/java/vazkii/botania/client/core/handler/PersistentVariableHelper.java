@@ -34,12 +34,14 @@ public final class PersistentVariableHelper {
 	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
 	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
+	private static final String TAG_LEXICON_GUI_SCALE = "lexiconGuiScale";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
 	public static String lastBotaniaVersion = "";
+	public static int lexiconGuiScale = 0;
 
 	public static void save() throws IOException {
 		NBTTagCompound cmp = new NBTTagCompound();
@@ -72,7 +74,8 @@ public final class PersistentVariableHelper {
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.setBoolean(TAG_DOG, dog);
 		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
-
+		cmp.setInteger(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
+		
 		injectNBTToFile(cmp, getCacheFile());
 	}
 
@@ -114,6 +117,7 @@ public final class PersistentVariableHelper {
 			lastBotaniaVersion = LibMisc.VERSION;
 		
 		dog = cmp.getBoolean(TAG_DOG);
+		lexiconGuiScale = cmp.getInteger(TAG_LEXICON_GUI_SCALE);
 	}
 
 	public static void saveSafe() {

@@ -6,24 +6,25 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  * 
- * File Created @ [Mar 6, 2015, 1:14:05 PM (GMT)]
+ * File Created @ [12/09/2016, 03:17:42 (GMT)]
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.resources.I18n;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiButtonOptions extends GuiButtonLexicon {
+import javax.annotation.Nonnull;
 
-	public GuiButtonOptions(int id, int x, int y) {
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextFormatting;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+public class GuiButtonScaleChange extends GuiButtonLexicon {
+
+	public GuiButtonScaleChange(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
 	}
 
@@ -34,14 +35,14 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
+		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 152 : 141, 191, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
-		for(int i = 0; i < 3; i++)
-			tooltip.add((i == 0 ? TextFormatting.GREEN : TextFormatting.GRAY) + I18n.format("botaniamisc.lexiconOptions" + i));
+		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.scaleChange"));
 
+		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
-			RenderHelper.renderTooltip(par2, par3, tooltip);
+			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
 	}
 
 }

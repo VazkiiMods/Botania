@@ -37,7 +37,7 @@ public class GuiButtonAchievement extends GuiButtonLexicon {
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 191, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
-		tooltip.add(TextFormatting.YELLOW + I18n.format("botaniamisc.achievements"));
+		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.achievements"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

@@ -37,7 +37,7 @@ public class GuiButtonChallenges extends GuiButtonLexicon {
 		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 131 : 120, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();
-		tooltip.add(TextFormatting.YELLOW + I18n.format("botaniamisc.challenges"));
+		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.challenges"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

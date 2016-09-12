@@ -158,6 +158,7 @@ botaniamisc.altarRefill0=Right click with an empty hand to
 botaniamisc.altarRefill1=add back the last recipe
 botaniamisc.santaweaveInfo=Manaweave, changed up for the &cs&fe&ca&fs&co&fn
 botaniamisc.enterToView=^ Press ENTER to view ^
+botaniamisc.scaleChange=Change Scale
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -3725,7 +3726,7 @@ botania.page.blazeBlock1=0x1a4
 # -- CHALLENGES
 botania.entry.challenges=Challenges
 botania.tagline.challenges=Challenge yourself
-botania.page.challenges0=&1Challenges&0 are available in the &1Lexica Botania&0 by clicking the icon on the left of the landing page shaped like a cup. These, as the name says, challenge the player to create a mechanism using the features only available in &1Botania&0 and &1Minecraft&0 itself.<br>Of course, you can use items from other mods to complete them, but that's no fun.
+botania.page.challenges0=&1Challenges&0 are available in the &1Lexica Botania&0 by clicking the icon on the bottom of the landing page shaped like a cup. These, as the name says, challenge the player to create a mechanism using the features only available in &1Botania&0 and &1Minecraft&0 itself.<br>Of course, you can use items from other mods to complete them, but that's no fun.
 botania.page.challenges1=All of the challenges are possible, of course. They just require some thinking and knowledge of the ins and outs of redstone and the &1Botania&0 mechanics themselves.<br>It's highly recommended that they're done without using features from external mods, as they have been created with that in mind, and aren't really challenges if you put down a block that solves them instantly.
 botania.page.challenges2=The challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what &1Botania&0 can do, automation wise, and are but scratching the surface of that topic. Challenges need be marked completed manually.<br>It should be kept in mind that the boundaries of this world are one's imagination, so don't stop at the ideas in there!
 

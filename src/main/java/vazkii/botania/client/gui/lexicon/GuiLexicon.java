@@ -10,11 +10,30 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -23,8 +42,6 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -46,27 +63,13 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonScaleChange;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 
 public class GuiLexicon extends GuiScreen {
 
@@ -106,7 +109,7 @@ public class GuiLexicon extends GuiScreen {
 	static int notesMoveTime;
 	public String note = "";
 	public String categoryHighlight = "";
-
+	
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -133,6 +136,16 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void onInitGui() {
+		ScaledResolution res = new ScaledResolution(mc);
+		int guiScale = mc.gameSettings.guiScale;
+		if(PersistentVariableHelper.lexiconGuiScale > 0) {
+			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
+			res = new ScaledResolution(mc);
+			width = res.getScaledWidth();
+			height = res.getScaledHeight();
+			mc.gameSettings.guiScale = guiScale;
+		}
+		
 		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
@@ -168,13 +181,14 @@ public class GuiLexicon extends GuiScreen {
 		}
 		populateBookmarks();
 		if(isMainPage()) {
-			buttonList.add(new GuiButtonOptions(-1, left - 6, top + guiHeight - 54));
-			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + guiHeight - 40));
-			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + guiHeight - 25));
-
-			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + guiHeight - 70);
+			buttonList.add(new GuiButtonOptions(-1, left + 20, top + guiHeight - 25));
+			buttonList.add(new GuiButtonAchievement(-2, left + 33, top + guiHeight - 25));
+			buttonList.add(new GuiButtonChallenges(-3, left + 45, top + guiHeight - 25));
+			buttonList.add(new GuiButtonScaleChange(-4, left + 57, top + guiHeight - 25));
+			
+			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-98, left - 6, top + guiHeight - 70);
 			buttonList.add(button);
-
+			
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
 				button.visible = false;
@@ -199,6 +213,20 @@ public class GuiLexicon extends GuiScreen {
 
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
+		ScaledResolution res = new ScaledResolution(mc);
+		int guiScale = mc.gameSettings.guiScale;
+		if(PersistentVariableHelper.lexiconGuiScale > 0) {
+			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
+			float s = (float) PersistentVariableHelper.lexiconGuiScale / (float) res.getScaleFactor();
+			GlStateManager.scale(s, s, s);
+			
+			res = new ScaledResolution(this.mc);
+            int sw = res.getScaledWidth();
+            int sh = res.getScaledHeight();
+            par1 = Mouse.getX() * sw / mc.displayWidth;
+            par2 = sh - Mouse.getY() * sh / mc.displayHeight - 1;
+		}
+		
 		float time = ClientTickHandler.ticksInGame + par3;
 		timeDelta = time - lastTime;
 		lastTime = time;
@@ -264,6 +292,8 @@ public class GuiLexicon extends GuiScreen {
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GlStateManager.disableBlend();
 		}
+		
+		mc.gameSettings.guiScale = guiScale;
 	}
 
 	public void drawNotes(float part) {
@@ -379,7 +409,23 @@ public class GuiLexicon extends GuiScreen {
 		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
 			break;
-		case -4 :
+		case -4:
+			switch(PersistentVariableHelper.lexiconGuiScale) {
+			case 3:
+				PersistentVariableHelper.lexiconGuiScale = 4;
+				break;
+			case 4:
+				PersistentVariableHelper.lexiconGuiScale = 2;
+				break;
+			default:	
+				PersistentVariableHelper.lexiconGuiScale = 3;
+				break;
+			}
+			
+			PersistentVariableHelper.saveSafe();
+			mc.displayGuiScreen(new GuiLexicon());
+			break;
+		case -98 :
 			if(isShiftKeyDown()) {
 				try {
 					if(Desktop.isDesktopSupported())
@@ -518,6 +564,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
+		// TODO verify tutorial after changes
 
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
