@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
@@ -68,6 +69,14 @@ public final class ColorHandler {
                     return Color.HSBtoRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
                 },
                 ModBlocks.spreader
+        );
+        
+        // Petal Block
+        blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
+        			int meta = ModBlocks.petalBlock.getMetaFromState(state);
+        			return EnumDyeColor.byMetadata(meta).getMapColor().colorValue;
+                },
+        		ModBlocks.petalBlock
         );
 
         // Platforms
