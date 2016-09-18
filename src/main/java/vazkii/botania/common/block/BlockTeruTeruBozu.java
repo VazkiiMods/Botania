@@ -57,7 +57,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getEntityItem();
-			if(isSunflower(stack) && removeRain(world)) {
+			if((isSunflower(stack) && removeRain(world)) || (isBlueOrchid(stack) && startRain(world))) {
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					e.setDead();
