@@ -411,7 +411,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
-
+				
+				// account for padding in the texture
+				float mul = 32F / 20F;
+				s *= mul;
+				
 				float f = icon.getMinU();
 				float f1 = icon.getMaxU();
 				float f2 = icon.getMinV();
