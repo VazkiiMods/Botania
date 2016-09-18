@@ -172,7 +172,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public static boolean spawn(EntityPlayer player, ItemStack stack, World world, BlockPos pos, boolean hard) {
 		if(world.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(world.getDifficulty() == EnumDifficulty.PEACEFUL) {
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+				if(!world.isRemote)
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 
@@ -182,19 +183,26 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				IBlockState state = world.getBlockState(pos_);
 				Block blockat = state.getBlock();
 				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
+					if(!world.isRemote)
+						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 					return false;
 				}
 			}
 
 			if(!hasProperArena(world, pos)) {
-				PacketHandler.sendTo((EntityPlayerMP) player,
-						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
+				if(!world.isRemote) {
+					PacketHandler.sendTo((EntityPlayerMP) player,
+							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+				}
+
 				return false;
 			}
 
+			if(world.isRemote)
+				return true;
+			
 			stack.stackSize--;
 
 			EntityDoppleganger e = new EntityDoppleganger(world);
@@ -220,6 +228,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	}
 
 	private static boolean hasProperArena(World world, BlockPos startPos) {
+		List<BlockPos> trippedPositions = new ArrayList();
+		boolean tripped = false;
+		
 		int heightCheck = 3;
 		int heightMin = 2;
 		int range = (int) Math.ceil(ARENA_RANGE);
@@ -231,23 +242,42 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				int air = 0;
 
 				yCheck: {
-					for(int k = heightCheck + heightMin + 1; k >= -heightCheck; k--) {
-						BlockPos pos = startPos.add(i, k, j);
+					BlockPos pos = null;
+					int trippedColumn = 0;
+
+					for(int k = heightCheck + heightMin; k >= -heightCheck; k--) {
+						pos = startPos.add(i, k, j);
 						boolean isAir = world.getBlockState(pos).getCollisionBoundingBox(world, pos) == null;
 						if(isAir)
 							air++;
 						else {
-							if(k > heightCheck)
-								continue;
-							else if(air > 2)
+							if(air >= 2)
 								break yCheck;
+							else if(trippedColumn < 2) {
+								trippedPositions.add(pos);
+								trippedColumn++;
+							}
 							air = 0;
 						}
 					}
+					
+					if(trippedColumn == 0)
+						trippedPositions.add(pos);
 
-					return false;
+					tripped = true;
 				}
 			}
+		
+		if(tripped) {
+			Botania.proxy.setWispFXDepthTest(false);
+			for(BlockPos pos : trippedPositions) {
+				System.out.println(world.isRemote);
+	            Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+			}
+			Botania.proxy.setWispFXDepthTest(true);
+
+			return false;
+		}
 
 		return true;
 	}
