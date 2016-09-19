@@ -61,7 +61,7 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.RenderLexicon;
-import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
+import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
 import vazkii.botania.client.core.handler.TooltipAdditionDisplayHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -207,7 +207,7 @@ public class ClientProxy implements IProxy {
 		MinecraftForge.EVENT_BUS.register(TooltipHandler.class);
 		MinecraftForge.EVENT_BUS.register(TooltipAdditionDisplayHandler.class);
 		MinecraftForge.EVENT_BUS.register(DebugHandler.class);
-		MinecraftForge.EVENT_BUS.register(SubTileRadiusRenderHandler.class);
+		MinecraftForge.EVENT_BUS.register(BlockHighlightRenderHandler.class);
 		MinecraftForge.EVENT_BUS.register(MultiblockRenderHandler.class);
 		MinecraftForge.EVENT_BUS.register(SkyblockRenderEvents.class);
 		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
