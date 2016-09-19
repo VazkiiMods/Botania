@@ -97,7 +97,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	public static final float ARENA_RANGE = 12F;
 	private static final int SPAWN_TICKS = 160;
-	private static final float MAX_HP = 800F;
+	private static final float MAX_HP = 320F;
 
 	private static final int MOB_SPAWN_START_TICKS = 20;
 	private static final int MOB_SPAWN_END_TICKS = 80;
@@ -370,7 +370,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 			boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
 
-			int cap = crit ? 60 : 40;
+			int cap = 25;
 			return super.attackEntityFrom(source, Math.min(cap, par2));
 		}
 
