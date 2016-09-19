@@ -624,7 +624,7 @@ public final class LexiconData {
 
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BasicLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
-		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),  new PageText("3"));
 
 		endoflame = new BasicLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
 		endoflame.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"),
