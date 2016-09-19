@@ -10,6 +10,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -24,7 +31,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.StateInsensitiveComponent;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -39,35 +45,22 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-
 public class TileAlfPortal extends TileMod {
 
 	private static final BlockPos[] LIVINGWOOD_POSITIONS = {
-		new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),
-		new BlockPos(2, 1, 0), new BlockPos(-2, 3, 0), new BlockPos(2, 3, 0),
-		new BlockPos(-1, 4, 0), new BlockPos(1, 4, 0)
+			new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),
+			new BlockPos(2, 1, 0), new BlockPos(-2, 3, 0), new BlockPos(2, 3, 0),
+			new BlockPos(-1, 4, 0), new BlockPos(1, 4, 0)
 	};
 
 	private static final BlockPos[] GLIMMERING_LIVINGWOOD_POSITIONS = {
-		new BlockPos(-2, 2, 0), new BlockPos(2, 2, 0), new BlockPos(0, 4, 0)
-	};
-
-	private static final BlockPos[] PYLON_POSITIONS = {
-		new BlockPos(-3, 1, 3), new BlockPos(3, 1, 3)
-	};
-
-	private static final BlockPos[] POOL_POSITIONS = {
-		new BlockPos(-3, 0, 3), new BlockPos(3, 0, 3)
+			new BlockPos(-2, 2, 0), new BlockPos(2, 2, 0), new BlockPos(0, 4, 0)
 	};
 
 	private static final BlockPos[] AIR_POSITIONS = {
-		new BlockPos(-1, 1, 0), new BlockPos(0, 1, 0), new BlockPos(1, 1, 0),
-		new BlockPos(-1, 2, 0), new BlockPos(0, 2, 0), new BlockPos(1, 2, 0),
-		new BlockPos(-1, 3, 0), new BlockPos(0, 3, 0), new BlockPos(1, 3, 0)
+			new BlockPos(-1, 1, 0), new BlockPos(0, 1, 0), new BlockPos(1, 1, 0),
+			new BlockPos(-1, 2, 0), new BlockPos(0, 2, 0), new BlockPos(1, 2, 0),
+			new BlockPos(-1, 3, 0), new BlockPos(0, 3, 0), new BlockPos(1, 3, 0)
 	};
 
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
@@ -81,7 +74,6 @@ public class TileAlfPortal extends TileMod {
 	public int ticksOpen = 0;
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
-	private boolean hasUnloadedParts = false;
 
 	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = input -> new BlockPos(input.getZ(), input.getY(), input.getX());
 
@@ -96,10 +88,10 @@ public class TileAlfPortal extends TileMod {
 			mb.addComponent(l.up(), ModBlocks.livingwood.getDefaultState());
 		for(BlockPos g : GLIMMERING_LIVINGWOOD_POSITIONS)
 			mb.addComponent(g.up(), ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING));
-		for(BlockPos p : PYLON_POSITIONS)
-			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
-		for(BlockPos p : POOL_POSITIONS)
-			mb.addComponent(new StateInsensitiveComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool));
+		//		for(BlockPos p : PYLON_POSITIONS)
+		//			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
+		//		for(BlockPos p : POOL_POSITIONS)
+		//			mb.addComponent(new StateInsensitiveComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool));
 
 		mb.addComponent(new BlockPos(0, 1, 0), ModBlocks.alfPortal.getDefaultState());
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
@@ -117,39 +109,37 @@ public class TileAlfPortal extends TileMod {
 		AlfPortalState state = iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		AlfPortalState newState = getValidState();
 
-		if(!hasUnloadedParts) {
-			ticksOpen++;
+		ticksOpen++;
 
-			AxisAlignedBB aabb = getPortalAABB();
-			boolean open = ticksOpen > 60;
-			ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
-			MinecraftForge.EVENT_BUS.post(event);
+		AxisAlignedBB aabb = getPortalAABB();
+		boolean open = ticksOpen > 60;
+		ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
+		MinecraftForge.EVENT_BUS.post(event);
 
-			if(ticksOpen > 60) {
-				ticksSinceLastItem++;
-				if(ConfigHandler.elfPortalParticlesEnabled)
-					blockParticle(state);
+		if(ticksOpen > 60) {
+			ticksSinceLastItem++;
+			if(ConfigHandler.elfPortalParticlesEnabled)
+				blockParticle(state);
 
-				List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
-				if(!worldObj.isRemote)
-					for(EntityItem item : items) {
-						if(item.isDead)
-							continue;
+			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
+			if(!worldObj.isRemote)
+				for(EntityItem item : items) {
+					if(item.isDead)
+						continue;
 
-						ItemStack stack = item.getEntityItem();
-						if((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
-							item.setDead();
-							addItem(stack);
-							ticksSinceLastItem = 0;
-						}
+					ItemStack stack = item.getEntityItem();
+					if((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
+						item.setDead();
+						addItem(stack);
+						ticksSinceLastItem = 0;
 					}
-
-				if(ticksSinceLastItem >= 4) {
-					if(!worldObj.isRemote)
-						resolveRecipes();
 				}
+
+			if(ticksSinceLastItem >= 4) {
+				if(!worldObj.isRemote)
+					resolveRecipes();
 			}
-		} else closeNow = false;
+		}
 
 		if(closeNow) {
 			worldObj.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
@@ -162,8 +152,6 @@ public class TileAlfPortal extends TileMod {
 					blockParticle(state);
 			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		}
-
-		hasUnloadedParts = false;
 	}
 
 	private void blockParticle(AlfPortalState state) {
@@ -221,9 +209,11 @@ public class TileAlfPortal extends TileMod {
 
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 			if(recipe.matches(stacksIn, false)) {
-				recipe.matches(stacksIn, true);
-				for(ItemStack output : recipe.getOutputs())
-					spawnItem(output.copy());
+				if(consumeMana(null, 500, false)) {
+					recipe.matches(stacksIn, true);
+					for(ItemStack output : recipe.getOutputs())
+						spawnItem(output.copy());
+				}
 				break;
 			}
 		}
@@ -300,27 +290,67 @@ public class TileAlfPortal extends TileMod {
 			return false;
 		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING), false, converters))
 			return false;
-		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA), false, converters))
-			return false;
-		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool.getDefaultState(), true, converters))
-			return false;
+		//		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA), false, converters))
+		//			return false;
+		//		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool.getDefaultState(), true, converters))
+		//			return false;
 
-		lightPylons(converters);
+		lightPylons();
 		return true;
 	}
 
-	@SafeVarargs
-	private final void lightPylons(Function<BlockPos, BlockPos>... converters) {
+	public List<BlockPos> locatePylons() {
+		List<BlockPos> list = new ArrayList();
+		int range = 5;
+
+		IBlockState pylonState = ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA);
+		IBlockState poolState = ModBlocks.pool.getDefaultState();
+
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -range; j < range + 1; j++)
+				for(int k = -range; k < range + 1; k++) {
+					BlockPos pos = new BlockPos(i, j, k);
+					if(checkPosition(pos, pylonState, false) && checkPosition(pos.down(), poolState, true))
+						list.add(pos);
+				}
+
+		return list;
+	}
+
+	public void lightPylons() {
 		if(ticksOpen < 50)
 			return;
 
-		int cost = ticksOpen == 50 ? 75000 : 2;
+		List<BlockPos> pylons = locatePylons();
+		for(BlockPos pos : pylons) {
+			TileEntity tile = worldObj.getTileEntity(getPos().add(pos));
+			if(tile instanceof TilePylon) {
+				TilePylon pylon = (TilePylon) tile;
+				pylon.activated = true;
+				pylon.centerPos = getPos();
+			}
+		}
 
-		for(BlockPos pos : PYLON_POSITIONS) {
-			for(Function<BlockPos, BlockPos> f : converters)
-				if(f != null)
-					pos = f.apply(pos);
+		if(ticksOpen == 50)
+			consumeMana(pylons, 200000, true);
+	}
 
+	public boolean consumeMana(@Nullable List<BlockPos> pylons, int totalCost, boolean close) {
+		List<TilePool> consumePools = new ArrayList();
+		int consumed = 0;
+
+		if(pylons == null)
+			pylons = locatePylons();
+
+		if(pylons.size() < 2) {
+			closeNow = true;
+			return false;
+		}
+
+		int costPer = Math.max(1, totalCost / pylons.size());
+		int expectedConsumption = costPer * pylons.size();
+
+		for(BlockPos pos : pylons) {
 			TileEntity tile = worldObj.getTileEntity(getPos().add(pos));
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
@@ -331,12 +361,24 @@ public class TileAlfPortal extends TileMod {
 			tile = worldObj.getTileEntity(getPos().add(pos).down());
 			if(tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
-				if(pool.getCurrentMana() < cost)
-					closeNow = true;
-				else if(!worldObj.isRemote)
-					pool.recieveMana(-cost);
+				
+				if(pool.getCurrentMana() < costPer) {
+					closeNow = closeNow || close;
+					return false;
+				} else if(!worldObj.isRemote) {
+					consumePools.add(pool);
+					consumed += costPer;
+				}
 			}
 		}
+
+		if(consumed >= expectedConsumption) {
+			for(TilePool pool : consumePools)
+				pool.recieveMana(-costPer);
+			return true;
+		}
+
+		return false;
 	}
 
 	@SafeVarargs
@@ -355,17 +397,12 @@ public class TileAlfPortal extends TileMod {
 
 	private boolean checkPosition(BlockPos pos, IBlockState state, boolean onlyCheckBlock) {
 		BlockPos pos_ = getPos().add(pos);
-		if(!worldObj.isBlockLoaded(pos_)) {
-			hasUnloadedParts = true;
-			return true; // Don't fuck everything up if there's a chunk unload
-		}
 
 		IBlockState stateat = worldObj.getBlockState(pos_);
 		Block blockat = stateat.getBlock();
 
-		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock()) {
+		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock())
 			return onlyCheckBlock || stateat == state;
-		}
 
 		return false;
 	}

@@ -34,17 +34,18 @@ public class TilePylon extends TileEntity implements ITickable {
 	public void update() {
 		++ticks;
 
-		if (worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
+		if(worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
 			return;
 
 		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta() || variant != PylonVariant.MANA && portalOff()) {
+			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta()
+					|| (variant == PylonVariant.NATURA && (portalOff() || worldObj.getBlockState(getPos().down()).getBlock() != ModBlocks.pool))) {
 				activated = false;
 				return;
 			}
-
+			
 			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if(variant == PylonVariant.NATURA) {
