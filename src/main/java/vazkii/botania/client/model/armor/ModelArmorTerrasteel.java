@@ -64,7 +64,7 @@ public class ModelArmorTerrasteel extends ModelBiped {
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.2F;
+		float s = 0.6F;
 		armr = new ModelRenderer(this, 0, 77);
 		armr.setRotationPoint(-5.0F, 2.0F, -0.0F);
 		armr.addBox(-3.0F, 3.0F, -2.0F, 4, 7, 4, s);

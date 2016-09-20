@@ -51,7 +51,7 @@ public class ModelArmorManasteel extends ModelBiped {
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.2F;
+		float s = 0.6F;
 		armRpauldron = new ModelRenderer(this, 30, 47);
 		armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
 		armRpauldron.addBox(-4.0F, -2.0F, -2.5F, 4, 4, 5, 0.2F);

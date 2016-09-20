@@ -62,7 +62,7 @@ public class ModelArmorElementium extends ModelBiped {
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.2F;
+		float s = 0.6F;
 		fairy = new ModelRenderer(this, 34, 32);
 		fairy.setRotationPoint(0.0F, 0.0F, 0.0F);
 		fairy.addBox(-2.0F, -8.5F, -7.0F, 4, 4, 4, s);

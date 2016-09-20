@@ -51,7 +51,7 @@ public class ModelArmorManaweave extends ModelBiped {
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.2F;
+		float s = 0.6F;
 		helmSeam3 = new ModelRenderer(this, 26, 61);
 		helmSeam3.setRotationPoint(0.0F, 0.0F, 0.0F);
 		helmSeam3.addBox(-0.5F, -9.5F, 5.0F, 1, 11, 1, s);
