@@ -2470,7 +2470,7 @@ botania.page.thermalily1=&oThe hardest flower in the game&r.
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.tagline.arcanerose=Mana from experience
-botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0.<br>What the flower can not do, however, is absorb raw experience orbs from the floor. They must first be gathered by a player.
+botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0.<br>The experience can also be acquired from experience orbs in the world, not requiring the player being present. This method, however, is less effective, production wise.
 botania.page.arcanerose1=&oWhen this flower is planted, toss a coin&r.
 
 # -- MUNCHDEW

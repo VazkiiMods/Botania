@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.util.List;
+
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -17,8 +20,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileArcaneRose extends SubTileGenerating {
 
@@ -38,6 +39,14 @@ public class SubTileArcaneRose extends SubTileGenerating {
 				mana += 50;
 				return;
 			}
+		
+		List<EntityXPOrb> orbs = supertile.getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		for(EntityXPOrb orb : orbs) {
+//			mana += orb.getXpValue() * 35;
+//			orb.setDead();
+			return;
+		}
+			
 	}
 
 	@Override
