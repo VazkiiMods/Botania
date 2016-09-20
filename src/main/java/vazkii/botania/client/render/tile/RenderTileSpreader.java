@@ -105,23 +105,29 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
 
+			GlStateManager.translate(0, -f - 0.001, 0);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, f + 0.001, 0);
 			GlStateManager.rotate(-90, 0, 1, 0);
 
+			GlStateManager.translate(-0.001, 0, 0);
 			GlStateManager.rotate(270, 0, 0, 1);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, 0.001, 0);
 			GlStateManager.rotate(-90, 0, 1, 0);
 
-			GlStateManager.translate(0, 15 * f, 0);
+			GlStateManager.translate(0, 15 * f + 0.001, -0.001);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, -0.001, 0.001);
 			GlStateManager.rotate(-90, 0, 1, 0);
 
-			GlStateManager.translate(15 * f, f, 0);
+			GlStateManager.translate(15 * f + 0.001, f, 0.001);
 			GlStateManager.rotate(270, 0, 0, 1);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(-0.001, 0, -0.001);
 			GlStateManager.rotate(-90, 0, 1, 0);
 
-			GlStateManager.translate(0, -1, 0);
+			GlStateManager.translate(-0.001, -1 + f + 0.001, -f + 0.001);
 			GlStateManager.rotate(90, 1, 0, 0);
 			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
 		}
