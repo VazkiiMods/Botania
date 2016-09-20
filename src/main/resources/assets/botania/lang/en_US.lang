@@ -3492,13 +3492,13 @@ botania.page.baubleBox1=It could even be a boat!
 botania.entry.aIntro=The Portal to Alfheim
 botania.tagline.aIntro=The next step in the Journey...
 botania.page.aIntro0=It's said that once, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they would've been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in attempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.
-botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
+botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), and at least 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
 botania.page.aIntro2=Creating the &1Elven Gateway Core&0
 botania.page.aIntro3=Creating &1Natura Pylons&0
 botania.page.aIntro4=Alfheim Portal
-botania.page.aIntro5=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
-botania.page.aIntro6=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro7=The amount of information about &1Alfheim&0 stored in this lexicon is limited to this entry alone. Perhaps &4letting the&0 &4Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
+botania.page.aIntro5=At least two &1Natura Pylons&0 with &1Mana Pools&0 directly below must be laid out in an 11x11 area around the core. To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in the pools to open up. The cost is divided between all of them.
+botania.page.aIntro6=The portal seems to be able to send items through it, but &4Mana&0 is required for a successful transaction. Similarly to opening it, the cost is split between all of the pools.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, so forget jumping in to &4Alfheim&0.
+botania.page.aIntro7=The amount of information about &1Alfheim&0 stored in this lexicon is limited to this entry alone. It seems like a lost subject of sorts in this world.<br>Perhaps &4letting the&0 &4Elves have a look at it&0 might prove beneficial. Maybe they can share knowledge that can be beneficial.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=A Message from Elven Garde
