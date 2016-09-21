@@ -28,6 +28,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -51,8 +52,8 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 		}
 		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
 		GameRegistry.register(this);
-		if (!isDouble())
-			GameRegistry.register(new ItemBlockModSlab(this), getRegistryName());
+		if(!isDouble())
+			ModFluffBlocks.slabsToRegister.add(this);
 	}
 
 	@Nonnull

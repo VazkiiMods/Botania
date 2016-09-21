@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
@@ -53,10 +56,13 @@ import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public final class ModFluffBlocks {
 
+	public static List<Block> slabsToRegister = new ArrayList();
+	
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
 	public static Block livingwoodSlabFull;
@@ -230,6 +236,9 @@ public final class ModFluffBlocks {
 		managlassPane = new BlockManaglassPane();
 		alfglassPane = new BlockAlfglassPane();
 		bifrostPane = new BlockBifrostPane();
+		
+		for(Block b : slabsToRegister)
+			GameRegistry.register(new ItemBlockModSlab(b), b.getRegistryName());
 	}
 
 }
