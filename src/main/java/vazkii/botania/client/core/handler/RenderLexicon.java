@@ -29,6 +29,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.page.PageText;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
@@ -36,6 +37,17 @@ public class RenderLexicon {
     private final ModelBook model = new ModelBook();
     private final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
 
+    private final String[] QUOTES = new String[] {
+    	"\"Neat!\" - Direwolf20",
+    	"\"It's pretty ledge.\" - Haighyorkie",
+    	"\"I don't really like it.\" - CrustyMustard",
+    	"\"It's a very thinky mod.\" - AdamG3691",
+    	"\"You must craft the tiny potato.\" - TheFractangle",
+    	"\"Vazkii did a thing.\" - cpw"
+    };
+    
+    int quote = -1;
+    
     @SubscribeEvent
     public void renderItem(RenderSpecificHandEvent evt) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -101,42 +113,39 @@ public class RenderLexicon {
             GlStateManager.rotate(180F, 0F, 0F, 1F);
             GlStateManager.translate(-0.3F, -0.21F, -0.07F);
             GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
-            boolean bevo = mc.thePlayer.getName().equalsIgnoreCase("BevoLJ");
-            boolean saice = mc.thePlayer.getName().equalsIgnoreCase("saice");
 
             String title = ModItems.lexicon.getItemStackDisplayName(null);
             String origTitle = title;
 
             if(stack != null)
                 title = stack.getDisplayName();
-            if(title.equals(origTitle) && bevo)
-                title = I18n.format("item.botania:lexicon.bevo");
-            if(title.equals(origTitle) && saice)
-                title = I18n.format("item.botania:lexicon.saice");
 
             font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
+
             GlStateManager.translate(0F, 10F, 0F);
             GlStateManager.scale(0.6F, 0.6F, 0.6F);
             font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), 0, 0, 0xA07100);
+            
+            if(quote == -1)
+            	quote = mc.theWorld.rand.nextInt(QUOTES.length);
+            
+            String quoteStr = QUOTES[quote];
+            
+            GlStateManager.translate(-5F, 3F, 0F);
+            PageText.renderText(0, 0, 140, 100, 0, false, 0x79ff92, quoteStr);
+            GlStateManager.color(1F, 1F, 1F);
 
-            GlStateManager.translate(0F, 15F, 0F);
+            GlStateManager.translate(2F, 98F, 0F);
             font.drawString(I18n.format("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
             GlStateManager.translate(0F, 10F, 0F);
-            font.drawString(I18n.format("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
+            font.drawString(TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
-            GlStateManager.translate(0F, 50F, 0F);
-            font.drawString(I18n.format("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
+            GlStateManager.translate(0F, -30F, 0F);
 
-            GlStateManager.translate(0F, 10F, 0F);
-            font.drawString(TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
-
-            if(bevo || saice) {
-                GlStateManager.translate(0F, 10F, 0F);
-                font.drawString(I18n.format("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
-            }
-
-            GlStateManager.color(1F, 1F, 1F);
+            String authorTitle = I18n.format("botaniamisc.lexiconcover2");
+            int len = font.getStringWidth(authorTitle);
+            font.drawString(authorTitle, 62 - len / 2, 0, 0xD69700);
         }
 
         GlStateManager.popMatrix();

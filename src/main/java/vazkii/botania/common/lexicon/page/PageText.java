@@ -40,18 +40,19 @@ public class PageText extends LexiconPage {
 	}
 
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
-		renderText(x, y, width, height, 10, unlocalizedText);
+		renderText(x, y, width, height, 10, true, 0, unlocalizedText);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void renderText(int x, int y, int width, int height, int paragraphSize, String unlocalizedText) {
+	public static void renderText(int x, int y, int width, int height, int paragraphSize, boolean useUnicode, int color, String unlocalizedText) {
 		x += 2;
 		y += 10;
 		width -= 4;
 
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
-		font.setUnicodeFlag(true);
+		if(useUnicode)
+			font.setUnicodeFlag(true);
 		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
@@ -106,7 +107,7 @@ public class PageText extends LexiconPage {
 					compensationSpaces--;
 					extra++;
 				}
-				font.drawString(s, xi, y, 0);
+				font.drawString(s, xi, y, color);
 				xi += font.getStringWidth(s) + spacing + extra;
 			}
 

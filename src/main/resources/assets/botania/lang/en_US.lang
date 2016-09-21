@@ -43,12 +43,9 @@ botaniamisc.toolRank=%s&7 Rank
 botaniamisc.edition=%s Edition
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Writer's
-botaniamisc.lexiconcover0=A manual by Lizbeth
-botaniamisc.lexiconcover1="Vazkii" Whitewood
-botaniamisc.lexiconcover2=The official guide for
-botaniamisc.lexiconcover3=all your Botania needs!
-botaniamisc.lexiconcover4=Edited by BevoLJ
-botaniamisc.lexiconcover5=Edited by Saice
+botaniamisc.lexiconcover0=The official guide for
+botaniamisc.lexiconcover1=all your Botania needs!
+botaniamisc.lexiconcover2=A Book by Vazkii
 botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
 botaniamisc.knowledgeTypesSingular=Contains %s School of Knowledge
 botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge

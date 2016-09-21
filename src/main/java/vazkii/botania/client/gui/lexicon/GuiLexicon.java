@@ -320,7 +320,7 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
 
-		PageText.renderText(x + 5, y - 3, 92, 120, 0, noteDisplay);
+		PageText.renderText(x + 5, y - 3, 92, 120, 0, true, 0, noteDisplay);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
