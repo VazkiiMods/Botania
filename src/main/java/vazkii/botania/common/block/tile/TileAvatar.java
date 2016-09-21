@@ -16,6 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
@@ -106,6 +107,11 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 		return getItemHandler();
 	}
 
+	@Override
+	public EnumFacing getAvatarFacing() {
+		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+	}
+	
 	@Override
 	public int getElapsedFunctionalTicks() {
 		return ticksElapsed;

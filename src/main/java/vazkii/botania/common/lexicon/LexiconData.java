@@ -841,7 +841,7 @@ public final class LexiconData {
 				new PageCraftingRecipe("5", ModCraftingRecipes.recipesAltGrassSeeds));
 
 		dirtRod = new BasicLexiconEntry(LibLexicon.TOOL_DIRT_ROD, categoryTools);
-		dirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtRod));
+		dirtRod.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtRod));
 
 		terraformRod = new BasicLexiconEntry(LibLexicon.TOOL_TERRAFORM_ROD, categoryTools);
 		terraformRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),

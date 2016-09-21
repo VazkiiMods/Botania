@@ -2807,6 +2807,7 @@ botania.page.grassSeeds5=The alternate &1Pasture Seeds&0
 botania.entry.dirtRod=Rod of the Lands
 botania.tagline.dirtRod=A rod to create dirt
 botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simple tool; by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.<br>For the same &4Mana&0 cost, this item can provide &1Dirt&0 to the &1Rod of the Shifting Crust&0.
+botania.page.dirtRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll periodically place down a piece of &1Dirt&0 in front of it.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
 botania.page.dirtRod1=The Dirty Stick
 
 # -- TERRA FIRMA ROD

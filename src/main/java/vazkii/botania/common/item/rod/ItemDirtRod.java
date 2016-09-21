@@ -11,21 +11,27 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -34,8 +40,10 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider {
+public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider, IAvatarWieldable {
 
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
+	
 	static final int COST = 75;
 
 	public ItemDirtRod() {
@@ -97,6 +105,26 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 		if(block == Blocks.DIRT && meta == 0)
 			return -1;
 		return 0;
+	}
+
+	@Override
+	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+		TileEntity te = (TileEntity) tile;
+		World world = te.getWorld();
+		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
+			BlockPos pos = ((TileEntity) tile).getPos().offset(tile.getAvatarFacing());
+			IBlockState state = world.getBlockState(pos);
+			if(state.getBlock().isAir(state, world, pos)) {
+				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
+					world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
+				tile.recieveMana(-COST);
+			}
+		}
+	}
+
+	@Override
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+		return avatarOverlay;
 	}
 
 

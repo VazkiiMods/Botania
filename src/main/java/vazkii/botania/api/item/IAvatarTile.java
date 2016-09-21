@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaReceiver;
 
@@ -23,7 +24,12 @@ public interface IAvatarTile extends IManaReceiver {
 	 * @return An IItemhandler representing the avatar's inventory
      */
 	public IItemHandler getInventory();
-
+	
+	/**
+	 * Gets the avatar's facing.
+	 */
+	public EnumFacing getAvatarFacing();
+	
 	/**
 	 * Gets the amount of ticks that have elapsed on this avatar while it's functional
 	 * (has redstone signal).
@@ -34,5 +40,6 @@ public interface IAvatarTile extends IManaReceiver {
 	 * Gets if this avatar is enabled (isn't powered by a redstone signal).
 	 */
 	public boolean isEnabled();
+	
 
 }
