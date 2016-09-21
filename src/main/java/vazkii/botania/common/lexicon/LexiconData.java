@@ -1329,7 +1329,7 @@ public final class LexiconData {
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipesMiniIsland));
 
 		tinyPotato = new BasicLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
-		tinyPotato.setLexiconPages(new PageText("0"),
+		tinyPotato.setLexiconPages(new PageText("0"), new PageText("2"),
 				new PageManaInfusionRecipe("1", ModManaInfusionRecipes.tinyPotatoRecipe));
 
 		headCreating = new HeadLexiconEntry(LibLexicon.MISC_HEAD_CREATING, categoryMisc);

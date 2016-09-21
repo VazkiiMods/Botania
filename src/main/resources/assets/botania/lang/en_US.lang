@@ -3661,6 +3661,7 @@ botania.page.shedding0=The living and unliving beings that inhabit our lands don
 botania.entry.tinyPotato=Tiny Potato
 botania.tagline.tinyPotato=A potato friend for all of us
 botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!<br>It can also be named in an &1Anvil&0.
+botania.page.tinyPotato2=The potato can be given items to display, by right clicking them onto it, one for each side of the block.<br>Items placed in the bottom face will show up in the lower half of the front.<br>Potatoes are not exactly known for their dexterity, so some items may look out of place.
 botania.page.tinyPotato1=You are being believed in 
 
 # -- HEAD CREATION
