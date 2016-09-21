@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.block.decor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -31,14 +36,12 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockTinyPotato extends BlockMod implements ILexiconable {
 
@@ -87,6 +90,15 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, side);
 	}
+	
+	@Override
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+
+		InventoryHelper.dropInventory(inv, world, state, pos);
+
+		super.breakBlock(world, pos, state);
+	}
 
 	@Nonnull
 	@Override
@@ -103,7 +115,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {
-			((TileTinyPotato) tile).interact();
+			((TileTinyPotato) tile).interact(player, hand, stack, par6);
 			player.addStat(ModAchievements.tinyPotatoPet, 1);
 			world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + AABB.minX + Math.random() * (AABB.maxX - AABB.minX), pos.getY() + AABB.maxY, pos.getZ() + AABB.minZ + Math.random() * (AABB.maxZ - AABB.minZ), 0, 0 ,0);
 		}
