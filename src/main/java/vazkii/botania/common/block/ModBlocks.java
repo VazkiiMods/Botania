@@ -46,6 +46,7 @@ import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
+import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
 import vazkii.botania.common.block.mana.BlockBellows;
 import vazkii.botania.common.block.mana.BlockBrewery;
@@ -371,6 +372,8 @@ public final class ModBlocks {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
+		
+		SeedBehaviours.init();
 	}
 
 	private static void initTileEntities() {

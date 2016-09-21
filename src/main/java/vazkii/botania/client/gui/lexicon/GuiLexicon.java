@@ -325,7 +325,6 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
-
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
 		drawBookmark(x, y, s, drawLeft, 180);
 	}

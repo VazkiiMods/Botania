@@ -3641,9 +3641,9 @@ botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
 botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
 
 # -- DISPENSER TWEAKS
-botania.entry.dispenserTweaks=Dispenser Tweaks
-botania.tagline.dispenserTweaks=Get more out of your dispensers
-botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
+botania.entry.dispenserTweaks=Dispenser Planting
+botania.tagline.dispenserTweaks=Dispensers planting seeds
+botania.page.dispenserTweaks0=Botania tweaks &1Dispensers&0 to be able to plant all sorts of seeds, from normal wheat &1Seeds&0, to &1Nether Wart&0 or &1Cocoa Beans&0, the latter requiring a block of &1Jungle Wood&0 to be present in front of the dispenser with an air spot in between.<br>This allows for crop farming in combination with other blocks such as the &1Drum of the Wild&0.
 
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=Glimmering Flowers
