@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,6 +18,7 @@ public final class PacketHandler {
     public static void init() {
         HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
         HANDLER.registerMessage(PacketLeftClick.Handler.class, PacketLeftClick.class, 1, Side.SERVER);
+        HANDLER.registerMessage(PacketDodge.Handler.class, PacketDodge.class, 1, Side.SERVER);
     }
 
     /**
