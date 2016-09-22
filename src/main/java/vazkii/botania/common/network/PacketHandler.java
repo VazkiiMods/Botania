@@ -16,9 +16,10 @@ public final class PacketHandler {
     private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.NETWORK_CHANNEL);
 
     public static void init() {
-        HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, 0, Side.CLIENT);
-        HANDLER.registerMessage(PacketLeftClick.Handler.class, PacketLeftClick.class, 1, Side.SERVER);
-        HANDLER.registerMessage(PacketDodge.Handler.class, PacketDodge.class, 1, Side.SERVER);
+    	int id = 0;
+        HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, id++, Side.CLIENT);
+        HANDLER.registerMessage(PacketLeftClick.Handler.class, PacketLeftClick.class, id++, Side.SERVER);
+        HANDLER.registerMessage(PacketDodge.Handler.class, PacketDodge.class, id++, Side.SERVER);
     }
 
     /**
