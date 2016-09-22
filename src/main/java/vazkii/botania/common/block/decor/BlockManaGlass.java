@@ -49,6 +49,11 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Override
+	public boolean isFullBlock(IBlockState state) {
+		return true;
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {

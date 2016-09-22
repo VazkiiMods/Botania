@@ -46,6 +46,11 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
+	
+	@Override
+	public boolean isFullBlock(IBlockState state) {
+		return true;
+	}
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {

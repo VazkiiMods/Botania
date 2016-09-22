@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +29,11 @@ public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexico
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
+	public boolean isFullBlock(IBlockState state) {
 		return true;
 	}
 
