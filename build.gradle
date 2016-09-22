@@ -54,6 +54,7 @@ minecraft {
 
     replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
     useDepAts = true
+    makeObfSourceJar = false
 }
 
 //This here is for SCP
@@ -101,7 +102,7 @@ processResources {
  */
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-	archiveName = "${baseName}.${version}-deobf.${extension}"
+	archiveName = "${baseName} ${version}-deobf.${extension}"
 }
 
 artifacts {
@@ -215,7 +216,7 @@ def parseConfig(File config) {
 
 jar {
     //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName}-unofficial.${version}.${extension}"
+    archiveName = "${baseName} ${version}.${extension}"
 }
 
 curseforge {
@@ -225,12 +226,13 @@ curseforge {
         changelog = """
 		    See http://botaniamod.net/changelog.php#${version}
         """
-        releaseType = "beta"
+        releaseType = "release"
         addGameVersion "${config.cf_meta_version}"
         relations {
             requiredLibrary 'baubles'
+            optionalLibrary 'quark'
         }
     }
 }
 
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
+defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curseforge', 'upload'

@@ -1,5 +1,59 @@
+r1.9 322
+*<b>Please read the notes at end of this changelog for some context and important information. Thanks.</b>
+*Added a button to the Lexica Botania's landing page to rescale it without rescaling the rest of the GUI.
+*Added the Ring of Dexterous Motion, a new bauble that allows you to dodge to the sides using the A and D keys.
+*Attempting to summon a Gaia Guardian with an invalid arena now emits particles on the offending blocks.
+*Buffed the gaia guardian's wither effect due to it being easier to dodge now.
+*Changed the Lexica Botania's cover layout a bit. It now has a random quote on it. Quote pool will expand as I find more cool quotes.
+*Changed the special flower breaking particles from the poppy particles to generic green particles like in Botania 1.7.10.
+*Disabled Natural Shedding (by default, the config is still present and fully functional).
+*Fix pylon and petal apothecary models not being placed properly in the inventory.
+*Fixed a crash when placing slabs.
+*Fixed a crash with the vitreous pickaxe.
+*Fixed improper resolution for the flugel tiara wing sprites causing framedrops.
+*Fixed Petal Blocks having no color.
+*Fixed stack sizes not showing up in a lot of places, including the lexicon recipe pages and the mana pool HUD.
+*Fixed the Lexica Botania's notes accepting localization keys and localizing them.
+*Fixed the spreader wool sleeves not being slim fit on top and z-fighting on some sides.
+*Fixed the Teru Teru Bozu not being able to create rain.
+*Increased the amount of Mana required to open the Elven Portal.
+*Made the Mod's armor bulkier to fix z-fighting with the new skin layers. This is a temporary solution until we can redo the armor.
+*Managlass, Alfglass and Bifrost Blocks are now valid targets for Chisels&Bits.
+*Moved Stone Transmutation to the main alchemy page since they're no longer new blocks.
+*Moved the side buttons in the Lexica Botania's landing page to the bottom of the interface and changed them all to be green.
+*Re-implemented the update checker and ingame downloader built in to Botania 1.7.10.
+*Rebalanced the Gaia Guardian's health and damage cap to make more sense with the damage changes in 1.9.
+*Removed avatar decoration on Vazkii's player because they weren't stylish enough.
+*Removed Dayblooms and Nightshades. Endoflames no longer require Mana Powder.
+*Removed mana loss from spreader to spreader.
+*Removed Motif flowers.
+*Removed Needless Fluff: Roof Tiles, Hellish, Soul, and Frost Bricks, Trodden Dirt, Unstable Blocks, and Signal Flares.
+*Removed Primus Loci.
+*Removed the passive decay config again.
+*Removed the prismarine alchemy recipe.
+*Removed the Pylons and Mana Pools from the Elven Portal multiblock. They can now be placed anywhere in an 11x11 area. You can also have more than 2 Pylons, if you desire.
+*Removed Timless Ivy (needless because of the existance of Mending in vanilla).
+*Replaced a lot of cringy memes and terribly placed references with some less cringy memes and terribly placed references.
+*The Elven Portal now takes mana per transaction rather than per tick. It will also no longer close itself if there's no mana.
+*The Gaia Guardian's attacks now display as an overlay in the world rather than as particles only.
+*The Livingwood Avatar can now place down dirt using the Rod of the Lands.
+*The Rosa Arcana can now get its XP from orbs in the world.
+*The Tiny Potato can now have items given to it. Many of the "easter egg" names for it have been removed as you can replicate them with this feature.
+*Updated Corporea textures and some those of some of the livingrock blocks.
+*Updated the dispenser planting's entry and feature set. It now duplicates Quark's dispenser planting so it can plant Cocoa Beans as well. Quark's disabels itself if Botania is present.
+*[API] Removed a bunch of stuff that is no longer used.
+*[API] Added a getFacing() method to IAvatarTile, this is used for the Rod of the Lands.
+*[API] Increased version number to 80.
+*<b>This version is for Minecraft 1.10.2, and carries on from the latest release of <a href="https://minecraft.curseforge.com/projects/botania-unofficial">Botania Unofficial</a>.</b>
+*<b>A massive thanks is due to <a href="https://twitter.com/williewillus">williewillus</a>, who took it upon himself to port and maintain the mod all the way through 1.8, 1.9 and to 1.10. Please go send him love and hugs, as us being here would not be possible without him.</b>
+*<b>If you want to know what changed in between, have a look through the Releases page on <a href="https://github.com/williewillus/Botania/releases">williewillus/Botania.</a></b>
+*<b>This is the first release for 1.10.2, which sets up for further content expansion, while removing obsolete and bloated pieces of content. More content is planned and will be coming soon.</b>
+*<b>You can mitigate your worlds from Botania Unofficial to Botania just fine, any of the removed pieces of content you had in your world will just disappear.</b>
+*<b>A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="http://quark.vazkii.us/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.</b>
+*<b>If you were looking for BotaniaV2, most of that project was scrapped in favour of this update instead. I decided that instead of reinventing a mod that's already good, I'd use the concepts there to make a new mod instead, which I am planning, but want to get some new stuff onto Botania and Quark before I move onto that.</b>
+*<b>And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.</b>
 r1.8 249
-*<i>The "LEAVE ME THE #%!& ALONE" update! Powered by the community's Pull Requests and TheWhiteWolves' help. Also the last "official" update. Unless it breaks awfully. In that case there'll be another to fix this one. Hopefully not.</i>
+*<i>The "LEAVE ME THE #%!& ALONE" update! Powered by the community's Pull Requests and TheWhiteWolves' help. <s>Also the last "official" update. Unless it breaks awfully. In that case there'll be another to fix this one. Hopefully not.</s></i>
 *Added back the config for passive flower decay. <i>I don't care any more. You broke me, you win. Have your config back.</i>
 *Added corporea support for Storage Drawers and the DSU API (used by JABBA too, and the TE Caches, I think) (Vindex)
 *Added Petite Clayconia. (TheWhiteWolves)
