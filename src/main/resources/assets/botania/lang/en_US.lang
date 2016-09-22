@@ -1590,6 +1590,7 @@ item.botania:sextant.name=Worldshaper's Sextant
 item.botania:speedUpBelt.name=Planestrider's Sash
 item.botania:baubleBox.name=Bauble Case
 item.botania:manaPowder.name=Mana Powder
+item.botania:dodgeRing.name=Ring of Dexterous Motion
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -3484,6 +3485,12 @@ botania.entry.baubleBox=Bauble Case
 botania.tagline.baubleBox=A handy container to store your Baubles
 botania.page.baubleBox0=Somtimes having too many &4Baubles&0 to pick from can be a real problem, as inventory space is limited. A better way would be to store all of these in a &1Bauble Case&0, a handy container for any &4Baubles&0.<br>The case's interface allows for quick switching of the current equipped baubles. The case can also store &4Mana&0 containing items like a &1Mana Tablet&0. 
 botania.page.baubleBox1=It could even be a boat!
+
+# -- RING OF DEXTEROUS MOTION
+botania.entry.dodgeRing=Ring of Dexterous Motion
+botania.tagline.dodgeRing=Sweep to the side to dodge attacks
+botania.page.dodgeRing0=The &1Ring of Dexterous Motion&0 is a handy bauble to help prevent damage during combat. While worn, one can press their &4left/right&0 keys (which are &4A and D&0, respectively, by default) to quickly sweep to the side and dodge incoming attacks or mobs.<br>The dodge ability goes through a short cooldown before it can be used again, and uses up some of the user's hunger bar.
+botania.page.dodgeRing1=Dexterity bonus
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM

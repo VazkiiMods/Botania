@@ -50,7 +50,7 @@ public class PacketDodge implements IMessage {
         		}
         		
         		player.addExhaustion(0.3F);
-        		ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, 10);
+        		ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
             });
             return null;
         }

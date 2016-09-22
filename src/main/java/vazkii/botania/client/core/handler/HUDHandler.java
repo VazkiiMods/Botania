@@ -62,6 +62,7 @@ import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -81,12 +82,27 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
-			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
+			IInventory baublesInv = PlayerHandler.getPlayerBaubles(mc.thePlayer);
+			ItemStack amulet = baublesInv.getStackInSlot(0);
 			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
 				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, amulet);
 				profiler.endSection();
 			}
+			
+			dodgeRing: {
+				ItemStack ring = baublesInv.getStackInSlot(1);
+				if(ring == null || !(ring.getItem() instanceof ItemDodgeRing)) {
+					ring = baublesInv.getStackInSlot(2);
+					if(ring == null || !(ring.getItem() instanceof ItemDodgeRing))
+						break dodgeRing;
+				}
+				
+				profiler.startSection("dodgeRing");
+				ItemDodgeRing.renderHUD(event.getResolution(), mc.thePlayer, ring, event.getPartialTicks());
+				profiler.endSection();
+			}
+
 			profiler.endSection();
 		}
 	}

@@ -10,21 +10,29 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import org.lwjgl.opengl.GL11;
+
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
@@ -34,6 +42,8 @@ import vazkii.botania.common.network.PacketHandler;
 public class ItemDodgeRing extends ItemBauble {
 
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
+	public static final int MAX_CD = 20;
+	
 	int leftDown, rightDown;
 	
 	public ItemDodgeRing() {
@@ -82,18 +92,46 @@ public class ItemDodgeRing extends ItemBauble {
 			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void dodge(EntityPlayer player, boolean left) {
-		if(!player.onGround || player.moveForward > 0.2 || player.moveForward < 0.2)
+		if(player.capabilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
 			return;
 		
-		Vector3 lookVec = new Vector3(player.getLookVec());
-		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, left ? -1 : 1, 0)).multiply(1.25);
+		float yaw = player.rotationYaw;
+		float x = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
+        float z = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
+        Vector3 lookVec = new Vector3(x, 0, z);
+		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, left ? 1 : -1, 0)).multiply(1.25);
 		
 		player.motionX = sideVec.x;
 		player.motionY = sideVec.y;
 		player.motionZ = sideVec.z;
 		
 		PacketHandler.sendToServer(new PacketDodge());
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack, float pticks) {
+		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
+		int v = 0;
+
+		Minecraft mc = Minecraft.getMinecraft();
+		int xo = resolution.getScaledWidth() / 2 - 20;
+		int x = xo;
+		int y = resolution.getScaledHeight() / 2 + 20;
+
+		if(!player.capabilities.isFlying) {
+			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
+			int width = Math.min((int) (((float) cd - pticks) * 2), 40);
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			if(width > 0) {
+				Gui.drawRect(xo, y - 2, xo + 40, y - 1, 0x88000000);
+				Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+			}
+		}
+
+		GlStateManager.enableAlpha();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 	
 	@Override

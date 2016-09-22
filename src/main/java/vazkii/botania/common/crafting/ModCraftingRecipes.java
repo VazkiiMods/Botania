@@ -293,6 +293,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesAltGrassSeeds;
 	public static IRecipe recipeSpeedUpBelt;
 	public static IRecipe recipeBaubleCase;
+	public static IRecipe recipeDodgeRing;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1981,6 +1982,14 @@ public final class ModCraftingRecipes {
 				'G', "ingotGold");
 		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
 
+		// Ring of Dexterous Motion Recipe
+		addOreDictRecipe(new ItemStack(ModItems.dodgeRing), 
+				"EM ", "M M", " MR",
+				'E', "gemEmerald",
+				'M', LibOreDict.MANA_STEEL,
+				'R', LibOreDict.RUNE[3]);
+		recipeDodgeRing = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
