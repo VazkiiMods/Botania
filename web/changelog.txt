@@ -1,3 +1,6 @@
+r1.9 323
+*Fixed conflicting packet IDs.
+*Fixed the endoflame recipe being impossible to make because I'm a nub and forgot to remove the Mana Powder.
 r1.9 322
 *<b>Please read the notes at end of this changelog for some context and important information. Thanks.</b>
 *Added a button to the Lexica Botania's landing page to rescale it without rescaling the rest of the GUI.
