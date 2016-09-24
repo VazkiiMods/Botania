@@ -394,7 +394,8 @@ public final class LexiconData {
 					new PageCraftingRecipe("4", ModCraftingRecipes.recipeRootToFertilizer),
 					new PageCraftingRecipe("5", ModCraftingRecipes.recipePebbleCobblestone), new PageText("6"),
 					new PageManaInfusionRecipe("7", ModManaInfusionRecipes.sugarCaneRecipe),
-					new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball), new PageText("9"),
+					new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball),
+					new PageManaInfusionRecipe("13", ModManaAlchemyRecipes.prismarineRecipes), new PageText("9"),
 					new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeEndPortal));
 			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.manaResource, 1, 20));
 		}
