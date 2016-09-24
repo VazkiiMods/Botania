@@ -1934,7 +1934,7 @@ botania.page.gardenOfGlass8=Creating &1Slimeballs&0
 botania.page.gardenOfGlass13=Infusing &1Prismarine&0
 botania.page.gardenOfGlass9=A problem that one might face in this world is entering the &4Nether&0. Worry not, however, as &1Blaze Lamps&0, as mentioned previously, can create &1Obsidian&0. To get these lamps, creating &1Blazes&0 using &1Fel Pumpkins&0 might be a good investment.<br>Since there's no easily available &1Flint&0, opening the portal with a &1Fire Charge&0 will have to do.
 botania.page.gardenOfGlass11=Aside from providing light, the &1Mana Flash&0 present in the starting area allows a player who has lost their &1Lexica Botania&0 to exchange a &1Sapling&0 for it, by right clicking with the &1Sapling&0 on the &1Mana Flame&0.<br>This can only be done if the player doesn't have a &1Lexica Botania&0 on them.
-botania.page.gardenOfGlass12=Lastly, a way to finish the game
+botania.page.gardenOfGlass12=Lastly, a way to reach the End
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
