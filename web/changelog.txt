@@ -1,3 +1,7 @@
+r1.9 324
+*Added mana alchemy recipes for Prismarine Shards and Crystals if you're in Garden of Glass.
+*Minor text fixes.
+*r
 r1.9 323
 *Fixed conflicting packet IDs.
 *Fixed the endoflame recipe being impossible to make because I'm a nub and forgot to remove the Mana Powder.
