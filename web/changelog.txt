@@ -1,3 +1,8 @@
+r1.9 325
+*Fixed a crash when picking up a flower that was removed.
+*Fixed the Rafflowsia being able to eat itself.
+*[API] Added ManaItemsEvent (Flaxbeard)
+*[API] Increased Version Number to 81.
 r1.9 324
 *Added mana alchemy recipes for Prismarine Shards and Crystals if you're in Garden of Glass.
 *Minor text fixes.
