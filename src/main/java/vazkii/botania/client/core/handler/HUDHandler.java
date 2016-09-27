@@ -10,7 +10,11 @@
  */
 package vazkii.botania.client.core.handler;
 
-import baubles.common.lib.PlayerHandler;
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -36,13 +40,16 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wiki.IWikiProvider;
@@ -66,8 +73,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import java.awt.*;
+import baubles.common.lib.PlayerHandler;
 
 public final class HUDHandler {
 
@@ -213,17 +219,30 @@ public final class HUDHandler {
 						Item item = stack.getItem();
 						if(item instanceof IManaUsingItem)
 							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
-
-						if(item instanceof IManaItem) {
-							if(!((IManaItem) item).isNoExport(stack)) {
-								totalMana += ((IManaItem) item).getMana(stack);
-								totalMaxMana += ((IManaItem) item).getMaxMana(stack);
-							}
-						}
-
-						if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
-							creative = true;
 					}
+				}
+				
+				List<ItemStack> items = ManaItemHandler.getManaItems(player);
+				for (ItemStack stack : items) {
+					Item item = stack.getItem();
+					if(!((IManaItem) item).isNoExport(stack)) {
+						totalMana += ((IManaItem) item).getMana(stack);
+						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+					}
+					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+						creative = true;
+				}
+				
+				Map<Integer, ItemStack> baubles = ManaItemHandler.getManaBaubles(player);
+				for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+					ItemStack stack = entry.getValue();
+					Item item = stack.getItem();
+					if(!((IManaItem) item).isNoExport(stack)) {
+						totalMana += ((IManaItem) item).getMana(stack);
+						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+					}
+					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+						creative = true;
 				}
 
 				if(anyRequest)

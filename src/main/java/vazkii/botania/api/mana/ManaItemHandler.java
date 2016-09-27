@@ -10,6 +10,12 @@
  */
 package vazkii.botania.api.mana;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,6 +24,62 @@ import vazkii.botania.api.BotaniaAPI;
 
 public final class ManaItemHandler {
 
+	/**
+	 * Gets a list containing all mana-holding items in a player's inventory.
+	 * Also includes a call to ManaItemsEvent, so other mods can add items from
+	 * their player-associated inventories.
+	 * @return The list of items
+	 */
+	public static List<ItemStack> getManaItems(EntityPlayer player) {
+		if (player == null)
+			return new ArrayList<ItemStack>();
+		
+		IInventory mainInv = player.inventory;
+		
+		List<ItemStack> toReturn = new ArrayList<ItemStack>();
+		int size = mainInv.getSizeInventory();
+
+		for(int slot = 0; slot < size; slot++) {
+			ItemStack stackInSlot = mainInv.getStackInSlot(slot);
+
+			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+				toReturn.add(stackInSlot);
+			}
+		}
+		
+		ManaItemsEvent event = new ManaItemsEvent(player, toReturn);
+		MinecraftForge.EVENT_BUS.post(event);
+		toReturn = event.getItems();
+		return toReturn;
+	}
+	
+	/**
+	 * Gets a list containing all mana-holding items in a player's baubles inventory.
+	 * @return The list of items
+	 */
+	public static Map<Integer, ItemStack> getManaBaubles(EntityPlayer player) {
+		if (player == null)
+			return new HashMap<Integer, ItemStack>();
+		
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		if (baublesInv == null)
+			return new HashMap<Integer, ItemStack>();
+		
+		
+		Map<Integer, ItemStack> toReturn = new HashMap<Integer, ItemStack>();
+		int size = baublesInv.getSizeInventory();
+
+		for(int slot = 0; slot < size; slot++) {
+			ItemStack stackInSlot = baublesInv.getStackInSlot(slot);
+
+			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+				toReturn.put(slot, stackInSlot);
+			}
+		}
+		
+		return toReturn;
+	}
+	
 	/**
 	 * Requests mana from items in a given player's inventory.
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
@@ -29,37 +91,42 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return 0;
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
-
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			int slot = i - (useBaubles ? invSize : 0);
-			ItemStack stackInSlot = inv.getStackInSlot(slot);
+		List<ItemStack> items = getManaItems(player);
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
+			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
+			if(manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
+					continue;
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
-				IManaItem manaItem = (IManaItem) stackInSlot.getItem();
-				if(manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
-					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
-						continue;
+				int mana = Math.min(manaToGet, manaItem.getMana(stackInSlot));
 
-					int mana = Math.min(manaToGet, manaItem.getMana(stackInSlot));
+				if(remove)
+					manaItem.addMana(stackInSlot, -mana);
 
-					if(remove)
-						manaItem.addMana(stackInSlot, -mana);
-					if(useBaubles)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+				return mana;
+			}
+		}
+		
+		Map<Integer, ItemStack> baubles = getManaBaubles(player);
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+			ItemStack stackInSlot = entry.getValue();
+			if(stackInSlot == stack)
+				continue;
+			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
+			if(manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
+					continue;
 
-					return mana;
-				}
+				int mana = Math.min(manaToGet, manaItem.getMana(stackInSlot));
+
+				if(remove)
+					manaItem.addMana(stackInSlot, -mana);
+				
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
+
+				return mana;
 			}
 		}
 
@@ -77,35 +144,37 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return false;
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
-
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			int slot = i - (useBaubles ? invSize : 0);
-			ItemStack stackInSlot = inv.getStackInSlot(slot);
+		List<ItemStack> items = getManaItems(player);
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.canExportManaToItem(stackInSlot, stack) && manaItemSlot.getMana(stackInSlot) > manaToGet) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
+					continue;
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
-				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-				if(manaItemSlot.canExportManaToItem(stackInSlot, stack) && manaItemSlot.getMana(stackInSlot) > manaToGet) {
-					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
-						continue;
+				if(remove)
+					manaItemSlot.addMana(stackInSlot, -manaToGet);
 
-					if(remove)
-						manaItemSlot.addMana(stackInSlot, -manaToGet);
-					if(useBaubles)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+				return true;
+			}
+		}
+		
+		Map<Integer, ItemStack> baubles = getManaBaubles(player);
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+			ItemStack stackInSlot = entry.getValue();
+			if(stackInSlot == stack)
+				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.canExportManaToItem(stackInSlot, stack) && manaItemSlot.getMana(stackInSlot) > manaToGet) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot))
+					continue;
 
-					return true;
-				}
+				if(remove)
+					manaItemSlot.addMana(stackInSlot, -manaToGet);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
+
+				return true;
 			}
 		}
 
@@ -123,42 +192,49 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return 0;
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
-
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			int slot = i - (useBaubles ? invSize : 0);
-			ItemStack stackInSlot = inv.getStackInSlot(slot);
+		List<ItemStack> items = getManaItems(player);
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+					continue;
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
-				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-
-				if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
-						continue;
-
-					int received;
-					if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
-						received = manaToSend;
-					else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
+				int received;
+				if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
+					received = manaToSend;
+				else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
 
 
-					if(add)
-						manaItemSlot.addMana(stackInSlot, manaToSend);
-					if(useBaubles)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+				if(add)
+					manaItemSlot.addMana(stackInSlot, manaToSend);
 
-					return received;
-				}
+				return received;
+			}
+		}
+		
+		Map<Integer, ItemStack> baubles = getManaBaubles(player);
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+			ItemStack stackInSlot = entry.getValue();
+			if(stackInSlot == stack)
+				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+					continue;
+
+				int received;
+				if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
+					received = manaToSend;
+				else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
+
+
+				if(add)
+					manaItemSlot.addMana(stackInSlot, manaToSend);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
+
+				return received;
 			}
 		}
 
@@ -176,35 +252,37 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return false;
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
-
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			int slot = i - (useBaubles ? invSize : 0);
-			ItemStack stackInSlot = inv.getStackInSlot(slot);
+		List<ItemStack> items = getManaItems(player);
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+					continue;
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
-				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-				if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
-						continue;
+				if(add)
+					manaItemSlot.addMana(stackInSlot, manaToSend);
+					
+				return true;
+			}
+		}
+		
+		Map<Integer, ItemStack> baubles = getManaBaubles(player);
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+			ItemStack stackInSlot = entry.getValue();
+			if(stackInSlot == stack)
+				continue;
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+				if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+					continue;
 
-					if(add)
-						manaItemSlot.addMana(stackInSlot, manaToSend);
-					if(useBaubles)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+				if(add)
+					manaItemSlot.addMana(stackInSlot, manaToSend);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
 
-					return true;
-				}
+				return true;
 			}
 		}
 
