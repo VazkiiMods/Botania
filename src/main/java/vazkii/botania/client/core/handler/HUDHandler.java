@@ -223,8 +223,7 @@ public final class HUDHandler {
 				}
 				
 				List<ItemStack> items = ManaItemHandler.getManaItems(player);
-				for (ItemStack stack : items)
-				{
+				for (ItemStack stack : items) {
 					Item item = stack.getItem();
 					if(!((IManaItem) item).isNoExport(stack)) {
 						totalMana += ((IManaItem) item).getMana(stack);
@@ -235,8 +234,7 @@ public final class HUDHandler {
 				}
 				
 				Map<Integer, ItemStack> baubles = ManaItemHandler.getManaBaubles(player);
-				for (Entry<Integer, ItemStack> entry : baubles.entrySet())
-				{
+				for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 					ItemStack stack = entry.getValue();
 					Item item = stack.getItem();
 					if(!((IManaItem) item).isNoExport(stack)) {

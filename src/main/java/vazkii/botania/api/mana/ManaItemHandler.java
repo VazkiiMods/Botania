@@ -30,8 +30,7 @@ public final class ManaItemHandler {
 	 * their player-associated inventories.
 	 * @return The list of items
 	 */
-	public static List<ItemStack> getManaItems(EntityPlayer player)
-	{
+	public static List<ItemStack> getManaItems(EntityPlayer player) {
 		if (player == null)
 			return new ArrayList<ItemStack>();
 		
@@ -58,8 +57,7 @@ public final class ManaItemHandler {
 	 * Gets a list containing all mana-holding items in a player's baubles inventory.
 	 * @return The list of items
 	 */
-	public static Map<Integer, ItemStack> getManaBaubles(EntityPlayer player)
-	{
+	public static Map<Integer, ItemStack> getManaBaubles(EntityPlayer player) {
 		if (player == null)
 			return new HashMap<Integer, ItemStack>();
 		
@@ -94,8 +92,7 @@ public final class ManaItemHandler {
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items)
-		{
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
@@ -113,8 +110,7 @@ public final class ManaItemHandler {
 		}
 		
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet())
-		{
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -149,8 +145,7 @@ public final class ManaItemHandler {
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items)
-		{
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
@@ -166,8 +161,7 @@ public final class ManaItemHandler {
 		}
 		
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet())
-		{
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -199,8 +193,7 @@ public final class ManaItemHandler {
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items)
-		{
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
@@ -222,8 +215,7 @@ public final class ManaItemHandler {
 		}
 		
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet())
-		{
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -261,8 +253,7 @@ public final class ManaItemHandler {
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
-		for (ItemStack stackInSlot : items)
-		{
+		for (ItemStack stackInSlot : items) {
 			if(stackInSlot == stack)
 				continue;
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
@@ -278,8 +269,7 @@ public final class ManaItemHandler {
 		}
 		
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet())
-		{
+		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
