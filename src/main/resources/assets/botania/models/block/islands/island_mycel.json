@@ -1,6 +1,7 @@
 {
   "parent": "botania:block/shapes/miniIsland",
   "textures": {
-    "all": "botania:model/miniIslandMycelium"
+    "top": "blocks/mycelium_top",
+	"side": "blocks/mycelium_side"
   }
 }
