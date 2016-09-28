@@ -113,6 +113,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
@@ -252,6 +253,7 @@ public final class ModBlocks {
 	public static Block shimmerwoodPlanks;
 	public static Block avatar;
 	public static Block altGrass;
+	public static Block animatedTorch;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -336,7 +338,8 @@ public final class ModBlocks {
 		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 		avatar = new BlockAvatar();
 		altGrass = new BlockAltGrass();
-
+		animatedTorch = new BlockAnimatedTorch();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -430,6 +433,7 @@ public final class ModBlocks {
 		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
 		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
 		registerTile(TileAvatar.class, LibBlockNames.AVATAR);
+		registerTile(TileAnimatedTorch.class, LibBlockNames.ANIMATED_TORCH);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

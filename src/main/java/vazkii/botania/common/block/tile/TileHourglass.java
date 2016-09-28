@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,10 +20,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StringUtils;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileHourglass extends TileSimpleInventory {
@@ -51,10 +55,17 @@ public class TileHourglass extends TileSimpleInventory {
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				if (!worldObj.isRemote) {
+				if(!worldObj.isRemote) {
 					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 					worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
+				}
+
+				for(EnumFacing facing : EnumFacing.VALUES) {
+					BlockPos pos = getPos().offset(facing);
+					IBlockState state = worldObj.getBlockState(pos);
+					if(state.getBlock() instanceof IHourglassTrigger)
+						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(worldObj, pos, this);
 				}
 			}
 			timeFraction = (float) time / (float) totalTime;

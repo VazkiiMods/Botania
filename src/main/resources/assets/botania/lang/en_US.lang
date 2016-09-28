@@ -241,6 +241,11 @@ botania.wings7=Wings: Sylph
 botania.wings8=Wings: Mega Ultra Chicken
 botania.wings9=Wings: The One
 
+# TORCH MODES
+botania.animatedTorch.toggle=Toggle
+botania.animatedTorch.rotate=Rotate
+botania.animatedTorch.random=Random
+
 # ARMOR SETS
 botania.armorset.manasteel.name=Mana Affinity
 botania.armorset.manasteel.desc=10%% less Mana cost on Mana Tools and Rods
@@ -1149,6 +1154,7 @@ tile.botania:altGrass2.name=Vivid Grass
 tile.botania:altGrass3.name=Scorched Grass
 tile.botania:altGrass4.name=Infused Grass
 tile.botania:altGrass5.name=Mutated Grass
+tile.botania:animatedTorch.name=Animated Torch
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

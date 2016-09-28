@@ -10,6 +10,14 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -46,6 +54,7 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
+import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
@@ -61,7 +70,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.RenderLexicon;
-import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
 import vazkii.botania.client.core.handler.TooltipAdditionDisplayHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -83,6 +91,7 @@ import vazkii.botania.client.render.entity.RenderSnowballStack;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
+import vazkii.botania.client.render.tile.RenderTileAnimatedTorch;
 import vazkii.botania.client.render.tile.RenderTileAvatar;
 import vazkii.botania.client.render.tile.RenderTileBellows;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
@@ -91,6 +100,7 @@ import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
+import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.client.render.tile.RenderTileHourglass;
 import vazkii.botania.client.render.tile.RenderTileIncensePlate;
 import vazkii.botania.client.render.tile.RenderTileLightRelay;
@@ -99,7 +109,6 @@ import vazkii.botania.client.render.tile.RenderTilePrism;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
-import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.client.render.tile.RenderTileSparkChanger;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.client.render.tile.RenderTileStarfield;
@@ -111,6 +120,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCocoon;
@@ -158,14 +168,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Map;
 
 public class ClientProxy implements IProxy {
 
@@ -263,6 +265,7 @@ public class ClientProxy implements IProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileGaiaHead());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAnimatedTorch.class, new RenderTileAnimatedTorch());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
