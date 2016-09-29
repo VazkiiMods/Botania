@@ -49,6 +49,8 @@ public class MiscellaneousIcons {
         alfPortalTex,
         lightRelayWorldIcon,
         lightRelayWorldIconRed,
+        lightRelayWorldIconGreen,
+        lightRelayWorldIconPurple,
         alchemyCatalystOverlay,
         conjurationCatalystOverlay,
         enchanterOverlay,
@@ -115,6 +117,8 @@ public class MiscellaneousIcons {
         alfPortalTex = IconHelper.forName(evt.getMap(), "alfheimPortalInside", "blocks");
         lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "lightRelay1", "blocks");
         lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "lightRelay3", "blocks");
+        lightRelayWorldIconGreen = IconHelper.forName(evt.getMap(), "lightRelay5", "blocks");
+        lightRelayWorldIconPurple = IconHelper.forName(evt.getMap(), "lightRelay7", "blocks");
         alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemyCatalyst3", "blocks");
         conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjurationCatalyst3", "blocks");
         enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanterOverlay", "blocks");

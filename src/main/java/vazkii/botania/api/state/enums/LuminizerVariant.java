@@ -14,7 +14,9 @@ import java.util.Locale;
 
 public enum LuminizerVariant implements IStringSerializable {
 	DEFAULT,
-	DETECTOR;
+	DETECTOR,
+	FORK,
+	TOGGLE;
 
 	@Override
 	public String getName() {

@@ -21,6 +21,18 @@
           "layer0": "botania:blocks/lightRelay2",
           "particle": "botania:blocks/lightRelay3"
         }
+      },
+	"fork": {
+        "textures": {
+          "layer0": "botania:blocks/lightRelay4",
+          "particle": "botania:blocks/lightRelay5"
+        }
+      },
+    "toggle": {
+        "textures": {
+          "layer0": "botania:blocks/lightRelay6",
+          "particle": "botania:blocks/lightRelay7"
+        }
       }
     }
   }

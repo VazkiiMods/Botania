@@ -10,6 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,7 +24,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -26,21 +32,24 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
-import javax.annotation.Nonnull;
-
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
 
+	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
+	
 	@Override
 	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
-		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false)
-				|| tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
+		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;
 		
 		Minecraft mc = Minecraft.getMinecraft();
-		TextureAtlasSprite iicon = tile.getWorld().getBlockState(tile.getPos())
-				.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT
-				? MiscellaneousIcons.INSTANCE.lightRelayWorldIcon
-				: MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed;
+		if(sprites.isEmpty()) {
+			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
+			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
+			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);
+			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
+		}
+		
+		TextureAtlasSprite iicon = sprites.get(tile.getWorld().getBlockState(tile.getPos()).getValue(BotaniaStateProps.LUMINIZER_VARIANT));
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);

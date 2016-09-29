@@ -70,7 +70,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR ? 1 : 0;
+		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
 		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {
@@ -84,7 +84,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
 		meta &= -9;
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, meta == 1 ? LuminizerVariant.DETECTOR : LuminizerVariant.DEFAULT);
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.class.getEnumConstants()[meta]);
 	}
 
 	@Override
@@ -95,13 +95,13 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT ? 0 : 1;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
 	}
 
 	@Override
