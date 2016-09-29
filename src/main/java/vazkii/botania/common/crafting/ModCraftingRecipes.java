@@ -294,6 +294,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSpeedUpBelt;
 	public static IRecipe recipeBaubleCase;
 	public static IRecipe recipeDodgeRing;
+	public static IRecipe recipeAnimatedTorch;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1989,6 +1990,13 @@ public final class ModCraftingRecipes {
 				'M', LibOreDict.MANA_STEEL,
 				'R', LibOreDict.RUNE[3]);
 		recipeDodgeRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Animated Torch Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.animatedTorch), 
+				"D", "T",
+				'D', LibOreDict.MANA_POWDER,
+				'T', new ItemStack(Blocks.REDSTONE_TORCH));
+		recipeAnimatedTorch = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -159,6 +159,7 @@ public final class LexiconData {
 	public static LexiconEntry teruTeruBozu;
 	public static LexiconEntry avatar;
 	public static LexiconEntry felPumpkin;
+	public static LexiconEntry animatedTorch;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -831,6 +832,9 @@ public final class LexiconData {
 		felPumpkin = new BasicLexiconEntry(LibLexicon.DEVICE_FEL_PUMPKIN, categoryDevices);
 		felPumpkin.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFelPumpkin));
 
+		animatedTorch = new BasicLexiconEntry(LibLexicon.DEVICE_ANIMATED_TORCH, categoryDevices);
+		animatedTorch.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeAnimatedTorch));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BasicLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),

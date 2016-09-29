@@ -134,6 +134,7 @@ public final class LibLexicon {
 	public static final String DEVICE_TERU_TERU_BOZU = "teruTeruBozu";
 	public static final String DEVICE_AVATAR = "avatar";
 	public static final String DEVICE_FEL_PUMPKIN = "felPumpkin";
+	public static final String DEVICE_ANIMATED_TORCH = "animatedTorch";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
