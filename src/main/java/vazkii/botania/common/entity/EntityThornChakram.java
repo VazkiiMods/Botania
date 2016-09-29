@@ -161,6 +161,7 @@ public class EntityThornChakram extends EntityThrowable {
 
 				break;
 			}
+			default: break;
 		}
 	}
 

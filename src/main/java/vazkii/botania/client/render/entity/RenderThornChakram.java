@@ -33,7 +33,7 @@ public class RenderThornChakram extends Render<EntityThornChakram> {
 	@Override
 	public void doRender(@Nonnull EntityThornChakram c, double x, double y, double z, float entityYaw, float partialTicks) {
 		boolean fire = c.isFire();
-		TextureAtlasSprite iicon = null;//ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0);
+		TextureAtlasSprite iicon = null;//ModItems.thornChakram.getIconFromDamage(fire ? 1 : 0); TODO does this work?
 
 		if(iicon != null)  {
 			GlStateManager.pushMatrix();

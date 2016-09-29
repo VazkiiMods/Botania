@@ -93,6 +93,7 @@ public class TileBellows extends TileMod {
 						case SOUTH:
 							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+						default: break;
 					}
 				}
 			}

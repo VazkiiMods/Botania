@@ -246,6 +246,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					GlStateManager.translate(0F, 1F, 0.3F);
 					renderItem();
 					break;
+				default: break;
 			}
 		} else {
 			Helper.rotateIfSneaking(player);
@@ -299,6 +300,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					GlStateManager.rotate(8F, 0F, 0F, 1F);
 					renderItem();
 					break;
+				default: break;
 			}
 		}
 	}

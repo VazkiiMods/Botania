@@ -259,6 +259,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 				break;
 			}
+			default: break;
 		}
 	}
 
