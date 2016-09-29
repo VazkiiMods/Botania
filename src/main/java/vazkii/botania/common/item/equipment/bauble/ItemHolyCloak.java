@@ -14,8 +14,10 @@ import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -30,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -37,8 +40,10 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
+	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
+
 	@SideOnly(Side.CLIENT)
-	private static ModelBiped model;
+	private static ModelCloak model;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
@@ -121,25 +126,40 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	}
 
 	@SideOnly(Side.CLIENT)
-	ResourceLocation getRenderTexture() {
+	ResourceLocation getCloakTexture() {
 		return texture;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	ResourceLocation getCloakGlowTexture() {
+		return textureGlow;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
-
-			float s = 0.1F;
+			
+			float s = 1F / 16F;
 			GlStateManager.scale(s, s, s);
 			if(model == null)
-				model = new ModelBiped();
-
-			model.bipedBody.render(1F);
+				model = new ModelCloak();
+			
+			GlStateManager.enableLighting();
+			GlStateManager.enableRescaleNormal();
+			
+			Minecraft.getMinecraft().renderEngine.bindTexture(getCloakTexture());
+			model.render(1F);
+			
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			Minecraft.getMinecraft().renderEngine.bindTexture(getCloakGlowTexture());
+			model.render(1F);
 		}
 	}
 

@@ -354,6 +354,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
+				
+				float lbx = OpenGlHelper.lastBrightnessX;
+				float lby = OpenGlHelper.lastBrightnessY;
+				
 				switch(meta) {
 				case 1 : { // Jibril
 					h = 0.4F;
@@ -451,6 +455,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				GlStateManager.color(1F, 1F, 1F);
 				GlStateManager.popMatrix();
+				
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbx, lby);
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(player, partialTicks);
