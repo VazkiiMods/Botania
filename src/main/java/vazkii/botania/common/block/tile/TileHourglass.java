@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.item.ModItems;
 
 public class TileHourglass extends TileSimpleInventory {
 
@@ -40,17 +41,23 @@ public class TileHourglass extends TileSimpleInventory {
 
 	private int time = 0;
 	public float timeFraction = 0F;
+	public float lastFraction = 0;
 	public boolean flip = false;
 	public int flipTicks = 0;
 	public boolean lock = false;
 	public boolean move = true;
+	public boolean dust = false;
 
 	@Override
 	public void update() {
 		int totalTime = getTotalTime();
-		if(totalTime > 0) {
-			if(move)
+		ItemStack dustStack = itemHandler.getStackInSlot(0);
+		dust = dustStack != null && dustStack.getItem() == ModItems.manaResource;
+
+		if(totalTime > 0 || dust) {
+			if(move && !dust)
 				time++;
+			
 			if(time >= totalTime) {
 				time = 0;
 				flip = !flip;
@@ -68,14 +75,26 @@ public class TileHourglass extends TileSimpleInventory {
 						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(worldObj, pos, this);
 				}
 			}
+			
+			lastFraction = timeFraction;
 			timeFraction = (float) time / (float) totalTime;
 		} else {
 			time = 0;
+			lastFraction = 0F;
 			timeFraction = 0F;
 		}
 
 		if(flipTicks > 0)
 			flipTicks--;
+	}
+	
+	public void onManaCollide() {
+		if(!worldObj.isRemote) {
+			if(dust)
+				time++;
+			else move = !move;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	public int getTotalTime() {
@@ -93,6 +112,8 @@ public class TileHourglass extends TileSimpleInventory {
 			return stack.getItemDamage() == 1 ? 200 : 20;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 1200;
+		if(stack.getItem() == ModItems.manaResource)
+			return 1;
 		return 0;
 	}
 
@@ -104,6 +125,9 @@ public class TileHourglass extends TileSimpleInventory {
 			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 0x5A412f;
+		if(stack.getItem() == ModItems.manaResource)
+			return 0x03abff;
+		
 		return 0;
 	}
 
@@ -112,7 +136,7 @@ public class TileHourglass extends TileSimpleInventory {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)))
+				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || (stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23))
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
