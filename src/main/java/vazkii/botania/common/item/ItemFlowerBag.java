@@ -139,9 +139,8 @@ public class ItemFlowerBag extends ItemMod {
 
 					if(result == null)
 						event.getItem().setDead();
-					else {
+					else
 						event.getItem().setEntityItemStack(result);
-					}
 
 					if(result != entityStack) {
 						event.setCanceled(true);
@@ -152,6 +151,8 @@ public class ItemFlowerBag extends ItemMod {
 						}
 						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId()));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();
+						
+						return;
 					}
 				}
 			}
