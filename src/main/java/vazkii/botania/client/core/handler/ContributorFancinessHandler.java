@@ -60,12 +60,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.rotate(yaw - 270, 0, 1, 0);
 		GlStateManager.rotate(pitch, 0, 0, 1);
 
-		if(name.equals("Vazkii") || name.equals("_phi")) {
-//			TODO: change this to something cooler sometime
-//			if(phi)
-//				renderPhiFlower(player);
-//			else renderTwintails(player, partialTicks);
-		} else if(name.equals("haighyorkie"))
+		if(name.equals("haighyorkie"))
 			renderGoldfish(player);
 
 		firstStart();

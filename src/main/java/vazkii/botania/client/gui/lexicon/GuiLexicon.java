@@ -564,7 +564,6 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
-		// TODO verify tutorial after changes
 
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
