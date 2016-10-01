@@ -45,7 +45,7 @@ import java.util.List;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
-	public static final int SUBTYPES = 22;
+	public static final int SUBTYPES = 23;
 
 	public static final int NORMAL = 0,
 			SPEED = 1,
@@ -68,7 +68,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			WARP = 18,
 			REDIRECT = 19,
 			FIREWORK = 20,
-			FLARE = 21;
+			FLARE = 21,
+			MESSENGER = 22;
 
 	public static final int STORM = 5000;
 
@@ -108,6 +109,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setProps(REDIRECT, PROP_TOUCH | PROP_INTERACTION);
 		setProps(FIREWORK, PROP_TOUCH);
 		setProps(FLARE, PROP_CONTROL);
+		setProps(MESSENGER, PROP_POWER);
 
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
@@ -131,6 +133,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setLens(REDIRECT, new LensRedirect());
 		setLens(FIREWORK, new LensFirework());
 		setLens(FLARE, new LensFlare());
+		setLens(MESSENGER, new LensMessenger());
 	}
 
 	private static final String TAG_COLOR = "color";

@@ -170,6 +170,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLensRedirect;
 	public static IRecipe recipeLensFirework;
 	public static IRecipe recipeLensFlare;
+	public static IRecipe recipeLensMessenger;
 	public static List<IRecipe> recipesMiniIsland;
 	public static IRecipe recipeGaiaPylon;
 	public static IRecipe recipeGatherDrum;
@@ -1125,7 +1126,14 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 21), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.elfGlass), LibOreDict.ELEMENTIUM);
 		recipeLensFlare = BotaniaAPI.getLatestAddedRecipe();
 
-		// Mini Island Recipes
+		// Messenger Lens Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 22),
+				" P ", "PLP", " P ",
+				'P', new ItemStack(Items.PAPER),
+				'L', new ItemStack(ModItems.lens));
+		recipeLensMessenger = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mini Island
 		for(int i = 0; i < 16; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),
 					"F", "S", "D",
