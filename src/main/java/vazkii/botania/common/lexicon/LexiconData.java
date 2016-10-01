@@ -1107,7 +1107,9 @@ public final class LexiconData {
 		luminizerTransport = new AlfheimLexiconEntry(LibLexicon.ENDER_LUMINIZER_TRANSPORT, categoryEnder);
 		luminizerTransport.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeLuminizer), new PageText("3"),
-				new PageCraftingRecipe("4", ModCraftingRecipes.recipeDetectorLuminizer), new PageText("5"),
+				new PageCraftingRecipe("4", ModCraftingRecipes.recipeDetectorLuminizer), new PageText("7"),
+				new PageCraftingRecipe("8", ModCraftingRecipes.recipeToggleLuminizer), new PageText("9"), new PageText("10"),
+				new PageCraftingRecipe("11", ModCraftingRecipes.recipeForkLuminizer), new PageText("5"),
 				new PageCraftingRecipe("6", ModCraftingRecipes.recipeLuminizerLauncher));
 
 		starSword = new AlfheimLexiconEntry(LibLexicon.ENDER_STAR_SWORD, categoryEnder);

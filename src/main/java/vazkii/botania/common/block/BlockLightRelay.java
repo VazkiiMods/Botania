@@ -130,7 +130,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	
 	@Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-        if(!worldIn.isRemote) {
+        if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
             if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
                 worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
             else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))

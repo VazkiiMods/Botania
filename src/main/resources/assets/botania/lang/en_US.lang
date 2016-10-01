@@ -3294,10 +3294,15 @@ botania.tagline.luminizerTransport=Fly through the skies
 botania.page.luminizerTransport0=&1Luminizers&0 serve as a simple way to transport players and other living things of the sort by having them ride on trails of light.<br>&1Luminizers&0 can be placed in the world as blocks. A &1Luminizer&0, in order to work properly needs to be bound to another one. This can be done with the &1Wand of the Forest&0 in bind mode. Right clicking a &1Luminizer&0 will transport the clicker into the &1Luminizer&0 it's bound to.
 botania.page.luminizerTransport1=&1Luminizers&0 have a range of twenty blocks each, but can be chained to create longer and more complex paths.<br>The connection between two &1Luminizers&0 goes only one way, unless the binding is explicitly done both ways. If the connection does go both ways, an endless loop is created, though.<br>Furthermore, multiple &1Luminizers&0 can target the same one as an endpoint.
 botania.page.luminizerTransport2=Luminize to the future
-botania.page.luminizerTransport3=Adding some redstone to a &1Luminizer&0 creates a &1Detector Luminizer&0. For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
-botania.page.luminizerTransport4=Are you ready to draw?
+botania.page.luminizerTransport3=Adding some &1Redstone&0 to a &1Luminizer&0 creates a &1Detector Luminizer&0.<br>For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
+botania.page.luminizerTransport4=Send a signal
+botania.page.luminizerTransport7=Adding a &1Lever&0 will instead turn the &1Luminizer&0 into a &1Toggle Luminizer&0.<br>This one is the opposite of the &1Detector Luminizer&0, it accepts a &4redstone signal&0, and will drop anything that comes through it right there if it's powered. Otherwise, it'll just carry on like usual.
+botania.page.luminizerTransport8=Get a signal
+botania.page.luminizerTransport9=Combining a &1Luminizer&0 with a &1Redstone Torch&0 forms a &1Fork Luminizer&0.<br>It reacts to an &1Animated Torch&0 placed up to two blocks above or below it, and will redirect any incoming entities through the network to a &1Luminizer&0 placed in the direction that the torch is pointing towards.
+botania.page.luminizerTransport10=The &1Fork Luminizer&0 can still be bound like any other style of luminizer, but its conventional binding will only be put in play if there is no &1Animated Torch&0 available to tell it where to go.<br>In the case that there is not a &1Luminizer&0 where a present &1Animated Torch&0 is pointing, it'll default to the binding as well. 
+botania.page.luminizerTransport11=One way or another
 botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals, dropped items, or other beings into the trails, a &1Luminizer Launcher&0 is required. This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings and dropped items on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
-botania.page.luminizerTransport6=Let's believe it, open the flag
+botania.page.luminizerTransport6=Compulsory Evacuation Device
 
 # -- STARCALLER
 botania.entry.starSword=Starcaller

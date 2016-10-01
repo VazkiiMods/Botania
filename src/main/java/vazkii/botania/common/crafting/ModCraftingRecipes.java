@@ -295,7 +295,9 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBaubleCase;
 	public static IRecipe recipeDodgeRing;
 	public static IRecipe recipeAnimatedTorch;
-
+	public static IRecipe recipeForkLuminizer;
+	public static IRecipe recipeToggleLuminizer;
+	
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -1997,6 +1999,14 @@ public final class ModCraftingRecipes {
 				'D', LibOreDict.MANA_POWDER,
 				'T', new ItemStack(Blocks.REDSTONE_TORCH));
 		recipeAnimatedTorch = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Fork Luminizer Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 2), new ItemStack(ModBlocks.lightRelay), new ItemStack(Blocks.REDSTONE_TORCH));
+		recipeForkLuminizer = BotaniaAPI.getLatestAddedRecipe();
+
+		// TOGGLE Luminizer Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 3), new ItemStack(ModBlocks.lightRelay), new ItemStack(Blocks.LEVER));
+		recipeToggleLuminizer = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
