@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,6 +36,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -124,6 +127,16 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	public int tickRate(World world) {
 		return 2;
 	}
+	
+	@Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+        if(!worldIn.isRemote) {
+            if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
+                worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
+            else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
+                worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true));
+        }
+    }
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
@@ -132,7 +145,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	@Override
 	public boolean canProvidePower(IBlockState state) {
-		return true;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR;
 	}
 
 	@Override

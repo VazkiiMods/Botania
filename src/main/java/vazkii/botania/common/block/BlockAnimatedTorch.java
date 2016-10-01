@@ -96,14 +96,7 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 		if(tile.rotating)
 			return 0;
 		
-		EnumFacing[] SIDES = new EnumFacing[] {
-			EnumFacing.NORTH,
-			EnumFacing.EAST,
-			EnumFacing.SOUTH,
-			EnumFacing.WEST
-		};
-		
-		if(SIDES[tile.side] == side)
+		if(TileAnimatedTorch.SIDES[tile.side] == side)
 			return 15;
 		
 		return 0;
