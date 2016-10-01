@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityDragonPart;
@@ -34,8 +37,6 @@ import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -49,6 +50,7 @@ import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -230,7 +232,7 @@ public class Botania {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		// todo 1.8 - we don't have a file server yet. event.registerServerCommand(new CommandDownloadLatest());
+		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
