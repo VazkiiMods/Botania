@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.state.enums;
 
-import net.minecraft.util.IStringSerializable;
-
 import java.util.Locale;
+
+import net.minecraft.util.IStringSerializable;
 
 public enum AltGrassVariant implements IStringSerializable {
 	DRY,
@@ -22,7 +22,7 @@ public enum AltGrassVariant implements IStringSerializable {
 
 	@Override
 	public String getName() {
-		return this.name().toLowerCase(Locale.ROOT);
+		return name().toLowerCase(Locale.ROOT);
 	}
 
 }

@@ -2,13 +2,18 @@
  * This class was created by <Vazkii/ChickenBones>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 3, 2014, 9:05:38 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,13 +25,9 @@ import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class LightningHandler {
 

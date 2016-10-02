@@ -2,15 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 17, 2015, 5:07:25 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -18,10 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RecipePureDaisy {
 
@@ -39,7 +40,7 @@ public class RecipePureDaisy {
 	public RecipePureDaisy(Object input, IBlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.input = input;
-		this.outputState = state;
+		outputState = state;
 		this.time = time;
 		if(input != null && !(input instanceof String || input instanceof Block))
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");

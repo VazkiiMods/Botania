@@ -2,13 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 13, 2014, 9:01:32 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.Style;
@@ -22,12 +28,6 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public final class ConfigHandler {
 
@@ -58,7 +58,7 @@ public final class ConfigHandler {
 	public static boolean enableArmorModels = true;
 	public static boolean enableFancySkybox = true;
 	public static boolean enableFancySkyboxInNormalWorlds = false;
-	
+
 	public static int manaBarHeight = 29;
 	public static int flightBarHeight = 49;
 	public static int flightBarBreathHeight = 59;
@@ -82,7 +82,7 @@ public final class ConfigHandler {
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean invertMagnetRing = false;
 	public static boolean enableThaumcraftStablizers = true;
-	
+
 	public static int harvestLevelWeight = 2;
 	public static int harvestLevelBore = 3;
 
@@ -168,10 +168,10 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the fancy skybox in Garden of Glass.";
 		enableFancySkybox = loadPropBool("fancySkybox.enable", desc, enableFancySkybox);
-		
+
 		desc = "Set this to true to enable the fancy skybox in non Garden of Glass worlds. (Does not require Garden of Glass loaded to use, needs 'fancySkybox.enable' to be true as well)";
 		enableFancySkyboxInNormalWorlds = loadPropBool("fancySkybox.normalWorlds", desc, enableFancySkyboxInNormalWorlds);
-		
+
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 
@@ -180,7 +180,7 @@ public final class ConfigHandler {
 
 		desc = "The height of the Flugel Tiara flight bar if your breath bar is shown. You can change this if you have a mod that adds a bar in that spot.";
 		flightBarBreathHeight = loadPropInt("flightBarBreath.height", desc, flightBarBreathHeight);
-		
+
 		desc = "The GL Texture Unit to use for the secondary sampler passed in to the Lexica Botania's category button shader. DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU'RE DOING";
 		glSecondaryTextureUnit = loadPropInt("shaders.secondaryUnit", desc, glSecondaryTextureUnit);
 
@@ -228,13 +228,13 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable Thaumcraft Infusion Stabilizing in botania blocks";
 		enableThaumcraftStablizers = loadPropBool("thaumraftStabilizers.enabled", desc, enableThaumcraftStablizers);
-		
+
 		desc = "The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)";
 		harvestLevelWeight = loadPropInt("harvestLevel.weightLens", desc, harvestLevelWeight);
 
 		desc = "The harvest level of the Mana Lens: Bore. 3 is diamond level. Defaults to 3";
 		harvestLevelBore = loadPropInt("harvestLevel.boreLens", desc, harvestLevelBore);
-		
+
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
@@ -342,7 +342,7 @@ public final class ConfigHandler {
 			if(bestValue != null) {
 				T expected = bestValue.value;
 				T def = (T) prop.getDefault();
-				
+
 				if(areEqualNumbers(val, expected) && !areEqualNumbers(val, def)) {
 					prop.setValue(def.toString());
 					changes.add(" " + prop.getName() + ": " + val + " -> " + def);
@@ -362,12 +362,12 @@ public final class ConfigHandler {
 			List<AdaptableValue> list = adaptableValues.get(key);
 			list.add(adapt);
 		}
-		
+
 		public boolean areEqualNumbers(Object v1, Object v2) {
 			double epsilon = 1.0E-6;
 			float v1f = ((Number) v1).floatValue();
 			float v2f;
-			
+
 			if(v2 instanceof String)
 				v2f = Float.parseFloat((String) v2);
 			else v2f = ((Number) v2).floatValue();

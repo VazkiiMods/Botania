@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 13, 2014, 7:46:05 PM (GMT)]
  */
 package vazkii.botania.client.core.proxy;
@@ -215,7 +215,7 @@ public class ClientProxy implements IProxy {
 		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
 		MinecraftForge.EVENT_BUS.register(BossBarHandler.class);
 		MinecraftForge.EVENT_BUS.register(BergamuteEventHandler.class);
-		
+
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
 		if(ConfigHandler.versionCheckEnabled)
@@ -223,7 +223,7 @@ public class ClientProxy implements IProxy {
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			LocalDateTime now = LocalDateTime.now();
-			if ((now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16) || (now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2))
+			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2)
 				jingleTheBells = true;
 			if(now.getMonth() == Month.OCTOBER)
 				dootDoot = true;
@@ -403,7 +403,7 @@ public class ClientProxy implements IProxy {
 				int xp = x + i - iradius;
 				int zp = z + j - iradius;
 
-				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
+				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
 					mb.addComponent(new AnyComponent(new BlockPos(xp - x, 1, zp - z), block.getDefaultState()));
 			}
 

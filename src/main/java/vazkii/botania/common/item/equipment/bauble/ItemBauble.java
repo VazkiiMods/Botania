@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
@@ -36,10 +41,6 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.UUID;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {

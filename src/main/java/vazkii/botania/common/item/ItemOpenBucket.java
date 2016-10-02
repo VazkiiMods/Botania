@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 20, 2014, 12:12:58 AM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemOpenBucket extends ItemMod {
 
@@ -53,7 +53,7 @@ public class ItemOpenBucket extends ItemMod {
 
 				if((material == Material.LAVA || material == Material.WATER) && l == 0) {
 					world.setBlockToAir(pos);
-					
+
 					for(int x = 0; x < 5; x++)
 						world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 

@@ -2,13 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:46:59 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.lwjgl.input.Mouse;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -19,7 +26,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -29,11 +35,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.common.lexicon.DogLexiconEntry;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
@@ -128,22 +129,22 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		}
 		Collections.sort(entriesToDisplay);
 	}
-	
+
 	boolean matchesSearch(LexiconEntry e) {
 		String search = searchField.getText().trim();
 		if(search.isEmpty())
 			return true;
-		
+
 		search = search.toLowerCase();
 		if(I18n.format(e.getUnlocalizedName()).toLowerCase().contains(search))
 			return true;
-		
+
 		for(ItemStack stack : e.getDisplayedRecipes()) {
 			String stackName = stack.getDisplayName().toLowerCase().trim();
 			if(stackName.contains(search))
 				return true;
 		}
-				
+
 		return false;
 	}
 
@@ -159,7 +160,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				button.displayStack = entry.getIcon();
 				if(entry == tutEntry)
 					tutPage = page;
-				
+
 				if(entry instanceof DogLexiconEntry)
 					button.dog = true;
 			} else button.displayString = "";
@@ -182,7 +183,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.renderEngine.bindTexture(texture);
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
-			
+
 			if(entriesToDisplay.size() == 1) {
 				boolean unicode = mc.fontRendererObj.getUnicodeFlag();
 				mc.fontRendererObj.setUnicodeFlag(true);

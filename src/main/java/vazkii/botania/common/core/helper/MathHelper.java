@@ -2,16 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 22, 2014, 5:49:50 PM (GMT)]
  */
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
@@ -38,7 +37,7 @@ public final class MathHelper {
 	public static long[] intArrayToLongArray(int[] ints) {
 		long[] ret = new long[ints.length / 2];
 		for (int i = 0; i < ints.length; i += 2) {
-			ret[i / 2] = ((long) ints[i]) << 32 | ints[i + 1];
+			ret[i / 2] = (long) ints[i] << 32 | ints[i + 1];
 		}
 		return ret;
 	}
@@ -46,7 +45,7 @@ public final class MathHelper {
 	public static double[] intArrayToDoubleArray(int[] ints) {
 		double[] ret = new double[ints.length / 2];
 		for (int i = 0; i < ints.length; i += 2) {
-			long l = ((long) ints[i]) << 32 | ints[i + 1];
+			long l = (long) ints[i] << 32 | ints[i + 1];
 			ret[i / 2] = Double.longBitsToDouble(l);
 		}
 		return ret;

@@ -2,13 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 22, 2014, 7:06:38 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.SoundType;
@@ -52,18 +58,12 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD, IModelRegister {
 
@@ -151,7 +151,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			String id = BotaniaAPI.getSubTileStringMapping(clazz);
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, id);
 		} else {
-			return ((IExtendedBlockState) state);
+			return (IExtendedBlockState) state;
 		}
 	}
 

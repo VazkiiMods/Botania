@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Dec 4, 2014, 3:28:43 PM (GMT)]
  */
 package vazkii.botania.api.item;
@@ -40,7 +40,7 @@ public interface IBaubleRender {
 		/**
 		 * Rotates the render for a bauble correctly if the player is sneaking.
 		 * Use for renders under {@link RenderType#BODY}.
-         */
+		 */
 		public static void rotateIfSneaking(EntityPlayer player) {
 			if(player.isSneaking())
 				applySneakingRotation();
@@ -58,7 +58,7 @@ public interface IBaubleRender {
 		/**
 		 * Shifts the render for a bauble correctly to the head, including sneaking rotation.
 		 * Use for renders under {@link RenderType#HEAD}.
-         */
+		 */
 		public static void translateToHeadLevel(EntityPlayer player) {
 			GlStateManager.translate(0, -player.getDefaultEyeHeight(), 0);
 			if (player.isSneaking())

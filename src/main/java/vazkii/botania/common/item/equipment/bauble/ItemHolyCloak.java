@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Dec 4, 2014, 11:03:13 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
@@ -15,9 +15,7 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -129,7 +127,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	ResourceLocation getCloakTexture() {
 		return texture;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	ResourceLocation getCloakGlowTexture() {
 		return textureGlow;
@@ -142,18 +140,18 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
-			
+
 			float s = 1F / 16F;
 			GlStateManager.scale(s, s, s);
 			if(model == null)
 				model = new ModelCloak();
-			
+
 			GlStateManager.enableLighting();
 			GlStateManager.enableRescaleNormal();
-			
+
 			Minecraft.getMinecraft().renderEngine.bindTexture(getCloakTexture());
 			model.render(1F);
-			
+
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;

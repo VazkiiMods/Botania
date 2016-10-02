@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 25, 2015, 12:35:51 AM (GMT)]
  */
 package vazkii.botania.common.entity;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -17,8 +19,6 @@ import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
-
-import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
 

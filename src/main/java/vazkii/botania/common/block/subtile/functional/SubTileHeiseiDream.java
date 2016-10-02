@@ -2,15 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 16, 2014, 12:37:40 AM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,9 +30,6 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SubTileHeiseiDream extends SubTileFunctional {
 
 	private static final int RANGE = 5;
@@ -43,7 +44,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 		final int cost = 100;
 
 		@SuppressWarnings("unchecked")
-		List<IMob> mobs = (List<IMob>) (List) supertile.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
+		List<IMob> mobs = (List) supertile.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
 
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 4, 2014, 12:29:56 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -19,11 +23,9 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -47,10 +49,6 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable, IWandHUD {
 
@@ -91,7 +89,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		if (world.getTileEntity(pos) instanceof TileCraftCrate) {
-			TileCraftCrate tile = ((TileCraftCrate) world.getTileEntity(pos));
+			TileCraftCrate tile = (TileCraftCrate) world.getTileEntity(pos);
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
 		} else {
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE);

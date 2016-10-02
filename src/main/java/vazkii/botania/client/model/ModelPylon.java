@@ -10,16 +10,20 @@
  */
 package vazkii.botania.client.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.crash.CrashReport;
@@ -31,16 +35,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.LightUtil;
-import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.model.TRSRTransformation;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
 public class ModelPylon implements IPylonModel {
 
@@ -57,7 +55,7 @@ public class ModelPylon implements IPylonModel {
 	public ModelPylon() {
 		try {
 			// Load the OBJ
-			OBJModel model = ((OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation("botania:models/block/pylon.obj")));
+			OBJModel model = (OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation("botania:models/block/pylon.obj"));
 
 			// Apply the texture and flip the v's of the model
 			IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
@@ -89,15 +87,15 @@ public class ModelPylon implements IPylonModel {
 	@Override
 	public void renderCrystal(PylonVariant variant) {
 		switch(variant) {
-			case MANA:
-				renderModel(manaCrystal);
-				break;
-			case NATURA:
-				renderModel(naturaCrystal);
-				break;
-			case GAIA:
-				renderModel(gaiaCrystal);
-				break;
+		case MANA:
+			renderModel(manaCrystal);
+			break;
+		case NATURA:
+			renderModel(naturaCrystal);
+			break;
+		case GAIA:
+			renderModel(gaiaCrystal);
+			break;
 		}
 	}
 
@@ -105,15 +103,15 @@ public class ModelPylon implements IPylonModel {
 	public void renderRing(PylonVariant variant) {
 		GlStateManager.disableLighting();
 		switch(variant) {
-			case MANA:
-				renderModel(manaRingsAndPanes);
-				break;
-			case NATURA:
-				renderModel(naturaRingsAndPanes);
-				break;
-			case GAIA:
-				renderModel(gaiaRingsAndPanes);
-				break;
+		case MANA:
+			renderModel(manaRingsAndPanes);
+			break;
+		case NATURA:
+			renderModel(naturaRingsAndPanes);
+			break;
+		case GAIA:
+			renderModel(gaiaRingsAndPanes);
+			break;
 		}
 		GlStateManager.enableLighting();
 	}
@@ -122,15 +120,15 @@ public class ModelPylon implements IPylonModel {
 	public void renderGems(PylonVariant variant) {
 		GlStateManager.disableLighting();
 		switch(variant) {
-			case MANA:
-				renderModel(manaGems);
-				break;
-			case NATURA:
-				renderModel(naturaGems);
-				break;
-			case GAIA:
-				renderModel(gaiaGems);
-				break;
+		case MANA:
+			renderModel(manaGems);
+			break;
+		case NATURA:
+			renderModel(naturaGems);
+			break;
+		case GAIA:
+			renderModel(gaiaGems);
+			break;
 		}
 		GlStateManager.enableLighting();
 	}
@@ -147,19 +145,19 @@ public class ModelPylon implements IPylonModel {
 
 	private IModelState hideGroups(List<String> groups) {
 		return part -> {
-            if (part.isPresent()) {
-                List<String> parts = new ArrayList<>();
-                Models.getParts(part.get()).forEachRemaining(parts::add);
+			if (part.isPresent()) {
+				List<String> parts = new ArrayList<>();
+				Models.getParts(part.get()).forEachRemaining(parts::add);
 				for (String s : parts) {
 					if (groups.contains(s)) {
 						// Hide it
 						return Optional.of(TRSRTransformation.identity());
 					}
 				}
-            }
+			}
 
-            return Optional.absent();
-        };
+			return Optional.absent();
+		};
 	}
 
 }

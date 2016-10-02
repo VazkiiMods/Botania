@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 6:11:10 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.lwjgl.opengl.GL11;
+
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -40,9 +43,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -62,6 +62,7 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -73,7 +74,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
-import baubles.common.lib.PlayerHandler;
 
 public final class HUDHandler {
 
@@ -95,7 +95,7 @@ public final class HUDHandler {
 				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, amulet);
 				profiler.endSection();
 			}
-			
+
 			dodgeRing: {
 				ItemStack ring = baublesInv.getStackInSlot(1);
 				if(ring == null || !(ring.getItem() instanceof ItemDodgeRing)) {
@@ -103,7 +103,7 @@ public final class HUDHandler {
 					if(ring == null || !(ring.getItem() instanceof ItemDodgeRing))
 						break dodgeRing;
 				}
-				
+
 				profiler.startSection("dodgeRing");
 				ItemDodgeRing.renderHUD(event.getResolution(), mc.thePlayer, ring, event.getPartialTicks());
 				profiler.endSection();
@@ -152,7 +152,8 @@ public final class HUDHandler {
 					renderCrystalCubeHUD(event.getResolution(), (TileCorporeaCrystalCube) tile);
 			}
 
-			if(!TileCorporeaIndex.getInputHandler().getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
+			TileCorporeaIndex.getInputHandler();
+			if(!InputHandler.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay(event.getResolution());
 				profiler.endSection();
@@ -221,7 +222,7 @@ public final class HUDHandler {
 							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
 					}
 				}
-				
+
 				List<ItemStack> items = ManaItemHandler.getManaItems(player);
 				for (ItemStack stack : items) {
 					Item item = stack.getItem();
@@ -232,7 +233,7 @@ public final class HUDHandler {
 					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
 						creative = true;
 				}
-				
+
 				Map<Integer, ItemStack> baubles = ManaItemHandler.getManaBaubles(player);
 				for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 					ItemStack stack = entry.getValue();
@@ -307,7 +308,7 @@ public final class HUDHandler {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
 		GlStateManager.disableBlend();
-		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
 	}
 
 	private static void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
@@ -522,6 +523,6 @@ public final class HUDHandler {
 		Color color_ = new Color(color);
 		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
 		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
-		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
 	}
 }

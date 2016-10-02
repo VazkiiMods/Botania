@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 15, 2014, 4:08:26 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,12 +26,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,15 +40,11 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
@@ -74,9 +72,9 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		switch (state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION)) {
-			case Z: return 1;
-			case X:
-			default: return 0;
+		case Z: return 1;
+		case X:
+		default: return 0;
 		}
 	}
 
@@ -163,7 +161,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 				entityitem.motionZ = (float)random.nextGaussian() * f3 * 0.5;
 
 				if (itemstack.hasTagCompound())
-					entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+					entityitem.getEntityItem().setTagCompound(itemstack.getTagCompound().copy());
 			}
 		}
 

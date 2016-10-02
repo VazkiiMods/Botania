@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 6, 2015, 4:07:16 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -34,7 +34,7 @@ public class TileCell extends TileMod {
 		generation = gen;
 		if(!ticked) {
 			flowerCoords = flower.getPos();
-			validCoords = this.getPos();
+			validCoords = getPos();
 			ticked = true;
 		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
 			worldObj.setBlockToAir(pos);
@@ -43,7 +43,7 @@ public class TileCell extends TileMod {
 	public boolean isSameFlower(TileEntity flower) {
 		return matchCoords(validCoords, this) && matchCoords(flowerCoords, flower);
 	}
-	
+
 	private boolean matchCoords(BlockPos coords, TileEntity tile) {
 		return coords.equals(tile.getPos());
 	}
@@ -72,15 +72,15 @@ public class TileCell extends TileMod {
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if(ticked) {
 			flowerCoords = new BlockPos(
-				cmp.getInteger(TAG_FLOWER_X),
-				cmp.getInteger(TAG_FLOWER_Y),
-				cmp.getInteger(TAG_FLOWER_Z)
-			);
+					cmp.getInteger(TAG_FLOWER_X),
+					cmp.getInteger(TAG_FLOWER_Y),
+					cmp.getInteger(TAG_FLOWER_Z)
+					);
 			validCoords = new BlockPos(
 					cmp.getInteger(TAG_VALID_X),
 					cmp.getInteger(TAG_VALID_Y),
 					cmp.getInteger(TAG_VALID_Z)
-			);
+					);
 		}
 	}
 

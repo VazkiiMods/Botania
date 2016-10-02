@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 30, 2015, 4:10:14 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -35,13 +40,9 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.core.handler.MethodHandles;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
@@ -53,15 +54,15 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		ItemStack stack = null;
 		if (cube != null) {
 			if(entity == null)
-                entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
+				entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
 
 			if(itemRenderer == null)
 				itemRenderer = new RenderEntityItem(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()) {
-					@Override
-					public boolean shouldBob() {
-						return false;
-					}
-				};
+				@Override
+				public boolean shouldBob() {
+					return false;
+				}
+			};
 
 			try {
 				MethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
@@ -143,7 +144,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		// From FastTESR.renderTileEntityAt
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer worldRenderer = tessellator.getBuffer();
-		this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.enableBlend();

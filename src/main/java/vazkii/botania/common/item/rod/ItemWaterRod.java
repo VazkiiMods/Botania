@@ -1,5 +1,7 @@
 package vazkii.botania.common.item.rod;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
@@ -15,8 +17,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 

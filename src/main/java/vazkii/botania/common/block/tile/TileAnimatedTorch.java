@@ -2,15 +2,13 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [28/09/2016, 17:21:24 (GMT)]
  */
 package vazkii.botania.common.block.tile;
-
-import java.util.function.Function;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -89,7 +87,7 @@ public class TileAnimatedTorch extends TileMod {
 		currentRandomRotation = nextRandomRotation;
 		int finalRotation = side * 90;
 
-		double diff = (finalRotation - (rotation % 360)) % 360;
+		double diff = (finalRotation - rotation % 360) % 360;
 		if(diff < 0)
 			diff = 360 + diff;
 

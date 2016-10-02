@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 19, 2014, 4:09:57 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
@@ -17,9 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class Item16Colors extends ItemMod {
 

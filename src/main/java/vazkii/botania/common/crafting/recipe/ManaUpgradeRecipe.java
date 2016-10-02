@@ -16,29 +16,29 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import vazkii.botania.api.mana.IManaItem;
 
 public class ManaUpgradeRecipe extends ShapedOreRecipe {
-    public ManaUpgradeRecipe(ItemStack output, Object... inputs) {
-        super(output, inputs);
-    }
+	public ManaUpgradeRecipe(ItemStack output, Object... inputs) {
+		super(output, inputs);
+	}
 
-    public static ItemStack output(ItemStack output, InventoryCrafting var1) {
-        ItemStack out = output.copy();
-        if (!(out.getItem() instanceof IManaItem))
-            return out;
-        IManaItem outItem = (IManaItem) out.getItem();
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
-            ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null) {
-                if (stack.getItem() instanceof IManaItem) {
-                    IManaItem item = (IManaItem) stack.getItem();
-                    outItem.addMana(out, item.getMana(stack));
-                }
-            }
-        }
-        return out;
-    }
+	public static ItemStack output(ItemStack output, InventoryCrafting var1) {
+		ItemStack out = output.copy();
+		if (!(out.getItem() instanceof IManaItem))
+			return out;
+		IManaItem outItem = (IManaItem) out.getItem();
+		for (int i = 0; i < var1.getSizeInventory(); i++) {
+			ItemStack stack = var1.getStackInSlot(i);
+			if (stack != null) {
+				if (stack.getItem() instanceof IManaItem) {
+					IManaItem item = (IManaItem) stack.getItem();
+					outItem.addMana(out, item.getMana(stack));
+				}
+			}
+		}
+		return out;
+	}
 
-    @Override
-    public ItemStack getCraftingResult(InventoryCrafting var1) {
-        return output(output, var1);
-    }
+	@Override
+	public ItemStack getCraftingResult(InventoryCrafting var1) {
+		return output(output, var1);
+	}
 }

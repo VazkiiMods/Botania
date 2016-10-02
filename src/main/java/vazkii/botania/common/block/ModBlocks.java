@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block;
@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -339,7 +338,7 @@ public final class ModBlocks {
 		avatar = new BlockAvatar();
 		altGrass = new BlockAltGrass();
 		animatedTorch = new BlockAnimatedTorch();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -375,7 +374,7 @@ public final class ModBlocks {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
-		
+
 		SeedBehaviours.init();
 	}
 

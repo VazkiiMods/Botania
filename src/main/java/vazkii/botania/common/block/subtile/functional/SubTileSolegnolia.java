@@ -2,24 +2,24 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 11, 2015, 4:53:35 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import java.util.Collections;
+import java.util.Set;
+
 import com.google.common.collect.MapMaker;
+
 import net.minecraft.entity.Entity;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.Collections;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 public class SubTileSolegnolia extends SubTileFunctional {
 

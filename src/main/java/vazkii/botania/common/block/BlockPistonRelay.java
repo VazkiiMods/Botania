@@ -2,13 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 20, 2014, 4:57:36 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
 
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.block.Block;
@@ -45,15 +55,6 @@ import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
@@ -158,7 +159,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		@Override
 		public void readFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
-			((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.clear();
+			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.clear();
 
 			Collection<String> tags = nbttagcompound.getKeySet();
 			for(String key : tags) {
@@ -166,7 +167,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				if(tag instanceof NBTTagString) {
 					String value = ((NBTTagString) tag).getString();
 
-					((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.put(DimWithPos.fromString(key), DimWithPos.fromString(value));
+					((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(DimWithPos.fromString(key), DimWithPos.fromString(value));
 				}
 			}
 		}
@@ -174,8 +175,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		@Nonnull
 		@Override
 		public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound nbttagcompound) {
-			for(DimWithPos s : ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.keySet())
-				nbttagcompound.setString(s.toString(), ((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.get(s).toString());
+			for(DimWithPos s : ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.keySet())
+				nbttagcompound.setString(s.toString(), ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(s).toString());
 			return nbttagcompound;
 		}
 
@@ -280,7 +281,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		public DimWithPos(int dim, BlockPos pos) {
 			this.dim = dim;
-			this.blockPos = pos;
+			blockPos = pos;
 		}
 
 		@Override

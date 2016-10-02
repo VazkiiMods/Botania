@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
@@ -40,126 +39,126 @@ import vazkii.botania.common.item.lens.ItemLens;
 
 public final class ColorHandler {
 
-    public static void init() {
-        BlockColors blocks = Minecraft.getMinecraft().getBlockColors();
-        Map<RegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
+	public static void init() {
+		BlockColors blocks = Minecraft.getMinecraft().getBlockColors();
+		Map<RegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
 
-        // Steal vine colorer
-        blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
+		// Steal vine colorer
+		blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
 
-        // Pool
-        blocks.registerBlockColorHandler(
-                (state, world, pos, tintIndex) -> {
-                    if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
-                        float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                        return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
-                    } else {
-                        return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
-                    }
-                },
-                ModBlocks.pool
-        );
+		// Pool
+		blocks.registerBlockColorHandler(
+				(state, world, pos, tintIndex) -> {
+					if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS) {
+						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
+					} else {
+						return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+					}
+				},
+				ModBlocks.pool
+				);
 
-        // Spreader
-        blocks.registerBlockColorHandler(
-                (state, world, pos, tintIndex) -> {
-                    if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
-                        return 0xFFFFFF;
-                    float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-                    return Color.HSBtoRGB((time * 5) % 360 / 360F, 0.4F, 0.9F);
-                },
-                ModBlocks.spreader
-        );
-        
-        // Petal Block
-        blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
-        			int meta = ModBlocks.petalBlock.getMetaFromState(state);
-        			return EnumDyeColor.byMetadata(meta).getMapColor().colorValue;
-                },
-        		ModBlocks.petalBlock
-        );
+		// Spreader
+		blocks.registerBlockColorHandler(
+				(state, world, pos, tintIndex) -> {
+					if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
+						return 0xFFFFFF;
+					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+					return Color.HSBtoRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
+				},
+				ModBlocks.spreader
+				);
 
-        // Platforms
-        blocks.registerBlockColorHandler(
-                (state, world, pos, tintIndex) -> {
-                    if (world != null && pos != null) {
-                        TileEntity tile = world.getTileEntity(pos);
-                        if(tile instanceof TileCamo) {
-                            TileCamo camo = (TileCamo) tile;
-                            IBlockState camoState = camo.camoState;
-                            if(camoState != null)
-                                return camoState.getBlock() instanceof BlockCamo
-                                        ? 0xFFFFFF
-                                        : Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
-                        }
-                    }
-                    return 0xFFFFFF;
-                }, ModBlocks.platform);
+		// Petal Block
+		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
+			int meta = ModBlocks.petalBlock.getMetaFromState(state);
+			return EnumDyeColor.byMetadata(meta).getMapColor().colorValue;
+		},
+				ModBlocks.petalBlock
+				);
 
-        ItemColors items = Minecraft.getMinecraft().getItemColors();
+		// Platforms
+		blocks.registerBlockColorHandler(
+				(state, world, pos, tintIndex) -> {
+					if (world != null && pos != null) {
+						TileEntity tile = world.getTileEntity(pos);
+						if(tile instanceof TileCamo) {
+							TileCamo camo = (TileCamo) tile;
+							IBlockState camoState = camo.camoState;
+							if(camoState != null)
+								return camoState.getBlock() instanceof BlockCamo
+										? 0xFFFFFF
+												: Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
+						}
+					}
+					return 0xFFFFFF;
+				}, ModBlocks.platform);
 
-        items.registerItemColorHandler((s, t) -> (s.getItemDamage() == 5 || s.getItemDamage() == 14)
-                ? Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
-                ModItems.manaResource);
+		ItemColors items = Minecraft.getMinecraft().getItemColors();
 
-        items.registerItemColorHandler((s, t) ->
-                t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getMapColor().colorValue
-                    : t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getMapColor().colorValue
-                        : -1,
-                ModItems.twigWand);
+		items.registerItemColorHandler((s, t) -> s.getItemDamage() == 5 || s.getItemDamage() == 14
+				? Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
+						ModItems.manaResource);
 
-        items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getMapColor().colorValue, ModItems.dye, ModItems.petal);
-        items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
-                ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
+		items.registerItemColorHandler((s, t) ->
+		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getMapColor().colorValue
+				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getMapColor().colorValue
+						: -1,
+						ModItems.twigWand);
 
-        items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaMirror) ModItems.manaMirror).getMana(s) / TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
+		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getMapColor().colorValue, ModItems.dye, ModItems.petal);
+		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
+				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
-        items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaTablet) ModItems.manaTablet).getMana(s) / ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
+		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaMirror) ModItems.manaMirror).getMana(s) / TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 
-        items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
+		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaTablet) ModItems.manaTablet).getMana(s) / ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-        items.registerItemColorHandler((s, t) -> {
-            if(t != 1)
-                return -1;
+		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
 
-            Brew brew = ((IBrewItem) s.getItem()).getBrew(s);
-            if(brew == BotaniaAPI.fallbackBrew)
-                return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
+		items.registerItemColorHandler((s, t) -> {
+			if(t != 1)
+				return -1;
 
-            Color color = new Color(brew.getColor(s));
-            double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
-            int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
+			Brew brew = ((IBrewItem) s.getItem()).getBrew(s);
+			if(brew == BotaniaAPI.fallbackBrew)
+				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
 
-            int r = Math.max(0, Math.min(255, color.getRed() + add));
-            int g = Math.max(0, Math.min(255, color.getGreen() + add));
-            int b = Math.max(0, Math.min(255, color.getBlue() + add));
+			Color color = new Color(brew.getColor(s));
+			double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
+			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
 
-            return r << 16 | g << 8 | b;
-        }, ModItems.bloodPendant, ModItems.incenseStick, ModItems.brewFlask, ModItems.brewVial);
+			int r = Math.max(0, Math.min(255, color.getRed() + add));
+			int g = Math.max(0, Math.min(255, color.getGreen() + add));
+			int b = Math.max(0, Math.min(255, color.getBlue() + add));
 
-        items.registerItemColorHandler((s, t) -> {
-            ItemStack lens = ItemManaGun.getLens(s);
-            if(lens != null && t == 0)
-                return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
+			return r << 16 | g << 8 | b;
+		}, ModItems.bloodPendant, ModItems.incenseStick, ModItems.brewFlask, ModItems.brewVial);
 
-            if(t == 2) {
-                EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().thePlayer, s, false);
-                Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
+		items.registerItemColorHandler((s, t) -> {
+			ItemStack lens = ItemManaGun.getLens(s);
+			if(lens != null && t == 0)
+				return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
 
-                float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
-                int c = (int) (255 * mul);
+			if(t == 2) {
+				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().thePlayer, s, false);
+				Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
 
-                return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
-            } else return -1;
-        }, ModItems.manaGun);
+				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
+				int c = (int) (255 * mul);
 
-        items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
+				return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
+			} else return -1;
+		}, ModItems.manaGun);
 
-        items.registerItemColorHandler((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
+		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
 
-        items.registerItemColorHandler((s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1, ModItems.lens);
-    }
+		items.registerItemColorHandler((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
-    private ColorHandler() {}
+		items.registerItemColorHandler((s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1, ModItems.lens);
+	}
+
+	private ColorHandler() {}
 
 }

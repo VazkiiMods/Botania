@@ -2,15 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 20, 2015, 8:08:34 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -47,10 +53,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
@@ -83,7 +85,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				if(BlockCamo.isValidBlock(wstate)) {
 					Item item = Item.getItemFromBlock(wstate.getBlock());
 
-					boolean set = setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
+					setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
 					player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
 
 					displayRemainderCounter(player, par1ItemStack);
@@ -170,7 +172,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		// We subtract 1 from the effective range as the center tile is included
 		// So, with a range of 3, we are visiting tiles at -2, -1, 0, 1, 2
 		int effRange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
-		
+
 		// Iterate in all 3 dimensions through our possible positions.
 		for(int offsetX = -effRange; offsetX <= effRange; offsetX++)
 			for(int offsetY = -effRange; offsetY <= effRange; offsetY++)
@@ -178,17 +180,17 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
 
 					IBlockState currentState = world.getBlockState(pos_);
-					
+
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
 					if(currentState != targetState)
 						continue;
-					
+
 					// If this block is already the block we're swapping to,
 					// we don't need to swap again
 					if(currentState == swapState)
 						continue;
-					
+
 					// Check to see if the block is visible on any side:
 					for(EnumFacing dir : EnumFacing.VALUES) {
 						BlockPos adjPos = pos_.offset(dir);
@@ -197,7 +199,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						// If the side of the adjacent block facing this block is
 						// _not_ solid, then this block is considered "visible"
 						// and should be replaced.
-						
+
 						// If there is a rendering-specific way to check for this,
 						// that should be placed in preference to this.
 						if(!adjState.isSideSolid(world, adjPos, dir.getOpposite())) {
@@ -294,7 +296,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 		int count = getInventoryItemCount(player, player.inventory, stack, block, meta);
 		if (count == -1) return -1;
-		
+
 		return count+baubleCount;
 	}
 
@@ -399,10 +401,10 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			int targetMeta = 0;
 			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
-					ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
-					ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0),
-					ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0)
-				);
+						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
+						ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0),
+						ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0)
+						);
 				targetBlock = getTargetBlock(stack);
 				targetMeta = getTargetBlockMeta(stack);
 			}

@@ -2,15 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 24, 2014, 5:58:22 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -31,9 +36,6 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class EntityMagicMissile extends EntityThrowable {
 
@@ -137,7 +139,7 @@ public class EntityMagicMissile extends EntityThrowable {
 					EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
 					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				} else target.attackEntityFrom(DamageSource.generic, evil ? 12 : 7);
-				
+
 				setDead();
 			}
 
@@ -188,21 +190,21 @@ public class EntityMagicMissile extends EntityThrowable {
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
 		switch (pos.typeOfHit) {
-			case BLOCK: {
-				Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-				if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves))
-					setDead();
-				break;
-			}
-			case ENTITY: {
-				if (pos.entityHit == getTargetEntity())
-					setDead();
-				break;
-			}
-			default: {
+		case BLOCK: {
+			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves))
 				setDead();
-				break;
-			}
+			break;
+		}
+		case ENTITY: {
+			if (pos.entityHit == getTargetEntity())
+				setDead();
+			break;
+		}
+		default: {
+			setDead();
+			break;
+		}
 		}
 	}
 

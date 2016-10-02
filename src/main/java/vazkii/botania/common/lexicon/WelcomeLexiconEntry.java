@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 30, 2015, 10:54:30 PM (GMT)]
  */
 package vazkii.botania.common.lexicon;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
@@ -17,8 +19,6 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
-
-import javax.annotation.Nonnull;
 
 public class WelcomeLexiconEntry extends BasicLexiconEntry {
 

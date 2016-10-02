@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 18, 2014, 8:05:08 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -17,7 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileTinyPotato extends TileSimpleInventory {
 
@@ -38,7 +37,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 				ItemStack copy = stack.copy();
 				copy.stackSize = 1;
 				stack.stackSize--;
-				
+
 				if(stack.stackSize == 0)
 					player.setHeldItem(hand, stackAt);
 				else if(stackAt != null) {

@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2015, 4:36:20 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -26,9 +29,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LensMine extends Lens {
 
 	@Override
@@ -43,12 +43,12 @@ public class LensMine extends Lens {
 
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
 		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
-		
+
 		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.PISTON_EXTENSION || block == Blocks.PISTON_HEAD))
 			return false;
 
 		int harvestLevel = ConfigHandler.harvestLevelBore;
-		
+
 		TileEntity tile = world.getTileEntity(pos_);
 
 		IBlockState state = world.getBlockState(pos_);

@@ -10,6 +10,13 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+
+import org.lwjgl.input.Mouse;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -18,7 +25,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
@@ -29,11 +35,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
@@ -407,7 +408,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public GuiLexicon copy() {
-		GuiLexiconEntry gui = new GuiLexiconEntry(entry, this.parent);
+		GuiLexiconEntry gui = new GuiLexiconEntry(entry, parent);
 		gui.page = page;
 		gui.setTitle();
 		return gui;

@@ -8,8 +8,12 @@
  */
 package vazkii.botania.api;
 
+import java.util.Collections;
+import java.util.Map;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
@@ -17,9 +21,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * Class for API calls that must be made clientside

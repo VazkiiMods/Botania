@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 11, 2014, 1:05:32 AM (GMT)]
  */
 package vazkii.botania.common.block.decor.quartz;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -33,9 +37,6 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 

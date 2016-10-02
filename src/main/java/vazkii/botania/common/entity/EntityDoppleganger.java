@@ -2,15 +2,28 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 12, 2014, 3:47:45 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.ARBShaderObjects;
+
 import com.google.common.base.Optional;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -41,7 +54,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -64,7 +76,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -83,15 +94,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
-
-import javax.annotation.Nonnull;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
@@ -122,10 +124,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private static final DataParameter<Optional<UUID>> BOSSINFO_ID = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	private static final BlockPos[] PYLON_LOCATIONS = {
-		new BlockPos(4, 1, 4),
-		new BlockPos(4, 1, -4),
-		new BlockPos(-4, 1, 4),
-		new BlockPos(-4, 1, -4)
+			new BlockPos(4, 1, 4),
+			new BlockPos(4, 1, -4),
+			new BlockPos(-4, 1, 4),
+			new BlockPos(-4, 1, -4)
 	};
 
 	private static final List<String> CHEATY_BLOCKS = Arrays.asList("OpenBlocks:beartrap",
@@ -140,7 +142,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private int tpDelay = 0;
 	private int mobSpawnTicks = 0;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setCreateFog(true);
+	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);
 	public EntityPlayer trueKiller = null;
 
 	public EntityDoppleganger(World world) {
@@ -202,7 +204,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 			if(world.isRemote)
 				return true;
-			
+
 			stack.stackSize--;
 
 			EntityDoppleganger e = new EntityDoppleganger(world);
@@ -230,7 +232,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private static boolean hasProperArena(World world, BlockPos startPos) {
 		List<BlockPos> trippedPositions = new ArrayList();
 		boolean tripped = false;
-		
+
 		int heightCheck = 3;
 		int heightMin = 2;
 		int range = (int) Math.ceil(ARENA_RANGE);
@@ -260,19 +262,19 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 							air = 0;
 						}
 					}
-					
+
 					if(trippedColumn == 0)
 						trippedPositions.add(pos);
 
 					tripped = true;
 				}
 			}
-		
+
 		if(tripped) {
 			Botania.proxy.setWispFXDepthTest(false);
 			for(BlockPos pos : trippedPositions) {
 				System.out.println(world.isRemote);
-	            Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+				Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
 			}
 			Botania.proxy.setWispFXDepthTest(true);
 
@@ -368,7 +370,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			if(!playersWhoAttacked.contains(player.getUniqueID()))
 				playersWhoAttacked.add(player.getUniqueID());
 
-			boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
+			player.isOnLadder();
+			player.isInWater();
+			player.isPotionActive(MobEffects.BLINDNESS);
+			player.isRiding();
 
 			int cap = 25;
 			return super.attackEntityFrom(source, Math.min(cap, par2));
@@ -420,7 +425,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
 
-		this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
@@ -448,14 +453,14 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		// Save true killer, they get extra loot
 		if ("player".equals(source.getDamageType())
 				&& source.getEntity() instanceof EntityPlayer) {
-			this.trueKiller = ((EntityPlayer) source.getEntity());
+			trueKiller = (EntityPlayer) source.getEntity();
 		}
 
 		// Drop equipment and clear it so multiple calls to super don't do it again
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
 		for (EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-			this.setItemStackToSlot(e, null);
+			setItemStackToSlot(e, null);
 		}
 
 		// Generate loot table for every single attacking player
@@ -464,7 +469,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			if (player == null)
 				continue;
 
-			EntityPlayer saveLastAttacker = this.attackingPlayer;
+			EntityPlayer saveLastAttacker = attackingPlayer;
 			double savePosX = posX;
 			double savePosY = posY;
 			double savePosZ = posZ;
@@ -561,7 +566,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
 		if(!getPassengers().isEmpty())
-			this.dismountRidingEntity();
+			dismountRidingEntity();
 
 		if(worldObj.getDifficulty() == EnumDifficulty.PEACEFUL)
 			setDead();
@@ -728,7 +733,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 							}
 
 						}
-							
+
 						if(!players.isEmpty())
 							for(int pl = 0; pl < playerCount; pl++)
 								for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
@@ -738,7 +743,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 									worldObj.spawnEntityInWorld(pixie);
 								}
 
-						tpDelay = hard ? (dying ? 35 : 45) : (dying ? 40 : 60);
+						tpDelay = hard ? dying ? 35 : 45 : dying ? 40 : 60;
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
@@ -765,14 +770,14 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public void addTrackingPlayer(EntityPlayerMP player)
 	{
 		super.addTrackingPlayer(player);
-		this.bossInfo.addPlayer(player);
+		bossInfo.addPlayer(player);
 	}
 
 	@Override
 	public void removeTrackingPlayer(EntityPlayerMP player)
 	{
 		super.removeTrackingPlayer(player);
-		this.bossInfo.removePlayer(player);
+		bossInfo.removePlayer(player);
 	}
 
 	@Override
@@ -790,7 +795,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
-			this.playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
+			playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 			worldObj.spawnEntityInWorld(missile);
 		}
 	}
@@ -962,7 +967,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
 			};
 
-		return background ? null : shaderCallback;
+			return background ? null : shaderCallback;
 	}
 
 	private static class BeaconComponent extends MultiblockComponent {

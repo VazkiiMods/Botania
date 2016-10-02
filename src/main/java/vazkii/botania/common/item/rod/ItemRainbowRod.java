@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 20, 2014, 7:09:51 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -33,15 +37,11 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -84,7 +84,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 				if (!lastChecker.equals(pos)) {
 					if (y >= world.getHeight() || y <= 0
-							|| (!world.isAirBlock(pos) && world.getBlockState(pos).getBlock() != place))
+							|| !world.isAirBlock(pos) && world.getBlockState(pos).getBlock() != place)
 						break;
 
 					for(int i = -2; i < 1; i++)

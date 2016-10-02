@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 15, 2015, 8:31:13 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,7 +21,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -36,15 +40,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
 
@@ -127,16 +126,16 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	public int tickRate(World world) {
 		return 2;
 	}
-	
+
 	@Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-        if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
-            if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
-                worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
-            else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
-                worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true));
-        }
-    }
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
+			if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
+			else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true));
+		}
+	}
 
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {

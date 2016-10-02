@@ -2,15 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2015, 4:42:33 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
 
+import java.util.List;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
@@ -21,8 +24,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
-
-import java.util.List;
 
 public class LensInfluence extends Lens {
 

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 11, 2014, 2:16:47 AM (GMT)]
  */
 package vazkii.botania.common.item.material;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,9 +24,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemQuartz extends ItemMod implements IElvenItem {
 

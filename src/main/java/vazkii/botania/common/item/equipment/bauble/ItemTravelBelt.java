@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 24, 2014, 11:14:57 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -31,9 +34,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUsingItem {
 
@@ -80,18 +80,18 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 					if(player.worldObj.isRemote) {
 						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
-                            float speed = beltItem.getSpeed(belt);
-                            player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
-                            beltItem.onMovedTick(belt, player);
+							float speed = beltItem.getSpeed(belt);
+							player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
+							beltItem.onMovedTick(belt, player);
 
-                            if(player.ticksExisted % COST_INTERVAL == 0)
-                                ManaItemHandler.requestManaExact(belt, player, COST, true);
-                        } else beltItem.onNotMovingTick(belt, player);
+							if(player.ticksExisted % COST_INTERVAL == 0)
+								ManaItemHandler.requestManaExact(belt, player, COST, true);
+						} else beltItem.onNotMovingTick(belt, player);
 					}
 
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
-					else player.stepHeight = 1F;
+						else player.stepHeight = 1F;
 
 				} else {
 					player.stepHeight = 0.5F;

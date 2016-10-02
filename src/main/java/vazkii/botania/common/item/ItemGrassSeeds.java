@@ -2,13 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 9, 2014, 5:11:34 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
@@ -38,14 +47,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	/**
@@ -55,9 +56,9 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
 
 	private static final IslandType[] ISLAND_TYPES = {
-		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
-		IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID,
-		IslandType.SCORCHED, IslandType.INFUSED, IslandType.MUTATED
+			IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
+			IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID,
+			IslandType.SCORCHED, IslandType.INFUSED, IslandType.MUTATED
 	};
 
 	private static final int SUBTYPES = 9;
@@ -86,7 +87,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = world.getBlockState(pos);
 
-		if((state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) || (state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0)) {
+		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0) {
 			int meta = par1ItemStack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(world, pos, meta);
@@ -194,7 +195,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Adds a grass seed block swapper to the world at the provided positiona
 	 * and with the provided meta (which designates the type of the grass
 	 * being spread).
-	 * 
+	 *
 	 * Block swappers are only actually created on the server, so a client
 	 * calling this method will recieve a marker block swapper which contains
 	 * the provided information but is not ticked.
@@ -240,7 +241,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * centered around a provided point to a provided block/metadata.
 	 */
 	private static class BlockSwapper {
-		
+
 		/**
 		 * The range of the block swapper, in blocks.
 		 */
@@ -267,9 +268,9 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		 */
 		public BlockSwapper(World world, BlockPos coords, IBlockState state) {
 			this.world = world;
-			this.stateToSet = state;
-			this.rand = new Random(coords.hashCode());
-			this.startCoords = coords;
+			stateToSet = state;
+			rand = new Random(coords.hashCode());
+			startCoords = coords;
 		}
 
 		/**
@@ -338,11 +339,12 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			// levels by 2 or more blocks grass growth.
 
 			return (block == Blocks.DIRT || block == Blocks.GRASS)
-				&& (block != Blocks.DIRT || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
-				&& (world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1);
+					&& (block != Blocks.DIRT || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
+					&& world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1;
 		}
 	}
 
+	@Override
 	public IslandType getIslandType(ItemStack stack) {
 		return ISLAND_TYPES[Math.min(stack.getItemDamage(), ISLAND_TYPES.length - 1)];
 	}

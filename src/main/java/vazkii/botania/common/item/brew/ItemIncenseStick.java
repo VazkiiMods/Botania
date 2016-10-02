@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2015, 3:13:43 PM (GMT)]
  */
 package vazkii.botania.common.item.brew;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,9 +31,6 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
 

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 17, 2015, 4:19:52 PM (GMT)]
  */
 package vazkii.botania.common.entity;
+
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -20,8 +22,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import java.util.List;
 
 public class EntityFallingStar extends EntityThrowableCopy {
 
@@ -81,7 +81,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (pos.getBlockPos() != null) {
 			IBlockState state = worldObj.getBlockState(pos.getBlockPos());
 			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, worldObj, pos.getBlockPos()))
-                worldObj.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
+				worldObj.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
 		setDead();

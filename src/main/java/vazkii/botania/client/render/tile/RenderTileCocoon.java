@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 8, 2015, 4:44:23 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -16,10 +20,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.TileCocoon;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 

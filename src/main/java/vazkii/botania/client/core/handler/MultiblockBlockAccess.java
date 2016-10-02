@@ -2,13 +2,15 @@
  * This class was created by <SoundLogic>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 31, 2015, 11:40:59 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -20,8 +22,6 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-
-import javax.annotation.Nonnull;
 
 /**
  * This class acts as a wrapper around a block access to

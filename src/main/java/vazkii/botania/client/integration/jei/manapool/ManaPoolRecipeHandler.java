@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.manapool;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-
-import javax.annotation.Nonnull;
 
 public class ManaPoolRecipeHandler implements IRecipeHandler<RecipeManaInfusion> {
 

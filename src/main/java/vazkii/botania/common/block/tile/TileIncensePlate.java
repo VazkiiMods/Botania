@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2015, 4:09:07 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -24,9 +27,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
-
-import java.awt.*;
-import java.util.List;
 
 public class TileIncensePlate extends TileSimpleInventory  {
 

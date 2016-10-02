@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 8, 2014, 10:16:53 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -56,10 +61,6 @@ import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfusionStabiliser {
@@ -115,7 +116,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		if (meta >= EnumDyeColor.values().length) {
-			 meta = 0;
+			meta = 0;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
@@ -144,7 +145,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
-		int b = (hex & 0xFF);
+		int b = hex & 0xFF;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 16, 2015, 2:54:35 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,9 +30,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
@@ -62,7 +63,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.worldObj.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, ((EntityPlayer) living), 150, true))) {
+		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.worldObj.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1).normalize().negate().multiply(2);
 			int div = spawned / 5;
 			int mod = spawned % 5;

@@ -2,13 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 13, 2014, 6:38:21 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
+
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
@@ -44,11 +50,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IModelRegister {
@@ -177,7 +178,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		if(hasPhantomInk(stack))
 			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), list);
 	}
-	
+
 	public void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
@@ -187,10 +188,10 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	public ItemStack[] getArmorSetStacks() {
 		if(armorset == null)
 			armorset = new ItemStack[] {
-				new ItemStack(ModItems.manasteelHelm),
-				new ItemStack(ModItems.manasteelChest),
-				new ItemStack(ModItems.manasteelLegs),
-				new ItemStack(ModItems.manasteelBoots)
+					new ItemStack(ModItems.manasteelHelm),
+					new ItemStack(ModItems.manasteelChest),
+					new ItemStack(ModItems.manasteelLegs),
+					new ItemStack(ModItems.manasteelBoots)
 		};
 
 		return armorset;

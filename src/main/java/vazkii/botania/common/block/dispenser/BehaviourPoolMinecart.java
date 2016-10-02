@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 18, 2015, 12:22:58 AM (GMT)]
  */
 package vazkii.botania.common.block.dispenser;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockRailBase;
@@ -22,8 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityPoolMinecart;
-
-import javax.annotation.Nonnull;
 
 public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 

@@ -8,6 +8,10 @@
  */
 package vazkii.botania.client.integration.jei.manapool;
 
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -15,14 +19,11 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory {
 
@@ -77,14 +78,14 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 		if(!(recipeWrapper instanceof ManaPoolRecipeWrapper))
 			return;
 
-		ManaPoolRecipeWrapper wrapper = ((ManaPoolRecipeWrapper) recipeWrapper);
+		ManaPoolRecipeWrapper wrapper = (ManaPoolRecipeWrapper) recipeWrapper;
 		int index = 0;
 
 		recipeLayout.getItemStacks().init(index, true, 40, 12);
 		if(wrapper.getInputs().get(0) instanceof Collection) {
-			recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) wrapper.getInputs().get(0)));
+			recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) wrapper.getInputs().get(0));
 		} else {
-			recipeLayout.getItemStacks().set(index, ((ItemStack) wrapper.getInputs().get(0)));
+			recipeLayout.getItemStacks().set(index, (ItemStack) wrapper.getInputs().get(0));
 		}
 
 		index++;
@@ -92,7 +93,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 		if(wrapper.getInputs().size() > 1) {
 			// Has catalyst
 			recipeLayout.getItemStacks().init(index, true, 20, 12);
-			recipeLayout.getItemStacks().set(index, ((ItemStack) wrapper.getInputs().get(1)));
+			recipeLayout.getItemStacks().set(index, (ItemStack) wrapper.getInputs().get(1));
 			index++;
 		}
 
@@ -102,9 +103,9 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 
 		recipeLayout.getItemStacks().init(index, false, 99, 12);
 		if(wrapper.getOutputs().get(0) instanceof Collection) {
-			recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) wrapper.getOutputs().get(0)));
+			recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) wrapper.getOutputs().get(0));
 		} else {
-			recipeLayout.getItemStacks().set(index, ((ItemStack) wrapper.getOutputs().get(0)));
+			recipeLayout.getItemStacks().set(index, (ItemStack) wrapper.getOutputs().get(0));
 		}
 	}
 

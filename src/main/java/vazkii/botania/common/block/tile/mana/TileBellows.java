@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 28, 2015, 5:27:43 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
@@ -70,30 +70,30 @@ public class TileBellows extends TileMod {
 				if(furnace.hasWorldObj() && furnace.getBlockType() == Blocks.LIT_FURNACE) {
 					// Copypasta from BlockFurnace
 					EnumFacing enumfacing = worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
-					double d0 = (double)pos.getX() + 0.5D;
-					double d1 = (double)pos.getY() + worldObj.rand.nextDouble() * 6.0D / 16.0D;
-					double d2 = (double)pos.getZ() + 0.5D;
+					double d0 = pos.getX() + 0.5D;
+					double d1 = pos.getY() + worldObj.rand.nextDouble() * 6.0D / 16.0D;
+					double d2 = pos.getZ() + 0.5D;
 					double d3 = 0.52D;
 					double d4 = worldObj.rand.nextDouble() * 0.6D - 0.3D;
 
 					switch (enumfacing)
 					{
-						case WEST:
-							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-							break;
-						case EAST:
-							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-							break;
-						case NORTH:
-							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-							break;
-						case SOUTH:
-							worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-							worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-						default: break;
+					case WEST:
+						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						break;
+					case EAST:
+						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						break;
+					case NORTH:
+						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+						break;
+					case SOUTH:
+						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+					default: break;
 					}
 				}
 			}

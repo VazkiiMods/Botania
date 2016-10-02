@@ -2,18 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 25, 2015, 5:49:28 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -23,17 +24,14 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import java.util.Iterator;
-
 public class EntityPinkWither extends EntityWither {
 
 	public EntityPinkWither(World world) {
 		super(world);
 
-		this.tasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIAttackRanged); // Remove firing wither skulls
+		tasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIAttackRanged); // Remove firing wither skulls
 
-		this.targetTasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIHurtByTarget
+		targetTasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIHurtByTarget
 				|| entry.action instanceof EntityAINearestAttackableTarget); // Remove revenge and aggro
 	}
 
@@ -52,8 +50,8 @@ public class EntityPinkWither extends EntityWither {
 
 	@Override
 	public void updateAITasks() {
-		if(this.ticksExisted % 20 == 0)
-			this.heal(1.0F);
+		if(ticksExisted % 20 == 0)
+			heal(1.0F);
 	}
 
 	@Override

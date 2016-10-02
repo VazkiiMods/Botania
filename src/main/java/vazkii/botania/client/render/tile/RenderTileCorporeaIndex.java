@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 15, 2015, 12:54:49 AM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelEnderCrystal;
@@ -18,8 +20,6 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorporeaIndex> {
 

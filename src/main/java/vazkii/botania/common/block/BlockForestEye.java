@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 9, 2014, 10:55:17 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,8 +27,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
 
 public class BlockForestEye extends BlockMod implements ILexiconable {
 

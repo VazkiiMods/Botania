@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 15, 2014, 9:47:56 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
+
+import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -25,8 +27,6 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -56,7 +56,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 							continue;
 						}
 
-						if(age >= (59 + slowdown) && !item.isDead) {
+						if(age >= 59 + slowdown && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
 							if(stack.getItem().hasContainerItem(stack))
 								continue;
@@ -74,8 +74,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 									didSomething = true;
 								} else {
-						            item.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
-						            item.worldObj.spawnParticle(EnumParticleTypes.FLAME, item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
+									item.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
+									item.worldObj.spawnParticle(EnumParticleTypes.FLAME, item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
 								}
 
 
@@ -89,7 +89,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 				}
 			} else {
 				if(supertile.getWorld().rand.nextInt(10) == 0)
-		            supertile.getWorld().spawnParticle(EnumParticleTypes.FLAME, supertile.getPos().getX() + 0.4 + Math.random() * 0.2, supertile.getPos().getY() + 0.65, supertile.getPos().getZ() + 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+					supertile.getWorld().spawnParticle(EnumParticleTypes.FLAME, supertile.getPos().getX() + 0.4 + Math.random() * 0.2, supertile.getPos().getY() + 0.65, supertile.getPos().getZ() + 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 
 				burnTime--;
 			}

@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 2, 2014, 7:50:07 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -20,9 +23,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class ModManaAlchemyRecipes {
 

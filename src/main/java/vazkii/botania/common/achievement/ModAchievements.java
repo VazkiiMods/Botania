@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 28, 2015, 4:27:39 PM (GMT)]
  */
 package vazkii.botania.common.achievement;
@@ -30,7 +30,7 @@ public final class ModAchievements {
 
 	public static Achievement flowerPickup;
 	public static Achievement lexiconUse;
-	public static Achievement daybloomPickup; 
+	public static Achievement daybloomPickup;
 	public static Achievement cacophoniumCraft;
 	public static Achievement manaPoolPickup;
 

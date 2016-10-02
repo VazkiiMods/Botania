@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 1, 2014, 1:55:57 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -21,12 +21,12 @@ public class TileSpiritShrine extends TileMod {
 		if(worldObj.isRemote) {
 			if(ticks >= 40) {
 				float[][] colors = new float[][] {
-						{ 0F, 0.25F, 1F },
-						{ 1F, 0F, 0.2F },
-						{ 0F, 1F, 0.25F },
-						{ 1F, 1F, 0.25F },
-						{ 1F, 0.25F, 1F },
-						{ 0.25F, 1F, 1F }
+					{ 0F, 0.25F, 1F },
+					{ 1F, 0F, 0.2F },
+					{ 0F, 1F, 0.25F },
+					{ 1F, 1F, 0.25F },
+					{ 1F, 0.25F, 1F },
+					{ 0.25F, 1F, 1F }
 				};
 
 				int totalSpiritCount = 6;

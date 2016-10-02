@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.petalapothecary;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import vazkii.botania.api.recipe.RecipePetals;
-
-import javax.annotation.Nonnull;
 
 public class PetalApothecaryRecipeHandler implements IRecipeHandler<RecipePetals> {
 

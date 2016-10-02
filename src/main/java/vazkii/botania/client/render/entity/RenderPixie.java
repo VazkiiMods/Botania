@@ -2,40 +2,41 @@
  * This class was created by <Adubbz>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.render.entity;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
-import javax.annotation.Nonnull;
-
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	final ShaderCallback callback = shader -> {
-        // Frag Uniforms
-        int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
-        ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
+		// Frag Uniforms
+		int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+		ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
 
-        // Vert Uniforms
-        int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-        ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
-    };
+		// Vert Uniforms
+		int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
+	};
 
 	public RenderPixie(RenderManager renderManager) {
 		super(renderManager, new ModelPixie(), 0.25F);

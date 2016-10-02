@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 19, 2014, 3:54:48 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
@@ -299,7 +299,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeAnimatedTorch;
 	public static IRecipe recipeForkLuminizer;
 	public static IRecipe recipeToggleLuminizer;
-	
+
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -1133,11 +1133,11 @@ public final class ModCraftingRecipes {
 				'P', new ItemStack(Items.PAPER),
 				'L', new ItemStack(ModItems.lens));
 		recipeLensMessenger = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Tripwire Lens Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 23), new ItemStack(ModItems.lens), new ItemStack(Blocks.TRIPWIRE_HOOK), LibOreDict.ELEMENTIUM);
 		recipeLensTripwire = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mini Island
 		for(int i = 0; i < 16; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),
@@ -1999,20 +1999,20 @@ public final class ModCraftingRecipes {
 		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
 
 		// Ring of Dexterous Motion Recipe
-		addOreDictRecipe(new ItemStack(ModItems.dodgeRing), 
+		addOreDictRecipe(new ItemStack(ModItems.dodgeRing),
 				"EM ", "M M", " MR",
 				'E', "gemEmerald",
 				'M', LibOreDict.MANA_STEEL,
 				'R', LibOreDict.RUNE[3]);
 		recipeDodgeRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Animated Torch Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.animatedTorch), 
+		addOreDictRecipe(new ItemStack(ModBlocks.animatedTorch),
 				"D", "T",
 				'D', LibOreDict.MANA_POWDER,
 				'T', new ItemStack(Blocks.REDSTONE_TORCH));
 		recipeAnimatedTorch = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Fork Luminizer Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 2), new ItemStack(ModBlocks.lightRelay), new ItemStack(Blocks.REDSTONE_TORCH));
 		recipeForkLuminizer = BotaniaAPI.getLatestAddedRecipe();
@@ -2020,7 +2020,7 @@ public final class ModCraftingRecipes {
 		// TOGGLE Luminizer Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 3), new ItemStack(ModBlocks.lightRelay), new ItemStack(Blocks.LEVER));
 		recipeToggleLuminizer = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
@@ -2151,32 +2151,10 @@ public final class ModCraftingRecipes {
 				'Q', new ItemStack(slab));
 	}
 
-	// Same as above, but use od for forward recipes, only use block and meta for slab -> full block recipe
-	private static void addStairsAndSlabsWithOredict(String od, Block block, int meta, Block stairs, Block slab) {
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slab, 6),
-				"QQQ",
-				'Q', od));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairs, 4),
-				"  Q", " QQ", "QQQ",
-				'Q', od));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairs, 4),
-				"Q  ", "QQ ", "QQQ",
-				'Q', od));
-		GameRegistry.addRecipe(new ItemStack(block, 1, meta),
-				"Q", "Q",
-				'Q', new ItemStack(slab));
-	}
-
 	private static void addWall(Block block, int blockMeta, Block wall, int wallMeta) {
 		GameRegistry.addRecipe(new ItemStack(wall, 6, wallMeta),
 				"BBB", "BBB",
 				'B', new ItemStack(block, 1, blockMeta));
-	}
-
-	private static void addWallWithOreDict(String od, Block wall, int wallMeta) {
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wall, 6, wallMeta),
-				"BBB", "BBB",
-				'B', od));
 	}
 
 	private static void addPane(Block block, Block pane) {

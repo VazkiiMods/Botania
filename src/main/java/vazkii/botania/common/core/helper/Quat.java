@@ -2,10 +2,10 @@
  * This class was created by <ChickenBones>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
@@ -13,7 +13,6 @@ package vazkii.botania.common.core.helper;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
-import java.util.Objects;
 
 public final class Quat {
 
@@ -29,7 +28,7 @@ public final class Quat {
 		y = d2;
 		z = d3;
 		s = d;
-		this.hashCode = Arrays.hashCode(new double[] { d, d1, d2, d3 } );
+		hashCode = Arrays.hashCode(new double[] { d, d1, d2, d3 } );
 	}
 
 	public static Quat aroundAxis(double ax, double ay, double az, double angle) {
@@ -89,10 +88,10 @@ public final class Quat {
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Quat
-				&& ((Quat) o).x == this.x
-				&& ((Quat) o).y == this.y
-				&& ((Quat) o).z == this.z
-				&& ((Quat) o).s == this.s;
+				&& ((Quat) o).x == x
+				&& ((Quat) o).y == y
+				&& ((Quat) o).z == z
+				&& ((Quat) o).s == s;
 	}
 
 	@Override

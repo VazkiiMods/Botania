@@ -2,13 +2,15 @@
  * This class was created by <SoundLogic>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 4, 2014, 10:38:50 PM (GMT)]
  */
 package vazkii.botania.common.lexicon.page;
+
+import java.lang.reflect.Constructor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,8 +25,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 
-import java.lang.reflect.Constructor;
-
 public class PageEntity extends LexiconPage{
 
 	Entity dummyEntity;
@@ -35,7 +35,7 @@ public class PageEntity extends LexiconPage{
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = (Class) EntityList.NAME_TO_CLASS.get(entity);
+		Class EntityClass = EntityList.NAME_TO_CLASS.get(entity);
 		this.size = size;
 		try {
 			entityConstructor = EntityClass.getConstructor(World.class);

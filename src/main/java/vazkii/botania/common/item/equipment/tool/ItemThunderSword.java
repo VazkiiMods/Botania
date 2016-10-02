@@ -2,15 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 27, 2015, 10:38:50 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -31,12 +39,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Predicate;
 
 public class ItemThunderSword extends ItemManasteelSword implements ICraftAchievement {
 
@@ -64,7 +66,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 				if(entities.isEmpty())
 					break;
 
-				EntityLivingBase target = ((EntityLivingBase) entities.get(rand.nextInt(entities.size())));
+				EntityLivingBase target = (EntityLivingBase) entities.get(rand.nextInt(entities.size()));
 				if(attacker instanceof EntityPlayer)
 					target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), dmg);
 				else target.attackEntityFrom(DamageSource.causeMobDamage(attacker), dmg);

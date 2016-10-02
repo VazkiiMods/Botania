@@ -13,46 +13,46 @@ import vazkii.botania.common.lib.LibMisc;
 
 public final class PacketHandler {
 
-    private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.NETWORK_CHANNEL);
+	private static final SimpleNetworkWrapper HANDLER = new SimpleNetworkWrapper(LibMisc.NETWORK_CHANNEL);
 
-    public static void init() {
-    	int id = 0;
-        HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, id++, Side.CLIENT);
-        HANDLER.registerMessage(PacketLeftClick.Handler.class, PacketLeftClick.class, id++, Side.SERVER);
-        HANDLER.registerMessage(PacketDodge.Handler.class, PacketDodge.class, id++, Side.SERVER);
-    }
+	public static void init() {
+		int id = 0;
+		HANDLER.registerMessage(PacketBotaniaEffect.Handler.class, PacketBotaniaEffect.class, id++, Side.CLIENT);
+		HANDLER.registerMessage(PacketLeftClick.Handler.class, PacketLeftClick.class, id++, Side.SERVER);
+		HANDLER.registerMessage(PacketDodge.Handler.class, PacketDodge.class, id++, Side.SERVER);
+	}
 
-    /**
-     * Send message to all within 64 blocks that have this chunk loaded
-     */
-    public static void sendToNearby(World world, BlockPos pos, IMessage toSend) {
-        if(world instanceof WorldServer) {
-            WorldServer ws = ((WorldServer) world);
+	/**
+	 * Send message to all within 64 blocks that have this chunk loaded
+	 */
+	public static void sendToNearby(World world, BlockPos pos, IMessage toSend) {
+		if(world instanceof WorldServer) {
+			WorldServer ws = (WorldServer) world;
 
-            for (EntityPlayer player : ws.playerEntities) {
-                EntityPlayerMP playerMP = ((EntityPlayerMP) player);
+			for (EntityPlayer player : ws.playerEntities) {
+				EntityPlayerMP playerMP = (EntityPlayerMP) player;
 
-                if (playerMP.getDistanceSq(pos) < 64 * 64
-                        && ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
-                    HANDLER.sendTo(toSend, playerMP);
-                }
-            }
+				if (playerMP.getDistanceSq(pos) < 64 * 64
+						&& ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
+					HANDLER.sendTo(toSend, playerMP);
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    public static void sendToNearby(World world, Entity e, IMessage toSend) {
-        sendToNearby(world, new BlockPos(e), toSend);
-    }
+	public static void sendToNearby(World world, Entity e, IMessage toSend) {
+		sendToNearby(world, new BlockPos(e), toSend);
+	}
 
-    public static void sendTo(EntityPlayerMP playerMP, IMessage toSend) {
-        HANDLER.sendTo(toSend, playerMP);
-    }
+	public static void sendTo(EntityPlayerMP playerMP, IMessage toSend) {
+		HANDLER.sendTo(toSend, playerMP);
+	}
 
-    public static void sendToServer(IMessage msg) {
-        HANDLER.sendToServer(msg);
-    }
+	public static void sendToServer(IMessage msg) {
+		HANDLER.sendToServer(msg);
+	}
 
-    private PacketHandler() {}
+	private PacketHandler() {}
 
 }

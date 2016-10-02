@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 14, 2014, 7:34:56 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,9 +44,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, ICraftAchievement {
 

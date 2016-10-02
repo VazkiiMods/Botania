@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 16, 2014, 5:50:31 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
@@ -48,10 +53,6 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IModelRegister {
 
@@ -137,7 +138,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
-		int b = (hex & 0xFF);
+		int b = hex & 0xFF;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
@@ -177,7 +178,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(getTypeProperty()).build());
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(getTypeProperty()).build());
 		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "flower_" + EnumDyeColor.byMetadata(i).getName());
 	}
 }

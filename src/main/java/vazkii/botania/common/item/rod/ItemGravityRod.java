@@ -2,13 +2,18 @@
  * This class was created by <Flaxbeard>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 25, 2014, 2:57:16 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,10 +39,6 @@ import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
@@ -92,12 +93,12 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
-		
+
 		if(ticksCooldown == 0) {
 			Entity item = null;
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
-				
+
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
@@ -135,7 +136,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			if(item != null) {
 				if(BotaniaAPI.isEntityBlacklistedFromGravityRod(item.getClass()))
 					return ActionResult.newResult(EnumActionResult.FAIL, stack);
-				
+
 				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
 					if(item instanceof EntityItem)
 						((EntityItem) item).setPickupDelay(5);
@@ -162,7 +163,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						float zm = ((float) Math.random() - 0.5F) * m;
 						Botania.proxy.wispFX(item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
 					}
-					
+
 					MathHelper.setEntityMotionFromVector(item, target3, 0.3333333F);
 
 					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
@@ -187,7 +188,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item;
-			
+
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
 

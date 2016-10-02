@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.state.enums;
 
-import net.minecraft.util.IStringSerializable;
-
 import java.util.Locale;
+
+import net.minecraft.util.IStringSerializable;
 
 public enum CrateVariant implements IStringSerializable {
 	OPEN,

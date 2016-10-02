@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -39,10 +44,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class ItemBottledMana extends ItemMod {
 
@@ -97,7 +98,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 7 : { // All your inventory is belong to us
 			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
-				EntityPlayer player = ((EntityPlayer) living);
+				EntityPlayer player = (EntityPlayer) living;
 				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 					ItemStack stackAt = player.inventory.getStackInSlot(i);
 					if(stackAt != stack) {

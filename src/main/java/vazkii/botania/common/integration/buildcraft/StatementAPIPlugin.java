@@ -1,5 +1,8 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.ITriggerExternal;
 import buildcraft.api.statements.ITriggerInternal;
@@ -10,9 +13,6 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileRuneAltar;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class StatementAPIPlugin implements ITriggerProvider {
 

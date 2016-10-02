@@ -8,6 +8,10 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -15,14 +19,11 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory {
 
@@ -75,7 +76,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 		if(!(recipeWrapper instanceof PureDaisyRecipeWrapper))
 			return;
 
-		PureDaisyRecipeWrapper wrapper = ((PureDaisyRecipeWrapper) recipeWrapper);
+		PureDaisyRecipeWrapper wrapper = (PureDaisyRecipeWrapper) recipeWrapper;
 		boolean inputFluid = wrapper.getInputs().isEmpty();
 		boolean outputFluid = wrapper.getOutputs().isEmpty();
 
@@ -86,9 +87,9 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 		} else {
 			recipeLayout.getItemStacks().init(0, true, 40, 12);
 			if(wrapper.getInputs().get(0) instanceof Collection) {
-				recipeLayout.getItemStacks().set(0, ((Collection<ItemStack>) wrapper.getInputs().get(0)));
+				recipeLayout.getItemStacks().set(0, (Collection<ItemStack>) wrapper.getInputs().get(0));
 			} else {
-				recipeLayout.getItemStacks().set(0, ((ItemStack) wrapper.getInputs().get(0)));
+				recipeLayout.getItemStacks().set(0, (ItemStack) wrapper.getInputs().get(0));
 			}
 		}
 
@@ -101,9 +102,9 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 		} else {
 			recipeLayout.getItemStacks().init(2, false, 99, 12);
 			if(wrapper.getOutputs().get(0) instanceof Collection) {
-				recipeLayout.getItemStacks().set(2, ((Collection<ItemStack>) wrapper.getOutputs().get(0)));
+				recipeLayout.getItemStacks().set(2, (Collection<ItemStack>) wrapper.getOutputs().get(0));
 			} else {
-				recipeLayout.getItemStacks().set(2, ((ItemStack) wrapper.getOutputs().get(0)));
+				recipeLayout.getItemStacks().set(2, (ItemStack) wrapper.getOutputs().get(0));
 			}
 		}
 	}

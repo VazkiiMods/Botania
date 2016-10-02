@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [18/12/2015, 02:19:53 (GMT)]
  */
 package vazkii.botania.client.render.world;
@@ -27,5 +27,5 @@ public final class SkyblockRenderEvents {
 				world.provider.setSkyRenderer(new SkyblockSkyRenderer());
 		}
 	}
-	
+
 }

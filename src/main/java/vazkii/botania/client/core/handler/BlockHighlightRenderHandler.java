@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 3:16:02 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
@@ -84,19 +84,19 @@ public final class BlockHighlightRenderHandler {
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
 				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).expand(2.5, 0, 2.5);
-				
+
 				float gs = (float) (Math.sin(ClientTickHandler.total / 20) + 1) * 0.2F + 0.6F;
 				int r = (int) (105 * gs);
 				int g = (int) (25 * gs);
 				int b = (int) (145 * gs);
 				Color color = new Color(r, g, b);
-				
+
 				int alpha = 32;
 				if(e.ticksExisted < 8)
 					alpha *= Math.min((e.ticksExisted + event.getPartialTicks()) / 8F, 1F);
 				else if(e.ticksExisted > 47)
 					alpha *= Math.min(1F - (e.ticksExisted - 47 + event.getPartialTicks()) / 8F, 1F);
-				
+
 				renderRectangle(aabb, false, color, (byte) alpha);
 				offY += 0.001;
 			}
@@ -120,7 +120,7 @@ public final class BlockHighlightRenderHandler {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
-		
+
 		if(color == null)
 			color = Color.getHSBColor(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), alpha);
@@ -150,7 +150,7 @@ public final class BlockHighlightRenderHandler {
 			tessellator.draw();
 		}
 
-		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
 		GlStateManager.popMatrix();
 	}
 
@@ -207,7 +207,7 @@ public final class BlockHighlightRenderHandler {
 		}
 		tessellator.getBuffer().pos(0, f1, 0).endVertex();
 		tessellator.draw();
-		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
 		GlStateManager.popMatrix();
 	}
 

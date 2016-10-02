@@ -8,7 +8,12 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -17,9 +22,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipePureDaisy;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 
@@ -30,9 +32,9 @@ public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 
 	public PureDaisyRecipeWrapper(RecipePureDaisy recipe) {
 		if(recipe.getInput() instanceof String) {
-			inputs = ImmutableList.of(OreDictionary.getOres(((String) recipe.getInput())));
+			inputs = ImmutableList.of(OreDictionary.getOres((String) recipe.getInput()));
 		} else if(recipe.getInput() instanceof Block) {
-			Block b = ((Block) recipe.getInput());
+			Block b = (Block) recipe.getInput();
 			if(FluidRegistry.lookupFluidForBlock(b) != null) {
 				fluidInputs = ImmutableList.of(new FluidStack(FluidRegistry.lookupFluidForBlock(b), 1000));
 			} else {

@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 17, 2014, 12:05:37 AM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -22,15 +25,12 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SubTileClayconia extends SubTileFunctional {
 
 	private static final int COST = 80;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
-	
+
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
@@ -58,7 +58,7 @@ public class SubTileClayconia extends SubTileFunctional {
 
 		int range = getRange();
 		int rangeY = getRangeY();
-		
+
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -rangeY; j < rangeY + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
@@ -85,7 +85,7 @@ public class SubTileClayconia extends SubTileFunctional {
 	public int getRangeY() {
 		return RANGE_Y;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x7B8792;

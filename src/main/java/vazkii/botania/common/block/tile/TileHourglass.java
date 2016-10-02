@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 29, 2015, 8:21:17 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -57,7 +57,7 @@ public class TileHourglass extends TileSimpleInventory {
 		if(totalTime > 0 || dust) {
 			if(move && !dust)
 				time++;
-			
+
 			if(time >= totalTime) {
 				time = 0;
 				flip = !flip;
@@ -75,7 +75,7 @@ public class TileHourglass extends TileSimpleInventory {
 						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(worldObj, pos, this);
 				}
 			}
-			
+
 			lastFraction = timeFraction;
 			timeFraction = (float) time / (float) totalTime;
 		} else {
@@ -87,7 +87,7 @@ public class TileHourglass extends TileSimpleInventory {
 		if(flipTicks > 0)
 			flipTicks--;
 	}
-	
+
 	public void onManaCollide() {
 		if(!worldObj.isRemote) {
 			if(dust)
@@ -127,7 +127,7 @@ public class TileHourglass extends TileSimpleInventory {
 			return 0x5A412f;
 		if(stack.getItem() == ModItems.manaResource)
 			return 0x03abff;
-		
+
 		return 0;
 	}
 
@@ -136,7 +136,7 @@ public class TileHourglass extends TileSimpleInventory {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || (stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23))
+				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

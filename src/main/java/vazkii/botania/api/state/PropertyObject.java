@@ -8,12 +8,13 @@
  */
 package vazkii.botania.api.state;
 
+import java.util.Objects;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import net.minecraftforge.common.property.IUnlistedProperty;
 
-import java.util.Objects;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 // Generic base class for unlisted properties
 public class PropertyObject<T> implements IUnlistedProperty<T> {

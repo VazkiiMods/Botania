@@ -2,12 +2,15 @@
  * This class was created by <Vindex>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  */
 package vazkii.botania.common.integration.corporea;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,9 +21,6 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.Botania;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -34,13 +34,13 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	private final IDeepStorageUnit invRaw;
 
 	private WrappedDeepStorage(IDeepStorageUnit inv, ICorporeaSpark spark) {
-		this.invRaw = inv;
+		invRaw = inv;
 		this.spark = spark;
 	}
 
 	@Override
 	public InvWithLocation getWrappedObject() {
-		return new InvWithLocation(new InvWrapper(((IInventory) invRaw)), spark.getSparkInventory().world, spark.getSparkInventory().pos);
+		return new InvWithLocation(new InvWrapper((IInventory) invRaw), spark.getSparkInventory().world, spark.getSparkInventory().pos);
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	 */
 	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
 		if(isDeepStorageNeeded() && inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).getInv() instanceof IDeepStorageUnit) {
-			return new WrappedDeepStorage(((IDeepStorageUnit) ((InvWrapper) inv.handler).getInv()), spark);
+			return new WrappedDeepStorage((IDeepStorageUnit) ((InvWrapper) inv.handler).getInv(), spark);
 		} else return null;
 	}
 
@@ -123,7 +123,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	private static boolean isDeepStorageNeeded() {
 		if(!checkedInterface) {
 			try {
-				deepStoragePresent = (Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit") != null);
+				deepStoragePresent = Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit") != null;
 			} catch (ClassNotFoundException e) {
 				deepStoragePresent = false;
 			}

@@ -2,15 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 8, 2014, 5:25:32 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.List;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -33,21 +36,19 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.List;
-
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
 	private static final BlockPos[] LAPIS_BLOCKS = {
-		new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0),
-		new BlockPos(0, 0, 1), new BlockPos(0, 0, -1)
+			new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0),
+			new BlockPos(0, 0, 1), new BlockPos(0, 0, -1)
 	};
 
 	private static final BlockPos[] LIVINGROCK_BLOCKS = {
-		new BlockPos(0, 0, 0), new BlockPos(1, 0, 1),
-		new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1),
-		new BlockPos(-1, 0, -1)
+			new BlockPos(0, 0, 0), new BlockPos(1, 0, 1),
+			new BlockPos(1, 0, -1), new BlockPos(-1, 0, 1),
+			new BlockPos(-1, 0, -1)
 	};
 
 	private static final String TAG_MANA = "mana";

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 8, 2014, 10:58:46 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -21,9 +25,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
@@ -42,7 +43,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(d0, d1, d2);
 
-		double worldTime = (double) (ClientTickHandler.ticksInGame + t);
+		double worldTime = ClientTickHandler.ticksInGame + t;
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 

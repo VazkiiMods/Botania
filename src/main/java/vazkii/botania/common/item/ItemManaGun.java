@@ -2,31 +2,33 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 13, 2014, 4:30:27 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.Minecraft;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -41,7 +43,6 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -50,11 +51,6 @@ import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
@@ -319,7 +315,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.registerItemVariants(this,
+		ModelBakery.registerItemVariants(this,
 				new ModelResourceLocation("botania:desuGunClip", "inventory"),
 				new ModelResourceLocation("botania:desuGun", "inventory"),
 				new ModelResourceLocation("botania:manaGunClip", "inventory"),

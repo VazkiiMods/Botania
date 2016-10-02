@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 17, 2015, 11:17:48 PM (GMT)]
  */
 package vazkii.botania.client.render.entity;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -19,8 +21,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
-
-import javax.annotation.Nonnull;
 
 public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 

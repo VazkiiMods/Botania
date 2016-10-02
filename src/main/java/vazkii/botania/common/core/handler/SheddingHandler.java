@@ -2,26 +2,21 @@
  * This class was created by <SoundLogic>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 4, 2014, 10:38:50 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -31,10 +26,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageShedding;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 
 public final class SheddingHandler {
 
@@ -80,14 +71,14 @@ public final class SheddingHandler {
 	}
 
 	public static void loadFromConfig(Configuration config) {
-//		defaultPatterns.add(new ShedPattern(EntityChicken.class, new ItemStack(Items.FEATHER), 26000, 20));
-//		defaultPatterns.add(new ShedPattern(EntitySquid.class, new ItemStack(Items.DYE), 18000, 20));
-//		defaultPatterns.add(new ShedPattern(EntityVillager.class, new ItemStack(Items.EMERALD), 226000, 40));
-//		defaultPatterns.add(new ShedPattern(EntitySpider.class, new ItemStack(Items.STRING), 12000, 40));
-//		defaultPatterns.add(new ShedPattern(EntityBlaze.class, new ItemStack(Items.BLAZE_POWDER), 8000, 40));
-//		defaultPatterns.add(new ShedPattern(EntityGhast.class, new ItemStack(Items.GHAST_TEAR), 9001, 30));
-//		defaultPatterns.add(new ShedPattern(EntitySkeleton.class, new ItemStack(Items.BONE), 36000, 40));
-//		defaultPatterns.add(new ShedPattern(EntitySlime.class, new ItemStack(Items.SLIME_BALL), 21000, 40));
+		//		defaultPatterns.add(new ShedPattern(EntityChicken.class, new ItemStack(Items.FEATHER), 26000, 20));
+		//		defaultPatterns.add(new ShedPattern(EntitySquid.class, new ItemStack(Items.DYE), 18000, 20));
+		//		defaultPatterns.add(new ShedPattern(EntityVillager.class, new ItemStack(Items.EMERALD), 226000, 40));
+		//		defaultPatterns.add(new ShedPattern(EntitySpider.class, new ItemStack(Items.STRING), 12000, 40));
+		//		defaultPatterns.add(new ShedPattern(EntityBlaze.class, new ItemStack(Items.BLAZE_POWDER), 8000, 40));
+		//		defaultPatterns.add(new ShedPattern(EntityGhast.class, new ItemStack(Items.GHAST_TEAR), 9001, 30));
+		//		defaultPatterns.add(new ShedPattern(EntitySkeleton.class, new ItemStack(Items.BONE), 36000, 40));
+		//		defaultPatterns.add(new ShedPattern(EntitySlime.class, new ItemStack(Items.SLIME_BALL), 21000, 40));
 
 		ArrayList<String> defaultNames = new ArrayList<>();
 

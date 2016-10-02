@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 16, 2015, 5:03:57 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
@@ -35,12 +35,12 @@ import vazkii.botania.common.block.tile.TileLightRelay;
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
 
 	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
-	
+
 	@Override
 	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 		if(sprites.isEmpty()) {
 			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
@@ -48,7 +48,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);
 			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
 		}
-		
+
 		TextureAtlasSprite iicon = sprites.get(tile.getWorld().getBlockState(tile.getPos()).getValue(BotaniaStateProps.LUMINIZER_VARIANT));
 
 		GlStateManager.pushMatrix();
@@ -72,7 +72,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 
 		float off = 0.25F;
 		GlStateManager.translate(0F, off, 0F);
-		GlStateManager.rotate(((float) time), 0F, 0F, 1F);
+		GlStateManager.rotate((float) time, 0F, 0F, 1F);
 		GlStateManager.translate(0F, -off, 0F);
 
 		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -98,7 +98,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 		f1 -= pad;
 		f2 += pad;
 		f3 -= pad;
-		
+
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;

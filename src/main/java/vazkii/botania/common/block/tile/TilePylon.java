@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 18, 2014, 10:15:50 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -21,8 +23,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
-
-import java.util.Random;
 
 public class TilePylon extends TileEntity implements ITickable {
 
@@ -41,11 +41,11 @@ public class TilePylon extends TileEntity implements ITickable {
 
 		if(activated && worldObj.isRemote) {
 			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta()
-					|| (variant == PylonVariant.NATURA && (portalOff() || worldObj.getBlockState(getPos().down()).getBlock() != ModBlocks.pool))) {
+					|| variant == PylonVariant.NATURA && (portalOff() || worldObj.getBlockState(getPos().down()).getBlock() != ModBlocks.pool)) {
 				activated = false;
 				return;
 			}
-			
+
 			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if(variant == PylonVariant.NATURA) {
@@ -75,7 +75,7 @@ public class TilePylon extends TileEntity implements ITickable {
 					int hex = worldObj.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
-					int b = (hex & 0xFF);
+					int b = hex & 0xFF;
 
 					if(worldObj.rand.nextInt(4) == 0)
 						Botania.proxy.sparkleFX(centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random(), 8);

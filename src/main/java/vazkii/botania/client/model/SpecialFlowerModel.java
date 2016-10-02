@@ -8,6 +8,17 @@
  */
 package vazkii.botania.client.model;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+import javax.vecmath.Matrix4f;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -17,6 +28,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -44,20 +56,11 @@ import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-
-import javax.annotation.Nonnull;
-import javax.vecmath.Matrix4f;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class SpecialFlowerModel implements IModelCustomData {
 
@@ -68,7 +71,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 	private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
 
 	public SpecialFlowerModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
-							  ImmutableMap<Optional<String>, ModelResourceLocation> itemModels) {
+			ImmutableMap<Optional<String>, ModelResourceLocation> itemModels) {
 		this.blockModels = blockModels;
 		this.itemModels = itemModels;
 	}
@@ -145,8 +148,8 @@ public class SpecialFlowerModel implements IModelCustomData {
 			public boolean accepts(ResourceLocation modelLocation) {
 				return modelLocation.getResourceDomain().equals("botania_special") && (
 						modelLocation.getResourcePath().equals("specialFlower") ||
-								modelLocation.getResourcePath().equals("models/block/specialFlower") ||
-								modelLocation.getResourcePath().equals("models/item/specialFlower"));
+						modelLocation.getResourcePath().equals("models/block/specialFlower") ||
+						modelLocation.getResourcePath().equals("models/item/specialFlower"));
 			}
 
 			@Override
@@ -168,18 +171,18 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private final LoadingCache<String, Optional<IBakedModel>> bakedItemModels;
 
 		SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
-									   ImmutableMap<Optional<String>, ModelResourceLocation> itemModels, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
+				ImmutableMap<Optional<String>, ModelResourceLocation> itemModels, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
 			this.blockModels = blockModels;
 			this.itemModels = itemModels;
-			this.transforms = cameraTransforms;
+			transforms = cameraTransforms;
 
 			ModelResourceLocation baseModelPath = blockModels.getOrDefault(Optional.empty(),
 					new ModelResourceLocation("builtin/missing", "missing"));
-			this.baseModel = ModelLoaderRegistry.getModelOrMissing(baseModelPath)
+			baseModel = ModelLoaderRegistry.getModelOrMissing(baseModelPath)
 					.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
 
-			this.bakedBlockModels = CacheBuilder.newBuilder().build(new Loader(true));
-			this.bakedItemModels = CacheBuilder.newBuilder().build(new Loader(false));
+			bakedBlockModels = CacheBuilder.newBuilder().build(new Loader(true));
+			bakedItemModels = CacheBuilder.newBuilder().build(new Loader(false));
 		}
 
 		private class Loader extends CacheLoader<String, Optional<IBakedModel>> {
@@ -187,7 +190,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 			private final boolean loadBlocks;
 
 			Loader(boolean blocks) {
-				this.loadBlocks = blocks;
+				loadBlocks = blocks;
 			}
 
 			@Override
@@ -214,7 +217,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 			}
 
-			IExtendedBlockState extendedState = ((IExtendedBlockState) state);
+			IExtendedBlockState extendedState = (IExtendedBlockState) state;
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
 			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
@@ -244,7 +247,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 				return item.isPresent()
 						? item.get()
-						: Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
+								: Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
 			}
 		};
 

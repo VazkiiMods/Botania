@@ -8,6 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
+import java.awt.Point;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -19,10 +24,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.Collection;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory {
 
@@ -74,7 +75,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof RunicAltarRecipeWrapper))
 			return;
-		RunicAltarRecipeWrapper wrapper = ((RunicAltarRecipeWrapper) recipeWrapper);
+		RunicAltarRecipeWrapper wrapper = (RunicAltarRecipeWrapper) recipeWrapper;
 
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
@@ -86,10 +87,10 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		for(Object o : wrapper.getInputs()) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
 			if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) o));
+				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
 			}
 			if(o instanceof ItemStack) {
-				recipeLayout.getItemStacks().set(index, ((ItemStack) o));
+				recipeLayout.getItemStacks().set(index, (ItemStack) o);
 			}
 			index += 1;
 			point = rotatePointAbout(point, center, angleBetweenEach);
@@ -103,7 +104,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		double rad = degrees * Math.PI / 180.0;
 		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
-		return new Point(((int) newX), ((int) newY));
+		return new Point((int) newX, (int) newY);
 	}
 
 }

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 30, 2014, 1:10:34 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -21,8 +23,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import java.util.List;
 
 public class TileEnderEye extends TileMod {
 
@@ -50,7 +50,7 @@ public class TileEnderEye extends TileMod {
 
 		if(looking != wasLooking && !worldObj.isRemote)
 			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
-		
+
 		if(looking) {
 			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
 			double y = getPos().getY() - 0.1 + Math.random() * 1.2;

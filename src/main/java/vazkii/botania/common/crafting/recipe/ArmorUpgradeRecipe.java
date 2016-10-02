@@ -19,23 +19,23 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 
-    public ArmorUpgradeRecipe(ItemStack output, Object... inputs) {
-        super(output, inputs);
-    }
+	public ArmorUpgradeRecipe(ItemStack output, Object... inputs) {
+		super(output, inputs);
+	}
 
-    @Override
-    public ItemStack getCraftingResult(InventoryCrafting var1) {
-        ItemStack out = output.copy();
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
-            ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
-                EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
-                byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
-                if (runicHardening != 0)
-                    ItemNBTHelper.setByte(out, "RS.HARDEN", runicHardening);
-                break;
-            }
-        }
-        return out;
-    }
+	@Override
+	public ItemStack getCraftingResult(InventoryCrafting var1) {
+		ItemStack out = output.copy();
+		for (int i = 0; i < var1.getSizeInventory(); i++) {
+			ItemStack stack = var1.getStackInSlot(i);
+			if (stack != null && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
+				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
+				byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
+				if (runicHardening != 0)
+					ItemNBTHelper.setByte(out, "RS.HARDEN", runicHardening);
+				break;
+			}
+		}
+		return out;
+	}
 }

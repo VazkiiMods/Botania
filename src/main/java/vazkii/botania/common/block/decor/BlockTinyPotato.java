@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 18, 2014, 7:58:08 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
@@ -67,12 +67,12 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		switch (state.getValue(BotaniaStateProps.CARDINALS)) {
-			case NORTH: return 0;
-			case WEST: return 3;
-			case EAST: return 1;
-			case SOUTH:
-			default:
-				return 2; // wai vazkii senpai
+		case NORTH: return 0;
+		case WEST: return 3;
+		case EAST: return 1;
+		case SOUTH:
+		default:
+			return 2; // wai vazkii senpai
 		}
 	}
 
@@ -81,16 +81,16 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing side;
 		switch (meta) {
-			case 3: side = EnumFacing.WEST; break;
-			case 0: side = EnumFacing.NORTH; break;
-			case 1: side = EnumFacing.EAST; break;
-			case 2:
-			default:
-				side = EnumFacing.SOUTH; break;
+		case 3: side = EnumFacing.WEST; break;
+		case 0: side = EnumFacing.NORTH; break;
+		case 1: side = EnumFacing.EAST; break;
+		case 2:
+		default:
+			side = EnumFacing.SOUTH; break;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, side);
 	}
-	
+
 	@Override
 	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);

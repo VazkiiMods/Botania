@@ -2,23 +2,26 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 18, 2014, 4:00:30 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon.button;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.ARBMultitexture;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.resources.I18n;
-import org.lwjgl.opengl.ARBMultitexture;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -26,8 +29,6 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import javax.annotation.Nonnull;
 
 public class GuiButtonCategory extends GuiButtonLexicon {
 
@@ -118,7 +119,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
-		
+
 		GlStateManager.popMatrix();
 
 		if(inside)

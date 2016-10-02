@@ -8,6 +8,12 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -20,14 +26,10 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory {
 
@@ -92,15 +94,15 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof ElvenTradeRecipeWrapper))
 			return;
-		ElvenTradeRecipeWrapper wrapper = ((ElvenTradeRecipeWrapper) recipeWrapper);
+		ElvenTradeRecipeWrapper wrapper = (ElvenTradeRecipeWrapper) recipeWrapper;
 
 		int index = 0, posX = 42;
 		for(Object o : wrapper.getInputs()) {
 			recipeLayout.getItemStacks().init(index, true, posX, 0);
 			if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) o));
+				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
 			} else {
-				recipeLayout.getItemStacks().set(index, ((ItemStack) o));
+				recipeLayout.getItemStacks().set(index, (ItemStack) o);
 			}
 			index++;
 			posX += 18;
@@ -108,7 +110,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 
 		for (int i = 0; i < wrapper.getOutputs().size(); i++) {
 			ItemStack stack = wrapper.getOutputs().get(i);
-			recipeLayout.getItemStacks().init(index + i, false, 93 + (i % 2 * 20), 41 + (i / 2 * 20));
+			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
 			recipeLayout.getItemStacks().set(index + i, stack);
 		}
 	}

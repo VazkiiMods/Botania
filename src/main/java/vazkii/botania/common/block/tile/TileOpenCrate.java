@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 4, 2014, 12:51:05 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -22,23 +24,21 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
 
-import javax.annotation.Nonnull;
-
 public class TileOpenCrate extends TileSimpleInventory {
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
 			return true;
-			if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
-				return true;
-			return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
-		}
+		if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
+			return true;
+		return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
+	}
 
-		@Override
-		public int getSizeInventory() {
-			return 1;
-		}
+	@Override
+	public int getSizeInventory() {
+		return 1;
+	}
 
 	@Override
 	public void update() {

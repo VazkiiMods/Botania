@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Dec 15, 2014, 3:53:30 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -48,10 +52,9 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientMethodHandles;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
@@ -64,8 +67,6 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
@@ -122,7 +123,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
 		if (!(entity instanceof EntityLivingBase))
 			return;
-		EntityLivingBase living = ((EntityLivingBase) entity);
+		EntityLivingBase living = (EntityLivingBase) entity;
 
 		boolean eqLastTick = wasEquipped(stack);
 

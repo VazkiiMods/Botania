@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 9:11:23 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +27,6 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemKeepIvy extends ItemMod {
 

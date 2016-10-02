@@ -2,19 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [18/12/2015, 02:06:56 (GMT)]
  */
 package vazkii.botania.client.render.world;
+
+import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -23,14 +26,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientMethodHandles;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.lib.LibObfuscation;
-
-import java.util.Random;
 
 public class SkyblockSkyRenderer extends IRenderHandler {
 
@@ -39,12 +37,12 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("textures/environment/moon_phases.png");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("textures/environment/sun.png");
 	private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
-		new ResourceLocation(LibResources.MISC_PLANET + "0.png"),
-		new ResourceLocation(LibResources.MISC_PLANET + "1.png"),
-		new ResourceLocation(LibResources.MISC_PLANET + "2.png"),
-		new ResourceLocation(LibResources.MISC_PLANET + "3.png"),
-		new ResourceLocation(LibResources.MISC_PLANET + "4.png"),
-		new ResourceLocation(LibResources.MISC_PLANET + "5.png")
+			new ResourceLocation(LibResources.MISC_PLANET + "0.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "1.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "2.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "3.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "4.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "5.png")
 	};
 
 	// Copy of overworld section of RenderGlobal.renderSky(), heavily modified
@@ -65,7 +63,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float f = (float)vec3d.xCoord;
 		float f1 = (float)vec3d.yCoord;
 		float f2 = (float)vec3d.zCoord;
-		
+
 		// Botania - darken when in void
 		float insideVoid = 0;
 		if(mc.thePlayer.posY <= -2)
@@ -137,14 +135,12 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 			vertexbuffer.begin(6, DefaultVertexFormats.POSITION_COLOR);
 			vertexbuffer.pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex(); // Botania - darken in void
-			int j = 16;
-
 			for (int l = 0; l <= 16; ++l)
 			{
-				float f21 = (float)l * ((float)Math.PI * 2F) / 16.0F;
+				float f21 = l * ((float)Math.PI * 2F) / 16.0F;
 				float f12 = MathHelper.sin(f21);
 				float f13 = MathHelper.cos(f21);
-				vertexbuffer.pos((double)(f12 * 120.0F), (double)(f13 * 120.0F), (double)(-f13 * 40.0F * afloat[3])).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+				vertexbuffer.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 			}
 
 			tessellator.draw();
@@ -158,9 +154,9 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float f16 = 1.0F - world.getRainStrength(partialTicks);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, f16);
 		GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
-		
+
 		float f17; // Botania - move declaration up from below "extra stuff"
-		
+
 		// Botania - Begin extra stuff
 		float celAng = world.getCelestialAngle(partialTicks);
 		float effCelAng = celAng;
@@ -174,7 +170,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
-		GlStateManager.color(1F, 1F, 1F, (a * 4) * (1F - insideVoid));
+		GlStateManager.color(1F, 1F, 1F, a * 4 * (1F - insideVoid));
 		GlStateManager.rotate(90F, 0.5F, 0.5F, 0.0F);
 		for(int p = 0; p < planetTextures.length; p++) {
 			mc.renderEngine.bindTexture(planetTextures[p]);
@@ -186,25 +182,25 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			tessellator.draw();
 
 			switch(p) {
-				case 0:
-					GlStateManager.rotate(70F, 1F, 0F, 0F);
-					f17 = 12F;
-					break;
-				case 1:
-					GlStateManager.rotate(120F, 0F, 0F, 1F);
-					f17 = 15F;
-					break;
-				case 2:
-					GlStateManager.rotate(80F, 1F, 0F, 1F);
-					f17 = 25F;
-					break;
-				case 3:
-					GlStateManager.rotate(100F, 0F, 0F, 1F);
-					f17 = 10F;
-					break;
-				case 4:
-					GlStateManager.rotate(-60F, 1F, 0F, 0.5F);
-					f17 = 40F;
+			case 0:
+				GlStateManager.rotate(70F, 1F, 0F, 0F);
+				f17 = 12F;
+				break;
+			case 1:
+				GlStateManager.rotate(120F, 0F, 0F, 1F);
+				f17 = 15F;
+				break;
+			case 2:
+				GlStateManager.rotate(80F, 1F, 0F, 1F);
+				f17 = 25F;
+				break;
+			case 3:
+				GlStateManager.rotate(100F, 0F, 0F, 1F);
+				f17 = 10F;
+				break;
+			case 4:
+				GlStateManager.rotate(-60F, 1F, 0F, 0.5F);
+				f17 = 40F;
 			}
 		}
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -221,13 +217,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.rotate(220F, 1F, 0F, 0F);
 		GlStateManager.color(1F, 1F, 1F, a);
 		int angles = 90;
-		float s = 3F;
-		float m = 1F;
 		float y = 2F;
 		float y0 = 0F;
 		float uPer = 1F / 360F;
 		float anglePer = 360F / angles;
-		double fuzzPer = (Math.PI * 10) / angles;
+		double fuzzPer = Math.PI * 10 / angles;
 		float rotSpeed = 1F;
 		float rotSpeedMod = 0.4F;
 
@@ -259,18 +253,18 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			tessellator.draw();
 
 			switch(p) {
-				case 0:
-					GlStateManager.rotate(20F, 1F, 0F, 0F);
-					GlStateManager.color(1F, 0.4F, 0.4F, a);
-					fuzzPer = (Math.PI * 14) / angles;
-					rotSpeed = 0.2F;
-					break;
-				case 1:
-					GlStateManager.rotate(50F, 1F, 0F, 0F);
-					GlStateManager.color(0.4F, 1F, 0.7F, a);
-					fuzzPer = (Math.PI * 6) / angles;
-					rotSpeed = 2F;
-					break;
+			case 0:
+				GlStateManager.rotate(20F, 1F, 0F, 0F);
+				GlStateManager.color(1F, 0.4F, 0.4F, a);
+				fuzzPer = Math.PI * 14 / angles;
+				rotSpeed = 0.2F;
+				break;
+			case 1:
+				GlStateManager.rotate(50F, 1F, 0F, 0F);
+				GlStateManager.color(0.4F, 1F, 0.7F, a);
+				fuzzPer = Math.PI * 6 / angles;
+				rotSpeed = 2F;
+				break;
 			}
 		}
 		GlStateManager.popMatrix();
@@ -320,31 +314,31 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.color(1F, 1F, 1F, 1F - insideVoid);
 		GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
 		// Botania - End extra stuff
-		
-		
+
+
 		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
 		/*float*/ f17 = 60.0F; // Botania - 30 -> 60 and move declaration above "extra stuff"
 		mc.renderEngine.bindTexture(SUN_TEXTURES);
 		vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		vertexbuffer.pos((double)(-f17), 100.0D, (double)(-f17)).tex(0.0D, 0.0D).endVertex();
-		vertexbuffer.pos((double)f17, 100.0D, (double)(-f17)).tex(1.0D, 0.0D).endVertex();
-		vertexbuffer.pos((double)f17, 100.0D, (double)f17).tex(1.0D, 1.0D).endVertex();
-		vertexbuffer.pos((double)(-f17), 100.0D, (double)f17).tex(0.0D, 1.0D).endVertex();
+		vertexbuffer.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
+		vertexbuffer.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
+		vertexbuffer.pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
+		vertexbuffer.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
 		tessellator.draw();
 		f17 = 60.0F; // Botania - 20 -> 60
 		mc.renderEngine.bindTexture(MOON_PHASES_TEXTURES);
 		int i = world.getMoonPhase();
 		int k = i % 4;
 		int i1 = i / 4 % 2;
-		float f22 = (float)(k + 0) / 4.0F;
-		float f23 = (float)(i1 + 0) / 2.0F;
-		float f24 = (float)(k + 1) / 4.0F;
-		float f14 = (float)(i1 + 1) / 2.0F;
+		float f22 = (k + 0) / 4.0F;
+		float f23 = (i1 + 0) / 2.0F;
+		float f24 = (k + 1) / 4.0F;
+		float f14 = (i1 + 1) / 2.0F;
 		vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		vertexbuffer.pos((double)(-f17), -100.0D, (double)f17).tex((double)f24, (double)f14).endVertex();
-		vertexbuffer.pos((double)f17, -100.0D, (double)f17).tex((double)f22, (double)f14).endVertex();
-		vertexbuffer.pos((double)f17, -100.0D, (double)(-f17)).tex((double)f22, (double)f23).endVertex();
-		vertexbuffer.pos((double)(-f17), -100.0D, (double)(-f17)).tex((double)f24, (double)f23).endVertex();
+		vertexbuffer.pos(-f17, -100.0D, f17).tex(f24, f14).endVertex();
+		vertexbuffer.pos(f17, -100.0D, f17).tex(f22, f14).endVertex();
+		vertexbuffer.pos(f17, -100.0D, -f17).tex(f22, f23).endVertex();
+		vertexbuffer.pos(-f17, -100.0D, -f17).tex(f24, f23).endVertex();
 		tessellator.draw();
 		GlStateManager.disableTexture2D();
 		// Botania - Custom star rendering
@@ -372,7 +366,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 				GlStateManager.callList(this.starGLCallList);
 			}
 		}*/
-		
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
@@ -446,7 +440,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.enableTexture2D();
 		GlStateManager.depthMask(true);
 	}
-	
+
 	private void renderStars(Minecraft mc, float alpha, float partialTicks) {
 		int starGLCallList;
 		net.minecraft.client.renderer.vertex.VertexBuffer starVBO;
@@ -455,7 +449,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			starGLCallList = (int) ClientMethodHandles.starGLCallList_getter.invokeExact(mc.renderGlobal);
 			starVBO = (net.minecraft.client.renderer.vertex.VertexBuffer) ClientMethodHandles.starVBO_getter.invokeExact(mc.renderGlobal);
 		} catch (Throwable t) { return; }
-		
+
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		GlStateManager.pushMatrix();
 
@@ -497,7 +491,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		GlStateManager.popMatrix();
 	}
-	
+
 	// Excised from many occurences in RenderGlobal
 	private void drawVboOrList(net.minecraft.client.renderer.vertex.VertexBuffer vbo, int displayList) {
 		if (OpenGlHelper.useVbo())

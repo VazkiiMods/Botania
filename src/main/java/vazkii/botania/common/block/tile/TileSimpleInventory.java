@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 21, 2014, 9:56:24 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,8 +19,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
 
 public abstract class TileSimpleInventory extends TileMod {
 
@@ -68,7 +68,7 @@ public abstract class TileSimpleInventory extends TileMod {
 		public SimpleItemStackHandler(TileSimpleInventory inv, boolean allowWrite) {
 			super(inv.getSizeInventory());
 			this.allowWrite = allowWrite;
-			this.tile = inv;
+			tile = inv;
 		}
 
 		@Override

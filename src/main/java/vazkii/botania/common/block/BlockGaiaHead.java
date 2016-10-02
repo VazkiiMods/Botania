@@ -2,13 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 23, 2015, 11:44:35 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
@@ -33,11 +39,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 
 	public BlockGaiaHead() {
@@ -53,27 +54,27 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 		return new ItemStack(ModItems.gaiaHead);
 	}
 
-    @Nonnull
+	@Nonnull
 	@Override
-    public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, IBlockState state, int fortune) {
-        ArrayList<ItemStack> ret = new ArrayList<>();
-        
-        if(!state.getValue(NODROP)) {
-            ItemStack itemstack = new ItemStack(ModItems.gaiaHead, 1);
-            TileEntitySkull tileentityskull = (TileEntitySkull)world.getTileEntity(pos);
+	public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, IBlockState state, int fortune) {
+		ArrayList<ItemStack> ret = new ArrayList<>();
 
-            if(tileentityskull == null) 
-            	return ret;
+		if(!state.getValue(NODROP)) {
+			ItemStack itemstack = new ItemStack(ModItems.gaiaHead, 1);
+			TileEntitySkull tileentityskull = (TileEntitySkull)world.getTileEntity(pos);
 
-            ret.add(itemstack);
-        }
-        return ret;
-    }
-	
+			if(tileentityskull == null)
+				return ret;
+
+			ret.add(itemstack);
+		}
+		return ret;
+	}
+
 	@Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ModItems.gaiaHead;
-    }
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return ModItems.gaiaHead;
+	}
 
 	@Override
 	public int damageDropped(IBlockState state) {

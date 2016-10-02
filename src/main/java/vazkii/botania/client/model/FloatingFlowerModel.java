@@ -8,9 +8,22 @@
  */
 package vazkii.botania.client.model;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -34,24 +47,12 @@ import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-
-import javax.annotation.Nonnull;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class FloatingFlowerModel implements IBakedModel {
 
@@ -65,18 +66,18 @@ public class FloatingFlowerModel implements IBakedModel {
 			public void put(int element, float... data) {
 				VertexFormatElement formatElement = DefaultVertexFormats.ITEM.getElement(element);
 				switch(formatElement.getUsage()) {
-					case POSITION: {
-						float[] newData = new float[4];
-						Vector4f vec = new Vector4f(data);
-						transform.getMatrix().transform(vec);
-						vec.get(newData);
-						parent.put(element, newData);
-						break;
-					}
-					default: {
-						parent.put(element, data);
-						break;
-					}
+				case POSITION: {
+					float[] newData = new float[4];
+					Vector4f vec = new Vector4f(data);
+					transform.getMatrix().transform(vec);
+					vec.get(newData);
+					parent.put(element, newData);
+					break;
+				}
+				default: {
+					parent.put(element, data);
+					break;
+				}
 				}
 			}
 		};
@@ -89,7 +90,7 @@ public class FloatingFlowerModel implements IBakedModel {
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 		if(state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
-		IExtendedBlockState realState = ((IExtendedBlockState) state);
+		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
 		String identifier;
 
@@ -224,7 +225,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
 				// Magic flower
-				identifier = ItemBlockFloatingSpecialFlower.getType(stack);
+				identifier = ItemBlockSpecialFlower.getType(stack);
 			} else {
 				// Mundane flower
 				identifier = MUNDANE_PREFIX + stack.getItemDamage();

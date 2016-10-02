@@ -2,29 +2,30 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 9, 2014, 11:20:26 PM (GMT)]
  */
 package vazkii.botania.client.core.helper;
-
-import net.minecraft.client.renderer.OpenGlHelper;
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.ARBVertexShader;
-import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.internal.ShaderCallback;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
+
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.renderer.OpenGlHelper;
+import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public final class ShaderHelper {
 

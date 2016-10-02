@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 18, 2014, 8:45:25 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
@@ -39,14 +39,14 @@ public class SubTileArcaneRose extends SubTileGenerating {
 				mana += 50;
 				return;
 			}
-		
+
 		List<EntityXPOrb> orbs = supertile.getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityXPOrb orb : orbs) {
 			mana += orb.getXpValue() * 35;
 			orb.setDead();
 			return;
 		}
-			
+
 	}
 
 	@Override

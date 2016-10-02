@@ -15,12 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessOreRecipe {
-    public ShapelessManaUpgradeRecipe(ItemStack output, Object... inputs) {
-        super(output, inputs);
-    }
+	public ShapelessManaUpgradeRecipe(ItemStack output, Object... inputs) {
+		super(output, inputs);
+	}
 
-    @Override
-    public ItemStack getCraftingResult(InventoryCrafting var1) {
-        return ManaUpgradeRecipe.output(output, var1);
-    }
+	@Override
+	public ItemStack getCraftingResult(InventoryCrafting var1) {
+		return ManaUpgradeRecipe.output(output, var1);
+	}
 }

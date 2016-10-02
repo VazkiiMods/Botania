@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 11, 2015, 5:05:05 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
+
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,8 +27,6 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileRafflowsia extends SubTileGenerating {
 
@@ -49,7 +49,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
-						Block block = supertile.getWorld().getBlockState(pos).getBlock();
+						supertile.getWorld().getBlockState(pos).getBlock();
 						TileEntity tile = supertile.getWorld().getTileEntity(pos);
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();

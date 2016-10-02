@@ -1,6 +1,12 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,7 +14,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -22,12 +27,6 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
@@ -64,7 +63,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 			int range = 12;
 			List sheep = living.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
-				for(IShearable target : ((List<IShearable>) sheep)) {
+				for(IShearable target : (List<IShearable>) sheep) {
 					Entity entity = (Entity) target;
 					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
 						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 7, 2014, 2:25:22 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -47,9 +51,6 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
 
@@ -93,7 +94,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 				.withProperty(BotaniaStateProps.HELD_POS, pos);
 
 		if (world.getTileEntity(pos) instanceof TileCamo) {
-			TileCamo tile = ((TileCamo) world.getTileEntity(pos));
+			TileCamo tile = (TileCamo) world.getTileEntity(pos);
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
 		} else {
 			return state;

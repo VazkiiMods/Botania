@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 1, 2015, 1:11:26 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -36,8 +38,6 @@ import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import javax.annotation.Nonnull;
-
 public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.01, 0.25, 0.75, 0.99, 0.75);
@@ -57,7 +57,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getEntityItem();
-			if((isSunflower(stack) && removeRain(world)) || (isBlueOrchid(stack) && startRain(world))) {
+			if(isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					e.setDead();

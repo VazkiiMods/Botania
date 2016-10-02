@@ -2,27 +2,29 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 29, 2015, 8:19:32 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelHourglass;
 import vazkii.botania.common.block.tile.TileHourglass;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass> {
 

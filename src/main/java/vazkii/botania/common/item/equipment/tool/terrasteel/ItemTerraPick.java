@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 20, 2014, 10:56:14 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
@@ -51,9 +55,6 @@ import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-
 public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
@@ -66,11 +67,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final Material[] MATERIALS = new Material[] { Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
 
 	public static final int[] LEVELS = new int[] {
-		0, 10000, 1000000, 10000000, 100000000, 1000000000
+			0, 10000, 1000000, 10000000, 100000000, 1000000000
 	};
 
 	private static final int[] CREATIVE_MANA = new int[] {
-		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
+			10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
 
 	public ItemTerraPick() {

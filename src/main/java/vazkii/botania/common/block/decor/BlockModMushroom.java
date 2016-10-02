@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 23, 2015, 4:24:08 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
@@ -128,7 +128,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
-		int b = (hex & 0xFF);
+		int b = hex & 0xFF;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency * 0.25F)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);

@@ -8,6 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.petalapothecary;
 
+import java.awt.Point;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
@@ -16,14 +21,10 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.Collection;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 
@@ -75,7 +76,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof PetalApothecaryRecipeWrapper))
 			return;
-		PetalApothecaryRecipeWrapper wrapper = ((PetalApothecaryRecipeWrapper) recipeWrapper);
+		PetalApothecaryRecipeWrapper wrapper = (PetalApothecaryRecipeWrapper) recipeWrapper;
 
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.altar));
@@ -87,10 +88,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		for(Object o : wrapper.getInputs()) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
 			if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) o));
+				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
 			}
 			if(o instanceof ItemStack) {
-				recipeLayout.getItemStacks().set(index, ((ItemStack) o));
+				recipeLayout.getItemStacks().set(index, (ItemStack) o);
 			}
 			index += 1;
 			point = rotatePointAbout(point, center, angleBetweenEach);
@@ -104,7 +105,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		double rad = degrees * Math.PI / 180.0;
 		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
-		return new Point(((int) newX), ((int) newY));
+		return new Point((int) newX, (int) newY);
 	}
 
 }

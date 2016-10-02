@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [28/09/2016, 16:14:04 (GMT)]
  */
 package vazkii.botania.common.block;
@@ -40,28 +40,28 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrigger, IHourglassTrigger, IWandHUD, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
-	
+
 	public BlockAnimatedTorch() {
 		super(Material.CIRCUITS, LibBlockNames.ANIMATED_TORCH);
 		setLightLevel(0.5F);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(hand == EnumHand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand) == null) {
 			((TileAnimatedTorch) worldIn.getTileEntity(pos)).handRotate();
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!burst.isFake())
 			((TileAnimatedTorch) world.getTileEntity(pos)).toggle();
 	}
-	
+
 	@Override
 	public void onTriggeredByHourglass(World world, BlockPos pos, TileEntity hourglass) {
 		((TileAnimatedTorch) world.getTileEntity(pos)).toggle();
@@ -70,63 +70,63 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		((TileAnimatedTorch) world.getTileEntity(pos)).onWanded();
-		return true;	
+		return true;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileAnimatedTorch) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
-	
+
 	@Override
 	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
-	
+
 	@Override
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		return getWeakPower(blockState, blockAccess, pos, side);
 	}
-	
+
 	@Override
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		TileAnimatedTorch tile = (TileAnimatedTorch) blockAccess.getTileEntity(pos);
 
 		if(tile.rotating)
 			return 0;
-		
+
 		if(TileAnimatedTorch.SIDES[tile.side] == side)
 			return 15;
-		
+
 		return 0;
 	}
-	
+
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
-	
-	@Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
 
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-    
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
-	
+
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileAnimatedTorch();
 	}
-	
+
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;

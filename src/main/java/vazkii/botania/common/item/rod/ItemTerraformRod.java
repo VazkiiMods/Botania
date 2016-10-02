@@ -2,15 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 11, 2014, 2:56:39 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
@@ -42,10 +48,6 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
 
 	private static final int COST_PER = 55;
@@ -73,7 +75,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			"blockMarble",
 			"limestone",
 			"blockLimestone"
-	);
+			);
 
 	public ItemTerraformRod() {
 		super(LibItemNames.TERRAFORM_ROD);
@@ -94,7 +96,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
-			terraform(stack, living.worldObj, ((EntityPlayer) living));
+			terraform(stack, living.worldObj, (EntityPlayer) living);
 	}
 
 	@Nonnull

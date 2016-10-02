@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 21, 2014, 5:24:55 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -27,8 +29,6 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
 

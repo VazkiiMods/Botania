@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 25, 2015, 6:03:28 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.boss.EntityWither;
@@ -26,9 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemPinkinator extends ItemMod {
 

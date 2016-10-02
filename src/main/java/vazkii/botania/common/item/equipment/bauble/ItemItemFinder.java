@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 31, 2014, 12:59:16 AM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -46,10 +50,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 

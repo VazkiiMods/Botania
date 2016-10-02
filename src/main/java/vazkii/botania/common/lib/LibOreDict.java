@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 19, 2014, 4:30:32 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -52,42 +52,42 @@ public final class LibOreDict {
 	public static final String DYE_WILDCARD = "dye";
 
 	public static final String[] FLOWER = new String[] {
-		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue",
-		"mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray",
-		"mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
-		"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack"
+			"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue",
+			"mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray",
+			"mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
+			"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack"
 	};
 
 	public static final String[] DOUBLE_FLOWER = new String[] {
-		"mysticFlowerWhiteDouble", "mysticFlowerOrangeDouble", "mysticFlowerMagentaDouble", "mysticFlowerLightBlueDouble",
-		"mysticFlowerYellowDouble", "mysticFlowerLimeDouble", "mysticFlowerPinkDouble", "mysticFlowerGrayDouble",
-		"mysticFlowerLightGrayDouble", "mysticFlowerCyanDouble", "mysticFlowerPurpleDouble", "mysticFlowerBlueDouble",
-		"mysticFlowerBrownDouble", "mysticFlowerGreenDouble", "mysticFlowerRedDouble", "mysticFlowerBlackDouble"
+			"mysticFlowerWhiteDouble", "mysticFlowerOrangeDouble", "mysticFlowerMagentaDouble", "mysticFlowerLightBlueDouble",
+			"mysticFlowerYellowDouble", "mysticFlowerLimeDouble", "mysticFlowerPinkDouble", "mysticFlowerGrayDouble",
+			"mysticFlowerLightGrayDouble", "mysticFlowerCyanDouble", "mysticFlowerPurpleDouble", "mysticFlowerBlueDouble",
+			"mysticFlowerBrownDouble", "mysticFlowerGreenDouble", "mysticFlowerRedDouble", "mysticFlowerBlackDouble"
 	};
 
 	public static final String[] PETAL = new String[] {
-		"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue",
-		"petalYellow", "petalLime", "petalPink", "petalGray",
-		"petalLightGray", "petalCyan", "petalPurple", "petalBlue",
-		"petalBrown", "petalGreen", "petalRed", "petalBlack"
+			"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue",
+			"petalYellow", "petalLime", "petalPink", "petalGray",
+			"petalLightGray", "petalCyan", "petalPurple", "petalBlue",
+			"petalBrown", "petalGreen", "petalRed", "petalBlack"
 	};
 
 	public static final String[] DYE = new String[] {
-		"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue",
-		"dyeYellow", "dyeLime", "dyePink", "dyeGray",
-		"dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
-		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
+			"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue",
+			"dyeYellow", "dyeLime", "dyePink", "dyeGray",
+			"dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
+			"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
 	};
 
 	public static final String[] RUNE = new String[] {
-		"runeWaterB", "runeFireB", "runeEarthB", "runeAirB",
-		"runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB",
-		"runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB",
-		"runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
+			"runeWaterB", "runeFireB", "runeEarthB", "runeAirB",
+			"runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB",
+			"runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB",
+			"runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
 	};
 
 	public static final String[] QUARTZ = new String[] {
-		"quartzDark", "quartzMana", "quartzBlaze", 
-		"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
+			"quartzDark", "quartzMana", "quartzBlaze",
+			"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
 	};
 }

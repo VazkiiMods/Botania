@@ -8,6 +8,8 @@
  */
 package vazkii.botania.client.integration.jei;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
@@ -36,8 +38,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
-import javax.annotation.Nonnull;
-
 @JEIPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
 
@@ -55,7 +55,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper()),
 				new ElvenTradeRecipeCategory(jeiHelpers.getGuiHelper()),
 				new ManaPoolRecipeCategory(jeiHelpers.getGuiHelper())
-		);
+				);
 
 		registry.addRecipeHandlers(
 				new BreweryRecipeHandler(),
@@ -64,7 +64,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new PetalApothecaryRecipeHandler(),
 				new ElvenTradeRecipeHandler(),
 				new ManaPoolRecipeHandler()
-		);
+				);
 
 		registry.addRecipes(BotaniaAPI.brewRecipes);
 		registry.addRecipes(BotaniaAPI.pureDaisyRecipes);

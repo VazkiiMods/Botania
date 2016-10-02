@@ -8,16 +8,18 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 
@@ -32,7 +34,7 @@ public class ElvenTradeRecipeWrapper implements IRecipeWrapper {
 				builder.add(o);
 			}
 			if(o instanceof String) {
-				builder.add(OreDictionary.getOres(((String) o)));
+				builder.add(OreDictionary.getOres((String) o));
 			}
 		}
 		input = builder.build();

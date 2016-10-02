@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 15, 2015, 12:49:58 AM (GMT)]
  */
 package vazkii.botania.common.block.corporea;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -37,8 +39,6 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
 
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
@@ -78,8 +78,8 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	@Override
 	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
 	{
-		float f = (float) MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
-		double d0 = (double)Math.min(0.2F + f / 15.0F, 10.0F);
+		float f = MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
+		double d0 = Math.min(0.2F + f / 15.0F, 10.0F);
 		if (d0 > 2.5D) {
 			d0 = 2.5D;
 		}
@@ -98,10 +98,10 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 			for (int j = 0; j < i; ++j) {
 				for (int k = 0; k < i; ++k) {
 					for (int l = 0; l < i; ++l) {
-						double d0 = (double)pos.getX() + ((double)j + 0.5D) / (double)i;
-						double d1 = (double)pos.getY() + ((double)k + 0.5D) / (double)i;
-						double d2 = (double)pos.getZ() + ((double)l + 0.5D) / (double)i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - (double)pos.getX() - 0.5D, d1 - (double)pos.getY() - 0.5D, d2 - (double)pos.getZ() - 0.5D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM))));
+						double d0 = pos.getX() + (j + 0.5D) / i;
+						double d1 = pos.getY() + (k + 0.5D) / i;
+						double d2 = pos.getZ() + (l + 0.5D) / i;
+						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM))));
 					}
 				}
 			}

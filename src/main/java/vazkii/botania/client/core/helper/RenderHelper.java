@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 19, 2014, 5:40:38 PM (GMT)]
  */
 package vazkii.botania.client.core.helper;
+
+import java.util.List;
+import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -19,13 +24,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
-
-import java.util.List;
-import java.util.Random;
 
 public final class RenderHelper {
 
@@ -131,10 +131,10 @@ public final class RenderHelper {
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6, float f, float f1) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		tessellator.getBuffer().pos(par1, par2 + par6, z).tex((par3) * f, (par4 + par6) * f1).endVertex();
+		tessellator.getBuffer().pos(par1, par2 + par6, z).tex(par3 * f, (par4 + par6) * f1).endVertex();
 		tessellator.getBuffer().pos(par1 + par5, par2 + par6, z).tex((par3 + par5) * f, (par4 + par6) * f1).endVertex();
-		tessellator.getBuffer().pos(par1 + par5, par2, z).tex((par3 + par5) * f, (par4) * f1).endVertex();
-		tessellator.getBuffer().pos(par1, par2, z).tex((par3) * f, (par4) * f1).endVertex();
+		tessellator.getBuffer().pos(par1 + par5, par2, z).tex((par3 + par5) * f, par4 * f1).endVertex();
+		tessellator.getBuffer().pos(par1, par2, z).tex(par3 * f, par4 * f1).endVertex();
 		tessellator.draw();
 	}
 
