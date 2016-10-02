@@ -484,6 +484,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		else this.receiver = null;
 		lastTentativeBurst = fakeBurst.propsList;
 	}
+	
+	@Override
+	public IManaBurst runBurstSimulation() {
+		EntityManaBurst fakeBurst = getBurst(true);
+		fakeBurst.setScanBeam();
+		fakeBurst.getCollidedTile(true);
+		return fakeBurst;
+	}
 
 	public EntityManaBurst getBurst(boolean fake) {
 		EntityManaBurst burst = new EntityManaBurst(this, fake);

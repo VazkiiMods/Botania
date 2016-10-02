@@ -10,6 +10,11 @@
  */
 package vazkii.botania.api.mana;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import net.minecraft.util.math.BlockPos;
+import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.entity.EntityManaBurst;
 
 /**
  * Any TileEntity that implements this is considered a Mana Spreader,
@@ -26,5 +31,7 @@ public interface IManaSpreader extends IManaBlock, IPingable, IDirectioned {
 	public int getLastBurstDeathTick();
 
 	public void setLastBurstDeathTick(int ticksExisted);
+	
+	public IManaBurst runBurstSimulation();
 
 }

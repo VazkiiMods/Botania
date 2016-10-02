@@ -184,7 +184,8 @@ public final class LibItemNames {
 		"lensRedirect",
 		"lensFirework",
 		"lensFlare",
-		"lensMessenger"
+		"lensMessenger",
+		"lensTripwire"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
