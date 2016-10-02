@@ -2228,8 +2228,10 @@ botania.page.elvenLenses5=The &1Redirective Lens&0 will only work when fired fro
 botania.page.elvenLenses6=Redirective Lens
 botania.page.elvenLenses7=The &1Celebratory Lens&0 functions much akin to the common &1Entropic Lens&0, however, instead of exploding, it creates a festive firework dyed the color of the burst.
 botania.page.elvenLenses8=Celebratory Lens
-botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. Instead, the spreader becomes a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing.<br>There's surely plenty of decorative uses for this.
+botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. This type of lens is called a &4Control Lens&0.<br>The effect of this &4Control Lens&0 in particular, is to make the spreader become a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing. There's surely plenty of decorative uses for this.
 botania.page.elvenLenses10=Flare Lens
+botania.page.elvenLenses11=The &1Tripwire Lens&0 is another &4Control Lens&0.<br>A spreader that has it attached will only be allowed to fire if there is one or more mobs, or players, in the path described by the &4mana burst&0 that the spreader would shoot. 
+botania.page.elvenLenses12=Tripwire Lenss
 
 # -- MANA PRISM
 botania.entry.prism=Mana Prism

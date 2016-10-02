@@ -501,7 +501,8 @@ public final class LexiconData {
 				new PageCraftingRecipe("4", ModCraftingRecipes.recipeLensWarp), new PageText("5"),
 				new PageCraftingRecipe("6", ModCraftingRecipes.recipeLensRedirect), new PageText("7"),
 				new PageCraftingRecipe("8", ModCraftingRecipes.recipeLensFirework), new PageText("9"),
-				new PageCraftingRecipe("10", ModCraftingRecipes.recipeLensFlare));
+				new PageCraftingRecipe("10", ModCraftingRecipes.recipeLensFlare), new PageText("11"),
+				new PageCraftingRecipe("12", ModCraftingRecipes.recipeLensTripwire));
 
 		prism = new AlfheimLexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
 		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
