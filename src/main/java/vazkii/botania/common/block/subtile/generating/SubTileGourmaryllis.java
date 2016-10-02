@@ -66,7 +66,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && age >= slowdown) {
 				if(cooldown <= 0) {
-					int val = Math.min(10, ((ItemFood) stack.getItem()).getHealAmount(stack));
+					int val = Math.min(12, ((ItemFood) stack.getItem()).getHealAmount(stack));
 					storedMana = val * val * 64;
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.5F + (float) Math.random() * 0.5F);
