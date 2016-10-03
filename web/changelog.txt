@@ -1,3 +1,24 @@
+r1.9 326
+*Added the ability to use Mana Powder in the Hovering Hourglass to make it a counter.
+*Added the Animated Torch, a new redstone helper block.
+*Added the Fork Luminizer which allows for a fork in the luminizer path.
+*Added the Mana Lens: Messenger, which carries a lot less mana but over a long distance and faster for when you need the burst but not the mana.
+*Added the Mana Lens: Tripwire, which only allows the burst to fire if there's an entity in the burst's path.
+*Added the Toggle Luminizer, which drops entities off right there if it has a redstone signal.
+*Changed the Cloak of Virtue and Cloak of Sin's models and made them shine.
+*Changed the floating flower models to a simpler design. This also makes them a lot less FPS intensive when used in large numbers.
+*Fixed a flower dupe with the Flower Pouch.
+*Fixed the command to download updates ingame not working.
+*Fixed the Flugel Tiara breaking the lighting in other bauble renders.
+*Fixed the Garden of Glass entry not showing up in the tutorial if it's loaded.
+*Fixed the Thorn Chakram not rendering.
+*Made the Gourmaryllis have an upper bound in how much mana it can make from a single piece of food.
+*Made the Hovering Hourglass sand falling animation a lot smoother.
+*Removed all needless metadata from Botania textures (of which there are a lot). Enjoy the smaller filesize. I'll probably fit it with some more music later on.
+*Updated secret codes.
+*[API] Added IHourglassTrigger, for blocks that have stuff happen when an adjacent Hovering Hourglass does something.
+*[API] Added runBurstSimulation() to IManaSpreader.
+*[API] Increased version number to 82.
 r1.9 325
 *Fixed a crash when picking up a flower that was removed.
 *Fixed the Rafflowsia being able to eat itself.
