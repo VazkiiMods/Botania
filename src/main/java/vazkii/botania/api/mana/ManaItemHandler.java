@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
  */
 package vazkii.botania.api.mana;
@@ -33,9 +33,9 @@ public final class ManaItemHandler {
 	public static List<ItemStack> getManaItems(EntityPlayer player) {
 		if (player == null)
 			return new ArrayList<ItemStack>();
-		
+
 		IInventory mainInv = player.inventory;
-		
+
 		List<ItemStack> toReturn = new ArrayList<ItemStack>();
 		int size = mainInv.getSizeInventory();
 
@@ -46,13 +46,13 @@ public final class ManaItemHandler {
 				toReturn.add(stackInSlot);
 			}
 		}
-		
+
 		ManaItemsEvent event = new ManaItemsEvent(player, toReturn);
 		MinecraftForge.EVENT_BUS.post(event);
 		toReturn = event.getItems();
 		return toReturn;
 	}
-	
+
 	/**
 	 * Gets a list containing all mana-holding items in a player's baubles inventory.
 	 * @return The list of items
@@ -60,12 +60,12 @@ public final class ManaItemHandler {
 	public static Map<Integer, ItemStack> getManaBaubles(EntityPlayer player) {
 		if (player == null)
 			return new HashMap<Integer, ItemStack>();
-		
+
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 		if (baublesInv == null)
 			return new HashMap<Integer, ItemStack>();
-		
-		
+
+
 		Map<Integer, ItemStack> toReturn = new HashMap<Integer, ItemStack>();
 		int size = baublesInv.getSizeInventory();
 
@@ -76,10 +76,10 @@ public final class ManaItemHandler {
 				toReturn.put(slot, stackInSlot);
 			}
 		}
-		
+
 		return toReturn;
 	}
-	
+
 	/**
 	 * Requests mana from items in a given player's inventory.
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
@@ -108,7 +108,7 @@ public final class ManaItemHandler {
 				return mana;
 			}
 		}
-		
+
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
 		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
@@ -123,7 +123,7 @@ public final class ManaItemHandler {
 
 				if(remove)
 					manaItem.addMana(stackInSlot, -mana);
-				
+
 				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
 
 				return mana;
@@ -159,7 +159,7 @@ public final class ManaItemHandler {
 				return true;
 			}
 		}
-		
+
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
 		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
@@ -213,7 +213,7 @@ public final class ManaItemHandler {
 				return received;
 			}
 		}
-		
+
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
 		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
@@ -263,11 +263,11 @@ public final class ManaItemHandler {
 
 				if(add)
 					manaItemSlot.addMana(stackInSlot, manaToSend);
-					
+
 				return true;
 			}
 		}
-		
+
 		Map<Integer, ItemStack> baubles = getManaBaubles(player);
 		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
@@ -328,7 +328,7 @@ public final class ManaItemHandler {
 			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player);
 		}
-		
+
 		ManaDiscountEvent event = new ManaDiscountEvent(player, discount);
 		MinecraftForge.EVENT_BUS.post(event);
 		discount = event.getDiscount();

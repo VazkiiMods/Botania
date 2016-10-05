@@ -27,7 +27,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 				for(int i = 0; i < event.getDrops().size(); i++) {
 					ItemStack drop = event.getDrops().get(i);
 					if(drop != null) {
-						if(isDisposable(drop) || (isSemiDisposable(drop) && !event.getHarvester().isSneaking()))
+						if(isDisposable(drop) || isSemiDisposable(drop) && !event.getHarvester().isSneaking())
 							event.getDrops().remove(i);
 					}
 				}
@@ -46,10 +46,6 @@ public class ItemElementiumPick extends ItemManasteelPick {
 				return true;
 		}
 		return false;
-	}
-	
-	private static boolean isSemiDisposable(Block block) {
-		return isSemiDisposable(new ItemStack(block));
 	}
 
 	private static boolean isSemiDisposable(ItemStack stack) {

@@ -2,13 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 31, 2014, 10:22:44 PM (GMT)]
  */
 package vazkii.botania.common.core.version;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -17,20 +24,12 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
 public class ThreadDownloadMod extends Thread {
 
 	private final String fileName;
 
 	private byte[] buffer = new byte[10240];
 
-	private int totalBytesDownloaded;
 	private int bytesJustDownloaded;
 
 	private InputStream webReader;
@@ -72,7 +71,6 @@ public class ThreadDownloadMod extends Thread {
 			while((bytesJustDownloaded = webReader.read(buffer)) > 0) {
 				outputStream.write(buffer, 0, bytesJustDownloaded);
 				buffer = new byte[10240];
-				totalBytesDownloaded += bytesJustDownloaded;
 			}
 			outputStream.close();
 			webReader.close();

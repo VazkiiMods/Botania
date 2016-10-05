@@ -2,24 +2,25 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -31,7 +32,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public final List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
 	private ItemStack icon = null;
-	
+
 	private final List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
 
 	/**
@@ -149,12 +150,12 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 				}
 			}
 		}
-		
+
 		list.addAll(extraDisplayedRecipes);
 
 		return list;
 	}
-	
+
 	public void addExtraDisplayedRecipe(ItemStack stack) {
 		extraDisplayedRecipes.add(stack);
 	}

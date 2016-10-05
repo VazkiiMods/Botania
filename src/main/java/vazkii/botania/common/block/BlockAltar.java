@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 21, 2014, 7:48:54 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -53,9 +57,6 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
@@ -104,7 +105,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		TileEntity te = worldIn.getTileEntity(pos);
 		if (te instanceof TileAltar) {
-			TileAltar altar = ((TileAltar) te);
+			TileAltar altar = (TileAltar) te;
 
 			if (altar.isMossy) {
 				state = state.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.MOSSY);
@@ -146,7 +147,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
-		return (tile != null && tile.hasLava) ? 15 : 0;
+		return tile != null && tile.hasLava ? 15 : 0;
 	}
 
 	@Override
@@ -238,7 +239,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	private void drain(Fluid fluid, ItemStack stack) {
 		stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-				.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+		.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
 	}
 
 	@Override

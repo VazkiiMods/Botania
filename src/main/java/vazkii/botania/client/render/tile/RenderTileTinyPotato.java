@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 18, 2014, 10:48:46 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
@@ -120,21 +120,21 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 		GlStateManager.pushMatrix();
 		switch (name) {
-			case "pahimar":
-				GlStateManager.scale(1F, 0.3F, 1F);
-				GlStateManager.translate(0F, 3.5F, 0F);
-				break;
-			case "kyle hyde":
-				mc.renderEngine.bindTexture(textureGrayscale);
-				break;
-			case "dinnerbone":
-			case "grumm":
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.translate(0F, -2.625F, 0F);
-				break;
-			case "aureylian":
-				GlStateManager.color(1F, 0.5F, 1F);
-				break;
+		case "pahimar":
+			GlStateManager.scale(1F, 0.3F, 1F);
+			GlStateManager.translate(0F, 3.5F, 0F);
+			break;
+		case "kyle hyde":
+			mc.renderEngine.bindTexture(textureGrayscale);
+			break;
+		case "dinnerbone":
+		case "grumm":
+			GlStateManager.rotate(180F, 0F, 0F, 1F);
+			GlStateManager.translate(0F, -2.625F, 0F);
+			break;
+		case "aureylian":
+			GlStateManager.color(1F, 0.5F, 1F);
+			break;
 		}
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
@@ -158,23 +158,23 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 		GlStateManager.translate(0F, -1F, 0F);
 		float s = 1F / 3.5F;
 		GlStateManager.scale(s, s, s);
-		
+
 		EnumFacing potatoFacing = potato.getWorld().getBlockState(potato.getPos()).getValue(BotaniaStateProps.CARDINALS);
-		
+
 		for(int i = 0; i < potato.getSizeInventory(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
 			if(stack == null)
 				continue;
-			
+
 			GlStateManager.pushMatrix();
 			EnumFacing side = EnumFacing.class.getEnumConstants()[i];
 			if(side.getAxis() != Axis.Y) {
 				float sideAngle = side.getHorizontalAngle() - potatoFacing.getHorizontalAngle();
 				side = EnumFacing.fromAngle(sideAngle);
 			}
-			
+
 			boolean block = stack.getItem() instanceof ItemBlock;
-			
+
 			switch(side) {
 			case UP:
 				if(block)
@@ -186,7 +186,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				if(block)
 					GlStateManager.translate(0, 1, 0.6);
 				break;
-			case NORTH: 
+			case NORTH:
 				GlStateManager.translate(0, -1.9, 0.02);
 				if(block)
 					GlStateManager.translate(0, 1, 0.6);
@@ -209,14 +209,14 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				GlStateManager.translate(-0.3F, -1.9F, -0.92F);
 				break;
 			}
-			
+
 			if(block)
 				GlStateManager.scale(0.5, 0.5, 0.5);
 			renderItem(stack);
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
-		
+
 		if (!name.isEmpty()) {
 			ContributorFancinessHandler.firstStart();
 

@@ -2,21 +2,21 @@
  * This class was created by <Vindex>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  */
 package vazkii.botania.common.integration.corporea;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public abstract class WrappedInventoryBase implements IWrappedInventory {
 

@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
-
-import javax.annotation.Nonnull;
 
 public class ElvenTradeRecipeHandler implements IRecipeHandler<RecipeElvenTrade> {
 

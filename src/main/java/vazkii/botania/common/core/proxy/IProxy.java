@@ -16,81 +16,81 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.helper.Vector3;
 
 public interface IProxy {
-    void preInit(FMLPreInitializationEvent event);
+	void preInit(FMLPreInitializationEvent event);
 
-    void init(FMLInitializationEvent event);
+	void init(FMLInitializationEvent event);
 
-    void postInit(FMLPostInitializationEvent event);
+	void postInit(FMLPostInitializationEvent event);
 
-    void setEntryToOpen(LexiconEntry entry);
+	void setEntryToOpen(LexiconEntry entry);
 
-    void setToTutorialIfFirstLaunch();
+	void setToTutorialIfFirstLaunch();
 
-    void setLexiconStack(ItemStack stack);
+	void setLexiconStack(ItemStack stack);
 
-    boolean isTheClientPlayer(EntityLivingBase entity);
+	boolean isTheClientPlayer(EntityLivingBase entity);
 
-    EntityPlayer getClientPlayer();
+	EntityPlayer getClientPlayer();
 
-    boolean isClientPlayerWearingMonocle();
+	boolean isClientPlayerWearingMonocle();
 
-    String getLastVersion();
+	String getLastVersion();
 
-    void setExtraReach(EntityLivingBase entity, float reach);
+	void setExtraReach(EntityLivingBase entity, float reach);
 
-    boolean openWikiPage(World world, Block block, RayTraceResult pos);
+	boolean openWikiPage(World world, Block block, RayTraceResult pos);
 
-    void playRecordClientSided(World world, BlockPos pos, ItemRecord record);
+	void playRecordClientSided(World world, BlockPos pos, ItemRecord record);
 
-    void setMultiblock(World world, int x, int y, int z, double radius, Block block);
+	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
 
-    void removeSextantMultiblock();
+	void removeSextantMultiblock();
 
-    long getWorldElapsedTicks();
+	long getWorldElapsedTicks();
 
-    void setSparkleFXNoClip(boolean noclip);
+	void setSparkleFXNoClip(boolean noclip);
 
-    void setSparkleFXCorrupt(boolean corrupt);
+	void setSparkleFXCorrupt(boolean corrupt);
 
-    default void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m) {
-        sparkleFX(x, y, z, r, g, b, size, m, false);
-    }
+	default void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m) {
+		sparkleFX(x, y, z, r, g, b, size, m, false);
+	}
 
-    void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake);
+	void sparkleFX(double x, double y, double z, float r, float g, float b, float size, int m, boolean fake);
 
-    void setWispFXDistanceLimit(boolean limit);
+	void setWispFXDistanceLimit(boolean limit);
 
-    void setWispFXDepthTest(boolean depth);
+	void setWispFXDepthTest(boolean depth);
 
-    default void wispFX(double x, double y, double z, float r, float g, float b, float size) {
-        wispFX(x, y, z, r, g, b, size, 0F);
-    }
+	default void wispFX(double x, double y, double z, float r, float g, float b, float size) {
+		wispFX(x, y, z, r, g, b, size, 0F);
+	}
 
-    default void wispFX(double x, double y, double z, float r, float g, float b, float size, float gravity) {
-        wispFX(x, y, z, r, g, b, size, gravity, 1F);
-    }
+	default void wispFX(double x, double y, double z, float r, float g, float b, float size, float gravity) {
+		wispFX(x, y, z, r, g, b, size, gravity, 1F);
+	}
 
-    default void wispFX(double x, double y, double z, float r, float g, float b, float size, float gravity, float maxAgeMul) {
-        wispFX(x, y, z, r, g, b, size, 0, -gravity, 0, maxAgeMul);
-    }
+	default void wispFX(double x, double y, double z, float r, float g, float b, float size, float gravity, float maxAgeMul) {
+		wispFX(x, y, z, r, g, b, size, 0, -gravity, 0, maxAgeMul);
+	}
 
-    default void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
-        wispFX(x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
-    }
+	default void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
+		wispFX(x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
+	}
 
-    void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul);
+	void wispFX(double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul);
 
-    default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
-        lightningFX(vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
-    }
+	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
+		lightningFX(vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
+	}
 
-    void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner);
+	void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner);
 
-    void addBoss(IBotaniaBoss boss);
+	void addBoss(IBotaniaBoss boss);
 
-    void removeBoss(IBotaniaBoss boss);
+	void removeBoss(IBotaniaBoss boss);
 
-    int getClientRenderDistance();
+	int getClientRenderDistance();
 
-    Object getEmptyModelBiped();
+	Object getEmptyModelBiped();
 }

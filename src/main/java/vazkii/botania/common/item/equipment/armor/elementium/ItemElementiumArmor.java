@@ -1,5 +1,7 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import java.util.List;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,8 +16,6 @@ import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-
-import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
@@ -46,10 +46,10 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	public ItemStack[] getArmorSetStacks() {
 		if(armorset == null)
 			armorset = new ItemStack[] {
-				new ItemStack(ModItems.elementiumHelm),
-				new ItemStack(ModItems.elementiumChest),
-				new ItemStack(ModItems.elementiumLegs),
-				new ItemStack(ModItems.elementiumBoots)
+					new ItemStack(ModItems.elementiumHelm),
+					new ItemStack(ModItems.elementiumChest),
+					new ItemStack(ModItems.elementiumLegs),
+					new ItemStack(ModItems.elementiumBoots)
 		};
 
 		return armorset;

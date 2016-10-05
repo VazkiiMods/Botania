@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2014, 8:03:36 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
+
+import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -31,9 +34,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
-
-import java.awt.*;
-import java.util.List;
 
 /**
  * The basic class for a Generating Flower.

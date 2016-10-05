@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 17, 2015, 4:08:58 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -32,10 +37,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
@@ -108,7 +109,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof TileLightRelay) {
 				TileLightRelay relay = (TileLightRelay) tile;
-				if(relay.getBinding() != null)
+				if(relay.getNextDestination() != null)
 					relays.add(relay);
 			}
 		}

@@ -8,16 +8,18 @@
  */
 package vazkii.botania.client.integration.jei.petalapothecary;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipePetals;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class PetalApothecaryRecipeWrapper implements IRecipeWrapper {
 
@@ -31,7 +33,7 @@ public class PetalApothecaryRecipeWrapper implements IRecipeWrapper {
 				builder.add(o);
 			}
 			if(o instanceof String) {
-				builder.add(OreDictionary.getOres(((String) o)));
+				builder.add(OreDictionary.getOres((String) o));
 			}
 		}
 		input = builder.build();

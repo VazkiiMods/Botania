@@ -2,27 +2,29 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 1, 2015, 9:02:30 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTeruBozu> {
 
@@ -48,7 +50,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 
 		GlStateManager.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {
-			GlStateManager.rotate(((float) (time * 0.3)), 0F, 1F, 0F);
+			GlStateManager.rotate((float) (time * 0.3), 0F, 1F, 0F);
 			GlStateManager.rotate(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
 			float s = 0.75F;
 			GlStateManager.scale(s, s, s);

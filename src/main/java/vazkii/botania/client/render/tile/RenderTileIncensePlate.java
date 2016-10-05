@@ -2,15 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2015, 4:27:27 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -21,9 +26,6 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-
-import javax.annotation.Nonnull;
-import java.util.Map;
 
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
 

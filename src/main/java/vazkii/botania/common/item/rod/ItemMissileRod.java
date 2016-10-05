@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 24, 2014, 5:58:16 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,8 +33,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -60,7 +60,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		if(!(living instanceof EntityPlayer)) return;
-		EntityPlayer player = ((EntityPlayer) living);
+		EntityPlayer player = (EntityPlayer) living;
 
 		if(count != getMaxItemUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player) ? 1 : 2) == 0 && !player.worldObj.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
 			if(spawnMissile(player.worldObj, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))

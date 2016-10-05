@@ -2,13 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 11, 2014, 2:57:30 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -20,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -39,14 +46,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
 
 public class ItemGrassHorn extends ItemMod {
 
@@ -117,9 +116,9 @@ public class ItemGrassHorn extends ItemMod {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
-					: stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)
-						|| stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos)
-						|| stackDmg == 2 && block == Blocks.SNOW_LAYER)
+							: stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)
+							|| stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos)
+							|| stackDmg == 2 && block == Blocks.SNOW_LAYER)
 				coords.add(pos);
 		}
 

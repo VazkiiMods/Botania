@@ -2,17 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 19, 2015, 9:52:05 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
-import vazkii.botania.api.internal.IManaBurst;
-
 import java.util.UUID;
+
+import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * This describes an interface of a Mana Sender block that should be able to pingbackable
@@ -30,7 +30,7 @@ public interface IPingable {
 
 	/**
 	 * @return A unique and persistent identifier for this IPingable
-     */
+	 */
 	public UUID getIdentifier();
 
 }

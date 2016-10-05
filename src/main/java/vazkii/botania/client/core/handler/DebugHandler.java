@@ -2,15 +2,25 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 21, 2014, 4:58:55 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
+import java.util.Map;
+import java.util.UUID;
+
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ContextCapabilities;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GLContext;
+
 import com.google.common.base.Optional;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -22,18 +32,10 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ContextCapabilities;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GLContext;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.util.Map;
-import java.util.UUID;
 
 public final class DebugHandler {
 
@@ -78,7 +80,7 @@ public final class DebugHandler {
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
 
 				if (Minecraft.getMinecraft().objectMouseOver != null
-					&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null) {
+						&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null) {
 					BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
 					IBlockState state = world.getBlockState(pos);
 					state = state.getActualState(world, pos);

@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 30, 2015, 1:37:26 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
+
+import java.awt.Color;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -23,15 +28,11 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.awt.*;
-import java.util.List;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -69,7 +70,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 						nextColor = nextColor == 15 ? 0 : nextColor + 1;
 						sync();
 					}
-					
+
 					for(int i = 0; i < 10; i++) {
 						float m = 0.2F;
 						float mx = (float) (Math.random() - 0.5) * m;
@@ -78,7 +79,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 						supertile.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, item.posX, item.posY, item.posZ, mx, my, mz, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 					}
 				}
-				
+
 				if(!remote)
 					item.setDead();
 			}

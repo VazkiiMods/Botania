@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:29:31 PM (GMT)]
  */
 package vazkii.botania.client.lib;
@@ -103,6 +103,8 @@ public final class LibResources {
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
+	public static final String MODEL_HOLY_CLOAK_GLOW = PREFIX_MODEL + "holyCloakGlow.png";
+	public static final String MODEL_UNHOLY_CLOAK_GLOW = PREFIX_MODEL + "unholyCloakGlow.png";
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporeaIndex.png";
 	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "invisibleArmor.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";

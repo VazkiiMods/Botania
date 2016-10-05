@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 13, 2014, 7:13:04 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
@@ -50,7 +50,7 @@ public final class ToolCommons {
 
 	/**
 	 * Pos is the actual block coordinate, posStart and posEnd are deltas from pos
-     */
+	 */
 	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos posStart, BlockPos posEnd, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
 		float blockHardness = block == null ? 1F : block.getBlockHardness(world.getBlockState(pos), world, pos);
 

@@ -2,13 +2,24 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 26, 2014, 4:05:50 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
+import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -38,7 +49,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -58,14 +68,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
 
@@ -354,6 +356,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
+
+				float lbx = OpenGlHelper.lastBrightnessX;
+				float lby = OpenGlHelper.lastBrightnessY;
+
 				switch(meta) {
 				case 1 : { // Jibril
 					h = 0.4F;
@@ -411,11 +417,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
-				
+
 				// account for padding in the texture
 				float mul = 32F / 20F;
 				s *= mul;
-				
+
 				float f = icon.getMinU();
 				float f1 = icon.getMaxU();
 				float f2 = icon.getMinV();
@@ -451,6 +457,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				GlStateManager.color(1F, 1F, 1F);
 				GlStateManager.popMatrix();
+
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbx, lby);
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(player, partialTicks);

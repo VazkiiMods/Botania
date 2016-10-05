@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 31, 2014, 11:43:13 PM (GMT)]
  */
 package vazkii.botania.common.core.command;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -18,8 +20,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.version.ThreadDownloadMod;
 import vazkii.botania.common.core.version.VersionChecker;
-
-import javax.annotation.Nonnull;
 
 public class CommandDownloadLatest extends CommandBase {
 

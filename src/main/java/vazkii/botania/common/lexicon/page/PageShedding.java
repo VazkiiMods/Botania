@@ -2,10 +2,10 @@
  * This class was created by <SoundLogic>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 4, 2014, 10:38:50 PM (GMT)]
  */
 package vazkii.botania.common.lexicon.page;

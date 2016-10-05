@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 20, 2014, 7:42:46 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.awt.Color;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -18,7 +23,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,10 +55,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.List;
 
 public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
@@ -145,12 +145,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			}
 
 			return wanded ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		} else if(((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.containsKey(player.getUniqueID()) && !world.isRemote) {
-			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.get(player.getUniqueID());
+		} else if(((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.containsKey(player.getUniqueID()) && !world.isRemote) {
+			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.get(player.getUniqueID());
 			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(world.provider.getDimension(), pos);
 
-			((BlockPistonRelay) (ModBlocks.pistonRelay)).playerPositions.remove(player.getUniqueID());
-			((BlockPistonRelay) (ModBlocks.pistonRelay)).mappedPositions.put(bindPos, currentPos);
+			((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.remove(player.getUniqueID());
+			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(world).markDirty();
 
 			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);

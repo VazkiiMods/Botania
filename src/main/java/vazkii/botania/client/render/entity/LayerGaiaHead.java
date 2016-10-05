@@ -1,5 +1,7 @@
 package vazkii.botania.client.render.entity;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -14,32 +16,30 @@ import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
 
-import javax.annotation.Nonnull;
-
 public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
-    private final ModelRenderer modelRenderer;
+	private final ModelRenderer modelRenderer;
 
-    public LayerGaiaHead(ModelRenderer modelRenderer)
-    {
-        this.modelRenderer = modelRenderer;
-    }
+	public LayerGaiaHead(ModelRenderer modelRenderer)
+	{
+		this.modelRenderer = modelRenderer;
+	}
 
-    // Copied from LayerCustomHead, edits noted
-    @Override
-    public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+	// Copied from LayerCustomHead, edits noted
+	@Override
+	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-        if (itemstack != null && itemstack.getItem() == ModItems.gaiaHead) // Botania - check for head
-        {
-            GlStateManager.pushMatrix();
+		if (itemstack != null && itemstack.getItem() == ModItems.gaiaHead) // Botania - check for head
+		{
+			GlStateManager.pushMatrix();
 
-            if (player.isSneaking())
-            {
-                GlStateManager.translate(0.0F, 0.2F, 0.0F);
-            }
+			if (player.isSneaking())
+			{
+				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+			}
 
-            /*boolean flag = player instanceof EntityVillager || player instanceof EntityZombie && ((EntityZombie)player).isVillager();
+			/*boolean flag = player instanceof EntityVillager || player instanceof EntityZombie && ((EntityZombie)player).isVillager();
 
             if (player.isChild() && !(player instanceof EntityVillager))
             {
@@ -50,20 +50,20 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
                 GlStateManager.translate(0.0F, 16.0F * scale, 0.0F);
             } Botania - N/A */
 
-            this.modelRenderer.postRender(0.0625F);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			modelRenderer.postRender(0.0625F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-            float f2 = 1.1875F;
-            GlStateManager.scale(f2, -f2, -f2);
+			float f2 = 1.1875F;
+			GlStateManager.scale(f2, -f2, -f2);
 
-            // Botania - remove if check for skull and else branch. Check done above.
+			// Botania - remove if check for skull and else branch. Check done above.
 
-            /*if (flag)
+			/*if (flag)
             {
                 GlStateManager.translate(0.0F, 0.0625F, 0.0F);
             } Botania - N/A */
 
-            /*GameProfile gameprofile = null;
+			/*GameProfile gameprofile = null;
 
             if (itemstack.hasTagCompound())
             {
@@ -85,18 +85,18 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
                 }
             } Botania - Don't do skin stuff */
 
-            // Botania - use gaia TESR
-            ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-            ((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TileGaiaHead.class))
-                    .renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), null, -1, limbSwing);
-            ShaderHelper.releaseShader();
+			// Botania - use gaia TESR
+			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
+			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TileGaiaHead.class))
+			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), null, -1, limbSwing);
+			ShaderHelper.releaseShader();
 
-            GlStateManager.popMatrix();
-        }
-    }
+			GlStateManager.popMatrix();
+		}
+	}
 
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
-    }
+	@Override
+	public boolean shouldCombineTextures() {
+		return false;
+	}
 }

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [25/11/2015, 19:59:06 (GMT)]
  */
 package vazkii.botania.client.gui.box;
+
+import javax.annotation.Nonnull;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -23,8 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
-
-import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends Container {
 

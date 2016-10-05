@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 31, 2014, 3:02:58 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
+
+import java.awt.Color;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,13 +44,9 @@ import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.List;
-
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
-	public static final int SUBTYPES = 22;
+	public static final int SUBTYPES = 24;
 
 	public static final int NORMAL = 0,
 			SPEED = 1,
@@ -68,7 +69,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			WARP = 18,
 			REDIRECT = 19,
 			FIREWORK = 20,
-			FLARE = 21;
+			FLARE = 21,
+			MESSENGER = 22,
+			TRIPWIRE = 23;
 
 	public static final int STORM = 5000;
 
@@ -108,6 +111,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setProps(REDIRECT, PROP_TOUCH | PROP_INTERACTION);
 		setProps(FIREWORK, PROP_TOUCH);
 		setProps(FLARE, PROP_CONTROL);
+		setProps(MESSENGER, PROP_POWER);
+		setProps(TRIPWIRE, PROP_CONTROL);
 
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
@@ -131,6 +136,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setLens(REDIRECT, new LensRedirect());
 		setLens(FIREWORK, new LensFirework());
 		setLens(FLARE, new LensFlare());
+		setLens(MESSENGER, new LensMessenger());
+		setLens(TRIPWIRE, new LensTripwire());
 	}
 
 	private static final String TAG_COLOR = "color";

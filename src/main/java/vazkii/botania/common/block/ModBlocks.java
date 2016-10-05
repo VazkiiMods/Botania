@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block;
@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -113,6 +112,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
@@ -252,6 +252,7 @@ public final class ModBlocks {
 	public static Block shimmerwoodPlanks;
 	public static Block avatar;
 	public static Block altGrass;
+	public static Block animatedTorch;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -336,6 +337,7 @@ public final class ModBlocks {
 		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 		avatar = new BlockAvatar();
 		altGrass = new BlockAltGrass();
+		animatedTorch = new BlockAnimatedTorch();
 
 		ModFluffBlocks.init();
 
@@ -372,7 +374,7 @@ public final class ModBlocks {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
-		
+
 		SeedBehaviours.init();
 	}
 
@@ -430,6 +432,7 @@ public final class ModBlocks {
 		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
 		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
 		registerTile(TileAvatar.class, LibBlockNames.AVATAR);
+		registerTile(TileAnimatedTorch.class, LibBlockNames.ANIMATED_TORCH);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

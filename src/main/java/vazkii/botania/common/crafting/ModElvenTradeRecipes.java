@@ -1,5 +1,8 @@
 package vazkii.botania.common.crafting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -8,9 +11,6 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModElvenTradeRecipes {
 

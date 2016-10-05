@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 9, 2015, 5:17:17 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -34,9 +38,6 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
@@ -96,7 +97,7 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
 		ModelHandler.registerBlockToState(this, EnumDyeColor.values().length);
 	}
 

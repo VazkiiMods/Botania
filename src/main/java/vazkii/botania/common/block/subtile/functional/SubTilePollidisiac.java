@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2014, 5:56:47 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -21,8 +23,6 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import java.util.List;
 
 public class SubTilePollidisiac extends SubTileFunctional {
 
@@ -52,7 +52,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 							continue;
 						}
 
-						if(age < (60 + slowdown) || item.isDead)
+						if(age < 60 + slowdown || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();

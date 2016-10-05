@@ -2,15 +2,19 @@
  * This class was created by <Kihira>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.mojang.authlib.GameProfile;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
@@ -26,10 +30,6 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
-import vazkii.botania.common.Botania;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	@Override
@@ -37,17 +37,17 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 		// Null-safe copy of super
-		this.renderSkull((float)x, (float)y, (float)z,
+		renderSkull((float)x, (float)y, (float)z,
 				skull == null ? EnumFacing.NORTH : EnumFacing.getFront(skull.getBlockMetadata() & 7),
-				skull == null ? 0 : skull.getSkullRotation() * 360 / 16.0F,
-				3, null, digProgress, partialTicks);
+						skull == null ? 0 : skull.getSkullRotation() * 360 / 16.0F,
+								3, null, digProgress, partialTicks);
 
 		ShaderHelper.releaseShader();
 	}
 
 	@Override
 	public void setRendererDispatcher(@Nonnull TileEntityRendererDispatcher dispatcher) {
-		this.rendererDispatcher = dispatcher;
+		rendererDispatcher = dispatcher;
 		// Do not set `instance` to us, interferes with vanilla skulls
 	}
 

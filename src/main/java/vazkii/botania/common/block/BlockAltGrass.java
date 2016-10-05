@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [17/11/2015, 18:33:30 (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.SoundType;
@@ -40,10 +45,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class BlockAltGrass extends BlockMod implements ILexiconable {
 
@@ -99,19 +100,19 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-				
+
 				world.getBlockState(pos1.up()).getBlock();
 
 				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
-					world.setBlockState(pos1, this.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
+					world.setBlockState(pos1, getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
 			}
 		}
 	}
 
 	@Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Blocks.DIRT.getItemDropped(state, rand, fortune);
-    }
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return Blocks.DIRT.getItemDropped(state, rand, fortune);
+	}
 
 	@Nonnull
 	@Override
@@ -137,15 +138,15 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		case GOLDEN:
 			break;
 		case VIVID:
-			break; 
+			break;
 		case SCORCHED:
 			if(r.nextInt(80) == 0)
-	        	world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
 		case INFUSED:
 			if(r.nextInt(100) == 0)
 				Botania.proxy.sparkleFX(pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0F, 1F, 1F, r.nextFloat() * 0.2F + 1F, 5);
-			break; 
+			break;
 		case MUTATED:
 			if(r.nextInt(100) == 0) {
 				if(r.nextInt(100) > 25)

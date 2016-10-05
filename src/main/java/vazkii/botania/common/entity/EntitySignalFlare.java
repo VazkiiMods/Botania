@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 3, 2014, 7:10:32 PM (GMT)]
  */
 package vazkii.botania.common.entity;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
@@ -19,8 +21,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
-
-import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
 
@@ -55,7 +55,7 @@ public class EntitySignalFlare extends Entity {
 				int hex = EnumDyeColor.byMetadata(color).getMapColor().colorValue;
 				int r = (hex & 0xFF0000) >> 16;
 				int g = (hex & 0xFF00) >> 8;
-				int b = (hex & 0xFF);
+				int b = hex & 0xFF;
 
 				Botania.proxy.setWispFXDistanceLimit(false);
 				for(int i = 0; i < 3; i++)

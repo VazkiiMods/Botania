@@ -93,7 +93,7 @@ processResources {
 
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info', '**/psd/**'
+        exclude 'mcmod.info'
     }
 }
 
@@ -217,6 +217,10 @@ def parseConfig(File config) {
 jar {
     //rename the default output, for some better... sanity with scipts
     archiveName = "${baseName} ${version}.${extension}"
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
 }
 
 curseforge {

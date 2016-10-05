@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 24, 2014, 7:02:37 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
+
+import java.awt.Color;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,14 +33,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
-
-import java.awt.*;
-import java.util.List;
 
 public final class BoundTileRenderer {
 
@@ -51,7 +52,7 @@ public final class BoundTileRenderer {
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		
+
 		if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
 			if(coords != null)
@@ -64,7 +65,7 @@ public final class BoundTileRenderer {
 				renderBlockOutlineAt(coords, color);
 		}
 
-		IItemHandlerModifiable mainInv = ((IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP));
+		IItemHandlerModifiable mainInv = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
 		IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
 		IItemHandler joined = baublesInv != null ? new CombinedInvWrapper(mainInv, baublesInv) : mainInv;
 
@@ -133,12 +134,12 @@ public final class BoundTileRenderer {
 				renderBlockOutline(axis);
 
 				GL11.glLineWidth(thickness + 3F);
-				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), ((byte) 64));
+				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 				renderBlockOutline(axis);
 			}
 		}
 
-		GL11.glColor4ub(((byte) 255), ((byte) 255), ((byte) 255), ((byte) 255));
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
 		GlStateManager.popMatrix();
 	}
 

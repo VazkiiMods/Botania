@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -415,7 +415,7 @@ public final class ModItems {
 		speedUpBelt = new ItemSpeedUpBelt();
 		baubleBox = new ItemBaubleBox();
 		dodgeRing = new ItemDodgeRing();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

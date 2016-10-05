@@ -2,15 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 15, 2015, 8:32:04 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityItem;
@@ -35,11 +42,6 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TileLightRelay extends TileMod implements IWandBindable {
 
 	private static final int MAX_DIST = 20;
@@ -52,10 +54,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	int ticksElapsed = 0;
 
 	public void mountEntity(Entity e) {
-		if(e.isRiding() || worldObj.isRemote || bindPos.getY() == -1 || !isValidBinding())
+		BlockPos nextDest = getNextDestination();
+		if(e.isRiding() || worldObj.isRemote || nextDest != null || !isValidBinding())
 			return;
 
-		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, bindPos);
+		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, nextDest);
 		worldObj.spawnEntityInWorld(mover);
 		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
@@ -69,28 +72,30 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	public void update() {
 		ticksElapsed++;
 
-		if(bindPos.getY() > -1 && isValidBinding()) {
+		BlockPos nextDest = getNextDestination();
+		if(nextDest != null && nextDest.getY() > -1 && isValidBinding()) {
 			if(worldObj.isRemote) {
 				Vector3 vec = getMovementVector();
+				if(vec != null) {
+					double dist = 0.1;
+					int size = (int) (vec.mag() / dist);
+					int count = 10;
+					int start = ticksElapsed % size;
 
-				double dist = 0.1;
-				int size = (int) (vec.mag() / dist);
-				int count = 10;
-				int start = ticksElapsed % size;
+					Vector3 vecMag = vec.normalize().multiply(dist);
+					Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
-				Vector3 vecMag = vec.normalize().multiply(dist);
-				Vector3 vecTip = vecMag.multiply(start).add(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-
-				double radPer = Math.PI / 16.0;
-				float mul = 0.5F;
-				float mulPer = 0.4F;
-				float maxMul = 2;
-				for(int i = start; i < start + count; i++) {
-					mul = Math.min(maxMul, mul + mulPer);
-					double rad = radPer * (i + ticksElapsed * 0.4);
-					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-					Botania.proxy.wispFX(vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
-					vecTip = vecTip.add(vecMag);
+					double radPer = Math.PI / 16.0;
+					float mul = 0.5F;
+					float mulPer = 0.4F;
+					float maxMul = 2;
+					for(int i = start; i < start + count; i++) {
+						mul = Math.min(maxMul, mul + mulPer);
+						double rad = radPer * (i + ticksElapsed * 0.4);
+						Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+						Botania.proxy.wispFX(vecRot.x, vecRot.y, vecRot.z, 0.4F, 0.4F, 1F, 0.1F, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z, 1F);
+						vecTip = vecTip.add(vecMag);
+					}
 				}
 			} else {
 				BlockPos endpoint = getEndpoint();
@@ -104,7 +109,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 								endpoint.getX() + pearl.posX - pos.getX(),
 								endpoint.getY() + pearl.posY - pos.getY(),
 								endpoint.getZ() + pearl.posZ - pos.getZ()
-						);
+								);
 					}
 				}
 			}
@@ -112,10 +117,14 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	private boolean isValidBinding() {
-		Block block = worldObj.getBlockState(bindPos).getBlock();
+		BlockPos nextDest = getNextDestination();
+		if(nextDest == null)
+			return false;
+
+		Block block = worldObj.getBlockState(nextDest).getBlock();
 		return block == ModBlocks.lightRelay;
 	}
-	
+
 	private BlockPos getEndpoint() {
 		List<TileLightRelay> pointsPassed = new ArrayList<>();
 		TileLightRelay relay = this;
@@ -127,11 +136,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(pointsPassed.contains(relay))
 				return null; // Circular path
 			pointsPassed.add(relay);
-			
-			BlockPos coords = relay.getBinding();
+
+			BlockPos coords = relay.getNextDestination();
 			if(coords == null)
 				return lastCoords;
-			
+
 			TileEntity tile = worldObj.getTileEntity(coords);
 			if(tile != null && tile instanceof TileLightRelay)
 				relay = (TileLightRelay) tile;
@@ -144,12 +153,47 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	}
 
 	public Vector3 getMovementVector() {
-		return new Vector3(bindPos.getX() - pos.getX(), bindPos.getY() - pos.getY(), bindPos.getZ() - pos.getZ());
+		BlockPos dest = getNextDestination();
+		if(dest == null)
+			return null;
+
+		return new Vector3(dest.getX() - pos.getX(), dest.getY() - pos.getY(), dest.getZ() - pos.getZ());
 	}
 
 	@Override
 	public BlockPos getBinding() {
-		return bindPos.getY() == -1 ? null : bindPos;
+		return bindPos;
+	}
+
+	public BlockPos getNextDestination() {
+		IBlockState state = worldObj.getBlockState(pos);
+		if(state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE && state.getValue(BotaniaStateProps.POWERED))
+			return null;
+		else if(state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.FORK) {
+			BlockPos torchPos = null;
+			for(int i = -2; i < 3; i++) {
+				BlockPos testPos = pos.add(0, i, 0);
+
+				IBlockState testState = worldObj.getBlockState(testPos);
+				if(testState.getBlock() == ModBlocks.animatedTorch) {
+					torchPos = testPos;
+					break;
+				}
+			}
+
+			if(torchPos != null) {
+				TileAnimatedTorch torch = (TileAnimatedTorch) worldObj.getTileEntity(torchPos);
+				EnumFacing side = TileAnimatedTorch.SIDES[torch.side].getOpposite();
+				for(int i = 1; i < MAX_DIST; i++) {
+					BlockPos testPos = pos.offset(side, i);
+					IBlockState testState = worldObj.getBlockState(testPos);
+					if(testState.getBlock() == ModBlocks.lightRelay)
+						return testPos;
+				}
+			}
+		}
+
+		return getBinding();
 	}
 
 	@Override
@@ -169,10 +213,10 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
 		bindPos = new BlockPos(
-			cmp.getInteger(TAG_BIND_X),
-			cmp.getInteger(TAG_BIND_Y),
-			cmp.getInteger(TAG_BIND_Z)
-		);
+				cmp.getInteger(TAG_BIND_X),
+				cmp.getInteger(TAG_BIND_Y),
+				cmp.getInteger(TAG_BIND_Z)
+				);
 	}
 
 	@Override
@@ -232,7 +276,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 					}
 
 					TileLightRelay relay = (TileLightRelay) tile;
-					BlockPos bind = relay.getBinding();
+					BlockPos bind = relay.getNextDestination();
 					if(bind != null && relay.isValidBinding()) {
 						setExit(bind);
 						return;

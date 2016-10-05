@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 11, 2014, 5:40:55 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,10 +32,6 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class SubTileOrechid extends SubTileFunctional {
 

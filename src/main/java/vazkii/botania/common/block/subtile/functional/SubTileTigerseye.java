@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 16, 2014, 3:36:26 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -25,9 +28,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubTileTigerseye extends SubTileFunctional {
 

@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 9:42:31 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.awt.Color;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.state.IBlockState;
@@ -21,17 +26,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.Random;
 
 public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
 
@@ -50,7 +50,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
 				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -89,7 +89,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			ILens lens = (ILens) stack.getItem();
+			stack.getItem();
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.0F, -1F, -0.4375F);
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);

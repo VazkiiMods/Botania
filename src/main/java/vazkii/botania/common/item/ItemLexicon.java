@@ -10,8 +10,14 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -51,10 +57,6 @@ import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
@@ -243,7 +245,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
+		ModelBakery.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 14, 2014, 5:04:22 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -20,8 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
-
-import javax.annotation.Nonnull;
 
 public abstract class TileRedString extends TileMod implements ITileBound {
 

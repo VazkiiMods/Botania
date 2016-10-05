@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2015, 6:47:35 PM (GMT)]
  */
 package vazkii.botania.common.entity;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -32,8 +34,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class EntityThornChakram extends EntityThrowable {
 
@@ -126,41 +126,42 @@ public class EntityThornChakram extends EntityThrowable {
 			return;
 
 		switch (pos.typeOfHit) {
-			case BLOCK: {
-				Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
-				if(block instanceof BlockBush || block instanceof BlockLeaves)
-					return;
+		case BLOCK: {
+			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			if(block instanceof BlockBush || block instanceof BlockLeaves)
+				return;
 
-				int bounces = getTimesBounced();
-				if(bounces < MAX_BOUNCES) {
-					Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
-					EnumFacing dir = pos.sideHit;
-					Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
-					Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
+			int bounces = getTimesBounced();
+			if(bounces < MAX_BOUNCES) {
+				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
+				EnumFacing dir = pos.sideHit;
+				Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
+				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-					motionX = movementVec.x;
-					motionY = movementVec.y;
-					motionZ = movementVec.z;
-					bounced = true;
+				motionX = movementVec.x;
+				motionY = movementVec.y;
+				motionZ = movementVec.z;
+				bounced = true;
 
-					if(!worldObj.isRemote)
-						setTimesBounced(getTimesBounced() + 1);
-				}
-
-				break;
+				if(!worldObj.isRemote)
+					setTimesBounced(getTimesBounced() + 1);
 			}
-			case ENTITY: {
-				if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
-					EntityLivingBase thrower = getThrower();
-					pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
-					if(isFire())
-						pos.entityHit.setFire(5);
-					else if(worldObj.rand.nextInt(3) == 0)
-						((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
-				}
 
-				break;
+			break;
+		}
+		case ENTITY: {
+			if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
+				EntityLivingBase thrower = getThrower();
+				pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
+				if(isFire())
+					pos.entityHit.setFire(5);
+				else if(worldObj.rand.nextInt(3) == 0)
+					((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 			}
+
+			break;
+		}
+		default: break;
 		}
 	}
 

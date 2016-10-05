@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [17/11/2015, 20:10:53 (GMT)]
  */
 package vazkii.botania.api.item;
@@ -29,6 +29,6 @@ public interface IFlowerPlaceable {
 	 * @param stack The stack that was placed.
 	 * @param flower The flower doing the placing.
 	 * @param pos The position that was placed at.
-     */
+	 */
 	public void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, BlockPos pos);
 }

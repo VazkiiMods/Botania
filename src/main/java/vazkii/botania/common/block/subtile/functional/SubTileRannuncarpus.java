@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 1, 2014, 6:08:25 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -29,7 +34,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -42,9 +46,6 @@ import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 
@@ -75,7 +76,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			int rangePlaceY = getRangeY();
 
 			BlockPos pos = supertile.getPos();
-			
+
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
@@ -86,7 +87,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < (60 + slowdown) || item.isDead)
+				if(age < 60 + slowdown || item.isDead)
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -99,7 +100,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							BlockPos up = pos_.up();
 							if(filter == supertile.getWorld().getBlockState(pos_)
 									&& (blockAbove.isAir(stateAbove, supertile.getWorld(), up)
-										|| blockAbove.isReplaceable(supertile.getWorld(), up)))
+											|| blockAbove.isReplaceable(supertile.getWorld(), up)))
 								validPositions.add(up);
 						}
 

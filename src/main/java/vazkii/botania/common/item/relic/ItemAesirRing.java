@@ -2,17 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 29, 2015, 10:16:29 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
-import baubles.api.BaubleType;
+import java.util.List;
+import java.util.UUID;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
+import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -36,9 +40,6 @@ import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.List;
-import java.util.UUID;
 
 public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, ICraftAchievement {
 

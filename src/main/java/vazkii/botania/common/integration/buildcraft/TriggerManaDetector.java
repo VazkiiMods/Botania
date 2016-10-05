@@ -1,9 +1,10 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import com.google.common.base.Predicates;
+
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerInternal;
-import com.google.common.base.Predicates;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;

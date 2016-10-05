@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 3, 2014, 10:31:29 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
@@ -37,11 +37,11 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 		if(ticksExisted % 30 == 0 && mana >= COST) {
 			BlockPos pos = new BlockPos(
-				supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
-				supertile.getPos().getY() + RANGE,
-				supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
-			);
-			
+					supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
+					supertile.getPos().getY() + RANGE,
+					supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
+					);
+
 			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [15/11/2015, 19:13:10 (GMT)]
  */
 package vazkii.botania.common.item.lens;
+
+import java.awt.Color;
 
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -16,8 +18,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.Botania;
-
-import java.awt.*;
 
 public class LensFlare extends Lens {
 

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 28, 2015, 5:18:13 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -40,8 +42,6 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
 
 public class BlockBellows extends BlockMod implements ILexiconable {
 

@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 2:04:15 PM (GMT)]
  */
 package vazkii.botania.common.item.block;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -30,7 +34,6 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -38,9 +41,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
@@ -96,7 +96,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		}
 
 		String mod = BotaniaAPI.subTileMods.get(type);
-		if(!mod.equals(LibMisc.MOD_ID))
+		if(mod != null && !mod.equals(LibMisc.MOD_ID))
 			stacks.add(TextFormatting.ITALIC + "[" + mod + "]");
 	}
 
@@ -122,24 +122,24 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		String type = getType(stack);
 		switch (type) {
-			case LibBlockNames.SUBTILE_KEKIMURUS:
-				return ModAchievements.kekimurusPickup;
-			case LibBlockNames.SUBTILE_HEISEI_DREAM:
-				return ModAchievements.heiseiDreamPickup;
-			case LibBlockNames.SUBTILE_POLLIDISIAC:
-				return ModAchievements.pollidisiacPickup;
-			case LibBlockNames.SUBTILE_BUBBELL:
-				return ModAchievements.bubbellPickup;
-			case LibBlockNames.SUBTILE_DANDELIFEON:
-				return ModAchievements.dandelifeonPickup;
-			case "":
-				return ModAchievements.nullFlower;
-			default:
-				Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(type);
-				if(SubTileGenerating.class.isAssignableFrom(clazz))
-					return ModAchievements.daybloomPickup;
-				else if(SubTileFunctional.class.isAssignableFrom(clazz))
-					return ModAchievements.endoflamePickup;
+		case LibBlockNames.SUBTILE_KEKIMURUS:
+			return ModAchievements.kekimurusPickup;
+		case LibBlockNames.SUBTILE_HEISEI_DREAM:
+			return ModAchievements.heiseiDreamPickup;
+		case LibBlockNames.SUBTILE_POLLIDISIAC:
+			return ModAchievements.pollidisiacPickup;
+		case LibBlockNames.SUBTILE_BUBBELL:
+			return ModAchievements.bubbellPickup;
+		case LibBlockNames.SUBTILE_DANDELIFEON:
+			return ModAchievements.dandelifeonPickup;
+		case "":
+			return ModAchievements.nullFlower;
+		default:
+			Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(type);
+			if(SubTileGenerating.class.isAssignableFrom(clazz))
+				return ModAchievements.daybloomPickup;
+			else if(SubTileFunctional.class.isAssignableFrom(clazz))
+				return ModAchievements.endoflamePickup;
 		}
 		return null;
 	}

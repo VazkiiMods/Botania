@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 3, 2014, 1:51:34 AM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -16,9 +19,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileDistributor extends TileMod implements IManaReceiver {
 

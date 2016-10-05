@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:44:59 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
@@ -232,7 +232,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public int getPassiveFlowerDecay() {
 		return LibMisc.PASSIVE_FLOWER_DECAY;
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {
@@ -265,7 +265,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		if(player instanceof EntityPlayerMP)
 			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 	}
-	
+
 
 	@Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {

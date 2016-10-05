@@ -2,18 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 13, 2015, 10:53:05 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
+import java.util.List;
+
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling

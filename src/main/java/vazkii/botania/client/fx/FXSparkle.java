@@ -2,16 +2,20 @@
  * This class was created by <Azanor>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.fx;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -22,15 +26,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibObfuscation;
-
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class FXSparkle extends Particle {
 
@@ -172,9 +170,9 @@ public class FXSparkle extends Particle {
 	private boolean wiggleAround(double x, double y, double z)
 	{
 		BlockPos blockpos = new BlockPos(x, y, z);
-		double d0 = x - (double)blockpos.getX();
-		double d1 = y - (double)blockpos.getY();
-		double d2 = z - (double)blockpos.getZ();
+		double d0 = x - blockpos.getX();
+		double d1 = y - blockpos.getY();
+		double d2 = z - blockpos.getZ();
 
 		// Botania - change collision box list check to !airblock check
 		if (!worldObj.isAirBlock(blockpos))
@@ -182,55 +180,55 @@ public class FXSparkle extends Particle {
 			EnumFacing enumfacing = EnumFacing.UP;
 			double d3 = Double.MAX_VALUE;
 
-			if (!this.worldObj.isBlockFullCube(blockpos.west()) && d0 < d3)
+			if (!worldObj.isBlockFullCube(blockpos.west()) && d0 < d3)
 			{
 				d3 = d0;
 				enumfacing = EnumFacing.WEST;
 			}
 
-			if (!this.worldObj.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
+			if (!worldObj.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
 			{
 				d3 = 1.0D - d0;
 				enumfacing = EnumFacing.EAST;
 			}
 
 
-			if (!this.worldObj.isBlockFullCube(blockpos.north()) && d2 < d3)
+			if (!worldObj.isBlockFullCube(blockpos.north()) && d2 < d3)
 			{
 				d3 = d2;
 				enumfacing = EnumFacing.NORTH;
 			}
 
-			if (!this.worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
+			if (!worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
 			{
 				d3 = 1.0D - d2;
 				enumfacing = EnumFacing.SOUTH;
 			}
 
-			if (!this.worldObj.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
+			if (!worldObj.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
 			{
 				d3 = 1.0D - d1;
 				enumfacing = EnumFacing.UP;
 			}
 
-			float f = this.rand.nextFloat() * 0.05F + 0.01F; // Botania - made multiplier and add both smaller
-			float f1 = (float)enumfacing.getAxisDirection().getOffset();
+			float f = rand.nextFloat() * 0.05F + 0.01F; // Botania - made multiplier and add both smaller
+			float f1 = enumfacing.getAxisDirection().getOffset();
 			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use a secondary movement variable below
 
 			if (enumfacing.getAxis() == EnumFacing.Axis.X)
 			{
-				this.motionX += (double)(f1 * f);
-				this.motionY = this.motionZ = secondary;
+				motionX += f1 * f;
+				motionY = motionZ = secondary;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Y)
 			{
-				this.motionY += (double)(f1 * f);
-				this.motionX = this.motionZ = secondary;
+				motionY += f1 * f;
+				motionX = motionZ = secondary;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Z)
 			{
-				this.motionZ += (double)(f1 * f);
-				this.motionX = this.motionY = secondary;
+				motionZ += f1 * f;
+				motionX = motionY = secondary;
 			}
 
 			return true;

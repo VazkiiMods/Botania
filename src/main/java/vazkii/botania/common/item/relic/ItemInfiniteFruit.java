@@ -2,18 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 29, 2015, 10:12:55 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -26,10 +29,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Locale;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
@@ -64,7 +63,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		super.onUsingTick(stack, living, count);
 		if(!(living instanceof EntityPlayer))
 			return;
-		EntityPlayer player = ((EntityPlayer) living);
+		EntityPlayer player = (EntityPlayer) living;
 		if(ManaItemHandler.requestManaExact(stack, player, 500, true)) {
 			if(count % 5 == 0)
 				player.getFoodStats().addStats(1, 1F);

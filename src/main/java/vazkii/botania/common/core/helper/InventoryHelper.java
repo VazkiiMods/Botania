@@ -2,29 +2,21 @@
  * This class was created by <Mikeemoo/boq/nevercast>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -33,33 +25,23 @@ import net.minecraftforge.items.VanillaDoubleChestItemHandler;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
 public class InventoryHelper {
 
 	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, EnumFacing side) {
-        IItemHandler ret = getInventory(world, pos, side);
-        if(ret == null)
-            return null;
-        else return new InvWithLocation(ret, world, pos);
-    }
+		IItemHandler ret = getInventory(world, pos, side);
+		if(ret == null)
+			return null;
+		else return new InvWithLocation(ret, world, pos);
+	}
 
 	public static IItemHandler getInventory(World world, BlockPos pos, EnumFacing side) {
-        TileEntity te = world.getTileEntity(pos);
+		TileEntity te = world.getTileEntity(pos);
 
-        if(te == null)
-            return null;
+		if(te == null)
+			return null;
 
 		if(te instanceof TileEntityChest) {
-			IItemHandler doubleChest = VanillaDoubleChestItemHandler.get(((TileEntityChest) te));
+			IItemHandler doubleChest = VanillaDoubleChestItemHandler.get((TileEntityChest) te);
 			if(doubleChest != VanillaDoubleChestItemHandler.NO_ADJACENT_CHESTS_INSTANCE)
 				return doubleChest;
 		}
@@ -67,11 +49,11 @@ public class InventoryHelper {
 		IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
 				te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
 
-        if(ret == null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
-            ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				if(ret == null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
+					ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
-        return ret;
-    }
+				return ret;
+	}
 
 	public static void dropInventory(TileSimpleInventory inv, World world, IBlockState state, BlockPos pos) {
 		if(inv != null) {

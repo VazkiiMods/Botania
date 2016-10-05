@@ -30,7 +30,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -133,10 +132,10 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 	@Override
 	public void registerModels() {
 		if(!doubleSlab) {
-			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY).build());
+			ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BlockModSlab.DUMMY).build());
 			ModelHandler.registerBlockToState(this, 0, getDefaultState());
 		} else {
-			ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
+			ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BlockModSlab.DUMMY, BlockSlab.HALF).build());
 		}
 	}
 

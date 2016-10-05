@@ -2,25 +2,26 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 28, 2015, 8:30:19 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -33,11 +34,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
-	
+
 	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 		addPropertyOverride(new ResourceLocation("botania", "holiday"), (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0);
@@ -49,12 +47,12 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		models.put(slot, new ModelArmorManaweave(slot));
 		return models.get(slot);
 	}
-	
+
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
-		return ConfigHandler.enableArmorModels ? (ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW) : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+		return ConfigHandler.enableArmorModels ? ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
-	
+
 	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -64,7 +62,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 			name = name.replaceAll("manaweave", "santaweave");
 		return name;
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 22 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
@@ -76,10 +74,10 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	public ItemStack[] getArmorSetStacks() {
 		if(armorset == null)
 			armorset = new ItemStack[] {
-				new ItemStack(ModItems.manaweaveHelm),
-				new ItemStack(ModItems.manaweaveChest),
-				new ItemStack(ModItems.manaweaveLegs),
-				new ItemStack(ModItems.manaweaveBoots)
+					new ItemStack(ModItems.manaweaveHelm),
+					new ItemStack(ModItems.manaweaveChest),
+					new ItemStack(ModItems.manaweaveLegs),
+					new ItemStack(ModItems.manaweaveBoots)
 		};
 
 		return armorset;
@@ -114,7 +112,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 			addStringToTooltip(I18n.format("botaniamisc.santaweaveInfo"), list);
 			addStringToTooltip("", list);
 		}
-		
+
 		super.addInformationAfterShift(stack, player, list, adv);
 	}
 

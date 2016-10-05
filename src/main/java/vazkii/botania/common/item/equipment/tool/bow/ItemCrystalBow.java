@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 21, 2015, 6:33:40 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool.bow;
@@ -43,7 +43,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	void onFire(ItemStack stack, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		arrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 		if(living instanceof EntityPlayer)
-			ManaItemHandler.requestManaExactForTool(stack, ((EntityPlayer) living), ARROW_COST / (infinity ? 2 : 1), false);
+			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override

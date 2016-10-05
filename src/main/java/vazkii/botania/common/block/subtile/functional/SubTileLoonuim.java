@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 31, 2014, 7:49:43 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -21,9 +24,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
-import java.util.Random;
 
 public class SubTileLoonuim extends SubTileFunctional {
 
@@ -41,7 +41,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 
 			ItemStack stack;
 			do {
-				List<ItemStack> stacks = supertile.getWorld().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder(((WorldServer) supertile.getWorld())).build());
+				List<ItemStack> stacks = supertile.getWorld().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder((WorldServer) supertile.getWorld()).build());
 				if (stacks.isEmpty())
 					return;
 				else stack = stacks.get(0);

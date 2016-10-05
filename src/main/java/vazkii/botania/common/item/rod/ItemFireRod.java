@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 26, 2014, 12:08:06 AM (GMT)]
  */
 package vazkii.botania.common.item.rod;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,8 +33,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 

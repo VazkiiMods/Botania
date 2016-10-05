@@ -2,13 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 6, 2014, 5:11:23 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
+
+import java.awt.Color;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
@@ -29,7 +36,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -41,10 +47,6 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.List;
 
 public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender {
 
@@ -170,7 +172,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 			}
-			GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255));
+			GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
 		}
 	}
 

@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 2, 2014, 7:50:07 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -16,12 +19,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class ModManaAlchemyRecipes {
 
@@ -50,6 +51,9 @@ public final class ModManaAlchemyRecipes {
 	public static List<RecipeManaInfusion> stoneRecipes;
 	public static List<RecipeManaInfusion> tallgrassRecipes;
 	public static List<RecipeManaInfusion> flowersRecipes;
+
+	// Garden of Glass
+	public static List<RecipeManaInfusion> prismarineRecipes;
 
 	public static void init() {
 		leatherRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.LEATHER), new ItemStack(Items.ROTTEN_FLESH), 600);
@@ -154,5 +158,11 @@ public final class ModManaAlchemyRecipes {
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, 4), new ItemStack(Blocks.DOUBLE_PLANT, 1, 1), 400));
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, 5), new ItemStack(Blocks.DOUBLE_PLANT, 1, 4), 400));
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.YELLOW_FLOWER), new ItemStack(Blocks.DOUBLE_PLANT, 1, 5), 400));
+
+		if(Botania.gardenOfGlassLoaded) {
+			prismarineRecipes = new ArrayList<>();
+			prismarineRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(Items.QUARTZ), 1000));
+			prismarineRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.PRISMARINE_CRYSTALS), new ItemStack(Items.PRISMARINE_SHARD), 500));
+		}
 	}
 }

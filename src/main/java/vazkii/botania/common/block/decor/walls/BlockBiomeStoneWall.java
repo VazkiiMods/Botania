@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 18, 2015, 8:31:47 PM (GMT)]
  */
 package vazkii.botania.common.block.decor.walls;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.BlockStateContainer;
@@ -18,7 +22,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -32,10 +35,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockBiomeStoneWall extends BlockModWall {
 
@@ -92,8 +91,8 @@ public class BlockBiomeStoneWall extends BlockModWall {
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this,
-				(new StateMap.Builder()).withName(BotaniaStateProps.BIOMESTONEWALL_VARIANT)
-						.ignore(BlockWall.VARIANT).withSuffix("_wall").build());
+				new StateMap.Builder().withName(BotaniaStateProps.BIOMESTONEWALL_VARIANT)
+				.ignore(BlockWall.VARIANT).withSuffix("_wall").build());
 		ModelHandler.registerCustomItemblock(this, 8, i -> BiomeStoneVariant.values()[i + 8].getName() + "_wall");
 	}
 

@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 29, 2015, 10:13:26 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,8 +33,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
@@ -89,7 +89,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		if(!(living instanceof EntityPlayer))
 			return stack;
 
-		EntityPlayer player = ((EntityPlayer) living);
+		EntityPlayer player = (EntityPlayer) living;
 		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);

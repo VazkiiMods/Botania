@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 28, 2015, 10:46:20 PM (GMT)]
  */
 package vazkii.botania.common.block;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -28,9 +32,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
-
 public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	public BlockBifrostPerm() {
@@ -46,7 +47,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isFullBlock(IBlockState state) {
 		return true;

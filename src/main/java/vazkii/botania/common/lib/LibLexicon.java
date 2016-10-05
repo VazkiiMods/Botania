@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 9:14:08 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -134,6 +134,7 @@ public final class LibLexicon {
 	public static final String DEVICE_TERU_TERU_BOZU = "teruTeruBozu";
 	public static final String DEVICE_AVATAR = "avatar";
 	public static final String DEVICE_FEL_PUMPKIN = "felPumpkin";
+	public static final String DEVICE_ANIMATED_TORCH = "animatedTorch";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";

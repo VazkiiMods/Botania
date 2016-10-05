@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 23, 2014, 5:28:55 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -28,9 +32,6 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 16, 2015, 6:42:56 PM (GMT)]
  */
 package vazkii.botania.client.gui.bag;
@@ -21,7 +21,7 @@ public class InventoryFlowerBag implements IItemHandlerModifiable {
 
 	public InventoryFlowerBag(ItemStack bag) {
 		this.bag = bag;
-		this.bagInv = (IItemHandlerModifiable) bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		bagInv = (IItemHandlerModifiable) bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 	}
 
 	@Override

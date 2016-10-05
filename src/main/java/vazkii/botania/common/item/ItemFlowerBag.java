@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 16, 2015, 6:43:33 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +25,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketCollectItem;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -45,12 +47,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemFlowerBag extends ItemMod {
 
@@ -139,9 +137,8 @@ public class ItemFlowerBag extends ItemMod {
 
 					if(result == null)
 						event.getItem().setDead();
-					else {
+					else
 						event.getItem().setEntityItemStack(result);
-					}
 
 					if(result != entityStack) {
 						event.setCanceled(true);
@@ -152,6 +149,8 @@ public class ItemFlowerBag extends ItemMod {
 						}
 						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId()));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();
+
+						return;
 					}
 				}
 			}
@@ -175,7 +174,7 @@ public class ItemFlowerBag extends ItemMod {
 				if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side))
 					tileInv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 				else if(tile instanceof IInventory)
-					tileInv = new InvWrapper(((IInventory) tile));
+					tileInv = new InvWrapper((IInventory) tile);
 
 				if(tileInv == null)
 					return EnumActionResult.FAIL;

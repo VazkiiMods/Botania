@@ -2,20 +2,21 @@
  * This class was created by <wiiv>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model;
 
+import java.awt.Color;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
 
 public class ModelHourglass extends ModelBase {
 
@@ -66,7 +67,9 @@ public class ModelHourglass extends ModelBase {
 		base2.render(f);
 		Color c = new Color(color);
 		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
+
 		GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
+		GlStateManager.disableRescaleNormal();
 		GlStateManager.enableNormalize();
 
 		if(fract1 > 0) {
@@ -92,13 +95,16 @@ public class ModelHourglass extends ModelBase {
 				GlStateManager.translate(-2.5F * f, 1.0F * f, -2.5F * f);
 			}
 
+
 			GlStateManager.scale(1F, fract2, 1F);
+
 			sand2.render(f);
 			GlStateManager.popMatrix();
 		}
 
-		GL11.glPopAttrib();
-		GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255));
+		GlStateManager.popAttrib();
+
+		GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
 		glass1.render(f);
 		glass2.render(f);
 	}

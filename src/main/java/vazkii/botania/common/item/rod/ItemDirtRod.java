@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 11, 2014, 2:53:41 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -38,12 +40,10 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
-
 public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
-	
+
 	static final int COST = 75;
 
 	public ItemDirtRod() {
@@ -116,7 +116,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-					world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
+				world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
 				tile.recieveMana(-COST);
 			}
 		}

@@ -2,20 +2,13 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 24, 2015, 5:54:45 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
-
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import vazkii.botania.client.challenge.Challenge;
-import vazkii.botania.client.challenge.ModChallenges;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +16,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTTagCompound;
+import vazkii.botania.client.challenge.Challenge;
+import vazkii.botania.client.challenge.ModChallenges;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.common.lib.LibMisc;
 
 public final class PersistentVariableHelper {
 
@@ -75,7 +75,7 @@ public final class PersistentVariableHelper {
 		cmp.setBoolean(TAG_DOG, dog);
 		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
 		cmp.setInteger(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
-		
+
 		injectNBTToFile(cmp, getCacheFile());
 	}
 
@@ -115,7 +115,7 @@ public final class PersistentVariableHelper {
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad)
 			lastBotaniaVersion = LibMisc.VERSION;
-		
+
 		dog = cmp.getBoolean(TAG_DOG);
 		lexiconGuiScale = cmp.getInteger(TAG_LEXICON_GUI_SCALE);
 	}

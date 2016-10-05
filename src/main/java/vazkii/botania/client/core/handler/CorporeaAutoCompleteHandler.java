@@ -2,15 +2,26 @@
  * This class was created by <SoundLogic>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [June 8, 2015, 12:55:20 AM (GMT)]
  */
 package vazkii.botania.client.core.handler;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.input.Keyboard;
+
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
@@ -22,16 +33,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class CorporeaAutoCompleteHandler {
 
@@ -137,7 +140,7 @@ public class CorporeaAutoCompleteHandler {
 		String s = prefix.trim();
 		if(s.isEmpty())
 			return ImmutableList.of();
-				
+
 		TreeSet<CompletionData> result = new TreeSet<>();
 		String[] words = s.split(" ");
 		int i = words.length - 1;

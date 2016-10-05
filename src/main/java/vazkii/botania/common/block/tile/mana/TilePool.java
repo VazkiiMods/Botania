@@ -2,15 +2,24 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 26, 2014, 12:23:55 AM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -33,7 +42,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
@@ -61,11 +69,6 @@ import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -153,7 +156,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		// Recipes with matching catalyst take priority above recipes with no catalyst specified
 		return !matchingCatRecipes.isEmpty() ? matchingCatRecipes.get(0) :
-				!matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) :
+			!matchingNonCatRecipes.isEmpty() ? matchingNonCatRecipes.get(0) :
 				null;
 	}
 
@@ -171,7 +174,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		int age;
 		try {
-			age = ((int) MethodHandles.itemAge_getter.invokeExact(item));
+			age = (int) MethodHandles.itemAge_getter.invokeExact(item);
 		} catch (Throwable throwable) { return false; }
 
 		if(age > 100 && age < 130)

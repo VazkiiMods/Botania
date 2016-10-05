@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 30, 2015, 6:52:35 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
+
+import javax.annotation.Nonnull;
 
 import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,8 +30,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
 
 public class ItemDice extends ItemRelic {
 

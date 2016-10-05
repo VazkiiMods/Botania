@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 27, 2014, 8:55:00 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -23,7 +27,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
@@ -32,8 +35,6 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
-
-import javax.annotation.Nonnull;
 
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
@@ -82,7 +83,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 					ItemStack cosmetic = attachable.getCosmeticItem(stack);
 					if(cosmetic != null) {
 						GlStateManager.pushMatrix();
-						GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255)); // Some of the baubles use this so we must restore it manually as well
+						GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
 						GlStateManager.color(1F, 1F, 1F, 1F);
 						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, player, type, partialTicks);
 						GlStateManager.popMatrix();
@@ -92,7 +93,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 				if(item instanceof IBaubleRender) {
 					GlStateManager.pushMatrix();
-					GL11.glColor3ub(((byte) 255), ((byte) 255), ((byte) 255)); // Some of the baubles use this so we must restore it manually as well
+					GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
 					GlStateManager.color(1F, 1F, 1F, 1F);
 					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, player, type, partialTicks);
 					GlStateManager.popMatrix();

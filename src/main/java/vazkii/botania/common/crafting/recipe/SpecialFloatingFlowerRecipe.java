@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 17, 2014, 6:34:36 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -18,8 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-
-import javax.annotation.Nonnull;
 
 public class SpecialFloatingFlowerRecipe implements IRecipe {
 

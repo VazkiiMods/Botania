@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 13, 2015, 10:25:32 PM (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,9 +31,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemCorporeaSpark extends ItemMod {
 
@@ -50,7 +51,7 @@ public class ItemCorporeaSpark extends ItemMod {
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
-			&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
+				&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
 			stack.stackSize--;
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);

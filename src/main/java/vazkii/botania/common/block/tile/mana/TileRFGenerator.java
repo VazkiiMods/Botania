@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 29, 2014, 10:01:32 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyReceiver;
@@ -20,9 +23,6 @@ import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
-
-import java.util.EnumMap;
-import java.util.Map;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
 public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {

@@ -2,18 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [25/11/2015, 19:46:11 (GMT)]
  */
 package vazkii.botania.common.item;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,12 +34,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemBaubleBox extends ItemMod {
 
@@ -61,7 +59,7 @@ public class ItemBaubleBox extends ItemMod {
 			public ItemStack insertItem(int slot, ItemStack toInsert, boolean simulate) {
 				if(toInsert != null &&
 						(toInsert.getItem() instanceof IManaItem
-						|| toInsert.getItem() instanceof IBauble))
+								|| toInsert.getItem() instanceof IBauble))
 					return super.insertItem(slot, toInsert, simulate);
 				else return toInsert;
 			}

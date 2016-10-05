@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 16, 2014, 5:55:03 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -103,6 +103,7 @@ public final class LibBlockNames {
 	public static final String SHIMMERWOOD_PLANKS = "shimmerwoodPlanks";
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS = "altGrass";
+	public static final String ANIMATED_TORCH = "animatedTorch";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

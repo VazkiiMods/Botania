@@ -2,17 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 25, 2014, 10:30:39 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.util.List;
+
+import com.google.common.base.Predicates;
+
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
-import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -40,8 +43,6 @@ import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-import java.util.List;
-
 public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	public ItemDivaCharm() {
@@ -61,7 +62,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
-						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), ((List<IMob>) mobs))) {
+						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), (List<IMob>) mobs)) {
 							if(event.getEntityLiving() instanceof EntityCreeper)
 								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.getEntityLiving(), 2, LibObfuscation.TIME_SINCE_IGNITED);
 							event.getEntityLiving().heal(event.getEntityLiving().getMaxHealth());

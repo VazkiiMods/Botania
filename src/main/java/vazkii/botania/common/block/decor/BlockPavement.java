@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 1, 2015, 6:35:06 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -30,9 +34,6 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BlockPavement extends BlockMod {
 
@@ -59,13 +60,13 @@ public class BlockPavement extends BlockMod {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		switch (state.getValue(BotaniaStateProps.PAVEMENT_COLOR)) {
-			case GREEN: return 5;
-			case YELLOW: return 4;
-			case RED: return 3;
-			case BLUE: return 2;
-			case BLACK: return 1;
-			case WHITE:
-			default: return 0;
+		case GREEN: return 5;
+		case YELLOW: return 4;
+		case RED: return 3;
+		case BLUE: return 2;
+		case BLACK: return 1;
+		case WHITE:
+		default: return 0;
 		}
 	}
 
@@ -78,13 +79,13 @@ public class BlockPavement extends BlockMod {
 
 		EnumDyeColor color;
 		switch (meta) {
-			case 5: color = EnumDyeColor.GREEN; break;
-			case 4: color = EnumDyeColor.YELLOW; break;
-			case 3: color = EnumDyeColor.RED; break;
-			case 2: color = EnumDyeColor.BLUE; break;
-			case 1: color = EnumDyeColor.BLACK; break;
-			case 0:
-			default: color = EnumDyeColor.WHITE; break;
+		case 5: color = EnumDyeColor.GREEN; break;
+		case 4: color = EnumDyeColor.YELLOW; break;
+		case 3: color = EnumDyeColor.RED; break;
+		case 2: color = EnumDyeColor.BLUE; break;
+		case 1: color = EnumDyeColor.BLACK; break;
+		case 0:
+		default: color = EnumDyeColor.WHITE; break;
 		}
 		return getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color);
 	}

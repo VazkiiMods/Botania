@@ -8,6 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
@@ -15,13 +20,9 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.List;
 
 public class BreweryRecipeCategory implements IRecipeCategory {
 
@@ -66,15 +67,15 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
 		if(!(recipeWrapper instanceof BreweryRecipeWrapper))
 			return;
-		BreweryRecipeWrapper wrapper = ((BreweryRecipeWrapper) recipeWrapper);
+		BreweryRecipeWrapper wrapper = (BreweryRecipeWrapper) recipeWrapper;
 
 		List inputs = wrapper.getInputs();
 
 		recipeLayout.getItemStacks().init(0, true, 39, 41);
 		if(inputs.get(0) instanceof ItemStack) {
-			recipeLayout.getItemStacks().set(0, ((ItemStack) inputs.get(0)));
+			recipeLayout.getItemStacks().set(0, (ItemStack) inputs.get(0));
 		} else {
-			recipeLayout.getItemStacks().set(0, ((Collection<ItemStack>) inputs.get(0)));
+			recipeLayout.getItemStacks().set(0, (Collection<ItemStack>) inputs.get(0));
 		}
 
 		int index = 1, posX = 60;
@@ -82,9 +83,9 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 			Object o = wrapper.getInputs().get(i);
 			recipeLayout.getItemStacks().init(index, true, posX, 6);
 			if(o instanceof ItemStack) {
-				recipeLayout.getItemStacks().set(index, ((ItemStack) o));
+				recipeLayout.getItemStacks().set(index, (ItemStack) o);
 			} else if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, ((Collection<ItemStack>) o));
+				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
 			}
 			index++;
 			posX += 18;

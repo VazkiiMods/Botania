@@ -2,17 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 17, 2014, 6:05:18 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.HashMap;
+
+import net.minecraft.item.ItemStack;
 
 public interface IFloatingFlower {
 
@@ -42,10 +42,10 @@ public interface IFloatingFlower {
 		 * Instantiates and registers a new floating flower island type
 		 * Note that you need to register the model for this island type, see BotaniaAPIClient
 		 * @param name The name of this floating flower island type
-         */
+		 */
 		public IslandType(String name) {
 			if (registry.containsKey(name)) throw new IllegalArgumentException(name+" already registered!");
-			this.typeName = name;
+			typeName = name;
 			registry.put(name, this);
 		}
 
@@ -54,8 +54,9 @@ public interface IFloatingFlower {
 			return type == null ? GRASS : type;
 		}
 
+		@Override
 		public String toString() {
-			return this.typeName;
+			return typeName;
 		}
 
 	}

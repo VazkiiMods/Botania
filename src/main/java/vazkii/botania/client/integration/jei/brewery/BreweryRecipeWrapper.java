@@ -8,7 +8,12 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -16,9 +21,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class BreweryRecipeWrapper implements IRecipeWrapper {
 
@@ -34,7 +36,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 				builder.add(o);
 			}
 			if(o instanceof String) {
-				builder.add(OreDictionary.getOres(((String) o)));
+				builder.add(OreDictionary.getOres((String) o));
 			}
 		}
 

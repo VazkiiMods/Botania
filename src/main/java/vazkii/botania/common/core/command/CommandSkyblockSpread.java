@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 17, 2015, 5:13:06 PM (GMT)]
  */
 package vazkii.botania.common.core.command;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -19,8 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-
-import javax.annotation.Nonnull;
 
 public class CommandSkyblockSpread extends CommandBase {
 

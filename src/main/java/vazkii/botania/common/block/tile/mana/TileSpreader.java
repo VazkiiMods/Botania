@@ -2,15 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 9:40:57 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -35,7 +43,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -63,10 +70,6 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.UUID;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickable {
 
@@ -226,7 +229,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				List bursts = worldObj.getEntitiesWithinAABB(Entity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
-				for(IManaBurst burst : ((List<IManaBurst>) bursts))
+				for(IManaBurst burst : (List<IManaBurst>) bursts)
 					if(burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;
@@ -483,6 +486,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			this.receiver = (IManaReceiver) receiver;
 		else this.receiver = null;
 		lastTentativeBurst = fakeBurst.propsList;
+	}
+
+	@Override
+	public IManaBurst runBurstSimulation() {
+		EntityManaBurst fakeBurst = getBurst(true);
+		fakeBurst.setScanBeam();
+		fakeBurst.getCollidedTile(true);
+		return fakeBurst;
 	}
 
 	public EntityManaBurst getBurst(boolean fake) {

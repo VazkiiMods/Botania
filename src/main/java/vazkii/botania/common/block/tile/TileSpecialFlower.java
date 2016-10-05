@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 22, 2014, 7:21:51 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -34,8 +36,6 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-
-import java.util.List;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer {
 
@@ -217,13 +217,13 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		Block below = worldObj.getBlockState(getPos().down()).getBlock();
 		if(below == Blocks.MYCELIUM)
 			return SLOWDOWN_FACTOR_MYCEL;
-		
+
 		if(below == Blocks.DIRT) {
 			BlockDirt.DirtType type = worldObj.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
 			if(type == BlockDirt.DirtType.PODZOL)
 				return SLOWDOWN_FACTOR_PODZOL;
 		}
-		
+
 		return 0;
 	}
 }

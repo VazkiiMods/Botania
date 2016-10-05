@@ -2,16 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 20, 2014, 10:58:00 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
+import java.util.List;
+
 import com.google.common.base.Predicates;
+
+import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -30,8 +33,6 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 

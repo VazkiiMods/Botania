@@ -2,14 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 15, 2015, 8:31:13 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -39,10 +45,6 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
-
 public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(5.0/16, 5.0/16, 5.0/16, 11.0/16, 11.0/16, 11.0/16);
@@ -70,7 +72,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR ? 1 : 0;
+		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
 		if (state.getValue(BotaniaStateProps.POWERED)) {
 			meta |= 8;
 		} else {
@@ -84,7 +86,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
 		meta &= -9;
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, meta == 1 ? LuminizerVariant.DETECTOR : LuminizerVariant.DEFAULT);
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.class.getEnumConstants()[meta]);
 	}
 
 	@Override
@@ -95,13 +97,13 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DEFAULT ? 0 : 1;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
 	}
 
 	@Override
@@ -126,13 +128,23 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
+			if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
+			else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true));
+		}
+	}
+
+	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
 	public boolean canProvidePower(IBlockState state) {
-		return true;
+		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR;
 	}
 
 	@Override

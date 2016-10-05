@@ -2,13 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 18, 2014, 10:18:36 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,7 +22,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -29,9 +34,6 @@ import vazkii.botania.client.model.ModelPylonOld;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
@@ -48,7 +50,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false)
 				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
 			return;
-		
+
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
 

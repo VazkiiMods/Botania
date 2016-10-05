@@ -2,13 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 6, 2014, 5:59:28 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -19,9 +22,6 @@ import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class ModRuneRecipes {
 

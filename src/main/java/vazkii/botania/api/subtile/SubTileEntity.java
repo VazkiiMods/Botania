@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
+
+import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -29,8 +31,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
-
-import java.util.List;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -232,7 +232,7 @@ public class SubTileEntity {
 	public boolean isOvergrowthAffected() {
 		return true;
 	}
-	
+
 	/**
 	 * Gets ths slowdown factor of this SubTile.
 	 * @see ISubTileSlowableContainer
@@ -242,7 +242,7 @@ public class SubTileEntity {
 			ISubTileSlowableContainer slowable = (ISubTileSlowableContainer) supertile;
 			return slowable.getSlowdownFactor();
 		}
-		
+
 		return 0;
 	}
 

@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 26, 2014, 12:22:58 AM (GMT)]
  */
 package vazkii.botania.common.block.mana;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -53,10 +58,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable, ICraftAchievement {
 
@@ -251,7 +252,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BotaniaStateProps.COLOR).build());
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
 		ModelHandler.registerBlockToState(this, PoolVariant.values().length);
 	}
 }

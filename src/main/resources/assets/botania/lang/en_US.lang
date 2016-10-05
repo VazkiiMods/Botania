@@ -241,6 +241,11 @@ botania.wings7=Wings: Sylph
 botania.wings8=Wings: Mega Ultra Chicken
 botania.wings9=Wings: The One
 
+# TORCH MODES
+botania.animatedTorch.toggle=Toggle
+botania.animatedTorch.rotate=Rotate
+botania.animatedTorch.random=Random
+
 # ARMOR SETS
 botania.armorset.manasteel.name=Mana Affinity
 botania.armorset.manasteel.desc=10%% less Mana cost on Mana Tools and Rods
@@ -1063,6 +1068,8 @@ tile.botania:felPumpkin.name=Fel Pumpkin
 tile.botania:cocoon.name=Cocoon of Caprice
 tile.botania:lightRelay0.name=Luminizer
 tile.botania:lightRelay1.name=Detector Luminizer
+tile.botania:lightRelay2.name=Fork Luminizer
+tile.botania:lightRelay3.name=Toggle Luminizer
 tile.botania:lightLauncher.name=Luminizer Launcher
 tile.botania:livingrock0Wall.name=Livingrock Wall
 tile.botania:livingwood0Wall.name=Livingwood Wall
@@ -1149,6 +1156,7 @@ tile.botania:altGrass2.name=Vivid Grass
 tile.botania:altGrass3.name=Scorched Grass
 tile.botania:altGrass4.name=Infused Grass
 tile.botania:altGrass5.name=Mutated Grass
+tile.botania:animatedTorch.name=Animated Torch
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1341,6 +1349,10 @@ item.botania:lensFirework.name=Mana Lens: Celebratory
 item.botania:lensFirework.short=Celebratory
 item.botania:lensFlare.name=Mana Lens: Flare
 item.botania:lensFlare.short=Flare
+item.botania:lensMessenger.name=Mana Lens: Messenger
+item.botania:lensMessenger.short=Messenger
+item.botania:lensTripwire.name=Mana Lens: Tripwire
+item.botania:lensTripwire.short=Tripwire
 item.botania:rune0.name=Rune of Water
 item.botania:rune1.name=Rune of Fire
 item.botania:rune2.name=Rune of Earth
@@ -1928,12 +1940,13 @@ botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll fin
 botania.page.gardenOfGlass3=Creating &1Saplings&0
 botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
 botania.page.gardenOfGlass5=Creating &1Cobblestone&0
-botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster, and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
+botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster, and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and some recipes are added.
 botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
 botania.page.gardenOfGlass8=Creating &1Slimeballs&0
+botania.page.gardenOfGlass13=Infusing &1Prismarine&0
 botania.page.gardenOfGlass9=A problem that one might face in this world is entering the &4Nether&0. Worry not, however, as &1Blaze Lamps&0, as mentioned previously, can create &1Obsidian&0. To get these lamps, creating &1Blazes&0 using &1Fel Pumpkins&0 might be a good investment.<br>Since there's no easily available &1Flint&0, opening the portal with a &1Fire Charge&0 will have to do.
 botania.page.gardenOfGlass11=Aside from providing light, the &1Mana Flash&0 present in the starting area allows a player who has lost their &1Lexica Botania&0 to exchange a &1Sapling&0 for it, by right clicking with the &1Sapling&0 on the &1Mana Flame&0.<br>This can only be done if the player doesn't have a &1Lexica Botania&0 on them.
-botania.page.gardenOfGlass12=Lastly, a way to finish the game
+botania.page.gardenOfGlass12=Lastly, a way to reach the End
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
@@ -2139,6 +2152,8 @@ botania.page.lens12=The &1Efficiency Lens&0 will decrease the amount of time it 
 botania.page.lens13=Efficiency Lens 
 botania.page.lens14=The &1Bounce Lens&0 will allow the &4Mana Burst&0 to bounce off walls, rather than dissipating on a collision.
 botania.page.lens15=Bounce Lens
+botania.page.lens38=The &1Messenger Lens&0 massively decreases the amount of &4Mana&0 a &4Mana Burst&0 carries, and also drastically increases the burst's speed and maximum distance.<br>This can be very useful for interactions with blocks such as the &1Mana Detector&0, &1Drum of the Wild&0, &1Animated Torch&0, among others.
+botania.page.lens39=Messenger Lens
 botania.page.lens16=The &1Gravity Lens&0 makes the &4Mana Burst&0 be attracted by the world's gravitational pull, thus moving in an arc. As compensation, it also slightly increases the time before &4Mana&0 loss starts to happen.
 botania.page.lens17=Gravity Lens 
 botania.page.lens18=The &1Bore Lens&0 charges the &4Mana Burst&0 with the ability to break any blocks it comes into contact with, draining its own mana to do so.
@@ -2213,8 +2228,10 @@ botania.page.elvenLenses5=The &1Redirective Lens&0 will only work when fired fro
 botania.page.elvenLenses6=Redirective Lens
 botania.page.elvenLenses7=The &1Celebratory Lens&0 functions much akin to the common &1Entropic Lens&0, however, instead of exploding, it creates a festive firework dyed the color of the burst.
 botania.page.elvenLenses8=Celebratory Lens
-botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. Instead, the spreader becomes a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing.<br>There's surely plenty of decorative uses for this.
+botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. This type of lens is called a &4Control Lens&0.<br>The effect of this &4Control Lens&0 in particular, is to make the spreader become a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing. There's surely plenty of decorative uses for this.
 botania.page.elvenLenses10=Flare Lens
+botania.page.elvenLenses11=The &1Tripwire Lens&0 is another &4Control Lens&0.<br>A spreader that has it attached will only be allowed to fire if there is one or more mobs, or players, in the path described by the &4mana burst&0 that the spreader would shoot. 
+botania.page.elvenLenses12=Tripwire Lenss
 
 # -- MANA PRISM
 botania.entry.prism=Mana Prism
@@ -2739,6 +2756,7 @@ botania.page.hourglass1=The hourglass contains an inventory, in which up to a st
 botania.page.hourglass2=The amount of time for each pulse is dependent on how much and what type of sand is in the chamber. &1Sand&0 will count for one second per block, &1Red Sand&0 ten seconds per and &1Soul Sand&0 one minute per. Sand types can't be mixed. The time for each pulse can be seen by hovering over the block with a &1Wand of the Forest&0.
 botania.page.hourglass3=Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.<br>Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by &1Hoppers&0 or other methods.
 botania.page.hourglass4=Right clicking the block with a &1Wand of the Forest&0 locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right clicks it on accident.<br>If a &4Mana Burst&0 collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.
+botania.page.hourglass6=While a type of sand is the norm, &1Mana Powder&0 can be used instead. Doing this turns the hourglass from a &4timer&0 into a &4counter&0.<br>Instead of dropping the sand down at a regular interval, it'll drop a single piece down every time a &4Mana Burst&0 collides with it. For example, having ten pieces of powder in it would require 10 bursts for a pulse.
 botania.page.hourglass5=The sands of time
 
 # -- SPECTRAL RAIL
@@ -2784,6 +2802,14 @@ botania.entry.felPumpkin=Fel Pumpkin
 botania.tagline.felPumpkin=A pumpkin that can spawn blazes
 botania.page.felPumpkin0=A &1Fel Pumpkin&0 is a demented infusion of a &1Pumpkin&0 with the fel spirits of slain monsters. This vile pumpkin can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop a fairly reasonable amount of &1Blaze Powder&0 instead of a small serving of &1Blaze Rods&0.
 botania.page.felPumpkin1=Spooky scary pumpkin
+
+# -- ANIMATED TORCH
+botania.entry.animatedTorch=Animated Torch
+botania.tagline.animatedTorch=Compact systems with a floating redstone torch
+botania.page.animatedTorch0=The &1Animated Torch&0 is no more than a floating &1Redstone Torch&0 with a spark of magical autonomy.<br>The torch, when placed, will face a horizontal direction, providing power towards that direction. Shift-right clicking it will rotate the torch 90 degrees, changing the power to the new direction instead.
+botania.page.animatedTorch1=By default, whenever the torch is triggered, it'll turn 180 degrees, serving as a T-Flip-Flop Latch.<br>To trigger the torch one can either have a &4mana burst&0 collide with it, or have an adjacent &1Hovering Hourglass&0 turn. Either way will have the torch do its specified rotation.
+botania.page.animatedTorch2=Using a &1Wand of the Forest&0 on the torch will change its mode. The default mode is &4Toggle&0, which was explained in the previous page.<br>The other two modes are &4Rotate&0, which will have the torch do a 90 degree spin every time, and &4Random&0, which will have the torch rotate towards a random direction.
+botania.page.animatedTorch3=It's fallen and it can't get up
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -3276,10 +3302,15 @@ botania.tagline.luminizerTransport=Fly through the skies
 botania.page.luminizerTransport0=&1Luminizers&0 serve as a simple way to transport players and other living things of the sort by having them ride on trails of light.<br>&1Luminizers&0 can be placed in the world as blocks. A &1Luminizer&0, in order to work properly needs to be bound to another one. This can be done with the &1Wand of the Forest&0 in bind mode. Right clicking a &1Luminizer&0 will transport the clicker into the &1Luminizer&0 it's bound to.
 botania.page.luminizerTransport1=&1Luminizers&0 have a range of twenty blocks each, but can be chained to create longer and more complex paths.<br>The connection between two &1Luminizers&0 goes only one way, unless the binding is explicitly done both ways. If the connection does go both ways, an endless loop is created, though.<br>Furthermore, multiple &1Luminizers&0 can target the same one as an endpoint.
 botania.page.luminizerTransport2=Luminize to the future
-botania.page.luminizerTransport3=Adding some redstone to a &1Luminizer&0 creates a &1Detector Luminizer&0. For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
-botania.page.luminizerTransport4=Are you ready to draw?
+botania.page.luminizerTransport3=Adding some &1Redstone&0 to a &1Luminizer&0 creates a &1Detector Luminizer&0.<br>For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
+botania.page.luminizerTransport4=Send a signal
+botania.page.luminizerTransport7=Adding a &1Lever&0 will instead turn the &1Luminizer&0 into a &1Toggle Luminizer&0.<br>This one is the opposite of the &1Detector Luminizer&0, it accepts a &4redstone signal&0, and will drop anything that comes through it right there if it's powered. Otherwise, it'll just carry on like usual.
+botania.page.luminizerTransport8=Get a signal
+botania.page.luminizerTransport9=Combining a &1Luminizer&0 with a &1Redstone Torch&0 forms a &1Fork Luminizer&0.<br>It reacts to an &1Animated Torch&0 placed up to two blocks above or below it, and will redirect any incoming entities through the network to a &1Luminizer&0 placed in the direction that the torch is pointing towards.
+botania.page.luminizerTransport10=The &1Fork Luminizer&0 can still be bound like any other style of luminizer, but its conventional binding will only be put in play if there is no &1Animated Torch&0 available to tell it where to go.<br>In the case that there is not a &1Luminizer&0 where a present &1Animated Torch&0 is pointing, it'll default to the binding as well. 
+botania.page.luminizerTransport11=One way or another
 botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals, dropped items, or other beings into the trails, a &1Luminizer Launcher&0 is required. This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings and dropped items on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
-botania.page.luminizerTransport6=Let's believe it, open the flag
+botania.page.luminizerTransport6=Compulsory Evacuation Device
 
 # -- STARCALLER
 botania.entry.starSword=Starcaller
@@ -3819,4 +3850,4 @@ botania.subtitle.terraPickMode=Terrasteel Pick powers up
 botania.subtitle.terrasteelCraft=Terrasteel finishes
 botania.subtitle.thermalily=Thermalily consumes lava
 botania.subtitle.unholyCloak=Cloak of Sin activates
-botania.subtitle.way=And his name is.... JOHN CENA!!!
+botania.subtitle.way=O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA 

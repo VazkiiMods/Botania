@@ -2,17 +2,29 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 21, 2014, 5:43:44 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
+
+import javax.annotation.Nonnull;
+
 import baubles.common.lib.PlayerHandler;
 import gnu.trove.map.hash.TObjectIntHashMap;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -33,23 +45,9 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 public class EntitySpark extends Entity implements ISparkEntity {
 
@@ -102,85 +100,85 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		switch(upgrade) {
-			case DISPERSIVE : {
-				List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
+		case DISPERSIVE : {
+			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
 
-				Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
+			Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
 
-				ItemStack input = new ItemStack(ModItems.spark);
-				for(EntityPlayer player : players) {
-					List<ItemStack> stacks = new ArrayList<>();
-					stacks.addAll(Arrays.asList(player.inventory.mainInventory));
-					stacks.addAll(Arrays.asList(player.inventory.armorInventory));
-					stacks.addAll(Arrays.asList(PlayerHandler.getPlayerBaubles(player).stackList));
+			ItemStack input = new ItemStack(ModItems.spark);
+			for(EntityPlayer player : players) {
+				List<ItemStack> stacks = new ArrayList<>();
+				stacks.addAll(Arrays.asList(player.inventory.mainInventory));
+				stacks.addAll(Arrays.asList(player.inventory.armorInventory));
+				stacks.addAll(Arrays.asList(PlayerHandler.getPlayerBaubles(player).stackList));
 
-					for(ItemStack stack : stacks) {
-						if(stack == null || !(stack.getItem() instanceof IManaItem))
-							continue;
+				for(ItemStack stack : stacks) {
+					if(stack == null || !(stack.getItem() instanceof IManaItem))
+						continue;
 
-						IManaItem manaItem = (IManaItem) stack.getItem();
-						if(manaItem.canReceiveManaFromItem(stack, input)) {
-							TObjectIntHashMap<ItemStack> receivingStacks;
-							boolean add = false;
-							if(!receivingPlayers.containsKey(player)) {
-								add = true;
-								receivingStacks = new TObjectIntHashMap<>();
-							} else receivingStacks = receivingPlayers.get(player);
+					IManaItem manaItem = (IManaItem) stack.getItem();
+					if(manaItem.canReceiveManaFromItem(stack, input)) {
+						TObjectIntHashMap<ItemStack> receivingStacks;
+						boolean add = false;
+						if(!receivingPlayers.containsKey(player)) {
+							add = true;
+							receivingStacks = new TObjectIntHashMap<>();
+						} else receivingStacks = receivingPlayers.get(player);
 
-							int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
-							if(recv > 0) {
-								receivingStacks.put(stack, recv);
-								if(add)
-									receivingPlayers.put(player, receivingStacks);
-							}
+						int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
+						if(recv > 0) {
+							receivingStacks.put(stack, recv);
+							if(add)
+								receivingPlayers.put(player, receivingStacks);
 						}
 					}
 				}
-
-				if(!receivingPlayers.isEmpty()) {
-					List<EntityPlayer> keys = new ArrayList<>(receivingPlayers.keySet());
-					Collections.shuffle(keys);
-					EntityPlayer player = keys.iterator().next();
-
-					TObjectIntHashMap<ItemStack> items = receivingPlayers.get(player);
-					ItemStack stack = items.keySet().iterator().next();
-					int cost = items.get(stack);
-					int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
-					((IManaItem) stack.getItem()).addMana(stack, manaToPut);
-					getAttachedTile().recieveMana(-manaToPut);
-					particlesTowards(player);
-				}
-
-				break;
 			}
-			case DOMINANT : {
-				List<ISparkEntity> validSparks = new ArrayList<>();
-				for(ISparkEntity spark : allSparks) {
-					if(spark == this)
-						continue;
 
-					SparkUpgradeType upgrade_ = spark.getUpgrade();
-					if(upgrade_ == SparkUpgradeType.NONE && spark.getAttachedTile() instanceof IManaPool)
-						validSparks.add(spark);
-				}
-				if(validSparks.size() > 0)
-					validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+			if(!receivingPlayers.isEmpty()) {
+				List<EntityPlayer> keys = new ArrayList<>(receivingPlayers.keySet());
+				Collections.shuffle(keys);
+				EntityPlayer player = keys.iterator().next();
 
-				break;
+				TObjectIntHashMap<ItemStack> items = receivingPlayers.get(player);
+				ItemStack stack = items.keySet().iterator().next();
+				int cost = items.get(stack);
+				int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
+				((IManaItem) stack.getItem()).addMana(stack, manaToPut);
+				getAttachedTile().recieveMana(-manaToPut);
+				particlesTowards(player);
 			}
-			case RECESSIVE : {
-				for(ISparkEntity spark : allSparks) {
-					if(spark == this)
-						continue;
 
-					SparkUpgradeType upgrade_ = spark.getUpgrade();
-					if(upgrade_ != SparkUpgradeType.DOMINANT && upgrade_ != SparkUpgradeType.RECESSIVE && upgrade_ != SparkUpgradeType.ISOLATED)
-						transfers.add(spark);
-				}
-				break;
+			break;
+		}
+		case DOMINANT : {
+			List<ISparkEntity> validSparks = new ArrayList<>();
+			for(ISparkEntity spark : allSparks) {
+				if(spark == this)
+					continue;
+
+				SparkUpgradeType upgrade_ = spark.getUpgrade();
+				if(upgrade_ == SparkUpgradeType.NONE && spark.getAttachedTile() instanceof IManaPool)
+					validSparks.add(spark);
 			}
-			case NONE:
-			default: break;
+			if(validSparks.size() > 0)
+				validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+
+			break;
+		}
+		case RECESSIVE : {
+			for(ISparkEntity spark : allSparks) {
+				if(spark == this)
+					continue;
+
+				SparkUpgradeType upgrade_ = spark.getUpgrade();
+				if(upgrade_ != SparkUpgradeType.DOMINANT && upgrade_ != SparkUpgradeType.RECESSIVE && upgrade_ != SparkUpgradeType.ISOLATED)
+					transfers.add(spark);
+			}
+			break;
+		}
+		case NONE:
+		default: break;
 		}
 
 		if(!transfers.isEmpty()) {
@@ -219,7 +217,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	public static void particleBeam(EntityPlayer player, Entity e1, Entity e2) {
 		if(e1 != null && e2 != null && !e1.worldObj.isRemote) {
-			PacketHandler.sendTo(((EntityPlayerMP) player),
+			PacketHandler.sendTo((EntityPlayerMP) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
 							e1.getEntityId(), e2.getEntityId()));
 		}
@@ -243,7 +241,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		if(stack != null) {
 			if(worldObj.isRemote)
 				return stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
-					|| stack.getItem() == ModItems.phantomInk;
+				|| stack.getItem() == ModItems.phantomInk;
 
 			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
@@ -351,7 +349,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		ISparkAttachable tile = getAttachedTile();
 		if(tile instanceof IManaPool)
 			return removeTransferants > 0;
-		return tile != null && tile.areIncomingTranfersDone();
+			return tile != null && tile.areIncomingTranfersDone();
 	}
 
 }

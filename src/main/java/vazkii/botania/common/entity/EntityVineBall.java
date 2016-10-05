@@ -2,15 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 26, 2014, 7:32:16 PM (GMT)]
  */
 package vazkii.botania.common.entity;
 
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.PropertyBool;
@@ -28,9 +33,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
-import java.util.Map;
 
 public class EntityVineBall extends EntityThrowable {
 
@@ -58,7 +60,7 @@ public class EntityVineBall extends EntityThrowable {
 
 		if(worldObj.isRemote) {
 			for(int j = 0; j < 16; j++) {
-				this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY, this.posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1, Item.getIdFromItem(ModItems.vineBall));
+				worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1, Item.getIdFromItem(ModItems.vineBall));
 			}
 		} else {
 			if(var1 != null) {

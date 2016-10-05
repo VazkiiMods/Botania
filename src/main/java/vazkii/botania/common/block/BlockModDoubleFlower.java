@@ -2,15 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 22, 2015, 7:46:55 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.SoundType;
@@ -47,11 +54,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable, IModelRegister {
 	private static final int COUNT = 8;
 
@@ -59,8 +61,8 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	public BlockModDoubleFlower(boolean second) {
 		this.second = second;
-		this.setHardness(0.0F);
-		this.setSoundType(SoundType.PLANT);
+		setHardness(0.0F);
+		setSoundType(SoundType.PLANT);
 		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
 		setDefaultState(pickDefaultState());
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
@@ -119,7 +121,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 					// BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = (BlockDoublePlant.EnumPlantType) iblockstate.getValue(VARIANT);
 
 					//if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
-						// worldIn.destroyBlock(pos.down(), true);
+					// worldIn.destroyBlock(pos.down(), true);
 					//} else if (!world.isRemote) {
 					//	if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
 					//		this.onHarvest(worldIn, pos, iblockstate, player);
@@ -128,7 +130,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 					//		world.destroyBlock(pos.down(), true);
 					//	}
 					//} else {
-						world.setBlockToAir(pos.down());
+					world.setBlockToAir(pos.down());
 					//}
 				} else {
 					world.setBlockToAir(pos.down());
@@ -190,7 +192,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMapColor().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
-		int b = (hex & 0xFF);
+		int b = hex & 0xFF;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
@@ -228,7 +230,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.FACING).build());
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BlockDoublePlant.VARIANT, BlockDoublePlant.FACING).build());
 	}
 
 }

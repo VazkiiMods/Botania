@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2014, 7:25:47 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,10 +29,6 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SubTileMunchdew extends SubTileGenerating {
 

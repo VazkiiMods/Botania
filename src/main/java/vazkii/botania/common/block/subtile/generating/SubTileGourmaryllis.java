@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 26, 2014, 1:42:17 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
+
+import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;
@@ -24,8 +26,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileGourmaryllis extends SubTileGenerating {
 
@@ -66,7 +66,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 			if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead && age >= slowdown) {
 				if(cooldown <= 0) {
-					int val = ((ItemFood) stack.getItem()).getHealAmount(stack);
+					int val = Math.min(12, ((ItemFood) stack.getItem()).getHealAmount(stack));
 					storedMana = val * val * 64;
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.5F + (float) Math.random() * 0.5F);

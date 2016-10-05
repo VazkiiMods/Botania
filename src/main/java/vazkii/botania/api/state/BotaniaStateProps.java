@@ -10,6 +10,7 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockRotatedPillar;

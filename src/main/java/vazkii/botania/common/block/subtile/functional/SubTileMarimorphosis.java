@@ -2,13 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 29, 2015, 8:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
@@ -26,10 +30,6 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class SubTileMarimorphosis extends SubTileFunctional {
 
 	private static final int COST = 12;
@@ -40,14 +40,14 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	private static final int RANGE_Y_MINI = 1;
 
 	private static final Type[] TYPES = new Type[] {
-		Type.FOREST,
-		Type.PLAINS,
-		Type.MOUNTAIN,
-		Type.MUSHROOM,
-		Type.SWAMP,
-		Type.SANDY,
-		Type.COLD,
-		Type.MESA
+			Type.FOREST,
+			Type.PLAINS,
+			Type.MOUNTAIN,
+			Type.MUSHROOM,
+			Type.SWAMP,
+			Type.SANDY,
+			Type.COLD,
+			Type.MESA
 	};
 
 	@Override

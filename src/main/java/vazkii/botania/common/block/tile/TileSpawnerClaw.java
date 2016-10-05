@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,8 +29,6 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.MethodHandles;
 
-import java.util.List;
-
 public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
@@ -45,23 +45,23 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 			try {
 				// Directly drawn from MobSpawnerBaseLogic, with inverted isActivated check and mana consumption
 				if(!((boolean) MethodHandles.isActivated.invokeExact(logic))) {
-                    if(!worldObj.isRemote)
-                        mana -= 6;
+					if(!worldObj.isRemote)
+						mana -= 6;
 
-                    if(logic.getSpawnerWorld().isRemote) {
-						int delay = ((int) MethodHandles.spawnDelay_getter.invokeExact(logic));
-                        if(delay > 0)
+					if(logic.getSpawnerWorld().isRemote) {
+						int delay = (int) MethodHandles.spawnDelay_getter.invokeExact(logic);
+						if(delay > 0)
 							MethodHandles.spawnDelay_setter.invokeExact(logic, delay - 1);
 
-                        if(Math.random() > 0.5)
-                            Botania.proxy.wispFX(getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
+						if(Math.random() > 0.5)
+							Botania.proxy.wispFX(getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
 						MethodHandles.prevMobRotation_setter.invokeExact(logic, logic.getMobRotation());
-                        MethodHandles.mobRotation_setter.invokeExact(logic, (logic.getMobRotation() + 1000.0F / (((int) MethodHandles.spawnDelay_getter.invokeExact(logic)) + 200.0F)) % 360.0D);
-                    } else {
-						if(((int) MethodHandles.spawnDelay_getter.invokeExact(logic)) == -1)
+						MethodHandles.mobRotation_setter.invokeExact(logic, (logic.getMobRotation() + 1000.0F / ((int) MethodHandles.spawnDelay_getter.invokeExact(logic) + 200.0F)) % 360.0D);
+					} else {
+						if((int) MethodHandles.spawnDelay_getter.invokeExact(logic) == -1)
 							resetTimer(logic);
-						int delay = ((int) MethodHandles.spawnDelay_getter.invokeExact(logic));
+						int delay = (int) MethodHandles.spawnDelay_getter.invokeExact(logic);
 						if(delay > 0) {
 							MethodHandles.spawnDelay_setter.invokeExact(logic, delay - 1);
 							return;
@@ -72,10 +72,10 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 						boolean flag = false;
 
-						int spawnCount = ((int) MethodHandles.spawnCount_getter.invokeExact(logic));
-						int spawnRange = ((int) MethodHandles.spawnRange_getter.invokeExact(logic));
-						int maxNearbyEntities = ((int) MethodHandles.maxNearbyEntities_getter.invokeExact(logic));
-						WeightedSpawnerEntity randomEntity = ((WeightedSpawnerEntity) MethodHandles.randomEntity_getter.invokeExact(logic));
+						int spawnCount = (int) MethodHandles.spawnCount_getter.invokeExact(logic);
+						int spawnRange = (int) MethodHandles.spawnRange_getter.invokeExact(logic);
+						int maxNearbyEntities = (int) MethodHandles.maxNearbyEntities_getter.invokeExact(logic);
+						WeightedSpawnerEntity randomEntity = (WeightedSpawnerEntity) MethodHandles.randomEntity_getter.invokeExact(logic);
 
 						BlockPos blockpos = logic.getSpawnerPosition();
 						for(int i = 0; i < spawnCount; ++i) {
@@ -83,9 +83,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 							NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
 							World world = logic.getSpawnerWorld();
 							int j = nbttaglist.tagCount();
-							double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)spawnRange + 0.5D;
+							double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * spawnRange + 0.5D;
 							double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double)(blockpos.getY() + world.rand.nextInt(3) - 1);
-							double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double)blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)spawnRange + 0.5D;
+							double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * spawnRange + 0.5D;
 							Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
 
 							if (entity == null)
@@ -93,11 +93,11 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 								return;
 							}
 
-							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), (double)(blockpos.getX() + 1), (double)(blockpos.getY() + 1), (double)(blockpos.getZ() + 1))).expandXyz((double)spawnRange)).size();
+							int k = world.getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1).expandXyz(spawnRange)).size();
 
 							if (k >= maxNearbyEntities)
 							{
-								this.resetTimer(logic);
+								resetTimer(logic);
 								return;
 							}
 
@@ -128,7 +128,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 					}
 
 
-                }
+				}
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
@@ -137,9 +137,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 	// Direct copy of MobSpawnerBaseLogic.resetTimer()
 	private void resetTimer(MobSpawnerBaseLogic logic) throws Throwable {
-		int maxSpawnDelay = ((int) MethodHandles.maxSpawnDelay_getter.invokeExact(logic));
-		int minSpawnDelay = ((int) MethodHandles.minSpawnDelay_getter.invokeExact(logic));
-		List potentialEntitySpawns = ((List) MethodHandles.potentialSpawns_getter.invokeExact(logic));
+		int maxSpawnDelay = (int) MethodHandles.maxSpawnDelay_getter.invokeExact(logic);
+		int minSpawnDelay = (int) MethodHandles.minSpawnDelay_getter.invokeExact(logic);
+		List potentialEntitySpawns = (List) MethodHandles.potentialSpawns_getter.invokeExact(logic);
 
 		if(maxSpawnDelay <= minSpawnDelay)
 			MethodHandles.spawnDelay_setter.invokeExact(logic, minSpawnDelay);

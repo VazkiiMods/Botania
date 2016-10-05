@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 28, 2015, 5:30:41 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,12 +21,10 @@ import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
-import javax.annotation.Nonnull;
-
 public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
 	private static final float[] ROTATIONS = new float[] {
-		180F, 0F, 90F, 270F
+			180F, 0F, 90F, 270F
 	};
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
@@ -36,7 +36,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)
 				return;
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -48,7 +48,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
-		model.render(Math.max(0.1F, 1F - (bellows == null ? 0 : (bellows.movePos + bellows.moving * f + 0.1F))));
+		model.render(Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F)));
 		GlStateManager.color(1F, 1F, 1F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();

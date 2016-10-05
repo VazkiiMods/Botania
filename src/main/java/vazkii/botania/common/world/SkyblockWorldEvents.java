@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 7, 2015, 6:14:18 PM (GMT)]
  */
 package vazkii.botania.common.world;
+
+import java.awt.Color;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,7 +21,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -29,11 +30,8 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import java.awt.*;
 
 public final class SkyblockWorldEvents {
 
@@ -164,17 +162,17 @@ public final class SkyblockWorldEvents {
 		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
 
 		int[][] rootPositions = new int[][] {
-				{ -1, -3, -1 },
-				{ -2, -4, -1 },
-				{ -2, -4, -2 },
-				{ +1, -4, -1 },
-				{ +1, -5, -1 },
-				{ +2, -5, -1 },
-				{ +2, -6, +0 },
-				{ +0, -4, +2 },
-				{ +0, -5, +2 },
-				{ +0, -5, +3 },
-				{ +0, -6, +3 },
+			{ -1, -3, -1 },
+			{ -2, -4, -1 },
+			{ -2, -4, -2 },
+			{ +1, -4, -1 },
+			{ +1, -5, -1 },
+			{ +2, -5, -1 },
+			{ +2, -6, +0 },
+			{ +0, -4, +2 },
+			{ +0, -5, +2 },
+			{ +0, -5, +3 },
+			{ +0, -6, +3 },
 		};
 		for(int[] root : rootPositions)
 			world.setBlockState(pos.add(root[0], root[1], root[2]), ModBlocks.root.getDefaultState());

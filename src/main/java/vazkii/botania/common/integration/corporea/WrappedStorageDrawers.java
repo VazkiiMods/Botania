@@ -2,15 +2,19 @@
  * This class was created by <Vindex>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  */
 package vazkii.botania.common.integration.corporea;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawer;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -18,9 +22,6 @@ import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -31,7 +32,7 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 	private final IDrawerGroup invRaw;
 
 	private WrappedStorageDrawers(IDrawerGroup inv, ICorporeaSpark spark) {
-		this.invRaw = inv;
+		invRaw = inv;
 		this.spark = spark;
 	}
 
@@ -105,7 +106,7 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 
 	/**
 	 * Creates {@link WrappedStorageDrawers} if specified inv can be wrapped.
-	 * 
+	 *
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
 	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {

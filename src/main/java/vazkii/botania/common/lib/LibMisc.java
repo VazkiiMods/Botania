@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 13, 2014, 6:32:05 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -31,12 +31,12 @@ public final class LibMisc {
 	public static final String BLACKLIST_ITEM = "blackListItem";
 
 	public static final int[] CONTROL_CODE_COLORS = new int[] {
-		0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
-		0xAA0000, 0xAA00AA, 0xFFAA00, 0xAAAAAA,
-		0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
-		0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
+			0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
+			0xAA0000, 0xAA00AA, 0xFFAA00, 0xAAAAAA,
+			0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
+			0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
 	};
-	
+
 	public static final int PASSIVE_FLOWER_DECAY = 72000;
 
 }

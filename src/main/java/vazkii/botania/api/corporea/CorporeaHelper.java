@@ -2,16 +2,24 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.regex.Pattern;
+
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,13 +28,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.regex.Pattern;
 
 public final class CorporeaHelper {
 
@@ -216,7 +217,7 @@ public final class CorporeaHelper {
 	 */
 	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
 		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
-		return sparks.isEmpty() ? null : ((ICorporeaSpark) sparks.get(0));
+		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
 	}
 
 	/**

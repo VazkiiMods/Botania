@@ -2,13 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 20, 2014, 5:54:39 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -29,7 +34,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
@@ -38,9 +42,6 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -67,7 +68,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
-		
+
 		for(EntityItem item : items) {
 			int age;
 			try {
@@ -76,12 +77,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 				continue;
 			}
 
-			if(age < (60 + slowdown) || age >= 105 && age < 110 || item.isDead)
+			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead)
 				continue;
 
 			ItemStack stack = item.getEntityItem();
 			IItemHandler invToPutItemIn = null;
-			EnumFacing sideToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 24, 2015, 3:17:44 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -111,7 +111,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	public EnumFacing getAvatarFacing() {
 		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
 	}
-	
+
 	@Override
 	public int getElapsedFunctionalTicks() {
 		return ticksElapsed;

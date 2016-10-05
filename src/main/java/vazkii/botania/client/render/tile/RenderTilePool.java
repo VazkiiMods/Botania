@@ -2,13 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 26, 2014, 12:25:11 AM (GMT)]
  */
 package vazkii.botania.client.render.tile;
+
+import java.awt.Color;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -19,8 +26,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PoolVariant;
@@ -30,10 +35,6 @@ import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.Random;
 
 public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
@@ -75,7 +76,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		if (fab || forceManaNumber > -1) {
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
-			int blue = (color & 0xFF);
+			int blue = color & 0xFF;
 			IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
 			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 		}

@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import vazkii.botania.api.recipe.RecipeBrew;
-
-import javax.annotation.Nonnull;
 
 public class BreweryRecipeHandler implements IRecipeHandler<RecipeBrew> {
 

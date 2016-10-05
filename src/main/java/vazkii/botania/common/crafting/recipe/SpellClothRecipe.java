@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2015, 6:16:13 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -17,8 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class SpellClothRecipe implements IRecipe {
 
@@ -57,7 +57,7 @@ public class SpellClothRecipe implements IRecipe {
 		if(stackToDisenchant == null)
 			return null;
 
-		NBTTagCompound cmp = (NBTTagCompound) stackToDisenchant.getTagCompound().copy();
+		NBTTagCompound cmp = stackToDisenchant.getTagCompound().copy();
 		cmp.removeTag("ench"); // Remove enchantments
 		stackToDisenchant.setTagCompound(cmp);
 

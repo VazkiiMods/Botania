@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:48:05 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon;
@@ -36,7 +36,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -67,6 +66,7 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonScaleChange;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -104,13 +104,14 @@ public class GuiLexicon extends GuiScreen {
 	boolean hasTutorialArrow;
 	int tutorialArrowX, tutorialArrowY;
 	int konamiIndex;
+	int konamiTime;
 
 	private static final int NOTE_TWEEN_TIME = 5;
 	public static boolean notesEnabled;
 	static int notesMoveTime;
 	public String note = "";
 	public String categoryHighlight = "";
-	
+
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -146,7 +147,7 @@ public class GuiLexicon extends GuiScreen {
 			height = res.getScaledHeight();
 			mc.gameSettings.guiScale = guiScale;
 		}
-		
+
 		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
@@ -186,10 +187,10 @@ public class GuiLexicon extends GuiScreen {
 			buttonList.add(new GuiButtonAchievement(-2, left + 33, top + guiHeight - 25));
 			buttonList.add(new GuiButtonChallenges(-3, left + 45, top + guiHeight - 25));
 			buttonList.add(new GuiButtonScaleChange(-4, left + 57, top + guiHeight - 25));
-			
+
 			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-98, left - 6, top + guiHeight - 70);
 			buttonList.add(button);
-			
+
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
 				button.visible = false;
@@ -210,24 +211,29 @@ public class GuiLexicon extends GuiScreen {
 			notesMoveTime++;
 		else if(!notesEnabled && notesMoveTime > 0)
 			notesMoveTime--;
+
+		if(konamiTime > 0)
+			konamiTime--;
 	}
 
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
+
+		GlStateManager.pushMatrix();
 		if(PersistentVariableHelper.lexiconGuiScale > 0) {
 			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
 			float s = (float) PersistentVariableHelper.lexiconGuiScale / (float) res.getScaleFactor();
 			GlStateManager.scale(s, s, s);
-			
-			res = new ScaledResolution(this.mc);
-            int sw = res.getScaledWidth();
-            int sh = res.getScaledHeight();
-            par1 = Mouse.getX() * sw / mc.displayWidth;
-            par2 = sh - Mouse.getY() * sh / mc.displayHeight - 1;
+
+			res = new ScaledResolution(mc);
+			int sw = res.getScaledWidth();
+			int sh = res.getScaledHeight();
+			par1 = Mouse.getX() * sw / mc.displayWidth;
+			par2 = sh - Mouse.getY() * sh / mc.displayHeight - 1;
 		}
-		
+
 		float time = ClientTickHandler.ticksInGame + par3;
 		timeDelta = time - lastTime;
 		lastTime = time;
@@ -293,8 +299,23 @@ public class GuiLexicon extends GuiScreen {
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GlStateManager.disableBlend();
 		}
-		
+
 		mc.gameSettings.guiScale = guiScale;
+		GlStateManager.popMatrix();
+
+		if(konamiTime > 0) {
+			String meme = I18n.format("botania.subtitle.way");
+			GlStateManager.pushMatrix();
+			int fullWidth = fontRendererObj.getStringWidth(meme);
+			int left = width;
+			double widthPerTick = (fullWidth + width) / 240;
+			double currWidth = left - widthPerTick * (240 - (konamiTime - par3)) * 3.2;
+
+			GlStateManager.translate(currWidth, height / 2 - 10, 0);
+			GlStateManager.scale(4, 4, 4);
+			mc.fontRendererObj.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			GlStateManager.popMatrix();
+		}
 	}
 
 	public void drawNotes(float part) {
@@ -417,11 +438,11 @@ public class GuiLexicon extends GuiScreen {
 			case 4:
 				PersistentVariableHelper.lexiconGuiScale = 2;
 				break;
-			default:	
+			default:
 				PersistentVariableHelper.lexiconGuiScale = 3;
 				break;
 			}
-			
+
 			PersistentVariableHelper.saveSafe();
 			mc.displayGuiScreen(new GuiLexicon());
 			break;
@@ -564,7 +585,6 @@ public class GuiLexicon extends GuiScreen {
 
 	public static void startTutorial() {
 		tutorial.clear();
-		// TODO verify tutorial after changes
 
 		tutorial.add(LexiconData.lexicon);
 		tutorial.add(LexiconData.flowers);
@@ -576,10 +596,10 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.spreader);
 		tutorial.add(LexiconData.generatingIntro);
 		tutorial.add(LexiconData.endoflame);
-//		tutorial.add(LexiconData.passiveGen);
-//		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
+		if(Botania.gardenOfGlassLoaded)
+			tutorial.add(LexiconData.gardenOfGlass);
 
 		MinecraftForge.EVENT_BUS.post(new BotaniaTutorialStartEvent(tutorial));
 	}
@@ -623,11 +643,12 @@ public class GuiLexicon extends GuiScreen {
 			mc.setIngameFocus();
 		}
 
-		if(par2 == KONAMI_CODE[konamiIndex]) {
+		if(konamiTime == 0 && par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
 				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.way, 1.0F));
 				konamiIndex = 0;
+				konamiTime = 240;
 			}
 		} else konamiIndex = 0;
 

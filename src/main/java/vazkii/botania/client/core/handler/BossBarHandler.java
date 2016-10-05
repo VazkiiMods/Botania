@@ -2,32 +2,33 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 29, 2014, 6:46:10 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
+
+import java.awt.Rectangle;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
-
-import java.awt.*;
-import java.util.Collections;
-import java.util.Set;
-import java.util.UUID;
-import java.util.WeakHashMap;
 
 public final class BossBarHandler {
 
@@ -54,7 +55,7 @@ public final class BossBarHandler {
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;
 				int yf = y + (bgRect.height - fgRect.height) / 2;
-				int fw = (int) ((double) fgRect.width * (evt.getBossInfo().getPercent()));
+				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
 				int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
 
 				GlStateManager.color(1F, 1F, 1F, 1F);

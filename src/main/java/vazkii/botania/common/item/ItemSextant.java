@@ -2,13 +2,20 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [01/11/2015, 18:25:54 (GMT)]
  */
 package vazkii.botania.common.item;
+
+import java.util.EnumMap;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -27,7 +34,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -35,10 +41,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
-import java.util.EnumMap;
-import java.util.Map;
 
 public class ItemSextant extends ItemMod {
 
@@ -72,10 +74,9 @@ public class ItemSextant extends ItemMod {
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		if(y != -1) {
-			World world = living.worldObj;
 			Vector3 source = new Vector3(x, y, z);
 
-			double radius = calculateRadius(stack, ((EntityPlayer) living));
+			double radius = calculateRadius(stack, (EntityPlayer) living);
 
 			if(count % 10 == 0)
 				for(int i = 0; i < 360; i++) {
@@ -91,7 +92,7 @@ public class ItemSextant extends ItemMod {
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase living, int time) {
 		if(!(living instanceof EntityPlayer)) return;
 
-		double radius = calculateRadius(stack, ((EntityPlayer) living));
+		double radius = calculateRadius(stack, (EntityPlayer) living);
 		if(radius > 1) {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
@@ -126,7 +127,6 @@ public class ItemSextant extends ItemMod {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		World world = player.worldObj;
 		Vector3 source = new Vector3(x, y, z);
 		Botania.proxy.wispFX(source.x + 0.5, source.y + 1, source.z + 0.5, 1F, 0F, 0F, 0.2F, -0.1F);
 
