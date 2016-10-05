@@ -211,7 +211,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
 					if(item instanceof EntityItem) {
 						((EntityItem) item).setPickupDelay(20);
-						float mot = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 2.25F : 1.5F;
+						float mot = IManaProficiencyArmor.Helper.hasProficiency(player) ? 2.25F : 1.5F;
 						item.motionX = moveVector.x * mot;
 						item.motionY = moveVector.y;
 						item.motionZ = moveVector.z * mot;

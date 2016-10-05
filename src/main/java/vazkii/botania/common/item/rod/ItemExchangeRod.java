@@ -127,7 +127,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		EntityPlayer player = (EntityPlayer) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 3 : 1;
+		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player) ? 3 : 1;
 		if(extraRange != extraRangeNew)
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 

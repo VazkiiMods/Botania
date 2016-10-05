@@ -54,7 +54,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer p, EnumHand hand) {
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
-				int range = IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? 20 : 15;
+				int range = IManaProficiencyArmor.Helper.hasProficiency(p) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
