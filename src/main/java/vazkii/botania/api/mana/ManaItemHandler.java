@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -317,19 +319,24 @@ public final class ManaItemHandler {
 		return requestManaExact(stack, player, cost, remove);
 	}
 
+	@Deprecated
+	public static float getFullDiscountForTools(EntityPlayer player) {
+		return getFullDiscountForTools(player, null);
+	}
+	
 	/**
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
-	 * on the player passed in.
+	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
-	public static float getFullDiscountForTools(EntityPlayer player) {
+	public static float getFullDiscountForTools(EntityPlayer player, @Nullable ItemStack tool) {
 		float discount = 0F;
 		for(int i = 0; i < player.inventory.armorInventory.length; i++) {
 			ItemStack armor = player.inventory.armorInventory[i];
 			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
-				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player);
+				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 		}
 
-		ManaDiscountEvent event = new ManaDiscountEvent(player, discount);
+		ManaDiscountEvent event = new ManaDiscountEvent(player, discount, tool);
 		MinecraftForge.EVENT_BUS.post(event);
 		discount = event.getDiscount();
 
