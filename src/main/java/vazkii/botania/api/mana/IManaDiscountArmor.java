@@ -23,7 +23,9 @@ import net.minecraft.item.ItemStack;
 public interface IManaDiscountArmor {
 
 	@Deprecated
-	public float getDiscount(ItemStack stack, int slot, EntityPlayer player);
+	default float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
+		return 0;
+	}
 
 	/**
 	 * Gets the mana discount that this piece of armor provides for the specified
