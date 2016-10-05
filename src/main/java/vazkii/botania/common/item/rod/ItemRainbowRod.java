@@ -74,7 +74,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			BlockPos.MutableBlockPos lastChecker = new BlockPos.MutableBlockPos();
 
 			int count = 0;
-			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player);
+			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
