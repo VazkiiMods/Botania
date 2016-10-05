@@ -117,7 +117,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 				}
 
 				if(!decremented)
-					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p) ? (int) (TIME * 0.6) : TIME));
+					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
 				else {
 					for(int i = 0; i < 2; i++) {
 						double x = pos.getBlockPos().getX() + Math.random();
