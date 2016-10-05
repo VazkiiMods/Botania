@@ -10,14 +10,10 @@
  */
 package vazkii.botania.api.item;
 
-import javax.annotation.Nullable;
-
-import vazkii.botania.api.mana.ManaProficiencyEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * An armor item that implements this gives the player wearing it mana proficiency, by
@@ -28,42 +24,22 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public interface IManaProficiencyArmor {
 
-	@Deprecated
-	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player) {
-		return false;
-	}
-	
-	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, @Nullable ItemStack rod) {
-		return shouldGiveProficiency(armorStack, slot, player);
-	}
+	public boolean shouldGiveProficiency(ItemStack stack, EntityEquipmentSlot slot, EntityPlayer player);
 
 	public final static class Helper {
 
-		@Deprecated
 		public static boolean hasProficiency(EntityPlayer player) {
-			return hasProficiency(player, null);
-		}
-		
-		public static boolean hasProficiency(EntityPlayer player, @Nullable ItemStack rod) {
-			boolean proficient = false;
-			
 			for(EntityEquipmentSlot e: EntityEquipmentSlot.values()) {
 				if(e.getSlotType() != EntityEquipmentSlot.Type.ARMOR)
 					continue;
 				ItemStack armor = player.getItemStackFromSlot(e);
 				if(armor != null) {
 					Item item = armor.getItem();
-					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
-						proficient = true;
-						break;
-					}
+					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player))
+						return true;
 				}
 			}
-			
-			ManaProficiencyEvent event = new ManaProficiencyEvent(player, rod, proficient);
-			MinecraftForge.EVENT_BUS.post(event);
-			
-			return event.isProficient();
+			return false;
 		}
 
 	}
