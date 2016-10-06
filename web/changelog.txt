@@ -1,3 +1,7 @@
+r1.9 328
+*Fixed Hydroangeas not being passive.
+*The Lexica Botania now detects if it's in an Akashic Tome and updates its display name (in the cover and landing page) accordingly.
+*Removed an .exe file that was used to compress the sprites and was mistakenly packaged in.
 r1.9 327
 *Removed Mana Powder from the Hydorangeas recipe because I forgot to remove it before so I removed it now so you can actually do it earlygame :D
 r1.9 326
