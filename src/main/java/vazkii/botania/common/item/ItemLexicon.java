@@ -237,6 +237,17 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		ItemNBTHelper.setInt(stack, TAG_QUEUE_TICKS, ticks);
 	}
 
+	public static String getTitle(ItemStack stack) {
+		String title = ModItems.lexicon.getItemStackDisplayName(null);
+		if(stack != null)
+			title = stack.getDisplayName();
+		
+		String akashicTomeNBT = "akashictome:displayName";
+		title = ItemNBTHelper.getString(stack, akashicTomeNBT, title);
+		
+		return title;
+	}
+	
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);

@@ -153,7 +153,7 @@ public class GuiLexicon extends GuiScreen {
 
 		lastTime = ClientTickHandler.ticksInGame;
 
-		title = stackUsed.getDisplayName();
+		title = ItemLexicon.getTitle(stackUsed);
 		currentOpenLexicon = this;
 
 		left = width / 2 - guiWidth / 2;

@@ -105,9 +105,8 @@ public class RenderLexicon {
 			GlStateManager.translate(-0.3F, -0.21F, -0.07F);
 			GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
 
-			String title = ModItems.lexicon.getItemStackDisplayName(null);
-			if(stack != null)
-				title = stack.getDisplayName();
+
+			String title = ItemLexicon.getTitle(stack);
 
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 
