@@ -69,4 +69,8 @@ public class SubTileThermalily extends SubTileHydroangeas {
 		return 6000;
 	}
 
+	@Override
+	public boolean isPassiveFlower() {
+		return false;
+	}
 }

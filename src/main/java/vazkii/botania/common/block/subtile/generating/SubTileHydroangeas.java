@@ -186,5 +186,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public int getCooldown() {
 		return 0;
 	}
+	
+	@Override
+	public boolean isPassiveFlower() {
+		return true;
+	}
 
 }
