@@ -28,7 +28,7 @@ public class ItemPixieRing extends ItemBauble implements IPixieSpawner {
 
 	@Override
 	public float getPixieChance(ItemStack stack) {
-		return 0.075F;
+		return 0.25F;
 	}
 
 }
