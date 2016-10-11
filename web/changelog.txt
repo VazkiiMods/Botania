@@ -1,3 +1,12 @@
+r1.9 329
+*Updated for the latest version of baubles. It's now required.
+*Buffed the Great Fairy Ring's chance to spawn a pixie by a bunch.
+*Changed the slots of a few of the mod's baubles to some of the new bauble slots. More baubles will come soon to fix the thin spread.
+*Fixed a graphical attribute bleed in the Hovering Hourglass renderer. This should fix chisel blocks messing up, maybe.
+*Fixed lexica gui elements breaking if you rescale it with the new button.
+*Fixed Luminizers making players no-clip into the block below them.
+*Fixed Luminizers not working.
+*The Bauble Box now has all 7 bauble slots, the player render had to go through.
 r1.9 328
 *Fixed Hydroangeas not being passive.
 *The Lexica Botania now detects if it's in an Akashic Tome and updates its display name (in the cover and landing page) accordingly.
