@@ -44,7 +44,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(0);
+			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(4);
 
 			if(amulet != null && amulet.getItem() == this) {
 				event.setCanceled(true);

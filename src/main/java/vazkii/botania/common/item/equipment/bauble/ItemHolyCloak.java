@@ -60,7 +60,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			IInventory baubles = BaublesApi.getBaubles(player);
-			ItemStack belt = baubles.getStackInSlot(3);
+			ItemStack belt = baubles.getStackInSlot(5);
 			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);

@@ -89,10 +89,10 @@ public final class HUDHandler {
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
 			IInventory baublesInv = BaublesApi.getBaubles(mc.thePlayer);
-			ItemStack amulet = baublesInv.getStackInSlot(0);
-			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
+			ItemStack headpiece = baublesInv.getStackInSlot(4);
+			if(headpiece != null && headpiece.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, amulet);
+				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, headpiece);
 				profiler.endSection();
 			}
 
