@@ -58,8 +58,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
-		super.drawScreen(par1, par2, par3);
+	public void drawScreenAfterScale(int par1, int par2, float par3) {
+		super.drawScreenAfterScale(par1, par2, par3);
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();

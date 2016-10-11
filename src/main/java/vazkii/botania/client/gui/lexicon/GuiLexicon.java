@@ -140,7 +140,9 @@ public class GuiLexicon extends GuiScreen {
 	public void onInitGui() {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
-		if(PersistentVariableHelper.lexiconGuiScale > 0) {
+		System.out.println(guiScale);
+		if(PersistentVariableHelper.lexiconGuiScale > 0 && PersistentVariableHelper.lexiconGuiScale != guiScale) {
+			System.out.println("diff");
 			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
 			res = new ScaledResolution(mc);
 			width = res.getScaledWidth();
@@ -217,12 +219,12 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
+	public final void drawScreen(int par1, int par2, float par3) {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
 
 		GlStateManager.pushMatrix();
-		if(PersistentVariableHelper.lexiconGuiScale > 0) {
+		if(PersistentVariableHelper.lexiconGuiScale > 0 && PersistentVariableHelper.lexiconGuiScale != guiScale) {
 			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
 			float s = (float) PersistentVariableHelper.lexiconGuiScale / (float) res.getScaleFactor();
 			GlStateManager.scale(s, s, s);
@@ -234,6 +236,27 @@ public class GuiLexicon extends GuiScreen {
 			par2 = sh - Mouse.getY() * sh / mc.displayHeight - 1;
 		}
 
+		drawScreenAfterScale(par1, par2, par3);
+
+		mc.gameSettings.guiScale = guiScale;
+		GlStateManager.popMatrix();
+
+		if(konamiTime > 0) {
+			String meme = I18n.format("botania.subtitle.way");
+			GlStateManager.pushMatrix();
+			int fullWidth = fontRendererObj.getStringWidth(meme);
+			int left = width;
+			double widthPerTick = (fullWidth + width) / 240;
+			double currWidth = left - widthPerTick * (240 - (konamiTime - par3)) * 3.2;
+
+			GlStateManager.translate(currWidth, height / 2 - 10, 0);
+			GlStateManager.scale(4, 4, 4);
+			mc.fontRendererObj.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			GlStateManager.popMatrix();
+		}
+	}
+	
+	public void drawScreenAfterScale(int par1, int par2, float par3) {
 		float time = ClientTickHandler.ticksInGame + par3;
 		timeDelta = time - lastTime;
 		lastTime = time;
@@ -298,23 +321,6 @@ public class GuiLexicon extends GuiScreen {
 			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GlStateManager.disableBlend();
-		}
-
-		mc.gameSettings.guiScale = guiScale;
-		GlStateManager.popMatrix();
-
-		if(konamiTime > 0) {
-			String meme = I18n.format("botania.subtitle.way");
-			GlStateManager.pushMatrix();
-			int fullWidth = fontRendererObj.getStringWidth(meme);
-			int left = width;
-			double widthPerTick = (fullWidth + width) / 240;
-			double currWidth = left - widthPerTick * (240 - (konamiTime - par3)) * 3.2;
-
-			GlStateManager.translate(currWidth, height / 2 - 10, 0);
-			GlStateManager.scale(4, 4, 4);
-			mc.fontRendererObj.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
-			GlStateManager.popMatrix();
 		}
 	}
 

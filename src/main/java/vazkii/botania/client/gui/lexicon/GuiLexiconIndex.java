@@ -175,8 +175,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
-		super.drawScreen(par1, par2, par3);
+	public void drawScreenAfterScale(int par1, int par2, float par3) {
+		super.drawScreenAfterScale(par1, par2, par3);
 
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
