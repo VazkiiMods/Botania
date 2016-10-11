@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -73,7 +73,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			String s = playerStr(player);
 
-			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+			ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
@@ -116,7 +116,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+			ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
 
 			if(belt != null && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
@@ -126,7 +126,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(3);
 		return armor != null && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
 	}
 

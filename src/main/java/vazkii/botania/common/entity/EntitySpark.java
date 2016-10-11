@@ -23,11 +23,12 @@ import java.util.WeakHashMap;
 
 import javax.annotation.Nonnull;
 
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -110,7 +111,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				List<ItemStack> stacks = new ArrayList<>();
 				stacks.addAll(Arrays.asList(player.inventory.mainInventory));
 				stacks.addAll(Arrays.asList(player.inventory.armorInventory));
-				stacks.addAll(Arrays.asList(PlayerHandler.getPlayerBaubles(player).stackList));
+				
+				IInventory baubles = BaublesApi.getBaubles(player);
+				ItemStack[] baubleStacks = new ItemStack[baubles.getSizeInventory()];
+				for(int i = 0; i < baubleStacks.length; i++)
+					baubleStacks[i] = baubles.getStackInSlot(i);
+				stacks.addAll(Arrays.asList(baubleStacks));
 
 				for(ItemStack stack : stacks) {
 					if(stack == null || !(stack.getItem() instanceof IManaItem))

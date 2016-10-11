@@ -1,10 +1,10 @@
 package vazkii.botania.common.core.handler;
 
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -37,7 +37,7 @@ public final class PixieHandler {
 			for (ItemStack element : player.inventory.armorInventory)
 				chance += getChance(element);
 
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+			IInventory baubles = BaublesApi.getBaubles(player);
 			for(int i = 0; i < baubles.getSizeInventory(); i++)
 				chance += getChance(baubles.getStackInSlot(i));
 

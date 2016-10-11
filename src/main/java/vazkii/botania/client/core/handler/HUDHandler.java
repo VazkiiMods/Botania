@@ -17,7 +17,7 @@ import java.util.Map.Entry;
 
 import org.lwjgl.opengl.GL11;
 
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -88,7 +88,7 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
-			IInventory baublesInv = PlayerHandler.getPlayerBaubles(mc.thePlayer);
+			IInventory baublesInv = BaublesApi.getBaubles(mc.thePlayer);
 			ItemStack amulet = baublesInv.getStackInSlot(0);
 			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
@@ -204,7 +204,7 @@ public final class HUDHandler {
 				boolean creative = false;
 
 				IInventory mainInv = player.inventory;
-				IInventory baublesInv = PlayerHandler.getPlayerBaubles(player);
+				IInventory baublesInv = BaublesApi.getBaubles(player);
 
 				int invSize = mainInv.getSizeInventory();
 				int size = invSize;

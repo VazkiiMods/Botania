@@ -11,7 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneComparator;
 import net.minecraft.block.BlockRedstoneRepeater;
@@ -104,7 +104,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	public static boolean hasMonocle(EntityPlayer player) {
 		for(int i = 0; i < 4; i++) {
-			ItemStack stack = PlayerHandler.getPlayerBaubles(player).getStackInSlot(i);
+			ItemStack stack = BaublesApi.getBaubles(player).getStackInSlot(i);
 			if(stack != null) {
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)

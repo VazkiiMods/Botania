@@ -15,9 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
+import baubles.api.BaublesApi;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TLongArrayList;
 import net.minecraft.client.Minecraft;
@@ -43,6 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -117,7 +116,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(!blocksEqual)
 			setBlockPositions(stack, currentBlocks);
 		if(!entsEqual || !blocksEqual)
-			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
+			BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, 0);
 	}
 
 	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, TLongArrayList blockPosBuilder) {
@@ -146,7 +145,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-					IItemHandler binv = new InvWrapper(PlayerHandler.getPlayerBaubles(player_));
+					IItemHandler binv = new InvWrapper(BaublesApi.getBaubles(player_));
 					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 

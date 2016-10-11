@@ -16,18 +16,15 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
+import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,6 +37,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -74,7 +72,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			return;
 
 		int slot = -1;
-		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+		IInventory inv = BaublesApi.getBaubles(player);
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == lokiRing) {
@@ -95,13 +93,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
 				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
-				if(player instanceof EntityPlayerMP)
-					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 			} else if(lookPos != null && lookPos.getBlockPos() != null) {
 				if(originCoords.equals(lookPos.getBlockPos())) {
 					setOriginPos(lokiRing, new BlockPos(0, -1, 0));
-					if(player instanceof EntityPlayerMP)
-						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+					BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 				} else {
 					addCursor : {
 					BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
@@ -110,14 +106,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						if(cursor.equals(relPos)) {
 							cursors.remove(cursor);
 							setCursorList(lokiRing, cursors);
-							if(player instanceof EntityPlayerMP)
-								PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+							BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 							break addCursor;
 						}
 
 					addCursor(lokiRing, relPos);
-					if(player instanceof EntityPlayerMP)
-						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+					BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 				}
 				}
 			}
@@ -197,7 +191,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+		IInventory baubles = BaublesApi.getBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;

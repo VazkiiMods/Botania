@@ -13,9 +13,9 @@ package vazkii.botania.common.core.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
+import baubles.common.network.PacketSync;
 import buildcraft.api.transport.IPipeTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
@@ -184,7 +184,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
-		return PlayerHandler.getPlayerBaubles(player);
+		return BaublesApi.getBaubles(player);
 	}
 
 	@Override
@@ -263,10 +263,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
 		if(player instanceof EntityPlayerMP)
-			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+			PacketHandler.INSTANCE.sendTo(new PacketSync(player, slot), (EntityPlayerMP) player);
 	}
-
-
+	
 	@Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();

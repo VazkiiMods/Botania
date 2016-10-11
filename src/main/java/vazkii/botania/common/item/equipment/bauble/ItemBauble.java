@@ -16,13 +16,13 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -66,7 +66,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		toEquip.stackSize = 1;
 
 		if(canEquip(toEquip, player)) {
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+			IInventory baubles = BaublesApi.getBaubles(player);
 			for(int i = 0; i < baubles.getSizeInventory(); i++) {
 				if(baubles.isItemValidForSlot(i, toEquip)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);

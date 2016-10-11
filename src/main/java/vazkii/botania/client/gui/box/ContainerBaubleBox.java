@@ -13,10 +13,11 @@ package vazkii.botania.client.gui.box;
 import javax.annotation.Nonnull;
 
 import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
+import baubles.api.cap.BaublesCapabilities;
+import baubles.api.cap.IBaublesItemHandler;
 import baubles.common.container.SlotBauble;
-import baubles.common.lib.PlayerHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -29,7 +30,7 @@ import vazkii.botania.client.gui.SlotLocked;
 public class ContainerBaubleBox extends Container {
 
 	private final InventoryBaubleBox baubleBoxInv;
-	private final InventoryBaubles baubles;
+    public IBaublesItemHandler baubles;
 
 	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
 		int i;
@@ -38,15 +39,16 @@ public class ContainerBaubleBox extends Container {
 		IInventory playerInv = player.inventory;
 		baubleBoxInv = boxInv;
 
-		baubles = new InventoryBaubles(player);
-		baubles.setEventHandler(this);
-		if(!player.worldObj.isRemote)
-			baubles.stackList = PlayerHandler.getPlayerBaubles(player).stackList;
+        baubles = player.getCapability(BaublesCapabilities.CAPABILITY_BAUBLES, null);
 
-		addSlotToContainer(new SlotBauble(baubles, BaubleType.AMULET, 0, 8, 8 + 0 * 18));
-		addSlotToContainer(new SlotBauble(baubles, BaubleType.RING,   1, 8, 8 + 1 * 18));
-		addSlotToContainer(new SlotBauble(baubles, BaubleType.RING,   2, 8, 8 + 2 * 18));
-		addSlotToContainer(new SlotBauble(baubles, BaubleType.BELT,   3, 8, 8 + 3 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 0, 8, 8 + 0 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 1, 8, 8 + 1 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 2, 8, 8 + 2 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 3, 8, 8 + 3 * 18));
+		
+		addSlotToContainer(new SlotBauble(player, baubles, 4, 27, 8 + 0 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 5, 27, 8 + 1 * 18));
+		addSlotToContainer(new SlotBauble(player, baubles, 6, 27, 8 + 2 * 18));
 
 		for(i = 0; i < 4; ++i)
 			for(j = 0; j < 6; ++j) {
@@ -75,14 +77,12 @@ public class ContainerBaubleBox extends Container {
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
-
-		if(!player.worldObj.isRemote)
-			PlayerHandler.setPlayerBaubles(player, baubles);
+		// TODO do we need anything here?
 	}
 
 	@Override
 	public void putStacksInSlots(ItemStack[] arr) {
-		baubles.blockEvents = true;
+    	baubles.setEventBlock(true);
 		super.putStacksInSlots(arr);
 	}
 
@@ -95,11 +95,15 @@ public class ContainerBaubleBox extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if(slotIndex < 28) {
-				if(!mergeItemStack(itemstack1, 28, 64, true))
+			int boxStart = 7;
+			int boxEnd = boxStart + 24;
+			int invEnd = boxEnd + 36;
+			
+			if(slotIndex < boxEnd) {
+				if(!mergeItemStack(itemstack1, boxEnd, invEnd, true))
 					return null;
 			} else {
-				if(itemstack1 != null && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, 4, 28, false))
+				if(itemstack1 != null && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
 					return null;
 			}
 

@@ -15,10 +15,10 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -59,7 +59,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	@SubscribeEvent
 	public void onTossItem(ItemTossEvent event) {
-		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.getPlayer());
+		IInventory inv = BaublesApi.getBaubles(event.getPlayer());
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack != null && stack.getItem() instanceof ItemMagnetRing) {

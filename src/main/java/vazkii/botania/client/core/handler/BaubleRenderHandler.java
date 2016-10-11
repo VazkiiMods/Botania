@@ -14,8 +14,7 @@ import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;
 
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -25,6 +24,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IBaubleRender;
@@ -43,7 +43,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
-		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+		IInventory inv = BaublesApi.getBaubles(player);
 
 		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
 		if(inv.getStackInSlot(3) != null)
@@ -66,7 +66,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		GlStateManager.popMatrix();
 	}
 
-	private void dispatchRenders(InventoryBaubles inv, EntityPlayer player, RenderType type, float partialTicks) {
+	private void dispatchRenders(IInventory inv, EntityPlayer player, RenderType type, float partialTicks) {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack != null) {

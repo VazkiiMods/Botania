@@ -11,7 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -44,7 +44,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack amulet = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(0);
 
 			if(amulet != null && amulet.getItem() == this) {
 				event.setCanceled(true);
@@ -52,7 +52,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 6));
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
 				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
-				PlayerHandler.getPlayerBaubles(player).setInventorySlotContents(0, null);
+				BaublesApi.getBaubles(player).setInventorySlotContents(0, null);
 			}
 		}
 	}

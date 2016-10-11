@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -213,7 +213,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack tiara = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+			ItemStack tiara = BaublesApi.getBaubles(player).getStackInSlot(0);
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 			if(playersWithFlight.contains(playerStr(player))) {
@@ -311,7 +311,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
-		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(0);
 		if(armor != null && armor.getItem() == this) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);

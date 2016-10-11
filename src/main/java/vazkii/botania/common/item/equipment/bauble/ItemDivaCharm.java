@@ -15,7 +15,7 @@ import java.util.List;
 import com.google.common.base.Predicates;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -54,7 +54,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	public void onEntityDamaged(LivingHurtEvent event) {
 		if(event.getSource().getEntity() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().worldObj.isRemote && Math.random() < 0.6F) {
 			EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
-			ItemStack amulet = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(0);
 			if(amulet != null && amulet.getItem() == this) {
 				final int cost = 250;
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {

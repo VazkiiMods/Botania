@@ -11,7 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import baubles.common.lib.PlayerHandler;
+import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +37,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 		if(player.isInsideOfMaterial(Material.WATER)) {
 			if(player instanceof EntityPlayer) {
-				ItemStack firstRing = PlayerHandler.getPlayerBaubles((EntityPlayer) player).getStackInSlot(1);
+				ItemStack firstRing = BaublesApi.getBaubles((EntityPlayer) player).getStackInSlot(1);
 				if(firstRing != null && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
 					return;
 				}

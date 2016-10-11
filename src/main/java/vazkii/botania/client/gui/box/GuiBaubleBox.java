@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.box;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
@@ -18,7 +19,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends InventoryEffectRenderer {
+public class GuiBaubleBox extends GuiContainer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 
@@ -38,7 +39,7 @@ public class GuiBaubleBox extends InventoryEffectRenderer {
 				drawTexturedModalRect(guiLeft+slot.xDisplayPosition, guiTop+slot.yDisplayPosition, 200, 0, 16, 16);
 		}
 
-		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.thePlayer);
+//		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.thePlayer);
 	}
 
 }
