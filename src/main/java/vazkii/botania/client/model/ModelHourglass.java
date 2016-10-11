@@ -102,7 +102,7 @@ public class ModelHourglass extends ModelBase {
 			GlStateManager.popMatrix();
 		}
 
-		GlStateManager.popAttrib();
+		GL11.glPopAttrib();
 
 		GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
 		glass1.render(f);
