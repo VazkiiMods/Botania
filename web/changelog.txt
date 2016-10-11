@@ -1,3 +1,5 @@
+r1.9 330
+*Fixed some baubles not working after their slots were changed.
 r1.9 329
 *Updated for the latest version of baubles. It's now required.
 *Buffed the Great Fairy Ring's chance to spawn a pixie by a bunch.
