@@ -96,7 +96,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.AMULET;
+		return BaubleType.HEAD;
 	}
 
 	@Override

@@ -218,7 +218,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.AMULET;
+		return BaubleType.HEAD;
 	}
 
 	@Override

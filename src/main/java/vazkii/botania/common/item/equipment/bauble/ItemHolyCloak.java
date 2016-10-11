@@ -104,7 +104,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.BELT;
+		return BaubleType.BODY;
 	}
 
 	public static int getCooldown(ItemStack stack) {

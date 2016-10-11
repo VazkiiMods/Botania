@@ -45,7 +45,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.AMULET;
+		return BaubleType.CHARM;
 	}
 
 	@Override

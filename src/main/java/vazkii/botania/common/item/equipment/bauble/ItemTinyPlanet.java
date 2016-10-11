@@ -44,7 +44,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.AMULET;
+		return BaubleType.CHARM;
 	}
 
 	@Override

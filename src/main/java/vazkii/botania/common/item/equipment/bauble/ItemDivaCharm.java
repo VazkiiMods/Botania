@@ -87,7 +87,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.AMULET;
+		return BaubleType.CHARM;
 	}
 
 	@Override

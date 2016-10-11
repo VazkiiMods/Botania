@@ -99,9 +99,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@SideOnly(Side.CLIENT)
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
-		BaubleType type = getBaubleType(par1ItemStack);
-		addStringToTooltip(I18n.format("botania.baubletype." + type.name().toLowerCase()), stacks);
-
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
