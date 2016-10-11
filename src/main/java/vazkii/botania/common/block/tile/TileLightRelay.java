@@ -22,6 +22,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -55,7 +56,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 	public void mountEntity(Entity e) {
 		BlockPos nextDest = getNextDestination();
-		if(e.isRiding() || worldObj.isRemote || nextDest != null || !isValidBinding())
+		if(e.isRiding() || worldObj.isRemote || nextDest == null || !isValidBinding())
 			return;
 
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, pos, nextDest);
@@ -283,7 +284,12 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 					}
 				}
 
-				posY += 1.5;
+				for(Entity e : getPassengers()) {
+					e.dismountRidingEntity();
+					if(e instanceof EntityPlayerMP)
+						((EntityPlayerMP) e).connection.setPlayerLocation(posX, posY, posZ, e.rotationYaw, e.rotationPitch);
+					else e.setPosition(posX, posY, posZ);
+				}
 				setDead();
 			} else {
 				Vector3 thisVec = Vector3.fromEntity(this);
