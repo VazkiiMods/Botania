@@ -1,3 +1,17 @@
+r1.9 331
+*Added a null check to the Thorn Chakram to prevent it from crashing if the entity that threw it is unloaded.
+*Added the Cloak of Balance, a new cloak bauble that splits damage between the target and the attacker.
+*Fixed a crash when removing a Ring of the Aesir, Odin, or Tectonic Girdle. This is actually a baubles work and the fix here is a workaround. These items won't reset their state properly until it's fixed in baubles, but they at least won't crash.
+*Fixed Infrangible Platforms being able to be exploded.
+*Fixed munchdews eating leaves below them.
+*Fixed the bauble box GUI not removing the bauble icons for the new slots. 
+*Fixed the Key of the King's Law producing a bad shape when looking northeast.
+*Fixed the Kindle lens not being able to close nether portals.
+*Sylph wings on the Flugel Tiara now glow.
+*Updated the documentation for the Cloaks of Judgement to reflect the proper slot.
+*[API] Updated IManaDiscountArmor, ManaDiscountEvent, IManaProficiencyArmor, ManaItemHandler with ItemStack specific methods. (Flaxbeard)
+*[API] Added ManaProficiencyEvent. (Flaxbeard)
+*[API] Increased the version number to 83.
 r1.9 330
 *Fixed some baubles not working after their slots were changed.
 r1.9 329
