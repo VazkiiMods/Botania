@@ -99,8 +99,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
 
-
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		if(stack == null) // workaround for Azanor/Baubles#156
+			return;
+		
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 

@@ -120,6 +120,9 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 
 	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		if(stack == null) // workaround for Azanor/Baubles#156
+			return;
+		
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
