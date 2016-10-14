@@ -74,7 +74,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			} else if(isFlying(par1ItemStack)) {
 				if(holding) {
 					player.fallDistance = 0F;
-					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player) ? 1.6 : 1.25;
+					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 1.6 : 1.25;
 
 					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
