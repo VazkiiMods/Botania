@@ -10,17 +10,32 @@
  */
 package vazkii.botania.api.mana;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ManaDiscountEvent extends Event {
 
 	private final EntityPlayer entityPlayer;
 	private float discount;
-
-	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount) {
+	private ItemStack tool;
+	
+	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount, @Nullable ItemStack tool) {
 		this.entityPlayer = entityPlayer;
 		this.discount = discount;
+		this.tool = tool;
+	}
+
+	@Deprecated
+	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount) {
+		this(entityPlayer, discount, null);
+	}
+	
+	@Nullable
+	public ItemStack getTool() {
+		return tool;
 	}
 
 	public EntityPlayer getEntityPlayer() {

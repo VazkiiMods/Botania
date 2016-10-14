@@ -1,5 +1,7 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -22,7 +24,7 @@ public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDisc
 	}
 
 	@Override
-	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
+	public float getDiscount(ItemStack stack, int slot, EntityPlayer player, @Nullable ItemStack tool) {
 		return hasArmorSet(player) ? 0.1F : 0F;
 	}
 
