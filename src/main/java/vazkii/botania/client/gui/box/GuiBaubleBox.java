@@ -33,7 +33,7 @@ public class GuiBaubleBox extends GuiContainer {
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		for(int i1 = 0; i1 < 4; ++i1) {
+		for(int i1 = 0; i1 < 7; ++i1) {
 			Slot slot = inventorySlots.inventorySlots.get(i1);
 			if(slot.getHasStack() && slot.getSlotStackLimit() == 1)
 				drawTexturedModalRect(guiLeft+slot.xDisplayPosition, guiTop+slot.yDisplayPosition, 200, 0, 16, 16);
