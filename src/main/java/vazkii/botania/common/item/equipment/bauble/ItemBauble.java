@@ -151,6 +151,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {}
 
 	@Override
+	public void onUnequipped(ItemStack stack, EntityLivingBase player) { }
+
+	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if(cmp == null)
