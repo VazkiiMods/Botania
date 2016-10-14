@@ -81,11 +81,13 @@ public class EntityThornChakram extends EntityThrowable {
 
 		// Returning motion
 		if(isReturning()) {
-			Entity thrower = worldObj.getEntityByID(getEntityToReturnTo());
-			Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-			motionX = motion.x;
-			motionY = motion.y;
-			motionZ = motion.z;
+			Entity thrower = getThrower();
+			if(thrower != null) {
+				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
+				motionX = motion.x;
+				motionY = motion.y;
+				motionZ = motion.z;
+			}
 		}
 
 		// Client FX
