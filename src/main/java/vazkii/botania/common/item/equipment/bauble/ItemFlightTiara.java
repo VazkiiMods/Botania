@@ -397,6 +397,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					break;
 				}
 				case 7 : { // Lyfa
+					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					h = -0.1F;
 					rz = 0F;
 					ry = -rx;
