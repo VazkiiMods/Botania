@@ -25,24 +25,27 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 public class LensFire extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.worldObj.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
-			EnumFacing dir = pos.sideHit;
+		BlockPos pos = rtr.getBlockPos();
+		if(!entity.worldObj.isRemote && pos != null && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
+			EnumFacing dir = rtr.sideHit;
 
-			BlockPos pos_ = pos.getBlockPos().offset(dir);
+			BlockPos offPos = pos.offset(dir);
 
-			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
-			Block blockAt_ = entity.worldObj.getBlockState(pos_).getBlock();
+			Block blockAt = entity.worldObj.getBlockState(pos).getBlock();
+			Block blockAtOffset = entity.worldObj.getBlockState(offPos).getBlock();
 
 			if(blockAt == Blocks.PORTAL)
-				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());
+				entity.worldObj.setBlockState(pos, Blocks.AIR.getDefaultState());
+			if(blockAtOffset == Blocks.PORTAL)
+				entity.worldObj.setBlockState(offPos, Blocks.AIR.getDefaultState());
 			else if(blockAt == ModBlocks.incensePlate) {
-				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.getBlockPos());
+				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos);
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			} else if(blockAt_.isAir(entity.worldObj.getBlockState(pos_), entity.worldObj, pos_))
-				entity.worldObj.setBlockState(pos_, Blocks.FIRE.getDefaultState());
+			} else if(blockAtOffset.isAir(entity.worldObj.getBlockState(offPos), entity.worldObj, offPos))
+				entity.worldObj.setBlockState(offPos, Blocks.FIRE.getDefaultState());
 		}
 
 		return dead;
