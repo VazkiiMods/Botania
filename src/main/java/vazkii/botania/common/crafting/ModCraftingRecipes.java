@@ -218,6 +218,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeMissileRod;
 	public static IRecipe recipeHolyCloak;
 	public static IRecipe recipeUnholyCloak;
+	public static IRecipe recipeBalanceCloak;
 	public static IRecipe recipeCraftingHalo;
 	public static List<IRecipe> recipesLensFlash;
 	public static IRecipe recipePrism;
@@ -1463,6 +1464,14 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.LIFE_ESSENCE);
 		recipeUnholyCloak = BotaniaAPI.getLatestAddedRecipe();
 
+		// Cloak of Balance Recipe
+		addOreDictRecipe(new ItemStack(ModItems.balanceCloak),
+				"WWW", "RWR", "RSR",
+				'W', new ItemStack(Blocks.WOOL, 1, 8),
+				'R', "gemEmerald",
+				'S', LibOreDict.LIFE_ESSENCE);
+		recipeBalanceCloak = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Assembly Halo Recipe
 		addOreDictRecipe(new ItemStack(ModItems.craftingHalo),
 				" P ", "ICI", " I ",

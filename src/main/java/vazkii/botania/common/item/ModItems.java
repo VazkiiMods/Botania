@@ -36,6 +36,7 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemBalanceCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
@@ -213,6 +214,7 @@ public final class ModItems {
 	public static Item missileRod;
 	public static Item holyCloak;
 	public static Item unholyCloak;
+	public static Item balanceCloak;
 	public static Item craftingHalo;
 	public static Item blackLotus;
 	public static Item monocle;
@@ -361,6 +363,7 @@ public final class ModItems {
 		missileRod = new ItemMissileRod();
 		holyCloak = new ItemHolyCloak();
 		unholyCloak = new ItemUnholyCloak();
+		balanceCloak = new ItemBalanceCloak();
 		craftingHalo = new ItemCraftingHalo();
 		blackLotus = new ItemBlackLotus();
 		monocle = new ItemMonocle();

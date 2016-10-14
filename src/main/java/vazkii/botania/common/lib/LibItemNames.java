@@ -106,6 +106,7 @@ public final class LibItemNames {
 	public static final String MISSILE_ROD = "missileRod";
 	public static final String HOLY_CLOAK = "holyCloak";
 	public static final String UNHOLY_CLOAK = "unholyCloak";
+	public static final String BALANCE_CLOAK = "balanceCloak";
 	public static final String CRAFTING_HALO = "craftingHalo";
 	public static final String BLACK_LOTUS = "blackLotus";
 	public static final String MONOCLE = "monocle";

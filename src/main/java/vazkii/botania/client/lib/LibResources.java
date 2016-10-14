@@ -103,8 +103,10 @@ public final class LibResources {
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
+	public static final String MODEL_BALANCE_CLOAK = PREFIX_MODEL + "balanceCloak.png";
 	public static final String MODEL_HOLY_CLOAK_GLOW = PREFIX_MODEL + "holyCloakGlow.png";
 	public static final String MODEL_UNHOLY_CLOAK_GLOW = PREFIX_MODEL + "unholyCloakGlow.png";
+	public static final String MODEL_BALANCE_CLOAK_GLOW = PREFIX_MODEL + "balanceCloakGlow.png";
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporeaIndex.png";
 	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "invisibleArmor.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";

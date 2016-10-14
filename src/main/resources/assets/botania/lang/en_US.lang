@@ -1487,6 +1487,7 @@ item.botania:redString.name=Red String
 item.botania:missileRod.name=Rod of the Unstable Reservoir
 item.botania:holyCloak.name=Cloak of Virtue
 item.botania:unholyCloak.name=Cloak of Sin
+item.botania:balanceCloak.name=Cloak of Balance
 item.botania:craftingHalo.name=Assembly Halo
 item.botania:autocraftingHalo.name=Manufactory Halo
 item.botania:blackLotus0.name=Black Lotus
@@ -3486,11 +3487,12 @@ botania.page.bloodPendant2=Always potted up
 
 # -- CLOAKS OF JUDGEMENT
 botania.entry.judgementCloaks=Cloaks of Judgement
-botania.tagline.judgementCloaks=Cloaks of Virtue and Sin to judge opponents
-botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a pair of cloaks that can be worn instead of a belt (and thus, they go in the Belt slot). Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
-botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken. This does not apply to magic damage.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.
+botania.tagline.judgementCloaks=Cloaks to judge opponents
+botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a set of cloaks that can be worn in the body slot. Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
+botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.<br>The &1Cloak of Balance&0 will evenly split the damage between the attacker and the target. It also prevents the target from dying.
 botania.page.judgementCloaks2=A Holy Mantle
 botania.page.judgementCloaks3=Taste Vengeance!
+botania.page.judgementCloaks4=Pain split
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=Manaseer Monocle

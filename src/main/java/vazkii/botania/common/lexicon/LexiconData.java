@@ -1208,7 +1208,8 @@ public final class LexiconData {
 		judgementCloaks = new AlfheimLexiconEntry(LibLexicon.BAUBLE_JUDGEMENT_CLOAKS, categoryBaubles);
 		judgementCloaks.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeHolyCloak),
-				new PageCraftingRecipe("3", ModCraftingRecipes.recipeUnholyCloak));
+				new PageCraftingRecipe("3", ModCraftingRecipes.recipeUnholyCloak),
+				new PageCraftingRecipe("4", ModCraftingRecipes.recipeBalanceCloak));
 
 		monocle = new BasicLexiconEntry(LibLexicon.BAUBLE_MONOCLE, categoryBaubles);
 		monocle.setPriority().setLexiconPages(new PageText("0"), new PageText("2"),
