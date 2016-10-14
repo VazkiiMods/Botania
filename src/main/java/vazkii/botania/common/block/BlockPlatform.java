@@ -30,6 +30,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -46,6 +47,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -136,7 +138,17 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
 		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
 	}
+	
+	@Override
+	public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
+		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT) != PlatformVariant.INFRANGIBLE;
+	}
 
+	@Override
+	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion) {
+		return world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT) != PlatformVariant.INFRANGIBLE ? super.getExplosionResistance(world, pos, exploder, explosion) : Float.MAX_VALUE;
+	}
+	
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
