@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -31,7 +33,7 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	}
 
 	@Override
-	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
+	public float getDiscount(ItemStack stack, int slot, EntityPlayer player, @Nullable ItemStack tool) {
 		return hasArmorSet(player) ? 0.35F : 0F;
 	}
 
