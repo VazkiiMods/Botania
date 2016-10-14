@@ -103,7 +103,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(EntityPlayer player) {
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < 7; i++) {
 			ItemStack stack = BaublesApi.getBaubles(player).getStackInSlot(i);
 			if(stack != null) {
 				Item item = stack.getItem();
