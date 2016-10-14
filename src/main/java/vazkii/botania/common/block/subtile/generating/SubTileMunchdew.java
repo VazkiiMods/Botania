@@ -58,7 +58,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = supertile.getPos();
 
-				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, -RANGE_Y, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
+				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
 					if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
 						boolean exposed = false;
 						for(EnumFacing dir : EnumFacing.VALUES) {
