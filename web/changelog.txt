@@ -1,3 +1,5 @@
+r1.9 332
+*Fixed the manaseer monocle not working since its slot was changed. Turns out I had a lot of things that only cared about the first 4 slots.
 r1.9 331
 *Added a null check to the Thorn Chakram to prevent it from crashing if the entity that threw it is unloaded.
 *Added the Cloak of Balance, a new cloak bauble that splits damage between the target and the attacker.
