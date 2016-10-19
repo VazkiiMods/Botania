@@ -111,11 +111,11 @@ public final class ColorHandler {
 		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
 				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
-		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaMirror) ModItems.manaMirror).getMana(s) / TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
+		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 
-		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, ((ItemManaTablet) ModItems.manaTablet).getMana(s) / ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
+		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
+		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / (float)s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
 
 		items.registerItemColorHandler((s, t) -> {
 			if(t != 1)
