@@ -407,7 +407,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getCurrentMana() {
-		return worldObj != null && worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.CREATIVE ? MAX_MANA : mana;
+		if(worldObj != null) {
+			IBlockState state = worldObj.getBlockState(getPos());
+			if(state.getProperties().containsKey(BotaniaStateProps.POOL_VARIANT))
+				return state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.CREATIVE ? MAX_MANA : mana;
+		}
+		
+		return 0;
 	}
 
 	@Override
