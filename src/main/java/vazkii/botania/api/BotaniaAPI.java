@@ -188,6 +188,8 @@ public final class BotaniaAPI {
 		addOreWeight("oreMythril", 6485); // Simple Ores2
 		addOreWeight("oreAdamantium", 2275); // Simple Ores2
 		addOreWeight("oreTungsten", 3520); // Simple Tungsten
+		addOreWeight("oreOsmium", 6915); // Mekanism
+		addOreWeight("oreQuartzBlack", 5535); // Actually Additions
 
 		addOreWeightNether("oreQuartz", 19600); // Vanilla
 		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
