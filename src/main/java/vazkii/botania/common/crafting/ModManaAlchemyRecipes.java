@@ -96,6 +96,7 @@ public final class ModManaAlchemyRecipes {
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.DYE, 1, 3), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.POTATO), new ItemStack(Items.WHEAT), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.CARROT), new ItemStack(Items.POTATO), 6000));
+		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.BEETROOT_SEEDS), new ItemStack(Items.POTATO), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.CARROT), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.MELON_SEEDS), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.DYE, 1, 3), new ItemStack(Items.PUMPKIN_SEEDS), 6000));
