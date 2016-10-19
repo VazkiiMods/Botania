@@ -1,3 +1,12 @@
+r1.9 333
+*Added a mana infusion recipe for beetroot seeds.
+*Added osmium from mekanism and black quartz from actually additions to the orechid table.
+*Fixed a crash when mana pools are broken or removed from the world. Actually has to do with a bug in forge, so this is a bit of a band aid.
+*Fixed mana tablets and mirrors not having their insides colorized properly. 
+*Fixed the Godlen Laurel Crown destroying your amulet slot item rather than itself.
+*Updated the reset step height for the sashes to the new step height in 1.8+. Fixes them breaking stairs made with chisels and bits.
+*[API] Added oreOsmium and oreQuartzBlack to the orechid table.
+*[API] Increased version number to 84.
 r1.9 332
 *Fixed the manaseer monocle not working since its slot was changed. Turns out I had a lot of things that only cared about the first 4 slots.
 r1.9 331
