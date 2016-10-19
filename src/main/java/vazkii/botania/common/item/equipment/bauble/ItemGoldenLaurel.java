@@ -44,15 +44,15 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(4);
+			ItemStack headgear = BaublesApi.getBaubles(player).getStackInSlot(4);
 
-			if(amulet != null && amulet.getItem() == this) {
+			if(headgear != null && headgear.getItem() == this) {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
 				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 6));
 				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
 				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
-				BaublesApi.getBaubles(player).setInventorySlotContents(0, null);
+				BaublesApi.getBaubles(player).setInventorySlotContents(4, null);
 			}
 		}
 	}
