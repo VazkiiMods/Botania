@@ -2003,7 +2003,7 @@ public final class ModCraftingRecipes {
 		addOreDictRecipe(new ItemStack(ModItems.baubleBox),
 				" M ", "MCG", " M ",
 				'M', LibOreDict.MANA_STEEL,
-				'C', new ItemStack(Blocks.CHEST),
+				'C', "chestWood",
 				'G', "ingotGold");
 		recipeBaubleCase = BotaniaAPI.getLatestAddedRecipe();
 
