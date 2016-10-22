@@ -54,7 +54,7 @@ public class ModBrews {
 		resistance = new BrewMod(LibBrewNames.RESISTANCE, 0xB44E17, 4000, new PotionEffect(MobEffects.RESISTANCE, 1800, 1));
 		fireResistance = new BrewMod(LibBrewNames.FIRE_RESISTANCE, 0xF86900, 4000, new PotionEffect(MobEffects.FIRE_RESISTANCE, 9600, 0));
 		waterBreathing = new BrewMod(LibBrewNames.WATER_BREATHING, 0x84A7CF, 4000, new PotionEffect(MobEffects.WATER_BREATHING, 9600, 0));
-		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 8000, new PotionEffect(MobEffects.INVISIBILITY, 9600, 0));
+		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 8000, new PotionEffect(MobEffects.INVISIBILITY, 9600, 0)).setNotBloodPendantInfusable();
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(MobEffects.NIGHT_VISION, 9600, 0));
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 

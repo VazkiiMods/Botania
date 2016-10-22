@@ -1604,6 +1604,7 @@ item.botania:speedUpBelt.name=Planestrider's Sash
 item.botania:baubleBox.name=Bauble Case
 item.botania:manaPowder.name=Mana Powder
 item.botania:dodgeRing.name=Ring of Dexterous Motion
+item.botania:invisibilityCloak.name=Invisibility Cloak
 
 # BREW NAMES
 botania.brew.fallback=Fallback
