@@ -46,9 +46,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	public static final List<String> playersWithStepup = new ArrayList<>();
 
-	final float speed;
-	final float jump;
-	final float fallBuffer;
+	public final float speed;
+	public final float jump;
+	public final float fallBuffer;
 
 	public ItemTravelBelt() {
 		this(LibItemNames.TRAVEL_BELT, 0.035F, 0.2F, 2F);

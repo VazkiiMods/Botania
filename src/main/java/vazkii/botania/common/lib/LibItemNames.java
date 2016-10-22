@@ -162,6 +162,8 @@ public final class LibItemNames {
 	public static final String BAUBLE_BOX = "baubleBox";
 	public static final String DODGE_RING = "dodgeRing";
 	public static final String INVISIBILITY_CLOAK = "invisibilityCloak";
+	public static final String CLOUD_PENDANT = "cloudPendant";
+	public static final String SUPER_CLOUD_PENDANT = "superCloudPendant";
 
 	public static final String[] LENS_NAMES = new String[] {
 			"lensNormal",

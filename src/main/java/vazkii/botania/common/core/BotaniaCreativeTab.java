@@ -249,6 +249,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.icePendant);
 		addItem(ModItems.lavaPendant);
 		addItem(ModItems.superLavaPendant);
+		addItem(ModItems.cloudPendant);
+		addItem(ModItems.superCloudPendant);
 		addItem(ModItems.invisibilityCloak);
 		addItem(ModItems.holyCloak);
 		addItem(ModItems.unholyCloak);

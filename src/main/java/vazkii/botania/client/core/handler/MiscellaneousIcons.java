@@ -87,8 +87,9 @@ public class MiscellaneousIcons {
 	snowflakePendantGem,
 	itemFinderGem,
 	pyroclastGem,
-	crimsonGem;
-
+	crimsonGem,
+	cirrusGem,
+	nimbusGem;
 
 	@SubscribeEvent
 	public void onModelBake(ModelBakeEvent evt) {
@@ -167,6 +168,8 @@ public class MiscellaneousIcons {
 		itemFinderGem = IconHelper.forName(evt.getMap(), "itemFinderGem", "items");
 		pyroclastGem = IconHelper.forName(evt.getMap(), "lavaPendantGem", "items");
 		crimsonGem = IconHelper.forName(evt.getMap(), "superLavaPendantGem", "items");
+		cirrusGem = IconHelper.forName(evt.getMap(), "cloudPendantGem", "items");
+		nimbusGem = IconHelper.forName(evt.getMap(), "superCloudPendantGem", "items");
 	}
 
 	@SubscribeEvent

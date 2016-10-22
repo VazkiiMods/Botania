@@ -39,6 +39,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemBalanceCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -59,6 +60,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
 import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
 import vazkii.botania.common.item.equipment.bauble.ItemSpeedUpBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemSuperCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemSwapRing;
@@ -271,6 +273,8 @@ public final class ModItems {
 	public static Item baubleBox;
 	public static Item dodgeRing;
 	public static Item invisibilityCloak;
+	public static Item cloudPendant;
+	public static Item superCloudPendant;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -421,7 +425,9 @@ public final class ModItems {
 		baubleBox = new ItemBaubleBox();
 		dodgeRing = new ItemDodgeRing();
 		invisibilityCloak = new ItemInvisibilityCloak();
-		
+		cloudPendant = new ItemCloudPendant();
+		superCloudPendant = new ItemSuperCloudPendant();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

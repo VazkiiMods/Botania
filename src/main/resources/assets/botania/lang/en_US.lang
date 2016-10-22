@@ -1605,6 +1605,8 @@ item.botania:baubleBox.name=Bauble Case
 item.botania:manaPowder.name=Mana Powder
 item.botania:dodgeRing.name=Ring of Dexterous Motion
 item.botania:invisibilityCloak.name=Invisibility Cloak
+item.botania:cloudPendant.name=Cirrus Amulet
+item.botania:superCloudPendant.name=Nimbus Amulet
 
 # BREW NAMES
 botania.brew.fallback=Fallback
