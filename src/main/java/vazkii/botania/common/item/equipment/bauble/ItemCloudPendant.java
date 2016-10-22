@@ -90,8 +90,7 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 			Helper.rotateIfSneaking(player);
 			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
-			GlStateManager.rotate(-45F, 0F, 0F, 1F);
+			GlStateManager.translate(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.cirrusGem;

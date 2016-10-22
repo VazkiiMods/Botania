@@ -301,6 +301,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeForkLuminizer;
 	public static IRecipe recipeToggleLuminizer;
 	public static IRecipe recipeInvisibilityCloak;
+	public static IRecipe recipeCloudPendant;
+	public static IRecipe recipeSuperCloudPendant;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -763,7 +765,7 @@ public final class ModCraftingRecipes {
 		// Snowflake Pendant Recipe
 		addOreDictRecipe(new ItemStack(ModItems.icePendant),
 				"WS ", "S S", "MSR",
-				'S', new ItemStack(Items.STRING),
+				'S', LibOreDict.MANA_STRING,
 				'M', LibOreDict.MANA_STEEL,
 				'R', LibOreDict.RUNE[0],
 				'W', LibOreDict.RUNE[7]);
@@ -772,7 +774,7 @@ public final class ModCraftingRecipes {
 		// Pyroclast Pendant Recipe
 		addOreDictRecipe(new ItemStack(ModItems.lavaPendant),
 				"MS ", "S S", "DSF",
-				'S', new ItemStack(Items.STRING),
+				'S', LibOreDict.MANA_STRING,
 				'D', LibOreDict.MANA_STEEL,
 				'M', LibOreDict.RUNE[5],
 				'F', LibOreDict.RUNE[1]);
@@ -2039,6 +2041,25 @@ public final class ModCraftingRecipes {
 				'G', new ItemStack(ModBlocks.manaGlass),
 				'P', LibOreDict.MANA_PEARL);
 		recipeInvisibilityCloak = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Cirrus Pendant Recipe
+		addOreDictRecipe(new ItemStack(ModItems.cloudPendant),
+				"MS ", "S S", "DSF",
+				'S', LibOreDict.MANA_STRING,
+				'D', LibOreDict.MANA_STEEL,
+				'M', LibOreDict.RUNE[6],
+				'F', LibOreDict.RUNE[3]);
+		recipeCloudPendant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Nimbus Pendant Recipe
+		addOreDictRecipe(new ItemStack(ModItems.superCloudPendant),
+				"BEB", "BPB", "NGN",
+				'E', LibOreDict.ELEMENTIUM,
+				'B', new ItemStack(Items.GHAST_TEAR),
+				'P', new ItemStack(ModItems.cloudPendant),
+				'N', new ItemStack(Blocks.WOOL),
+				'G', LibOreDict.LIFE_ESSENCE);
+		recipeSuperCloudPendant = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -3534,6 +3534,18 @@ botania.tagline.invisibilityCloak=Exactly what it says on the tin
 botania.page.invisibilityCloak0=Not much explanation is required for the &1Invisibility Cloak&0.<br>It's a bauble worn on the &4body&0 slot, that will take &4Mana&0 from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfiled.
 botania.page.invisibilityCloak1=You're a wizard, steve
 
+# -- CIRRUS AMULET
+botania.entry.cloudPendant=Cirrus Amulet
+botania.tagline.cloudPendant=Gives you double jump
+botania.page.cloudPendant0=The &1Cirrus Amulet&0 is a bauble that can be worn in the &4amulet&0 slot.<br>While being worn, the wearer is granted the ability to &4double jump&0, the second jump negating all currently accumulated fall momentum and damage that would occur from the fall.
+botania.page.cloudPendant1=It's all in the cloud
+
+# -- NIMBUS AMULET
+botania.entry.superCloudPendant=Nimbus Amulet
+botania.tagline.superCloudPendant=Gives you triple jump
+botania.page.superCloudPendant0=The &1Nimbus Amulet&0 is an upgraded version of the &1Cirrus Amulet&0, infused with the power of &1Gaia Spirits&0, it allows the wearer to &4triple jump&0.
+botania.page.superCloudPendant1=Magic > physics
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim

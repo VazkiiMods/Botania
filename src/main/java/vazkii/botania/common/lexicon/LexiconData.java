@@ -253,6 +253,8 @@ public final class LexiconData {
 	public static LexiconEntry baubleBox;
 	public static LexiconEntry dodgeRing;
 	public static LexiconEntry invisibilityCloak;
+	public static LexiconEntry cloudPendant;
+	public static LexiconEntry superCloudPendant;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -1232,6 +1234,12 @@ public final class LexiconData {
 
 		invisibilityCloak = new BasicLexiconEntry(LibLexicon.BAUBLE_INVISIBILITY_CLOAK, categoryBaubles);
 		invisibilityCloak.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeInvisibilityCloak));
+		
+		cloudPendant = new BasicLexiconEntry(LibLexicon.BAUBLE_CLOUD_PENDANT, categoryBaubles);
+		cloudPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCloudPendant));
+		
+		superCloudPendant = new AlfheimLexiconEntry(LibLexicon.BAUBLE_SUPER_CLOUD_PENDANT, categoryBaubles);
+		superCloudPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSuperCloudPendant));
 		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BasicLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
