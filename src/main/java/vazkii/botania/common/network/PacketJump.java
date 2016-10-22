@@ -19,10 +19,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.bauble.CloudPendantShim;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 
 public class PacketJump implements IMessage {
 
@@ -44,6 +46,11 @@ public class PacketJump implements IMessage {
 				if(amuletStack != null && amuletStack.getItem() instanceof CloudPendantShim) {
 					player.addExhaustion(0.3F);
 					player.fallDistance = 0;
+					
+					ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
+
+					if(belt != null && belt.getItem() instanceof ItemTravelBelt)
+						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
 				}
 			});
 			return null;
