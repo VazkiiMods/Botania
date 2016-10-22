@@ -591,11 +591,19 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	private void onRecieverImpact(IManaReceiver tile, BlockPos pos) {
+		ILensEffect lens = getLensInstance();
 		int mana = getMana();
+		
+		if(lens != null) {
+			ItemStack stack = getSourceLens();
+			mana = lens.getManaToTransfer(this, this, stack, tile);
+		}
+		
 		if(tile instanceof IManaCollector)
 			mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
 
 		tile.recieveMana(mana);
+		
 		if(tile instanceof IThrottledPacket)
 			((IThrottledPacket) tile).markDispatchable();
 		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);

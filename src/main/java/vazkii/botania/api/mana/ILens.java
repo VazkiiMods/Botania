@@ -10,7 +10,9 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.

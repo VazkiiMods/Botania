@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -310,6 +311,11 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return sourceLens;
 	}
 
+	@Override
+	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
+		return lenses[stack.getItemDamage()].getManaToTransfer(burst, entity, stack, receiver);
+	}
+	
 	@Override
 	public boolean shouldPull(ItemStack stack) {
 		return stack.getItemDamage() != STORM;
