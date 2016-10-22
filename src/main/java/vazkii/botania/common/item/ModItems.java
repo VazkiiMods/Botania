@@ -64,6 +64,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemSuperCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemSwapRing;
+import vazkii.botania.common.item.equipment.bauble.ItemThirdEye;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
@@ -275,6 +276,7 @@ public final class ModItems {
 	public static Item invisibilityCloak;
 	public static Item cloudPendant;
 	public static Item superCloudPendant;
+	public static Item thirdEye;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -427,7 +429,8 @@ public final class ModItems {
 		invisibilityCloak = new ItemInvisibilityCloak();
 		cloudPendant = new ItemCloudPendant();
 		superCloudPendant = new ItemSuperCloudPendant();
-
+		thirdEye = new ItemThirdEye();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

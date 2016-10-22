@@ -72,6 +72,7 @@ public class MiscellaneousIcons {
 	public TextureAtlasSprite[] kingKeyWeaponIcons;
 	public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
 	public TextureAtlasSprite[] tiaraWingIcons;
+	public TextureAtlasSprite[] thirdEyeLayers;
 
 	// begin dank_memes
 	public TextureAtlasSprite tailIcon = null;
@@ -147,6 +148,10 @@ public class MiscellaneousIcons {
 		kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
 			kingKeyWeaponIcons[i] = IconHelper.forName(evt.getMap(), "gateWeapon" + i, "items");
+		
+		thirdEyeLayers = new TextureAtlasSprite[3];
+		for(int i = 0; i < 3; i++)
+			thirdEyeLayers[i] = IconHelper.forName(evt.getMap(), "thirdEye" + i, "items");
 
 		manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
 		runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");

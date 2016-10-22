@@ -1607,6 +1607,7 @@ item.botania:dodgeRing.name=Ring of Dexterous Motion
 item.botania:invisibilityCloak.name=Invisibility Cloak
 item.botania:cloudPendant.name=Cirrus Amulet
 item.botania:superCloudPendant.name=Nimbus Amulet
+item.botania:thirdEye.name=Third Eye
 
 # BREW NAMES
 botania.brew.fallback=Fallback
