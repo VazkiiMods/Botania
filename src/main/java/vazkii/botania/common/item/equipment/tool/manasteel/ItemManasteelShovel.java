@@ -99,8 +99,11 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 
 			Block block = world.getBlockState(pos).getBlock();
 
-			if(side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT)) {
-				Block block1 = Blocks.FARMLAND;
+			if(side != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+				Block block1 = Blocks.GRASS_PATH;
+				if(block == block1)
+					block1 = Blocks.FARMLAND;
+				
 				world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
 
 				if (world.isRemote)
