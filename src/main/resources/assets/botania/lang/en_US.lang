@@ -3547,6 +3547,12 @@ botania.tagline.superCloudPendant=Gives you triple jump
 botania.page.superCloudPendant0=The &1Nimbus Amulet&0 is an upgraded version of the &1Cirrus Amulet&0, infused with the power of &1Gaia Spirits&0, it allows the wearer to &4triple jump&0.
 botania.page.superCloudPendant1=Magic > physics
 
+# -- THIRD EYE
+botania.entry.thirdEye=Third Eye
+botania.tagline.thirdEye=See all the mobs
+botania.page.thirdEye0=The &1Third Eye&0 is an odd sensory aid of sorts, that can be worn in the &4body&0 slot.<br>While worn, at the cost of some &4Mana&0, nearby mobs will be highlighted and visible through walls.
+botania.page.thirdEye1=Read their positions, not their minds
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim

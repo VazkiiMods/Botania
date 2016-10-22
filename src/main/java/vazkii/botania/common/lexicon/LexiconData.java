@@ -255,6 +255,7 @@ public final class LexiconData {
 	public static LexiconEntry invisibilityCloak;
 	public static LexiconEntry cloudPendant;
 	public static LexiconEntry superCloudPendant;
+	public static LexiconEntry thirdEye;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -1240,6 +1241,9 @@ public final class LexiconData {
 		
 		superCloudPendant = new AlfheimLexiconEntry(LibLexicon.BAUBLE_SUPER_CLOUD_PENDANT, categoryBaubles);
 		superCloudPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSuperCloudPendant));
+		
+		thirdEye = new BasicLexiconEntry(LibLexicon.BAUBLE_THIRD_EYE, categoryBaubles);
+		thirdEye.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThirdEye));
 		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BasicLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
