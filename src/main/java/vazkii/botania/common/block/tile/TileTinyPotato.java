@@ -11,12 +11,15 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextComponentString;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.block.ModBlocks;
 
 public class TileTinyPotato extends TileSimpleInventory {
 
@@ -50,9 +53,20 @@ public class TileTinyPotato extends TileSimpleInventory {
 		}
 
 		jump();
-		if(name.toLowerCase().trim().endsWith("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
-			nextDoIt = 40;
-			worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+
+		if(!worldObj.isRemote) {
+			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
+				nextDoIt = 40;
+				worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+			}
+
+			for(int i = 0; i < getSizeInventory(); i++) {
+				ItemStack stackAt = getItemHandler().getStackInSlot(i);
+				if(stackAt != null && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
+					player.addChatComponentMessage(new TextComponentString("Don't talk to me or my son ever again."));
+					return;
+				}
+			}
 		}
 	}
 
