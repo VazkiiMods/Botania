@@ -202,6 +202,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				return false;
 			}
 
+			int guardians = getGaiaGuardiansAround(world, pos);
+			if(guardians > 0)
+				return false;
+			
 			if(world.isRemote)
 				return true;
 
@@ -503,6 +507,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		return worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 	}
 
+	private static int getGaiaGuardiansAround(World worldObj, BlockPos source) {
+		float range = 15F;
+		List l = worldObj.getEntitiesWithinAABB(EntityDoppleganger.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range)); 
+		return l.size();
+	}
+	
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
