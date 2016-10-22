@@ -2397,7 +2397,7 @@ botania.page.clayconia1=&oWhat a killer joke&r.
 # -- LOONIUM
 botania.entry.loonium=Loonium
 botania.tagline.loonium=Conjures dungeon loot
-botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items and drop them in the nearby vicinity.
+botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items for said aventurers to collect.<br>There's a catch, though. Alongside the item, a monster is spawned to protect it. These monsters are stronger than usual, and will drop a random piece of &4dungeon loot&0 when killed.
 botania.page.loonium1=&oThe mighty flower for epic loot&r!
 
 # -- DAFFOMILL

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -93,9 +94,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		}
 	}
 
-	static void spawnExplosionParticles(EntityItem item, int p) {
-		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item),
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
+	static void spawnExplosionParticles(Entity item, int p) {
+		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
 	}
 
 	@Override
