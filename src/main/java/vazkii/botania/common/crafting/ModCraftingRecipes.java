@@ -1957,7 +1957,7 @@ public final class ModCraftingRecipes {
 		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
 
 		// Corporea Retainer Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaRetainer), new ItemStack(Blocks.CHEST), new ItemStack(ModItems.corporeaSpark));
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaRetainer), "chestWood", new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaRetainer = BotaniaAPI.getLatestAddedRecipe();
 
 		// Teru Teru Bozu Recipe
