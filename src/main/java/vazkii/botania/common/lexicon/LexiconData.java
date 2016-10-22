@@ -252,6 +252,7 @@ public final class LexiconData {
 	public static LexiconEntry speedUpBelt;
 	public static LexiconEntry baubleBox;
 	public static LexiconEntry dodgeRing;
+	public static LexiconEntry invisibilityCloak;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -1229,6 +1230,9 @@ public final class LexiconData {
 		dodgeRing = new BasicLexiconEntry(LibLexicon.BAUBLE_DODGE_RING, categoryBaubles);
 		dodgeRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDodgeRing));
 
+		invisibilityCloak = new BasicLexiconEntry(LibLexicon.BAUBLE_INVISIBILITY_CLOAK, categoryBaubles);
+		invisibilityCloak.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeInvisibilityCloak));
+		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BasicLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority()

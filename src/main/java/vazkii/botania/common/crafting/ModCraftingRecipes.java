@@ -300,6 +300,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeAnimatedTorch;
 	public static IRecipe recipeForkLuminizer;
 	public static IRecipe recipeToggleLuminizer;
+	public static IRecipe recipeInvisibilityCloak;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2030,6 +2031,15 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 3), new ItemStack(ModBlocks.lightRelay), new ItemStack(Blocks.LEVER));
 		recipeToggleLuminizer = BotaniaAPI.getLatestAddedRecipe();
 
+		// Invisibility Cloak Recipe
+		addOreDictRecipe(new ItemStack(ModItems.invisibilityCloak), 
+				"CWC", "GWG", "GPG",
+				'C', new ItemStack(Items.PRISMARINE_CRYSTALS),
+				'W', new ItemStack(Blocks.WOOL),
+				'G', new ItemStack(ModBlocks.manaGlass),
+				'P', LibOreDict.MANA_PEARL);
+		recipeInvisibilityCloak = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

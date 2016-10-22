@@ -3526,6 +3526,12 @@ botania.tagline.dodgeRing=Sweep to the side to dodge attacks
 botania.page.dodgeRing0=The &1Ring of Dexterous Motion&0 is a handy bauble to help prevent damage during combat. While worn, one can press their &4left/right&0 keys (which are &4A and D&0, respectively, by default) to quickly sweep to the side and dodge incoming attacks or mobs.<br>The dodge ability goes through a short cooldown before it can be used again, and uses up some of the user's hunger bar.
 botania.page.dodgeRing1=Dexterity bonus
 
+# -- INVISIBILITY CLOAK
+botania.entry.invisibilityCloak=Invisibility Cloak
+botania.tagline.invisibilityCloak=Exactly what it says on the tin
+botania.page.invisibilityCloak0=Not much explanation is required for the &1Invisibility Cloak&0.<br>It's a bauble worn on the &4body&0 slot, that will take &4Mana&0 from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfiled.
+botania.page.invisibilityCloak1=You're a wizard, steve
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim
