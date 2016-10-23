@@ -132,7 +132,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			// Enhance!
 			CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
-			Botania.LOGGER.debug("Cached floating flower model for islandtype %s and flowertype %s", islandType, identifier);
+			Botania.LOGGER.debug("Cached floating flower model for islandtype {} and flowertype {}", islandType, identifier);
 			CACHE.put(islandType, identifier, model);
 			return model;
 		}
