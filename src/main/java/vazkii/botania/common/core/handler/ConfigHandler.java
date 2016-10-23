@@ -82,6 +82,7 @@ public final class ConfigHandler {
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean invertMagnetRing = false;
 	public static boolean enableThaumcraftStablizers = true;
+	public static boolean enableShedding = false;
 
 	public static int harvestLevelWeight = 2;
 	public static int harvestLevelBore = 3;
@@ -229,6 +230,9 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable Thaumcraft Infusion Stabilizing in botania blocks";
 		enableThaumcraftStablizers = loadPropBool("thaumraftStabilizers.enabled", desc, enableThaumcraftStablizers);
 
+		desc = "Set this to true to enable the Shedding feature from 1.7.10. You'll need to load the game to generate the options. No options are enabled by default. This increases load time.";
+		enableShedding = loadPropBool("shedding.enable", desc, enableShedding);
+		
 		desc = "The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)";
 		harvestLevelWeight = loadPropInt("harvestLevel.weightLens", desc, harvestLevelWeight);
 
@@ -264,7 +268,8 @@ public final class ConfigHandler {
 	}
 
 	public static void loadPostInit() {
-		SheddingHandler.loadFromConfig(config);
+		if(enableShedding)
+			SheddingHandler.loadFromConfig(config);
 
 		if(config.hasChanged())
 			config.save();
