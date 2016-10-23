@@ -36,11 +36,11 @@ public class CommandDownloadLatest extends CommandBase {
 	public String getCommandUsage(@Nonnull ICommandSender var1) {
 		return "/botania-download-latest <version>";
 	}
-	
+
 	@Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return server.isSinglePlayer() || super.checkPermission(server, sender);
-    }
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return server.isSinglePlayer() || super.checkPermission(server, sender);
+	}
 
 	@Override
 	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender var1, @Nonnull String[] var2) {
