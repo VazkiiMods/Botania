@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.world.World;
+
 public class TileTeruTeruBozu extends TileMod {
 
 	public boolean wasRaining = false;
@@ -20,12 +22,17 @@ public class TileTeruTeruBozu extends TileMod {
 			return;
 
 		boolean isRaining = worldObj.isRaining();
-		if(isRaining && worldObj.rand.nextInt(9600) == 0)
+		if(isRaining && worldObj.rand.nextInt(9600) == 0) {
 			worldObj.getWorldInfo().setRaining(false);
+			resetRainTime(worldObj);
+		}
 
 		if(wasRaining != isRaining)
 			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		wasRaining = isRaining;
 	}
 
+	public static void resetRainTime(World w){
+	    w.getWorldInfo().setRainTime(w.rand.nextInt(w.getWorldInfo().isRaining() ? 12000 : 168000) + 12000);
+	}
 }

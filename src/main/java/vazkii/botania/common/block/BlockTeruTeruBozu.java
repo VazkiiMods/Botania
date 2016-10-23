@@ -86,6 +86,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	private boolean removeRain(World world) {
 		if(world.isRaining()) {
 			world.getWorldInfo().setRaining(false);
+			TileTeruTeruBozu.resetRainTime(world);
 			return true;
 		}
 		return false;
@@ -93,8 +94,10 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	private boolean startRain(World world) {
 		if(!world.isRaining()) {
-			if(world.rand.nextInt(10) == 0)
+			if(world.rand.nextInt(10) == 0) {
 				world.getWorldInfo().setRaining(true);
+				TileTeruTeruBozu.resetRainTime(world);
+			}
 			return true;
 		}
 		return false;
