@@ -1,3 +1,22 @@
+r1.9 334
+*<b>WARNING: If you have an enabled loonium in your world DISABLE IT before updating, as it can spawn mobs, including creepers, now.</b>
+*Added a config option to disable shedding entirely. This improves load times by not checking every mob.
+*Added the Cirrus and Nimbus Amulets, which give you double and triple jump, respectively.
+*Added the Invisibility Cloak. It's pretty self explanatory.
+*Added the Third Eye, a nwe body slot bauble that makes mobs spectral.
+*Changed the recipes for the Pyroclast and Snowflake Pendants to use Mana Infused String.
+*Fixed the floating flower cache log not being formatted properly.
+*Fixed the teru teru bozu not resetting the rain time.
+*Mana Bursts that have been teleported by a Warp Lens can no longer deliver mana to receiving blocks.
+*Removed the ability for the Invisibility brew to be added to a Tainted Blood Pendant.
+*The /botania-download-latest command can now be ran on singleplayer without cheats enabled.
+*The Bauble Box and Corporea Retainer recipes now use the chest ore dictionary tag.
+*The Loonium now spawns mobs that drop dungeon loot instead of spawning dungeon loot outright.
+*The Manasteel and Elementium shovels can now make grass paths like vanilla shovels can. They can turn grass paths into farmland now.
+*Updated the Force Relay lexicon entry to be less ambiguous.
+*You can no longer summon a Guardian of Gaia if there's already one nearby.
+*[API] Added functionality to ILensEffect to decide how much mana goes into an IManaReceiver.
+*[API] Increased version number to 85.
 r1.9 333
 *Added a mana infusion recipe for beetroot seeds.
 *Added osmium from mekanism and black quartz from actually additions to the orechid table.
