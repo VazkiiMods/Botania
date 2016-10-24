@@ -13,6 +13,7 @@ package vazkii.botania.client.gui.lexicon;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.security.Permissions;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayDeque;
@@ -140,10 +141,10 @@ public class GuiLexicon extends GuiScreen {
 	public void onInitGui() {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
-		System.out.println(guiScale);
-		if(PersistentVariableHelper.lexiconGuiScale > 0 && PersistentVariableHelper.lexiconGuiScale != guiScale) {
-			System.out.println("diff");
-			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
+		int persistentScale = Math.min(PersistentVariableHelper.lexiconGuiScale, getMaxAllowedScale());
+
+		if(persistentScale > 0 && persistentScale != guiScale) {
+			mc.gameSettings.guiScale = persistentScale;
 			res = new ScaledResolution(mc);
 			width = res.getScaledWidth();
 			height = res.getScaledHeight();
@@ -222,11 +223,14 @@ public class GuiLexicon extends GuiScreen {
 	public final void drawScreen(int par1, int par2, float par3) {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
-
+		
 		GlStateManager.pushMatrix();
-		if(PersistentVariableHelper.lexiconGuiScale > 0 && PersistentVariableHelper.lexiconGuiScale != guiScale) {
-			mc.gameSettings.guiScale = PersistentVariableHelper.lexiconGuiScale;
-			float s = (float) PersistentVariableHelper.lexiconGuiScale / (float) res.getScaleFactor();
+		int persistentScale = Math.min(PersistentVariableHelper.lexiconGuiScale, getMaxAllowedScale());
+
+		if(persistentScale > 0 && persistentScale != guiScale) {
+			mc.gameSettings.guiScale = persistentScale;
+			float s = (float) persistentScale / (float) res.getScaleFactor();
+			
 			GlStateManager.scale(s, s, s);
 
 			res = new ScaledResolution(mc);
@@ -437,17 +441,10 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
 			break;
 		case -4:
-			switch(PersistentVariableHelper.lexiconGuiScale) {
-			case 3:
-				PersistentVariableHelper.lexiconGuiScale = 4;
-				break;
-			case 4:
+			int maxAllowed = getMaxAllowedScale();
+			if(PersistentVariableHelper.lexiconGuiScale >= maxAllowed)
 				PersistentVariableHelper.lexiconGuiScale = 2;
-				break;
-			default:
-				PersistentVariableHelper.lexiconGuiScale = 3;
-				break;
-			}
+			else PersistentVariableHelper.lexiconGuiScale++;
 
 			PersistentVariableHelper.saveSafe();
 			mc.displayGuiScreen(new GuiLexicon());
@@ -544,6 +541,16 @@ public class GuiLexicon extends GuiScreen {
 
 	boolean isCategoryIndex() {
 		return true;
+	}
+	
+	public static int getMaxAllowedScale() {
+		Minecraft mc = Minecraft.getMinecraft();
+		int scale = mc.gameSettings.guiScale;
+		mc.gameSettings.guiScale = 0;
+		ScaledResolution res = new ScaledResolution(mc);
+		mc.gameSettings.guiScale = scale;
+		
+		return res.getScaleFactor();
 	}
 
 	void populateIndex() {
