@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -90,6 +91,7 @@ public final class ToolCommons {
 			}
 
 			if(!player.capabilities.isCreativeMode) {
+				TileEntity tile = world.getTileEntity(pos);
 				IBlockState localState = world.getBlockState(pos);
 				blk.onBlockHarvested(world, pos, localState, player);
 
@@ -97,7 +99,7 @@ public final class ToolCommons {
 					blk.onBlockDestroyedByPlayer(world, pos, state);
 
 					if(!dispose || !ItemElementiumPick.isDisposable(blk))
-						blk.harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
+						blk.harvestBlock(world, player, pos, state, tile, stack);
 				}
 
 				damageItem(stack, 1, player, 80);
