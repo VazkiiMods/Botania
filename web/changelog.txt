@@ -1,3 +1,6 @@
+r1.9 335
+*Fixed the Terra Shatterer and other AoE tools not breaking some mod blocks properly due to removing the tile entity before capturing the drops. (iPencil)
+*The Lexica Botania now autodetects your max gui scale and sets its allowed scale values accordingly.
 r1.9 334
 *<b>WARNING: If you have an enabled loonium in your world DISABLE IT before updating, as it can spawn mobs, including creepers, now.</b>
 *Added a config option to disable shedding entirely. This improves load times by not checking every mob.
