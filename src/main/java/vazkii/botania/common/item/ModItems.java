@@ -277,6 +277,7 @@ public final class ModItems {
 	public static Item cloudPendant;
 	public static Item superCloudPendant;
 	public static Item thirdEye;
+	public static Item astrolabe;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -430,7 +431,8 @@ public final class ModItems {
 		cloudPendant = new ItemCloudPendant();
 		superCloudPendant = new ItemSuperCloudPendant();
 		thirdEye = new ItemThirdEye();
-		
+		astrolabe = new ItemAstrolabe();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

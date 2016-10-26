@@ -30,6 +30,7 @@ public final class ItemsRemainingRenderHandler {
 	private static final int leaveTicks = 20;
 
 	private static ItemStack stack;
+	private static String customString;
 	private static int ticks, count;
 
 	@SideOnly(Side.CLIENT)
@@ -60,17 +61,21 @@ public final class ItemsRemainingRenderHandler {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 
-			String text = TextFormatting.GREEN + stack.getDisplayName();
-			if(count >= 0) {
-				int max = stack.getMaxStackSize();
-				int stacks = count / max;
-				int rem = count % max;
+			String text;
 
-				if(stacks == 0)
-					text = "" + count;
-				else text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
-			} else if(count == -1)
-				text = "\u221E";
+			if(customString == null) {
+				text = TextFormatting.GREEN + stack.getDisplayName();
+				if(count >= 0) {
+					int max = stack.getMaxStackSize();
+					int stacks = count / max;
+					int rem = count % max;
+
+					if(stacks == 0)
+						text = "" + count;
+					else text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
+				} else if(count == -1)
+					text = "\u221E";
+			} else text = customString;
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
 			mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 6, color);
@@ -86,9 +91,18 @@ public final class ItemsRemainingRenderHandler {
 			--ticks;
 	}
 
+	public static void set(ItemStack stack, String str) {
+		set(stack, 0, str);
+	}
+
 	public static void set(ItemStack stack, int count) {
+		set(stack, count, null);
+	}
+
+	public static void set(ItemStack stack, int count, String str) {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
+		ItemsRemainingRenderHandler.customString = str;
 		ticks = stack == null ? 0 : maxTicks;
 	}
 
