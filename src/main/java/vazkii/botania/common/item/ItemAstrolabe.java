@@ -26,6 +26,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -58,7 +59,12 @@ public class ItemAstrolabe extends ItemMod {
 		if(playerIn.isSneaking()) {
 			if(setBlock(stack, block, meta))
 				return EnumActionResult.SUCCESS;
-		} else placeAllBlocks(stack, playerIn);
+		} else {
+			boolean did = placeAllBlocks(stack, playerIn);
+			if(!worldIn.isRemote)
+				playerIn.swingArm(hand);
+			return did ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+		}
 
 		return EnumActionResult.PASS;
 	}
@@ -78,16 +84,15 @@ public class ItemAstrolabe extends ItemMod {
 		return new ActionResult(EnumActionResult.PASS, itemStackIn);
 	}
 
-	public void placeAllBlocks(ItemStack stack, EntityPlayer player) {
+	public boolean placeAllBlocks(ItemStack stack, EntityPlayer player) {
 		BlockPos[] blocksToPlace = getBlocksToPlace(stack, player);
 		if(!hasBlocks(stack, player, blocksToPlace))
-			return;
+			return false;
 
 		ItemStack stackToPlace = new ItemStack(getBlock(stack), 1, getBlockMeta(stack));
 		for(BlockPos coords : blocksToPlace)
 			placeBlockAndConsume(player, stack, stackToPlace, coords);
-		
-//		player.worldObj.playSoundAtEntity(player, "thaumcraft:wand", 1F, 1F); TODO
+		return true;
 	}
 
 	private void placeBlockAndConsume(EntityPlayer player, ItemStack requestor, ItemStack blockToPlace, BlockPos coords) {
@@ -96,9 +101,11 @@ public class ItemAstrolabe extends ItemMod {
 		
 		Block block = Block.getBlockFromItem(blockToPlace.getItem());
 		int meta = blockToPlace.getItemDamage();
-		player.worldObj.setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
+		IBlockState state = block.getStateFromMeta(meta);
+		player.worldObj.setBlockState(coords, state, 1 | 2);
+		player.worldObj.playEvent(2001, coords, Block.getStateId(state));
 
-		if (player.capabilities.isCreativeMode)
+		if(player.capabilities.isCreativeMode)
 			return;
 		
 		List<ItemStack> stacksToCheck = new ArrayList();
@@ -170,16 +177,23 @@ public class ItemAstrolabe extends ItemMod {
 			if(block != null && block.isReplaceable(player.worldObj, bpos))
 				bpos = bpos.down();;
 
-			EnumFacing dir = pos.sideHit;
 			int rotation = MathHelper.floor_double(player.rotationYaw * 4F / 360F + 0.5D) & 3;
 			int range = (getSize(stack) ^ 1) / 2;
 
-			boolean topOrBottom = dir == EnumFacing.UP || dir == EnumFacing.DOWN;
-
-			int xOff = !(dir == EnumFacing.WEST || dir == EnumFacing.EAST) ? topOrBottom ? player.rotationPitch > 75 || (rotation & 1) == 0 ? range : 0 : range : 0;
-			int yOff = topOrBottom ? player.rotationPitch > 75 ? 0 : range : range;
-			int zOff = !(dir == EnumFacing.SOUTH || dir == EnumFacing.NORTH) ? topOrBottom ? player.rotationPitch > 75 || (rotation & 1) == 1 ? range : 0 : range : 0;
-
+			EnumFacing dir = pos.sideHit;
+			EnumFacing rotationDir = EnumFacing.fromAngle(player.rotationYaw);
+			
+			boolean pitchedVertically = player.rotationPitch > 70 || player.rotationPitch < -70;
+			
+			boolean axisX = rotationDir.getAxis() == Axis.X;
+			boolean axisZ = rotationDir.getAxis() == Axis.Z;
+			
+			int xOff, yOff, zOff;
+			
+			xOff = axisZ || pitchedVertically ? range : 0;
+			yOff = pitchedVertically ? 0 : range;
+			zOff = axisX || pitchedVertically ? range : 0;
+			
 			for(int x = -xOff; x < xOff + 1; x++)
 				for(int y = 0; y < yOff * 2 + 1; y++) {
 					for(int z = -zOff; z < zOff + 1; z++) {

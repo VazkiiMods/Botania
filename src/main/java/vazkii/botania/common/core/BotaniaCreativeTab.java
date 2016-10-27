@@ -119,6 +119,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.teruTeruBozu);
 		addItem(ModItems.slimeBottle);
 		addItem(ModItems.sextant);
+		addItem(ModItems.astrolabe);
 		addItem(ModItems.blackHoleTalisman);
 
 		if(Botania.gardenOfGlassLoaded) {

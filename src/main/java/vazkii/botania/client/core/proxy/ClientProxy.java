@@ -53,6 +53,7 @@ import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
+import vazkii.botania.client.core.handler.AstrolabePreviewHandler;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -215,6 +216,7 @@ public class ClientProxy implements IProxy {
 		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
 		MinecraftForge.EVENT_BUS.register(BossBarHandler.class);
 		MinecraftForge.EVENT_BUS.register(BergamuteEventHandler.class);
+		MinecraftForge.EVENT_BUS.register(AstrolabePreviewHandler.class);
 
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
