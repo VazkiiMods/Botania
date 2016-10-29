@@ -12,6 +12,8 @@ package vazkii.botania.common.world;
 
 import java.awt.Color;
 
+import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -72,7 +74,7 @@ public final class SkyblockWorldEvents {
 			ItemStack equipped = event.getItemStack();
 			if(equipped == null && event.getEntityPlayer().isSneaking()) {
 				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-				if(block == Blocks.GRASS || block == Blocks.DIRT) {
+				if(ImmutableSet.of(Blocks.GRASS, Blocks.GRASS_PATH, Blocks.FARMLAND, Blocks.DIRT, ModBlocks.altGrass).contains(block)) {
 					if(event.getWorld().isRemote)
 						event.getEntityPlayer().swingArm(event.getHand());
 					else {
