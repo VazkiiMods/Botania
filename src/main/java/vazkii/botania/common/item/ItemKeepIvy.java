@@ -44,7 +44,7 @@ public class ItemKeepIvy extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public void onPlayerDrops(PlayerDropsEvent event) {
+	public static void onPlayerDrops(PlayerDropsEvent event) {
 		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getEntityItem();
@@ -54,7 +54,6 @@ public class ItemKeepIvy extends ItemMod {
 
 		if(keeps.size() > 0) {
 			event.getDrops().removeAll(keeps);
-
 
 			NBTTagCompound cmp = new NBTTagCompound();
 			cmp.setInteger(TAG_DROP_COUNT, keeps.size());
