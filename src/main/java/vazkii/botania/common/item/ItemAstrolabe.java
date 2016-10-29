@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -89,9 +90,16 @@ public class ItemAstrolabe extends ItemMod {
 		if(!hasBlocks(stack, player, blocksToPlace))
 			return false;
 
+		int size = getSize(stack);
+		int cost = size * 320;
+		if(ManaItemHandler.requestManaExact(stack, player, cost, false))
+			return false;
+		
 		ItemStack stackToPlace = new ItemStack(getBlock(stack), 1, getBlockMeta(stack));
 		for(BlockPos coords : blocksToPlace)
 			placeBlockAndConsume(player, stack, stackToPlace, coords);
+		ManaItemHandler.requestManaExact(stack, player, cost, true);
+		
 		return true;
 	}
 
