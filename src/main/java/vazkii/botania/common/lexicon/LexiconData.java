@@ -203,6 +203,7 @@ public final class LexiconData {
 	public static LexiconEntry manaweave;
 	public static LexiconEntry autocraftingHalo;
 	public static LexiconEntry sextant;
+	public static LexiconEntry astrolabe;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -1034,6 +1035,10 @@ public final class LexiconData {
 		sextant.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeSextant));
 
+		astrolabe = new AlfheimLexiconEntry(LibLexicon.TOOL_ASTROLABE, categoryTools);
+		astrolabe.setLexiconPages(new PageText("0"), new PageText("1"),
+				new PageCraftingRecipe("2", ModCraftingRecipes.recipeAstrolabe));
+		
 		// ENDER ENTRIES
 		enderAir = new BasicLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));

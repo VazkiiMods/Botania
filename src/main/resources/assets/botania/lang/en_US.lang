@@ -2612,7 +2612,6 @@ botania.page.manaAlchemy24=Transmuting &1Tall Grass&0 types
 botania.page.manaAlchemy25=Transmuting mundane flowers
 botania.page.manaAlchemy26=Transmuting stones
 
-
 # -- BOTANICAL BREWERY
 botania.entry.brewery=Botanical Brewery
 botania.tagline.brewery=Create brews, more effective potions
@@ -3143,6 +3142,13 @@ botania.tagline.sextant=A tool to help create circles
 botania.page.sextant0=In this cubic world, the art of creating circles often eludes many, to the point where they have to perform the unholy art of "tabbing out" in order to learn the procedures for creating one.<br>The &1Worldshaper's Sextant&0 is a simple tool to, you guessed it, aid in creating circles. To use the item, simply point at a block to set a center and look around to expand the radius.
 botania.page.sextant1=While the item is being used, a blue circle will appear in the world, as a simple preview of where the circle will be placed. Upon letting go, a circle of fake &1Cobblestone&0 blocks will show up as your building guide.<br>Shift-right clicking with this item in hand resets or removes the circle.
 botania.page.sextant2=You sketch a circle, filling you with determination
+
+# -- WORLDSHAPER's ASTROLABAE
+botania.entry.astrolabe=Worldshaper's Astrolabe
+botania.tagline.astrolabe=A tool to help create planes
+botania.page.astrolabe0=The &1Worldshaper's Astrolabe&0 is a handy tool to place down blocks, a lot of them, really quick.<br>To start off, shift-right click the astrolabe on a block in the world. This will set the block that will be placed.<br>Shift-right clicking with the astrolabe on the air will change how many blocks will get placed.
+botania.page.astrolabe1=When looking at a block with the astrolabe in hand, a quick preview will show up, of what blocks will be placed upon right click.<br>To create the wall or floor displayed, alongside &4Mana&0, the respective blocks will be taken from the user's inventory, or items that can provide blocks to items such as the &1Rod of the Shifting Crust&0. (e.g. &1Rod of the Depths&0, &1Hand of Ender&0).
+botania.page.astrolabe2=Builds walls, creates worlds
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

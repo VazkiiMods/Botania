@@ -304,6 +304,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCloudPendant;
 	public static IRecipe recipeSuperCloudPendant;
 	public static IRecipe recipeThirdEye;
+	public static IRecipe recipeAstrolabe;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2071,6 +2072,14 @@ public final class ModCraftingRecipes {
 				'E', new ItemStack(Items.ENDER_EYE),
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeThirdEye = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Astrolabe Recipe
+		addOreDictRecipe(new ItemStack(ModItems.astrolabe), 
+				" EG", "EEE", "GED",
+				'E', LibOreDict.ELEMENTIUM,
+				'G', LibOreDict.LIFE_ESSENCE,
+				'D', LibOreDict.DREAM_WOOD);
+		recipeAstrolabe = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

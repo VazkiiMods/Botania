@@ -38,6 +38,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemAstrolabe extends ItemMod {
@@ -58,12 +59,18 @@ public class ItemAstrolabe extends ItemMod {
 		int meta = block.getMetaFromState(state);
 
 		if(playerIn.isSneaking()) {
-			if(setBlock(stack, block, meta))
+			if(setBlock(stack, block, meta)) {
+				displayRemainderCounter(playerIn, stack);
 				return EnumActionResult.SUCCESS;
+			}
 		} else {
 			boolean did = placeAllBlocks(stack, playerIn);
-			if(!worldIn.isRemote)
-				playerIn.swingArm(hand);
+			if(did) {
+				displayRemainderCounter(playerIn, stack);
+				if(!worldIn.isRemote)
+					playerIn.swingArm(hand);
+			}
+
 			return did ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 		}
 
@@ -220,6 +227,15 @@ public class ItemAstrolabe extends ItemMod {
 		}
 
 		return coords.toArray(new BlockPos[coords.size()]);
+	}
+	
+
+	public void displayRemainderCounter(EntityPlayer player, ItemStack stack) {
+		Block block = getBlock(stack);
+		int meta = getBlockMeta(stack);
+		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block, meta);
+		if(!player.worldObj.isRemote)
+			ItemsRemainingRenderHandler.set(new ItemStack(block, 1, meta), count);
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
