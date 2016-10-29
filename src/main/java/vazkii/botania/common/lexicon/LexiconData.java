@@ -722,6 +722,7 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("21", ModManaAlchemyRecipes.redSandRecipe),
 				new PageManaInfusionRecipe("26", ModManaAlchemyRecipes.stoneRecipes),
 				new PageManaInfusionRecipe("22", ModManaAlchemyRecipes.clayBreakdownRecipes),
+				new PageManaInfusionRecipe("27", ModManaAlchemyRecipes.chorusRecipe),
 				new PageManaInfusionRecipe("24", ModManaAlchemyRecipes.tallgrassRecipes),
 				new PageManaInfusionRecipe("25", ModManaAlchemyRecipes.flowersRecipes),
 				new PageManaInfusionRecipe("23", ModManaAlchemyRecipes.coarseDirtRecipe));

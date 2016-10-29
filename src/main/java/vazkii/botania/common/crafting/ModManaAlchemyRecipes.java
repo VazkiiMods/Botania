@@ -51,6 +51,7 @@ public final class ModManaAlchemyRecipes {
 	public static List<RecipeManaInfusion> stoneRecipes;
 	public static List<RecipeManaInfusion> tallgrassRecipes;
 	public static List<RecipeManaInfusion> flowersRecipes;
+	public static RecipeManaInfusion chorusRecipe;
 
 	// Garden of Glass
 	public static List<RecipeManaInfusion> prismarineRecipes;
@@ -160,6 +161,8 @@ public final class ModManaAlchemyRecipes {
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, 5), new ItemStack(Blocks.DOUBLE_PLANT, 1, 4), 400));
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.YELLOW_FLOWER), new ItemStack(Blocks.DOUBLE_PLANT, 1, 5), 400));
 
+		chorusRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.CHORUS_FLOWER), new ItemStack(Items.CHORUS_FRUIT_POPPED), 10000);
+		
 		if(Botania.gardenOfGlassLoaded) {
 			prismarineRecipes = new ArrayList<>();
 			prismarineRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.PRISMARINE_SHARD), new ItemStack(Items.QUARTZ), 1000));
