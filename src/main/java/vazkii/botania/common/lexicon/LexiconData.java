@@ -676,7 +676,7 @@ public final class LexiconData {
 		rafflowsia.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.rafflowsiaRecipe));
 
 		dandelifeon = new AlfheimLexiconEntry(LibLexicon.GFLOWER_DANDELIFEON, categoryGenerationFlowers);
-		dandelifeon.setLexiconPages(new PageText("_w"), new PageText("0"), new PageText("1"), new PageText("2"),
+		dandelifeon.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
 				new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageText("10"),
 				new PageText("7"), new PagePetalRecipe<>("8", ModPetalRecipes.dandelifeonRecipe),
 				new PageCraftingRecipe("9", ModCraftingRecipes.recipeCellBlock));

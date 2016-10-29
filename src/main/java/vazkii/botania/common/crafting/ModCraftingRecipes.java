@@ -1957,7 +1957,7 @@ public final class ModCraftingRecipes {
 		recipesPavement = BotaniaAPI.getLatestAddedRecipes(6);
 
 		// Cellular Block Recipe
-		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.CACTUS), new ItemStack(Blocks.CACTUS), new ItemStack(Blocks.CACTUS), new ItemStack(Blocks.CACTUS), new ItemStack(Items.CARROT), new ItemStack(Items.POTATO));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.CACTUS), new ItemStack(Blocks.CACTUS), new ItemStack(Blocks.CACTUS), new ItemStack(Items.BEETROOT), new ItemStack(Items.CARROT), new ItemStack(Items.POTATO));
 		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
 
 		// Corporea Retainer Recipe
