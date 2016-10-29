@@ -188,7 +188,6 @@ public class SubTileLoonuim extends SubTileFunctional {
 		
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public static void onDrops(LivingDropsEvent event) {
-			System.out.println("call");
 			EntityLivingBase e = event.getEntityLiving();
 			if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
 				NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
