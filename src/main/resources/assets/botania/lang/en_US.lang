@@ -2517,8 +2517,8 @@ botania.page.kekimurus1=&otop kek&r
 botania.entry.gourmaryllis=Gourmaryllis
 botania.tagline.gourmaryllis=Mana from food
 botania.page.gourmaryllis0=The &1Gourmaryllis&0 is one hungry flower. It'll eat up any food in a small area around it, and turn it into &4Mana&0.<br>There's a catch, though, it can only digest a single food at any given time, the &4Mana&0 is created when it's done. Any other food it finds, it'll also devour, but not create any mana from it.
-botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on its nutritional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, a &1Carrot&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
-botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more nutritious the food is, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 than two &1Carrots&0, both absolutely and per second.
+botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on its nutritional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, an &1Apple&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
+botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more points the food heals, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 than two &1Apples&0, both absolutely and per second.
 botania.page.gourmaryllis3=&oA hot pot for our new residents&r.
 
 # -- NARSLIMMUS
