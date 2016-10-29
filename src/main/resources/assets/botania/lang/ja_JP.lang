@@ -8,7 +8,7 @@
 
 # MISC
 itemGroup.Botania=ボタニア
-generator.botania-skyblock=ガーデンオブグラス　ボタニア・スカイブロック
+generator.botania-skyblock=ガーデンオブグラス
 generator.botania-skyblock.info=初心者には非推奨
 
 botaniamisc.nextPage=次ページ
@@ -108,7 +108,7 @@ botaniamisc.hasKeepIvy=頑固なツタを身にまとっている
 botaniamisc.active=&a有効
 botaniamisc.inactive=&c無効
 botaniamisc.achievements=実績
-botaniamisc.dropIkea=&bこのアイテムをドロップするとそれぞれの
+botaniamisc.dropIkea=&bこのアイテムをドロップすると組み合わせ前に分離する
 botaniamisc.hourglassLock=この砂時計はロックされています．森の杖をもって右クリックでロックを解除
 botaniamisc.locked=ロックされている
 botaniamisc.stopped=止まっている
@@ -350,10 +350,6 @@ achievement.botania:desuGun.desc=ｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀ�
 #                                 ^ Don't localize
 
 # CHALLENGE LEVELS
-botania.challengelevel.easy=簡単
-botania.challengelevel.normal=普通
-botania.challengelevel.hard=難しい
-botania.challengelevel.lunatic=とても難しい
 
 # CHALLENGE TEXT
 botania.challenge.flowerFarm=花農場
@@ -1264,6 +1260,7 @@ item.botania:redString.name=赤い糸
 item.botania:missileRod.name=不安定な貯蔵庫の杖
 item.botania:holyCloak.name=徳のマント
 item.botania:unholyCloak.name=罪のマント
+item.botania:balanceCloak.name=均衡のマント
 item.botania:craftingHalo.name=組立ての光輪
 item.botania:autocraftingHalo.name=工場の光輪
 item.botania:blackLotus0.name=黒スイレン
@@ -1345,7 +1342,7 @@ item.botania:odinRing.name=オーディンの指輪
 item.botania:lokiRing.name=ロキの指輪
 item.botania:aesirRing.name=アース神族の指輪
 item.botania:dice.name=運命の賽
-item.botania:keepIvy.name=頑固なツタを身にまとっている
+item.botania:keepIvy.name=頑固なツタ
 item.botania:blackHoleTalisman.name=ブラックホールのお守り
 item.botania:recordGaia1.name=傷ついたレコード
 item.botania:recordGaia2.name=傷ついたレコード
@@ -1380,6 +1377,10 @@ item.botania:speedUpBelt.name=大地を闊歩するもののたすき
 item.botania:baubleBox.name=装飾品入れ
 item.botania:manaPowder.name=マナの粉末
 item.botania:dodgeRing.name=器用な動きの指輪
+item.botania:invisibilityCloak.name=透明マント
+item.botania:cloudPendant.name=巻雲アミュレット
+item.botania:superCloudPendant.name=乱雲アミュレット
+item.botania:thirdEye.name=第三の眼
 
 # LEXICON CATEGORIES
 botania.category.basics=基本と機構
@@ -1413,6 +1414,21 @@ botania.tagline.tutorial=簡単にセットアップしよう
 botania.page.tutorial0=この本は興味に応じて様々 な項目を見ることが出来る が、様々なチュートリアル も存在する。下のボタンを 押すとボタニアの基本的な コンセプトを学ぶことがで きる。<br>この本のゲーム内ガイドツ アーを選んでもいいし、( 比較的)短い動画を見ても いい。
 
 # -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=ガーデンオブグラス
+botania.tagline.gardenOfGlass=新たなる挑戦
+botania.page.gardenOfGlass0=&2ガーデンオブグラス&0では、 あなたの悲鳴は誰にも聞こ えない。<br>あなたは孤独だ。<br>なんとわくわくすることだ ろう。
+botania.page.gardenOfGlass1=&2ガーデンオブグラス&0はボタ ニアのためのスカイブロッ クモードだ。それは多少の MOD経験があるプレイヤー にのみ勧められるが、もし あなたが初めてでも、とに かく試してみることは大歓 迎だ。<br>ほとんどのMOD機能は同 じだが、スカイブロックス タイルのゲームのためにい くつか微調整されている。 それらを以降のページに示 す。
+botania.page.gardenOfGlass2=&1ガーデンオブグラス&0にスポ ーンしたら、着地エリアの 下に&1リビングルート&0を発見 するだろう。これらは&1苗木&0 と&1花の肥料&0の作成に使え、 また&1骨粉&0としても機能する 。&1土&0か&1草&0ブロックを素手で シフト右クリックすると、 土壌を探り、いくらかの&1小 石&0を見付け、それを&1丸石&0に 変換できる。水ブロックを 右クリックした&1ボウル&0で、 &1花びらの調合所&0を満たすこ とができる。
+botania.page.gardenOfGlass3=&1苗木&0の作り方
+botania.page.gardenOfGlass4=&1花の肥料&0の作り方
+botania.page.gardenOfGlass5=&1丸石&0の作り方
+botania.page.gardenOfGlass6=それはさておき、ボタニア のいくつかのことがスカイ ブロックプレイに合わせて 異なっている。&1オアキド&0は より簡単に作れ、より速く 、より安い。&1気まぐれサナ ギ&0と&1マナ送信機&0はレシピが 異なる。&1黒曜石&0を作るのに 使える&1ブレイズランプ&0は、 ロッドの代わりにパウダー を使う。高い草からスイカ やカボチャの種がドロップ する。花の肥料の作成数が 増え、そしていくつかのレ シピが追加される。
+botania.page.gardenOfGlass7=&1サトウキビ&0の作り方
+botania.page.gardenOfGlass8=&1スライムボール&0の作り方
+botania.page.gardenOfGlass13=&1プリズマリン&0の注入
+botania.page.gardenOfGlass9=この世界で直面するかもし れない問題は、&4ネザー&0への 侵入だ。しかし心配は無用 、前述の&1ブレイズランプ&0で &1黒曜石&0を作れる。これらの ランプを入手するため、&1フ ェル・パンプキン&0で&1ブレイ ズ&0を生み出すのは良い投資 かもしれない。<br>&1火打石&0は容易に入手できな いため、&1ファイアチャージ&0 でポータルを開く必要があ る。
+botania.page.gardenOfGlass11=出発エリアに存在する&1マナ の閃光&0は光を提供するだけ ではなく、&1苗木&0で&1マナの閃 光&0を右クリックすることで 、&1ボタニア植物辞典&0を失っ たプレイヤーが&1苗木&0とそれ を交換することを可能にす る。<br>これはプレイヤーが&1ボタニ ア植物辞典&0を持っていない 場合のみ可能。
+botania.page.gardenOfGlass12=そしてついに、道はエンド へ達する。
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=ボタニア植物辞典
@@ -1602,7 +1618,62 @@ botania.page.dandelifeon7=&1細胞ブロック&0は&1サボテン&0、 &1ニン�
 botania.page.dandelifeon8=&oCellCraft^2&r。
 botania.page.dandelifeon9=&1細胞ブロック&0の作り方
 
+# - NATURAL APPARATUS
 
+# -- ANIMATED TORCH
+botania.entry.animatedTorch=動く松明
+botania.tagline.animatedTorch=浮遊レッドストーントーチでコンパクトなシステム
+botania.page.animatedTorch0=&1動く松明&0は、魔法的な自律 性のきらめきをまとって浮 遊する&1レッドストーントー チ&0に過ぎない。<br>トーチが置かれると水平方 向を向き、その向きへ信号 を出力する。素手でシフト 右クリックすると90度回転 し、新しい向きへ信号を出 力するようになる。
+botania.page.animatedTorch1=初期状態ではトーチがトリ ガーされる度に180度回転 し、T型フリップフロップ ラッチとして働く。<br>トーチをトリガーするには &4マナ放射線&0を当てるか、隣 接させた&1浮遊している砂時 計&0の反転を使う。いずれに してもトーチに指定の回転 を行わせる。
+botania.page.animatedTorch2=トーチに&1森の杖&0を使うとモ ードを変更できる。初期モ ードは前ページで説明した &4切り替え&0モードだ。<br>他の2つのモードは、毎回 90度ずつ回転させる&4回転&0モ ードと、ランダムな向きに 回転させる&4ランダム&0モード だ。
+botania.page.animatedTorch3=倒れてしまって起き上がれ ない
+
+# - BAUBLES AND ACCESSORIES
+# -- AN INTRODUCTION TO BAUBLES
+botania.entry.bIntro=装飾品 (Baubles) について
+botania.tagline.bIntro=力を提供するアクセサリー
+botania.page.bIntro0=一般的に&4トリンケット&0や&4チ ャーム&0とも呼ばれる&4装飾品  (Baubles) &0は、着用すると 多彩な効果を提供する装備 の一部だ。<br>それらを装備するには、&4B&0 (設定可能) キーを押せば よい。1つの&4アミュレット&0 スロット、2つの&4指輪&0スロ ット、1つの&4ベルト&0スロッ トがある。
+botania.page.bIntro1=&4装飾品の画面&0
+botania.page.bIntro2=装飾品 (Baubles) のシステ ムを利用する、 &4Thaumcraft&0 やその他のMODがインスト ールされている場合、この インベントリは様々なMOD の間で共有されることに注 意してほしい。
+
+# -- COSMETIC BAUBLES
+botania.entry.cosmeticBaubles=見た目装飾品
+botania.tagline.cosmeticBaubles=力を提供しないアクセサリー
+botania.page.cosmeticBaubles0=プレイヤーが装備する装飾 品のスタイルを変えたり加 えたりするために、豊富な &1見た目装飾品&0を使用可能だ 。これらはそのままアミュ レットスロットに装備する こともできるし、クラフト グリッドで他の&4装飾品&0の隣 に置いてクラフトすること で装飾品の&4見た目上書き&0も できる。&4見た目上書き&0を取 り消すには、装飾品を再度 クラフティンググリッドに 置けばよい。
+botania.page.cosmeticBaubles1=これらの作成は、&1マナが注 入された糸&0に特定の花びら の色を織り込むという興味 深い方法で行われる。作成 されたアイテムの種類は、 色とは関係ないようだ。<br>これが実際どういう仕組み かはあまり知られておらず 、これを思いついた人はよ りよい素材や何かを使おう と思わなかったのだろうか 。
+botania.page.cosmeticBaubles4=不愉快です
+botania.page.cosmeticBaubles11=傘を傾けすぎ
+botania.page.cosmeticBaubles12=隣人部
+botania.page.cosmeticBaubles13=にゃー
+botania.page.cosmeticBaubles18=半年ROMれ
+botania.page.cosmeticBaubles20=激レア
+botania.page.cosmeticBaubles28=俺を誰だと思っていやがる ！
+botania.page.cosmeticBaubles31=スペインの一部ではない
+
+
+# -- INVISIBILITY CLOAK
+botania.entry.invisibilityCloak=透明マント
+botania.tagline.invisibilityCloak=名前の通り
+botania.page.invisibilityCloak0=&1透明マント&0は名前の通り説 明不要。<br>この装飾品は&4胴&0スロットに 装備し、インベントリから &4マナ&0を消費し、装飾品も見 えなくする。
+botania.page.invisibilityCloak1=お前は魔法使いだ、スティ ーブ
+
+# -- CIRRUS AMULET
+botania.entry.cloudPendant=巻雲アミュレット
+botania.tagline.cloudPendant=二段ジャンプできるようになる
+botania.page.cloudPendant0=&1巻雲アミュレット&0は、&4アミ ュレット&0スロットに装備す る装飾品だ。<br>着用している間、&4二段ジャ ンプ&0の能力が与えられる。 二段目のジャンプをした時 、現在の全ての累積落下運 動量と、落下から生じるダ メージを一旦無効にする。
+botania.page.cloudPendant1=全てはクラウドにある
+
+# -- NIMBUS AMULET
+botania.entry.superCloudPendant=乱雲アミュレット
+botania.tagline.superCloudPendant=三段ジャンプできるようになる
+botania.page.superCloudPendant0=&1乱雲アミュレット&0は、&1ガイ アの魂&0の力が込められた&1巻 雲アミュレット&0の上位版だ 。着用者は&4三段ジャンプ&0で きるようになる。
+botania.page.superCloudPendant1=魔法 > 物理
+
+# -- THIRD EYE
+botania.entry.thirdEye=第三の眼
+botania.tagline.thirdEye=全てのモブを見る
+botania.page.thirdEye0=&1第三の眼&0は、&4胴&0スロットに 装備する、ある種の奇妙な 感覚補助具だ。<br>着用している間、いくらか の&4マナ&0を消費して、近くの モブがハイライトされて壁 越しに見ることができる。
+botania.page.thirdEye1=心ではなく位置を読む
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -1674,6 +1745,36 @@ botania.page.relicInfo1=原典によると、同じ形見が 同じ人に2回授
 botania.entry.infiniteFruit=グリザイアの果実
 botania.tagline.infiniteFruit=栄養の無限供給
 botania.page.infiniteFruit0=&1グリザイアの果実&0として知 られる形見は、それを獲得 した勇敢な魂を永遠に養う ための力と共に授けられる 。これは他の食べ物と同じ ように食べることができる が、物質を使うのではなく 、代わりに自分のインベン トリから&4マナ&0を使う。<br>アナタがリンゴの味が好き であることを切に願う。
+
+# -- KEY OF THE KING'S LAW
+botania.entry.kingKey=王律鍵
+botania.tagline.kingKey=宝物庫の扉を開けよ
+botania.page.kingKey0=&1王律鍵&0は、指示すると武器 を具現化する能力を持つ強 力な形見だ。この鍵を持ち 右クリックし続けると、ど こかから大量の武器を召喚 する。一度に最大20の武器 を作成できる。解放すると 、召喚者が見ているところ へ高速に全ての武器をまと めて発射する。これらの武 器は接触すると爆発を起こ す。
+
+# -- EYE OF THE FLUGEL
+botania.entry.flugelEye=フリューゲルの目
+botania.tagline.flugelEye=フリューゲルの真の力
+botania.page.flugelEye0=模造品の&1フリューゲルのテ ィアラ&0とは異なり、&1フリュ ーゲルの目&0は原初の&4フリュ ーゲル&0の魔力を含んでいる 。十分に強い魔力、すなわ ち訪れたことのある場所へ 自分自身を呼び戻すという &4フリューゲル&0の能力を使え る。<br>これを持ちどこかをシフト 右クリックすると、その位 置に紐付けできる。その後 、しばらく右クリックし続 ければ前述の場所へユーザ ーを呼び戻す。
+botania.page.flugelEye1=このテレポーテーション能 力は&4マナ&0を消費する。加え て残念なことに、2つの異 なるディメンション間では 実行できない。<br>他に、単に&1フリューゲルの 目&0を所持していることで、 &1フリューゲルのティアラ&0の 着用者は通常の限界を超え る飛行を可能とする。当然 ながら、消費はより大きい 。
+
+# -- RING OF THOR
+botania.entry.thorRing=トールの指輪
+botania.tagline.thorRing=テラシャッタラーが十分な強さではなかったので
+botania.page.thorRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1トールの指輪&0 は、着用する者に雷神&4トー ル&0の力を与える。この力は 、&1テラシャッタラー&0で採掘 する際の効果範囲を大幅に 上昇させる。<br>この指輪は、作業台で他二 種の&4アース神族&0の指輪と組 み合わせることができ、究 極の指輪を作成できる。
+
+# -- RING OF LOKI
+botania.entry.lokiRing=ロキの指輪
+botania.tagline.lokiRing=力はここにも、そこにも、そしてあそこにも
+botania.page.lokiRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1ロキの指輪&0は 、着用する者にトリックス ター、&4ロキ&0の、一度に複数 の場所へ効果する力を与え る。<br>この能力の準備には、何よ りもまず、素手が必要とな る。&1ロキの指輪&0を装備して いる時に、ブロックを素手 で右クリックすれば手続き が始まる。
+botania.page.lokiRing1=ソースブロックを選択して から他のブロックをシフト 右クリックすると、この力 が作用する相対的な位置と して追加される。手続きを 完了するには、元のブロッ クをシフト右クリックすれ ば良い。<br>選択されたブロックの1つ をシフト右クリックすれば 取り除ける。完成した選択 をリセットするには、地面 を2回シフト右クリックす る。
+botania.page.lokiRing2=選択が完了した後に周囲を 見ると、選択されたブロッ クと相対的な位置にある複 数のボックスに気づくだろ う。スニークしながらブロ ックを設置すると、設置行 為はそれら全ての位置で模 倣され、一度に大量のブロ ックを設置することを可能 にする。この能力はまた、 &1テラシャッタラー&0や&1テラト ランケーター&0を使った破壊 にも及ぶ。  
+botania.page.lokiRing3=もちろん、このような力は 無償で提供されない。この 能力を利用するには、各ブ ロックの設置毎にユーザー のインベントリから&4マナ&0を 消費する。より多くのブロ ックが選択されると、&4各設 置ブロック&0がより高コスト になることに注意せよ。<br>最後にこの指輪は、作業台 で他二種の&4アース神族&0の指 輪と組み合わせることがで き、究極の指輪を作成でき る。
+
+# -- RING OF ODIN
+botania.entry.odinRing=オーディンの指輪
+botania.tagline.odinRing=神のような抵抗力
+botania.page.odinRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1オーディンの 指輪&0は、着用する者に旧神 &4オーディン&0の生命力と抵抗 力を与える。体力をハート 10個分追加するほか、&1オー ディンの指輪&0は溺没、窒息 、炎、そして飢餓といった 様々な自然ダメージから保 護する。この指輪は、作業 台で他二種の&4アース神族&0の 指輪と組み合わせることが でき、究極の指輪を作成で きる。
+
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
