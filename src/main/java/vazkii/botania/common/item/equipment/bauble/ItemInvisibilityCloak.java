@@ -11,8 +11,6 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -36,7 +34,7 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		PotionEffect effect = player.getActivePotionEffect(MobEffects.INVISIBILITY);
-		if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42 && ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, 2, true))
+		if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42)
 			player.removePotionEffect(MobEffects.INVISIBILITY);
 	}
 
@@ -44,10 +42,18 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
 
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
-		if(effect == null) {
-			PotionEffect neweffect = new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true);
-			player.addPotionEffect(neweffect);
+		if(player instanceof EntityPlayer && !player.worldObj.isRemote) {
+			int manaCost = 2;
+			boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+			if(!hasMana)
+				onUnequipped(stack, player);
+			else {
+				if(player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
+					player.removePotionEffect(MobEffects.INVISIBILITY);
+
+				player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+			}
+
 		}
 	}
 
