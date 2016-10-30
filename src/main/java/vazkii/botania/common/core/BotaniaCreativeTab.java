@@ -256,6 +256,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.holyCloak);
 		addItem(ModItems.unholyCloak);
 		addItem(ModItems.balanceCloak);
+		addItem(ModItems.goddessCharm);
 		addItem(ModItems.goldLaurel);
 		addItem(ModItems.divaCharm);
 		addItem(ModItems.thirdEye);
