@@ -10,14 +10,10 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import org.lwjgl.opengl.GL11;
 
@@ -65,6 +61,7 @@ import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -86,9 +83,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int MAX_FLY_TIME = 1200;
 
 	private static final int SUBTYPES = 8;
-	public static final int WING_TYPES = SUBTYPES;
-	
-	private static final String SPECIAL_AWESOME_HASH = "16E1BDFD1D6AE1A954C9C5E1B2D9099780F3E1724541F1F2F77310B769CFFBAC";
+	public static final int WING_TYPES = 9;
+
+	public static final String SUPER_AWESOME_HASH = "82F1EAD6A9B815E56C4F94C03C4BFE3E92CAA52AA79A40D753924BEF720FF868";
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -118,22 +115,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		super.onEquipped(stack, player);
-//		if(stack.getItemDamage() != WING_TYPES && hash(stack.getDisplayName()).equals(SPECIAL_AWESOME_HASH)) {
-//			stack.setItemDamage(WING_TYPES);
-//			stack.getTagCompound().removeTag("display");
-//		} XXX disabled easter egg
+		if(stack.getItemDamage() != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName(), SUPER_AWESOME_HASH)) {
+			stack.setItemDamage(WING_TYPES);
+			stack.getTagCompound().removeTag("display");
+		}
 	}
 
-	String hash(String str) {
-		if(str != null)
-			try {
-				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				return new HexBinaryAdapter().marshal(md.digest(str.getBytes()));
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-		return "";
-	}
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
@@ -391,14 +378,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					h = 0.1F;
 					break;
 				}
-//				case 9 : { XXX disabled easter egg
-//					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-//					rz = 180F;
-//					rx = 0F;
-//					s = 1.5F;
-//					h = 1.2F;
-//					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
-//				}
+				case 9 : { // The One
+					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+					rz = 180F;
+					rx = 0F;
+					s = 1.5F;
+					h = 1.2F;
+					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+				}
 				}
 
 				// account for padding in the texture
