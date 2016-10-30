@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -81,6 +82,16 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public boolean canBeRidden() {
 		return false;
 	}
+	
+	@Override
+    protected void applyDrag() {
+        float f = 0.98F;
+
+        this.motionX *= (double)f;
+        this.motionY *= 0.0D;
+        this.motionZ *= (double)f;
+    }
+
 
 	@Nonnull
 	@Override
