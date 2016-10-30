@@ -30,8 +30,8 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 //	private static final int MAX_GENERATIONS = 100;
-	private static final int MAX_MANA_GENERATIONS = 40;
-	private static final int MANA_PER_GEN = 150;
+	private static final int MAX_MANA_GENERATIONS = 100;
+	private static final int MANA_PER_GEN = 60;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 		{ -1, -1 },
