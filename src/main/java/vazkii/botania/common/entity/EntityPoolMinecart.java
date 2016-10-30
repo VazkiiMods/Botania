@@ -82,15 +82,15 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public boolean canBeRidden() {
 		return false;
 	}
-	
-	@Override
-    protected void applyDrag() {
-        float f = 0.98F;
 
-        this.motionX *= (double)f;
-        this.motionY *= 0.0D;
-        this.motionZ *= (double)f;
-    }
+	@Override
+	protected void applyDrag() {
+		float f = 0.98F;
+
+		this.motionX *= (double)f;
+		this.motionY *= 0.0D;
+		this.motionZ *= (double)f;
+	}
 
 
 	@Nonnull
@@ -138,7 +138,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 				TileEntity tile_ = worldObj.getTileEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
-				if(tile != null && tile instanceof IManaPool && !pump.hasRedstone) {
+				if(tile != null && tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
 					EnumFacing pumpDir = worldObj.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS);
 					boolean did = false;
@@ -146,18 +146,22 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 					if(pumpDir == dir) { // Pool -> Cart
 						can = true;
-						int cartMana = getMana();
-						int poolMana = pool.getCurrentMana();
-						int transfer = Math.min(TRANSFER_RATE, poolMana);
-						int actualTransfer = Math.min(TilePool.MAX_MANA - cartMana, transfer);
-						if(actualTransfer > 0) {
-							pool.recieveMana(-transfer);
-							setMana(cartMana + actualTransfer);
-							did = true;
+
+						if(!pump.hasRedstone) {
+							int cartMana = getMana();
+							int poolMana = pool.getCurrentMana();
+							int transfer = Math.min(TRANSFER_RATE, poolMana);
+							int actualTransfer = Math.min(TilePool.MAX_MANA - cartMana, transfer);
+							if(actualTransfer > 0) {
+								pool.recieveMana(-transfer);
+								setMana(cartMana + actualTransfer);
+								did = true;
+							}
 						}
 					} else if(pumpDir == dir.getOpposite()) { // Cart -> Pool
 						can = true;
-						if(!pool.isFull()) {
+
+						if(!pump.hasRedstone && !pool.isFull()) {
 							int cartMana = getMana();
 							int transfer = Math.min(TRANSFER_RATE, cartMana);
 							if(transfer > 0) {
