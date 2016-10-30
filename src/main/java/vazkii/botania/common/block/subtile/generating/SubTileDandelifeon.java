@@ -29,7 +29,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
-	private static final int MAX_GENERATIONS = 100;
+//	private static final int MAX_GENERATIONS = 100;
 	private static final int MAX_MANA_GENERATIONS = 40;
 	private static final int MANA_PER_GEN = 150;
 
@@ -169,7 +169,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			mana = Math.min(getMaxMana(), mana + val);
 			//world.setBlockToAir(x, y, z);
 		} else if(blockAt == ModBlocks.cellBlock) {
-			if(gen < 0 || gen > MAX_GENERATIONS)
+			if(gen < 0)
 				world.setBlockToAir(pos);
 			else ((TileCell) tile).setGeneration(supertile, gen);
 		} else if(gen >= 0 && blockAt.isAir(stateAt, supertile.getWorld(), pos)) {
