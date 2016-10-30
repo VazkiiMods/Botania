@@ -86,7 +86,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int MAX_FLY_TIME = 1200;
 
 	private static final int SUBTYPES = 8;
-	public static final int WING_TYPES = 9;
+	public static final int WING_TYPES = SUBTYPES;
+	
+	private static final String SPECIAL_AWESOME_HASH = "16E1BDFD1D6AE1A954C9C5E1B2D9099780F3E1724541F1F2F77310B769CFFBAC";
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -116,41 +118,21 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		super.onEquipped(stack, player);
-		if(stack.getItemDamage() != WING_TYPES && hash(stack.getDisplayName()).equals("16E1BDFD1D6AE1A954C9C5E1B2D9099780F3E1724541F1F2F77310B769CFFBAC")) {
-			stack.setItemDamage(WING_TYPES);
-			stack.getTagCompound().removeTag("display");
-		}
+//		if(stack.getItemDamage() != WING_TYPES && hash(stack.getDisplayName()).equals(SPECIAL_AWESOME_HASH)) {
+//			stack.setItemDamage(WING_TYPES);
+//			stack.getTagCompound().removeTag("display");
+//		} XXX disabled easter egg
 	}
 
 	String hash(String str) {
 		if(str != null)
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				return new HexBinaryAdapter().marshal(md.digest(salt(str).getBytes()));
+				return new HexBinaryAdapter().marshal(md.digest(str.getBytes()));
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
 		return "";
-	}
-
-	// Might as well be called sugar given it's not secure at all :D
-	String salt(String str) {
-		str = str + "wowsuchsaltmuchsecurityverywow";
-		SecureRandom rand = new SecureRandom(str.getBytes());
-		int l = str.length();
-		int steps = rand.nextInt(l);
-		char[] chrs = str.toCharArray();
-		for(int i = 0; i < steps; i++) {
-			int indA = rand.nextInt(l);
-			int indB;
-			do {
-				indB = rand.nextInt(l);
-			} while(indB == indA);
-			char c = (char) (chrs[indA] ^ chrs[indB]);
-			chrs[indA] = c;
-		}
-
-		return String.copyValueOf(chrs);
 	}
 
 	@Override
@@ -409,14 +391,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					h = 0.1F;
 					break;
 				}
-				case 9 : { // The One
-					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-					rz = 180F;
-					rx = 0F;
-					s = 1.5F;
-					h = 1.2F;
-					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
-				}
+//				case 9 : { XXX disabled easter egg
+//					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+//					rz = 180F;
+//					rx = 0F;
+//					s = 1.5F;
+//					h = 1.2F;
+//					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+//				}
 				}
 
 				// account for padding in the texture
