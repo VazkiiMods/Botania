@@ -29,7 +29,8 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
-	private static final int MAX_GENERATIONS = 40;
+	private static final int MAX_GENERATIONS = 100;
+	private static final int MAX_MANA_GENERATIONS = 40;
 	private static final int MANA_PER_GEN = 150;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
@@ -164,7 +165,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		Block blockAt = stateAt.getBlock();
 		TileEntity tile = world.getTileEntity(pos);
 		if(gen == -2) {
-			int val = prevGen * MANA_PER_GEN;
+			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			mana = Math.min(getMaxMana(), mana + val);
 			//world.setBlockToAir(x, y, z);
 		} else if(blockAt == ModBlocks.cellBlock) {
