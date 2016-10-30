@@ -99,7 +99,7 @@ public class ItemAstrolabe extends ItemMod {
 
 		int size = getSize(stack);
 		int cost = size * 320;
-		if(ManaItemHandler.requestManaExact(stack, player, cost, false))
+		if(!ManaItemHandler.requestManaExact(stack, player, cost, false))
 			return false;
 		
 		ItemStack stackToPlace = new ItemStack(getBlock(stack), 1, getBlockMeta(stack));
@@ -152,7 +152,6 @@ public class ItemAstrolabe extends ItemMod {
 		if (player.capabilities.isCreativeMode)
 			return true;
 
-		
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		ItemStack reqStack = new ItemStack(block, 1, meta);
@@ -173,7 +172,11 @@ public class ItemAstrolabe extends ItemMod {
 		
 		for(ItemStack providerStack : stacksToCheck) {
 			IBlockProvider prov = (IBlockProvider) providerStack.getItem();
-			current += prov.getBlockCount(player, stack, providerStack, block, meta);
+			int count = prov.getBlockCount(player, stack, providerStack, block, meta);
+			if(count == -1)
+				return true;
+			
+			current += count; 
 			
 			if(current >= required)
 				return true;
