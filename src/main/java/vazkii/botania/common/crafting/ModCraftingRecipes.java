@@ -2087,7 +2087,7 @@ public final class ModCraftingRecipes {
 				" P ", " P ", "ADS",
 				'P', LibOreDict.PETAL[6],
 				'A', LibOreDict.RUNE[0],
-				'S', LibOreDict.RUNE[5],
+				'S', LibOreDict.RUNE[4],
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeGoddessCharm = BotaniaAPI.getLatestAddedRecipe();
 		
