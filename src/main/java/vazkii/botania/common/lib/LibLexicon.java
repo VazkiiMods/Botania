@@ -232,6 +232,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_CLOUD_PENDANT = "cloudPendant";
 	public static final String BAUBLE_SUPER_CLOUD_PENDANT = "superCloudPendant";
 	public static final String BAUBLE_THIRD_EYE = "thirdEye";
+	public static final String BAUBLE_GODDESS_CHARM = "goddessCharm";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";

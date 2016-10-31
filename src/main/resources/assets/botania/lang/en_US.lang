@@ -3561,6 +3561,12 @@ botania.tagline.thirdEye=See all the mobs
 botania.page.thirdEye0=The &1Third Eye&0 is an odd sensory aid of sorts, that can be worn in the &4body&0 slot.<br>While worn, at the cost of some &4Mana&0, nearby mobs will be highlighted and visible through walls.
 botania.page.thirdEye1=Read their positions, not their minds
 
+# -- BENEVOLENT GODDESS' CHARM
+botania.entry.goddessCharm=Benevolent Goddess' Charm
+botania.tagline.goddessCharm=Prevents explosions from damaging the world
+botania.page.goddessCharm0=The &1Benevolent Goddess' Charm&0 is a defensive bauble that can, as the name implies, be worn in the &4charm&0 slot.<br>While worn, at the cost of some &4Mana&0 from the wearer's inventory, any explosions that happen in the wearer's nearby vicinity will cease to damage any blocks in the world.
+botania.page.goddessCharm1=No EXPLOSION!
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim

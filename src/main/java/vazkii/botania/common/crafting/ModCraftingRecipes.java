@@ -305,6 +305,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSuperCloudPendant;
 	public static IRecipe recipeThirdEye;
 	public static IRecipe recipeAstrolabe;
+	public static IRecipe recipeGoddessCharm;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -2080,6 +2081,15 @@ public final class ModCraftingRecipes {
 				'G', LibOreDict.LIFE_ESSENCE,
 				'D', LibOreDict.DREAM_WOOD);
 		recipeAstrolabe = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Beneveolent Goddess' Charm Recipe
+		addOreDictRecipe(new ItemStack(ModItems.goddessCharm), 
+				" P ", " P ", "ADS",
+				'P', LibOreDict.PETAL[6],
+				'A', LibOreDict.RUNE[0],
+				'S', LibOreDict.RUNE[5],
+				'D', LibOreDict.MANA_DIAMOND);
+		recipeGoddessCharm = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
