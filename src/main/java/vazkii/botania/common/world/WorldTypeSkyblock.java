@@ -23,6 +23,7 @@ public class WorldTypeSkyblock extends WorldType {
 
 	public WorldTypeSkyblock() {
 		super("botania-skyblock");
+		
 	}
 
 	public static boolean isWorldSkyblock(World world) {
@@ -52,7 +53,9 @@ public class WorldTypeSkyblock extends WorldType {
 	@Nonnull
 	@Override
 	public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions) {
-		return new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
+		ChunkProviderFlat flat = new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
+		world.setSeaLevel(64);
+		return flat;
 	}
 
 }
