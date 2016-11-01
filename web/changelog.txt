@@ -1,3 +1,20 @@
+r1.9 336
+*Added an alchemy recipe for Chorus Flowers.
+*Added grass paths, farmland and botania alt grasses to the blocks that can be dug for pebbles in garden of glass.
+*Added the Benevolent Goddess' Charm, it stops nearby explosions from breaking blocks.
+*Added the Worldshaper's Astrolabe, a new fancy tool to place a lot of blocks really quick.
+*Changed the crafting recipe for Cellular Blocks to include Beetroot.
+*Changed the secret code for the <span class="censored">------ -----</span>.
+*Fixed a texture being poorly sized and breaking mipmapping.
+*Fixed log spam when the Loonium is doing its thing.
+*Fixed Resolute Ivy not working.
+*Fixed the Invisibility Cloak not using up mana properly.
+*Lowered how much the Dandelifeon will produce per iteration, but increased the maximum mana iteration to 100 (from 60).
+*Mana Pumps will now output a comparator signal if they're turned off.
+*Minecarts with Mana Pools now have the correct amount of drag.
+*Removed the WIP page from the Dandelifeon page. Balance is still up in the air but I don't think I'll be changing mechanics now.
+*There is no longer a limit in how many iterations a Dandelifeon can do, but the amount of mana a cell produces peaks at 100.
+*Updated the Gourmaryllis' documentation to be clearer.
 r1.9 335
 *Fixed the Terra Shatterer and other AoE tools not breaking some mod blocks properly due to removing the tile entity before capturing the drops. (iPencil)
 *The Lexica Botania now autodetects your max gui scale and sets its allowed scale values accordingly.
