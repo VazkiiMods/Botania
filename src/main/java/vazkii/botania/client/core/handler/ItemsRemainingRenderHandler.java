@@ -61,20 +61,22 @@ public final class ItemsRemainingRenderHandler {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 
-			String text;
+			String text = "";
 
 			if(customString == null) {
-				text = TextFormatting.GREEN + stack.getDisplayName();
-				if(count >= 0) {
-					int max = stack.getMaxStackSize();
-					int stacks = count / max;
-					int rem = count % max;
+				if(stack != null) {
+					text = TextFormatting.GREEN + stack.getDisplayName();
+					if(count >= 0) {
+						int max = stack.getMaxStackSize();
+						int stacks = count / max;
+						int rem = count % max;
 
-					if(stacks == 0)
-						text = "" + count;
-					else text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
-				} else if(count == -1)
-					text = "\u221E";
+						if(stacks == 0)
+							text = "" + count;
+						else text = count + " (" + TextFormatting.AQUA + stacks + TextFormatting.RESET + "*" + TextFormatting.GRAY + max + TextFormatting.RESET + "+" + TextFormatting.YELLOW + rem + TextFormatting.RESET + ")";
+					} else if(count == -1)
+						text = "\u221E";
+				}
 			} else text = customString;
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
