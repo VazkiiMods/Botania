@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -44,7 +45,8 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 	@SubscribeEvent
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
-		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(e.getPosition(), e.getPosition()).expand(8, 8, 8));
+		Vec3d vec = e.getPosition();
+		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.xCoord, vec.yCoord, vec.zCoord, vec.xCoord, vec.yCoord, vec.zCoord).expand(8, 8, 8));
 		
 		for(EntityPlayer player : players) {
 			IInventory inv = BaublesApi.getBaubles(player);
