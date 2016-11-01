@@ -1,3 +1,7 @@
+r1.9 337
+*Fixed a client crash with the Worldshaper's Astrolabe.
+*Fixed a crash when explosions happen in a server because someone at mojang thought having a client only constructor was a good idea.
+*Garden of Glass's sea level is now set to 64 during world creation.  As of 1.8, the sea level is set to a really low value for flat chunk providers, so this fixes squids not spawning in garden of glass worlds. 
 r1.9 336
 *Added an alchemy recipe for Chorus Flowers.
 *Added grass paths, farmland and botania alt grasses to the blocks that can be dug for pebbles in garden of glass.
